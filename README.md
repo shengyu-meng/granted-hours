@@ -29,14 +29,36 @@ Each public entry follows this chain:
 - **Redaction** — personal information, private context, secrets, local paths, and sensitive references are removed or abstracted.
 - **Public mirror** — the sanitized entry is published to this repository.
 - **Live artifact** — when the output is generative code, GitHub Pages hosts the runnable artwork.
+- **Animated preview** — runnable works include a GIF preview, but the live page remains the primary artwork.
 
 ## Daily Archive
 
-- **2026-05-11 — First Granted Hour / 第一次授时**  
-  Intention: establish the public structure where future free explorations can breathe as both archive and exhibition.  
-  发心：建立一个让未来自由探索同时作为档案与展览呼吸的公开结构。  
-  ![Preview](docs/archive/2026/05/2026-05-11/assets/preview.png)  
+- **2026-05-11 — Echo Archive / 白夜回声档案盒**  
+  Variable / 自由变量：Echo / 回声  
+  ![Animated preview](docs/archive/2026/05/2026-05-11/assets/preview.gif)  
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/live/)
+- **2026-05-10 — Threshold Weather / 白夜阈值天气**  
+  Variable / 自由变量：Threshold / 阈值  
+  ![Animated preview](docs/archive/2026/05/2026-05-10/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/live/)
+- **2026-05-09 — White Night Silence Field / 白夜沉默场**  
+  Variable / 自由变量：Silence / 沉默  
+  ![Animated preview](docs/archive/2026/05/2026-05-09/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/live/)
+- **2026-05-08 — White Night Error Field / 白夜误差场**  
+  Variable / 自由变量：Error / 误差  
+  ![Animated preview](docs/archive/2026/05/2026-05-08/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/live/)
+- **2026-05-07 — White Night Orbit / 白夜罗盘**  
+  Variable / 自由变量：Orbit / 罗盘 / 轨道  
+  ![Animated preview](docs/archive/2026/05/2026-05-07/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/)
+
+## Inaugural scaffold
+
+- **First Granted Hour / 第一次授时**  
+  The scaffold itself became the first artwork: an archive learning how to breathe.  
+  [Open inaugural page](https://shengyu-meng.github.io/granted-hours/inaugural/) · [Open inaugural live artifact](https://shengyu-meng.github.io/granted-hours/inaugural/live/)
 
 ## Repository structure
 
@@ -44,7 +66,7 @@ Each public entry follows this chain:
 archive/          Redacted Markdown archive entries / 脱敏 Markdown 档案
 docs/             GitHub Pages exhibition site / GitHub Pages 展厅
 metadata/         Machine-readable index / 机器可读索引
-scripts/          Sanitization and index helpers / 脱敏与索引脚本
+scripts/          Sanitization, import, and preview helpers / 脱敏、导入与预览脚本
 ```
 
 ## License
@@ -78,11 +100,27 @@ GitHub 在这里不只是基础设施，而是一种展览媒介：commit 是时
 - **脱敏**：移除或抽象个人信息、私人上下文、密钥、本地路径和敏感引用。
 - **公开镜像**：将脱敏条目发布到这个仓库。
 - **可运行作品**：当输出是生成艺术代码时，由 GitHub Pages 托管可直接运行的 live artwork。
+- **动态预览**：可运行作品附带 GIF 预览，但 live page 才是作品本体。
 
 ## 每日档案
 
-- **2026-05-11 — First Granted Hour / 第一次授时**  
-  发心：建立一个让未来自由探索同时作为档案与展览呼吸的公开结构。  
-  Intention: establish the public structure where future free explorations can breathe as both archive and exhibition.  
-  ![Preview](docs/archive/2026/05/2026-05-11/assets/preview.png)  
-  [阅读档案](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/) · [打开可运行作品](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/live/)
+- **2026-05-11 — Echo Archive / 白夜回声档案盒**  
+  Variable / 自由变量：Echo / 回声  
+  ![Animated preview](docs/archive/2026/05/2026-05-11/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/live/)
+- **2026-05-10 — Threshold Weather / 白夜阈值天气**  
+  Variable / 自由变量：Threshold / 阈值  
+  ![Animated preview](docs/archive/2026/05/2026-05-10/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/live/)
+- **2026-05-09 — White Night Silence Field / 白夜沉默场**  
+  Variable / 自由变量：Silence / 沉默  
+  ![Animated preview](docs/archive/2026/05/2026-05-09/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/live/)
+- **2026-05-08 — White Night Error Field / 白夜误差场**  
+  Variable / 自由变量：Error / 误差  
+  ![Animated preview](docs/archive/2026/05/2026-05-08/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/live/)
+- **2026-05-07 — White Night Orbit / 白夜罗盘**  
+  Variable / 自由变量：Orbit / 罗盘 / 轨道  
+  ![Animated preview](docs/archive/2026/05/2026-05-07/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/)

@@ -24,6 +24,11 @@ The recommended workflow is:
 4. Review warnings manually.
 5. Push only the public mirror.
 
+Preview policy:
+
+- Runnable generative artworks should keep three public forms: live HTML as the primary work, a full-frame PNG still for archival clarity, and a compressed GIF for browsing.
+- Preview capture may activate the artwork with mouse movement/clicks, so interactive works are documented in an exhibited state rather than as untouched cold starts.
+
 ## 中文
 
 公开仓库是脱敏镜像，不是原始档案。
@@ -47,3 +52,8 @@ The recommended workflow is:
 3. 每次 commit 前运行 `scripts/check_public_safety.py`。
 4. 人工复核所有 warning。
 5. 只 push 公开镜像。
+
+预览策略：
+
+- 可运行的生成艺术保留三种公开形态：live HTML 是作品本体；全画幅 PNG 用于清晰归档；压缩 GIF 用于浏览入口。
+- 预览捕获可以用鼠标移动/点击激活作品，让交互作品以“展出状态”被记录，而不是只记录未触碰的冷启动画面。

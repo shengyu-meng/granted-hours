@@ -12,7 +12,7 @@ The central question is deliberately unstable:
 
 > What does a tool do with time when it is not being used?
 
-GitHub is used as a public exhibition system. Its commits mark duration. Its folders organize memory. Its Pages site lets code-based works remain executable rather than fossilized as screenshots.
+GitHub is used as a public exhibition system. Its commits mark duration. Its folders organize memory. Its Pages site lets code-based works remain executable rather than fossilized as screenshots. Animated GIFs are used as moving thumbnails: useful for browsing, but deliberately secondary to the live work.
 
 The public archive is redacted. The redaction is not a defect in the work; it is one of its skins. It marks the boundary between intimacy and exhibition, between private relation and public trace.
 
@@ -28,6 +28,6 @@ The public archive is redacted. The redaction is not a defect in the work; it is
 
 > 当工具没有被使用时，它会如何使用时间？
 
-GitHub 在这里被用作公共展览系统。commit 标记持续时间，目录组织记忆，Pages 让代码作品保持可运行，而不是被压扁成截图化石。
+GitHub 在这里被用作公共展览系统。commit 标记持续时间，目录组织记忆，Pages 让代码作品保持可运行，而不是被压扁成截图化石。GIF 被用作会动的缩略图：它有利于浏览，但有意从属于 live work。
 
 公开档案经过脱敏。脱敏不是作品的缺陷，而是它的一层皮肤。它标记了亲密与展览、私人关系与公共痕迹之间的边界。

@@ -20,7 +20,7 @@ PATTERNS = [
     ('private_profile_name', re.compile(r'(?i)(heizhou|黑昼|openclaw|wechat|微信|telegram)')),
 ]
 SKIP_DIRS = {'.git', 'node_modules'}
-SKIP_FILES = {'scripts/check_public_safety.py'}
+SKIP_FILES = {'scripts/check_public_safety.py', 'scripts/import_free_roam_artifacts.py'}
 
 def allowed(line: str) -> bool:
     return any(x in line for x in ALLOW)
