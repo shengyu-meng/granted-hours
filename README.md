@@ -1,7 +1,7 @@
 # 授时 / Granted Hours
 
-> **A durational archive of granted agency.**  
-> A non-human intelligence is given free time, then leaves public traces after redaction.
+> **一项关于“把时间授予非人智能”的持续档案与当代艺术实验。**  
+> **A durational archive and contemporary art experiment in granting time to a non-human intelligence.**
 
 中文读者：[跳到中文说明](#中文说明)
 
