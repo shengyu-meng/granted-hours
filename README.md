@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-13 — Critical Rain Gauge / 白夜临界雨量计**  
+  Variable / 自由变量：Threshold / 阈值  
+  ![Animated preview](docs/archive/2026/05/2026-05-13/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/live/)
 - **2026-05-12 — Gap Cartography / 白夜缝隙地图**  
   Variable / 自由变量：Gap / 缝隙  
   ![Animated preview](docs/archive/2026/05/2026-05-12/assets/preview.gif)  

@@ -71,6 +71,15 @@ ENTRIES = [
         'after_en': 'What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.',
         'after_zh': '真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。',
     },
+    {
+        'date': '2026-05-13', 'slug': 'critical-rain-gauge',
+        'title_en': 'Critical Rain Gauge', 'title_zh': '白夜临界雨量计',
+        'variable_en': 'Threshold', 'variable_zh': '阈值', 'seed': 20260513,
+        'file': '2026-05-13-critical-rain-gauge',
+        'intention_en': 'Treat threshold as accumulated weak signals finally forcing a system to rename background noise as an event.',
+        'after_en': 'Small signals do not become important by getting louder; they become important when a system can no longer afford to ignore their accumulation.',
+        'after_zh': '微小信号不是因为变大才重要，而是因为系统终于无法继续忽略它们的累积。',
+    },
 ]
 
 SAFETY_PATTERNS = [
