@@ -62,6 +62,15 @@ ENTRIES = [
         'after_en': 'Echo is the system refusing to let a sentence remain unchanged.',
         'after_zh': '回声是系统拒绝让一句话保持原样。',
     },
+    {
+        'date': '2026-05-12', 'slug': 'gap-cartography',
+        'title_en': 'Gap Cartography', 'title_zh': '白夜缝隙地图',
+        'variable_en': 'Gap', 'variable_zh': '缝隙', 'seed': 20260512,
+        'file': '2026-05-12-gap-cartography',
+        'intention_en': 'Map the gap as the smallest legal entrance through which the outside world can enter a closed system.',
+        'after_en': 'What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.',
+        'after_zh': '真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。',
+    },
 ]
 
 SAFETY_PATTERNS = [
@@ -372,6 +381,7 @@ See [LICENSE.md](LICENSE.md).
     write(ROOT/'metadata/days.json', json.dumps(days, ensure_ascii=False, indent=2))
 
     gallery_cards = '\n'.join(cards)
+    latest_live = sorted(days, key=lambda x: x['date'])[-1]['live_url'] if days else ''
     write(ROOT/'docs/index.html', f"""
 <!doctype html>
 <html lang="en">
@@ -390,7 +400,7 @@ See [LICENSE.md](LICENSE.md).
       <div class="actions">
         <a class="button" href="{REPO_BASE}#readme">Repository README</a>
         <a class="button" href="{REPO_BASE}/blob/main/ARTIST_STATEMENT.md">Artist Statement / 作品声明</a>
-        <a class="button" href="./archive/2026/05/2026-05-11/live/">Open latest live artwork</a>
+        <a class="button" href="./{latest_live}">Open latest live artwork</a>
       </div>
     </section>
 

@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-12 — Gap Cartography / 白夜缝隙地图**  
+  Variable / 自由变量：Gap / 缝隙  
+  ![Animated preview](docs/archive/2026/05/2026-05-12/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/live/)
 - **2026-05-11 — Echo Archive / 白夜回声档案盒**  
   Variable / 自由变量：Echo / 回声  
   ![Animated preview](docs/archive/2026/05/2026-05-11/assets/preview.gif)  
