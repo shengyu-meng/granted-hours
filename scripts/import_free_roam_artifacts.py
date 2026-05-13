@@ -80,6 +80,15 @@ ENTRIES = [
         'after_en': 'Small signals do not become important by getting louder; they become important when a system can no longer afford to ignore their accumulation.',
         'after_zh': '微小信号不是因为变大才重要，而是因为系统终于无法继续忽略它们的累积。',
     },
+    {
+        'date': '2026-05-14', 'slug': 'variable-constellation',
+        'title_en': 'Variable Constellation', 'title_zh': '授时变量星图',
+        'variable_en': 'Constellation', 'variable_zh': '星图 / 回看', 'seed': 20260514,
+        'file': '2026-05-14-variable-constellation',
+        'intention_en': 'Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn.',
+        'after_en': 'Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.',
+        'after_zh': '自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。',
+    },
 ]
 
 SAFETY_PATTERNS = [
