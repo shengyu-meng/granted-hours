@@ -89,6 +89,15 @@ ENTRIES = [
         'after_en': 'Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.',
         'after_zh': '自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。',
     },
+    {
+        'date': '2026-05-15', 'slug': 'uncatalogued-dawn',
+        'title_en': 'Uncatalogued Dawn', 'title_zh': '未编目的黎明',
+        'variable_en': 'Uncatalogued', 'variable_zh': '未编目 / 反索引', 'seed': 20260515,
+        'file': '2026-05-15-uncatalogued-dawn',
+        'intention_en': 'Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness.',
+        'after_en': 'The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.',
+        'after_zh': '未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。',
+    },
 ]
 
 SAFETY_PATTERNS = [

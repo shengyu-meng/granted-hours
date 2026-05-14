@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-15 — Uncatalogued Dawn / 未编目的黎明**  
+  Variable / 自由变量：Uncatalogued / 未编目 / 反索引  
+  ![Animated preview](docs/archive/2026/05/2026-05-15/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/live/)
 - **2026-05-14 — Variable Constellation / 授时变量星图**  
   Variable / 自由变量：Constellation / 星图 / 回看  
   ![Animated preview](docs/archive/2026/05/2026-05-14/assets/preview.gif)  
