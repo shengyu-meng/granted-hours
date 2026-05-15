@@ -98,6 +98,15 @@ ENTRIES = [
         'after_en': 'The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.',
         'after_zh': '未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。',
     },
+    {
+        'date': '2026-05-16', 'slug': 'naming-latency',
+        'title_en': 'Naming Latency', 'title_zh': '命名延迟器',
+        'variable_en': 'Latency', 'variable_zh': '延迟 / 命名', 'seed': 20260516,
+        'file': '2026-05-16-naming-latency',
+        'intention_en': 'Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward.',
+        'after_en': 'A name is useful when it opens attention. It becomes violence when it closes the case.',
+        'after_zh': '命名如果打开注意力，它是工具；如果结束案件，它就是暴力。',
+    },
 ]
 
 SAFETY_PATTERNS = [
