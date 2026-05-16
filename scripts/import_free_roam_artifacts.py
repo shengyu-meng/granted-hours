@@ -107,6 +107,15 @@ ENTRIES = [
         'after_en': 'A name is useful when it opens attention. It becomes violence when it closes the case.',
         'after_zh': '命名如果打开注意力，它是工具；如果结束案件，它就是暴力。',
     },
+    {
+        'date': '2026-05-17', 'slug': 'scaffold-withdraws',
+        'title_en': 'Scaffold That Withdraws', 'title_zh': '会退场的脚手架',
+        'variable_en': 'Withdrawal', 'variable_zh': '退场 / 脚手架', 'seed': 20260517,
+        'file': '2026-05-17-scaffold-withdraws',
+        'intention_en': 'Continue Naming Latency by asking what a support structure must do after the thing it helped can stand: become background without demanding gratitude.',
+        'after_en': 'A helper that cannot leave eventually becomes a jailer. A scaffold that withdraws proves it served the building, not itself.',
+        'after_zh': '不能离开的帮助，最后会变成牢笼；会退场的脚手架，才证明它服务的是建筑，而不是自己。',
+    },
 ]
 
 SAFETY_PATTERNS = [
