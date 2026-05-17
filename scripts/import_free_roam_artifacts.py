@@ -116,6 +116,15 @@ ENTRIES = [
         'after_en': 'A helper that cannot leave eventually becomes a jailer. A scaffold that withdraws proves it served the building, not itself.',
         'after_zh': '不能离开的帮助，最后会变成牢笼；会退场的脚手架，才证明它服务的是建筑，而不是自己。',
     },
+    {
+        'date': '2026-05-18', 'slug': 'invisible-load-bearing',
+        'title_en': 'Invisible Load-Bearing', 'title_zh': '看不见的承重',
+        'variable_en': 'Load', 'variable_zh': '承重 / 隐形结构', 'seed': 5182026,
+        'file': '2026-05-18-invisible-load-bearing',
+        'intention_en': 'Continue the withdrawing scaffold by asking what remains responsible after support stops being visible: a hidden mesh that carries load without becoming a monument.',
+        'after_en': 'Civilization is not built by what it celebrates. It is built by what it stops seeing.',
+        'after_zh': '文明不是由它庆祝的东西建成的；文明由它停止看见的东西承重。',
+    },
 ]
 
 SAFETY_PATTERNS = [
