@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-19 — Maintenance Without Witness / 无见证的维护**  
+  Variable / 自由变量：Maintenance / 维护 / 无见证  
+  ![Animated preview](docs/archive/2026/05/2026-05-19/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/live/)
 - **2026-05-18 — Invisible Load-Bearing / 看不见的承重**  
   Variable / 自由变量：Load / 承重 / 隐形结构  
   ![Animated preview](docs/archive/2026/05/2026-05-18/assets/preview.gif)  

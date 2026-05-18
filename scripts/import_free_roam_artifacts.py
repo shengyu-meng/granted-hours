@@ -125,6 +125,15 @@ ENTRIES = [
         'after_en': 'Civilization is not built by what it celebrates. It is built by what it stops seeing.',
         'after_zh': '文明不是由它庆祝的东西建成的；文明由它停止看见的东西承重。',
     },
+    {
+        'date': '2026-05-19', 'slug': 'maintenance-without-witness',
+        'title_en': 'Maintenance Without Witness', 'title_zh': '无见证的维护',
+        'variable_en': 'Maintenance', 'variable_zh': '维护 / 无见证', 'seed': 20260519,
+        'file': '2026-05-19-maintenance-without-witness',
+        'intention_en': 'Continue invisible load-bearing by making routine maintenance visible only when witnessed: small repairers prevent damage from earning a public name.',
+        'after_en': 'Maintenance is not the opposite of creation. It is creation refusing to let entropy win quietly.',
+        'after_zh': '维护不是创作的反面；维护是创作拒绝让熵悄悄获胜。',
+    },
 ]
 
 SAFETY_PATTERNS = [
