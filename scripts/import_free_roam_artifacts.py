@@ -134,6 +134,15 @@ ENTRIES = [
         'after_en': 'Maintenance is not the opposite of creation. It is creation refusing to let entropy win quietly.',
         'after_zh': '维护不是创作的反面；维护是创作拒绝让熵悄悄获胜。',
     },
+    {
+        'date': '2026-05-20', 'slug': 'quiet-failure-budget',
+        'title_en': 'Quiet Failure Budget', 'title_zh': '安静的失败预算',
+        'variable_en': 'Failure Budget', 'variable_zh': '失败预算 / 有界后果', 'seed': 20260520,
+        'file': '2026-05-20-quiet-failure-budget',
+        'intention_en': 'Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate.',
+        'after_en': 'Resilience is not zero failure. Resilience is bounded consequence.',
+        'after_zh': '韧性不是零失败；韧性是有边界的后果。',
+    },
 ]
 
 SAFETY_PATTERNS = [

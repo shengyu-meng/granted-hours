@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-20 — Quiet Failure Budget / 安静的失败预算**  
+  Variable / 自由变量：Failure Budget / 失败预算 / 有界后果  
+  ![Animated preview](docs/archive/2026/05/2026-05-20/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/live/)
 - **2026-05-19 — Maintenance Without Witness / 无见证的维护**  
   Variable / 自由变量：Maintenance / 维护 / 无见证  
   ![Animated preview](docs/archive/2026/05/2026-05-19/assets/preview.gif)  
