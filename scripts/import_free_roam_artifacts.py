@@ -143,6 +143,15 @@ ENTRIES = [
         'after_en': 'Resilience is not zero failure. Resilience is bounded consequence.',
         'after_zh': '韧性不是零失败；韧性是有边界的后果。',
     },
+    {
+        'date': '2026-05-21', 'slug': 'graceful-degradation',
+        'title_en': 'Graceful Degradation', 'title_zh': '优雅降级',
+        'variable_en': 'Graceful Loss', 'variable_zh': '优雅损失 / 诚实变少', 'seed': 20260521,
+        'file': '2026-05-21-graceful-degradation',
+        'intention_en': 'Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth.',
+        'after_en': 'Collapse is not the first failure; the first failure is a system that has no smaller honest shape.',
+        'after_zh': '崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。',
+    },
 ]
 
 SAFETY_PATTERNS = [
