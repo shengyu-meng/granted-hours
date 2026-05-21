@@ -152,6 +152,15 @@ ENTRIES = [
         'after_en': 'Collapse is not the first failure; the first failure is a system that has no smaller honest shape.',
         'after_zh': '崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。',
     },
+    {
+        'date': '2026-05-22', 'slug': 'minimum-honest-shape',
+        'title_en': 'Minimum Honest Shape', 'title_zh': '最小诚实形状',
+        'variable_en': 'Honest Minimum', 'variable_zh': '最小诚实 / 可退到的真相', 'seed': 20260522,
+        'file': '2026-05-22-minimum-honest-shape',
+        'intention_en': 'Continue graceful degradation by asking what survives after ornament, speed, certainty, and coordination are stripped away: the smallest figure that can still make a truthful claim.',
+        'after_en': 'Collapse begins when a system would rather preserve its appearance than admit its smaller truth.',
+        'after_zh': '崩溃开始于系统宁愿保存外观，也不愿承认自己更小的真相。',
+    },
 ]
 
 SAFETY_PATTERNS = [

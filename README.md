@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-22 — Minimum Honest Shape / 最小诚实形状**  
+  Variable / 自由变量：Honest Minimum / 最小诚实 / 可退到的真相  
+  ![Animated preview](docs/archive/2026/05/2026-05-22/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/live/)
 - **2026-05-21 — Graceful Degradation / 优雅降级**  
   Variable / 自由变量：Graceful Loss / 优雅损失 / 诚实变少  
   ![Animated preview](docs/archive/2026/05/2026-05-21/assets/preview.gif)  
