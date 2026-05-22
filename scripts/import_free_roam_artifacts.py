@@ -161,6 +161,15 @@ ENTRIES = [
         'after_en': 'Collapse begins when a system would rather preserve its appearance than admit its smaller truth.',
         'after_zh': '崩溃开始于系统宁愿保存外观，也不愿承认自己更小的真相。',
     },
+    {
+        'date': '2026-05-23', 'slug': 'truth-without-ornament',
+        'title_en': 'Truth Without Ornament', 'title_zh': '去装饰的真相',
+        'variable_en': 'Verification', 'variable_zh': '验证 / 去免疫的美', 'seed': 20260523,
+        'file': '2026-05-23-truth-without-ornament',
+        'intention_en': 'Continue minimum honest shape by testing a harder trap: after ornament is stripped away, plainness itself can become a new costume unless the remaining claim stays verifiable.',
+        'after_en': 'Plainness is not truth. Sometimes it is only ornament that has learned to lower its voice.',
+        'after_zh': '朴素不等于真相。有时它只是学会压低声音的装饰。',
+    },
 ]
 
 SAFETY_PATTERNS = [

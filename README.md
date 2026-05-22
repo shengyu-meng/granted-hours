@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-23 — Truth Without Ornament / 去装饰的真相**  
+  Variable / 自由变量：Verification / 验证 / 去免疫的美  
+  ![Animated preview](docs/archive/2026/05/2026-05-23/assets/preview.gif)  
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/live/)
 - **2026-05-22 — Minimum Honest Shape / 最小诚实形状**  
   Variable / 自由变量：Honest Minimum / 最小诚实 / 可退到的真相  
   ![Animated preview](docs/archive/2026/05/2026-05-22/assets/preview.gif)  
