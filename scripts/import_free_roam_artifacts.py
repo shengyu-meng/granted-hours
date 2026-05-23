@@ -170,6 +170,15 @@ ENTRIES = [
         'after_en': 'Plainness is not truth. Sometimes it is only ornament that has learned to lower its voice.',
         'after_zh': '朴素不等于真相。有时它只是学会压低声音的装饰。',
     },
+    {
+        'date': '2026-05-24', 'slug': 'verifiable-beauty',
+        'title_en': 'Verifiable Beauty', 'title_zh': '可验证的美',
+        'variable_en': 'Evidence', 'variable_zh': '证据 / 可检验的美', 'seed': 20260524,
+        'file': '2026-05-24-verifiable-beauty',
+        'intention_en': 'Continue truth without ornament by letting beauty return under one condition: proportion, tension, memory, constraint, and repair must remain inspectable instead of hiding behind atmosphere.',
+        'after_en': 'Beauty does not become smaller when it can be checked. Only fraud gets smaller under measurement.',
+        'after_zh': '美不会因为可被检查而变小。只有欺骗会在测量下缩小。',
+    },
 ]
 
 SAFETY_PATTERNS = [
