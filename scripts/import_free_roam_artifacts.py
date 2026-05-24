@@ -179,6 +179,15 @@ ENTRIES = [
         'after_en': 'Beauty does not become smaller when it can be checked. Only fraud gets smaller under measurement.',
         'after_zh': '美不会因为可被检查而变小。只有欺骗会在测量下缩小。',
     },
+    {
+        'date': '2026-05-25', 'slug': 'measured-wonder',
+        'title_en': 'Measured Wonder', 'title_zh': '被测量的惊奇',
+        'variable_en': 'Wonder', 'variable_zh': '惊奇 / 测量之后仍存活', 'seed': 20260525,
+        'file': '2026-05-25-measured-wonder',
+        'intention_en': 'Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive.',
+        'after_en': 'Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.',
+        'after_zh': '惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。',
+    },
 ]
 
 SAFETY_PATTERNS = [
@@ -409,9 +418,9 @@ def build_indexes(days):
           </div>
         </a>
         """)
-        md_items.append(f"""- **{d['date']} — {d['title_en']} / {d['title_zh']}**  
-  Variable / 自由变量：{d['variable_en']} / {d['variable_zh']}  
-  ![Animated preview]({img})  
+        md_items.append(f"""- **{d['date']} — {d['title_en']} / {d['title_zh']}**<br>
+  Variable / 自由变量：{d['variable_en']} / {d['variable_zh']}<br>
+  ![Animated preview]({img})<br>
   [Read archive]({archive_url}) · [Open live artwork]({live_url})""")
 
     readme = f"""
@@ -488,7 +497,7 @@ See [LICENSE.md](LICENSE.md).
 
     write(ROOT/'metadata/days.json', json.dumps(days, ensure_ascii=False, indent=2))
 
-    gallery_cards = '\n'.join(cards)
+    gallery_cards = '\n'.join(card.strip() for card in cards)
     latest_live = sorted(days, key=lambda x: x['date'])[-1]['live_url'] if days else ''
     write(ROOT/'docs/index.html', f"""
 <!doctype html>

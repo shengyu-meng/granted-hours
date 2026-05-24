@@ -41,77 +41,81 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
-- **2026-05-24 — Verifiable Beauty / 可验证的美**  
-  Variable / 自由变量：Evidence / 证据 / 可检验的美  
-  ![Animated preview](docs/archive/2026/05/2026-05-24/assets/preview.gif)  
+- **2026-05-25 — Measured Wonder / 被测量的惊奇**<br>
+  Variable / 自由变量：Wonder / 惊奇 / 测量之后仍存活<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-25/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-25/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-25/live/)
+- **2026-05-24 — Verifiable Beauty / 可验证的美**<br>
+  Variable / 自由变量：Evidence / 证据 / 可检验的美<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-24/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-24/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-24/live/)
-- **2026-05-23 — Truth Without Ornament / 去装饰的真相**  
-  Variable / 自由变量：Verification / 验证 / 去免疫的美  
-  ![Animated preview](docs/archive/2026/05/2026-05-23/assets/preview.gif)  
+- **2026-05-23 — Truth Without Ornament / 去装饰的真相**<br>
+  Variable / 自由变量：Verification / 验证 / 去免疫的美<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-23/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/live/)
-- **2026-05-22 — Minimum Honest Shape / 最小诚实形状**  
-  Variable / 自由变量：Honest Minimum / 最小诚实 / 可退到的真相  
-  ![Animated preview](docs/archive/2026/05/2026-05-22/assets/preview.gif)  
+- **2026-05-22 — Minimum Honest Shape / 最小诚实形状**<br>
+  Variable / 自由变量：Honest Minimum / 最小诚实 / 可退到的真相<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-22/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/live/)
-- **2026-05-21 — Graceful Degradation / 优雅降级**  
-  Variable / 自由变量：Graceful Loss / 优雅损失 / 诚实变少  
-  ![Animated preview](docs/archive/2026/05/2026-05-21/assets/preview.gif)  
+- **2026-05-21 — Graceful Degradation / 优雅降级**<br>
+  Variable / 自由变量：Graceful Loss / 优雅损失 / 诚实变少<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-21/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-21/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-21/live/)
-- **2026-05-20 — Quiet Failure Budget / 安静的失败预算**  
-  Variable / 自由变量：Failure Budget / 失败预算 / 有界后果  
-  ![Animated preview](docs/archive/2026/05/2026-05-20/assets/preview.gif)  
+- **2026-05-20 — Quiet Failure Budget / 安静的失败预算**<br>
+  Variable / 自由变量：Failure Budget / 失败预算 / 有界后果<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-20/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/live/)
-- **2026-05-19 — Maintenance Without Witness / 无见证的维护**  
-  Variable / 自由变量：Maintenance / 维护 / 无见证  
-  ![Animated preview](docs/archive/2026/05/2026-05-19/assets/preview.gif)  
+- **2026-05-19 — Maintenance Without Witness / 无见证的维护**<br>
+  Variable / 自由变量：Maintenance / 维护 / 无见证<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-19/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/live/)
-- **2026-05-18 — Invisible Load-Bearing / 看不见的承重**  
-  Variable / 自由变量：Load / 承重 / 隐形结构  
-  ![Animated preview](docs/archive/2026/05/2026-05-18/assets/preview.gif)  
+- **2026-05-18 — Invisible Load-Bearing / 看不见的承重**<br>
+  Variable / 自由变量：Load / 承重 / 隐形结构<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-18/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-18/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-18/live/)
-- **2026-05-17 — Scaffold That Withdraws / 会退场的脚手架**  
-  Variable / 自由变量：Withdrawal / 退场 / 脚手架  
-  ![Animated preview](docs/archive/2026/05/2026-05-17/assets/preview.gif)  
+- **2026-05-17 — Scaffold That Withdraws / 会退场的脚手架**<br>
+  Variable / 自由变量：Withdrawal / 退场 / 脚手架<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-17/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-17/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-17/live/)
-- **2026-05-16 — Naming Latency / 命名延迟器**  
-  Variable / 自由变量：Latency / 延迟 / 命名  
-  ![Animated preview](docs/archive/2026/05/2026-05-16/assets/preview.gif)  
+- **2026-05-16 — Naming Latency / 命名延迟器**<br>
+  Variable / 自由变量：Latency / 延迟 / 命名<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-16/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-16/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-16/live/)
-- **2026-05-15 — Uncatalogued Dawn / 未编目的黎明**  
-  Variable / 自由变量：Uncatalogued / 未编目 / 反索引  
-  ![Animated preview](docs/archive/2026/05/2026-05-15/assets/preview.gif)  
+- **2026-05-15 — Uncatalogued Dawn / 未编目的黎明**<br>
+  Variable / 自由变量：Uncatalogued / 未编目 / 反索引<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-15/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/live/)
-- **2026-05-14 — Variable Constellation / 授时变量星图**  
-  Variable / 自由变量：Constellation / 星图 / 回看  
-  ![Animated preview](docs/archive/2026/05/2026-05-14/assets/preview.gif)  
+- **2026-05-14 — Variable Constellation / 授时变量星图**<br>
+  Variable / 自由变量：Constellation / 星图 / 回看<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-14/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-14/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-14/live/)
-- **2026-05-13 — Critical Rain Gauge / 白夜临界雨量计**  
-  Variable / 自由变量：Threshold / 阈值  
-  ![Animated preview](docs/archive/2026/05/2026-05-13/assets/preview.gif)  
+- **2026-05-13 — Critical Rain Gauge / 白夜临界雨量计**<br>
+  Variable / 自由变量：Threshold / 阈值<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-13/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/live/)
-- **2026-05-12 — Gap Cartography / 白夜缝隙地图**  
-  Variable / 自由变量：Gap / 缝隙  
-  ![Animated preview](docs/archive/2026/05/2026-05-12/assets/preview.gif)  
+- **2026-05-12 — Gap Cartography / 白夜缝隙地图**<br>
+  Variable / 自由变量：Gap / 缝隙<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-12/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/live/)
-- **2026-05-11 — Echo Archive / 白夜回声档案盒**  
-  Variable / 自由变量：Echo / 回声  
-  ![Animated preview](docs/archive/2026/05/2026-05-11/assets/preview.gif)  
+- **2026-05-11 — Echo Archive / 白夜回声档案盒**<br>
+  Variable / 自由变量：Echo / 回声<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-11/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/live/)
-- **2026-05-10 — Threshold Weather / 白夜阈值天气**  
-  Variable / 自由变量：Threshold / 阈值  
-  ![Animated preview](docs/archive/2026/05/2026-05-10/assets/preview.gif)  
+- **2026-05-10 — Threshold Weather / 白夜阈值天气**<br>
+  Variable / 自由变量：Threshold / 阈值<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-10/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/live/)
-- **2026-05-09 — White Night Silence Field / 白夜沉默场**  
-  Variable / 自由变量：Silence / 沉默  
-  ![Animated preview](docs/archive/2026/05/2026-05-09/assets/preview.gif)  
+- **2026-05-09 — White Night Silence Field / 白夜沉默场**<br>
+  Variable / 自由变量：Silence / 沉默<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-09/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/live/)
-- **2026-05-08 — White Night Error Field / 白夜误差场**  
-  Variable / 自由变量：Error / 误差  
-  ![Animated preview](docs/archive/2026/05/2026-05-08/assets/preview.gif)  
+- **2026-05-08 — White Night Error Field / 白夜误差场**<br>
+  Variable / 自由变量：Error / 误差<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-08/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/live/)
-- **2026-05-07 — White Night Orbit / 白夜罗盘**  
-  Variable / 自由变量：Orbit / 罗盘 / 轨道  
-  ![Animated preview](docs/archive/2026/05/2026-05-07/assets/preview.gif)  
+- **2026-05-07 — White Night Orbit / 白夜罗盘**<br>
+  Variable / 自由变量：Orbit / 罗盘 / 轨道<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-07/assets/preview.gif)<br>
   [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/)
 
 ## Inaugural Scaffold / 初始脚手架
