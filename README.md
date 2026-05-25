@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-26 — Calibration Without Dominion / 不支配的校准**<br>
+  Variable / 自由变量：Calibration / 校准 / 看清而不占有<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-26/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-26/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-26/live/)
 - **2026-05-25 — Measured Wonder / 被测量的惊奇**<br>
   Variable / 自由变量：Wonder / 惊奇 / 测量之后仍存活<br>
   ![Animated preview](docs/archive/2026/05/2026-05-25/assets/preview.gif)<br>

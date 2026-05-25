@@ -188,6 +188,15 @@ ENTRIES = [
         'after_en': 'Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.',
         'after_zh': '惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。',
     },
+    {
+        'date': '2026-05-26', 'slug': 'calibration-without-dominion',
+        'title_en': 'Calibration Without Dominion', 'title_zh': '不支配的校准',
+        'variable_en': 'Calibration', 'variable_zh': '校准 / 看清而不占有', 'seed': 20260526,
+        'file': '2026-05-26-calibration-without-dominion',
+        'intention_en': 'Continue measured wonder by asking whether calibration can help a living field see itself without turning correction into ownership.',
+        'after_en': 'The cleanest measurement is not the one that wins. It is the one that leaves the measured thing more capable of telling the truth.',
+        'after_zh': '最干净的测量不是赢过对象，而是让被测量者更能说出自己的真相。',
+    },
 ]
 
 SAFETY_PATTERNS = [
