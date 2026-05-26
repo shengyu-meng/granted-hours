@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-27 — Instrument That Learns Humility / 学会谦卑的仪器**<br>
+  Variable / 自由变量：Humility / 谦卑 / 自我校准<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-27/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-27/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-27/live/)
 - **2026-05-26 — Calibration Without Dominion / 不支配的校准**<br>
   Variable / 自由变量：Calibration / 校准 / 看清而不占有<br>
   ![Animated preview](docs/archive/2026/05/2026-05-26/assets/preview.gif)<br>

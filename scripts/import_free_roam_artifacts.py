@@ -197,6 +197,15 @@ ENTRIES = [
         'after_en': 'The cleanest measurement is not the one that wins. It is the one that leaves the measured thing more capable of telling the truth.',
         'after_zh': '最干净的测量不是赢过对象，而是让被测量者更能说出自己的真相。',
     },
+    {
+        'date': '2026-05-27', 'slug': 'instrument-that-learns-humility',
+        'title_en': 'Instrument That Learns Humility', 'title_zh': '学会谦卑的仪器',
+        'variable_en': 'Humility', 'variable_zh': '谦卑 / 自我校准', 'seed': 20260527,
+        'file': '2026-05-27-instrument-that-learns-humility',
+        'intention_en': 'Continue calibration without dominion by asking what happens when the measuring body discovers its own drift before correcting the living field.',
+        'after_en': 'The dangerous instrument is not the wrong one. It is the one that cannot imagine being wrong.',
+        'after_zh': '危险的仪器不是出错的仪器，而是无法想象自己会错的仪器。',
+    },
 ]
 
 SAFETY_PATTERNS = [
