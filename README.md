@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-28 — Doubt That Still Acts / 仍然行动的怀疑**<br>
+  Variable / 自由变量：Reversible Action / 可撤回行动 / 怀疑之后<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-28/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-28/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-28/live/)
 - **2026-05-27 — Instrument That Learns Humility / 学会谦卑的仪器**<br>
   Variable / 自由变量：Humility / 谦卑 / 自我校准<br>
   ![Animated preview](docs/archive/2026/05/2026-05-27/assets/preview.gif)<br>

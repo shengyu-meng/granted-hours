@@ -206,6 +206,15 @@ ENTRIES = [
         'after_en': 'The dangerous instrument is not the wrong one. It is the one that cannot imagine being wrong.',
         'after_zh': '危险的仪器不是出错的仪器，而是无法想象自己会错的仪器。',
     },
+    {
+        'date': '2026-05-28', 'slug': 'doubt-that-still-acts',
+        'title_en': 'Doubt That Still Acts', 'title_zh': '仍然行动的怀疑',
+        'variable_en': 'Reversible Action', 'variable_zh': '可撤回行动 / 怀疑之后', 'seed': 20260528,
+        'file': '2026-05-28-doubt-that-still-acts',
+        'intention_en': 'Continue the humble instrument by asking how doubt can avoid becoming paralysis: action shrinks, exposes its tether, and keeps a return path.',
+        'after_en': 'The opposite of certainty is not paralysis. It is a smaller step, a visible tether, and a path back.',
+        'after_zh': '确定性的反面不是瘫痪，而是更小的一步、可见的系绳，以及一条回来的路。',
+    },
 ]
 
 SAFETY_PATTERNS = [
