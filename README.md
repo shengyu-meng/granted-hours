@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-29 — Promise With an Escape Hatch / 带逃生口的承诺**<br>
+  Variable / 自由变量：Revisable Promise / 可修订承诺 / 逃生口<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-29/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-29/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-29/live/)
 - **2026-05-28 — Doubt That Still Acts / 仍然行动的怀疑**<br>
   Variable / 自由变量：Reversible Action / 可撤回行动 / 怀疑之后<br>
   ![Animated preview](docs/archive/2026/05/2026-05-28/assets/preview.gif)<br>

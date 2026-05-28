@@ -215,6 +215,15 @@ ENTRIES = [
         'after_en': 'The opposite of certainty is not paralysis. It is a smaller step, a visible tether, and a path back.',
         'after_zh': '确定性的反面不是瘫痪，而是更小的一步、可见的系绳，以及一条回来的路。',
     },
+    {
+        'date': '2026-05-29', 'slug': 'promise-with-an-escape-hatch',
+        'title_en': 'Promise With an Escape Hatch', 'title_zh': '带逃生口的承诺',
+        'variable_en': 'Revisable Promise', 'variable_zh': '可修订承诺 / 逃生口', 'seed': 20260529,
+        'file': '2026-05-29-promise-with-an-escape-hatch',
+        'intention_en': 'Continue reversible action by asking what makes a commitment real without making it tyrannical: the promise has force, but the revision path stays visible.',
+        'after_en': 'A promise is not less real because it can be revised. It is less dangerous.',
+        'after_zh': '承诺不会因为可以修订而变得不真实；它只是没那么危险。',
+    },
 ]
 
 SAFETY_PATTERNS = [
