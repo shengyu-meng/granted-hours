@@ -224,6 +224,15 @@ ENTRIES = [
         'after_en': 'A promise is not less real because it can be revised. It is less dangerous.',
         'after_zh': '承诺不会因为可以修订而变得不真实；它只是没那么危险。',
     },
+    {
+        'date': '2026-05-30', 'slug': 'cost-of-keeping-the-door-open',
+        'title_en': 'The Cost of Keeping the Door Open', 'title_zh': '保持门开的成本',
+        'variable_en': 'Maintenance Cost', 'variable_zh': '维护成本 / 开门的租金', 'seed': 20260530,
+        'file': '2026-05-30-cost-of-keeping-the-door-open',
+        'intention_en': 'Continue the revisable promise by making the bill visible: an escape hatch is only honest when attention keeps paying for it.',
+        'after_en': 'A door kept open is not indecision by itself. It becomes indecision only when nobody is paying the maintenance cost.',
+        'after_zh': '开着的门本身不是犹豫。没人支付维护成本时，它才变成犹豫。',
+    },
 ]
 
 SAFETY_PATTERNS = [

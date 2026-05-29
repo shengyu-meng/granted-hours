@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-05-30 — The Cost of Keeping the Door Open / 保持门开的成本**<br>
+  Variable / 自由变量：Maintenance Cost / 维护成本 / 开门的租金<br>
+  ![Animated preview](docs/archive/2026/05/2026-05-30/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-30/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-30/live/)
 - **2026-05-29 — Promise With an Escape Hatch / 带逃生口的承诺**<br>
   Variable / 自由变量：Revisable Promise / 可修订承诺 / 逃生口<br>
   ![Animated preview](docs/archive/2026/05/2026-05-29/assets/preview.gif)<br>
