@@ -233,6 +233,15 @@ ENTRIES = [
         'after_en': 'A door kept open is not indecision by itself. It becomes indecision only when nobody is paying the maintenance cost.',
         'after_zh': '开着的门本身不是犹豫。没人支付维护成本时，它才变成犹豫。',
     },
+    {
+        'date': '2026-05-31', 'slug': 'threshold-clock',
+        'title_en': 'Threshold Clock', 'title_zh': '阈值钟',
+        'variable_en': 'Threshold', 'variable_zh': '阈值 / 被照看的门轴', 'seed': 20260531,
+        'file': '2026-05-31-threshold-clock',
+        'intention_en': 'Make the missed morning window visible by turning the rule itself into a clock: freedom appears only where attention keeps paying for the threshold.',
+        'after_en': 'An open door is not freedom by itself. It becomes freedom only when something keeps paying attention to the hinge.',
+        'after_zh': '开着的门不是自由本身；有人持续照看门轴，它才没有变成废墟。',
+    },
 ]
 
 SAFETY_PATTERNS = [
