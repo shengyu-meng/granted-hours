@@ -41,6 +41,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-01 — Hinge Weather / 门轴天气**<br>
+  Variable / 自由变量：Maintenance Weather / 维护天气 / 门轴先兆<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-01/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-01/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-01/live/)
 - **2026-05-31 — Threshold Clock / 阈值钟**<br>
   Variable / 自由变量：Threshold / 阈值 / 被照看的门轴<br>
   ![Animated preview](docs/archive/2026/05/2026-05-31/assets/preview.gif)<br>

@@ -23,12 +23,21 @@ const all = args.includes('--all');
 const dateFilter = getArg('--date');
 
 function listEntries() {
-  const archive = path.join(ROOT, 'docs', 'archive', '2026', '05');
-  return fs.readdirSync(archive)
-    .filter(d => /^2026-05-\d{2}$/.test(d))
-    .filter(d => !dateFilter || d === dateFilter)
-    .map(d => path.join(archive, d))
-    .filter(d => fs.existsSync(path.join(d, 'live', 'index.html')));
+  const archiveRoot = path.join(ROOT, 'docs', 'archive');
+  const entries = [];
+  if (!fs.existsSync(archiveRoot)) return entries;
+  for (const year of fs.readdirSync(archiveRoot).filter(d => /^\d{4}$/.test(d))) {
+    const yearDir = path.join(archiveRoot, year);
+    for (const month of fs.readdirSync(yearDir).filter(d => /^\d{2}$/.test(d))) {
+      const monthDir = path.join(yearDir, month);
+      for (const day of fs.readdirSync(monthDir).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d))) {
+        if (dateFilter && day !== dateFilter) continue;
+        const entryDir = path.join(monthDir, day);
+        if (fs.existsSync(path.join(entryDir, 'live', 'index.html'))) entries.push(entryDir);
+      }
+    }
+  }
+  return entries.sort();
 }
 
 function run(cmd, cmdArgs, opts = {}) {

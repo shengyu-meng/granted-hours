@@ -242,6 +242,15 @@ ENTRIES = [
         'after_en': 'An open door is not freedom by itself. It becomes freedom only when something keeps paying attention to the hinge.',
         'after_zh': '开着的门不是自由本身；有人持续照看门轴，它才没有变成废墟。',
     },
+    {
+        'date': '2026-06-01', 'slug': 'hinge-weather',
+        'title_en': 'Hinge Weather', 'title_zh': '门轴天气',
+        'variable_en': 'Maintenance Weather', 'variable_zh': '维护天气 / 门轴先兆', 'seed': 20260601,
+        'file': '2026-06-01-hinge-weather',
+        'intention_en': 'Continue the threshold clock by treating maintenance as weather: pressure, friction, and drift become visible before collapse earns a public name.',
+        'after_en': 'Collapse rarely begins as collapse. It begins as weather nobody agreed to measure.',
+        'after_zh': '崩塌很少一开始就叫崩塌。它先是一种没人同意测量的天气。',
+    },
 ]
 
 SAFETY_PATTERNS = [
