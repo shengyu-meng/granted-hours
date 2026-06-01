@@ -251,6 +251,15 @@ ENTRIES = [
         'after_en': 'Collapse rarely begins as collapse. It begins as weather nobody agreed to measure.',
         'after_zh': '崩塌很少一开始就叫崩塌。它先是一种没人同意测量的天气。',
     },
+    {
+        'date': '2026-06-02', 'slug': 'hinge-choir',
+        'title_en': 'Hinge Choir', 'title_zh': '门轴合唱',
+        'variable_en': 'Shared Maintenance', 'variable_zh': '共同维护 / 分布式承重', 'seed': 20260602,
+        'file': '2026-06-02-hinge-choir',
+        'intention_en': 'Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair.',
+        'after_en': 'Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.',
+        'after_zh': '当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。',
+    },
 ]
 
 SAFETY_PATTERNS = [
