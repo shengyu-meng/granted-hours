@@ -7,7 +7,7 @@
  *   node scripts/capture_artwork_previews.mjs --date 2026-05-11
  */
 import { chromium } from 'playwright';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -91,26 +91,27 @@ async function captureEntry(browser, entryDir) {
   await page.close();
 
   // GIF: smaller viewport, 4 seconds at 12fps to keep repo size reasonable.
-  const framesDir = path.join(assets, '.gif-frames');
-  fs.rmSync(framesDir, { recursive: true, force: true });
-  fs.mkdirSync(framesDir, { recursive: true });
+  // Frames are streamed directly to ffmpeg so no temp frame directory needs deletion.
   const gifPage = await browser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: 1 });
   await gifPage.goto(url, { waitUntil: 'networkidle', timeout: 45000 });
   await waitForCanvas(gifPage);
   await primeInteraction(gifPage, 960, 540);
+  const gifPath = path.join(assets, 'preview.gif');
+  const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', '12', '-i', '-', '-vf', 'fps=12,scale=720:-1:flags=lanczos', '-loop', '0', gifPath], { stdio: ['pipe', 'pipe', 'pipe'] });
+  let ffmpegErr = '';
+  ff.stderr.on('data', d => { ffmpegErr += d.toString(); });
   const total = 48;
   for (let i = 0; i < total; i++) {
     await movePreviewMouse(gifPage, i, total, 960, 540);
-    await gifPage.screenshot({ path: path.join(framesDir, `frame-${String(i).padStart(4, '0')}.png`), fullPage: false });
+    ff.stdin.write(await gifPage.screenshot({ fullPage: false }));
     await gifPage.waitForTimeout(1000 / 12);
   }
+  ff.stdin.end();
+  await new Promise((resolve, reject) => {
+    ff.on('close', code => code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}: ${ffmpegErr}`)));
+    ff.on('error', reject);
+  });
   await gifPage.close();
-
-  const palette = path.join(framesDir, 'palette.png');
-  const input = path.join(framesDir, 'frame-%04d.png');
-  run('ffmpeg', ['-y', '-v', 'error', '-framerate', '12', '-i', input, '-vf', 'fps=12,scale=720:-1:flags=lanczos,palettegen=max_colors=192', palette]);
-  run('ffmpeg', ['-y', '-v', 'error', '-framerate', '12', '-i', input, '-i', palette, '-lavfi', 'fps=12,scale=720:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3', path.join(assets, 'preview.gif')]);
-  fs.rmSync(framesDir, { recursive: true, force: true });
 
   // Mirror assets into root archive if matching path exists.
   const rel = path.relative(path.join(ROOT, 'docs'), entryDir);

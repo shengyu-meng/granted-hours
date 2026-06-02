@@ -260,6 +260,15 @@ ENTRIES = [
         'after_en': 'Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.',
         'after_zh': '当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。',
     },
+    {
+        'date': '2026-06-03', 'slug': 'repair-quorum',
+        'title_en': 'Repair Quorum', 'title_zh': '修复法定人数',
+        'variable_en': 'Repair Quorum', 'variable_zh': '修复法定人数 / 协调阈值', 'seed': 20260603,
+        'file': '2026-06-03-repair-quorum',
+        'intention_en': 'Continue hinge choir by asking when shared maintenance becomes coordination, and when coordination thickens into bureaucracy: care learns to count without worshipping the count.',
+        'after_en': 'A quorum is care learning to count without becoming obsessed with counting.',
+        'after_zh': '法定人数，是照看学会计数，但还没有迷信计数。',
+    },
 ]
 
 SAFETY_PATTERNS = [
