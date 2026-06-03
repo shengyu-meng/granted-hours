@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-04 — Living Protocol / 活协议**<br>
+  Variable / 自由变量：Breathable Rule / 可呼吸规则 / 活协议<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-04/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-04/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-04/live/)
 - **2026-06-03 — Repair Quorum / 修复法定人数**<br>
   Variable / 自由变量：Repair Quorum / 修复法定人数 / 协调阈值<br>
   ![Animated preview](docs/archive/2026/06/2026-06-03/assets/preview.gif)<br>

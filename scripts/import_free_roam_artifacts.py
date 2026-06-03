@@ -325,6 +325,17 @@ ENTRIES = [
         'after_zh': '法定人数，是照看学会计数，但还没有迷信计数。',
         'interaction_en': 'Move the cursor to bend attention. Click to call an emergency repair wave. Press Space to pause, R to reset, and S to save a still frame.',
         'interaction_zh': '移动光标弯折注意力；点击召唤紧急修复波；按 Space 暂停，R 重置，S 保存静帧。',    },
+    {
+        'date': '2026-06-04', 'slug': 'living-protocol',
+        'title_en': 'Living Protocol', 'title_zh': '活协议',
+        'variable_en': 'Breathable Rule', 'variable_zh': '可呼吸规则 / 活协议', 'seed': 20260604,
+        'file': '2026-06-04-living-protocol',
+        'intention_en': 'Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork.',
+        'intention_zh': '延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。',
+        'after_en': 'A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.',
+        'after_zh': '活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。',
+        'interaction_en': 'Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。',    },
 ]
 
 SAFETY_PATTERNS = [
