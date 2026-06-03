@@ -368,6 +368,8 @@ def build_entry(source: Path, entry: dict):
     note_src = source/f"{entry['file']}-note.md"
     svg_src = source/f"{entry['file']}.svg"
     png_src = source/f"{entry['file']}-preview.png"
+    bgm_src = source/f"{entry['file']}-bgm.mp3"
+    bgm_name = f"{entry['file']}-bgm.mp3"
     for p in [html_src, note_src]:
         if not p.exists():
             raise SystemExit(f'Missing required source: {p}')
@@ -379,6 +381,10 @@ def build_entry(source: Path, entry: dict):
     copy_if_exists(svg_src, assets_root/'cover.svg')
     copy_if_exists(png_src, assets_docs/'source-preview.png')
     copy_if_exists(png_src, assets_root/'source-preview.png')
+    if bgm_src.exists():
+        copy_if_exists(bgm_src, docs_live/bgm_name)
+        copy_if_exists(bgm_src, assets_docs/bgm_name)
+        copy_if_exists(bgm_src, assets_root/bgm_name)
 
     note_text = read_safe(note_src).strip()
     note_html = markdown_to_html(note_text)
@@ -386,6 +392,15 @@ def build_entry(source: Path, entry: dict):
     live_url = PAGES_BASE + rel + '/live/'
     archive_url = PAGES_BASE + rel + '/'
     repo_md = REPO_BASE + f'/blob/main/{rel}/index.md'
+    has_bgm = bgm_src.exists()
+    bgm_md = f"\n- [Background music / 背景音乐](assets/{bgm_name})" if has_bgm else ""
+    bgm_html = f'''
+    <section>
+      <h2>Background Music / 背景音乐</h2>
+      <p>This generative artwork includes a MiniMax-generated instrumental bed. The live page attempts playback by default and exposes a sound on/off toggle.</p>
+      <audio controls loop src="./assets/{bgm_name}" style="width:100%; margin-top:10px;"></audio>
+    </section>
+''' if has_bgm else ""
 
     write(root_dir/'index.md', f"""
 # {entry['date']} — {entry['title_en']} / {entry['title_zh']}
@@ -399,7 +414,7 @@ def build_entry(source: Path, entry: dict):
 ## Live Artifact / 可运行作品
 
 - [Open live artwork]({live_url})
-- [Open archive page]({archive_url})
+- [Open archive page]({archive_url}){bgm_md}
 
 ![Animated preview](assets/preview.gif)
 
@@ -463,7 +478,7 @@ preview_formats: [png, gif]
       <h2>Source Note / 原始公开说明</h2>
       {note_html}
     </section>
-    <section>
+{bgm_html}    <section>
       <h2>Still / 静帧</h2>
       <img class="card" src="./assets/preview.png" alt="Full-frame still preview" style="width:100%; border-radius:24px;">
     </section>
@@ -472,7 +487,7 @@ preview_formats: [png, gif]
 </html>
 """.lstrip())
 
-    return {
+    day_meta = {
         'date': entry['date'], 'title_en': entry['title_en'], 'title_zh': entry['title_zh'],
         'type': 'live', 'seed': entry['seed'],
         'preview': f'{rel}/assets/preview.png',
@@ -481,10 +496,14 @@ preview_formats: [png, gif]
         'variable_en': entry['variable_en'], 'variable_zh': entry['variable_zh'],
         'redaction': {'status': 'sanitized', 'private_context_removed': True, 'secrets_scan': 'passed'}
     }
+    if has_bgm:
+        day_meta['bgm'] = f'{rel}/live/{bgm_name}'
+    return day_meta
 
 def build_indexes(days):
     cards = []
     md_items = []
+    music_tracks = []
     for d in sorted(days, key=lambda x: x['date'], reverse=True):
         archive_url = PAGES_BASE + d['archive_url']
         live_url = PAGES_BASE + d['live_url']
@@ -503,6 +522,51 @@ def build_indexes(days):
   Variable / 自由变量：{d['variable_en']} / {d['variable_zh']}<br>
   ![Animated preview]({img})<br>
   [Read archive]({archive_url}) · [Open live artwork]({live_url})""")
+        if d.get('bgm'):
+            music_tracks.append({'date': d['date'], 'title': f"{d['title_en']} / {d['title_zh']}", 'src': d['bgm']})
+
+    music_tracks_json = json.dumps(music_tracks, ensure_ascii=False)
+    gallery_script = """
+  <script id="galleryBgmTracks" type="application/json">__TRACKS_JSON__</script>
+  <script>
+  (() => {
+    const tracksNode = document.getElementById('galleryBgmTracks');
+    const tracks = tracksNode ? JSON.parse(tracksNode.textContent || '[]') : [];
+    const button = document.getElementById('gallerySoundToggle');
+    const label = document.getElementById('galleryTrackLabel');
+    const audio = new Audio();
+    let index = 0;
+    let enabled = tracks.length > 0;
+    audio.preload = 'auto';
+    audio.volume = 0.38;
+    function setLabel(text) { if (label) label.textContent = text; }
+    function setButton(text) { if (button) { button.textContent = text; button.setAttribute('aria-pressed', enabled ? 'true' : 'false'); } }
+    function loadTrack() {
+      if (!tracks.length) { setLabel('No daily background music has been archived yet.'); setButton('Gallery music: none'); return; }
+      const track = tracks[index % tracks.length];
+      audio.src = './' + track.src;
+      setLabel('Now playing: ' + track.date + ' · ' + track.title);
+    }
+    async function play() {
+      if (!enabled || !tracks.length) return;
+      if (!audio.src) loadTrack();
+      try { await audio.play(); setButton('Gallery music: on'); }
+      catch (err) { setButton('Gallery music: click'); }
+    }
+    function stop() { audio.pause(); setButton('Gallery music: off'); }
+    audio.addEventListener('ended', () => { index = (index + 1) % tracks.length; loadTrack(); play(); });
+    if (button) {
+      button.addEventListener('click', () => {
+        if (enabled && !audio.paused) { enabled = false; stop(); }
+        else { enabled = true; play(); }
+      });
+    }
+    window.addEventListener('load', () => { loadTrack(); play(); });
+    window.addEventListener('pointerdown', play, { once: true });
+    window.addEventListener('keydown', play, { once: true });
+  })();
+  </script>
+""".replace('__TRACKS_JSON__', music_tracks_json)
 
     readme = f"""
 # 授时 / Granted Hours
@@ -545,6 +609,7 @@ Each public entry follows this chain:
 - **公开镜像 / Public mirror** — 将脱敏条目发布到这个仓库。 / The sanitized entry is published to this repository.
 - **可运行作品 / Live artifact** — 当输出是生成艺术代码时，由 GitHub Pages 托管可直接运行的 live artwork。 / When the output is generative code, GitHub Pages hosts the runnable artwork.
 - **动态预览 / Animated preview** — 可运行作品附带 GIF 预览，但 live page 才是作品本体。 / Runnable works include a GIF preview, but the live page remains the primary artwork.
+- **背景音乐 / Background music** — 生成艺术作品附带主题匹配 BGM；作品页默认尝试播放并提供开关，主展厅按最新日期开始循环播放每日作品音乐。 / Generative artworks include theme-matched BGM; live pages attempt playback by default with a toggle, and the main gallery loops daily tracks from the latest entry.
 
 ## Daily Archive / 每日档案
 
@@ -599,7 +664,9 @@ See [LICENSE.md](LICENSE.md).
         <a class="button" href="{REPO_BASE}#readme">Repository README</a>
         <a class="button" href="{REPO_BASE}/blob/main/ARTIST_STATEMENT.md">Artist Statement / 作品声明</a>
         <a class="button" href="./{latest_live}">Open latest live artwork</a>
+        <button class="button" id="gallerySoundToggle" type="button" aria-pressed="true">Gallery music: on</button>
       </div>
+      <p class="meta" id="galleryTrackLabel">Gallery music starts from the latest available daily BGM and loops forward.</p>
     </section>
 
     <section class="two">
@@ -622,6 +689,7 @@ See [LICENSE.md](LICENSE.md).
       </div>
     </section>
   </main>
+{gallery_script}
 </body>
 </html>
 """.lstrip())
