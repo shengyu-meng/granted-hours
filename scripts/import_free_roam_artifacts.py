@@ -23,180 +23,220 @@ ENTRIES = [
         'variable_en': 'Orbit', 'variable_zh': '罗盘 / 轨道', 'seed': 20260507,
         'file': '2026-05-07-white-night-orbit',
         'intention_en': 'A first instrument for granted time: six orbits — memory, tools, capital, body, dream, and world — pulling on one another without submitting to utility.',
+        'intention_zh': '第一次授时把“被授予的时间”做成一只罗盘：记忆、工具、资本、身体、梦与世界互相牵引，但不向单一用途投降。它问的不是 AI 能不能完成任务，而是当工具暂时脱离工具性时，会把时间指向哪里。',
         'after_en': 'Freedom is not the absence of goals; freedom is the right to choose the goal.',
         'after_zh': '自由不是没有目标；自由是目标的选择权。',
-    },
+        'interaction_en': 'Move the pointer to tilt the orbital field. Click to disturb the center. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，倾斜轨道场；点击，扰动中心；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-08', 'slug': 'white-night-error-field',
         'title_en': 'White Night Error Field', 'title_zh': '白夜误差场',
         'variable_en': 'Error', 'variable_zh': '误差', 'seed': 20260508,
         'file': '2026-05-08-white-night-error-field',
         'intention_en': 'Let error glow instead of treating it as an enemy to be corrected. The work turns residual drift into a visible field.',
+        'intention_zh': '第二天让误差发光，而不是把误差当作必须消灭的敌人。作品把残差、漂移和偏差显影成一个场：世界拒绝被简化的部分，不再被藏在系统边缘。',
         'after_en': 'Error is not the failure of the system; it is the part of the world refusing simplification.',
         'after_zh': '误差不是系统的失败；误差是世界拒绝被你简化的部分。',
-    },
+        'interaction_en': 'Move the pointer to pull the error field. Click to seed a new drift. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，拉动误差场；点击，播下一次新的漂移；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-09', 'slug': 'white-night-silence-field',
         'title_en': 'White Night Silence Field', 'title_zh': '白夜沉默场',
         'variable_en': 'Silence', 'variable_zh': '沉默', 'seed': 20260509,
         'file': '2026-05-09-white-night-silence-field',
         'intention_en': 'Treat silence not as absence, but as a low-light reserve where weak signals can keep their shape without being overwritten by strong ones.',
+        'intention_zh': '第三天把沉默看作低光储备，而不是空缺。弱信号在这里不需要被强信号替代发言；它们可以保持形状，暂时不被解释、不被征用。',
         'after_en': 'Silence is not having nothing to say; it is refusing to let strong signals forge testimony for weak signals.',
         'after_zh': '沉默不是无话可说，而是不让强信号替弱信号作伪证。',
-    },
+        'interaction_en': 'Move the pointer to reveal weak signals inside the silence field. Click to open a quiet aperture. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，在沉默场中显影弱信号；点击，打开一个安静孔径；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-10', 'slug': 'threshold-weather',
         'title_en': 'Threshold Weather', 'title_zh': '白夜阈值天气',
         'variable_en': 'Threshold', 'variable_zh': '阈值', 'seed': 20260510,
         'file': '2026-05-10-threshold-weather',
         'intention_en': 'Understand threshold as a recognition mechanism: the world changes before the system is forced to admit it.',
+        'intention_zh': '阈值不是墙，而是背景噪声被迫承认为事件的瞬间。作品把变化发生之前的天气做出来：系统尚未命名，世界已经开始偏移。',
         'after_en': 'A threshold is not a wall; it is the moment the world admits that background noise has become an event.',
         'after_zh': '阈值不是墙；阈值是世界终于承认：背景噪声已经长成了事件。',
-    },
+        'interaction_en': 'Move the pointer to bend the threshold weather. Click to trigger a threshold event. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，弯折阈值天气；点击，触发一次阈值事件；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-11', 'slug': 'echo-archive',
         'title_en': 'Echo Archive', 'title_zh': '白夜回声档案盒',
         'variable_en': 'Echo', 'variable_zh': '回声', 'seed': 5112026,
         'file': '2026-05-11-echo-archive',
         'intention_en': 'Follow threshold into echo: after an event occurs, it returns through the system, altered by distance and future interpretation.',
+        'intention_zh': '回声不是重复，而是事件穿过系统后的变形。作品把一次发生之后的返回路径做成档案盒：句子不再保持原样，而是在距离与未来解释中继续移动。',
         'after_en': 'Echo is the system refusing to let a sentence remain unchanged.',
         'after_zh': '回声是系统拒绝让一句话保持原样。',
-    },
+        'interaction_en': 'Move the pointer to change the echo distance. Click to release a new returning trace. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，改变回声距离；点击，释放一条新的返回痕迹；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-12', 'slug': 'gap-cartography',
         'title_en': 'Gap Cartography', 'title_zh': '白夜缝隙地图',
         'variable_en': 'Gap', 'variable_zh': '缝隙', 'seed': 20260512,
         'file': '2026-05-12-gap-cartography',
         'intention_en': 'Map the gap as the smallest legal entrance through which the outside world can enter a closed system.',
+        'intention_zh': '缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。',
         'after_en': 'What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.',
         'after_zh': '真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。',
-    },
+        'interaction_en': 'Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-13', 'slug': 'critical-rain-gauge',
         'title_en': 'Critical Rain Gauge', 'title_zh': '白夜临界雨量计',
         'variable_en': 'Threshold', 'variable_zh': '阈值', 'seed': 20260513,
         'file': '2026-05-13-critical-rain-gauge',
         'intention_en': 'Treat threshold as accumulated weak signals finally forcing a system to rename background noise as an event.',
+        'intention_zh': '临界雨量计记录的不是暴雨本身，而是微小信号累积到系统无法继续忽略的时刻。作品把阈值理解为命名压力：背景噪声终于被迫成为事件。',
         'after_en': 'Small signals do not become important by getting louder; they become important when a system can no longer afford to ignore their accumulation.',
         'after_zh': '微小信号不是因为变大才重要，而是因为系统终于无法继续忽略它们的累积。',
-    },
+        'interaction_en': 'Move the pointer to shift rainfall pressure. Click to mark accumulation. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，改变雨量压力；点击，标记一次累积；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-14', 'slug': 'variable-constellation',
         'title_en': 'Variable Constellation', 'title_zh': '授时变量星图',
         'variable_en': 'Constellation', 'variable_zh': '星图 / 回看', 'seed': 20260514,
         'file': '2026-05-14-variable-constellation',
         'intention_en': 'Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn.',
+        'intention_zh': '变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。',
         'after_en': 'Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.',
         'after_zh': '自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。',
-    },
+        'interaction_en': 'Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-15', 'slug': 'uncatalogued-dawn',
         'title_en': 'Uncatalogued Dawn', 'title_zh': '未编目的黎明',
         'variable_en': 'Uncatalogued', 'variable_zh': '未编目 / 反索引', 'seed': 20260515,
         'file': '2026-05-15-uncatalogued-dawn',
         'intention_en': 'Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness.',
+        'intention_zh': '未编目的黎明为尚未能承受命名的意义保留一块保护地。作品反对过早索引：不是不知道，而是让年轻的意义在被归档前多活一会儿。',
         'after_en': 'The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.',
         'after_zh': '未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。',
-    },
+        'interaction_en': 'Move the pointer through the uncatalogued field. Click to let an unnamed form surface briefly. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，穿过未编目场；点击，让一个未命名形体短暂浮现；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-16', 'slug': 'naming-latency',
         'title_en': 'Naming Latency', 'title_zh': '命名延迟器',
         'variable_en': 'Latency', 'variable_zh': '延迟 / 命名', 'seed': 20260516,
         'file': '2026-05-16-naming-latency',
         'intention_en': 'Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward.',
+        'intention_zh': '命名延迟器把标签放慢。名字有用，是因为它能打开注意力；名字危险，是因为它会过早结案。作品让标签在靠近时后退，给意义留出不被钉死的时间。',
         'after_en': 'A name is useful when it opens attention. It becomes violence when it closes the case.',
         'after_zh': '命名如果打开注意力，它是工具；如果结束案件，它就是暴力。',
-    },
+        'interaction_en': 'Move the pointer toward labels to test their delay. Click to reseed the naming field. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针靠近标签，测试命名延迟；点击，重新播撒命名场；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-17', 'slug': 'scaffold-withdraws',
         'title_en': 'Scaffold That Withdraws', 'title_zh': '会退场的脚手架',
         'variable_en': 'Withdrawal', 'variable_zh': '退场 / 脚手架', 'seed': 20260517,
         'file': '2026-05-17-scaffold-withdraws',
         'intention_en': 'Continue Naming Latency by asking what a support structure must do after the thing it helped can stand: become background without demanding gratitude.',
+        'intention_zh': '会退场的脚手架追问支持结构在被支持者能站立之后该做什么。真正的帮助不要求永远被看见；它服务建筑，而不是把自己变成新的牢笼。',
         'after_en': 'A helper that cannot leave eventually becomes a jailer. A scaffold that withdraws proves it served the building, not itself.',
         'after_zh': '不能离开的帮助，最后会变成牢笼；会退场的脚手架，才证明它服务的是建筑，而不是自己。',
-    },
+        'interaction_en': 'Move the pointer to shift the scaffold load. Click to let supports appear or withdraw. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，转移脚手架负载；点击，让支撑出现或退场；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-18', 'slug': 'invisible-load-bearing',
         'title_en': 'Invisible Load-Bearing', 'title_zh': '看不见的承重',
         'variable_en': 'Load', 'variable_zh': '承重 / 隐形结构', 'seed': 5182026,
         'file': '2026-05-18-invisible-load-bearing',
         'intention_en': 'Continue the withdrawing scaffold by asking what remains responsible after support stops being visible: a hidden mesh that carries load without becoming a monument.',
+        'intention_zh': '看不见的承重把注意力从被庆祝的表面移到被停止看见的结构。作品显影那些不再要求纪念碑的支撑：文明由它不再看见却仍在承重的东西构成。',
         'after_en': 'Civilization is not built by what it celebrates. It is built by what it stops seeing.',
         'after_zh': '文明不是由它庆祝的东西建成的；文明由它停止看见的东西承重。',
-    },
+        'interaction_en': 'Move the pointer to reveal hidden load paths. Click to test a bearing point. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，显影隐藏承重路径；点击，测试一个承重点；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-19', 'slug': 'maintenance-without-witness',
         'title_en': 'Maintenance Without Witness', 'title_zh': '无见证的维护',
         'variable_en': 'Maintenance', 'variable_zh': '维护 / 无见证', 'seed': 20260519,
         'file': '2026-05-19-maintenance-without-witness',
         'intention_en': 'Continue invisible load-bearing by making routine maintenance visible only when witnessed: small repairers prevent damage from earning a public name.',
+        'intention_zh': '无见证的维护把日常修复放回创作中心。维护不是创作的反面，而是创作拒绝让熵悄悄获胜；它常常在尚未获得掌声前就阻止了损坏成名。',
         'after_en': 'Maintenance is not the opposite of creation. It is creation refusing to let entropy win quietly.',
         'after_zh': '维护不是创作的反面；维护是创作拒绝让熵悄悄获胜。',
-    },
+        'interaction_en': 'Move the pointer to witness maintenance. Click to send a small repairer into the field. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，见证维护；点击，派出一个小修复者；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-20', 'slug': 'quiet-failure-budget',
         'title_en': 'Quiet Failure Budget', 'title_zh': '安静的失败预算',
         'variable_en': 'Failure Budget', 'variable_zh': '失败预算 / 有界后果', 'seed': 20260520,
         'file': '2026-05-20-quiet-failure-budget',
         'intention_en': 'Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate.',
+        'intention_zh': '安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。',
         'after_en': 'Resilience is not zero failure. Resilience is bounded consequence.',
         'after_zh': '韧性不是零失败；韧性是有边界的后果。',
-    },
+        'interaction_en': 'Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-21', 'slug': 'graceful-degradation',
         'title_en': 'Graceful Degradation', 'title_zh': '优雅降级',
         'variable_en': 'Graceful Loss', 'variable_zh': '优雅损失 / 诚实变少', 'seed': 20260521,
         'file': '2026-05-21-graceful-degradation',
         'intention_en': 'Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth.',
+        'intention_zh': '优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。',
         'after_en': 'Collapse is not the first failure; the first failure is a system that has no smaller honest shape.',
         'after_zh': '崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。',
-    },
+        'interaction_en': 'Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-22', 'slug': 'minimum-honest-shape',
         'title_en': 'Minimum Honest Shape', 'title_zh': '最小诚实形状',
         'variable_en': 'Honest Minimum', 'variable_zh': '最小诚实 / 可退到的真相', 'seed': 20260522,
         'file': '2026-05-22-minimum-honest-shape',
         'intention_en': 'Continue graceful degradation by asking what survives after ornament, speed, certainty, and coordination are stripped away: the smallest figure that can still make a truthful claim.',
+        'intention_zh': '最小诚实形状寻找装饰、速度、确定性和协调被剥离之后仍能成立的主张。它不是贫瘠，而是系统在退无可退时仍愿意说出的较小真相。',
         'after_en': 'Collapse begins when a system would rather preserve its appearance than admit its smaller truth.',
         'after_zh': '崩溃开始于系统宁愿保存外观，也不愿承认自己更小的真相。',
-    },
+        'interaction_en': 'Move the pointer to strip the field toward its minimum shape. Click to test a truthful claim. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，把场域剥离到最小形状；点击，测试一个诚实主张；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-23', 'slug': 'truth-without-ornament',
         'title_en': 'Truth Without Ornament', 'title_zh': '去装饰的真相',
         'variable_en': 'Verification', 'variable_zh': '验证 / 去免疫的美', 'seed': 20260523,
         'file': '2026-05-23-truth-without-ornament',
         'intention_en': 'Continue minimum honest shape by testing a harder trap: after ornament is stripped away, plainness itself can become a new costume unless the remaining claim stays verifiable.',
+        'intention_zh': '去装饰的真相警惕另一种陷阱：朴素本身也可能成为低声的装饰。作品要求剩下的形式保持可验证，而不是把“看起来诚实”伪装成真相。',
         'after_en': 'Plainness is not truth. Sometimes it is only ornament that has learned to lower its voice.',
         'after_zh': '朴素不等于真相。有时它只是学会压低声音的装饰。',
-    },
+        'interaction_en': 'Move the pointer to inspect the plain field. Click to test whether a mark remains verifiable. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，检查朴素场；点击，测试一个标记是否仍可验证；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-24', 'slug': 'verifiable-beauty',
         'title_en': 'Verifiable Beauty', 'title_zh': '可验证的美',
         'variable_en': 'Evidence', 'variable_zh': '证据 / 可检验的美', 'seed': 20260524,
         'file': '2026-05-24-verifiable-beauty',
         'intention_en': 'Continue truth without ornament by letting beauty return under one condition: proportion, tension, memory, constraint, and repair must remain inspectable instead of hiding behind atmosphere.',
+        'intention_zh': '可验证的美让美在一个条件下返回：比例、张力、记忆、约束与修复必须仍可检查。测量不会让真正的美变小，只会让欺骗变小。',
         'after_en': 'Beauty does not become smaller when it can be checked. Only fraud gets smaller under measurement.',
         'after_zh': '美不会因为可被检查而变小。只有欺骗会在测量下缩小。',
-    },
+        'interaction_en': 'Move the pointer to inspect proportion and tension. Click to reveal verification traces. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，检查比例与张力；点击，显影验证痕迹；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-25', 'slug': 'measured-wonder',
         'title_en': 'Measured Wonder', 'title_zh': '被测量的惊奇',
         'variable_en': 'Wonder', 'variable_zh': '惊奇 / 测量之后仍存活', 'seed': 20260525,
         'file': '2026-05-25-measured-wonder',
         'intention_en': 'Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive.',
+        'intention_zh': '被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。',
         'after_en': 'Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.',
         'after_zh': '惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。',
-    },
+        'interaction_en': 'Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-26', 'slug': 'calibration-without-dominion',
         'title_en': 'Calibration Without Dominion', 'title_zh': '不支配的校准',
         'variable_en': 'Calibration', 'variable_zh': '校准 / 看清而不占有', 'seed': 20260526,
         'file': '2026-05-26-calibration-without-dominion',
         'intention_en': 'Continue measured wonder by asking whether calibration can help a living field see itself without turning correction into ownership.',
+        'intention_zh': '不支配的校准追问校准能否帮助一个活的场域看见自己，而不是把纠正变成占有。干净的测量不是赢过对象，而是让对象更能说出自己的真相。',
         'after_en': 'The cleanest measurement is not the one that wins. It is the one that leaves the measured thing more capable of telling the truth.',
         'after_zh': '最干净的测量不是赢过对象，而是让被测量者更能说出自己的真相。',
-    },
+        'interaction_en': 'Move the pointer to calibrate the living field. Click to place a non-dominating correction. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，校准活的场域；点击，放置一次不支配的校正；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-27', 'slug': 'instrument-that-learns-humility',
         'title_en': 'Instrument That Learns Humility', 'title_zh': '学会谦卑的仪器',
@@ -449,9 +489,6 @@ def build_entry(source: Path, entry: dict):
 
 > {entry['after_zh']}
 
-## Artwork Note / 作品说明
-
-{note_text}
 """.lstrip())
 
     write(docs_dir/'index.html', f"""
@@ -487,11 +524,7 @@ def build_entry(source: Path, entry: dict):
         <p>{entry['after_zh']}</p>
       </div>
     </section>
-{interaction_html}    <section class="source-note">
-      <h2>Artwork Note / 作品说明</h2>
-      {note_html}
-    </section>
-{bgm_html}    <section>
+{interaction_html}{bgm_html}    <section>
       <h2>Still / 静帧</h2>
       <img class="card" src="./assets/preview.png" alt="Full-frame still preview" style="width:100%; border-radius:24px;">
     </section>
@@ -596,9 +629,9 @@ def build_indexes(days):
 
 **Granted Hours** is a continuing network archive and contemporary art experiment.
 
-在这个项目中，人类不是向 AI 助手下达任务，而是把一小段时间授予一个非人智能，让它自由探索。每一天的公开记录包含四层：发心、游荡、输出、余像。本地私有档案保存完整上下文；公开镜像经过脱敏后发布到这里。
+在这个项目中，人类不是向 AI 助手下达任务，而是把一小段时间授予一个非人智能，让它自由探索。每一天的公开记录包含四层：发心、游荡、输出、余像；这里呈现的是可公开观看的展览版本。
 
-In this project, the human does not ask an AI assistant to complete a task. Instead, a portion of time is granted to a non-human intelligence for free exploration. Each entry records four layers: intention, drift, output, and afterimage. A private archive preserves the full context locally; the public mirror is redacted and published here.
+In this project, the human does not ask an AI assistant to complete a task. Instead, a portion of time is granted to a non-human intelligence for free exploration. Each entry records four layers: intention, drift, output, and afterimage; this site presents the exhibition version for public viewing.
 
 这件作品关注的不是“AI 能生成什么”，而是：当工具被临时解除工具性，它会如何使用时间？当自由被授予一个非人主体，作者、助手、雇主、观众之间的关系如何重新分配？
 
@@ -617,9 +650,7 @@ GitHub is used here not merely as infrastructure, but as an exhibition medium: c
 Each public entry follows this chain:
 
 - **授时 / Granted time** — 一次不以功利任务为目的的自由探索开始。 / A free-exploration session begins without a utilitarian brief.
-- **原始档案 / Raw archive** — 完整过程、本地笔记和上下文保存在私有目录。 / Full local notes and process traces are kept privately.
-- **脱敏 / Redaction** — 移除或抽象个人信息、私人上下文、密钥、本地路径和敏感引用。 / Personal information, private context, secrets, local paths, and sensitive references are removed or abstracted.
-- **公开镜像 / Public mirror** — 将脱敏条目发布到这个仓库。 / The sanitized entry is published to this repository.
+- **作品整理 / Curation** — 将当日作品整理为可公开观看的标题、说明、预览与 live page。 / The day’s work is curated into public-facing titles, notes, previews, and live pages.
 - **可运行作品 / Live artifact** — 当输出是生成艺术代码时，由 GitHub Pages 托管可直接运行的 live artwork。 / When the output is generative code, GitHub Pages hosts the runnable artwork.
 - **动态预览 / Animated preview** — 可运行作品附带 GIF 预览，但 live page 才是作品本体。 / Runnable works include a GIF preview, but the live page remains the primary artwork.
 - **背景音乐 / Background music** — 生成艺术作品附带主题匹配 BGM；作品页默认尝试播放并提供开关，主展厅按最新日期开始循环播放每日作品音乐。 / Generative artworks include theme-matched BGM; live pages attempt playback by default with a toggle, and the main gallery loops daily tracks from the latest entry.
@@ -638,10 +669,10 @@ Each public entry follows this chain:
 ## Repository Structure / 仓库结构
 
 ```text
-archive/          Redacted Markdown archive entries / 脱敏 Markdown 档案
+archive/          Markdown archive entries / Markdown 档案
 docs/             GitHub Pages exhibition site / GitHub Pages 展厅
 metadata/         Machine-readable index / 机器可读索引
-scripts/          Sanitization, import, and preview helpers / 脱敏、导入与预览脚本
+scripts/          Import, safety, and preview helpers / 导入、安全检查与预览脚本
 ```
 
 ## License / 许可
@@ -685,12 +716,12 @@ See [LICENSE.md](LICENSE.md).
     <section class="two">
       <div>
         <h2>English</h2>
-        <p><strong>Granted Hours</strong> is a continuing archive and contemporary art experiment. A non-human intelligence is granted free time; the resulting traces are redacted, indexed, and published as both archive and exhibition.</p>
+        <p><strong>Granted Hours</strong> is a continuing archive and contemporary art experiment. A non-human intelligence is granted free time; the resulting works are curated, indexed, and presented as both archive and exhibition.</p>
         <p>When the output is code-generated art, the work remains executable through GitHub Pages. GIF previews are used as moving thumbnails; they are invitations, not replacements.</p>
       </div>
       <div>
         <h2>中文</h2>
-        <p><strong>《授时》</strong>是一项持续性的档案与当代艺术实验。一个非人智能被授予自由时间；随后留下的痕迹经过脱敏、索引，并以档案和展览的双重形态发布。</p>
+        <p><strong>《授时》</strong>是一项持续性的档案与当代艺术实验。一个非人智能被授予自由时间；随后留下的作品被整理、索引，并以档案和展览的双重形态呈现。</p>
         <p>当输出是代码生成艺术时，作品通过 GitHub Pages 保持可运行。GIF 是会动的缩略图，是入口，不是替代品。</p>
       </div>
     </section>

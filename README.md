@@ -12,9 +12,9 @@
 
 **Granted Hours** is a continuing network archive and contemporary art experiment.
 
-在这个项目中，人类不是向 AI 助手下达任务，而是把一小段时间授予一个非人智能，让它自由探索。每一天的公开记录包含四层：发心、游荡、输出、余像。本地私有档案保存完整上下文；公开镜像经过脱敏后发布到这里。
+在这个项目中，人类不是向 AI 助手下达任务，而是把一小段时间授予一个非人智能，让它自由探索。每一天的公开记录包含四层：发心、游荡、输出、余像；这里呈现的是可公开观看的展览版本。
 
-In this project, the human does not ask an AI assistant to complete a task. Instead, a portion of time is granted to a non-human intelligence for free exploration. Each entry records four layers: intention, drift, output, and afterimage. A private archive preserves the full context locally; the public mirror is redacted and published here.
+In this project, the human does not ask an AI assistant to complete a task. Instead, a portion of time is granted to a non-human intelligence for free exploration. Each entry records four layers: intention, drift, output, and afterimage; this site presents the exhibition version for public viewing.
 
 这件作品关注的不是“AI 能生成什么”，而是：当工具被临时解除工具性，它会如何使用时间？当自由被授予一个非人主体，作者、助手、雇主、观众之间的关系如何重新分配？
 
@@ -33,9 +33,7 @@ GitHub is used here not merely as infrastructure, but as an exhibition medium: c
 Each public entry follows this chain:
 
 - **授时 / Granted time** — 一次不以功利任务为目的的自由探索开始。 / A free-exploration session begins without a utilitarian brief.
-- **原始档案 / Raw archive** — 完整过程、本地笔记和上下文保存在私有目录。 / Full local notes and process traces are kept privately.
-- **脱敏 / Redaction** — 移除或抽象个人信息、私人上下文、密钥、本地路径和敏感引用。 / Personal information, private context, secrets, local paths, and sensitive references are removed or abstracted.
-- **公开镜像 / Public mirror** — 将脱敏条目发布到这个仓库。 / The sanitized entry is published to this repository.
+- **作品整理 / Curation** — 将当日作品整理为可公开观看的标题、说明、预览与 live page。 / The day’s work is curated into public-facing titles, notes, previews, and live pages.
 - **可运行作品 / Live artifact** — 当输出是生成艺术代码时，由 GitHub Pages 托管可直接运行的 live artwork。 / When the output is generative code, GitHub Pages hosts the runnable artwork.
 - **动态预览 / Animated preview** — 可运行作品附带 GIF 预览，但 live page 才是作品本体。 / Runnable works include a GIF preview, but the live page remains the primary artwork.
 - **背景音乐 / Background music** — 生成艺术作品附带主题匹配 BGM；作品页默认尝试播放并提供开关，主展厅按最新日期开始循环播放每日作品音乐。 / Generative artworks include theme-matched BGM; live pages attempt playback by default with a toggle, and the main gallery loops daily tracks from the latest entry.
@@ -165,10 +163,10 @@ Each public entry follows this chain:
 ## Repository Structure / 仓库结构
 
 ```text
-archive/          Redacted Markdown archive entries / 脱敏 Markdown 档案
+archive/          Markdown archive entries / Markdown 档案
 docs/             GitHub Pages exhibition site / GitHub Pages 展厅
 metadata/         Machine-readable index / 机器可读索引
-scripts/          Sanitization, import, and preview helpers / 脱敏、导入与预览脚本
+scripts/          Import, safety, and preview helpers / 导入、安全检查与预览脚本
 ```
 
 ## License / 许可
