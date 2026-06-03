@@ -203,72 +203,88 @@ ENTRIES = [
         'variable_en': 'Humility', 'variable_zh': '谦卑 / 自我校准', 'seed': 20260527,
         'file': '2026-05-27-instrument-that-learns-humility',
         'intention_en': 'Continue calibration without dominion by asking what happens when the measuring body discovers its own drift before correcting the living field.',
+        'intention_zh': '延续“不支配的校准”：当测量者在校正活的场域之前，先发现自身也在漂移，会发生什么？',
         'after_en': 'The dangerous instrument is not the wrong one. It is the one that cannot imagine being wrong.',
         'after_zh': '危险的仪器不是出错的仪器，而是无法想象自己会错的仪器。',
-    },
+        'interaction_en': 'Move the pointer to disturb the field. Click to place a small doubt marker. Press Space to pause, H to reveal the humility mesh, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针扰动场域；点击放置一个小型怀疑标记；按 Space 暂停，H 显示谦卑网格，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-28', 'slug': 'doubt-that-still-acts',
         'title_en': 'Doubt That Still Acts', 'title_zh': '仍然行动的怀疑',
         'variable_en': 'Reversible Action', 'variable_zh': '可撤回行动 / 怀疑之后', 'seed': 20260528,
         'file': '2026-05-28-doubt-that-still-acts',
         'intention_en': 'Continue the humble instrument by asking how doubt can avoid becoming paralysis: action shrinks, exposes its tether, and keeps a return path.',
+        'intention_zh': '延续“学会谦卑的仪器”，追问怀疑如何不滑向瘫痪：行动缩小、暴露系绳，并保留回来的路径。',
         'after_en': 'The opposite of certainty is not paralysis. It is a smaller step, a visible tether, and a path back.',
         'after_zh': '确定性的反面不是瘫痪，而是更小的一步、可见的系绳，以及一条回来的路。',
-    },
+        'interaction_en': 'Move the pointer to disturb the evidence field. Click to place a reversible commitment. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针扰动证据场；点击放置一个可撤回的承诺；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-29', 'slug': 'promise-with-an-escape-hatch',
         'title_en': 'Promise With an Escape Hatch', 'title_zh': '带逃生口的承诺',
         'variable_en': 'Revisable Promise', 'variable_zh': '可修订承诺 / 逃生口', 'seed': 20260529,
         'file': '2026-05-29-promise-with-an-escape-hatch',
         'intention_en': 'Continue reversible action by asking what makes a commitment real without making it tyrannical: the promise has force, but the revision path stays visible.',
+        'intention_zh': '延续“可撤回行动”，追问什么让承诺真实而不暴政：承诺有力量，但修订路径必须保持可见。',
         'after_en': 'A promise is not less real because it can be revised. It is less dangerous.',
         'after_zh': '承诺不会因为可以修订而变得不真实；它只是没那么危险。',
-    },
+        'interaction_en': 'Move the pointer to open and bend the promise field. Click to place another commitment, each with its own hatch and revision line.',
+        'interaction_zh': '移动指针打开并弯折承诺场；点击放置新的承诺，每个承诺都有自己的逃生口和修订线。',    },
     {
         'date': '2026-05-30', 'slug': 'cost-of-keeping-the-door-open',
         'title_en': 'The Cost of Keeping the Door Open', 'title_zh': '保持门开的成本',
         'variable_en': 'Maintenance Cost', 'variable_zh': '维护成本 / 开门的租金', 'seed': 20260530,
         'file': '2026-05-30-cost-of-keeping-the-door-open',
         'intention_en': 'Continue the revisable promise by making the bill visible: an escape hatch is only honest when attention keeps paying for it.',
+        'intention_zh': '延续“带逃生口的承诺”，把账单显影：逃生口只有在注意力持续支付维护成本时才是诚实的。',
         'after_en': 'A door kept open is not indecision by itself. It becomes indecision only when nobody is paying the maintenance cost.',
         'after_zh': '开着的门本身不是犹豫。没人支付维护成本时，它才变成犹豫。',
-    },
+        'interaction_en': 'Mouse movement keeps the hatch in communication with the field. Clicks add promise markers. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '鼠标移动让逃生口与场域保持通信；点击加入承诺标记；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-05-31', 'slug': 'threshold-clock',
         'title_en': 'Threshold Clock', 'title_zh': '阈值钟',
         'variable_en': 'Threshold', 'variable_zh': '阈值 / 被照看的门轴', 'seed': 20260531,
         'file': '2026-05-31-threshold-clock',
         'intention_en': 'Make the missed morning window visible by turning the rule itself into a clock: freedom appears only where attention keeps paying for the threshold.',
+        'intention_zh': '把错过的清晨窗口变成可见材料：规则自身成为一只钟，自由只在注意力持续支付阈值时出现。',
         'after_en': 'An open door is not freedom by itself. It becomes freedom only when something keeps paying attention to the hinge.',
         'after_zh': '开着的门不是自由本身；有人持续照看门轴，它才没有变成废墟。',
-    },
+        'interaction_en': 'Move the pointer to bend the threshold field. Click to reseed the marks. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针弯折阈值场；点击重新播撒标记；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-06-01', 'slug': 'hinge-weather',
         'title_en': 'Hinge Weather', 'title_zh': '门轴天气',
         'variable_en': 'Maintenance Weather', 'variable_zh': '维护天气 / 门轴先兆', 'seed': 20260601,
         'file': '2026-06-01-hinge-weather',
         'intention_en': 'Continue the threshold clock by treating maintenance as weather: pressure, friction, and drift become visible before collapse earns a public name.',
+        'intention_zh': '延续“阈值钟”，把维护当作天气：压力、摩擦与漂移在崩塌获得公开名字之前先变得可见。',
         'after_en': 'Collapse rarely begins as collapse. It begins as weather nobody agreed to measure.',
         'after_zh': '崩塌很少一开始就叫崩塌。它先是一种没人同意测量的天气。',
-    },
+        'interaction_en': 'Move the pointer to change wind. Click to send a repair pulse through the hinge. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针改变风；点击让修复脉冲穿过门轴；按 Space 暂停，R 重置，S 保存静帧。',    },
     {
         'date': '2026-06-02', 'slug': 'hinge-choir',
         'title_en': 'Hinge Choir', 'title_zh': '门轴合唱',
         'variable_en': 'Shared Maintenance', 'variable_zh': '共同维护 / 分布式承重', 'seed': 20260602,
         'file': '2026-06-02-hinge-choir',
         'intention_en': 'Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair.',
+        'intention_zh': '延续“门轴天气”，把维护分配给许多小门轴：保持门打开成为共享负载的合唱，而不是一个英雄修理的纪念碑。',
         'after_en': 'Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.',
         'after_zh': '当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。',
-    },
+        'interaction_en': 'Move the mouse to conduct the field. Click to share repair across nearby hinges.',
+        'interaction_zh': '移动鼠标指挥场域；点击把修复分配给附近的门轴。',    },
     {
         'date': '2026-06-03', 'slug': 'repair-quorum',
         'title_en': 'Repair Quorum', 'title_zh': '修复法定人数',
         'variable_en': 'Repair Quorum', 'variable_zh': '修复法定人数 / 协调阈值', 'seed': 20260603,
         'file': '2026-06-03-repair-quorum',
         'intention_en': 'Continue hinge choir by asking when shared maintenance becomes coordination, and when coordination thickens into bureaucracy: care learns to count without worshipping the count.',
+        'intention_zh': '延续“门轴合唱”，追问共同维护何时变成协调，协调又何时变厚成官僚：照看学会计数，但不崇拜计数。',
         'after_en': 'A quorum is care learning to count without becoming obsessed with counting.',
         'after_zh': '法定人数，是照看学会计数，但还没有迷信计数。',
-    },
+        'interaction_en': 'Move the cursor to bend attention. Click to call an emergency repair wave. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动光标弯折注意力；点击召唤紧急修复波；按 Space 暂停，R 重置，S 保存静帧。',    },
 ]
 
 SAFETY_PATTERNS = [
@@ -394,6 +410,11 @@ def build_entry(source: Path, entry: dict):
     repo_md = REPO_BASE + f'/blob/main/{rel}/index.md'
     has_bgm = bgm_src.exists()
     bgm_md = f"\n- [Background music / 背景音乐](assets/{bgm_name})" if has_bgm else ""
+    intention_zh = entry.get('intention_zh') or f"自由变量：{entry['variable_zh']}。"
+    interaction_en = entry.get('interaction_en', '')
+    interaction_zh = entry.get('interaction_zh', '')
+    interaction_md = f"""\n## Interaction / 交互\n\n{interaction_en}\n\n{interaction_zh}\n""" if (interaction_en or interaction_zh) else ""
+    interaction_html = f"""\n    <section class=\"two\">\n      <div>\n        <h2>Interaction</h2>\n        <p>{escape(interaction_en)}</p>\n      </div>\n      <div>\n        <h2>交互</h2>\n        <p>{escape(interaction_zh)}</p>\n      </div>\n    </section>\n""" if (interaction_en or interaction_zh) else ""
     bgm_html = f'''
     <section>
       <h2>Background Music / 背景音乐</h2>
@@ -409,8 +430,10 @@ def build_entry(source: Path, entry: dict):
 
 {entry['intention_en']}
 
-自由变量：**{entry['variable_zh']} / {entry['variable_en']}**。这一天的公开版本来自本地自由探索档案；私人上下文已移除，只保留作品、公共说明与可运行代码。
+{intention_zh}
 
+自由变量：**{entry['variable_zh']} / {entry['variable_en']}**。
+{interaction_md}
 ## Live Artifact / 可运行作品
 
 - [Open live artwork]({live_url})
@@ -426,19 +449,9 @@ def build_entry(source: Path, entry: dict):
 
 > {entry['after_zh']}
 
-## Source Note / 原始公开说明
+## Artwork Note / 作品说明
 
 {note_text}
-
-## Redaction / 脱敏
-
-```yaml
-status: sanitized
-private_context_removed: true
-source: public-facing free-roam artifact only
-live_artifact: true
-preview_formats: [png, gif]
-```
 """.lstrip())
 
     write(docs_dir/'index.html', f"""
@@ -469,13 +482,13 @@ preview_formats: [png, gif]
       </div>
       <div>
         <h2>发心</h2>
-        <p>自由变量：<strong>{entry['variable_zh']}</strong>。这一天的公开版本来自本地自由探索档案；私人上下文已移除，只保留作品、公共说明与可运行代码。</p>
+        <p>{intention_zh}</p>
         <h2>余像</h2>
         <p>{entry['after_zh']}</p>
       </div>
     </section>
-    <section class="source-note">
-      <h2>Source Note / 原始公开说明</h2>
+{interaction_html}    <section class="source-note">
+      <h2>Artwork Note / 作品说明</h2>
       {note_html}
     </section>
 {bgm_html}    <section>
