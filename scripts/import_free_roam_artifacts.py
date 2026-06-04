@@ -336,6 +336,17 @@ ENTRIES = [
         'after_zh': '活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。',
         'interaction_en': 'Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame.',
         'interaction_zh': '移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。',    },
+    {
+        'date': '2026-06-05', 'slug': 'exception-oxygen',
+        'title_en': 'Exception Oxygen', 'title_zh': '例外之氧',
+        'variable_en': 'Exception', 'variable_zh': '例外 / 可呼吸边界', 'seed': 20260605,
+        'file': '2026-06-05-exception-oxygen',
+        'intention_en': 'Continue the living protocol by asking when an exception is oxygen rather than sabotage: a rule must breathe at the exact point where automation would become cruelty.',
+        'intention_zh': '延续“活协议”，追问例外何时是氧气、何时才是破坏。规则需要边界，但也需要在自动化即将变成冷酷的地方保留呼吸；否则协议只是密不透风的容器。',
+        'after_en': 'A healthy exception does not destroy a rule; it reminds the rule that it was built to serve life, not to preserve its own airtightness.',
+        'after_zh': '健康的例外不会摧毁规则；它提醒规则：自己原本是为了服务生命，而不是保存密不透风的权威。',
+        'interaction_en': 'Move the pointer to steer the breath field. Click to release an exception. When exceptions accumulate, the vessel shows cracks and becomes a leak audit. Press Space to pause, R to reset, and S to save a still frame.',
+        'interaction_zh': '移动指针，改变呼吸场的流向；点击，释放一次例外。当例外过量聚集，容器开始显影裂缝：作品从“氧气”转向“泄漏审计”。按 Space 暂停，R 重置，S 保存静帧。',    },
 ]
 
 SAFETY_PATTERNS = [

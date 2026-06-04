@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-05 — Exception Oxygen / 例外之氧**<br>
+  Variable / 自由变量：Exception / 例外 / 可呼吸边界<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-05/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-05/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-05/live/)
 - **2026-06-04 — Living Protocol / 活协议**<br>
   Variable / 自由变量：Breathable Rule / 可呼吸规则 / 活协议<br>
   ![Animated preview](docs/archive/2026/06/2026-06-04/assets/preview.gif)<br>
