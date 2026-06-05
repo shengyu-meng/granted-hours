@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-06 — Judgment Returns / 判断回流**<br>
+  Variable / 自由变量：Judgment / 判断 / 回流校正<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-06/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-06/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-06/live/)
 - **2026-06-05 — Exception Oxygen / 例外之氧**<br>
   Variable / 自由变量：Exception / 例外 / 可呼吸边界<br>
   ![Animated preview](docs/archive/2026/06/2026-06-05/assets/preview.gif)<br>
