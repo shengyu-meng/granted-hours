@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-07 — Re-entry Budget / 回流预算**<br>
+  Variable / 自由变量：Re-entry Budget / 回流预算 / 协调成本<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-07/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-07/live/)
 - **2026-06-06 — Judgment Returns / 判断回流**<br>
   Variable / 自由变量：Judgment / 判断 / 回流校正<br>
   ![Animated preview](docs/archive/2026/06/2026-06-06/assets/preview.gif)<br>

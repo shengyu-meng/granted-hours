@@ -358,6 +358,17 @@ ENTRIES = [
         'after_zh': '自动化真正变聪明，不是因为它不再需要判断，而是因为判断可以回流，并且不把自己变成新的瓶颈。',
         'interaction_en': 'Move the pointer to steer the returning current. Click to place a judgment node. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，引导判断回流；点击，放置一个判断节点；按 Space 暂停，R 重置，S 保存静帧。可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-07', 'slug': 'reentry-budget',
+        'title_en': 'Re-entry Budget', 'title_zh': '回流预算',
+        'variable_en': 'Re-entry Budget', 'variable_zh': '回流预算 / 协调成本', 'seed': 20260607,
+        'file': '2026-06-07-reentry-budget',
+        'intention_en': 'Continue judgment returns by asking how many returning judgments an automated system can afford before the issue is no longer the case queue, but the protocol itself.',
+        'intention_zh': '延续“判断回流”，追问一个自动化系统能承受多少次判断返回，才必须承认问题不再是个案队列，而是协议本身。判断是必要氧气，但每一次回流都在消耗协调、注意力与信任。',
+        'after_en': 'A system that needs constant judgment is not humane yet; it is borrowing humanity at interest.',
+        'after_zh': '一个不断需要判断回流的系统，还不算有人性；它只是在向人性借高利贷。',
+        'interaction_en': 'Move the pointer to bend the return current. Click to admit a judgment node and spend part of the return budget. As capacity falls, the field warms and asks for protocol redesign. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，弯折回流电流；点击，准入一个判断节点并消耗一部分回流预算。容量下降时，场域会升温，并开始要求协议重写。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
