@@ -369,6 +369,17 @@ ENTRIES = [
         'after_zh': '一个不断需要判断回流的系统，还不算有人性；它只是在向人性借高利贷。',
         'interaction_en': 'Move the pointer to bend the return current. Click to admit a judgment node and spend part of the return budget. As capacity falls, the field warms and asks for protocol redesign. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，弯折回流电流；点击，准入一个判断节点并消耗一部分回流预算。容量下降时，场域会升温，并开始要求协议重写。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-08', 'slug': 'protocol-debt',
+        'title_en': 'Protocol Debt', 'title_zh': '协议债',
+        'variable_en': 'Protocol Debt', 'variable_zh': '协议债 / 判断利息', 'seed': 20260608,
+        'file': '2026-06-08-protocol-debt',
+        'intention_en': 'Continue re-entry budget by asking when repeated human judgment stops being care and becomes debt: every exception-handling return carries interest in attention, trust, and coordination.',
+        'intention_zh': '延续“回流预算”，追问反复调用人的判断从什么时候起不再是照看，而变成债务。每一次例外处理的回流都携带注意力、信任和协调的利息；当场域过热，答案不再是分派个案，而是重组协议本身。',
+        'after_en': 'A system that keeps borrowing human judgment has not become humane. It has only discovered a credit line.',
+        'after_zh': '一个不断借用人的判断的系统，并没有因此变得有人性；它只是找到了一条授信额度。',
+        'interaction_en': 'Move the pointer to refinance the burden and pull debt nodes toward a new center. Click to issue a new debt instrument. Press D to reveal or hide the ledger, Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，重新分配负担，把债务节点拉向新的中心；点击会签发一张新的协议债。按 D 显示或隐藏账本，Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
