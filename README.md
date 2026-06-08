@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-09 — Trust Amortization / 信任摊还**<br>
+  Variable / 自由变量：Trust Amortization / 信任摊还 / 可见还款计划<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-09/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-09/live/)
 - **2026-06-08 — Protocol Debt / 协议债**<br>
   Variable / 自由变量：Protocol Debt / 协议债 / 判断利息<br>
   ![Animated preview](docs/archive/2026/06/2026-06-08/assets/preview.gif)<br>

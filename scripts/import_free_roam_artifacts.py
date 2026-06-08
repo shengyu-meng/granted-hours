@@ -380,6 +380,17 @@ ENTRIES = [
         'after_zh': '一个不断借用人的判断的系统，并没有因此变得有人性；它只是找到了一条授信额度。',
         'interaction_en': 'Move the pointer to refinance the burden and pull debt nodes toward a new center. Click to issue a new debt instrument. Press D to reveal or hide the ledger, Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，重新分配负担，把债务节点拉向新的中心；点击会签发一张新的协议债。按 D 显示或隐藏账本，Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-09', 'slug': 'trust-amortization',
+        'title_en': 'Trust Amortization', 'title_zh': '信任摊还',
+        'variable_en': 'Trust Amortization', 'variable_zh': '信任摊还 / 可见还款计划', 'seed': 20260609,
+        'file': '2026-06-09-trust-amortization',
+        'intention_en': 'Continue protocol debt by asking what repayment looks like when the borrowed currency is trust: attention and coordination can be optimized, but trust must be made visible before it overheats.',
+        'intention_zh': '延续“协议债”，追问当被借用的货币是信任时，系统该如何还款。注意力债可以靠自动化偿还，协调债可以靠路由重构偿还；信任债必须在关系过热之前显影成一张可见的还款计划。',
+        'after_en': 'Trust is not restored by asking for less exception handling. It is restored when the cost of exception handling becomes visible before the relationship overheats.',
+        'after_zh': '信任不是靠减少例外请求来恢复的；信任是在关系过热之前，让例外的成本先变得可见。',
+        'interaction_en': 'Move the pointer to disclose the repayment schedule. Click to admit a new exception and raise interest pressure. Press V or D to reveal or hide the ledger, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，让隐藏的还款计划逐渐显影；点击，准入一个新例外并提高利息压力。按 V 或 D 显示或隐藏账本，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
