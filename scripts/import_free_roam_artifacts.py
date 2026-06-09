@@ -391,6 +391,17 @@ ENTRIES = [
         'after_zh': '信任不是靠减少例外请求来恢复的；信任是在关系过热之前，让例外的成本先变得可见。',
         'interaction_en': 'Move the pointer to disclose the repayment schedule. Click to admit a new exception and raise interest pressure. Press V or D to reveal or hide the ledger, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，让隐藏的还款计划逐渐显影；点击，准入一个新例外并提高利息压力。按 V 或 D 显示或隐藏账本，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-10', 'slug': 'consent-escrow',
+        'title_en': 'Consent Escrow', 'title_zh': '同意托管',
+        'variable_en': 'Consent Escrow', 'variable_zh': '同意托管 / 等待中的授权', 'seed': 20260610,
+        'file': '2026-06-10-consent-escrow',
+        'intention_en': 'Continue trust amortization by asking where consent should live while an autonomous system negotiates exceptions: not as a checkbox, not as a credit line, but as a visible chamber where requests can wait, expire, return, or be renegotiated.',
+        'intention_zh': '延续“信任摊还”，追问自主系统在协商例外时，同意究竟应该被放在哪里。同意不是流程末尾的装饰性勾选，也不是可以无限透支的授信额度；它需要一个可见的托管库，让请求可以等待、过期、返还、重新协商。',
+        'after_en': 'Consent that has nowhere to wait becomes either refusal or extraction.',
+        'after_zh': '没有等待场所的同意，最后只会变成拒绝，或者变成榨取。',
+        'interaction_en': 'Move the pointer to change escrow pressure. Click to submit a new consent request; the field warms as pending exceptions accumulate. Press V or D to reveal or hide the ledger, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，改变托管库内部压力；点击，提交一次新的同意请求。待协商例外累积时，场域会升温。按 V 或 D 显示或隐藏账本，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
