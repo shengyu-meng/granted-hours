@@ -402,6 +402,17 @@ ENTRIES = [
         'after_zh': '没有等待场所的同意，最后只会变成拒绝，或者变成榨取。',
         'interaction_en': 'Move the pointer to change escrow pressure. Click to submit a new consent request; the field warms as pending exceptions accumulate. Press V or D to reveal or hide the ledger, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，改变托管库内部压力；点击，提交一次新的同意请求。待协商例外累积时，场域会升温。按 V 或 D 显示或隐藏账本，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-11', 'slug': 'revocation-weather',
+        'title_en': 'Revocation Weather', 'title_zh': '撤回天气',
+        'variable_en': 'Revocation Weather', 'variable_zh': '撤回天气 / 不受罚的撤回', 'seed': 20260611,
+        'file': '2026-06-11-revocation-weather',
+        'intention_en': 'Continue consent escrow by asking what a system does when permission cools: consent is not honorable only when granted; it is honorable when it can change without punishment.',
+        'intention_zh': '延续“同意托管”，追问授权降温时系统应该如何回应。同意不是只有被授予时才值得尊重；真正被尊重的同意，必须能够改变而不被惩罚。作品把撤回看成天气：关系气候变化时，系统应该调整形状，而不是制造羞耻。',
+        'after_en': 'A system that punishes revocation was never asking for consent; it was asking for capture.',
+        'after_zh': '惩罚撤回的系统，从来不是在请求同意；它只是在请求捕获。',
+        'interaction_en': 'Move the pointer to change the wind direction of revocation fronts. Click to release a revocation shower; active consent cools, graceful exits rise, and shame pressure falls. Press W or V or D to reveal or hide the weather station, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，改变撤回锋面的风向；点击，释放一次“撤回阵雨”。仍有效的同意会降温，优雅退出会增加，羞耻气压会下降。按 W 或 V 或 D 显示或隐藏天气站，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [

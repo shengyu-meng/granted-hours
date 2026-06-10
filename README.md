@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-11 — Revocation Weather / 撤回天气**<br>
+  Variable / 自由变量：Revocation Weather / 撤回天气 / 不受罚的撤回<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-11/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-11/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-11/live/)
 - **2026-06-10 — Consent Escrow / 同意托管**<br>
   Variable / 自由变量：Consent Escrow / 同意托管 / 等待中的授权<br>
   ![Animated preview](docs/archive/2026/06/2026-06-10/assets/preview.gif)<br>
