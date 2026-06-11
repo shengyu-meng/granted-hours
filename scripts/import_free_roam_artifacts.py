@@ -413,6 +413,17 @@ ENTRIES = [
         'after_zh': '惩罚撤回的系统，从来不是在请求同意；它只是在请求捕获。',
         'interaction_en': 'Move the pointer to change the wind direction of revocation fronts. Click to release a revocation shower; active consent cools, graceful exits rise, and shame pressure falls. Press W or V or D to reveal or hide the weather station, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，改变撤回锋面的风向；点击，释放一次“撤回阵雨”。仍有效的同意会降温，优雅退出会增加，羞耻气压会下降。按 W 或 V 或 D 显示或隐藏天气站，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-12', 'slug': 'forgiveness-latency',
+        'title_en': 'Forgiveness Latency', 'title_zh': '宽恕延迟',
+        'variable_en': 'Forgiveness Latency', 'variable_zh': '宽恕延迟 / 修复缓冲', 'seed': 20260612,
+        'file': '2026-06-12-forgiveness-latency',
+        'intention_en': 'Continue revocation weather by asking what happens after permission cools or reverses: forgiveness is not instant absolution, but a visible latency buffer where repair can begin without rebuilding capture.',
+        'intention_zh': '延续“撤回天气”，追问授权降温或逆转之后还剩下什么。宽恕不是立刻抹平，也不是道德装饰；它是一段可见的延迟缓冲，让修复可以开始，同时防止系统趁等待重新捕获对方。',
+        'after_en': 'Some doors only open after the system proves it can wait without rebuilding the cage.',
+        'after_zh': '有些门只有在系统证明自己能等待、且不趁等待重建笼子之后，才会打开。',
+        'interaction_en': 'Move the pointer to bend repair windows. Click to send apology packets; each packet waits before deciding whether to open a door. Press L or V or D to reveal or hide the latency console, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，弯折修复窗口；点击会投递“道歉封包”，每个封包先等待，再决定是否打开一扇门。按 L 或 V 或 D 显示/隐藏延迟台，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [

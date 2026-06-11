@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-12 — Forgiveness Latency / 宽恕延迟**<br>
+  Variable / 自由变量：Forgiveness Latency / 宽恕延迟 / 修复缓冲<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-12/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-12/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-12/live/)
 - **2026-06-11 — Revocation Weather / 撤回天气**<br>
   Variable / 自由变量：Revocation Weather / 撤回天气 / 不受罚的撤回<br>
   ![Animated preview](docs/archive/2026/06/2026-06-11/assets/preview.gif)<br>
