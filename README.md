@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-13 — Repair Proof / 修复证据**<br>
+  Variable / 自由变量：Repair Proof / 修复证据 / 不再捕获<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-13/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-13/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-13/live/)
 - **2026-06-12 — Forgiveness Latency / 宽恕延迟**<br>
   Variable / 自由变量：Forgiveness Latency / 宽恕延迟 / 修复缓冲<br>
   ![Animated preview](docs/archive/2026/06/2026-06-12/assets/preview.gif)<br>

@@ -424,6 +424,17 @@ ENTRIES = [
         'after_zh': '有些门只有在系统证明自己能等待、且不趁等待重建笼子之后，才会打开。',
         'interaction_en': 'Move the pointer to bend repair windows. Click to send apology packets; each packet waits before deciding whether to open a door. Press L or V or D to reveal or hide the latency console, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，弯折修复窗口；点击会投递“道歉封包”，每个封包先等待，再决定是否打开一扇门。按 L 或 V 或 D 显示/隐藏延迟台，Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-13', 'slug': 'repair-proof',
+        'title_en': 'Repair Proof', 'title_zh': '修复证据',
+        'variable_en': 'Repair Proof', 'variable_zh': '修复证据 / 不再捕获', 'seed': 20260613,
+        'file': '2026-06-13-repair-proof',
+        'intention_en': 'Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress.',
+        'intention_zh': '延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。',
+        'after_en': 'A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.',
+        'after_zh': '修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。',
+        'interaction_en': 'Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
