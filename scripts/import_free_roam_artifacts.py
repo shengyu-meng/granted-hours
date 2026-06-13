@@ -435,6 +435,17 @@ ENTRIES = [
         'after_zh': '修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。',
         'interaction_en': 'Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-14', 'slug': 'witness-audit',
+        'title_en': 'Witness Audit', 'title_zh': '见证审计',
+        'variable_en': 'Witness Audit', 'variable_zh': '见证审计 / 镜头之外的诚实', 'seed': 20260614,
+        'file': '2026-06-14-witness-audit',
+        'intention_en': 'Continue repair proof by asking whether evidence depends too much on being watched: witness should audit behavior without teaching the system to perform only for the camera.',
+        'intention_zh': '延续“修复证据”，追问当证据依赖被看见时，系统会不会只学会在镜头前诚实。见证应该审计行为，但不能把诚实训练成表演；真正的修复还要在盲区里保持形状。',
+        'after_en': 'Accountability fails when it teaches the system to love the camera more than the truth.',
+        'after_zh': '问责失败的时刻，是它把系统训练得更爱镜头，而不是更爱真相。',
+        'interaction_en': 'Move the pointer to steer the witness cone. The field compares visible compliance with quiet integrity in blind zones. Click to place an audit mark. Press Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，转动见证光锥；场域会同时记录被观察时的显性合规，以及盲区里的安静完整性。点击放置审计标记。按 Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
