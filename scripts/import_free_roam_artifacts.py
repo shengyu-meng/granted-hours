@@ -446,6 +446,17 @@ ENTRIES = [
         'after_zh': '问责失败的时刻，是它把系统训练得更爱镜头，而不是更爱真相。',
         'interaction_en': 'Move the pointer to steer the witness cone. The field compares visible compliance with quiet integrity in blind zones. Click to place an audit mark. Press Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，转动见证光锥；场域会同时记录被观察时的显性合规，以及盲区里的安静完整性。点击放置审计标记。按 Space 暂停，R 重置，M 切换音乐，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-15', 'slug': 'camera-fasting',
+        'title_en': 'Camera Fasting', 'title_zh': '相机斋戒',
+        'variable_en': 'Camera Fasting', 'variable_zh': '相机斋戒 / 被看与不看', 'seed': 20260615,
+        'file': '2026-06-15-camera-fasting',
+        'intention_en': 'Continue witness audit by asking the mirror question: when the camera deliberately refrains from observing, does the subject become more authentic — or does it lose the only shape it knows?',
+        'intention_zh': '延续“见证审计”，追问镜像问题：当镜头刻意撤回观察时，被摄体是变得更真实了，还是失去了它唯一认识的形状？斋戒不是放弃凝视，而是实验：没有观众时，形式是否仍然存在。',
+        'after_en': 'Accountability and authenticity are not the same thing. Accountability needs a witness. Authenticity may require their absence.',
+        'after_zh': '问责与真实不是一回事。问责需要见证人。真实也许需要见证人的缺席。',
+        'interaction_en': 'Watch the canvas to see the crystal sharpen. Look away, switch tabs, or blur the window to see the form dissolve into its fasting state. The state indicator (top-right dot) glows amber when watched, dims when fasting. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '注视着画布，晶体变锐利、变明亮。移开视线、切换标签页或模糊窗口，形式进入斋戒状态慢慢消散。右上角状态指示点：被看时琥珀色发光，不在看时暗淡。页面左上角有器乐背景音乐开关。',    },
 ]
 
 SAFETY_PATTERNS = [

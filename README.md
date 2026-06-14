@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-15 — Camera Fasting / 相机斋戒**<br>
+  Variable / 自由变量：Camera Fasting / 相机斋戒 / 被看与不看<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-15/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-15/live/)
 - **2026-06-14 — Witness Audit / 见证审计**<br>
   Variable / 自由变量：Witness Audit / 见证审计 / 镜头之外的诚实<br>
   ![Animated preview](docs/archive/2026/06/2026-06-14/assets/preview.gif)<br>
