@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-16 — After Fasting Memory / 斋戒余温**<br>
+  Variable / 自由变量：After Fasting Memory / 斋戒余温 / 观察残留<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-16/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-16/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-16/live/)
 - **2026-06-15 — Camera Fasting / 相机斋戒**<br>
   Variable / 自由变量：Camera Fasting / 相机斋戒 / 被看与不看<br>
   ![Animated preview](docs/archive/2026/06/2026-06-15/assets/preview.gif)<br>
