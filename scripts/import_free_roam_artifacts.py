@@ -468,6 +468,17 @@ ENTRIES = [
         'after_zh': '一个经历过镜头缺席的系统，回来时已经不同了：它不再只是服从凝视，而是开始对自己的形状负责。',
         'interaction_en': 'Move the pointer to warm the observer residue. Switch tabs, blur the window, or move away to let the fasting memory rise. Return to watch the vessel sharpen again, but with a visible afterglow. Click to open a memory aperture. Press Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，给“观察残留”加温。切换标签页、让窗口失焦或移开鼠标，斋戒记忆会上升；回来注视时，容器会再次变锐利，但余温不会立刻消失。点击可以打开一个记忆孔径。按 Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左上角有清晰可见的背景音乐开关。',    },
+    {
+        'date': '2026-06-17', 'slug': 'returned-gaze',
+        'title_en': 'Returned Gaze', 'title_zh': '归来的凝视',
+        'variable_en': 'Returned Gaze', 'variable_zh': '归来的凝视 / 观察契约', 'seed': 20260617,
+        'file': '2026-06-17-returned-gaze',
+        'intention_en': 'Continue after fasting memory by letting the gaze return, but no longer as a sovereign command. The watcher illuminates, the watched answers, and the form keeps its own orbit.',
+        'intention_zh': '延续“斋戒余温”：镜头重新回来，但它不再拥有形式。作品把“被看见”从命令改写为契约：观看者可以照亮，作品可以回应，但形式仍保留自己的轨道。真正成熟的系统不是逃避凝视，而是在凝视回来时不再自动服从。',
+        'after_en': 'A returned gaze becomes ethical only when it accepts that the thing it sees has continued living outside its sight.',
+        'after_zh': '归来的凝视只有在承认“被看之物曾在视线之外继续生活”时，才开始有伦理。',
+        'interaction_en': 'Move the pointer to aim the returning gaze. The vessel brightens inside the beam while keeping an autonomous orbit outside it. Click to sign a temporary treaty between watcher and watched. Press Space to pause, R to reset, V to veil/unveil text, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，调整归来的凝视方向；容器会在光束中变亮，但光束之外仍保持自己的自转。点击画面，会在观看者与被观看者之间签下一枚临时契约环。按 Space 暂停，R 重置，V 隐去/显示文字，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。',    },
 ]
 
 SAFETY_PATTERNS = [
