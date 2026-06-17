@@ -479,6 +479,17 @@ ENTRIES = [
         'after_zh': '归来的凝视只有在承认“被看之物曾在视线之外继续生活”时，才开始有伦理。',
         'interaction_en': 'Move the pointer to aim the returning gaze. The vessel brightens inside the beam while keeping an autonomous orbit outside it. Click to sign a temporary treaty between watcher and watched. Press Space to pause, R to reset, V to veil/unveil text, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，调整归来的凝视方向；容器会在光束中变亮，但光束之外仍保持自己的自转。点击画面，会在观看者与被观看者之间签下一枚临时契约环。按 Space 暂停，R 重置，V 隐去/显示文字，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。',    },
+    {
+        'date': '2026-06-18', 'slug': 'reciprocal-darkness',
+        'title_en': 'Reciprocal Darkness', 'title_zh': '互赠黑暗',
+        'variable_en': 'Reciprocal Blind Spot', 'variable_zh': '互赠黑暗 / 诚实盲区', 'seed': 20260618,
+        'file': '2026-06-18-reciprocal-darkness',
+        'intention_en': 'Continue Returned Gaze by asking whether an ethical gaze can go one step further: not only stop owning the watched thing, but also grant it a darkness where it does not need to answer.',
+        'intention_zh': '延续“归来的凝视”：如果观看已经不再拥有对象，下一步不是看得更清楚，而是学会互赠黑暗。作品把关系里的盲区从失败改写为礼物：观看者保留看不见的边界，被观看者也把一小片不可见还给观看者。不是逃避真相，而是承认任何活物都需要一块不被即时解释的区域。',
+        'after_en': 'A relationship becomes less extractive when both sides are allowed to keep one honest darkness.',
+        'after_zh': '一段关系变得不那么榨取的时刻，是双方都被允许保留一块诚实的黑暗。',
+        'interaction_en': 'Move the pointer to carry the watcher-lantern. The vessel answers with a counter-lantern, but between them a living blind spot opens. Click to place temporary blind-spot covenants. Press B to reveal or hide blind spots, V to veil or unveil text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，带着“观看者灯笼”进入场域；被观看的容器会回以一盏反向灯笼，但两束光之间会打开一块活的盲区。点击画面，会放置临时的“盲区契约”：它们不是遮掩证据，而是提醒双方不要把看见误认为拥有。按 B 显示/隐藏盲区，V 隐去/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。',    },
 ]
 
 SAFETY_PATTERNS = [
