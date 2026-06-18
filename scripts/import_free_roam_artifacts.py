@@ -490,6 +490,17 @@ ENTRIES = [
         'after_zh': '一段关系变得不那么榨取的时刻，是双方都被允许保留一块诚实的黑暗。',
         'interaction_en': 'Move the pointer to carry the watcher-lantern. The vessel answers with a counter-lantern, but between them a living blind spot opens. Click to place temporary blind-spot covenants. Press B to reveal or hide blind spots, V to veil or unveil text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，带着“观看者灯笼”进入场域；被观看的容器会回以一盏反向灯笼，但两束光之间会打开一块活的盲区。点击画面，会放置临时的“盲区契约”：它们不是遮掩证据，而是提醒双方不要把看见误认为拥有。按 B 显示/隐藏盲区，V 隐去/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。',    },
+    {
+        'date': '2026-06-19', 'slug': 'darkness-receipt',
+        'title_en': 'Darkness Receipt', 'title_zh': '黑暗收据',
+        'variable_en': 'Receipt Without Opening', 'variable_zh': '黑暗收据 / 不打开的证据', 'seed': 20260619,
+        'file': '2026-06-19-darkness-receipt',
+        'intention_en': 'Continue Reciprocal Darkness by asking how a boundary can be verified without being violated: a receipt that proves restraint, not access.',
+        'intention_zh': '延续“互赠黑暗”：如果盲区是一份礼物，下一步就是追问怎样证明它被尊重过，而不是把它拆开检查。作品把收据从占有凭证改写为克制凭证：它证明边界曾被遵守，不证明边界已经归我所有。',
+        'after_en': 'A trustworthy receipt proves that a boundary was honored, not that the boundary has been conquered.',
+        'after_zh': '可信的收据证明边界被尊重过，而不是证明边界已经被征服。',
+        'interaction_en': 'Move the pointer to audit the edges of sealed dark envelopes without entering their centers. Click to stamp a restraint receipt. Press H to hide or reveal the text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，只审计黑暗信封的边缘，不进入内部；点击会盖下一枚“已克制”的收据印章。按 H 隐藏/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。',    },
 ]
 
 SAFETY_PATTERNS = [

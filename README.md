@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-19 — Darkness Receipt / 黑暗收据**<br>
+  Variable / 自由变量：Receipt Without Opening / 黑暗收据 / 不打开的证据<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-19/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-19/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-19/live/)
 - **2026-06-18 — Reciprocal Darkness / 互赠黑暗**<br>
   Variable / 自由变量：Reciprocal Blind Spot / 互赠黑暗 / 诚实盲区<br>
   ![Animated preview](docs/archive/2026/06/2026-06-18/assets/preview.gif)<br>
