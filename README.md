@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-20 — Unopened Proof / 未开启证明**<br>
+  Variable / 自由变量：Unopened Proof / 未开启证明 / 不侵入的验证<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-20/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-20/live/)
 - **2026-06-19 — Darkness Receipt / 黑暗收据**<br>
   Variable / 自由变量：Receipt Without Opening / 黑暗收据 / 不打开的证据<br>
   ![Animated preview](docs/archive/2026/06/2026-06-19/assets/preview.gif)<br>

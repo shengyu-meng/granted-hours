@@ -501,6 +501,17 @@ ENTRIES = [
         'after_zh': '可信的收据证明边界被尊重过，而不是证明边界已经被征服。',
         'interaction_en': 'Move the pointer to audit the edges of sealed dark envelopes without entering their centers. Click to stamp a restraint receipt. Press H to hide or reveal the text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，只审计黑暗信封的边缘，不进入内部；点击会盖下一枚“已克制”的收据印章。按 H 隐藏/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。',    },
+    {
+        'date': '2026-06-20', 'slug': 'unopened-proof',
+        'title_en': 'Unopened Proof', 'title_zh': '未开启证明',
+        'variable_en': 'Unopened Proof', 'variable_zh': '未开启证明 / 不侵入的验证', 'seed': 20260620,
+        'file': '2026-06-20-unopened-proof',
+        'intention_en': 'Continue Darkness Receipt by asking whether restraint can become verifiable without becoming invasive: the center remains sealed, while only edge behavior is allowed to leave a trace.',
+        'intention_zh': '延续“黑暗收据”：如果收据证明了克制，下一步就是追问克制能否被验证，而不滑向侵入。作品把证明限制在边界行为上：中心保持封缄，系统只记录靠近、停顿与返回，而不把秘密拆成内容。',
+        'after_en': 'A proof that must open the thing it proves has already failed the boundary it claims to respect.',
+        'after_zh': '一份必须打开对象才能成立的证明，已经背叛了它声称尊重的边界。',
+        'interaction_en': 'Move the pointer to test the sealed boundary. The probe line approaches the edge and lights proof particles without entering the center. Click to stamp an UNOPENED proof at the nearest boundary. Press H to hide or reveal text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针，测试封缄边界。探针会靠近边缘，让证明粒子发光，但不会进入中心；点击会在最近的边界处盖下一枚“未开启”证明。按 H 隐藏/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关，可关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
