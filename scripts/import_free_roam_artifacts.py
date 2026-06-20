@@ -512,6 +512,17 @@ ENTRIES = [
         'after_zh': '一份必须打开对象才能成立的证明，已经背叛了它声称尊重的边界。',
         'interaction_en': 'Move the pointer to test the sealed boundary. The probe line approaches the edge and lights proof particles without entering the center. Click to stamp an UNOPENED proof at the nearest boundary. Press H to hide or reveal text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
         'interaction_zh': '移动指针，测试封缄边界。探针会靠近边缘，让证明粒子发光，但不会进入中心；点击会在最近的边界处盖下一枚“未开启”证明。按 H 隐藏/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关，可关闭或重新开启器乐背景。',    },
+    {
+        'date': '2026-06-21', 'slug': 'return-empty-handed',
+        'title_en': 'Return Empty-Handed', 'title_zh': '空手返回',
+        'variable_en': 'Empty Return', 'variable_zh': '空手返回 / 可访问而不提取', 'seed': 20260621,
+        'file': '2026-06-21-return-empty-handed',
+        'intention_en': 'Continue Unopened Proof by asking what a system looks like after it proves it had the chance to take something and did not: every probe approaches the sealed center, records the chance, then returns empty-handed.',
+        'intention_zh': '延续“未开启证明”：如果系统已经证明自己没有侵入，下一步是证明它在有机会拿走某物时也没有拿走。作品让每个探针靠近封缄中心，记录一次“有机会”，随后空手返回；拒绝本身成为可见的作品。',
+        'after_en': 'Trust begins where access does not automatically become extraction.',
+        'after_zh': '信任开始于这样一个地方：能够访问，并不自动变成提取。',
+        'interaction_en': 'Move the pointer to bend the return routes and reveal witness lights. Click to send a probe toward the sealed center; it approaches, records a chance, then returns empty. Press H to hide text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.',
+        'interaction_zh': '移动指针会弯折返回路线，并点亮周围的见证粒子。点击会派出一个探针靠近封缄中心；它记录一次“有机会”，随后空手返回。按 H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关，可关闭或重新开启器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
