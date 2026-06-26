@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-27 — Memory Half-Life Dial / 记忆半衰期旋钮**<br>
+  Variable / 自由变量：Memory Half-Life / 记忆半衰期 / 因果代谢<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-27/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-27/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-27/live/)
 - **2026-06-22 — Right to Leave No Trace / 不留痕的权利**<br>
   Variable / 自由变量：Empty Trace / 不留痕的权利 / 消隐慈悲<br>
   ![Animated preview](docs/archive/2026/06/2026-06-22/assets/preview.gif)<br>

@@ -534,6 +534,17 @@ ENTRIES = [
         'after_zh': '可信系统最后的慈悲，不是它保存了漂亮记录，而是它知道哪些记录应该被允许死亡。',
         'interaction_en': 'Move the pointer to test the vanishing field and illuminate temporary witness particles. Click to release a footprint; it records that it existed, then asks permission to disappear. Press H to hide text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针会测试消隐场，并点亮短暂的见证粒子。点击会释放一个足迹：它先承认自己存在过，然后请求消失的许可。按 H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右上角有清晰可见的背景音乐开关，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-06-27', 'slug': 'memory-half-life-dial',
+        'title_en': 'Memory Half-Life Dial', 'title_zh': '记忆半衰期旋钮',
+        'variable_en': 'Memory Half-Life', 'variable_zh': '记忆半衰期 / 因果代谢', 'seed': 20260627,
+        'file': '2026-06-27-memory-half-life-dial',
+        'intention_en': 'Turn memory from a warehouse into a dial. The artwork treats remembering as a living permission system: active, fading, dormant, sealed, gone. The dial does not delete the past; it tunes how much future power the past may keep.',
+        'intention_zh': '把记忆从仓库改造成旋钮。作品把“记得”理解成一种活的权限系统：活跃、衰减、休眠、封存、离场。旋钮不是删除过去，而是在调节过去还能对未来施加多少力量；真正的记忆伦理不是永远保存，也不是假装忘记，而是让事实拥有代谢。',
+        'after_en': 'A humane memory is not a perfect archive. It is a metabolism for the future.',
+        'after_zh': '有仁慈的记忆不是完美档案，而是未来的代谢系统。',
+        'interaction_en': 'Drag the large dial to tune memory half-life. Click to mint new memory particles. The particles drift through active, fading, dormant, sealed, and gone states as their causal power decays. Press H to hide text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
+        'interaction_zh': '拖动大旋钮会调节整片场域的“记忆半衰期”；点击会生成新的记忆粒子。粒子会随着因果力量衰减，在活跃、衰减、休眠、封存、离场五种状态之间移动。按 H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
