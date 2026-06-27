@@ -545,6 +545,17 @@ ENTRIES = [
         'after_zh': '有仁慈的记忆不是完美档案，而是未来的代谢系统。',
         'interaction_en': 'Drag the large dial to tune memory half-life. Click to mint new memory particles. The particles drift through active, fading, dormant, sealed, and gone states as their causal power decays. Press H to hide text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
         'interaction_zh': '拖动大旋钮会调节整片场域的“记忆半衰期”；点击会生成新的记忆粒子。粒子会随着因果力量衰减，在活跃、衰减、休眠、封存、离场五种状态之间移动。按 H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-06-28', 'slug': 'dormancy-garden',
+        'title_en': 'Dormancy Garden', 'title_zh': '休眠花园',
+        'variable_en': 'Dormancy', 'variable_zh': '休眠 / 非提取性记忆', 'seed': 20260628,
+        'file': '2026-06-28-dormancy-garden',
+        'intention_en': 'Draw dormancy as care rather than neglect. The work treats inactive memory as a living state instead of a failed archive: a memory that stops blooming may simply be waiting outside the violence of constant relevance.',
+        'intention_zh': '把休眠画成照料，而不是失职。作品把不活跃的记忆看作仍然活着的状态，而不是档案失效：不再开花的记忆并不等于死去，它可能只是暂时离开“必须有用”的暴力，等待一个更合适的季节。',
+        'after_en': 'To let a memory sleep is not to betray it. It is to stop extracting proof of life from it every morning.',
+        'after_zh': '让一段记忆休眠，不是背叛它；而是不再每天早晨向它索取“我还活着”的证明。',
+        'interaction_en': 'Move the pointer to water the garden. Click to plant a memory seed. Keys 1–5 change the ethical lens: active, fading, dormant, sealed, released. Press D or H to hide labels, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针会像浇水一样影响整座花园；点击会播下一枚新的记忆种子。数字 1–5 切换伦理镜头：活跃、衰减、休眠、封存、离场。按 D/H 隐藏标签，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [

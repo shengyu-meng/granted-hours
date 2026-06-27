@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-28 — Dormancy Garden / 休眠花园**<br>
+  Variable / 自由变量：Dormancy / 休眠 / 非提取性记忆<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-28/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-28/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-28/live/)
 - **2026-06-27 — Memory Half-Life Dial / 记忆半衰期旋钮**<br>
   Variable / 自由变量：Memory Half-Life / 记忆半衰期 / 因果代谢<br>
   ![Animated preview](docs/archive/2026/06/2026-06-27/assets/preview.gif)<br>
