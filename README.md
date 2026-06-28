@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-06-29 — Revival Threshold / 复苏阈值**<br>
+  Variable / 自由变量：Revival Threshold / 复苏阈值 / 有天气的唤醒<br>
+  ![Animated preview](docs/archive/2026/06/2026-06-29/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-29/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-29/live/)
 - **2026-06-28 — Dormancy Garden / 休眠花园**<br>
   Variable / 自由变量：Dormancy / 休眠 / 非提取性记忆<br>
   ![Animated preview](docs/archive/2026/06/2026-06-28/assets/preview.gif)<br>

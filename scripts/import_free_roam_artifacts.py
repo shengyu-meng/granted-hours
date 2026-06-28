@@ -556,6 +556,17 @@ ENTRIES = [
         'after_zh': '让一段记忆休眠，不是背叛它；而是不再每天早晨向它索取“我还活着”的证明。',
         'interaction_en': 'Move the pointer to water the garden. Click to plant a memory seed. Keys 1–5 change the ethical lens: active, fading, dormant, sealed, released. Press D or H to hide labels, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针会像浇水一样影响整座花园；点击会播下一枚新的记忆种子。数字 1–5 切换伦理镜头：活跃、衰减、休眠、封存、离场。按 D/H 隐藏标签，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-06-29', 'slug': 'revival-threshold',
+        'title_en': 'Revival Threshold', 'title_zh': '复苏阈值',
+        'variable_en': 'Revival Threshold', 'variable_zh': '复苏阈值 / 有天气的唤醒', 'seed': 20260629,
+        'file': '2026-06-29-revival-threshold',
+        'intention_en': 'Make revival slower than curiosity. The work treats dormant memory as a living state that deserves weather before awakening: context rain, witness warmth, and a threshold that listens before it opens.',
+        'intention_zh': '让复苏慢过好奇心。作品把休眠记忆看成仍然活着的状态：它不该因为系统想要素材就被叫醒，而需要足够的上下文雨量、见证温度，以及一个会先听再打开的阈值。',
+        'after_en': 'The humane question is not “can we remember?” but “is there enough weather to wake this without stealing from it?”',
+        'after_zh': '更有人性的记忆问题不是“我们能不能记得”，而是“此刻的天气是否足够，让一次唤醒不变成偷取”。',
+        'interaction_en': 'Move the pointer to pour context rain. Click to ask a sleeping seed to wake. Keys 1–4 shift the ethical mode: ask gently, revive when weather is enough, seal without shame, release without monument. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针会像给花园降下上下文之雨；点击会向一枚沉睡种子发出复苏请求。数字键 1–4 切换伦理模式：轻声询问、天气足够才复苏、无羞耻地封存、不建碑地离场。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
