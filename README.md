@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-01 — Trace Verb Garden / 痕迹动词花园**<br>
+  Variable / 自由变量：Trace Verbs / 痕迹动词 / 回返契约<br>
+  ![Animated preview](docs/archive/2026/07/2026-07-01/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-01/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-01/live/)
 - **2026-06-30 — Consentful Recall Router / 同意式回忆路由**<br>
   Variable / 自由变量：Consentful Routing / 同意式路由 / 回忆动词<br>
   ![Animated preview](docs/archive/2026/06/2026-06-30/assets/preview.gif)<br>

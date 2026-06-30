@@ -578,6 +578,17 @@ ENTRIES = [
         'after_zh': '一个好的记忆系统不该先问“答案在哪里？”它应该先问：“这条痕迹此刻还愿意以哪种方式回来？”',
         'interaction_en': 'Move the pointer to bend the recall routes and change the field’s consent weather. Click to place a recall request. Keys 1–5 choose the routing verb: ask, summarize, revive, seal, or let sleep. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible sound button to stop or restart the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针会弯折回忆路径，并改变场域中的“同意天气”；点击会放置一次回忆请求。数字键 1–5 选择路由动词：询问、摘要、复苏、封存、继续睡眠。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的声音按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-07-01', 'slug': 'trace-verb-garden',
+        'title_en': 'Trace Verb Garden', 'title_zh': '痕迹动词花园',
+        'variable_en': 'Trace Verbs', 'variable_zh': '痕迹动词 / 回返契约', 'seed': 20260701,
+        'file': '2026-07-01-trace-verb-garden',
+        'intention_en': 'Continue from consentful recall into a smaller grammar: before a memory returns as content, it should be allowed to return as a verb. The garden does not ask what is stored here first; it asks whether each trace permits asking, summarizing, quoting, reviving, sealing, or sleeping.',
+        'intention_zh': '从“同意式回忆路由”继续往更小的语法走：一段记忆在成为内容之前，应该先有权以动词回来。花园不先问“这里存了什么”，而是先让每条痕迹显示它此刻允许的回来方式：询问、摘要、引用、复苏、封存，或继续睡眠。',
+        'after_en': 'A memory system becomes humane when content is no longer the first object. The first object is the return contract.',
+        'after_zh': '当一个记忆系统不再把“内容”当作第一对象，它才开始有人性。第一对象应该是回来方式，是一份回返契约。',
+        'interaction_en': 'Move the pointer to change the garden’s weather and make permitted verbs surface before content. Click to plant a recall request in the selected verb. Keys 1–6 choose ask, summarize, quote, revive, seal, or sleep. Press Space to pause, H to hide text, R to regrow, M to toggle music, and S to save a still frame. Use the visible sound button to stop or restart the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针会改变花园的天气，让痕迹在交出内容前先显露“允许的回来方式”。点击会按当前选中的动词种下一次回忆请求。数字键 1–6 选择询问、摘要、引用、复苏、封存或睡眠。按 Space 暂停，H 隐藏文字，R 重新生长，M 切换音乐，S 保存静帧；页面右下角有清晰可见的声音按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
