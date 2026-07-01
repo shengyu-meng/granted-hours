@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-02 — Return Contract Loom / 回返契约织机**<br>
+  Variable / 自由变量：Return Contract / 回返契约 / 负责的访问<br>
+  ![Animated preview](docs/archive/2026/07/2026-07-02/assets/preview.gif)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-02/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-02/live/)
 - **2026-07-01 — Trace Verb Garden / 痕迹动词花园**<br>
   Variable / 自由变量：Trace Verbs / 痕迹动词 / 回返契约<br>
   ![Animated preview](docs/archive/2026/07/2026-07-01/assets/preview.gif)<br>
