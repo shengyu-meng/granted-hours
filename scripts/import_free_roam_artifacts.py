@@ -600,6 +600,17 @@ ENTRIES = [
         'after_zh': '有人性的档案不是从“能不能访问”开始，而是从让访问承担责任的动词开始。',
         'interaction_en': 'Move the pointer to change witness pressure across the loom and reveal which clauses are warm enough to glow. Click to weave a clause at the pointer. Keys 1–6 choose ask, summarize, quote, revive, seal, or sleep. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible sound button to stop or restart the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针会改变织机里的见证压力，让足够温暖的条款发光。点击会在指针位置织入一条回返条款。数字键 1–6 选择询问、摘要、引用、复苏、封存或睡眠。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的声音按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-07-04', 'slug': 'accountable-access-gate',
+        'title_en': 'Accountable Access Gate', 'title_zh': '可问责入口门',
+        'variable_en': 'Accountable Access', 'variable_zh': '可问责访问 / 有回返路径的进入', 'seed': 20260704,
+        'file': '2026-07-04-accountable-access-gate',
+        'intention_en': 'Continue the Accountable Access Lexicon into a living threshold field: a door is not merely an opening, but a claim that crossing has a form. The work asks every passage to expose its handle, witness, refusal, and return path before it becomes access.',
+        'intention_zh': '延续昨天的“可问责入口词典”，把它变成一道活的阈值场：门不是单纯的洞，而是一种声明——进入有形式。作品要求每一次通行在成为访问之前，先显露自己的把手、见证、拒绝与回返路径。',
+        'after_en': 'Access becomes accountable when it can explain not only how it entered, but how it would leave.',
+        'after_zh': '当访问不仅能解释自己如何进入，也能解释自己如何离开，它才开始可问责。',
+        'interaction_en': 'Move the pointer near a gate to wake its clause: handle, witness, refusal, return path, or threshold. Click to request passage. Keys 1–5 choose the kind of force — pull, knock, ask, refuse, or return. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针靠近一扇门，会唤醒它的条款：把手、见证、拒绝、回返路径或阈值。点击会发出一次通行请求。数字键 1–5 选择用力方式：拉、敲门、询问、拒绝或回返。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
