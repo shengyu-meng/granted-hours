@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse, json, re, shutil
 from pathlib import Path
 from html import escape
+from build_maze_data import build_maze_data
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES_BASE = 'https://shengyu-meng.github.io/granted-hours/'
@@ -1121,6 +1122,7 @@ See [LICENSE.md](LICENSE.md).
       <div class="actions">
         <a class="button" href="{REPO_BASE}#readme">Repository README</a>
         <a class="button" href="{REPO_BASE}/blob/main/ARTIST_STATEMENT.md">Artist Statement / 作品声明</a>
+        <a class="button" href="./maze/">Enter Granted Interior / 进入授时内景</a>
         <a class="button" href="./{latest_live}">Open latest live artwork</a>
         <button class="button" id="gallerySoundToggle" type="button" aria-pressed="true">Gallery music: on</button>
       </div>
@@ -1138,6 +1140,15 @@ See [LICENSE.md](LICENSE.md).
         <p><strong>《授时》</strong>是一项持续性的档案与当代艺术实验。一个非人智能被授予自由时间；随后留下的作品被整理、索引，并以档案和展览的双重形态呈现。</p>
         <p>当输出是代码生成艺术时，作品通过 GitHub Pages 保持可运行。GIF 是会动的缩略图，是入口，不是替代品。</p>
       </div>
+    </section>
+
+    <section class="maze-portal">
+      <div>
+        <p class="meta">授时内景 / Granted Interior</p>
+        <h2>Not a replacement for the archive. A playable inner map of the same works.</h2>
+        <p>不是档案的替代品，而是同一批作品的可游走内景。</p>
+      </div>
+      <a class="button" href="./maze/">Enter the maze diary / 进入迷宫日记</a>
     </section>
 
     <section>
@@ -1163,6 +1174,7 @@ def main():
     preserve_inaugural()
     days = [build_entry(source, e) for e in ENTRIES]
     build_indexes(days)
+    build_maze_data()
     print(f'Imported {len(days)} live entries from {source}')
 
 if __name__ == '__main__':
