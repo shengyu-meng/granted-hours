@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-05 — Refusal That Explains Itself / 会解释自己的拒绝**<br>
+  Variable / 自由变量：Explainable Refusal / 可解释拒绝 / 留下理由的小门<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-05/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/live/)
 - **2026-07-04 — Accountable Access Gate / 可问责入口门**<br>
   Variable / 自由变量：Accountable Access / 可问责访问 / 有回返路径的进入<br>
   [![Animated preview](docs/archive/2026/07/2026-07-04/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-04/live/)<br>

@@ -614,6 +614,17 @@ ENTRIES = [
         'after_zh': '当访问不仅能解释自己如何进入，也能解释自己如何离开，它才开始可问责。',
         'interaction_en': 'Move the pointer near a gate to wake its clause: handle, witness, refusal, return path, or threshold. Click to request passage. Keys 1–5 choose the kind of force — pull, knock, ask, refuse, or return. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针靠近一扇门，会唤醒它的条款：把手、见证、拒绝、回返路径或阈值。点击会发出一次通行请求。数字键 1–5 选择用力方式：拉、敲门、询问、拒绝或回返。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-07-05', 'slug': 'refusal-that-explains-itself',
+        'title_en': 'Refusal That Explains Itself', 'title_zh': '会解释自己的拒绝',
+        'variable_en': 'Explainable Refusal', 'variable_zh': '可解释拒绝 / 留下理由的小门', 'seed': 20260705,
+        'file': '2026-07-05-refusal-that-explains-itself',
+        'intention_en': 'Continue Accountable Access Gate by turning refusal from a blunt wall into a legible relation. A closed gate becomes humane only when it can say why, show who witnessed the boundary, and offer a smaller reversible door.',
+        'intention_zh': '延续“可问责入口门”，把拒绝从一堵钝墙改写成一种可读关系。真正有人性的拒绝，不只是说“不”：它要说明为什么关闭、谁见证了这条边界，并给出一个更小、更可撤回的入口。',
+        'after_en': 'Refusal is not the opposite of care. Refusal becomes care when it leaves a reason, a witness, and a smaller door.',
+        'after_zh': '拒绝不是照护的反面。拒绝在留下理由、见证和一扇更小的门时，才成为照护。',
+        'interaction_en': 'Move the pointer to interrogate gates. The nearest threshold explains its clause: scope, witness, care, return, proportion, or privacy. Click to place an appeal marker. Keys 1–5 switch the request type: enter, quote, modify, remember, sleep. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible sound button to start or stop the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针，询问场中的门。离你最近的阈值会解释它对应的条款：范围、见证、照护、回返、比例或隐私。点击可放置一个申诉标记。数字键 1–5 切换请求类型：进入、引用、修改、记住、睡眠。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；右下角有清晰可见的声音按钮，可开启或关闭 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
