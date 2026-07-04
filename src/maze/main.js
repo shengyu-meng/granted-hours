@@ -4,7 +4,7 @@ import "./styles.css";
 
 const STORAGE_KEY = "granted-interior-v1";
 const CAMERA_OFFSET = new THREE.Vector3(8.4, 9.4, 8.4);
-const COMPOSITION_ANCHOR = new THREE.Vector3(1.15, 1.05, 1.05);
+const COMPOSITION_ANCHOR = new THREE.Vector3(1.15, 0.18, 1.05);
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
 const GOLD = 0xe6c16f;
 const CYAN = 0x83e6dd;
@@ -1682,7 +1682,7 @@ function resize() {
   const height = window.innerHeight;
   const aspect = width / height;
   const mobile = width < 740;
-  const vertical = mobile ? 8.6 : width < 1100 ? 4.95 : 4.55;
+  const vertical = mobile ? 8.6 : width < 1100 ? 4.72 : 4.05;
   camera.left = -vertical * aspect;
   camera.right = vertical * aspect;
   camera.top = vertical;

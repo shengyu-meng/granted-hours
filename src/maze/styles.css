@@ -87,6 +87,13 @@ a {
   z-index: 0;
 }
 
+@media (min-width: 741px) {
+  #mazeCanvas {
+    transform: translateY(10vh) scale(1.04);
+    transform-origin: center center;
+  }
+}
+
 .hud {
   position: absolute;
   z-index: 5;
