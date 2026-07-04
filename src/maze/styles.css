@@ -73,8 +73,8 @@ a {
 
 .maze-app::after {
   background:
-    radial-gradient(circle at 50% 52%, transparent 0 58%, rgba(0, 0, 0, 0.42) 100%),
-    linear-gradient(180deg, rgba(5, 7, 11, 0.1), rgba(5, 7, 11, 0.76));
+    radial-gradient(circle at 50% 52%, transparent 0 68%, rgba(0, 0, 0, 0.24) 100%),
+    linear-gradient(180deg, rgba(5, 7, 11, 0.04), rgba(5, 7, 11, 0.42));
 }
 
 #mazeCanvas {
@@ -101,13 +101,13 @@ a {
 }
 
 .hud-main {
-  width: min(520px, 100%);
-  padding: 14px 16px 15px;
+  width: min(440px, 100%);
+  padding: 12px 14px 13px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(145deg, rgba(10, 12, 16, 0.68), rgba(10, 12, 16, 0.38));
-  backdrop-filter: blur(18px);
-  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.24);
+  background: linear-gradient(145deg, rgba(10, 12, 16, 0.46), rgba(10, 12, 16, 0.24));
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.2);
 }
 
 .kicker,
@@ -123,7 +123,7 @@ a {
 .hud h1 {
   margin: 4px 0 6px;
   color: var(--ink);
-  font-size: 42px;
+  font-size: 34px;
   line-height: 1.02;
   letter-spacing: 0;
 }
@@ -167,7 +167,7 @@ a {
 .icon-link {
   display: inline-grid;
   place-items: center;
-  min-width: 68px;
+  min-width: 62px;
   padding: 0 12px;
 }
 
@@ -359,7 +359,7 @@ a {
   }
 
   .hud h1 {
-    font-size: 36px;
+    font-size: 31px;
   }
 
   .diary-sheet h2,
@@ -404,7 +404,7 @@ a {
 
 @media (max-width: 420px) {
   .hud h1 {
-    font-size: 34px;
+    font-size: 29px;
   }
 }
 

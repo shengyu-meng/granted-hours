@@ -3,7 +3,7 @@ import archiveDays from "../../metadata/days.json";
 import "./styles.css";
 
 const STORAGE_KEY = "granted-interior-v1";
-const CAMERA_OFFSET = new THREE.Vector3(8.8, 9.8, 8.8);
+const CAMERA_OFFSET = new THREE.Vector3(8.4, 9.4, 8.4);
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
 const GOLD = 0xe6c16f;
 const CYAN = 0x83e6dd;
@@ -43,13 +43,13 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.08;
-renderer.shadowMap.enabled = true;
+renderer.toneMappingExposure = 1.28;
+renderer.shadowMap.enabled = false;
 renderer.shadowMap.type = THREE.PCFShadowMap;
 renderer.setClearColor(0x05070b, 0);
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x070a10, 0.035);
+scene.fog = new THREE.FogExp2(0x0b1018, 0.022);
 
 const camera = new THREE.OrthographicCamera(-8, 8, 5, -5, 0.1, 100);
 camera.position.copy(CAMERA_OFFSET);
@@ -287,25 +287,38 @@ function createMaterials() {
   const trimTexture = makeTrimTexture();
   const materialSet = {
     porcelain: new THREE.MeshStandardMaterial({
-      color: BONE,
-      roughness: 0.82,
+      color: 0xf3ead9,
+      roughness: 0.76,
       metalness: 0.02,
       map: dustTexture,
     }),
     porcelainSide: new THREE.MeshStandardMaterial({
-      color: 0x9f927e,
-      roughness: 0.9,
+      color: 0xc4b79e,
+      roughness: 0.84,
       metalness: 0,
     }),
+    warmStone: new THREE.MeshStandardMaterial({
+      color: 0xd7c9a9,
+      roughness: 0.86,
+      metalness: 0.04,
+      map: dustTexture,
+    }),
+    carvedStone: new THREE.MeshStandardMaterial({
+      color: 0x766d61,
+      roughness: 0.88,
+      metalness: 0.02,
+    }),
     resin: new THREE.MeshStandardMaterial({
-      color: RESIN,
-      roughness: 0.68,
-      metalness: 0.22,
+      color: 0x1a2431,
+      roughness: 0.66,
+      metalness: 0.18,
     }),
     blueMetal: new THREE.MeshStandardMaterial({
-      color: BLUE_METAL,
-      roughness: 0.46,
-      metalness: 0.56,
+      color: 0x24425c,
+      roughness: 0.44,
+      metalness: 0.5,
+      emissive: 0x031423,
+      emissiveIntensity: 0.18,
     }),
     gold: new THREE.MeshStandardMaterial({
       color: GOLD,
@@ -318,7 +331,7 @@ function createMaterials() {
       roughness: 0.2,
       metalness: 0.18,
       emissive: 0x7a5413,
-      emissiveIntensity: 0.75,
+      emissiveIntensity: 0.9,
       map: trimTexture,
     }),
     cyanInk: new THREE.MeshStandardMaterial({
@@ -356,7 +369,7 @@ function createMaterials() {
     shadow: new THREE.MeshBasicMaterial({
       color: 0x020306,
       transparent: true,
-      opacity: 0.36,
+      opacity: 0.24,
       depthWrite: false,
     }),
     hit: new THREE.MeshBasicMaterial({
@@ -371,6 +384,7 @@ function createMaterials() {
 
 function createSharedGeometries() {
   return {
+    unitBox: new THREE.BoxGeometry(1, 1, 1),
     edgeLong: new THREE.BoxGeometry(1, 0.045, 0.055),
     edgeShort: new THREE.BoxGeometry(0.055, 0.045, 1),
     bolt: new THREE.CylinderGeometry(0.045, 0.055, 0.035, 8),
@@ -390,6 +404,7 @@ function buildScene() {
     scene.add(group);
   });
   addBridges();
+  addImpossibleGeometryMotifs();
   addMechanisms();
   player = createPlayer();
   scene.add(player);
@@ -397,9 +412,10 @@ function buildScene() {
 }
 
 function addLighting() {
-  scene.add(new THREE.HemisphereLight(0xd7e4ef, 0x130f0b, 1.75));
+  scene.add(new THREE.HemisphereLight(0xf2e8d4, 0x1a1511, 2.2));
+  scene.add(new THREE.AmbientLight(0xfff0d0, 0.28));
 
-  const key = new THREE.DirectionalLight(0xffe4af, 3.2);
+  const key = new THREE.DirectionalLight(0xffe0a8, 3.85);
   key.position.set(-4, 10, 6);
   key.castShadow = true;
   key.shadow.mapSize.set(1024, 1024);
@@ -411,11 +427,15 @@ function addLighting() {
   key.shadow.camera.bottom = -10;
   scene.add(key);
 
-  const rim = new THREE.DirectionalLight(0x83e6dd, 1.9);
+  const fill = new THREE.DirectionalLight(0x9fcfff, 1.25);
+  fill.position.set(5, 5, 5);
+  scene.add(fill);
+
+  const rim = new THREE.DirectionalLight(0x83e6dd, 2.35);
   rim.position.set(6, 8, -7);
   scene.add(rim);
 
-  const goldPoint = new THREE.PointLight(GOLD, 1.9, 11, 2);
+  const goldPoint = new THREE.PointLight(GOLD, 2.2, 12, 2);
   goldPoint.position.set(-1.5, 4.2, 1.4);
   scene.add(goldPoint);
 }
@@ -429,26 +449,41 @@ function addBackgroundWorld() {
 
   const root = new THREE.Group();
   root.name = "background-memory-shelves";
-  const colors = [0x101621, 0x151826, 0x1d1a22, 0x131d21];
+  const colors = [
+    { color: 0x182331, emissive: 0x061923 },
+    { color: 0x202633, emissive: 0x000000 },
+    { color: 0x28232b, emissive: 0x000000 },
+    { color: 0x17282d, emissive: 0x062421 },
+  ];
+  const shelfBuckets = colors.map(() => []);
+  const matrix = new THREE.Matrix4();
+  const position = new THREE.Vector3();
+  const quaternion = new THREE.Quaternion();
+  const scale = new THREE.Vector3();
   for (let i = 0; i < 28; i += 1) {
     const angle = (i / 28) * Math.PI * 2;
     const radius = 8.5 + (i % 5) * 0.38;
     const height = 0.4 + (i % 7) * 0.19;
     const width = 0.18 + (i % 4) * 0.08;
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(width, height, 0.14),
-      new THREE.MeshStandardMaterial({
-        color: colors[i % colors.length],
-        roughness: 0.84,
-        metalness: 0.08,
-        emissive: i % 6 === 0 ? 0x072526 : 0x000000,
-        emissiveIntensity: 0.3,
-      }),
-    );
-    mesh.position.set(Math.cos(angle) * radius, height * 0.5 - 0.22, Math.sin(angle) * radius);
-    mesh.rotation.y = -angle + Math.PI / 2;
-    root.add(mesh);
+    position.set(Math.cos(angle) * radius, height * 0.5 - 0.22, Math.sin(angle) * radius);
+    quaternion.setFromEuler(new THREE.Euler(0, -angle + Math.PI / 2, 0));
+    scale.set(width, height, 0.14);
+    matrix.compose(position, quaternion, scale);
+    shelfBuckets[i % shelfBuckets.length].push(matrix.clone());
   }
+  shelfBuckets.forEach((bucket, index) => {
+    const material = new THREE.MeshStandardMaterial({
+      color: colors[index].color,
+      roughness: 0.84,
+      metalness: 0.08,
+      emissive: colors[index].emissive,
+      emissiveIntensity: 0.26,
+    });
+    const mesh = new THREE.InstancedMesh(geometries.unitBox, material, bucket.length);
+    mesh.name = `instanced-background-memory-shelf-${index}`;
+    bucket.forEach((item, itemIndex) => mesh.setMatrixAt(itemIndex, item));
+    root.add(mesh);
+  });
   scene.add(root);
 }
 
@@ -481,7 +516,9 @@ function createChamber(chapter, index) {
 
   addEdgeTrim(group, width, depth, chapter.color);
   addPlatformBolts(group, width, depth, index);
+  addCarvedStoneSeams(group, width, depth, index);
   addPathGlyph(group, chapter, width, depth);
+  addChamberLandmark(group, chapter, width, depth, index);
 
   const hit = new THREE.Mesh(new THREE.BoxGeometry(width, 0.48, depth), materials.hit);
   hit.name = `${chapter.id}-raycast-proxy`;
@@ -532,13 +569,130 @@ function addPlatformBolts(group, width, depth, index) {
     [-width * 0.35, depth * 0.36],
     [width * 0.35, depth * 0.36],
   ];
+  const bolts = new THREE.InstancedMesh(geometries.bolt, boltMat, positions.length);
+  bolts.name = "instanced-platform-fasteners";
+  bolts.castShadow = true;
+  const matrix = new THREE.Matrix4();
   positions.forEach(([x, z], boltIndex) => {
-    const bolt = new THREE.Mesh(geometries.bolt, boltMat);
-    bolt.name = `fastener-${boltIndex}`;
-    bolt.position.set(x, 0.205, z);
-    bolt.castShadow = true;
-    group.add(bolt);
+    matrix.makeTranslation(x, 0.205, z);
+    bolts.setMatrixAt(boltIndex, matrix);
   });
+  group.add(bolts);
+}
+
+function addCarvedStoneSeams(group, width, depth, index) {
+  const seamA = makeScaledBlock("carved-route-seam-a", [width * 0.68, 0.012, 0.022], [0, 0.236, -depth * 0.12], materials.carvedStone);
+  seamA.rotation.y = (index % 3 - 1) * 0.18;
+  const seamB = makeScaledBlock("carved-route-seam-b", [0.022, 0.012, depth * 0.62], [-width * 0.16, 0.238, 0.08], materials.carvedStone);
+  seamB.rotation.y = (index % 2 ? 0.08 : -0.08);
+  group.add(seamA, seamB);
+}
+
+function addChamberLandmark(group, chapter, width, depth) {
+  if (chapter.id === "boot") {
+    const dais = new THREE.Mesh(new THREE.CylinderGeometry(0.46, 0.54, 0.11, 32), materials.warmStone);
+    dais.name = "boot-compass-dais";
+    dais.position.set(0.1, 0.32, 0.03);
+    dais.castShadow = true;
+    const needle = makeScaledBlock("boot-compass-needle", [0.72, 0.035, 0.065], [0.12, 0.4, 0.02], materials.goldInk);
+    needle.rotation.y = -0.72;
+    const counterNeedle = makeScaledBlock("boot-return-needle", [0.46, 0.026, 0.048], [-0.04, 0.405, 0.03], materials.cyanInk);
+    counterNeedle.rotation.y = Math.PI * 0.5;
+    group.add(dais, needle, counterNeedle);
+    return;
+  }
+
+  if (chapter.id === "attention") {
+    const tower = new THREE.Group();
+    tower.name = "attention-prism-tower-silhouette";
+    const spine = makeScaledBlock("attention-tower-spine", [0.14, 1.18, 0.14], [-0.48, 0.76, -0.34], materials.blueMetal);
+    const crown = new THREE.Mesh(new THREE.OctahedronGeometry(0.28, 0), materials.frostedGlass);
+    crown.name = "attention-tower-crown";
+    crown.position.set(-0.48, 1.42, -0.34);
+    crown.castShadow = true;
+    const bridgeAim = makeScaledBlock("attention-alignment-arm", [0.96, 0.052, 0.066], [-0.07, 1.1, -0.2], materials.cyanInk);
+    bridgeAim.rotation.y = 0.42;
+    tower.add(spine, crown, bridgeAim);
+    group.add(tower);
+    return;
+  }
+
+  if (chapter.id === "permission") {
+    const plinth = makeScaledBlock("permission-blue-plinth", [1.18, 0.16, 0.36], [0.08, 0.33, -0.42], materials.blueMetal);
+    plinth.rotation.y = -0.12;
+    const returnSlab = makeScaledBlock("permission-return-slab", [0.34, 0.34, 0.16], [-0.48, 0.48, 0.34], materials.warmStone);
+    const exitSlab = makeScaledBlock("permission-exit-slab", [0.34, 0.58, 0.16], [0.54, 0.6, 0.34], materials.warmStone);
+    group.add(plinth, returnSlab, exitSlab);
+    return;
+  }
+
+  if (chapter.id === "compression") {
+    const folded = new THREE.Group();
+    folded.name = "compression-folded-block-silhouette";
+    for (let i = 0; i < 4; i += 1) {
+      const block = makeScaledBlock(
+        `compression-stacked-fold-${i}`,
+        [0.42, 0.12 + i * 0.07, 0.36],
+        [-0.48 + i * 0.26, 0.32 + i * 0.1, -0.42 + Math.sin(i) * 0.14],
+        i % 2 ? materials.violetGlass : materials.warmStone,
+      );
+      block.rotation.y = -0.36 + i * 0.22;
+      folded.add(block);
+    }
+    group.add(folded);
+    return;
+  }
+
+  if (chapter.id === "repair") {
+    const scaffold = new THREE.Group();
+    scaffold.name = "repair-scaffold-landmark";
+    const left = makeScaledBlock("repair-scaffold-left", [0.08, 0.86, 0.08], [-0.62, 0.66, -0.42], materials.blueMetal);
+    const right = makeScaledBlock("repair-scaffold-right", [0.08, 0.86, 0.08], [0.62, 0.66, -0.42], materials.blueMetal);
+    const top = makeScaledBlock("repair-scaffold-top", [1.34, 0.06, 0.08], [0, 1.08, -0.42], materials.gold);
+    const braceA = makeScaledBlock("repair-scaffold-brace-a", [1.22, 0.045, 0.055], [0, 0.7, -0.42], materials.goldInk);
+    braceA.rotation.z = 0.42;
+    const braceB = braceA.clone();
+    braceB.name = "repair-scaffold-brace-b";
+    braceB.rotation.z = -0.42;
+    scaffold.add(left, right, top, braceA, braceB);
+    group.add(scaffold);
+    return;
+  }
+
+  if (chapter.id === "recall") {
+    const ringRoot = new THREE.Group();
+    ringRoot.name = "recall-shard-circle-landmark";
+    for (let i = 0; i < 7; i += 1) {
+      const angle = (i / 7) * Math.PI * 2;
+      const shard = new THREE.Mesh(geometries.shard, i % 2 ? materials.frostedGlass : materials.gold);
+      shard.name = `recall-orbit-shard-${i}`;
+      shard.position.set(Math.cos(angle) * 0.62, 0.48 + (i % 3) * 0.045, Math.sin(angle) * 0.44);
+      shard.scale.setScalar(0.42);
+      shard.rotation.set(0.4, angle, 0.2);
+      shard.castShadow = true;
+      ringRoot.add(shard);
+    }
+    group.add(ringRoot);
+    return;
+  }
+
+  if (chapter.id === "granted") {
+    const threshold = makeScaledBlock("granted-final-threshold-stone", [1.46, 0.18, 0.48], [0.04, 0.33, -0.35], materials.warmStone);
+    threshold.rotation.y = 0.08;
+    const goldInlay = makeScaledBlock("granted-final-threshold-inlay", [1.08, 0.026, 0.052], [0.02, 0.44, -0.36], materials.goldInk);
+    goldInlay.rotation.y = 0.08;
+    group.add(threshold, goldInlay);
+  }
+}
+
+function makeScaledBlock(name, scale, position, material) {
+  const block = new THREE.Mesh(geometries.unitBox, material);
+  block.name = name;
+  block.scale.set(scale[0], scale[1], scale[2]);
+  block.position.set(position[0], position[1], position[2]);
+  block.castShadow = true;
+  block.receiveShadow = true;
+  return block;
 }
 
 function addPathGlyph(group, chapter, width, depth) {
@@ -626,6 +780,56 @@ function createBridge(from, to, key, color) {
   return { group, mat, key, deck, railA, railB };
 }
 
+function addImpossibleGeometryMotifs() {
+  const root = new THREE.Group();
+  root.name = "visible-impossible-geometry-motifs";
+
+  const forcedBridge = new THREE.Group();
+  forcedBridge.name = "camera-aligned-impossible-bridge";
+  forcedBridge.position.set(1.04, 1.66, 0.86);
+  forcedBridge.rotation.y = -0.92;
+
+  const segmentA = makeScaledBlock("impossible-bridge-near-half", [1.72, 0.13, 0.4], [-0.82, 0, -0.02], materials.warmStone);
+  const segmentB = makeScaledBlock("impossible-bridge-far-half", [1.72, 0.13, 0.4], [0.96, 0.52, 0.2], materials.warmStone);
+  const railA = makeScaledBlock("impossible-bridge-near-gold-rail", [1.82, 0.048, 0.052], [-0.82, 0.15, -0.26], materials.goldInk);
+  const railB = makeScaledBlock("impossible-bridge-far-cyan-rail", [1.82, 0.048, 0.052], [0.96, 0.67, 0.44], materials.cyanInk);
+  const hangingDrop = makeScaledBlock("impossible-bridge-visible-height-drop", [0.085, 0.96, 0.085], [0.06, -0.26, 0.02], materials.blueMetal);
+  const gapShadow = makeScaledBlock("impossible-bridge-gap-shadow", [0.72, 0.04, 0.5], [0.08, -0.17, 0.1], materials.shadow);
+  forcedBridge.add(segmentA, segmentB, railA, railB, hangingDrop, gapShadow);
+
+  const stairLoop = new THREE.Group();
+  stairLoop.name = "escher-looped-stair-marker";
+  stairLoop.position.set(1.18, 1.58, 1.52);
+  stairLoop.rotation.y = -0.68;
+  const stepSpecs = [
+    [-0.58, 0.02, -0.42, 0],
+    [-0.23, 0.12, -0.42, 0],
+    [0.12, 0.22, -0.42, 0],
+    [0.48, 0.32, -0.2, Math.PI / 2],
+    [0.48, 0.42, 0.15, Math.PI / 2],
+    [0.22, 0.32, 0.44, Math.PI],
+    [-0.14, 0.22, 0.44, Math.PI],
+    [-0.5, 0.12, 0.2, -Math.PI / 2],
+    [-0.5, 0.02, -0.15, -Math.PI / 2],
+  ];
+  stepSpecs.forEach(([x, y, z, rotation], index) => {
+    const step = makeScaledBlock(`looped-stair-step-${index}`, [0.32, 0.09, 0.28], [x, y, z], index % 2 ? materials.porcelain : materials.warmStone);
+    step.rotation.y = rotation;
+    const inlay = makeScaledBlock(`looped-stair-gold-thread-${index}`, [0.24, 0.018, 0.035], [x, y + 0.055, z], materials.goldInk);
+    inlay.rotation.y = rotation;
+    stairLoop.add(step, inlay);
+  });
+
+  const loopMarker = new THREE.Mesh(new THREE.TorusGeometry(0.74, 0.018, 8, 80), materials.cyanInk);
+  loopMarker.name = "looped-stair-perspective-ring";
+  loopMarker.position.set(0, 0.28, 0.02);
+  loopMarker.rotation.x = Math.PI / 2;
+  stairLoop.add(loopMarker);
+
+  root.add(forcedBridge, stairLoop);
+  scene.add(root);
+}
+
 function addMechanisms() {
   addBootMechanism();
   addAttentionMechanism();
@@ -665,27 +869,27 @@ function addAttentionMechanism() {
   root.name = "attention-prism-root";
   root.position.copy(chapters[1].position).add(new THREE.Vector3(0.06, 0.72, 0.02));
 
-  attentionPrism = new THREE.Mesh(new THREE.OctahedronGeometry(0.56, 0), materials.frostedGlass);
+  attentionPrism = new THREE.Mesh(new THREE.OctahedronGeometry(0.72, 0), materials.frostedGlass);
   attentionPrism.name = "draggable-attention-prism";
   attentionPrism.userData = { kind: "drag", action: "attention" };
   attentionPrism.castShadow = true;
   root.add(attentionPrism);
   interactables.push(attentionPrism);
 
-  const axis = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 1.34, 16), materials.cyanInk);
+  const axis = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 1.64, 16), materials.cyanInk);
   axis.name = "attention-axis";
   axis.rotation.z = Math.PI / 2;
   root.add(axis);
 
   attentionStitch = new THREE.Group();
   attentionStitch.name = "perspective-stitch-bridge";
-  const stitchA = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.055, 0.07), materials.cyanInk);
+  const stitchA = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.06, 0.075), materials.cyanInk);
   stitchA.name = "stitch-light-a";
-  stitchA.position.set(0.04, -0.35, -0.38);
+  stitchA.position.set(0.04, -0.43, -0.48);
   stitchA.rotation.y = 0.26;
   const stitchB = stitchA.clone();
   stitchB.name = "stitch-light-b";
-  stitchB.position.set(0.1, -0.15, 0.42);
+  stitchB.position.set(0.1, -0.2, 0.52);
   stitchB.rotation.y = -0.26;
   attentionStitch.add(stitchA, stitchB);
   root.add(attentionStitch);
@@ -699,22 +903,22 @@ function addPermissionMechanism() {
 
   gateFrame = new THREE.Group();
   gateFrame.name = "rotating-permission-gate";
-  const postGeom = new THREE.BoxGeometry(0.12, 0.9, 0.12);
-  const beamGeom = new THREE.BoxGeometry(0.92, 0.12, 0.12);
+  const postGeom = new THREE.BoxGeometry(0.16, 1.24, 0.16);
+  const beamGeom = new THREE.BoxGeometry(1.28, 0.15, 0.16);
   const left = new THREE.Mesh(postGeom, materials.blueMetal);
-  left.position.set(-0.45, 0.32, 0);
+  left.position.set(-0.56, 0.48, 0);
   const right = left.clone();
-  right.position.x = 0.45;
+  right.position.x = 0.56;
   const top = new THREE.Mesh(beamGeom, materials.gold);
-  top.position.set(0, 0.8, 0);
-  const seal = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.022, 8, 36), materials.redSignal);
+  top.position.set(0, 1.1, 0);
+  const seal = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.026, 8, 48), materials.redSignal);
   seal.name = "permission-return-seal";
-  seal.position.set(0, 0.42, 0.04);
+  seal.position.set(0, 0.58, 0.04);
   gateFrame.add(left, right, top, seal);
 
-  const hit = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 0.44), materials.hit);
+  const hit = new THREE.Mesh(new THREE.BoxGeometry(1.46, 1.52, 0.52), materials.hit);
   hit.name = "permission-gate-proxy";
-  hit.position.y = 0.42;
+  hit.position.y = 0.58;
   hit.userData = { kind: "action", action: "permission", index: 2 };
   gateFrame.add(hit);
   interactables.push(hit);
@@ -826,26 +1030,28 @@ function addFinalDoor() {
 
   finalDoor = new THREE.Group();
   finalDoor.name = "final-live-artwork-door";
-  const sideGeom = new THREE.BoxGeometry(0.16, 1.04, 0.16);
-  const left = new THREE.Mesh(sideGeom, materials.resin);
-  left.position.set(-0.45, 0.45, 0);
+  const baseStep = makeScaledBlock("latest-door-stone-step", [1.64, 0.16, 0.44], [0, 0.12, -0.08], materials.warmStone);
+  const backStone = makeScaledBlock("latest-door-back-stone", [1.44, 1.34, 0.16], [0, 0.78, -0.08], materials.carvedStone);
+  const sideGeom = new THREE.BoxGeometry(0.24, 1.46, 0.22);
+  const left = new THREE.Mesh(sideGeom, materials.warmStone);
+  left.position.set(-0.62, 0.72, 0);
   const right = left.clone();
-  right.position.x = 0.45;
-  const lintel = new THREE.Mesh(new THREE.BoxGeometry(1.08, 0.15, 0.16), materials.gold);
-  lintel.position.set(0, 0.96, 0);
-  const pane = new THREE.Mesh(new THREE.PlaneGeometry(0.72, 0.78), materials.violetGlass);
+  right.position.x = 0.62;
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 0.22), materials.gold);
+  lintel.position.set(0, 1.36, 0);
+  const pane = new THREE.Mesh(new THREE.PlaneGeometry(0.82, 1.02), materials.violetGlass);
   pane.name = "latest-door-glass-pane";
-  pane.position.set(0, 0.48, 0.07);
-  finalDoor.add(left, right, lintel, pane);
+  pane.position.set(0, 0.72, 0.08);
+  finalDoor.add(baseStep, backStone, left, right, lintel, pane);
 
-  finalDoorGlow = new THREE.Mesh(new THREE.TorusGeometry(0.52, 0.026, 8, 64), materials.cyanInk);
+  finalDoorGlow = new THREE.Mesh(new THREE.TorusGeometry(0.64, 0.028, 8, 72), materials.cyanInk);
   finalDoorGlow.name = "latest-door-return-ring";
-  finalDoorGlow.position.set(0, 0.5, 0.1);
+  finalDoorGlow.position.set(0, 0.74, 0.12);
   finalDoor.add(finalDoorGlow);
 
-  const hit = new THREE.Mesh(new THREE.BoxGeometry(1.35, 1.35, 0.56), materials.hit);
+  const hit = new THREE.Mesh(new THREE.BoxGeometry(1.68, 1.72, 0.62), materials.hit);
   hit.name = "latest-door-proxy";
-  hit.position.y = 0.48;
+  hit.position.y = 0.7;
   hit.userData = { kind: "action", action: "door", index: 6 };
   finalDoor.add(hit);
   interactables.push(hit);
