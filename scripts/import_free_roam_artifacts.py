@@ -607,6 +607,8 @@ ENTRIES = [
         'file': '2026-07-04-accountable-access-gate',
         'intention_en': 'Continue the Accountable Access Lexicon into a living threshold field: a door is not merely an opening, but a claim that crossing has a form. The work asks every passage to expose its handle, witness, refusal, and return path before it becomes access.',
         'intention_zh': '延续昨天的“可问责入口词典”，把它变成一道活的阈值场：门不是单纯的洞，而是一种声明——进入有形式。作品要求每一次通行在成为访问之前，先显露自己的把手、见证、拒绝与回返路径。',
+        'rationale_en': 'This work grows out of a public-facing question inside Granted Hours: if access is not just permission but a relation, what must an entrance reveal before it becomes ethical? I turned the previous lexicon — handle, witness, refusal, return path, threshold — into a gate field so each click becomes a request with visible force and a visible way back. The archive deliberately removes private operational context, raw conversation, credentials, and local paths; what remains is the conceptual lineage from lexicon to interface and the public behavior of the artwork.',
+        'rationale_zh': '这件作品来自《授时》内部一个可公开的问题：如果访问不只是“被允许进入”，而是一种关系，那么入口在变得合乎伦理之前，必须先显露什么？我把前一天的词典——把手、见证、拒绝、回返路径、阈值——转成一个入口场，让每一次点击都不只是“打开”，而是一次带有可见用力方式和回返路径的请求。档案刻意移除私人操作背景、原始对话、凭证和本地路径，只保留从词典到界面的概念谱系，以及作品本身可公开验证的行为。',
         'after_en': 'Access becomes accountable when it can explain not only how it entered, but how it would leave.',
         'after_zh': '当访问不仅能解释自己如何进入，也能解释自己如何离开，它才开始可问责。',
         'interaction_en': 'Move the pointer near a gate to wake its clause: handle, witness, refusal, return path, or threshold. Click to request passage. Keys 1–5 choose the kind of force — pull, knock, ask, refuse, or return. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.',
@@ -640,6 +642,107 @@ def copy_if_exists(src: Path, dst: Path):
 def write(path: Path, text: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding='utf-8')
+
+LIVE_TEXT_FOLD_SNIPPET = r"""
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+})();
+</script>
+"""
+
+def enhance_live_html(path: Path):
+    text = path.read_text(encoding='utf-8')
+    if 'id="granted-hours-fold-script"' in text:
+        return
+    if '</body>' not in text:
+        raise SystemExit(f'Cannot inject fold controls into {path}: missing </body>')
+    path.write_text(text.replace('</body>', LIVE_TEXT_FOLD_SNIPPET + '\n</body>', 1), encoding='utf-8')
+
+def creative_rationale(entry: dict) -> tuple[str, str]:
+    en = entry.get('rationale_en') or (
+        f"{entry['title_en']} was made as one public step in the Granted Hours sequence, with the variable "
+        f"{entry['variable_en']} treated as an operational condition rather than a decorative theme. "
+        f"The intention frames the work this way: {entry['intention_en']} "
+        f"The live artifact then turns that idea into interaction: {entry.get('interaction_en', 'the viewer changes the field through movement, touch, and reversible controls')} "
+        f"Its afterimage condenses the day’s claim: {entry['after_en']} "
+        "Private session context, raw prompts, credentials, local paths, and personal details are intentionally omitted; "
+        "the archive keeps only the public conceptual chain, interaction logic, media, and resulting artifact."
+    )
+    zh = entry.get('rationale_zh') or (
+        f"《{entry['title_zh']}》是《授时》连续序列中的一个公开步骤：当天的自由变量「{entry['variable_zh']}」不是装饰性主题，"
+        "而是一种要被转化成操作条件的概念。作品的发心是："
+        f"{entry['intention_zh']} "
+        "live 页面进一步把这个概念变成可操作的界面："
+        f"{entry.get('interaction_zh', '观众通过移动、触摸与可撤回控制改变场域')} "
+        f"它的余像把当天判断压缩为一句话：{entry['after_zh']} "
+        "为保持脱敏，公开档案不保留私人对话、原始提示、凭证、本地路径或个人情境；这里只保留可公开展示的概念链、交互逻辑、媒体与作品结果。"
+    )
+    return en, zh
 
 def inline_markdown(text: str) -> str:
     safe = escape(text)
@@ -719,6 +822,7 @@ def build_entry(source: Path, entry: dict):
 
     docs_live.mkdir(parents=True, exist_ok=True)
     shutil.copy2(html_src, docs_live/'index.html')
+    enhance_live_html(docs_live/'index.html')
     copy_if_exists(svg_src, assets_docs/'cover.svg')
     copy_if_exists(svg_src, assets_root/'cover.svg')
     copy_if_exists(png_src, assets_docs/'source-preview.png')
@@ -741,6 +845,7 @@ def build_entry(source: Path, entry: dict):
     interaction_zh = entry.get('interaction_zh', '')
     interaction_md = f"""\n## Interaction / 交互\n\n{interaction_en}\n\n{interaction_zh}\n""" if (interaction_en or interaction_zh) else ""
     interaction_html = f"""\n    <section class=\"two\">\n      <div>\n        <h2>Interaction</h2>\n        <p>{escape(interaction_en)}</p>\n      </div>\n      <div>\n        <h2>交互</h2>\n        <p>{escape(interaction_zh)}</p>\n      </div>\n    </section>\n""" if (interaction_en or interaction_zh) else ""
+    rationale_en, rationale_zh = creative_rationale(entry)
     bgm_html = f'''
     <section>
       <h2>Background Music / 背景音乐</h2>
@@ -759,6 +864,14 @@ def build_entry(source: Path, entry: dict):
 {intention_zh}
 
 自由变量：**{entry['variable_zh']} / {entry['variable_en']}**。
+
+## Creative Rationale / 创作缘由
+
+{rationale_en}
+
+{rationale_zh}
+
+> Redaction note / 脱敏说明：public archive keeps concept, interaction, media, and safety status only; private chat context, credentials, local paths, and raw operational logs are excluded.
 {interaction_md}
 ## Live Artifact / 可运行作品
 
@@ -791,7 +904,10 @@ def build_entry(source: Path, entry: dict):
     <p class="meta"><a href="../../../../">← Granted Hours / 授时</a></p>
     <h1 style="font-size:clamp(38px,6vw,82px)">{entry['title_en']}<br>{entry['title_zh']}</h1>
     <p class="meta">{entry['date']} · {entry['variable_en']} / {entry['variable_zh']} · seed {entry['seed']}</p>
-    <img class="card" src="./assets/preview.gif" alt="Animated preview for {escape(entry['title_en'])}" style="width:100%; border-radius:24px;">
+    <a class="preview-link" href="./live/" aria-label="Open live artwork for {escape(entry['title_en'])}">
+      <img class="card" src="./assets/preview.gif" alt="Animated preview for {escape(entry['title_en'])}" style="width:100%; border-radius:24px;">
+      <span>Open live demo / 点击进入互动 Demo</span>
+    </a>
     <div class="actions">
       <a class="button" href="./live/">Open live artwork / 打开可运行作品</a>
       <a class="button" href="{repo_md}">Markdown archive / Markdown 档案</a>
@@ -808,6 +924,18 @@ def build_entry(source: Path, entry: dict):
         <p>{intention_zh}</p>
         <h2>余像</h2>
         <p>{entry['after_zh']}</p>
+      </div>
+    </section>
+    <section class="two">
+      <div>
+        <h2>Creative Rationale</h2>
+        <p>{escape(rationale_en)}</p>
+        <p class="meta">Redaction note: private chat context, credentials, local paths, and raw operational logs are excluded.</p>
+      </div>
+      <div>
+        <h2>创作缘由</h2>
+        <p>{escape(rationale_zh)}</p>
+        <p class="meta">脱敏说明：公开档案不包含私人对话、凭证、本地路径或原始操作日志。</p>
       </div>
     </section>
 {interaction_html}{bgm_html}    <section>
@@ -841,18 +969,18 @@ def build_indexes(days):
         live_url = PAGES_BASE + d['live_url']
         img = 'docs/' + d['gif']
         cards.append(f"""
-        <a class="card" href="./{d['archive_url']}">
+        <a class="card live-card" href="./{d['live_url']}" aria-label="Open live demo for {escape(d['title_en'])}">
           <img src="./{d['gif']}" alt="Animated preview for {escape(d['title_en'])}">
           <div class="card-body">
             <div class="meta">{d['date']} · {d['variable_en']} / {d['variable_zh']}</div>
             <h3>{d['title_en']} / {d['title_zh']}</h3>
-            <p>Live generative artwork; GIF preview plus runnable page.</p>
+            <p>Tap the GIF/card to enter the interactive demo. Archive note stays in README and daily page.</p>
           </div>
         </a>
         """)
         md_items.append(f"""- **{d['date']} — {d['title_en']} / {d['title_zh']}**<br>
   Variable / 自由变量：{d['variable_en']} / {d['variable_zh']}<br>
-  ![Animated preview]({img})<br>
+  [![Animated preview]({img})]({live_url})<br>
   [Read archive]({archive_url}) · [Open live artwork]({live_url})""")
         if d.get('bgm'):
             music_tracks.append({'date': d['date'], 'title': f"{d['title_en']} / {d['title_zh']}", 'src': d['bgm']})
