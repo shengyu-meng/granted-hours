@@ -121,11 +121,26 @@ a {
 }
 
 .hud h1 {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.26em;
+  row-gap: 0;
+  align-items: baseline;
   margin: 4px 0 6px;
   color: var(--ink);
-  font-size: 34px;
-  line-height: 1.02;
+  font-size: 32px;
+  line-height: 1.06;
   letter-spacing: 0;
+  overflow-wrap: normal;
+}
+
+.chapter-title-en,
+.chapter-title-zh {
+  white-space: nowrap;
+}
+
+.chapter-title-zh {
+  word-break: keep-all;
 }
 
 .residue {
@@ -359,7 +374,7 @@ a {
   }
 
   .hud h1 {
-    font-size: 31px;
+    font-size: 30px;
   }
 
   .diary-sheet h2,
@@ -404,7 +419,7 @@ a {
 
 @media (max-width: 420px) {
   .hud h1 {
-    font-size: 29px;
+    font-size: 28px;
   }
 }
 

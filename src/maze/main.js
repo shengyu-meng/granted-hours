@@ -4,6 +4,7 @@ import "./styles.css";
 
 const STORAGE_KEY = "granted-interior-v1";
 const CAMERA_OFFSET = new THREE.Vector3(8.4, 9.4, 8.4);
+const COMPOSITION_ANCHOR = new THREE.Vector3(1.15, 1.05, 1.05);
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
 const GOLD = 0xe6c16f;
 const CYAN = 0x83e6dd;
@@ -58,6 +59,7 @@ camera.lookAt(0, 0, 0);
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const cameraTarget = new THREE.Vector3();
+const cameraFocus = new THREE.Vector3();
 const tmpVec3 = new THREE.Vector3();
 const startTime = performance.now();
 let lastFrameTime = startTime;
@@ -213,6 +215,15 @@ const state = {
   message: "",
   fps: 0,
   frameTimeMs: 0,
+  renderFrames: 0,
+  rendererSnapshot: {
+    calls: 0,
+    triangles: 0,
+    points: 0,
+    lines: 0,
+    geometries: 0,
+    textures: 0,
+  },
 };
 
 const interactables = [];
@@ -260,14 +271,8 @@ function startGame() {
         recallChoice: state.recallChoice,
         fps: Number(state.fps.toFixed(1)),
         frameTimeMs: Number(state.frameTimeMs.toFixed(2)),
-        renderer: {
-          calls: renderer.info.render.calls,
-          triangles: renderer.info.render.triangles,
-          points: renderer.info.render.points,
-          lines: renderer.info.render.lines,
-          geometries: renderer.info.memory.geometries,
-          textures: renderer.info.memory.textures,
-        },
+        renderFrames: state.renderFrames,
+        renderer: { ...state.rendererSnapshot },
       };
     },
     get interactionPoints() {
@@ -784,49 +789,108 @@ function addImpossibleGeometryMotifs() {
   const root = new THREE.Group();
   root.name = "visible-impossible-geometry-motifs";
 
-  const forcedBridge = new THREE.Group();
-  forcedBridge.name = "camera-aligned-impossible-bridge";
-  forcedBridge.position.set(1.04, 1.66, 0.86);
-  forcedBridge.rotation.y = -0.92;
+  const monument = new THREE.Group();
+  monument.name = "granted-threshold-spine-monument";
+  monument.position.set(1.18, 0.48, 0.92);
+  monument.rotation.y = -0.72;
 
-  const segmentA = makeScaledBlock("impossible-bridge-near-half", [1.72, 0.13, 0.4], [-0.82, 0, -0.02], materials.warmStone);
-  const segmentB = makeScaledBlock("impossible-bridge-far-half", [1.72, 0.13, 0.4], [0.96, 0.52, 0.2], materials.warmStone);
-  const railA = makeScaledBlock("impossible-bridge-near-gold-rail", [1.82, 0.048, 0.052], [-0.82, 0.15, -0.26], materials.goldInk);
-  const railB = makeScaledBlock("impossible-bridge-far-cyan-rail", [1.82, 0.048, 0.052], [0.96, 0.67, 0.44], materials.cyanInk);
-  const hangingDrop = makeScaledBlock("impossible-bridge-visible-height-drop", [0.085, 0.96, 0.085], [0.06, -0.26, 0.02], materials.blueMetal);
-  const gapShadow = makeScaledBlock("impossible-bridge-gap-shadow", [0.72, 0.04, 0.5], [0.08, -0.17, 0.1], materials.shadow);
-  forcedBridge.add(segmentA, segmentB, railA, railB, hangingDrop, gapShadow);
+  const contact = new THREE.Mesh(new THREE.CircleGeometry(1.9, 80), materials.shadow);
+  contact.name = "threshold-spine-contact-shadow";
+  contact.rotation.x = -Math.PI / 2;
+  contact.position.set(0.04, -0.22, 0.02);
+  contact.scale.set(1.45, 0.7, 1);
+  monument.add(contact);
+
+  const plinth = makeScaledBlock("threshold-spine-resin-plinth", [3.42, 0.24, 0.92], [0, 0.02, 0.05], materials.resin);
+  const boneDeck = makeScaledBlock("threshold-spine-carved-bone-deck", [3.16, 0.12, 0.68], [0, 0.22, 0.05], materials.warmStone);
+  const frontPlane = makeScaledBlock("folded-door-front-depth-plane", [1.62, 2.42, 0.16], [-0.48, 1.44, 0.43], materials.warmStone);
+  const rearPlane = makeScaledBlock("folded-door-rear-depth-plane", [1.92, 2.86, 0.18], [0.28, 1.72, -0.54], materials.carvedStone);
+  const leftFold = makeScaledBlock("folded-door-left-return-plane", [0.24, 2.68, 0.28], [-1.27, 1.52, 0.04], materials.porcelainSide);
+  const rightFold = makeScaledBlock("folded-door-right-return-plane", [0.24, 2.82, 0.28], [1.22, 1.78, -0.28], materials.porcelainSide);
+  leftFold.rotation.y = 0.5;
+  rightFold.rotation.y = -0.58;
+
+  const nearLintel = makeScaledBlock("low-front-lintel-claims-same-door", [1.94, 0.2, 0.28], [-0.48, 2.72, 0.44], materials.gold);
+  const farLintel = makeScaledBlock("high-rear-lintel-exposes-depth-conflict", [2.08, 0.2, 0.28], [0.28, 3.2, -0.54], materials.cyanInk);
+  const aperture = makeScaledBlock("folded-door-dark-resin-aperture", [0.92, 1.58, 0.045], [-0.48, 1.44, 0.53], materials.resin);
+  const bridgeSpine = makeScaledBlock("threshold-spine-diagonal-load-beam", [0.2, 2.68, 0.18], [0.08, 1.74, -0.02], materials.blueMetal);
+  bridgeSpine.rotation.z = -0.34;
+  bridgeSpine.rotation.y = 0.16;
+
+  const frontRing = new THREE.Mesh(new THREE.TorusGeometry(0.76, 0.034, 10, 88), materials.goldInk);
+  frontRing.name = "front-threshold-gold-return-ring";
+  frontRing.position.set(-0.48, 1.48, 0.58);
+  const rearRing = new THREE.Mesh(new THREE.TorusGeometry(1.02, 0.026, 10, 96), materials.cyanInk);
+  rearRing.name = "rear-threshold-cyan-return-ring";
+  rearRing.position.set(0.28, 1.84, -0.66);
+  monument.add(plinth, boneDeck, rearPlane, frontPlane, leftFold, rightFold, nearLintel, farLintel, aperture, bridgeSpine, frontRing, rearRing);
+
+  const inlays = [
+    ["front-gold-thread-left", [0.034, 1.82, 0.035], [-1.02, 1.48, 0.62], materials.goldInk],
+    ["front-gold-thread-right", [0.034, 1.82, 0.035], [0.06, 1.48, 0.62], materials.goldInk],
+    ["rear-cyan-thread-left", [0.03, 2.16, 0.035], [-0.42, 1.84, -0.68], materials.cyanInk],
+    ["rear-cyan-thread-right", [0.03, 2.16, 0.035], [0.98, 1.84, -0.68], materials.cyanInk],
+    ["threshold-floor-gold-thread", [2.42, 0.022, 0.038], [-0.28, 0.34, 0.38], materials.goldInk],
+    ["threshold-floor-cyan-thread", [2.08, 0.022, 0.038], [0.42, 0.36, -0.3], materials.cyanInk],
+  ];
+  inlays.forEach(([name, scale, position, material]) => {
+    monument.add(makeScaledBlock(name, scale, position, material));
+  });
+
+  for (let i = 0; i < 5; i += 1) {
+    const nearTick = makeScaledBlock(`near-height-marker-low-tick-${i}`, [0.36, 0.024, 0.035], [-1.42, 0.76 + i * 0.34, 0.76], materials.goldInk);
+    const farTick = makeScaledBlock(`far-height-marker-high-tick-${i}`, [0.36, 0.024, 0.035], [1.44, 1.26 + i * 0.34, -0.76], materials.cyanInk);
+    nearTick.rotation.y = 0.18;
+    farTick.rotation.y = -0.18;
+    monument.add(nearTick, farTick);
+  }
+  monument.add(
+    makeScaledBlock("near-height-marker-measure-rod", [0.04, 1.78, 0.04], [-1.6, 1.36, 0.78], materials.gold),
+    makeScaledBlock("far-height-marker-measure-rod", [0.04, 1.78, 0.04], [1.62, 1.86, -0.78], materials.cyanInk),
+  );
+
+  const paradoxBridge = new THREE.Group();
+  paradoxBridge.name = "single-screenshot-paradox-bridge";
+  paradoxBridge.position.set(0.05, 0.7, 0.06);
+  const lowRun = makeScaledBlock("paradox-bridge-low-run", [1.74, 0.13, 0.42], [-1.3, 0, 0.7], materials.warmStone);
+  const highRun = makeScaledBlock("paradox-bridge-high-run", [1.74, 0.13, 0.42], [1.12, 0.56, -0.7], materials.warmStone);
+  const lowRail = makeScaledBlock("paradox-bridge-low-gold-rail", [1.86, 0.046, 0.05], [-1.3, 0.17, 0.43], materials.goldInk);
+  const highRail = makeScaledBlock("paradox-bridge-high-cyan-rail", [1.86, 0.046, 0.05], [1.12, 0.73, -0.43], materials.cyanInk);
+  const dropLine = makeScaledBlock("paradox-bridge-visible-height-drop", [0.07, 1.02, 0.07], [-0.08, 0.12, 0.04], materials.blueMetal);
+  const seamShadow = makeScaledBlock("paradox-bridge-contact-gap-shadow", [0.78, 0.035, 0.54], [-0.08, -0.18, 0.04], materials.shadow);
+  paradoxBridge.add(lowRun, highRun, lowRail, highRail, dropLine, seamShadow);
+  monument.add(paradoxBridge);
 
   const stairLoop = new THREE.Group();
-  stairLoop.name = "escher-looped-stair-marker";
-  stairLoop.position.set(1.18, 1.58, 1.52);
-  stairLoop.rotation.y = -0.68;
+  stairLoop.name = "folded-loop-stair-returns-at-wrong-height";
+  stairLoop.position.set(0.12, 0.38, 1.0);
+  stairLoop.rotation.y = 0.22;
   const stepSpecs = [
-    [-0.58, 0.02, -0.42, 0],
-    [-0.23, 0.12, -0.42, 0],
-    [0.12, 0.22, -0.42, 0],
-    [0.48, 0.32, -0.2, Math.PI / 2],
-    [0.48, 0.42, 0.15, Math.PI / 2],
-    [0.22, 0.32, 0.44, Math.PI],
-    [-0.14, 0.22, 0.44, Math.PI],
-    [-0.5, 0.12, 0.2, -Math.PI / 2],
-    [-0.5, 0.02, -0.15, -Math.PI / 2],
+    [-0.78, 0.0, -0.44, 0],
+    [-0.34, 0.12, -0.44, 0],
+    [0.1, 0.24, -0.44, 0],
+    [0.54, 0.38, -0.18, Math.PI / 2],
+    [0.54, 0.5, 0.26, Math.PI / 2],
+    [0.1, 0.64, 0.52, Math.PI],
+    [-0.34, 0.78, 0.52, Math.PI],
+    [-0.78, 0.22, 0.2, -Math.PI / 2],
   ];
   stepSpecs.forEach(([x, y, z, rotation], index) => {
-    const step = makeScaledBlock(`looped-stair-step-${index}`, [0.32, 0.09, 0.28], [x, y, z], index % 2 ? materials.porcelain : materials.warmStone);
+    const step = makeScaledBlock(`folded-loop-stair-step-${index}`, [0.42, 0.1, 0.32], [x, y, z], index % 2 ? materials.porcelain : materials.warmStone);
     step.rotation.y = rotation;
-    const inlay = makeScaledBlock(`looped-stair-gold-thread-${index}`, [0.24, 0.018, 0.035], [x, y + 0.055, z], materials.goldInk);
+    const inlay = makeScaledBlock(`folded-loop-stair-gold-thread-${index}`, [0.32, 0.018, 0.038], [x, y + 0.064, z], index < 6 ? materials.goldInk : materials.redSignal);
     inlay.rotation.y = rotation;
     stairLoop.add(step, inlay);
   });
-
-  const loopMarker = new THREE.Mesh(new THREE.TorusGeometry(0.74, 0.018, 8, 80), materials.cyanInk);
-  loopMarker.name = "looped-stair-perspective-ring";
-  loopMarker.position.set(0, 0.28, 0.02);
+  const wrongHeightPin = makeScaledBlock("loop-stair-same-landing-wrong-height-pin", [0.052, 0.76, 0.052], [-0.78, 0.58, 0.2], materials.redSignal);
+  const loopMarker = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.022, 8, 88), materials.cyanInk);
+  loopMarker.name = "folded-loop-stair-perspective-ring";
+  loopMarker.position.set(-0.14, 0.42, 0.02);
   loopMarker.rotation.x = Math.PI / 2;
-  stairLoop.add(loopMarker);
+  stairLoop.add(wrongHeightPin, loopMarker);
+  monument.add(stairLoop);
 
-  root.add(forcedBridge, stairLoop);
+  root.add(monument);
   scene.add(root);
 }
 
@@ -1030,28 +1094,31 @@ function addFinalDoor() {
 
   finalDoor = new THREE.Group();
   finalDoor.name = "final-live-artwork-door";
-  const baseStep = makeScaledBlock("latest-door-stone-step", [1.64, 0.16, 0.44], [0, 0.12, -0.08], materials.warmStone);
-  const backStone = makeScaledBlock("latest-door-back-stone", [1.44, 1.34, 0.16], [0, 0.78, -0.08], materials.carvedStone);
-  const sideGeom = new THREE.BoxGeometry(0.24, 1.46, 0.22);
+  const baseStep = makeScaledBlock("latest-door-stone-step", [2.06, 0.2, 0.62], [0, 0.12, -0.08], materials.warmStone);
+  const backStone = makeScaledBlock("latest-door-back-stone", [1.78, 1.74, 0.18], [0, 0.96, -0.12], materials.carvedStone);
+  const sideGeom = new THREE.BoxGeometry(0.28, 1.86, 0.26);
   const left = new THREE.Mesh(sideGeom, materials.warmStone);
-  left.position.set(-0.62, 0.72, 0);
+  left.position.set(-0.78, 0.88, 0);
   const right = left.clone();
-  right.position.x = 0.62;
-  const lintel = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 0.22), materials.gold);
-  lintel.position.set(0, 1.36, 0);
-  const pane = new THREE.Mesh(new THREE.PlaneGeometry(0.82, 1.02), materials.violetGlass);
+  right.position.x = 0.78;
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(1.96, 0.24, 0.26), materials.gold);
+  lintel.position.set(0, 1.72, 0);
+  const pane = new THREE.Mesh(new THREE.PlaneGeometry(1.02, 1.32), materials.violetGlass);
   pane.name = "latest-door-glass-pane";
-  pane.position.set(0, 0.72, 0.08);
-  finalDoor.add(baseStep, backStone, left, right, lintel, pane);
+  pane.position.set(0, 0.92, 0.1);
+  const foldedReturn = makeScaledBlock("latest-door-folded-return-plane", [0.22, 1.42, 0.34], [0.98, 0.9, -0.2], materials.blueMetal);
+  foldedReturn.rotation.y = -0.48;
+  const inlay = makeScaledBlock("latest-door-gold-spine-inlay", [1.52, 0.034, 0.05], [0, 1.54, 0.12], materials.goldInk);
+  finalDoor.add(baseStep, backStone, left, right, lintel, pane, foldedReturn, inlay);
 
-  finalDoorGlow = new THREE.Mesh(new THREE.TorusGeometry(0.64, 0.028, 8, 72), materials.cyanInk);
+  finalDoorGlow = new THREE.Mesh(new THREE.TorusGeometry(0.82, 0.032, 8, 80), materials.cyanInk);
   finalDoorGlow.name = "latest-door-return-ring";
-  finalDoorGlow.position.set(0, 0.74, 0.12);
+  finalDoorGlow.position.set(0, 0.96, 0.14);
   finalDoor.add(finalDoorGlow);
 
-  const hit = new THREE.Mesh(new THREE.BoxGeometry(1.68, 1.72, 0.62), materials.hit);
+  const hit = new THREE.Mesh(new THREE.BoxGeometry(2.06, 2.12, 0.78), materials.hit);
   hit.name = "latest-door-proxy";
-  hit.position.y = 0.7;
+  hit.position.y = 0.88;
   hit.userData = { kind: "action", action: "door", index: 6 };
   finalDoor.add(hit);
   interactables.push(hit);
@@ -1488,13 +1555,28 @@ function createBurst(position, color, scale = 1) {
 
 function updateUi() {
   const chapter = chapters[state.current];
-  ui.title.textContent = chapter.title;
+  renderChapterTitle(chapter.title);
   ui.residue.textContent = performance.now() < state.messageUntil ? state.message : chapter.residue;
   progressButtons.forEach((button, index) => {
     button.classList.toggle("is-open", index <= state.unlocked);
     button.classList.toggle("is-current", index === state.current);
     button.disabled = index > state.unlocked;
   });
+}
+
+function renderChapterTitle(title) {
+  const [english, chinese] = title.split(" / ");
+  if (!chinese) {
+    ui.title.textContent = title;
+    return;
+  }
+  const englishSpan = document.createElement("span");
+  englishSpan.className = "chapter-title-en";
+  englishSpan.textContent = english;
+  const chineseSpan = document.createElement("span");
+  chineseSpan.className = "chapter-title-zh";
+  chineseSpan.textContent = `/ ${chinese}`;
+  ui.title.replaceChildren(englishSpan, chineseSpan);
 }
 
 function updateWorld(delta, time) {
@@ -1510,7 +1592,9 @@ function updateWorld(delta, time) {
     });
   }
 
-  cameraTarget.lerp(state.playerPosition, 1 - Math.exp(-delta * 2.3));
+  const compositionBias = window.innerWidth < 740 ? 0.12 : 0.34;
+  cameraFocus.copy(state.playerPosition).lerp(COMPOSITION_ANCHOR, compositionBias);
+  cameraTarget.lerp(cameraFocus, 1 - Math.exp(-delta * 2.3));
   camera.position.copy(cameraTarget).add(CAMERA_OFFSET);
   camera.lookAt(cameraTarget);
 
@@ -1598,7 +1682,7 @@ function resize() {
   const height = window.innerHeight;
   const aspect = width / height;
   const mobile = width < 740;
-  const vertical = mobile ? 8.6 : 5.1;
+  const vertical = mobile ? 8.6 : width < 1100 ? 4.95 : 4.55;
   camera.left = -vertical * aspect;
   camera.right = vertical * aspect;
   camera.top = vertical;
@@ -1620,6 +1704,15 @@ function tick() {
     ui.residue.textContent = chapters[state.current].residue;
   }
   renderer.render(scene, camera);
+  state.renderFrames += 1;
+  state.rendererSnapshot = {
+    calls: renderer.info.render.calls,
+    triangles: renderer.info.render.triangles,
+    points: renderer.info.render.points,
+    lines: renderer.info.render.lines,
+    geometries: renderer.info.memory.geometries,
+    textures: renderer.info.memory.textures,
+  };
   requestAnimationFrame(tick);
 }
 
