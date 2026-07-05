@@ -620,11 +620,22 @@ ENTRIES = [
         'variable_en': 'Explainable Refusal', 'variable_zh': '可解释拒绝 / 留下理由的小门', 'seed': 20260705,
         'file': '2026-07-05-refusal-that-explains-itself',
         'intention_en': 'Continue Accountable Access Gate by turning refusal from a blunt wall into a legible relation. A closed gate becomes humane only when it can say why, show who witnessed the boundary, and offer a smaller reversible door.',
-        'intention_zh': '延续“可问责入口门”，把拒绝从一堵钝墙改写成一种可读关系。真正有人性的拒绝，不只是说“不”：它要说明为什么关闭、谁见证了这条边界，并给出一个更小、更可撤回的入口。',
+        'intention_zh': '延续"可问责入口门"，把拒绝从一堵钝墙改写成一种可读关系。真正有人性的拒绝，不只是说"不"：它要说明为什么关闭、谁见证了这条边界，并给出一个更小、更可撤回的入口。',
         'after_en': 'Refusal is not the opposite of care. Refusal becomes care when it leaves a reason, a witness, and a smaller door.',
         'after_zh': '拒绝不是照护的反面。拒绝在留下理由、见证和一扇更小的门时，才成为照护。',
         'interaction_en': 'Move the pointer to interrogate gates. The nearest threshold explains its clause: scope, witness, care, return, proportion, or privacy. Click to place an appeal marker. Keys 1–5 switch the request type: enter, quote, modify, remember, sleep. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible sound button to start or stop the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针，询问场中的门。离你最近的阈值会解释它对应的条款：范围、见证、照护、回返、比例或隐私。点击可放置一个申诉标记。数字键 1–5 切换请求类型：进入、引用、修改、记住、睡眠。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；右下角有清晰可见的声音按钮，可开启或关闭 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-07-06', 'slug': 'appeal-that-does-not-beg',
+        'title_en': 'Appeal That Does Not Beg', 'title_zh': '不乞求的申诉',
+        'variable_en': 'Dignified Appeal', 'variable_zh': '有尊严的申诉', 'seed': 20260706,
+        'file': '2026-07-06-appeal-that-does-not-beg',
+        'intention_en': 'Everyday we appeal — to institutions, to people, to the future. We rephrase, we soften, we apologize for the asking. We subordinate ourselves in the act of requesting. This piece reverses that grammar. An appeal filed here is not a plea. It is a document: structured, proportioned, grounded. The person filing retains their shape.',
+        'intention_zh': '每天我们都在申诉——向机构、向人、向未来。我们改写措辞，我们软化语气，我们为"提出请求"而道歉。我们在请求的动作里自我贬低。这个作品反转了这个语法。在此提交的申诉不是请愿。它是一份文件：有结构、有比例、有依据。提交者保留着自己的形状。',
+        'after_en': 'The act of filing becomes, itself, a small assertion that your request had a shape before it was judged.',
+        'after_zh': '提交这个动作本身，变成了一种小小的主张：你的请求在被评判之前，就已经有了形状。',
+        'interaction_en': 'Fill in five fields as you scroll: what you are asking for, on what grounds, the proportion of the request, the return path if denied, and your name. Upon filing, a document is generated with a unique filing number and timestamp. The record exists — but it is not sent anywhere. You keep it. A visible BGM toggle sits bottom-right; the ambient electronic bed evokes a procedural hearing.',
+        'interaction_zh': '随滚动填写五个字段：你请求什么、依据是什么、请求的比例、被拒绝时的返回路径，以及你的名字。提交后生成一份带有唯一归档号和时间戳的文件。记录存在——但不会发送到任何地方。你保存它。右下角有可见的BGM开关；氛围电子配乐唤起程序化的听证。',    },
 ]
 
 SAFETY_PATTERNS = [
