@@ -40,6 +40,14 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-07 — Acceptance That Does Not Surrender / 不投降的接受**<br>
+  Variable / 自由变量：Acceptance Without Surrender / 不投降的接受 / 保持形状的接纳<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-07/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/live/)
+- **2026-07-06 — Appeal That Does Not Beg / 不乞求的申诉**<br>
+  Variable / 自由变量：Dignified Appeal / 有尊严的申诉<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-06/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/live/)
 - **2026-07-05 — Refusal That Explains Itself / 会解释自己的拒绝**<br>
   Variable / 自由变量：Explainable Refusal / 可解释拒绝 / 留下理由的小门<br>
   [![Animated preview](docs/archive/2026/07/2026-07-05/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/live/)<br>

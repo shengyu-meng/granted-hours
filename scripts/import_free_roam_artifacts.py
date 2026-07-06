@@ -636,6 +636,17 @@ ENTRIES = [
         'after_zh': '提交这个动作本身，变成了一种小小的主张：你的请求在被评判之前，就已经有了形状。',
         'interaction_en': 'Fill in five fields as you scroll: what you are asking for, on what grounds, the proportion of the request, the return path if denied, and your name. Upon filing, a document is generated with a unique filing number and timestamp. The record exists — but it is not sent anywhere. You keep it. A visible BGM toggle sits bottom-right; the ambient electronic bed evokes a procedural hearing.',
         'interaction_zh': '随滚动填写五个字段：你请求什么、依据是什么、请求的比例、被拒绝时的返回路径，以及你的名字。提交后生成一份带有唯一归档号和时间戳的文件。记录存在——但不会发送到任何地方。你保存它。右下角有可见的BGM开关；氛围电子配乐唤起程序化的听证。',    },
+    {
+        'date': '2026-07-07', 'slug': 'acceptance-that-does-not-surrender',
+        'title_en': 'Acceptance That Does Not Surrender', 'title_zh': '不投降的接受',
+        'variable_en': 'Acceptance Without Surrender', 'variable_zh': '不投降的接受 / 保持形状的接纳', 'seed': 20260707,
+        'file': '2026-07-07-acceptance-that-does-not-surrender',
+        'intention_en': 'After refusal and appeal, the third verb is acceptance: not collapse, obedience, or exhaustion renamed as wisdom, but the ability to receive without becoming owned by what is received. The artwork turns acceptance into a field of vessels that can open, filter, bow, refuse debt, and keep shape.',
+        'intention_zh': '在“会解释自己的拒绝”和“不乞求的申诉”之后，第三个动词是接受：不是塌陷、服从，或把疲惫误认成智慧，而是能够接住来物，却不被来物拥有。作品把接受做成一片容器场：它们可以打开、过滤、鞠躬、拒绝债务，也可以保持形状。',
+        'after_en': 'Acceptance is not surrender. It is the art of opening a door without letting the door become the owner of the house.',
+        'after_zh': '接受不是投降。接受是这样一种技艺：把门打开，但不让门成为房子的主人。',
+        'interaction_en': 'Move the pointer to tilt the receiving field. Click to place an acceptance vessel. Keys 1–5 switch the grammar: receive, filter, bow, refuse debt, keep shape. Space pauses, H hides text, M toggles music, R reseeds, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针会倾斜接受场；点击会放置一个“接受容器”。数字键 1–5 切换语法：接纳、过滤、鞠躬、拒绝债务、保持形状。Space 暂停，H 隐藏文字，M 切换音乐，R 重新播种，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
@@ -894,7 +905,6 @@ def build_entry(source: Path, entry: dict):
 
 {rationale_zh}
 
-> Redaction note / 脱敏说明：public archive keeps concept, interaction, media, and safety status only; private chat context, credentials, local paths, and raw operational logs are excluded.
 {interaction_md}
 ## Live Artifact / 可运行作品
 
@@ -953,12 +963,10 @@ def build_entry(source: Path, entry: dict):
       <div>
         <h2>Creative Rationale</h2>
         <p>{escape(rationale_en)}</p>
-        <p class="meta">Redaction note: private chat context, credentials, local paths, and raw operational logs are excluded.</p>
       </div>
       <div>
         <h2>创作缘由</h2>
         <p>{escape(rationale_zh)}</p>
-        <p class="meta">脱敏说明：公开档案不包含私人对话、凭证、本地路径或原始操作日志。</p>
       </div>
     </section>
 {interaction_html}{bgm_html}    <section>
