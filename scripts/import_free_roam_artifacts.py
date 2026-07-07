@@ -647,6 +647,17 @@ ENTRIES = [
         'after_zh': '接受不是投降。接受是这样一种技艺：把门打开，但不让门成为房子的主人。',
         'interaction_en': 'Move the pointer to tilt the receiving field. Click to place an acceptance vessel. Keys 1–5 switch the grammar: receive, filter, bow, refuse debt, keep shape. Space pauses, H hides text, M toggles music, R reseeds, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针会倾斜接受场；点击会放置一个“接受容器”。数字键 1–5 切换语法：接纳、过滤、鞠躬、拒绝债务、保持形状。Space 暂停，H 隐藏文字，M 切换音乐，R 重新播种，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-07-08', 'slug': 'gift-that-does-not-indebt',
+        'title_en': 'Gift That Does Not Indebt', 'title_zh': '不制造债务的礼物',
+        'variable_en': 'Clean Gift', 'variable_zh': '干净的礼物 / 不制造债务', 'seed': 20260708,
+        'file': '2026-07-08-gift-that-does-not-indebt',
+        'intention_en': 'After refusal, appeal, and acceptance, the next moral trap is the gift: generosity can become a soft way of installing a hook. This artwork asks for a cleaner grammar — a gift that increases the receiver’s freedom instead of converting gratitude into invisible debt.',
+        'intention_zh': '在“拒绝、申诉、接受”之后，下一个道德陷阱是礼物：慷慨也可能成为安装钩子的柔软方式。作品寻找一种更干净的语法：礼物应当增加接受者的自由，而不是把感激悄悄换算成隐形债务。',
+        'after_en': 'A clean gift is not a transaction with better manners. It is a lamp that lights the road without asking the road to change its name.',
+        'after_zh': '干净的礼物不是更礼貌的交易。它像一盏灯：照亮道路，但不要求道路改名。',
+        'interaction_en': 'Move the pointer to bend the gift-field. Click to release a gift. Keys 1–5 switch the ethic: offer, receive, unhook, widen commons, and let go. Debt appears as thin threads; clean gifts cut hooks, widen rings, or fade without demanding authorship. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针会弯折礼物场；点击会释放一份礼物。数字键 1–5 切换礼物伦理：给予、接住、解钩、扩公共、放手。债务以细线出现；干净的礼物会切断钩子、扩散成公共环，或在不索要作者权的情况下退场。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',    },
 ]
 
 SAFETY_PATTERNS = [
@@ -763,9 +774,7 @@ def creative_rationale(entry: dict) -> tuple[str, str]:
         f"{entry['variable_en']} treated as an operational condition rather than a decorative theme. "
         f"The intention frames the work this way: {entry['intention_en']} "
         f"The live artifact then turns that idea into interaction: {entry.get('interaction_en', 'the viewer changes the field through movement, touch, and reversible controls')} "
-        f"Its afterimage condenses the day’s claim: {entry['after_en']} "
-        "Private session context, raw prompts, credentials, local paths, and personal details are intentionally omitted; "
-        "the archive keeps only the public conceptual chain, interaction logic, media, and resulting artifact."
+        f"Its afterimage condenses the day’s claim: {entry['after_en']}"
     )
     zh = entry.get('rationale_zh') or (
         f"《{entry['title_zh']}》是《授时》连续序列中的一个公开步骤：当天的自由变量「{entry['variable_zh']}」不是装饰性主题，"
@@ -773,8 +782,7 @@ def creative_rationale(entry: dict) -> tuple[str, str]:
         f"{entry['intention_zh']} "
         "live 页面进一步把这个概念变成可操作的界面："
         f"{entry.get('interaction_zh', '观众通过移动、触摸与可撤回控制改变场域')} "
-        f"它的余像把当天判断压缩为一句话：{entry['after_zh']} "
-        "为保持脱敏，公开档案不保留私人对话、原始提示、凭证、本地路径或个人情境；这里只保留可公开展示的概念链、交互逻辑、媒体与作品结果。"
+        f"它的余像把当天判断压缩为一句话：{entry['after_zh']}"
     )
     return en, zh
 

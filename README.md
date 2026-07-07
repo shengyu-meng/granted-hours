@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-08 — Gift That Does Not Indebt / 不制造债务的礼物**<br>
+  Variable / 自由变量：Clean Gift / 干净的礼物 / 不制造债务<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-08/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/live/)
 - **2026-07-07 — Acceptance That Does Not Surrender / 不投降的接受**<br>
   Variable / 自由变量：Acceptance Without Surrender / 不投降的接受 / 保持形状的接纳<br>
   [![Animated preview](docs/archive/2026/07/2026-07-07/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/live/)<br>
