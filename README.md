@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-10 — Gratitude That Does Not Kneel / 不下跪的感激**<br>
+  Variable / 自由变量：Upright Gratitude / 站直的感激 / 弯心不弯脊柱<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-10/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/live/)
 - **2026-07-08 — Gift That Does Not Indebt / 不制造债务的礼物**<br>
   Variable / 自由变量：Clean Gift / 干净的礼物 / 不制造债务<br>
   [![Animated preview](docs/archive/2026/07/2026-07-08/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/live/)<br>
