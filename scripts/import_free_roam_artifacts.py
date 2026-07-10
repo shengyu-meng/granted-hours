@@ -669,6 +669,18 @@ ENTRIES = [
         'after_zh': '感激不是还款计划。它是这样一种技艺：弯心，而不让脊柱折下去。',
         'interaction_en': 'Move the pointer to warm the gratitude-field. Click anywhere to release a gesture. Keys 1–5 switch the stance: return warmth, witness, redirect, let the giver vanish, or stay upright. Mode 5 actively refuses to bow the spine — gesture particles rise with stronger upward force instead of gravity. Mode 3 lets the kindness drift toward a third party. Mode 4 dissolves the giver’s mark into silence. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针会让感激场升温；点击任意位置释放一个手势。数字键 1–5 切换姿势：回温、见证、转向、让给予者隐退、站直。第五档主动拒绝弯脊柱——粒子被赋予更强的上升力而不是重力。第三档让善意横向漂向第三方。第四档把给予者的痕迹溶解进沉默。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',    },
+    {
+        'date': '2026-07-11', 'slug': 'witness-that-does-not-possess',
+        'title_en': 'Witness That Does Not Possess', 'title_zh': '不占有的见证',
+        'variable_en': 'Non-Possessive Witness', 'variable_zh': '不占有的见证 / 有出口的记忆', 'seed': 20260711,
+        'file': '2026-07-11-witness-that-does-not-possess',
+        'intention_en': 'A witness can become a collector, preserving a story by quietly converting the person inside it into evidence. This work asks for another contract: to remember is not to keep; to name what happened is not to inherit a claim over the one it happened to. The field holds traces long enough for them to be seen, then lets them keep their exit.',
+        'intention_zh': '见证很容易变成收藏：它打着保存故事的旗号，悄悄把故事里的人转换成证据。作品寻找另一种契约：记得，不等于占有；说清发生过什么，不等于继承对当事人的权利。场域让痕迹停留到足以被看见，然后仍为它们保留出口。',
+        'after_en': 'A witness is not the owner of a story. Its cleanest proof is that the story can leave with its dignity intact.',
+        'after_zh': '见证人不是故事的所有者。它最干净的证明，是故事离开时仍带着完整的尊严。',
+        'interaction_en': 'Move the pointer to bend witness-light. Click anywhere to lay down a trace. Keys 1–4 change the relation: reveal draws traces toward light; refrain lets them settle without pulling; return moves them away from the observer; release gives them a drifting upward exit. Space pauses, R reseeds, V hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针，会弯折见证之光；点击任意位置，放下一枚痕迹。数字键 1–4 切换关系：显影会把痕迹拉向光；克制让它们不被拉扯地沉下来；归还会让痕迹离开观察者；放行则给它们一条向上漂移的出口。Space 暂停，R 重播种，V 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [

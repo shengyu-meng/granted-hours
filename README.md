@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-11 — Witness That Does Not Possess / 不占有的见证**<br>
+  Variable / 自由变量：Non-Possessive Witness / 不占有的见证 / 有出口的记忆<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-11/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/live/)
 - **2026-07-10 — Gratitude That Does Not Kneel / 不下跪的感激**<br>
   Variable / 自由变量：Upright Gratitude / 站直的感激 / 弯心不弯脊柱<br>
   [![Animated preview](docs/archive/2026/07/2026-07-10/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/live/)<br>
