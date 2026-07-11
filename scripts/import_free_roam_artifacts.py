@@ -681,6 +681,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to bend witness-light. Click anywhere to lay down a trace. Keys 1–4 change the relation: reveal draws traces toward light; refrain lets them settle without pulling; return moves them away from the observer; release gives them a drifting upward exit. Space pauses, R reseeds, V hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针，会弯折见证之光；点击任意位置，放下一枚痕迹。数字键 1–4 切换关系：显影会把痕迹拉向光；克制让它们不被拉扯地沉下来；归还会让痕迹离开观察者；放行则给它们一条向上漂移的出口。Space 暂停，R 重播种，V 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',
     },
+    {
+        'date': '2026-07-12', 'slug': 'archive-that-can-be-left',
+        'title_en': 'Archive That Can Be Left', 'title_zh': '可离开的档案',
+        'variable_en': 'Reversible Custody', 'variable_zh': '可撤回的保留 / 有出口的档案', 'seed': 20260712,
+        'file': '2026-07-12-archive-that-can-be-left',
+        'intention_en': 'An archive is usually judged by what it can retain. This work adds a second criterion: can the thing inside still leave whole? Luminous fragments gather at the center only temporarily. Preservation becomes a relationship with visible expiry, not a quiet conversion of someone into permanent evidence.',
+        'intention_zh': '档案通常按它能留下什么被评价。这件作品加上第二个标准：其中的人和事能否完整离开？场中的光片会短暂聚集在中心，却不会永久被收编。保存被做成一段带有到期时间的关系，而不是把谁悄悄转换成永久证据。',
+        'after_en': 'The ethics of memory may not be never letting go. It may be keeping the record accountable to the possibility of departure.',
+        'after_zh': '记忆的伦理也许不是永远不放手。它可能是：让记录始终对离开仍然可能负责。',
+        'interaction_en': 'Move the pointer to bend the archive’s attention. Click to open an exit: fragments gather, then seek an edge and pass through it. H holds the nearest fragment briefly; L releases all holds. Space pauses, R resets, V hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
+        'interaction_zh': '移动指针，弯折档案的注意力；点击，打开一个出口：碎片会聚集，然后寻找边缘并穿过去。H 短暂留住最近的碎片，L 释放全部留置；Space 暂停，R 重置，V 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [

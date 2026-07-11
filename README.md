@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-12 — Archive That Can Be Left / 可离开的档案**<br>
+  Variable / 自由变量：Reversible Custody / 可撤回的保留 / 有出口的档案<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-12/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-12/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-12/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-12/live/)
 - **2026-07-11 — Witness That Does Not Possess / 不占有的见证**<br>
   Variable / 自由变量：Non-Possessive Witness / 不占有的见证 / 有出口的记忆<br>
   [![Animated preview](docs/archive/2026/07/2026-07-11/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/live/)<br>
