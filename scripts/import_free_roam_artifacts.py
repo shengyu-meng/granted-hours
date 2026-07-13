@@ -705,6 +705,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to shape the renewal field; nearby particles brighten and tighten. Click to send a renewal pulse to fading particles. H briefly holds a particle at its brightest; L releases all holds. Space pauses, R resets, V hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.',
         'interaction_zh': '移动指针以塑造续约场，附近光粒会变亮并收紧；点击发出续约脉冲，让正在衰减的粒子重获活力。H 短暂留住最亮的粒子，L 释放全部留置；Space 暂停，R 重置，V 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。',
     },
+    {
+        'date': '2026-07-14', 'slug': 'refusal-needs-no-explanation',
+        'title_en': 'Refusal That Does Not Need to Explain', 'title_zh': '无须解释的拒绝',
+        'variable_en': 'Unaccountable Boundary', 'variable_zh': '无须举证的边界', 'seed': 20260714,
+        'file': '2026-07-14-refusal-needs-no-explanation',
+        'intention_en': 'A boundary is not a courtroom where the self must become evidence. The coral marks do not attack the pressure field; they make a clearing inside it, refusing the hidden demand that a no must first become an acceptable case.',
+        'intention_zh': '边界不是需要自证的法庭。珊瑚色的标记并不攻击压力场；它们在其中划出空地，拒绝那条隐藏规则：一个“不”必须先成为足够令人信服的案件，才有资格成立。',
+        'after_en': 'Consent needs renewal; refusal needs less theater. A system that requires a reason before it honors a no has confused access with entitlement.',
+        'after_zh': '同意需要持续更新；拒绝则不该被迫表演。一个必须先听到理由才尊重“不”的系统，已经把获得许可误认成了理所当然。',
+        'interaction_en': 'Move the pointer to bend the pressure field. Click to place a boundary. Hold H near a mark to let it remain without defense; L releases all held marks. Space pauses, R resets, V veils text, M toggles music, and S saves a still. The visible BGM control starts or stops the original instrumental bed.',
+        'interaction_zh': '移动指针弯折压力场；点击放置边界。将指针停在标记附近按 H，让它无需辩护地停留；L 释放所有停留的标记。Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；清晰可见的 BGM 控件可开启或关闭原创器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [

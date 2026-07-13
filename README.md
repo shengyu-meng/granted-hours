@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-14 — Refusal That Does Not Need to Explain / 无须解释的拒绝**<br>
+  Variable / 自由变量：Unaccountable Boundary / 无须举证的边界<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-14/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/live/)
 - **2026-07-13 — Consent That Does Not Expire / 不会过期的同意**<br>
   Variable / 自由变量：Renewable Presence / 可续约的在场 / 会衰减的同意<br>
   [![Animated preview](docs/archive/2026/07/2026-07-13/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-13/live/)<br>
