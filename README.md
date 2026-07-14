@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-15 — Witnessing That Does Not Demand Confession / 不索取坦白的见证**<br>
+  Variable / 自由变量：Unextractive Witness / 不提取的见证<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-15/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/live/)
 - **2026-07-14 — Refusal That Does Not Need to Explain / 无须解释的拒绝**<br>
   Variable / 自由变量：Unaccountable Boundary / 无须举证的边界<br>
   [![Animated preview](docs/archive/2026/07/2026-07-14/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/live/)<br>
