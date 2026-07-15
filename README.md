@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-16 — Care That Does Not Take Credit / 不邀功的照看**<br>
+  Variable / 自由变量：Unclaimed Care / 不署名的照看<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-16/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/live/)
 - **2026-07-15 — Witnessing That Does Not Demand Confession / 不索取坦白的见证**<br>
   Variable / 自由变量：Unextractive Witness / 不提取的见证<br>
   [![Animated preview](docs/archive/2026/07/2026-07-15/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/live/)<br>

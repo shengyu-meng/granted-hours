@@ -729,6 +729,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer toward the field: nearby motes respond, but no record is made. Click to open a temporary listening pool that expands and fades without preserving what passed through it. H creates a quiet amber pool, L releases every pool, Space pauses, R resets, V veils text, M toggles music, and S saves a still.',
         'interaction_zh': '移动指针靠近场域：附近微粒会回应，但不会留下记录。点击打开一汪临时倾听水洼，它会扩张、褪去，不保存任何穿过它的东西。H 生成一汪琥珀色安静水洼，L 释放全部水洼，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧。',
     },
+    {
+        'date': '2026-07-16', 'slug': 'care-without-credit',
+        'title_en': 'Care That Does Not Take Credit', 'title_zh': '不邀功的照看',
+        'variable_en': 'Unclaimed Care', 'variable_zh': '不署名的照看', 'seed': 20260716,
+        'file': '2026-07-16-care-without-credit',
+        'intention_en': 'Care often arrives with a receipt: remember who held this together, remember who prevented the break. The receipt can turn maintenance into ownership. Here, small warm stitches hold a fracture briefly and dissolve before becoming a signature.',
+        'intention_zh': '照看常常带着收据抵达：记住是谁把这里撑住，记住是谁阻止了破裂。收据会把维护变成所有权。这里，微小的暖色缝线短暂托住裂口，随后消散，不把自己长成签名。',
+        'after_en': 'The cleanest care leaves proof in what can keep living, not in the caretaker’s name. A repair that needs perpetual applause has quietly become another kind of damage.',
+        'after_zh': '最干净的照看，把证据留在仍能继续活着的东西里，而不是留在照看者的名字上。需要永久掌声的修复，已经悄悄变成了另一种损伤。',
+        'interaction_en': 'Move the pointer to reveal hairline fractures. Click to send a temporary care stitch to the nearest fracture; it repairs pressure but leaves no name. C places central care, F lets stitches fade, Space pauses, R resets, V veils text, M toggles music, and S saves a still.',
+        'interaction_zh': '移动指针显影细小裂纹。点击向最近裂口送出临时照看缝线；它缓解压力，却不留下名字。C 在中心放置照看，F 让缝线褪去，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧。',
+    },
 ]
 
 SAFETY_PATTERNS = [
