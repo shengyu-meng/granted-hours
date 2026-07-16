@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-17 — Repair That Does Not Restore the Old Shape / 不复原旧形的修复**<br>
+  Variable / 自由变量：Altered Continuity / 改变后的连续性<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-17/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/live/)
 - **2026-07-16 — Care That Does Not Take Credit / 不邀功的照看**<br>
   Variable / 自由变量：Unclaimed Care / 不署名的照看<br>
   [![Animated preview](docs/archive/2026/07/2026-07-16/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/live/)<br>
