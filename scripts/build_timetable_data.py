@@ -11,7 +11,7 @@ PUBLIC_DAYS = ROOT / "metadata" / "days.json"
 TIMETABLE_SOURCE = ROOT / "metadata" / "timetable-v1.json"
 OUTPUT = ROOT / "src" / "timetable" / "timetable-data.js"
 
-REQUIRED_PUBLIC_FIELDS = {
+REQUIRED_PUBLIC_FIELDS = (
     "date",
     "title_en",
     "title_zh",
@@ -21,7 +21,7 @@ REQUIRED_PUBLIC_FIELDS = {
     "preview",
     "archive_url",
     "live_url",
-}
+)
 
 
 def minutes(value: str) -> int:
@@ -64,7 +64,7 @@ def main() -> int:
     for day_date in latest_dates:
         public_entry = public_by_date[day_date]
         source_entry = source_by_date[day_date]
-        missing = REQUIRED_PUBLIC_FIELDS.difference(public_entry)
+        missing = set(REQUIRED_PUBLIC_FIELDS).difference(public_entry)
         require(not missing, f"{day_date} is missing public fields: {sorted(missing)}")
         residues = source_entry["task_residues"]
         require(5 <= len(residues) <= 8, f"{day_date} must have 5-8 task residues")
