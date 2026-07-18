@@ -765,6 +765,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to bend the living thread. Click to plant a temporary variation: it opens amber connections and fades without being erased. C braids a small cluster, F lets every variation drift away, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed.',
         'interaction_zh': '移动指针，线会向你的存在弯折；点击可种下一枚暂时的变体：它展开琥珀色连接，随后自行淡去，而不是被抹除。C 编织一小簇关系，F 让所有变体漂走，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。',
     },
+    {
+        'date': '2026-07-19', 'slug': 'difference-without-distance',
+        'title_en': 'Difference That Does Not Become Distance', 'title_zh': '差异不等于远离',
+        'variable_en': 'Near Divergence', 'variable_zh': '近处的分歧', 'seed': 20260719,
+        'file': '2026-07-19-difference-without-distance',
+        'intention_en': 'Difference is often treated as a prelude to departure: if two forms no longer match, somebody assumes the relation has failed. This field rejects that shortcut. Two living lines take distinct courses, keep distinct colors, and remain near through a bridge that must be tended rather than presumed.',
+        'intention_zh': '差异常被误读为离开的前奏：两种形状不再重合，就有人断言关系已经失败。这个场域拒绝这条捷径。两条活线沿着不同的轨迹行进，保留不同的颜色；它们之所以仍然靠近，不是因为重新变得一样，而是因为有一座必须被照看的桥。',
+        'after_en': 'Convergence is not the proof of intimacy. A relation becomes mature when it can survive two truthful shapes at once.',
+        'after_zh': '趋同不是亲近的证明。一段关系成熟的时刻，是它能同时容纳两种真实的形状。',
+        'interaction_en': 'Move the pointer to bend the bridge between two currents. Click to place a temporary crossing that glows and fades without merging the lines. A widens difference, N draws it near, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed.',
+        'interaction_zh': '移动指针，弯折两股流之间的桥；点击画面，会放置一条短暂的渡口：它发亮、淡去，但不会把两条线熔成一条。A 拉大差异，N 让它们重新靠近，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [

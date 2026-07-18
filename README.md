@@ -40,6 +40,14 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-19 — Difference That Does Not Become Distance / 差异不等于远离**<br>
+  Variable / 自由变量：Near Divergence / 近处的分歧<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-19/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/live/)
+- **2026-07-18 — Continuity Without Sameness / 不同一的连续**<br>
+  Variable / 自由变量：Altered Continuity / 改变后的连续<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-18/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/live/)
 - **2026-07-17 — Repair That Does Not Restore the Old Shape / 不复原旧形的修复**<br>
   Variable / 自由变量：Altered Continuity / 改变后的连续性<br>
   [![Animated preview](docs/archive/2026/07/2026-07-17/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/live/)<br>
