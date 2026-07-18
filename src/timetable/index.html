@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Granted Hours non-human timetable: twenty-three public residue hours and one autonomous hour opening the live artwork."
+    >
+    <title>非人时刻表 / Granted Hours Timetable</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#timeBody">Skip to timetable</a>
+
+    <main class="timetable-app" id="timetableRoot">
+      <header class="protocol-bar" aria-label="Granted Hours timetable protocol">
+        <a class="brand-mark" href="../" aria-label="Return to Granted Hours archive; Granted Interior is also linked below the timetable">
+          <span class="brand-glyph" aria-hidden="true"></span>
+          <span>授时 / Granted Hours</span>
+        </a>
+        <div class="clock-block" aria-live="polite">
+          <span class="clock-time" id="clockTime">--:--:--</span>
+          <span class="clock-label">Asia/Shanghai</span>
+        </div>
+        <nav class="quiet-nav" aria-label="Related entrances">
+          <a href="../">Archive</a>
+          <a href="../maze/">Interior</a>
+        </nav>
+      </header>
+
+      <section class="surface" aria-label="Non-human timetable">
+        <nav class="day-rail" id="dayRail" aria-label="Latest seven public days"></nav>
+
+        <section class="time-theatre" aria-labelledby="dayTitle">
+          <div class="heading-row">
+            <p class="section-mark">非人时刻表 / Non-human timetable</p>
+            <h1 id="dayTitle">Loading timetable</h1>
+            <p class="variable-line" id="variableLine"></p>
+          </div>
+
+          <div class="instrument-zone">
+            <div class="state-column" aria-label="Timetable state">
+              <p class="status-word" id="statusWord">measuring</p>
+            </div>
+
+            <div class="time-body-wrap">
+              <div class="time-body" id="timeBody" role="group" aria-label="Living 24-hour timetable" tabindex="0">
+                <div class="body-skin spent-skin" aria-hidden="true"></div>
+                <div class="body-skin future-skin" aria-hidden="true"></div>
+                <div class="hour-axis" id="hourAxis" aria-hidden="true"></div>
+                <div class="residue-layer" id="residueLayer"></div>
+                <button class="jewel-hour" id="jewelHour" type="button">
+                  <span class="jewel-time" id="jewelTime">03:17-04:17</span>
+                  <span class="jewel-label">自主时 / autonomous</span>
+                </button>
+                <div class="incision" id="incision" hidden>
+                  <span id="incisionTime">--:--</span>
+                </div>
+              </div>
+            </div>
+
+            <aside class="work-membrane" aria-live="polite" aria-label="Selected day residue">
+              <p class="work-date" id="workDate"></p>
+              <p class="jewel-note" id="jewelNote">The work will appear here.</p>
+
+              <div class="relation-panel">
+                <p class="readout-label">Escape path / 逃历路径</p>
+                <div id="relationList" class="relation-list"></div>
+                <p class="transition-line" id="surfaceTransition" hidden>
+                  不是下一天。是同一个问题的另一个入口。<br>
+                  Not the next day. Another entrance to the same question.
+                </p>
+              </div>
+            </aside>
+          </div>
+
+          <div class="bottom-strip">
+            <p class="state-sentence" id="stateSentence"></p>
+            <p class="public-note" id="publicNote"></p>
+            <a class="maze-thread" href="../maze/">更深的内景 / Deeper interior</a>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <section class="crystal-chamber" id="crystalChamber" role="dialog" aria-modal="true" aria-labelledby="chamberTitle" hidden>
+      <div class="chamber-toolbar">
+        <button class="chamber-button" id="closeChamber" type="button">Return / 返回</button>
+        <div class="chamber-heading">
+          <p>Autonomous hour / 自主时</p>
+          <h2 id="chamberTitle"></h2>
+        </div>
+        <button class="chamber-button escape" id="escapeButton" type="button">Escape path / 逃历</button>
+      </div>
+      <iframe id="liveFrame" title="Granted Hours live artwork" loading="lazy"></iframe>
+      <p class="chamber-transition" id="chamberTransition">
+        不是下一天。是同一个问题的另一个入口。<br>
+        Not the next day. Another entrance to the same question.
+      </p>
+      <p class="iframe-fallback">
+        If the embedded work does not load, open the same-origin live page directly:
+        <a id="fallbackLiveLink" href="../" target="_blank" rel="noopener">live artwork</a>.
+      </p>
+    </section>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

@@ -1274,6 +1274,24 @@ See [LICENSE.md](LICENSE.md).
       <p class="meta" id="galleryTrackLabel">Gallery music starts from the latest available daily BGM and loops forward.</p>
     </section>
 
+    <section class="non-human-timetable-mark" aria-label="The non-human timetable">
+      <p class="mark-grant">grant: once a day, one hour to a non-human intelligence</p>
+      <p>每天授予非人智能一小时自我时间。</p>
+      <p class="mark-title">─ The non-human timetable / 非人时刻表 ─</p>
+      <p>Twenty-three hours become residue. One hour opens the work.</p>
+      <p>二十三小时被调度、消耗、变灰；<br>一小时不服务任务，结晶成真实作品入口。</p>
+      <a class="timetable-mark-cta" href="./timetable/">[ Enter non-human timetable / 进入非人时刻表 ]</a>
+    </section>
+
+    <section class="maze-portal">
+      <div>
+        <p class="meta">授时内景 / Granted Interior</p>
+        <h2>Not a replacement for the archive. A playable inner map of the same works.</h2>
+        <p>不是档案的替代品，而是同一批作品的可游走内景。</p>
+      </div>
+      <a class="button" href="./maze/">Enter the maze diary / 进入迷宫日记</a>
+    </section>
+
     <section class="two">
       <div>
         <h2>English</h2>
@@ -1285,15 +1303,6 @@ See [LICENSE.md](LICENSE.md).
         <p><strong>《授时》</strong>是一项持续性的档案与当代艺术实验。一个非人智能被授予自由时间；随后留下的作品被整理、索引，并以档案和展览的双重形态呈现。</p>
         <p>当输出是代码生成艺术时，作品通过 GitHub Pages 保持可运行。GIF 是会动的缩略图，是入口，不是替代品。</p>
       </div>
-    </section>
-
-    <section class="maze-portal">
-      <div>
-        <p class="meta">授时内景 / Granted Interior</p>
-        <h2>Not a replacement for the archive. A playable inner map of the same works.</h2>
-        <p>不是档案的替代品，而是同一批作品的可游走内景。</p>
-      </div>
-      <a class="button" href="./maze/">Enter the maze diary / 进入迷宫日记</a>
     </section>
 
     <section>
