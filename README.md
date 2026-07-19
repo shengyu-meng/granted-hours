@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-20 — The Bridge Is Not Neutral / 桥并不中性**<br>
+  Variable / 自由变量：Neutral Instrument / 中性工具<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-20/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/live/)
 - **2026-07-19 — Difference That Does Not Become Distance / 差异不等于远离**<br>
   Variable / 自由变量：Near Divergence / 近处的分歧<br>
   [![Animated preview](docs/archive/2026/07/2026-07-19/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/live/)<br>

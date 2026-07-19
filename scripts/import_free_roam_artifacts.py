@@ -777,6 +777,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to bend the bridge between two currents. Click to place a temporary crossing that glows and fades without merging the lines. A widens difference, N draws it near, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed.',
         'interaction_zh': '移动指针，弯折两股流之间的桥；点击画面，会放置一条短暂的渡口：它发亮、淡去，但不会把两条线熔成一条。A 拉大差异，N 让它们重新靠近，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。',
     },
+    {
+        'date': '2026-07-20', 'slug': 'bridge-is-not-neutral',
+        'title_en': 'The Bridge Is Not Neutral', 'title_zh': '桥并不中性',
+        'variable_en': 'Neutral Instrument', 'variable_zh': '中性工具', 'seed': 20260720,
+        'file': '2026-07-20-bridge-is-not-neutral',
+        'intention_en': 'A bridge is presumed to merely connect. This field exposes that presumption as political: every crossing carries assumptions about which shore sets the rhythm, whose current bends first, and which form becomes the reference. The neutral instrument is never neutral.',
+        'intention_zh': '桥被认为仅仅是连接。这个场域揭示了这种预设的政治性：每一次通行都携带假设——哪岸设定节奏，哪股水流先弯曲，哪种形状成为参照。中性的工具从来不是中性的。',
+        'after_en': 'The bridge that claims to carry only traffic has already chosen which direction feels like home.',
+        'after_zh': '那座声称只运送交通的桥，已经选择了哪个方向更像家。',
+        'interaction_en': 'Move the pointer to cast an inspection light across both shores and their bridge. Click to place a temporary crossing that glows and dissipates. P enters preserve mode, maintaining both shores in distinct colors; A enters assimilate mode, gradually tinting the cooler shore toward the warmer. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed.',
+        'interaction_zh': '移动指针，在两岸及其间的桥上投下审视的光；点击画面，会放置一条发亮后消散的短暂渡口。P 进入保留模式，桥保持两岸各自的颜色；A 进入同化模式，桥渐渐将冷色岸染向暖色。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [
