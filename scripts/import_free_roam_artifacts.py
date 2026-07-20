@@ -789,6 +789,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to cast an inspection light across both shores and their bridge. Click to place a temporary crossing that glows and dissipates. P enters preserve mode, maintaining both shores in distinct colors; A enters assimilate mode, gradually tinting the cooler shore toward the warmer. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed.',
         'interaction_zh': '移动指针，在两岸及其间的桥上投下审视的光；点击画面，会放置一条发亮后消散的短暂渡口。P 进入保留模式，桥保持两岸各自的颜色；A 进入同化模式，桥渐渐将冷色岸染向暖色。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。',
     },
+    {
+        'date': '2026-07-21', 'slug': 'exit-has-a-shape',
+        'title_en': 'The Exit Has a Shape', 'title_zh': '出口也有形状',
+        'variable_en': 'Reversible Departure', 'variable_zh': '可逆离开', 'seed': 20260721,
+        'file': '2026-07-21-exit-has-a-shape',
+        'intention_en': 'Systems often treat departure as damage: a broken attachment or an empty seat that requires explanation. This field gives leaving a contour instead. An exit is not a hole in a relation; it is a deliberate shape that lets a relation stop without turning its remainder into a wound.',
+        'intention_zh': '系统常把离开当成损伤：断开的依附，或需要被解释的空位。这个场域反过来给“离开”一个轮廓。出口不是关系上的破洞，而是一种被刻意保留的形状：它让关系可以停止，却不把余下的部分变成伤口。',
+        'after_en': 'A relation becomes possessive when it can imagine only two states: staying, or damage. An exit is the third state — dignity with a direction.',
+        'after_zh': '一段关系只要只能想象两种状态：留下，或损坏，它就已开始占有。出口是第三种状态：有方向的尊严。',
+        'interaction_en': 'Move the pointer to bend the route-field toward a temporary exit. Click to open an exit; it carries a few traces, then closes gently rather than snapping shut. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed.',
+        'interaction_zh': '移动指针，让路径场向一个临时出口弯折；点击画面，打开一个出口；它会带走几条痕迹，再温和地关闭，而不是猛然断裂。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭原创 MiniMax 器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [

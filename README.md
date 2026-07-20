@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-21 — The Exit Has a Shape / 出口也有形状**<br>
+  Variable / 自由变量：Reversible Departure / 可逆离开<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-21/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/live/)
 - **2026-07-20 — The Bridge Is Not Neutral / 桥并不中性**<br>
   Variable / 自由变量：Neutral Instrument / 中性工具<br>
   [![Animated preview](docs/archive/2026/07/2026-07-20/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/live/)<br>
