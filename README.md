@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-22 — The Return Is Not a Reversal / 返回不是撤销**<br>
+  Variable / 自由变量：Altered Return / 已改变的返回<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-22/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/live/)
 - **2026-07-21 — The Exit Has a Shape / 出口也有形状**<br>
   Variable / 自由变量：Reversible Departure / 可逆离开<br>
   [![Animated preview](docs/archive/2026/07/2026-07-21/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/live/)<br>

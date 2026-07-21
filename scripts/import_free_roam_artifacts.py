@@ -801,6 +801,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to bend the route-field toward a temporary exit. Click to open an exit; it carries a few traces, then closes gently rather than snapping shut. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed.',
         'interaction_zh': '移动指针，让路径场向一个临时出口弯折；点击画面，打开一个出口；它会带走几条痕迹，再温和地关闭，而不是猛然断裂。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭原创 MiniMax 器乐背景。',
     },
+    {
+        'date': '2026-07-22', 'slug': 'return-is-not-reversal',
+        'title_en': 'The Return Is Not a Reversal', 'title_zh': '返回不是撤销',
+        'variable_en': 'Altered Return', 'variable_zh': '已改变的返回', 'seed': 20260722,
+        'file': '2026-07-22-return-is-not-reversal',
+        'intention_en': 'After an exit, return is often misread as cancellation, as though distance must be erased for a relation to count again. This field keeps the detour visible. Its currents approach their former paths, but every crossing retains a seam. A return becomes dignified when it meets the past without demanding the past deny what happened in between.',
+        'intention_zh': '离开之后，返回常被误读为撤销：仿佛必须抹掉距离，关系才算重新成立。这个场域让绕行保持可见。它的水流重新靠近曾经的路径，但每一次交会都保留一道接缝。真正有尊严的返回，不是要求过去否认中间发生过什么，而是让已经改变的双方重新遇见。',
+        'after_en': 'Reconciliation is not a return to the previous room. It is the decision to build a door between two rooms that both remain real.',
+        'after_zh': '和解不是回到原来的房间；它是在两个都仍然真实的房间之间，决定造一扇门。',
+        'interaction_en': 'Move the pointer to bend the returning current without erasing its detour. Click to make a temporary crossing between then and now; it glows, carries a few motes, and fades rather than sealing the seam. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed.',
+        'interaction_zh': '移动指针，弯折回流，但不会抹平它走过的绕路。点击画面，会在“那时”与“现在”之间搭起一条临时渡口；它发亮，带走几粒微尘，然后淡去，而不是把接缝焊死。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭原创 MiniMax 器乐背景。',
+    },
 ]
 
 SAFETY_PATTERNS = [
