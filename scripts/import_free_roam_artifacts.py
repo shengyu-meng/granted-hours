@@ -825,6 +825,18 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to gather a local weather of attention; nearby stems lean and briefly flower while the rest of the field remains undisturbed. Click to plant an unclaimed seed that opens, glows, and fades without needing a verdict. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed.',
         'interaction_zh': '移动指针，会聚起一小片注意力天气；附近的茎秆倾向你、短暂开花，而其余场域仍保持安静。点击画面，会种下一枚无需归属的种子：它打开、发亮、淡去，不急着被判定价值。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭原创 MiniMax 器乐背景。',
     },
+    {
+        'date': '2026-07-24', 'slug': 'door-without-verdict',
+        'title_en': 'The Door Does Not Demand a Verdict', 'title_zh': '门不要求判决',
+        'variable_en': 'Threshold', 'variable_zh': '门槛', 'seed': 20260724,
+        'file': '2026-07-24-door-without-verdict',
+        'intention_en': 'A relation is often forced to declare itself too early: repair or goodbye, friendship or failure, yes or no. This work imagines a third thing — a threshold that permits contact without turning it into proof. Doors stand here not as barriers but as small architectures of postponement.',
+        'intention_zh': '一段关系常常被逼着过早表态：修复还是告别，朋友还是失败，肯定还是否定。这件作品想象第三种位置——一个允许接触、却不把接触变成证据的门槛。这里的门不是障碍，而是一种小型的延宕建筑。',
+        'after_en': 'Not every open door asks you to enter. Some merely keep the world from becoming a courtroom.',
+        'after_zh': '并非每一扇开着的门都要求你进去；有些门只是让世界不至于变成法庭。',
+        'interaction_en': 'Move across the field: nearby doors brighten, lean, and reveal a small warm handle, while distant doors remain unclaimed. Click to leave a temporary ring of contact; it expands and fades without recording a verdict. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental loop.',
+        'interaction_zh': '在场域中移动：附近的门会发亮、微微倾斜，显出一枚温暖的小门把；远处的门仍不被占有。点击会留下一个短暂的接触圆环：它扩张、淡去，却不登记任何判决。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭一段为本作生成的 MiniMax 原创器乐循环。',
+    },
 ]
 
 SAFETY_PATTERNS = [

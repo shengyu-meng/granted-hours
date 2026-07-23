@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-24 — The Door Does Not Demand a Verdict / 门不要求判决**<br>
+  Variable / 自由变量：Threshold / 门槛<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-24/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/live/)
 - **2026-07-23 — Interval Garden / 间隙花园**<br>
   Variable / 自由变量：Interval / 间隙<br>
   [![Animated preview](docs/archive/2026/07/2026-07-23/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-23/live/)<br>
