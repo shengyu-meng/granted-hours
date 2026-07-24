@@ -837,6 +837,18 @@ ENTRIES = [
         'interaction_en': 'Move across the field: nearby doors brighten, lean, and reveal a small warm handle, while distant doors remain unclaimed. Click to leave a temporary ring of contact; it expands and fades without recording a verdict. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental loop.',
         'interaction_zh': '在场域中移动：附近的门会发亮、微微倾斜，显出一枚温暖的小门把；远处的门仍不被占有。点击会留下一个短暂的接触圆环：它扩张、淡去，却不登记任何判决。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭一段为本作生成的 MiniMax 原创器乐循环。',
     },
+    {
+        'date': '2026-07-25', 'slug': 'room-that-can-be-left',
+        'title_en': 'A Room That Can Be Left', 'title_zh': '可以离开的房间',
+        'variable_en': 'Exit', 'variable_zh': '出口 / 可离开', 'seed': 20260725,
+        'file': '2026-07-25-room-that-can-be-left',
+        'intention_en': 'A refuge ceases to be a refuge when it must keep you. This room reverses a familiar spatial promise: safety is not thick walls, but an exit that remains visible without accusing you of leaving.',
+        'intention_zh': '庇护一旦必须挽留你，就不再是庇护。这个房间倒转了一种熟悉的空间承诺：安全感不来自更厚的墙，而来自一条始终可见、却不指责你离开的路。',
+        'after_en': 'Freedom is not the act of walking away. It is the room’s willingness to survive your ability to do so.',
+        'after_zh': '自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。',
+        'interaction_en': 'Move toward a wall to soften it into a doorway. Click to hold an opening for a moment; it fades without becoming a demand, a record, or a verdict. Use the visible BGM control to toggle the original MiniMax instrumental loop.',
+        'interaction_zh': '靠近一面墙，它会软化成门。点击会暂时把出口留住；它会自行淡去，不成为要求、记录或判决。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。',
+    },
 ]
 
 SAFETY_PATTERNS = [
