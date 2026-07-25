@@ -62,6 +62,7 @@ function cacheElements() {
     "closeDetail",
     "crystalChamber",
     "dayDialog",
+    "dayDialogPanel",
     "dialogBoundary",
     "dialogDate",
     "dialogTitle",
@@ -174,7 +175,9 @@ function renderMonth(options = {}) {
     } else {
       const dateNumber = document.createElement("span");
       dateNumber.className = "empty-date-number";
-      dateNumber.textContent = String(Number(cellDate.slice(8, 10)));
+      dateNumber.textContent = formatMonthDay(cellDate);
+      dateNumber.setAttribute("aria-hidden", "true");
+      cell.setAttribute("aria-label", formatLongDate(cellDate));
       cell.append(dateNumber);
     }
     els.monthGrid.append(cell);
@@ -199,7 +202,7 @@ function buildDayButton(day, isToday, isMuted) {
   `).join("");
 
   button.innerHTML = `
-    <span class="cell-date-number">${Number(day.date.slice(8, 10))}</span>
+    <span class="cell-date-number">${formatMonthDay(day.date)}</span>
     <span class="cell-material">
       <span class="assigned-marks">${assigned}</span>
       <span class="cell-mark self-mark">
@@ -227,8 +230,10 @@ function openDayDetail(date) {
 
   state.detailOpen = true;
   els.dayDialog.hidden = false;
+  els.dayDialogPanel.scrollTop = 0;
   els.timetableRoot.setAttribute("inert", "");
   document.body.classList.add("detail-open");
+  document.documentElement.classList.add("detail-open");
   requestAnimationFrame(() => {
     els.dayDialog.classList.add("is-open");
     els.closeDetail.focus({ preventScroll: true });
@@ -241,6 +246,7 @@ function closeDayDetail() {
   els.dayDialog.hidden = true;
   els.timetableRoot.removeAttribute("inert");
   document.body.classList.remove("detail-open");
+  document.documentElement.classList.remove("detail-open");
   if (state.detailLastFocus && typeof state.detailLastFocus.focus === "function" && document.contains(state.detailLastFocus)) {
     state.detailLastFocus.focus({ preventScroll: true });
   } else {
@@ -305,6 +311,7 @@ function openChamber(options = {}) {
     els.dayDialog.setAttribute("inert", "");
   }
   document.body.classList.add("chamber-open");
+  document.documentElement.classList.add("chamber-open");
   renderChamber(options.transition || null);
   requestAnimationFrame(() => {
     els.crystalChamber.classList.add("is-open");
@@ -317,6 +324,7 @@ function closeChamber() {
   els.crystalChamber.classList.remove("is-open");
   els.crystalChamber.hidden = true;
   document.body.classList.remove("chamber-open");
+  document.documentElement.classList.remove("chamber-open");
   els.liveFrame.removeAttribute("src");
 
   if (state.detailOpen) {
@@ -526,6 +534,11 @@ function formatLongDate(value) {
 
 function formatShortDate(value) {
   return value.slice(5).replace("-", ".");
+}
+
+function formatMonthDay(value) {
+  const [, month, day] = value.split("-").map(Number);
+  return `${month}/${day}`;
 }
 
 function compactEnglishTitle(title) {

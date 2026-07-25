@@ -42,6 +42,10 @@ body {
     linear-gradient(180deg, #071017 0%, #05080d 42%, #030504 100%);
 }
 
+:where(html.detail-open, html.chamber-open) {
+  overflow: hidden;
+}
+
 body::before {
   position: fixed;
   inset: 0;
@@ -700,8 +704,7 @@ h1 {
   text-transform: uppercase;
 }
 
-.detail-open,
-.chamber-open {
+:where(body.detail-open, body.chamber-open) {
   overflow: hidden;
 }
 
@@ -963,12 +966,15 @@ h1 {
     padding: 4px;
   }
 
-  .calendar-day-button {
-    min-height: 50px;
-  }
-
+  .empty-date-number,
   .cell-date-number {
     font-size: 10px;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .calendar-day-button {
+    min-height: 50px;
   }
 
   .cell-material {
@@ -1007,20 +1013,37 @@ h1 {
   }
 
   .day-dialog {
+    align-items: stretch;
+    height: 100vh;
+    height: 100dvh;
     padding: 0;
+    overflow: hidden;
+    background: #04080c;
   }
 
   .day-dialog-panel {
+    display: block;
     width: 100%;
+    height: 100vh;
+    height: 100dvh;
     max-height: 100vh;
-    min-height: 100vh;
+    max-height: 100dvh;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
     border-right: 0;
     border-left: 0;
   }
 
   .dialog-close {
+    position: sticky;
     right: 8px;
     top: 8px;
+    float: right;
+    margin: 8px 8px -40px 0;
     min-height: 32px;
     padding: 0 9px;
     font-size: 10px;
@@ -1046,23 +1069,23 @@ h1 {
   }
 
   .detail-layout {
-    grid-template-columns: 26px minmax(0, 1fr);
-    overflow: auto;
+    display: block;
+    min-height: auto;
+    overflow: visible;
   }
 
-  .sediment-segment {
-    left: 10px;
-    width: 8px;
-  }
-
-  .sediment-segment.self {
-    left: 7px;
-    width: 14px;
+  .sediment-track {
+    display: none;
   }
 
   .assigned-detail,
   .self-detail {
+    min-height: auto;
     padding: 14px 12px 18px;
+  }
+
+  .self-detail {
+    grid-column: auto;
   }
 
   .assigned-detail h3,
@@ -1084,6 +1107,7 @@ h1 {
 
   .assigned-copy {
     grid-column: 1 / -1;
+    overflow-wrap: anywhere;
     font-size: 12px;
     line-height: 1.45;
   }

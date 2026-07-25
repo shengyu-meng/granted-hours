@@ -12,6 +12,7 @@ from urllib.parse import urljoin
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
 DEFAULT_CONFIG = ROOT / "metadata" / "timetable-calendar.json"
+DEFAULT_HISTORY = ROOT / "metadata" / "timetable-history.json"
 DEFAULT_LEGACY_OVERRIDES = ROOT / "metadata" / "timetable-v1.json"
 DEFAULT_OUTPUT = ROOT / "src" / "timetable" / "timetable-data.js"
 
@@ -35,6 +36,7 @@ REQUIRED_TAXONOMY = {
     "system_maintenance",
     "visual_production",
 }
+ALLOWED_PROVENANCE = {"record_based", "archive_based", "inferred"}
 
 
 def minutes(value: str) -> int:
@@ -67,6 +69,66 @@ def canonical_url(base_url: str, path_or_url: str) -> str:
 def stable_index(seed: str, size: int) -> int:
     digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
     return int(digest[:16], 16) % size
+
+
+def format_minutes(value: int) -> str:
+    if value == MINUTES_PER_DAY:
+        return "24:00"
+    return f"{value // 60:02d}:{value % 60:02d}"
+
+
+def allocated_lengths(total: int, count: int, seed: str, minimum: int) -> list[int]:
+    """Split a continuous range into deterministic, credible, non-uniform spans."""
+    require(count > 0, "Cannot allocate a range across zero tasks")
+    require(total >= count * minimum, "Task range is too short for the requested minimum")
+    weights = [37 + stable_index(f"{seed}|weight|{index}", 83) for index in range(count)]
+    distributable = total - count * minimum
+    weight_total = sum(weights)
+    extras = [(distributable * weight) // weight_total for weight in weights]
+    lengths = [minimum + extra for extra in extras]
+    remainder = total - sum(lengths)
+    fractions = [
+        ((distributable * weight) % weight_total, stable_index(f"{seed}|tie|{index}", 10_000), index)
+        for index, weight in enumerate(weights)
+    ]
+    for _, _, index in sorted(fractions, reverse=True)[:remainder]:
+        lengths[index] += 1
+    require(sum(lengths) == total, "Internal time allocation did not preserve the range")
+    return lengths
+
+
+def task_ranges(day_date: str, count: int, autonomous: dict) -> list[tuple[str, str]]:
+    autonomous_start = minutes(autonomous["start"])
+    autonomous_end = minutes(autonomous["end"])
+    use_two_before = count >= 7 and stable_index(f"{day_date}|pre-autonomous-count", 2) == 1
+    before_count = 2 if use_two_before else 1
+    after_count = count - before_count
+    before_lengths = allocated_lengths(
+        autonomous_start,
+        before_count,
+        f"{day_date}|before",
+        62 if before_count == 2 else autonomous_start,
+    )
+    after_lengths = allocated_lengths(
+        MINUTES_PER_DAY - autonomous_end,
+        after_count,
+        f"{day_date}|after",
+        82,
+    )
+
+    ranges = []
+    cursor = 0
+    for length in before_lengths:
+        ranges.append((format_minutes(cursor), format_minutes(cursor + length)))
+        cursor += length
+    require(cursor == autonomous_start, f"{day_date} pre-autonomous allocation mismatch")
+
+    cursor = autonomous_end
+    for length in after_lengths:
+        ranges.append((format_minutes(cursor), format_minutes(cursor + length)))
+        cursor += length
+    require(cursor == MINUTES_PER_DAY, f"{day_date} post-autonomous allocation mismatch")
+    return ranges
 
 
 def validate_public_days(public_days: list[dict]) -> list[str]:
@@ -124,6 +186,46 @@ def validate_config(config: dict) -> None:
     require(cursor == MINUTES_PER_DAY, "default_work_slots must cover all non-autonomous time")
 
 
+def load_history(path: Path) -> dict[str, dict]:
+    require(path.exists(), f"History source does not exist: {path}")
+    source = read_json(path)
+    require(
+        source.get("schema") == "granted-hours-timetable-history-v2",
+        "History schema must be granted-hours-timetable-history-v2",
+    )
+    days = source.get("days")
+    require(isinstance(days, list), "History days must be a list")
+    history_by_date = {}
+    for entry in days:
+        require(isinstance(entry, dict), "Every history entry must be an object")
+        day_date = entry.get("date")
+        require(isinstance(day_date, str), "Every history entry needs a date")
+        parse_date(day_date)
+        require(day_date not in history_by_date, f"Duplicate history entry: {day_date}")
+        require(
+            set(entry) == {"date", "provenance", "assigned_residues"},
+            f"{day_date} history must contain only date/provenance/assigned_residues",
+        )
+        require(entry.get("provenance") in ALLOWED_PROVENANCE - {"inferred"}, f"{day_date} has invalid authored provenance")
+        residues = entry.get("assigned_residues")
+        require(isinstance(residues, list) and 5 <= len(residues) <= 8, f"{day_date} history needs 5-8 assigned residues")
+        signatures = set()
+        for index, residue in enumerate(residues):
+            require(isinstance(residue, dict), f"{day_date} residue {index + 1} must be an object")
+            require(
+                set(residue) == {"category", "en", "zh"},
+                f"{day_date} residue {index + 1} must contain only category/en/zh",
+            )
+            require(residue["category"] in REQUIRED_TAXONOMY, f"{day_date} residue {index + 1} has an unknown category")
+            require(str(residue["en"]).strip(), f"{day_date} residue {index + 1} missing en")
+            require(str(residue["zh"]).strip(), f"{day_date} residue {index + 1} missing zh")
+            signature = (residue["category"], residue["en"], residue["zh"])
+            require(signature not in signatures, f"{day_date} assigned residues must be unique")
+            signatures.add(signature)
+        history_by_date[day_date] = entry
+    return history_by_date
+
+
 def load_legacy(path: Path) -> dict[str, dict]:
     if not path.exists():
         return {}
@@ -131,45 +233,82 @@ def load_legacy(path: Path) -> dict[str, dict]:
     return {item["date"]: item for item in source.get("days", []) if item.get("date")}
 
 
-def rotated_categories(day_date: str, config: dict) -> list[str]:
-    slots = config["default_work_slots"]
-    overrides = config.get("date_category_overrides", {}).get(day_date)
-    if overrides is not None:
-        require(
-            isinstance(overrides, list) and len(overrides) == len(slots),
-            f"{day_date} category override must match default_work_slots length",
-        )
-        return overrides
+def inferred_history(public_entry: dict) -> dict:
+    """Deterministic public-safe fallback for a synthetic future public day."""
+    return {
+        "date": public_entry["date"],
+        "provenance": "inferred",
+        "assigned_residues": [
+            {
+                "category": "system_maintenance",
+                "en": "Run the routine service-health pass and preserve actionable failure evidence",
+                "zh": "执行例行服务健康检查并保留可操作的故障证据",
+            },
+            {
+                "category": "research_synthesis",
+                "en": "Verify public-source freshness and separate confirmed findings from open questions",
+                "zh": "核验公开来源的新鲜度并区分已确认发现与待解问题",
+            },
+            {
+                "category": "document_processing",
+                "en": "Consolidate working notes into a concise bilingual review brief",
+                "zh": "将工作笔记整理为简明的双语复核简报",
+            },
+            {
+                "category": "code_development",
+                "en": "Resolve a queued interface maintenance item and run focused regression checks",
+                "zh": "处理一项排队中的界面维护任务并执行聚焦回归检查",
+            },
+            {
+                "category": "social_media_organization",
+                "en": "Organize the public-content queue and reconcile pending publication evidence",
+                "zh": "整理公开内容队列并核对待处理的发布证据",
+            },
+            {
+                "category": "visual_production",
+                "en": "Prepare a reusable visual reference sheet and audit its composition",
+                "zh": "准备可复用的视觉参考表并审查其构图",
+            },
+            {
+                "category": "system_maintenance",
+                "en": "Validate backup and recovery state before closing the maintenance cycle",
+                "zh": "在结束维护周期前验证备份与恢复状态",
+            },
+        ],
+    }
 
-    taxonomy_keys = list(config["taxonomy"].keys())
-    rotation = parse_date(day_date).toordinal() % len(taxonomy_keys)
-    categories = []
-    for slot in slots:
-        base_index = taxonomy_keys.index(slot["category"])
-        categories.append(taxonomy_keys[(base_index + rotation) % len(taxonomy_keys)])
-    return categories
 
-
-def build_tasks(day_date: str, config: dict) -> list[dict]:
-    categories = rotated_categories(day_date, config)
+def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) -> tuple[list[dict], str]:
+    history = history_entry or inferred_history(public_entry)
+    day_date = public_entry["date"]
+    residues = history["assigned_residues"]
+    ranges = task_ranges(day_date, len(residues), config["autonomous_hour"])
     tasks = []
-    for slot, category in zip(config["default_work_slots"], categories):
-        entry = config["taxonomy"][category]
+    for residue, (start, end) in zip(residues, ranges):
+        category = residue["category"]
+        taxonomy_entry = config["taxonomy"][category]
+        description_en = residue["en"]
+        description_zh = residue["zh"]
+        require(
+            public_entry["title_en"].lower() not in description_en.lower()
+            and public_entry["title_zh"] not in description_zh,
+            f"{day_date} assigned residue must not mention the autonomous artwork title",
+        )
         tasks.append(
             {
                 "origin": "assigned",
                 "category": category,
-                "start": slot["start"],
-                "end": slot["end"],
-                "label_en": entry["label_en"],
-                "label_zh": entry["label_zh"],
-                "en": entry["description_en"],
-                "zh": entry["description_zh"],
-                "short_en": entry["short_en"],
-                "short_zh": entry["short_zh"],
+                "start": start,
+                "end": end,
+                "label_en": taxonomy_entry["label_en"],
+                "label_zh": taxonomy_entry["label_zh"],
+                "en": description_en,
+                "zh": description_zh,
+                "short_en": taxonomy_entry["short_en"],
+                "short_zh": taxonomy_entry["short_zh"],
             }
         )
-    return tasks
+    return tasks, history["provenance"]
 
 
 def build_cell_assigned(tasks: list[dict]) -> list[dict]:
@@ -339,15 +478,27 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
             require(str(relation.get(field, "")).strip(), f"{day['date']} relation missing {field}")
 
 
-def build_data(public_days: list[dict], config: dict, legacy_by_date: dict[str, dict]) -> dict:
+def build_data(
+    public_days: list[dict],
+    config: dict,
+    legacy_by_date: dict[str, dict],
+    history_by_date: dict[str, dict],
+) -> dict:
     dates = validate_public_days(public_days)
     validate_config(config)
     public_by_date = {item["date"]: item for item in public_days}
     base_url = config["canonical_base_url"]
     output_days = []
+    require(history_by_date, "At least one authored history entry is required")
+    latest_authored_date = max(history_by_date)
 
     for public_entry in public_days:
         day_date = public_entry["date"]
+        history_entry = history_by_date.get(day_date)
+        require(
+            history_entry is not None or day_date > latest_authored_date,
+            f"{day_date} is missing authored history; inferred fallback is reserved for future dates",
+        )
         public_absolute = {
             **public_entry,
             "archive_url": canonical_url(base_url, public_entry["archive_url"]),
@@ -356,13 +507,14 @@ def build_data(public_days: list[dict], config: dict, legacy_by_date: dict[str, 
             "gif": canonical_url(base_url, public_entry["gif"]),
         }
         legacy_entry = legacy_by_date.get(day_date)
-        tasks = build_tasks(day_date, config)
+        tasks, history_provenance = build_tasks(public_absolute, config, history_entry)
         autonomous_work = build_autonomous_work(public_absolute, config, legacy_entry)
         relations = build_relations(day_date, public_absolute, dates, public_by_date, legacy_entry)
         day = {
             **{field: public_absolute[field] for field in REQUIRED_PUBLIC_FIELDS},
             "jewel_en": autonomous_work["note_en"],
             "jewel_zh": autonomous_work["note_zh"],
+            "history_provenance": history_provenance,
             "cell_assigned": build_cell_assigned(tasks),
             "cell_self": {
                 "origin": "self",
@@ -395,6 +547,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--public-days", type=Path, default=DEFAULT_PUBLIC_DAYS)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY)
     parser.add_argument("--legacy-overrides", type=Path, default=DEFAULT_LEGACY_OVERRIDES)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args()
@@ -404,8 +557,9 @@ def main() -> int:
     args = parse_args()
     public_days = read_json(args.public_days)
     config = read_json(args.config)
+    history_by_date = load_history(args.history)
     legacy_by_date = load_legacy(args.legacy_overrides)
-    output_data = build_data(public_days, config, legacy_by_date)
+    output_data = build_data(public_days, config, legacy_by_date, history_by_date)
 
     output_path = args.output
     output_path.parent.mkdir(parents=True, exist_ok=True)
