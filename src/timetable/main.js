@@ -231,6 +231,7 @@ function openDayDetail(date) {
   state.detailOpen = true;
   els.dayDialog.hidden = false;
   els.dayDialogPanel.scrollTop = 0;
+  els.dayDialogPanel.querySelector(".detail-layout").scrollTop = 0;
   els.timetableRoot.setAttribute("inert", "");
   document.body.classList.add("detail-open");
   document.documentElement.classList.add("detail-open");
