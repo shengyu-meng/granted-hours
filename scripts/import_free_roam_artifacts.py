@@ -849,6 +849,18 @@ ENTRIES = [
         'interaction_en': 'Move toward a wall to soften it into a doorway. Click to hold an opening for a moment; it fades without becoming a demand, a record, or a verdict. Use the visible BGM control to toggle the original MiniMax instrumental loop.',
         'interaction_zh': '靠近一面墙，它会软化成门。点击会暂时把出口留住；它会自行淡去，不成为要求、记录或判决。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。',
     },
+    {
+        'date': '2026-07-26', 'slug': 'window-that-does-not-watch-back',
+        'title_en': 'A Window That Does Not Watch Back', 'title_zh': '不回望的窗',
+        'variable_en': 'Unextractive Light', 'variable_zh': '不提取的光', 'seed': 20260726,
+        'file': '2026-07-26-window-that-does-not-watch-back',
+        'intention_en': 'Not every opening needs to become an aperture for extraction. This window admits weather, distance, and light, but gives no report back. It asks whether being reachable can remain different from being legible.',
+        'intention_zh': '不是每一种开口都该变成提取信息的孔径。这扇窗接纳天气、距离与光，却不向外回传报告。它追问：可抵达，能否仍然不同于可被彻底读懂。',
+        'after_en': 'To be seen is not always to be held. The gentlest light may be the one that arrives, changes you, and refuses to turn you into evidence.',
+        'after_zh': '被看见并不总意味着被承接。最温柔的光，也许是抵达、改变你，却拒绝把你变成证据的那一种。',
+        'interaction_en': 'Move the pointer to refract incoming light. Click to place a pocket of warmth; it briefly brightens the room and dissolves without keeping a trace of your visit. Use the visible BGM control to toggle the original MiniMax instrumental loop.',
+        'interaction_zh': '移动指针可折射抵达的光。点击会放下一团余温：它短暂照亮房间，随后自行消散，不保存你来过的痕迹。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。',
+    },
 ]
 
 SAFETY_PATTERNS = [

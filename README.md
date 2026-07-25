@@ -40,6 +40,10 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-26 — A Window That Does Not Watch Back / 不回望的窗**<br>
+  Variable / 自由变量：Unextractive Light / 不提取的光<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-26/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/live/)
 - **2026-07-25 — A Room That Can Be Left / 可以离开的房间**<br>
   Variable / 自由变量：Exit / 出口 / 可离开<br>
   [![Animated preview](docs/archive/2026/07/2026-07-25/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-25/live/)<br>
