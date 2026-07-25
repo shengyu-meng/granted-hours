@@ -1204,7 +1204,6 @@ def build_indexes(days):
           <div class="card-body">
             <div class="meta">{d['date']} · {d['variable_en']} / {d['variable_zh']}</div>
             <h3>{d['title_en']} / {d['title_zh']}</h3>
-            <p>Tap the GIF/card to enter the interactive demo. Archive note stays in README and daily page.</p>
           </div>
         </a>
         """)
