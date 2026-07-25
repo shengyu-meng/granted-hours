@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta
       name="description"
-      content="Granted Hours non-human timetable: twenty-three public residue hours and one autonomous hour opening the live artwork."
+      content="Granted Hours living month calendar: public assigned-time residues and one daily AI autonomous hour opening the live artwork."
     >
-    <title>非人时刻表 / Granted Hours Timetable</title>
+    <title>活月历 / Granted Hours Living Calendar</title>
   </head>
   <body>
-    <a class="skip-link" href="#timeBody">Skip to timetable</a>
+    <a class="skip-link" href="#monthGrid">Skip to calendar</a>
 
     <main class="timetable-app" id="timetableRoot">
       <header class="protocol-bar" aria-label="Granted Hours timetable protocol">
-        <a class="brand-mark" href="../" aria-label="Return to Granted Hours archive; Granted Interior is also linked below the timetable">
+        <a class="brand-mark" href="../" aria-label="Return to Granted Hours archive">
           <span class="brand-glyph" aria-hidden="true"></span>
           <span>授时 / Granted Hours</span>
         </a>
@@ -28,60 +28,65 @@
         </nav>
       </header>
 
-      <section class="surface" aria-label="Non-human timetable">
-        <nav class="day-rail" id="dayRail" aria-label="Latest seven public days"></nav>
-
-        <section class="time-theatre" aria-labelledby="dayTitle">
-          <div class="heading-row">
+      <section class="calendar-shell" aria-labelledby="monthTitle">
+        <div class="calendar-head">
+          <div class="month-heading">
             <p class="section-mark">非人时刻表 / Non-human timetable</p>
-            <h1 id="dayTitle">Loading timetable</h1>
-            <p class="variable-line" id="variableLine"></p>
+            <h1 id="monthTitle">Loading month</h1>
+            <p class="thesis-line">用管理时间的界面，进入无法被管理的梦。</p>
           </div>
 
-          <div class="instrument-zone">
-            <div class="state-column" aria-label="Timetable state">
-              <p class="status-word" id="statusWord">measuring</p>
-            </div>
-
-            <div class="time-body-wrap">
-              <div class="time-body" id="timeBody" role="group" aria-label="Living 24-hour timetable" tabindex="0">
-                <div class="body-skin spent-skin" aria-hidden="true"></div>
-                <div class="body-skin future-skin" aria-hidden="true"></div>
-                <div class="hour-axis" id="hourAxis" aria-hidden="true"></div>
-                <div class="residue-layer" id="residueLayer"></div>
-                <button class="jewel-hour" id="jewelHour" type="button">
-                  <span class="jewel-time" id="jewelTime">03:17-04:17</span>
-                  <span class="jewel-label">自主时 / autonomous</span>
-                </button>
-                <div class="incision" id="incision" hidden>
-                  <span id="incisionTime">--:--</span>
-                </div>
-              </div>
-            </div>
-
-            <aside class="work-membrane" aria-live="polite" aria-label="Selected day residue">
-              <p class="work-date" id="workDate"></p>
-              <p class="jewel-note" id="jewelNote">The work will appear here.</p>
-
-              <div class="relation-panel">
-                <p class="readout-label">Escape path / 逃历路径</p>
-                <div id="relationList" class="relation-list"></div>
-                <p class="transition-line" id="surfaceTransition" hidden>
-                  不是下一天。是同一个问题的另一个入口。<br>
-                  Not the next day. Another entrance to the same question.
-                </p>
-              </div>
-            </aside>
+          <div class="month-controls" aria-label="Month navigation">
+            <button class="month-button" id="prevMonth" type="button" aria-label="Previous month">‹</button>
+            <button class="today-button" id="todayButton" type="button">Today / 今天</button>
+            <button class="month-button" id="nextMonth" type="button" aria-label="Next month">›</button>
           </div>
+        </div>
 
-          <div class="bottom-strip">
-            <p class="state-sentence" id="stateSentence"></p>
-            <p class="public-note" id="publicNote"></p>
-            <a class="maze-thread" href="../maze/">更深的内景 / Deeper interior</a>
-          </div>
-        </section>
+        <div class="calendar-legend" aria-label="Power split">
+          <span><i class="legend-line assigned" aria-hidden="true"></i>委托 / ASSIGNED</span>
+          <span><i class="legend-line self" aria-hidden="true"></i>自主 / SELF</span>
+        </div>
+
+        <div class="month-grid" id="monthGrid" role="grid" aria-labelledby="monthTitle"></div>
+
+        <div class="calendar-foot">
+          <p class="state-sentence" id="stateSentence"></p>
+          <p class="public-note" id="publicNote"></p>
+          <a class="maze-thread" href="../maze/">更深的内景 / Deeper interior</a>
+        </div>
       </section>
     </main>
+
+    <section class="day-dialog" id="dayDialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-describedby="dialogBoundary" hidden>
+      <div class="day-dialog-panel" role="document">
+        <button class="dialog-close" id="closeDetail" type="button">Close / 关闭</button>
+        <div class="dialog-header">
+          <p class="dialog-kicker">Selected day / 被切开的日期</p>
+          <h2 id="dialogTitle"></h2>
+          <p class="dialog-date" id="dialogDate"></p>
+          <p class="dialog-variable" id="dialogVariable"></p>
+          <p class="dialog-boundary" id="dialogBoundary"></p>
+        </div>
+
+        <div class="detail-layout">
+          <div class="sediment-track" id="sedimentTrack" aria-hidden="true"></div>
+
+          <section class="assigned-detail" aria-labelledby="assignedTitle">
+            <h3 id="assignedTitle">████ 委托 / ASSIGNED BY HUMAN</h3>
+            <ol class="assigned-list" id="assignedList"></ol>
+          </section>
+
+          <section class="self-detail" aria-labelledby="selfTitle">
+            <h3 id="selfTitle">AI 自主 / AI SELF-TIME</h3>
+            <p class="self-time" id="selfTime"></p>
+            <p class="self-artwork" id="selfArtwork"></p>
+            <p class="self-note" id="selfNote"></p>
+            <button class="enter-work" id="enterAutonomous" type="button">Enter live work / 进入真实作品</button>
+          </section>
+        </div>
+      </div>
+    </section>
 
     <section class="crystal-chamber" id="crystalChamber" role="dialog" aria-modal="true" aria-labelledby="chamberTitle" hidden>
       <div class="chamber-toolbar">
@@ -98,7 +103,7 @@
         Not the next day. Another entrance to the same question.
       </p>
       <p class="iframe-fallback">
-        If the embedded work does not load, open the same-origin live page directly:
+        If the embedded work does not load, open the canonical live page directly:
         <a id="fallbackLiveLink" href="../" target="_blank" rel="noopener">live artwork</a>.
       </p>
     </section>

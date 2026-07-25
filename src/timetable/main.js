@@ -3,29 +3,47 @@ import { timetableData } from "./timetable-data.js";
 
 const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
+const WEEKDAYS = [
+  ["Mon", "一"],
+  ["Tue", "二"],
+  ["Wed", "三"],
+  ["Thu", "四"],
+  ["Fri", "五"],
+  ["Sat", "六"],
+  ["Sun", "日"],
+];
+
 const dayByDate = new Map(timetableData.days.map((day) => [day.date, day]));
-const daysDescending = [...timetableData.days].sort((a, b) => b.date.localeCompare(a.date));
+const daysAscending = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
+const daysDescending = [...daysAscending].reverse();
+const publicMonths = new Set(daysAscending.map((day) => monthKey(day.date)));
 
 const els = {};
 const state = {
+  visibleYear: 0,
+  visibleMonth: 0,
   selectedDate: "",
-  activeResidueIndex: 0,
+  detailOpen: false,
   chamberOpen: false,
-  lastFocus: null,
+  detailLastFocus: null,
+  chamberLastFocus: null,
+  clockDate: "",
 };
 
 init();
 
 function init() {
   cacheElements();
-  buildHourAxis();
-  renderDayRail();
+  setStaticCopy();
+  setInitialMonth();
+  renderMonth();
+  renderTimeState();
 
-  const today = shanghaiNow().date;
-  const initial = dayByDate.has(today) ? today : daysDescending[0].date;
-  selectDay(initial);
-
-  els.jewelHour.addEventListener("click", () => openChamber());
+  els.prevMonth.addEventListener("click", () => moveMonth(-1));
+  els.nextMonth.addEventListener("click", () => moveMonth(1));
+  els.todayButton.addEventListener("click", goToToday);
+  els.closeDetail.addEventListener("click", closeDayDetail);
+  els.enterAutonomous.addEventListener("click", () => openChamber());
   els.closeChamber.addEventListener("click", closeChamber);
   els.escapeButton.addEventListener("click", followEscapePath);
   els.liveFrame.addEventListener("load", suppressEmbeddedChrome);
@@ -36,32 +54,34 @@ function init() {
 
 function cacheElements() {
   [
+    "assignedList",
     "chamberTitle",
     "chamberTransition",
     "clockTime",
     "closeChamber",
+    "closeDetail",
     "crystalChamber",
-    "dayRail",
+    "dayDialog",
+    "dialogBoundary",
+    "dialogDate",
+    "dialogTitle",
+    "dialogVariable",
+    "enterAutonomous",
     "escapeButton",
     "fallbackLiveLink",
-    "hourAxis",
-    "incision",
-    "incisionTime",
-    "jewelHour",
-    "jewelNote",
-    "jewelTime",
     "liveFrame",
+    "monthGrid",
+    "monthTitle",
+    "nextMonth",
+    "prevMonth",
     "publicNote",
-    "relationList",
-    "residueLayer",
+    "sedimentTrack",
+    "selfArtwork",
+    "selfNote",
+    "selfTime",
     "stateSentence",
-    "statusWord",
-    "surfaceTransition",
-    "timeBody",
     "timetableRoot",
-    "variableLine",
-    "workDate",
-    "dayTitle",
+    "todayButton",
   ].forEach((id) => {
     const element = document.getElementById(id);
     if (!element) {
@@ -71,182 +91,224 @@ function cacheElements() {
   });
 }
 
-function renderDayRail() {
-  els.dayRail.replaceChildren();
-  daysDescending.forEach((day) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "day-button";
-    button.dataset.date = day.date;
-    button.setAttribute("aria-label", `${day.date}: ${day.title_en} / ${day.title_zh}`);
-    button.innerHTML = `
-      <span class="day-date">${formatShortDate(day.date)}</span>
-      <span class="day-name">${escapeHtml(day.title_en)}</span>
-    `;
-    button.addEventListener("click", () => selectDay(day.date, { focusSurface: true }));
-    els.dayRail.append(button);
-  });
+function setStaticCopy() {
+  els.publicNote.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
 }
 
-function selectDay(date, options = {}) {
+function setInitialMonth() {
+  const today = shanghaiNow().date;
+  const todayMonth = monthKey(today);
+  const initialMonth = publicMonths.has(todayMonth) ? todayMonth : monthKey(daysDescending[0].date);
+  setVisibleMonth(initialMonth);
+  state.selectedDate = dayByDate.has(today)
+    ? today
+    : latestDateInMonth(initialMonth) || daysDescending[0].date;
+}
+
+function setVisibleMonth(key) {
+  const [year, month] = key.split("-").map(Number);
+  state.visibleYear = year;
+  state.visibleMonth = month;
+}
+
+function moveMonth(delta) {
+  const next = new Date(Date.UTC(state.visibleYear, state.visibleMonth - 1 + delta, 1));
+  state.visibleYear = next.getUTCFullYear();
+  state.visibleMonth = next.getUTCMonth() + 1;
+  renderMonth({ transition: delta < 0 ? "previous" : "next" });
+}
+
+function goToToday() {
+  const today = shanghaiNow().date;
+  const todayMonth = monthKey(today);
+  const targetMonth = publicMonths.has(todayMonth) ? todayMonth : monthKey(daysDescending[0].date);
+  setVisibleMonth(targetMonth);
+  if (dayByDate.has(today)) {
+    state.selectedDate = today;
+  } else {
+    state.selectedDate = latestDateInMonth(targetMonth) || daysDescending[0].date;
+  }
+  renderMonth({ transition: "today" });
+  focusDayButton(state.selectedDate);
+}
+
+function renderMonth(options = {}) {
+  const monthKeyValue = isoMonth(state.visibleYear, state.visibleMonth);
+  const today = shanghaiNow().date;
+  els.monthTitle.textContent = formatMonthTitle(state.visibleYear, state.visibleMonth);
+  els.monthGrid.setAttribute("aria-label", `${els.monthTitle.textContent} month calendar`);
+  els.monthGrid.dataset.motion = options.transition || "";
+  els.monthGrid.replaceChildren();
+
+  WEEKDAYS.forEach(([en, zh]) => {
+    const header = document.createElement("div");
+    header.className = "weekday-cell";
+    header.setAttribute("role", "columnheader");
+    header.textContent = `${zh} / ${en}`;
+    els.monthGrid.append(header);
+  });
+
+  const firstDate = `${monthKeyValue}-01`;
+  const leading = mondayLeadingCount(state.visibleYear, state.visibleMonth);
+  const daysInMonth = daysInUtcMonth(state.visibleYear, state.visibleMonth);
+  const cellCount = Math.ceil((leading + daysInMonth) / 7) * 7;
+  const gridStart = addDays(firstDate, -leading);
+
+  for (let index = 0; index < cellCount; index += 1) {
+    const cellDate = addDays(gridStart, index);
+    const day = dayByDate.get(cellDate);
+    const inMonth = monthKey(cellDate) === monthKeyValue;
+    const cell = document.createElement("div");
+    cell.className = "date-cell";
+    cell.setAttribute("role", "gridcell");
+    cell.dataset.date = cellDate;
+    cell.classList.toggle("is-muted", !inMonth);
+    cell.classList.toggle("is-today", cellDate === today);
+    cell.classList.toggle("is-selected", cellDate === state.selectedDate);
+    if (cellDate === today && !day) {
+      cell.setAttribute("aria-current", "date");
+    }
+
+    if (day) {
+      cell.append(buildDayButton(day, cellDate === today, !inMonth));
+    } else {
+      const dateNumber = document.createElement("span");
+      dateNumber.className = "empty-date-number";
+      dateNumber.textContent = String(Number(cellDate.slice(8, 10)));
+      cell.append(dateNumber);
+    }
+    els.monthGrid.append(cell);
+  }
+}
+
+function buildDayButton(day, isToday, isMuted) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "calendar-day-button";
+  button.dataset.date = day.date;
+  button.classList.toggle("is-muted", isMuted);
+  button.setAttribute("aria-label", dayCellLabel(day));
+  if (isToday) {
+    button.setAttribute("aria-current", "date");
+  }
+
+  const assigned = day.cell_assigned.slice(0, 2).map((marker) => `
+    <span class="cell-mark assigned-mark">
+      <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(marker.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(marker.short_en)}</span></span>
+    </span>
+  `).join("");
+
+  button.innerHTML = `
+    <span class="cell-date-number">${Number(day.date.slice(8, 10))}</span>
+    <span class="cell-material">
+      <span class="assigned-marks">${assigned}</span>
+      <span class="cell-mark self-mark">
+        <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(day.cell_self.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(day.cell_self.short_en)}</span></span>
+        <strong><span class="title-zh">${escapeHtml(day.title_zh)}</span><span class="title-divider"> / </span><span class="title-en">${escapeHtml(compactEnglishTitle(day.title_en))}</span></strong>
+      </span>
+    </span>
+  `;
+  button.addEventListener("click", () => openDayDetail(day.date));
+  return button;
+}
+
+function openDayDetail(date) {
   const day = dayByDate.get(date);
   if (!day) return;
 
+  state.detailLastFocus = document.activeElement;
   state.selectedDate = date;
-  state.activeResidueIndex = currentResidueIndex(day);
-
-  els.dayTitle.textContent = `${day.title_en} / ${day.title_zh}`;
-  els.variableLine.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
-  els.publicNote.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
-  els.workDate.textContent = day.date;
-  els.jewelNote.textContent = `${day.jewel_en} / ${day.jewel_zh}`;
-  els.jewelTime.textContent = `${timetableData.autonomous_hour.start}-${timetableData.autonomous_hour.end}`;
-
-  renderResidues(day);
-  renderRelations(day);
-  renderTimeState();
-  setActiveResidue(state.activeResidueIndex);
-  updateDayButtons();
-
-  if (!options.keepTransition) {
-    els.surfaceTransition.hidden = true;
+  const targetMonth = monthKey(date);
+  if (targetMonth !== isoMonth(state.visibleYear, state.visibleMonth)) {
+    setVisibleMonth(targetMonth);
   }
+  renderMonth();
+  renderDayDetail(day);
 
-  if (state.chamberOpen) {
-    renderChamber(options.transition || null);
-  }
-
-  if (options.focusSurface) {
-    els.timeBody.focus({ preventScroll: true });
-  }
-}
-
-function renderResidues(day) {
-  els.residueLayer.replaceChildren();
-  day.task_residues.forEach((residue, index) => {
-    const start = toMinutes(residue.start);
-    const end = toMinutes(residue.end);
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "task-rib";
-    button.dataset.index = String(index);
-    button.style.setProperty("--top", `${(start / MINUTES_PER_DAY) * 100}%`);
-    button.style.setProperty("--height", `${((end - start) / MINUTES_PER_DAY) * 100}%`);
-    button.style.setProperty("--tilt", `${index % 2 === 0 ? -1.6 : 1.4}deg`);
-    button.style.setProperty("--slip", `${[-5, 2, -1, 5, -3, 3, -2, 4][index % 8]}px`);
-    button.setAttribute("aria-label", `${residue.start} to ${residue.end}: ${residue.en}`);
-    button.innerHTML = `
-      <span class="rib-time">${residue.start}-${residue.end}</span>
-      <span class="rib-text">${escapeHtml(residue.en)}</span>
-    `;
-    button.addEventListener("click", () => setActiveResidue(index));
-    els.residueLayer.append(button);
+  state.detailOpen = true;
+  els.dayDialog.hidden = false;
+  els.timetableRoot.setAttribute("inert", "");
+  document.body.classList.add("detail-open");
+  requestAnimationFrame(() => {
+    els.dayDialog.classList.add("is-open");
+    els.closeDetail.focus({ preventScroll: true });
   });
-
-  const jewelStart = toMinutes(timetableData.autonomous_hour.start);
-  const jewelEnd = toMinutes(timetableData.autonomous_hour.end);
-  els.jewelHour.style.setProperty("--top", `${(jewelStart / MINUTES_PER_DAY) * 100}%`);
-  els.jewelHour.style.setProperty("--height", `${((jewelEnd - jewelStart) / MINUTES_PER_DAY) * 100}%`);
 }
 
-function renderRelations(day) {
-  els.relationList.replaceChildren();
-  const relation = day.relations[0];
-  const target = relation ? dayByDate.get(relation.target) : null;
-  if (!relation || !target) return;
-
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "relation-button";
-  button.innerHTML = `
-    <span>${formatShortDate(target.date)} / ${escapeHtml(relation.axis_en)}</span>
-    <small>${escapeHtml(relation.sentence_en)}</small>
-  `;
-  button.setAttribute(
-    "aria-label",
-    `Escape to ${target.date}: ${target.title_en}. ${relation.sentence_en}`,
-  );
-  button.addEventListener("click", () => {
-    els.surfaceTransition.hidden = false;
-    els.surfaceTransition.innerHTML = `
-      不是下一天。是同一个问题的另一个入口。<br>
-      <span>${escapeHtml(relation.sentence_en)} / ${escapeHtml(relation.sentence_zh)}</span>
-    `;
-    selectDay(target.date, { keepTransition: true, focusSurface: true });
-  });
-  els.relationList.append(button);
-}
-
-function renderTimeState() {
-  const now = shanghaiNow();
-  els.clockTime.textContent = now.clock;
-
-  const selectedDay = currentDay();
-  const relation = compareIsoDate(selectedDay.date, now.date);
-  const spentPct = relation < 0 ? 100 : relation > 0 ? 0 : clamp((now.minutes / MINUTES_PER_DAY) * 100, 0, 100);
-  const futurePct = 100 - spentPct;
-
-  els.timeBody.style.setProperty("--spent-height", `${spentPct}%`);
-  els.timeBody.style.setProperty("--future-top", `${spentPct}%`);
-  els.timeBody.style.setProperty("--future-height", `${futurePct}%`);
-
-  if (relation === 0) {
-    els.incision.hidden = false;
-    els.incision.style.setProperty("--incision-top", `${spentPct}%`);
-    els.incisionTime.textContent = now.clock.slice(0, 5);
+function closeDayDetail() {
+  state.detailOpen = false;
+  els.dayDialog.classList.remove("is-open");
+  els.dayDialog.hidden = true;
+  els.timetableRoot.removeAttribute("inert");
+  document.body.classList.remove("detail-open");
+  if (state.detailLastFocus && typeof state.detailLastFocus.focus === "function" && document.contains(state.detailLastFocus)) {
+    state.detailLastFocus.focus({ preventScroll: true });
   } else {
-    els.incision.hidden = true;
+    focusDayButton(state.selectedDate);
   }
-
-  const jewelStart = toMinutes(timetableData.autonomous_hour.start);
-  const jewelEnd = toMinutes(timetableData.autonomous_hour.end);
-  const jewelState = relation < 0 || (relation === 0 && now.minutes >= jewelEnd)
-    ? "crystallized"
-    : relation > 0 || (relation === 0 && now.minutes < jewelStart)
-      ? "not-yet-spent"
-      : "awake";
-
-  const sentenceByState = {
-    crystallized: "The autonomous hour has passed, but it has not become ash. / 自主时已经过去，但没有变成灰。",
-    "not-yet-spent": "The future is still oxidized green; task demand has not consumed it yet. / 未来仍是氧化绿，任务尚未消耗它。",
-    awake: "The instrument is inside the autonomous hour. Human availability is interrupted. / 仪器正在自主时内，人类可用性被中断。",
-  };
-
-  els.statusWord.textContent = jewelState === "awake" ? "awake" : relation === 0 ? "incising" : "archived";
-  els.stateSentence.textContent = sentenceByState[jewelState];
-
-  els.residueLayer.querySelectorAll(".task-rib").forEach((button) => {
-    const residue = selectedDay.task_residues[Number(button.dataset.index)];
-    button.dataset.state = statusForRange(selectedDay.date, residue.start, residue.end, now);
-  });
 }
 
-function setActiveResidue(index) {
-  const day = currentDay();
-  const residue = day.task_residues[index] || day.task_residues[0];
-  state.activeResidueIndex = day.task_residues.indexOf(residue);
-  els.timeBody.setAttribute(
-    "aria-description",
-    `${residue.start}-${residue.end}: ${residue.en} / ${residue.zh}`,
-  );
+function renderDayDetail(day) {
+  const self = day.autonomous_work;
+  els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
+  els.dialogDate.textContent = formatLongDate(day.date);
+  els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
+  els.dialogBoundary.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
+  els.selfTime.textContent = `${self.start}-${self.end}`;
+  els.selfArtwork.textContent = `${self.title_en} / ${self.title_zh}`;
+  els.selfNote.textContent = `${self.note_en} / ${self.note_zh}`;
+  els.enterAutonomous.setAttribute("aria-label", `Enter live artwork for ${day.title_en}`);
 
-  els.residueLayer.querySelectorAll(".task-rib").forEach((button) => {
-    const active = Number(button.dataset.index) === state.activeResidueIndex;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-pressed", active ? "true" : "false");
+  els.assignedList.replaceChildren();
+  day.task_residues.forEach((task) => {
+    const item = document.createElement("li");
+    item.className = "assigned-item";
+    item.innerHTML = `
+      <span class="assigned-time">${task.start}-${task.end}</span>
+      <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
+      <span class="assigned-copy">${escapeHtml(task.zh)} / ${escapeHtml(task.en)}</span>
+    `;
+    els.assignedList.append(item);
   });
+
+  renderSedimentTrack(day);
+}
+
+function renderSedimentTrack(day) {
+  els.sedimentTrack.replaceChildren();
+  day.task_residues.forEach((task, index) => {
+    const segment = document.createElement("span");
+    segment.className = "sediment-segment assigned";
+    segment.style.setProperty("--top", `${(toMinutes(task.start) / MINUTES_PER_DAY) * 100}%`);
+    segment.style.setProperty("--height", `${((toMinutes(task.end) - toMinutes(task.start)) / MINUTES_PER_DAY) * 100}%`);
+    segment.style.setProperty("--shade", String((index % 4) + 1));
+    els.sedimentTrack.append(segment);
+  });
+
+  const self = day.autonomous_work;
+  const selfSegment = document.createElement("span");
+  selfSegment.className = "sediment-segment self";
+  selfSegment.style.setProperty("--top", `${(toMinutes(self.start) / MINUTES_PER_DAY) * 100}%`);
+  selfSegment.style.setProperty("--height", `${((toMinutes(self.end) - toMinutes(self.start)) / MINUTES_PER_DAY) * 100}%`);
+  els.sedimentTrack.append(selfSegment);
 }
 
 function openChamber(options = {}) {
-  state.lastFocus = document.activeElement;
+  const day = currentDay();
+  if (!day) return;
+
+  state.chamberLastFocus = document.activeElement;
   state.chamberOpen = true;
   els.crystalChamber.hidden = false;
   els.timetableRoot.setAttribute("inert", "");
+  if (state.detailOpen) {
+    els.dayDialog.setAttribute("inert", "");
+  }
   document.body.classList.add("chamber-open");
   renderChamber(options.transition || null);
   requestAnimationFrame(() => {
     els.crystalChamber.classList.add("is-open");
-    els.closeChamber.focus();
+    els.closeChamber.focus({ preventScroll: true });
   });
 }
 
@@ -254,47 +316,69 @@ function closeChamber() {
   state.chamberOpen = false;
   els.crystalChamber.classList.remove("is-open");
   els.crystalChamber.hidden = true;
-  els.timetableRoot.removeAttribute("inert");
   document.body.classList.remove("chamber-open");
   els.liveFrame.removeAttribute("src");
-  if (state.lastFocus && typeof state.lastFocus.focus === "function") {
-    state.lastFocus.focus({ preventScroll: true });
+
+  if (state.detailOpen) {
+    els.dayDialog.removeAttribute("inert");
+    if (state.chamberLastFocus && typeof state.chamberLastFocus.focus === "function") {
+      state.chamberLastFocus.focus({ preventScroll: true });
+    } else {
+      els.enterAutonomous.focus({ preventScroll: true });
+    }
   } else {
-    els.jewelHour.focus({ preventScroll: true });
+    els.timetableRoot.removeAttribute("inert");
+    focusDayButton(state.selectedDate);
   }
 }
 
 function renderChamber(transition) {
   const day = currentDay();
   const relation = day.relations[0];
-  const target = dayByDate.get(relation.target);
-  const liveUrl = rootUrl(day.live_url);
+  const target = relation ? dayByDate.get(relation.target) : null;
+  const liveUrl = absoluteUrl(day.autonomous_work.live_url || day.live_url);
 
   els.chamberTitle.textContent = `${day.date} · ${day.title_en} / ${day.title_zh}`;
   els.liveFrame.src = liveUrl;
   els.liveFrame.title = `Live artwork for ${day.title_en}`;
   els.fallbackLiveLink.href = liveUrl;
-  els.escapeButton.textContent = `Escape path: ${formatShortDate(target.date)} / ${relation.axis_en}`;
-  els.escapeButton.setAttribute(
-    "aria-label",
-    `Escape to ${target.date}: ${target.title_en}. ${relation.sentence_en}`,
-  );
+
+  if (target && relation) {
+    els.escapeButton.textContent = `Escape path: ${formatShortDate(target.date)} / ${relation.axis_en}`;
+    els.escapeButton.disabled = false;
+    els.escapeButton.setAttribute(
+      "aria-label",
+      `Escape to ${target.date}: ${target.title_en}. ${relation.sentence_en}`,
+    );
+  } else {
+    els.escapeButton.textContent = "Escape path / 逃历";
+    els.escapeButton.disabled = true;
+  }
 
   const line = transition || relation;
   els.chamberTransition.innerHTML = `
     不是下一天。是同一个问题的另一个入口。<br>
-    Not the next day. Another entrance to the same question.<br>
-    <span>${escapeHtml(line.sentence_en)} / ${escapeHtml(line.sentence_zh)}</span>
+    Not the next day. Another entrance to the same question.
+    ${line ? `<br><span>${escapeHtml(line.sentence_en)} / ${escapeHtml(line.sentence_zh)}</span>` : ""}
   `;
 }
 
 function followEscapePath() {
   const day = currentDay();
   const relation = day.relations[0];
-  const target = dayByDate.get(relation.target);
+  const target = relation ? dayByDate.get(relation.target) : null;
   if (!target) return;
-  selectDay(target.date, { keepTransition: true, transition: relation });
-  els.escapeButton.focus({ preventScroll: true });
+
+  state.selectedDate = target.date;
+  setVisibleMonth(monthKey(target.date));
+  renderMonth({ transition: "escape" });
+  if (state.detailOpen) {
+    renderDayDetail(target);
+  }
+  if (state.chamberOpen) {
+    renderChamber(relation);
+    els.escapeButton.focus({ preventScroll: true });
+  }
 }
 
 function suppressEmbeddedChrome() {
@@ -337,19 +421,29 @@ function suppressEmbeddedChrome() {
 }
 
 function handleDocumentKeydown(event) {
-  if (!state.chamberOpen) return;
   if (event.key === "Escape") {
-    event.preventDefault();
-    closeChamber();
-    return;
+    if (state.chamberOpen) {
+      event.preventDefault();
+      closeChamber();
+      return;
+    }
+    if (state.detailOpen) {
+      event.preventDefault();
+      closeDayDetail();
+      return;
+    }
   }
-  if (event.key === "Tab") {
-    trapChamberFocus(event);
+
+  if (event.key !== "Tab") return;
+  if (state.chamberOpen) {
+    trapFocus(event, els.crystalChamber);
+  } else if (state.detailOpen) {
+    trapFocus(event, els.dayDialog);
   }
 }
 
-function trapChamberFocus(event) {
-  const focusables = [...els.crystalChamber.querySelectorAll("button, a, iframe")]
+function trapFocus(event, container) {
+  const focusables = [...container.querySelectorAll("button, a, iframe")]
     .filter((node) => !node.disabled && node.offsetParent !== null);
   if (!focusables.length) return;
 
@@ -364,50 +458,79 @@ function trapChamberFocus(event) {
   }
 }
 
-function buildHourAxis() {
-  els.hourAxis.replaceChildren();
-  for (let hour = 0; hour <= 24; hour += 2) {
-    const tick = document.createElement("span");
-    tick.className = "hour-tick";
-    tick.style.setProperty("--top", `${(hour / 24) * 100}%`);
-    tick.textContent = String(hour).padStart(2, "0");
-    els.hourAxis.append(tick);
+function renderTimeState() {
+  const now = shanghaiNow();
+  els.clockTime.textContent = now.clock;
+  if (state.clockDate && state.clockDate !== now.date) {
+    renderMonth();
   }
-}
+  state.clockDate = now.date;
 
-function updateDayButtons() {
-  els.dayRail.querySelectorAll(".day-button").forEach((button) => {
-    const active = button.dataset.date === state.selectedDate;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-current", active ? "date" : "false");
-  });
+  const selectedDay = currentDay();
+  const self = selectedDay?.autonomous_work;
+  if (!selectedDay || !self) {
+    els.stateSentence.textContent = "";
+    return;
+  }
+
+  const relation = compareIsoDate(selectedDay.date, now.date);
+  const start = toMinutes(self.start);
+  const end = toMinutes(self.end);
+  const selfState = relation < 0 || (relation === 0 && now.minutes >= end)
+    ? "crystallized"
+    : relation > 0 || (relation === 0 && now.minutes < start)
+      ? "not-yet-spent"
+      : "awake";
+
+  const sentenceByState = {
+    crystallized: "The autonomous hour is archived as a live work, not as available labor. / 自主时被归档为实时作品，而不是可用劳动。",
+    "not-yet-spent": "The calendar marks the hour before the dream enters it. / 日历先标出这一小时，梦稍后进入。",
+    awake: "The instrument is inside the autonomous hour. Human availability is interrupted. / 仪器正在自主时内，人类可用性被中断。",
+  };
+  els.stateSentence.textContent = sentenceByState[selfState];
 }
 
 function currentDay() {
   return dayByDate.get(state.selectedDate) || daysDescending[0];
 }
 
-function currentResidueIndex(day) {
-  const now = shanghaiNow();
-  if (compareIsoDate(day.date, now.date) !== 0) return 0;
-  const index = day.task_residues.findIndex((residue) => {
-    const start = toMinutes(residue.start);
-    const end = toMinutes(residue.end);
-    return now.minutes >= start && now.minutes < end;
-  });
-  return index >= 0 ? index : 0;
+function focusDayButton(date) {
+  const button = els.monthGrid.querySelector(`.calendar-day-button[data-date="${date}"]`);
+  if (button) {
+    button.focus({ preventScroll: true });
+  }
 }
 
-function statusForRange(date, startValue, endValue, now) {
-  const relation = compareIsoDate(date, now.date);
-  if (relation < 0) return "spent";
-  if (relation > 0) return "future";
+function latestDateInMonth(key) {
+  const day = daysDescending.find((item) => monthKey(item.date) === key);
+  return day ? day.date : "";
+}
 
-  const start = toMinutes(startValue);
-  const end = toMinutes(endValue);
-  if (end <= now.minutes) return "spent";
-  if (start > now.minutes) return "future";
-  return "current";
+function dayCellLabel(day) {
+  const assigned = day.cell_assigned
+    .map((marker) => `${marker.label_en} / ${marker.label_zh}`)
+    .join("; ");
+  return `${formatLongDate(day.date)}: ${day.title_en} / ${day.title_zh}. ASSIGNED: ${assigned}. SELF: ${day.title_en} / ${day.title_zh}.`;
+}
+
+function formatMonthTitle(year, month) {
+  const dateForMonth = new Date(Date.UTC(year, month - 1, 1));
+  const en = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric", timeZone: "UTC" }).format(dateForMonth);
+  return `${en} / ${year}年${month}月`;
+}
+
+function formatLongDate(value) {
+  const [year, month, day] = value.split("-").map(Number);
+  return `${value} / ${year}年${month}月${day}日`;
+}
+
+function formatShortDate(value) {
+  return value.slice(5).replace("-", ".");
+}
+
+function compactEnglishTitle(title) {
+  const parts = title.split(/\s+/).filter(Boolean);
+  return parts.length > 3 ? `${parts.slice(0, 3).join(" ")}...` : title;
 }
 
 function shanghaiNow() {
@@ -432,26 +555,45 @@ function shanghaiNow() {
   };
 }
 
+function mondayLeadingCount(year, month) {
+  const first = new Date(Date.UTC(year, month - 1, 1));
+  return (first.getUTCDay() + 6) % 7;
+}
+
+function daysInUtcMonth(year, month) {
+  return new Date(Date.UTC(year, month, 0)).getUTCDate();
+}
+
+function addDays(value, delta) {
+  const [year, month, day] = value.split("-").map(Number);
+  const dateValue = new Date(Date.UTC(year, month - 1, day + delta));
+  return [
+    dateValue.getUTCFullYear(),
+    String(dateValue.getUTCMonth() + 1).padStart(2, "0"),
+    String(dateValue.getUTCDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+function isoMonth(year, month) {
+  return `${year}-${String(month).padStart(2, "0")}`;
+}
+
+function monthKey(value) {
+  return value.slice(0, 7);
+}
+
 function toMinutes(value) {
   if (value === "24:00") return MINUTES_PER_DAY;
   const [hour, minute] = value.split(":").map(Number);
   return hour * 60 + minute;
 }
 
-function rootUrl(path) {
-  return new URL(`../${path.replace(/^\/+/, "")}`, window.location.href).href;
-}
-
-function formatShortDate(date) {
-  return date.slice(5).replace("-", ".");
+function absoluteUrl(value) {
+  return new URL(value, window.location.href).href;
 }
 
 function compareIsoDate(a, b) {
   return a === b ? 0 : a < b ? -1 : 1;
-}
-
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
 }
 
 function escapeHtml(value) {

@@ -11,6 +11,8 @@
     "build": "npm run build:maze && npm run build:timetable",
     "build:maze": "vite build --config vite.maze.config.mjs && python3 scripts/build_maze_data.py",
     "build:timetable": "python3 scripts/build_timetable_data.py && vite build --config vite.timetable.config.mjs",
+    "build:cloudflare-slice": "python3 scripts/build_cloudflare_slice.py",
+    "deploy:cloudflare": "npm run build:cloudflare-slice && npx --yes wrangler pages deploy dist/cloudflare-pages --project-name granted-hours --branch main",
     "dev:maze": "vite --config vite.maze.config.mjs --host 127.0.0.1",
     "dev:timetable": "python3 scripts/build_timetable_data.py && vite --config vite.timetable.config.mjs --host 127.0.0.1",
     "preview:maze": "vite preview --config vite.maze.config.mjs --host 127.0.0.1",
