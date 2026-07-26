@@ -30,8 +30,6 @@ const state = {
   clockDate: "",
 };
 
-init();
-
 function init() {
   cacheElements();
   setStaticCopy();
@@ -41,7 +39,7 @@ function init() {
 
   els.prevMonth.addEventListener("click", () => moveMonth(-1));
   els.nextMonth.addEventListener("click", () => moveMonth(1));
-  els.todayButton.addEventListener("click", goToToday);
+  els.todayButton.addEventListener("click", goToCurrentMonth);
   els.closeDetail.addEventListener("click", closeDayDetail);
   els.enterAutonomous.addEventListener("click", () => openChamber());
   els.closeChamber.addEventListener("click", closeChamber);
@@ -119,7 +117,7 @@ function moveMonth(delta) {
   renderMonth({ transition: delta < 0 ? "previous" : "next" });
 }
 
-function goToToday() {
+function goToCurrentMonth() {
   const today = shanghaiNow().date;
   const todayMonth = monthKey(today);
   const targetMonth = publicMonths.has(todayMonth) ? todayMonth : monthKey(daysDescending[0].date);
@@ -129,7 +127,7 @@ function goToToday() {
   } else {
     state.selectedDate = latestDateInMonth(targetMonth) || daysDescending[0].date;
   }
-  renderMonth({ transition: "today" });
+  renderMonth({ transition: "month-reset" });
   focusDayButton(state.selectedDate);
 }
 
@@ -195,13 +193,21 @@ function buildDayButton(day, isToday, isMuted) {
     button.setAttribute("aria-current", "date");
   }
 
-  const assigned = day.cell_assigned.slice(0, 2).map((marker) => `
+  const motif = day.theme_motif;
+  const doodleSvg = DOODLE_SVG[motif];
+  if (!doodleSvg) throw new Error(`Missing semantic theme motif for ${day.date}`);
+
+  const assigned = day.cell_assigned.slice(0, 2).map((marker) => {
+    const taskNameZh = marker.task_name_zh || marker.short_zh;
+    const taskNameEn = marker.task_name_en || marker.short_en;
+    return `
     <span class="cell-mark assigned-mark">
-      <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(marker.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(marker.short_en)}</span></span>
+      <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(taskNameZh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(taskNameEn)}</span></span>
     </span>
-  `).join("");
+  `}).join("");
 
   button.innerHTML = `
+    <span class="theme-doodle" data-motif="${motif}" aria-hidden="true">${doodleSvg}</span>
     <span class="cell-date-number">${formatMonthDay(day.date)}</span>
     <span class="cell-material">
       <span class="assigned-marks">${assigned}</span>
@@ -270,8 +276,11 @@ function renderDayDetail(day) {
   day.task_residues.forEach((task) => {
     const item = document.createElement("li");
     item.className = "assigned-item";
+    const taskNameZh = task.task_name_zh || task.label_zh;
+    const taskNameEn = task.task_name_en || task.label_en;
     item.innerHTML = `
       <span class="assigned-time">${task.start}-${task.end}</span>
+      <span class="assigned-task-name">${escapeHtml(taskNameZh)} / ${escapeHtml(taskNameEn)}</span>
       <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
       <span class="assigned-copy">${escapeHtml(task.zh)} / ${escapeHtml(task.en)}</span>
     `;
@@ -345,12 +354,15 @@ function renderChamber(transition) {
   const day = currentDay();
   const relation = day.relations[0];
   const target = relation ? dayByDate.get(relation.target) : null;
-  const liveUrl = absoluteUrl(day.autonomous_work.live_url || day.live_url);
+  const baseUrl = day.autonomous_work.live_url || day.live_url;
+  const liveUrlObject = new URL(absoluteUrl(baseUrl));
+  liveUrlObject.searchParams.set("embed", "calendar");
+  const liveUrl = liveUrlObject.href;
 
   els.chamberTitle.textContent = `${day.date} · ${day.title_en} / ${day.title_zh}`;
   els.liveFrame.src = liveUrl;
   els.liveFrame.title = `Live artwork for ${day.title_en}`;
-  els.fallbackLiveLink.href = liveUrl;
+  els.fallbackLiveLink.href = baseUrl;
 
   if (target && relation) {
     els.escapeButton.textContent = `Escape path: ${formatShortDate(target.date)} / ${relation.axis_en}`;
@@ -546,6 +558,20 @@ function compactEnglishTitle(title) {
   const parts = title.split(/\s+/).filter(Boolean);
   return parts.length > 3 ? `${parts.slice(0, 3).join(" ")}...` : title;
 }
+
+const DOODLE_SVG = {
+  window: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="20" height="12" rx="1"/><line x1="12" y1="3" x2="12" y2="15"/><line x1="2" y1="9" x2="22" y2="9"/></svg>',
+  seam: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9 Q7 4 12 9 Q17 14 21 9"/><path d="M3 9 Q7 14 12 9 Q17 4 21 9"/></svg>',
+  bridge: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 14 Q8 4 12 9 Q16 14 22 6"/><circle cx="12" cy="9" r="2"/></svg>',
+  echo: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="9" r="4"/><circle cx="14" cy="9" r="5.5" stroke-dasharray="2 2"/><circle cx="20" cy="9" r="7" stroke-dasharray="2 2"/></svg>',
+  weather: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 13 Q8 5 12 9 Q16 13 20 7"/><circle cx="8" cy="5" r="1.5"/><circle cx="16" cy="3" r="1"/></svg>',
+  time: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="9" r="7"/><line x1="12" y1="9" x2="12" y2="5"/><line x1="12" y1="9" x2="15" y2="11"/><circle cx="12" cy="9" r="1.5" fill="currentColor"/></svg>',
+  room: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="11" rx="1"/><line x1="3" y1="11" x2="21" y2="11"/><line x1="12" y1="5" x2="12" y2="16"/></svg>',
+  light: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="12" y1="2" x2="12" y2="7"/><line x1="6" y1="6" x2="9" y2="9"/><line x1="18" y1="6" x2="15" y2="9"/><line x1="4" y1="12" x2="20" y2="12"/><path d="M8 16 Q12 12 16 16"/></svg>',
+  void: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="6" r="1.5"/><circle cx="14" cy="4" r="1"/><circle cx="18" cy="8" r="1.5"/><circle cx="10" cy="12" r="1"/><circle cx="16" cy="14" r="1.5"/><line x1="7" y1="6" x2="14" y2="4" stroke-dasharray="1.5 1.5"/><line x1="14" y1="4" x2="18" y2="8" stroke-dasharray="1.5 1.5"/><line x1="7" y1="6" x2="10" y2="12" stroke-dasharray="1.5 1.5"/></svg>',
+};
+
+init();
 
 function shanghaiNow() {
   const parts = new Intl.DateTimeFormat("en-CA", {

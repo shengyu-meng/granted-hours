@@ -45,7 +45,7 @@ class TimetableBuilderTests(unittest.TestCase):
     def test_authored_history_covers_every_current_public_date(self) -> None:
         public_dates = {entry["date"] for entry in self.public_days}
         self.assertEqual(public_dates, set(self.history))
-        self.assertEqual(len(public_dates), 74)
+        self.assertEqual(len(public_dates), len(self.public_days))
 
     def test_history_uses_explicit_public_safe_assigned_residues(self) -> None:
         provenance = Counter()
@@ -66,7 +66,8 @@ class TimetableBuilderTests(unittest.TestCase):
                 self.assertNotIn(signature, signatures)
                 signatures.add(signature)
 
-        self.assertEqual(provenance, {"record_based": 64, "archive_based": 10})
+        expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
+        self.assertEqual(provenance, expected_provenance)
         self.assertEqual(
             {day_date for day_date, entry in self.history.items() if entry["provenance"] == "archive_based"},
             self.ARCHIVE_BASED_DATES,
@@ -100,9 +101,10 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertLessEqual(max(phrases.values()), 8)
         self.assertLessEqual(max(category_patterns.values()), 8)
         self.assertGreaterEqual(category_counts["social_media_organization"], 20)
+        expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
         self.assertEqual(
             Counter(day["history_provenance"] for day in output["days"]),
-            {"record_based": 64, "archive_based": 10},
+            expected_provenance,
         )
 
     def test_build_is_deterministic(self) -> None:
@@ -110,20 +112,173 @@ class TimetableBuilderTests(unittest.TestCase):
         second = json.dumps(self.build(), ensure_ascii=False, sort_keys=True)
         self.assertEqual(first, second)
 
+    def test_task_names_use_token_boundaries_and_stay_specific(self) -> None:
+        self.assertFalse(builder.keyword_matches("AI", "Maintain daily evidence", "维护每日证据"))
+        self.assertFalse(builder.keyword_matches("thesis", "Synthesize the review brief", "综合复核简报"))
+        name_zh, name_en = builder.derive_task_name(
+            "research_synthesis",
+            "Compare maintenance claims against current evidence",
+            "将维护主张与当前证据比较",
+        )
+        self.assertEqual((name_zh, name_en), ("证据链复核", "Evidence-chain review"))
+        self.assertEqual(
+            builder.derive_task_name(
+                "code_development",
+                "Implement explicit embed=calendar mode for cross-origin iframe operation",
+                "实现显式 embed=calendar 模式以支持跨域 iframe 运行",
+            ),
+            ("网页嵌入开发", "Web embed development"),
+        )
+        self.assertEqual(
+            builder.derive_task_name(
+                "research_synthesis",
+                "Review capability claims against observed system behavior",
+                "依据观察到的系统行为复核能力主张",
+            ),
+            ("能力声明核验", "Capability claim verification"),
+        )
+        self.assertEqual(
+            builder.derive_task_name("system_maintenance", "Perform routine maintenance", "执行例行维护"),
+            ("系统维护工作", "System maintenance work"),
+        )
+        extractive = builder.derive_authored_task_name(
+            "research_synthesis",
+            "Review a neutral bounded question without stronger domain evidence",
+            "复核一个没有更强领域证据的有边界问题",
+        )
+        self.assertEqual(extractive, ("复核一个没有更强领域证据的有边界…", "Review a neutral bounded question without…"))
+        self.assertNotIn("finance", extractive[1].lower())
+        self.assertNotIn("版权", extractive[0])
+
+        output = self.build()
+        fallback_names = {
+            "公开内容编排",
+            "文稿整理与修订",
+            "功能开发与验证",
+            "专题研究与综合",
+            "Agent 系统运维",
+            "系统维护工作",
+            "视觉内容制作",
+        }
+        names = [task["task_name_zh"] for day in output["days"] for task in day["task_residues"]]
+        self.assertGreaterEqual(len(set(names)), 50)
+        self.assertLessEqual(sum(name in fallback_names for name in names) / len(names), 0.1)
+        self.assertEqual(sum(name in fallback_names for name in names), 0)
+        authored_phrases = {
+            (residue["category"], residue["en"])
+            for entry in self.history.values()
+            for residue in entry["assigned_residues"]
+        }
+        self.assertTrue(set(builder.TASK_NAME_EXACT).issubset(authored_phrases))
+        for day in output["days"]:
+            for task in day["task_residues"]:
+                self.assertEqual(
+                    (task["task_name_zh"], task["task_name_en"]),
+                    builder.derive_authored_task_name(task["category"], task["en"], task["zh"]),
+                    f"{day['date']} must not use fuzzy naming for authored history",
+                )
+        july_18 = next(day for day in output["days"] if day["date"] == "2026-07-18")
+        self.assertEqual(july_18["task_residues"][0]["task_name_zh"], "项目申报书")
+        july_26 = next(day for day in output["days"] if day["date"] == "2026-07-26")
+        self.assertEqual(july_26["task_residues"][1]["task_name_zh"], "任务命名规则")
+        may_12 = next(day for day in output["days"] if day["date"] == "2026-05-12")
+        decision_review = next(task for task in may_12["task_residues"] if "decision-useful deltas" in task["en"])
+        self.assertEqual(decision_review["task_name_zh"], "决策变化复核")
+        self.assertNotEqual(decision_review["task_name_zh"], "每日财经建议")
+
+    def test_every_day_has_an_authored_or_semantic_theme_motif(self) -> None:
+        output = self.build()
+        motifs = {day["theme_motif"] for day in output["days"]}
+        self.assertTrue(motifs.issubset(builder.THEME_MOTIFS))
+        self.assertGreaterEqual(len(motifs), 7)
+        self.assertTrue(all(day["theme_motif"] for day in output["days"]))
+        may_17 = next(day for day in output["days"] if day["date"] == "2026-05-17")
+        self.assertEqual(may_17["theme_motif"], "room")
+
+        unmatched = copy.deepcopy(self.public_days[0])
+        unmatched.update(
+            {
+                "date": "2099-01-01",
+                "title_en": "Honest Calibration",
+                "title_zh": "诚实校准",
+                "variable_en": "Calibration",
+                "variable_zh": "校准",
+            }
+        )
+        with self.assertRaisesRegex(SystemExit, "needs an authored theme_motif_overrides entry"):
+            builder.derive_theme_motif(unmatched, self.config)
+
+        invalid_config = copy.deepcopy(self.config)
+        invalid_config["theme_motif_overrides"]["2026-05-14"] = "random-hash"
+        with self.assertRaisesRegex(SystemExit, "unknown theme motif"):
+            builder.validate_config(invalid_config)
+
+    def test_authored_and_inferred_name_semantics_are_table_driven(self) -> None:
+        cases = [
+            {
+                "label": "cross-origin iframe",
+                "category": "code_development",
+                "en": "Implement explicit embed=calendar mode for cross-origin iframe operation",
+                "zh": "实现显式 embed=calendar 模式以支持跨域 iframe 运行",
+                "authored": ("网页嵌入开发", "Web embed development"),
+                "inferred": ("网页嵌入开发", "Web embed development"),
+            },
+            {
+                "label": "capability claim",
+                "category": "research_synthesis",
+                "en": "Review capability claims against observed system behavior",
+                "zh": "依据观察到的系统行为复核能力主张",
+                "authored": ("能力声明核验", "Capability claim verification"),
+                "inferred": ("能力声明核验", "Capability claim verification"),
+            },
+            {
+                "label": "source freshness without rights",
+                "category": "research_synthesis",
+                "en": "Verify public-source freshness and separate confirmed findings from open questions",
+                "zh": "核验公开来源的新鲜度并区分已确认发现与待解问题",
+                "authored": ("核验公开来源的新鲜度并区分已确认…", "Verify public-source freshness and separate confirmed…"),
+                "inferred": ("来源时效核验", "Source freshness verification"),
+            },
+            {
+                "label": "decision-useful is not finance",
+                "category": "research_synthesis",
+                "en": "Review decision-useful deltas without promoting advisory material",
+                "zh": "复核有决策价值的变化，不抬升建议型材料",
+                "authored": ("决策变化复核", "Decision-useful change review"),
+                "inferred": ("决策变化复核", "Decision-useful change review"),
+            },
+            {
+                "label": "generic maintenance",
+                "category": "system_maintenance",
+                "en": "Perform routine maintenance",
+                "zh": "执行例行维护",
+                "authored": ("执行例行维护", "Perform routine maintenance"),
+                "inferred": ("系统维护工作", "System maintenance work"),
+            },
+        ]
+        for case in cases:
+            with self.subTest(case["label"]):
+                args = (case["category"], case["en"], case["zh"])
+                self.assertEqual(builder.derive_authored_task_name(*args), case["authored"])
+                self.assertEqual(builder.derive_task_name(*args), case["inferred"])
+
     def synthetic_public_days(self) -> list[dict]:
+        from datetime import date, timedelta
         synthetic_days = copy.deepcopy(self.public_days)
+        last_date = date.fromisoformat(synthetic_days[-1]["date"])
+        future_date = (last_date + timedelta(days=1)).isoformat()
         synthetic = copy.deepcopy(synthetic_days[-1])
         synthetic.update(
             {
-                "date": "2026-07-26",
+                "date": future_date,
                 "title_en": "Synthetic Future Aperture",
                 "title_zh": "合成未来孔径",
                 "variable_en": "Aperture",
                 "variable_zh": "孔径",
-                "preview": "archive/2026/07/2026-07-26/assets/preview.png",
-                "gif": "archive/2026/07/2026-07-26/assets/preview.gif",
-                "archive_url": "archive/2026/07/2026-07-26/",
-                "live_url": "archive/2026/07/2026-07-26/live/",
+                "preview": f"archive/2026/07/{future_date}/assets/preview.png",
+                "gif": f"archive/2026/07/{future_date}/assets/preview.gif",
+                "archive_url": f"archive/2026/07/{future_date}/",
+                "live_url": f"archive/2026/07/{future_date}/live/",
             }
         )
         synthetic_days.append(synthetic)
@@ -133,12 +288,12 @@ class TimetableBuilderTests(unittest.TestCase):
         synthetic_days = self.synthetic_public_days()
         output = self.build(synthetic_days)
         future = output["days"][-1]
-        self.assertEqual(future["date"], "2026-07-26")
+        self.assertEqual(future["date"], synthetic_days[-1]["date"])
         self.assertEqual(future["history_provenance"], "inferred")
         self.assertGreaterEqual(len(future["task_residues"]), 5)
         self.assertLessEqual(len(future["task_residues"]), 8)
         builder.validate_tasks(future["date"], future["task_residues"], self.config["autonomous_hour"])
-        self.assertNotIn("2026-07-26", self.history)
+        self.assertNotIn(synthetic_days[-1]["date"], self.history)
         for task in future["task_residues"]:
             self.assertNotIn(future["title_en"].lower(), task["en"].lower())
             self.assertNotIn(future["title_zh"], task["zh"])

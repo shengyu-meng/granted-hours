@@ -198,6 +198,7 @@ h3 {
 .dialog-kicker,
 .dialog-date,
 .dialog-variable,
+.dialog-mode-thesis,
 .dialog-boundary,
 .calendar-legend,
 .state-sentence,
@@ -317,7 +318,7 @@ h1 {
 
 .month-grid[data-motion="next"],
 .month-grid[data-motion="previous"],
-.month-grid[data-motion="today"],
+.month-grid[data-motion="month-reset"],
 .month-grid[data-motion="escape"] {
   animation: month-enter 160ms ease-out both;
 }
@@ -383,7 +384,7 @@ h1 {
 .calendar-day-button {
   position: relative;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   width: 100%;
   height: 100%;
   min-height: 74px;
@@ -393,6 +394,21 @@ h1 {
   color: var(--bone);
   text-align: left;
   cursor: pointer;
+}
+
+.theme-doodle {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 15px;
+  color: rgba(120, 217, 230, 0.35);
+  opacity: 0.7;
+}
+
+.theme-doodle svg {
+  width: 100%;
+  height: 100%;
 }
 
 .calendar-day-button:hover {
@@ -568,6 +584,12 @@ h1 {
   color: rgba(189, 179, 158, 0.85);
 }
 
+.dialog-mode-thesis {
+  margin-top: 9px;
+  color: rgba(236, 213, 148, 0.82);
+  text-transform: none;
+}
+
 .dialog-boundary {
   max-width: 980px;
   margin-top: 9px;
@@ -651,10 +673,17 @@ h1 {
 
 .assigned-item {
   display: grid;
-  grid-template-columns: 98px minmax(140px, 0.42fr) minmax(0, 1fr);
+  grid-template-columns: 98px minmax(120px, 0.35fr) minmax(100px, 0.28fr) minmax(0, 1fr);
   gap: 12px;
   padding: 11px 0;
   border-top: 1px solid rgba(238, 231, 215, 0.1);
+}
+
+.assigned-task-name {
+  color: rgba(236, 213, 148, 0.92);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .assigned-time {
@@ -1098,6 +1127,12 @@ h1 {
     padding: 8px 0;
   }
 
+  .assigned-task-name {
+    grid-column: 1 / -1;
+    font-size: 11px;
+    color: rgba(236, 213, 148, 0.88);
+  }
+
   .assigned-copy {
     grid-column: 1 / -1;
     overflow-wrap: anywhere;
@@ -1141,6 +1176,27 @@ h1 {
   }
 }
 
+@media (max-height: 500px) {
+  .crystal-chamber.is-open {
+    grid-template-rows: minmax(0, 1fr) auto auto;
+  }
+
+  .chamber-toolbar {
+    order: 3;
+    min-height: 44px;
+    padding-top: 4px;
+  }
+
+  #liveFrame {
+    order: 1;
+  }
+
+  .chamber-transition,
+  .iframe-fallback {
+    display: none;
+  }
+}
+
 @media (max-width: 430px) {
   .month-grid {
     height: min(490px, calc(100vh - 205px));
@@ -1156,6 +1212,7 @@ h1 {
   }
 
   .marker-divider,
+  .marker-en,
   .title-divider,
   .title-en {
     display: none;

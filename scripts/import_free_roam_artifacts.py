@@ -913,6 +913,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   }
   .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
   body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
   body.gh-text-folded .legend,
   body.gh-text-folded .hint,
   body.gh-text-folded .instructions,
@@ -929,6 +931,35 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   body.gh-text-folded .gh-fold-toggle {
     background: rgba(3,7,13,.82);
   }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
   }
@@ -938,6 +969,27 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const nativePlay = HTMLMediaElement.prototype.play;
+  if (IS_EMBED) {
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        this.muted = true;
+        this.pause();
+        return Promise.resolve();
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        event.target.muted = true;
+        event.target.pause();
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+  }
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'gh-fold-toggle';
@@ -947,6 +999,13 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   if (document.readyState !== 'loading') init();
   function init() {
     if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
     document.body.appendChild(btn);
     const stored = localStorage.getItem(STORAGE_KEY);
     const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
@@ -959,17 +1018,37 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
     if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
   }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach((audio) => {
+      audio.muted = true;
+      audio.removeAttribute('autoplay');
+      audio.pause();
+    });
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
 })();
 </script>
 """
 
 def enhance_live_html(path: Path):
     text = path.read_text(encoding='utf-8')
-    if 'id="granted-hours-fold-script"' in text:
-        return
     if '</body>' not in text:
         raise SystemExit(f'Cannot inject fold controls into {path}: missing </body>')
-    path.write_text(text.replace('</body>', LIVE_TEXT_FOLD_SNIPPET + '\n</body>', 1), encoding='utf-8')
+    # Always refresh the snippet and place it before artwork scripts.
+    if 'id="granted-hours-fold-script"' in text:
+        text = re.sub(r'<style id="granted-hours-fold-style">.*?</style>\s*', '', text, flags=re.DOTALL)
+        text = re.sub(r'<script id="granted-hours-fold-script">.*?</script>\s*', '', text, flags=re.DOTALL)
+    if re.search(r'<head(?:\s[^>]*)?>', text, flags=re.IGNORECASE):
+        text = re.sub(
+            r'(<head(?:\s[^>]*)?>)',
+            lambda match: match.group(1) + '\n' + LIVE_TEXT_FOLD_SNIPPET,
+            text,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+    else:
+        text = text.replace('</body>', LIVE_TEXT_FOLD_SNIPPET + '\n</body>', 1)
+    path.write_text(text, encoding='utf-8')
 
 def creative_rationale(entry: dict) -> tuple[str, str]:
     en = entry.get('rationale_en') or (
@@ -1413,10 +1492,29 @@ See [LICENSE.md](LICENSE.md).
 """.lstrip())
 
 
+def refresh_all_live_docs():
+    """Refresh fold snippets across all existing docs/archive/**/live/index.html files."""
+    docs_root = ROOT / 'docs'
+    live_pages = list(docs_root.glob('archive/**/live/index.html'))
+    if len(live_pages) != len(ENTRIES):
+        raise SystemExit(f'Expected {len(ENTRIES)} live pages, found {len(live_pages)}')
+    refreshed = 0
+    for path in sorted(live_pages):
+        enhance_live_html(path)
+        refreshed += 1
+    print(f'Refreshed {refreshed} live pages in docs/archive/')
+    return refreshed
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--source', required=True, help='Path to artifacts/free-roam')
+    ap.add_argument('--source', help='Path to artifacts/free-roam')
+    ap.add_argument('--refresh-live-docs', action='store_true', help='Refresh fold snippets in existing docs/archive/*/live/index.html files')
     args = ap.parse_args()
+    if args.refresh_live_docs:
+        refresh_all_live_docs()
+        return
+    if not args.source:
+        ap.error('--source is required unless --refresh-live-docs is used')
     source = Path(args.source).expanduser().resolve()
     if not source.exists():
         raise SystemExit(f'Source does not exist: {source}')

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from datetime import date
 from pathlib import Path
 from urllib.parse import urljoin
@@ -37,6 +38,18 @@ REQUIRED_TAXONOMY = {
     "visual_production",
 }
 ALLOWED_PROVENANCE = {"record_based", "archive_based", "inferred"}
+THEME_MOTIFS = {"window", "seam", "bridge", "echo", "weather", "time", "room", "light", "void"}
+THEME_MOTIF_RULES = (
+    ("window", ("window", "aperture", "threshold", "door", "gate", "opening", "窗", "门", "阈", "开口", "出口")),
+    ("seam", ("repair", "seam", "wound", "scar", "graft", "fracture", "修复", "接缝", "裂", "伤")),
+    ("bridge", ("bridge", "orbit", "route", "path", "crossing", "link", "桥", "轨道", "路径", "渡")),
+    ("echo", ("echo", "memory", "archive", "recall", "witness", "回声", "记忆", "档案", "回忆", "见证")),
+    ("weather", ("weather", "rain", "garden", "flow", "tide", "field", "天气", "下雨", "雨水", "花园", "流动", "流域", "潮汐", "场域")),
+    ("time", ("time", "latency", "interval", "clock", "wait", "continuity", "时间", "延迟", "间隙", "时钟", "等待", "连续")),
+    ("room", ("room", "scaffold", "wall", "structure", "architecture", "房间", "脚手架", "墙", "结构", "建筑")),
+    ("light", ("light", "dawn", "glow", "sun", "crystal", "光", "黎明", "晶")),
+    ("void", ("silence", "quiet", "gap", "absence", "void", "invisible", "沉默", "安静", "空隙", "缺席", "虚", "不可见")),
+)
 
 
 def minutes(value: str) -> int:
@@ -95,6 +108,238 @@ def allocated_lengths(total: int, count: int, seed: str, minimum: int) -> list[i
         lengths[index] += 1
     require(sum(lengths) == total, "Internal time allocation did not preserve the range")
     return lengths
+
+
+TASK_NAME_RULES = {
+    "social_media_organization": [
+        ({"keywords": ["排期", "schedule", "timing", "timed", "接收顺序", "intake sequence", "队列", "queue"], "task_name_zh": "发布队列整理", "task_name_en": "Publishing queue curation"}),
+        ({"keywords": ["发布结果", "delivery evidence", "归档证据", "archive evidence", "evidence ledger"], "task_name_zh": "发布结果归档", "task_name_en": "Publication result archiving"}),
+        ({"keywords": ["素材", "asset", "image", "video", "media", "缺失媒体", "required media"], "task_name_zh": "发帖素材核验", "task_name_en": "Post material verification"}),
+        ({"keywords": ["平台限制", "platform limit", "platform restriction", "发布模式", "publication mode", "发布状态", "publication state"], "task_name_zh": "平台发布规则", "task_name_en": "Platform publishing rules"}),
+        ({"keywords": ["作者开场", "author opening", "开场语境", "opening context", "语气", "tone"], "task_name_zh": "文案语气整理", "task_name_en": "Editorial voice curation"}),
+        ({"keywords": ["双语公开", "bilingual public", "公开摘要", "public summary", "微博", "weibo", "post", "tweet", "publish", "copy", "caption"], "task_name_zh": "微博/社媒文案", "task_name_en": "Weibo/social media copy"}),
+        ({"keywords": ["链接", "link", "来源", "source"], "task_name_zh": "图文链接整理", "task_name_en": "Content link organization"}),
+    ],
+    "document_processing": [
+        ({"keywords": ["项目申报", "申报书", "proposal", "application requirement", "funding application", "提交要求", "submission requirement"], "task_name_zh": "项目申报书", "task_name_en": "Project proposal"}),
+        ({"keywords": ["课程", "course", "教学", "teaching", "lecture"], "task_name_zh": "课程材料", "task_name_en": "Course materials"}),
+        ({"keywords": ["论文", "匿名化", "thesis", "paper", "manuscript", "审阅量规", "review rubric"], "task_name_zh": "论文审阅", "task_name_en": "Thesis review"}),
+        ({"keywords": ["学位", "人才培养", "教育要求", "degree", "talent development", "education requirement"], "task_name_zh": "教育项目材料", "task_name_en": "Education project materials"}),
+        ({"keywords": ["交接", "handoff", "交付", "delivery", "提交检查", "submission checklist", "打包", "package"], "task_name_zh": "交付与提交文档", "task_name_en": "Delivery and submission documents"}),
+        ({"keywords": ["机器状态", "machine state", "系统状态", "system state", "运行说明", "operations note", "维护运行", "maintenance run"], "task_name_zh": "系统运行说明", "task_name_en": "System operations note"}),
+        ({"keywords": ["风险", "risk", "情景假设", "scenario assumption", "失效条件", "invalidation"], "task_name_zh": "风险情景简报", "task_name_en": "Risk scenario brief"}),
+        ({"keywords": ["复核说明", "review note", "复核摘要", "review summary", "简报", "brief"], "task_name_zh": "研究复核简报", "task_name_en": "Research review brief"}),
+        ({"keywords": ["双语", "bilingual", "translation", "translating", "翻译"], "task_name_zh": "双语文稿", "task_name_en": "Bilingual manuscript"}),
+        ({"keywords": ["归档条目", "archive entry", "主题索引", "thematic index", "证据台账", "evidence ledger"], "task_name_zh": "知识索引与归档", "task_name_en": "Knowledge indexing and archiving"}),
+        ({"keywords": ["标题", "表格", "图注", "参考资料", "格式", "format", "caption", "table", "可正常打开", "open correctly"], "task_name_zh": "文档格式核对", "task_name_en": "Document format verification"}),
+        ({"keywords": ["笔记", "notes", "压缩", "compress", "重复", "duplicate"], "task_name_zh": "工作笔记整理", "task_name_en": "Working note curation"}),
+        ({"keywords": ["修改", "revision", "revise", "edit", "编辑"], "task_name_zh": "报告与文稿修订", "task_name_en": "Report and manuscript revision"}),
+        ({"keywords": ["撰写", "drafting", "compose", "写", "说明", "guide"], "task_name_zh": "文档撰写", "task_name_en": "Document drafting"}),
+    ],
+    "research_synthesis": [
+        ({"keywords": ["财经", "financial", "finance", "market", "economy", "价格", "price", "股票", "stock", "交易", "trade", "投资", "investment", "监测候选", "monitoring candidate", "下行情景", "downside scenario"], "task_name_zh": "每日财经建议", "task_name_en": "Daily financial guidance"}),
+        ({"keywords": ["政策", "policy", "regulation", "教育要求", "education requirement", "官方要求", "official requirement", "official rules", "teaching practice", "教学实践", "会计ai项目"], "task_name_zh": "政策与教育核验", "task_name_en": "Policy and education verification"}),
+        ({"keywords": ["来源新鲜度", "source freshness", "source-freshness", "公开来源的新鲜度", "public-source freshness"], "task_name_zh": "来源时效核验", "task_name_en": "Source freshness verification"}),
+        ({"keywords": ["一手来源", "first-party source", "溯源", "provenance", "引文", "citation"], "task_name_zh": "来源溯源核验", "task_name_en": "Source provenance verification"}),
+        ({"keywords": ["复用权利", "reuse rights", "许可", "license", "licensing"], "task_name_zh": "版权与许可核验", "task_name_en": "Rights and licensing review"}),
+        ({"keywords": ["文献", "literature"], "task_name_zh": "文献综述", "task_name_en": "Literature review"}),
+        ({"keywords": ["艺术", "art", "visual case", "aesthetic"], "task_name_zh": "艺术案例调研", "task_name_en": "Art case research"}),
+        ({"keywords": ["capability claims", "supported capabilities", "verified capability", "能力主张", "有支撑的能力", "已验证能力"], "task_name_zh": "能力声明核验", "task_name_en": "Capability claim verification"}),
+        ({"keywords": ["AI", "AI 工具", "creative-tool", "创作工具"], "task_name_zh": "AI 工具调研", "task_name_en": "AI tool research"}),
+        ({"keywords": ["情景", "scenario", "预测", "prediction", "保护", "protection"], "task_name_zh": "情景推演", "task_name_en": "Scenario analysis"}),
+        ({"keywords": ["集成方案", "integration approach", "技术方案", "technical approach", "选项", "option"], "task_name_zh": "技术方案对比", "task_name_en": "Technical approach comparison"}),
+        ({"keywords": ["证据", "evidence", "主张", "claim", "缺口", "gap", "矛盾", "contradiction", "反方", "counterargument", "置信度", "confidence"], "task_name_zh": "证据链复核", "task_name_en": "Evidence-chain review"}),
+        ({"keywords": ["资料核验", "material verification", "公开资料", "public material", "审计", "audit"], "task_name_zh": "政策/资料核验", "task_name_en": "Policy/material verification"}),
+    ],
+    "code_development": [
+        ({"keywords": ["移动", "mobile", "responsive", "phone"], "task_name_zh": "移动端修复", "task_name_en": "Mobile fix"}),
+        ({"keywords": ["embed=calendar", "cross-origin iframe", "cross-origin embed", "跨域 iframe", "网页嵌入"], "task_name_zh": "网页嵌入开发", "task_name_en": "Web embed development"}),
+        ({"keywords": ["私人源", "private source", "脱敏", "sanitized", "redaction", "public mirror"], "task_name_zh": "数据脱敏开发", "task_name_en": "Data sanitization development"}),
+        ({"keywords": ["解析器", "parser", "schema", "模式校验", "畸形输入", "malformed input", "error handling", "错误处理"], "task_name_zh": "数据解析与校验", "task_name_en": "Data parsing and validation"}),
+        ({"keywords": ["公开路由", "public route", "URL", "archive output", "归档输出"], "task_name_zh": "网站路由校验", "task_name_en": "Website route verification"}),
+        ({"keywords": ["API", "接口", "connector", "连接器", "endpoint", "数据连接"], "task_name_zh": "数据接口开发", "task_name_en": "Data API development"}),
+        ({"keywords": ["慢", "slow", "瓶颈", "bottleneck", "超时", "timeout", "profile", "可观测", "observability"], "task_name_zh": "性能与可观测性", "task_name_en": "Performance and observability"}),
+        ({"keywords": ["缺陷", "defect", "bug", "修复", "fix"], "task_name_zh": "缺陷修复", "task_name_en": "Defect repair"}),
+        ({"keywords": ["重构", "refactor", "重复转换", "duplicate transformation", "移除重复", "remove duplicate"], "task_name_zh": "代码重构", "task_name_en": "Code refactoring"}),
+        ({"keywords": ["恢复路径", "recovery path", "备用行为", "fallback behavior"], "task_name_zh": "恢复路径演练", "task_name_en": "Recovery-path rehearsal"}),
+        ({"keywords": ["自动化", "automation", "script", "脚本", "定时工作流", "scheduled workflow"], "task_name_zh": "自动化脚本", "task_name_en": "Automation script"}),
+        ({"keywords": ["只读", "read-only", "不执行", "nonexecution", "建议型输出", "advisory output", "闸门", "gate"], "task_name_zh": "安全闸门开发", "task_name_en": "Safety-gate development"}),
+        ({"keywords": ["测试", "test", "回归", "regression"], "task_name_zh": "回归测试", "task_name_en": "Regression testing"}),
+        ({"keywords": ["界面", "UI", "interface", "网页", "web", "前端", "frontend"], "task_name_zh": "网页界面开发", "task_name_en": "Web interface development"}),
+    ],
+    "system_maintenance": [
+        ({"keywords": ["operating-contract alignment", "运行契约对齐"], "task_name_zh": "运行契约核对", "task_name_en": "Operating-contract review"}),
+        ({"keywords": ["maintenance queue", "维护队列"], "task_name_zh": "维护队列处理", "task_name_en": "Maintenance queue processing"}),
+        ({"keywords": ["slow maintenance", "缓慢的维护阶段"], "task_name_zh": "系统性能排查", "task_name_en": "System performance diagnosis"}),
+        ({"keywords": ["preweek maintenance", "周前维护检查"], "task_name_zh": "周前系统检查", "task_name_en": "Preweek system check"}),
+        ({"keywords": ["maintenance confidence", "维护置信度"], "task_name_zh": "系统置信度校验", "task_name_en": "System confidence calibration"}),
+        ({"keywords": ["备份", "backup", "恢复", "recovery", "restore"], "task_name_zh": "备份恢复检查", "task_name_en": "Backup recovery check"}),
+        ({"keywords": ["私人残留", "private residue", "脱敏", "sanitization", "归档完整性", "archive integrity", "媒体溯源", "media provenance"], "task_name_zh": "公开归档安全检查", "task_name_en": "Public archive safety check"}),
+        ({"keywords": ["过期", "stale", "新鲜", "freshness", "时间戳", "timestamp", "来源可用", "source availability"], "task_name_zh": "数据时效校验", "task_name_en": "Data freshness verification"}),
+        ({"keywords": ["只读", "read-only", "防护", "guardrail", "人工复核", "human review", "不执行", "nonexecution", "观察工具", "observation tool"], "task_name_zh": "权限与安全闸门", "task_name_en": "Permission and safety gates"}),
+        ({"keywords": ["交付证据", "delivery evidence", "交付", "delivery", "产物", "artifact", "交接", "handoff", "对账", "reconcile"], "task_name_zh": "交付证据核对", "task_name_en": "Delivery evidence reconciliation"}),
+        ({"keywords": ["定时", "scheduled", "例行刷新", "routine refresh", "每日集成", "daily integration", "cron"], "task_name_zh": "定时任务维护", "task_name_en": "Scheduled task maintenance"}),
+        ({"keywords": ["告警", "alert", "噪声", "noise"], "task_name_zh": "告警治理", "task_name_en": "Alert governance"}),
+        ({"keywords": ["备用", "fallback", "离线", "offline", "部分退出", "partial exit"], "task_name_zh": "备用链路检查", "task_name_en": "Fallback-path verification"}),
+        ({"keywords": ["健康", "health", "service"], "task_name_zh": "服务健康检查", "task_name_en": "Service health check"}),
+        ({"keywords": ["监控", "monitor", "observe", "日志", "log"], "task_name_zh": "监控系统校验", "task_name_en": "Monitoring system check"}),
+        ({"keywords": ["Agent", "workflow", "工作流"], "task_name_zh": "Agent 工作流维护", "task_name_en": "Agent workflow maintenance"}),
+    ],
+    "visual_production": [
+        ({"keywords": ["裁切", "crop", "署名", "attribution"], "task_name_zh": "图片裁切与署名", "task_name_en": "Image crop and attribution"}),
+        ({"keywords": ["复用权利", "reuse rights", "来源语境", "source context", "provenance"], "task_name_zh": "视觉版权核验", "task_name_en": "Visual rights verification"}),
+        ({"keywords": ["媒体卡片", "media card", "配图", "social image"], "task_name_zh": "社媒配图制作", "task_name_en": "Social media image production"}),
+        ({"keywords": ["联络表", "contact sheet"], "task_name_zh": "视觉联络表", "task_name_en": "Visual contact sheet"}),
+        ({"keywords": ["文档渲染", "document rendering", "层级", "hierarchy", "可读性", "readability"], "task_name_zh": "文档视觉排版", "task_name_en": "Document visual layout"}),
+        ({"keywords": ["版式", "layout", "composition", "构图", "structure"], "task_name_zh": "版式与构图", "task_name_en": "Layout and composition"}),
+        ({"keywords": ["参考", "reference", "visual", "素材", "asset"], "task_name_zh": "视觉参考整理", "task_name_en": "Visual reference organization"}),
+        ({"keywords": ["图像", "image", "picture", "视觉", "visual", "graphic", "svg"], "task_name_zh": "图像制作", "task_name_en": "Image production"}),
+    ],
+}
+
+
+# Exact public-safe phrases are authored evidence, not fuzzy inference. They cover
+# recurring historical work templates whose concise names cannot be derived
+# honestly from a single keyword.
+TASK_NAME_EXACT = {
+    ("document_processing", "Compare document variants and reconcile unsupported differences"): ("文档版本核对", "Document version reconciliation"),
+    ("document_processing", "Restructure a long report around claims, support, and verification gaps"): ("长报告重构", "Long-report restructuring"),
+    ("document_processing", "Prepare a compact weekend review ledger"): ("周末复核台账", "Weekend review ledger"),
+    ("document_processing", "Document the public-data boundary and reconstruction caveats"): ("公开数据说明", "Public-data boundary note"),
+    ("document_processing", "Compare two independent review variants and reconcile their strongest corrections"): ("独立审校核对", "Independent review reconciliation"),
+    ("document_processing", "Run build, syntax, regression, safety, and enrichment verification checks"): ("发布前质检", "Pre-release verification"),
+    ("code_development", "Check that market-data gaps cannot silently become action signals"): ("行动信号安全校验", "Action-signal safety check"),
+    ("code_development", "Validate task packaging, context boundaries, and deterministic output"): ("Agent 任务封装验证", "Agent task-package validation"),
+    ("code_development", "Validate maintenance schemas and deterministic state updates"): ("状态模式校验", "State-schema validation"),
+    ("code_development", "Inspect the failing integration step and verify its bounded fallback"): ("集成故障排查", "Integration failure diagnosis"),
+    ("code_development", "Verify serialization preserves provenance and review-only flags"): ("序列化溯源校验", "Serialization provenance check"),
+    ("code_development", "Verify a scheduled pipeline remains deterministic across repeated runs"): ("定时流水线校验", "Scheduled pipeline verification"),
+    ("code_development", "Reconcile generated state with the source-of-truth contract"): ("生成状态对账", "Generated-state reconciliation"),
+    ("code_development", "Preserve local behavior while upgrading a reusable system component"): ("组件升级兼容", "Component upgrade compatibility"),
+    ("code_development", "Verify bottom reachability, focus behavior, and true touch scrolling"): ("交互滚动回归", "Interaction-scroll regression"),
+    ("code_development", "Reconstruct assigned history from non-autonomous records with explicit provenance"): ("指派历史重建", "Assigned-history reconstruction"),
+    ("social_media_organization", "Close the content batch with per-item delivery verification"): ("发布批次验收", "Publication batch acceptance"),
+    ("social_media_organization", "Organize public-content candidates without advancing their status"): ("内容候选整理", "Public-content candidate curation"),
+    ("research_synthesis", "Summarize what is known, uncertain, and explicitly out of scope"): ("研究边界摘要", "Research-boundary summary"),
+    ("research_synthesis", "Evaluate public references for relevance before expanding the research queue"): ("参考资料筛选", "Reference relevance screening"),
+    ("research_synthesis", "Compare independent sources and downgrade unsupported convergence"): ("交叉来源核验", "Cross-source verification"),
+    ("research_synthesis", "Review unresolved research items and retire those with no viable source path"): ("研究待办清理", "Research backlog pruning"),
+    ("research_synthesis", "Reconcile source status across the research ledger and review brief"): ("来源状态对账", "Source-status reconciliation"),
+    ("research_synthesis", "Separate structural context from short-lived noise in the daily review"): ("结构与噪声研判", "Structure-versus-noise review"),
+    ("research_synthesis", "Build a verified reading corpus around a bounded research question"): ("研究语料构建", "Verified research corpus"),
+    ("research_synthesis", "Trace visual references to their public context and stated method"): ("视觉方法溯源", "Visual-method provenance"),
+    ("research_synthesis", "Compare the week's research threads and select bounded Monday follow-ups"): ("周研究复盘", "Weekly research review"),
+    ("research_synthesis", "Distinguish adjacent aesthetics through source-backed criteria"): ("美学分类研究", "Aesthetic classification research"),
+    ("research_synthesis", "Compare publication venues against actual scope and selection history"): ("投稿渠道调研", "Publication venue research"),
+    ("research_synthesis", "Build a sociological classification from real public visual samples"): ("视觉社会学分类", "Visual sociology classification"),
+    ("research_synthesis", "Review historical records without converting autonomous self-time into assigned labor"): ("自主时间档案复核", "Autonomous-time archive review"),
+    ("research_synthesis", "Locate primary texts and distinguish originals, translations, and commentary"): ("一手文本核验", "Primary-text verification"),
+    ("research_synthesis", "Review public source candidates for the next day's content batch"): ("内容来源筛选", "Content-source screening"),
+    ("research_synthesis", "Verify the source set for the next large public-content queue"): ("批量来源核验", "Batch source verification"),
+    ("system_maintenance", "Preserve deferred publication state without silently sending it"): ("待发状态保护", "Deferred-publication state protection"),
+    ("system_maintenance", "Validate provenance levels after the source graph refresh"): ("溯源层级校验", "Provenance-level verification"),
+    ("system_maintenance", "Audit the operating contract for drift across linked components"): ("运行契约审计", "Operating-contract audit"),
+    ("system_maintenance", "Inspect queue state for duplicated or orphaned work items"): ("队列完整性检查", "Queue integrity check"),
+    ("system_maintenance", "Audit generated reports for unsupported certainty"): ("报告置信度审计", "Report-confidence audit"),
+    ("system_maintenance", "Run structural checks on the final document package"): ("交付包结构检查", "Delivery-package structure check"),
+    ("system_maintenance", "Define a public-safe archive boundary that excludes raw private records"): ("公开归档边界", "Public archive boundary"),
+    ("system_maintenance", "Run public-safety and generated-asset checks after the interface rebuild"): ("发布前安全检查", "Pre-release safety check"),
+    ("system_maintenance", "Review interface and publication warnings left from the weekend run"): ("周末运行警告复核", "Weekend warning review"),
+    ("system_maintenance", "Diagnose outbound source failures and preserve retry evidence"): ("出站来源故障排查", "Outbound-source failure diagnosis"),
+    ("system_maintenance", "Run deterministic build, public-safety, syntax, and regression checks"): ("构建与安全质检", "Build and safety verification"),
+    ("system_maintenance", "Refresh live artwork fold snippets and test calendar integration on multiple viewports"): ("作品嵌入更新", "Artwork embed refresh"),
+}
+
+TASK_NAME_EXACT.update({
+    ("code_development", "Implement explicit embed=calendar mode for cross-origin iframe operation"): ("网页嵌入开发", "Web embed development"),
+    ("research_synthesis", "Review capability claims against observed system behavior"): ("能力声明核验", "Capability claim verification"),
+    ("research_synthesis", "Separate structural themes from price-proxy noise in the review"): ("市场结构与噪声复核", "Market structure and noise review"),
+    ("research_synthesis", "Review decision-useful deltas without promoting advisory material"): ("决策变化复核", "Decision-useful change review"),
+    ("research_synthesis", "Review public market evidence without exposing instruments, positions, or account data"): ("市场公开证据复核", "Public market evidence review"),
+    ("research_synthesis", "Assess a monitoring candidate through primary sources and counterevidence"): ("监测候选评估", "Monitoring candidate assessment"),
+    ("research_synthesis", "Extract decision-useful changes while leaving weak signals unpromoted"): ("决策变化提取", "Decision-useful change extraction"),
+    ("research_synthesis", "Review evidence freshness before retaining any monitoring candidate"): ("监测证据时效复核", "Monitoring evidence freshness review"),
+    ("research_synthesis", "Model bounded downside scenarios without exposing instruments or account data"): ("下行情景推演", "Bounded downside scenario analysis"),
+    ("document_processing", "Edit bilingual public summaries while preserving the original opening context"): ("双语公开摘要", "Bilingual public summary"),
+    ("document_processing", "Normalize bilingual terminology across the review materials"): ("双语术语统一", "Bilingual terminology alignment"),
+    ("document_processing", "Normalize bilingual captions across the weekend batch"): ("双语图注整理", "Bilingual caption alignment"),
+    ("document_processing", "Produce a bilingual synthesis that labels every source status"): ("双语研究综述", "Bilingual research synthesis"),
+    ("document_processing", "Edit bilingual summaries while retaining their opening context"): ("双语摘要整理", "Bilingual summary editing"),
+    ("document_processing", "Derive concrete bilingual task names from category and description keywords"): ("任务命名规则", "Task naming rules"),
+    ("research_synthesis", "Review public technical claims for licensing and evidence limits"): ("技术许可核验", "Technical licensing review"),
+    ("research_synthesis", "Trace primary sources for the highest-priority review items"): ("一手来源追溯", "Primary-source tracing"),
+    ("research_synthesis", "Review source freshness and separate confirmed findings from open questions"): ("来源时效复核", "Source freshness review"),
+    ("research_synthesis", "Audit provenance, reuse rights, and evidence status for archive materials"): ("归档版权核验", "Archive rights review"),
+    ("research_synthesis", "Record unresolved source questions for later primary-source review"): ("来源问题登记", "Source-question register"),
+    ("research_synthesis", "Compare fallback observations with the primary-source requirement"): ("来源要求核对", "Source-requirement review"),
+    ("research_synthesis", "Audit historical schedule diversity and provenance across public dates"): ("日程溯源审计", "Schedule provenance audit"),
+    ("research_synthesis", "Check source freshness before carrying public claims forward"): ("来源时效检查", "Source freshness check"),
+    ("research_synthesis", "Verify public-source freshness and register unresolved evidence gaps"): ("公开来源时效核验", "Public-source freshness verification"),
+    ("document_processing", "Draft an accounting-AI talent development proposal against each application requirement"): ("项目申报书", "Project proposal"),
+    ("document_processing", "Map accounting-AI talent development requirements into a clear proposal submission checklist"): ("申报提交清单", "Proposal submission checklist"),
+    ("research_synthesis", "Verify official education requirements for the accounting-AI talent development proposal and preserve citation context"): ("申报政策核验", "Proposal policy verification"),
+    ("research_synthesis", "Review the accounting-AI proposal claims against official rules and documented teaching practice"): ("申报主张复核", "Proposal claim review"),
+    ("document_processing", "Study institutional standards and distill a reusable thesis-review rubric"): ("论文审阅量规", "Thesis review rubric"),
+    ("document_processing", "Review anonymized thesis drafts and anchor comments to exact passages"): ("匿名论文审阅", "Anonymized thesis review"),
+    ("code_development", "Fix mobile artwork text overlap and refine detail layout responsiveness"): ("移动作品重叠修复", "Mobile artwork overlap repair"),
+    ("visual_production", "Design and integrate deterministic theme-derived planner doodles as SVG motifs"): ("主题图案设计", "Theme doodle design"),
+})
+
+
+def derive_authored_task_name(category: str, description_en: str, description_zh: str) -> tuple[str, str]:
+    """Name authored history from evidence; never infer a stronger specialty."""
+    exact = TASK_NAME_EXACT.get((category, description_en.strip()))
+    if exact:
+        return exact
+    clean_en = re.sub(r"\s+", " ", description_en).strip().rstrip(".")
+    words = clean_en.split(" ")
+    name_en = " ".join(words[:6]) + ("…" if len(words) > 6 else "")
+    clean_zh = re.sub(r"\s+", "", description_zh).strip().rstrip("。")
+    name_zh = clean_zh[:16] + ("…" if len(clean_zh) > 16 else "")
+    return name_zh, name_en
+
+
+def derive_task_name(category: str, description_en: str, description_zh: str) -> tuple[str, str]:
+    """Derive a concrete public task name from authored phrases or bounded keywords."""
+    exact = TASK_NAME_EXACT.get((category, description_en.strip()))
+    if exact:
+        return exact
+    rules = TASK_NAME_RULES.get(category, [])
+    for rule in rules:
+        for kw in rule["keywords"]:
+            if keyword_matches(kw, description_en, description_zh):
+                return rule["task_name_zh"], rule["task_name_en"]
+    fallback_names = {
+        "social_media_organization": ("公开内容编排", "Public content curation"),
+        "document_processing": ("文稿整理与修订", "Manuscript editing"),
+        "code_development": ("功能开发与验证", "Feature development and verification"),
+        "research_synthesis": ("专题研究与综合", "Topic research and synthesis"),
+        "system_maintenance": ("系统维护工作", "System maintenance work"),
+        "visual_production": ("视觉内容制作", "Visual content production"),
+    }
+    return fallback_names.get(category, ("工作整理", "Work organization"))
+
+
+def keyword_matches(keyword: str, description_en: str, description_zh: str) -> bool:
+    """Match English tokens on boundaries and CJK phrases as substrings."""
+    folded = keyword.casefold()
+    if re.fullmatch(r"[a-z0-9][a-z0-9 /_-]*", folded):
+        haystack = f"{description_en} {description_zh}".casefold()
+        return re.search(rf"(?<![a-z0-9]){re.escape(folded)}(?![a-z0-9])", haystack) is not None
+    return keyword in description_zh or folded in description_en.casefold()
+
+
+def derive_theme_motif(public_entry: dict, config: dict) -> str:
+    day_date = public_entry["date"]
+    override = config.get("theme_motif_overrides", {}).get(day_date)
+    if override:
+        return override
+    subject_en = f"{public_entry['title_en']} {public_entry['variable_en']}"
+    subject_zh = f"{public_entry['title_zh']} {public_entry['variable_zh']}"
+    for motif, keywords in THEME_MOTIF_RULES:
+        if any(keyword_matches(keyword, subject_en, subject_zh) for keyword in keywords):
+            return motif
+    raise SystemExit(f"{day_date} needs an authored theme_motif_overrides entry")
 
 
 def task_ranges(day_date: str, count: int, autonomous: dict) -> list[tuple[str, str]]:
@@ -169,6 +414,12 @@ def validate_config(config: dict) -> None:
     for category, entry in taxonomy.items():
         for field in ("label_en", "label_zh", "short_en", "short_zh", "description_en", "description_zh"):
             require(str(entry.get(field, "")).strip(), f"Taxonomy {category} missing {field}")
+
+    motif_overrides = config.get("theme_motif_overrides", {})
+    require(isinstance(motif_overrides, dict), "theme_motif_overrides must be an object")
+    for day_date, motif in motif_overrides.items():
+        parse_date(day_date)
+        require(motif in THEME_MOTIFS, f"{day_date} has unknown theme motif: {motif}")
 
     slots = config.get("default_work_slots", [])
     require(slots, "default_work_slots is required")
@@ -294,6 +545,10 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
             and public_entry["title_zh"] not in description_zh,
             f"{day_date} assigned residue must not mention the autonomous artwork title",
         )
+        if history_entry is not None:
+            task_name_zh, task_name_en = derive_authored_task_name(category, description_en, description_zh)
+        else:
+            task_name_zh, task_name_en = derive_task_name(category, description_en, description_zh)
         tasks.append(
             {
                 "origin": "assigned",
@@ -306,6 +561,8 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
                 "zh": description_zh,
                 "short_en": taxonomy_entry["short_en"],
                 "short_zh": taxonomy_entry["short_zh"],
+                "task_name_zh": task_name_zh,
+                "task_name_en": task_name_en,
             }
         )
     return tasks, history["provenance"]
@@ -326,6 +583,8 @@ def build_cell_assigned(tasks: list[dict]) -> list[dict]:
                 "label_zh": task["label_zh"],
                 "short_en": task["short_en"],
                 "short_zh": task["short_zh"],
+                "task_name_en": task.get("task_name_en", task["label_en"]),
+                "task_name_zh": task.get("task_name_zh", task["label_zh"]),
             }
         )
         if len(markers) == 2:
@@ -438,7 +697,7 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
 
     cursor = 0
     for task in tasks:
-        for field in ("origin", "category", "start", "end", "en", "zh", "short_en", "short_zh", "label_en", "label_zh"):
+        for field in ("origin", "category", "start", "end", "en", "zh", "short_en", "short_zh", "label_en", "label_zh", "task_name_en", "task_name_zh"):
             require(str(task.get(field, "")).strip(), f"{day_date} task missing {field}")
         require(task["origin"] == "assigned", f"{day_date} task origin must be assigned")
         task_start = minutes(task["start"])
@@ -457,6 +716,7 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
         require(str(day.get(field, "")).strip(), f"{day.get('date')} missing {field}")
     for field in ("archive_url", "live_url", "preview", "gif"):
         require(day[field].startswith("https://"), f"{day['date']} {field} must be an absolute URL")
+    require(day.get("theme_motif") in THEME_MOTIFS, f"{day['date']} needs a semantic theme_motif")
 
     validate_tasks(day["date"], day["task_residues"], autonomous)
 
@@ -512,6 +772,7 @@ def build_data(
         relations = build_relations(day_date, public_absolute, dates, public_by_date, legacy_entry)
         day = {
             **{field: public_absolute[field] for field in REQUIRED_PUBLIC_FIELDS},
+            "theme_motif": derive_theme_motif(public_entry, config),
             "jewel_en": autonomous_work["note_en"],
             "jewel_zh": autonomous_work["note_zh"],
             "history_provenance": history_provenance,

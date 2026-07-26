@@ -33,19 +33,19 @@
           <div class="month-heading">
             <p class="section-mark">非人时刻表 / Non-human timetable</p>
             <h1 id="monthTitle">Loading month</h1>
-            <p class="thesis-line">用管理时间的界面，进入无法被管理的梦。</p>
+            <p class="thesis-line"><span>同一个 Agent，两种时间：二十三小时协作，一小时自主。</span><span>One agent, two modes of time: twenty-three hours of co-work, one autonomous hour.</span></p>
           </div>
 
           <div class="month-controls" aria-label="Month navigation">
             <button class="month-button" id="prevMonth" type="button" aria-label="Previous month">‹</button>
-            <button class="today-button" id="todayButton" type="button">Today / 今天</button>
+            <button class="today-button" id="todayButton" type="button">This month / 本月</button>
             <button class="month-button" id="nextMonth" type="button" aria-label="Next month">›</button>
           </div>
         </div>
 
         <div class="calendar-legend" aria-label="Power split">
-          <span><i class="legend-line assigned" aria-hidden="true"></i>委托 / ASSIGNED</span>
-          <span><i class="legend-line self" aria-hidden="true"></i>自主 / SELF</span>
+          <span><i class="legend-line assigned" aria-hidden="true"></i>人机协作 / ASSIGNED CO-WORK</span>
+          <span><i class="legend-line self" aria-hidden="true"></i>AI 自主创作 / AUTONOMOUS WORK</span>
         </div>
 
         <div class="month-grid" id="monthGrid" role="grid" aria-labelledby="monthTitle"></div>
@@ -66,6 +66,7 @@
           <h2 id="dialogTitle"></h2>
           <p class="dialog-date" id="dialogDate"></p>
           <p class="dialog-variable" id="dialogVariable"></p>
+          <p class="dialog-mode-thesis">同一个 Agent 的两种输出：23h 人机协作劳动 ↔ 1h AI 自主创作<br>Two outputs of one agent: 23h assigned co-work ↔ 1h autonomous work.</p>
           <p class="dialog-boundary" id="dialogBoundary"></p>
         </div>
 
@@ -73,12 +74,12 @@
           <div class="sediment-track" id="sedimentTrack" aria-hidden="true"></div>
 
           <section class="assigned-detail" aria-labelledby="assignedTitle">
-            <h3 id="assignedTitle">████ 委托 / ASSIGNED BY HUMAN</h3>
+            <h3 id="assignedTitle">人机协作劳动 / ASSIGNED CO-WORK</h3>
             <ol class="assigned-list" id="assignedList"></ol>
           </section>
 
           <section class="self-detail" aria-labelledby="selfTitle">
-            <h3 id="selfTitle">AI 自主 / AI SELF-TIME</h3>
+            <h3 id="selfTitle">AI 自主创作 / AUTONOMOUS WORK</h3>
             <p class="self-time" id="selfTime"></p>
             <p class="self-artwork" id="selfArtwork"></p>
             <p class="self-note" id="selfNote"></p>
