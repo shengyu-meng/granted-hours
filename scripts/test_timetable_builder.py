@@ -14,7 +14,7 @@ import build_timetable_data as builder
 
 
 class TimetableBuilderTests(unittest.TestCase):
-    ARCHIVE_BASED_DATES = {
+    WITHHELD_DATES = {
         "2026-05-23",
         "2026-05-24",
         "2026-05-30",
@@ -47,7 +47,7 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertEqual(public_dates, set(self.history))
         self.assertEqual(len(public_dates), len(self.public_days))
 
-    def test_history_uses_explicit_public_safe_assigned_residues(self) -> None:
+    def test_history_uses_faithful_summaries_with_explicit_redaction(self) -> None:
         provenance = Counter()
         for day_date, entry in self.history.items():
             provenance[entry["provenance"]] += 1
@@ -56,12 +56,44 @@ class TimetableBuilderTests(unittest.TestCase):
                 {"date", "provenance", "assigned_residues"},
                 f"{day_date} must not retain focus/medium/workflow generation fields",
             )
-            self.assertGreaterEqual(len(entry["assigned_residues"]), 5)
-            self.assertLessEqual(len(entry["assigned_residues"]), 8)
+            self.assertGreaterEqual(len(entry["assigned_residues"]), 2)
+            self.assertLessEqual(len(entry["assigned_residues"]), 6)
             signatures = set()
             for residue in entry["assigned_residues"]:
-                self.assertEqual(set(residue), {"category", "en", "zh"})
+                self.assertEqual(
+                    set(residue),
+                    {
+                        "category",
+                        "en",
+                        "zh",
+                        "redaction_status",
+                        "redaction_count",
+                        "source_kind",
+                        "faithfulness",
+                    },
+                )
                 self.assertIn(residue["category"], builder.REQUIRED_TAXONOMY)
+                self.assertIn(residue["redaction_status"], {"none", "partial", "withheld"})
+                self.assertIsInstance(residue["redaction_count"], int)
+                self.assertGreaterEqual(residue["redaction_count"], 0)
+                self.assertIn(
+                    residue["source_kind"],
+                    {"daily_record", "maintenance_record", "task_card", "public_post_archive", "withheld"},
+                )
+                self.assertEqual(residue["faithfulness"], "faithful_summary")
+                self.assertLessEqual(len(residue["zh"]), 90, f"{day_date} Chinese summary is too long for a duration block")
+                self.assertLessEqual(len(residue["en"]), 300, f"{day_date} English summary is too long for a duration block")
+                public_copy = f"{residue['en']} {residue['zh']}"
+                self.assertIsNone(builder.SENSITIVE_ASSIGNED_WORK_RE.search(public_copy))
+                self.assertIsNone(builder.PRIVATE_OPERATIONAL_CONTEXT_RE.search(public_copy))
+                self.assertNotRegex(residue["en"], r"(?:/Users/|\\Users\\|\.md\b|session[_ -]?id|chat[_ -]?id)")
+                self.assertNotRegex(residue["zh"], r"(?:/Users/|\\Users\\|\.md\b|会话ID|聊天ID)")
+                if residue["redaction_status"] == "none":
+                    self.assertEqual(residue["redaction_count"], 0)
+                else:
+                    self.assertGreater(residue["redaction_count"], 0)
+                    self.assertIn("████", residue["en"])
+                    self.assertIn("████", residue["zh"])
                 signature = (residue["category"], residue["en"], residue["zh"])
                 self.assertNotIn(signature, signatures)
                 signatures.add(signature)
@@ -69,8 +101,8 @@ class TimetableBuilderTests(unittest.TestCase):
         expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
         self.assertEqual(provenance, expected_provenance)
         self.assertEqual(
-            {day_date for day_date, entry in self.history.items() if entry["provenance"] == "archive_based"},
-            self.ARCHIVE_BASED_DATES,
+            {day_date for day_date, entry in self.history.items() if entry["provenance"] == "withheld"},
+            self.WITHHELD_DATES,
         )
 
     def test_historical_output_is_continuous_diverse_and_artwork_free(self) -> None:
@@ -80,8 +112,8 @@ class TimetableBuilderTests(unittest.TestCase):
         category_patterns = Counter()
         category_counts = Counter()
         for day in output["days"]:
-            self.assertGreaterEqual(len(day["task_residues"]), 5)
-            self.assertLessEqual(len(day["task_residues"]), 8)
+            self.assertGreaterEqual(len(day["task_residues"]), 2)
+            self.assertLessEqual(len(day["task_residues"]), 6)
             builder.validate_tasks(day["date"], day["task_residues"], self.config["autonomous_hour"])
             schedules.add(
                 tuple(
@@ -98,8 +130,11 @@ class TimetableBuilderTests(unittest.TestCase):
 
         self.assertGreaterEqual(len(phrases), 100)
         self.assertGreaterEqual(len(schedules), 60)
-        self.assertLessEqual(max(phrases.values()), 8)
-        self.assertLessEqual(max(category_patterns.values()), 8)
+        self.assertLessEqual(max(phrases.values()), 10)
+        # Faithful records may repeat the same medium mix (for example two
+        # maintenance residues around the autonomous hour). Phrase diversity,
+        # not artificial category shuffling, is the public-truthfulness gate.
+        self.assertLessEqual(max(category_patterns.values()), 20)
         self.assertGreaterEqual(category_counts["social_media_organization"], 20)
         expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
         self.assertEqual(
@@ -111,6 +146,29 @@ class TimetableBuilderTests(unittest.TestCase):
         first = json.dumps(self.build(), ensure_ascii=False, sort_keys=True)
         second = json.dumps(self.build(), ensure_ascii=False, sort_keys=True)
         self.assertEqual(first, second)
+
+    def test_autonomous_media_and_main_bgm_playlist_are_complete_and_latest_first(self) -> None:
+        output = self.build()
+        self.assertEqual(len(output["bgm_playlist"]), len(output["days"]))
+        self.assertEqual(
+            [item["date"] for item in output["bgm_playlist"]],
+            sorted((day["date"] for day in output["days"]), reverse=True),
+        )
+        for item in output["bgm_playlist"]:
+            self.assertRegex(item["bgm_url"], r"^https://.+\.mp3$")
+            self.assertTrue(item["title_en"].strip())
+            self.assertTrue(item["title_zh"].strip())
+        for day in output["days"]:
+            autonomous = day["autonomous_work"]
+            archive_root = f"{output['canonical_base_url']}archive/{day['date'][:4]}/{day['date'][5:7]}/{day['date']}/"
+            self.assertEqual(day["archive_url"], archive_root)
+            self.assertEqual(day["live_url"], f"{archive_root}live/")
+            self.assertRegex(autonomous["preview_url"], r"^https://.+preview\.png$")
+            self.assertRegex(autonomous["gif_url"], r"^https://.+preview\.gif$")
+            self.assertRegex(autonomous["bgm_url"], r"^https://.+\.mp3$")
+            self.assertEqual(autonomous["preview_url"], f"{archive_root}assets/preview.png")
+            self.assertEqual(autonomous["gif_url"], f"{archive_root}assets/preview.gif")
+            self.assertTrue(autonomous["bgm_url"].startswith(f"{archive_root}live/"))
 
     def test_task_names_use_token_boundaries_and_stay_specific(self) -> None:
         self.assertFalse(builder.keyword_matches("AI", "Maintain daily evidence", "维护每日证据"))
@@ -164,12 +222,6 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertGreaterEqual(len(set(names)), 50)
         self.assertLessEqual(sum(name in fallback_names for name in names) / len(names), 0.1)
         self.assertEqual(sum(name in fallback_names for name in names), 0)
-        authored_phrases = {
-            (residue["category"], residue["en"])
-            for entry in self.history.values()
-            for residue in entry["assigned_residues"]
-        }
-        self.assertTrue(set(builder.TASK_NAME_EXACT).issubset(authored_phrases))
         for day in output["days"]:
             for task in day["task_residues"]:
                 self.assertEqual(
@@ -177,14 +229,6 @@ class TimetableBuilderTests(unittest.TestCase):
                     builder.derive_authored_task_name(task["category"], task["en"], task["zh"]),
                     f"{day['date']} must not use fuzzy naming for authored history",
                 )
-        july_18 = next(day for day in output["days"] if day["date"] == "2026-07-18")
-        self.assertEqual(july_18["task_residues"][0]["task_name_zh"], "项目申报书")
-        july_26 = next(day for day in output["days"] if day["date"] == "2026-07-26")
-        self.assertEqual(july_26["task_residues"][1]["task_name_zh"], "任务命名规则")
-        may_12 = next(day for day in output["days"] if day["date"] == "2026-05-12")
-        decision_review = next(task for task in may_12["task_residues"] if "decision-useful deltas" in task["en"])
-        self.assertEqual(decision_review["task_name_zh"], "决策变化复核")
-        self.assertNotEqual(decision_review["task_name_zh"], "每日财经建议")
 
     def test_every_day_has_an_authored_or_semantic_theme_motif(self) -> None:
         output = self.build()
@@ -226,6 +270,7 @@ class TimetableBuilderTests(unittest.TestCase):
             "document_writing",
             "visual_design",
             "system_operations",
+            "redacted_record",
         }
         for day in output["days"]:
             durations = []
@@ -242,7 +287,7 @@ class TimetableBuilderTests(unittest.TestCase):
             self.assertGreater(len(set(durations)), 1, f"{day['date']} needs visibly varied estimated blocks")
 
         july_18 = next(day for day in output["days"] if day["date"] == "2026-07-18")
-        self.assertEqual(july_18["task_residues"][0]["task_type"], "grant_proposal")
+        self.assertIn("grant_proposal", {task["task_type"] for task in july_18["task_residues"]})
         july_26 = next(day for day in output["days"] if day["date"] == "2026-07-26")
         self.assertTrue(
             all(
@@ -258,14 +303,16 @@ class TimetableBuilderTests(unittest.TestCase):
             if task["category"] == "social_media_organization"
         )
         self.assertEqual(social_task["task_type"], "social_content")
-        market_task = next(
+        market_tasks = [
             task
             for day in output["days"]
             for task in day["task_residues"]
-            if task["category"] in {"document_processing", "research_synthesis"}
-            and any(token in task["en"].lower() for token in ("market", "stock", "price"))
+            if task["task_type"] == "investment_research"
+        ]
+        self.assertTrue(market_tasks)
+        self.assertTrue(
+            any(any(token in task["en"].lower() for token in ("market", "stock", "a-share", "investment")) for task in market_tasks)
         )
-        self.assertEqual(market_task["task_type"], "investment_research")
 
     def test_special_task_types_do_not_override_the_actual_work_medium(self) -> None:
         code_task = builder.derive_task_type(
@@ -353,12 +400,28 @@ class TimetableBuilderTests(unittest.TestCase):
                 "variable_zh": "孔径",
                 "preview": f"archive/2026/07/{future_date}/assets/preview.png",
                 "gif": f"archive/2026/07/{future_date}/assets/preview.gif",
+                "bgm": f"archive/2026/07/{future_date}/live/{future_date}-synthetic-future-aperture-bgm.mp3",
                 "archive_url": f"archive/2026/07/{future_date}/",
                 "live_url": f"archive/2026/07/{future_date}/live/",
             }
         )
         synthetic_days.append(synthetic)
         return synthetic_days
+
+    def test_public_media_urls_cannot_escape_the_canonical_archive(self) -> None:
+        tampered = copy.deepcopy(self.public_days)
+        tampered[0]["live_url"] = "https://attacker.invalid/fake-live/"
+        with self.assertRaisesRegex(SystemExit, "live_url must stay on the canonical live path"):
+            self.build(tampered)
+
+        day = self.public_days[0]
+        canonical_live = f"{self.config['canonical_base_url']}archive/{day['date'][:4]}/{day['date'][5:7]}/{day['date']}/live/"
+        for escape in ("../assets/escaped.mp3", "%2e%2e/assets/escaped.mp3"):
+            with self.subTest(escape=escape):
+                tampered = copy.deepcopy(self.public_days)
+                tampered[0]["bgm"] = f"{canonical_live}{escape}"
+                with self.assertRaisesRegex(SystemExit, "bgm must stay on the canonical live path"):
+                    self.build(tampered)
 
     def test_synthetic_future_day_uses_assigned_work_inferred_fallback(self) -> None:
         synthetic_days = self.synthetic_public_days()

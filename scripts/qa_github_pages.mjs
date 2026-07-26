@@ -154,7 +154,7 @@ async function inspectViewport(spec) {
       selfTitleRect: selfTitle.getBoundingClientRect().toJSON(),
       selfNoteRect: selfNote.getBoundingClientRect().toJSON(),
       enterRect: enter.getBoundingClientRect().toJSON(),
-      trackDisplay: getComputedStyle(track).display,
+      trackDisplay: track ? getComputedStyle(track).display : "absent",
       panelMetrics: {
         ...panel.getBoundingClientRect().toJSON(),
         scrollTop: panel.scrollTop,
@@ -176,7 +176,7 @@ async function inspectViewport(spec) {
   let accessibility;
   let scrolledRootSelector = null;
   if (spec.mobile) {
-    assert.equal(before.trackDisplay, "none", `${spec.label}: decorative sediment track must be hidden`);
+    assert.ok(["none", "absent"].includes(before.trackDisplay), `${spec.label}: decorative sediment track must be absent or hidden`);
     assert.equal(before.layoutDisplay, "block", `${spec.label}: detail content must use single-column block flow`);
     assert.ok(
       Math.abs(before.panelMetrics.height - before.panelMetrics.viewportHeight) <= 1,
@@ -229,63 +229,38 @@ async function inspectViewport(spec) {
     accessibility = { startScrollTop, touchScrollTop, ...afterTouch };
     scrolledRootSelector = "#dayDialogPanel";
   } else {
-    assert.equal(before.layoutColumns.length, 3, `${spec.label}: desktop detail must retain three columns`);
-    const lastInitiallyVisible = isInside(before.lastRect, before.viewport)
-      && isInside(before.lastRect, before.layoutRect);
-    const selfInitiallyReadable = isInside(before.selfTitleRect, before.viewport)
-      && isInside(before.selfNoteRect, before.viewport)
-      && isInside(before.enterRect, before.viewport);
-    assert.equal(selfInitiallyReadable, true, `${spec.label}: AI self section or entry button is clipped`);
+    assert.ok(before.layoutColumns.length >= 2, `${spec.label}: desktop detail must retain assigned/self columns`);
+    const allScrollRoots = before.roots.filter((candidate) => candidate.canScroll);
+    assert.ok(allScrollRoots.length <= 1, `${spec.label}: desktop detail must not create nested scroll roots`);
+    if (allScrollRoots.length) {
+      assert.equal(allScrollRoots[0].selector, "#dayDialogPanel", `${spec.label}: the panel must own desktop scrolling`);
+      scrolledRootSelector = "#dayDialogPanel";
+    }
 
-    let assignedAccess = { lastInitiallyVisible, scrollRoot: null, reached: 0, max: 0 };
-    if (!lastInitiallyVisible) {
-      const allScrollRoots = before.roots.filter((candidate) => candidate.canScroll);
-      const assignedScrollRoots = allScrollRoots.filter((candidate) => candidate.containsLastTask);
-      assert.equal(
-        allScrollRoots.length,
-        1,
-        `${spec.label}: clipped detail must have exactly one real vertical scroll root: ${JSON.stringify(allScrollRoots)}`,
-      );
-      assert.equal(
-        assignedScrollRoots.length,
-        1,
-        `${spec.label}: the single scroll root must contain the assigned rows`,
-      );
-      const [root] = assignedScrollRoots;
-      const scrollResult = await page.locator(root.selector).evaluate((element) => {
-        element.scrollTo({ top: element.scrollHeight, behavior: "instant" });
-        return {
-          reached: element.scrollTop,
-          max: element.scrollHeight - element.clientHeight,
-        };
-      });
-      const lastAfterScroll = await page.locator(".assigned-item:last-child").evaluate((element, rootSelector) => {
+    const reach = async (selector) => {
+      await page.locator(selector).scrollIntoViewIfNeeded();
+      return page.locator(selector).evaluate((element) => {
         const rect = element.getBoundingClientRect();
-        const root = document.querySelector(rootSelector);
-        const rootRect = root.getBoundingClientRect();
+        const rootRect = document.querySelector("#dayDialogPanel").getBoundingClientRect();
         return {
           top: rect.top,
-          left: rect.left,
-          right: rect.right,
           bottom: rect.bottom,
           visible: rect.top >= rootRect.top - 1
             && rect.bottom <= rootRect.bottom + 1
-            && rect.left >= rootRect.left - 1
-            && rect.right <= rootRect.right + 1
             && rect.top >= -1
             && rect.bottom <= innerHeight + 1,
         };
-      }, root.selector);
-      assert.ok(scrollResult.reached > 0, `${spec.label}: ${root.selector} did not scroll`);
-      assert.ok(
-        scrollResult.reached >= scrollResult.max - 2,
-        `${spec.label}: ${root.selector} stopped at ${scrollResult.reached}/${scrollResult.max}`,
-      );
-      assert.equal(lastAfterScroll.visible, true, `${spec.label}: last assigned row remains clipped after scrolling`);
-      assignedAccess = { lastInitiallyVisible, scrollRoot: root.selector, ...scrollResult, lastAfterScroll };
-      scrolledRootSelector = root.selector;
-    }
-    accessibility = { selfInitiallyReadable, assignedAccess };
+      });
+    };
+    const lastAssigned = await reach(".assigned-item:last-child");
+    assert.equal(lastAssigned.visible, true, `${spec.label}: last assigned row is unreachable`);
+    const liveEntry = await reach("#enterAutonomous");
+    assert.equal(liveEntry.visible, true, `${spec.label}: live-work entry is unreachable`);
+    const panelProgress = await page.locator("#dayDialogPanel").evaluate((panel) => ({
+      scrollTop: panel.scrollTop,
+      maxScroll: panel.scrollHeight - panel.clientHeight,
+    }));
+    accessibility = { lastAssigned, liveEntry, panelProgress };
   }
 
   await page.keyboard.press("Escape");

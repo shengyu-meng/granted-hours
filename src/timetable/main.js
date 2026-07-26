@@ -9,6 +9,7 @@ import CodeXml from "lucide/dist/esm/icons/code-xml.mjs";
 import FilePenLine from "lucide/dist/esm/icons/file-pen-line.mjs";
 import FileText from "lucide/dist/esm/icons/file-text.mjs";
 import House from "lucide/dist/esm/icons/house.mjs";
+import LockKeyhole from "lucide/dist/esm/icons/lock-keyhole.mjs";
 import Megaphone from "lucide/dist/esm/icons/megaphone.mjs";
 import Palette from "lucide/dist/esm/icons/palette.mjs";
 import Presentation from "lucide/dist/esm/icons/presentation.mjs";
@@ -59,6 +60,7 @@ const TASK_ICONS = {
   "file-text": FileText,
   palette: Palette,
   settings: Settings,
+  "lock-keyhole": LockKeyhole,
 };
 const TASK_ACCENTS = {
   amber: "#f6c85f",
@@ -79,11 +81,11 @@ const state = {
   visibleMonth: 0,
   selectedDate: "",
   detailOpen: false,
-  chamberOpen: false,
   detailLastFocus: null,
-  chamberLastFocus: null,
-  chamberAudioEnabled: false,
-  chamberChannel: "",
+  calendarBgmIndex: 0,
+  calendarBgmPlaying: false,
+  calendarBgmUserActivated: false,
+  calendarBgmDesiredPlaying: false,
   clockDate: "",
 };
 
@@ -98,11 +100,11 @@ function init() {
   els.nextMonth.addEventListener("click", () => moveMonth(1));
   els.todayButton.addEventListener("click", goToCurrentMonth);
   els.closeDetail.addEventListener("click", closeDayDetail);
-  els.enterAutonomous.addEventListener("click", () => openChamber());
-  els.closeChamber.addEventListener("click", closeChamber);
-  els.escapeButton.addEventListener("click", followEscapePath);
-  els.chamberAudioToggle.addEventListener("click", toggleChamberAudio);
-  els.liveFrame.addEventListener("load", handleEmbeddedFrameLoad);
+  els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
+  els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
+  els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
+  els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
+  setupCalendarBgm();
 
   document.addEventListener("keydown", handleDocumentKeydown);
   window.setInterval(renderTimeState, 1000);
@@ -111,13 +113,11 @@ function init() {
 function cacheElements() {
   [
     "assignedList",
-    "chamberAudioToggle",
-    "chamberTitle",
-    "chamberTransition",
+    "calendarBgm",
+    "calendarBgmStatus",
+    "calendarBgmToggle",
     "clockTime",
-    "closeChamber",
     "closeDetail",
-    "crystalChamber",
     "dayDialog",
     "dayDialogPanel",
     "dialogBoundary",
@@ -125,17 +125,15 @@ function cacheElements() {
     "dialogTitle",
     "dialogVariable",
     "enterAutonomous",
-    "escapeButton",
-    "fallbackLiveLink",
-    "liveFrame",
     "monthGrid",
     "monthTitle",
     "nextMonth",
     "prevMonth",
     "publicNote",
-    "sedimentTrack",
     "selfArtwork",
     "selfNote",
+    "selfPreview",
+    "selfPreviewLink",
     "selfTime",
     "stateSentence",
     "timetableRoot",
@@ -151,6 +149,87 @@ function cacheElements() {
 
 function setStaticCopy() {
   els.publicNote.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
+}
+
+function setupCalendarBgm() {
+  if (!timetableData.bgm_playlist?.length) {
+    els.calendarBgmToggle.disabled = true;
+    els.calendarBgmStatus.textContent = "No archived BGM / 暂无归档音乐";
+    return;
+  }
+  els.calendarBgm.volume = 0.34;
+  setCalendarBgmTrack(0);
+  setCalendarBgmPlaying(false);
+  updateCalendarBgmControl("Latest track ready · click to play / 最新作品音乐已就绪");
+}
+
+function setCalendarBgmTrack(index) {
+  const playlist = timetableData.bgm_playlist;
+  if (!playlist?.length) return;
+  state.calendarBgmIndex = ((index % playlist.length) + playlist.length) % playlist.length;
+  const track = playlist[state.calendarBgmIndex];
+  els.calendarBgm.src = track.bgm_url;
+  els.calendarBgm.dataset.date = track.date;
+  els.calendarBgm.load();
+  updateCalendarBgmControl();
+}
+
+function toggleCalendarBgm() {
+  if (!timetableData.bgm_playlist?.length) return;
+  if (!els.calendarBgm.paused && !els.calendarBgm.ended) {
+    state.calendarBgmDesiredPlaying = false;
+    setCalendarBgmPlaying(false);
+    els.calendarBgm.pause();
+    return;
+  }
+  state.calendarBgmUserActivated = true;
+  state.calendarBgmDesiredPlaying = true;
+  const playback = els.calendarBgm.play();
+  if (playback && typeof playback.catch === "function") {
+    playback.catch(() => {
+      state.calendarBgmDesiredPlaying = false;
+      setCalendarBgmPlaying(false);
+      updateCalendarBgmControl("Playback blocked · tap again / 浏览器阻止播放，请再次点击");
+    });
+  }
+}
+
+function advanceCalendarBgm() {
+  const shouldContinue = state.calendarBgmUserActivated && state.calendarBgmDesiredPlaying;
+  setCalendarBgmTrack(state.calendarBgmIndex + 1);
+  if (!shouldContinue) return;
+  const playback = els.calendarBgm.play();
+  if (playback && typeof playback.catch === "function") {
+    playback.catch(() => {
+      state.calendarBgmDesiredPlaying = false;
+      setCalendarBgmPlaying(false);
+    });
+  }
+}
+
+function handleCalendarBgmPlay() {
+  if (!state.calendarBgmDesiredPlaying) {
+    els.calendarBgm.pause();
+    setCalendarBgmPlaying(false);
+    return;
+  }
+  setCalendarBgmPlaying(true);
+}
+
+function setCalendarBgmPlaying(playing) {
+  state.calendarBgmPlaying = playing;
+  updateCalendarBgmControl();
+}
+
+function updateCalendarBgmControl(override = "") {
+  const track = timetableData.bgm_playlist?.[state.calendarBgmIndex];
+  els.calendarBgmToggle.setAttribute("aria-pressed", state.calendarBgmPlaying ? "true" : "false");
+  els.calendarBgmToggle.textContent = state.calendarBgmPlaying
+    ? "Pause timeline BGM / 暂停月历音乐"
+    : "Play timeline BGM / 播放月历音乐";
+  els.calendarBgmStatus.textContent = override || (track
+    ? `${track.date} · ${track.title_en} / ${track.title_zh}`
+    : "");
 }
 
 function setInitialMonth() {
@@ -333,6 +412,13 @@ function renderDayDetail(day) {
   els.selfArtwork.textContent = `${self.title_en} / ${self.title_zh}`;
   els.selfNote.textContent = `${self.note_en} / ${self.note_zh}`;
   els.enterAutonomous.setAttribute("aria-label", `Enter live artwork for ${day.title_en}`);
+  const directLiveUrlObject = new URL(absoluteUrl(self.live_url || day.live_url));
+  directLiveUrlObject.searchParams.set("from", "timetable");
+  const directLiveUrl = directLiveUrlObject.href;
+  els.enterAutonomous.href = directLiveUrl;
+  els.selfPreviewLink.href = directLiveUrl;
+  els.selfPreview.src = self.gif_url || self.preview_url || day.gif || day.preview;
+  els.selfPreview.alt = `Animated preview of ${self.title_en} / 《${self.title_zh}》动态预览`;
 
   els.assignedList.replaceChildren();
   day.task_residues.forEach((task) => {
@@ -342,10 +428,9 @@ function renderDayDetail(day) {
     item.dataset.timeProvenance = task.time_provenance;
     item.dataset.taskType = task.task_type;
     item.dataset.taskColor = task.task_color;
+    item.dataset.redactionStatus = task.redaction_status;
     item.style.setProperty("--duration-minutes", String(task.duration_minutes));
     item.style.setProperty("--task-accent", taskAccent(task.task_color));
-    const taskNameZh = task.task_name_zh || task.label_zh;
-    const taskNameEn = task.task_name_en || task.label_en;
     item.innerHTML = `
       <span class="assigned-time">
         <span>${task.start}-${task.end}</span>
@@ -356,214 +441,23 @@ function renderDayDetail(day) {
         <strong class="assigned-work-type">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</strong>
       </span>
       <span class="assigned-secondary">
-        <span class="assigned-task-name">${escapeHtml(taskNameZh)} / ${escapeHtml(taskNameEn)}</span>
         <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
+        <span class="record-provenance">真实记录摘要 / FAITHFUL RECORD SUMMARY</span>
       </span>
-      <span class="assigned-copy">${escapeHtml(task.zh)} / ${escapeHtml(task.en)}</span>
+      <span class="assigned-copy"><span class="copy-zh">${escapeHtml(task.zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.en)}</span></span>
+      ${task.redaction_status !== "none"
+        ? `<span class="redaction-badge">${task.redaction_status === "withheld" ? "记录未公开 / RECORD WITHHELD" : `部分打码 ${task.redaction_count} / ${task.redaction_count} REDACTION${task.redaction_count === 1 ? "" : "S"}`}</span>`
+        : ""}
     `;
     const iconSlot = item.querySelector(".assigned-type-icon");
     iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));
     els.assignedList.append(item);
   });
 
-  renderSedimentTrack(day);
-}
-
-function renderSedimentTrack(day) {
-  els.sedimentTrack.replaceChildren();
-  day.task_residues.forEach((task, index) => {
-    const segment = document.createElement("span");
-    segment.className = "sediment-segment assigned";
-    segment.style.setProperty("--top", `${(toMinutes(task.start) / MINUTES_PER_DAY) * 100}%`);
-    segment.style.setProperty("--height", `${((toMinutes(task.end) - toMinutes(task.start)) / MINUTES_PER_DAY) * 100}%`);
-    segment.style.setProperty("--shade", String((index % 4) + 1));
-    els.sedimentTrack.append(segment);
-  });
-
-  const self = day.autonomous_work;
-  const selfSegment = document.createElement("span");
-  selfSegment.className = "sediment-segment self";
-  selfSegment.style.setProperty("--top", `${(toMinutes(self.start) / MINUTES_PER_DAY) * 100}%`);
-  selfSegment.style.setProperty("--height", `${((toMinutes(self.end) - toMinutes(self.start)) / MINUTES_PER_DAY) * 100}%`);
-  els.sedimentTrack.append(selfSegment);
-}
-
-function openChamber(options = {}) {
-  const day = currentDay();
-  if (!day) return;
-
-  state.chamberLastFocus = document.activeElement;
-  state.chamberOpen = true;
-  els.crystalChamber.hidden = false;
-  els.timetableRoot.setAttribute("inert", "");
-  if (state.detailOpen) {
-    els.dayDialog.setAttribute("inert", "");
-  }
-  document.body.classList.add("chamber-open");
-  document.documentElement.classList.add("chamber-open");
-  renderChamber(options.transition || null);
-  requestAnimationFrame(() => {
-    els.crystalChamber.classList.add("is-open");
-    els.closeChamber.focus({ preventScroll: true });
-  });
-}
-
-function closeChamber() {
-  sendChamberMediaCommand("pause");
-  state.chamberOpen = false;
-  els.crystalChamber.classList.remove("is-open");
-  els.crystalChamber.hidden = true;
-  document.body.classList.remove("chamber-open");
-  document.documentElement.classList.remove("chamber-open");
-  els.liveFrame.removeAttribute("src");
-  resetChamberAudioControl({ disabled: true });
-
-  if (state.detailOpen) {
-    els.dayDialog.removeAttribute("inert");
-    if (state.chamberLastFocus && typeof state.chamberLastFocus.focus === "function") {
-      state.chamberLastFocus.focus({ preventScroll: true });
-    } else {
-      els.enterAutonomous.focus({ preventScroll: true });
-    }
-  } else {
-    els.timetableRoot.removeAttribute("inert");
-    focusDayButton(state.selectedDate);
-  }
-}
-
-function renderChamber(transition) {
-  const day = currentDay();
-  const relation = day.relations[0];
-  const target = relation ? dayByDate.get(relation.target) : null;
-  const baseUrl = day.autonomous_work.live_url || day.live_url;
-  const liveUrlObject = new URL(absoluteUrl(baseUrl));
-  state.chamberChannel = createMediaChannel();
-  liveUrlObject.searchParams.set("embed", "calendar");
-  liveUrlObject.searchParams.set("gh_channel", state.chamberChannel);
-  const liveUrl = liveUrlObject.href;
-
-  resetChamberAudioControl({ disabled: true });
-  els.chamberTitle.textContent = `${day.date} · ${day.title_en} / ${day.title_zh}`;
-  els.liveFrame.src = liveUrl;
-  els.liveFrame.title = `Live artwork for ${day.title_en}`;
-  els.fallbackLiveLink.href = baseUrl;
-
-  if (target && relation) {
-    els.escapeButton.textContent = `Escape path: ${formatShortDate(target.date)} / ${relation.axis_en}`;
-    els.escapeButton.disabled = false;
-    els.escapeButton.setAttribute(
-      "aria-label",
-      `Escape to ${target.date}: ${target.title_en}. ${relation.sentence_en}`,
-    );
-  } else {
-    els.escapeButton.textContent = "Escape path / 逃历";
-    els.escapeButton.disabled = true;
-  }
-
-  const line = transition || relation;
-  els.chamberTransition.innerHTML = `
-    不是下一天。是同一个问题的另一个入口。<br>
-    Not the next day. Another entrance to the same question.
-    ${line ? `<br><span>${escapeHtml(line.sentence_en)} / ${escapeHtml(line.sentence_zh)}</span>` : ""}
-  `;
-}
-
-function followEscapePath() {
-  const day = currentDay();
-  const relation = day.relations[0];
-  const target = relation ? dayByDate.get(relation.target) : null;
-  if (!target) return;
-
-  state.selectedDate = target.date;
-  setVisibleMonth(monthKey(target.date));
-  renderMonth({ transition: "escape" });
-  if (state.detailOpen) {
-    renderDayDetail(target);
-  }
-  if (state.chamberOpen) {
-    renderChamber(relation);
-    els.escapeButton.focus({ preventScroll: true });
-  }
-}
-
-function handleEmbeddedFrameLoad() {
-  suppressEmbeddedChrome();
-  els.chamberAudioToggle.disabled = false;
-  sendChamberMediaCommand("pause");
-}
-
-function suppressEmbeddedChrome() {
-  let doc;
-  try {
-    doc = els.liveFrame.contentDocument;
-  } catch {
-    return;
-  }
-
-  if (!doc) return;
-
-  const style = doc.createElement("style");
-  style.id = "granted-hours-chamber-suppressor";
-  style.textContent = `
-    .gh-fold-toggle,
-    .sound,
-    #sound,
-    #soundToggle {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-    }
-  `;
-
-  if (!doc.getElementById(style.id) && doc.head) {
-    doc.head.append(style);
-  }
-
-  doc.body?.classList.add("gh-text-folded", "gh-chamber-embed");
-}
-
-function toggleChamberAudio() {
-  if (!state.chamberOpen || els.chamberAudioToggle.disabled) return;
-  state.chamberAudioEnabled = !state.chamberAudioEnabled;
-  updateChamberAudioControl();
-  sendChamberMediaCommand(state.chamberAudioEnabled ? "play" : "pause");
-}
-
-function resetChamberAudioControl({ disabled = false } = {}) {
-  state.chamberAudioEnabled = false;
-  els.chamberAudioToggle.disabled = disabled;
-  updateChamberAudioControl();
-}
-
-function updateChamberAudioControl() {
-  els.chamberAudioToggle.setAttribute("aria-pressed", state.chamberAudioEnabled ? "true" : "false");
-  els.chamberAudioToggle.textContent = state.chamberAudioEnabled
-    ? "Pause BGM / 暂停音乐"
-    : "Play BGM / 播放音乐";
-}
-
-function sendChamberMediaCommand(action) {
-  if (!state.chamberChannel || !els.liveFrame.contentWindow || !els.liveFrame.src) return;
-  const frameUrl = new URL(els.liveFrame.src);
-  els.liveFrame.contentWindow.postMessage(
-    {
-      type: "granted-hours:media",
-      version: 1,
-      channel: state.chamberChannel,
-      action,
-    },
-    frameUrl.origin,
-  );
 }
 
 function handleDocumentKeydown(event) {
   if (event.key === "Escape") {
-    if (state.chamberOpen) {
-      event.preventDefault();
-      closeChamber();
-      return;
-    }
     if (state.detailOpen) {
       event.preventDefault();
       closeDayDetail();
@@ -572,9 +466,7 @@ function handleDocumentKeydown(event) {
   }
 
   if (event.key !== "Tab") return;
-  if (state.chamberOpen) {
-    trapFocus(event, els.crystalChamber);
-  } else if (state.detailOpen) {
+  if (state.detailOpen) {
     trapFocus(event, els.dayDialog);
   }
 }
@@ -661,10 +553,6 @@ function formatLongDate(value) {
   return `${value} / ${year}年${month}月${day}日`;
 }
 
-function formatShortDate(value) {
-  return value.slice(5).replace("-", ".");
-}
-
 function formatMonthDay(value) {
   const [, month, day] = value.split("-").map(Number);
   return `${month}/${day}`;
@@ -699,15 +587,6 @@ function taskAccent(colorName) {
   const accent = TASK_ACCENTS[colorName];
   if (!accent) throw new Error(`Unknown task color: ${colorName}`);
   return accent;
-}
-
-function createMediaChannel() {
-  if (window.crypto?.randomUUID) {
-    return window.crypto.randomUUID().replaceAll("-", "");
-  }
-  const values = new Uint32Array(4);
-  window.crypto?.getRandomValues?.(values);
-  return [...values].map((value) => value.toString(36)).join("").padEnd(16, "0");
 }
 
 init();

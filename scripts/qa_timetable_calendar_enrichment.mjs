@@ -63,6 +63,8 @@ await check("every day has a semantic motif and every live page has controllable
     assert.match(html, /body\.gh-chamber-embed h1/);
     assert.match(html, /body\.gh-chamber-embed button/);
     assert.match(html, /new URLSearchParams\(window\.location\.search\)\.get\('embed'\) === 'calendar'/);
+    assert.match(html, /IS_TIMETABLE_FULL_VIEW/);
+    assert.match(html, /params\.get\('from'\) === 'timetable'/);
     assert.match(html, /HTMLMediaElement\.prototype\.play/);
     assert.match(html, /silenceEmbeddedMedia/);
     assert.match(html, /granted-hours:media/);
@@ -131,12 +133,13 @@ try {
   await page.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await page.waitForFunction(() => document.activeElement?.id === "closeDetail");
 
-  await check("day detail separates concrete task name from explanatory detail", async () => {
+  await check("day detail presents faithful record provenance and concrete work summary without duplication", async () => {
     const task = page.locator(".assigned-item").first();
-    const name = (await task.locator(".assigned-task-name").textContent())?.trim() || "";
+    const provenance = (await task.locator(".record-provenance").textContent())?.trim() || "";
     const detail = (await task.locator(".assigned-copy").textContent())?.trim() || "";
-    assert.ok(name.length >= 4, `task name too short: ${JSON.stringify(name)}`);
-    assert.ok(detail.length > name.length, `detail must add information beyond task name: ${JSON.stringify({ name, detail })}`);
+    assert.match(provenance, /FAITHFUL RECORD SUMMARY/);
+    assert.ok(detail.length >= 12, `work summary too short: ${JSON.stringify(detail)}`);
+    assert.equal(await task.locator(".assigned-task-name").count(), 0);
   });
 
   await check("day schedule blocks expose readable work types, colors, and duration-proportional heights", async () => {
@@ -151,7 +154,7 @@ try {
         accent: style.getPropertyValue("--task-accent").trim(),
       };
     }));
-    assert.ok(result.length >= 5, JSON.stringify(result));
+    assert.ok(result.length >= 2, JSON.stringify(result));
     assert.ok(result.every((item) => item.duration > 0 && item.provenance === "estimated"), JSON.stringify(result));
     assert.ok(result.every((item) => item.type.length >= 4 && item.icon && item.accent), JSON.stringify(result));
     const shortest = result.reduce((a, b) => a.duration < b.duration ? a : b);
@@ -191,78 +194,20 @@ try {
     }
   });
 
-  await page.tap("#enterAutonomous");
-  await page.waitForSelector("#crystalChamber.is-open");
-  const frame = page.frameLocator("#liveFrame");
-  await frame.locator("body").waitFor({ state: "attached" });
-
-  await check("calendar iframe requests explicit embed mode", async () => {
-    const src = await page.locator("#liveFrame").getAttribute("src");
-    assert.match(src || "", /[?&]embed=calendar(?:&|$)/);
-  });
-
-  await check("embed mode ignores persisted unfolded preference and hides artwork chrome", async () => {
-    const result = await frame.locator("body").evaluate((body) => {
-      const candidates = [
-        ".card",
-        ".state",
-        ".panel",
-        ".legend",
-        ".hint",
-        ".instructions",
-        ".statement",
-        ".copy",
-        ".text",
-        "#textPanel",
-        "#legend",
-      ];
-      const visibleOverlays = candidates.flatMap((selector) =>
-        [...document.querySelectorAll(selector)]
-          .filter((element) => {
-            const style = getComputedStyle(element);
-            const rect = element.getBoundingClientRect();
-            return style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0.01 && rect.width > 1 && rect.height > 1;
-          })
-          .map(() => selector),
-      );
-      const toggle = document.querySelector(".gh-fold-toggle");
-      const sound = document.querySelector(".sound, #sound, #soundToggle");
-      const isVisible = (element) => {
-        if (!element) return false;
-        const style = getComputedStyle(element);
-        const rect = element.getBoundingClientRect();
-        return style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0.01 && rect.width > 1 && rect.height > 1;
-      };
-      return {
-        classes: [...body.classList],
-        visibleOverlays,
-        toggleVisible: isVisible(toggle),
-        soundVisible: isVisible(sound),
-      };
-    });
-    assert.ok(result.classes.includes("gh-chamber-embed"), JSON.stringify(result));
-    assert.ok(result.classes.includes("gh-text-folded"), JSON.stringify(result));
-    assert.deepEqual(result.visibleOverlays, [], JSON.stringify(result));
-    assert.equal(result.toggleVisible, false, JSON.stringify(result));
-    assert.equal(result.soundVisible, false, JSON.stringify(result));
-  });
-
-  await check("short mobile viewport gives the artwork most of the chamber", async () => {
-    const geometry = await page.evaluate(() => {
-      const frameRect = document.querySelector("#liveFrame").getBoundingClientRect();
-      const toolbarRect = document.querySelector(".chamber-toolbar").getBoundingClientRect();
-      return {
-        viewportHeight: innerHeight,
-        frameTop: frameRect.top,
-        frameBottom: frameRect.bottom,
-        frameHeight: frameRect.height,
-        toolbarTop: toolbarRect.top,
-        horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      };
-    });
-    assert.ok(geometry.frameHeight >= geometry.viewportHeight * 0.68, JSON.stringify(geometry));
-    assert.ok(geometry.frameBottom <= geometry.toolbarTop + 1, JSON.stringify(geometry));
-    assert.ok(geometry.horizontalOverflow <= 1, JSON.stringify(geometry));
+  await check("calendar opens the complete canonical work instead of an iframe chamber", async () => {
+    const result = await page.locator("#enterAutonomous").evaluate((link) => ({
+      tag: link.tagName,
+      href: link.href,
+      target: link.target,
+      rel: link.rel,
+      chamberCount: document.querySelectorAll("#crystalChamber,#liveFrame").length,
+    }));
+    assert.equal(result.tag, "A", JSON.stringify(result));
+    assert.equal(result.target, "_blank", JSON.stringify(result));
+    assert.match(result.rel, /noopener/);
+    assert.doesNotMatch(result.href, /[?&]embed=calendar/);
+    assert.match(result.href, /[?&]from=timetable(?:&|$)/);
+    assert.equal(result.chamberCount, 0, JSON.stringify(result));
   });
 
   await check("representative embed variants hide chrome and begin with media safely paused", async () => {
@@ -299,30 +244,6 @@ try {
     assert.ok(audioElementCount > 0, "representative embed media assertions must not be vacuous");
   });
 
-  await check("outer chamber music control enables and pauses embedded background audio", async () => {
-    const toggle = page.locator("#chamberAudioToggle");
-    await toggle.waitFor({ state: "visible" });
-    assert.equal(await toggle.getAttribute("aria-pressed"), "false");
-    await toggle.tap();
-    await frame.locator('body[data-gh-audio-enabled="1"]').waitFor();
-    await page.waitForTimeout(250);
-    const playing = await frame.locator("body").evaluate(() => ({
-      audio: [...document.querySelectorAll("audio")].map((media) => ({ muted: media.muted, paused: media.paused })),
-      enabled: document.body.dataset.ghAudioEnabled,
-    }));
-    assert.equal(playing.enabled, "1", JSON.stringify(playing));
-    assert.ok(playing.audio.length > 0, JSON.stringify(playing));
-    assert.ok(playing.audio.every((media) => media.muted === false), JSON.stringify(playing));
-    assert.ok(playing.audio.some((media) => media.paused === false), JSON.stringify(playing));
-    assert.equal(await toggle.getAttribute("aria-pressed"), "true");
-
-    await toggle.tap();
-    await frame.locator('body[data-gh-audio-enabled="0"]').waitFor();
-    const paused = await frame.locator("body").evaluate(() => [...document.querySelectorAll("audio")]
-      .map((media) => ({ muted: media.muted, paused: media.paused })));
-    assert.ok(paused.every((media) => media.muted && media.paused), JSON.stringify(paused));
-    assert.equal(await toggle.getAttribute("aria-pressed"), "false");
-  });
 
   await check("direct live page keeps its text, controls, and unforced media state", async () => {
     const directPage = await context.newPage();

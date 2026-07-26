@@ -8,7 +8,7 @@ import json
 import re
 from datetime import date
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import unquote, urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
@@ -28,6 +28,7 @@ REQUIRED_PUBLIC_FIELDS = (
     "preview",
     "archive_url",
     "live_url",
+    "bgm",
 )
 REQUIRED_TAXONOMY = {
     "social_media_organization",
@@ -36,8 +37,19 @@ REQUIRED_TAXONOMY = {
     "research_synthesis",
     "system_maintenance",
     "visual_production",
+    "redacted_private",
 }
-ALLOWED_PROVENANCE = {"record_based", "archive_based", "inferred"}
+ALLOWED_HISTORY_PROVENANCE = {"record_based", "withheld"}
+
+SENSITIVE_ASSIGNED_WORK_RE = re.compile(
+    r"(?i)\bholdings\b|持仓|仓位|试仓|\blive\s+futu\b|\breal\s+account\b|真实账户|账户敞口|账户权限"
+    r"|\b(?:broker\s+positions?|positions)\b|头寸|券商头寸|\baccount\s+exposure\b|\bportfolio\s+(?:allocation|holdings|exposure)\b|组合(?:持仓|配置)"
+    r"|\bbelow-band\s+allocation\b|低于目标区间的配置|\bpositions\b.{0,24}\b(?:sizing|cap|limit)\b"
+)
+PRIVATE_OPERATIONAL_CONTEXT_RE = re.compile(
+    r"(?i)(?:openclaw|hermes)(?:\s+(?:agent|skills?|workflow|watchdog|host-health))"
+    r"|(?:wechat|微信).{0,64}(?:local\s+history|本地历史|incremental\s+messages|增量消息|private\s+chats|私聊)"
+)
 THEME_MOTIFS = {"window", "seam", "bridge", "echo", "weather", "time", "room", "light", "void"}
 THEME_MOTIF_RULES = (
     ("window", ("window", "aperture", "threshold", "door", "gate", "opening", "窗", "门", "阈", "开口", "出口")),
@@ -111,6 +123,12 @@ TASK_TYPE_DEFINITIONS = {
         "color": "slate",
         "icon": "settings",
     },
+    "redacted_record": {
+        "zh": "工作记录已打码",
+        "en": "Work record redacted",
+        "color": "slate",
+        "icon": "lock-keyhole",
+    },
 }
 TASK_TYPE_FALLBACKS = {
     "social_media_organization": "social_content",
@@ -119,6 +137,7 @@ TASK_TYPE_FALLBACKS = {
     "research_synthesis": "research_analysis",
     "system_maintenance": "system_operations",
     "visual_production": "visual_design",
+    "redacted_private": "redacted_record",
 }
 SPECIAL_TASK_TYPE_RULES = (
     (
@@ -423,6 +442,8 @@ TASK_NAME_EXACT.update({
 
 def derive_authored_task_name(category: str, description_en: str, description_zh: str) -> tuple[str, str]:
     """Name authored history from evidence; never infer a stronger specialty."""
+    if category == "redacted_private":
+        return "████（记录未公开）", "████ (record withheld)"
     exact = TASK_NAME_EXACT.get((category, description_en.strip()))
     if exact:
         return exact
@@ -451,6 +472,7 @@ def derive_task_name(category: str, description_en: str, description_zh: str) ->
         "research_synthesis": ("专题研究与综合", "Topic research and synthesis"),
         "system_maintenance": ("系统维护工作", "System maintenance work"),
         "visual_production": ("视觉内容制作", "Visual content production"),
+        "redacted_private": ("████（记录未公开）", "████ (record withheld)"),
     }
     return fallback_names.get(category, ("工作整理", "Work organization"))
 
@@ -602,8 +624,8 @@ def load_history(path: Path) -> dict[str, dict]:
     require(path.exists(), f"History source does not exist: {path}")
     source = read_json(path)
     require(
-        source.get("schema") == "granted-hours-timetable-history-v2",
-        "History schema must be granted-hours-timetable-history-v2",
+        source.get("schema") == "granted-hours-timetable-history-v3",
+        "History schema must be granted-hours-timetable-history-v3",
     )
     days = source.get("days")
     require(isinstance(days, list), "History days must be a list")
@@ -618,19 +640,43 @@ def load_history(path: Path) -> dict[str, dict]:
             set(entry) == {"date", "provenance", "assigned_residues"},
             f"{day_date} history must contain only date/provenance/assigned_residues",
         )
-        require(entry.get("provenance") in ALLOWED_PROVENANCE - {"inferred"}, f"{day_date} has invalid authored provenance")
+        require(entry.get("provenance") in ALLOWED_HISTORY_PROVENANCE, f"{day_date} has invalid authored provenance")
         residues = entry.get("assigned_residues")
-        require(isinstance(residues, list) and 5 <= len(residues) <= 8, f"{day_date} history needs 5-8 assigned residues")
+        require(isinstance(residues, list) and 2 <= len(residues) <= 6, f"{day_date} history needs 2-6 assigned residues")
         signatures = set()
         for index, residue in enumerate(residues):
             require(isinstance(residue, dict), f"{day_date} residue {index + 1} must be an object")
             require(
-                set(residue) == {"category", "en", "zh"},
-                f"{day_date} residue {index + 1} must contain only category/en/zh",
+                set(residue) == {
+                    "category",
+                    "en",
+                    "zh",
+                    "redaction_status",
+                    "redaction_count",
+                    "source_kind",
+                    "faithfulness",
+                },
+                f"{day_date} residue {index + 1} has an invalid faithful-summary schema",
             )
             require(residue["category"] in REQUIRED_TAXONOMY, f"{day_date} residue {index + 1} has an unknown category")
             require(str(residue["en"]).strip(), f"{day_date} residue {index + 1} missing en")
             require(str(residue["zh"]).strip(), f"{day_date} residue {index + 1} missing zh")
+            require(len(residue["en"]) <= 300, f"{day_date} residue {index + 1} English summary is too long")
+            require(len(residue["zh"]) <= 90, f"{day_date} residue {index + 1} Chinese summary is too long")
+            public_copy = f"{residue['en']} {residue['zh']}"
+            require(not SENSITIVE_ASSIGNED_WORK_RE.search(public_copy), f"{day_date} residue {index + 1} exposes holdings or position activity")
+            require(not PRIVATE_OPERATIONAL_CONTEXT_RE.search(public_copy), f"{day_date} residue {index + 1} exposes private operational context")
+            require(residue["redaction_status"] in {"none", "partial", "withheld"}, f"{day_date} residue {index + 1} has invalid redaction status")
+            require(isinstance(residue["redaction_count"], int) and residue["redaction_count"] >= 0, f"{day_date} residue {index + 1} has invalid redaction count")
+            require(residue["source_kind"] in {"daily_record", "maintenance_record", "task_card", "public_post_archive", "withheld"}, f"{day_date} residue {index + 1} has invalid source kind")
+            require(residue["faithfulness"] == "faithful_summary", f"{day_date} residue {index + 1} must be a faithful summary")
+            if residue["redaction_status"] == "none":
+                require(residue["redaction_count"] == 0, f"{day_date} unredacted residue cannot report redactions")
+            else:
+                require(residue["redaction_count"] > 0, f"{day_date} redacted residue needs a positive redaction count")
+                require(residue["en"].count("████") == residue["redaction_count"], f"{day_date} residue {index + 1} English mask count mismatch")
+                require(residue["zh"].count("████") == residue["redaction_count"], f"{day_date} residue {index + 1} Chinese mask count mismatch")
+            require("/Users/" not in residue["en"] and "/Users/" not in residue["zh"], f"{day_date} residue {index + 1} leaks a local path")
             signature = (residue["category"], residue["en"], residue["zh"])
             require(signature not in signatures, f"{day_date} assigned residues must be unique")
             signatures.add(signature)
@@ -712,6 +758,10 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
             task_name_zh, task_name_en = derive_task_name(category, description_en, description_zh)
         task_type = derive_task_type(category, description_en, description_zh)
         duration_minutes = minutes(end) - minutes(start)
+        redaction_status = residue.get("redaction_status", "none")
+        redaction_count = residue.get("redaction_count", 0)
+        source_kind = residue.get("source_kind", "inferred")
+        faithfulness = residue.get("faithfulness", "inferred")
         tasks.append(
             {
                 "origin": "assigned",
@@ -728,6 +778,10 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
                 "task_name_en": task_name_en,
                 "duration_minutes": duration_minutes,
                 "time_provenance": "estimated",
+                "redaction_status": redaction_status,
+                "redaction_count": redaction_count,
+                "source_kind": source_kind,
+                "faithfulness": faithfulness,
                 **task_type,
             }
         )
@@ -799,6 +853,9 @@ def build_autonomous_work(public_entry: dict, config: dict, legacy_entry: dict |
         "archive_url": public_entry["archive_url"],
         "live_url": public_entry["live_url"],
         "preview": public_entry["preview"],
+        "preview_url": public_entry["preview"],
+        "gif_url": public_entry["gif"],
+        "bgm_url": public_entry["bgm"],
     }
 
 
@@ -882,6 +939,10 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
             "task_color",
             "task_icon",
             "time_provenance",
+            "redaction_status",
+            "redaction_count",
+            "source_kind",
+            "faithfulness",
         ):
             require(str(task.get(field, "")).strip(), f"{day_date} task missing {field}")
         require(task["origin"] == "assigned", f"{day_date} task origin must be assigned")
@@ -895,6 +956,9 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
         require(task["task_color"] == type_definition["color"], f"{day_date} task type color mismatch")
         require(task["task_icon"] == type_definition["icon"], f"{day_date} task type icon mismatch")
         require(task["time_provenance"] == "estimated", f"{day_date} task time provenance must be estimated")
+        require(task["redaction_status"] in {"none", "partial", "withheld"}, f"{day_date} task has invalid redaction status")
+        require(isinstance(task["redaction_count"], int) and task["redaction_count"] >= 0, f"{day_date} task has invalid redaction count")
+        require(task["faithfulness"] in {"faithful_summary", "inferred"}, f"{day_date} task has invalid faithfulness state")
         if cursor == start:
             cursor = end
         require(task_start == cursor, f"{day_date} has a task coverage gap at {task['start']}")
@@ -911,7 +975,7 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
 def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict) -> None:
     for field in ("date", "title_en", "title_zh", "variable_en", "variable_zh", "archive_url", "live_url", "preview"):
         require(str(day.get(field, "")).strip(), f"{day.get('date')} missing {field}")
-    for field in ("archive_url", "live_url", "preview", "gif"):
+    for field in ("archive_url", "live_url", "preview", "gif", "bgm"):
         require(day[field].startswith("https://"), f"{day['date']} {field} must be an absolute URL")
     require(day.get("theme_motif") in THEME_MOTIFS, f"{day['date']} needs a semantic theme_motif")
 
@@ -919,8 +983,10 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
 
     self_work = day["autonomous_work"]
     require(self_work.get("origin") == "self", f"{day['date']} autonomous_work must have origin self")
-    for field in ("start", "end", "title_en", "title_zh", "variable_en", "variable_zh", "en", "zh", "note_en", "note_zh", "live_url"):
+    for field in ("start", "end", "title_en", "title_zh", "variable_en", "variable_zh", "en", "zh", "note_en", "note_zh", "live_url", "preview_url", "gif_url", "bgm_url"):
         require(str(self_work.get(field, "")).strip(), f"{day['date']} autonomous_work missing {field}")
+    for field in ("preview_url", "gif_url", "bgm_url"):
+        require(self_work[field].startswith("https://"), f"{day['date']} autonomous {field} must be an absolute URL")
     require(minutes(self_work["start"]) == minutes(autonomous["start"]), f"{day['date']} autonomous start mismatch")
     require(minutes(self_work["end"]) == minutes(autonomous["end"]), f"{day['date']} autonomous end mismatch")
 
@@ -962,7 +1028,31 @@ def build_data(
             "live_url": canonical_url(base_url, public_entry["live_url"]),
             "preview": canonical_url(base_url, public_entry["preview"]),
             "gif": canonical_url(base_url, public_entry["gif"]),
+            "bgm": canonical_url(base_url, public_entry["bgm"]),
         }
+        canonical_root = f"{base_url.rstrip('/')}/"
+        archive_root = f"{canonical_root}archive/{public_entry['date'][:4]}/{public_entry['date'][5:7]}/{public_entry['date']}/"
+        require(public_absolute["archive_url"] == archive_root, f"{public_entry['date']} archive_url must stay on the canonical day path")
+        require(public_absolute["live_url"] == f"{archive_root}live/", f"{public_entry['date']} live_url must stay on the canonical live path")
+        require(public_absolute["preview"] == f"{archive_root}assets/preview.png", f"{public_entry['date']} preview must stay on the canonical asset path")
+        require(public_absolute["gif"] == f"{archive_root}assets/preview.gif", f"{public_entry['date']} gif must stay on the canonical asset path")
+        bgm_parts = urlsplit(public_absolute["bgm"])
+        live_parts = urlsplit(f"{archive_root}live/")
+        decoded_bgm_path = unquote(bgm_parts.path)
+        decoded_live_path = unquote(live_parts.path)
+        relative_bgm_path = decoded_bgm_path[len(decoded_live_path):] if decoded_bgm_path.startswith(decoded_live_path) else ""
+        require(
+            bgm_parts.scheme == live_parts.scheme
+            and bgm_parts.netloc == live_parts.netloc
+            and not bgm_parts.query
+            and not bgm_parts.fragment
+            and "\\" not in decoded_bgm_path
+            and all(segment not in {".", ".."} for segment in decoded_bgm_path.split("/"))
+            and bool(relative_bgm_path)
+            and "/" not in relative_bgm_path
+            and relative_bgm_path.endswith(".mp3"),
+            f"{public_entry['date']} bgm must stay on the canonical live path",
+        )
         legacy_entry = legacy_by_date.get(day_date)
         tasks, history_provenance = build_tasks(public_absolute, config, history_entry)
         autonomous_work = build_autonomous_work(public_absolute, config, legacy_entry)
@@ -988,6 +1078,16 @@ def build_data(
         validate_day(day, set(dates), len(dates), config["autonomous_hour"])
         output_days.append(day)
 
+    bgm_playlist = [
+        {
+            "date": day["date"],
+            "title_en": day["title_en"],
+            "title_zh": day["title_zh"],
+            "bgm_url": day["autonomous_work"]["bgm_url"],
+        }
+        for day in sorted(output_days, key=lambda item: item["date"], reverse=True)
+    ]
+
     return {
         "schema": "granted-hours-timetable-v2",
         "timezone": config["timezone"],
@@ -997,6 +1097,7 @@ def build_data(
         "note_en": config["public_data_note"]["en"],
         "note_zh": config["public_data_note"]["zh"],
         "taxonomy": config["taxonomy"],
+        "bgm_playlist": bgm_playlist,
         "days": output_days,
     }
 

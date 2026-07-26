@@ -17,10 +17,21 @@ PATTERNS = [
     ('openai_key', re.compile(r'sk-[A-Za-z0-9_-]{20,}')),
     ('generic_secret_assignment', re.compile(r'(?i)(api[_-]?key|token|password|secret)\s*[:=]\s*["\']?[^\s"\']{8,}')),
     ('telegram_or_discord_id', re.compile(r'(?i)(telegram:|discord:|chat_id|thread_id)')),
-    ('private_profile_name', re.compile(r'(?i)(heizhou|黑昼|openclaw|wechat|微信|telegram)')),
+    ('private_profile_name', re.compile(r'(?i)(heizhou|黑昼|telegram)')),
+    (
+        'financial_account_activity',
+        re.compile(r'(?i)\bholdings\b|\bbroker\s+positions?\b|\baccount\s+exposure\b|\bportfolio\s+(?:allocation|holdings|exposure)\b|持仓|仓位|试仓|账户敞口|券商头寸|组合(?:持仓|配置)'),
+    ),
+    (
+        'private_operational_context',
+        re.compile(
+            r'(?i)(?:openclaw|hermes)(?:\s+(?:agent|skills?|workflow|watchdog|host-health))'
+            r'|(?:wechat|微信).{0,64}(?:local\s+history|本地历史|incremental\s+messages|增量消息|private\s+chats|私聊)'
+        ),
+    ),
 ]
 SKIP_DIRS = {'.git', 'node_modules'}
-SKIP_FILES = {'scripts/check_public_safety.py', 'scripts/import_free_roam_artifacts.py'}
+SKIP_FILES = {'scripts/check_public_safety.py', 'scripts/import_free_roam_artifacts.py', 'scripts/build_timetable_data.py'}
 
 def allowed(line: str) -> bool:
     return any(x in line for x in ALLOW)

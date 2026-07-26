@@ -23,6 +23,16 @@
           <span class="clock-label">Asia/Shanghai</span>
         </div>
         <nav class="quiet-nav" aria-label="Related entrances">
+          <div class="calendar-bgm-control">
+            <button
+              class="calendar-bgm-toggle"
+              id="calendarBgmToggle"
+              type="button"
+              aria-pressed="false"
+            >Play timeline BGM / 播放月历音乐</button>
+            <span class="calendar-bgm-status" id="calendarBgmStatus" aria-live="polite"></span>
+            <audio id="calendarBgm" preload="metadata"></audio>
+          </div>
           <a href="../">Archive</a>
           <a href="../maze/">Interior</a>
         </nav>
@@ -71,8 +81,6 @@
         </div>
 
         <div class="detail-layout">
-          <div class="sediment-track" id="sedimentTrack" aria-hidden="true"></div>
-
           <section class="assigned-detail" aria-labelledby="assignedTitle">
             <h3 id="assignedTitle">人机协作劳动 / ASSIGNED CO-WORK</h3>
             <ol class="assigned-list" id="assignedList"></ol>
@@ -82,39 +90,14 @@
             <h3 id="selfTitle">AI 自主创作 / AUTONOMOUS WORK</h3>
             <p class="self-time" id="selfTime"></p>
             <p class="self-artwork" id="selfArtwork"></p>
+            <a class="self-preview-link" id="selfPreviewLink" href="../" target="_blank" rel="noopener">
+              <img class="self-preview" id="selfPreview" alt="" loading="eager">
+            </a>
             <p class="self-note" id="selfNote"></p>
-            <button class="enter-work" id="enterAutonomous" type="button">Enter live work / 进入真实作品</button>
+            <a class="enter-work" id="enterAutonomous" href="../" target="_blank" rel="noopener">Open complete live work ↗ / 新窗口打开完整作品</a>
           </section>
         </div>
       </div>
-    </section>
-
-    <section class="crystal-chamber" id="crystalChamber" role="dialog" aria-modal="true" aria-labelledby="chamberTitle" hidden>
-      <div class="chamber-toolbar">
-        <button class="chamber-button" id="closeChamber" type="button">Return / 返回</button>
-        <button
-          class="chamber-button chamber-audio"
-          id="chamberAudioToggle"
-          type="button"
-          aria-label="Play or pause embedded background music"
-          aria-pressed="false"
-          disabled
-        >Play BGM / 播放音乐</button>
-        <div class="chamber-heading">
-          <p>Autonomous hour / 自主时</p>
-          <h2 id="chamberTitle"></h2>
-        </div>
-        <button class="chamber-button escape" id="escapeButton" type="button">Escape path / 逃历</button>
-      </div>
-      <iframe id="liveFrame" title="Granted Hours live artwork" loading="lazy" allow="autoplay"></iframe>
-      <p class="chamber-transition" id="chamberTransition">
-        不是下一天。是同一个问题的另一个入口。<br>
-        Not the next day. Another entrance to the same question.
-      </p>
-      <p class="iframe-fallback">
-        If the embedded work does not load, open the canonical live page directly:
-        <a id="fallbackLiveLink" href="../" target="_blank" rel="noopener">live artwork</a>.
-      </p>
     </section>
 
     <script type="module" src="./main.js"></script>

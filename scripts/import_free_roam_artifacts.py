@@ -971,6 +971,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   const STORAGE_KEY = 'grantedHoursTextFolded';
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
   const MEDIA_TYPE = 'granted-hours:media';
   const MEDIA_VERSION = 1;
   const EMBED_CHANNEL = params.get('gh_channel') || '';
@@ -1052,7 +1053,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     document.body.appendChild(btn);
     const stored = localStorage.getItem(STORAGE_KEY);
     const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
-    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
     btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
   }
   function setFolded(folded, persist) {
