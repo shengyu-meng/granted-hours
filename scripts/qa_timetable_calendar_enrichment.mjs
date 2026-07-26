@@ -6,6 +6,10 @@ import { chromium } from "@playwright/test";
 import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8772/timetable/";
+const parsedBaseUrl = new URL(baseUrl);
+const archiveBaseUrl = /^(?:127\.0\.0\.1|localhost)$/.test(parsedBaseUrl.hostname)
+  ? `${parsedBaseUrl.origin}/`
+  : timetableData.canonical_base_url;
 const sampleDate = timetableData.days.some((day) => day.date === "2026-07-17")
   ? "2026-07-17"
   : timetableData.days.at(-1).date;
@@ -215,7 +219,7 @@ try {
     for (const date of ["2026-05-07", "2026-07-06", "2026-07-26"]) {
       const [year, month] = date.split("-");
       const embedPage = await context.newPage();
-      await embedPage.goto(new URL(`/archive/${year}/${month}/${date}/live/?embed=calendar`, baseUrl).href, { waitUntil: "load" });
+      await embedPage.goto(new URL(`archive/${year}/${month}/${date}/live/?embed=calendar`, archiveBaseUrl).href, { waitUntil: "load" });
       await embedPage.locator("body.gh-chamber-embed").waitFor();
       await embedPage.waitForTimeout(300);
       const result = await embedPage.evaluate(() => {
@@ -247,7 +251,7 @@ try {
 
   await check("direct live page keeps its text, controls, and unforced media state", async () => {
     const directPage = await context.newPage();
-    await directPage.goto(new URL("/archive/2026/07/2026-07-26/live/", baseUrl).href, { waitUntil: "load" });
+    await directPage.goto(new URL("archive/2026/07/2026-07-26/live/", archiveBaseUrl).href, { waitUntil: "load" });
     await directPage.waitForTimeout(300);
     const result = await directPage.evaluate(() => {
       const isVisible = (element) => {
