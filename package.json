@@ -5,6 +5,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "lucide": "^1.27.0",
     "three": "^0.185.1"
   },
   "scripts": {

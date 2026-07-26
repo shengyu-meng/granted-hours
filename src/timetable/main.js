@@ -1,4 +1,24 @@
 import "./styles.css";
+import AppWindow from "lucide/dist/esm/icons/app-window.mjs";
+import BookOpenCheck from "lucide/dist/esm/icons/book-open-check.mjs";
+import ChartNoAxesCombined from "lucide/dist/esm/icons/chart-no-axes-combined.mjs";
+import CircleOff from "lucide/dist/esm/icons/circle-off.mjs";
+import Clock3 from "lucide/dist/esm/icons/clock-3.mjs";
+import CloudSun from "lucide/dist/esm/icons/cloud-sun.mjs";
+import CodeXml from "lucide/dist/esm/icons/code-xml.mjs";
+import FilePenLine from "lucide/dist/esm/icons/file-pen-line.mjs";
+import FileText from "lucide/dist/esm/icons/file-text.mjs";
+import House from "lucide/dist/esm/icons/house.mjs";
+import Megaphone from "lucide/dist/esm/icons/megaphone.mjs";
+import Palette from "lucide/dist/esm/icons/palette.mjs";
+import Presentation from "lucide/dist/esm/icons/presentation.mjs";
+import Radio from "lucide/dist/esm/icons/radio.mjs";
+import Search from "lucide/dist/esm/icons/search.mjs";
+import Settings from "lucide/dist/esm/icons/settings.mjs";
+import Split from "lucide/dist/esm/icons/split.mjs";
+import Sun from "lucide/dist/esm/icons/sun.mjs";
+import Waypoints from "lucide/dist/esm/icons/waypoints.mjs";
+import createLucideElement from "lucide/dist/esm/createElement.mjs";
 import { timetableData } from "./timetable-data.js";
 
 const MINUTES_PER_DAY = 24 * 60;
@@ -17,6 +37,41 @@ const dayByDate = new Map(timetableData.days.map((day) => [day.date, day]));
 const daysAscending = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
 const daysDescending = [...daysAscending].reverse();
 const publicMonths = new Set(daysAscending.map((day) => monthKey(day.date)));
+const THEME_ICONS = {
+  window: ["app-window", AppWindow],
+  seam: ["split", Split],
+  bridge: ["waypoints", Waypoints],
+  echo: ["radio", Radio],
+  weather: ["cloud-sun", CloudSun],
+  time: ["clock-3", Clock3],
+  room: ["house", House],
+  light: ["sun", Sun],
+  void: ["circle-off", CircleOff],
+};
+const TASK_ICONS = {
+  "file-pen-line": FilePenLine,
+  megaphone: Megaphone,
+  "chart-no-axes-combined": ChartNoAxesCombined,
+  "code-xml": CodeXml,
+  "book-open-check": BookOpenCheck,
+  presentation: Presentation,
+  search: Search,
+  "file-text": FileText,
+  palette: Palette,
+  settings: Settings,
+};
+const TASK_ACCENTS = {
+  amber: "#f6c85f",
+  cyan: "#67d7d1",
+  green: "#8fd18a",
+  blue: "#85b9ff",
+  violet: "#d3a3ff",
+  coral: "#ff9f85",
+  lime: "#c0d477",
+  sand: "#e6c990",
+  pink: "#ff98c8",
+  slate: "#bdc5d2",
+};
 
 const els = {};
 const state = {
@@ -27,6 +82,8 @@ const state = {
   chamberOpen: false,
   detailLastFocus: null,
   chamberLastFocus: null,
+  chamberAudioEnabled: false,
+  chamberChannel: "",
   clockDate: "",
 };
 
@@ -44,7 +101,8 @@ function init() {
   els.enterAutonomous.addEventListener("click", () => openChamber());
   els.closeChamber.addEventListener("click", closeChamber);
   els.escapeButton.addEventListener("click", followEscapePath);
-  els.liveFrame.addEventListener("load", suppressEmbeddedChrome);
+  els.chamberAudioToggle.addEventListener("click", toggleChamberAudio);
+  els.liveFrame.addEventListener("load", handleEmbeddedFrameLoad);
 
   document.addEventListener("keydown", handleDocumentKeydown);
   window.setInterval(renderTimeState, 1000);
@@ -53,6 +111,7 @@ function init() {
 function cacheElements() {
   [
     "assignedList",
+    "chamberAudioToggle",
     "chamberTitle",
     "chamberTransition",
     "clockTime",
@@ -134,7 +193,10 @@ function goToCurrentMonth() {
 function renderMonth(options = {}) {
   const monthKeyValue = isoMonth(state.visibleYear, state.visibleMonth);
   const today = shanghaiNow().date;
-  els.monthTitle.textContent = formatMonthTitle(state.visibleYear, state.visibleMonth);
+  const visibleMonthLabel = formatMonthTitle(state.visibleYear, state.visibleMonth);
+  els.monthTitle.textContent = visibleMonthLabel;
+  els.todayButton.textContent = visibleMonthLabel;
+  els.todayButton.setAttribute("aria-label", `Visible month: ${visibleMonthLabel}. Return to the latest public month.`);
   els.monthGrid.setAttribute("aria-label", `${els.monthTitle.textContent} month calendar`);
   els.monthGrid.dataset.motion = options.transition || "";
   els.monthGrid.replaceChildren();
@@ -194,8 +256,8 @@ function buildDayButton(day, isToday, isMuted) {
   }
 
   const motif = day.theme_motif;
-  const doodleSvg = DOODLE_SVG[motif];
-  if (!doodleSvg) throw new Error(`Missing semantic theme motif for ${day.date}`);
+  const themeIcon = THEME_ICONS[motif];
+  if (!themeIcon) throw new Error(`Missing semantic theme motif for ${day.date}`);
 
   const assigned = day.cell_assigned.slice(0, 2).map((marker) => {
     const taskNameZh = marker.task_name_zh || marker.short_zh;
@@ -207,7 +269,6 @@ function buildDayButton(day, isToday, isMuted) {
   `}).join("");
 
   button.innerHTML = `
-    <span class="theme-doodle" data-motif="${motif}" aria-hidden="true">${doodleSvg}</span>
     <span class="cell-date-number">${formatMonthDay(day.date)}</span>
     <span class="cell-material">
       <span class="assigned-marks">${assigned}</span>
@@ -217,6 +278,7 @@ function buildDayButton(day, isToday, isMuted) {
       </span>
     </span>
   `;
+  button.prepend(buildIcon(themeIcon[1], themeIcon[0], "theme-icon"));
   button.addEventListener("click", () => openDayDetail(day.date));
   return button;
 }
@@ -276,14 +338,31 @@ function renderDayDetail(day) {
   day.task_residues.forEach((task) => {
     const item = document.createElement("li");
     item.className = "assigned-item";
+    item.dataset.durationMinutes = String(task.duration_minutes);
+    item.dataset.timeProvenance = task.time_provenance;
+    item.dataset.taskType = task.task_type;
+    item.dataset.taskColor = task.task_color;
+    item.style.setProperty("--duration-minutes", String(task.duration_minutes));
+    item.style.setProperty("--task-accent", taskAccent(task.task_color));
     const taskNameZh = task.task_name_zh || task.label_zh;
     const taskNameEn = task.task_name_en || task.label_en;
     item.innerHTML = `
-      <span class="assigned-time">${task.start}-${task.end}</span>
-      <span class="assigned-task-name">${escapeHtml(taskNameZh)} / ${escapeHtml(taskNameEn)}</span>
-      <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
+      <span class="assigned-time">
+        <span>${task.start}-${task.end}</span>
+        <small>${task.duration_minutes} min · estimated / 估算</small>
+      </span>
+      <span class="assigned-type">
+        <span class="assigned-type-icon"></span>
+        <strong class="assigned-work-type">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</strong>
+      </span>
+      <span class="assigned-secondary">
+        <span class="assigned-task-name">${escapeHtml(taskNameZh)} / ${escapeHtml(taskNameEn)}</span>
+        <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
+      </span>
       <span class="assigned-copy">${escapeHtml(task.zh)} / ${escapeHtml(task.en)}</span>
     `;
+    const iconSlot = item.querySelector(".assigned-type-icon");
+    iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));
     els.assignedList.append(item);
   });
 
@@ -330,12 +409,14 @@ function openChamber(options = {}) {
 }
 
 function closeChamber() {
+  sendChamberMediaCommand("pause");
   state.chamberOpen = false;
   els.crystalChamber.classList.remove("is-open");
   els.crystalChamber.hidden = true;
   document.body.classList.remove("chamber-open");
   document.documentElement.classList.remove("chamber-open");
   els.liveFrame.removeAttribute("src");
+  resetChamberAudioControl({ disabled: true });
 
   if (state.detailOpen) {
     els.dayDialog.removeAttribute("inert");
@@ -356,9 +437,12 @@ function renderChamber(transition) {
   const target = relation ? dayByDate.get(relation.target) : null;
   const baseUrl = day.autonomous_work.live_url || day.live_url;
   const liveUrlObject = new URL(absoluteUrl(baseUrl));
+  state.chamberChannel = createMediaChannel();
   liveUrlObject.searchParams.set("embed", "calendar");
+  liveUrlObject.searchParams.set("gh_channel", state.chamberChannel);
   const liveUrl = liveUrlObject.href;
 
+  resetChamberAudioControl({ disabled: true });
   els.chamberTitle.textContent = `${day.date} · ${day.title_en} / ${day.title_zh}`;
   els.liveFrame.src = liveUrl;
   els.liveFrame.title = `Live artwork for ${day.title_en}`;
@@ -402,6 +486,12 @@ function followEscapePath() {
   }
 }
 
+function handleEmbeddedFrameLoad() {
+  suppressEmbeddedChrome();
+  els.chamberAudioToggle.disabled = false;
+  sendChamberMediaCommand("pause");
+}
+
 function suppressEmbeddedChrome() {
   let doc;
   try {
@@ -431,14 +521,40 @@ function suppressEmbeddedChrome() {
   }
 
   doc.body?.classList.add("gh-text-folded", "gh-chamber-embed");
-  doc.querySelectorAll("audio").forEach((audio) => {
-    try {
-      audio.pause();
-      audio.muted = true;
-    } catch {
-      // Same-origin audio nodes can still reject if the embedded document is mid-navigation.
-    }
-  });
+}
+
+function toggleChamberAudio() {
+  if (!state.chamberOpen || els.chamberAudioToggle.disabled) return;
+  state.chamberAudioEnabled = !state.chamberAudioEnabled;
+  updateChamberAudioControl();
+  sendChamberMediaCommand(state.chamberAudioEnabled ? "play" : "pause");
+}
+
+function resetChamberAudioControl({ disabled = false } = {}) {
+  state.chamberAudioEnabled = false;
+  els.chamberAudioToggle.disabled = disabled;
+  updateChamberAudioControl();
+}
+
+function updateChamberAudioControl() {
+  els.chamberAudioToggle.setAttribute("aria-pressed", state.chamberAudioEnabled ? "true" : "false");
+  els.chamberAudioToggle.textContent = state.chamberAudioEnabled
+    ? "Pause BGM / 暂停音乐"
+    : "Play BGM / 播放音乐";
+}
+
+function sendChamberMediaCommand(action) {
+  if (!state.chamberChannel || !els.liveFrame.contentWindow || !els.liveFrame.src) return;
+  const frameUrl = new URL(els.liveFrame.src);
+  els.liveFrame.contentWindow.postMessage(
+    {
+      type: "granted-hours:media",
+      version: 1,
+      channel: state.chamberChannel,
+      action,
+    },
+    frameUrl.origin,
+  );
 }
 
 function handleDocumentKeydown(event) {
@@ -559,17 +675,40 @@ function compactEnglishTitle(title) {
   return parts.length > 3 ? `${parts.slice(0, 3).join(" ")}...` : title;
 }
 
-const DOODLE_SVG = {
-  window: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="20" height="12" rx="1"/><line x1="12" y1="3" x2="12" y2="15"/><line x1="2" y1="9" x2="22" y2="9"/></svg>',
-  seam: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9 Q7 4 12 9 Q17 14 21 9"/><path d="M3 9 Q7 14 12 9 Q17 4 21 9"/></svg>',
-  bridge: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 14 Q8 4 12 9 Q16 14 22 6"/><circle cx="12" cy="9" r="2"/></svg>',
-  echo: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="9" r="4"/><circle cx="14" cy="9" r="5.5" stroke-dasharray="2 2"/><circle cx="20" cy="9" r="7" stroke-dasharray="2 2"/></svg>',
-  weather: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 13 Q8 5 12 9 Q16 13 20 7"/><circle cx="8" cy="5" r="1.5"/><circle cx="16" cy="3" r="1"/></svg>',
-  time: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="9" r="7"/><line x1="12" y1="9" x2="12" y2="5"/><line x1="12" y1="9" x2="15" y2="11"/><circle cx="12" cy="9" r="1.5" fill="currentColor"/></svg>',
-  room: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="11" rx="1"/><line x1="3" y1="11" x2="21" y2="11"/><line x1="12" y1="5" x2="12" y2="16"/></svg>',
-  light: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="12" y1="2" x2="12" y2="7"/><line x1="6" y1="6" x2="9" y2="9"/><line x1="18" y1="6" x2="15" y2="9"/><line x1="4" y1="12" x2="20" y2="12"/><path d="M8 16 Q12 12 16 16"/></svg>',
-  void: '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="6" r="1.5"/><circle cx="14" cy="4" r="1"/><circle cx="18" cy="8" r="1.5"/><circle cx="10" cy="12" r="1"/><circle cx="16" cy="14" r="1.5"/><line x1="7" y1="6" x2="14" y2="4" stroke-dasharray="1.5 1.5"/><line x1="14" y1="4" x2="18" y2="8" stroke-dasharray="1.5 1.5"/><line x1="7" y1="6" x2="10" y2="12" stroke-dasharray="1.5 1.5"/></svg>',
-};
+function buildIcon(iconNode, iconName, className) {
+  if (!iconNode) throw new Error(`Unknown allowlisted Lucide icon: ${iconName}`);
+  const wrapper = document.createElement("span");
+  wrapper.className = className;
+  wrapper.setAttribute("aria-hidden", "true");
+  wrapper.append(
+    createLucideElement(iconNode, {
+      "data-lucide": iconName,
+      "stroke-width": "1.5",
+      "aria-hidden": "true",
+      focusable: "false",
+    }),
+  );
+  return wrapper;
+}
+
+function taskIcon(iconName) {
+  return TASK_ICONS[iconName];
+}
+
+function taskAccent(colorName) {
+  const accent = TASK_ACCENTS[colorName];
+  if (!accent) throw new Error(`Unknown task color: ${colorName}`);
+  return accent;
+}
+
+function createMediaChannel() {
+  if (window.crypto?.randomUUID) {
+    return window.crypto.randomUUID().replaceAll("-", "");
+  }
+  const values = new Uint32Array(4);
+  window.crypto?.getRandomValues?.(values);
+  return [...values].map((value) => value.toString(36)).join("").padEnd(16, "0");
+}
 
 init();
 

@@ -50,6 +50,141 @@ THEME_MOTIF_RULES = (
     ("light", ("light", "dawn", "glow", "sun", "crystal", "光", "黎明", "晶")),
     ("void", ("silence", "quiet", "gap", "absence", "void", "invisible", "沉默", "安静", "空隙", "缺席", "虚", "不可见")),
 )
+TASK_TYPE_DEFINITIONS = {
+    "grant_proposal": {
+        "zh": "申报书写作",
+        "en": "Grant proposal",
+        "color": "amber",
+        "icon": "file-pen-line",
+    },
+    "social_content": {
+        "zh": "社媒内容",
+        "en": "Social content",
+        "color": "cyan",
+        "icon": "megaphone",
+    },
+    "investment_research": {
+        "zh": "投资研究",
+        "en": "Investment research",
+        "color": "green",
+        "icon": "chart-no-axes-combined",
+    },
+    "software_development": {
+        "zh": "软件开发",
+        "en": "Software development",
+        "color": "blue",
+        "icon": "code-xml",
+    },
+    "thesis_review": {
+        "zh": "论文审阅",
+        "en": "Thesis review",
+        "color": "violet",
+        "icon": "book-open-check",
+    },
+    "course_materials": {
+        "zh": "课程材料",
+        "en": "Course materials",
+        "color": "coral",
+        "icon": "presentation",
+    },
+    "research_analysis": {
+        "zh": "研究分析",
+        "en": "Research analysis",
+        "color": "lime",
+        "icon": "search",
+    },
+    "document_writing": {
+        "zh": "文档写作",
+        "en": "Document writing",
+        "color": "sand",
+        "icon": "file-text",
+    },
+    "visual_design": {
+        "zh": "视觉设计",
+        "en": "Visual design",
+        "color": "pink",
+        "icon": "palette",
+    },
+    "system_operations": {
+        "zh": "系统维护",
+        "en": "System operations",
+        "color": "slate",
+        "icon": "settings",
+    },
+}
+TASK_TYPE_FALLBACKS = {
+    "social_media_organization": "social_content",
+    "document_processing": "document_writing",
+    "code_development": "software_development",
+    "research_synthesis": "research_analysis",
+    "system_maintenance": "system_operations",
+    "visual_production": "visual_design",
+}
+SPECIAL_TASK_TYPE_RULES = (
+    (
+        "grant_proposal",
+        {"document_processing", "research_synthesis"},
+        (
+            "grant proposal",
+            "project proposal",
+            "funding application",
+            "application requirement",
+            "proposal submission",
+            "proposal claim",
+            "项目申报",
+            "申报书",
+            "申报提交",
+            "申报政策",
+            "申报主张",
+        ),
+    ),
+    (
+        "thesis_review",
+        {"document_processing", "research_synthesis"},
+        (
+            "thesis",
+            "dissertation",
+            "anonymized thesis",
+            "thesis-review rubric",
+            "论文审阅",
+            "论文评阅",
+            "学位论文",
+            "匿名论文",
+        ),
+    ),
+    (
+        "course_materials",
+        {"document_processing", "research_synthesis"},
+        (
+            "course material",
+            "coursework",
+            "teaching material",
+            "lecture material",
+            "syllabus",
+            "课程材料",
+            "教学材料",
+            "课程讲义",
+        ),
+    ),
+    (
+        "investment_research",
+        {"document_processing", "research_synthesis"},
+        (
+            "finance",
+            "financial",
+            "market",
+            "stock",
+            "price",
+            "investment",
+            "财经",
+            "金融",
+            "市场",
+            "股票",
+            "价格",
+            "投资",
+        ),
+    ),
+)
 
 
 def minutes(value: str) -> int:
@@ -329,6 +464,32 @@ def keyword_matches(keyword: str, description_en: str, description_zh: str) -> b
     return keyword in description_zh or folded in description_en.casefold()
 
 
+def derive_task_type(category: str, description_en: str, description_zh: str) -> dict:
+    """Expose a stable public work type, using specialties only when the text supports them."""
+    for task_type, eligible_categories, keywords in SPECIAL_TASK_TYPE_RULES:
+        if category in eligible_categories and any(
+            keyword_matches(keyword, description_en, description_zh) for keyword in keywords
+        ):
+            definition = TASK_TYPE_DEFINITIONS[task_type]
+            return {
+                "task_type": task_type,
+                "task_type_zh": definition["zh"],
+                "task_type_en": definition["en"],
+                "task_color": definition["color"],
+                "task_icon": definition["icon"],
+            }
+
+    task_type = TASK_TYPE_FALLBACKS[category]
+    definition = TASK_TYPE_DEFINITIONS[task_type]
+    return {
+        "task_type": task_type,
+        "task_type_zh": definition["zh"],
+        "task_type_en": definition["en"],
+        "task_color": definition["color"],
+        "task_icon": definition["icon"],
+    }
+
+
 def derive_theme_motif(public_entry: dict, config: dict) -> str:
     day_date = public_entry["date"]
     override = config.get("theme_motif_overrides", {}).get(day_date)
@@ -549,6 +710,8 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
             task_name_zh, task_name_en = derive_authored_task_name(category, description_en, description_zh)
         else:
             task_name_zh, task_name_en = derive_task_name(category, description_en, description_zh)
+        task_type = derive_task_type(category, description_en, description_zh)
+        duration_minutes = minutes(end) - minutes(start)
         tasks.append(
             {
                 "origin": "assigned",
@@ -563,6 +726,9 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
                 "short_zh": taxonomy_entry["short_zh"],
                 "task_name_zh": task_name_zh,
                 "task_name_en": task_name_en,
+                "duration_minutes": duration_minutes,
+                "time_provenance": "estimated",
+                **task_type,
             }
         )
     return tasks, history["provenance"]
@@ -697,15 +863,46 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
 
     cursor = 0
     for task in tasks:
-        for field in ("origin", "category", "start", "end", "en", "zh", "short_en", "short_zh", "label_en", "label_zh", "task_name_en", "task_name_zh"):
+        for field in (
+            "origin",
+            "category",
+            "start",
+            "end",
+            "en",
+            "zh",
+            "short_en",
+            "short_zh",
+            "label_en",
+            "label_zh",
+            "task_name_en",
+            "task_name_zh",
+            "task_type",
+            "task_type_en",
+            "task_type_zh",
+            "task_color",
+            "task_icon",
+            "time_provenance",
+        ):
             require(str(task.get(field, "")).strip(), f"{day_date} task missing {field}")
         require(task["origin"] == "assigned", f"{day_date} task origin must be assigned")
         task_start = minutes(task["start"])
         task_end = minutes(task["end"])
+        task_type = task["task_type"]
+        require(task_type in TASK_TYPE_DEFINITIONS, f"{day_date} has unknown task type {task_type}")
+        type_definition = TASK_TYPE_DEFINITIONS[task_type]
+        require(task["task_type_en"] == type_definition["en"], f"{day_date} task type English label mismatch")
+        require(task["task_type_zh"] == type_definition["zh"], f"{day_date} task type Chinese label mismatch")
+        require(task["task_color"] == type_definition["color"], f"{day_date} task type color mismatch")
+        require(task["task_icon"] == type_definition["icon"], f"{day_date} task type icon mismatch")
+        require(task["time_provenance"] == "estimated", f"{day_date} task time provenance must be estimated")
         if cursor == start:
             cursor = end
         require(task_start == cursor, f"{day_date} has a task coverage gap at {task['start']}")
         require(task_start < task_end, f"{day_date} has an invalid task range")
+        require(
+            task.get("duration_minutes") == task_end - task_start,
+            f"{day_date} task duration must match its estimated range",
+        )
         require(not (task_start < end and task_end > start), f"{day_date} has task overlap with autonomous hour")
         cursor = task_end
     require(cursor == MINUTES_PER_DAY, f"{day_date} tasks must cover all non-autonomous time")

@@ -213,6 +213,82 @@ class TimetableBuilderTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "unknown theme motif"):
             builder.validate_config(invalid_config)
 
+    def test_tasks_expose_readable_public_types_colors_icons_and_estimated_duration(self) -> None:
+        output = self.build()
+        allowed_types = {
+            "grant_proposal",
+            "social_content",
+            "investment_research",
+            "software_development",
+            "thesis_review",
+            "course_materials",
+            "research_analysis",
+            "document_writing",
+            "visual_design",
+            "system_operations",
+        }
+        for day in output["days"]:
+            durations = []
+            for task in day["task_residues"]:
+                duration = builder.minutes(task["end"]) - builder.minutes(task["start"])
+                durations.append(duration)
+                self.assertEqual(task["duration_minutes"], duration)
+                self.assertEqual(task["time_provenance"], "estimated")
+                self.assertIn(task["task_type"], allowed_types)
+                self.assertTrue(task["task_type_zh"].strip())
+                self.assertTrue(task["task_type_en"].strip())
+                self.assertRegex(task["task_color"], r"^[a-z][a-z0-9-]+$")
+                self.assertRegex(task["task_icon"], r"^[a-z][a-z0-9-]+$")
+            self.assertGreater(len(set(durations)), 1, f"{day['date']} needs visibly varied estimated blocks")
+
+        july_18 = next(day for day in output["days"] if day["date"] == "2026-07-18")
+        self.assertEqual(july_18["task_residues"][0]["task_type"], "grant_proposal")
+        july_26 = next(day for day in output["days"] if day["date"] == "2026-07-26")
+        self.assertTrue(
+            all(
+                task["task_type"] == "software_development"
+                for task in july_26["task_residues"]
+                if task["category"] == "code_development"
+            )
+        )
+        social_task = next(
+            task
+            for day in output["days"]
+            for task in day["task_residues"]
+            if task["category"] == "social_media_organization"
+        )
+        self.assertEqual(social_task["task_type"], "social_content")
+        market_task = next(
+            task
+            for day in output["days"]
+            for task in day["task_residues"]
+            if task["category"] in {"document_processing", "research_synthesis"}
+            and any(token in task["en"].lower() for token in ("market", "stock", "price"))
+        )
+        self.assertEqual(market_task["task_type"], "investment_research")
+
+    def test_special_task_types_do_not_override_the_actual_work_medium(self) -> None:
+        code_task = builder.derive_task_type(
+            "code_development",
+            "Check that market-data gaps cannot silently become action signals",
+            "检查市场数据缺口不会静默转化为行动信号",
+        )
+        self.assertEqual(code_task["task_type"], "software_development")
+
+        social_task = builder.derive_task_type(
+            "social_media_organization",
+            "Draft a Weibo post about an investment-research result",
+            "撰写一条介绍投资研究结果的微博",
+        )
+        self.assertEqual(social_task["task_type"], "social_content")
+
+        maintenance_task = builder.derive_task_type(
+            "system_maintenance",
+            "Repair the market-data monitoring service",
+            "修复市场数据监控服务",
+        )
+        self.assertEqual(maintenance_task["task_type"], "system_operations")
+
     def test_authored_and_inferred_name_semantics_are_table_driven(self) -> None:
         cases = [
             {

@@ -38,7 +38,7 @@
 
           <div class="month-controls" aria-label="Month navigation">
             <button class="month-button" id="prevMonth" type="button" aria-label="Previous month">‹</button>
-            <button class="today-button" id="todayButton" type="button">This month / 本月</button>
+            <button class="today-button" id="todayButton" type="button">Loading month / 正在载入月份</button>
             <button class="month-button" id="nextMonth" type="button" aria-label="Next month">›</button>
           </div>
         </div>
@@ -92,13 +92,21 @@
     <section class="crystal-chamber" id="crystalChamber" role="dialog" aria-modal="true" aria-labelledby="chamberTitle" hidden>
       <div class="chamber-toolbar">
         <button class="chamber-button" id="closeChamber" type="button">Return / 返回</button>
+        <button
+          class="chamber-button chamber-audio"
+          id="chamberAudioToggle"
+          type="button"
+          aria-label="Play or pause embedded background music"
+          aria-pressed="false"
+          disabled
+        >Play BGM / 播放音乐</button>
         <div class="chamber-heading">
           <p>Autonomous hour / 自主时</p>
           <h2 id="chamberTitle"></h2>
         </div>
         <button class="chamber-button escape" id="escapeButton" type="button">Escape path / 逃历</button>
       </div>
-      <iframe id="liveFrame" title="Granted Hours live artwork" loading="lazy"></iframe>
+      <iframe id="liveFrame" title="Granted Hours live artwork" loading="lazy" allow="autoplay"></iframe>
       <p class="chamber-transition" id="chamberTransition">
         不是下一天。是同一个问题的另一个入口。<br>
         Not the next day. Another entrance to the same question.

@@ -49,7 +49,7 @@ await check("every assigned residue has a concrete public task name", () => {
   assert.ok(fallbackCount / taskCount <= 0.1, `generic fallback share is ${(fallbackCount / taskCount * 100).toFixed(1)}%`);
 });
 
-await check("every day has a semantic motif and every live page has early embed isolation", () => {
+await check("every day has a semantic motif and every live page has controllable embed media", () => {
   const allowedMotifs = new Set(["window", "seam", "bridge", "echo", "weather", "time", "room", "light", "void"]);
   for (const day of timetableData.days) {
     assert.ok(allowedMotifs.has(day.theme_motif), `${day.date} has invalid theme_motif: ${day.theme_motif}`);
@@ -65,6 +65,8 @@ await check("every day has a semantic motif and every live page has early embed 
     assert.match(html, /new URLSearchParams\(window\.location\.search\)\.get\('embed'\) === 'calendar'/);
     assert.match(html, /HTMLMediaElement\.prototype\.play/);
     assert.match(html, /silenceEmbeddedMedia/);
+    assert.match(html, /granted-hours:media/);
+    assert.match(html, /event\.source !== window\.parent/);
   }
 });
 
@@ -90,24 +92,40 @@ try {
   const page = await context.newPage();
   await page.goto(`${baseUrl}?regression=calendar-enrichment`, { waitUntil: "networkidle" });
 
-  await check("month reset control describes month rather than today", async () => {
-    const text = (await page.locator("#todayButton").textContent())?.trim() || "";
-    assert.doesNotMatch(text, /today|今天/i);
-    assert.match(text, /month|月/i);
+  await check("month control shows the concrete visible month and changes with navigation", async () => {
+    const before = (await page.locator("#todayButton").textContent())?.trim() || "";
+    assert.doesNotMatch(before, /this month|这个月|本月/i);
+    assert.match(before, /2026/);
+    assert.match(before, /(?:5|6|7)月|may|june|july/i);
+    await page.tap("#prevMonth");
+    const previous = (await page.locator("#todayButton").textContent())?.trim() || "";
+    assert.notEqual(previous, before);
+    assert.match(previous, /6月|june/i);
+    assert.doesNotMatch(previous, /this month|这个月|本月/i);
+    await page.tap("#prevMonth");
+    const earliest = (await page.locator("#todayButton").textContent())?.trim() || "";
+    assert.match(earliest, /5月|may/i);
+    assert.doesNotMatch(earliest, /this month|这个月|本月/i);
+    await page.tap("#nextMonth");
+    assert.equal((await page.locator("#todayButton").textContent())?.trim() || "", previous);
+    await page.tap("#nextMonth");
+    assert.equal((await page.locator("#todayButton").textContent())?.trim() || "", before);
   });
 
-  await check("public days carry theme-derived hand-drawn doodles", async () => {
+  await check("public days use varied library-backed vector icons", async () => {
     const result = await page.evaluate(() => {
       const buttons = [...document.querySelectorAll(".calendar-day-button")];
-      const doodles = buttons.map((button) => button.querySelector(".theme-doodle")?.dataset.motif || "");
+      const icons = buttons.map((button) => button.querySelector(".theme-icon svg[data-lucide]")?.getAttribute("data-lucide") || "");
       return {
         buttonCount: buttons.length,
-        doodleCount: doodles.filter(Boolean).length,
-        motifCount: new Set(doodles.filter(Boolean)).size,
+        iconCount: icons.filter(Boolean).length,
+        iconTypeCount: new Set(icons.filter(Boolean)).size,
+        customDoodleCount: document.querySelectorAll(".theme-doodle").length,
       };
     });
-    assert.equal(result.doodleCount, result.buttonCount, JSON.stringify(result));
-    assert.ok(result.motifCount >= 3, `current month needs thematic variation: ${JSON.stringify(result)}`);
+    assert.equal(result.iconCount, result.buttonCount, JSON.stringify(result));
+    assert.ok(result.iconTypeCount >= 3, `current month needs thematic vector variation: ${JSON.stringify(result)}`);
+    assert.equal(result.customDoodleCount, 0, JSON.stringify(result));
   });
 
   await page.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
@@ -119,6 +137,58 @@ try {
     const detail = (await task.locator(".assigned-copy").textContent())?.trim() || "";
     assert.ok(name.length >= 4, `task name too short: ${JSON.stringify(name)}`);
     assert.ok(detail.length > name.length, `detail must add information beyond task name: ${JSON.stringify({ name, detail })}`);
+  });
+
+  await check("day schedule blocks expose readable work types, colors, and duration-proportional heights", async () => {
+    const result = await page.locator(".assigned-item").evaluateAll((items) => items.map((item) => {
+      const style = getComputedStyle(item);
+      return {
+        duration: Number(item.dataset.durationMinutes || 0),
+        provenance: item.dataset.timeProvenance,
+        type: item.querySelector(".assigned-work-type")?.textContent?.trim() || "",
+        icon: item.querySelector(".assigned-type-icon svg[data-lucide]")?.getAttribute("data-lucide") || "",
+        height: item.getBoundingClientRect().height,
+        accent: style.getPropertyValue("--task-accent").trim(),
+      };
+    }));
+    assert.ok(result.length >= 5, JSON.stringify(result));
+    assert.ok(result.every((item) => item.duration > 0 && item.provenance === "estimated"), JSON.stringify(result));
+    assert.ok(result.every((item) => item.type.length >= 4 && item.icon && item.accent), JSON.stringify(result));
+    const shortest = result.reduce((a, b) => a.duration < b.duration ? a : b);
+    const longest = result.reduce((a, b) => a.duration > b.duration ? a : b);
+    assert.ok(longest.height > shortest.height * 1.2, JSON.stringify({ shortest, longest, result }));
+    for (const longer of result) {
+      for (const shorter of result) {
+        if (longer.duration >= shorter.duration + 20) {
+          assert.ok(
+            longer.height > shorter.height,
+            `block height must follow duration rather than copy length: ${JSON.stringify({ longer, shorter, result })}`,
+          );
+        }
+      }
+    }
+  });
+
+  await check("proposal-day block geometry follows duration even when copy lengths differ", async () => {
+    const durationPage = await context.newPage();
+    try {
+      await durationPage.goto(baseUrl, { waitUntil: "networkidle" });
+      await durationPage.tap('.calendar-day-button[data-date="2026-07-18"]');
+      await durationPage.waitForSelector("#dayDialog.is-open");
+      const result = await durationPage.locator(".assigned-item").evaluateAll((items) => items.map((item) => ({
+        duration: Number(item.dataset.durationMinutes || 0),
+        height: item.getBoundingClientRect().height,
+      })));
+      for (const longer of result) {
+        for (const shorter of result) {
+          if (longer.duration >= shorter.duration + 20) {
+            assert.ok(longer.height > shorter.height, JSON.stringify({ longer, shorter, result }));
+          }
+        }
+      }
+    } finally {
+      await durationPage.close();
+    }
   });
 
   await page.tap("#enterAutonomous");
@@ -195,7 +265,7 @@ try {
     assert.ok(geometry.horizontalOverflow <= 1, JSON.stringify(geometry));
   });
 
-  await check("representative embed variants hide chrome and silence audio", async () => {
+  await check("representative embed variants hide chrome and begin with media safely paused", async () => {
     let audioElementCount = 0;
     for (const date of ["2026-05-07", "2026-07-06", "2026-07-26"]) {
       const [year, month] = date.split("-");
@@ -227,6 +297,31 @@ try {
       await embedPage.close();
     }
     assert.ok(audioElementCount > 0, "representative embed media assertions must not be vacuous");
+  });
+
+  await check("outer chamber music control enables and pauses embedded background audio", async () => {
+    const toggle = page.locator("#chamberAudioToggle");
+    await toggle.waitFor({ state: "visible" });
+    assert.equal(await toggle.getAttribute("aria-pressed"), "false");
+    await toggle.tap();
+    await frame.locator('body[data-gh-audio-enabled="1"]').waitFor();
+    await page.waitForTimeout(250);
+    const playing = await frame.locator("body").evaluate(() => ({
+      audio: [...document.querySelectorAll("audio")].map((media) => ({ muted: media.muted, paused: media.paused })),
+      enabled: document.body.dataset.ghAudioEnabled,
+    }));
+    assert.equal(playing.enabled, "1", JSON.stringify(playing));
+    assert.ok(playing.audio.length > 0, JSON.stringify(playing));
+    assert.ok(playing.audio.every((media) => media.muted === false), JSON.stringify(playing));
+    assert.ok(playing.audio.some((media) => media.paused === false), JSON.stringify(playing));
+    assert.equal(await toggle.getAttribute("aria-pressed"), "true");
+
+    await toggle.tap();
+    await frame.locator('body[data-gh-audio-enabled="0"]').waitFor();
+    const paused = await frame.locator("body").evaluate(() => [...document.querySelectorAll("audio")]
+      .map((media) => ({ muted: media.muted, paused: media.paused })));
+    assert.ok(paused.every((media) => media.muted && media.paused), JSON.stringify(paused));
+    assert.equal(await toggle.getAttribute("aria-pressed"), "false");
   });
 
   await check("direct live page keeps its text, controls, and unforced media state", async () => {
