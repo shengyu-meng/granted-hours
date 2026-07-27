@@ -198,7 +198,10 @@ try {
   await reducedPage.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await reducedPage.waitForSelector("#dayDialog.is-open");
   assert.match(await reducedPage.locator("#selfPreview").getAttribute("src"), /visual-preview\.webp$/);
-  assert.ok(await reducedPage.locator("#selfPreview").evaluate((image) => image.complete && image.naturalWidth > 0));
+  await reducedPage.waitForFunction(() => {
+    const image = document.querySelector("#selfPreview");
+    return image?.complete && image.naturalWidth > 0;
+  });
   assert.equal(
     await reducedPage.locator(".autonomous-event").evaluate(
       (element) => getComputedStyle(element).animationName,
