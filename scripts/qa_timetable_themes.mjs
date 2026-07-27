@@ -95,6 +95,7 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
     await page.click(`.calendar-day-button[data-date="${sampleDate}"]`);
   }
   await page.waitForSelector("#dayDialog.is-open");
+  assert.match(await page.locator("#selfPreview").getAttribute("src"), /visual-preview\.gif$/);
   const dialogState = await page.evaluate(() => {
     const panel = document.querySelector("#dayDialogPanel");
     const touchToggle = document.querySelector("#timelineTouchToggle");
@@ -196,6 +197,8 @@ try {
   await reducedPage.goto(baseUrl, { waitUntil: "networkidle" });
   await reducedPage.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await reducedPage.waitForSelector("#dayDialog.is-open");
+  assert.match(await reducedPage.locator("#selfPreview").getAttribute("src"), /visual-preview\.webp$/);
+  assert.ok(await reducedPage.locator("#selfPreview").evaluate((image) => image.complete && image.naturalWidth > 0));
   assert.equal(
     await reducedPage.locator(".autonomous-event").evaluate(
       (element) => getComputedStyle(element).animationName,
@@ -203,6 +206,20 @@ try {
     "none",
   );
   await reducedContext.close();
+
+  const fallbackContext = await createContext(browser, {
+    theme: "dark",
+    viewport: { width: 960, height: 720 },
+  });
+  await fallbackContext.route("**/visual-preview.gif", (route) => route.abort());
+  const fallbackPage = await fallbackContext.newPage();
+  await fallbackPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await fallbackPage.click(`.calendar-day-button[data-date="${sampleDate}"]`);
+  await fallbackPage.waitForFunction(() => {
+    const image = document.querySelector("#selfPreview");
+    return image?.getAttribute("src")?.endsWith("visual-preview.webp") && image.complete && image.naturalWidth > 0;
+  });
+  await fallbackContext.close();
 } finally {
   await browser.close();
 }

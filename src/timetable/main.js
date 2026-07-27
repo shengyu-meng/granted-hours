@@ -27,6 +27,7 @@ import { layoutTimelineEvents, positionTimelineElement, timeToMinutes } from "./
 const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
 const THEME_STORAGE_KEY = "granted-hours-theme";
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const WEEKDAYS = [
   ["Mon", "一"],
   ["Tue", "二"],
@@ -94,11 +95,13 @@ const state = {
   calendarBgmDesiredPlaying: false,
   clockDate: "",
   theme: document.documentElement.dataset.theme === "light" ? "light" : "dark",
+  reducedMotion: window.matchMedia(REDUCED_MOTION_QUERY).matches,
 };
 
 function init() {
   cacheElements();
   setupTheme();
+  setupMotionPreference();
   setStaticCopy();
   setInitialMonth();
   renderMonth();
@@ -183,6 +186,44 @@ function setupTheme() {
       applyTheme(event.matches ? "light" : "dark", { persist: false });
     }
   });
+}
+
+function setupMotionPreference() {
+  const preference = window.matchMedia(REDUCED_MOTION_QUERY);
+  state.reducedMotion = preference.matches;
+  preference.addEventListener?.("change", (event) => {
+    state.reducedMotion = event.matches;
+    refreshVisualPreviews();
+  });
+}
+
+function staticVisualPreviewUrl(animatedUrl) {
+  return String(animatedUrl || "").replace(/visual-preview\.gif(?:\?.*)?$/i, "visual-preview.webp");
+}
+
+function preferredVisualPreviewUrl(animatedUrl) {
+  return state.reducedMotion ? staticVisualPreviewUrl(animatedUrl) : animatedUrl;
+}
+
+function applyVisualPreviewSource(image) {
+  const animatedUrl = image.dataset.animatedPreviewUrl || "";
+  const staticUrl = image.dataset.staticPreviewUrl || staticVisualPreviewUrl(animatedUrl);
+  const preferredUrl = state.reducedMotion ? staticUrl : animatedUrl;
+  const publicPreferredUrl = publicAssetUrl(preferredUrl);
+  const publicStaticUrl = publicAssetUrl(staticUrl);
+  image.onerror = () => {
+    image.onerror = null;
+    if (image.src !== new URL(publicStaticUrl, window.location.href).href) {
+      image.src = publicStaticUrl;
+    }
+  };
+  if (image.src !== new URL(publicPreferredUrl, window.location.href).href) {
+    image.src = publicPreferredUrl;
+  }
+}
+
+function refreshVisualPreviews() {
+  document.querySelectorAll("img[data-animated-preview-url]").forEach(applyVisualPreviewSource);
 }
 
 function applyTheme(theme, options = {}) {
@@ -658,10 +699,11 @@ function buildAutonomousTimelineEvent(day, self) {
       <p>${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
     </div>
     <a class="autonomous-work-link" id="enterAutonomous" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="${escapeHtml(autonomousAccessibleName(self))}. Open complete live work / 新窗口打开完整作品">
-      <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
+      <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(preferredVisualPreviewUrl(self.visual_preview_url)))}" data-animated-preview-url="${escapeHtml(self.visual_preview_url)}" data-static-preview-url="${escapeHtml(staticVisualPreviewUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
       <span>Open complete live work ↗ / 新窗口打开完整作品</span>
     </a>
   `;
+  applyVisualPreviewSource(item.querySelector("#selfPreview"));
   return item;
 }
 
