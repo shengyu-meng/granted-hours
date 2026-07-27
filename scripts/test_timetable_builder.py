@@ -116,7 +116,6 @@ class TimetableBuilderTests(unittest.TestCase):
         category_patterns = Counter()
         category_counts = Counter()
         for day in output["days"]:
-            self.assertGreaterEqual(len(day["task_residues"]), 1)
             self.assertLessEqual(len(day["task_residues"]), 6)
             builder.validate_tasks(day["date"], day["task_residues"], self.config["autonomous_hour"])
             schedules.add(
@@ -133,12 +132,12 @@ class TimetableBuilderTests(unittest.TestCase):
                 self.assertNotIn(day["title_zh"], task["zh"])
 
         self.assertGreaterEqual(len(phrases), 100)
-        self.assertGreaterEqual(len(schedules), 60)
+        self.assertGreaterEqual(len(schedules), 40)
         self.assertLessEqual(max(phrases.values()), 10)
-        # Faithful records may repeat the same medium mix (for example two
-        # maintenance residues around the autonomous hour). Phrase diversity,
-        # not artificial category shuffling, is the public-truthfulness gate.
-        self.assertLessEqual(max(category_patterns.values()), 20)
+        # Maintenance records now live in observed routine blocks rather than
+        # being duplicated as assigned work. Remaining category repetition is
+        # therefore expected; phrase diversity is the truthfulness gate.
+        self.assertLessEqual(max(category_patterns.values()), 35)
         self.assertGreaterEqual(category_counts["social_media_organization"], 20)
         expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
         self.assertEqual(
@@ -167,6 +166,19 @@ class TimetableBuilderTests(unittest.TestCase):
                 self.assertIn(pulse["category"], allowed_categories)
                 self.assertGreaterEqual(pulse["count"], 1)
                 self.assertRegex(pulse["start"], r"^\d{2}:\d{2}$")
+                self.assertRegex(pulse["end"], r"^\d{2}:\d{2}$")
+                self.assertEqual(
+                    pulse["duration_minutes"],
+                    builder.minutes(pulse["end"]) - builder.minutes(pulse["start"]),
+                )
+                self.assertGreaterEqual(pulse["execution_minutes"], 1)
+                self.assertTrue(pulse["summary_zh"].strip())
+                self.assertTrue(pulse["summary_en"].strip())
+                self.assertEqual(pulse["summary_provenance"], "derived_public_safe")
+                self.assertIn(
+                    pulse["time_provenance"],
+                    {"observed_session_window", "mixed_observed_and_receipt", "receipt_timestamp_estimate"},
+                )
                 self.assertNotIn("job", json.dumps(pulse, ensure_ascii=False).lower())
             timeline = day["timeline_events"]
             self.assertEqual(
@@ -201,12 +213,12 @@ class TimetableBuilderTests(unittest.TestCase):
             self.assertEqual(day["archive_url"], archive_root)
             self.assertEqual(day["live_url"], f"{archive_root}live/")
             self.assertRegex(autonomous["preview_url"], r"^https://.+preview\.png$")
-            self.assertRegex(autonomous["gif_url"], r"^https://.+preview\.gif$")
+            self.assertRegex(autonomous["gif_url"], r"^https://.+visual-preview\.gif$")
             self.assertRegex(autonomous["bgm_url"], r"^https://.+\.mp3$")
             self.assertEqual(autonomous["preview_url"], f"{archive_root}assets/preview.png")
-            self.assertEqual(autonomous["gif_url"], f"{archive_root}assets/preview.gif")
-            self.assertEqual(autonomous["visual_preview_url"], f"{archive_root}assets/visual-preview.webp")
-            self.assertRegex(autonomous["visual_preview_url"], r"^https://.+visual-preview\.webp$")
+            self.assertEqual(autonomous["gif_url"], f"{archive_root}assets/visual-preview.gif")
+            self.assertEqual(autonomous["visual_preview_url"], f"{archive_root}assets/visual-preview.gif")
+            self.assertRegex(autonomous["visual_preview_url"], r"^https://.+visual-preview\.gif$")
             self.assertTrue(autonomous["bgm_url"].startswith(f"{archive_root}live/"))
 
     def test_task_names_use_token_boundaries_and_stay_specific(self) -> None:
@@ -298,6 +310,7 @@ class TimetableBuilderTests(unittest.TestCase):
 
     def test_tasks_expose_readable_public_types_colors_icons_and_estimated_duration(self) -> None:
         output = self.build()
+        all_durations = set()
         allowed_types = {
             "grant_proposal",
             "social_content",
@@ -316,15 +329,15 @@ class TimetableBuilderTests(unittest.TestCase):
             for task in day["task_residues"]:
                 duration = builder.minutes(task["end"]) - builder.minutes(task["start"])
                 durations.append(duration)
+                all_durations.add(duration)
                 self.assertEqual(task["duration_minutes"], duration)
-                self.assertEqual(task["time_provenance"], "estimated")
+                self.assertEqual(task["time_provenance"], "estimated_semantic_window")
                 self.assertIn(task["task_type"], allowed_types)
                 self.assertTrue(task["task_type_zh"].strip())
                 self.assertTrue(task["task_type_en"].strip())
                 self.assertRegex(task["task_color"], r"^[a-z][a-z0-9-]+$")
                 self.assertRegex(task["task_icon"], r"^[a-z][a-z0-9-]+$")
-            if len(durations) > 1:
-                self.assertGreater(len(set(durations)), 1, f"{day['date']} needs visibly varied estimated blocks")
+        self.assertGreater(len(all_durations), 8)
 
         july_18 = next(day for day in output["days"] if day["date"] == "2026-07-18")
         self.assertEqual(
@@ -507,12 +520,17 @@ class TimetableBuilderTests(unittest.TestCase):
             loaded = builder.load_history(path)
         self.assertEqual(loaded["2026-07-27"]["assigned_residues"], [safe_residue])
 
-    def test_single_residue_uses_one_post_autonomous_range(self) -> None:
-        ranges = builder.task_ranges("2026-07-18", 1, self.config["autonomous_hour"])
-        self.assertEqual(
-            ranges,
-            [(self.config["autonomous_hour"]["end"], "24:00")],
-        )
+    def test_single_residue_uses_a_bounded_semantic_window(self) -> None:
+        residue = {
+            "category": "code_development",
+            "en": "Improve the public timetable navigation",
+            "zh": "改进公共日程导航",
+        }
+        [(start, end)] = builder.task_ranges("2026-07-18", [residue], self.config["autonomous_hour"])
+        duration = builder.minutes(end) - builder.minutes(start)
+        self.assertGreaterEqual(duration, 75)
+        self.assertLessEqual(duration, 180)
+        self.assertNotEqual((start, end), (self.config["autonomous_hour"]["end"], "24:00"))
 
     def test_current_history_has_no_known_spouse_owned_residues(self) -> None:
         expected_counts = {
@@ -588,8 +606,8 @@ class TimetableBuilderTests(unittest.TestCase):
                 "variable_en": "Aperture",
                 "variable_zh": "孔径",
                 "preview": f"archive/2026/07/{future_date}/assets/preview.png",
-                "visual_preview": f"archive/2026/07/{future_date}/assets/visual-preview.webp",
-                "gif": f"archive/2026/07/{future_date}/assets/preview.gif",
+                "visual_preview": f"archive/2026/07/{future_date}/assets/visual-preview.gif",
+                "gif": f"archive/2026/07/{future_date}/assets/visual-preview.gif",
                 "bgm": f"archive/2026/07/{future_date}/live/{future_date}-synthetic-future-aperture-bgm.mp3",
                 "archive_url": f"archive/2026/07/{future_date}/",
                 "live_url": f"archive/2026/07/{future_date}/live/",

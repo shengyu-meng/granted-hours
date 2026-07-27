@@ -11,6 +11,7 @@ import FileText from "lucide/dist/esm/icons/file-text.mjs";
 import House from "lucide/dist/esm/icons/house.mjs";
 import LockKeyhole from "lucide/dist/esm/icons/lock-keyhole.mjs";
 import Megaphone from "lucide/dist/esm/icons/megaphone.mjs";
+import Moon from "lucide/dist/esm/icons/moon.mjs";
 import Palette from "lucide/dist/esm/icons/palette.mjs";
 import Presentation from "lucide/dist/esm/icons/presentation.mjs";
 import Radio from "lucide/dist/esm/icons/radio.mjs";
@@ -21,9 +22,11 @@ import Sun from "lucide/dist/esm/icons/sun.mjs";
 import Waypoints from "lucide/dist/esm/icons/waypoints.mjs";
 import createLucideElement from "lucide/dist/esm/createElement.mjs";
 import { timetableData } from "./timetable-data.js";
+import { layoutTimelineEvents, positionTimelineElement, timeToMinutes } from "./timeline-layout.js";
 
 const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
+const THEME_STORAGE_KEY = "granted-hours-theme";
 const WEEKDAYS = [
   ["Mon", "一"],
   ["Tue", "二"],
@@ -90,10 +93,12 @@ const state = {
   calendarBgmUserActivated: false,
   calendarBgmDesiredPlaying: false,
   clockDate: "",
+  theme: document.documentElement.dataset.theme === "light" ? "light" : "dark",
 };
 
 function init() {
   cacheElements();
+  setupTheme();
   setStaticCopy();
   setInitialMonth();
   renderMonth();
@@ -106,6 +111,7 @@ function init() {
   els.closeTaskDetail.addEventListener("click", closeTaskDetail);
   els.prevDay.addEventListener("click", () => navigatePublicDay(-1));
   els.nextDay.addEventListener("click", () => navigatePublicDay(1));
+  els.timelineTouchToggle.addEventListener("click", toggleTimelineTouchGroups);
   els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
@@ -146,8 +152,12 @@ function cacheElements() {
     "taskDetailZh",
     "taskDialog",
     "taskDialogPanel",
+    "themeToggle",
+    "themeToggleLabel",
     "timetableRoot",
     "timelineList",
+    "timelineTouchGroups",
+    "timelineTouchToggle",
     "todayButton",
   ].forEach((id) => {
     const element = document.getElementById(id);
@@ -156,6 +166,46 @@ function cacheElements() {
     }
     els[id] = element;
   });
+}
+
+function setupTheme() {
+  applyTheme(state.theme, { persist: false });
+  els.themeToggle.addEventListener("click", () => {
+    applyTheme(state.theme === "dark" ? "light" : "dark", { persist: true });
+  });
+  const preference = window.matchMedia("(prefers-color-scheme: light)");
+  preference.addEventListener?.("change", (event) => {
+    let explicit = null;
+    try {
+      explicit = localStorage.getItem(THEME_STORAGE_KEY);
+    } catch {}
+    if (explicit !== "dark" && explicit !== "light") {
+      applyTheme(event.matches ? "light" : "dark", { persist: false });
+    }
+  });
+}
+
+function applyTheme(theme, options = {}) {
+  const normalized = theme === "light" ? "light" : "dark";
+  state.theme = normalized;
+  document.documentElement.dataset.theme = normalized;
+  document.documentElement.style.colorScheme = normalized;
+  els.themeToggle.setAttribute("aria-pressed", String(normalized === "light"));
+  const next = normalized === "dark" ? "light" : "dark";
+  const currentLabel = normalized === "dark" ? "Dark rite / 暗仪式" : "Light rite / 明仪式";
+  const nextLabel = next === "dark" ? "dark theme / 暗色主题" : "light theme / 亮色主题";
+  els.themeToggleLabel.textContent = currentLabel;
+  els.themeToggle.replaceChildren(
+    buildIcon(normalized === "dark" ? Moon : Sun, normalized === "dark" ? "moon" : "sun", "theme-toggle-icon"),
+    els.themeToggleLabel,
+  );
+  els.themeToggle.setAttribute("aria-label", `${currentLabel}. Switch to ${nextLabel}.`);
+  els.themeToggle.title = `Switch to ${nextLabel}`;
+  if (options.persist) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, normalized);
+    } catch {}
+  }
 }
 
 function setStaticCopy() {
@@ -423,20 +473,110 @@ function renderDayDetail(day) {
   updateAdjacentDayControls(day.date);
 
   els.timelineList.replaceChildren();
-  day.timeline_events.forEach((event) => {
+  appendTimelineHourMarkers(els.timelineList);
+  const eventsLayer = document.createElement("div");
+  eventsLayer.className = "timeline-events-layer";
+  eventsLayer.setAttribute("role", "list");
+  els.timelineList.append(eventsLayer);
+  const layouts = layoutTimelineEvents(day.timeline_events);
+  renderTimelineTouchGroups(day, layouts);
+  layouts.forEach((layout) => {
+    const { event } = layout;
+    let element = null;
     if (event.origin === "assigned") {
-      els.timelineList.append(buildAssignedTimelineEvent(event));
+      element = buildAssignedTimelineEvent(event);
     } else if (event.origin === "self") {
-      els.timelineList.append(buildAutonomousTimelineEvent(day, event));
+      element = buildAutonomousTimelineEvent(day, event);
     } else if (event.origin === "background") {
-      els.timelineList.append(buildPulseTimelineEvent(event));
+      element = buildPulseTimelineEvent(event);
     }
+    if (element) eventsLayer.append(positionTimelineElement(element, layout));
   });
 }
 
+function toggleTimelineTouchGroups() {
+  const willOpen = els.timelineTouchGroups.hidden;
+  els.timelineTouchGroups.hidden = !willOpen;
+  els.timelineTouchToggle.setAttribute("aria-expanded", String(willOpen));
+}
+
+function renderTimelineTouchGroups(day, layouts) {
+  els.timelineTouchToggle.setAttribute("aria-expanded", "false");
+  els.timelineTouchGroups.hidden = true;
+  els.timelineTouchGroups.replaceChildren();
+  const grouped = new Map();
+  for (const layout of layouts) {
+    const group = grouped.get(layout.overlapGroup) || [];
+    group.push(layout);
+    grouped.set(layout.overlapGroup, group);
+  }
+  for (const [groupIndex, group] of grouped) {
+    const region = document.createElement("section");
+    region.className = "timeline-touch-group";
+    region.setAttribute("role", "group");
+    const heading = document.createElement("h4");
+    heading.id = `touchGroup-${groupIndex}`;
+    const groupStart = group.reduce(
+      (earliest, layout) => layout.startMinute < earliest.startMinute ? layout : earliest,
+      group[0],
+    ).event.start;
+    const groupEnd = group.reduce(
+      (latest, layout) => layout.endMinute > latest.endMinute ? layout : latest,
+      group[0],
+    ).event.end;
+    const concurrent = Math.max(...group.map((layout) => layout.laneCount));
+    heading.textContent = concurrent > 1
+      ? `${groupStart}-${groupEnd} · ${group.length} events · up to ${concurrent} concurrent / ${group.length} 个事件 · 最多 ${concurrent} 个并行`
+      : `${groupStart}-${groupEnd} · one calendar event / 1 个日历事件`;
+    region.setAttribute("aria-labelledby", heading.id);
+    region.append(heading);
+    for (const layout of group) {
+      region.append(buildTimelineTouchControl(day, layout.event));
+    }
+    els.timelineTouchGroups.append(region);
+  }
+}
+
+function buildTimelineTouchControl(day, event) {
+  if (event.origin === "self") {
+    const link = document.createElement("a");
+    link.className = "timeline-touch-control autonomous-touch-control";
+    link.href = autonomousLiveUrl(day, event);
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = `${event.start}-${event.end} · 60 min · ${event.title_en} / ${event.title_zh} ↗`;
+    link.setAttribute("aria-label", autonomousAccessibleName(event));
+    return link;
+  }
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "timeline-touch-control";
+  if (event.origin === "assigned") {
+    button.textContent = `${event.start}-${event.end} · ${event.task_type_zh} / ${event.task_type_en}`;
+  } else {
+    button.textContent = `${event.start}-${event.end} · ${event.label_zh} / ${event.label_en}`;
+  }
+  button.addEventListener("click", () => openTaskDetail(event, button));
+  return button;
+}
+
+function appendTimelineHourMarkers(list) {
+  const fragment = document.createDocumentFragment();
+  for (let hour = 0; hour <= 24; hour += 1) {
+    const marker = document.createElement("div");
+    marker.className = "timeline-hour-marker";
+    marker.style.setProperty("--hour-minute", String(hour * 60));
+    marker.setAttribute("aria-hidden", "true");
+    marker.innerHTML = `<span>${String(hour).padStart(2, "0")}:00</span>`;
+    fragment.append(marker);
+  }
+  list.append(fragment);
+}
+
 function buildAssignedTimelineEvent(task) {
-  const item = document.createElement("li");
+  const item = document.createElement("article");
   item.className = "timeline-event assigned-event";
+  item.setAttribute("role", "listitem");
   item.dataset.start = task.start;
   const button = document.createElement("button");
   button.type = "button";
@@ -455,7 +595,7 @@ function buildAssignedTimelineEvent(task) {
   button.innerHTML = `
       <span class="assigned-time">
         <span>${task.start}-${task.end}</span>
-        <small>${task.duration_minutes} min · estimated / 估算</small>
+        <small>${task.duration_minutes} min · semantic estimate / 语义估算</small>
       </span>
       <span class="assigned-type">
         <span class="assigned-type-icon"></span>
@@ -501,12 +641,12 @@ function buildAssignedTimelineEvent(task) {
 }
 
 function buildAutonomousTimelineEvent(day, self) {
-  const item = document.createElement("li");
+  const item = document.createElement("article");
   item.className = "timeline-event autonomous-event";
+  item.setAttribute("role", "listitem");
+  item.setAttribute("aria-label", autonomousAccessibleName(self));
   item.dataset.start = self.start;
-  const directLiveUrlObject = new URL(absoluteUrl(self.live_url || day.live_url));
-  directLiveUrlObject.searchParams.set("from", "timetable");
-  const directLiveUrl = directLiveUrlObject.href;
+  const directLiveUrl = autonomousLiveUrl(day, self);
   item.innerHTML = `
     <div class="autonomous-time">
       <span>${self.start}-${self.end}</span>
@@ -517,7 +657,7 @@ function buildAutonomousTimelineEvent(day, self) {
       <h4>${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
       <p>${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
     </div>
-    <a class="autonomous-work-link" id="enterAutonomous" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="Open complete live work for ${escapeHtml(self.title_en)} / 新窗口打开完整作品">
+    <a class="autonomous-work-link" id="enterAutonomous" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="${escapeHtml(autonomousAccessibleName(self))}. Open complete live work / 新窗口打开完整作品">
       <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
       <span>Open complete live work ↗ / 新窗口打开完整作品</span>
     </a>
@@ -525,18 +665,40 @@ function buildAutonomousTimelineEvent(day, self) {
   return item;
 }
 
+function autonomousAccessibleName(self) {
+  const duration = timeToMinutes(self.end) - timeToMinutes(self.start);
+  return `${self.start}-${self.end}, ${duration}-minute autonomous event / ${duration} 分钟自主事件: ${self.title_en} / ${self.title_zh}`;
+}
+
+function autonomousLiveUrl(day, self) {
+  const directLiveUrl = new URL(absoluteUrl(self.live_url || day.live_url));
+  directLiveUrl.searchParams.set("from", "timetable");
+  return directLiveUrl.href;
+}
+
 function buildPulseTimelineEvent(pulse) {
-  const item = document.createElement("li");
+  const item = document.createElement("article");
   item.className = "timeline-event pulse-event";
+  item.setAttribute("role", "listitem");
   item.dataset.start = pulse.start;
   item.dataset.pulseCategory = pulse.category;
   item.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
-  item.innerHTML = `
-    <span class="pulse-time">${pulse.start}</span>
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "pulse-item";
+  button.setAttribute(
+    "aria-label",
+    `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
+  );
+  button.innerHTML = `
+    <span class="pulse-time">${pulse.start}-${pulse.end}</span>
     <span class="pulse-line" aria-hidden="true"></span>
-    <span class="pulse-label">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span>
-    <span class="pulse-count">×${pulse.count}</span>
+    <span class="pulse-heading"><span class="pulse-label">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${pulse.count}</span></span>
+    <span class="pulse-duration">窗口 ${pulse.duration_minutes} min · 执行 ${pulse.execution_minutes} min</span>
+    <span class="pulse-summary"><span>${escapeHtml(pulse.summary_zh)}</span><span>${escapeHtml(pulse.summary_en)}</span></span>
   `;
+  button.addEventListener("click", () => openTaskDetail(pulse, button));
+  item.append(button);
   return item;
 }
 
@@ -569,21 +731,43 @@ function navigatePublicDay(delta) {
   });
 }
 
+function routineTimingLabel(provenance) {
+  return {
+    observed_session_window: "observed session / 会话实测",
+    mixed_observed_and_receipt: "mixed observed + receipt / 实测与回执混合",
+    receipt_timestamp_estimate: "receipt estimate / 回执时间估算",
+  }[provenance] || "public evidence / 公开证据";
+}
+
 function openTaskDetail(task, trigger) {
   state.taskDetailOpen = true;
   state.taskDetailLastFocus = trigger;
   state.taskDetailScrollTop = els.dayDialogPanel.scrollTop;
-  els.taskDetailTitle.textContent = `${task.task_name_zh} / ${task.task_name_en}`;
-  els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.duration_minutes} min · estimated / 估算`;
-  els.taskDetailType.textContent = `${task.task_type_zh} / ${task.task_type_en} · ${task.label_zh} / ${task.label_en}`;
-  els.taskDetailZh.textContent = task.zh;
-  els.taskDetailEn.textContent = task.en;
-  els.taskDetailProvenance.textContent = [
-    `source: ${task.source_kind}`,
-    `summary: ${task.faithfulness}`,
-    `redaction: ${task.redaction_status}`,
-    `masks: ${task.redaction_count}`,
-  ].join(" · ");
+  if (task.origin === "background") {
+    els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
+    els.taskDetailTime.textContent = `${task.start}-${task.end} · window ${task.duration_minutes} min · execution ${task.execution_minutes} min`;
+    els.taskDetailType.textContent = `后台例行报告 / Background routine report · ×${task.count}`;
+    els.taskDetailZh.textContent = task.summary_zh;
+    els.taskDetailEn.textContent = task.summary_en;
+    els.taskDetailProvenance.textContent = [
+      `time: ${routineTimingLabel(task.time_provenance)}`,
+      "summary: public-safe daily report / 当日公开安全归纳",
+      "privacy: fixed-vocabulary facts only / 仅固定词表事实",
+    ].join(" · ");
+  } else {
+    els.taskDetailTitle.textContent = `${task.task_name_zh} / ${task.task_name_en}`;
+    els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.duration_minutes} min · semantic estimate / 语义估算`;
+    els.taskDetailType.textContent = `${task.task_type_zh} / ${task.task_type_en} · ${task.label_zh} / ${task.label_en}`;
+    els.taskDetailZh.textContent = task.zh;
+    els.taskDetailEn.textContent = task.en;
+    els.taskDetailProvenance.textContent = [
+      `source: ${task.source_kind}`,
+      `summary: ${task.faithfulness}`,
+      "timing: semantic estimate / 语义估算",
+      `redaction: ${task.redaction_status}`,
+      `masks: ${task.redaction_count}`,
+    ].join(" · ");
+  }
   els.dayDialogPanel.setAttribute("inert", "");
   els.taskDialog.hidden = false;
   requestAnimationFrame(() => {

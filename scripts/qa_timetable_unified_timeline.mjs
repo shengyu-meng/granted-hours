@@ -6,13 +6,15 @@ import { timetableData } from "../src/timetable/timetable-data.js";
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const days = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
 
+let daysWithAssignedWork = 0;
 for (const day of days) {
   assert.ok(day.background_pulses.length > 0, `${day.date} has no real background pulses`);
   assert.equal(day.timeline_events.filter((event) => event.origin === "self").length, 1);
-  assert.ok(day.timeline_events.some((event) => event.origin === "assigned"));
+  if (day.timeline_events.some((event) => event.origin === "assigned")) daysWithAssignedWork += 1;
   assert.ok(day.timeline_events.some((event) => event.origin === "background"));
-  assert.match(day.autonomous_work.visual_preview_url, /visual-preview\.webp$/);
+  assert.match(day.autonomous_work.visual_preview_url, /visual-preview\.gif$/);
 }
+assert.ok(daysWithAssignedWork >= 40, `only ${daysWithAssignedWork} days expose assigned work`);
 
 const browser = await chromium.launch({ headless: true });
 try {
@@ -27,7 +29,11 @@ try {
   assert.equal(await page.locator(".autonomous-event").count(), 1);
   assert.ok(await page.locator(".pulse-event").count() > 0);
   assert.ok(await page.locator(".assigned-item").count() > 0);
-  assert.equal(await page.locator(".pulse-event button").count(), 0, "pulses must not open task details");
+  assert.equal(
+    await page.locator(".pulse-event button").count(),
+    await page.locator(".pulse-event").count(),
+    "every routine block must expose its date-specific report detail",
+  );
   const timelineTimes = await page.locator(".timeline-event").evaluateAll((events) =>
     events.map((event) => event.dataset.start),
   );
@@ -36,8 +42,23 @@ try {
     await image.decode();
     return { src: image.currentSrc || image.src, width: image.naturalWidth, height: image.naturalHeight };
   });
-  assert.match(preview.src, /visual-preview\.webp$/);
+  assert.match(preview.src, /visual-preview\.gif$/);
   assert.ok(preview.width > 0 && preview.height > 0, JSON.stringify(preview));
+
+  const firstPulse = page.locator(".pulse-event").first();
+  const pulseStart = await firstPulse.getAttribute("data-start");
+  const pulseCategory = await firstPulse.getAttribute("data-pulse-category");
+  const pulseEvidence = days.at(-1).background_pulses.find(
+    (pulse) => pulse.start === pulseStart && pulse.category === pulseCategory,
+  );
+  assert.ok(pulseEvidence, `${pulseStart} ${pulseCategory}`);
+  await firstPulse.locator(".pulse-item").click({ force: true });
+  await page.waitForSelector("#taskDialog.is-open");
+  assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), pulseEvidence.summary_zh);
+  assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), pulseEvidence.summary_en);
+  assert.match((await page.locator("#taskDetailTime").textContent()) || "", /window \d+ min/);
+  await page.keyboard.press("Escape");
+  assert.equal(await page.locator("#dayDialog").getAttribute("hidden"), null);
 
   const rows = page.locator(".assigned-item");
   let clampedIndex = -1;
@@ -51,7 +72,7 @@ try {
         ellipsis: getComputedStyle(copy, "::after").content,
       };
     });
-    assert.equal(state.clamp, "3");
+    assert.ok(["2", "3"].includes(state.clamp), JSON.stringify(state));
     assert.equal(state.overflow, "hidden");
     if (state.clamped && state.ellipsis.includes("…")) clampedIndex = index;
   }

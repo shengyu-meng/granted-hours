@@ -41,7 +41,13 @@ try {
 
   await page.click(`.calendar-day-button[data-date="${sampleDate}"]`);
   await page.waitForSelector("#dayDialog.is-open");
-  await page.waitForTimeout(220);
+  await page.waitForFunction(() => {
+    const panel = document.querySelector("#dayDialogPanel");
+    if (!panel) return false;
+    const transform = getComputedStyle(panel).transform;
+    if (transform === "none") return true;
+    return Math.abs(new DOMMatrixReadOnly(transform).m42) < 0.5;
+  });
   const geometry = await page.locator("#dayDialogPanel").evaluate((panel) => {
     const rect = panel.getBoundingClientRect();
     return { top: rect.top, bottom: rect.bottom, viewport: innerHeight };
@@ -70,7 +76,7 @@ try {
       href: image.parentElement?.href,
     };
   });
-  assert.match(preview.src, /visual-preview\.webp$/);
+  assert.match(preview.src, /visual-preview\.gif$/);
   assert.match(preview.alt, /Text-free visual preview/);
   assert.equal(preview.parentTag, "A");
   assert.equal(preview.target, "_blank");

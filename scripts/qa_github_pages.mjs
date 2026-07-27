@@ -16,7 +16,7 @@ const errors = [];
 assert.deepEqual(actualDates, expectedDates);
 for (const day of timetableData.days) {
   assert.match(day.autonomous_work.live_url, /^https:\/\/shengyu-meng\.github\.io\/granted-hours\/archive\/.+\/live\/$/);
-  assert.match(day.autonomous_work.visual_preview_url, /^https:\/\/shengyu-meng\.github\.io\/granted-hours\/archive\/.+\/assets\/visual-preview\.webp$/);
+  assert.match(day.autonomous_work.visual_preview_url, /^https:\/\/shengyu-meng\.github\.io\/granted-hours\/archive\/.+\/assets\/visual-preview\.gif$/);
 }
 
 const browser = await chromium.launch({ headless: true });

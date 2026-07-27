@@ -7,7 +7,19 @@
       name="description"
       content="Granted Hours living month calendar: public assigned-time residues and one daily AI autonomous hour opening the live artwork."
     >
-    <title>活月历 / Granted Hours Living Calendar</title>
+    <script>
+      (() => {
+        const key = "granted-hours-theme";
+        let theme = "";
+        try {
+          const saved = localStorage.getItem(key);
+          if (saved === "dark" || saved === "light") theme = saved;
+        } catch {}
+        if (!theme) theme = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <title>Liquid Glass / Nonhuman Rite · Granted Hours</title>
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
@@ -23,6 +35,10 @@
           <span class="clock-label">Asia/Shanghai</span>
         </div>
         <nav class="quiet-nav" aria-label="Related entrances">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+            <span class="theme-toggle-orbit" aria-hidden="true"></span>
+            <span class="theme-toggle-label" id="themeToggleLabel">Theme / 主题</span>
+          </button>
           <div class="calendar-bgm-control">
             <button
               class="calendar-bgm-toggle"
@@ -41,7 +57,7 @@
       <section class="calendar-shell" aria-labelledby="monthTitle">
         <div class="calendar-head">
           <div class="month-heading">
-            <p class="section-mark">非人时刻表 / Non-human timetable</p>
+            <p class="section-mark">液态玻璃下的非人仪式 / Liquid Glass / Nonhuman Rite</p>
             <h1 id="monthTitle">Loading month</h1>
             <p class="thesis-line"><span>同一个 Agent，两种时间：二十三小时协作，一小时自主。</span><span>One agent, two modes of time: twenty-three hours of co-work, one autonomous hour.</span></p>
           </div>
@@ -80,13 +96,20 @@
           <h2 id="dialogTitle"></h2>
           <p class="dialog-date" id="dialogDate"></p>
           <p class="dialog-variable" id="dialogVariable"></p>
-          <p class="dialog-mode-thesis">一条连续的 24 小时时间流：人机协作、后台脉冲与 AI 自主时彼此穿行。<br>One continuous 24-hour stream: assigned co-work, background pulses, and autonomous time interleave.</p>
+          <p class="dialog-mode-thesis">一张真实的 24 小时日历：纵向位置对应时间，块长对应持续时长，并行事件横向镶嵌。<br>A true 24-hour calendar: vertical position is time, block length is duration, and concurrent events tile side by side.</p>
           <p class="dialog-boundary" id="dialogBoundary"></p>
         </div>
 
         <section class="timeline-detail" aria-labelledby="timelineTitle">
-          <h3 id="timelineTitle">24 小时时间流 / 24-HOUR STREAM</h3>
-          <ol class="timeline-list" id="timelineList"></ol>
+          <h3 id="timelineTitle">24 小时日历 / 24-HOUR CALENDAR</h3>
+          <p class="timeline-help">位置 = 开始时间 · 块长 = 持续时长 · 并列 = 同时发生 · 点击事件查看当天具体报告<br>Position = start · length = duration · columns = concurrency · open an event for its date-specific report</p>
+          <div class="timeline-touch-access">
+            <button class="timeline-touch-toggle" id="timelineTouchToggle" type="button" aria-expanded="false" aria-controls="timelineTouchGroups">
+              Explore touch-accessible event groups / 浏览触控事件组
+            </button>
+            <div class="timeline-touch-groups" id="timelineTouchGroups" hidden></div>
+          </div>
+          <div class="timeline-list" id="timelineList"></div>
         </section>
       </div>
     </section>
@@ -94,7 +117,7 @@
     <section class="task-dialog" id="taskDialog" role="dialog" aria-modal="true" aria-labelledby="taskDetailTitle" aria-describedby="taskDetailProvenance" hidden>
       <div class="task-dialog-panel" id="taskDialogPanel" role="document">
         <button class="task-dialog-close" id="closeTaskDetail" type="button">Close / 关闭</button>
-        <p class="task-detail-kicker">Assigned task detail / 人机协作任务详情</p>
+        <p class="task-detail-kicker">Event detail / 事件详情</p>
         <h2 id="taskDetailTitle"></h2>
         <p class="task-detail-time" id="taskDetailTime"></p>
         <p class="task-detail-type" id="taskDetailType"></p>

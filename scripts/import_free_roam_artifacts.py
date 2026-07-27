@@ -1337,7 +1337,7 @@ def build_entry(source: Path, entry: dict):
         'date': entry['date'], 'title_en': entry['title_en'], 'title_zh': entry['title_zh'],
         'type': 'live', 'seed': entry['seed'],
         'preview': f'{rel}/assets/preview.png',
-        'gif': f'{rel}/assets/preview.gif',
+        'gif': f'{rel}/assets/visual-preview.gif',
         'archive_url': f'{rel}/', 'live_url': f'{rel}/live/',
         'variable_en': entry['variable_en'], 'variable_zh': entry['variable_zh'],
         'redaction': {'status': 'sanitized', 'private_context_removed': True, 'secrets_scan': 'passed'}

@@ -10,9 +10,10 @@ const parsedBaseUrl = new URL(baseUrl);
 const archiveBaseUrl = /^(?:127\.0\.0\.1|localhost)$/.test(parsedBaseUrl.hostname)
   ? `${parsedBaseUrl.origin}/`
   : timetableData.canonical_base_url;
-const sampleDate = timetableData.days.some((day) => day.date === "2026-07-17")
-  ? "2026-07-17"
-  : timetableData.days.at(-1).date;
+const sampleDate = timetableData.days.find((day) => {
+  const durations = new Set(day.task_residues.map((task) => task.duration_minutes));
+  return day.date.startsWith("2026-07") && day.task_residues.length >= 2 && durations.size >= 2;
+})?.date || timetableData.days.find((day) => day.task_residues.length > 0)?.date || timetableData.days.at(-1).date;
 const failures = [];
 
 async function check(name, fn) {
@@ -159,7 +160,10 @@ try {
       };
     }));
     assert.ok(result.length >= 2, JSON.stringify(result));
-    assert.ok(result.every((item) => item.duration > 0 && item.provenance === "estimated"), JSON.stringify(result));
+    assert.ok(
+      result.every((item) => item.duration > 0 && item.provenance === "estimated_semantic_window"),
+      JSON.stringify(result),
+    );
     assert.ok(result.every((item) => item.type.length >= 4 && item.icon && item.accent), JSON.stringify(result));
     const shortest = result.reduce((a, b) => a.duration < b.duration ? a : b);
     const longest = result.reduce((a, b) => a.duration > b.duration ? a : b);

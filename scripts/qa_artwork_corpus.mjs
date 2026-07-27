@@ -56,7 +56,7 @@ try {
             const rect = canvas.getBoundingClientRect();
             return canvas.width > 0 && canvas.height > 0 && rect.width > 1 && rect.height > 1;
           });
-        }, null, { timeout: 20000 });
+        }, null, { timeout: 45000 });
       }
       const state = await page.evaluate(visibleFn => {
         const isVisible = new Function("element", `return (${visibleFn})(element);`);

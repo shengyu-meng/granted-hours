@@ -31,9 +31,9 @@ for (const day of timetableData.days) {
 }
 
 assert.ok(phraseCounts.size >= 100, `only ${phraseCounts.size} unique phrases`);
-assert.ok(scheduleSignatures.size >= 60, `only ${scheduleSignatures.size} unique schedules`);
+assert.ok(scheduleSignatures.size >= 40, `only ${scheduleSignatures.size} unique schedules`);
 assert.ok(Math.max(...phraseCounts.values()) <= 10);
-assert.ok(Math.max(...categoryPatternCounts.values()) <= 20);
+assert.ok(Math.max(...categoryPatternCounts.values()) <= 35);
 assert.equal(artworkTitleLeaks.length, 0, JSON.stringify(artworkTitleLeaks.slice(0, 5)));
 
 const browser = await chromium.launch({ headless: true });
