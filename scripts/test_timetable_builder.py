@@ -58,7 +58,7 @@ class TimetableBuilderTests(unittest.TestCase):
                 {"date", "provenance", "assigned_residues"},
                 f"{day_date} must not retain focus/medium/workflow generation fields",
             )
-            self.assertGreaterEqual(len(entry["assigned_residues"]), 2)
+            self.assertGreaterEqual(len(entry["assigned_residues"]), 1)
             self.assertLessEqual(len(entry["assigned_residues"]), 6)
             signatures = set()
             for residue in entry["assigned_residues"]:
@@ -116,7 +116,7 @@ class TimetableBuilderTests(unittest.TestCase):
         category_patterns = Counter()
         category_counts = Counter()
         for day in output["days"]:
-            self.assertGreaterEqual(len(day["task_residues"]), 2)
+            self.assertGreaterEqual(len(day["task_residues"]), 1)
             self.assertLessEqual(len(day["task_residues"]), 6)
             builder.validate_tasks(day["date"], day["task_residues"], self.config["autonomous_hour"])
             schedules.add(
@@ -323,10 +323,14 @@ class TimetableBuilderTests(unittest.TestCase):
                 self.assertTrue(task["task_type_en"].strip())
                 self.assertRegex(task["task_color"], r"^[a-z][a-z0-9-]+$")
                 self.assertRegex(task["task_icon"], r"^[a-z][a-z0-9-]+$")
-            self.assertGreater(len(set(durations)), 1, f"{day['date']} needs visibly varied estimated blocks")
+            if len(durations) > 1:
+                self.assertGreater(len(set(durations)), 1, f"{day['date']} needs visibly varied estimated blocks")
 
         july_18 = next(day for day in output["days"] if day["date"] == "2026-07-18")
-        self.assertIn("grant_proposal", {task["task_type"] for task in july_18["task_residues"]})
+        self.assertEqual(
+            {task["task_type"] for task in july_18["task_residues"]},
+            {"software_development"},
+        )
         july_26 = next(day for day in output["days"] if day["date"] == "2026-07-26")
         self.assertTrue(
             all(
@@ -447,6 +451,79 @@ class TimetableBuilderTests(unittest.TestCase):
             with self.subTest(text=text):
                 self.assertIsNone(builder.EDUCATION_IDENTITY_RE.search(text))
                 self.assertIsNone(builder.PROPOSAL_TITLE_CONTEXT_RE.search(text))
+
+    def test_spouse_activity_is_excluded_instead_of_redacted(self) -> None:
+        excluded = [
+            "广西民族大学管理学院会计学本科项目",
+            "广西会计人才小高地课题申报",
+            "完成管理学学位变更报告",
+            "Prepared MBA stress-management course templates",
+            "Completed an accounting thesis review",
+            "Revised a digital-accounting talent-training proposal",
+        ]
+        allowed = [
+            "Built a management dashboard for the agent system",
+            "Reviewed financial statements for an investment report",
+            "整理投资研究与金融市场证据",
+        ]
+        for text in excluded:
+            with self.subTest(excluded=text):
+                self.assertIsNotNone(builder.SPOUSE_ACTIVITY_RE.search(text))
+        for text in allowed:
+            with self.subTest(allowed=text):
+                self.assertIsNone(builder.SPOUSE_ACTIVITY_RE.search(text))
+
+        safe_residue = {
+            "category": "code_development",
+            "en": "Improve the public timetable navigation",
+            "zh": "改进公共日程导航",
+            "redaction_status": "none",
+            "redaction_count": 0,
+            "source_kind": "task_card",
+            "faithfulness": "faithful_summary",
+        }
+        spouse_residues = [
+            {
+                **safe_residue,
+                "category": "document_processing",
+                "en": text,
+                "zh": "配偶工作记录",
+            }
+            for text in excluded
+        ]
+        source = {
+            "schema": "granted-hours-timetable-history-v3",
+            "days": [
+                {
+                    "date": "2026-07-27",
+                    "provenance": "record_based",
+                    "assigned_residues": [safe_residue, *spouse_residues],
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "history.json"
+            path.write_text(json.dumps(source, ensure_ascii=False), encoding="utf-8")
+            loaded = builder.load_history(path)
+        self.assertEqual(loaded["2026-07-27"]["assigned_residues"], [safe_residue])
+
+    def test_single_residue_uses_one_post_autonomous_range(self) -> None:
+        ranges = builder.task_ranges("2026-07-18", 1, self.config["autonomous_hour"])
+        self.assertEqual(
+            ranges,
+            [(self.config["autonomous_hour"]["end"], "24:00")],
+        )
+
+    def test_current_history_has_no_known_spouse_owned_residues(self) -> None:
+        expected_counts = {
+            "2026-07-16": 2,
+            "2026-07-18": 1,
+            "2026-07-23": 1,
+            "2026-07-25": 2,
+            "2026-07-26": 3,
+        }
+        for day_date, expected in expected_counts.items():
+            self.assertEqual(len(self.history[day_date]["assigned_residues"]), expected, day_date)
 
     def test_authored_and_inferred_name_semantics_are_table_driven(self) -> None:
         cases = [

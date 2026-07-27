@@ -45,6 +45,13 @@ EDUCATION_IDENTITY_RE = re.compile(
     r"|(?:本科|硕士|博士|学位|毕业|会计).{0,8}论文"
     r"|论文.{0,8}(?:评阅|外审|导师|学生|学位)"
 )
+SPOUSE_ACTIVITY_RE = re.compile(
+    r"(?i)(?:广西民族大学|人才小高地|会计学|管理学|工商管理硕士|数智财会|财会人才)"
+    r"|\bMBA\b|\bGuangxi\s+Minzu\s+University\b|\btalent[- ]highland\b"
+    r"|\bmanagement\s+(?:studies|science|degree|discipline)\b"
+    r"|\baccounting\b.{0,40}\b(?:thes(?:is|es)|course|teaching|teacher|student|talent|degree|undergraduate|proposal|training)\b"
+    r"|\b(?:thes(?:is|es)|course|teaching|teacher|student|talent|degree|undergraduate|proposal|training)\b.{0,40}\baccounting\b"
+)
 PROPOSAL_TITLE_CONTEXT_RE = re.compile(
     r"(?i)\b(?:school|university|college|faculty|department|institute|academy|"
     r"accounting|digital[- ]accounting|mba|education|course|curriculum|"
@@ -97,6 +104,7 @@ def main(root: Path) -> int:
                     findings.append((rel, i, name, line.strip()[:220]))
             if rel == "metadata/timetable-history.json":
                 for name, rx in (
+                    ("spouse_activity", SPOUSE_ACTIVITY_RE),
                     ("education_identity", EDUCATION_IDENTITY_RE),
                     ("proposal_title_context", PROPOSAL_TITLE_CONTEXT_RE),
                 ):

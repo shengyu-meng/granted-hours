@@ -84,6 +84,7 @@ const state = {
   detailLastFocus: null,
   taskDetailOpen: false,
   taskDetailLastFocus: null,
+  taskDetailScrollTop: 0,
   calendarBgmIndex: 0,
   calendarBgmPlaying: false,
   calendarBgmUserActivated: false,
@@ -571,6 +572,7 @@ function navigatePublicDay(delta) {
 function openTaskDetail(task, trigger) {
   state.taskDetailOpen = true;
   state.taskDetailLastFocus = trigger;
+  state.taskDetailScrollTop = els.dayDialogPanel.scrollTop;
   els.taskDetailTitle.textContent = `${task.task_name_zh} / ${task.task_name_en}`;
   els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.duration_minutes} min · estimated / 估算`;
   els.taskDetailType.textContent = `${task.task_type_zh} / ${task.task_type_en} · ${task.label_zh} / ${task.label_en}`;
@@ -596,6 +598,7 @@ function closeTaskDetail(options = {}) {
   els.taskDialog.classList.remove("is-open");
   els.taskDialog.hidden = true;
   els.dayDialogPanel.removeAttribute("inert");
+  els.dayDialogPanel.scrollTop = state.taskDetailScrollTop;
   if (options.restoreFocus === false) return;
   if (
     state.taskDetailLastFocus
@@ -603,6 +606,7 @@ function closeTaskDetail(options = {}) {
     && document.contains(state.taskDetailLastFocus)
   ) {
     state.taskDetailLastFocus.focus({ preventScroll: true });
+    els.dayDialogPanel.scrollTop = state.taskDetailScrollTop;
   }
 }
 
