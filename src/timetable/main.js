@@ -82,6 +82,8 @@ const state = {
   selectedDate: "",
   detailOpen: false,
   detailLastFocus: null,
+  taskDetailOpen: false,
+  taskDetailLastFocus: null,
   calendarBgmIndex: 0,
   calendarBgmPlaying: false,
   calendarBgmUserActivated: false,
@@ -100,6 +102,9 @@ function init() {
   els.nextMonth.addEventListener("click", () => moveMonth(1));
   els.todayButton.addEventListener("click", goToCurrentMonth);
   els.closeDetail.addEventListener("click", closeDayDetail);
+  els.closeTaskDetail.addEventListener("click", closeTaskDetail);
+  els.prevDay.addEventListener("click", () => navigatePublicDay(-1));
+  els.nextDay.addEventListener("click", () => navigatePublicDay(1));
   els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
@@ -112,31 +117,36 @@ function init() {
 
 function cacheElements() {
   [
-    "assignedList",
     "calendarBgm",
     "calendarBgmStatus",
     "calendarBgmToggle",
     "clockTime",
     "closeDetail",
+    "closeTaskDetail",
     "dayDialog",
     "dayDialogPanel",
     "dialogBoundary",
     "dialogDate",
     "dialogTitle",
     "dialogVariable",
-    "enterAutonomous",
     "monthGrid",
     "monthTitle",
     "nextMonth",
+    "nextDay",
     "prevMonth",
+    "prevDay",
     "publicNote",
-    "selfArtwork",
-    "selfNote",
-    "selfPreview",
-    "selfPreviewLink",
-    "selfTime",
     "stateSentence",
+    "taskDetailEn",
+    "taskDetailProvenance",
+    "taskDetailTime",
+    "taskDetailTitle",
+    "taskDetailType",
+    "taskDetailZh",
+    "taskDialog",
+    "taskDialogPanel",
     "timetableRoot",
+    "timelineList",
     "todayButton",
   ].forEach((id) => {
     const element = document.getElementById(id);
@@ -377,8 +387,8 @@ function openDayDetail(date) {
 
   state.detailOpen = true;
   els.dayDialog.hidden = false;
+  els.dayDialog.dataset.selectedDate = date;
   els.dayDialogPanel.scrollTop = 0;
-  els.dayDialogPanel.querySelector(".detail-layout").scrollTop = 0;
   els.timetableRoot.setAttribute("inert", "");
   document.body.classList.add("detail-open");
   document.documentElement.classList.add("detail-open");
@@ -389,6 +399,7 @@ function openDayDetail(date) {
 }
 
 function closeDayDetail() {
+  if (state.taskDetailOpen) closeTaskDetail({ restoreFocus: false });
   state.detailOpen = false;
   els.dayDialog.classList.remove("is-open");
   els.dayDialog.hidden = true;
@@ -403,35 +414,44 @@ function closeDayDetail() {
 }
 
 function renderDayDetail(day) {
-  const self = day.autonomous_work;
   els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
   els.dialogBoundary.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
-  els.selfTime.textContent = `${self.start}-${self.end}`;
-  els.selfArtwork.textContent = `${self.title_en} / ${self.title_zh}`;
-  els.selfNote.textContent = `${self.note_en} / ${self.note_zh}`;
-  els.enterAutonomous.setAttribute("aria-label", `Enter live artwork for ${day.title_en}`);
-  const directLiveUrlObject = new URL(absoluteUrl(self.live_url || day.live_url));
-  directLiveUrlObject.searchParams.set("from", "timetable");
-  const directLiveUrl = directLiveUrlObject.href;
-  els.enterAutonomous.href = directLiveUrl;
-  els.selfPreviewLink.href = directLiveUrl;
-  els.selfPreview.src = self.gif_url || self.preview_url || day.gif || day.preview;
-  els.selfPreview.alt = `Animated preview of ${self.title_en} / 《${self.title_zh}》动态预览`;
+  els.dayDialog.dataset.selectedDate = day.date;
+  updateAdjacentDayControls(day.date);
 
-  els.assignedList.replaceChildren();
-  day.task_residues.forEach((task) => {
-    const item = document.createElement("li");
-    item.className = "assigned-item";
-    item.dataset.durationMinutes = String(task.duration_minutes);
-    item.dataset.timeProvenance = task.time_provenance;
-    item.dataset.taskType = task.task_type;
-    item.dataset.taskColor = task.task_color;
-    item.dataset.redactionStatus = task.redaction_status;
-    item.style.setProperty("--duration-minutes", String(task.duration_minutes));
-    item.style.setProperty("--task-accent", taskAccent(task.task_color));
-    item.innerHTML = `
+  els.timelineList.replaceChildren();
+  day.timeline_events.forEach((event) => {
+    if (event.origin === "assigned") {
+      els.timelineList.append(buildAssignedTimelineEvent(event));
+    } else if (event.origin === "self") {
+      els.timelineList.append(buildAutonomousTimelineEvent(day, event));
+    } else if (event.origin === "background") {
+      els.timelineList.append(buildPulseTimelineEvent(event));
+    }
+  });
+}
+
+function buildAssignedTimelineEvent(task) {
+  const item = document.createElement("li");
+  item.className = "timeline-event assigned-event";
+  item.dataset.start = task.start;
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "assigned-item";
+  button.dataset.durationMinutes = String(task.duration_minutes);
+  button.dataset.timeProvenance = task.time_provenance;
+  button.dataset.taskType = task.task_type;
+  button.dataset.taskColor = task.task_color;
+  button.dataset.redactionStatus = task.redaction_status;
+  button.style.setProperty("--duration-minutes", String(task.duration_minutes));
+  button.style.setProperty("--task-accent", taskAccent(task.task_color));
+  button.setAttribute(
+    "aria-label",
+    `${task.start}-${task.end}, ${task.task_type_en} / ${task.task_type_zh}: ${task.en} / ${task.zh}`,
+  );
+  button.innerHTML = `
       <span class="assigned-time">
         <span>${task.start}-${task.end}</span>
         <small>${task.duration_minutes} min · estimated / 估算</small>
@@ -449,15 +469,150 @@ function renderDayDetail(day) {
         ? `<span class="redaction-badge">${task.redaction_status === "withheld" ? "记录未公开 / RECORD WITHHELD" : `部分打码 ${task.redaction_count} / ${task.redaction_count} REDACTION${task.redaction_count === 1 ? "" : "S"}`}</span>`
         : ""}
     `;
-    const iconSlot = item.querySelector(".assigned-type-icon");
-    iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));
-    els.assignedList.append(item);
+  const iconSlot = button.querySelector(".assigned-type-icon");
+  iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));
+  button.addEventListener("click", () => openTaskDetail(task, button));
+  item.append(button);
+  requestAnimationFrame(() => {
+    const copy = button.querySelector(".assigned-copy");
+    const measurement = copy.cloneNode(true);
+    Object.assign(measurement.style, {
+      position: "fixed",
+      left: "-10000px",
+      top: "0",
+      width: `${copy.clientWidth}px`,
+      maxWidth: "none",
+      maxHeight: "none",
+      height: "auto",
+      display: "block",
+      overflow: "visible",
+      visibility: "hidden",
+      webkitLineClamp: "unset",
+      webkitBoxOrient: "initial",
+    });
+    document.body.append(measurement);
+    const lineHeight = Number.parseFloat(getComputedStyle(copy).lineHeight);
+    const isClamped = measurement.getBoundingClientRect().height > lineHeight * 3 + 1;
+    measurement.remove();
+    copy.classList.toggle("is-clamped", isClamped);
   });
+  return item;
+}
 
+function buildAutonomousTimelineEvent(day, self) {
+  const item = document.createElement("li");
+  item.className = "timeline-event autonomous-event";
+  item.dataset.start = self.start;
+  const directLiveUrlObject = new URL(absoluteUrl(self.live_url || day.live_url));
+  directLiveUrlObject.searchParams.set("from", "timetable");
+  const directLiveUrl = directLiveUrlObject.href;
+  item.innerHTML = `
+    <div class="autonomous-time">
+      <span>${self.start}-${self.end}</span>
+      <small>60 min · autonomous / 自主</small>
+    </div>
+    <div class="autonomous-copy">
+      <p class="autonomous-kicker">${escapeHtml(self.label_zh)} / ${escapeHtml(self.label_en)}</p>
+      <h4>${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
+      <p>${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
+    </div>
+    <a class="autonomous-work-link" id="enterAutonomous" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="Open complete live work for ${escapeHtml(self.title_en)} / 新窗口打开完整作品">
+      <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
+      <span>Open complete live work ↗ / 新窗口打开完整作品</span>
+    </a>
+  `;
+  return item;
+}
+
+function buildPulseTimelineEvent(pulse) {
+  const item = document.createElement("li");
+  item.className = "timeline-event pulse-event";
+  item.dataset.start = pulse.start;
+  item.dataset.pulseCategory = pulse.category;
+  item.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
+  item.innerHTML = `
+    <span class="pulse-time">${pulse.start}</span>
+    <span class="pulse-line" aria-hidden="true"></span>
+    <span class="pulse-label">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span>
+    <span class="pulse-count">×${pulse.count}</span>
+  `;
+  return item;
+}
+
+function updateAdjacentDayControls(date) {
+  const index = daysAscending.findIndex((day) => day.date === date);
+  els.prevDay.disabled = index <= 0;
+  els.nextDay.disabled = index < 0 || index >= daysAscending.length - 1;
+  const previous = daysAscending[index - 1];
+  const next = daysAscending[index + 1];
+  els.prevDay.title = previous
+    ? `Previous public day: ${previous.date} / 前一个公开日`
+    : "No previous public day / 没有更早的公开日";
+  els.nextDay.title = next
+    ? `Next public day: ${next.date} / 后一个公开日`
+    : "No next public day / 没有更晚的公开日";
+}
+
+function navigatePublicDay(delta) {
+  if (!state.detailOpen || state.taskDetailOpen) return;
+  const index = daysAscending.findIndex((day) => day.date === state.selectedDate);
+  const target = daysAscending[index + delta];
+  if (!target) return;
+  state.selectedDate = target.date;
+  setVisibleMonth(monthKey(target.date));
+  renderMonth({ transition: delta < 0 ? "previous" : "next" });
+  renderDayDetail(target);
+  els.dayDialogPanel.scrollTop = 0;
+  requestAnimationFrame(() => {
+    (delta < 0 ? els.prevDay : els.nextDay).focus({ preventScroll: true });
+  });
+}
+
+function openTaskDetail(task, trigger) {
+  state.taskDetailOpen = true;
+  state.taskDetailLastFocus = trigger;
+  els.taskDetailTitle.textContent = `${task.task_name_zh} / ${task.task_name_en}`;
+  els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.duration_minutes} min · estimated / 估算`;
+  els.taskDetailType.textContent = `${task.task_type_zh} / ${task.task_type_en} · ${task.label_zh} / ${task.label_en}`;
+  els.taskDetailZh.textContent = task.zh;
+  els.taskDetailEn.textContent = task.en;
+  els.taskDetailProvenance.textContent = [
+    `source: ${task.source_kind}`,
+    `summary: ${task.faithfulness}`,
+    `redaction: ${task.redaction_status}`,
+    `masks: ${task.redaction_count}`,
+  ].join(" · ");
+  els.dayDialogPanel.setAttribute("inert", "");
+  els.taskDialog.hidden = false;
+  requestAnimationFrame(() => {
+    els.taskDialog.classList.add("is-open");
+    els.closeTaskDetail.focus({ preventScroll: true });
+  });
+}
+
+function closeTaskDetail(options = {}) {
+  if (!state.taskDetailOpen) return;
+  state.taskDetailOpen = false;
+  els.taskDialog.classList.remove("is-open");
+  els.taskDialog.hidden = true;
+  els.dayDialogPanel.removeAttribute("inert");
+  if (options.restoreFocus === false) return;
+  if (
+    state.taskDetailLastFocus
+    && typeof state.taskDetailLastFocus.focus === "function"
+    && document.contains(state.taskDetailLastFocus)
+  ) {
+    state.taskDetailLastFocus.focus({ preventScroll: true });
+  }
 }
 
 function handleDocumentKeydown(event) {
   if (event.key === "Escape") {
+    if (state.taskDetailOpen) {
+      event.preventDefault();
+      closeTaskDetail();
+      return;
+    }
     if (state.detailOpen) {
       event.preventDefault();
       closeDayDetail();
@@ -466,13 +621,15 @@ function handleDocumentKeydown(event) {
   }
 
   if (event.key !== "Tab") return;
-  if (state.detailOpen) {
+  if (state.taskDetailOpen) {
+    trapFocus(event, els.taskDialog);
+  } else if (state.detailOpen) {
     trapFocus(event, els.dayDialog);
   }
 }
 
 function trapFocus(event, container) {
-  const focusables = [...container.querySelectorAll("button, a, iframe")]
+  const focusables = [...container.querySelectorAll("button, a, iframe, [tabindex]")]
     .filter((node) => !node.disabled && node.offsetParent !== null);
   if (!focusables.length) return;
 
@@ -648,6 +805,17 @@ function toMinutes(value) {
 
 function absoluteUrl(value) {
   return new URL(value, window.location.href).href;
+}
+
+function publicAssetUrl(value) {
+  const url = new URL(value, window.location.href);
+  if (
+    /^(?:127\.0\.0\.1|localhost)$/.test(window.location.hostname)
+    && url.href.startsWith(timetableData.canonical_base_url)
+  ) {
+    return new URL(url.href.slice(timetableData.canonical_base_url.length), window.location.origin + "/").href;
+  }
+  return url.href;
 }
 
 function compareIsoDate(a, b) {

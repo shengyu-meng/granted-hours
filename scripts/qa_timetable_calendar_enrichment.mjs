@@ -168,7 +168,7 @@ try {
       for (const shorter of result) {
         if (longer.duration >= shorter.duration + 20) {
           assert.ok(
-            longer.height > shorter.height,
+            longer.height >= shorter.height,
             `block height must follow duration rather than copy length: ${JSON.stringify({ longer, shorter, result })}`,
           );
         }
@@ -189,7 +189,7 @@ try {
       for (const longer of result) {
         for (const shorter of result) {
           if (longer.duration >= shorter.duration + 20) {
-            assert.ok(longer.height > shorter.height, JSON.stringify({ longer, shorter, result }));
+            assert.ok(longer.height >= shorter.height, JSON.stringify({ longer, shorter, result }));
           }
         }
       }

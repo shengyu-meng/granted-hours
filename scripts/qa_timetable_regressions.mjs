@@ -8,105 +8,94 @@ const latestDate = [...timetableData.days].map((day) => day.date).sort().at(-1);
 const phraseCounts = new Map();
 const scheduleSignatures = new Set();
 const categoryPatternCounts = new Map();
-const categoryCounts = new Map();
 const artworkTitleLeaks = [];
 
 for (const day of timetableData.days) {
-  const signature = day.task_residues.map((task) => `${task.start}-${task.end}:${task.zh}|${task.en}`).join("||");
-  scheduleSignatures.add(signature);
+  scheduleSignatures.add(day.task_residues.map((task) => `${task.start}-${task.end}:${task.zh}|${task.en}`).join("||"));
   const categoryPattern = day.task_residues.map((task) => task.category).join("|");
   categoryPatternCounts.set(categoryPattern, (categoryPatternCounts.get(categoryPattern) || 0) + 1);
+  assert.equal(day.timeline_events.filter((event) => event.origin === "self").length, 1, day.date);
+  assert.ok(day.timeline_events.some((event) => event.origin === "background"), day.date);
+  assert.deepEqual(
+    day.timeline_events.map((event) => event.start),
+    [...day.timeline_events.map((event) => event.start)].sort(),
+    day.date,
+  );
   for (const task of day.task_residues) {
     const phrase = `${task.zh}|${task.en}`;
     phraseCounts.set(phrase, (phraseCounts.get(phrase) || 0) + 1);
-    categoryCounts.set(task.category, (categoryCounts.get(task.category) || 0) + 1);
     if (task.en.toLowerCase().includes(day.title_en.toLowerCase()) || task.zh.includes(day.title_zh)) {
-      artworkTitleLeaks.push({ date: day.date, category: task.category, en: task.en });
+      artworkTitleLeaks.push({ date: day.date, phrase });
     }
   }
 }
 
-const uniqueTaskPhrases = phraseCounts.size;
-const maxPhraseReuse = Math.max(...phraseCounts.values());
-const maxCategoryPatternReuse = Math.max(...categoryPatternCounts.values());
-assert.ok(uniqueTaskPhrases >= 100, `expected >=100 historical task phrases; got ${uniqueTaskPhrases}`);
-assert.ok(scheduleSignatures.size >= 60, `expected >=60 distinct daily schedules; got ${scheduleSignatures.size}`);
-assert.ok(maxPhraseReuse <= 10, `one task phrase is reused ${maxPhraseReuse} times; history still looks templated`);
-assert.equal(artworkTitleLeaks.length, 0, `assigned residues must not recycle autonomous artwork production: ${JSON.stringify(artworkTitleLeaks.slice(0, 5))}`);
-assert.ok(maxCategoryPatternReuse <= 20, `one assigned category skeleton is reused ${maxCategoryPatternReuse} days`);
-assert.ok((categoryCounts.get("social_media_organization") || 0) >= 20, `historical public-content work is underrepresented: ${categoryCounts.get("social_media_organization") || 0}`);
+assert.ok(phraseCounts.size >= 100, `only ${phraseCounts.size} unique phrases`);
+assert.ok(scheduleSignatures.size >= 60, `only ${scheduleSignatures.size} unique schedules`);
+assert.ok(Math.max(...phraseCounts.values()) <= 10);
+assert.ok(Math.max(...categoryPatternCounts.values()) <= 20);
+assert.equal(artworkTitleLeaks.length, 0, JSON.stringify(artworkTitleLeaks.slice(0, 5)));
 
 const browser = await chromium.launch({ headless: true });
 try {
   const context = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    deviceScaleFactor: 2.75,
+    viewport: { width: 421, height: 386 },
     isMobile: true,
     hasTouch: true,
+    deviceScaleFactor: 2.75,
   });
   const page = await context.newPage();
-  await page.goto(`${baseUrl}?regression=mobile-detail`, { waitUntil: "networkidle" });
-
-  const dateText = (await page.locator(".cell-date-number").first().textContent())?.trim() || "";
-  assert.match(dateText, /^\d{1,2}\/\d{1,2}$/, `calendar cell must show month/day, got ${JSON.stringify(dateText)}`);
-
+  await page.goto(baseUrl, { waitUntil: "networkidle" });
   await page.tap(`.calendar-day-button[data-date="${latestDate}"]`);
-  await page.waitForFunction(() => document.activeElement?.id === "closeDetail");
-
-  const before = await page.evaluate(() => {
-    const dialog = document.querySelector("#dayDialog");
-    const panel = document.querySelector(".day-dialog-panel");
-    const layout = document.querySelector(".detail-layout");
-    const lastTask = document.querySelector(".assigned-item:last-child");
-    const self = document.querySelector(".self-detail");
-
-    const roots = [dialog, panel, layout].map((element) => ({
-      selector: element.id ? `#${element.id}` : `.${element.classList[0]}`,
-      clientHeight: element.clientHeight,
-      scrollHeight: element.scrollHeight,
-      overflowY: getComputedStyle(element).overflowY,
-      touchAction: getComputedStyle(element).touchAction,
-    }));
+  await page.waitForSelector("#dayDialog.is-open");
+  const result = await page.evaluate(() => {
+    const panel = document.querySelector("#dayDialogPanel");
+    const candidates = [
+      document.querySelector("#dayDialog"),
+      panel,
+      document.querySelector(".timeline-detail"),
+      document.querySelector(".timeline-list"),
+    ].filter(Boolean);
+    const roots = candidates.map((element) => {
+      const style = getComputedStyle(element);
+      return {
+        selector: element.id ? `#${element.id}` : `.${element.classList[0]}`,
+        overflowY: style.overflowY,
+        canScroll: element.scrollHeight > element.clientHeight + 4
+          && ["auto", "scroll"].includes(style.overflowY),
+      };
+    });
+    panel.scrollTop = panel.scrollHeight;
+    const last = document.querySelector(".timeline-event:last-child").getBoundingClientRect();
     return {
       roots,
-      overlap: Math.max(0, lastTask.getBoundingClientRect().bottom - self.getBoundingClientRect().top),
-      sedimentCount: document.querySelectorAll(".sediment-track,.sediment-segment").length,
+      splitPanelCount: document.querySelectorAll(".self-detail,.detail-layout").length,
+      autonomousCount: document.querySelectorAll(".autonomous-event").length,
+      pulseCount: document.querySelectorAll(".pulse-event").length,
+      sedimentCount: document.querySelectorAll(".sediment-track").length,
+      scrollTop: panel.scrollTop,
+      maxScroll: panel.scrollHeight - panel.clientHeight,
+      lastTop: last.top,
+      lastBottom: last.bottom,
+      viewport: innerHeight,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     };
   });
-
-  assert.equal(before.sedimentCount, 0, "decorative sediment track must be removed rather than masquerading as a scrollbar");
-  assert.ok(before.overlap <= 0.5, `last assigned task overlaps autonomous section by ${before.overlap}px`);
-
-  const scrollable = before.roots.find((root) =>
-    root.scrollHeight > root.clientHeight + 4 &&
-    ["auto", "scroll"].includes(root.overflowY) &&
-    root.touchAction !== "none"
-  );
-  assert.ok(scrollable, `no real touch-scroll container found: ${JSON.stringify(before.roots)}`);
-
-  const scrollResult = await page.locator(scrollable.selector).evaluate((element) => {
-    element.scrollTo({ top: element.scrollHeight, behavior: "instant" });
-    return { scrollTop: element.scrollTop, max: element.scrollHeight - element.clientHeight };
-  });
-  assert.ok(scrollResult.scrollTop > 0, `scroll root ${scrollable.selector} did not move`);
-  assert.ok(scrollResult.scrollTop >= scrollResult.max - 2, `scroll root ${scrollable.selector} cannot reach bottom`);
-
-  const enterVisible = await page.locator("#enterAutonomous").evaluate((element) => {
-    const rect = element.getBoundingClientRect();
-    return rect.top < innerHeight && rect.bottom > 0;
-  });
-  assert.ok(enterVisible, "autonomous live-work button is not reachable after scrolling to bottom");
-
-  console.log(JSON.stringify({
-    passed: true,
-    latestDate,
-    uniqueTaskPhrases,
-    distinctDailySchedules: scheduleSignatures.size,
-    maxPhraseReuse,
-    dateText,
-    scrollable,
-    scrollResult,
-  }, null, 2));
+  assert.deepEqual(result.roots.filter((root) => root.canScroll).map((root) => root.selector), ["#dayDialogPanel"]);
+  assert.equal(result.splitPanelCount, 0);
+  assert.equal(result.autonomousCount, 1);
+  assert.ok(result.pulseCount > 0);
+  assert.equal(result.sedimentCount, 0);
+  assert.ok(result.scrollTop >= result.maxScroll - 2);
+  assert.ok(result.lastTop >= -1 && result.lastBottom <= result.viewport + 1);
+  assert.ok(result.overflow <= 1);
+  await context.close();
 } finally {
   await browser.close();
 }
+
+console.log(JSON.stringify({
+  passed: true,
+  uniqueTaskPhrases: phraseCounts.size,
+  uniqueSchedules: scheduleSignatures.size,
+}, null, 2));

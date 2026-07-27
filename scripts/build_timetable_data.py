@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
 DEFAULT_CONFIG = ROOT / "metadata" / "timetable-calendar.json"
 DEFAULT_HISTORY = ROOT / "metadata" / "timetable-history.json"
+DEFAULT_PULSES = ROOT / "metadata" / "timetable-pulses.json"
 DEFAULT_LEGACY_OVERRIDES = ROOT / "metadata" / "timetable-v1.json"
 DEFAULT_OUTPUT = ROOT / "src" / "timetable" / "timetable-data.js"
 
@@ -26,6 +27,7 @@ REQUIRED_PUBLIC_FIELDS = (
     "variable_zh",
     "gif",
     "preview",
+    "visual_preview",
     "archive_url",
     "live_url",
     "bgm",
@@ -49,6 +51,65 @@ SENSITIVE_ASSIGNED_WORK_RE = re.compile(
 PRIVATE_OPERATIONAL_CONTEXT_RE = re.compile(
     r"(?i)(?:openclaw|hermes)(?:\s+(?:agent|skills?|workflow|watchdog|host-health))"
     r"|(?:wechat|微信).{0,64}(?:local\s+history|本地历史|incremental\s+messages|增量消息|private\s+chats|私聊)"
+)
+EDUCATION_IDENTITY_RE = re.compile(
+    r"(?i)\b(?:school|university|college|faculty|department|institute|academy|"
+    r"accounting|digital[- ]accounting|mba|degree|undergraduate|graduate|"
+    r"bachelor(?:'s)?|master(?:'s)?|doctoral|education|teaching|teacher|instructor|"
+    r"course(?:work|s|[- ]materials?|[- ]program)?|syllabus|curriculum|"
+    r"dissertation|talent[- ](?:training|development))\b"
+    r"|\b(?:academic\s+major|major\s+(?:identity|program|subject|field))\b"
+    r"|(?:学校|大学|学院|学部|院系|系部|研究院|研究所|书院|教师|导师|专业|"
+    r"财会|会计|工商管理硕士|数智人才|人才培养|本科|硕士|博士|学位|课程|课件|"
+    r"教学|教案|毕业设计)"
+    r"|(?:本科|硕士|博士|学位|毕业|会计).{0,8}论文"
+    r"|论文.{0,8}(?:评阅|外审|导师|学生|学位)"
+)
+PROPOSAL_TITLE_CONTEXT_RE = re.compile(
+    r"(?i)\b(?:school|university|college|faculty|department|institute|academy|"
+    r"accounting|digital[- ]accounting|mba|education|course|curriculum|"
+    r"talent[- ](?:training|development))(?:[a-z0-9&/()'’-]*[ -]+){0,5}"
+    r"(?:proposal|application)\b"
+    r"|(?:学校|大学|学院|学部|院系|研究院|研究所|书院|专业|财会|会计|人才培养|"
+    r"本科|硕士|博士|学位|课程|教学)[^，。；;]{0,24}(?:申报书|申请书)"
+    r"|《[^》]{2,40}》(?:申报书|申请书)"
+)
+FINANCE_DOMAIN_KEYWORDS = (
+    "finance",
+    "financial",
+    "market",
+    "market-data",
+    "premarket",
+    "stock",
+    "stocks",
+    "a-share",
+    "hong kong",
+    "investment",
+    "equity",
+    "securities",
+    "option",
+    "put",
+    "covered-call",
+    "portfolio",
+    "trading",
+    "trades",
+    "broker",
+    "futures",
+    "fund",
+    "capital flow",
+    "财经",
+    "金融",
+    "市场",
+    "股票",
+    "A股",
+    "港股",
+    "美股",
+    "证券",
+    "期权",
+    "投资",
+    "行情",
+    "基金",
+    "资本流",
 )
 THEME_MOTIFS = {"window", "seam", "bridge", "echo", "weather", "time", "room", "light", "void"}
 THEME_MOTIF_RULES = (
@@ -185,25 +246,39 @@ SPECIAL_TASK_TYPE_RULES = (
             "课程讲义",
         ),
     ),
-    (
-        "investment_research",
-        {"document_processing", "research_synthesis"},
-        (
-            "finance",
-            "financial",
-            "market",
-            "stock",
-            "price",
-            "investment",
-            "财经",
-            "金融",
-            "市场",
-            "股票",
-            "价格",
-            "投资",
-        ),
-    ),
 )
+PULSE_DEFINITIONS = {
+    "ah_market_scan": {
+        "label_en": "A/H market scan",
+        "label_zh": "A/H 市场扫描",
+        "color": "green",
+    },
+    "us_market_scan": {
+        "label_en": "U.S. market scan",
+        "label_zh": "美股市场扫描",
+        "color": "green",
+    },
+    "ai_daily_brief": {
+        "label_en": "AI daily brief",
+        "label_zh": "AI 日报",
+        "color": "cyan",
+    },
+    "daily_reminder": {
+        "label_en": "Daily reminder",
+        "label_zh": "每日提醒",
+        "color": "amber",
+    },
+    "system_routine": {
+        "label_en": "System routine",
+        "label_zh": "系统例行任务",
+        "color": "blue",
+    },
+    "background_routine": {
+        "label_en": "Background routine",
+        "label_zh": "后台例行任务",
+        "color": "slate",
+    },
+}
 
 
 def minutes(value: str) -> int:
@@ -429,12 +504,11 @@ TASK_NAME_EXACT.update({
     ("research_synthesis", "Audit historical schedule diversity and provenance across public dates"): ("日程溯源审计", "Schedule provenance audit"),
     ("research_synthesis", "Check source freshness before carrying public claims forward"): ("来源时效检查", "Source freshness check"),
     ("research_synthesis", "Verify public-source freshness and register unresolved evidence gaps"): ("公开来源时效核验", "Public-source freshness verification"),
-    ("document_processing", "Draft an accounting-AI talent development proposal against each application requirement"): ("项目申报书", "Project proposal"),
-    ("document_processing", "Map accounting-AI talent development requirements into a clear proposal submission checklist"): ("申报提交清单", "Proposal submission checklist"),
-    ("research_synthesis", "Verify official education requirements for the accounting-AI talent development proposal and preserve citation context"): ("申报政策核验", "Proposal policy verification"),
-    ("research_synthesis", "Review the accounting-AI proposal claims against official rules and documented teaching practice"): ("申报主张复核", "Proposal claim review"),
-    ("document_processing", "Study institutional standards and distill a reusable thesis-review rubric"): ("论文审阅量规", "Thesis review rubric"),
-    ("document_processing", "Review anonymized thesis drafts and anchor comments to exact passages"): ("匿名论文审阅", "Anonymized thesis review"),
+    ("document_processing", "Completed the main ████ proposal, research framework, and technical route for ████, retaining explicit gaps for missing facts."): ("████申报书编制", "████ proposal drafting"),
+    ("document_processing", "Revised the ████ proposal against nine comments, verified references, reduced scope, and redrew the figures."): ("████申报书修订", "████ proposal revision"),
+    ("document_processing", "Used existing ████ materials to complete the ████ plan and related templates for ████."): ("████模板填报", "████ template completion"),
+    ("document_processing", "Applied ████ standards to complete anchored comments, issue summaries, and DOCX validation for the first batch of ████ manuscripts."): ("████文稿批注", "████ manuscript annotation"),
+    ("document_processing", "Completed a pre-external-review audit of a ████ manuscript for ████, inserted anchored comments, and verified text, anchors, authorship, and file integrity."): ("████文稿复核", "████ manuscript review"),
     ("code_development", "Fix mobile artwork text overlap and refine detail layout responsiveness"): ("移动作品重叠修复", "Mobile artwork overlap repair"),
     ("visual_production", "Design and integrate deterministic theme-derived planner doodles as SVG motifs"): ("主题图案设计", "Theme doodle design"),
 })
@@ -488,6 +562,16 @@ def keyword_matches(keyword: str, description_en: str, description_zh: str) -> b
 
 def derive_task_type(category: str, description_en: str, description_zh: str) -> dict:
     """Expose a stable public work type, using specialties only when the text supports them."""
+    if category != "redacted_private" and is_finance_domain(description_en, description_zh):
+        definition = TASK_TYPE_DEFINITIONS["investment_research"]
+        return {
+            "task_type": "investment_research",
+            "task_type_zh": definition["zh"],
+            "task_type_en": definition["en"],
+            "task_color": definition["color"],
+            "task_icon": definition["icon"],
+        }
+
     for task_type, eligible_categories, keywords in SPECIAL_TASK_TYPE_RULES:
         if category in eligible_categories and any(
             keyword_matches(keyword, description_en, description_zh) for keyword in keywords
@@ -510,6 +594,20 @@ def derive_task_type(category: str, description_en: str, description_zh: str) ->
         "task_color": definition["color"],
         "task_icon": definition["icon"],
     }
+
+
+def is_finance_domain(description_en: str, description_zh: str) -> bool:
+    """Classify the domain after removing explicit non-finance negations."""
+    cleaned_en = re.sub(
+        r"(?i)\b(?:non[- ]?financial|non[- ]?finance|not\s+(?:a\s+)?financial)\b",
+        "",
+        description_en,
+    )
+    cleaned_zh = re.sub(r"(?:非金融|非投资)", "", description_zh)
+    return any(
+        keyword_matches(keyword, cleaned_en, cleaned_zh)
+        for keyword in FINANCE_DOMAIN_KEYWORDS
+    )
 
 
 def derive_theme_motif(public_entry: dict, config: dict) -> str:
@@ -666,6 +764,8 @@ def load_history(path: Path) -> dict[str, dict]:
             public_copy = f"{residue['en']} {residue['zh']}"
             require(not SENSITIVE_ASSIGNED_WORK_RE.search(public_copy), f"{day_date} residue {index + 1} exposes holdings or position activity")
             require(not PRIVATE_OPERATIONAL_CONTEXT_RE.search(public_copy), f"{day_date} residue {index + 1} exposes private operational context")
+            require(not EDUCATION_IDENTITY_RE.search(public_copy), f"{day_date} residue {index + 1} exposes education or profession identity")
+            require(not PROPOSAL_TITLE_CONTEXT_RE.search(public_copy), f"{day_date} residue {index + 1} exposes a proposal title or topic")
             require(residue["redaction_status"] in {"none", "partial", "withheld"}, f"{day_date} residue {index + 1} has invalid redaction status")
             require(isinstance(residue["redaction_count"], int) and residue["redaction_count"] >= 0, f"{day_date} residue {index + 1} has invalid redaction count")
             require(residue["source_kind"] in {"daily_record", "maintenance_record", "task_card", "public_post_archive", "withheld"}, f"{day_date} residue {index + 1} has invalid source kind")
@@ -689,6 +789,48 @@ def load_legacy(path: Path) -> dict[str, dict]:
         return {}
     source = read_json(path)
     return {item["date"]: item for item in source.get("days", []) if item.get("date")}
+
+
+def load_pulses(path: Path) -> dict[str, list[dict]]:
+    require(path.exists(), f"Pulse snapshot does not exist: {path}")
+    source = read_json(path)
+    require(
+        source.get("schema") == "granted-hours-timetable-pulses-v1",
+        "Pulse snapshot schema must be granted-hours-timetable-pulses-v1",
+    )
+    require(source.get("timezone") == "Asia/Shanghai", "Pulse snapshot timezone must be Asia/Shanghai")
+    days = source.get("days")
+    require(isinstance(days, list), "Pulse snapshot days must be a list")
+    result: dict[str, list[dict]] = {}
+    for entry in days:
+        require(isinstance(entry, dict) and set(entry) == {"date", "pulses"}, "Pulse day has invalid fields")
+        day_date = entry["date"]
+        parse_date(day_date)
+        require(day_date not in result, f"Duplicate pulse date: {day_date}")
+        pulses = entry["pulses"]
+        require(isinstance(pulses, list), f"{day_date} pulses must be a list")
+        clean_pulses = []
+        for pulse in pulses:
+            require(
+                isinstance(pulse, dict)
+                and set(pulse) == {"time", "time_bucket", "category", "count"},
+                f"{day_date} pulse has invalid fields",
+            )
+            require(pulse["category"] in PULSE_DEFINITIONS, f"{day_date} pulse has unknown category")
+            require(re.fullmatch(r"\d{2}:\d{2}", pulse["time"]) is not None, f"{day_date} pulse has invalid time")
+            require(0 <= minutes(pulse["time"]) < MINUTES_PER_DAY, f"{day_date} pulse time is outside the day")
+            require(
+                pulse["time_bucket"] in {"overnight", "dawn", "morning", "midday", "afternoon", "evening"},
+                f"{day_date} pulse has invalid time bucket",
+            )
+            require(isinstance(pulse["count"], int) and pulse["count"] > 0, f"{day_date} pulse count must be positive")
+            clean_pulses.append(dict(pulse))
+        require(
+            clean_pulses == sorted(clean_pulses, key=lambda item: (minutes(item["time"]), item["category"])),
+            f"{day_date} pulses must be chronological",
+        )
+        result[day_date] = clean_pulses
+    return result
 
 
 def inferred_history(public_entry: dict) -> dict:
@@ -757,6 +899,11 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
         else:
             task_name_zh, task_name_en = derive_task_name(category, description_en, description_zh)
         task_type = derive_task_type(category, description_en, description_zh)
+        require(
+            not EDUCATION_IDENTITY_RE.search(f"{task_name_en} {task_name_zh}")
+            and not PROPOSAL_TITLE_CONTEXT_RE.search(f"{task_name_en} {task_name_zh}"),
+            f"{day_date} generated task name exposes education or proposal identity",
+        )
         duration_minutes = minutes(end) - minutes(start)
         redaction_status = residue.get("redaction_status", "none")
         redaction_count = residue.get("redaction_count", 0)
@@ -812,6 +959,36 @@ def build_cell_assigned(tasks: list[dict]) -> list[dict]:
     return markers
 
 
+def build_background_pulses(pulses: list[dict]) -> list[dict]:
+    events = []
+    for pulse in pulses:
+        definition = PULSE_DEFINITIONS[pulse["category"]]
+        events.append(
+            {
+                "origin": "background",
+                "category": pulse["category"],
+                "start": pulse["time"],
+                "time_bucket": pulse["time_bucket"],
+                "count": pulse["count"],
+                "label_en": definition["label_en"],
+                "label_zh": definition["label_zh"],
+                "pulse_color": definition["color"],
+            }
+        )
+    return events
+
+
+def timeline_event_priority(event: dict) -> int:
+    return {"self": 0, "assigned": 1, "background": 2}.get(event.get("origin"), 9)
+
+
+def build_timeline_events(tasks: list[dict], autonomous_work: dict, pulses: list[dict]) -> list[dict]:
+    return sorted(
+        [*tasks, autonomous_work, *pulses],
+        key=lambda event: (minutes(event["start"]), timeline_event_priority(event)),
+    )
+
+
 def default_jewel(public_entry: dict, config: dict) -> tuple[str, str]:
     return (
         (
@@ -854,6 +1031,7 @@ def build_autonomous_work(public_entry: dict, config: dict, legacy_entry: dict |
         "live_url": public_entry["live_url"],
         "preview": public_entry["preview"],
         "preview_url": public_entry["preview"],
+        "visual_preview_url": public_entry["visual_preview"],
         "gif_url": public_entry["gif"],
         "bgm_url": public_entry["bgm"],
     }
@@ -973,9 +1151,9 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
 
 
 def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict) -> None:
-    for field in ("date", "title_en", "title_zh", "variable_en", "variable_zh", "archive_url", "live_url", "preview"):
+    for field in ("date", "title_en", "title_zh", "variable_en", "variable_zh", "archive_url", "live_url", "preview", "visual_preview"):
         require(str(day.get(field, "")).strip(), f"{day.get('date')} missing {field}")
-    for field in ("archive_url", "live_url", "preview", "gif", "bgm"):
+    for field in ("archive_url", "live_url", "preview", "visual_preview", "gif", "bgm"):
         require(day[field].startswith("https://"), f"{day['date']} {field} must be an absolute URL")
     require(day.get("theme_motif") in THEME_MOTIFS, f"{day['date']} needs a semantic theme_motif")
 
@@ -983,12 +1161,24 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
 
     self_work = day["autonomous_work"]
     require(self_work.get("origin") == "self", f"{day['date']} autonomous_work must have origin self")
-    for field in ("start", "end", "title_en", "title_zh", "variable_en", "variable_zh", "en", "zh", "note_en", "note_zh", "live_url", "preview_url", "gif_url", "bgm_url"):
+    for field in ("start", "end", "title_en", "title_zh", "variable_en", "variable_zh", "en", "zh", "note_en", "note_zh", "live_url", "preview_url", "visual_preview_url", "gif_url", "bgm_url"):
         require(str(self_work.get(field, "")).strip(), f"{day['date']} autonomous_work missing {field}")
-    for field in ("preview_url", "gif_url", "bgm_url"):
+    for field in ("preview_url", "visual_preview_url", "gif_url", "bgm_url"):
         require(self_work[field].startswith("https://"), f"{day['date']} autonomous {field} must be an absolute URL")
     require(minutes(self_work["start"]) == minutes(autonomous["start"]), f"{day['date']} autonomous start mismatch")
     require(minutes(self_work["end"]) == minutes(autonomous["end"]), f"{day['date']} autonomous end mismatch")
+
+    pulses = day.get("background_pulses")
+    require(isinstance(pulses, list), f"{day['date']} background_pulses must be a list")
+    for pulse in pulses:
+        require(pulse.get("origin") == "background", f"{day['date']} pulse origin must be background")
+        require(pulse.get("category") in PULSE_DEFINITIONS, f"{day['date']} pulse category is invalid")
+        require(isinstance(pulse.get("count"), int) and pulse["count"] > 0, f"{day['date']} pulse count is invalid")
+    timeline = day.get("timeline_events")
+    require(
+        timeline == build_timeline_events(day["task_residues"], self_work, pulses),
+        f"{day['date']} unified timeline is not chronological",
+    )
 
     require(day.get("relations"), f"{day['date']} needs at least one semantic relation")
     for relation in day["relations"]:
@@ -1006,6 +1196,7 @@ def build_data(
     config: dict,
     legacy_by_date: dict[str, dict],
     history_by_date: dict[str, dict],
+    pulses_by_date: dict[str, list[dict]] | None = None,
 ) -> dict:
     dates = validate_public_days(public_days)
     validate_config(config)
@@ -1014,6 +1205,8 @@ def build_data(
     output_days = []
     require(history_by_date, "At least one authored history entry is required")
     latest_authored_date = max(history_by_date)
+    pulses_by_date = pulses_by_date or {}
+    latest_pulse_date = max(pulses_by_date) if pulses_by_date else ""
 
     for public_entry in public_days:
         day_date = public_entry["date"]
@@ -1027,6 +1220,7 @@ def build_data(
             "archive_url": canonical_url(base_url, public_entry["archive_url"]),
             "live_url": canonical_url(base_url, public_entry["live_url"]),
             "preview": canonical_url(base_url, public_entry["preview"]),
+            "visual_preview": canonical_url(base_url, public_entry["visual_preview"]),
             "gif": canonical_url(base_url, public_entry["gif"]),
             "bgm": canonical_url(base_url, public_entry["bgm"]),
         }
@@ -1035,6 +1229,7 @@ def build_data(
         require(public_absolute["archive_url"] == archive_root, f"{public_entry['date']} archive_url must stay on the canonical day path")
         require(public_absolute["live_url"] == f"{archive_root}live/", f"{public_entry['date']} live_url must stay on the canonical live path")
         require(public_absolute["preview"] == f"{archive_root}assets/preview.png", f"{public_entry['date']} preview must stay on the canonical asset path")
+        require(public_absolute["visual_preview"] == f"{archive_root}assets/visual-preview.webp", f"{public_entry['date']} visual preview must stay on the canonical asset path")
         require(public_absolute["gif"] == f"{archive_root}assets/preview.gif", f"{public_entry['date']} gif must stay on the canonical asset path")
         bgm_parts = urlsplit(public_absolute["bgm"])
         live_parts = urlsplit(f"{archive_root}live/")
@@ -1056,6 +1251,12 @@ def build_data(
         legacy_entry = legacy_by_date.get(day_date)
         tasks, history_provenance = build_tasks(public_absolute, config, history_entry)
         autonomous_work = build_autonomous_work(public_absolute, config, legacy_entry)
+        pulse_source = pulses_by_date.get(day_date, [])
+        require(
+            pulse_source or not latest_pulse_date or day_date > latest_pulse_date,
+            f"{day_date} is missing real scheduler run evidence",
+        )
+        background_pulses = build_background_pulses(pulse_source)
         relations = build_relations(day_date, public_absolute, dates, public_by_date, legacy_entry)
         day = {
             **{field: public_absolute[field] for field in REQUIRED_PUBLIC_FIELDS},
@@ -1073,6 +1274,8 @@ def build_data(
             },
             "task_residues": tasks,
             "autonomous_work": autonomous_work,
+            "background_pulses": background_pulses,
+            "timeline_events": build_timeline_events(tasks, autonomous_work, background_pulses),
             "relations": relations,
         }
         validate_day(day, set(dates), len(dates), config["autonomous_hour"])
@@ -1097,6 +1300,7 @@ def build_data(
         "note_en": config["public_data_note"]["en"],
         "note_zh": config["public_data_note"]["zh"],
         "taxonomy": config["taxonomy"],
+        "pulse_taxonomy": PULSE_DEFINITIONS,
         "bgm_playlist": bgm_playlist,
         "days": output_days,
     }
@@ -1107,6 +1311,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--public-days", type=Path, default=DEFAULT_PUBLIC_DAYS)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY)
+    parser.add_argument("--pulses", type=Path, default=DEFAULT_PULSES)
     parser.add_argument("--legacy-overrides", type=Path, default=DEFAULT_LEGACY_OVERRIDES)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args()
@@ -1117,8 +1322,9 @@ def main() -> int:
     public_days = read_json(args.public_days)
     config = read_json(args.config)
     history_by_date = load_history(args.history)
+    pulses_by_date = load_pulses(args.pulses)
     legacy_by_date = load_legacy(args.legacy_overrides)
-    output_data = build_data(public_days, config, legacy_by_date, history_by_date)
+    output_data = build_data(public_days, config, legacy_by_date, history_by_date, pulses_by_date)
 
     output_path = args.output
     output_path.parent.mkdir(parents=True, exist_ok=True)

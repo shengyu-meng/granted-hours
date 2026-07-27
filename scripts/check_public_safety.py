@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Lightweight public mirror safety scan for 授时 / Granted Hours."""
 from __future__ import annotations
-import re, sys
+import argparse
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,19 +31,59 @@ PATTERNS = [
         ),
     ),
 ]
+EDUCATION_IDENTITY_RE = re.compile(
+    r"(?i)\b(?:school|university|college|faculty|department|institute|academy|"
+    r"accounting|digital[- ]accounting|mba|degree|undergraduate|graduate|"
+    r"bachelor(?:'s)?|master(?:'s)?|doctoral|education|teaching|teacher|instructor|"
+    r"course(?:work|s|[- ]materials?|[- ]program)?|syllabus|curriculum|"
+    r"dissertation|talent[- ](?:training|development))\b"
+    r"|\b(?:academic\s+major|major\s+(?:identity|program|subject|field))\b"
+    r"|(?:学校|大学|学院|学部|院系|系部|研究院|研究所|书院|教师|导师|专业|"
+    r"财会|会计|工商管理硕士|数智人才|人才培养|本科|硕士|博士|学位|课程|课件|"
+    r"教学|教案|毕业设计)"
+    r"|(?:MBA|stress-management|压力管理|财会专业|会计专业|财会人才|会计人才|影子回放|规则提案|shadow replay)"
+    r"|(?:本科|硕士|博士|学位|毕业|会计).{0,8}论文"
+    r"|论文.{0,8}(?:评阅|外审|导师|学生|学位)"
+)
+PROPOSAL_TITLE_CONTEXT_RE = re.compile(
+    r"(?i)\b(?:school|university|college|faculty|department|institute|academy|"
+    r"accounting|digital[- ]accounting|mba|education|course|curriculum|"
+    r"talent[- ](?:training|development))(?:[a-z0-9&/()'’-]*[ -]+){0,5}"
+    r"(?:proposal|application)\b"
+    r"|(?:学校|大学|学院|学部|院系|研究院|研究所|书院|专业|财会|会计|人才培养|"
+    r"本科|硕士|博士|学位|课程|教学)[^，。；;]{0,24}(?:申报书|申请书)"
+    r"|《[^》]{2,40}》(?:申报书|申请书)"
+)
+PULSE_PRIVATE_ID_RE = re.compile(
+    r"(?i)\b(?:job[_ -]?id|channel|delivery[_ -]?target|prompt)\b"
+    r"|\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b"
+)
 SKIP_DIRS = {'.git', 'node_modules'}
-SKIP_FILES = {'scripts/check_public_safety.py', 'scripts/import_free_roam_artifacts.py', 'scripts/build_timetable_data.py'}
+SKIP_PREFIXES = {'audits/', 'docs/plans/'}
+SKIP_FILES = {
+    'scripts/check_public_safety.py',
+    'scripts/import_free_roam_artifacts.py',
+    'scripts/import_timetable_pulses.py',
+    'scripts/build_timetable_data.py',
+}
 
 def allowed(line: str) -> bool:
     return any(x in line for x in ALLOW)
 
-def main() -> int:
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, default=ROOT)
+    return parser.parse_args()
+
+
+def main(root: Path) -> int:
     findings = []
-    for path in ROOT.rglob('*'):
+    root = root.resolve()
+    for path in root.rglob('*'):
         if path.is_dir() or any(part in SKIP_DIRS for part in path.parts):
             continue
-        rel = path.relative_to(ROOT).as_posix()
-        if rel in SKIP_FILES:
+        rel = path.relative_to(root).as_posix()
+        if rel in SKIP_FILES or any(rel.startswith(prefix) for prefix in SKIP_PREFIXES):
             continue
         try:
             text = path.read_text(encoding='utf-8')
@@ -54,6 +95,15 @@ def main() -> int:
             for name, rx in PATTERNS:
                 if rx.search(line):
                     findings.append((rel, i, name, line.strip()[:220]))
+            if rel == "metadata/timetable-history.json":
+                for name, rx in (
+                    ("education_identity", EDUCATION_IDENTITY_RE),
+                    ("proposal_title_context", PROPOSAL_TITLE_CONTEXT_RE),
+                ):
+                    if rx.search(line):
+                        findings.append((rel, i, name, line.strip()[:220]))
+            if rel == "metadata/timetable-pulses.json" and PULSE_PRIVATE_ID_RE.search(line):
+                findings.append((rel, i, "cron_private_identifier", line.strip()[:220]))
     if findings:
         print('Public safety scan found possible issues:')
         for rel, i, name, line in findings:
@@ -63,4 +113,4 @@ def main() -> int:
     return 0
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    raise SystemExit(main(parse_args().root))

@@ -32,6 +32,7 @@ class TimetableBuilderTests(unittest.TestCase):
         cls.public_days = builder.read_json(builder.DEFAULT_PUBLIC_DAYS)
         cls.config = builder.read_json(builder.DEFAULT_CONFIG)
         cls.history = builder.load_history(builder.DEFAULT_HISTORY)
+        cls.pulses = builder.load_pulses(builder.DEFAULT_PULSES)
         cls.legacy = builder.load_legacy(builder.DEFAULT_LEGACY_OVERRIDES)
 
     def build(self, public_days=None):
@@ -40,6 +41,7 @@ class TimetableBuilderTests(unittest.TestCase):
             self.config,
             self.legacy,
             self.history,
+            self.pulses,
         )
 
     def test_authored_history_covers_every_current_public_date(self) -> None:
@@ -86,6 +88,8 @@ class TimetableBuilderTests(unittest.TestCase):
                 public_copy = f"{residue['en']} {residue['zh']}"
                 self.assertIsNone(builder.SENSITIVE_ASSIGNED_WORK_RE.search(public_copy))
                 self.assertIsNone(builder.PRIVATE_OPERATIONAL_CONTEXT_RE.search(public_copy))
+                self.assertIsNone(builder.EDUCATION_IDENTITY_RE.search(public_copy))
+                self.assertIsNone(builder.PROPOSAL_TITLE_CONTEXT_RE.search(public_copy))
                 self.assertNotRegex(residue["en"], r"(?:/Users/|\\Users\\|\.md\b|session[_ -]?id|chat[_ -]?id)")
                 self.assertNotRegex(residue["zh"], r"(?:/Users/|\\Users\\|\.md\b|会话ID|聊天ID)")
                 if residue["redaction_status"] == "none":
@@ -147,6 +151,39 @@ class TimetableBuilderTests(unittest.TestCase):
         second = json.dumps(self.build(), ensure_ascii=False, sort_keys=True)
         self.assertEqual(first, second)
 
+    def test_every_public_day_has_public_safe_real_scheduler_pulses(self) -> None:
+        output = self.build()
+        allowed_categories = set(builder.PULSE_DEFINITIONS)
+        self.assertEqual(
+            {day["date"] for day in output["days"]},
+            set(self.pulses),
+        )
+        for day in output["days"]:
+            self.assertTrue(day["background_pulses"], f"{day['date']} needs real run evidence")
+            starts = [builder.minutes(pulse["start"]) for pulse in day["background_pulses"]]
+            self.assertEqual(starts, sorted(starts))
+            for pulse in day["background_pulses"]:
+                self.assertEqual(pulse["origin"], "background")
+                self.assertIn(pulse["category"], allowed_categories)
+                self.assertGreaterEqual(pulse["count"], 1)
+                self.assertRegex(pulse["start"], r"^\d{2}:\d{2}$")
+                self.assertNotIn("job", json.dumps(pulse, ensure_ascii=False).lower())
+            timeline = day["timeline_events"]
+            self.assertEqual(
+                timeline,
+                sorted(
+                    timeline,
+                    key=lambda event: (
+                        builder.minutes(event["start"]),
+                        builder.timeline_event_priority(event),
+                    ),
+                ),
+            )
+            self.assertEqual(
+                sum(event["origin"] == "self" for event in timeline),
+                1,
+            )
+
     def test_autonomous_media_and_main_bgm_playlist_are_complete_and_latest_first(self) -> None:
         output = self.build()
         self.assertEqual(len(output["bgm_playlist"]), len(output["days"]))
@@ -168,6 +205,8 @@ class TimetableBuilderTests(unittest.TestCase):
             self.assertRegex(autonomous["bgm_url"], r"^https://.+\.mp3$")
             self.assertEqual(autonomous["preview_url"], f"{archive_root}assets/preview.png")
             self.assertEqual(autonomous["gif_url"], f"{archive_root}assets/preview.gif")
+            self.assertEqual(autonomous["visual_preview_url"], f"{archive_root}assets/visual-preview.webp")
+            self.assertRegex(autonomous["visual_preview_url"], r"^https://.+visual-preview\.webp$")
             self.assertTrue(autonomous["bgm_url"].startswith(f"{archive_root}live/"))
 
     def test_task_names_use_token_boundaries_and_stay_specific(self) -> None:
@@ -314,27 +353,100 @@ class TimetableBuilderTests(unittest.TestCase):
             any(any(token in task["en"].lower() for token in ("market", "stock", "a-share", "investment")) for task in market_tasks)
         )
 
-    def test_special_task_types_do_not_override_the_actual_work_medium(self) -> None:
-        code_task = builder.derive_task_type(
-            "code_development",
-            "Check that market-data gaps cannot silently become action signals",
-            "检查市场数据缺口不会静默转化为行动信号",
-        )
-        self.assertEqual(code_task["task_type"], "software_development")
+    def test_finance_domain_precedes_the_execution_medium(self) -> None:
+        cases = [
+            (
+                "code_development",
+                "Check that market-data gaps cannot silently become investment signals",
+                "检查市场数据缺口不会静默转化为投资信号",
+            ),
+            (
+                "social_media_organization",
+                "Draft a public post about an investment-research result",
+                "撰写一条介绍投资研究结果的公开帖",
+            ),
+            (
+                "system_maintenance",
+                "Repair the market-data monitoring service",
+                "修复市场数据监控服务",
+            ),
+            (
+                "research_synthesis",
+                "Challenge an investment thesis with market counterevidence",
+                "以市场反证检验投资论点",
+            ),
+            (
+                "document_processing",
+                "Publish a financial research briefing",
+                "发布金融研究简报",
+            ),
+            (
+                "research_synthesis",
+                "Challenge a materials-stocks thesis with public evidence",
+                "以公开证据检验材料股票投资论点",
+            ),
+            (
+                "research_synthesis",
+                "Build a confidence-labeled premarket digest that cannot trigger trades",
+                "建立带置信度标签且不能触发交易的盘前简报",
+            ),
+        ]
+        for category, en, zh in cases:
+            with self.subTest(category=category, en=en):
+                self.assertEqual(
+                    builder.derive_task_type(category, en, zh)["task_type"],
+                    "investment_research",
+                )
 
-        social_task = builder.derive_task_type(
-            "social_media_organization",
-            "Draft a Weibo post about an investment-research result",
-            "撰写一条介绍投资研究结果的微博",
-        )
-        self.assertEqual(social_task["task_type"], "social_content")
+        negatives = [
+            (
+                "code_development",
+                "Repair a non-financial public website",
+                "修复一个非金融公共网站",
+                "software_development",
+            ),
+            (
+                "system_maintenance",
+                "Audit evidence freshness for the archive",
+                "审计归档证据的新鲜度",
+                "system_operations",
+            ),
+            (
+                "social_media_organization",
+                "Schedule a public artwork post",
+                "安排一条公共艺术作品帖",
+                "social_content",
+            ),
+        ]
+        for category, en, zh, expected in negatives:
+            with self.subTest(category=category, en=en):
+                self.assertEqual(builder.derive_task_type(category, en, zh)["task_type"], expected)
 
-        maintenance_task = builder.derive_task_type(
-            "system_maintenance",
-            "Repair the market-data monitoring service",
-            "修复市场数据监控服务",
-        )
-        self.assertEqual(maintenance_task["task_type"], "system_operations")
+    def test_education_and_proposal_context_gates_are_precise(self) -> None:
+        education_leaks = [
+            "Completed an accounting thesis review",
+            "Prepared MBA stress-management course templates",
+            "Reviewed the Faculty of Business application",
+            "完成会计本科论文评阅",
+            "依据某学院规范整理课程",
+            "完成数智财会人才培养项目申报书",
+        ]
+        for text in education_leaks:
+            with self.subTest(text=text):
+                self.assertTrue(
+                    builder.EDUCATION_IDENTITY_RE.search(text)
+                    or builder.PROPOSAL_TITLE_CONTEXT_RE.search(text)
+                )
+
+        allowed = [
+            "Audit evidence freshness for a public archive",
+            "Review an investment thesis against market evidence",
+            "整理投资研究与金融市场证据",
+        ]
+        for text in allowed:
+            with self.subTest(text=text):
+                self.assertIsNone(builder.EDUCATION_IDENTITY_RE.search(text))
+                self.assertIsNone(builder.PROPOSAL_TITLE_CONTEXT_RE.search(text))
 
     def test_authored_and_inferred_name_semantics_are_table_driven(self) -> None:
         cases = [
@@ -399,6 +511,7 @@ class TimetableBuilderTests(unittest.TestCase):
                 "variable_en": "Aperture",
                 "variable_zh": "孔径",
                 "preview": f"archive/2026/07/{future_date}/assets/preview.png",
+                "visual_preview": f"archive/2026/07/{future_date}/assets/visual-preview.webp",
                 "gif": f"archive/2026/07/{future_date}/assets/preview.gif",
                 "bgm": f"archive/2026/07/{future_date}/live/{future_date}-synthetic-future-aperture-bgm.mp3",
                 "archive_url": f"archive/2026/07/{future_date}/",
@@ -485,6 +598,7 @@ class TimetableBuilderTests(unittest.TestCase):
                 self.config,
                 self.legacy,
                 incomplete_history,
+                self.pulses,
             )
 
 

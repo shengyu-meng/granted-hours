@@ -70,33 +70,45 @@
 
     <section class="day-dialog" id="dayDialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-describedby="dialogBoundary" hidden>
       <div class="day-dialog-panel" id="dayDialogPanel" role="document">
-        <button class="dialog-close" id="closeDetail" type="button">Close / 关闭</button>
+        <nav class="dialog-toolbar" aria-label="Public day navigation / 公开日期导航">
+          <button class="dialog-day-nav" id="prevDay" type="button" aria-label="Previous public day / 前一个公开日">←</button>
+          <button class="dialog-day-nav" id="nextDay" type="button" aria-label="Next public day / 后一个公开日">→</button>
+          <button class="dialog-close" id="closeDetail" type="button">Close / 关闭</button>
+        </nav>
         <div class="dialog-header">
           <p class="dialog-kicker">Selected day / 被切开的日期</p>
           <h2 id="dialogTitle"></h2>
           <p class="dialog-date" id="dialogDate"></p>
           <p class="dialog-variable" id="dialogVariable"></p>
-          <p class="dialog-mode-thesis">同一个 Agent 的两种输出：23h 人机协作劳动 ↔ 1h AI 自主创作<br>Two outputs of one agent: 23h assigned co-work ↔ 1h autonomous work.</p>
+          <p class="dialog-mode-thesis">一条连续的 24 小时时间流：人机协作、后台脉冲与 AI 自主时彼此穿行。<br>One continuous 24-hour stream: assigned co-work, background pulses, and autonomous time interleave.</p>
           <p class="dialog-boundary" id="dialogBoundary"></p>
         </div>
 
-        <div class="detail-layout">
-          <section class="assigned-detail" aria-labelledby="assignedTitle">
-            <h3 id="assignedTitle">人机协作劳动 / ASSIGNED CO-WORK</h3>
-            <ol class="assigned-list" id="assignedList"></ol>
-          </section>
+        <section class="timeline-detail" aria-labelledby="timelineTitle">
+          <h3 id="timelineTitle">24 小时时间流 / 24-HOUR STREAM</h3>
+          <ol class="timeline-list" id="timelineList"></ol>
+        </section>
+      </div>
+    </section>
 
-          <section class="self-detail" aria-labelledby="selfTitle">
-            <h3 id="selfTitle">AI 自主创作 / AUTONOMOUS WORK</h3>
-            <p class="self-time" id="selfTime"></p>
-            <p class="self-artwork" id="selfArtwork"></p>
-            <a class="self-preview-link" id="selfPreviewLink" href="../" target="_blank" rel="noopener">
-              <img class="self-preview" id="selfPreview" alt="" loading="eager">
-            </a>
-            <p class="self-note" id="selfNote"></p>
-            <a class="enter-work" id="enterAutonomous" href="../" target="_blank" rel="noopener">Open complete live work ↗ / 新窗口打开完整作品</a>
+    <section class="task-dialog" id="taskDialog" role="dialog" aria-modal="true" aria-labelledby="taskDetailTitle" aria-describedby="taskDetailProvenance" hidden>
+      <div class="task-dialog-panel" id="taskDialogPanel" role="document">
+        <button class="task-dialog-close" id="closeTaskDetail" type="button">Close / 关闭</button>
+        <p class="task-detail-kicker">Assigned task detail / 人机协作任务详情</p>
+        <h2 id="taskDetailTitle"></h2>
+        <p class="task-detail-time" id="taskDetailTime"></p>
+        <p class="task-detail-type" id="taskDetailType"></p>
+        <div class="task-detail-copy">
+          <section aria-labelledby="taskDetailZhLabel">
+            <h3 id="taskDetailZhLabel">中文摘要</h3>
+            <p id="taskDetailZh"></p>
+          </section>
+          <section aria-labelledby="taskDetailEnLabel">
+            <h3 id="taskDetailEnLabel">English summary</h3>
+            <p id="taskDetailEn"></p>
           </section>
         </div>
+        <p class="task-detail-provenance" id="taskDetailProvenance"></p>
       </div>
     </section>
 
