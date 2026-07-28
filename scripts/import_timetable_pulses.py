@@ -24,6 +24,7 @@ DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
 DEFAULT_SNAPSHOT = ROOT / "metadata" / "timetable-pulses.json"
 DEFAULT_STATE_DB = Path.home() / ".hermes" / "profiles" / "heizhou" / "state.db"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
+PULSE_SNAPSHOT_SCHEMA = "granted-hours-timetable-pulses-v3"
 
 NESTED_RUN_RE = re.compile(r"^(?P<stamp>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})\.(?:md|txt)$")
 FLAT_RUN_RE = re.compile(
@@ -326,8 +327,8 @@ def public_summary(category: str, responses: list[str], count: int) -> tuple[str
 
     if category == "daily_reminder":
         return (
-            f"完成 {count} 次日常提醒流程；具体个人内容保持私密，仅公开执行状态。",
-            f"{count} daily-reminder run(s) completed; personal content remains private and only execution status is public.",
+            "提醒残留。",
+            "Reminder residue.",
         )
 
     if category == "system_routine":
@@ -353,6 +354,8 @@ def build_snapshot(
     output_dir: Path,
     public_days_path: Path,
     state_db_path: Path | None = DEFAULT_STATE_DB,
+    *,
+    authorize_self_reminders: bool = False,
 ) -> dict:
     job_names = parse_jobs(jobs_path)
     if not output_dir.exists() or not output_dir.is_dir():
@@ -425,32 +428,47 @@ def build_snapshot(
             duration_minutes = int((display_end - display_start).total_seconds() // 60)
             summary_zh, summary_en = public_summary(group["category"], group["responses"], group["count"])
             bucket, _coarse_time = time_bucket(display_start)
-            pulses.append(
-                {
-                    "start": format_clock(display_start),
-                    "end": format_clock(display_end, end=display_end.date() > display_start.date()),
-                    "duration_minutes": duration_minutes,
-                    "execution_minutes": max(1, math.ceil(group["execution_seconds"] / 60)),
-                    "time_bucket": bucket,
-                    "category": group["category"],
-                    "count": group["count"],
-                    "time_provenance": (
-                        "observed_session_window"
-                        if group["observed_count"] == group["count"]
-                        else "receipt_timestamp_estimate"
-                        if group["observed_count"] == 0
-                        else "mixed_observed_and_receipt"
-                    ),
-                    "summary_zh": summary_zh,
-                    "summary_en": summary_en,
-                    "summary_provenance": "derived_public_safe",
-                }
-            )
+            pulse = {
+                "start": format_clock(display_start),
+                "end": format_clock(display_end, end=display_end.date() > display_start.date()),
+                "duration_minutes": duration_minutes,
+                "execution_minutes": max(1, math.ceil(group["execution_seconds"] / 60)),
+                "time_bucket": bucket,
+                "category": group["category"],
+                "count": group["count"],
+                "time_provenance": (
+                    "observed_session_window"
+                    if group["observed_count"] == group["count"]
+                    else "receipt_timestamp_estimate"
+                    if group["observed_count"] == 0
+                    else "mixed_observed_and_receipt"
+                ),
+                "summary_zh": summary_zh,
+                "summary_en": summary_en,
+                "summary_provenance": "derived_public_safe",
+            }
+            if group["category"] == "daily_reminder":
+                pulse.update(
+                    {
+                        "owner_scope": (
+                            "self_scheduler_residue"
+                            if authorize_self_reminders
+                            else "unknown"
+                        ),
+                        "ownership_provenance": (
+                            "explicit_import_authorization"
+                            if authorize_self_reminders
+                            else "unverified"
+                        ),
+                        "action_provenance": "no_authorized_action_semantics",
+                    }
+                )
+            pulses.append(pulse)
         pulses.sort(key=lambda pulse: (pulse["start"], pulse["category"]))
         days.append({"date": day_date, "pulses": pulses})
 
     return {
-        "schema": "granted-hours-timetable-pulses-v2",
+        "schema": PULSE_SNAPSHOT_SCHEMA,
         "timezone": "Asia/Shanghai",
         "source_file_count": source_file_count,
         "deduplicated_run_count": len(runs),
@@ -466,12 +484,27 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--public-days", type=Path, default=DEFAULT_PUBLIC_DAYS)
     parser.add_argument("--state-db", type=Path, default=DEFAULT_STATE_DB)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
+    parser.add_argument(
+        "--authorize-self-reminder-residues",
+        action="store_true",
+        help=(
+            "Explicitly authorize reminder run residues as self-owned for masked "
+            "public projection. Without this flag they are marked unknown and "
+            "the timetable builder omits them."
+        ),
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    snapshot = build_snapshot(args.jobs, args.output_dir, args.public_days, args.state_db)
+    snapshot = build_snapshot(
+        args.jobs,
+        args.output_dir,
+        args.public_days,
+        args.state_db,
+        authorize_self_reminders=args.authorize_self_reminder_residues,
+    )
     args.snapshot.parent.mkdir(parents=True, exist_ok=True)
     args.snapshot.write_text(
         json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n",

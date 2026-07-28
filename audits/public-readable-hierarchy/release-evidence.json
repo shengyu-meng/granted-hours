@@ -1,0 +1,203 @@
+{
+  "schema": "timetable-release-evidence-v1",
+  "passed": true,
+  "evidencePath": "audits/public-readable-hierarchy/release-evidence.json",
+  "sourceData": {
+    "path": "src/timetable/timetable-data.js",
+    "bytes": 6052630,
+    "gzipBytes": 317694,
+    "sha256": "e49e8f321d6ea6387b2412b327ef4285a78517e5bfee2015147aae7cac3eb76b",
+    "budgetBytes": 6100000,
+    "deterministicBuilds": [
+      {
+        "label": "data-build-a",
+        "bytes": 6052630,
+        "sha256": "e49e8f321d6ea6387b2412b327ef4285a78517e5bfee2015147aae7cac3eb76b"
+      },
+      {
+        "label": "data-build-b",
+        "bytes": 6052630,
+        "sha256": "e49e8f321d6ea6387b2412b327ef4285a78517e5bfee2015147aae7cac3eb76b"
+      }
+    ],
+    "deterministicParity": true
+  },
+  "bundle": {
+    "deterministicBuilds": [
+      {
+        "label": "isolated-build-a",
+        "manifestBytes": 490,
+        "manifestSha256": "dec2a71e52c0ffe98bdd32b6202e93775e8bbc8f3d3b495cbac1369449c0d481",
+        "files": [
+          {
+            "path": "assets/index-3J5ioZ-h.js",
+            "bytes": 4335058,
+            "gzipBytes": 270299,
+            "sha256": "ef7180cd93e306572a24eb44668d428789b3e463281dcf2a6b451aba08958ae6"
+          },
+          {
+            "path": "assets/index-CLPduAIK.css",
+            "bytes": 69353,
+            "gzipBytes": 13226,
+            "sha256": "7e85603a1e45dccb844fade99f396c8582f69cce9b69b0bc3857e1cef8cd8cfd"
+          },
+          {
+            "path": "index.html",
+            "bytes": 7927,
+            "sha256": "dbf2a8f67caa92a08d330f0396cc6e7df95ad37945e1bbf78156378a893dbc44"
+          }
+        ]
+      },
+      {
+        "label": "isolated-build-b",
+        "manifestBytes": 490,
+        "manifestSha256": "dec2a71e52c0ffe98bdd32b6202e93775e8bbc8f3d3b495cbac1369449c0d481",
+        "files": [
+          {
+            "path": "assets/index-3J5ioZ-h.js",
+            "bytes": 4335058,
+            "gzipBytes": 270299,
+            "sha256": "ef7180cd93e306572a24eb44668d428789b3e463281dcf2a6b451aba08958ae6"
+          },
+          {
+            "path": "assets/index-CLPduAIK.css",
+            "bytes": 69353,
+            "gzipBytes": 13226,
+            "sha256": "7e85603a1e45dccb844fade99f396c8582f69cce9b69b0bc3857e1cef8cd8cfd"
+          },
+          {
+            "path": "index.html",
+            "bytes": 7927,
+            "sha256": "dbf2a8f67caa92a08d330f0396cc6e7df95ad37945e1bbf78156378a893dbc44"
+          }
+        ]
+      }
+    ],
+    "deterministicParity": {
+      "exact": true,
+      "byteForByte": true,
+      "manifestHashEqual": true,
+      "missing": [],
+      "extra": [],
+      "stale": []
+    },
+    "canonical": {
+      "directory": "docs/timetable",
+      "manifestBytes": 490,
+      "manifestSha256": "dec2a71e52c0ffe98bdd32b6202e93775e8bbc8f3d3b495cbac1369449c0d481",
+      "files": [
+        {
+          "path": "assets/index-3J5ioZ-h.js",
+          "bytes": 4335058,
+          "gzipBytes": 270299,
+          "sha256": "ef7180cd93e306572a24eb44668d428789b3e463281dcf2a6b451aba08958ae6"
+        },
+        {
+          "path": "assets/index-CLPduAIK.css",
+          "bytes": 69353,
+          "gzipBytes": 13226,
+          "sha256": "7e85603a1e45dccb844fade99f396c8582f69cce9b69b0bc3857e1cef8cd8cfd"
+        },
+        {
+          "path": "index.html",
+          "bytes": 7927,
+          "sha256": "dbf2a8f67caa92a08d330f0396cc6e7df95ad37945e1bbf78156378a893dbc44"
+        }
+      ]
+    },
+    "canonicalParity": {
+      "exact": true,
+      "byteForByte": true,
+      "manifestHashEqual": true,
+      "missing": [],
+      "extra": [],
+      "stale": []
+    },
+    "assets": {
+      "javascript": {
+        "files": [
+          {
+            "path": "assets/index-3J5ioZ-h.js",
+            "bytes": 4335058,
+            "gzipBytes": 270299,
+            "sha256": "ef7180cd93e306572a24eb44668d428789b3e463281dcf2a6b451aba08958ae6"
+          }
+        ],
+        "totals": {
+          "bytes": 4335058,
+          "gzipBytes": 270299,
+          "budgetBytes": 4800000,
+          "gzipBudgetBytes": 340000
+        }
+      },
+      "css": {
+        "files": [
+          {
+            "path": "assets/index-CLPduAIK.css",
+            "bytes": 69353,
+            "gzipBytes": 13226,
+            "sha256": "7e85603a1e45dccb844fade99f396c8582f69cce9b69b0bc3857e1cef8cd8cfd"
+          }
+        ],
+        "totals": {
+          "bytes": 69353,
+          "gzipBytes": 13226
+        }
+      }
+    },
+    "dataParity": {
+      "publicDays": 75,
+      "generatedDays": 75,
+      "pulseSchema": "granted-hours-timetable-pulses-v3"
+    }
+  },
+  "publicSafety": {
+    "command": "python3 scripts/check_public_safety.py --root .",
+    "passed": true,
+    "exitCode": 0,
+    "stdoutBytes": 27,
+    "stdoutSha256": "f2200426f038e3dc05301477c9f0ec317438df8597a66ca1b1e13ffbdabfab7a",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary": "Public safety scan passed."
+  },
+  "npmAudit": {
+    "command": "npm audit --omit=dev --audit-level=high --json",
+    "auditLevel": "high",
+    "omit": "dev",
+    "passed": true,
+    "exitCode": 0,
+    "stdoutBytes": 360,
+    "stdoutSha256": "f2895d3235cdb04f45bc137e1a9c1aee3cffb49ce6b55c0d740ae625d2200457",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {},\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 0,\n      \"high\": 0,\n      \"critical\": 0,\n      \"total\": 0\n    },\n    \"dependencies\": {\n      \"prod\": 3,\n      \"dev\": 20,\n      \"optional\": 4,\n      \"peer\": 0,\n      \"peerOptional\": 0,\n      \"total\": 22\n    }\n  }\n}",
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 3,
+        "dev": 20,
+        "optional": 4,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 22
+      }
+    },
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "errors": []
+}

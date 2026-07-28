@@ -31,8 +31,15 @@ try {
   assert.ok(await page.locator(".assigned-item").count() > 0);
   assert.equal(
     await page.locator(".routine-reading-card").count(),
-    await page.locator(".pulse-event").count(),
-    "every exact routine footprint must have a date-specific reading card",
+    days.at(-1).reading_items.filter(
+      (item) => item.source === "pulses",
+    ).length,
+    "background reading cards must match the public projection",
+  );
+  assert.ok(
+    await page.locator(".routine-reading-card").count()
+      < await page.locator(".pulse-event").count(),
+    "climate projection must be smaller than the exact footprint audit",
   );
   const timelineTimes = await page.locator(".timeline-event").evaluateAll((events) =>
     events.map((event) => event.dataset.start),
@@ -46,17 +53,22 @@ try {
   assert.ok(preview.width > 0 && preview.height > 0, JSON.stringify(preview));
 
   const firstPulse = page.locator(".routine-reading-card").first();
-  const pulseStart = await firstPulse.getAttribute("data-start");
-  const pulseCategory = await firstPulse.getAttribute("data-pulse-category");
-  const pulseEvidence = days.at(-1).background_pulses.find(
-    (pulse) => pulse.start === pulseStart && pulse.category === pulseCategory,
+  const readingId = await firstPulse.getAttribute("data-reading-id");
+  const pulseEvidence = days.at(-1).reading_items.find(
+    (item) => item.reading_id === readingId,
   );
-  assert.ok(pulseEvidence, `${pulseStart} ${pulseCategory}`);
+  assert.ok(pulseEvidence, readingId);
+  const sourcePulse = days.at(-1).background_pulses.find(
+    (pulse) => pulse.footprint_id === pulseEvidence.source_refs[0],
+  );
+  const renderedSummaries = await firstPulse.locator(".pulse-summary > span").allTextContents();
+  const expectedSummaryZh = renderedSummaries[0]?.trim() || sourcePulse?.summary_zh;
+  const expectedSummaryEn = renderedSummaries[1]?.trim() || sourcePulse?.summary_en;
   await firstPulse.click({ force: true });
   await page.waitForSelector("#taskDialog.is-open");
-  assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), pulseEvidence.summary_zh);
-  assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), pulseEvidence.summary_en);
-  assert.match((await page.locator("#taskDetailTime").textContent()) || "", /window \d+ min/);
+  assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), expectedSummaryZh);
+  assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), expectedSummaryEn);
+  assert.match((await page.locator("#taskDetailTime").textContent()) || "", /(?:exact windows|window \d+ min)/);
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("#dayDialog").getAttribute("hidden"), null);
 
@@ -72,14 +84,17 @@ try {
         ellipsis: getComputedStyle(copy, "::after").content,
       };
     });
-    assert.ok(["2", "3"].includes(state.clamp), JSON.stringify(state));
+    assert.equal(state.clamp, "4", JSON.stringify(state));
     assert.equal(state.overflow, "hidden");
-    if (state.clamped && state.ellipsis.includes("…")) clampedIndex = index;
+    if (state.clamped) {
+      assert.ok(state.ellipsis.includes("…"), `clamped summary lacks visible continuation ${JSON.stringify(state)}`);
+      clampedIndex = index;
+    }
   }
-  assert.ok(clampedIndex >= 0, "at least one long summary must visibly clamp");
 
-  const trigger = rows.nth(clampedIndex);
-  const selectedTask = days.at(-1).task_residues[clampedIndex];
+  const triggerIndex = clampedIndex >= 0 ? clampedIndex : 0;
+  const trigger = rows.nth(triggerIndex);
+  const selectedTask = days.at(-1).task_residues[triggerIndex];
   await trigger.scrollIntoViewIfNeeded();
   const dayScrollBefore = await page.locator("#dayDialogPanel").evaluate((panel) => {
     return panel.scrollTop;
@@ -139,7 +154,8 @@ try {
       `${viewport.label} horizontal overflow`,
     );
     await mobile.locator(".assigned-item").first().tap();
-    assert.equal(await mobile.locator(".assigned-item").first().getAttribute("aria-expanded"), "true");
+    assert.equal(await mobile.locator(".assigned-item").first().getAttribute("aria-pressed"), "true");
+    assert.equal(await mobile.locator(".assigned-item").first().getAttribute("aria-expanded"), null);
     assert.equal(await mobile.locator("#taskDialog").getAttribute("hidden"), "");
     await mobile.locator(".assigned-item").first().tap();
     await mobile.waitForSelector("#taskDialog.is-open");

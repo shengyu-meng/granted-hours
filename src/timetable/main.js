@@ -158,8 +158,11 @@ function cacheElements() {
     "prevMonth",
     "prevDay",
     "publicNote",
+    "readingSelectionStatus",
     "stateSentence",
     "taskDetailEn",
+    "taskDetailOccurrenceList",
+    "taskDetailOccurrences",
     "taskDetailProvenance",
     "taskDetailTime",
     "taskDetailTitle",
@@ -543,44 +546,241 @@ function renderDayDetail(day) {
   readingLayer.setAttribute("aria-label", "Readable event composition / 可读事件构成");
   els.timelineList.append(readingLayer);
   const layouts = layoutTimelineEvents(day.timeline_events);
+  const layoutByFootprintId = new Map(
+    layouts.map((layout) => [layout.event.footprint_id, layout]),
+  );
   renderTimelineTouchGroups(day, layouts);
   layouts.forEach((layout) => {
     const { event } = layout;
-    let composition = null;
-    if (event.origin === "assigned") {
-      composition = buildAssignedTimelineEvent(event);
-    } else if (event.origin === "self") {
-      composition = buildAutonomousTimelineEvent(day, event);
-    } else if (event.origin === "background") {
-      composition = buildPulseTimelineEvent(event);
-    }
-    if (!composition) return;
-    const eventKey = timelineEventKey(layout);
-    composition.footprint.dataset.eventKey = eventKey;
-    composition.card.dataset.eventKey = eventKey;
-    composition.card.dataset.start = event.start;
-    composition.card.dataset.end = event.end;
-    composition.card.dataset.startMinute = String(layout.startMinute);
-    composition.card.dataset.sourceIndex = String(layout.sourceIndex);
-    composition.card.dataset.origin = event.origin;
-    composition.card.dataset.compositionSeed = [
-      event.origin,
-      event.category || event.task_type || event.label_en || "",
-      event.start,
-      event.end,
-      layout.sourceIndex,
+    const footprint = buildExactTimelineEvent(event);
+    footprint.dataset.eventKey = timelineEventKey(layout);
+    footprint.dataset.footprintId = event.footprint_id;
+    eventsLayer.append(positionTimelineElement(footprint, layout));
+  });
+
+  const readingItems = hydratePublicReadingItems(day);
+  readingItems.forEach((item, readingIndex) => {
+    const anchorLayout = layoutByFootprintId.get(item.member_footprint_ids[0]);
+    if (!anchorLayout) throw new Error(`Missing footprint anchor for ${item.reading_id}`);
+    const card = buildPublicReadingCard(day, item);
+    card.dataset.eventKey = item.reading_id;
+    card.dataset.readingId = item.reading_id;
+    card.dataset.start = item.start;
+    card.dataset.end = item.end;
+    card.dataset.startMinute = String(timeToMinutes(item.start));
+    card.dataset.sourceIndex = String(readingIndex);
+    card.dataset.origin = item.origin;
+    card.dataset.layer = item.layer;
+    card.dataset.classification = item.classification;
+    card.dataset.memberFootprintIds = item.member_footprint_ids.join(" ");
+    card.dataset.memberCount = String(item.member_footprint_ids.length);
+    card.dataset.compositionSeed = [
+      item.layer,
+      item.classification,
+      item.label_en,
+      item.start,
+      item.end,
+      readingIndex,
     ].join(":");
-    if (event.origin === "background") {
-      composition.card.dataset.pulseCategory = event.category;
+    if (item.origin === "background") {
+      card.dataset.pulseCategory = item.category || "";
     }
-    eventsLayer.append(positionTimelineElement(composition.footprint, layout));
     const connector = document.createElement("span");
     connector.className = "event-connector";
-    connector.dataset.eventKey = eventKey;
+    connector.dataset.eventKey = item.reading_id;
+    connector.dataset.anchorFootprintId = anchorLayout.event.footprint_id;
     connectorLayer.append(connector);
-    readingLayer.append(composition.card);
+    readingLayer.append(card);
   });
   scheduleTimelineReadingPlacement();
+}
+
+function hydratePublicReadingItems(day) {
+  const sourceMaps = {
+    tasks: new Map(
+      day.task_residues.map((source) => [source.footprint_id, source]),
+    ),
+    pulses: new Map(
+      day.background_pulses.map((source) => [source.footprint_id, source]),
+    ),
+    autonomous: new Map([
+      [day.autonomous_work.footprint_id, day.autonomous_work],
+    ]),
+  };
+
+  return day.reading_items.map((projection) => {
+    const sourceMap = sourceMaps[projection.source];
+    if (!sourceMap) {
+      throw new Error(`Unknown reading source collection: ${projection.source}`);
+    }
+    const sources = projection.source_refs.map((sourceRef) => {
+      const source = sourceMap.get(sourceRef);
+      if (!source) throw new Error(`Missing reading source: ${sourceRef}`);
+      return source;
+    });
+    const primary = sources[0];
+    const shared = {
+      ...primary,
+      ...projection,
+      member_footprint_ids: [...projection.source_refs],
+      origin: primary.origin,
+      start: sources.reduce(
+        (earliest, source) => timeToMinutes(source.start) < timeToMinutes(earliest)
+          ? source.start
+          : earliest,
+        primary.start,
+      ),
+      end: sources.reduce(
+        (latest, source) => timeToMinutes(source.end) > timeToMinutes(latest)
+          ? source.end
+          : latest,
+        primary.end,
+      ),
+      occurrence_count: sources.reduce((total, source) => total + (source.count || 1), 0),
+      window_count: sources.length,
+    };
+
+    if (projection.classification === "climate_aggregate") {
+      const [labelZh, labelEn] = climateGroupLabel(
+        projection.family,
+        projection.window,
+      );
+      const [summaryZh, summaryEn] = climateGroupSummary(sources);
+      return {
+        ...shared,
+        label_zh: labelZh,
+        label_en: labelEn,
+        summary_zh: summaryZh,
+        summary_en: summaryEn,
+        duration_minutes: timeToMinutes(shared.end) - timeToMinutes(shared.start),
+        execution_minutes: sources.reduce(
+          (total, source) => total + source.execution_minutes,
+          0,
+        ),
+        time_provenance: "aggregate_of_exact_footprints",
+        redaction_policy: "not_applicable",
+        constituents: sources.map((source) => ({
+          footprint_id: source.footprint_id,
+          start: source.start,
+          end: source.end,
+          label_zh: source.label_zh,
+          label_en: source.label_en,
+          summary_zh: source.summary_zh,
+          summary_en: source.summary_en,
+          count: source.count,
+          time_provenance: source.time_provenance,
+        })),
+      };
+    }
+    if (projection.classification === "foreground_event") {
+      return {
+        ...shared,
+        label_zh: primary.task_name_zh,
+        label_en: primary.task_name_en,
+        category_label_zh: primary.label_zh,
+        category_label_en: primary.label_en,
+        summary_zh: primary.zh,
+        summary_en: primary.en,
+        constituents: [],
+      };
+    }
+    if (projection.classification === "beacon") {
+      return {
+        ...shared,
+        label_zh: primary.title_zh,
+        label_en: primary.title_en,
+        summary_zh: primary.note_zh,
+        summary_en: primary.note_en,
+        constituents: [],
+      };
+    }
+    if (projection.classification === "promoted_routine_exception") {
+      return {
+        ...shared,
+        label_zh: `${primary.label_zh}提示`,
+        label_en: `${primary.label_en} alert`,
+        summary_zh: primary.summary_zh,
+        summary_en: primary.summary_en,
+        constituents: [],
+      };
+    }
+    return {
+      ...shared,
+      label_zh: primary.label_zh,
+      label_en: primary.label_en,
+      summary_zh: primary.summary_zh,
+      summary_en: primary.summary_en,
+      constituents: [],
+    };
+  });
+}
+
+function climateGroupLabel(family, window) {
+  const families = {
+    ah_market: ["A/H 市场扫描", "A/H market scans"],
+    us_market: ["美股市场扫描", "U.S. market scans"],
+    ai_brief: ["AI 日报采集", "AI brief collection"],
+    support_checks: ["服务健康与后台运行记录", "Service health & background run records"],
+  };
+  const windows = {
+    premarket: ["盘前", "premarket"],
+    intraday: ["盘中", "intraday"],
+    close: ["收盘复核", "close review"],
+    daily: ["当日", "daily"],
+    early: ["清晨与上午", "dawn & morning"],
+    daytime: ["日间", "daytime"],
+    evening: ["晚间", "evening"],
+  };
+  const familyLabel = families[family];
+  const windowLabel = windows[window];
+  if (!familyLabel || !windowLabel) {
+    throw new Error(`Unknown climate projection: ${family}/${window}`);
+  }
+  return [
+    `${familyLabel[0]} · ${windowLabel[0]}`,
+    `${familyLabel[1]} · ${windowLabel[1]}`,
+  ];
+}
+
+function climateGroupSummary(sources) {
+  const runCount = sources.reduce((total, source) => total + source.count, 0);
+  const windowCount = sources.length;
+  const category = sources[0].category;
+  if (category === "ah_market_scan" || category === "us_market_scan") {
+    const publicCopy = sources
+      .map((source) => `${source.summary_en} ${source.summary_zh}`)
+      .join(" ");
+    const states = [
+      [["defensive / risk-contraction", "防守 / 风险收缩"], "防守 / 风险收缩", "defensive / risk-contraction"],
+      [["offensive / risk-expansion", "进攻 / 风险扩张"], "进攻 / 风险扩张", "offensive / risk-expansion"],
+      [["balanced / neutral", "均衡 / 中性"], "均衡 / 中性", "balanced / neutral"],
+    ].filter(([tokens]) => tokens.some((token) => publicCopy.includes(token)));
+    const themes = [
+      [["AI hardware and semiconductors", "AI 硬件与半导体"], "AI 硬件与半导体", "AI hardware and semiconductors"],
+      [["optical interconnects", "光互连"], "光互连", "optical interconnects"],
+      [["embodied AI", "具身智能"], "具身智能", "embodied AI"],
+      [["resources and rates", "资源与利率"], "资源与利率", "resources and rates"],
+      [["market regime and volatility", "市场状态与波动"], "市场状态与波动", "market regime and volatility"],
+    ].filter(([tokens]) => tokens.some((token) => publicCopy.includes(token)));
+    const stateZh = states.map((state) => state[1]).join("、") || "未形成公开级别状态结论";
+    const stateEn = states.map((state) => state[2]).join(", ") || "no public-level regime conclusion";
+    const themeZh = themes.map((theme) => theme[1]).join("、") || "无额外公开主题";
+    const themeEn = themes.map((theme) => theme[2]).join(", ") || "no additional public theme";
+    return [
+      `${windowCount} 窗 / ${runCount} 次扫描；状态：${stateZh}；主题：${themeZh}；异常另列事件。`,
+      `${runCount} scans / ${windowCount} exact windows; regime: ${stateEn}; themes: ${themeEn}; alerts move to events.`,
+    ];
+  }
+  if (category === "ai_daily_brief") {
+    return [
+      `${windowCount} 窗 / ${runCount} 次 AI 日报采集；未保留公开级别提示。`,
+      `${runCount} AI-brief runs / ${windowCount} exact windows; no public-level alert retained.`,
+    ];
+  }
+  return [
+    `${windowCount} 窗 / ${runCount} 次服务健康检查或其他后台运行；未保留公开级别提示。`,
+    `${runCount} service-health checks or other background runs / ${windowCount} exact windows; no public-level alert retained.`,
+  ];
 }
 
 function timelineEventKey(layout) {
@@ -602,9 +802,10 @@ function compositionHash(value) {
 }
 
 function readingCardHeight(card, minuteHeight) {
-  if (card.dataset.origin === "self") return Math.max(144, minuteHeight * 60 + 48);
-  if (card.dataset.origin === "assigned") return 96;
-  return 66;
+  if (card.dataset.layer === "beacon") return Math.max(184, minuteHeight * 60 + 60);
+  if (card.dataset.layer === "event") return card.dataset.origin === "assigned" ? 168 : 144;
+  if (card.dataset.layer === "absence") return 126;
+  return 156;
 }
 
 function scheduleTimelineReadingPlacement() {
@@ -633,13 +834,13 @@ function placeTimelineReadingCards() {
   let minuteHeight = Number.parseFloat(getComputedStyle(timeline).getPropertyValue("--minute-height"));
   let result = null;
 
-  for (let pass = 0; pass < 6; pass += 1) {
+  for (let pass = 0; pass < 16; pass += 1) {
     timeline.style.setProperty("--minute-height", `${minuteHeight}px`);
     const canvasHeight = MINUTES_PER_DAY * minuteHeight;
     const items = cards.map((card) => {
-      const columnSpan = card.dataset.origin === "background"
-        ? 1
-        : Math.min(2, columnCount);
+      const columnSpan = ["beacon", "event"].includes(card.dataset.layer)
+        ? Math.min(2, columnCount)
+        : 1;
       const maximumColumn = columnCount - columnSpan;
       const preferredColumn = maximumColumn > 0
         ? compositionHash(card.dataset.compositionSeed) % (maximumColumn + 1)
@@ -678,7 +879,7 @@ function placeTimelineReadingCards() {
     card.style.height = `${placement.height}px`;
     card.dataset.readingColumn = String(placement.column);
     card.dataset.readingColumnSpan = String(placement.columnSpan);
-    const isAutonomous = card.dataset.origin === "self";
+    const isAutonomous = card.dataset.layer === "beacon";
     card.classList.toggle("is-narrow-reading-card", isAutonomous && placement.width < 270);
     card.classList.toggle("is-very-narrow-reading-card", isAutonomous && placement.width < 210);
   }
@@ -686,7 +887,8 @@ function placeTimelineReadingCards() {
   const layerRect = readingLayer.getBoundingClientRect();
   for (const connector of connectorLayer.querySelectorAll(".event-connector")) {
     const eventKey = connector.dataset.eventKey;
-    const footprint = eventsLayer.querySelector(`.timeline-event[data-event-key="${CSS.escape(eventKey)}"]`);
+    const footprintId = connector.dataset.anchorFootprintId;
+    const footprint = eventsLayer.querySelector(`.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`);
     const card = readingLayer.querySelector(`.event-reading-card[data-event-key="${CSS.escape(eventKey)}"]`);
     if (!footprint || !card) continue;
     const footprintRect = footprint.getBoundingClientRect();
@@ -766,11 +968,25 @@ function buildTimelineTouchControl(day, event) {
   button.className = "timeline-touch-control";
   if (event.origin === "assigned") {
     button.textContent = `${event.start}-${event.end} · ${event.task_type_zh} / ${event.task_type_en}`;
+    button.addEventListener("click", () => openTaskDetail(event, button));
   } else {
-    button.textContent = `${event.start}-${event.end} · ${event.label_zh} / ${event.label_en}`;
+    const labels = publicBackgroundLabels(event.category);
+    const publicEvent = { ...event, label_zh: labels[0], label_en: labels[1] };
+    button.textContent = `${event.start}-${event.end} · ${labels[0]} / ${labels[1]}`;
+    button.addEventListener("click", () => openTaskDetail(publicEvent, button));
   }
-  button.addEventListener("click", () => openTaskDetail(event, button));
   return button;
+}
+
+function publicBackgroundLabels(category) {
+  return {
+    ah_market_scan: ["A/H 市场扫描", "A/H market scan"],
+    us_market_scan: ["美股市场扫描", "U.S. market scan"],
+    ai_daily_brief: ["AI 日报采集", "AI brief collection"],
+    daily_reminder: ["私人提醒", "Private reminder"],
+    system_routine: ["服务健康与时效检查", "Service health & freshness check"],
+    background_routine: ["其他后台运行记录", "Other background run record"],
+  }[category] || ["公开流程", "Public process"];
 }
 
 function appendTimelineHourMarkers(list) {
@@ -799,6 +1015,40 @@ function buildEventFootprint(origin, label) {
   return footprint;
 }
 
+function buildExactTimelineEvent(event) {
+  const item = document.createElement("article");
+  const originClass = event.origin === "assigned"
+    ? "assigned-event"
+    : event.origin === "self"
+      ? "autonomous-event"
+      : "pulse-event";
+  item.className = `timeline-event ${originClass}`;
+  item.setAttribute("aria-hidden", "true");
+  item.dataset.start = event.start;
+  if (event.origin === "assigned") {
+    item.style.setProperty("--task-accent", taskAccent(event.task_color));
+  }
+  if (event.origin === "background") {
+    item.dataset.pulseCategory = event.category;
+    item.style.setProperty("--pulse-accent", taskAccent(event.pulse_color));
+  }
+  const label = event.origin === "self"
+    ? autonomousAccessibleName(event)
+    : `${event.start}-${event.end}, ${event.label_en} / ${event.label_zh}`;
+  item.append(buildEventFootprint(event.origin, label));
+  return item;
+}
+
+function buildPublicReadingCard(day, item) {
+  if (item.classification === "foreground_event") {
+    return buildAssignedTimelineEvent(item).card;
+  }
+  if (item.classification === "beacon") {
+    return buildAutonomousTimelineEvent(day, item).card;
+  }
+  return buildPulseTimelineEvent(item).card;
+}
+
 function buildAssignedTimelineEvent(task) {
   const item = document.createElement("article");
   item.className = "timeline-event assigned-event";
@@ -811,7 +1061,7 @@ function buildAssignedTimelineEvent(task) {
   ));
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "assigned-item event-reading-card assigned-reading-card";
+  button.className = "assigned-item event-reading-card assigned-reading-card event-layer-reading-card";
   button.dataset.durationMinutes = String(task.duration_minutes);
   button.dataset.timeProvenance = task.time_provenance;
   button.dataset.taskType = task.task_type;
@@ -821,7 +1071,7 @@ function buildAssignedTimelineEvent(task) {
   button.style.setProperty("--task-accent", taskAccent(task.task_color));
   button.setAttribute(
     "aria-label",
-    `${task.start}-${task.end}, ${task.task_type_en} / ${task.task_type_zh}: ${task.en} / ${task.zh}`,
+    `${task.start}-${task.end}, ${task.label_en} / ${task.label_zh}: ${task.summary_en} / ${task.summary_zh}`,
   );
   button.innerHTML = `
       <span class="assigned-time">
@@ -830,13 +1080,13 @@ function buildAssignedTimelineEvent(task) {
       </span>
       <span class="assigned-type">
         <span class="assigned-type-icon"></span>
-        <strong class="assigned-work-type reading-title">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</strong>
+        <strong class="assigned-work-type reading-title">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</strong>
       </span>
       <span class="assigned-secondary">
-        <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
+        <span class="assigned-category">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</span>
         <span class="record-provenance">真实记录摘要 / FAITHFUL RECORD SUMMARY</span>
       </span>
-      <span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(task.zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.en)}</span></span>
+      <span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(task.summary_zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.summary_en)}</span></span>
       ${task.redaction_status !== "none"
         ? `<span class="redaction-badge">${task.redaction_status === "withheld" ? "记录未公开 / RECORD WITHHELD" : `部分打码 ${task.redaction_count} / ${task.redaction_count} REDACTION${task.redaction_count === 1 ? "" : "S"}`}</span>`
         : ""}
@@ -863,7 +1113,7 @@ function buildAssignedTimelineEvent(task) {
     });
     document.body.append(measurement);
     const lineHeight = Number.parseFloat(getComputedStyle(copy).lineHeight);
-    const isClamped = measurement.getBoundingClientRect().height > lineHeight * 3 + 1;
+    const isClamped = measurement.getBoundingClientRect().height > lineHeight * 4 + 1;
     measurement.remove();
     copy.classList.toggle("is-clamped", isClamped);
   });
@@ -878,7 +1128,7 @@ function buildAutonomousTimelineEvent(day, self) {
   item.append(buildEventFootprint("self", autonomousAccessibleName(self)));
   const directLiveUrl = autonomousLiveUrl(day, self);
   const link = document.createElement("a");
-  link.className = "autonomous-work-link event-reading-card autonomous-reading-card";
+  link.className = "autonomous-work-link event-reading-card autonomous-reading-card beacon-reading-card";
   link.id = "enterAutonomous";
   link.href = directLiveUrl;
   link.target = "_blank";
@@ -931,18 +1181,34 @@ function buildPulseTimelineEvent(pulse) {
   ));
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "pulse-item event-reading-card routine-reading-card";
+  const layerClass = {
+    climate: "climate-reading-card",
+    event: "event-layer-reading-card promoted-reading-card",
+    absence: "absence-reading-card",
+  }[pulse.layer] || "climate-reading-card";
+  button.className = `pulse-item event-reading-card routine-reading-card ${layerClass}`;
   button.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
+  button.setAttribute("aria-haspopup", "dialog");
   button.setAttribute(
     "aria-label",
     `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
   );
+  const count = pulse.occurrence_count ?? pulse.count;
+  const summaryZh = pulse.layer === "absence"
+    ? redactedHtml(pulse.summary_zh)
+    : escapeHtml(pulse.summary_zh);
+  const summaryEn = pulse.layer === "absence"
+    ? redactedHtml(pulse.summary_en)
+    : escapeHtml(pulse.summary_en);
+  const durationCopy = pulse.classification === "climate_aggregate"
+    ? `${pulse.window_count} exact windows / ${pulse.window_count} 个精确窗口`
+    : `window ${pulse.duration_minutes} min / 窗口 ${pulse.duration_minutes} 分钟`;
   button.innerHTML = `
     <span class="pulse-time">${pulse.start}-${pulse.end}</span>
     <span class="pulse-line" aria-hidden="true"></span>
-    <span class="pulse-heading"><span class="pulse-label reading-title">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${pulse.count}</span></span>
-    <span class="pulse-duration">窗口 ${pulse.duration_minutes} min · 执行 ${pulse.execution_minutes} min</span>
-    <span class="pulse-summary reading-summary"><span>${escapeHtml(pulse.summary_zh)}</span><span>${escapeHtml(pulse.summary_en)}</span></span>
+    <span class="pulse-heading"><span class="pulse-label reading-title">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${count}</span></span>
+    <span class="pulse-duration">${durationCopy}</span>
+    <span class="pulse-summary reading-summary"><span>${summaryZh}</span><span>${summaryEn}</span></span>
   `;
   setupReadingCardActivation(button, () => openTaskDetail(pulse, button));
   return { footprint: item, card: button };
@@ -952,7 +1218,11 @@ function setupReadingCardActivation(card, activate) {
   const accessibleName = card.getAttribute("aria-label") || "";
   let activationPointerType = "";
   card.dataset.accessibleName = accessibleName;
-  card.setAttribute("aria-expanded", "false");
+  if (card instanceof HTMLButtonElement) {
+    card.setAttribute("aria-pressed", "false");
+  } else {
+    card.setAttribute("aria-describedby", "readingSelectionStatus");
+  }
   card.addEventListener("pointerdown", (event) => {
     activationPointerType = event.pointerType;
   });
@@ -1008,12 +1278,17 @@ function selectReadingCard(card) {
   state.linkedFocusSuppressedCard = null;
   state.selectedReadingCard = card;
   card.classList.add("is-selected");
-  card.setAttribute("aria-expanded", "true");
+  if (card instanceof HTMLButtonElement) {
+    card.setAttribute("aria-pressed", "true");
+  }
   const accessibleName = card.dataset.accessibleName || card.getAttribute("aria-label") || "";
   card.setAttribute(
     "aria-label",
     `${accessibleName}. Selected; tap again to open / 已选中；再次轻触打开`,
   );
+  els.readingSelectionStatus.textContent = card instanceof HTMLAnchorElement
+    ? "Autonomous work selected; activate again to open in a new window. / 自主作品已选中；再次激活将在新窗口打开。"
+    : "Reading card selected; activate again to open details. / 可读卡片已选中；再次激活将打开详情。";
   setLinkedReadingCard(card);
 }
 
@@ -1025,11 +1300,18 @@ function setLinkedReadingCard(card) {
   const timeline = card.closest(".timeline-list");
   const eventKey = card.dataset.eventKey;
   if (!timeline || !eventKey) return;
+  const memberIds = (card.dataset.memberFootprintIds || "")
+    .split(" ")
+    .filter(Boolean);
   const escapedKey = CSS.escape(eventKey);
-  const footprintEvent = timeline.querySelector(`.timeline-event[data-event-key="${escapedKey}"]`);
   const connector = timeline.querySelector(`.event-connector[data-event-key="${escapedKey}"]`);
-  footprintEvent?.classList.add("is-linked-active");
-  footprintEvent?.querySelector(".event-footprint")?.classList.add("is-linked-active");
+  for (const footprintId of memberIds) {
+    const footprintEvent = timeline.querySelector(
+      `.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`,
+    );
+    footprintEvent?.classList.add("is-linked-active");
+    footprintEvent?.querySelector(".event-footprint")?.classList.add("is-linked-active");
+  }
   connector?.classList.add("is-linked-active");
 }
 
@@ -1064,12 +1346,15 @@ function clearSelectedReadingCard({ clearLinked = false } = {}) {
   const selected = state.selectedReadingCard;
   if (selected) {
     selected.classList.remove("is-selected");
-    selected.setAttribute("aria-expanded", "false");
+    if (selected instanceof HTMLButtonElement) {
+      selected.setAttribute("aria-pressed", "false");
+    }
     if (selected.dataset.accessibleName) {
       selected.setAttribute("aria-label", selected.dataset.accessibleName);
     }
     state.selectedReadingCard = null;
   }
+  els.readingSelectionStatus.textContent = "";
   if (clearLinked) clearLinkedReadingCard();
 }
 
@@ -1125,10 +1410,45 @@ function openTaskDetail(task, trigger) {
   state.taskDetailOpen = true;
   state.taskDetailLastFocus = trigger;
   state.taskDetailScrollTop = els.dayDialogPanel.scrollTop;
-  if (task.origin === "background") {
+  renderTaskOccurrences(task.constituents || []);
+  if (task.classification === "climate_aggregate") {
+    els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
+    els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.window_count} exact windows / ${task.window_count} 个精确窗口`;
+    els.taskDetailType.textContent = `气候层 / Climate layer · ${task.occurrence_count} source runs / ${task.occurrence_count} 次源运行`;
+    els.taskDetailZh.textContent = task.summary_zh;
+    els.taskDetailEn.textContent = task.summary_en;
+    els.taskDetailProvenance.textContent = [
+      "reading: deterministic semantic-family/window aggregate / 确定性语义族与时段聚合",
+      "footprints: every constituent retained exactly / 全部构成足迹精确保留",
+      "alerts: promoted out of climate / 异常提升至事件层",
+    ].join(" · ");
+  } else if (task.classification === "redacted_reminder_residue") {
+    els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
+    els.taskDetailTime.textContent = `${task.start}-${task.end}`;
+    els.taskDetailType.textContent = "缺席层 / Absence layer";
+    els.taskDetailZh.textContent = task.summary_zh;
+    els.taskDetailEn.textContent = task.summary_en;
+    els.taskDetailProvenance.textContent = [
+      `ownership: ${task.owner_scope} (${task.ownership_provenance})`,
+      "action: no authorized action semantics / 未授权公开动作语义",
+      "privacy: projected before serialization / 序列化前投影",
+      "mask: fixed block, no length or identity encoding / 固定遮挡，不编码长度或身份",
+    ].join(" · ");
+  } else if (task.classification === "promoted_routine_exception") {
+    els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
+    els.taskDetailTime.textContent = `${task.start}-${task.end} · window ${task.duration_minutes} min`;
+    els.taskDetailType.textContent = "事件层 · 例行异常提升 / Event layer · promoted routine exception";
+    els.taskDetailZh.textContent = task.summary_zh;
+    els.taskDetailEn.textContent = task.summary_en;
+    els.taskDetailProvenance.textContent = [
+      "promotion: explicit public-level alert evidence / 明确公开级别提示证据",
+      `time: ${routineTimingLabel(task.time_provenance)}`,
+      "source footprint retained / 源足迹保留",
+    ].join(" · ");
+  } else if (task.origin === "background") {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end} · window ${task.duration_minutes} min · execution ${task.execution_minutes} min`;
-    els.taskDetailType.textContent = `后台例行报告 / Background routine report · ×${task.count}`;
+    els.taskDetailType.textContent = `公开流程报告 / Public process report · ×${task.count}`;
     els.taskDetailZh.textContent = task.summary_zh;
     els.taskDetailEn.textContent = task.summary_en;
     els.taskDetailProvenance.textContent = [
@@ -1156,6 +1476,25 @@ function openTaskDetail(task, trigger) {
     els.taskDialog.classList.add("is-open");
     els.closeTaskDetail.focus({ preventScroll: true });
   });
+}
+
+function renderTaskOccurrences(constituents) {
+  els.taskDetailOccurrenceList.replaceChildren();
+  els.taskDetailOccurrences.hidden = constituents.length === 0;
+  for (const constituent of constituents) {
+    const item = document.createElement("li");
+    item.className = "task-occurrence";
+    const heading = document.createElement("h4");
+    heading.textContent = `${constituent.start}-${constituent.end} · ${constituent.label_zh} / ${constituent.label_en} · ×${constituent.count}`;
+    const zh = document.createElement("p");
+    zh.lang = "zh";
+    zh.textContent = constituent.summary_zh;
+    const en = document.createElement("p");
+    en.lang = "en";
+    en.textContent = constituent.summary_en;
+    item.append(heading, zh, en);
+    els.taskDetailOccurrenceList.append(item);
+  }
 }
 
 function closeTaskDetail(options = {}) {
@@ -1399,4 +1738,11 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function redactedHtml(value) {
+  return escapeHtml(value).replaceAll(
+    "████",
+    '<span class="redaction-block" aria-hidden="true">████</span>',
+  );
 }

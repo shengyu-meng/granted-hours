@@ -149,7 +149,9 @@ try {
 
   await check("day schedule blocks expose readable work types, colors, and duration-proportional heights", async () => {
     const result = await page.locator(".assigned-event").evaluateAll((events) => events.map((event) => {
-      const item = document.querySelector(`.assigned-item[data-event-key="${CSS.escape(event.dataset.eventKey)}"]`);
+      const item = [...document.querySelectorAll(".assigned-item")].find((card) =>
+        (card.dataset.memberFootprintIds || "").split(" ").includes(event.dataset.footprintId)
+      );
       const style = getComputedStyle(item);
       return {
         duration: Number(event.dataset.durationMinutes || 0),

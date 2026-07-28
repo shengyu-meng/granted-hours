@@ -103,6 +103,7 @@
         <section class="timeline-detail" aria-labelledby="timelineTitle">
           <h3 id="timelineTitle">时间构成 / TEMPORAL COMPOSITION</h3>
           <p class="timeline-help">足迹：位置 = 开始时间 · 高度 = 真实时长 · 横向 = 精确并行｜浮签：双语标题 + 当日摘要 · 连接线 = 足迹登记<br>Footprint: position = start · height = exact duration · lanes = exact concurrency | Plane: bilingual title + daily summary · rule = footprint registration</p>
+          <span class="sr-only" id="readingSelectionStatus" role="status" aria-live="polite"></span>
           <div class="timeline-touch-access">
             <button class="timeline-touch-toggle" id="timelineTouchToggle" type="button" aria-expanded="false" aria-controls="timelineTouchGroups">
               Explore touch-accessible event groups / 浏览触控事件组
@@ -131,6 +132,10 @@
             <p id="taskDetailEn"></p>
           </section>
         </div>
+        <section class="task-detail-occurrences" id="taskDetailOccurrences" aria-labelledby="taskDetailOccurrencesTitle" hidden>
+          <h3 id="taskDetailOccurrencesTitle">Exact constituent windows / 精确构成窗口</h3>
+          <ol id="taskDetailOccurrenceList"></ol>
+        </section>
         <p class="task-detail-provenance" id="taskDetailProvenance"></p>
       </div>
     </section>

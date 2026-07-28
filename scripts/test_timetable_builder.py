@@ -196,6 +196,303 @@ class TimetableBuilderTests(unittest.TestCase):
                 1,
             )
 
+    def test_july_21_and_22_keep_every_exact_footprint_but_reduce_the_reading_layer(self) -> None:
+        output = self.build()
+        output_by_date = {day["date"]: day for day in output["days"]}
+        for day_date in ("2026-07-21", "2026-07-22"):
+            with self.subTest(day_date=day_date):
+                source = self.pulses[day_date]
+                day = output_by_date[day_date]
+                backgrounds = day["background_pulses"]
+                self.assertEqual(len(backgrounds), len(source))
+                self.assertEqual(
+                    [
+                        (
+                            pulse["start"],
+                            pulse["end"],
+                            pulse["duration_minutes"],
+                            pulse["category"],
+                            pulse["count"],
+                        )
+                        for pulse in backgrounds
+                    ],
+                    [
+                        (
+                            pulse["start"],
+                            pulse["end"],
+                            pulse["duration_minutes"],
+                            pulse["category"],
+                            pulse["count"],
+                        )
+                        for pulse in source
+                    ],
+                )
+                self.assertEqual(
+                    len([event for event in day["timeline_events"] if event["origin"] == "background"]),
+                    len(source),
+                )
+
+                reading_items = day["reading_items"]
+                climate_groups = [
+                    item
+                    for item in reading_items
+                    if item["classification"] == "climate_aggregate"
+                ]
+                climate_member_ids = [
+                    member_id
+                    for item in climate_groups
+                    for member_id in item["source_refs"]
+                ]
+                self.assertLess(len(climate_groups), len(climate_member_ids))
+                self.assertLess(len(reading_items), len(day["timeline_events"]))
+
+                footprint_ids = [event["footprint_id"] for event in day["timeline_events"]]
+                projected_ids = [
+                    member_id
+                    for item in reading_items
+                    for member_id in item["source_refs"]
+                ]
+                self.assertCountEqual(projected_ids, footprint_ids)
+                self.assertEqual(len(projected_ids), len(set(projected_ids)))
+
+                for item in reading_items:
+                    base_fields = {
+                        "reading_id",
+                        "source",
+                        "source_refs",
+                        "layer",
+                        "classification",
+                    }
+                    expected_fields = (
+                        base_fields
+                        | {"family", "window"}
+                        if item["classification"] == "climate_aggregate"
+                        else base_fields
+                    )
+                    self.assertEqual(set(item), expected_fields)
+                    self.assertTrue(item["source_refs"])
+                    self.assertNotIn("constituents", item)
+                    self.assertNotIn("member_footprint_ids", item)
+                    self.assertNotIn("duration_minutes", item)
+                    self.assertNotIn("origin", item)
+                    if item["classification"] == "climate_aggregate":
+                        label_zh, label_en = builder.climate_group_label(
+                            item["family"],
+                            item["window"],
+                        )
+                        self.assertNotIn(
+                            label_zh,
+                            {"后台例行任务", "系统例行任务", "静默检查"},
+                        )
+                        self.assertNotIn(
+                            label_en,
+                            {"Background routine", "System routine", "Silent check"},
+                        )
+
+    def test_explicit_routine_exception_is_promoted_from_climate(self) -> None:
+        routine = {
+            "origin": "background",
+            "footprint_id": "background-001",
+            "category": "system_routine",
+            "start": "20:02",
+            "end": "20:04",
+            "duration_minutes": 2,
+            "execution_minutes": 1,
+            "time_bucket": "evening",
+            "count": 1,
+            "time_provenance": "observed_session_window",
+            "summary_zh": "完成 1 次系统例行检查；0 次静默正常，1 次出现公开级别异常或新鲜度提示。",
+            "summary_en": "1 system checks completed; 0 were silently healthy and 1 exposed a public-level anomaly or freshness warning.",
+            "summary_provenance": "derived_public_safe",
+            "label_zh": "系统例行任务",
+            "label_en": "System routine",
+            "pulse_color": "blue",
+        }
+        classification = builder.classify_public_pulse(routine)
+        self.assertEqual(classification["outcome"], "promoted_routine_exception")
+        self.assertIn("public_alert", classification["evidence"])
+
+        quiet = copy.deepcopy(routine)
+        quiet["summary_zh"] = "完成 1 次系统例行检查；1 次静默正常，0 次出现公开级别异常或新鲜度提示。"
+        quiet["summary_en"] = "1 system checks completed; 1 were silently healthy and 0 exposed a public-level anomaly or freshness warning."
+        self.assertEqual(builder.classify_public_pulse(quiet)["outcome"], "climate_aggregate")
+
+    def test_private_reminder_projection_uses_fixed_bars_and_ownership_gate(self) -> None:
+        secrets = {
+            "person": "Mara Evergarden",
+            "project": "Orchid Lantern",
+            "amount": "CNY 938,271.44",
+        }
+        owned = {
+            "owner_scope": "self",
+            "ownership_provenance": "explicit_user_authorization",
+            "action_provenance": "no_authorized_action_semantics",
+            "time_code": "afternoon",
+            **secrets,
+        }
+        projected = builder.project_private_reminder(owned)
+        self.assertIsNotNone(projected)
+        serialized = json.dumps(projected, ensure_ascii=False)
+        for secret in secrets.values():
+            self.assertNotIn(secret, serialized)
+        self.assertIn(builder.FIXED_REDACTION_BLOCK, projected["summary_zh"])
+        self.assertIn(builder.FIXED_REDACTION_BLOCK, projected["summary_en"])
+        self.assertEqual(projected["summary_zh"], "下午提醒：████。")
+        self.assertEqual(projected["summary_en"], "Afternoon reminder: ████.")
+        self.assertNotIn("contact", projected["summary_en"].lower())
+        self.assertNotIn("private", projected["summary_en"].lower())
+
+        different_lengths = {
+            **owned,
+            "person": "Li",
+            "project": "A project name whose length must never affect a public bar",
+            "amount": "9",
+        }
+        second = builder.project_private_reminder(different_lengths)
+        self.assertEqual(projected["summary_zh"], second["summary_zh"])
+        self.assertEqual(projected["summary_en"], second["summary_en"])
+
+        rejected_sources = [
+            {**owned, "owner_scope": "other_person"},
+            {**owned, "owner_scope": "unknown"},
+            {**owned, "ownership_provenance": "unverified"},
+            {
+                "time_code": "afternoon",
+                "ownership_provenance": "explicit_user_authorization",
+                "action_provenance": "no_authorized_action_semantics",
+            },
+        ]
+        for source in rejected_sources:
+            with self.subTest(source=source):
+                self.assertIsNone(builder.project_private_reminder(source))
+
+    def test_pulse_schema_validates_reminder_ownership_and_action_provenance(self) -> None:
+        base_pulse = {
+            "start": "08:00",
+            "end": "08:02",
+            "duration_minutes": 2,
+            "execution_minutes": 1,
+            "time_bucket": "morning",
+            "category": "daily_reminder",
+            "count": 1,
+            "time_provenance": "observed_session_window",
+            "summary_zh": "提醒残留。",
+            "summary_en": "Reminder residue.",
+            "summary_provenance": "derived_public_safe",
+            "owner_scope": "self_scheduler_residue",
+            "ownership_provenance": "explicit_user_authorization",
+            "action_provenance": "no_authorized_action_semantics",
+        }
+        invalid_cases = (
+            ("owner_scope", "delegated_person", "invalid owner scope"),
+            ("ownership_provenance", "assumed", "invalid ownership provenance"),
+            ("action_provenance", "inferred_contact", "invalid action provenance"),
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "pulses.json"
+            for field, value, message in invalid_cases:
+                with self.subTest(field=field):
+                    pulse = {**base_pulse, field: value}
+                    path.write_text(
+                        json.dumps(
+                            {
+                                "schema": builder.PULSE_SNAPSHOT_SCHEMA,
+                                "timezone": "Asia/Shanghai",
+                                "days": [{"date": "2026-07-01", "pulses": [pulse]}],
+                            }
+                        ),
+                        encoding="utf-8",
+                    )
+                    with self.assertRaisesRegex(SystemExit, message):
+                        builder.load_pulses(path)
+
+    def test_private_reminder_source_text_is_removed_before_serialization(self) -> None:
+        secret_values = (
+            "Mara Evergarden",
+            "Orchid Lantern",
+            "CNY 938,271.44",
+        )
+        pulses = copy.deepcopy(self.pulses)
+        reminder = next(
+            pulse
+            for pulse in pulses["2026-07-21"]
+            if pulse["category"] == "daily_reminder"
+        )
+        reminder["summary_en"] = "Contact Mara Evergarden about Orchid Lantern and CNY 938,271.44."
+        reminder["summary_zh"] = "联系 Mara Evergarden，确认 Orchid Lantern 与 CNY 938,271.44。"
+        output = builder.build_data(
+            self.public_days,
+            self.config,
+            self.legacy,
+            self.history,
+            pulses,
+        )
+        serialized = json.dumps(output, ensure_ascii=False)
+        for secret in secret_values:
+            self.assertNotIn(secret, serialized)
+        self.assertIn(builder.FIXED_REDACTION_BLOCK, serialized)
+        day = next(item for item in output["days"] if item["date"] == "2026-07-21")
+        residue = next(
+            item
+            for item in day["reading_items"]
+            if item["classification"] == "redacted_reminder_residue"
+        )
+        self.assertEqual(residue["layer"], "absence")
+        source = next(
+            pulse
+            for pulse in day["background_pulses"]
+            if pulse["footprint_id"] == residue["source_refs"][0]
+        )
+        self.assertEqual(source["summary_zh"], "上午提醒：████。")
+        self.assertEqual(source["summary_en"], "Morning reminder: ████.")
+
+    def test_unowned_reminders_are_omitted_before_redaction_and_footprinting(self) -> None:
+        rejected_mutations = (
+            {"owner_scope": "other_person"},
+            {"owner_scope": "unknown", "ownership_provenance": "unverified"},
+            {"ownership_provenance": "unverified"},
+            {"remove_owner_scope": True},
+        )
+        for mutation in rejected_mutations:
+            with self.subTest(mutation=mutation):
+                pulses = copy.deepcopy(self.pulses)
+                source_day = pulses["2026-07-21"]
+                reminder = next(
+                    pulse for pulse in source_day if pulse["category"] == "daily_reminder"
+                )
+                reminder["summary_en"] = "Contact Mara Evergarden about Orchid Lantern and CNY 938,271.44."
+                reminder["summary_zh"] = "联系 Mara Evergarden，确认 Orchid Lantern 与 CNY 938,271.44。"
+                if mutation.get("remove_owner_scope"):
+                    reminder.pop("owner_scope")
+                else:
+                    reminder.update(mutation)
+                output = builder.build_data(
+                    self.public_days,
+                    self.config,
+                    self.legacy,
+                    self.history,
+                    pulses,
+                )
+                serialized = json.dumps(output, ensure_ascii=False)
+                self.assertNotIn("Mara Evergarden", serialized)
+                self.assertNotIn("Orchid Lantern", serialized)
+                self.assertNotIn("CNY 938,271.44", serialized)
+                built_day = next(
+                    day for day in output["days"] if day["date"] == "2026-07-21"
+                )
+                self.assertEqual(
+                    len(built_day["background_pulses"]),
+                    len(source_day) - 1,
+                )
+                self.assertNotIn(
+                    (reminder["start"], reminder["end"]),
+                    [
+                        (pulse["start"], pulse["end"])
+                        for pulse in built_day["background_pulses"]
+                        if pulse["category"] == "daily_reminder"
+                    ],
+                )
+
     def test_autonomous_media_and_main_bgm_playlist_are_complete_and_latest_first(self) -> None:
         output = self.build()
         self.assertEqual(len(output["bgm_playlist"]), len(output["days"]))

@@ -5,6 +5,7 @@ import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const sampleDate = "2026-07-24";
+const sampleDay = timetableData.days.find((day) => day.date === sampleDate);
 const viewports = [
   { width: 1440, height: 900, label: "desktop-wide", touch: false },
   { width: 1024, height: 768, label: "desktop-compact", touch: false },
@@ -150,14 +151,27 @@ async function inspectAutonomousRegions(page) {
 async function inspectLinkedState(page) {
   return page.evaluate(() => ({
     cards: [...document.querySelectorAll(".event-reading-card.is-linked-active")]
-      .map((element) => element.dataset.eventKey),
+      .map((element) => element.dataset.readingId),
     events: [...document.querySelectorAll(".timeline-event.is-linked-active")]
-      .map((element) => element.dataset.eventKey),
+      .map((element) => element.dataset.footprintId),
     footprints: [...document.querySelectorAll(".event-footprint.is-linked-active")]
-      .map((element) => element.closest(".timeline-event")?.dataset.eventKey),
+      .map((element) => element.closest(".timeline-event")?.dataset.footprintId),
     connectors: [...document.querySelectorAll(".event-connector.is-linked-active")]
       .map((element) => element.dataset.eventKey),
   }));
+}
+
+async function expectedLinkedState(card) {
+  const readingId = await card.getAttribute("data-reading-id");
+  const memberIds = ((await card.getAttribute("data-member-footprint-ids")) || "")
+    .split(" ")
+    .filter(Boolean);
+  return {
+    cards: [readingId],
+    events: memberIds,
+    footprints: memberIds,
+    connectors: [readingId],
+  };
 }
 
 const browser = await chromium.launch({ headless: true });
@@ -185,8 +199,9 @@ try {
     const composition = await inspectComposition(page);
     assert.equal(composition.events.length, 106, `${viewport.label}: representative event count changed`);
     assert.equal(composition.footprintCount, composition.events.length, `${viewport.label}: footprint split`);
-    assert.equal(composition.cards.length, composition.events.length, `${viewport.label}: reading-card split`);
-    assert.equal(composition.connectors.length, composition.events.length, `${viewport.label}: connector split`);
+    assert.equal(composition.cards.length, sampleDay.reading_items.length, `${viewport.label}: reading projection`);
+    assert.ok(composition.cards.length < composition.events.length, `${viewport.label}: reading layer must aggregate`);
+    assert.equal(composition.connectors.length, composition.cards.length, `${viewport.label}: connector split`);
     assert.equal(await page.locator(".timeline-events-layer").getAttribute("aria-hidden"), "true");
     assert.equal(await page.locator(".timeline-events-layer").getAttribute("role"), null);
     assert.equal(await page.locator(".timeline-event[role='listitem']").count(), 0);
@@ -324,22 +339,18 @@ try {
       const routine = page.locator(".routine-reading-card").first();
       await routine.scrollIntoViewIfNeeded();
       await routine.tap();
-      assert.equal(await routine.getAttribute("aria-expanded"), "true", `${viewport.label}: first tap expands`);
+      assert.equal(await routine.getAttribute("aria-pressed"), "true", `${viewport.label}: first tap selects`);
+      assert.equal(await routine.getAttribute("aria-expanded"), null, `${viewport.label}: selection is not expansion`);
       assert.equal(await page.locator("#taskDialog").getAttribute("hidden"), "", `${viewport.label}: first tap must not activate`);
       assert.match(await routine.getAttribute("aria-label"), /tap again to open/);
-      const routineKey = await routine.getAttribute("data-event-key");
+      const routineLinkedState = await expectedLinkedState(routine);
       assert.deepEqual(
         await inspectLinkedState(page),
-        {
-          cards: [routineKey],
-          events: [routineKey],
-          footprints: [routineKey],
-          connectors: [routineKey],
-        },
-        `${viewport.label}: first tap must link one matching footprint and connector`,
+        routineLinkedState,
+        `${viewport.label}: first tap must link every matching footprint and one connector`,
       );
       await page.locator("#timelineTitle").tap();
-      assert.equal(await routine.getAttribute("aria-expanded"), "false", `${viewport.label}: outside tap clears`);
+      assert.equal(await routine.getAttribute("aria-pressed"), "false", `${viewport.label}: outside tap clears`);
       assert.deepEqual(
         await inspectLinkedState(page),
         { cards: [], events: [], footprints: [], connectors: [] },
@@ -355,7 +366,11 @@ try {
       const autonomousTouch = page.locator(".autonomous-reading-card");
       await autonomousTouch.scrollIntoViewIfNeeded();
       await autonomousTouch.tap();
-      assert.equal(await autonomousTouch.getAttribute("aria-expanded"), "true");
+      assert.equal(await autonomousTouch.getAttribute("aria-expanded"), null);
+      assert.match(
+        (await page.locator("#readingSelectionStatus").textContent()) || "",
+        /Autonomous work selected/,
+      );
       const popupPromise = page.waitForEvent("popup");
       await autonomousTouch.tap();
       const popup = await popupPromise;
@@ -364,41 +379,26 @@ try {
     } else {
       const routine = page.locator(".routine-reading-card").first();
       await routine.scrollIntoViewIfNeeded();
-      const routineKey = await routine.getAttribute("data-event-key");
+      const routineLinkedState = await expectedLinkedState(routine);
       await routine.hover();
       assert.deepEqual(
         await inspectLinkedState(page),
-        {
-          cards: [routineKey],
-          events: [routineKey],
-          footprints: [routineKey],
-          connectors: [routineKey],
-        },
-        `${viewport.label}: hover must link one matching footprint and connector`,
+        routineLinkedState,
+        `${viewport.label}: hover must link matching footprint group and connector`,
       );
       const secondRoutine = page.locator(".routine-reading-card").nth(1);
-      const secondRoutineKey = await secondRoutine.getAttribute("data-event-key");
+      const secondRoutineLinkedState = await expectedLinkedState(secondRoutine);
       await secondRoutine.focus();
       assert.deepEqual(
         await inspectLinkedState(page),
-        {
-          cards: [secondRoutineKey],
-          events: [secondRoutineKey],
-          footprints: [secondRoutineKey],
-          connectors: [secondRoutineKey],
-        },
+        secondRoutineLinkedState,
         `${viewport.label}: keyboard focus must override a mouse left hovering another card`,
       );
       await page.locator("#timelineTitle").hover();
       await routine.hover();
       assert.deepEqual(
         await inspectLinkedState(page),
-        {
-          cards: [secondRoutineKey],
-          events: [secondRoutineKey],
-          footprints: [secondRoutineKey],
-          connectors: [secondRoutineKey],
-        },
+        secondRoutineLinkedState,
         `${viewport.label}: a new mouse hover must not override an already focused card`,
       );
       await page.locator("#closeDetail").focus();
@@ -412,13 +412,8 @@ try {
       assert.equal(await page.evaluate(() => document.activeElement?.classList.contains("routine-reading-card")), true);
       assert.deepEqual(
         await inspectLinkedState(page),
-        {
-          cards: [routineKey],
-          events: [routineKey],
-          footprints: [routineKey],
-          connectors: [routineKey],
-        },
-        `${viewport.label}: focus must link one matching footprint and connector`,
+        routineLinkedState,
+        `${viewport.label}: focus must link matching footprint group and connector`,
       );
       assert.notEqual(await routine.evaluate((card) => getComputedStyle(card).transform), "none");
       await page.keyboard.press("Enter");
@@ -455,7 +450,7 @@ try {
   await hybridRoutine.click();
   await hybridPage.waitForSelector("#taskDialog.is-open");
   assert.equal(
-    await hybridRoutine.getAttribute("aria-expanded"),
+    await hybridRoutine.getAttribute("aria-pressed"),
     "false",
     "one real mouse click on a hybrid device must open rather than stage touch selection",
   );

@@ -143,7 +143,8 @@ try {
     const pulse = page.locator(".routine-reading-card").first();
     if (viewport.label === "mobile") {
       await pulse.tap();
-      assert.equal(await pulse.getAttribute("aria-expanded"), "true");
+      assert.equal(await pulse.getAttribute("aria-pressed"), "true");
+      assert.equal(await pulse.getAttribute("aria-expanded"), null);
       await pulse.tap();
     } else {
       await pulse.click({ force: true });
@@ -151,7 +152,10 @@ try {
     await page.waitForSelector("#taskDialog.is-open");
     assert.ok(((await page.locator("#taskDetailZh").textContent()) || "").trim().length > 20);
     assert.ok(((await page.locator("#taskDetailEn").textContent()) || "").trim().length > 20);
-    assert.match((await page.locator("#taskDetailProvenance").textContent()) || "", /public-safe daily report/);
+    assert.match(
+      (await page.locator("#taskDetailProvenance").textContent()) || "",
+      /(?:public-safe daily report|deterministic semantic-family\/window aggregate|explicit public-level alert evidence)/,
+    );
     await page.keyboard.press("Escape");
 
     results.push({

@@ -80,7 +80,7 @@ class TimetablePulseImporterTests(unittest.TestCase):
 
             snapshot = importer.build_snapshot(jobs_path, output, days_path, state_db_path)
 
-        self.assertEqual(snapshot["schema"], "granted-hours-timetable-pulses-v2")
+        self.assertEqual(snapshot["schema"], "granted-hours-timetable-pulses-v3")
         self.assertEqual(snapshot["source_file_count"], 4)
         self.assertEqual(snapshot["deduplicated_run_count"], 3)
         self.assertEqual(snapshot["observed_session_window_count"], 2)
@@ -139,6 +139,57 @@ class TimetablePulseImporterTests(unittest.TestCase):
         )
         self.assertIn("未达发布闸门", failure_zh)
         self.assertIn("did not pass", failure_en)
+
+    def test_reminder_ownership_requires_explicit_import_authorization(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            output = root / "output"
+            output.mkdir()
+            jobs_path = root / "jobs.json"
+            days_path = root / "days.json"
+            jobs_path.write_text(
+                json.dumps(
+                    {"jobs": [{"id": "reminder-job", "name": "daily reminder"}]}
+                ),
+                encoding="utf-8",
+            )
+            days_path.write_text(
+                json.dumps([{"date": "2026-07-01"}]),
+                encoding="utf-8",
+            )
+            (output / "reminder-job").mkdir()
+            (output / "reminder-job" / "2026-07-01_08-00-00.md").write_text(
+                "private prompt\n## Response\nprivate response",
+                encoding="utf-8",
+            )
+
+            unverified = importer.build_snapshot(
+                jobs_path,
+                output,
+                days_path,
+                None,
+            )["days"][0]["pulses"][0]
+            authorized = importer.build_snapshot(
+                jobs_path,
+                output,
+                days_path,
+                None,
+                authorize_self_reminders=True,
+            )["days"][0]["pulses"][0]
+
+        self.assertEqual(unverified["owner_scope"], "unknown")
+        self.assertEqual(unverified["ownership_provenance"], "unverified")
+        self.assertEqual(authorized["owner_scope"], "self_scheduler_residue")
+        self.assertEqual(
+            authorized["ownership_provenance"],
+            "explicit_import_authorization",
+        )
+        self.assertEqual(
+            authorized["action_provenance"],
+            "no_authorized_action_semantics",
+        )
+        self.assertEqual(authorized["summary_zh"], "提醒残留。")
+        self.assertEqual(authorized["summary_en"], "Reminder residue.")
 
     def test_adjacent_invalid_run_cannot_borrow_same_job_valid_window(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
