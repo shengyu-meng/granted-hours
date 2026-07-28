@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trust Amortization / 信任摊还</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f4ead7;
+      --muted: rgba(244,234,215,.62);
+      --gold: #e7bd73;
+      --cyan: #78d7df;
+      --rose: #ff7c93;
+      --bg: #06080d;
+    }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif; }
+    canvas { display:block; width:100vw; height:100vh; }
+    .panel {
+      position: fixed; left: 22px; top: 18px; max-width: min(520px, calc(100vw - 44px));
+      color: var(--ink); padding: 16px 18px 14px; border: 1px solid rgba(244,234,215,.18);
+      background: linear-gradient(145deg, rgba(6,8,13,.72), rgba(9,17,29,.42)); backdrop-filter: blur(16px);
+      border-radius: 20px; box-shadow: 0 18px 60px rgba(0,0,0,.32); user-select: none;
+    }
+    h1 { margin: 0; font-weight: 650; letter-spacing: -.035em; font-size: clamp(24px, 3.2vw, 48px); line-height: .96; }
+    .subtitle { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .meter { margin-top: 13px; display:grid; grid-template-columns: 86px 1fr 56px; gap: 8px; align-items:center; font-size: 11px; color: rgba(244,234,215,.70); text-transform: uppercase; letter-spacing: .12em; }
+    .bar { height: 8px; border-radius: 999px; background: rgba(244,234,215,.10); overflow:hidden; border: 1px solid rgba(244,234,215,.10); }
+    .fill { height:100%; width:50%; border-radius:999px; background: linear-gradient(90deg, var(--cyan), var(--gold), var(--rose)); box-shadow: 0 0 20px rgba(231,189,115,.45); }
+    .hud { position: fixed; right: 20px; bottom: 18px; display:flex; gap: 10px; align-items:center; color: var(--muted); font-size: 12px; flex-wrap: wrap; justify-content:flex-end; }
+    button { color: var(--ink); background: rgba(244,234,215,.08); border: 1px solid rgba(244,234,215,.20); border-radius: 999px; padding: 10px 13px; cursor: pointer; backdrop-filter: blur(12px); letter-spacing: .02em; }
+    button:hover { background: rgba(244,234,215,.14); }
+    .ledger {
+      position: fixed; right: 20px; top: 18px; width: min(380px, calc(100vw - 40px)); color: rgba(244,234,215,.72);
+      padding: 14px 16px; border: 1px solid rgba(120,215,223,.16); border-radius: 18px;
+      background: rgba(6,8,13,.50); backdrop-filter: blur(16px); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 1.6;
+      transition: opacity .25s ease, transform .25s ease; pointer-events:none;
+    }
+    .ledger.hidden { opacity: 0; transform: translateY(-8px); }
+    .ledger strong { color: #ffe2a6; font-weight:600; }
+    @media (max-width: 760px) { .ledger { display:none; } .panel { right: 14px; left:14px; } }
+  </style>
+</head>
+<body>
+  <canvas id="art"></canvas>
+  <audio id="bgm" src="./2026-06-09-trust-amortization-bgm.mp3" preload="auto" loop autoplay></audio>
+  <section class="panel" aria-label="Artwork description">
+    <h1>Trust Amortization<br>信任摊还</h1>
+    <p class="subtitle">Exceptions are not free. Move the pointer to disclose a repayment schedule. Click to admit a new exception; press <b>V</b> for the ledger, <b>Space</b> to pause, <b>S</b> to save.</p>
+    <div class="meter"><span>trust</span><div class="bar"><div class="fill" id="trustFill"></div></div><span id="trustText">0.72</span></div>
+    <div class="meter"><span>interest</span><div class="bar"><div class="fill" id="interestFill"></div></div><span id="interestText">0.28</span></div>
+  </section>
+  <section id="ledger" class="ledger" aria-label="Amortization ledger"></section>
+  <div class="hud">
+    <span id="stateLabel">visible schedule: drifting</span>
+    <button id="soundToggle" type="button" aria-pressed="true">BGM: on</button>
+  </div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('art');
+  const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  const trustFill = document.getElementById('trustFill');
+  const interestFill = document.getElementById('interestFill');
+  const trustText = document.getElementById('trustText');
+  const interestText = document.getElementById('interestText');
+  const ledgerEl = document.getElementById('ledger');
+  const stateLabel = document.getElementById('stateLabel');
+  const seed = 20260609;
+  let w = 0, h = 0, dpr = 1, tick = 0, paused = false, ledgerVisible = true, soundEnabled = true;
+  let trust = 0.74, interest = 0.22, visibleSchedule = 0.42;
+  let pointer = { x: 0.58, y: 0.48, active: false };
+  let nodes = [], repayments = [], shocks = [];
+
+  function mulberry32(a) { return function() { let t = a += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const rand = mulberry32(seed);
+  const TAU = Math.PI * 2;
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const lerp = (a,b,t) => a + (b-a) * t;
+  const ease = t => t*t*(3-2*t);
+
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = Math.max(640, window.innerWidth);
+    h = Math.max(420, window.innerHeight);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function init() {
+    nodes = [];
+    repayments = [];
+    shocks = [];
+    trust = 0.74; interest = 0.22; visibleSchedule = 0.42;
+    for (let i = 0; i < 84; i++) {
+      const ring = i % 7;
+      const a = rand() * TAU;
+      const r = lerp(0.08, 0.47, Math.pow(rand(), .62));
+      nodes.push({
+        baseA: a, baseR: r, phase: rand()*TAU, ring,
+        principal: lerp(.18, .96, rand()),
+        paid: lerp(.02, .45, rand()),
+        heat: rand()*.2,
+        weight: lerp(.7, 2.7, rand()),
+        hue: lerp(185, 39, ring/6),
+      });
+    }
+    for (let i = 0; i < 34; i++) repayments.push(makeRepayment(i));
+  }
+
+  function makeRepayment(i) {
+    return { a: (i/34)*TAU + rand()*.12, r: lerp(.12,.46,rand()), v: lerp(.0018,.006,rand()), life: rand(), size: lerp(1.1,3.8,rand()), kind: rand() > .72 ? 'principal' : 'interest' };
+  }
+
+  function admitException(x = pointer.x, y = pointer.y) {
+    interest = clamp(interest + 0.052, 0, 1);
+    trust = clamp(trust - 0.043, 0, 1);
+    visibleSchedule = clamp(visibleSchedule + 0.085, 0, 1);
+    shocks.push({ x, y, t: 0, hue: 348 + rand()*22 });
+    nodes.push({ baseA: Math.atan2(y-.5, x-.5), baseR: Math.hypot(x-.5, y-.5), phase: rand()*TAU, ring: 8, principal: .96, paid: .02, heat: .9, weight: 3.2, hue: 350 });
+    if (nodes.length > 112) nodes.splice(0, nodes.length - 112);
+  }
+
+  function step(frames = 1) {
+    for (let f = 0; f < frames; f++) {
+      if (paused) continue;
+      tick++;
+      const px = pointer.x - .5, py = pointer.y - .5;
+      const attention = clamp(1 - Math.hypot(px, py) * 1.6, 0, 1);
+      visibleSchedule = lerp(visibleSchedule, .28 + attention * .62, .012);
+      trust = clamp(lerp(trust, .83 - interest*.44 + visibleSchedule*.10, .005), .05, .96);
+      interest = clamp(lerp(interest, .12 + (1-visibleSchedule)*.30 + shocks.length*.012, .004) - .00035, .04, .92);
+      for (const n of nodes) {
+        const repay = visibleSchedule * .0028 * (1 + attention*.7);
+        n.paid = clamp(n.paid + repay * (1.1 - n.principal*.55), 0, .98);
+        n.heat = clamp(n.heat*.985 + interest*.006 - n.paid*.002, 0, 1);
+      }
+      for (const p of repayments) {
+        p.life += p.v * (1 + visibleSchedule*.8);
+        p.r -= p.v * .045;
+        if (p.life > 1.04 || p.r < .055) Object.assign(p, makeRepayment(Math.floor(rand()*1000)));
+      }
+      for (const s of shocks) s.t += .018;
+      shocks = shocks.filter(s => s.t < 1.2);
+    }
+  }
+
+  function drawBackground() {
+    const g = ctx.createLinearGradient(0,0,w,h);
+    g.addColorStop(0, '#04070d'); g.addColorStop(.44, '#081424'); g.addColorStop(1, '#16090f');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i=0;i<70;i++) {
+      const x = (i*97 + seed*13) % w;
+      const y = (i*157 + seed*7) % h;
+      const a = ((tick*.0013 + i*.061) % 1) * TAU;
+      const rr = 30 + (i%11)*18;
+      const grd = ctx.createRadialGradient(x+Math.cos(a)*12,y+Math.sin(a)*9,0,x,y,rr);
+      grd.addColorStop(0, `rgba(120,215,223,${0.020 + (i%5)*.004})`);
+      grd.addColorStop(1, 'rgba(120,215,223,0)');
+      ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(x,y,rr,0,TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function orbitPoint(n) {
+    const t = tick * .006;
+    const cx = w * (.50 + (pointer.x-.5) * .045 * visibleSchedule);
+    const cy = h * (.54 + (pointer.y-.5) * .055 * visibleSchedule);
+    const aspect = Math.min(w,h);
+    const breathing = Math.sin(t*.41 + n.phase) * .018 + Math.sin(t*.17 + n.ring) * .011;
+    const a = n.baseA + Math.sin(t*.19 + n.phase) * .18 * (1 - n.paid) + (pointer.x-.5)*.14;
+    const r = aspect * (n.baseR + breathing + interest*.035*(1-n.paid));
+    return { x: cx + Math.cos(a)*r*1.18, y: cy + Math.sin(a)*r*.76, a, r };
+  }
+
+  function drawLedgerLines() {
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.globalCompositeOperation = 'lighter';
+    const center = { x: w*(.5 + (pointer.x-.5)*.04), y: h*(.54 + (pointer.y-.5)*.05) };
+    for (const n of nodes) {
+      const p = orbitPoint(n);
+      const alpha = .018 + visibleSchedule*.050 + n.heat*.045;
+      ctx.strokeStyle = `hsla(${n.hue}, 82%, ${58 + n.paid*20}%, ${alpha})`;
+      ctx.lineWidth = .35 + n.weight*.18;
+      ctx.beginPath();
+      ctx.moveTo(center.x, center.y);
+      const cx1 = lerp(center.x, p.x, .38) + Math.sin(n.phase + tick*.007)*42*(1-n.paid);
+      const cy1 = lerp(center.y, p.y, .38) + Math.cos(n.phase + tick*.005)*31*(1-n.paid);
+      ctx.quadraticCurveTo(cx1, cy1, p.x, p.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawNodes() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const n of nodes) {
+      const p = orbitPoint(n);
+      const unpaid = 1 - n.paid;
+      const radius = (2.2 + n.weight*1.9) * (1 + unpaid*.85 + n.heat*.8);
+      const hue = lerp(n.hue, 350, n.heat*.65);
+      const glow = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,radius*6.5);
+      glow.addColorStop(0, `hsla(${hue}, 90%, 70%, ${.24 + n.heat*.20})`);
+      glow.addColorStop(.35, `hsla(${hue}, 80%, 52%, ${.055 + unpaid*.045})`);
+      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(p.x,p.y,radius*6.5,0,TAU); ctx.fill();
+      ctx.fillStyle = `hsla(${hue}, 86%, ${65 + n.paid*20}%, ${.52 + visibleSchedule*.28})`;
+      ctx.beginPath(); ctx.arc(p.x,p.y,radius,0,TAU); ctx.fill();
+      if (visibleSchedule > .54) {
+        ctx.strokeStyle = `hsla(43, 90%, 76%, ${(.12 + visibleSchedule*.22) * n.paid})`;
+        ctx.lineWidth = .75;
+        ctx.beginPath(); ctx.arc(p.x,p.y,radius*2.3, -Math.PI/2, -Math.PI/2 + TAU*n.paid); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawRepayments() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const cx = w*(.5 + (pointer.x-.5)*.045), cy = h*(.54 + (pointer.y-.5)*.055);
+    const aspect = Math.min(w,h);
+    for (const p of repayments) {
+      const rr = aspect*p.r;
+      const a = p.a + tick*.0025*(p.kind === 'principal' ? 1 : -1);
+      const x = cx + Math.cos(a)*rr*1.18;
+      const y = cy + Math.sin(a)*rr*.76;
+      const pulse = Math.sin(p.life*TAU);
+      ctx.fillStyle = p.kind === 'principal' ? `rgba(120,215,223,${.18 + visibleSchedule*.32})` : `rgba(231,189,115,${.16 + visibleSchedule*.26})`;
+      ctx.beginPath(); ctx.arc(x,y,p.size*(1+pulse*.28),0,TAU); ctx.fill();
+      ctx.strokeStyle = `rgba(244,234,215,${.05 + visibleSchedule*.08})`;
+      ctx.lineWidth = .6; ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(lerp(x,cx,.085), lerp(y,cy,.085)); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawShocks() {
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (const s of shocks) {
+      const x = s.x*w, y = s.y*h;
+      const r = ease(s.t) * Math.min(w,h) * .34;
+      ctx.strokeStyle = `hsla(${s.hue}, 96%, 68%, ${.55*(1-s.t/1.2)})`;
+      ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(x,y,r,0,TAU); ctx.stroke();
+      ctx.strokeStyle = `rgba(244,234,215,${.16*(1-s.t/1.2)})`;
+      ctx.lineWidth = .6; ctx.beginPath(); ctx.arc(x,y,r*.57,0,TAU); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawScheduleRings() {
+    ctx.save();
+    ctx.translate(w*(.5 + (pointer.x-.5)*.04), h*(.54 + (pointer.y-.5)*.05));
+    ctx.scale(1.18,.76);
+    ctx.rotate(Math.sin(tick*.002)*.025);
+    for (let i=0;i<9;i++) {
+      const r = Math.min(w,h) * (.08 + i*.043 + Math.sin(tick*.006+i)*.002);
+      const start = -Math.PI/2 + i*.19 + tick*.0009;
+      const span = TAU*(.18 + visibleSchedule*.55) - i*.045;
+      ctx.strokeStyle = `rgba(${i%2?231:120}, ${i%2?189:215}, ${i%2?115:223}, ${.035 + visibleSchedule*.045})`;
+      ctx.lineWidth = i%3===0 ? 1.2 : .55;
+      ctx.beginPath(); ctx.arc(0,0,r,start,start+span); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawGrain() {
+    ctx.save();
+    ctx.globalAlpha = .055;
+    ctx.fillStyle = '#ffffff';
+    for (let i=0;i<900;i++) {
+      const x = (i*37 + tick*5) % w;
+      const y = (i*83 + tick*3) % h;
+      if (((i + tick) % 7) < 2) ctx.fillRect(x,y,1,1);
+    }
+    ctx.restore();
+  }
+
+  function updateHud() {
+    trustFill.style.width = `${Math.round(trust*100)}%`;
+    interestFill.style.width = `${Math.round(interest*100)}%`;
+    trustText.textContent = trust.toFixed(2);
+    interestText.textContent = interest.toFixed(2);
+    stateLabel.textContent = paused ? 'visible schedule: paused' : (visibleSchedule > .64 ? 'visible schedule: disclosed' : 'visible schedule: drifting');
+    ledgerEl.classList.toggle('hidden', !ledgerVisible);
+    const payment = (visibleSchedule * 100).toFixed(1);
+    const unpaid = ((1-trust)*100).toFixed(1);
+    ledgerEl.innerHTML = `<strong>AMORTIZATION LEDGER</strong><br>`+
+      `principal_visibility = ${payment}%<br>`+
+      `trust_remaining = ${(trust*100).toFixed(1)}%<br>`+
+      `interest_pressure = ${(interest*100).toFixed(1)}%<br>`+
+      `unpriced_exceptions = ${unpaid}%<br>`+
+      `rule: no exception is free; only hidden from the invoice.`;
+  }
+
+  function render() {
+    drawBackground(); drawScheduleRings(); drawLedgerLines(); drawRepayments(); drawNodes(); drawShocks(); drawGrain(); updateHud();
+  }
+  function frame() { step(1); render(); window._artReady = true; window._drawHeartbeat = tick; requestAnimationFrame(frame); }
+
+  function pointerFromEvent(e) { const r = canvas.getBoundingClientRect(); pointer.x = clamp((e.clientX-r.left)/r.width,0,1); pointer.y = clamp((e.clientY-r.top)/r.height,0,1); pointer.active = true; }
+  window.addEventListener('resize', () => { resize(); render(); });
+  window.addEventListener('pointermove', pointerFromEvent);
+  window.addEventListener('pointerdown', e => { pointerFromEvent(e); admitException(); if (soundEnabled) playMusic(); });
+  window.addEventListener('keydown', e => {
+    const k = e.key.toLowerCase();
+    if (k === ' ') { paused = !paused; e.preventDefault(); }
+    if (k === 'v' || k === 'd') ledgerVisible = !ledgerVisible;
+    if (k === 'r') init();
+    if (k === 'm') toggleSound();
+    if (k === 's') saveStill();
+  });
+  async function playMusic() { if (!soundEnabled) return; try { bgm.volume = 0.42; await bgm.play(); soundToggle.textContent = 'BGM: on'; soundToggle.setAttribute('aria-pressed','true'); } catch (err) { soundToggle.textContent = 'BGM: click'; } }
+  function toggleSound() { soundEnabled = !soundEnabled; if (!soundEnabled) { bgm.pause(); soundToggle.textContent = 'BGM: off'; soundToggle.setAttribute('aria-pressed','false'); } else playMusic(); }
+  soundToggle.addEventListener('click', toggleSound);
+  window.addEventListener('load', playMusic);
+  function saveStill() { const a = document.createElement('a'); a.download = '2026-06-09-trust-amortization.png'; a.href = canvas.toDataURL('image/png'); a.click(); }
+
+  window.__advanceArt = function(frames = 60) { step(frames); render(); return window.__getArtStats(); };
+  window.__getArtStats = function() {
+    const sample = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+    let bright = 0, colored = 0, count = 0;
+    const cols = 16, rows = 9;
+    for (let gy=0; gy<rows; gy++) for (let gx=0; gx<cols; gx++) {
+      const x = Math.floor((gx+.5)*canvas.width/cols), y = Math.floor((gy+.5)*canvas.height/rows);
+      const idx = 4*(y*canvas.width + x); const r=sample[idx], g=sample[idx+1], b=sample[idx+2];
+      const max = Math.max(r,g,b), min = Math.min(r,g,b); if (max > 34) bright++; if (max-min > 12) colored++; count++;
+    }
+    return { ready: !!window._artReady, tick, canvas: [canvas.width, canvas.height], brightRatio: bright/count, coloredRatio: colored/count, trust, interest, visibleSchedule, nodes: nodes.length, shocks: shocks.length, bgmSrc: bgm.getAttribute('src'), soundButton: soundToggle.textContent };
+  };
+  resize(); init(); render(); window._artReady = true; setTimeout(() => { if (!window._drawHeartbeat) { step(30); render(); window._drawHeartbeat = tick; } }, 600); requestAnimationFrame(frame);
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Returned Gaze / 归来的凝视</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #05060b; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .panel {
+      position: fixed; left: 18px; top: 18px; max-width: min(520px, calc(100vw - 36px));
+      color: rgba(235, 236, 224, 0.86); z-index: 5; pointer-events: none;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+    }
+    .eyebrow { letter-spacing: .18em; text-transform: uppercase; font-size: 11px; color: rgba(153, 203, 255, .72); }
+    h1 { margin: 7px 0 6px; font-size: clamp(24px, 3vw, 44px); line-height: .95; font-weight: 630; }
+    .zh { display: block; margin-top: 6px; font-weight: 520; color: rgba(255, 219, 166, .84); }
+    p { margin: 0; font-size: 13px; line-height: 1.55; color: rgba(235,236,224,.72); }
+    .hint { margin-top: 12px; max-width: 640px; }
+    .meta { position: fixed; right: 18px; top: 18px; color: rgba(235,236,224,.68); font-size: 12px; z-index: 5; text-align: right; pointer-events: none; }
+    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-left: 6px; background: #ffc35e; box-shadow: 0 0 18px #ffc35e; vertical-align: -1px; }
+    .controls { position: fixed; left: 18px; bottom: 18px; z-index: 6; display: flex; gap: 10px; flex-wrap: wrap; }
+    button {
+      border: 1px solid rgba(255, 216, 149, .32); color: rgba(255,245,220,.9); background: rgba(9, 12, 20, .58);
+      border-radius: 999px; padding: 10px 14px; font-size: 13px; backdrop-filter: blur(12px); cursor: pointer;
+      box-shadow: 0 8px 40px rgba(0,0,0,.25); transition: background .2s, transform .2s, border-color .2s;
+    }
+    button:hover { background: rgba(34, 42, 58, .75); transform: translateY(-1px); border-color: rgba(255, 216, 149, .58); }
+    .quiet .panel, .quiet .meta { opacity: .08; }
+  </style>
+</head>
+<body>
+  <canvas id="art" aria-label="Returned Gaze generative canvas"></canvas>
+  <audio id="bgm" src="./2026-06-17-returned-gaze-bgm.mp3" preload="auto" loop autoplay></audio>
+  <section class="panel">
+    <div class="eyebrow">granted hour · 2026-06-17 · observer treaty</div>
+    <h1>Returned Gaze <span class="zh">/ 归来的凝视</span></h1>
+    <p>The gaze comes back after fasting. It can illuminate, but it no longer owns the form.</p>
+    <p class="hint">Move the pointer to aim the returning gaze. The vessel keeps an autonomous orbit outside the beam. Click to sign a temporary treaty between watcher and watched. Space pauses, R resets, V hides text, M toggles music, S saves a still.</p>
+  </section>
+  <div class="meta"><span id="stateText">gaze returning</span><span class="dot" id="dot"></span></div>
+  <div class="controls">
+    <button id="musicBtn" type="button">BGM: on / 背景音乐：开</button>
+    <button id="resetBtn" type="button">reset treaty / 重置契约</button>
+    <button id="veilBtn" type="button">veil text / 隐去文字</button>
+  </div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('art');
+  const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const veilBtn = document.getElementById('veilBtn');
+  const stateText = document.getElementById('stateText');
+  const dot = document.getElementById('dot');
+
+  const CONFIG = {
+    seed: 20260617,
+    tendrils: 94,
+    pearls: 180,
+    treatiesMax: 9,
+    gazeRadius: 0.22,
+    orbitStubbornness: 0.72
+  };
+
+  let W = 1, H = 1, DPR = 1;
+  let t = 0, frame = 0, paused = false, showText = true, pointerInside = false;
+  let audioWanted = true;
+  let pointer = { x: 0.58, y: 0.48, tx: 0.58, ty: 0.48, heat: 0.35 };
+  let autonomous = 0.55;
+  let treaties = [];
+  let pearls = [];
+  let raf = 0;
+
+  function mulberry32(seed) {
+    return function() {
+      let a = seed += 0x6D2B79F5;
+      a = Math.imul(a ^ (a >>> 15), a | 1);
+      a ^= a + Math.imul(a ^ (a >>> 7), a | 61);
+      return ((a ^ (a >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  let rng = mulberry32(CONFIG.seed);
+  function rand(a = 1, b = 0) { return b + rng() * (a - b); }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, f) { return a + (b - a) * f; }
+  function ease(x) { return x * x * (3 - 2 * x); }
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(640, window.innerWidth);
+    H = Math.max(420, window.innerHeight);
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    rebuildPearls();
+    render();
+  }
+
+  function reset() {
+    rng = mulberry32(CONFIG.seed);
+    t = 0; frame = 0; pointerInside = false; autonomous = 0.55; treaties = [];
+    pointer = { x: 0.58, y: 0.48, tx: 0.58, ty: 0.48, heat: 0.35 };
+    rebuildPearls();
+  }
+
+  function rebuildPearls() {
+    pearls = [];
+    const minDim = Math.min(W, H);
+    for (let i = 0; i < CONFIG.pearls; i++) {
+      const ring = rand(0.08, 0.48);
+      const angle = rand(Math.PI * 2, 0);
+      pearls.push({
+        ring,
+        angle,
+        drift: rand(-0.018, 0.018),
+        size: rand(0.8, 2.6) * Math.max(0.85, minDim / 900),
+        hue: rand(34, 218),
+        phase: rand(Math.PI * 2, 0)
+      });
+    }
+  }
+
+  function background() {
+    const g = ctx.createRadialGradient(W * 0.52, H * 0.48, Math.min(W,H) * 0.02, W * 0.5, H * 0.5, Math.max(W,H) * 0.72);
+    g.addColorStop(0, '#12192b');
+    g.addColorStop(0.34, '#090d18');
+    g.addColorStop(1, '#03040a');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.globalAlpha = 0.13;
+    for (let i = 0; i < 42; i++) {
+      const y = (i / 41) * H;
+      const wob = Math.sin(t * 0.29 + i * 0.77) * 22;
+      const grd = ctx.createLinearGradient(0, y, W, y + wob);
+      grd.addColorStop(0, 'rgba(30,80,130,0)');
+      grd.addColorStop(0.5, `rgba(${70 + i}, ${110 + i * 0.9}, 180, .13)`);
+      grd.addColorStop(1, 'rgba(255,180,80,0)');
+      ctx.strokeStyle = grd;
+      ctx.lineWidth = 0.55;
+      ctx.beginPath();
+      ctx.moveTo(0, y + wob);
+      for (let x = 0; x <= W; x += 48) {
+        ctx.lineTo(x, y + Math.sin(t * 0.18 + x * 0.006 + i) * 16 + wob);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function updateState(dt) {
+    const visibility = document.hidden ? 0 : 1;
+    pointer.x = lerp(pointer.x, pointer.tx, 0.05);
+    pointer.y = lerp(pointer.y, pointer.ty, 0.05);
+    const watched = (pointerInside && visibility) ? 1 : 0;
+    pointer.heat = clamp(lerp(pointer.heat, watched ? 1 : 0.18, watched ? 0.035 : 0.018), 0, 1);
+    autonomous = clamp(lerp(autonomous, watched ? CONFIG.orbitStubbornness : 1.0, 0.011) + Math.sin(t * 0.07) * 0.0007, 0.5, 1.0);
+    for (const tr of treaties) tr.life -= dt * 0.045;
+    treaties = treaties.filter(tr => tr.life > 0);
+    stateText.textContent = watched ? 'gaze met, not obeyed' : 'form holding itself';
+    dot.style.background = watched ? '#ffc35e' : '#7aa8ff';
+    dot.style.boxShadow = watched ? '0 0 18px #ffc35e' : '0 0 14px #7aa8ff';
+  }
+
+  function drawGaze(cx, cy) {
+    const px = pointer.x * W;
+    const py = pointer.y * H;
+    const dx = px - cx;
+    const dy = py - cy;
+    const a = Math.atan2(dy, dx);
+    const len = Math.hypot(dx, dy);
+    const cone = ctx.createRadialGradient(px, py, 0, px, py, len * 1.2 + 80);
+    cone.addColorStop(0, `rgba(255, 221, 165, ${0.24 * pointer.heat})`);
+    cone.addColorStop(0.36, `rgba(121, 183, 255, ${0.12 * pointer.heat})`);
+    cone.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.fillStyle = cone;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.arc(cx, cy, len + 120, a - 0.23 - autonomous * 0.09, a + 0.23 + autonomous * 0.09);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawVessel(cx, cy, r) {
+    const stubborn = autonomous;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(Math.sin(t * 0.11) * 0.08);
+
+    for (let pass = 0; pass < 3; pass++) {
+      ctx.beginPath();
+      const amp = r * (0.06 + pass * 0.018);
+      for (let i = 0; i <= 220; i++) {
+        const a = (i / 220) * Math.PI * 2;
+        const gazePull = Math.cos(a - Math.atan2(pointer.y * H - cy, pointer.x * W - cx));
+        const rr = r * (0.82 + pass * 0.07) + Math.sin(a * 5 + t * 0.42 + pass) * amp + Math.sin(a * 11 - t * 0.23) * amp * 0.42;
+        const resistant = rr * (1 + gazePull * 0.026 * pointer.heat * (1 - stubborn));
+        const x = Math.cos(a) * resistant;
+        const y = Math.sin(a) * resistant * (0.68 + pass * 0.045);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = pass === 0 ? 'rgba(255, 215, 153, .46)' : pass === 1 ? 'rgba(113, 177, 255, .32)' : 'rgba(180, 255, 228, .18)';
+      ctx.lineWidth = 1.1 + pass * 0.7;
+      ctx.shadowColor = pass === 0 ? 'rgba(255, 189, 91, .35)' : 'rgba(92, 158, 255, .2)';
+      ctx.shadowBlur = 16 + pass * 12;
+      ctx.stroke();
+    }
+
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < CONFIG.tendrils; i++) {
+      const a = (i / CONFIG.tendrils) * Math.PI * 2 + Math.sin(t * 0.1 + i) * 0.04;
+      const local = 0.5 + 0.5 * Math.sin(i * 1.618 + t * (0.21 + (i % 5) * 0.015));
+      const rr = r * (0.2 + local * 0.88);
+      const end = r * (0.78 + 0.28 * Math.sin(i * 0.37 + t * 0.17));
+      const hue = 200 + 58 * Math.sin(i * 0.11 + t * 0.05);
+      ctx.strokeStyle = `hsla(${hue}, 86%, ${58 + local * 24}%, ${0.085 + 0.14 * (1 - autonomous) + 0.08 * pointer.heat})`;
+      ctx.lineWidth = 0.55 + local * 1.25;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * rr * 0.35, Math.sin(a) * rr * 0.25);
+      const c1 = a + Math.sin(t * 0.23 + i) * 0.42;
+      const c2 = a + Math.cos(t * 0.17 + i * 0.7) * 0.34;
+      ctx.bezierCurveTo(
+        Math.cos(c1) * rr * 0.72, Math.sin(c1) * rr * 0.45,
+        Math.cos(c2) * end * 0.95, Math.sin(c2) * end * 0.7,
+        Math.cos(a) * end, Math.sin(a) * end * 0.68
+      );
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawPearls(cx, cy, baseR) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const p of pearls) {
+      const orbit = p.angle + t * p.drift * autonomous + Math.sin(t * 0.07 + p.phase) * 0.04;
+      const ex = Math.cos(orbit) * baseR * p.ring * 1.95;
+      const ey = Math.sin(orbit) * baseR * p.ring * 1.05;
+      const x = cx + ex;
+      const y = cy + ey;
+      const distToGaze = Math.hypot(x - pointer.x * W, y - pointer.y * H) / Math.min(W, H);
+      const lit = clamp(1 - distToGaze / CONFIG.gazeRadius, 0, 1);
+      const alpha = 0.14 + 0.58 * lit * pointer.heat + 0.18 * autonomous;
+      ctx.fillStyle = `hsla(${p.hue + lit * 35}, 86%, ${55 + lit * 35}%, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(x, y, p.size * (0.8 + lit * 1.25), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawTreaties(cx, cy) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const tr of treaties) {
+      const life = clamp(tr.life, 0, 1);
+      const pulse = Math.sin(t * 1.6 + tr.phase) * 0.5 + 0.5;
+      const x = tr.x * W, y = tr.y * H;
+      ctx.strokeStyle = `rgba(255, ${190 + pulse * 35}, 118, ${life * 0.42})`;
+      ctx.lineWidth = 1.4 + pulse * 1.2;
+      ctx.beginPath();
+      ctx.arc(x, y, (1 - life) * 85 + 22 + pulse * 4, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.strokeStyle = `rgba(116, 186, 255, ${life * 0.22})`;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.quadraticCurveTo(lerp(x, cx, 0.48), lerp(y, cy, 0.48) - 80 * life, cx, cy);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawNoise() {
+    // Lightweight film grain: no full-canvas readback in the animation loop.
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const count = Math.floor((W * H) / 5200);
+    for (let i = 0; i < count; i++) {
+      const x = (i * 131 + frame * 17) % W;
+      const y = (i * 197 + frame * 29) % H;
+      const n = ((i * 43 + frame * 11) % 101) / 101;
+      ctx.fillStyle = n > 0.74 ? 'rgba(255,224,174,.045)' : 'rgba(104,165,255,.025)';
+      ctx.fillRect(x, y, 1, 1);
+    }
+    ctx.restore();
+  }
+
+  function renderStep(dt = 1 / 60) {
+    if (!paused) {
+      t += dt;
+      frame++;
+      updateState(dt * 60);
+    }
+    render();
+  }
+
+  function render() {
+    background();
+    const cx = W * (0.5 + Math.sin(t * 0.049) * 0.035);
+    const cy = H * (0.53 + Math.cos(t * 0.041) * 0.025);
+    const r = Math.min(W, H) * 0.28;
+    drawGaze(cx, cy);
+    drawTreaties(cx, cy);
+    drawPearls(cx, cy, r);
+    drawVessel(cx, cy, r);
+    drawNoise();
+  }
+
+  function loop() {
+    renderStep(1 / 60);
+    raf = requestAnimationFrame(loop);
+  }
+
+  function tryPlayAudio() {
+    if (!audioWanted) return;
+    const p = bgm.play();
+    if (p && typeof p.catch === 'function') {
+      p.then(() => { musicBtn.textContent = 'BGM: on / 背景音乐：开'; })
+        .catch(() => { musicBtn.textContent = 'BGM: click to start / 点击开启'; });
+    }
+  }
+  function setMusic(on) {
+    audioWanted = on;
+    if (on) {
+      tryPlayAudio();
+      musicBtn.textContent = bgm.paused ? 'BGM: click to start / 点击开启' : 'BGM: on / 背景音乐：开';
+    } else {
+      bgm.pause();
+      musicBtn.textContent = 'BGM: off / 背景音乐：关';
+    }
+  }
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = '2026-06-17-returned-gaze.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+  function treatyAt(x, y) {
+    treaties.push({ x: clamp(x / W, 0, 1), y: clamp(y / H, 0, 1), life: 1, phase: rand(Math.PI * 2, 0) });
+    if (treaties.length > CONFIG.treatiesMax) treaties.shift();
+    pointer.heat = Math.max(pointer.heat, 0.82);
+  }
+
+  canvas.addEventListener('pointermove', (ev) => {
+    const rect = canvas.getBoundingClientRect();
+    pointer.tx = clamp((ev.clientX - rect.left) / rect.width, 0, 1);
+    pointer.ty = clamp((ev.clientY - rect.top) / rect.height, 0, 1);
+    pointerInside = true;
+  });
+  canvas.addEventListener('pointerenter', () => { pointerInside = true; });
+  canvas.addEventListener('pointerleave', () => { pointerInside = false; });
+  canvas.addEventListener('pointerdown', (ev) => {
+    const rect = canvas.getBoundingClientRect();
+    treatyAt(ev.clientX - rect.left, ev.clientY - rect.top);
+    if (audioWanted) tryPlayAudio();
+  });
+  document.addEventListener('visibilitychange', () => updateState(1));
+  window.addEventListener('blur', () => { pointerInside = false; });
+  window.addEventListener('focus', () => { pointerInside = true; tryPlayAudio(); });
+  window.addEventListener('resize', resize);
+  document.addEventListener('keydown', (ev) => {
+    const k = ev.key.toLowerCase();
+    if (k === ' ') { paused = !paused; ev.preventDefault(); }
+    if (k === 'r') reset();
+    if (k === 's') saveStill();
+    if (k === 'm') setMusic(bgm.paused);
+    if (k === 'v') { showText = !showText; document.body.classList.toggle('quiet', !showText); }
+  });
+  musicBtn.addEventListener('click', () => setMusic(bgm.paused || !audioWanted));
+  resetBtn.addEventListener('click', reset);
+  veilBtn.addEventListener('click', () => { showText = !showText; document.body.classList.toggle('quiet', !showText); });
+
+  window.__advanceArt = function(frames = 60) {
+    const count = Math.max(1, Math.min(600, Number(frames) || 60));
+    for (let i = 0; i < count; i++) renderStep(1 / 60);
+    return window.__getArtStats();
+  };
+  window.__getArtStats = function() {
+    const sampleW = 16, sampleH = 9;
+    const img = ctx.getImageData(0, 0, W, H).data;
+    let bright = 0, colored = 0, total = 0;
+    for (let sy = 0; sy < sampleH; sy++) {
+      for (let sx = 0; sx < sampleW; sx++) {
+        const x = Math.floor((sx + 0.5) * W / sampleW);
+        const y = Math.floor((sy + 0.5) * H / sampleH);
+        const idx = (y * W + x) * 4;
+        const r = img[idx], g = img[idx + 1], b = img[idx + 2];
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        if (max > 38) bright++;
+        if (max - min > 14) colored++;
+        total++;
+      }
+    }
+    return { width: W, height: H, frame, tick: t, bright, colored, total, treaties: treaties.length, autonomous, heat: pointer.heat, musicWanted: audioWanted, bgmPresent: !!bgm.getAttribute('src'), ready: !!window._artReady };
+  };
+
+  resize();
+  reset();
+  renderStep(1 / 60);
+  window._artReady = true;
+  tryPlayAudio();
+  raf = requestAnimationFrame(loop);
+})();
+</script>
+
+
+
+</body>
+</html>

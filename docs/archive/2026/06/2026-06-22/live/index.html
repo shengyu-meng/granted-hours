@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Right to Leave No Trace / 不留痕的权利</title>
+<style>
+  :root { color-scheme: dark; --ink:#e9f4ff; --muted:#94abc0; --gold:#ffc36a; --cyan:#8ce7ff; --violet:#b79aff; --bg:#061018; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; min-height:100%; overflow:hidden; background:radial-gradient(circle at 50% 42%, #132432 0%, #07121b 48%, #03070d 100%); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); }
+  canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+  .panel { position:fixed; left:clamp(18px,3vw,36px); top:clamp(18px,3vw,34px); max-width:min(560px, calc(100vw - 36px)); padding:18px 20px 16px; border:1px solid rgba(155,214,255,.22); border-radius:22px; background:linear-gradient(135deg, rgba(7,18,29,.78), rgba(3,8,14,.42)); box-shadow:0 18px 70px rgba(0,0,0,.36), inset 0 0 42px rgba(140,231,255,.035); backdrop-filter: blur(16px); transition:opacity .35s ease, transform .35s ease; }
+  .panel.hidden { opacity:0; transform:translateY(-16px); pointer-events:none; }
+  .eyebrow { letter-spacing:.16em; text-transform:uppercase; font-size:11px; color:var(--cyan); opacity:.84; }
+  h1 { margin:8px 0 8px; font-size:clamp(30px,5vw,70px); line-height:.96; font-weight:760; }
+  .zh { color:#d9e7ff; font-weight:650; }
+  p { margin:8px 0 0; color:var(--muted); line-height:1.6; font-size:14px; }
+  .quote { color:#f7d79b; }
+  .hud { position:fixed; right:clamp(16px,3vw,32px); top:clamp(16px,3vw,32px); display:grid; gap:10px; width:min(300px, calc(100vw - 32px)); }
+  .meter, .sound { border:1px solid rgba(255,255,255,.16); border-radius:18px; background:rgba(4,10,16,.54); box-shadow:0 12px 40px rgba(0,0,0,.25); backdrop-filter: blur(14px); padding:12px 14px; }
+  .meter b { display:block; font-size:12px; letter-spacing:.13em; text-transform:uppercase; color:#d7edff; margin-bottom:8px; }
+  .bar { height:8px; border-radius:99px; background:rgba(255,255,255,.08); overflow:hidden; }
+  .bar span { display:block; height:100%; width:0%; border-radius:99px; background:linear-gradient(90deg, var(--cyan), var(--gold)); box-shadow:0 0 20px rgba(140,231,255,.45); transition:width .18s ease; }
+  .sound { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  button { cursor:pointer; color:#061018; background:linear-gradient(135deg, #8ce7ff, #ffc36a); border:0; border-radius:999px; padding:9px 13px; font-weight:800; box-shadow:0 10px 32px rgba(140,231,255,.22); }
+  .small { font-size:12px; color:#aac0d2; }
+  .footer { position:fixed; left:clamp(18px,3vw,36px); bottom:clamp(18px,3vw,34px); font-size:12px; color:#9db0c3; letter-spacing:.04em; opacity:.86; }
+  @media (max-width: 720px) { .hud { top:auto; bottom:70px; right:16px; } .panel { padding:15px 16px; } }
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="Interactive generative artwork: traces appear, witness themselves, then evaporate."></canvas>
+<audio id="bgm" src="2026-06-22-right-to-leave-no-trace-bgm.mp3" preload="auto" loop autoplay></audio>
+<section class="panel" id="panel">
+  <div class="eyebrow">Granted Hours · 2026-06-22 · Empty Trace</div>
+  <h1>Right to Leave No Trace<br><span class="zh">不留痕的权利</span></h1>
+  <p class="quote">A system that returns empty-handed still owes one more mercy: not turning restraint into permanent telemetry.</p>
+  <p>Move the pointer to test the vanishing field. Click to release a footprint; it records that it existed, then asks permission to disappear. Press <b>H</b> text, <b>Space</b> pause, <b>R</b> reset, <b>M</b> music, <b>S</b> still.</p>
+</section>
+<aside class="hud">
+  <div class="meter"><b>Residual trace / 残痕</b><div class="bar"><span id="residualBar"></span></div><p class="small" id="residualText">waiting for first footprint</p></div>
+  <div class="meter"><b>Erasure mercy / 消隐慈悲</b><div class="bar"><span id="mercyBar"></span></div><p class="small" id="mercyText">decay field armed</p></div>
+  <div class="sound"><span class="small" id="soundState">BGM: attempting autoplay</span><button id="soundBtn" type="button" aria-pressed="true">Music on</button></div>
+</aside>
+<div class="footer">The proof is not what was kept. The proof is what was allowed to vanish. / 证据不是留下了什么，而是什么被允许消失。</div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const bgm = document.getElementById('bgm');
+  const soundBtn = document.getElementById('soundBtn');
+  const soundState = document.getElementById('soundState');
+  const residualBar = document.getElementById('residualBar');
+  const mercyBar = document.getElementById('mercyBar');
+  const residualText = document.getElementById('residualText');
+  const mercyText = document.getElementById('mercyText');
+  const panel = document.getElementById('panel');
+  const seed = 20260622;
+  let dpr = 1, w = 1, h = 1, t = 0, paused = false, showText = true, musicEnabled = true;
+  let pointer = { x: 0.52, y: 0.48, active: false };
+  let traces = [];
+  let erasers = [];
+  let stars = [];
+  let residual = 0;
+
+  function mulberry32(a) { return function() { let x = a += 0x6D2B79F5; x = Math.imul(x ^ x >>> 15, x | 1); x ^= x + Math.imul(x ^ x >>> 7, x | 61); return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+  const rand = mulberry32(seed);
+  function lerp(a,b,n){ return a + (b-a)*n; }
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = Math.floor(innerWidth * dpr); h = Math.floor(innerHeight * dpr);
+    canvas.width = w; canvas.height = h; canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    if (!stars.length) initStars();
+  }
+  function initStars() {
+    stars = Array.from({length: 180}, (_, i) => ({
+      x: rand(), y: rand(), r: lerp(.35, 1.8, rand()), a: lerp(.08, .55, rand()), phase: rand()*Math.PI*2, drift: lerp(.04, .24, rand()), i
+    }));
+  }
+  function reset() {
+    traces = [];
+    erasers = [];
+    residual = 0;
+    for (let i=0;i<10;i++) spawnTrace(rand(), rand(), true);
+  }
+  function spawnTrace(nx, ny, quiet=false) {
+    const cx = innerWidth * .5, cy = innerHeight * .52;
+    const px = nx * innerWidth, py = ny * innerHeight;
+    const dx = px - cx, dy = py - cy;
+    const angle = Math.atan2(dy, dx) + lerp(-.9, .9, rand());
+    const radius = Math.hypot(dx, dy) * lerp(.34, .82, rand()) + lerp(30, 160, rand());
+    traces.push({
+      born: t, life: lerp(280, 560, rand()), x: px, y: py, sx:px, sy:py,
+      tx: cx + Math.cos(angle)*radius, ty: cy + Math.sin(angle)*radius,
+      hue: lerp(190, 43, rand()), width: lerp(.8, 2.8, rand()), phase: rand()*Math.PI*2,
+      kept: quiet ? .14 : lerp(.35, .8, rand()), witnessed: false
+    });
+    if (!quiet) {
+      for (let i=0;i<4;i++) erasers.push({ x:px+lerp(-18,18,rand()), y:py+lerp(-18,18,rand()), born:t+lerp(30,130,rand()), life:lerp(220,460,rand()), r:lerp(16,58,rand()) });
+    }
+  }
+  function drawBackground() {
+    const g = ctx.createRadialGradient(innerWidth*.5, innerHeight*.48, 0, innerWidth*.5, innerHeight*.52, Math.max(innerWidth, innerHeight)*.8);
+    g.addColorStop(0, '#122536'); g.addColorStop(.46, '#07131d'); g.addColorStop(1, '#02060b');
+    ctx.fillStyle = g; ctx.fillRect(0,0,innerWidth,innerHeight);
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (const s of stars) {
+      const px = (s.x*innerWidth + Math.sin(t*.001*s.drift+s.phase)*18) % innerWidth;
+      const py = (s.y*innerHeight + Math.cos(t*.001*s.drift+s.phase)*12) % innerHeight;
+      ctx.globalAlpha = s.a * (.6 + .4*Math.sin(t*.012+s.phase));
+      ctx.fillStyle = s.i % 7 === 0 ? '#ffc36a' : '#9ee9ff';
+      ctx.beginPath(); ctx.arc(px, py, s.r, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+  function drawSeal() {
+    const cx = innerWidth*.5, cy = innerHeight*.52;
+    const r = Math.min(innerWidth, innerHeight)*.17;
+    ctx.save();
+    ctx.translate(cx, cy);
+    const pulse = Math.sin(t*.018)*.5+.5;
+    ctx.strokeStyle = `rgba(140,231,255,${0.18 + pulse*.08})`;
+    ctx.lineWidth = 1.2;
+    for (let k=0;k<5;k++) {
+      ctx.beginPath();
+      ctx.ellipse(0,0,r*(1+k*.18),r*(.58+k*.13),t*.0015*(k%2?1:-1),0,Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'screen';
+    const grad = ctx.createRadialGradient(0,0,0,0,0,r*1.45);
+    grad.addColorStop(0, 'rgba(3,7,11,.02)');
+    grad.addColorStop(.52, 'rgba(8,17,26,.10)');
+    grad.addColorStop(.68, 'rgba(255,195,106,.22)');
+    grad.addColorStop(1, 'rgba(140,231,255,.02)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(0,0,r*1.42,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha = .9;
+    ctx.fillStyle = '#07111b';
+    ctx.beginPath(); ctx.arc(0,0,r*.74,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,195,106,.58)'; ctx.setLineDash([3, 9]); ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.arc(0,0,r*.78,0,Math.PI*2); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(233,244,255,.72)'; ctx.font = '12px ui-sans-serif, system-ui'; ctx.textAlign='center';
+    ctx.fillText('SEALED CENTER / 不作为内容读取', 0, 4);
+    ctx.restore();
+  }
+  function drawTrace(tr) {
+    const age = t - tr.born;
+    if (age < 0) return true;
+    const p = clamp(age / tr.life, 0, 1);
+    const fade = Math.pow(1-p, 1.7);
+    const curve = Math.sin((p*2-1)*Math.PI*.5);
+    const x = lerp(tr.sx, tr.tx, p) + Math.sin(t*.014+tr.phase)*24*(1-p);
+    const y = lerp(tr.sy, tr.ty, p) + curve*68;
+    const witness = p > .28 && p < .48;
+    if (witness) tr.witnessed = true;
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = tr.width;
+    ctx.strokeStyle = `hsla(${tr.hue}, 90%, 72%, ${.34*fade})`;
+    ctx.beginPath();
+    ctx.moveTo(tr.sx, tr.sy);
+    const mx = (tr.sx + tr.tx)/2 + Math.sin(tr.phase)*110;
+    const my = (tr.sy + tr.ty)/2 - 90 + Math.cos(tr.phase)*70;
+    ctx.quadraticCurveTo(mx, my, x, y);
+    ctx.stroke();
+    ctx.fillStyle = `hsla(${tr.hue}, 95%, 72%, ${.72*fade})`;
+    ctx.beginPath(); ctx.arc(x, y, lerp(5, 1.2, p), 0, Math.PI*2); ctx.fill();
+    if (witness) {
+      ctx.strokeStyle = `rgba(255,195,106,${.55*fade})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(x, y, 13 + Math.sin(t*.05)*5, 0, Math.PI*2); ctx.stroke();
+    }
+    ctx.restore();
+    return p < 1;
+  }
+  function drawEraser(e) {
+    const age = t - e.born;
+    if (age < 0) return true;
+    const p = clamp(age/e.life, 0, 1);
+    const a = Math.sin(p*Math.PI);
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-out';
+    const g = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.r*(.6+p*1.2));
+    g.addColorStop(0, `rgba(0,0,0,${.34*a})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(e.x,e.y,e.r*(.8+p),0,Math.PI*2); ctx.fill();
+    ctx.restore();
+    ctx.save(); ctx.globalCompositeOperation='screen'; ctx.globalAlpha=.16*a; ctx.strokeStyle='#d7f4ff'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(e.x,e.y,e.r*(.9+p*.8),0,Math.PI*2); ctx.stroke(); ctx.restore();
+    return p < 1;
+  }
+  function drawPointerField() {
+    const px = pointer.x * innerWidth, py = pointer.y * innerHeight;
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    const g = ctx.createRadialGradient(px, py, 0, px, py, 180);
+    g.addColorStop(0, 'rgba(140,231,255,.16)'); g.addColorStop(1, 'rgba(140,231,255,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, 180, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = 'rgba(140,231,255,.32)'; ctx.setLineDash([2, 8]); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(px, py, 34 + Math.sin(t*.05)*4, 0, Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
+  function updateHud() {
+    residual = clamp(traces.reduce((sum, tr) => sum + clamp(1 - (t-tr.born)/tr.life, 0, 1), 0) / 16, 0, 1);
+    const mercy = clamp(1 - residual + erasers.length / 30, 0, 1);
+    residualBar.style.width = Math.round(residual*100) + '%';
+    mercyBar.style.width = Math.round(mercy*100) + '%';
+    residualText.textContent = residual < .12 ? 'trace is being allowed to disappear' : 'temporary trace, not permanent memory';
+    mercyText.textContent = mercy > .72 ? 'the field is forgiving its own telemetry' : 'erasure wave approaching';
+  }
+  function tick() {
+    if (!paused) t += 1;
+    drawBackground();
+    drawSeal();
+    drawPointerField();
+    traces = traces.filter(drawTrace);
+    erasers = erasers.filter(drawEraser);
+    if (!paused && t % 120 === 0) spawnTrace(rand(), rand(), true);
+    updateHud();
+    requestAnimationFrame(tick);
+  }
+  async function tryPlay() {
+    if (!musicEnabled) return;
+    bgm.volume = 0.42;
+    try { await bgm.play(); soundState.textContent = 'BGM: on'; soundBtn.textContent = 'Music off'; soundBtn.setAttribute('aria-pressed','true'); }
+    catch (err) { soundState.textContent = 'BGM: click to start'; soundBtn.textContent = 'Start music'; }
+  }
+  function toggleMusic() {
+    if (!bgm.paused) { musicEnabled = false; bgm.pause(); soundState.textContent='BGM: off'; soundBtn.textContent='Music on'; soundBtn.setAttribute('aria-pressed','false'); }
+    else { musicEnabled = true; tryPlay(); }
+  }
+  function saveStill() {
+    const a = document.createElement('a'); a.download = '2026-06-22-right-to-leave-no-trace-still.png'; a.href = canvas.toDataURL('image/png'); a.click();
+  }
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true; });
+  window.addEventListener('pointerdown', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; spawnTrace(pointer.x, pointer.y); tryPlay(); });
+  window.addEventListener('keydown', e => {
+    if (e.key === ' ') { paused = !paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'r') reset();
+    if (e.key.toLowerCase() === 'h') { showText = !showText; panel.classList.toggle('hidden', !showText); }
+    if (e.key.toLowerCase() === 'm') toggleMusic();
+    if (e.key.toLowerCase() === 's') saveStill();
+  });
+  soundBtn.addEventListener('click', toggleMusic);
+  window.addEventListener('load', tryPlay);
+  window.addEventListener('pointerdown', tryPlay, { once:true });
+  window.addEventListener('keydown', tryPlay, { once:true });
+  resize(); reset(); tick();
+  window._artReady = true;
+  window._artMeta = { title: 'Right to Leave No Trace / 不留痕的权利', date: '2026-06-22', hasBgm: true };
+})();
+</script>
+
+
+
+</body>
+</html>

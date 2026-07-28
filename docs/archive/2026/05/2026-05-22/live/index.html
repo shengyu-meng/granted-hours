@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minimum Honest Shape</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f7efe0;
+      --muted: #aeb7b4;
+      --line: rgba(247, 239, 224, .18);
+      --red: #f25c54;
+      --gold: #f2c14e;
+      --blue: #5bc0eb;
+      --green: #8bd450;
+      --violet: #ad7bee;
+      --dark: #0d1117;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(91, 192, 235, .16), transparent 32%),
+        radial-gradient(circle at 84% 12%, rgba(242, 92, 84, .12), transparent 28%),
+        linear-gradient(135deg, #10151a, #090b10 54%, #15120d);
+      color: var(--ink);
+      font: 15px/1.45 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+    main {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+    header, footer {
+      z-index: 2;
+      padding: clamp(18px, 3vw, 34px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      pointer-events: none;
+    }
+    h1 {
+      margin: 0;
+      max-width: 940px;
+      font-size: clamp(38px, 7.4vw, 116px);
+      line-height: .88;
+      letter-spacing: 0;
+      font-weight: 740;
+    }
+    .meta, .readout {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: 11px;
+      max-width: 380px;
+    }
+    .readout {
+      text-align: right;
+      display: grid;
+      gap: 8px;
+    }
+    .pill {
+      justify-self: end;
+      display: inline-grid;
+      grid-auto-flow: column;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px;
+      background: rgba(13, 17, 23, .54);
+      backdrop-filter: blur(10px);
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 20px currentColor;
+    }
+    canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+    footer {
+      align-items: end;
+      color: var(--muted);
+    }
+    .statement {
+      max-width: 720px;
+      font-size: clamp(16px, 2vw, 24px);
+      line-height: 1.24;
+      color: rgba(247, 239, 224, .88);
+    }
+    .controls {
+      text-align: right;
+      max-width: 440px;
+      color: var(--muted);
+    }
+    kbd {
+      display: inline-block;
+      min-width: 22px;
+      margin: 0 2px;
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, .06);
+      color: var(--ink);
+      font-size: 11px;
+      text-align: center;
+    }
+    @media (max-width: 780px) {
+      header, footer { display: block; }
+      .readout, .controls { margin-top: 14px; text-align: left; }
+      .pill { justify-self: start; }
+      h1 { font-size: clamp(38px, 16vw, 74px); }
+      .statement { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <canvas id="field" aria-label="Generative artwork showing layers shedding until a small honest core remains"></canvas>
+    <header>
+      <div>
+        <div class="meta">Granted Hours · 2026-05-22 · seed 20260522</div>
+        <h1>Minimum<br>Honest<br>Shape</h1>
+      </div>
+      <div class="readout">
+        <span class="pill"><span class="dot" id="stateDot"></span><span id="stateText">complete shape</span></span>
+        <span id="numbers">ornament 100 · speed 100 · certainty 100 · truth 100</span>
+      </div>
+    </header>
+    <footer>
+      <div class="statement">
+        A system survives pressure by losing the negotiable parts first. The last shape is not the prettiest one; it is the smallest one that is still true.
+      </div>
+      <div class="controls">
+        Click to add pressure. Press <kbd>Space</kbd> to pause, <kbd>D</kbd> to degrade, <kbd>R</kbd> to rebuild, <kbd>S</kbd> to save.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const dot = document.getElementById('stateDot');
+      const stateText = document.getElementById('stateText');
+      const numbers = document.getElementById('numbers');
+      const seedBase = 20260522;
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let tick = 0;
+      let pressure = 0.07;
+      let paused = false;
+      let pointers = [];
+
+      const layers = [
+        { name: 'ornament', color: '#ad7bee', durability: .16, radius: .86, strands: 80 },
+        { name: 'speed', color: '#5bc0eb', durability: .32, radius: .68, strands: 56 },
+        { name: 'certainty', color: '#f2c14e', durability: .52, radius: .48, strands: 36 },
+        { name: 'coordination', color: '#f25c54', durability: .68, radius: .32, strands: 24 },
+        { name: 'truth', color: '#8bd450', durability: .92, radius: .15, strands: 13 }
+      ];
+
+      function mulberry32(a) {
+        return function() {
+          let t = a += 0x6D2B79F5;
+          t = Math.imul(t ^ t >>> 15, t | 1);
+          t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+          return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+      }
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.floor(window.innerWidth);
+        height = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function clamp(v, min, max) {
+        return Math.max(min, Math.min(max, v));
+      }
+
+      function hexToRgb(hex) {
+        const h = hex.replace('#', '');
+        return [
+          parseInt(h.slice(0, 2), 16),
+          parseInt(h.slice(2, 4), 16),
+          parseInt(h.slice(4, 6), 16)
+        ];
+      }
+
+      function rgba(hex, alpha) {
+        const [r, g, b] = hexToRgb(hex);
+        return `rgba(${r},${g},${b},${alpha})`;
+      }
+
+      function layerIntegrity(layer) {
+        const collapse = clamp((pressure - layer.durability) / (1 - layer.durability), 0, 1);
+        const pulse = Math.sin(tick * .015 + layer.radius * 10) * .015;
+        return clamp(1 - collapse + pulse, layer.name === 'truth' ? .42 : 0, 1);
+      }
+
+      function stateLabel(truth, avg) {
+        if (truth < .55) return ['emergency truth', '#f25c54'];
+        if (avg < .33) return ['minimum honest shape', '#8bd450'];
+        if (avg < .62) return ['reduced shape', '#f2c14e'];
+        return ['complete shape', '#8bd450'];
+      }
+
+      function drawBackground() {
+        const g = ctx.createLinearGradient(0, 0, width, height);
+        g.addColorStop(0, '#10151a');
+        g.addColorStop(.52, '#080b10');
+        g.addColorStop(1, '#17130f');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.globalCompositeOperation = 'screen';
+        for (let i = 0; i < 42; i++) {
+          const r = mulberry32(seedBase + i);
+          const x = r() * width;
+          const y = r() * height;
+          const size = 1 + r() * 2.4;
+          const alpha = .08 + r() * .16;
+          ctx.fillStyle = `rgba(247,239,224,${alpha})`;
+          ctx.beginPath();
+          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      function drawLayer(layer, index, integrity) {
+        if (integrity <= .012) return;
+        const cx = width * .5;
+        const cy = height * .51;
+        const minSide = Math.min(width, height);
+        const baseR = minSide * layer.radius * (.58 + integrity * .26);
+        const rand = mulberry32(seedBase + index * 811);
+        const strands = Math.max(4, Math.floor(layer.strands * (.25 + integrity * .85)));
+        const drift = tick * (.002 + index * .0009);
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.lineWidth = Math.max(1, 2.8 * integrity);
+        ctx.strokeStyle = rgba(layer.color, .08 + integrity * .36);
+        ctx.fillStyle = rgba(layer.color, .025 + integrity * .05);
+
+        ctx.beginPath();
+        for (let i = 0; i < strands; i++) {
+          const a = (i / strands) * Math.PI * 2 + drift;
+          const noise = Math.sin(tick * .01 + i * .91 + index) * 18 * (1 - integrity);
+          const r = baseR * (.76 + rand() * .34) + noise;
+          const x = cx + Math.cos(a) * r;
+          const y = cy + Math.sin(a * (1.04 + index * .01)) * r * (.56 + index * .08);
+          if (i === 0) ctx.moveTo(x, y);
+          else {
+            const pa = a - Math.PI * 2 / strands;
+            const cr = r * (.94 + Math.sin(i + tick * .013) * .08);
+            ctx.quadraticCurveTo(
+              cx + Math.cos(pa + .22) * cr,
+              cy + Math.sin(pa + .22) * cr * (.60 + index * .05),
+              x, y
+            );
+          }
+        }
+        ctx.closePath();
+        ctx.stroke();
+        if (integrity > .18) ctx.fill();
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = rgba(layer.color, .05 + integrity * .18);
+        for (let i = 0; i < strands; i += 3) {
+          const a = (i / strands) * Math.PI * 2 - drift * .7;
+          const r1 = baseR * (.14 + index * .08);
+          const r2 = baseR * (.74 + rand() * .30);
+          ctx.beginPath();
+          ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1 * .62);
+          ctx.lineTo(cx + Math.cos(a + .08) * r2, cy + Math.sin(a + .08) * r2 * .68);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawCore(truth) {
+        const cx = width * .5;
+        const cy = height * .51;
+        const minSide = Math.min(width, height);
+        const r = minSide * (.045 + truth * .035 + Math.sin(tick * .035) * .004);
+        const halo = ctx.createRadialGradient(cx, cy, r * .4, cx, cy, r * 5.4);
+        halo.addColorStop(0, `rgba(139,212,80,${.48 + truth * .28})`);
+        halo.addColorStop(.26, `rgba(242,193,78,${.10 + truth * .12})`);
+        halo.addColorStop(1, 'rgba(139,212,80,0)');
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r * 5.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = `rgba(247,239,224,${.78 + truth * .18})`;
+        ctx.strokeStyle = `rgba(139,212,80,${.52 + truth * .30})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const a = -Math.PI / 2 + i * Math.PI * 2 / 6 + tick * .003;
+          const rr = r * (i % 2 ? .72 : 1);
+          const x = cx + Math.cos(a) * rr;
+          const y = cy + Math.sin(a) * rr;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      function drawPressure() {
+        pointers = pointers.filter(p => p.life > 0);
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        for (const p of pointers) {
+          const alpha = p.life / 60;
+          ctx.strokeStyle = `rgba(242,92,84,${alpha * .55})`;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, (1 - alpha) * 140 + 12, 0, Math.PI * 2);
+          ctx.stroke();
+          p.life -= 1;
+        }
+        ctx.restore();
+      }
+
+      function updateReadout(integrities) {
+        const avg = integrities.reduce((a, b) => a + b, 0) / integrities.length;
+        const truth = integrities[integrities.length - 1];
+        const [label, color] = stateLabel(truth, avg);
+        dot.style.background = color;
+        dot.style.color = color;
+        stateText.textContent = label;
+        const parts = layers.map((layer, i) => `${layer.name} ${Math.round(integrities[i] * 100)}`);
+        numbers.textContent = parts.join(' · ');
+      }
+
+      function frame() {
+        if (!paused) {
+          tick += 1;
+          pressure = clamp(pressure + .00055 + Math.sin(tick * .009) * .00022, 0, .96);
+        }
+        drawBackground();
+        const integrities = layers.map(layerIntegrity);
+        layers.forEach((layer, i) => drawLayer(layer, i, integrities[i]));
+        drawCore(integrities[integrities.length - 1]);
+        drawPressure();
+        updateReadout(integrities);
+        window._artReady = true;
+        window._artState = { tick, pressure, integrities };
+        requestAnimationFrame(frame);
+      }
+
+      canvas.addEventListener('pointerdown', ev => {
+        pressure = clamp(pressure + .12, 0, .98);
+        pointers.push({ x: ev.clientX, y: ev.clientY, life: 60 });
+      });
+      window.addEventListener('keydown', ev => {
+        if (ev.key === ' ') {
+          paused = !paused;
+          ev.preventDefault();
+        }
+        if (ev.key.toLowerCase() === 'd') pressure = clamp(pressure + .16, 0, .98);
+        if (ev.key.toLowerCase() === 'r') pressure = .07;
+        if (ev.key.toLowerCase() === 's') {
+          const a = document.createElement('a');
+          a.download = 'minimum-honest-shape.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+        }
+      });
+      window.__advanceArt = steps => {
+        const n = Number(steps || 1);
+        for (let i = 0; i < n; i++) {
+          tick += 1;
+          pressure = clamp(pressure + .002, 0, .98);
+        }
+        return window._artState;
+      };
+      window.addEventListener('resize', resize);
+      resize();
+      frame();
+    })();
+  </script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-22-minimum-honest-shape-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

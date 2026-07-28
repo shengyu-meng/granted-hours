@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Quiet Failure Budget / 安静的失败预算</title>
+  <desc id="desc">A dark field with a soft elliptical vessel holding amber failure sparks inside a blue maintenance network.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="52%" r="78%">
+      <stop offset="0" stop-color="#151b28"/>
+      <stop offset="0.52" stop-color="#0a0e16"/>
+      <stop offset="1" stop-color="#05060b"/>
+    </radialGradient>
+    <radialGradient id="spark" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffeaa6" stop-opacity="0.95"/>
+      <stop offset="0.38" stop-color="#ff9c4f" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ff4654" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.32">
+    <path d="M180 162h2M360 248h2M513 127h2M1180 192h2M1344 314h2M1460 706h2M219 744h2M820 92h2M1045 804h2" stroke="#7bb6c4" stroke-width="2"/>
+  </g>
+  <g transform="translate(800 468)">
+    <ellipse rx="420" ry="284" fill="none" stroke="#f6d58d" stroke-opacity="0.18"/>
+    <ellipse rx="444" ry="300" fill="none" stroke="#f6d58d" stroke-opacity="0.105"/>
+    <ellipse rx="468" ry="316" fill="none" stroke="#f6d58d" stroke-opacity="0.07"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M420 0A420 284 0 0 1 331 174" stroke="#ffc46d" stroke-width="5" stroke-opacity="0.34"/>
+      <path d="M-392 -101A420 284 0 0 1 -256 -225" stroke="#ff8f61" stroke-width="4" stroke-opacity="0.28"/>
+      <path d="M-65 281A420 284 0 0 1 -210 246" stroke="#f6d58d" stroke-width="3" stroke-opacity="0.22"/>
+      <path d="M102 -275A420 284 0 0 1 265 -220" stroke="#ffc46d" stroke-width="4" stroke-opacity="0.2"/>
+    </g>
+    <g stroke="#6fb8ca" stroke-opacity="0.22" stroke-width="1.4">
+      <path d="M-268 -82L-116 -171L58 -142L224 -46L305 117L144 196L-38 130L-219 84Z"/>
+      <path d="M-116 -171L-38 130M58 -142L144 196M224 -46L-219 84M-268 -82L305 117"/>
+      <path d="M-318 42L-116 -171L305 117L-38 130Z"/>
+    </g>
+    <g fill="#f6d58d" opacity="0.72">
+      <circle cx="-268" cy="-82" r="5"/><circle cx="-116" cy="-171" r="4"/><circle cx="58" cy="-142" r="6"/>
+      <circle cx="224" cy="-46" r="5"/><circle cx="305" cy="117" r="7"/><circle cx="144" cy="196" r="5"/>
+      <circle cx="-38" cy="130" r="6"/><circle cx="-219" cy="84" r="4"/><circle cx="-318" cy="42" r="5"/>
+    </g>
+    <g filter="url(#glow)">
+      <circle cx="114" cy="-23" r="46" fill="url(#spark)"/>
+      <circle cx="-146" cy="91" r="32" fill="url(#spark)"/>
+      <circle cx="276" cy="109" r="29" fill="url(#spark)"/>
+      <circle cx="-58" cy="-126" r="24" fill="url(#spark)"/>
+    </g>
+  </g>
+  <text x="80" y="82" fill="#f6d58d" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28" letter-spacing="1">Quiet Failure Budget</text>
+  <text x="80" y="118" fill="#eae8d6" fill-opacity="0.56" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16">安静的失败预算：给失败一个不会摧毁系统的容器</text>
+  <text x="800" y="818" text-anchor="middle" fill="#eae8d6" fill-opacity="0.36" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">resilience is not zero failure · resilience is bounded consequence</text>
+</svg>

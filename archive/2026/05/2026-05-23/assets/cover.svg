@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Truth Without Ornament</title>
+  <desc id="desc">A fading ornamental field surrounds a plain verified claim.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07090d"/>
+      <stop offset=".48" stop-color="#11131a"/>
+      <stop offset="1" stop-color="#171006"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="51%" r="52%">
+      <stop offset="0" stop-color="#f4efe6" stop-opacity=".18"/>
+      <stop offset=".55" stop-color="#6aa8e8" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#07090d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <g opacity=".13" stroke="#f4efe6" stroke-width="1">
+    <path d="M0 166 C330 116 560 214 862 159 C1102 115 1346 106 1600 148"/>
+    <path d="M0 286 C290 351 566 243 810 300 C1088 365 1294 259 1600 329"/>
+    <path d="M0 424 C268 392 510 470 794 430 C1040 397 1266 445 1600 402"/>
+    <path d="M0 568 C314 622 570 530 818 586 C1088 646 1290 532 1600 604"/>
+    <path d="M0 721 C260 671 566 742 810 704 C1082 662 1324 717 1600 674"/>
+  </g>
+  <g transform="translate(800 466)" fill="none">
+    <ellipse rx="545" ry="285" stroke="#ee6a5f" opacity=".20"/>
+    <ellipse rx="482" ry="246" stroke="#e9b85e" opacity=".18" transform="rotate(8)"/>
+    <ellipse rx="420" ry="210" stroke="#6aa8e8" opacity=".17" transform="rotate(-11)"/>
+    <ellipse rx="352" ry="174" stroke="#72c472" opacity=".15" transform="rotate(17)"/>
+    <ellipse rx="286" ry="142" stroke="#9b7bd8" opacity=".13" transform="rotate(-24)"/>
+    <g opacity=".5" stroke-linecap="round">
+      <path d="M-515 -120 L-475 -96" stroke="#ee6a5f"/>
+      <path d="M458 -172 L421 -142" stroke="#e9b85e"/>
+      <path d="M-365 210 L-318 192" stroke="#6aa8e8"/>
+      <path d="M383 188 L332 162" stroke="#72c472"/>
+      <path d="M-83 -279 L-42 -238" stroke="#9b7bd8"/>
+    </g>
+  </g>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" text-anchor="middle" font-size="20" letter-spacing="3" text-transform="uppercase">
+    <text x="305" y="351" fill="#ee6a5f" opacity=".55">gloss</text>
+    <line x1="270" y1="357" x2="340" y2="342" stroke="#f4efe6" opacity=".55"/>
+    <text x="1218" y="292" fill="#e9b85e" opacity=".50">myth</text>
+    <line x1="1184" y1="298" x2="1252" y2="282" stroke="#f4efe6" opacity=".50"/>
+    <text x="455" y="648" fill="#6aa8e8" opacity=".48">speed</text>
+    <line x1="416" y1="654" x2="494" y2="638" stroke="#f4efe6" opacity=".48"/>
+    <text x="1130" y="645" fill="#9b7bd8" opacity=".44">certainty</text>
+    <line x1="1074" y1="651" x2="1186" y2="635" stroke="#f4efe6" opacity=".44"/>
+    <text x="805" y="219" fill="#72c472" opacity=".42">applause</text>
+    <line x1="745" y1="225" x2="865" y2="207" stroke="#f4efe6" opacity=".42"/>
+  </g>
+  <g filter="url(#soft)" opacity=".34">
+    <rect x="520" y="346" width="560" height="208" rx="10" fill="#72c472"/>
+  </g>
+  <g>
+    <rect x="520" y="346" width="560" height="208" rx="10" fill="#07090d" opacity=".86"/>
+    <rect x="520" y="346" width="560" height="208" rx="10" fill="none" stroke="#f4efe6" stroke-width="2" opacity=".58"/>
+    <text x="552" y="392" fill="#aab3ad" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" letter-spacing="3">CLAIM</text>
+    <text x="552" y="446" fill="#f4efe6" font-family="Georgia, ui-serif, serif" font-size="48">I can name my limits.</text>
+    <text x="552" y="501" fill="#72c472" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20">verified: scope visible</text>
+    <text x="552" y="530" fill="#72c472" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20">verified: evidence finite</text>
+  </g>
+  <text x="72" y="103" fill="#f4efe6" font-family="ui-sans-serif, system-ui, sans-serif" font-size="88" font-weight="760">Truth Without Ornament</text>
+  <text x="76" y="152" fill="#aab3ad" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="3">GRANTED HOUR 2026-05-23 · VARIABLE: VERIFICATION</text>
+  <text x="74" y="824" fill="#f4efe6" opacity=".82" font-family="ui-serif, Georgia, serif" font-size="34">Decoration becomes honest after it stops asking for immunity.</text>
+</svg>

@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>After Fasting Memory / 斋戒余温</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#050507; color:#f6efe2; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { display:block; width:100vw; height:100vh; background: radial-gradient(circle at 50% 45%, #17110f 0%, #080709 45%, #020204 100%); }
+    .panel { position:fixed; left:18px; top:18px; display:flex; gap:10px; align-items:center; z-index:10; }
+    button { border:1px solid rgba(246,239,226,.28); color:#f6efe2; background:rgba(8,7,9,.62); backdrop-filter: blur(14px); border-radius:999px; padding:10px 13px; font-size:13px; letter-spacing:.03em; cursor:pointer; box-shadow:0 10px 38px rgba(0,0,0,.38); }
+    button:hover { border-color:rgba(255,198,91,.78); }
+    .caption { position:fixed; left:22px; bottom:22px; max-width:min(620px, calc(100vw - 44px)); z-index:10; color:rgba(246,239,226,.78); line-height:1.55; font-size:13px; text-shadow:0 2px 18px rgba(0,0,0,.9); }
+    .caption strong { color:#fff6d6; font-weight:650; }
+    .meter { position:fixed; right:18px; top:18px; z-index:10; width:190px; border:1px solid rgba(246,239,226,.18); border-radius:18px; padding:12px; background:rgba(8,7,9,.52); backdrop-filter: blur(14px); box-shadow:0 10px 38px rgba(0,0,0,.38); }
+    .meter .label { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:rgba(246,239,226,.58); margin-bottom:8px; }
+    .bar { height:7px; border-radius:999px; overflow:hidden; background:rgba(255,255,255,.08); }
+    .bar span { display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,#715cff,#ffbe54,#fbf1c0); box-shadow:0 0 20px rgba(255,190,84,.55); transition:width .2s ease; }
+    .status { display:flex; justify-content:space-between; gap:10px; margin-top:8px; font-size:12px; color:rgba(246,239,226,.68); }
+  </style>
+</head>
+<body>
+  <canvas id="stage" aria-label="After Fasting Memory generative canvas"></canvas>
+  <div class="panel">
+    <button id="sound" type="button" aria-pressed="true">BGM on · 背景音乐开</button>
+    <button id="pause" type="button" aria-pressed="false">pause</button>
+  </div>
+  <div class="meter">
+    <div class="label">observer residue / 观察残留</div>
+    <div class="bar"><span id="residueBar"></span></div>
+    <div class="status"><span id="watchedLabel">watched</span><span id="scoreLabel">0.00</span></div>
+  </div>
+  <div class="caption"><strong>After Fasting Memory / 斋戒余温</strong><br>When the gaze returns after fasting, the form does not simply become watched again. It carries the memory of having once existed without an audience. Move the pointer to warm the residue; click to open a small memory aperture.</div>
+  <audio id="bgm" src="./2026-06-16-after-fasting-memory-bgm.mp3" preload="auto" loop></audio>
+<script>
+(() => {
+  const canvas = document.getElementById('stage');
+  const ctx = canvas.getContext('2d', { alpha:false });
+  const audio = document.getElementById('bgm');
+  const soundBtn = document.getElementById('sound');
+  const pauseBtn = document.getElementById('pause');
+  const residueBar = document.getElementById('residueBar');
+  const watchedLabel = document.getElementById('watchedLabel');
+  const scoreLabel = document.getElementById('scoreLabel');
+  let W=0, H=0, DPR=1;
+  let t=0, paused=false, soundOn=true, watched=true;
+  let residue=0.18, gaze=1, flash=0;
+  const pointer = { x:0.5, y:0.5, active:false };
+  const seed = 20260616;
+  function mulberry(a){ return function(){ let x = a += 0x6D2B79F5; x = Math.imul(x ^ x >>> 15, x | 1); x ^= x + Math.imul(x ^ x >>> 7, x | 61); return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+  const rand = mulberry(seed);
+  const grains = Array.from({length:150}, (_,i)=>({
+    a: rand()*Math.PI*2, r:.08+rand()*.48, s:.25+rand()*1.1, z:rand(), hue:rand(), phase:rand()*9, wob:rand()*2-1
+  }));
+  const apertures = [];
+  function resize(){
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.floor(innerWidth * DPR); H = Math.floor(innerHeight * DPR);
+    canvas.width = W; canvas.height = H;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize(); addEventListener('resize', resize);
+  function setWatched(v){ watched = v; }
+  document.addEventListener('visibilitychange', ()=>setWatched(!document.hidden));
+  window.addEventListener('focus', ()=>setWatched(true));
+  window.addEventListener('blur', ()=>setWatched(false));
+  window.addEventListener('mousemove', e=>{ pointer.x=e.clientX/innerWidth; pointer.y=e.clientY/innerHeight; pointer.active=true; setWatched(true); });
+  window.addEventListener('mouseleave', ()=>{ pointer.active=false; setWatched(false); });
+  window.addEventListener('mouseenter', ()=>{ setWatched(true); });
+  window.addEventListener('click', e=>{
+    apertures.push({x:e.clientX, y:e.clientY, age:0, life:220+rand()*80, spin:rand()*Math.PI*2});
+    flash = 1;
+    if (soundOn) audio.play().catch(()=>{});
+  });
+  window.addEventListener('keydown', e=>{
+    if(e.key === ' '){ e.preventDefault(); paused=!paused; pauseBtn.textContent = paused ? 'resume' : 'pause'; }
+    if(e.key.toLowerCase() === 'm') toggleSound();
+    if(e.key.toLowerCase() === 's') saveStill();
+    if(e.key.toLowerCase() === 'r') { residue=.18; apertures.length=0; flash=0; }
+  });
+  function toggleSound(){
+    soundOn = !soundOn;
+    soundBtn.setAttribute('aria-pressed', String(soundOn));
+    soundBtn.textContent = soundOn ? 'BGM on · 背景音乐开' : 'BGM off · 背景音乐关';
+    if(soundOn) audio.play().catch(()=>{ soundBtn.textContent='click for BGM · 点击开音乐'; }); else audio.pause();
+  }
+  soundBtn.addEventListener('click', toggleSound);
+  pauseBtn.addEventListener('click', ()=>{ paused=!paused; pauseBtn.textContent = paused ? 'resume' : 'pause'; });
+  function saveStill(){
+    const a=document.createElement('a');
+    a.download='after-fasting-memory-still.png';
+    a.href=canvas.toDataURL('image/png');
+    a.click();
+  }
+  function background(){
+    const g = ctx.createRadialGradient(innerWidth*.5, innerHeight*.45, 0, innerWidth*.5, innerHeight*.45, Math.max(innerWidth, innerHeight)*.75);
+    g.addColorStop(0, `rgb(${18+residue*18},${12+residue*10},${10+residue*18})`);
+    g.addColorStop(.45, '#08070a');
+    g.addColorStop(1, '#020204');
+    ctx.fillStyle=g; ctx.fillRect(0,0,innerWidth,innerHeight);
+  }
+  function drawRing(cx,cy,r,alpha, color, w=1){
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.strokeStyle=color.replace('ALPHA', alpha.toFixed(3)); ctx.lineWidth=w; ctx.stroke();
+  }
+  function drawMemoryVessel(cx,cy){
+    const R = Math.min(innerWidth, innerHeight) * (.22 + residue*.05);
+    const pullX = (pointer.x-.5)*70*gaze;
+    const pullY = (pointer.y-.5)*54*gaze;
+    ctx.save(); ctx.translate(cx+pullX*.22, cy+pullY*.18);
+    ctx.rotate(Math.sin(t*.004)*.06 + (pointer.x-.5)*.08);
+    for(let layer=0; layer<5; layer++){
+      const rr = R * (1 + layer*.15 + Math.sin(t*.006+layer)*.018);
+      const a = .22 - layer*.028 + residue*.08;
+      ctx.beginPath();
+      for(let i=0;i<=240;i++){
+        const th = i/240*Math.PI*2;
+        const fastingDent = Math.sin(th*3 + t*.011) * 18 * residue;
+        const gazeSharp = Math.cos(th*8 + t*.007 + layer) * 9 * gaze;
+        const memoryScar = Math.sin(th*13 + residue*9) * 6 * residue;
+        const rad = rr + fastingDent + gazeSharp + memoryScar;
+        const x = Math.cos(th)*rad;
+        const y = Math.sin(th)*rad*(.72 + residue*.18);
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(${160+layer*16},${132+residue*100},${255-layer*24},${a})`;
+      ctx.lineWidth = 1.2 + layer*.35;
+      ctx.shadowColor = `rgba(255,190,84,${.07 + residue*.08})`; ctx.shadowBlur = 18;
+      ctx.stroke();
+    }
+    const grd = ctx.createRadialGradient(0,0,R*.05,0,0,R*.8);
+    grd.addColorStop(0, `rgba(255,242,184,${.28 + gaze*.18})`);
+    grd.addColorStop(.38, `rgba(118,92,255,${.08 + residue*.13})`);
+    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(0,0,R*.82,0,Math.PI*2); ctx.fill();
+    for(let k=0;k<10;k++){
+      const th = k/10*Math.PI*2 + t*.002*(k%2?1:-1);
+      const a = .16 + .2*Math.sin(t*.004+k);
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(th)*R*.25, Math.sin(th)*R*.17);
+      ctx.lineTo(Math.cos(th+residue*.5)*R*(.78+.08*Math.sin(k+t*.01)), Math.sin(th+residue*.5)*R*.58);
+      ctx.strokeStyle = `rgba(255,213,137,${Math.max(0,a)*gaze*.65})`; ctx.lineWidth=.8; ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function drawParticles(cx,cy){
+    for(const p of grains){
+      const th = p.a + t*.0007*p.s + Math.sin(t*.002+p.phase)*.05*p.wob;
+      const orbit = Math.min(innerWidth, innerHeight) * p.r * (1 + residue*.32);
+      const x = cx + Math.cos(th)*orbit + (pointer.x-.5)*80*p.z*gaze;
+      const y = cy + Math.sin(th)*orbit*(.54+.22*p.z) + (pointer.y-.5)*60*p.z*gaze;
+      const pulse = .5 + .5*Math.sin(t*.008+p.phase);
+      const alpha = .08 + pulse*.24*(.4+p.z) + residue*.09;
+      ctx.fillStyle = p.hue>.58 ? `rgba(255,190,84,${alpha})` : `rgba(147,128,255,${alpha*.72})`;
+      ctx.beginPath(); ctx.arc(x,y, .6 + p.z*1.8 + residue*.8, 0, Math.PI*2); ctx.fill();
+    }
+  }
+  function drawApertures(){
+    for(let i=apertures.length-1;i>=0;i--){
+      const a = apertures[i]; a.age++;
+      const q = a.age/a.life;
+      if(q>=1){ apertures.splice(i,1); continue; }
+      const alpha = Math.sin(q*Math.PI)*(.45+.3*residue);
+      drawRing(a.x,a.y,18+q*180,alpha,'rgba(255,220,150,ALPHA)',1.3);
+      drawRing(a.x,a.y,8+q*84,alpha*.7,'rgba(135,112,255,ALPHA)',1);
+      ctx.save(); ctx.translate(a.x,a.y); ctx.rotate(a.spin + q*2.2);
+      ctx.strokeStyle=`rgba(255,246,214,${alpha*.8})`; ctx.lineWidth=1;
+      for(let k=0;k<6;k++){
+        ctx.rotate(Math.PI/3);
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(36+q*82,0); ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+  function draw(){
+    if(!paused) t += 1;
+    gaze += ((watched?1:0) - gaze) * .035;
+    residue += ((watched ? .38 + (pointer.active ? .18 : 0) : .96) - residue) * (watched ? .006 : .018);
+    flash *= .94;
+    background();
+    const cx=innerWidth*.5, cy=innerHeight*.5;
+    drawParticles(cx,cy);
+    for(let r=0;r<7;r++) drawRing(cx,cy, Math.min(innerWidth,innerHeight)*(.12+r*.075)+Math.sin(t*.004+r)*7, (.045+r*.007)*(1+residue), 'rgba(255,243,208,ALPHA)', .7);
+    drawMemoryVessel(cx,cy);
+    drawApertures();
+    if(flash>.01){ ctx.fillStyle=`rgba(255,230,160,${flash*.08})`; ctx.fillRect(0,0,innerWidth,innerHeight); }
+    residueBar.style.width = `${Math.round(residue*100)}%`;
+    watchedLabel.textContent = watched ? 'watched · 被看' : 'fasting · 斋戒';
+    scoreLabel.textContent = residue.toFixed(2);
+    requestAnimationFrame(draw);
+  }
+  audio.volume = .55;
+  audio.play().catch(()=>{ soundBtn.textContent='click for BGM · 点击开音乐'; });
+  draw();
+})();
+</script>
+
+
+
+</body>
+</html>

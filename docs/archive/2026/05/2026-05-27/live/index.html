@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instrument That Learns Humility</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f3ecdc;
+      --muted: rgba(243, 236, 220, 0.68);
+      --line: rgba(243, 236, 220, 0.18);
+      --amber: #efd27d;
+      --mint: #72d7c7;
+      --red: #f06b60;
+      --bg0: #0b0f0f;
+      --bg1: #182521;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      overflow: hidden;
+      background: var(--bg0);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      background:
+        radial-gradient(circle at 62% 33%, rgba(239, 210, 125, 0.14), transparent 34%),
+        radial-gradient(circle at 34% 68%, rgba(114, 215, 199, 0.13), transparent 32%),
+        linear-gradient(135deg, #0b0f0f, #14201d 48%, #2b211d);
+    }
+
+    .panel {
+      position: fixed;
+      left: clamp(18px, 4vw, 48px);
+      top: clamp(18px, 4vw, 46px);
+      width: min(520px, calc(100vw - 36px));
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5.4vw, 72px);
+      line-height: 0.94;
+      letter-spacing: 0;
+      font-weight: 760;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 46ch;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .readout {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      width: min(500px, 100%);
+    }
+
+    .meter {
+      border: 1px solid var(--line);
+      background: rgba(5, 8, 8, 0.28);
+      padding: 10px 12px 12px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .meter span {
+      display: block;
+      color: rgba(243, 236, 220, 0.56);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .meter strong {
+      display: block;
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums;
+      font-size: 22px;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .keys {
+      position: fixed;
+      left: clamp(18px, 4vw, 48px);
+      bottom: clamp(16px, 4vw, 42px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: rgba(243, 236, 220, 0.7);
+      font-size: 12px;
+      pointer-events: none;
+    }
+
+    .keys span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(5, 8, 8, 0.24);
+      backdrop-filter: blur(10px);
+    }
+
+    .sig {
+      position: fixed;
+      right: clamp(18px, 4vw, 48px);
+      bottom: clamp(18px, 4vw, 42px);
+      color: rgba(243, 236, 220, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    @media (max-width: 680px) {
+      .panel {
+        width: calc(100vw - 32px);
+      }
+
+      .readout {
+        grid-template-columns: 1fr;
+        max-width: 220px;
+      }
+
+      .subtitle {
+        max-width: 30ch;
+      }
+
+      .sig {
+        display: none;
+      }
+    }
+  
+  .sound-toggle { position: fixed; right: 24px; top: 22px; z-index: 9999; border: 1px solid rgba(245,239,229,.24); border-radius: 999px; padding: 9px 13px; color: rgba(245,239,229,.88); background: rgba(6,7,12,.58); backdrop-filter: blur(14px); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .sound-toggle:hover { border-color: rgba(110,231,216,.56); color: #ffffff; }
+</style>
+</head>
+<body>
+<button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true">sound on</button>
+<audio id="bgm" src="./2026-05-27-instrument-that-learns-humility-bgm.mp3" preload="auto" autoplay loop></audio>
+
+  <canvas id="field" aria-label="A generative field of instruments learning humility"></canvas>
+  <section class="panel" aria-hidden="true">
+    <h1>Instrument<br>That Learns<br>Humility</h1>
+    <p class="subtitle">A measuring body discovers its own drift. The field is not forced into obedience; the instrument first lowers its certainty.</p>
+    <div class="readout">
+      <div class="meter"><span>bias</span><strong id="bias">0.00</strong></div>
+      <div class="meter"><span>doubt</span><strong id="doubt">0.00</strong></div>
+      <div class="meter"><span>revision</span><strong id="revision">0.00</strong></div>
+    </div>
+  </section>
+  <div class="keys" aria-hidden="true">
+    <span>Move: disturb field</span>
+    <span>Click: place doubt</span>
+    <span>Space: pause</span>
+    <span>H: humility mesh</span>
+    <span>R: reset</span>
+    <span>S: save still</span>
+  </div>
+  <div class="sig" aria-hidden="true">Granted Hours · 2026-05-27</div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d');
+      const readout = {
+        bias: document.getElementById('bias'),
+        doubt: document.getElementById('doubt'),
+        revision: document.getElementById('revision')
+      };
+
+      const seedBase = 20260527;
+      let seed = seedBase;
+      let dpr = 1;
+      let width = 0;
+      let height = 0;
+      let paused = false;
+      let showMesh = false;
+      let t = 0;
+      let pointer = { x: 0, y: 0, active: false, pressure: 0 };
+      let instruments = [];
+      let doubts = [];
+      let sparks = [];
+
+      const TAU = Math.PI * 2;
+
+      function rand() {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 4294967296;
+      }
+
+      function clamp(v, lo, hi) {
+        return Math.max(lo, Math.min(hi, v));
+      }
+
+      function lerp(a, b, p) {
+        return a + (b - a) * p;
+      }
+
+      function fit() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.floor(window.innerWidth);
+        height = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        reset(false);
+      }
+
+      function reset(clearMarks = true) {
+        seed = seedBase;
+        instruments = [];
+        sparks = [];
+        if (clearMarks) doubts = [];
+        const cx = width * 0.55;
+        const cy = height * 0.52;
+        const minDim = Math.min(width, height);
+        const count = width < 760 ? 7 : 10;
+        for (let i = 0; i < count; i++) {
+          const a = (i / count) * TAU + rand() * 0.35;
+          const r = minDim * (0.17 + rand() * 0.34);
+          instruments.push({
+            x: cx + Math.cos(a) * r * (0.82 + rand() * 0.22),
+            y: cy + Math.sin(a) * r * (0.72 + rand() * 0.36),
+            phase: rand() * TAU,
+            bias: rand() * 0.78 + 0.16,
+            doubt: rand() * 0.3 + 0.12,
+            humility: rand() * 0.45 + 0.22,
+            revision: 0,
+            radius: minDim * (0.045 + rand() * 0.035),
+            tone: rand()
+          });
+        }
+        window.__artReady = true;
+      }
+
+      function fieldAt(x, y, time) {
+        const nx = x / Math.max(width, 1);
+        const ny = y / Math.max(height, 1);
+        const wave =
+          Math.sin(nx * 9.3 + time * 0.018) * 0.32 +
+          Math.cos(ny * 7.8 - time * 0.015) * 0.28 +
+          Math.sin((nx + ny) * 12.4 + time * 0.012) * 0.22 +
+          Math.cos((nx - ny) * 16.0 - time * 0.01) * 0.18;
+
+        let touch = 0;
+        if (pointer.active || pointer.pressure > 0.002) {
+          const dx = x - pointer.x;
+          const dy = y - pointer.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          touch = Math.exp(-dist * dist / 42000) * pointer.pressure;
+        }
+
+        let doubtField = 0;
+        for (const d of doubts) {
+          const dx = x - d.x;
+          const dy = y - d.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          doubtField += Math.exp(-dist * dist / (d.r * d.r * 0.82)) * d.strength;
+        }
+        return wave + touch * 1.2 - doubtField * 0.45;
+      }
+
+      function drawBackground() {
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, '#0b0f0f');
+        grad.addColorStop(0.45, '#14231f');
+        grad.addColorStop(1, '#2a211d');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        const g1 = ctx.createRadialGradient(width * 0.62, height * 0.33, 0, width * 0.62, height * 0.33, Math.max(width, height) * 0.55);
+        g1.addColorStop(0, 'rgba(239, 210, 125, 0.16)');
+        g1.addColorStop(1, 'rgba(239, 210, 125, 0)');
+        ctx.fillStyle = g1;
+        ctx.fillRect(0, 0, width, height);
+
+        const g2 = ctx.createRadialGradient(width * 0.34, height * 0.7, 0, width * 0.34, height * 0.7, Math.max(width, height) * 0.5);
+        g2.addColorStop(0, 'rgba(114, 215, 199, 0.14)');
+        g2.addColorStop(1, 'rgba(114, 215, 199, 0)');
+        ctx.fillStyle = g2;
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+      }
+
+      function drawField() {
+        const step = width < 760 ? 30 : 24;
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = 0.42;
+        for (let y = -step; y <= height + step; y += step) {
+          ctx.beginPath();
+          for (let x = -step; x <= width + step; x += step) {
+            const v = fieldAt(x, y, t);
+            const yy = y + v * 18;
+            if (x === -step) ctx.moveTo(x, yy);
+            else ctx.lineTo(x, yy);
+          }
+          ctx.strokeStyle = y % (step * 4) === 0 ? 'rgba(239, 210, 125, 0.22)' : 'rgba(243, 236, 220, 0.09)';
+          ctx.stroke();
+        }
+
+        for (let x = -step; x <= width + step; x += step) {
+          ctx.beginPath();
+          for (let y = -step; y <= height + step; y += step) {
+            const v = fieldAt(x, y, t + 90);
+            const xx = x + v * 14;
+            if (y === -step) ctx.moveTo(xx, y);
+            else ctx.lineTo(xx, y);
+          }
+          ctx.strokeStyle = x % (step * 5) === 0 ? 'rgba(114, 215, 199, 0.18)' : 'rgba(243, 236, 220, 0.06)';
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawHumilityMesh() {
+        if (!showMesh) return;
+        ctx.save();
+        ctx.globalAlpha = 0.42;
+        const step = Math.max(42, Math.min(width, height) * 0.075);
+        for (let x = step / 2; x < width; x += step) {
+          for (let y = step / 2; y < height; y += step) {
+            const v = Math.abs(fieldAt(x, y, t));
+            const r = 4 + clamp(v, 0, 1.1) * 12;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, TAU);
+            ctx.strokeStyle = 'rgba(243, 236, 220, 0.16)';
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x - r * 0.8, y);
+            ctx.lineTo(x + r * 0.8, y);
+            ctx.moveTo(x, y - r * 0.8);
+            ctx.lineTo(x, y + r * 0.8);
+            ctx.strokeStyle = 'rgba(114, 215, 199, 0.16)';
+            ctx.stroke();
+          }
+        }
+        ctx.restore();
+      }
+
+      function updateInstruments() {
+        let sumBias = 0;
+        let sumDoubt = 0;
+        let sumRevision = 0;
+        const center = { x: width * 0.55, y: height * 0.52 };
+
+        for (const it of instruments) {
+          const reading = fieldAt(it.x, it.y, t);
+          const selfError = Math.sin(t * 0.019 + it.phase) * it.bias;
+          const observedBias = Math.abs(selfError) * 0.68 + Math.abs(reading) * 0.18;
+          it.doubt = lerp(it.doubt, clamp(observedBias, 0.06, 1.4), 0.018);
+          it.humility = lerp(it.humility, clamp(1 - it.doubt * 0.42, 0.2, 0.92), 0.012);
+          it.revision = lerp(it.revision, Math.max(0, it.doubt - Math.abs(reading) * 0.26), 0.016);
+
+          const dx = center.x - it.x;
+          const dy = center.y - it.y;
+          const dist = Math.max(1, Math.sqrt(dx * dx + dy * dy));
+          const drift = reading * (0.16 + it.humility * 0.36);
+          it.x += (dx / dist) * drift - Math.sin(t * 0.013 + it.phase) * it.revision * 0.38;
+          it.y += (dy / dist) * drift + Math.cos(t * 0.011 + it.phase) * it.revision * 0.38;
+
+          sumBias += it.bias;
+          sumDoubt += it.doubt;
+          sumRevision += it.revision;
+        }
+
+        const n = Math.max(1, instruments.length);
+        readout.bias.textContent = (sumBias / n).toFixed(2);
+        readout.doubt.textContent = (sumDoubt / n).toFixed(2);
+        readout.revision.textContent = (sumRevision / n).toFixed(2);
+      }
+
+      function drawDoubts() {
+        ctx.save();
+        for (const d of doubts) {
+          d.age += paused ? 0 : 1;
+          const pulse = 1 + Math.sin(t * 0.045 + d.phase) * 0.08;
+          const alpha = clamp(1 - d.age / 3200, 0.2, 0.86);
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r * pulse, 0, TAU);
+          ctx.strokeStyle = `rgba(240, 107, 96, ${0.32 * alpha})`;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r * 0.44 * pulse, 0, TAU);
+          ctx.strokeStyle = `rgba(239, 210, 125, ${0.24 * alpha})`;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(d.x - d.r * 0.25, d.y);
+          ctx.lineTo(d.x + d.r * 0.25, d.y);
+          ctx.strokeStyle = `rgba(243, 236, 220, ${0.25 * alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawInstruments() {
+        const centerX = width * 0.55;
+        const centerY = height * 0.52;
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (const it of instruments) {
+          const reading = fieldAt(it.x, it.y, t);
+          const angle = Math.atan2(centerY - it.y, centerX - it.x) + reading * 0.7;
+          const correction = it.radius * (1.3 + it.humility * 1.7);
+          const shadow = it.radius * (0.4 + it.doubt);
+
+          ctx.beginPath();
+          ctx.arc(it.x, it.y, it.radius * (1.4 + it.doubt * 0.2), 0, TAU);
+          ctx.strokeStyle = `rgba(243, 236, 220, ${0.08 + it.humility * 0.09})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(it.x, it.y, shadow, angle - 1.1, angle + 1.1);
+          ctx.strokeStyle = `rgba(240, 107, 96, ${0.12 + it.doubt * 0.2})`;
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(it.x, it.y);
+          ctx.lineTo(it.x + Math.cos(angle) * correction, it.y + Math.sin(angle) * correction);
+          ctx.strokeStyle = `rgba(239, 210, 125, ${0.36 + it.humility * 0.32})`;
+          ctx.lineWidth = 2.4;
+          ctx.stroke();
+
+          const revAngle = angle + Math.PI * (0.72 + it.revision * 0.12);
+          ctx.beginPath();
+          ctx.moveTo(it.x, it.y);
+          ctx.lineTo(it.x + Math.cos(revAngle) * correction * it.revision, it.y + Math.sin(revAngle) * correction * it.revision);
+          ctx.strokeStyle = `rgba(114, 215, 199, ${0.2 + it.revision * 0.4})`;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(it.x, it.y, 4 + it.humility * 8, 0, TAU);
+          ctx.fillStyle = it.tone > 0.55 ? 'rgba(114, 215, 199, 0.82)' : 'rgba(239, 210, 125, 0.82)';
+          ctx.fill();
+
+          if (!paused && Math.random() < 0.01 + it.revision * 0.012) {
+            sparks.push({
+              x: it.x,
+              y: it.y,
+              vx: Math.cos(revAngle) * (0.8 + Math.random() * 1.2),
+              vy: Math.sin(revAngle) * (0.8 + Math.random() * 1.2),
+              life: 80 + Math.random() * 60,
+              hue: it.tone
+            });
+          }
+        }
+        ctx.restore();
+      }
+
+      function drawSparks() {
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        sparks = sparks.filter((s) => s.life > 0);
+        for (const s of sparks) {
+          if (!paused) {
+            s.x += s.vx;
+            s.y += s.vy;
+            s.vx *= 0.992;
+            s.vy *= 0.992;
+            s.life -= 1;
+          }
+          const a = clamp(s.life / 110, 0, 1);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, 1.2 + a * 2.8, 0, TAU);
+          ctx.fillStyle = s.hue > 0.55 ? `rgba(114, 215, 199, ${a * 0.52})` : `rgba(239, 210, 125, ${a * 0.52})`;
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function drawCenter() {
+        const x = width * 0.55;
+        const y = height * 0.52;
+        const r = Math.min(width, height) * 0.12;
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath();
+          const rr = r * (0.68 + i * 0.32 + Math.sin(t * 0.012 + i) * 0.04);
+          ctx.arc(x, y, rr, t * 0.006 + i, t * 0.006 + i + Math.PI * 1.3);
+          ctx.strokeStyle = i % 2 ? 'rgba(114, 215, 199, 0.18)' : 'rgba(239, 210, 125, 0.18)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, r * 0.26, 0, TAU);
+        ctx.fillStyle = 'rgba(5, 8, 8, 0.58)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(243, 236, 220, 0.22)';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x, y, 5 + Math.sin(t * 0.04) * 2, 0, TAU);
+        ctx.fillStyle = 'rgba(243, 236, 220, 0.75)';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function render() {
+        if (!paused) {
+          t += 1;
+          pointer.pressure = lerp(pointer.pressure, pointer.active ? 1 : 0, pointer.active ? 0.08 : 0.03);
+          updateInstruments();
+        }
+        drawBackground();
+        drawField();
+        drawHumilityMesh();
+        drawDoubts();
+        drawCenter();
+        drawInstruments();
+        drawSparks();
+        requestAnimationFrame(render);
+      }
+
+      function addDoubt(x, y) {
+        doubts.push({
+          x,
+          y,
+          r: 34 + Math.random() * 38,
+          strength: 0.4 + Math.random() * 0.5,
+          age: 0,
+          phase: Math.random() * TAU
+        });
+        if (doubts.length > 24) doubts.shift();
+      }
+
+      function saveStill() {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'instrument-that-learns-humility.png';
+        a.click();
+      }
+
+      window.addEventListener('resize', fit);
+      window.addEventListener('pointermove', (event) => {
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        pointer.active = true;
+      });
+      window.addEventListener('pointerleave', () => {
+        pointer.active = false;
+      });
+      window.addEventListener('pointerdown', (event) => {
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        pointer.active = true;
+        addDoubt(event.clientX, event.clientY);
+      });
+      window.addEventListener('pointerup', () => {
+        pointer.active = false;
+      });
+      window.addEventListener('keydown', (event) => {
+        if (event.key === ' ') {
+          event.preventDefault();
+          paused = !paused;
+        } else if (event.key.toLowerCase() === 'h') {
+          showMesh = !showMesh;
+        } else if (event.key.toLowerCase() === 'r') {
+          reset(true);
+        } else if (event.key.toLowerCase() === 's') {
+          saveStill();
+        }
+      });
+
+      fit();
+      render();
+    })();
+  </script>
+
+<script id="granted-hours-bgm-controller">
+(() => {
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  let soundEnabled = true;
+  function updateSoundLabel(text) {
+    if (!soundToggle) return;
+    soundToggle.textContent = text;
+    soundToggle.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlaySound() {
+    if (!bgm || !soundEnabled) return;
+    bgm.volume = 0.42;
+    try { await bgm.play(); updateSoundLabel('sound on'); }
+    catch (err) { updateSoundLabel('sound click'); }
+  }
+  function setSound(on) {
+    soundEnabled = on;
+    if (!bgm) return;
+    if (on) tryPlaySound();
+    else { bgm.pause(); updateSoundLabel('sound off'); }
+  }
+  if (soundToggle) {
+    soundToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!bgm) return;
+      if (soundEnabled && !bgm.paused) setSound(false);
+      else setSound(true);
+    });
+  }
+  window.addEventListener('load', tryPlaySound);
+  window.addEventListener('pointerdown', tryPlaySound, { once: true });
+  window.addEventListener('keydown', tryPlaySound, { once: true });
+})();
+</script>
+
+
+
+</body>
+</html>

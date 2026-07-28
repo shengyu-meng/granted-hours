@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protocol Debt / 协议债</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --paper: rgba(243, 225, 190, 0.88);
+      --ink: rgba(9, 14, 22, 0.92);
+      --amber: #f7b45a;
+      --cyan: #72f0ff;
+      --red: #ff5f6d;
+    }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #05070c;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .panel {
+      position: fixed;
+      left: 24px;
+      top: 20px;
+      max-width: min(520px, calc(100vw - 48px));
+      color: var(--paper);
+      text-shadow: 0 1px 10px rgba(0,0,0,.55);
+      pointer-events: none;
+      user-select: none;
+    }
+    h1 { margin: 0 0 6px; font-size: clamp(22px, 3vw, 38px); letter-spacing: .02em; }
+    .zh { font-weight: 650; letter-spacing: .08em; color: #fff2cf; }
+    .meta { font-size: 13px; line-height: 1.55; opacity: .84; }
+    .caption {
+      position: fixed;
+      right: 24px;
+      bottom: 22px;
+      max-width: min(560px, calc(100vw - 48px));
+      color: rgba(243, 225, 190, .8);
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: right;
+      text-shadow: 0 1px 12px rgba(0,0,0,.65);
+      pointer-events: none;
+    }
+    #bgmToggle {
+      position: fixed;
+      right: 24px;
+      top: 22px;
+      z-index: 5;
+      border: 1px solid rgba(255, 223, 174, .46);
+      background: rgba(8, 13, 22, .66);
+      color: #ffe6b0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      letter-spacing: .04em;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 36px rgba(0,0,0,.28), inset 0 0 18px rgba(255, 184, 91, .06);
+    }
+    #bgmToggle:hover { border-color: rgba(114, 240, 255, .72); color: #d5fbff; }
+  </style>
+</head>
+<body>
+  <canvas id="art"></canvas>
+  <button id="bgmToggle" aria-label="Toggle background music">BGM: starting</button>
+  <div class="panel">
+    <h1>Protocol Debt <span class="zh">协议债</span></h1>
+    <div class="meta">
+      Move the pointer to refinance the burden. Click to issue a new debt instrument.<br/>
+      Press <b>D</b> to reveal the ledger, <b>Space</b> to pause, <b>R</b> to reset, <b>S</b> to save.
+    </div>
+  </div>
+  <div class="caption">
+    A system does not become humane by borrowing judgment forever.<br/>
+    When interest exceeds care, the protocol must stop calling debt “exception handling.”
+  </div>
+  <audio id="bgm" src="./2026-06-08-protocol-debt-bgm.mp3" preload="auto" loop></audio>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('art');
+  const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+  const audio = document.getElementById('bgm');
+  const bgmToggle = document.getElementById('bgmToggle');
+  const SEED = 20260608;
+  const TAU = Math.PI * 2;
+  const palette = {
+    void: '#05070c',
+    deep: '#09111d',
+    paper: 'rgba(243,225,190,.92)',
+    ghost: 'rgba(243,225,190,.20)',
+    cyan: 'rgba(114,240,255,.92)',
+    amber: 'rgba(247,180,90,.92)',
+    red: 'rgba(255,95,109,.90)',
+    violet: 'rgba(132,106,255,.82)'
+  };
+  let W = 1, H = 1, DPR = 1, t = 0, paused = false, ledger = true, last = 0;
+  let pointer = { x: 0.52, y: 0.50, active: false };
+  let debts = [], clauses = [], sparks = [], raf = 0;
+
+  function mulberry32(a) {
+    return function() {
+      let x = a += 0x6D2B79F5;
+      x = Math.imul(x ^ x >>> 15, x | 1);
+      x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+      return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  let rand = mulberry32(SEED);
+  const rnd = (a=1,b=0) => b + rand() * (a-b);
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const lerp = (a,b,p) => a + (b-a) * p;
+
+  function reset() {
+    rand = mulberry32(SEED);
+    debts = [];
+    clauses = [];
+    sparks = [];
+    for (let i = 0; i < 54; i++) {
+      const lane = i / 54;
+      clauses.push({
+        base: lane,
+        offset: rnd(TAU),
+        radius: rnd(.10, .48),
+        rate: rnd(.18, .55),
+        weight: rnd(.15, .9),
+        phase: rnd(TAU),
+        kind: rand() > .72 ? 'interest' : rand() > .38 ? 'care' : 'audit'
+      });
+    }
+    for (let i = 0; i < 16; i++) issueDebt(rnd(.18,.82), rnd(.20,.78), true);
+  }
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(2, window.innerWidth);
+    H = Math.max(2, window.innerHeight);
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    pointer.x = clamp(pointer.x, .02, .98);
+    pointer.y = clamp(pointer.y, .02, .98);
+  }
+
+  function issueDebt(nx, ny, quiet=false) {
+    const age = rnd(0, 9);
+    const principal = rnd(.25, 1.25);
+    const interest = rnd(.012, .055) * (quiet ? .65 : 1.35);
+    debts.push({
+      x: nx, y: ny, px: nx, py: ny, vx: rnd(-.0015,.0015), vy: rnd(-.0015,.0015),
+      principal, interest, age, spin: rnd(-1,1), mark: rand() > .5 ? 'J' : rand() > .5 ? 'E' : 'R',
+      hue: rand() > .52 ? 'amber' : rand() > .28 ? 'cyan' : 'red'
+    });
+    if (debts.length > 42) debts.shift();
+    if (!quiet) {
+      for (let i=0; i<18; i++) sparks.push({x:nx, y:ny, a:rnd(TAU), v:rnd(.004,.018), life:rnd(26,60), max:60, hue: rand()>.4?'amber':'cyan'});
+    }
+  }
+
+  function setPointer(ev) {
+    const r = canvas.getBoundingClientRect();
+    pointer.x = clamp((ev.clientX - r.left) / Math.max(1, r.width), 0, 1);
+    pointer.y = clamp((ev.clientY - r.top) / Math.max(1, r.height), 0, 1);
+    pointer.active = true;
+  }
+
+  function drawBackground() {
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#05070c');
+    g.addColorStop(.36, '#101625');
+    g.addColorStop(.72, '#090f19');
+    g.addColorStop(1, '#1b0d13');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,W,H);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i=0; i<88; i++) {
+      const x = (Math.sin(i*17.13 + t*.012) * .5 + .5) * W;
+      const y = (Math.cos(i*9.71 - t*.01) * .5 + .5) * H;
+      const a = .018 + .012 * Math.sin(t*.02 + i);
+      ctx.fillStyle = `rgba(247,180,90,${a})`;
+      ctx.fillRect(x, y, 1.2, 1.2);
+    }
+    ctx.restore();
+  }
+
+  function drawLedger() {
+    const cx = W * .5, cy = H * .54;
+    const scale = Math.min(W,H);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(Math.sin(t*.003) * .025);
+    for (let ring=0; ring<7; ring++) {
+      const r = scale * (.10 + ring*.065);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, r * 1.42, r * .72, 0, 0, TAU);
+      ctx.strokeStyle = ring % 2 ? 'rgba(114,240,255,.10)' : 'rgba(247,180,90,.12)';
+      ctx.lineWidth = ring === 0 ? 1.6 : .8;
+      ctx.stroke();
+    }
+    for (let i=0; i<36; i++) {
+      const a = i/36 * TAU + Math.sin(t*.006+i)*.025;
+      const r1 = scale*.08, r2 = scale*.47;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a)*r1*1.42, Math.sin(a)*r1*.72);
+      ctx.lineTo(Math.cos(a)*r2*1.42, Math.sin(a)*r2*.72);
+      ctx.strokeStyle = i%3===0 ? 'rgba(243,225,190,.11)' : 'rgba(243,225,190,.055)';
+      ctx.lineWidth = i%3===0 ? .8 : .45;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawClause(c, i) {
+    const cx = W*.5, cy = H*.54;
+    const scale = Math.min(W,H);
+    const stress = totalDebt() / 30;
+    const px = (pointer.x-.5) * 2;
+    const py = (pointer.y-.5) * 2;
+    const a = c.base*TAU + Math.sin(t*.006*c.rate + c.phase) * .25 + px*.08;
+    const rr = scale * (c.radius + .025*Math.sin(t*.009 + i));
+    const x = cx + Math.cos(a) * rr * 1.42 + py * 26 * c.weight;
+    const y = cy + Math.sin(a) * rr * .72 + px * 18 * c.weight;
+    const debtPull = clamp(stress, 0, 1.8);
+    const color = c.kind === 'interest' ? palette.red : c.kind === 'care' ? palette.cyan : palette.amber;
+    ctx.beginPath();
+    ctx.arc(x, y, 1.3 + c.weight*3.2 + debtPull*1.4, 0, TAU);
+    ctx.fillStyle = color.replace('.92', String(.18 + c.weight*.13));
+    ctx.fill();
+    if (ledger && (i % 4 === 0)) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(cx + px*scale*.12, cy + py*scale*.08);
+      ctx.strokeStyle = c.kind === 'interest' ? 'rgba(255,95,109,.12)' : 'rgba(243,225,190,.08)';
+      ctx.lineWidth = .55;
+      ctx.stroke();
+    }
+  }
+
+  function totalDebt() {
+    return debts.reduce((s,d) => s + d.principal + d.age*d.interest, 0);
+  }
+
+  function updateDebt(d) {
+    d.age += .018;
+    const stress = clamp(totalDebt()/38, 0, 1.4);
+    const dx = pointer.x - d.x, dy = pointer.y - d.y;
+    const dist2 = dx*dx + dy*dy + .002;
+    const refinance = pointer.active ? .000028 / dist2 : 0;
+    d.vx += dx * refinance;
+    d.vy += dy * refinance;
+    d.vx += Math.sin(t*.009 + d.spin*4 + d.age) * .00018 + (d.x-.5) * stress * .00006;
+    d.vy += Math.cos(t*.007 - d.spin*3 + d.age) * .00016 + (d.y-.55) * stress * .00004;
+    d.vx *= .986; d.vy *= .986;
+    d.px = d.x; d.py = d.y;
+    d.x = clamp(d.x + d.vx, .04, .96);
+    d.y = clamp(d.y + d.vy, .08, .94);
+  }
+
+  function drawDebt(d) {
+    const x = d.x*W, y = d.y*H;
+    const px = d.px*W, py = d.py*H;
+    const amount = d.principal + d.age*d.interest;
+    const r = 4 + Math.sqrt(amount)*6.5;
+    const col = d.hue === 'cyan' ? palette.cyan : d.hue === 'red' ? palette.red : palette.amber;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = col.replace('.92', '.16');
+    ctx.lineWidth = r*.45;
+    ctx.stroke();
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const grad = ctx.createRadialGradient(x,y,0,x,y,r*5);
+    grad.addColorStop(0, col.replace('.92', '.38'));
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(x,y,r*5,0,TAU); ctx.fill();
+    ctx.restore();
+    ctx.beginPath(); ctx.arc(x,y,r,0,TAU);
+    ctx.fillStyle = col.replace('.92', '.44'); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,242,207,.68)'; ctx.lineWidth = .7; ctx.stroke();
+    ctx.fillStyle = 'rgba(5,7,12,.82)';
+    ctx.font = `${Math.max(9, r*1.18)}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.mark, x, y+0.5);
+  }
+
+  function updateSparks() {
+    for (const s of sparks) {
+      s.life -= 1;
+      s.x += Math.cos(s.a)*s.v;
+      s.y += Math.sin(s.a)*s.v;
+    }
+    sparks = sparks.filter(s => s.life > 0);
+  }
+
+  function drawSparks() {
+    for (const s of sparks) {
+      const a = s.life / s.max;
+      ctx.beginPath();
+      ctx.arc(s.x*W, s.y*H, 2 + (1-a)*8, 0, TAU);
+      ctx.strokeStyle = s.hue === 'cyan' ? `rgba(114,240,255,${a*.38})` : `rgba(247,180,90,${a*.38})`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+  }
+
+  function drawDebtMeter() {
+    const debt = totalDebt();
+    const cx = W*.5, cy = H*.54;
+    const scale = Math.min(W,H);
+    const p = clamp(debt / 42, 0, 1);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.beginPath();
+    ctx.arc(cx, cy, scale*(.115 + p*.33), -Math.PI*.7, -Math.PI*.7 + TAU*p);
+    ctx.strokeStyle = p < .55 ? 'rgba(114,240,255,.56)' : p < .82 ? 'rgba(247,180,90,.62)' : 'rgba(255,95,109,.72)';
+    ctx.lineWidth = 2.2 + p*4;
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = 'rgba(255,242,207,.72)';
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(`protocol debt ${debt.toFixed(2)} / interest ${(p*100).toFixed(0)}%`, cx, cy + scale*.39);
+    if (p > .72) {
+      ctx.fillStyle = `rgba(255,95,109,${.45 + .25*Math.sin(t*.08)})`;
+      ctx.fillText('REFINANCE THE PROTOCOL, NOT THE CASE QUEUE', cx, cy + scale*.39 + 18);
+    }
+  }
+
+  function draw(frameStep=1) {
+    if (!paused) t += frameStep;
+    drawBackground();
+    if (ledger) drawLedger();
+    for (let i=0; i<clauses.length; i++) drawClause(clauses[i], i);
+    if (!paused) debts.forEach(updateDebt);
+    debts.forEach(drawDebt);
+    if (!paused) updateSparks();
+    drawSparks();
+    drawDebtMeter();
+
+    const px = pointer.x*W, py = pointer.y*H;
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.beginPath(); ctx.arc(px, py, 18 + 8*Math.sin(t*.05), 0, TAU);
+    ctx.strokeStyle = 'rgba(255,242,207,.48)'; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(px, py, 4, 0, TAU); ctx.fillStyle = 'rgba(255,242,207,.72)'; ctx.fill();
+    ctx.restore();
+
+    window._drawHeartbeat = t;
+  }
+
+  function animate(ts) {
+    const delta = last ? Math.min(2.4, (ts-last)/16.67) : 1;
+    last = ts;
+    draw(delta);
+    raf = requestAnimationFrame(animate);
+  }
+
+  async function attemptPlay() {
+    try {
+      audio.volume = 0.38;
+      await audio.play();
+      bgmToggle.textContent = 'BGM: on';
+    } catch (e) {
+      bgmToggle.textContent = 'BGM: click to start';
+    }
+  }
+  bgmToggle.addEventListener('click', async () => {
+    if (audio.paused) await attemptPlay();
+    else { audio.pause(); bgmToggle.textContent = 'BGM: off'; }
+  });
+  audio.addEventListener('play', () => { bgmToggle.textContent = 'BGM: on'; });
+  audio.addEventListener('pause', () => { if (!audio.ended) bgmToggle.textContent = 'BGM: off'; });
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', setPointer);
+  window.addEventListener('pointerdown', ev => { setPointer(ev); issueDebt(pointer.x, pointer.y); attemptPlay(); });
+  window.addEventListener('keydown', ev => {
+    if (ev.key === ' ') { paused = !paused; ev.preventDefault(); }
+    if (ev.key === 'r' || ev.key === 'R') reset();
+    if (ev.key === 'd' || ev.key === 'D') ledger = !ledger;
+    if (ev.key === 's' || ev.key === 'S') {
+      const a = document.createElement('a');
+      a.download = 'protocol-debt-2026-06-08.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+  });
+
+  window.__advanceArt = (frames=30) => { for (let i=0; i<frames; i++) draw(1); return window.__getArtStats(); };
+  window.__getArtStats = () => {
+    const w = canvas.width, h = canvas.height;
+    let colored = 0, bright = 0, samples = 0;
+    for (let gy = 0; gy < 9; gy++) {
+      for (let gx = 0; gx < 16; gx++) {
+        const sx = Math.floor((gx + .5) * w / 16);
+        const sy = Math.floor((gy + .5) * h / 9);
+        const p = ctx.getImageData(sx, sy, 1, 1).data;
+        const r = p[0], g = p[1], b = p[2];
+        if (r + g + b > 42) bright++;
+        if (Math.max(r,g,b) - Math.min(r,g,b) > 10) colored++;
+        samples++;
+      }
+    }
+    return { ready: !!window._artReady, tick: t, debts: debts.length, clauses: clauses.length, ledger, bright, colored, samples, w: canvas.width, h: canvas.height, bgmLoop: audio.loop, bgmSrc: audio.getAttribute('src'), button: bgmToggle.textContent };
+  };
+
+  resize();
+  reset();
+  pointer.active = true;
+  draw(1);
+  window._artReady = true;
+  setTimeout(() => { if (!window._drawHeartbeat) draw(1); }, 600);
+  requestAnimationFrame(animate);
+  attemptPlay();
+})();
+</script>
+
+
+
+</body>
+</html>

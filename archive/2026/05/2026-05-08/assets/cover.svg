@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="White Night Error Field cover">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050713"/>
+      <stop offset="48%" stop-color="#0a1830"/>
+      <stop offset="100%" stop-color="#02040a"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#fff7dc"/>
+      <stop offset="54%" stop-color="#d8efff"/>
+      <stop offset="100%" stop-color="#55769c"/>
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.73" numOctaves="3" seed="20260508"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.13"/></feComponentTransfer>
+      <feBlend mode="screen" in2="SourceGraphic"/>
+    </filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#d7efff" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.75"/>
+  <g filter="url(#softNoise)"><rect width="1600" height="900" fill="#fff" opacity="0.05"/></g>
+
+  <g transform="translate(800 430)">
+    <g fill="none" stroke-linecap="round">
+      <ellipse rx="235" ry="138" stroke="#8edcff" stroke-opacity="0.18" stroke-width="1.2" transform="rotate(-9)"/>
+      <ellipse rx="350" ry="218" stroke="#77ffe2" stroke-opacity="0.14" stroke-width="1" transform="rotate(16)"/>
+      <ellipse rx="475" ry="302" stroke="#ffc783" stroke-opacity="0.12" stroke-width="0.9" transform="rotate(-24)"/>
+      <ellipse rx="620" ry="394" stroke="#ff6f9f" stroke-opacity="0.12" stroke-width="0.8" transform="rotate(31)"/>
+    </g>
+    <g stroke="#e9f7ff" stroke-opacity="0.18" stroke-width="1">
+      <path d="M-660,-110 C-470,-30 -320,-170 -130,-60 S260,75 430,-88 665,-12 745,-92" fill="none"/>
+      <path d="M-704,165 C-520,230 -390,58 -184,137 S142,270 345,116 585,225 718,118" fill="none"/>
+    </g>
+    <g filter="url(#glow)">
+      <circle r="106" fill="url(#moon)"/>
+      <path d="M-18,-100 C12,-48 -26,-17 11,25 C35,52 14,82 -6,104" fill="none" stroke="#071426" stroke-width="18" stroke-linecap="round" opacity="0.72"/>
+      <path d="M-26,-94 C7,-44 -34,-15 2,28 C28,58 5,83 -16,101" fill="none" stroke="#fff0bf" stroke-width="2" stroke-linecap="round" opacity="0.64"/>
+    </g>
+    <g filter="url(#glow)">
+      <circle cx="-315" cy="-92" r="8" fill="#7ee9ff"/>
+      <circle cx="238" cy="-151" r="10" fill="#ffe08c"/>
+      <circle cx="486" cy="72" r="7" fill="#ff6f9f"/>
+      <circle cx="-520" cy="188" r="9" fill="#85ffd5"/>
+      <circle cx="115" cy="304" r="6" fill="#c99cff"/>
+    </g>
+    <g fill="#eaf6ff" font-family="ui-serif, Georgia, serif" text-anchor="middle" opacity="0.48">
+      <text x="-320" y="-120" font-size="18">residual</text>
+      <text x="245" y="-178" font-size="18">偏差</text>
+      <text x="500" y="99" font-size="16">not a bug</text>
+      <text x="-532" y="220" font-size="17">裂缝</text>
+      <text x="118" y="332" font-size="16">signal</text>
+    </g>
+  </g>
+
+  <g fill="#eaf2ff" opacity="0.56" font-family="Georgia, 'Songti SC', serif" text-anchor="middle">
+    <text x="800" y="780" font-size="35" letter-spacing="7">WHITE NIGHT ERROR FIELD</text>
+    <text x="800" y="822" font-size="20" opacity="0.68">误差不是系统的失败；误差是世界拒绝被你简化的部分</text>
+  </g>
+</svg>

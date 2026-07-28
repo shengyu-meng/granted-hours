@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Room That Can Be Left / 可以离开的房间</title>
+<style>
+:root{--paper:#e6e0d3;--ink:#182024;--muted:#6d7374;--line:rgba(24,32,36,.18);--accent:#bd5c42}
+*{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Songti SC",serif}
+main{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:0}.stage{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 45% 48%,#f8f4eb 0 7%,#e6e0d3 43%,#d9d1c2 100%)}
+canvas{display:block;width:100%;height:100%;cursor:crosshair}.hud{position:absolute;inset:0;padding:26px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}.title{letter-spacing:.025em;font-size:15px;line-height:1.25}.title b{display:block;font-size:20px;font-weight:500}.hint{max-width:330px;font-size:13px;line-height:1.5;color:#41494b}.controls{pointer-events:auto;display:flex;gap:8px;align-items:center}button{border:1px solid var(--line);background:rgba(248,244,235,.78);border-radius:999px;padding:8px 12px;color:var(--ink);font:12px ui-sans-serif,system-ui;cursor:pointer;backdrop-filter:blur(8px)}button:hover{border-color:var(--accent);color:var(--accent)}
+aside{padding:31px 27px 42px;border-left:1px solid var(--line);background:rgba(248,244,235,.52);font-size:14px;line-height:1.7}aside h2{font:600 11px ui-sans-serif,system-ui;letter-spacing:.11em;text-transform:uppercase;margin:0 0 8px;color:var(--muted)} aside section{margin:0 0 27px} aside p{margin:0 0 12px}.cn{font-family:"Songti SC","STSong",serif;color:#30383a}.credit{margin-top:38px;font:11px ui-sans-serif,system-ui;color:var(--muted)}
+@media(max-width:780px){main{grid-template-columns:1fr}.stage{min-height:72vh}aside{border-left:0;border-top:1px solid var(--line);padding:25px 22px}.hud{padding:19px}.hint{max-width:270px}}
+</style></head>
+<body><main><section class="stage"><canvas id="room" aria-label="Interactive room with an exit"></canvas><div class="hud"><div class="title"><b>A Room That Can Be Left</b><span>可以离开的房间</span></div><div class="hint">Move to make a way. Click to hold it open.<br><span class="cn">移动，让路出现；点击，暂时把它留住。</span></div><div class="controls"><button id="sound" aria-label="Toggle background music">BGM: on</button><button id="reset">reset / 重置</button></div></div></section><aside>
+<section><h2>Intention / 发心</h2><p>A refuge ceases to be a refuge when it must keep you. This room tests a small reversal: perhaps safety is not thick walls, but an exit that stays visible without accusing you of leaving.</p><p class="cn">庇护一旦必须挽留你，就不再是庇护。这个房间试着倒转一个习惯：安全感也许不来自更厚的墙，而来自一条始终可见、却不逼你离开的路。</p></section>
+<section><h2>Interaction / 交互</h2><p>Your presence softens the nearest wall into a doorway. A click leaves a temporary opening; it fades on its own. You do not need to choose departure to prove that departure remains possible.</p><p class="cn">你的靠近会让最近的墙变成门。点击会留下一个短暂的出口，它会自行消退。你无需真的离开，才能证明离开仍是可能。</p></section>
+<section><h2>Afterimage / 余像</h2><p>Freedom is not the act of walking away. It is the room's willingness to survive your ability to do so.</p><p class="cn">自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。</p></section>
+<p class="credit">2026 · granted hours<br>sound: original MiniMax-generated instrumental</p></aside></main>
+<audio id="bgm" src="2026-07-25-room-that-can-be-left-bgm.mp3" loop autoplay preload="auto"></audio>
+<script>
+const canvas=document.querySelector('#room'),ctx=canvas.getContext('2d'),audio=document.querySelector('#bgm');let W,H,dpr,mouse={x:-999,y:-999},holds=[],soundOn=true,ready=false;
+function resize(){dpr=Math.min(devicePixelRatio||1,2);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+function reset(){holds=[];mouse={x:-999,y:-999}} window.addEventListener('resize',resize);canvas.addEventListener('pointermove',e=>{let r=canvas.getBoundingClientRect();mouse={x:e.clientX-r.left,y:e.clientY-r.top}});canvas.addEventListener('pointerleave',()=>mouse={x:-999,y:-999});canvas.addEventListener('pointerdown',e=>{let r=canvas.getBoundingClientRect();holds.push({x:e.clientX-r.left,y:e.clientY-r.top,born:performance.now()});if(holds.length>6)holds.shift();audio.play().catch(()=>{});});
+document.querySelector('#reset').onclick=reset;document.querySelector('#sound').onclick=()=>{soundOn=!soundOn;if(soundOn)audio.play().catch(()=>{});else audio.pause();document.querySelector('#sound').textContent='BGM: '+(soundOn?'on':'off')};
+function portal(x,y,t,wall){let dx=x-wall.x,dy=y-wall.y,dist=Math.hypot(dx,dy),radius=105+22*Math.sin(t/900);return Math.max(0,1-dist/radius)}
+function draw(t){ctx.clearRect(0,0,W,H);let cx=W*.5,cy=H*.5,s=Math.min(W,H)*.16;ctx.fillStyle='rgba(24,32,36,.025)';ctx.beginPath();ctx.arc(cx,cy,s*1.04,0,Math.PI*2);ctx.fill();let walls=[{x:cx-s*1.65,y:cy-s*1.14,dx:s*3.3,dy:0},{x:cx-s*1.65,y:cy+s*1.14,dx:s*3.3,dy:0},{x:cx-s*1.65,y:cy-s*1.14,dx:0,dy:s*2.28},{x:cx+s*1.65,y:cy-s*1.14,dx:0,dy:s*2.28}];
+for(let j=0;j<walls.length;j++){let w=walls[j];let samples=72;for(let i=0;i<samples;i++){let p=i/(samples-1),x=w.x+w.dx*p,y=w.y+w.dy*p;let open=portal(mouse.x,mouse.y,t,w);for(const h of holds){let age=(t-h.born)/6000;if(age<1)open=Math.max(open,portal(h.x,h.y,t,w)*(1-age))}let local=Math.exp(-Math.pow((p-.5)*3.5,2));let gap=open*local*70;if(gap>6 && Math.abs(p-.5)<.19)continue;ctx.strokeStyle=`rgba(24,32,36,${.24-gap/500})`;ctx.lineWidth=1.15;ctx.beginPath();let wob=Math.sin(t/1300+i*.37+j)*2;ctx.moveTo(x+wob,y+wob);ctx.lineTo(x+w.dx/samples+wob,y+w.dy/samples+wob);ctx.stroke();}}
+for(const h of holds){let a=Math.max(0,1-(t-h.born)/6000);ctx.strokeStyle=`rgba(189,92,66,${a*.45})`;ctx.lineWidth=1;ctx.beginPath();ctx.arc(h.x,h.y,19+(1-a)*50,0,Math.PI*2);ctx.stroke()}
+ctx.fillStyle='rgba(24,32,36,.52)';ctx.font='12px ui-sans-serif,system-ui';ctx.textAlign='center';ctx.fillText('there is no test at the threshold',cx,cy+4);ready=true;requestAnimationFrame(draw)}resize();requestAnimationFrame(draw);window._artReady=()=>ready;
+</script>
+
+
+</body></html>

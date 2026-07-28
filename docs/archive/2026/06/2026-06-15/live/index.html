@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camera Fasting / 相机斋戒</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0c;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #label {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(200,200,200,0.4);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    pointer-events: none;
+    transition: opacity 2s ease;
+    text-align: center;
+  }
+  #state-indicator {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    transition: background 1.5s ease, box-shadow 1.5s ease;
+  }
+  #state-indicator.watching {
+    background: #e8d5a3;
+    box-shadow: 0 0 12px 4px rgba(232,213,163,0.4);
+  }
+  #state-indicator.fasting {
+    background: #3a3a4a;
+    box-shadow: none;
+  }
+  #bgm-btn {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(200,200,200,0.6);
+    padding: 6px 14px;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.3s;
+    z-index: 10;
+  }
+  #bgm-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.9);
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="state-indicator"></div>
+<div id="label">⦿ unobserved — the form returns to itself</div>
+<button id="bgm-btn">♪ SOUND ON</button>
+<audio id="bgm" loop>
+  <source src="2026-06-15-camera-fasting-bgm.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ─── Camera Fasting / 相机斋戒 ─────────────────────────────────
+// Concept: When observation withdraws, the form sheds its performed shape.
+// The crystal maintains two states:
+//   WATCHING  — angular, bright, reflective, structured for the lens
+//   FASTING   — loose, dark, amorphous, released from being seen
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const indicator = document.getElementById('state-indicator');
+const label = document.getElementById('label');
+const audio = document.getElementById('bgm');
+const bgmBtn = document.getElementById('bgm-btn');
+
+// BGM toggle
+bgmBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play().then(() => { bgmBtn.textContent = '♪ SOUND ON'; });
+  } else {
+    audio.pause();
+    bgmBtn.textContent = '♪ SOUND OFF';
+  }
+});
+// Attempt autoplay
+audio.volume = 0.6;
+audio.play().catch(() => {});
+
+// ─── State Machine ─────────────────────────────────────────────
+let watching = true; // default: assume fresh load, tab is focused
+let stateT = 0;      // 0=watching, 1=fasting — smooth lerp
+let lastChange = Date.now();
+
+// Detect: tab focus + mouse inside viewport
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) setFasting();
+  else setWatching();
+});
+document.addEventListener('mouseleave', () => setFasting());
+document.addEventListener('mouseenter', () => setWatching());
+window.addEventListener('blur', () => setFasting());
+window.addEventListener('focus', () => setWatching());
+
+function setWatching() {
+  if (!watching) { lastChange = Date.now(); }
+  watching = true;
+  indicator.className = 'watching';
+  label.textContent = '⦿ observed — the form performs';
+  label.style.color = 'rgba(232,213,163,0.5)';
+}
+function setFasting() {
+  if (watching) { lastChange = Date.now(); }
+  watching = false;
+  indicator.className = 'fasting';
+  label.textContent = '◌ unobserved — the form returns to itself';
+  label.style.color = 'rgba(120,120,140,0.4)';
+}
+
+// ─── Canvas Setup ───────────────────────────────────────────────
+let W, H, cx, cy;
+function resize() {
+  W = canvas.width = window.innerWidth * devicePixelRatio;
+  H = canvas.height = window.innerHeight * devicePixelRatio;
+  cx = W / 2;
+  cy = H / 2;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ─── Noise helpers ─────────────────────────────────────────────
+function hash(n) {
+  const s = Math.sin(n) * 43758.5453123;
+  return s - Math.floor(s);
+}
+function noise2(x, y, t) {
+  const ix = Math.floor(x), iy = Math.floor(y);
+  const fx = x - ix, fy = y - iy;
+  const ux = fx * fx * (3 - 2 * fx);
+  const uy = fy * fy * (3 - 2 * fy);
+  const a = hash(ix + iy * 57 + t * 0.01);
+  const b = hash(ix + 1 + iy * 57 + t * 0.01);
+  const c = hash(ix + (iy + 1) * 57 + t * 0.01);
+  const d = hash(ix + 1 + (iy + 1) * 57 + t * 0.01);
+  return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy;
+}
+
+// ─── Crystal drawing ────────────────────────────────────────────
+// The core form: a multi-vertex polygon whose shape is driven by stateT
+// stateT=0 (watching)  → sharp, angular, bright
+// stateT=1 (fasting)   → loose, organic, dark
+
+const VERTS = 7;
+let vertices = [];
+for (let i = 0; i < VERTS; i++) {
+  vertices.push({ angle: (i / VERTS) * Math.PI * 2, r: 0.5 + hash(i) * 0.3 });
+}
+
+function drawCrystal(stateT, t) {
+  const baseRadius = Math.min(W, H) * 0.28;
+  const pts = vertices.map((v, i) => {
+    // noise wobble — more chaotic when fasting
+    const wobbleScale = 0.12 + stateT * 0.18;
+    const nx = noise2(v.angle * 2, t * 0.0004, i * 7) - 0.5;
+    const ny = noise2(v.angle * 2 + 100, t * 0.0004, i * 7) - 0.5;
+    const r = baseRadius * (v.r + nx * wobbleScale);
+
+    // Angularity: when watching, vertices are pulled toward sharp cardinals
+    const cardinalPull = (1 - stateT) * 0.3;
+    const snapAngle = Math.round(v.angle / (Math.PI / 4)) * (Math.PI / 4);
+    const effectiveAngle = v.angle + (snapAngle - v.angle) * cardinalPull;
+
+    return {
+      x: cx + Math.cos(effectiveAngle) * r,
+      y: cy + Math.sin(effectiveAngle) * r
+    };
+  });
+
+  // Draw outer glow (watching state gets more glow)
+  const glowAlpha = (1 - stateT) * 0.15;
+  if (glowAlpha > 0.01) {
+    for (let g = 3; g >= 1; g--) {
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i <= VERTS; i++) {
+        const p = pts[i % VERTS];
+        ctx.lineTo(p.x, p.y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(232,213,163,${glowAlpha / g})`;
+      ctx.lineWidth = g * 4;
+      ctx.stroke();
+    }
+  }
+
+  // Draw facets — when watching, bright stroke; when fasting, barely there
+  const strokeAlpha = 0.85 - stateT * 0.7;
+  const strokeWidth = (1 - stateT * 0.7) * 2 * devicePixelRatio;
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i <= VERTS; i++) {
+    const p = pts[i % VERTS];
+    ctx.lineTo(p.x, p.y);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = `rgba(232,213,163,${strokeAlpha})`;
+  ctx.lineWidth = strokeWidth;
+  ctx.stroke();
+
+  // Fill gradient — watching: warm amber; fasting: deep blue-black
+  const warmColor = `rgba(232,213,163,${0.12 - stateT * 0.1})`;
+  const coolColor = `rgba(40,50,80,${0.08 + stateT * 0.05})`;
+  const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseRadius);
+  grad.addColorStop(0, stateT < 0.5 ? warmColor : coolColor);
+  grad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Inner lines — connection struts
+  // When watching: visible geometric struts
+  // When fasting: dissolve
+  if (stateT < 0.7) {
+    const strutAlpha = (1 - stateT / 0.7) * 0.25;
+    for (let i = 0; i < VERTS; i++) {
+      for (let j = i + 2; j < i + VERTS - 1; j++) {
+        const a = pts[i], b = pts[j % VERTS];
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(232,213,163,${strutAlpha})`;
+        ctx.lineWidth = 0.5 * devicePixelRatio;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Breathing pulse
+  const breathPhase = Math.sin(t * 0.001) * 0.5 + 0.5;
+  const pulseRadius = baseRadius * (0.02 * breathPhase * (1 - stateT));
+  ctx.beginPath();
+  ctx.arc(cx, cy, pulseRadius, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(232,213,163,${0.3 * breathPhase * (1 - stateT)})`;
+  ctx.fill();
+}
+
+// ─── Particle field — watching: orderly, fasting: free ──────────
+const PARTICLES = 120;
+const particles = Array.from({ length: PARTICLES }, (_, i) => ({
+  angle: Math.random() * Math.PI * 2,
+  dist: 0.3 + Math.random() * 0.55, // 0=close, 1=far
+  speed: 0.0003 + Math.random() * 0.0005,
+  size: 0.5 + Math.random() * 1.5,
+  phase: Math.random() * Math.PI * 2
+}));
+
+function drawParticles(stateT, t) {
+  const maxR = Math.max(W, H);
+  particles.forEach(p => {
+    const t2 = t * p.speed + p.phase;
+    // Orbits are tighter and more circular when watching, looser when fasting
+    const tightness = 1 - stateT * 0.6;
+    const baseOrbit = p.dist * maxR * 0.45;
+    const wobble = Math.sin(t2 * 3) * maxR * 0.04 * stateT;
+    const orbitR = baseOrbit + wobble;
+
+    const x = cx + Math.cos(p.angle + t2) * orbitR * (1 + (1 - tightness) * 0.2);
+    const y = cy + Math.sin(p.angle + t2 * tightness) * orbitR;
+
+    // Watching: bright ordered dots; fasting: dim free dots
+    const alpha = (0.6 - stateT * 0.45) * (0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t2 * 5)));
+    const size = p.size * devicePixelRatio * (1 - stateT * 0.3);
+
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(180,200,220,${alpha})`;
+    ctx.fill();
+  });
+}
+
+// ─── Edge vignette — stronger when fasting ─────────────────────
+function drawVignette(stateT) {
+  const vignetteAlpha = 0.7 + stateT * 0.15;
+  const grad = ctx.createRadialGradient(cx, cy, Math.min(W,H)*0.25, cx, cy, Math.max(W,H)*0.7);
+  grad.addColorStop(0, 'rgba(0,0,0,0)');
+  grad.addColorStop(1, `rgba(0,0,0,${vignetteAlpha})`);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+}
+
+// ─── Main loop ──────────────────────────────────────────────────
+function animate(timestamp) {
+  const t = timestamp || 0;
+
+  // Lerp stateT toward target
+  const target = watching ? 0 : 1;
+  stateT += (target - stateT) * 0.04;
+
+  // Background
+  const bgBrightness = 10 + (1 - stateT) * 5;
+  ctx.fillStyle = `rgb(${bgBrightness},${bgBrightness},${bgBrightness + 2})`;
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines — visible when watching, dissolve when fasting
+  if (stateT < 0.6) {
+    const gridAlpha = (1 - stateT / 0.6) * 0.04;
+    const gridSpacing = 60 * devicePixelRatio;
+    ctx.strokeStyle = `rgba(200,180,140,${gridAlpha})`;
+    ctx.lineWidth = 0.5;
+    for (let gx = 0; gx < W; gx += gridSpacing) {
+      ctx.beginPath();
+      ctx.moveTo(gx, 0);
+      ctx.lineTo(gx, H);
+      ctx.stroke();
+    }
+    for (let gy = 0; gy < H; gy += gridSpacing) {
+      ctx.beginPath();
+      ctx.moveTo(0, gy);
+      ctx.lineTo(W, gy);
+      ctx.stroke();
+    }
+  }
+
+  drawParticles(stateT, t);
+  drawCrystal(stateT, t);
+  drawVignette(stateT);
+
+  requestAnimationFrame(animate);
+}
+
+animate(0);
+</script>
+
+
+
+</body>
+</html>

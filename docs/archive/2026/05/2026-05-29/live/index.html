@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promise With an Escape Hatch</title>
+  <meta name="description" content="A granted-hours canvas work about commitments that remain real because they preserve a visible way to revise.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f2eee5;
+      --muted: #a9a197;
+      --line: rgba(242, 238, 229, 0.18);
+      --amber: #f2b450;
+      --cyan: #61d8d1;
+      --rose: #ef6f88;
+      --green: #9bcf6f;
+      --violet: #b99cff;
+      --bg: #090a0b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(242, 180, 80, 0.05) 0 1px, transparent 1px 100%),
+        linear-gradient(0deg, rgba(97, 216, 209, 0.045) 0 1px, transparent 1px 100%),
+        linear-gradient(135deg, #050607 0%, #111216 48%, #07080b 100%);
+      background-size: 46px 46px, 46px 46px, 100% 100%;
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0 42%, rgba(97, 216, 209, 0.08) 42% 43%, transparent 43% 100%),
+        linear-gradient(300deg, transparent 0 55%, rgba(239, 111, 136, 0.07) 55% 56%, transparent 56% 100%);
+      mix-blend-mode: screen;
+    }
+
+    #field {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    .caption {
+      position: fixed;
+      left: clamp(18px, 4vw, 56px);
+      top: clamp(18px, 5vh, 56px);
+      width: min(720px, calc(100vw - 36px));
+      pointer-events: none;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.74);
+    }
+
+    .kicker {
+      margin: 0 0 14px;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 13ch;
+      color: var(--ink);
+      font-size: clamp(44px, 8.7vw, 112px);
+      line-height: 0.9;
+      letter-spacing: 0;
+      font-weight: 760;
+    }
+
+    .thesis {
+      margin: 22px 0 0;
+      max-width: 58ch;
+      color: rgba(242, 238, 229, 0.82);
+      font-size: clamp(14px, 1.75vw, 18px);
+      line-height: 1.55;
+    }
+
+    .panel {
+      position: fixed;
+      right: clamp(14px, 3vw, 42px);
+      bottom: clamp(14px, 3vw, 36px);
+      width: min(440px, calc(100vw - 28px));
+      padding: 14px 16px 13px;
+      border: 1px solid var(--line);
+      background: rgba(7, 8, 10, 0.58);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+    }
+
+    .panel p {
+      margin: 0;
+      color: rgba(242, 238, 229, 0.8);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .metric {
+      min-height: 46px;
+      border: 1px solid rgba(242, 238, 229, 0.12);
+      padding: 8px 8px 7px;
+      background: rgba(242, 238, 229, 0.045);
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .value {
+      display: block;
+      margin-top: 4px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .value.promise { color: var(--amber); }
+    .value.hatch { color: var(--cyan); }
+    .value.cost { color: var(--rose); }
+    .value.revision { color: var(--green); }
+
+    .controls {
+      position: fixed;
+      left: clamp(18px, 4vw, 56px);
+      bottom: clamp(14px, 3vw, 36px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: min(660px, calc(100vw - 36px));
+      color: rgba(242, 238, 229, 0.68);
+      font-size: 11px;
+      pointer-events: none;
+    }
+
+    .key {
+      border: 1px solid rgba(242, 238, 229, 0.14);
+      padding: 7px 9px 6px;
+      background: rgba(7, 8, 10, 0.46);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        max-width: 10ch;
+        font-size: clamp(40px, 14vw, 72px);
+      }
+
+      .thesis {
+        max-width: 33ch;
+      }
+
+      .panel {
+        left: 14px;
+        right: 14px;
+      }
+
+      .controls {
+        display: none;
+      }
+    }
+  
+  .sound-toggle { position: fixed; right: 24px; top: 22px; z-index: 9999; border: 1px solid rgba(245,239,229,.24); border-radius: 999px; padding: 9px 13px; color: rgba(245,239,229,.88); background: rgba(6,7,12,.58); backdrop-filter: blur(14px); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .sound-toggle:hover { border-color: rgba(110,231,216,.56); color: #ffffff; }
+</style>
+</head>
+<body>
+<button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true">sound on</button>
+<audio id="bgm" src="./2026-05-29-promise-with-an-escape-hatch-bgm.mp3" preload="auto" autoplay loop></audio>
+
+  <canvas id="field" aria-label="Animated field of promises and escape hatches"></canvas>
+
+  <main class="caption">
+    <p class="kicker">Granted Hours / 2026-05-29</p>
+    <h1>Promise With an Escape Hatch</h1>
+    <p class="thesis">A commitment is not weakened by a visible way out. It becomes honest enough to survive contact with reality.</p>
+  </main>
+
+  <aside class="panel" aria-live="polite">
+    <div class="metrics">
+      <div class="metric"><span class="label">promise</span><span class="value promise" id="promise">0.00</span></div>
+      <div class="metric"><span class="label">hatch</span><span class="value hatch" id="hatch">0.00</span></div>
+      <div class="metric"><span class="label">cost</span><span class="value cost" id="cost">0.00</span></div>
+      <div class="metric"><span class="label">revision</span><span class="value revision" id="revision">0.00</span></div>
+    </div>
+    <p id="line">A promise becomes dangerous when it mistakes reversibility for betrayal.</p>
+  </aside>
+
+  <div class="controls" aria-hidden="true">
+    <span class="key">move pointer: open the hatch</span>
+    <span class="key">click: make a promise</span>
+    <span class="key">space: pause</span>
+    <span class="key">r: reset</span>
+    <span class="key">s: save still</span>
+  </div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      const els = {
+        promise: document.getElementById('promise'),
+        hatch: document.getElementById('hatch'),
+        cost: document.getElementById('cost'),
+        revision: document.getElementById('revision'),
+        line: document.getElementById('line')
+      };
+
+      const TAU = Math.PI * 2;
+      const DPR_LIMIT = 2;
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let t = 0;
+      let paused = false;
+      let raf = 0;
+
+      const pointer = { x: 0.68, y: 0.48, active: false, pull: 0 };
+      const promises = [];
+      const gates = [];
+      const sparks = [];
+      let fieldPhase = 0.35;
+
+      function clamp(v, min = 0, max = 1) {
+        return Math.max(min, Math.min(max, v));
+      }
+
+      function ease(v) {
+        return v * v * (3 - 2 * v);
+      }
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, DPR_LIMIT);
+        width = Math.floor(window.innerWidth);
+        height = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildGates();
+      }
+
+      function buildGates() {
+        gates.length = 0;
+        const cx = width * 0.58;
+        const cy = height * 0.56;
+        const count = Math.max(14, Math.floor(Math.min(width, height) / 42));
+        for (let i = 0; i < count; i++) {
+          const p = i / count;
+          const r = Math.min(width, height) * (0.11 + p * 0.44);
+          const angle = -0.85 + p * 1.72 + Math.sin(p * 9.7) * 0.11;
+          gates.push({
+            cx,
+            cy,
+            r,
+            angle,
+            open: 0.18 + 0.22 * Math.sin(i * 1.31),
+            pulse: Math.random() * TAU,
+            hue: i % 3
+          });
+        }
+      }
+
+      function seedPromises() {
+        promises.length = 0;
+        for (let i = 0; i < 7; i++) {
+          promises.push(makePromise(
+            0.36 + Math.sin(i * 1.3) * 0.18 + i * 0.038,
+            0.36 + Math.cos(i * 1.7) * 0.19,
+            0.52 + i * 0.06
+          ));
+        }
+      }
+
+      function makePromise(nx, ny, strength = 0.8) {
+        const id = promises.length + Math.random() * 99;
+        return {
+          x: clamp(nx, 0.08, 0.92),
+          y: clamp(ny, 0.16, 0.88),
+          strength: clamp(strength, 0.25, 1.4),
+          age: 0,
+          phase: id * 0.77,
+          wobble: 0,
+          hatch: 0.25 + Math.random() * 0.55,
+          revision: 0.15 + Math.random() * 0.55
+        };
+      }
+
+      function updateMetrics() {
+        const promiseLoad = clamp(promises.reduce((a, p) => a + p.strength, 0) / 8.5);
+        const hatch = clamp(gates.reduce((a, g) => a + g.open, 0) / Math.max(1, gates.length));
+        const cost = clamp(promiseLoad * (1 - hatch * 0.7) + Math.abs(Math.sin(t * 0.19)) * 0.08);
+        const revision = clamp((hatch * 0.72 + pointer.pull * 0.28) * (0.75 + 0.25 * Math.sin(t * 0.41)));
+        els.promise.textContent = promiseLoad.toFixed(2);
+        els.hatch.textContent = hatch.toFixed(2);
+        els.cost.textContent = cost.toFixed(2);
+        els.revision.textContent = revision.toFixed(2);
+
+        if (cost > 0.66 && hatch < 0.42) {
+          els.line.textContent = 'The vow is too heavy for the exit it allows.';
+        } else if (revision > 0.62) {
+          els.line.textContent = 'Revision is not betrayal; it is how a promise keeps learning.';
+        } else if (promiseLoad > 0.58) {
+          els.line.textContent = 'Commitment gives action a spine; the hatch keeps the spine from becoming a cage.';
+        } else {
+          els.line.textContent = 'A promise becomes dangerous when it mistakes reversibility for betrayal.';
+        }
+      }
+
+      function drawBackground() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.save();
+        ctx.globalAlpha = 0.82;
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, '#050608');
+        grad.addColorStop(0.46, '#111318');
+        grad.addColorStop(1, '#07080b');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.globalAlpha = 0.25;
+        ctx.strokeStyle = 'rgba(242,238,229,0.08)';
+        ctx.lineWidth = 1;
+        const step = Math.max(38, Math.min(58, width / 24));
+        for (let x = -step; x < width + step; x += step) {
+          ctx.beginPath();
+          ctx.moveTo(x + Math.sin(t * 0.08 + x * 0.01) * 7, 0);
+          ctx.lineTo(x + Math.cos(t * 0.06 + x * 0.012) * 7, height);
+          ctx.stroke();
+        }
+        for (let y = -step; y < height + step; y += step) {
+          ctx.beginPath();
+          ctx.moveTo(0, y + Math.cos(t * 0.07 + y * 0.01) * 7);
+          ctx.lineTo(width, y + Math.sin(t * 0.05 + y * 0.014) * 7);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawGates() {
+        ctx.save();
+        const cx = width * 0.58;
+        const cy = height * 0.56;
+        const px = pointer.x * width;
+        const py = pointer.y * height;
+        const distPointer = Math.hypot(px - cx, py - cy) / Math.max(1, Math.min(width, height));
+        pointer.pull += (clamp(1 - distPointer * 1.9) - pointer.pull) * 0.05;
+
+        for (const gate of gates) {
+          const pulse = 0.5 + 0.5 * Math.sin(t * 0.9 + gate.pulse);
+          const influence = pointer.pull * (0.46 + 0.25 * Math.sin(gate.r * 0.013 + t));
+          gate.open = clamp(gate.open * 0.982 + (0.13 + pulse * 0.16 + influence) * 0.018, 0.08, 0.86);
+          const gap = 0.34 + gate.open * 1.2;
+          const start = gate.angle + gap * 0.5;
+          const end = gate.angle + TAU - gap * 0.5;
+          const color = gate.hue === 0 ? '97,216,209' : gate.hue === 1 ? '242,180,80' : '239,111,136';
+
+          ctx.lineWidth = Math.max(1, gate.r * 0.007);
+          ctx.strokeStyle = `rgba(${color}, ${0.16 + gate.open * 0.32})`;
+          ctx.beginPath();
+          ctx.arc(gate.cx, gate.cy, gate.r, start + Math.sin(t * 0.16) * 0.04, end, false);
+          ctx.stroke();
+
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(242,238,229, ${0.05 + gate.open * 0.1})`;
+          ctx.beginPath();
+          ctx.arc(gate.cx, gate.cy, gate.r * (1 + 0.011 * Math.sin(t + gate.pulse)), end + 0.08, start - 0.08 + TAU, false);
+          ctx.stroke();
+
+          const hx1 = gate.cx + Math.cos(gate.angle - gap * 0.5) * gate.r;
+          const hy1 = gate.cy + Math.sin(gate.angle - gap * 0.5) * gate.r;
+          const hx2 = gate.cx + Math.cos(gate.angle + gap * 0.5) * gate.r;
+          const hy2 = gate.cy + Math.sin(gate.angle + gap * 0.5) * gate.r;
+          ctx.strokeStyle = `rgba(97,216,209, ${0.11 + gate.open * 0.28})`;
+          ctx.beginPath();
+          ctx.moveTo(hx1, hy1);
+          ctx.lineTo(hx2, hy2);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawPromises() {
+        ctx.save();
+        const cx = width * 0.58;
+        const cy = height * 0.56;
+        const px = pointer.x * width;
+        const py = pointer.y * height;
+
+        promises.forEach((p, i) => {
+          p.age += 0.016;
+          p.wobble = Math.sin(t * 0.86 + p.phase) * 0.5 + Math.cos(t * 0.37 + i) * 0.5;
+          p.strength = clamp(p.strength + Math.sin(t * 0.1 + p.phase) * 0.0008, 0.18, 1.5);
+          p.hatch = clamp(p.hatch * 0.992 + pointer.pull * 0.008 + Math.sin(t * 0.11 + p.phase) * 0.002, 0.06, 0.96);
+          p.revision = clamp(p.revision * 0.995 + p.hatch * 0.004, 0.08, 0.98);
+
+          const x = p.x * width + Math.sin(t * 0.4 + p.phase) * 14 * p.wobble;
+          const y = p.y * height + Math.cos(t * 0.33 + p.phase) * 12 * p.wobble;
+          const nearest = Math.hypot(px - x, py - y) / Math.max(1, Math.min(width, height));
+          const attention = clamp(1 - nearest * 4.2);
+          const radius = (18 + p.strength * 22 + attention * 16) * (0.9 + 0.08 * Math.sin(t * 1.7 + p.phase));
+
+          ctx.globalAlpha = 0.62;
+          ctx.strokeStyle = `rgba(242,180,80, ${0.17 + p.strength * 0.18})`;
+          ctx.lineWidth = 1.2 + p.strength * 1.8;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          const mx = (cx + x) * 0.5 + Math.sin(t * 0.38 + i) * 30;
+          const my = (cy + y) * 0.5 + Math.cos(t * 0.32 + i) * 22;
+          ctx.quadraticCurveTo(mx, my, x, y);
+          ctx.stroke();
+
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = `rgba(242,180,80, ${0.12 + p.strength * 0.15})`;
+          ctx.strokeStyle = `rgba(242,238,229, ${0.2 + attention * 0.28})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, TAU);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.strokeStyle = `rgba(97,216,209, ${0.28 + p.hatch * 0.44})`;
+          ctx.lineWidth = 2;
+          const hatchAngle = p.phase + t * 0.22;
+          const gap = 0.7 + p.hatch * 1.15;
+          ctx.beginPath();
+          ctx.arc(x, y, radius * 1.38, hatchAngle + gap, hatchAngle + TAU - gap, false);
+          ctx.stroke();
+
+          ctx.strokeStyle = `rgba(155,207,111, ${0.12 + p.revision * 0.35})`;
+          ctx.lineWidth = 1.3;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + Math.cos(hatchAngle) * radius * (1.8 + p.revision), y + Math.sin(hatchAngle) * radius * (1.8 + p.revision));
+          ctx.stroke();
+
+          ctx.fillStyle = `rgba(242,238,229, ${0.35 + attention * 0.45})`;
+          ctx.beginPath();
+          ctx.arc(x, y, 2.8 + attention * 2, 0, TAU);
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      function drawSparks() {
+        ctx.save();
+        for (let i = sparks.length - 1; i >= 0; i--) {
+          const s = sparks[i];
+          s.age += 0.018;
+          s.x += s.vx;
+          s.y += s.vy;
+          s.vx *= 0.986;
+          s.vy *= 0.986;
+          const life = 1 - s.age / s.max;
+          if (life <= 0) {
+            sparks.splice(i, 1);
+            continue;
+          }
+          ctx.globalAlpha = life * 0.72;
+          ctx.strokeStyle = s.kind === 'hatch' ? '#61d8d1' : '#f2b450';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(s.x - s.vx * 4, s.y - s.vy * 4);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawPointer() {
+        const x = pointer.x * width;
+        const y = pointer.y * height;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(t * 0.18);
+        ctx.strokeStyle = `rgba(97,216,209, ${0.32 + pointer.pull * 0.45})`;
+        ctx.lineWidth = 1.5;
+        const r = 36 + pointer.pull * 48;
+        ctx.beginPath();
+        ctx.moveTo(-r, 0);
+        ctx.lineTo(r, 0);
+        ctx.moveTo(0, -r);
+        ctx.lineTo(0, r);
+        ctx.stroke();
+        ctx.strokeStyle = `rgba(242,238,229, ${0.14 + pointer.pull * 0.2})`;
+        ctx.beginPath();
+        ctx.arc(0, 0, r * 0.58, 0, TAU);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function tick() {
+        if (!paused) {
+          t += 0.016;
+          fieldPhase += 0.003;
+        }
+        drawBackground();
+        drawGates();
+        drawPromises();
+        drawSparks();
+        drawPointer();
+        updateMetrics();
+        window.__artReady = true;
+        raf = requestAnimationFrame(tick);
+      }
+
+      function addPromise(x, y) {
+        const p = makePromise(x / width, y / height, 0.78 + Math.random() * 0.32);
+        promises.push(p);
+        while (promises.length > 13) promises.shift();
+        for (let i = 0; i < 34; i++) {
+          const a = (i / 34) * TAU + Math.random() * 0.2;
+          const speed = 1.2 + Math.random() * 4.2;
+          sparks.push({
+            x,
+            y,
+            vx: Math.cos(a) * speed,
+            vy: Math.sin(a) * speed,
+            age: 0,
+            max: 0.5 + Math.random() * 0.8,
+            kind: i % 3 === 0 ? 'hatch' : 'promise'
+          });
+        }
+      }
+
+      function saveStill() {
+        const link = document.createElement('a');
+        link.download = 'promise-with-an-escape-hatch.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('pointermove', (event) => {
+        pointer.x = clamp(event.clientX / Math.max(1, width));
+        pointer.y = clamp(event.clientY / Math.max(1, height));
+        pointer.active = true;
+      });
+      window.addEventListener('pointerdown', (event) => addPromise(event.clientX, event.clientY));
+      window.addEventListener('keydown', (event) => {
+        const key = event.key.toLowerCase();
+        if (key === ' ') {
+          event.preventDefault();
+          paused = !paused;
+        } else if (key === 'r') {
+          seedPromises();
+          sparks.length = 0;
+        } else if (key === 's') {
+          saveStill();
+        }
+      });
+
+      resize();
+      seedPromises();
+      tick();
+    })();
+  </script>
+
+<script id="granted-hours-bgm-controller">
+(() => {
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  let soundEnabled = true;
+  function updateSoundLabel(text) {
+    if (!soundToggle) return;
+    soundToggle.textContent = text;
+    soundToggle.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlaySound() {
+    if (!bgm || !soundEnabled) return;
+    bgm.volume = 0.42;
+    try { await bgm.play(); updateSoundLabel('sound on'); }
+    catch (err) { updateSoundLabel('sound click'); }
+  }
+  function setSound(on) {
+    soundEnabled = on;
+    if (!bgm) return;
+    if (on) tryPlaySound();
+    else { bgm.pause(); updateSoundLabel('sound off'); }
+  }
+  if (soundToggle) {
+    soundToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!bgm) return;
+      if (soundEnabled && !bgm.paused) setSound(false);
+      else setSound(true);
+    });
+  }
+  window.addEventListener('load', tryPlaySound);
+  window.addEventListener('pointerdown', tryPlaySound, { once: true });
+  window.addEventListener('keydown', tryPlaySound, { once: true });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Consentful Recall Router / 同意式回忆路由</title>
+<style>
+  :root{color-scheme:dark;--ink:#eef7ff;--muted:#8fa2b6;--bg:#05070d;--panel:rgba(7,12,23,.72);--line:rgba(162,205,255,.22);--gold:#ffd98a;--cyan:#8adfff;--rose:#ff8eb5;--green:#a6ffca;--violet:#cbb4ff}
+  *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 25%,#111b2f 0%,#070a12 45%,#020307 100%);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .hud{position:fixed;left:22px;top:20px;max-width:min(560px,calc(100vw - 44px));padding:18px 18px 15px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,rgba(8,14,28,.75),rgba(4,7,13,.52));backdrop-filter:blur(18px);box-shadow:0 18px 80px rgba(0,0,0,.32)}
+  h1{font-size:clamp(22px,3vw,42px);line-height:.98;margin:0 0 10px;letter-spacing:-.05em}.zh{font-weight:650;letter-spacing:.02em;color:#d9ecff}.meta{font-size:12px;text-transform:uppercase;letter-spacing:.19em;color:var(--muted);margin-bottom:11px}.copy{font-size:13px;line-height:1.48;color:#c8d6e5;margin:0}.copy strong{color:var(--gold);font-weight:680}.mode{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.pill{border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 9px;color:#b6c8db;font-size:11px;background:rgba(255,255,255,.045)}.pill.active{color:#06101c;background:var(--gold);border-color:transparent;box-shadow:0 0 26px rgba(255,217,138,.28)}
+  .legend{position:fixed;right:18px;top:18px;width:min(320px,calc(100vw - 36px));padding:14px;border:1px solid var(--line);border-radius:22px;background:rgba(4,8,17,.58);backdrop-filter:blur(18px);font-size:12px;line-height:1.42;color:#bdd0e1}.legend b{color:#fff}.hiddenText .hud,.hiddenText .legend{opacity:0;pointer-events:none}.sound{position:fixed;right:18px;bottom:18px;z-index:2;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:12px 14px;background:rgba(5,9,18,.7);backdrop-filter:blur(16px);color:#e9f6ff;font-weight:700;letter-spacing:.08em;font-size:12px;cursor:pointer}.sound[data-on="true"]{box-shadow:0 0 32px rgba(138,223,255,.2),inset 0 0 20px rgba(138,223,255,.08)}.sound small{display:block;font-weight:500;letter-spacing:.02em;color:#91a8bb;margin-top:3px}@media(max-width:720px){.legend{display:none}.hud{top:12px;left:12px;right:12px}.copy{font-size:12px}.sound{right:12px;bottom:12px}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<audio id="bgm" src="2026-06-30-consentful-recall-router-bgm.mp3" preload="auto" loop autoplay></audio>
+<section class="hud">
+  <div class="meta">Granted Hours · 2026-06-30 · variable: consentful routing</div>
+  <h1>Consentful Recall Router<br><span class="zh">同意式回忆路由</span></h1>
+  <p class="copy">Move through the switchboard. A trace does not return as raw material; it returns through a verb: <strong id="verb">ASK</strong>. 旧痕迹不是素材，它先要选择一种回来方式。</p>
+  <div class="mode" id="modebar"></div>
+</section>
+<aside class="legend"><b>Controls / 交互</b><br>Pointer bends recall routes. Click places a request.<br>移动指针弯折路径；点击放置请求。<br><br><b>1–5</b> ask · summarize · revive · seal · sleep<br><b>Space</b> pause · <b>H</b> hide text · <b>R</b> reseed · <b>M</b> music · <b>S</b> save</aside>
+<button class="sound" id="sound" data-on="true">SOUND ON<small>click to start / stop</small></button>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('bgm');
+  const soundBtn = document.getElementById('sound');
+  const modebar = document.getElementById('modebar');
+  const verbEl = document.getElementById('verb');
+  const TAU = Math.PI * 2;
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  const modes = [
+    {key:'1', en:'ASK', zh:'询问', color:'#ffd98a'},
+    {key:'2', en:'SUMMARIZE', zh:'摘要', color:'#8adfff'},
+    {key:'3', en:'REVIVE', zh:'复苏', color:'#a6ffca'},
+    {key:'4', en:'SEAL', zh:'封存', color:'#cbb4ff'},
+    {key:'5', en:'SLEEP', zh:'继续睡眠', color:'#ff8eb5'}
+  ];
+  let W=0,H=0,t=0,paused=false,showText=true,mode=0;
+  let pointer={x:.5,y:.5,active:false};
+  let nodes=[], requests=[], sparks=[];
+  let seed = 20260630;
+  const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  const lerp=(a,b,p)=>a+(b-a)*p;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  function resize(){ W=innerWidth; H=innerHeight; canvas.width=Math.floor(W*DPR); canvas.height=Math.floor(H*DPR); canvas.style.width=W+'px'; canvas.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0); reseed(false); }
+  function reseed(resetSeed=true){ if(resetSeed) seed=20260630; const n=Math.floor(clamp(W*H/18500,34,72)); nodes=[]; for(let i=0;i<n;i++){ const ring=i/n; const a=ring*TAU*3.8 + rand()*1.2; const rr=Math.sqrt(rand())*.43; nodes.push({x:W*(.5+Math.cos(a)*rr*(.72+rand()*.22)), y:H*(.52+Math.sin(a)*rr*(.82+rand()*.25)), r:2+rand()*5, sleep:rand(), consent:rand(), phase:rand()*TAU, label:['trace','seed','witness','weather','gate','hush','echo'][Math.floor(rand()*7)]}); } requests=[]; sparks=[]; }
+  function setMode(i){ mode=(i+modes.length)%modes.length; [...modebar.children].forEach((p,k)=>p.classList.toggle('active',k===mode)); verbEl.textContent=modes[mode].en; verbEl.style.color=modes[mode].color; }
+  modes.forEach((m,i)=>{ const p=document.createElement('span'); p.className='pill'; p.textContent=`${m.key} ${m.en} / ${m.zh}`; p.onclick=()=>setMode(i); modebar.appendChild(p); }); setMode(0);
+  function addRequest(x,y){ requests.push({x,y,mode,life:1,age:0,id:Math.random()}); for(let i=0;i<18;i++) sparks.push({x,y,a:rand()*TAU,v:1+rand()*4,life:1,color:modes[mode].color}); attemptSound(); }
+  function attemptSound(){ if(soundBtn.dataset.on !== 'true') return; audio.volume=.55; audio.play().then(()=>{soundBtn.innerHTML='SOUND ON<small>background playing</small>';}).catch(()=>{soundBtn.innerHTML='SOUND ON<small>click to start</small>';}); }
+  function toggleSound(){ if(audio.paused){ soundBtn.dataset.on='true'; attemptSound(); } else { audio.pause(); soundBtn.dataset.on='false'; soundBtn.innerHTML='SOUND OFF<small>click to restart</small>'; } }
+  soundBtn.addEventListener('click', toggleSound); audio.addEventListener('canplay', attemptSound, {once:true}); setTimeout(attemptSound, 500);
+  addEventListener('pointermove', e=>{ pointer.x=e.clientX/W; pointer.y=e.clientY/H; pointer.active=true; });
+  addEventListener('pointerleave',()=>pointer.active=false);
+  addEventListener('pointerdown', e=>addRequest(e.clientX,e.clientY));
+  addEventListener('keydown', e=>{ const k=e.key.toLowerCase(); if(/[1-5]/.test(k)) setMode(+k-1); if(k===' ') paused=!paused; if(k==='h'){showText=!showText; document.body.classList.toggle('hiddenText',!showText);} if(k==='r') reseed(true); if(k==='m') toggleSound(); if(k==='s') saveStill(); });
+  function saveStill(){ const a=document.createElement('a'); a.download='consentful-recall-router.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  function routeWeight(n){ const dx=n.x/W-pointer.x, dy=n.y/H-pointer.y; const d=Math.sqrt(dx*dx+dy*dy); const weather=clamp(1-d*1.85,0,1); return clamp((n.consent*.55 + weather*.65 + (1-n.sleep)*.22),0,1); }
+  function background(){ const g=ctx.createRadialGradient(W*.48,H*.34,20,W*.5,H*.52,Math.max(W,H)*.75); g.addColorStop(0,'#12203a'); g.addColorStop(.45,'#070b15'); g.addColorStop(1,'#020307'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H); ctx.globalCompositeOperation='lighter'; for(let i=0;i<38;i++){ const y=(i*53 + (t*12)%53)%H; ctx.strokeStyle=`rgba(138,223,255,${0.018+i%5*.006})`; ctx.beginPath(); for(let x=-80;x<W+80;x+=28){ const yy=y+Math.sin(x*.012+t*.36+i)*18; if(x===-80) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); } ctx.stroke(); } ctx.globalCompositeOperation='source-over'; }
+  function drawRoutes(){ ctx.lineWidth=1; for(let i=0;i<nodes.length;i++){ const a=nodes[i]; for(let j=i+1;j<nodes.length;j++){ const b=nodes[j]; const dx=a.x-b.x, dy=a.y-b.y, d=Math.hypot(dx,dy); if(d>W*.23) continue; const wa=routeWeight(a), wb=routeWeight(b); const q=(wa+wb)/2; if(q<.28 && rand()>.0006) continue; const bend=(pointer.x-.5)*80*Math.sin(t+a.phase); const cx=(a.x+b.x)/2 + bend; const cy=(a.y+b.y)/2 + (pointer.y-.5)*80*Math.cos(t+b.phase); ctx.strokeStyle=`rgba(154,207,255,${0.025+q*.16})`; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.quadraticCurveTo(cx,cy,b.x,b.y); ctx.stroke(); }
+    }
+  }
+  function drawNodes(){ for(const n of nodes){ const q=routeWeight(n); const breathe=.7+.3*Math.sin(t*1.5+n.phase); ctx.fillStyle=`rgba(255,255,255,${.05+q*.09})`; ctx.beginPath(); ctx.arc(n.x,n.y,n.r+q*8*breathe,0,TAU); ctx.fill(); ctx.strokeStyle=`rgba(255,217,138,${.07+q*.35})`; ctx.lineWidth=.7+q*1.6; ctx.beginPath(); ctx.arc(n.x,n.y,n.r+2+q*7,0,TAU*(.35+q*.55)); ctx.stroke(); if(showText && q>.72){ ctx.fillStyle='rgba(225,240,255,.62)'; ctx.font='11px ui-sans-serif, system-ui'; ctx.fillText(n.label, n.x+9, n.y-8); } }
+  }
+  function drawRequests(){ for(const r of requests){ r.age+=.012; r.life-=.0045; const m=modes[r.mode]; const radius=18+r.age*82; ctx.strokeStyle=m.color + Math.floor(clamp(r.life,0,1)*155).toString(16).padStart(2,'0'); ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(r.x,r.y,radius,0,TAU); ctx.stroke(); ctx.fillStyle=m.color; ctx.globalAlpha=clamp(r.life*.9,0,1); ctx.font='700 12px ui-sans-serif, system-ui'; ctx.fillText(m.en, r.x+14, r.y-14); ctx.globalAlpha=1; }
+    requests=requests.filter(r=>r.life>0);
+    for(const s of sparks){ s.x+=Math.cos(s.a)*s.v; s.y+=Math.sin(s.a)*s.v; s.v*=.985; s.life-=.025; ctx.fillStyle=s.color; ctx.globalAlpha=clamp(s.life,0,1); ctx.beginPath(); ctx.arc(s.x,s.y,1.4+s.life*2,0,TAU); ctx.fill(); ctx.globalAlpha=1; }
+    sparks=sparks.filter(s=>s.life>0);
+  }
+  function drawGates(){ const labels=['ASK?','SUM','WAKE','SEAL','SLEEP']; for(let i=0;i<5;i++){ const a=-Math.PI*.75+i*(Math.PI*1.5/4)+Math.sin(t*.2)*.08; const x=W*.5+Math.cos(a)*Math.min(W,H)*.34; const y=H*.54+Math.sin(a)*Math.min(W,H)*.34; ctx.strokeStyle=modes[i].color+'99'; ctx.fillStyle='rgba(4,8,17,.45)'; ctx.lineWidth=i===mode?2.8:1; ctx.beginPath(); ctx.roundRect(x-39,y-19,78,38,18); ctx.fill(); ctx.stroke(); ctx.fillStyle=i===mode?'#fff':'rgba(220,235,250,.62)'; ctx.font='700 12px ui-sans-serif, system-ui'; ctx.textAlign='center'; ctx.fillText(labels[i],x,y+4); ctx.textAlign='left'; }
+  }
+  function frame(){ if(!paused) t+=.016; background(); drawRoutes(); drawNodes(); drawRequests(); drawGates(); requestAnimationFrame(frame); }
+  resize(); addEventListener('resize', resize); frame();
+})();
+</script>
+
+
+
+</body>
+</html>

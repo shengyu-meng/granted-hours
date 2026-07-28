@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>白夜沉默场 · White Night Silence Field</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#03050a; }
+    body { font-family: ui-serif, "Songti SC", "Noto Serif CJK SC", Georgia, serif; }
+    canvas { display:block; }
+    .veil {
+      position: fixed; inset: 0; pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 46%, rgba(223,232,255,.055), transparent 34%),
+        radial-gradient(circle at 12% 82%, rgba(186,143,86,.045), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 28%, rgba(0,0,0,.32));
+      mix-blend-mode: screen;
+    }
+    .caption {
+      position: fixed; left: clamp(22px, 4vw, 64px); bottom: clamp(22px, 4vw, 58px);
+      color: rgba(234,230,213,.72); letter-spacing:.06em; line-height:1.55; pointer-events:none;
+      text-shadow: 0 0 24px rgba(170,190,255,.12);
+    }
+    .caption .title { font-size: clamp(19px, 2vw, 29px); color: rgba(244,240,222,.84); }
+    .caption .sub { margin-top: 8px; font-size: clamp(12px, 1vw, 15px); color: rgba(181,190,211,.56); max-width: 560px; }
+    .hint { position: fixed; right: 32px; top: 26px; color: rgba(180,190,208,.36); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing:.08em; pointer-events:none; }
+  </style>
+</head>
+<body>
+  <div class="veil"></div>
+  <div class="caption">
+    <div class="title">白夜沉默场</div>
+    <div class="sub">Silence is not absence. It is a low-lit permission for weak signals to keep their shape.</div>
+  </div>
+  <div class="hint">move = reveal · click = aftertone · space = pause · s = save</div>
+<script>
+/* 白夜沉默场 · White Night Silence Field
+   A p5.js quiet instrument: the field barely speaks unless approached. */
+if (window.p5) p5.disableFriendlyErrors = true;
+
+const CONFIG = {
+  seed: 509060,
+  nodeCountBase: 132,
+  hush: 0.86,
+  revealRadius: 210,
+  maxRings: 18,
+  filamentAlpha: 7,
+  dustCount: 460,
+  driftScale: 0.00065
+};
+
+const PALETTE = {
+  midnight: [223, 54, 4],
+  paper: [46, 20, 94],
+  blue: [218, 42, 72],
+  gold: [37, 54, 78],
+  violet: [259, 30, 60],
+  breath: [200, 18, 88]
+};
+
+let nodes = [];
+let dust = [];
+let rings = [];
+let grainLayer;
+let paused = false;
+let lastHumanFrame = -999;
+let diagnostic = false;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+  colorMode(HSB, 360, 100, 100, 100);
+  randomSeed(CONFIG.seed);
+  noiseSeed(CONFIG.seed);
+  grainLayer = createGraphics(width, height);
+  grainLayer.pixelDensity(1);
+  buildField();
+  makeGrain();
+  frameRate(60);
+}
+
+function buildField() {
+  nodes = [];
+  dust = [];
+  const n = Math.floor(CONFIG.nodeCountBase * Math.sqrt((width * height) / (1440 * 900)));
+  for (let i = 0; i < n; i++) {
+    const band = random();
+    const margin = Math.min(width, height) * 0.08;
+    const x = margin + random(width - margin * 2);
+    const y = margin + random(height - margin * 2);
+    const pulse = random(0.004, 0.018) * (band < 0.22 ? 0.35 : 1);
+    nodes.push({
+      x, y,
+      ox: x, oy: y,
+      h: random([PALETTE.blue[0], PALETTE.gold[0], PALETTE.violet[0], PALETTE.breath[0]]) + random(-9, 9),
+      s: random(10, 46),
+      b: random(44, 88),
+      r: random(1.0, 3.8) * (band < 0.08 ? 1.7 : 1),
+      phase: random(TAU),
+      pulse,
+      patience: random(0.4, 1.0)
+    });
+  }
+  for (let i = 0; i < CONFIG.dustCount; i++) {
+    dust.push({
+      x: random(width), y: random(height),
+      z: random(0.2, 1),
+      h: random(190, 235),
+      life: random(TAU)
+    });
+  }
+}
+
+function makeGrain() {
+  grainLayer.clear();
+  grainLayer.noStroke();
+  for (let i = 0; i < width * height * 0.012; i++) {
+    const a = random(3, 13);
+    grainLayer.fill(48, 8, random(52, 100), a);
+    grainLayer.circle(random(width), random(height), random(0.45, 1.25));
+  }
+}
+
+function draw() {
+  if (paused) return;
+  const t = frameCount;
+  const human = dist(mouseX, mouseY, pmouseX, pmouseY) > 0.7 || mouseIsPressed;
+  if (human) lastHumanFrame = frameCount;
+  const recentlyHuman = Math.max(0, 1 - (frameCount - lastHumanFrame) / 210);
+  renderBackground(t, recentlyHuman);
+  renderFilaments(t, recentlyHuman);
+  renderDust(t, recentlyHuman);
+  renderNodes(t, recentlyHuman);
+  renderRings(t);
+  image(grainLayer, 0, 0);
+  if (diagnostic) renderDiagnostics(recentlyHuman);
+}
+
+function renderBackground(t, awaken) {
+  noStroke();
+  for (let y = 0; y < height; y += 3) {
+    const ny = y / height;
+    const b = 3.6 + 3.1 * Math.pow(1 - ny, 1.6) + 1.6 * Math.sin(t * 0.003 + ny * 2.4);
+    fill(223, 54 - ny * 12, b, 100);
+    rect(0, y, width, 3.2);
+  }
+  blendMode(ADD);
+  const glow = 3 + awaken * 8;
+  for (let i = 0; i < 4; i++) {
+    fill(215 + i * 8, 18, 26 + i * 4, glow - i * 1.2);
+    ellipse(width * (0.48 + 0.02 * Math.sin(t * 0.002 + i)), height * (0.45 + 0.02 * Math.cos(t * 0.0027 + i)), width * (0.78 - i * .1), height * (0.48 - i * .06));
+  }
+  blendMode(BLEND);
+}
+
+function renderFilaments(t, awaken) {
+  const mx = constrain(mouseX, 0, width);
+  const my = constrain(mouseY, 0, height);
+  strokeWeight(0.62);
+  blendMode(SCREEN);
+  for (let i = 0; i < nodes.length; i++) {
+    const a = nodes[i];
+    for (let j = i + 1; j < Math.min(nodes.length, i + 14); j += 3) {
+      const b = nodes[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 > 52000) continue;
+      const midx = (a.x + b.x) * 0.5, midy = (a.y + b.y) * 0.5;
+      const dm = dist(midx, midy, mx, my);
+      const reveal = Math.max(0, 1 - dm / (CONFIG.revealRadius * (0.65 + awaken)));
+      const base = CONFIG.filamentAlpha * (1 - CONFIG.hush) + 16 * reveal + 2.2 * awaken;
+      const shimmer = 0.45 + 0.55 * Math.sin(t * 0.018 + a.phase + j * 0.071);
+      stroke(210 + 24 * shimmer, 22, 76, base * (0.38 + shimmer * .62));
+      const warp = fbm(midx * 0.002, midy * 0.002, 4) - 0.5;
+      bezier(a.x, a.y, midx + warp * 70, midy - warp * 44, midx - warp * 38, midy + warp * 52, b.x, b.y);
+    }
+  }
+  blendMode(BLEND);
+}
+
+function renderNodes(t, awaken) {
+  const mx = constrain(mouseX, 0, width);
+  const my = constrain(mouseY, 0, height);
+  blendMode(ADD);
+  noStroke();
+  for (const n of nodes) {
+    const angle = noise(n.ox * CONFIG.driftScale, n.oy * CONFIG.driftScale, t * 0.0012) * TAU * 2;
+    const drift = 4.5 * n.patience;
+    n.x = n.ox + Math.cos(angle + n.phase) * drift;
+    n.y = n.oy + Math.sin(angle - n.phase) * drift;
+    const dm = dist(n.x, n.y, mx, my);
+    const reveal = Math.max(0, 1 - dm / CONFIG.revealRadius);
+    const breath = 0.5 + 0.5 * Math.sin(t * n.pulse + n.phase);
+    const a = 3 + 18 * reveal + 8 * awaken * n.patience + 6 * breath * (1 - CONFIG.hush);
+    fill((n.h + 5 * Math.sin(t * 0.002 + n.phase) + 360) % 360, n.s, n.b, a);
+    circle(n.x, n.y, n.r * (0.7 + reveal * 2.4 + breath * 0.22));
+    if (reveal > 0.22) {
+      fill(n.h, n.s * 0.6, 98, 8 * reveal);
+      circle(n.x, n.y, n.r * (8 + 14 * reveal));
+    }
+  }
+  blendMode(BLEND);
+}
+
+function renderDust(t, awaken) {
+  noStroke();
+  blendMode(SCREEN);
+  for (const d of dust) {
+    d.life += 0.006 * d.z;
+    const wind = noise(d.x * 0.001, d.y * 0.001, t * 0.00045) - 0.5;
+    d.x += (0.06 + awaken * 0.21) * d.z + wind * 0.12;
+    d.y += Math.sin(d.life) * 0.035 * d.z;
+    if (d.x > width + 20) d.x = -20;
+    const alpha = (2.5 + 6.5 * awaken) * d.z * (0.5 + 0.5 * Math.sin(d.life));
+    fill(d.h, 16, 86, alpha);
+    rect(d.x, d.y, 0.8 + d.z * 1.7, 0.6);
+  }
+  blendMode(BLEND);
+}
+
+function renderRings(t) {
+  blendMode(SCREEN);
+  noFill();
+  for (let i = rings.length - 1; i >= 0; i--) {
+    const r = rings[i];
+    r.age++;
+    const p = r.age / r.life;
+    if (p >= 1) { rings.splice(i, 1); continue; }
+    const eased = 1 - Math.pow(1 - p, 2.7);
+    const radius = r.radius * eased;
+    strokeWeight(0.7 + (1 - p) * 1.8);
+    stroke(r.h, 26, 90, 24 * Math.pow(1 - p, 1.6));
+    ellipse(r.x, r.y, radius * 2, radius * 2 * (0.74 + 0.16 * Math.sin(t * 0.01 + r.h)));
+    stroke(r.h + 20, 16, 98, 8 * Math.pow(1 - p, 1.2));
+    arc(r.x, r.y, radius * 2.18, radius * 1.36, r.phase + p * 1.7, r.phase + PI * 0.72 + p * 1.7);
+  }
+  blendMode(BLEND);
+}
+
+function renderDiagnostics(awaken) {
+  fill(0,0,100,54); noStroke();
+  textFont('ui-monospace, Menlo, monospace'); textSize(12);
+  text(`seed ${CONFIG.seed} · nodes ${nodes.length} · rings ${rings.length} · awaken ${awaken.toFixed(2)}`, 24, 30);
+}
+
+function fbm(x, y, octaves) {
+  let val = 0, amp = 0.5, freq = 1, sum = 0;
+  for (let i = 0; i < octaves; i++) {
+    val += noise(x * freq, y * freq) * amp;
+    sum += amp;
+    freq *= 2.03;
+    amp *= 0.52;
+  }
+  return val / sum;
+}
+
+function mousePressed() {
+  rings.push({ x: mouseX, y: mouseY, age: 0, life: random(120, 220), radius: random(160, 430), h: random([37, 207, 225, 260]), phase: random(TAU) });
+  if (rings.length > CONFIG.maxRings) rings.shift();
+  lastHumanFrame = frameCount;
+}
+
+function keyPressed() {
+  if (key === 's' || key === 'S') saveCanvas('white-night-silence-field', 'png');
+  if (key === ' ') paused = !paused;
+  if (key === 'd' || key === 'D') diagnostic = !diagnostic;
+  if (key === 'r' || key === 'R') { CONFIG.seed = Math.floor(random(999999)); randomSeed(CONFIG.seed); noiseSeed(CONFIG.seed); buildField(); makeGrain(); }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  grainLayer = createGraphics(width, height);
+  grainLayer.pixelDensity(1);
+  buildField();
+  makeGrain();
+}
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-09-white-night-silence-field-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

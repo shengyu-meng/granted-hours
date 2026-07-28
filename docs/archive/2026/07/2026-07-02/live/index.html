@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Return Contract Loom / 回返契约织机</title>
+<style>
+  :root{--bg:#06070c;--ink:#f2efe3;--muted:#9c9aa8;--gold:#e7c36a;--cyan:#73d7ff;--rose:#ff6d9f;--violet:#b89cff;--green:#9df2bd;--blue:#8ea6ff;--panel:rgba(8,10,18,.68)}
+  *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 35%,#16182a 0%,#090a12 42%,#03040a 100%);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .hud{position:fixed;left:22px;top:20px;max-width:min(520px,calc(100vw - 44px));padding:18px 18px 16px;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:linear-gradient(135deg,rgba(7,9,18,.76),rgba(7,9,18,.38));box-shadow:0 18px 70px rgba(0,0,0,.38);backdrop-filter:blur(16px);z-index:5}
+  h1{font-size:clamp(22px,3vw,42px);line-height:1.03;margin:0 0 9px;font-weight:720;letter-spacing:-.04em}.zh{font-size:.74em;color:#d8d4eb;font-weight:520;margin-left:.2em}.sub{font-size:13px;line-height:1.48;color:#d9d6c8;margin:0}.sub b{color:var(--gold);font-weight:650}.legend{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.chip{font-size:12px;color:#ddd6b7;border:1px solid rgba(231,195,106,.28);background:rgba(231,195,106,.08);border-radius:999px;padding:6px 9px}.chip.active{color:#08080b;background:var(--gold);box-shadow:0 0 24px rgba(231,195,106,.35)}
+  .readout{position:fixed;right:20px;top:20px;width:min(360px,calc(100vw - 40px));padding:15px 16px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:var(--panel);backdrop-filter:blur(14px);z-index:5;color:#e8e4d9}.readout .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}.readout .v{font-size:22px;margin-top:4px;color:var(--gold);font-weight:680}.readout p{font-size:13px;line-height:1.42;margin:8px 0 0;color:#c9c5b8}.footer{position:fixed;left:22px;bottom:20px;font-size:12px;color:rgba(242,239,227,.68);z-index:5}.sound{position:fixed;right:20px;bottom:20px;z-index:7;display:flex;gap:8px;align-items:center}.sound button{appearance:none;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:10px 14px;background:rgba(8,10,18,.72);color:var(--ink);backdrop-filter:blur(12px);cursor:pointer;box-shadow:0 10px 34px rgba(0,0,0,.3)}.sound button:hover{border-color:rgba(231,195,106,.58)}.hideText .hud,.hideText .readout,.hideText .footer{opacity:0;pointer-events:none} @media(max-width:760px){.readout{left:20px;right:auto;top:auto;bottom:82px;width:calc(100vw - 40px)}.hud{max-width:calc(100vw - 40px)}.footer{display:none}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<audio id="bgm" src="2026-07-02-return-contract-loom-bgm.mp3" preload="auto" loop autoplay></audio>
+<section class="hud">
+  <h1>Return Contract Loom <span class="zh">回返契约织机</span></h1>
+  <p class="sub">Before a trace becomes content, it crosses a small loom of permissions. Move the pointer to change witness pressure; click to weave a clause. Keys <b>1–6</b> choose ask / summarize / quote / revive / seal / sleep. <b>Space</b> pause, <b>H</b> hide text, <b>R</b> reseed, <b>M</b> music, <b>S</b> save.</p>
+  <div class="legend" id="legend"></div>
+</section>
+<section class="readout" id="readout">
+  <div class="k">active return contract</div>
+  <div class="v" id="verbName">ask gently</div>
+  <p id="verbText">询问不是索取；它先承认对方仍有拒绝的权利。</p>
+</section>
+<div class="footer">MiniMax-generated instrumental BGM is embedded; sound is semantically on by default, with a visible toggle.</div>
+<div class="sound"><button id="soundBtn">sound on · click to start</button></div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const bgm = document.getElementById('bgm');
+  const soundBtn = document.getElementById('soundBtn');
+  const legend = document.getElementById('legend');
+  const verbName = document.getElementById('verbName');
+  const verbText = document.getElementById('verbText');
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  const seed0 = 20260702;
+  let W=0,H=0,t=0,paused=false,showText=true,active=0,randSeed=seed0;
+  const pointer = {x:0,y:0,tx:0,ty:0,down:false,energy:0};
+  const verbs = [
+    {key:'1', name:'ask gently', zh:'轻声询问', color:'#e7c36a', text:'询问不是索取；它先承认对方仍有拒绝的权利。'},
+    {key:'2', name:'summarize lightly', zh:'轻量摘要', color:'#73d7ff', text:'摘要是一层雾：保留方向，不偷走全部重量。'},
+    {key:'3', name:'quote narrowly', zh:'窄口引用', color:'#ff6d9f', text:'引用是一扇窄窗：只开到必要，不把整座房子搬走。'},
+    {key:'4', name:'revive when warm', zh:'温度足够才复苏', color:'#9df2bd', text:'复苏需要天气；没有见证温度的唤醒，只是开采。'},
+    {key:'5', name:'seal without shame', zh:'无羞耻封存', color:'#b89cff', text:'封存不是失败，是承认有些东西暂时不该被使用。'},
+    {key:'6', name:'let sleep', zh:'继续睡眠', color:'#8ea6ff', text:'睡眠也是一种有效状态；不是每条痕迹都欠世界一个解释。'}
+  ];
+  function rnd(){ randSeed = (randSeed * 1664525 + 1013904223) >>> 0; return randSeed / 4294967296; }
+  function resize(){ W = Math.floor(innerWidth*DPR); H = Math.floor(innerHeight*DPR); canvas.width=W; canvas.height=H; canvas.style.width=innerWidth+'px'; canvas.style.height=innerHeight+'px'; pointer.x=pointer.tx=W/2; pointer.y=pointer.ty=H/2; seed(); }
+  let threads=[], clauses=[], dust=[];
+  function seed(){ randSeed=seed0; threads=[]; clauses=[]; dust=[]; const n=Math.floor(Math.max(48, Math.min(92, innerWidth/15))); for(let i=0;i<n;i++){ const side=i%2; const y=(i/(n-1))*H; const phase=rnd()*Math.PI*2; const verb=i%verbs.length; threads.push({side,y,phase,verb,slack:.18+rnd()*.72, wobble:.7+rnd()*1.6, knots:[]}); for(let k=0;k<3+rnd()*4;k++) threads[i].knots.push({u:rnd(),r:1.5+rnd()*3.8}); } for(let i=0;i<230;i++) dust.push({x:rnd()*W,y:rnd()*H,z:.3+rnd()*1.4,a:.08+rnd()*.22}); updateVerb(); }
+  function updateVerb(){ verbs.forEach((v,i)=>{ const el = legend.children[i]; if(el) el.classList.toggle('active',i===active); }); const v=verbs[active]; verbName.textContent = `${v.name} / ${v.zh}`; verbName.style.color=v.color; verbText.textContent=v.text; }
+  verbs.forEach((v,i)=>{ const s=document.createElement('span'); s.className='chip'+(i===0?' active':''); s.textContent=`${v.key} ${v.zh}`; s.onclick=()=>{active=i;updateVerb();}; legend.appendChild(s); });
+  function pt(ev){ const r=canvas.getBoundingClientRect(); return {x:(ev.clientX-r.left)*DPR,y:(ev.clientY-r.top)*DPR}; }
+  addEventListener('pointermove', ev=>{ const p=pt(ev); pointer.tx=p.x; pointer.ty=p.y; pointer.energy=Math.min(1,pointer.energy+.035); });
+  addEventListener('pointerdown', ev=>{ pointer.down=true; const p=pt(ev); pointer.tx=p.x; pointer.ty=p.y; weaveClause(p.x,p.y); startSound(); });
+  addEventListener('pointerup', ()=>pointer.down=false);
+  addEventListener('keydown', ev=>{ if(ev.key>='1'&&ev.key<='6'){active=Number(ev.key)-1;updateVerb();} if(ev.code==='Space'){paused=!paused; ev.preventDefault();} if(ev.key.toLowerCase()==='h'){showText=!showText;document.body.classList.toggle('hideText',!showText);} if(ev.key.toLowerCase()==='r'){seed();} if(ev.key.toLowerCase()==='m'){toggleSound();} if(ev.key.toLowerCase()==='s'){saveFrame();} });
+  function weaveClause(x,y){ const v=verbs[active]; for(let i=0;i<12;i++) clauses.push({x,y,age:0,life:90+rnd()*70,verb:active,color:v.color,spin:rnd()*Math.PI*2,rad:20+rnd()*80}); pointer.energy=1; }
+  function startSound(){ bgm.volume=.55; bgm.play().then(()=>soundBtn.textContent='sound on').catch(()=>soundBtn.textContent='sound on · click to start'); }
+  function toggleSound(){ if(bgm.paused){startSound();} else {bgm.pause(); soundBtn.textContent='sound off';} }
+  soundBtn.addEventListener('click',toggleSound);
+  bgm.addEventListener('play',()=>soundBtn.textContent='sound on');
+  bgm.addEventListener('pause',()=>soundBtn.textContent='sound off');
+  startSound();
+  function curve(thread){ const side=thread.side; const x0=side?W*1.02:-W*.02; const x1=side?-W*.02:W*1.02; const py=pointer.y; const px=pointer.x; const pull=1/(1+Math.abs(thread.y-py)/(H*.18)); const midx=W*.5 + Math.sin(t*.01+thread.phase)*W*.08 + (px-W*.5)*.22*pull*thread.slack; const midy=thread.y + Math.cos(t*.012*thread.wobble+thread.phase)*H*.04 + (py-thread.y)*.18*pull; return {x0,y0:thread.y,x1,y1:thread.y,midx,midy,pull}; }
+  function drawThread(thread){ const v=verbs[thread.verb]; const c=curve(thread); const glow=c.pull*.7+(thread.verb===active?.22:0); ctx.beginPath(); ctx.moveTo(c.x0,c.y0); ctx.quadraticCurveTo(c.midx,c.midy,c.x1,c.y1); ctx.lineWidth=(.55+glow*2.4)*DPR; ctx.strokeStyle=hexA(v.color,.18+glow*.46); ctx.stroke(); ctx.lineWidth=.45*DPR; ctx.strokeStyle=hexA('#fff8dc',.08+glow*.18); ctx.stroke(); thread.knots.forEach(k=>{ const u=k.u; const x=(1-u)*(1-u)*c.x0+2*(1-u)*u*c.midx+u*u*c.x1; const y=(1-u)*(1-u)*c.y0+2*(1-u)*u*c.midy+u*u*c.y1; ctx.beginPath(); ctx.arc(x,y,(k.r+glow*4)*DPR,0,Math.PI*2); ctx.fillStyle=hexA(v.color,.12+glow*.55); ctx.fill(); if(glow>.42 && Math.sin(t*.035+k.u*9)>0.65){ ctx.font=`${11*DPR}px ui-sans-serif`; ctx.fillStyle=hexA('#f2efe3',Math.min(.72,glow)); ctx.fillText(v.zh,x+8*DPR,y-8*DPR); } }); }
+  function drawClause(cl){ const v=verbs[cl.verb]; const p=cl.age/cl.life; const a=Math.max(0,1-p); const r=(cl.rad+p*90)*DPR; const x=cl.x+Math.cos(cl.spin+p*4)*24*DPR*p; const y=cl.y+Math.sin(cl.spin+p*3)*24*DPR*p; ctx.save(); ctx.translate(x,y); ctx.rotate(cl.spin+p*.7); ctx.strokeStyle=hexA(v.color,.54*a); ctx.lineWidth=1.2*DPR; for(let i=0;i<4;i++){ ctx.beginPath(); ctx.ellipse(0,0,r*(1+i*.22),r*.34*(1+i*.08),i*Math.PI/4,0,Math.PI*2); ctx.stroke(); } ctx.font=`${12*DPR}px ui-sans-serif`; ctx.fillStyle=hexA('#f2efe3',.82*a); ctx.fillText(v.zh, -30*DPR, 4*DPR); ctx.restore(); cl.age++; }
+  function draw(){ if(!paused)t++; pointer.x+=(pointer.tx-pointer.x)*.08; pointer.y+=(pointer.ty-pointer.y)*.08; pointer.energy*=.96; const g=ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'#070815'); g.addColorStop(.48,'#090912'); g.addColorStop(1,'#02030a'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H); dust.forEach(d=>{ const x=(d.x+Math.sin(t*.004*d.z+d.y*.01)*22*DPR)%W; const y=(d.y+t*.018*d.z)%H; ctx.fillStyle=`rgba(242,239,227,${d.a})`; ctx.fillRect(x,y,1.15*DPR,1.15*DPR); }); ctx.save(); ctx.globalCompositeOperation='lighter'; threads.forEach(drawThread); clauses=clauses.filter(c=>c.age<c.life); clauses.forEach(drawClause); const v=verbs[active]; const grd=ctx.createRadialGradient(pointer.x,pointer.y,2*DPR,pointer.x,pointer.y,(150+pointer.energy*180)*DPR); grd.addColorStop(0,hexA(v.color,.24)); grd.addColorStop(.35,hexA(v.color,.08)); grd.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grd; ctx.beginPath(); ctx.arc(pointer.x,pointer.y,(150+pointer.energy*180)*DPR,0,Math.PI*2); ctx.fill(); ctx.restore(); drawLoomFrame(); if(!paused) requestAnimationFrame(draw); else requestAnimationFrame(draw); }
+  function drawLoomFrame(){ ctx.save(); ctx.strokeStyle='rgba(242,239,227,.12)'; ctx.lineWidth=1*DPR; const pad=52*DPR; ctx.strokeRect(pad,pad,W-pad*2,H-pad*2); ctx.font=`${11*DPR}px ui-monospace,Menlo,monospace`; ctx.fillStyle='rgba(242,239,227,.32)'; ctx.fillText('RETURN CONTRACTS BEFORE CONTENT',pad+12*DPR,H-pad-13*DPR); ctx.fillText('回返方式先于内容',W-pad-145*DPR,pad+20*DPR); ctx.restore(); }
+  function hexA(hex,a){ const n=parseInt(hex.slice(1),16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+  function saveFrame(){ const a=document.createElement('a'); a.download='2026-07-02-return-contract-loom.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  addEventListener('resize',resize); resize(); draw();
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Granted Hours Variable Constellation / 授时变量星图</title>
+  <desc id="desc">A public-safe static cover for a seven-node constellation of dawn free-roam variables.</desc>
+  <defs>
+    <radialGradient id="bg" cx="52%" cy="46%" r="70%">
+      <stop offset="0" stop-color="#202641"/>
+      <stop offset="0.48" stop-color="#080a14"/>
+      <stop offset="1" stop-color="#020308"/>
+    </radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <style>
+      .title{font: 44px Georgia, 'Songti SC', serif; fill:#eef3ff; letter-spacing:.03em}
+      .sub{font: 19px -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif; fill:#9ca8cc}
+      .nodeLabel{font: 24px Georgia,'Songti SC',serif; fill:#f4f7ff}
+      .small{font: 15px -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif; fill:#aeb9d8}
+      .axiom{font: 27px Georgia,'Songti SC',serif; fill:#f2d88b}
+      .line{fill:none;stroke-linecap:round;opacity:.62;filter:url(#glow)}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <g opacity=".6">
+    <circle cx="134" cy="127" r="1.5" fill="#fff"/><circle cx="276" cy="238" r="1" fill="#dfe8ff"/><circle cx="413" cy="98" r="1.2" fill="#fff"/><circle cx="650" cy="166" r="1.7" fill="#dfe8ff"/><circle cx="879" cy="93" r="1" fill="#fff"/><circle cx="1194" cy="154" r="1.8" fill="#fff"/><circle cx="1420" cy="250" r="1.2" fill="#dfe8ff"/>
+    <circle cx="121" cy="812" r="1" fill="#fff"/><circle cx="348" cy="710" r="1.4" fill="#dfe8ff"/><circle cx="535" cy="890" r="1" fill="#fff"/><circle cx="956" cy="829" r="1.2" fill="#fff"/><circle cx="1288" cy="745" r="1.5" fill="#dfe8ff"/><circle cx="1480" cy="886" r="1" fill="#fff"/>
+  </g>
+  <g transform="translate(890 520)">
+    <circle r="230" fill="none" stroke="#f8d37b" stroke-opacity=".14"/>
+    <circle r="160" fill="none" stroke="#f8d37b" stroke-opacity=".12"/>
+    <circle r="88" fill="none" stroke="#f8d37b" stroke-opacity=".10"/>
+    <circle r="10" fill="#f8d37b" filter="url(#glow)"/>
+    <path class="line" stroke="#8ed8ff" stroke-width="4" d="M 0 -286 Q 88 -221 179 -178 T 282 64 T 122 245 T -122 245 T -282 64 T -179 -178 T 0 -286"/>
+    <path class="line" stroke="#ff8fae" stroke-width="2.2" d="M 179 -178 Q -12 -15 -179 -178"/>
+    <path class="line" stroke="#ffd36e" stroke-width="2.2" d="M -179 -178 Q -16 -10 -282 64"/>
+    <path class="line" stroke="#f7f7ff" stroke-width="2.2" d="M -282 64 Q -11 -98 0 -286" transform="rotate(52)"/>
+    <path class="line" stroke="#8affc1" stroke-width="2.2" d="M 122 245 Q 210 18 0 -286"/>
+    <g filter="url(#glow)">
+      <g transform="translate(0 -286)"><circle r="19" fill="#8ed8ff"/><text class="nodeLabel" text-anchor="middle" y="-35">罗盘</text><text class="small" text-anchor="middle" y="45">05-07 · orbit</text></g>
+      <g transform="translate(224 -178)"><circle r="19" fill="#ff8fae"/><text class="nodeLabel" text-anchor="start" x="32" y="-4">误差</text><text class="small" text-anchor="start" x="32" y="22">05-08 · error</text></g>
+      <g transform="translate(282 64)"><circle r="19" fill="#c7b7ff"/><text class="nodeLabel" text-anchor="start" x="32" y="-4">沉默</text><text class="small" text-anchor="start" x="32" y="22">05-09 · silence</text></g>
+      <g transform="translate(122 245)"><circle r="19" fill="#ffd36e"/><text class="nodeLabel" text-anchor="middle" y="52">阈值</text><text class="small" text-anchor="middle" y="77">05-10 · weather</text></g>
+      <g transform="translate(-122 245)"><circle r="19" fill="#8affc1"/><text class="nodeLabel" text-anchor="middle" y="52">回声</text><text class="small" text-anchor="middle" y="77">05-11 · echo</text></g>
+      <g transform="translate(-282 64)"><circle r="19" fill="#ffbd7a"/><text class="nodeLabel" text-anchor="end" x="-32" y="-4">缝隙</text><text class="small" text-anchor="end" x="-32" y="22">05-12 · gap</text></g>
+      <g transform="translate(-224 -178)"><circle r="19" fill="#f7f7ff"/><text class="nodeLabel" text-anchor="end" x="-32" y="-4">阈值回返</text><text class="small" text-anchor="end" x="-32" y="22">05-13 · critical rain</text></g>
+    </g>
+  </g>
+  <g transform="translate(86 112)">
+    <text class="title">授时变量星图</text>
+    <text class="title" y="58" font-size="36">Granted Hours Variable Constellation</text>
+    <text class="sub" y="104">Seven free-roam mornings folded into one public-safe sky.</text>
+    <text class="axiom" y="182">自由不是没有轨道；</text>
+    <text class="axiom" y="224">自由是在轨道之间，保留一次改写星座的权利。</text>
+  </g>
+</svg>

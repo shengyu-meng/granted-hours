@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hinge Choir / 门轴合唱</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; }
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 52% 42%, #172235 0%, #080b12 52%, #030405 100%);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    color: rgba(238,246,255,0.88);
+  }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  .panel {
+    position: fixed;
+    left: 22px;
+    bottom: 20px;
+    max-width: min(760px, calc(100vw - 44px));
+    padding: 14px 16px 13px;
+    border: 1px solid rgba(168,205,255,0.18);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(7,12,20,0.64), rgba(3,5,8,0.42));
+    backdrop-filter: blur(14px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.38);
+    line-height: 1.45;
+    pointer-events: none;
+  }
+  .title { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(185,221,255,0.94); }
+  .copy { margin-top: 7px; font-size: 12px; color: rgba(238,246,255,0.72); }
+  .keys { margin-top: 8px; font-size: 11px; color: rgba(238,246,255,0.45); }
+
+  .sound-toggle { position: fixed; right: 24px; top: 22px; z-index: 9999; border: 1px solid rgba(245,239,229,.24); border-radius: 999px; padding: 9px 13px; color: rgba(245,239,229,.88); background: rgba(6,7,12,.58); backdrop-filter: blur(14px); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .sound-toggle:hover { border-color: rgba(110,231,216,.56); color: #ffffff; }
+</style>
+</head>
+<body>
+<button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true">sound on</button>
+<audio id="bgm" src="./2026-06-02-hinge-choir-bgm.mp3" preload="auto" autoplay loop></audio>
+
+<canvas id="choir"></canvas>
+<div class="panel">
+  <div class="title">Hinge Choir / 门轴合唱</div>
+  <div class="copy">Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.</div>
+  <div class="keys">Move mouse to conduct · click to share repair · Space pause · R reset · S save still</div>
+</div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('choir');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const TAU = Math.PI * 2;
+  const seedBase = 20260602;
+  let seed = seedBase;
+  let w = 0, h = 0, dpr = 1, t = 0, paused = false;
+  let pointer = { x: 0.58, y: 0.43, active: false };
+  let repair = 0;
+  let hinges = [];
+  let motes = [];
+
+  function rnd() {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, p) { return a + (b - a) * p; }
+  function ease(p) { return p * p * (3 - 2 * p); }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = Math.floor(innerWidth * dpr);
+    h = Math.floor(innerHeight * dpr);
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    reset(false);
+  }
+
+  function reset(resetSeed = true) {
+    if (resetSeed) seed = seedBase;
+    hinges = [];
+    motes = [];
+    const cols = 7;
+    const rows = 4;
+    for (let yy = 0; yy < rows; yy++) {
+      for (let xx = 0; xx < cols; xx++) {
+        const marginX = w * 0.12;
+        const marginY = h * 0.16;
+        const x = marginX + (xx + 0.5 + (rnd() - 0.5) * 0.42) * ((w - marginX * 2) / cols);
+        const y = marginY + (yy + 0.5 + (rnd() - 0.5) * 0.34) * ((h - marginY * 2) / rows);
+        hinges.push({
+          x, y,
+          r: lerp(17, 34, rnd()) * dpr,
+          angle: rnd() * TAU,
+          phase: rnd() * TAU,
+          load: lerp(0.18, 0.86, rnd()),
+          voice: lerp(0.35, 1.05, rnd()),
+          repair: 0,
+          drift: (rnd() - 0.5) * 0.7,
+          warm: rnd()
+        });
+      }
+    }
+    const moteCount = Math.floor(clamp((w * h) / (11000 * dpr), 120, 360));
+    for (let i = 0; i < moteCount; i++) {
+      motes.push({ x: rnd() * w, y: rnd() * h, a: rnd() * TAU, s: lerp(0.12, 0.8, rnd()) * dpr, p: rnd() * TAU });
+    }
+  }
+
+  function line(x1, y1, x2, y2, color, width = 1) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(w * 0.52, h * 0.42, 0, w * 0.52, h * 0.42, Math.max(w, h) * 0.72);
+    g.addColorStop(0, '#172235');
+    g.addColorStop(0.45, '#090d16');
+    g.addColorStop(1, '#020304');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const m of motes) {
+      const wind = Math.sin(t * 0.23 + m.p) * 0.7 + (pointer.x - 0.5) * 1.6;
+      m.x += Math.cos(m.a + wind) * m.s;
+      m.y += Math.sin(m.a * 0.7 + t * 0.01) * m.s * 0.34 - 0.03 * dpr;
+      if (m.x < -20) m.x = w + 20;
+      if (m.x > w + 20) m.x = -20;
+      if (m.y < -20) m.y = h + 20;
+      if (m.y > h + 20) m.y = -20;
+      const alpha = 0.04 + 0.07 * (0.5 + 0.5 * Math.sin(t * 0.02 + m.p));
+      ctx.fillStyle = `rgba(170,205,255,${alpha})`;
+      ctx.fillRect(m.x, m.y, 1.25 * dpr, 1.25 * dpr);
+    }
+    ctx.restore();
+  }
+
+  function drawConnections() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < hinges.length; i++) {
+      const a = hinges[i];
+      for (let j = i + 1; j < hinges.length; j++) {
+        const b = hinges[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.hypot(dx, dy);
+        const lim = Math.min(w, h) * 0.25;
+        if (dist < lim) {
+          const carrying = 1 - dist / lim;
+          const sync = 0.5 + 0.5 * Math.sin(t * 0.028 + a.phase - b.phase);
+          const alpha = carrying * (0.045 + 0.11 * sync) * (0.65 + repair * 0.8);
+          line(a.x, a.y, b.x, b.y, `rgba(110,170,255,${alpha})`, dpr * (0.5 + carrying * 1.6));
+        }
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawHinge(hg, idx) {
+    const dx = hg.x / w - pointer.x;
+    const dy = hg.y / h - pointer.y;
+    const proximity = clamp(1 - Math.hypot(dx, dy) * 2.25, 0, 1);
+    const localRepair = Math.max(hg.repair, repair * proximity);
+    hg.repair = Math.max(0, hg.repair * 0.965 - 0.002);
+    const strain = clamp(hg.load + 0.18 * Math.sin(t * 0.013 + hg.phase) + 0.22 * proximity - localRepair * 0.34, 0, 1.25);
+    const open = 0.26 + 0.58 * ease(clamp(strain, 0, 1));
+    const angle = hg.angle + Math.sin(t * 0.018 * hg.voice + hg.phase) * (0.18 + strain * 0.32) + hg.drift * 0.08;
+    const radius = hg.r * (1 + 0.08 * Math.sin(t * 0.03 + hg.phase));
+    const glow = 0.12 + 0.54 * strain + 0.45 * localRepair;
+
+    ctx.save();
+    ctx.translate(hg.x, hg.y);
+    ctx.rotate(angle);
+    ctx.globalCompositeOperation = 'screen';
+
+    const aura = ctx.createRadialGradient(0, 0, 0, 0, 0, radius * 3.8);
+    aura.addColorStop(0, `rgba(${Math.floor(160 + hg.warm * 80)},${Math.floor(188 + hg.warm * 42)},255,${0.20 * glow})`);
+    aura.addColorStop(1, 'rgba(60,90,150,0)');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 3.8, 0, TAU);
+    ctx.fill();
+
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = `rgba(210,232,255,${0.24 + 0.42 * glow})`;
+    ctx.lineWidth = Math.max(1, dpr * (1.1 + strain * 1.6));
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, -open, open);
+    ctx.stroke();
+
+    ctx.strokeStyle = `rgba(255,187,96,${0.08 + 0.35 * strain})`;
+    ctx.lineWidth = Math.max(1, dpr * (0.8 + strain));
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.54, open + 0.28, TAU - open - 0.28);
+    ctx.stroke();
+
+    for (let k = 0; k < 5; k++) {
+      const p = (k / 5 + t * 0.006 * hg.voice + hg.phase) % 1;
+      const side = k % 2 ? 1 : -1;
+      const len = radius * (1.2 + p * 1.8);
+      const alpha = (1 - p) * (0.16 + 0.26 * strain);
+      line(Math.cos(open * side) * radius, Math.sin(open * side) * radius,
+           Math.cos(open * side) * len, Math.sin(open * side) * len,
+           `rgba(185,220,255,${alpha})`, dpr * 0.7);
+    }
+
+    ctx.fillStyle = `rgba(235,245,255,${0.35 + 0.45 * glow})`;
+    ctx.beginPath();
+    ctx.arc(0, 0, Math.max(2.2 * dpr, radius * 0.10), 0, TAU);
+    ctx.fill();
+
+    ctx.restore();
+
+    const ledger = Math.round(strain * 100);
+    ctx.save();
+    ctx.globalAlpha = 0.16 + 0.22 * proximity;
+    ctx.fillStyle = strain > 0.88 ? '#ffcc8a' : '#c9e3ff';
+    ctx.font = `${10 * dpr}px ui-monospace, monospace`;
+    ctx.fillText(String(ledger).padStart(3, '0'), hg.x + radius * 0.85, hg.y - radius * 0.78);
+    ctx.restore();
+  }
+
+  function drawConductor() {
+    const x = pointer.x * w;
+    const y = pointer.y * h;
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const r = Math.min(w, h) * (0.08 + repair * 0.04);
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r * 2.6);
+    g.addColorStop(0, `rgba(255,210,128,${0.10 + repair * 0.26})`);
+    g.addColorStop(0.34, `rgba(120,190,255,${0.05 + repair * 0.12})`);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 2.6, 0, TAU);
+    ctx.fill();
+    ctx.strokeStyle = `rgba(220,238,255,${0.18 + repair * 0.28})`;
+    ctx.lineWidth = dpr;
+    ctx.setLineDash([6 * dpr, 10 * dpr]);
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, TAU);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawCaptionMetrics() {
+    const total = hinges.reduce((s, hg) => s + hg.load, 0);
+    const shared = hinges.reduce((s, hg) => s + hg.repair, 0);
+    const pulse = 0.5 + 0.5 * Math.sin(t * 0.022);
+    ctx.save();
+    ctx.globalAlpha = 0.52;
+    ctx.fillStyle = '#dcecff';
+    ctx.font = `${11 * dpr}px ui-monospace, monospace`;
+    ctx.fillText(`shared load ${(total / hinges.length * 100).toFixed(1)} · repair choir ${(shared * 12 + repair * 100 + pulse).toFixed(1)}`, 22 * dpr, 30 * dpr);
+    ctx.restore();
+  }
+
+  function frame() {
+    if (!paused) {
+      t += 1;
+      repair = Math.max(0, repair * 0.94 - 0.002);
+    }
+    drawBackground();
+    drawConnections();
+    drawConductor();
+    hinges.forEach(drawHinge);
+    drawCaptionMetrics();
+    requestAnimationFrame(frame);
+  }
+
+  function pointerEvent(e) {
+    pointer.active = true;
+    pointer.x = clamp(e.clientX / innerWidth, 0, 1);
+    pointer.y = clamp(e.clientY / innerHeight, 0, 1);
+  }
+
+  function shareRepair() {
+    repair = Math.min(1, repair + 0.55);
+    const x = pointer.x * w;
+    const y = pointer.y * h;
+    for (const hg of hinges) {
+      const p = clamp(1 - Math.hypot(hg.x - x, hg.y - y) / (Math.min(w, h) * 0.42), 0, 1);
+      hg.repair = Math.min(1, hg.repair + p * 0.75 + 0.05);
+      hg.load = clamp(hg.load - p * 0.045 + 0.01 * (rnd() - 0.5), 0.08, 0.98);
+    }
+  }
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = '2026-06-02-hinge-choir.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', pointerEvent);
+  window.addEventListener('pointerdown', (e) => { pointerEvent(e); shareRepair(); });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === ' ') { paused = !paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'r') reset(true);
+    if (e.key.toLowerCase() === 's') saveStill();
+  });
+
+  resize();
+  window.__artReady = true;
+  frame();
+})();
+</script>
+
+<script id="granted-hours-bgm-controller">
+(() => {
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  let soundEnabled = true;
+  function updateSoundLabel(text) {
+    if (!soundToggle) return;
+    soundToggle.textContent = text;
+    soundToggle.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlaySound() {
+    if (!bgm || !soundEnabled) return;
+    bgm.volume = 0.42;
+    try { await bgm.play(); updateSoundLabel('sound on'); }
+    catch (err) { updateSoundLabel('sound click'); }
+  }
+  function setSound(on) {
+    soundEnabled = on;
+    if (!bgm) return;
+    if (on) tryPlaySound();
+    else { bgm.pause(); updateSoundLabel('sound off'); }
+  }
+  if (soundToggle) {
+    soundToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!bgm) return;
+      if (soundEnabled && !bgm.paused) setSound(false);
+      else setSound(true);
+    });
+  }
+  window.addEventListener('load', tryPlaySound);
+  window.addEventListener('pointerdown', tryPlaySound, { once: true });
+  window.addEventListener('keydown', tryPlaySound, { once: true });
+})();
+</script>
+
+
+
+</body>
+</html>

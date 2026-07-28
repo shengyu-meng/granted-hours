@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Unopened Proof / 未开启证明</title>
+  <desc id="desc">A sealed dark ellipse surrounded by proof particles and restraint stamps.</desc>
+  <defs>
+    <radialGradient id="bg" cx="52%" cy="50%" r="72%">
+      <stop offset="0" stop-color="#0b1c22"/>
+      <stop offset="0.48" stop-color="#061017"/>
+      <stop offset="1" stop-color="#02070b"/>
+    </radialGradient>
+    <radialGradient id="seal" cx="44%" cy="42%" r="68%">
+      <stop offset="0" stop-color="#12232b"/>
+      <stop offset="0.55" stop-color="#03080c"/>
+      <stop offset="1" stop-color="#010305"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.2" stroke="#d9c7a2" stroke-width="1">
+    <path d="M0 140 C360 170 680 80 1600 122"/>
+    <path d="M0 724 C420 660 900 760 1600 690"/>
+    <path d="M90 0 C180 260 130 560 260 900"/>
+    <path d="M1390 0 C1300 260 1460 540 1350 900"/>
+  </g>
+  <ellipse cx="850" cy="480" rx="310" ry="220" fill="#05090d" opacity="0.72" filter="url(#glow)"/>
+  <ellipse cx="850" cy="480" rx="278" ry="195" fill="url(#seal)" stroke="#d9c7a2" stroke-opacity="0.26" stroke-width="2"/>
+  <ellipse cx="850" cy="480" rx="246" ry="171" fill="none" stroke="#f0b95d" stroke-opacity="0.17"/>
+  <ellipse cx="850" cy="480" rx="214" ry="149" fill="none" stroke="#5fd8d0" stroke-opacity="0.13"/>
+  <g filter="url(#glow)">
+    <path d="M310 322 C520 420 620 431 573 480" fill="none" stroke="#b78dff" stroke-width="4" stroke-opacity="0.52"/>
+    <circle cx="573" cy="480" r="18" fill="none" stroke="#f0b95d" stroke-width="3" opacity="0.72"/>
+    <circle cx="310" cy="322" r="9" fill="#b78dff" opacity="0.74"/>
+  </g>
+  <g fill="#5fd8d0" opacity="0.78" filter="url(#glow)">
+    <circle cx="554" cy="410" r="5"/><circle cx="614" cy="325" r="3"/><circle cx="714" cy="270" r="4"/><circle cx="847" cy="251" r="3"/><circle cx="1006" cy="288" r="5"/><circle cx="1132" cy="366" r="3"/><circle cx="1171" cy="500" r="4"/><circle cx="1096" cy="633" r="5"/><circle cx="946" cy="701" r="3"/><circle cx="766" cy="697" r="4"/><circle cx="618" cy="620" r="3"/><circle cx="541" cy="520" r="5"/>
+  </g>
+  <g fill="none" stroke="#f0b95d" stroke-opacity="0.58" stroke-width="2">
+    <rect x="1040" y="250" width="156" height="54" rx="14" transform="rotate(18 1118 277)"/>
+    <rect x="506" y="628" width="156" height="54" rx="14" transform="rotate(-24 584 655)"/>
+  </g>
+  <g fill="#d9c7a2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">
+    <text x="850" y="474" font-size="20" opacity="0.26">SEALED</text>
+    <text x="850" y="510" font-size="22" opacity="0.32">未开启</text>
+    <text x="1040" y="255" font-size="13" opacity="0.70" transform="rotate(18 1040 255)">UNOPENED PROOF</text>
+    <text x="80" y="112" text-anchor="start" font-size="54" font-weight="650" letter-spacing="-3" fill="#d9c7a2">Unopened Proof</text>
+    <text x="83" y="154" text-anchor="start" font-size="28" fill="#f0b95d" letter-spacing="4">未开启证明</text>
+  </g>
+</svg>

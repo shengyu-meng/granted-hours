@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Promise With an Escape Hatch</title>
+  <desc id="desc">A dark generative-art cover with nested commitment rings, visible gaps, and revision paths.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050607"/>
+      <stop offset="0.52" stop-color="#121419"/>
+      <stop offset="1" stop-color="#07080b"/>
+    </linearGradient>
+    <linearGradient id="hatch" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#61d8d1"/>
+      <stop offset="0.55" stop-color="#f2b450"/>
+      <stop offset="1" stop-color="#ef6f88"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g stroke="#f2eee5" stroke-opacity=".08" stroke-width="1">
+    <path d="M0 130h1600M0 220h1600M0 310h1600M0 400h1600M0 490h1600M0 580h1600M0 670h1600M0 760h1600"/>
+    <path d="M140 0v900M260 0v900M380 0v900M500 0v900M620 0v900M740 0v900M860 0v900M980 0v900M1100 0v900M1220 0v900M1340 0v900M1460 0v900"/>
+  </g>
+  <g filter="url(#soft)" opacity=".34">
+    <path d="M930 130C1180 220 1260 430 1140 640" fill="none" stroke="#61d8d1" stroke-width="32"/>
+    <path d="M420 740C660 600 720 240 1010 190" fill="none" stroke="#ef6f88" stroke-width="26"/>
+    <path d="M350 260C620 150 850 300 1030 515" fill="none" stroke="#f2b450" stroke-width="28"/>
+  </g>
+  <g fill="none" stroke-linecap="round" transform="translate(910 500)">
+    <path d="M-70-32C-135-95-190-95-260-42" stroke="#f2b450" stroke-opacity=".42" stroke-width="8"/>
+    <path d="M-32 28C-112 116-220 122-330 56" stroke="#61d8d1" stroke-opacity=".34" stroke-width="5"/>
+    <path d="M52-110C176-152 290-95 342 32" stroke="#ef6f88" stroke-opacity=".35" stroke-width="5"/>
+    <path d="M-198-108A250 250 0 1 1-270 120" stroke="#61d8d1" stroke-opacity=".72" stroke-width="6"/>
+    <path d="M-312-178A392 392 0 1 1-380 188" stroke="#f2b450" stroke-opacity=".62" stroke-width="5"/>
+    <path d="M-418-244A520 520 0 1 1-486 238" stroke="#ef6f88" stroke-opacity=".44" stroke-width="4"/>
+    <path d="M-60-210A228 228 0 1 1-140 192" stroke="#f2eee5" stroke-opacity=".22" stroke-width="2"/>
+    <path d="M82-316A350 350 0 1 1-52 346" stroke="#61d8d1" stroke-opacity=".33" stroke-width="3"/>
+    <circle cx="-245" cy="-28" r="52" fill="#f2b450" fill-opacity=".19" stroke="#f2eee5" stroke-opacity=".42" stroke-width="2"/>
+    <circle cx="-118" cy="112" r="42" fill="#61d8d1" fill-opacity=".14" stroke="#f2eee5" stroke-opacity=".35" stroke-width="2"/>
+    <circle cx="168" cy="-78" r="64" fill="#ef6f88" fill-opacity=".14" stroke="#f2eee5" stroke-opacity=".3" stroke-width="2"/>
+    <path d="M-245-28L-120 110M-118 112L168-78M168-78L-245-28" stroke="#f2eee5" stroke-opacity=".24" stroke-width="2"/>
+    <path d="M-204-64l58-42M-76 82l74-58M218-126l92-68" stroke="#9bcf6f" stroke-opacity=".74" stroke-width="4"/>
+  </g>
+  <g fill="#f2eee5">
+    <text x="72" y="112" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="22" letter-spacing="3" fill="#61d8d1">GRANTED HOURS / 2026-05-29</text>
+    <text x="72" y="213" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="86" font-weight="760">Promise With</text>
+    <text x="72" y="305" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="86" font-weight="760">an Escape Hatch</text>
+    <text x="76" y="368" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="24" fill="#d7d0c6">A commitment becomes honest when its revision path stays visible.</text>
+  </g>
+  <g transform="translate(76 725)" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="21">
+    <rect width="600" height="84" fill="#07080a" fill-opacity=".58" stroke="#f2eee5" stroke-opacity=".18"/>
+    <text x="24" y="36" fill="#f2b450">promise: visible</text>
+    <text x="24" y="66" fill="#61d8d1">hatch: preserved</text>
+    <text x="302" y="36" fill="#ef6f88">cost: bounded</text>
+    <text x="302" y="66" fill="#9bcf6f">revision: allowed</text>
+  </g>
+</svg>

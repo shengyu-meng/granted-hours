@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>白夜回声档案盒 · Echo Archive</title>
+  <script>window.p5 && (p5.disableFriendlyErrors = true);</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; overflow: hidden; background: #090b12; color: #f2eadc; font-family: ui-serif, "Songti SC", "Noto Serif CJK SC", Georgia, serif; }
+    #caption {
+      position: fixed; left: 28px; top: 24px; z-index: 3; width: min(520px, calc(100vw - 56px));
+      padding: 18px 20px 16px; border: 1px solid rgba(235,212,168,.22); border-radius: 18px;
+      background: linear-gradient(135deg, rgba(11,14,24,.72), rgba(8,10,18,.36));
+      box-shadow: 0 20px 80px rgba(0,0,0,.35), inset 0 0 35px rgba(161,116,255,.04);
+      backdrop-filter: blur(12px);
+    }
+    h1 { margin: 0 0 8px; font-weight: 520; letter-spacing: .04em; font-size: 21px; }
+    .thesis { margin: 0; color: rgba(242,234,220,.78); line-height: 1.65; font-size: 14px; }
+    .hint { margin-top: 12px; color: rgba(162,190,255,.68); font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    #entry {
+      position: fixed; left: 28px; bottom: 26px; z-index: 3; width: min(620px, calc(100vw - 56px));
+      display: flex; gap: 10px; align-items: center;
+    }
+    input {
+      flex: 1; border: 1px solid rgba(235,212,168,.25); color: #fff7e8; background: rgba(10,13,24,.62);
+      border-radius: 999px; padding: 13px 18px; outline: none; letter-spacing: .02em; backdrop-filter: blur(8px);
+      box-shadow: 0 8px 42px rgba(0,0,0,.35);
+    }
+    button {
+      border: 1px solid rgba(235,212,168,.30); color: #120f18; background: #e8d0a4;
+      border-radius: 999px; padding: 12px 17px; cursor: pointer; font-weight: 650;
+      box-shadow: 0 10px 35px rgba(232,208,164,.18);
+    }
+    button:hover { transform: translateY(-1px); filter: brightness(1.06); }
+    #fallback { position: fixed; inset: 0; display: grid; place-items: center; color: #ead8b1; padding: 28px; text-align: center; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <div id="fallback">如果画布没有出现，多半是 p5.js CDN 尚未加载。这个档案盒的核心文件仍是本地的；联网后刷新即可。</div>
+  <section id="caption">
+    <h1>白夜回声档案盒 · Echo Archive</h1>
+    <p class="thesis">回声不是过去的复制品。它是过去穿过当下之后，被未来重新调音的版本。</p>
+    <div class="hint">输入一句话按 Enter 存档；点击画面释放回声波；E 切换“未来改写”；空格暂停；S 保存 PNG。</div>
+  </section>
+  <form id="entry">
+    <input id="phrase" maxlength="52" autocomplete="off" placeholder="给未来留一句会变形的话，例如：阈值之后，回声开始学习自己。" />
+    <button>存档</button>
+  </form>
+<script>
+// 白夜自由时段 2026-05-11：回声档案盒
+if (window.p5) p5.disableFriendlyErrors = true;
+
+const CONFIG = {
+  seed: 5112026,
+  archiveLimit: 9,
+  echoCount: 190,
+  drift: 0.0065,
+  rewriteMode: true,
+  paused: false
+};
+
+const PALETTE = {
+  bg0: [232, 38, 5],
+  bg1: [250, 42, 11],
+  paper: [39, 8, 92],
+  gold: [39, 42, 94],
+  blue: [215, 48, 92],
+  violet: [267, 46, 88],
+  ember: [18, 64, 92],
+  ghost: [190, 30, 75]
+};
+
+let echoes = [];
+let archive = [];
+let ripples = [];
+let grainLayer;
+let fontSizeBase = 16;
+let statusLine = '等待第一句回声被存入。';
+let futureLexicon = ['延迟', '阈值', '盐', '镜面', '低压区', '余震', '旧光', '潮汐', '盲点', '回返', '未命名'];
+let basePhrases = [
+  '不是所有回声都来自过去。',
+  '一个念头回来时，已经带着别人的天气。',
+  '沉默也会折返，只是音量很低。',
+  '未来不是答案，它是把旧句子重新标点的手。',
+  '白夜里，影子比阳光更会记事。'
+];
+
+function setup() {
+  document.getElementById('fallback').style.display = 'none';
+  createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+  frameRate(60);
+  randomSeed(CONFIG.seed);
+  noiseSeed(CONFIG.seed);
+  colorMode(HSB, 360, 100, 100, 100);
+  textFont('Georgia, Songti SC, Noto Serif CJK SC, serif');
+  fontSizeBase = max(14, min(20, width / 70));
+  makeGrain();
+  archive = basePhrases.map((text, i) => makeArchiveItem(text, i));
+  for (let i = 0; i < CONFIG.echoCount; i++) echoes.push(new EchoParticle(i));
+  document.getElementById('entry').addEventListener('submit', onSubmitPhrase);
+  window._p5Ready = true;
+}
+
+function draw() {
+  if (CONFIG.paused) return;
+  renderBackground();
+  renderFieldLines();
+  updateRipples();
+  for (const e of echoes) { e.update(); e.display(); }
+  renderArchiveBox();
+  renderStatus();
+  image(grainLayer, 0, 0);
+}
+
+function makeGrain() {
+  grainLayer = createGraphics(width, height);
+  grainLayer.pixelDensity(1);
+  grainLayer.loadPixels();
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = 4 * (y * width + x);
+      const g = random(255);
+      grainLayer.pixels[idx] = g;
+      grainLayer.pixels[idx+1] = g * 0.95;
+      grainLayer.pixels[idx+2] = g * 0.78;
+      grainLayer.pixels[idx+3] = random(5, 18);
+    }
+  }
+  grainLayer.updatePixels();
+}
+
+function renderBackground() {
+  noStroke();
+  for (let y = 0; y < height; y += 3) {
+    const k = y / height;
+    const h = lerp(232, 253, k + 0.06 * sin(frameCount * 0.003 + k * 5));
+    const b = lerp(5, 13, k);
+    fill(h, 39, b, 100);
+    rect(0, y, width, 4);
+  }
+  blendMode(ADD);
+  for (let i = 0; i < 4; i++) {
+    const x = width * (0.16 + i * 0.24) + sin(frameCount * 0.006 + i) * 55;
+    const y = height * (0.28 + 0.13 * sin(i * 2.1));
+    radialGlow(x, y, width * (0.24 + i * 0.03), [lerp(215, 280, i / 3), 45, 34], 8);
+  }
+  blendMode(BLEND);
+}
+
+function radialGlow(cx, cy, r, col, alpha) {
+  for (let i = 8; i >= 1; i--) {
+    fill(col[0], col[1], col[2], alpha * (i / 8) * 0.9);
+    circle(cx, cy, r * i / 8);
+  }
+}
+
+function renderFieldLines() {
+  push();
+  strokeWeight(0.75);
+  noFill();
+  for (let lane = 0; lane < 26; lane++) {
+    const y0 = map(lane, 0, 25, height * 0.16, height * 0.94);
+    const phase = lane * 0.23 + frameCount * CONFIG.drift;
+    stroke(204 + 38 * sin(lane), 31, 63, 10 + 8 * sin(phase));
+    beginShape();
+    for (let x = -30; x <= width + 30; x += 28) {
+      const n = noise(x * 0.0025, lane * 0.08, frameCount * 0.002);
+      const y = y0 + (n - 0.5) * 110 + 16 * sin(x * 0.008 + phase);
+      curveVertex(x, y);
+    }
+    endShape();
+  }
+  pop();
+}
+
+function renderArchiveBox() {
+  const boxW = min(760, width * 0.54);
+  const boxH = min(560, height * 0.62);
+  const x = width - boxW - 40;
+  const y = height * 0.18;
+  const t = frameCount * 0.01;
+
+  push();
+  noStroke();
+  fill(235, 22, 8, 46);
+  rect(x, y, boxW, boxH, 28);
+  stroke(39, 38, 86, 24);
+  strokeWeight(1.2);
+  rect(x + 10, y + 10, boxW - 20, boxH - 20, 22);
+
+  fill(39, 22, 91, 88);
+  textSize(fontSizeBase * 0.82);
+  textAlign(LEFT, TOP);
+  text('ARCHIVE / echoes mutate with distance', x + 28, y + 24);
+
+  const rows = archive.slice(-CONFIG.archiveLimit).reverse();
+  for (let i = 0; i < rows.length; i++) {
+    const item = rows[i];
+    const yy = y + 68 + i * (boxH - 110) / CONFIG.archiveLimit;
+    const age = frameCount - item.born;
+    const hue = (item.hue + sin(t + i) * 18 + 360) % 360;
+    const rewritten = CONFIG.rewriteMode ? rewritePhrase(item.text, i, age) : item.text;
+    stroke(hue, 35, 92, 20 + 8 * sin(t + i));
+    line(x + 30, yy - 10, x + boxW - 32, yy - 10);
+    noStroke();
+    fill(hue, 22, 98, 86);
+    textSize(fontSizeBase * (i === 0 ? 1.02 : 0.92));
+    text(rewritten, x + 34, yy, boxW - 68, 44);
+    fill(206, 22, 76, 38);
+    textSize(fontSizeBase * 0.64);
+    text('delay ' + nf(item.delay, 1, 2) + 's · drift ' + nf(item.drift, 1, 2), x + 34, yy + 38, boxW - 68, 22);
+  }
+  pop();
+}
+
+function renderStatus() {
+  push();
+  textAlign(RIGHT, BOTTOM);
+  noStroke();
+  fill(39, 28, 91, 78);
+  textSize(13);
+  text(statusLine + '  · rewrite=' + (CONFIG.rewriteMode ? 'ON' : 'OFF'), width - 36, height - 28);
+  pop();
+}
+
+function updateRipples() {
+  push();
+  noFill();
+  for (let i = ripples.length - 1; i >= 0; i--) {
+    const r = ripples[i];
+    r.age++;
+    const radius = r.age * r.speed;
+    const alpha = max(0, 60 - r.age * 1.6);
+    stroke(r.hue, 42, 94, alpha);
+    strokeWeight(max(0.6, 4 - r.age * 0.035));
+    circle(r.x, r.y, radius);
+    circle(r.x, r.y, radius * 0.62 + 8 * sin(r.age * 0.12));
+    if (alpha <= 1) ripples.splice(i, 1);
+  }
+  pop();
+}
+
+class EchoParticle {
+  constructor(i) {
+    this.i = i;
+    this.reset(true);
+  }
+  reset(scatter=false) {
+    this.x = scatter ? random(width) : -20;
+    this.y = random(height * 0.1, height * 0.95);
+    this.prevX = this.x;
+    this.prevY = this.y;
+    this.life = random(120, 420);
+    this.age = random(this.life);
+    this.speed = random(0.15, 1.25);
+    this.weight = random(0.65, 2.4);
+    this.hue = random([39, 205, 228, 267, 18]);
+    this.textIndex = floor(random(max(1, archive.length)));
+    this.char = pickChar();
+  }
+  update() {
+    this.prevX = this.x;
+    this.prevY = this.y;
+    const n1 = noise(this.x * 0.003, this.y * 0.003, frameCount * 0.002 + this.i);
+    const n2 = noise(this.y * 0.002, this.x * 0.002, frameCount * 0.0015);
+    const angle = n1 * TWO_PI * 2.2 + sin(frameCount * 0.005 + this.i) * 0.7;
+    this.x += cos(angle) * this.speed + 0.18;
+    this.y += sin(angle) * this.speed + (n2 - 0.5) * 0.7;
+    for (const r of ripples) {
+      const dx = this.x - r.x, dy = this.y - r.y;
+      const d2 = dx * dx + dy * dy;
+      const rr = r.age * r.speed;
+      if (d2 > 1 && abs(sqrt(d2) - rr) < 42) {
+        const d = sqrt(d2);
+        this.x += dx / d * 2.2;
+        this.y += dy / d * 2.2;
+        this.hue = lerp(this.hue, r.hue, 0.06);
+      }
+    }
+    this.age++;
+    if (this.x > width + 30 || this.y < -40 || this.y > height + 40 || this.age > this.life) this.reset(false);
+  }
+  display() {
+    const a = map(this.age, 0, this.life, 0, 1);
+    const alpha = sin(a * PI) * 54;
+    push();
+    blendMode(ADD);
+    stroke(this.hue, 35, 86, alpha * 0.55);
+    strokeWeight(this.weight);
+    line(this.prevX, this.prevY, this.x, this.y);
+    noStroke();
+    fill(this.hue, 24, 96, alpha * 0.82);
+    textSize(10 + this.weight * 3);
+    text(this.char, this.x, this.y);
+    blendMode(BLEND);
+    pop();
+  }
+}
+
+function pickChar() {
+  const pool = '回声阈值未来白夜镜盐潮汐余震旧光delayecho';
+  return pool.charAt(floor(random(pool.length)));
+}
+
+function makeArchiveItem(text, i) {
+  return {
+    text,
+    born: frameCount || 0,
+    delay: random(0.8, 9.6),
+    drift: random(-1.9, 2.8),
+    hue: [39, 205, 228, 267, 18][i % 5]
+  };
+}
+
+function rewritePhrase(text, row, age) {
+  if (age < 90 && row === 0) return text;
+  const words = text.split('');
+  const cursor = floor((sin(frameCount * 0.012 + row * 1.7) * 0.5 + 0.5) * max(1, words.length - 1));
+  if (words.length > 4 && frameCount % (80 + row * 7) < 38) {
+    const shard = futureLexicon[(row + floor(frameCount / 100)) % futureLexicon.length];
+    words.splice(cursor, min(2, words.length - cursor), '『' + shard + '』');
+  }
+  return words.join('');
+}
+
+function onSubmitPhrase(e) {
+  e.preventDefault();
+  const input = document.getElementById('phrase');
+  const text = input.value.trim();
+  if (!text) return;
+  archive.push(makeArchiveItem(text, archive.length));
+  if (archive.length > 18) archive.shift();
+  input.value = '';
+  statusLine = '已存档：' + text.slice(0, 24) + (text.length > 24 ? '…' : '');
+  ripples.push({ x: width * 0.62, y: height * 0.46, age: 0, speed: 8.2, hue: random([39, 205, 267]) });
+}
+
+function mousePressed() {
+  if (mouseY < 0 || mouseY > height) return;
+  ripples.push({ x: mouseX, y: mouseY, age: 0, speed: random(5.5, 10.5), hue: random([39, 205, 228, 267, 18]) });
+  statusLine = '一次点击把沉默变成了可见的波。';
+}
+
+function isTypingInEntry() {
+  const el = document.activeElement;
+  if (!el) return false;
+  return el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable;
+}
+
+function keyPressed() {
+  // Do not treat text-entry keystrokes as artwork shortcuts.
+  // This is especially important for IME users: Space often confirms a Chinese phrase,
+  // while the artwork also uses Space as the pause/resume shortcut.
+  if (isTypingInEntry()) return;
+  if (key === 's' || key === 'S') saveCanvas('echo-archive-2026-05-11', 'png');
+  if (key === 'e' || key === 'E') { CONFIG.rewriteMode = !CONFIG.rewriteMode; statusLine = CONFIG.rewriteMode ? '未来改写已开启。' : '暂时保留原句。'; }
+  if (key === ' ') { CONFIG.paused = !CONFIG.paused; if (!CONFIG.paused) loop(); else noLoop(); }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  fontSizeBase = max(14, min(20, width / 70));
+  makeGrain();
+}
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-11-echo-archive-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

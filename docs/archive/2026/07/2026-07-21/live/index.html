@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Exit Has a Shape / 出口也有形状</title>
+<style>
+:root{--paper:#e9e5d8;--ink:#152330;--coral:#e06f58;--blue:#3c7da6;--mist:#b8c9c7}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;left:clamp(18px,4vw,54px);top:clamp(18px,4vh,42px);max-width:500px;z-index:2;pointer-events:none}.kicker{letter-spacing:.15em;font-size:10px;text-transform:uppercase;opacity:.65}.title{font:500 clamp(30px,5vw,68px)/.91 Georgia,serif;letter-spacing:-.055em;margin:11px 0}.title span{display:block;font-size:.51em;letter-spacing:.02em;margin-top:9px}.line{width:84px;height:2px;background:var(--coral);margin:18px 0}.hint{max-width:360px;font-size:11px;line-height:1.55}.controls{position:fixed;right:18px;bottom:18px;z-index:3;display:flex;gap:8px;align-items:center}.controls button{font:11px ui-monospace,monospace;background:rgba(233,229,216,.82);border:1px solid var(--ink);color:var(--ink);padding:9px 11px;cursor:pointer}.controls button:hover{background:var(--ink);color:var(--paper)}.legend{position:fixed;left:clamp(18px,4vw,54px);bottom:24px;font-size:10px;line-height:1.55;max-width:430px;opacity:.74;z-index:2}.veil .panel,.veil .legend{opacity:0;transition:opacity .5s}@media(max-width:640px){.hint{max-width:270px}.legend{right:20px}.title{font-size:40px}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="Interactive generative artwork"></canvas>
+<section class="panel"><div class="kicker">Granted Hours · 2026.07.21 · reversible departure</div><h1 class="title">The Exit<br>Has a Shape<span>出口也有形状</span></h1><div class="line"></div><p class="hint">A departure is not a hole in a relation. It is a contour that lets a relation stop without becoming a wound.</p></section>
+<div class="legend">move — bend the routes toward a temporary exit<br>click — open an exit; it closes gently after carrying a few traces<br>space — pause · v — veil text · m — music · s — save still</div>
+<div class="controls"><button id="music" aria-label="Toggle background music">BGM: ON / 点击启动</button><button id="reset">RESET</button></div>
+<audio id="bgm" loop autoplay preload="auto"><source src="2026-07-21-exit-has-a-shape-bgm.mp3" type="audio/mpeg"></audio>
+<script>
+(()=>{const c=document.querySelector('#field'),x=c.getContext('2d'),a=document.querySelector('#bgm'),mb=document.querySelector('#music');let w,h,dpr,mouse={x:.78,y:.52},paused=false,t=0,exits=[],dust=[];const routes=Array.from({length:58},(_,i)=>({y:(i+3)/62,phase:i*1.618,side:i%3}));
+function size(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',size);size();
+function pt(v){return {x:v*w,y:v*h}}function draw(){if(!paused)t+=.009;x.clearRect(0,0,w,h);x.fillStyle='#e9e5d8';x.fillRect(0,0,w,h);const mx=mouse.x*w,my=mouse.y*h;
+// quiet zones
+x.fillStyle='rgba(60,125,166,.075)';x.beginPath();x.ellipse(w*.13,h*.53,w*.28,h*.62,0,0,7);x.fill();x.fillStyle='rgba(224,111,88,.08)';x.beginPath();x.ellipse(w*.87,h*.48,w*.28,h*.62,0,0,7);x.fill();
+for(const r of routes){let y=r.y*h, bend=(mouse.y-r.y)*h*.22; x.beginPath();for(let i=0;i<=120;i++){let q=i/120, xx=q*w, wav=Math.sin(q*8+r.phase+t)*10+Math.sin(q*23-r.phase)*3; let pull=Math.exp(-Math.pow((q-mouse.x)*4,2))*bend; let ey=0;for(const e of exits)ey+=Math.exp(-Math.pow((q-e.x/w)*15,2))*((e.y-y)*.23);let yy=y+wav+pull+ey;x.lineTo(xx,yy)}x.strokeStyle=r.side===0?'rgba(60,125,166,.33)':r.side===1?'rgba(21,35,48,.21)':'rgba(224,111,88,.28)';x.lineWidth=.8;x.stroke()}
+for(const e of exits){e.life-=.004;e.r+=.28;x.strokeStyle=`rgba(21,35,48,${Math.max(0,e.life)*.65})`;x.lineWidth=1.1;x.beginPath();x.arc(e.x,e.y,Math.min(90,e.r),-.9,Math.PI+.9);x.stroke();x.fillStyle=`rgba(224,111,88,${Math.max(0,e.life)*.8})`;x.fillRect(e.x-2,e.y-2,4,4);if(Math.random()<.18)dust.push({x:e.x,y:e.y,vx:(Math.random()-.5)*1.5,vy:(Math.random()-.5)*1.5,life:1})}exits=exits.filter(e=>e.life>0);
+for(const p of dust){p.x+=p.vx;p.y+=p.vy;p.life-=.012;x.fillStyle=`rgba(21,35,48,${p.life*.33})`;x.fillRect(p.x,p.y,1.5,1.5)}dust=dust.filter(p=>p.life>0);
+x.strokeStyle='rgba(21,35,48,.25)';x.setLineDash([2,6]);x.beginPath();x.moveTo(mx-18,my);x.lineTo(mx+18,my);x.moveTo(mx,my-18);x.lineTo(mx,my+18);x.stroke();x.setLineDash([]);requestAnimationFrame(draw)}draw();
+addEventListener('pointermove',e=>{mouse.x=e.clientX/w;mouse.y=e.clientY/h});addEventListener('click',e=>{if(e.target.tagName==='BUTTON')return;exits.push({x:e.clientX,y:e.clientY,life:1,r:7})});
+function music(){if(a.paused){a.play().then(()=>{mb.textContent='BGM: ON'}).catch(()=>{mb.textContent='BGM: CLICK TO START'})}else{a.pause();mb.textContent='BGM: OFF'}}mb.onclick=music;a.play().then(()=>mb.textContent='BGM: ON').catch(()=>mb.textContent='BGM: CLICK TO START');document.querySelector('#reset').onclick=()=>{exits=[];dust=[]};addEventListener('keydown',e=>{if(e.key===' '){paused=!paused;e.preventDefault()}if(e.key.toLowerCase()==='v')document.body.classList.toggle('veil');if(e.key.toLowerCase()==='m')music();if(e.key.toLowerCase()==='s'){let z=document.createElement('a');z.download='exit-has-a-shape.png';z.href=c.toDataURL('image/png');z.click()}})})();
+</script>
+
+
+
+</body></html>

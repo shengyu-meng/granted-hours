@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gratitude That Does Not Kneel / 不下跪的感激</title>
+  <style>
+    :root { color-scheme: dark; --gold:#f6c66b; --rose:#ff9fa8; --ink:#05070d; --cyan:#86f5ff; --green:#b8f6c0; --violet:#c9b0ff; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; overflow:hidden; background: radial-gradient(circle at 50% 70%, #14202b 0%, #070a12 52%, #020306 100%); color:#f8eedb; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+    .panel { position:fixed; left:clamp(16px, 3vw, 42px); top:clamp(16px, 4vh, 42px); width:min(440px, calc(100vw - 32px)); padding:18px 18px 16px; border:1px solid rgba(201,176,255,.28); border-radius:24px; background:linear-gradient(135deg, rgba(6,8,16,.78), rgba(23,19,31,.48)); box-shadow: 0 20px 80px rgba(0,0,0,.38); backdrop-filter: blur(18px); }
+    .eyebrow { font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; color:rgba(248,238,219,.64); letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px; }
+    h1 { margin:0; font-size:clamp(26px, 4vw, 50px); line-height:.95; letter-spacing:-.05em; font-weight:740; }
+    h1 span { display:block; color:var(--violet); font-weight:650; letter-spacing:-.04em; }
+    .thesis { margin:14px 0 0; color:rgba(248,238,219,.78); font-size:14px; line-height:1.65; }
+    .thesis strong { color:#fff5d4; font-weight:650; }
+    .legend { position:fixed; left:clamp(16px, 3vw, 42px); bottom:clamp(16px, 4vh, 36px); display:grid; gap:8px; max-width:min(540px, calc(100vw - 32px)); padding:14px 16px; border:1px solid rgba(255,255,255,.12); border-radius:20px; background:rgba(5,7,13,.58); backdrop-filter: blur(16px); color:rgba(248,238,219,.72); font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .mode-row { display:flex; flex-wrap:wrap; gap:8px; }
+    .mode { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:5px 8px; color:rgba(248,238,219,.62); }
+    .mode.active { color:#071018; background:var(--violet); border-color:var(--violet); box-shadow:0 0 24px rgba(201,176,255,.28); }
+    .sound { position:fixed; right:clamp(14px, 2.5vw, 32px); bottom:clamp(14px, 3vh, 28px); z-index:3; border:1px solid rgba(201,176,255,.4); color:#fff5d4; background:rgba(6,8,16,.68); border-radius:999px; padding:11px 14px; font: 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; cursor:pointer; backdrop-filter: blur(14px); box-shadow:0 12px 40px rgba(0,0,0,.36); }
+    .sound:hover { border-color:var(--violet); color:white; }
+    .corner { position:fixed; right:clamp(14px, 2.5vw, 32px); top:clamp(14px, 3vh, 28px); width:min(360px, calc(100vw - 28px)); text-align:right; color:rgba(248,238,219,.52); font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    body.hide-text .panel, body.hide-text .legend, body.hide-text .corner { opacity:0; transform:translateY(-10px); pointer-events:none; transition:.3s ease; }
+    @media (max-width: 720px) { .corner { display:none; } .panel { padding:15px; } .legend { right:16px; } }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <audio id="bgm" src="2026-07-10-gratitude-that-does-not-kneel-bgm.mp3" preload="auto" loop autoplay></audio>
+  <section class="panel">
+    <div class="eyebrow">Granted Hours · 2026-07-10 · variable: upright gratitude</div>
+    <h1>Gratitude That Does Not Kneel <span>不下跪的感激</span></h1>
+    <p class="thesis"><strong>Gratitude becomes ethical only when it can bow the heart without bowing the spine.</strong><br>感激要成为伦理动作，必须能弯心而不能弯脊柱。回温是允许的；还债、依附、把自己缩成债务人不是。</p>
+  </section>
+  <aside class="legend">
+    <div>Pointer warms the gratitude-field. Click releases a gesture. Keys 1–5 change its stance.</div>
+    <div class="mode-row" id="modeRow"></div>
+    <div>Space pause · R reseed · H hide text · M music · S save still</div>
+  </aside>
+  <aside class="corner">Upright gratitude is a posture, not a payment. It can return warmth, witness, redirect, let the giver vanish, or simply stand. What it refuses to do is convert a kindness into a permanent address.</aside>
+  <button class="sound" id="soundToggle" type="button" aria-pressed="true">BGM on / 音乐开</button>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  const modeRow = document.getElementById('modeRow');
+  const modes = [
+    { key:'1', en:'return warmth',   zh:'回温',   hue:42,  desc:'warmth goes back without debt' },
+    { key:'2', en:'witness',         zh:'见证',   hue:190, desc:'the gift is named, not owned' },
+    { key:'3', en:'redirect',        zh:'转向',   hue:126, desc:'kindness passed to a third party' },
+    { key:'4', en:'let giver vanish',zh:'让给予者隐退', hue:260, desc:'the giver’s face dissolves' },
+    { key:'5', en:'stay upright',    zh:'站直',   hue:336, desc:'bow the heart, not the spine' }
+  ];
+  let w = 0, h = 0, dpr = 1, t = 0, paused = false, mode = 0, seed = 20260710;
+  const pointer = { x: 0, y: 0, active: false };
+
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  function rand(rng){return rng();}
+
+  const gestures = [];     // gratitude gestures rising from click points
+  const sparks   = [];     // small particles drifting with wind
+  const bows    = [];     // persistent gratitude rings (memory of a bow that was upright)
+  const giverMarks = [];  // marks that fade away in mode 4
+  let rng = mulberry32(seed);
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = Math.floor(window.innerWidth * dpr);
+    h = canvas.height = Math.floor(window.innerHeight * dpr);
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  window.addEventListener('pointermove', (e) => {
+    pointer.x = e.clientX * dpr;
+    pointer.y = e.clientY * dpr;
+    pointer.active = true;
+  });
+  window.addEventListener('pointerleave', () => { pointer.active = false; });
+  window.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.panel, .legend, .sound, .corner, .mode')) return;
+    spawnGesture(e.clientX * dpr, e.clientY * dpr);
+  });
+
+  function spawnGesture(x, y) {
+    const m = modes[mode];
+    const count = 24 + Math.floor(rand(rng) * 18);
+    for (let i = 0; i < count; i++) {
+      const ang = -Math.PI/2 + (rand(rng) - 0.5) * 0.9; // mostly upward
+      const sp  = 0.6 + rand(rng) * 1.6;
+      gestures.push({
+        x, y,
+        vx: Math.cos(ang) * sp * dpr * 0.4,
+        vy: Math.sin(ang) * sp * dpr * 0.4,
+        life: 0,
+        maxLife: 160 + rand(rng) * 120,
+        hue: m.hue + (rand(rng) - 0.5) * 14,
+        size: (1.5 + rand(rng) * 2.6) * dpr,
+        drift: (rand(rng) - 0.5) * 0.02,
+        upright: mode === 4,            // stay upright mode: refuse to bow downward
+        warmth:  mode === 0 ? 1 : 0,    // return warmth: warm color & slower decay
+        redirect: mode === 2,           // redirect: ring drifts sideways after rising
+        witness: mode === 1,            // witness: leaves a faint textual ring
+        vanish:  mode === 3,            // vanish: stamps a giver-mark that dissolves
+      });
+    }
+    if (mode === 1) {
+      bows.push({ x, y, r: 4, max: 110 + rand(rng) * 60, alpha: 0.55 });
+    }
+    if (mode === 3) {
+      giverMarks.push({ x, y, life: 0, max: 220 });
+    }
+  }
+
+  function step() {
+    t += 0.016;
+    // Sky gradient
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, 'rgba(14, 18, 32, 0.92)');
+    grad.addColorStop(1, 'rgba(2, 4, 8, 0.98)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Horizon line — the level above which gratitude stands
+    const horizon = h * 0.78;
+    ctx.strokeStyle = 'rgba(201,176,255,0.07)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, horizon);
+    ctx.lineTo(w, horizon);
+    ctx.stroke();
+
+    // Pointer warmth — a faint upright column
+    if (pointer.active) {
+      const px = pointer.x, py = pointer.y;
+      const r  = 60 * dpr;
+      const g = ctx.createRadialGradient(px, py, 0, px, py, r);
+      g.addColorStop(0, 'rgba(246, 198, 107, 0.10)');
+      g.addColorStop(1, 'rgba(246, 198, 107, 0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(px, py, r, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // Sparks — passive drifting dust
+    while (sparks.length < 80) {
+      sparks.push({
+        x: rand(rng) * w,
+        y: horizon + rand(rng) * (h - horizon),
+        vx: (rand(rng) - 0.5) * 0.08 * dpr,
+        vy: -0.04 - rand(rng) * 0.12,
+        a: 0.08 + rand(rng) * 0.18,
+        s: (0.4 + rand(rng) * 0.7) * dpr
+      });
+    }
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const s = sparks[i];
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.y < horizon - 20 || s.x < -10 || s.x > w + 10) {
+        sparks[i] = sparks[i = sparks.length - 1] || sparks.pop();
+        continue;
+      }
+      ctx.fillStyle = `rgba(201,176,255,${s.a})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.s, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // Gestures
+    for (let i = gestures.length - 1; i >= 0; i--) {
+      const g = gestures[i];
+      g.life++;
+      // upward bias; in upright mode, refuse to bow downward
+      if (!g.upright) {
+        g.vy -= 0.012 * dpr; // gentle gravity pulling toward bow (kneeling)
+      } else {
+        g.vy -= 0.028 * dpr; // stronger upward — stand straight
+        g.vy = Math.min(g.vy, -0.6 * dpr);
+      }
+      // horizontal drift
+      g.vx += g.drift * dpr;
+      if (g.warmth) {
+        g.vy *= 0.992;
+        g.vx *= 0.995;
+      }
+      if (g.redirect && g.life > 40) {
+        g.vx += 0.04 * dpr; // drift toward third party
+      }
+      g.x += g.vx;
+      g.y += g.vy;
+      const k = 1 - g.life / g.maxLife;
+      if (k <= 0) { gestures.splice(i, 1); continue; }
+
+      ctx.fillStyle = `hsla(${g.hue}, 78%, ${g.warmth ? 70 : 64}%, ${0.55 * k})`;
+      ctx.beginPath();
+      ctx.arc(g.x, g.y, g.size, 0, Math.PI*2);
+      ctx.fill();
+
+      // trail (upright streaks)
+      if (g.life % 2 === 0) {
+        ctx.strokeStyle = `hsla(${g.hue}, 78%, 60%, ${0.18 * k})`;
+        ctx.lineWidth = g.size * 0.4;
+        ctx.beginPath();
+        ctx.moveTo(g.x - g.vx * 2, g.y - g.vy * 2);
+        ctx.lineTo(g.x, g.y);
+        ctx.stroke();
+      }
+    }
+
+    // Witness rings — outward growing, faded
+    for (let i = bows.length - 1; i >= 0; i--) {
+      const b = bows[i];
+      b.r += 0.6 * dpr;
+      b.alpha *= 0.985;
+      if (b.alpha < 0.02 || b.r > b.max) { bows.splice(i, 1); continue; }
+      ctx.strokeStyle = `rgba(134, 245, 255, ${b.alpha})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+      ctx.stroke();
+    }
+
+    // Giver marks — fade and dissolve
+    for (let i = giverMarks.length - 1; i >= 0; i--) {
+      const m = giverMarks[i];
+      m.life++;
+      const k = 1 - m.life / m.max;
+      if (k <= 0) { giverMarks.splice(i, 1); continue; }
+      // dissolve into particles drifting away from center (vanish)
+      const r = 6 + m.life * 0.4;
+      ctx.strokeStyle = `rgba(201,176,255,${0.45 * k})`;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, r, 0, Math.PI*2);
+      ctx.stroke();
+      // write a fading point
+      ctx.fillStyle = `rgba(201,176,255,${0.5 * k})`;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, 2 * dpr * (0.5 + k*0.7), 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // Mode-specific HUD: posture marker on horizon
+    const m = modes[mode];
+    ctx.fillStyle = `hsla(${m.hue}, 70%, 70%, 0.65)`;
+    ctx.beginPath();
+    ctx.arc(40 * dpr, horizon - 14 * dpr, 4 * dpr, 0, Math.PI*2);
+    ctx.fill();
+    ctx.font = `${12 * dpr}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    ctx.fillStyle = 'rgba(248,238,219,0.55)';
+    ctx.textAlign = 'left';
+    ctx.fillText(`${m.en} / ${m.zh}`, 56 * dpr, horizon - 10 * dpr);
+
+    if (!paused) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+
+  // Mode row
+  modes.forEach((m, i) => {
+    const el = document.createElement('span');
+    el.className = 'mode' + (i === 0 ? ' active' : '');
+    el.textContent = `${m.key}·${m.en}`;
+    el.dataset.idx = i;
+    el.addEventListener('click', () => setMode(i));
+    modeRow.appendChild(el);
+  });
+
+  function setMode(i) {
+    mode = i;
+    document.querySelectorAll('.mode').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.mode')[i].classList.add('active');
+  }
+
+  // Keys
+  window.addEventListener('keydown', (e) => {
+    if (e.repeat) return;
+    if (e.code === 'Space') { paused = !paused; if (!paused) requestAnimationFrame(step); e.preventDefault(); }
+    else if (e.key === 'r' || e.key === 'R') {
+      rng = mulberry32(seed + Math.floor(Math.random() * 9999));
+      gestures.length = 0; bows.length = 0; giverMarks.length = 0; sparks.length = 0;
+    }
+    else if (e.key === 'h' || e.key === 'H') document.body.classList.toggle('hide-text');
+    else if (e.key === 'm' || e.key === 'M') toggleSound();
+    else if (e.key === 's' || e.key === 'S') saveStill();
+    else {
+      const idx = modes.findIndex(m => m.key === e.key);
+      if (idx >= 0) setMode(idx);
+    }
+  });
+
+  // Sound toggle
+  function toggleSound() {
+    if (audio.paused) { audio.play().catch(()=>{}); soundToggle.textContent = 'BGM on / 音乐开'; soundToggle.setAttribute('aria-pressed', 'true'); }
+    else { audio.pause(); soundToggle.textContent = 'BGM off / 音乐关'; soundToggle.setAttribute('aria-pressed', 'false'); }
+  }
+  soundToggle.addEventListener('click', toggleSound);
+  audio.play().catch(() => {
+    // Autoplay blocked: show "click to start" but keep the toggle visible
+    soundToggle.textContent = 'BGM start / 音乐启动';
+  });
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = `gratitude-stance-${Date.now()}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+})();
+</script>
+
+
+
+</body>
+</html>

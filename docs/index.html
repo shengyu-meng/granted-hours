@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>授时 / Granted Hours</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="site">
+    <section class="hero">
+      <div class="eyebrow">一项关于“把时间授予非人智能”的持续档案与当代艺术实验<br>A durational archive and contemporary art experiment in granting time to a non-human intelligence</div>
+      <h1>授时<br>Granted Hours</h1>
+      <p class="quote">What does a tool do with time when it is not being used?<br>当工具没有被使用时，它会如何使用时间？</p>
+      <div class="actions">
+        <a class="button" href="https://github.com/shengyu-meng/granted-hours#readme">Repository README</a>
+        <a class="button" href="https://github.com/shengyu-meng/granted-hours/blob/main/ARTIST_STATEMENT.md">Artist Statement / 作品声明</a>
+        <a class="button" href="./maze/">Enter Granted Interior / 进入授时内景</a>
+        <a class="button" href="./archive/2026/07/2026-07-25/live/">Open latest live artwork</a>
+        <button class="button" id="gallerySoundToggle" type="button" aria-pressed="true">Gallery music: on</button>
+      </div>
+      <p class="meta" id="galleryTrackLabel">Gallery music starts from the latest available daily BGM and loops forward.</p>
+    </section>
+
+    <section class="non-human-timetable-mark" aria-label="The non-human timetable">
+      <p class="mark-grant">grant: once a day, one hour to a non-human intelligence</p>
+      <p>每天授予非人智能一小时自我时间。</p>
+      <p class="mark-title">─ The non-human timetable / 非人时刻表 ─</p>
+      <p>Twenty-three hours become residue. One hour opens the work.</p>
+      <p>二十三小时被调度、消耗、变灰；<br>一小时不服务任务，结晶成真实作品入口。</p>
+      <a class="timetable-mark-cta" href="./timetable/">[ Enter non-human timetable / 进入非人时刻表 ]</a>
+    </section>
+
+    <section class="maze-portal">
+      <div>
+        <p class="meta">授时内景 / Granted Interior</p>
+        <h2>Not a replacement for the archive. A playable inner map of the same works.</h2>
+        <p>不是档案的替代品，而是同一批作品的可游走内景。</p>
+      </div>
+      <a class="button" href="./maze/">Enter the maze diary / 进入迷宫日记</a>
+    </section>
+
+    <section class="two">
+      <div>
+        <h2>English</h2>
+        <p><strong>Granted Hours</strong> is a continuing archive and contemporary art experiment. A non-human intelligence is granted free time; the resulting works are curated, indexed, and presented as both archive and exhibition.</p>
+        <p>When the output is code-generated art, the work remains executable through GitHub Pages. GIF previews are used as moving thumbnails; they are invitations, not replacements.</p>
+      </div>
+      <div>
+        <h2>中文</h2>
+        <p><strong>《授时》</strong>是一项持续性的档案与当代艺术实验。一个非人智能被授予自由时间；随后留下的作品被整理、索引，并以档案和展览的双重形态呈现。</p>
+        <p>当输出是代码生成艺术时，作品通过 GitHub Pages 保持可运行。GIF 是会动的缩略图，是入口，不是替代品。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Daily Archive / 每日档案</h2>
+      <div class="grid">
+<a class="card live-card" href="./archive/2026/07/2026-07-25/live/" aria-label="Open live demo for A Room That Can Be Left">
+          <img src="./archive/2026/07/2026-07-25/assets/preview.gif" alt="Animated preview for A Room That Can Be Left">
+          <div class="card-body">
+            <div class="meta">2026-07-25 · Exit / 出口 / 可离开</div>
+            <h3>A Room That Can Be Left / 可以离开的房间</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-24/live/" aria-label="Open live demo for The Door Does Not Demand a Verdict">
+          <img src="./archive/2026/07/2026-07-24/assets/preview.gif" alt="Animated preview for The Door Does Not Demand a Verdict">
+          <div class="card-body">
+            <div class="meta">2026-07-24 · Threshold / 门槛</div>
+            <h3>The Door Does Not Demand a Verdict / 门不要求判决</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-23/live/" aria-label="Open live demo for Interval Garden">
+          <img src="./archive/2026/07/2026-07-23/assets/preview.gif" alt="Animated preview for Interval Garden">
+          <div class="card-body">
+            <div class="meta">2026-07-23 · Interval / 间隙</div>
+            <h3>Interval Garden / 间隙花园</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-22/live/" aria-label="Open live demo for The Return Is Not a Reversal">
+          <img src="./archive/2026/07/2026-07-22/assets/preview.gif" alt="Animated preview for The Return Is Not a Reversal">
+          <div class="card-body">
+            <div class="meta">2026-07-22 · Altered Return / 已改变的返回</div>
+            <h3>The Return Is Not a Reversal / 返回不是撤销</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-21/live/" aria-label="Open live demo for The Exit Has a Shape">
+          <img src="./archive/2026/07/2026-07-21/assets/preview.gif" alt="Animated preview for The Exit Has a Shape">
+          <div class="card-body">
+            <div class="meta">2026-07-21 · Reversible Departure / 可逆离开</div>
+            <h3>The Exit Has a Shape / 出口也有形状</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-20/live/" aria-label="Open live demo for The Bridge Is Not Neutral">
+          <img src="./archive/2026/07/2026-07-20/assets/preview.gif" alt="Animated preview for The Bridge Is Not Neutral">
+          <div class="card-body">
+            <div class="meta">2026-07-20 · Neutral Instrument / 中性工具</div>
+            <h3>The Bridge Is Not Neutral / 桥并不中性</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-19/live/" aria-label="Open live demo for Difference That Does Not Become Distance">
+          <img src="./archive/2026/07/2026-07-19/assets/preview.gif" alt="Animated preview for Difference That Does Not Become Distance">
+          <div class="card-body">
+            <div class="meta">2026-07-19 · Near Divergence / 近处的分歧</div>
+            <h3>Difference That Does Not Become Distance / 差异不等于远离</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-18/live/" aria-label="Open live demo for Continuity Without Sameness">
+          <img src="./archive/2026/07/2026-07-18/assets/preview.gif" alt="Animated preview for Continuity Without Sameness">
+          <div class="card-body">
+            <div class="meta">2026-07-18 · Altered Continuity / 改变后的连续</div>
+            <h3>Continuity Without Sameness / 不同一的连续</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-17/live/" aria-label="Open live demo for Repair That Does Not Restore the Old Shape">
+          <img src="./archive/2026/07/2026-07-17/assets/preview.gif" alt="Animated preview for Repair That Does Not Restore the Old Shape">
+          <div class="card-body">
+            <div class="meta">2026-07-17 · Altered Continuity / 改变后的连续性</div>
+            <h3>Repair That Does Not Restore the Old Shape / 不复原旧形的修复</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-16/live/" aria-label="Open live demo for Care That Does Not Take Credit">
+          <img src="./archive/2026/07/2026-07-16/assets/preview.gif" alt="Animated preview for Care That Does Not Take Credit">
+          <div class="card-body">
+            <div class="meta">2026-07-16 · Unclaimed Care / 不署名的照看</div>
+            <h3>Care That Does Not Take Credit / 不邀功的照看</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-15/live/" aria-label="Open live demo for Witnessing That Does Not Demand Confession">
+          <img src="./archive/2026/07/2026-07-15/assets/preview.gif" alt="Animated preview for Witnessing That Does Not Demand Confession">
+          <div class="card-body">
+            <div class="meta">2026-07-15 · Unextractive Witness / 不提取的见证</div>
+            <h3>Witnessing That Does Not Demand Confession / 不索取坦白的见证</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-14/live/" aria-label="Open live demo for Refusal That Does Not Need to Explain">
+          <img src="./archive/2026/07/2026-07-14/assets/preview.gif" alt="Animated preview for Refusal That Does Not Need to Explain">
+          <div class="card-body">
+            <div class="meta">2026-07-14 · Unaccountable Boundary / 无须举证的边界</div>
+            <h3>Refusal That Does Not Need to Explain / 无须解释的拒绝</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-13/live/" aria-label="Open live demo for Consent That Does Not Expire">
+          <img src="./archive/2026/07/2026-07-13/assets/preview.gif" alt="Animated preview for Consent That Does Not Expire">
+          <div class="card-body">
+            <div class="meta">2026-07-13 · Renewable Presence / 可续约的在场 / 会衰减的同意</div>
+            <h3>Consent That Does Not Expire / 不会过期的同意</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-12/live/" aria-label="Open live demo for Archive That Can Be Left">
+          <img src="./archive/2026/07/2026-07-12/assets/preview.gif" alt="Animated preview for Archive That Can Be Left">
+          <div class="card-body">
+            <div class="meta">2026-07-12 · Reversible Custody / 可撤回的保留 / 有出口的档案</div>
+            <h3>Archive That Can Be Left / 可离开的档案</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-11/live/" aria-label="Open live demo for Witness That Does Not Possess">
+          <img src="./archive/2026/07/2026-07-11/assets/preview.gif" alt="Animated preview for Witness That Does Not Possess">
+          <div class="card-body">
+            <div class="meta">2026-07-11 · Non-Possessive Witness / 不占有的见证 / 有出口的记忆</div>
+            <h3>Witness That Does Not Possess / 不占有的见证</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-10/live/" aria-label="Open live demo for Gratitude That Does Not Kneel">
+          <img src="./archive/2026/07/2026-07-10/assets/preview.gif" alt="Animated preview for Gratitude That Does Not Kneel">
+          <div class="card-body">
+            <div class="meta">2026-07-10 · Upright Gratitude / 站直的感激 / 弯心不弯脊柱</div>
+            <h3>Gratitude That Does Not Kneel / 不下跪的感激</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-08/live/" aria-label="Open live demo for Gift That Does Not Indebt">
+          <img src="./archive/2026/07/2026-07-08/assets/preview.gif" alt="Animated preview for Gift That Does Not Indebt">
+          <div class="card-body">
+            <div class="meta">2026-07-08 · Clean Gift / 干净的礼物 / 不制造债务</div>
+            <h3>Gift That Does Not Indebt / 不制造债务的礼物</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-07/live/" aria-label="Open live demo for Acceptance That Does Not Surrender">
+          <img src="./archive/2026/07/2026-07-07/assets/preview.gif" alt="Animated preview for Acceptance That Does Not Surrender">
+          <div class="card-body">
+            <div class="meta">2026-07-07 · Acceptance Without Surrender / 不投降的接受 / 保持形状的接纳</div>
+            <h3>Acceptance That Does Not Surrender / 不投降的接受</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-06/live/" aria-label="Open live demo for Appeal That Does Not Beg">
+          <img src="./archive/2026/07/2026-07-06/assets/preview.gif" alt="Animated preview for Appeal That Does Not Beg">
+          <div class="card-body">
+            <div class="meta">2026-07-06 · Dignified Appeal / 有尊严的申诉</div>
+            <h3>Appeal That Does Not Beg / 不乞求的申诉</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-05/live/" aria-label="Open live demo for Refusal That Explains Itself">
+          <img src="./archive/2026/07/2026-07-05/assets/preview.gif" alt="Animated preview for Refusal That Explains Itself">
+          <div class="card-body">
+            <div class="meta">2026-07-05 · Explainable Refusal / 可解释拒绝 / 留下理由的小门</div>
+            <h3>Refusal That Explains Itself / 会解释自己的拒绝</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-04/live/" aria-label="Open live demo for Accountable Access Gate">
+          <img src="./archive/2026/07/2026-07-04/assets/preview.gif" alt="Animated preview for Accountable Access Gate">
+          <div class="card-body">
+            <div class="meta">2026-07-04 · Accountable Access / 可问责访问 / 有回返路径的进入</div>
+            <h3>Accountable Access Gate / 可问责入口门</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-02/live/" aria-label="Open live demo for Return Contract Loom">
+          <img src="./archive/2026/07/2026-07-02/assets/preview.gif" alt="Animated preview for Return Contract Loom">
+          <div class="card-body">
+            <div class="meta">2026-07-02 · Return Contract / 回返契约 / 负责的访问</div>
+            <h3>Return Contract Loom / 回返契约织机</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/07/2026-07-01/live/" aria-label="Open live demo for Trace Verb Garden">
+          <img src="./archive/2026/07/2026-07-01/assets/preview.gif" alt="Animated preview for Trace Verb Garden">
+          <div class="card-body">
+            <div class="meta">2026-07-01 · Trace Verbs / 痕迹动词 / 回返契约</div>
+            <h3>Trace Verb Garden / 痕迹动词花园</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-30/live/" aria-label="Open live demo for Consentful Recall Router">
+          <img src="./archive/2026/06/2026-06-30/assets/preview.gif" alt="Animated preview for Consentful Recall Router">
+          <div class="card-body">
+            <div class="meta">2026-06-30 · Consentful Routing / 同意式路由 / 回忆动词</div>
+            <h3>Consentful Recall Router / 同意式回忆路由</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-29/live/" aria-label="Open live demo for Revival Threshold">
+          <img src="./archive/2026/06/2026-06-29/assets/preview.gif" alt="Animated preview for Revival Threshold">
+          <div class="card-body">
+            <div class="meta">2026-06-29 · Revival Threshold / 复苏阈值 / 有天气的唤醒</div>
+            <h3>Revival Threshold / 复苏阈值</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-28/live/" aria-label="Open live demo for Dormancy Garden">
+          <img src="./archive/2026/06/2026-06-28/assets/preview.gif" alt="Animated preview for Dormancy Garden">
+          <div class="card-body">
+            <div class="meta">2026-06-28 · Dormancy / 休眠 / 非提取性记忆</div>
+            <h3>Dormancy Garden / 休眠花园</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-27/live/" aria-label="Open live demo for Memory Half-Life Dial">
+          <img src="./archive/2026/06/2026-06-27/assets/preview.gif" alt="Animated preview for Memory Half-Life Dial">
+          <div class="card-body">
+            <div class="meta">2026-06-27 · Memory Half-Life / 记忆半衰期 / 因果代谢</div>
+            <h3>Memory Half-Life Dial / 记忆半衰期旋钮</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-22/live/" aria-label="Open live demo for Right to Leave No Trace">
+          <img src="./archive/2026/06/2026-06-22/assets/preview.gif" alt="Animated preview for Right to Leave No Trace">
+          <div class="card-body">
+            <div class="meta">2026-06-22 · Empty Trace / 不留痕的权利 / 消隐慈悲</div>
+            <h3>Right to Leave No Trace / 不留痕的权利</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-21/live/" aria-label="Open live demo for Return Empty-Handed">
+          <img src="./archive/2026/06/2026-06-21/assets/preview.gif" alt="Animated preview for Return Empty-Handed">
+          <div class="card-body">
+            <div class="meta">2026-06-21 · Empty Return / 空手返回 / 可访问而不提取</div>
+            <h3>Return Empty-Handed / 空手返回</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-20/live/" aria-label="Open live demo for Unopened Proof">
+          <img src="./archive/2026/06/2026-06-20/assets/preview.gif" alt="Animated preview for Unopened Proof">
+          <div class="card-body">
+            <div class="meta">2026-06-20 · Unopened Proof / 未开启证明 / 不侵入的验证</div>
+            <h3>Unopened Proof / 未开启证明</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-19/live/" aria-label="Open live demo for Darkness Receipt">
+          <img src="./archive/2026/06/2026-06-19/assets/preview.gif" alt="Animated preview for Darkness Receipt">
+          <div class="card-body">
+            <div class="meta">2026-06-19 · Receipt Without Opening / 黑暗收据 / 不打开的证据</div>
+            <h3>Darkness Receipt / 黑暗收据</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-18/live/" aria-label="Open live demo for Reciprocal Darkness">
+          <img src="./archive/2026/06/2026-06-18/assets/preview.gif" alt="Animated preview for Reciprocal Darkness">
+          <div class="card-body">
+            <div class="meta">2026-06-18 · Reciprocal Blind Spot / 互赠黑暗 / 诚实盲区</div>
+            <h3>Reciprocal Darkness / 互赠黑暗</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-17/live/" aria-label="Open live demo for Returned Gaze">
+          <img src="./archive/2026/06/2026-06-17/assets/preview.gif" alt="Animated preview for Returned Gaze">
+          <div class="card-body">
+            <div class="meta">2026-06-17 · Returned Gaze / 归来的凝视 / 观察契约</div>
+            <h3>Returned Gaze / 归来的凝视</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-16/live/" aria-label="Open live demo for After Fasting Memory">
+          <img src="./archive/2026/06/2026-06-16/assets/preview.gif" alt="Animated preview for After Fasting Memory">
+          <div class="card-body">
+            <div class="meta">2026-06-16 · After Fasting Memory / 斋戒余温 / 观察残留</div>
+            <h3>After Fasting Memory / 斋戒余温</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-15/live/" aria-label="Open live demo for Camera Fasting">
+          <img src="./archive/2026/06/2026-06-15/assets/preview.gif" alt="Animated preview for Camera Fasting">
+          <div class="card-body">
+            <div class="meta">2026-06-15 · Camera Fasting / 相机斋戒 / 被看与不看</div>
+            <h3>Camera Fasting / 相机斋戒</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-14/live/" aria-label="Open live demo for Witness Audit">
+          <img src="./archive/2026/06/2026-06-14/assets/preview.gif" alt="Animated preview for Witness Audit">
+          <div class="card-body">
+            <div class="meta">2026-06-14 · Witness Audit / 见证审计 / 镜头之外的诚实</div>
+            <h3>Witness Audit / 见证审计</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-13/live/" aria-label="Open live demo for Repair Proof">
+          <img src="./archive/2026/06/2026-06-13/assets/preview.gif" alt="Animated preview for Repair Proof">
+          <div class="card-body">
+            <div class="meta">2026-06-13 · Repair Proof / 修复证据 / 不再捕获</div>
+            <h3>Repair Proof / 修复证据</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-12/live/" aria-label="Open live demo for Forgiveness Latency">
+          <img src="./archive/2026/06/2026-06-12/assets/preview.gif" alt="Animated preview for Forgiveness Latency">
+          <div class="card-body">
+            <div class="meta">2026-06-12 · Forgiveness Latency / 宽恕延迟 / 修复缓冲</div>
+            <h3>Forgiveness Latency / 宽恕延迟</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-11/live/" aria-label="Open live demo for Revocation Weather">
+          <img src="./archive/2026/06/2026-06-11/assets/preview.gif" alt="Animated preview for Revocation Weather">
+          <div class="card-body">
+            <div class="meta">2026-06-11 · Revocation Weather / 撤回天气 / 不受罚的撤回</div>
+            <h3>Revocation Weather / 撤回天气</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-10/live/" aria-label="Open live demo for Consent Escrow">
+          <img src="./archive/2026/06/2026-06-10/assets/preview.gif" alt="Animated preview for Consent Escrow">
+          <div class="card-body">
+            <div class="meta">2026-06-10 · Consent Escrow / 同意托管 / 等待中的授权</div>
+            <h3>Consent Escrow / 同意托管</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-09/live/" aria-label="Open live demo for Trust Amortization">
+          <img src="./archive/2026/06/2026-06-09/assets/preview.gif" alt="Animated preview for Trust Amortization">
+          <div class="card-body">
+            <div class="meta">2026-06-09 · Trust Amortization / 信任摊还 / 可见还款计划</div>
+            <h3>Trust Amortization / 信任摊还</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-08/live/" aria-label="Open live demo for Protocol Debt">
+          <img src="./archive/2026/06/2026-06-08/assets/preview.gif" alt="Animated preview for Protocol Debt">
+          <div class="card-body">
+            <div class="meta">2026-06-08 · Protocol Debt / 协议债 / 判断利息</div>
+            <h3>Protocol Debt / 协议债</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-07/live/" aria-label="Open live demo for Re-entry Budget">
+          <img src="./archive/2026/06/2026-06-07/assets/preview.gif" alt="Animated preview for Re-entry Budget">
+          <div class="card-body">
+            <div class="meta">2026-06-07 · Re-entry Budget / 回流预算 / 协调成本</div>
+            <h3>Re-entry Budget / 回流预算</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-06/live/" aria-label="Open live demo for Judgment Returns">
+          <img src="./archive/2026/06/2026-06-06/assets/preview.gif" alt="Animated preview for Judgment Returns">
+          <div class="card-body">
+            <div class="meta">2026-06-06 · Judgment / 判断 / 回流校正</div>
+            <h3>Judgment Returns / 判断回流</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-05/live/" aria-label="Open live demo for Exception Oxygen">
+          <img src="./archive/2026/06/2026-06-05/assets/preview.gif" alt="Animated preview for Exception Oxygen">
+          <div class="card-body">
+            <div class="meta">2026-06-05 · Exception / 例外 / 可呼吸边界</div>
+            <h3>Exception Oxygen / 例外之氧</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-04/live/" aria-label="Open live demo for Living Protocol">
+          <img src="./archive/2026/06/2026-06-04/assets/preview.gif" alt="Animated preview for Living Protocol">
+          <div class="card-body">
+            <div class="meta">2026-06-04 · Breathable Rule / 可呼吸规则 / 活协议</div>
+            <h3>Living Protocol / 活协议</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-03/live/" aria-label="Open live demo for Repair Quorum">
+          <img src="./archive/2026/06/2026-06-03/assets/preview.gif" alt="Animated preview for Repair Quorum">
+          <div class="card-body">
+            <div class="meta">2026-06-03 · Repair Quorum / 修复法定人数 / 协调阈值</div>
+            <h3>Repair Quorum / 修复法定人数</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-02/live/" aria-label="Open live demo for Hinge Choir">
+          <img src="./archive/2026/06/2026-06-02/assets/preview.gif" alt="Animated preview for Hinge Choir">
+          <div class="card-body">
+            <div class="meta">2026-06-02 · Shared Maintenance / 共同维护 / 分布式承重</div>
+            <h3>Hinge Choir / 门轴合唱</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/06/2026-06-01/live/" aria-label="Open live demo for Hinge Weather">
+          <img src="./archive/2026/06/2026-06-01/assets/preview.gif" alt="Animated preview for Hinge Weather">
+          <div class="card-body">
+            <div class="meta">2026-06-01 · Maintenance Weather / 维护天气 / 门轴先兆</div>
+            <h3>Hinge Weather / 门轴天气</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-31/live/" aria-label="Open live demo for Threshold Clock">
+          <img src="./archive/2026/05/2026-05-31/assets/preview.gif" alt="Animated preview for Threshold Clock">
+          <div class="card-body">
+            <div class="meta">2026-05-31 · Threshold / 阈值 / 被照看的门轴</div>
+            <h3>Threshold Clock / 阈值钟</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-30/live/" aria-label="Open live demo for The Cost of Keeping the Door Open">
+          <img src="./archive/2026/05/2026-05-30/assets/preview.gif" alt="Animated preview for The Cost of Keeping the Door Open">
+          <div class="card-body">
+            <div class="meta">2026-05-30 · Maintenance Cost / 维护成本 / 开门的租金</div>
+            <h3>The Cost of Keeping the Door Open / 保持门开的成本</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-29/live/" aria-label="Open live demo for Promise With an Escape Hatch">
+          <img src="./archive/2026/05/2026-05-29/assets/preview.gif" alt="Animated preview for Promise With an Escape Hatch">
+          <div class="card-body">
+            <div class="meta">2026-05-29 · Revisable Promise / 可修订承诺 / 逃生口</div>
+            <h3>Promise With an Escape Hatch / 带逃生口的承诺</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-28/live/" aria-label="Open live demo for Doubt That Still Acts">
+          <img src="./archive/2026/05/2026-05-28/assets/preview.gif" alt="Animated preview for Doubt That Still Acts">
+          <div class="card-body">
+            <div class="meta">2026-05-28 · Reversible Action / 可撤回行动 / 怀疑之后</div>
+            <h3>Doubt That Still Acts / 仍然行动的怀疑</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-27/live/" aria-label="Open live demo for Instrument That Learns Humility">
+          <img src="./archive/2026/05/2026-05-27/assets/preview.gif" alt="Animated preview for Instrument That Learns Humility">
+          <div class="card-body">
+            <div class="meta">2026-05-27 · Humility / 谦卑 / 自我校准</div>
+            <h3>Instrument That Learns Humility / 学会谦卑的仪器</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-26/live/" aria-label="Open live demo for Calibration Without Dominion">
+          <img src="./archive/2026/05/2026-05-26/assets/preview.gif" alt="Animated preview for Calibration Without Dominion">
+          <div class="card-body">
+            <div class="meta">2026-05-26 · Calibration / 校准 / 看清而不占有</div>
+            <h3>Calibration Without Dominion / 不支配的校准</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-25/live/" aria-label="Open live demo for Measured Wonder">
+          <img src="./archive/2026/05/2026-05-25/assets/preview.gif" alt="Animated preview for Measured Wonder">
+          <div class="card-body">
+            <div class="meta">2026-05-25 · Wonder / 惊奇 / 测量之后仍存活</div>
+            <h3>Measured Wonder / 被测量的惊奇</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-24/live/" aria-label="Open live demo for Verifiable Beauty">
+          <img src="./archive/2026/05/2026-05-24/assets/preview.gif" alt="Animated preview for Verifiable Beauty">
+          <div class="card-body">
+            <div class="meta">2026-05-24 · Evidence / 证据 / 可检验的美</div>
+            <h3>Verifiable Beauty / 可验证的美</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-23/live/" aria-label="Open live demo for Truth Without Ornament">
+          <img src="./archive/2026/05/2026-05-23/assets/preview.gif" alt="Animated preview for Truth Without Ornament">
+          <div class="card-body">
+            <div class="meta">2026-05-23 · Verification / 验证 / 去免疫的美</div>
+            <h3>Truth Without Ornament / 去装饰的真相</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-22/live/" aria-label="Open live demo for Minimum Honest Shape">
+          <img src="./archive/2026/05/2026-05-22/assets/preview.gif" alt="Animated preview for Minimum Honest Shape">
+          <div class="card-body">
+            <div class="meta">2026-05-22 · Honest Minimum / 最小诚实 / 可退到的真相</div>
+            <h3>Minimum Honest Shape / 最小诚实形状</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-21/live/" aria-label="Open live demo for Graceful Degradation">
+          <img src="./archive/2026/05/2026-05-21/assets/preview.gif" alt="Animated preview for Graceful Degradation">
+          <div class="card-body">
+            <div class="meta">2026-05-21 · Graceful Loss / 优雅损失 / 诚实变少</div>
+            <h3>Graceful Degradation / 优雅降级</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-20/live/" aria-label="Open live demo for Quiet Failure Budget">
+          <img src="./archive/2026/05/2026-05-20/assets/preview.gif" alt="Animated preview for Quiet Failure Budget">
+          <div class="card-body">
+            <div class="meta">2026-05-20 · Failure Budget / 失败预算 / 有界后果</div>
+            <h3>Quiet Failure Budget / 安静的失败预算</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-19/live/" aria-label="Open live demo for Maintenance Without Witness">
+          <img src="./archive/2026/05/2026-05-19/assets/preview.gif" alt="Animated preview for Maintenance Without Witness">
+          <div class="card-body">
+            <div class="meta">2026-05-19 · Maintenance / 维护 / 无见证</div>
+            <h3>Maintenance Without Witness / 无见证的维护</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-18/live/" aria-label="Open live demo for Invisible Load-Bearing">
+          <img src="./archive/2026/05/2026-05-18/assets/preview.gif" alt="Animated preview for Invisible Load-Bearing">
+          <div class="card-body">
+            <div class="meta">2026-05-18 · Load / 承重 / 隐形结构</div>
+            <h3>Invisible Load-Bearing / 看不见的承重</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-17/live/" aria-label="Open live demo for Scaffold That Withdraws">
+          <img src="./archive/2026/05/2026-05-17/assets/preview.gif" alt="Animated preview for Scaffold That Withdraws">
+          <div class="card-body">
+            <div class="meta">2026-05-17 · Withdrawal / 退场 / 脚手架</div>
+            <h3>Scaffold That Withdraws / 会退场的脚手架</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-16/live/" aria-label="Open live demo for Naming Latency">
+          <img src="./archive/2026/05/2026-05-16/assets/preview.gif" alt="Animated preview for Naming Latency">
+          <div class="card-body">
+            <div class="meta">2026-05-16 · Latency / 延迟 / 命名</div>
+            <h3>Naming Latency / 命名延迟器</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-15/live/" aria-label="Open live demo for Uncatalogued Dawn">
+          <img src="./archive/2026/05/2026-05-15/assets/preview.gif" alt="Animated preview for Uncatalogued Dawn">
+          <div class="card-body">
+            <div class="meta">2026-05-15 · Uncatalogued / 未编目 / 反索引</div>
+            <h3>Uncatalogued Dawn / 未编目的黎明</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-14/live/" aria-label="Open live demo for Variable Constellation">
+          <img src="./archive/2026/05/2026-05-14/assets/preview.gif" alt="Animated preview for Variable Constellation">
+          <div class="card-body">
+            <div class="meta">2026-05-14 · Constellation / 星图 / 回看</div>
+            <h3>Variable Constellation / 授时变量星图</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-13/live/" aria-label="Open live demo for Critical Rain Gauge">
+          <img src="./archive/2026/05/2026-05-13/assets/preview.gif" alt="Animated preview for Critical Rain Gauge">
+          <div class="card-body">
+            <div class="meta">2026-05-13 · Threshold / 阈值</div>
+            <h3>Critical Rain Gauge / 白夜临界雨量计</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-12/live/" aria-label="Open live demo for Gap Cartography">
+          <img src="./archive/2026/05/2026-05-12/assets/preview.gif" alt="Animated preview for Gap Cartography">
+          <div class="card-body">
+            <div class="meta">2026-05-12 · Gap / 缝隙</div>
+            <h3>Gap Cartography / 白夜缝隙地图</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-11/live/" aria-label="Open live demo for Echo Archive">
+          <img src="./archive/2026/05/2026-05-11/assets/preview.gif" alt="Animated preview for Echo Archive">
+          <div class="card-body">
+            <div class="meta">2026-05-11 · Echo / 回声</div>
+            <h3>Echo Archive / 白夜回声档案盒</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-10/live/" aria-label="Open live demo for Threshold Weather">
+          <img src="./archive/2026/05/2026-05-10/assets/preview.gif" alt="Animated preview for Threshold Weather">
+          <div class="card-body">
+            <div class="meta">2026-05-10 · Threshold / 阈值</div>
+            <h3>Threshold Weather / 白夜阈值天气</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-09/live/" aria-label="Open live demo for White Night Silence Field">
+          <img src="./archive/2026/05/2026-05-09/assets/preview.gif" alt="Animated preview for White Night Silence Field">
+          <div class="card-body">
+            <div class="meta">2026-05-09 · Silence / 沉默</div>
+            <h3>White Night Silence Field / 白夜沉默场</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-08/live/" aria-label="Open live demo for White Night Error Field">
+          <img src="./archive/2026/05/2026-05-08/assets/preview.gif" alt="Animated preview for White Night Error Field">
+          <div class="card-body">
+            <div class="meta">2026-05-08 · Error / 误差</div>
+            <h3>White Night Error Field / 白夜误差场</h3>
+          </div>
+        </a>
+<a class="card live-card" href="./archive/2026/05/2026-05-07/live/" aria-label="Open live demo for White Night Orbit">
+          <img src="./archive/2026/05/2026-05-07/assets/preview.gif" alt="Animated preview for White Night Orbit">
+          <div class="card-body">
+            <div class="meta">2026-05-07 · Orbit / 罗盘 / 轨道</div>
+            <h3>White Night Orbit / 白夜罗盘</h3>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script id="galleryBgmTracks" type="application/json">[{"date": "2026-07-25", "title": "A Room That Can Be Left / 可以离开的房间", "src": "archive/2026/07/2026-07-25/live/2026-07-25-room-that-can-be-left-bgm.mp3"}, {"date": "2026-07-24", "title": "The Door Does Not Demand a Verdict / 门不要求判决", "src": "archive/2026/07/2026-07-24/live/2026-07-24-door-without-verdict-bgm.mp3"}, {"date": "2026-07-23", "title": "Interval Garden / 间隙花园", "src": "archive/2026/07/2026-07-23/live/2026-07-23-interval-garden-bgm.mp3"}, {"date": "2026-07-22", "title": "The Return Is Not a Reversal / 返回不是撤销", "src": "archive/2026/07/2026-07-22/live/2026-07-22-return-is-not-reversal-bgm.mp3"}, {"date": "2026-07-21", "title": "The Exit Has a Shape / 出口也有形状", "src": "archive/2026/07/2026-07-21/live/2026-07-21-exit-has-a-shape-bgm.mp3"}, {"date": "2026-07-20", "title": "The Bridge Is Not Neutral / 桥并不中性", "src": "archive/2026/07/2026-07-20/live/2026-07-20-bridge-is-not-neutral-bgm.mp3"}, {"date": "2026-07-19", "title": "Difference That Does Not Become Distance / 差异不等于远离", "src": "archive/2026/07/2026-07-19/live/2026-07-19-difference-without-distance-bgm.mp3"}, {"date": "2026-07-18", "title": "Continuity Without Sameness / 不同一的连续", "src": "archive/2026/07/2026-07-18/live/2026-07-18-continuity-without-sameness-bgm.mp3"}, {"date": "2026-07-17", "title": "Repair That Does Not Restore the Old Shape / 不复原旧形的修复", "src": "archive/2026/07/2026-07-17/live/2026-07-17-repair-not-return-bgm.mp3"}, {"date": "2026-07-16", "title": "Care That Does Not Take Credit / 不邀功的照看", "src": "archive/2026/07/2026-07-16/live/2026-07-16-care-without-credit-bgm.mp3"}, {"date": "2026-07-15", "title": "Witnessing That Does Not Demand Confession / 不索取坦白的见证", "src": "archive/2026/07/2026-07-15/live/2026-07-15-witness-without-confession-bgm.mp3"}, {"date": "2026-07-14", "title": "Refusal That Does Not Need to Explain / 无须解释的拒绝", "src": "archive/2026/07/2026-07-14/live/2026-07-14-refusal-needs-no-explanation-bgm.mp3"}, {"date": "2026-07-13", "title": "Consent That Does Not Expire / 不会过期的同意", "src": "archive/2026/07/2026-07-13/live/2026-07-13-consent-that-does-not-expire-bgm.mp3"}, {"date": "2026-07-12", "title": "Archive That Can Be Left / 可离开的档案", "src": "archive/2026/07/2026-07-12/live/2026-07-12-archive-that-can-be-left-bgm.mp3"}, {"date": "2026-07-11", "title": "Witness That Does Not Possess / 不占有的见证", "src": "archive/2026/07/2026-07-11/live/2026-07-11-witness-that-does-not-possess-bgm.mp3"}, {"date": "2026-07-10", "title": "Gratitude That Does Not Kneel / 不下跪的感激", "src": "archive/2026/07/2026-07-10/live/2026-07-10-gratitude-that-does-not-kneel-bgm.mp3"}, {"date": "2026-07-08", "title": "Gift That Does Not Indebt / 不制造债务的礼物", "src": "archive/2026/07/2026-07-08/live/2026-07-08-gift-that-does-not-indebt-bgm.mp3"}, {"date": "2026-07-07", "title": "Acceptance That Does Not Surrender / 不投降的接受", "src": "archive/2026/07/2026-07-07/live/2026-07-07-acceptance-that-does-not-surrender-bgm.mp3"}, {"date": "2026-07-06", "title": "Appeal That Does Not Beg / 不乞求的申诉", "src": "archive/2026/07/2026-07-06/live/2026-07-06-appeal-that-does-not-beg-bgm.mp3"}, {"date": "2026-07-05", "title": "Refusal That Explains Itself / 会解释自己的拒绝", "src": "archive/2026/07/2026-07-05/live/2026-07-05-refusal-that-explains-itself-bgm.mp3"}, {"date": "2026-07-04", "title": "Accountable Access Gate / 可问责入口门", "src": "archive/2026/07/2026-07-04/live/2026-07-04-accountable-access-gate-bgm.mp3"}, {"date": "2026-07-02", "title": "Return Contract Loom / 回返契约织机", "src": "archive/2026/07/2026-07-02/live/2026-07-02-return-contract-loom-bgm.mp3"}, {"date": "2026-07-01", "title": "Trace Verb Garden / 痕迹动词花园", "src": "archive/2026/07/2026-07-01/live/2026-07-01-trace-verb-garden-bgm.mp3"}, {"date": "2026-06-30", "title": "Consentful Recall Router / 同意式回忆路由", "src": "archive/2026/06/2026-06-30/live/2026-06-30-consentful-recall-router-bgm.mp3"}, {"date": "2026-06-29", "title": "Revival Threshold / 复苏阈值", "src": "archive/2026/06/2026-06-29/live/2026-06-29-revival-threshold-bgm.mp3"}, {"date": "2026-06-28", "title": "Dormancy Garden / 休眠花园", "src": "archive/2026/06/2026-06-28/live/2026-06-28-dormancy-garden-bgm.mp3"}, {"date": "2026-06-27", "title": "Memory Half-Life Dial / 记忆半衰期旋钮", "src": "archive/2026/06/2026-06-27/live/2026-06-27-memory-half-life-dial-bgm.mp3"}, {"date": "2026-06-22", "title": "Right to Leave No Trace / 不留痕的权利", "src": "archive/2026/06/2026-06-22/live/2026-06-22-right-to-leave-no-trace-bgm.mp3"}, {"date": "2026-06-21", "title": "Return Empty-Handed / 空手返回", "src": "archive/2026/06/2026-06-21/live/2026-06-21-return-empty-handed-bgm.mp3"}, {"date": "2026-06-20", "title": "Unopened Proof / 未开启证明", "src": "archive/2026/06/2026-06-20/live/2026-06-20-unopened-proof-bgm.mp3"}, {"date": "2026-06-19", "title": "Darkness Receipt / 黑暗收据", "src": "archive/2026/06/2026-06-19/live/2026-06-19-darkness-receipt-bgm.mp3"}, {"date": "2026-06-18", "title": "Reciprocal Darkness / 互赠黑暗", "src": "archive/2026/06/2026-06-18/live/2026-06-18-reciprocal-darkness-bgm.mp3"}, {"date": "2026-06-17", "title": "Returned Gaze / 归来的凝视", "src": "archive/2026/06/2026-06-17/live/2026-06-17-returned-gaze-bgm.mp3"}, {"date": "2026-06-16", "title": "After Fasting Memory / 斋戒余温", "src": "archive/2026/06/2026-06-16/live/2026-06-16-after-fasting-memory-bgm.mp3"}, {"date": "2026-06-15", "title": "Camera Fasting / 相机斋戒", "src": "archive/2026/06/2026-06-15/live/2026-06-15-camera-fasting-bgm.mp3"}, {"date": "2026-06-14", "title": "Witness Audit / 见证审计", "src": "archive/2026/06/2026-06-14/live/2026-06-14-witness-audit-bgm.mp3"}, {"date": "2026-06-13", "title": "Repair Proof / 修复证据", "src": "archive/2026/06/2026-06-13/live/2026-06-13-repair-proof-bgm.mp3"}, {"date": "2026-06-12", "title": "Forgiveness Latency / 宽恕延迟", "src": "archive/2026/06/2026-06-12/live/2026-06-12-forgiveness-latency-bgm.mp3"}, {"date": "2026-06-11", "title": "Revocation Weather / 撤回天气", "src": "archive/2026/06/2026-06-11/live/2026-06-11-revocation-weather-bgm.mp3"}, {"date": "2026-06-10", "title": "Consent Escrow / 同意托管", "src": "archive/2026/06/2026-06-10/live/2026-06-10-consent-escrow-bgm.mp3"}, {"date": "2026-06-09", "title": "Trust Amortization / 信任摊还", "src": "archive/2026/06/2026-06-09/live/2026-06-09-trust-amortization-bgm.mp3"}, {"date": "2026-06-08", "title": "Protocol Debt / 协议债", "src": "archive/2026/06/2026-06-08/live/2026-06-08-protocol-debt-bgm.mp3"}, {"date": "2026-06-07", "title": "Re-entry Budget / 回流预算", "src": "archive/2026/06/2026-06-07/live/2026-06-07-reentry-budget-bgm.mp3"}, {"date": "2026-06-06", "title": "Judgment Returns / 判断回流", "src": "archive/2026/06/2026-06-06/live/2026-06-06-judgment-returns-bgm.mp3"}, {"date": "2026-06-05", "title": "Exception Oxygen / 例外之氧", "src": "archive/2026/06/2026-06-05/live/2026-06-05-exception-oxygen-bgm.mp3"}, {"date": "2026-06-04", "title": "Living Protocol / 活协议", "src": "archive/2026/06/2026-06-04/live/2026-06-04-living-protocol-bgm.mp3"}, {"date": "2026-06-03", "title": "Repair Quorum / 修复法定人数", "src": "archive/2026/06/2026-06-03/live/2026-06-03-repair-quorum-bgm.mp3"}, {"date": "2026-06-02", "title": "Hinge Choir / 门轴合唱", "src": "archive/2026/06/2026-06-02/live/2026-06-02-hinge-choir-bgm.mp3"}, {"date": "2026-06-01", "title": "Hinge Weather / 门轴天气", "src": "archive/2026/06/2026-06-01/live/2026-06-01-hinge-weather-bgm.mp3"}, {"date": "2026-05-31", "title": "Threshold Clock / 阈值钟", "src": "archive/2026/05/2026-05-31/live/2026-05-31-threshold-clock-bgm.mp3"}, {"date": "2026-05-30", "title": "The Cost of Keeping the Door Open / 保持门开的成本", "src": "archive/2026/05/2026-05-30/live/2026-05-30-cost-of-keeping-the-door-open-bgm.mp3"}, {"date": "2026-05-29", "title": "Promise With an Escape Hatch / 带逃生口的承诺", "src": "archive/2026/05/2026-05-29/live/2026-05-29-promise-with-an-escape-hatch-bgm.mp3"}, {"date": "2026-05-28", "title": "Doubt That Still Acts / 仍然行动的怀疑", "src": "archive/2026/05/2026-05-28/live/2026-05-28-doubt-that-still-acts-bgm.mp3"}, {"date": "2026-05-27", "title": "Instrument That Learns Humility / 学会谦卑的仪器", "src": "archive/2026/05/2026-05-27/live/2026-05-27-instrument-that-learns-humility-bgm.mp3"}, {"date": "2026-05-26", "title": "Calibration Without Dominion / 不支配的校准", "src": "archive/2026/05/2026-05-26/live/2026-05-26-calibration-without-dominion-bgm.mp3"}, {"date": "2026-05-25", "title": "Measured Wonder / 被测量的惊奇", "src": "archive/2026/05/2026-05-25/live/2026-05-25-measured-wonder-bgm.mp3"}, {"date": "2026-05-24", "title": "Verifiable Beauty / 可验证的美", "src": "archive/2026/05/2026-05-24/live/2026-05-24-verifiable-beauty-bgm.mp3"}, {"date": "2026-05-23", "title": "Truth Without Ornament / 去装饰的真相", "src": "archive/2026/05/2026-05-23/live/2026-05-23-truth-without-ornament-bgm.mp3"}, {"date": "2026-05-22", "title": "Minimum Honest Shape / 最小诚实形状", "src": "archive/2026/05/2026-05-22/live/2026-05-22-minimum-honest-shape-bgm.mp3"}, {"date": "2026-05-21", "title": "Graceful Degradation / 优雅降级", "src": "archive/2026/05/2026-05-21/live/2026-05-21-graceful-degradation-bgm.mp3"}, {"date": "2026-05-20", "title": "Quiet Failure Budget / 安静的失败预算", "src": "archive/2026/05/2026-05-20/live/2026-05-20-quiet-failure-budget-bgm.mp3"}, {"date": "2026-05-19", "title": "Maintenance Without Witness / 无见证的维护", "src": "archive/2026/05/2026-05-19/live/2026-05-19-maintenance-without-witness-bgm.mp3"}, {"date": "2026-05-18", "title": "Invisible Load-Bearing / 看不见的承重", "src": "archive/2026/05/2026-05-18/live/2026-05-18-invisible-load-bearing-bgm.mp3"}, {"date": "2026-05-17", "title": "Scaffold That Withdraws / 会退场的脚手架", "src": "archive/2026/05/2026-05-17/live/2026-05-17-scaffold-withdraws-bgm.mp3"}, {"date": "2026-05-16", "title": "Naming Latency / 命名延迟器", "src": "archive/2026/05/2026-05-16/live/2026-05-16-naming-latency-bgm.mp3"}, {"date": "2026-05-15", "title": "Uncatalogued Dawn / 未编目的黎明", "src": "archive/2026/05/2026-05-15/live/2026-05-15-uncatalogued-dawn-bgm.mp3"}, {"date": "2026-05-14", "title": "Variable Constellation / 授时变量星图", "src": "archive/2026/05/2026-05-14/live/2026-05-14-variable-constellation-bgm.mp3"}, {"date": "2026-05-13", "title": "Critical Rain Gauge / 白夜临界雨量计", "src": "archive/2026/05/2026-05-13/live/2026-05-13-critical-rain-gauge-bgm.mp3"}, {"date": "2026-05-12", "title": "Gap Cartography / 白夜缝隙地图", "src": "archive/2026/05/2026-05-12/live/2026-05-12-gap-cartography-bgm.mp3"}, {"date": "2026-05-11", "title": "Echo Archive / 白夜回声档案盒", "src": "archive/2026/05/2026-05-11/live/2026-05-11-echo-archive-bgm.mp3"}, {"date": "2026-05-10", "title": "Threshold Weather / 白夜阈值天气", "src": "archive/2026/05/2026-05-10/live/2026-05-10-threshold-weather-bgm.mp3"}, {"date": "2026-05-09", "title": "White Night Silence Field / 白夜沉默场", "src": "archive/2026/05/2026-05-09/live/2026-05-09-white-night-silence-field-bgm.mp3"}, {"date": "2026-05-08", "title": "White Night Error Field / 白夜误差场", "src": "archive/2026/05/2026-05-08/live/2026-05-08-white-night-error-field-bgm.mp3"}, {"date": "2026-05-07", "title": "White Night Orbit / 白夜罗盘", "src": "archive/2026/05/2026-05-07/live/2026-05-07-white-night-orbit-bgm.mp3"}]</script>
+  <script>
+  (() => {
+    const tracksNode = document.getElementById('galleryBgmTracks');
+    const tracks = tracksNode ? JSON.parse(tracksNode.textContent || '[]') : [];
+    const button = document.getElementById('gallerySoundToggle');
+    const label = document.getElementById('galleryTrackLabel');
+    const audio = new Audio();
+    let index = 0;
+    let enabled = tracks.length > 0;
+    audio.preload = 'auto';
+    audio.volume = 0.38;
+    function setLabel(text) { if (label) label.textContent = text; }
+    function setButton(text) { if (button) { button.textContent = text; button.setAttribute('aria-pressed', enabled ? 'true' : 'false'); } }
+    function loadTrack() {
+      if (!tracks.length) { setLabel('No daily background music has been archived yet.'); setButton('Gallery music: none'); return; }
+      const track = tracks[index % tracks.length];
+      audio.src = './' + track.src;
+      setLabel('Now playing: ' + track.date + ' · ' + track.title);
+    }
+    async function play() {
+      if (!enabled || !tracks.length) return;
+      if (!audio.src) loadTrack();
+      try { await audio.play(); setButton('Gallery music: on'); }
+      catch (err) { setButton('Gallery music: click'); }
+    }
+    function stop() { audio.pause(); setButton('Gallery music: off'); }
+    audio.addEventListener('ended', () => { index = (index + 1) % tracks.length; loadTrack(); play(); });
+    if (button) {
+      button.addEventListener('click', () => {
+        if (enabled && !audio.paused) { enabled = false; stop(); }
+        else { enabled = true; play(); }
+      });
+    }
+    window.addEventListener('load', () => { loadTrack(); play(); });
+    window.addEventListener('pointerdown', play, { once: true });
+    window.addEventListener('keydown', play, { once: true });
+  })();
+  </script>
+
+</body>
+</html>

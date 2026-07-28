@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Refusal That Explains Itself / 会解释自己的拒绝</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #eaf4ff;
+      --muted: #89a3bc;
+      --gold: #ffd37a;
+      --aqua: #7ff0e7;
+      --rose: #ff8fa8;
+      --bg0: #05070c;
+      --bg1: #0b1220;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: var(--bg0); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { display: block; width: 100vw; height: 100vh; background: radial-gradient(circle at 50% 46%, #101827 0%, #05070c 62%, #020308 100%); }
+    .panel {
+      position: fixed; left: 24px; top: 22px; z-index: 3; max-width: min(560px, calc(100vw - 48px));
+      color: var(--ink); pointer-events: none; text-shadow: 0 2px 18px rgba(0,0,0,.55);
+    }
+    h1 { margin: 0 0 7px; font-size: clamp(22px, 3.1vw, 44px); font-weight: 650; letter-spacing: -0.035em; }
+    .zh { display: block; margin-top: 1px; color: var(--gold); font-weight: 520; }
+    .sub { margin-top: 10px; color: var(--muted); font-size: clamp(12px, 1.22vw, 15px); line-height: 1.62; max-width: 52em; }
+    .legend {
+      position: fixed; left: 24px; bottom: 22px; z-index: 3; color: #c8d9ec; font-size: 12px; line-height: 1.7;
+      padding: 12px 14px; border: 1px solid rgba(159, 208, 255, .16); border-radius: 16px;
+      background: linear-gradient(180deg, rgba(7, 13, 24, .62), rgba(7, 13, 24, .36)); backdrop-filter: blur(10px);
+      box-shadow: 0 18px 52px rgba(0,0,0,.35); max-width: min(520px, calc(100vw - 48px));
+    }
+    .legend b { color: var(--gold); font-weight: 650; }
+    .sound {
+      position: fixed; right: 22px; bottom: 22px; z-index: 4; border: 1px solid rgba(255, 211, 122, .45);
+      color: #fff4d6; background: rgba(17, 13, 6, .62); border-radius: 999px; padding: 10px 15px;
+      font: 650 12px/1 ui-sans-serif, system-ui; letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; box-shadow: 0 12px 35px rgba(0,0,0,.36); backdrop-filter: blur(12px);
+    }
+    .sound:hover { background: rgba(58, 43, 16, .72); transform: translateY(-1px); }
+    .card {
+      position: fixed; right: 22px; top: 22px; z-index: 3; width: min(380px, calc(100vw - 44px));
+      color: #dfebf9; border: 1px solid rgba(127, 240, 231, .22); border-radius: 19px;
+      padding: 14px 16px 15px; background: linear-gradient(180deg, rgba(5, 12, 23, .68), rgba(5, 12, 23, .38));
+      backdrop-filter: blur(12px); box-shadow: 0 20px 70px rgba(0,0,0,.42); font-size: 12px; line-height: 1.62;
+    }
+    .card .label { color: var(--aqua); letter-spacing: .12em; text-transform: uppercase; font-size: 10px; font-weight: 700; }
+    .card .reason { margin-top: 8px; font-size: 13px; color: #f4f8ff; }
+    .card .path { margin-top: 9px; color: #ffdca0; }
+    @media (max-width: 720px) {
+      .panel { left: 16px; top: 16px; }
+      .legend { left: 16px; bottom: 72px; }
+      .card { right: 16px; top: auto; bottom: 124px; width: calc(100vw - 32px); }
+      .sound { right: 16px; bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="Interactive canvas artwork: Refusal That Explains Itself"></canvas>
+  <audio id="bgm" src="2026-07-05-refusal-that-explains-itself-bgm.mp3" preload="auto" loop autoplay></audio>
+  <section class="panel" aria-hidden="true">
+    <h1>Refusal That Explains Itself<span class="zh">会解释自己的拒绝</span></h1>
+    <div class="sub">A refusal is humane only when it leaves a reason, a witness, and a smaller door. Move through the field: the closed gates do not vanish; they answer.</div>
+  </section>
+  <section class="card" aria-live="polite">
+    <div class="label">current refusal clause</div>
+    <div id="reason" class="reason">No gate is selected yet. Approach a threshold and it will explain why it is closed.</div>
+    <div id="path" class="path">Return path: move slowly; click to place an appeal marker.</div>
+  </section>
+  <div class="legend"><b>Interaction</b> Move pointer to interrogate gates. Click to place an appeal. Keys 1–5 switch request type: enter, quote, modify, remember, sleep. Space pauses, R reseeds, H hides text, M toggles music, S saves a still frame.</div>
+  <button id="sound" class="sound" type="button" aria-pressed="true">Sound On · click if silent</button>
+
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('bgm');
+  const sound = document.getElementById('sound');
+  const reasonEl = document.getElementById('reason');
+  const pathEl = document.getElementById('path');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const seedBase = 20260705;
+  let W = 0, H = 0, t = 0, paused = false, showText = true, requestMode = 0;
+  let pointer = { x: 0, y: 0, active: false, pressure: 0 };
+  let rngState = seedBase;
+  const modes = ['enter', 'quote', 'modify', 'remember', 'sleep'];
+  const clauses = [
+    {
+      name: 'scope', zh: '范围', color: '#7ff0e7',
+      reason: 'Closed because the request is larger than the consent it carries.',
+      path: 'Ask for the smallest reversible part first.'
+    },
+    {
+      name: 'witness', zh: '见证', color: '#ffd37a',
+      reason: 'Closed because no one can later see what crossed the line.',
+      path: 'Add a visible receipt before asking again.'
+    },
+    {
+      name: 'care', zh: '照护', color: '#ff9ab1',
+      reason: 'Closed because speed would turn protection into damage.',
+      path: 'Slow the request until the fragile part remains intact.'
+    },
+    {
+      name: 'return', zh: '回返', color: '#bba6ff',
+      reason: 'Closed because there is no path back after the crossing.',
+      path: 'Design the undo route before the entrance.'
+    },
+    {
+      name: 'proportion', zh: '比例', color: '#9cffb0',
+      reason: 'Closed because the answer would be heavier than the question.',
+      path: 'Reduce the force; preserve the conversation.'
+    },
+    {
+      name: 'privacy', zh: '隐私', color: '#8fb8ff',
+      reason: 'Closed because the witness would expose what it is meant to protect.',
+      path: 'Summarize the shape without carrying the secret.'
+    }
+  ];
+  let gates = [], appeals = [];
+  function rand() { rngState = (rngState * 1664525 + 1013904223) >>> 0; return rngState / 4294967296; }
+  function resize() {
+    W = Math.floor(innerWidth); H = Math.floor(innerHeight);
+    canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    reseed(false);
+  }
+  function reseed(resetAppeals = true) {
+    rngState = seedBase + Math.floor(W * 11 + H * 17);
+    const n = Math.max(26, Math.min(56, Math.floor(W * H / 24000)));
+    gates = Array.from({ length: n }, (_, i) => {
+      const c = clauses[i % clauses.length];
+      const angle = rand() * Math.PI * 2;
+      const ring = Math.pow(rand(), .62);
+      return {
+        x: W * .5 + Math.cos(angle) * ring * W * .42 + (rand() - .5) * 34,
+        y: H * .52 + Math.sin(angle) * ring * H * .36 + (rand() - .5) * 34,
+        r: 24 + rand() * 54,
+        rot: rand() * Math.PI,
+        phase: rand() * 9,
+        clause: c,
+        open: rand() > .68,
+        type: Math.floor(rand() * modes.length)
+      };
+    });
+    if (resetAppeals) appeals = [];
+  }
+  function dist(a, b, x, y) { return Math.hypot(a - x, b - y); }
+  function nearestGate() {
+    let best = null, score = Infinity;
+    for (const g of gates) {
+      const d = dist(pointer.x || W * .5, pointer.y || H * .5, g.x, g.y) - g.r;
+      if (d < score) { score = d; best = g; }
+    }
+    return { gate: best, score };
+  }
+  function setCard(g, intensity) {
+    if (!g || !showText) return;
+    const mode = modes[requestMode];
+    const pulse = intensity > .55 ? 'The gate is answering now.' : 'The gate is waiting at the edge of attention.';
+    reasonEl.textContent = `${g.clause.name.toUpperCase()} / ${g.clause.zh}: ${g.reason} Request type: ${mode}. ${pulse}`;
+    pathEl.textContent = `Return path: ${g.clause.path}`;
+  }
+  function drawBackground() {
+    const grd = ctx.createRadialGradient(W*.5, H*.48, 0, W*.5, H*.48, Math.max(W,H)*.72);
+    grd.addColorStop(0, '#10192a'); grd.addColorStop(.48, '#07101e'); grd.addColorStop(1, '#020309');
+    ctx.fillStyle = grd; ctx.fillRect(0,0,W,H);
+    ctx.save(); ctx.globalAlpha = .22;
+    for (let i=0;i<80;i++) {
+      const x = (i * 137.5 + Math.sin(t*.00009 + i)*55) % (W+120) - 60;
+      const y = ((i * 71.7) % (H+120)) - 60;
+      const r = 1 + (i % 7) * .27;
+      ctx.fillStyle = i % 5 ? '#67809a' : '#ffd37a';
+      ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+  function drawGate(g, selected) {
+    const d = pointer.active ? dist(pointer.x, pointer.y, g.x, g.y) : 9999;
+    const wake = Math.max(0, 1 - d / (g.r * 4.2));
+    const explain = Math.max(0, 1 - Math.abs(d - g.r) / (g.r * 1.5));
+    const breathe = .5 + .5 * Math.sin(t * .0012 + g.phase);
+    const modeMatch = g.type === requestMode ? 1 : .38;
+    const alpha = .12 + wake * .42 + selected * .28;
+    ctx.save(); ctx.translate(g.x, g.y); ctx.rotate(g.rot + Math.sin(t*.00025 + g.phase)*.08);
+    ctx.globalAlpha = alpha * modeMatch;
+    ctx.strokeStyle = g.clause.color; ctx.lineWidth = 1.2 + wake * 2.2;
+    ctx.shadowBlur = 18 + wake * 36; ctx.shadowColor = g.clause.color;
+    ctx.beginPath();
+    const sides = 6;
+    for (let i=0;i<=sides;i++) {
+      const a = i / sides * Math.PI*2 + Math.PI/6;
+      const rr = g.r * (1 + .06 * Math.sin(t*.001 + i + g.phase));
+      const x = Math.cos(a) * rr, y = Math.sin(a) * rr;
+      if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = (.08 + explain * .24) * modeMatch;
+    ctx.fillStyle = g.open ? 'rgba(127,240,231,.18)' : 'rgba(255,211,122,.16)';
+    ctx.fill();
+    ctx.globalAlpha = (.22 + wake * .5) * modeMatch;
+    ctx.beginPath(); ctx.moveTo(-g.r*.62, 0); ctx.lineTo(g.r*.62, 0); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, 0, 3 + wake*5 + breathe*2, 0, Math.PI*2); ctx.fillStyle = g.open ? '#7ff0e7' : '#ffd37a'; ctx.fill();
+    if (showText && (wake > .2 || selected)) {
+      ctx.shadowBlur = 0; ctx.globalAlpha = Math.min(1, .35 + wake);
+      ctx.fillStyle = '#eaf4ff'; ctx.font = '11px ui-sans-serif, system-ui'; ctx.textAlign = 'center';
+      ctx.fillText(g.clause.name, 0, -g.r - 11);
+      ctx.fillStyle = g.clause.color; ctx.fillText(g.open ? 'OPEN WITH RECEIPT' : 'CLOSED · REASON VISIBLE', 0, g.r + 19);
+    }
+    ctx.restore();
+    return wake;
+  }
+  function drawAppeals() {
+    for (const a of appeals) {
+      const age = (t - a.t0) / 1000;
+      const life = Math.max(0, 1 - age / 18);
+      if (life <= 0) continue;
+      ctx.save(); ctx.globalAlpha = life * .68; ctx.strokeStyle = a.color; ctx.lineWidth = 1.4; ctx.shadowColor = a.color; ctx.shadowBlur = 18;
+      ctx.beginPath(); ctx.arc(a.x, a.y, 9 + age * 8, 0, Math.PI * 2); ctx.stroke();
+      ctx.globalAlpha = life * .34; ctx.beginPath(); ctx.arc(a.x, a.y, 2 + age * 2, 0, Math.PI * 2); ctx.fillStyle = a.color; ctx.fill();
+      ctx.restore();
+    }
+    appeals = appeals.filter(a => (t - a.t0) / 1000 < 18);
+  }
+  function drawLinks(selectedGate) {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (let i=0;i<gates.length;i++) {
+      const a = gates[i];
+      for (let j=i+1;j<gates.length;j+=7) {
+        const b = gates[j];
+        const d = dist(a.x,a.y,b.x,b.y);
+        if (d < Math.min(W,H) * .34) {
+          const warm = (a === selectedGate || b === selectedGate) ? .38 : .06;
+          ctx.globalAlpha = warm * (1 - d/(Math.min(W,H)*.36));
+          ctx.strokeStyle = a.clause.color; ctx.lineWidth = .7;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+  }
+  function drawPointer(selectedGate) {
+    if (!pointer.active) return;
+    ctx.save(); ctx.globalAlpha = .52; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1; ctx.shadowBlur = 24; ctx.shadowColor = '#7ff0e7';
+    ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 28 + Math.sin(t*.004)*3, 0, Math.PI*2); ctx.stroke();
+    if (selectedGate) {
+      ctx.globalAlpha = .22; ctx.strokeStyle = selectedGate.clause.color;
+      ctx.beginPath(); ctx.moveTo(pointer.x, pointer.y); ctx.lineTo(selectedGate.x, selectedGate.y); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function frame(now) {
+    if (!paused) t = now;
+    drawBackground();
+    const { gate, score } = nearestGate();
+    drawLinks(gate);
+    let maxWake = 0;
+    for (const g of gates) maxWake = Math.max(maxWake, drawGate(g, g === gate ? 1 : 0));
+    drawAppeals(); drawPointer(gate);
+    if (gate) setCard(gate, Math.max(maxWake, 1 - Math.max(0, score) / 160));
+    requestAnimationFrame(frame);
+  }
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = 'refusal-that-explains-itself-still.png';
+    a.href = canvas.toDataURL('image/png'); a.click();
+  }
+  function updateSoundLabel() {
+    const on = !audio.paused && !audio.muted;
+    sound.setAttribute('aria-pressed', String(on));
+    sound.textContent = on ? 'Sound On' : 'Sound Off · click to start';
+  }
+  async function tryPlay() { try { audio.volume = 0.72; await audio.play(); } catch (e) {} updateSoundLabel(); }
+  sound.addEventListener('click', async () => { if (audio.paused || audio.muted) { audio.muted = false; await tryPlay(); } else { audio.pause(); updateSoundLabel(); } });
+  addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; pointer.pressure = e.pressure || .5; });
+  addEventListener('pointerleave', () => { pointer.active = false; });
+  addEventListener('pointerdown', e => {
+    pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; tryPlay();
+    const { gate } = nearestGate(); appeals.push({ x: pointer.x, y: pointer.y, t0: t, color: gate ? gate.clause.color : '#ffd37a' });
+  });
+  addEventListener('keydown', e => {
+    const k = e.key.toLowerCase();
+    if (k === ' ') { paused = !paused; e.preventDefault(); }
+    if (k === 'r') reseed(true);
+    if (k === 'h') showText = !showText;
+    if (k === 's') saveStill();
+    if (k === 'm') sound.click();
+    if ('12345'.includes(k)) requestMode = Number(k) - 1;
+  });
+  audio.addEventListener('play', updateSoundLabel); audio.addEventListener('pause', updateSoundLabel);
+  resize(); addEventListener('resize', resize); tryPlay(); requestAnimationFrame(frame);
+})();
+</script>
+
+
+
+</body>
+</html>

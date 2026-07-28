@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exception Oxygen / 例外之氧</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #060913; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .panel {
+      position: fixed; left: 22px; top: 18px; z-index: 3; max-width: 520px;
+      color: rgba(237, 247, 255, .86); letter-spacing: .01em; pointer-events: none;
+      text-shadow: 0 1px 22px rgba(42, 202, 255, .22);
+    }
+    .panel h1 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 58px); line-height: .95; font-weight: 650; }
+    .panel p { margin: 0; font-size: 13px; line-height: 1.55; color: rgba(215, 231, 244, .64); }
+    .controls { position: fixed; right: 18px; bottom: 18px; z-index: 4; display: flex; gap: 10px; align-items: center; }
+    button {
+      border: 1px solid rgba(157, 220, 255, .28); background: rgba(9, 16, 31, .58); color: rgba(235, 248, 255, .88);
+      border-radius: 999px; padding: 10px 14px; backdrop-filter: blur(14px); cursor: pointer;
+      box-shadow: 0 0 24px rgba(55, 184, 255, .10) inset, 0 10px 30px rgba(0,0,0,.22);
+    }
+    .legend { position: fixed; left: 22px; bottom: 18px; z-index: 3; color: rgba(219, 237, 249, .48); font-size: 12px; letter-spacing: .02em; }
+    @media (max-width: 720px) { .panel { max-width: calc(100vw - 44px); } .legend { display: none; } }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <audio id="bgm" src="./2026-06-05-exception-oxygen-bgm.mp3" preload="auto" autoplay loop></audio>
+  <section class="panel" aria-label="artwork title">
+    <h1>Exception Oxygen<br><span style="font-weight:500; color:rgba(154,222,255,.76)">例外之氧</span></h1>
+    <p>Rules behave like a vessel. Exceptions are drawn as oxygen entering the sealed field: enough breath keeps the protocol alive; too much leak teaches the vessel where it is no longer honest.</p>
+  </section>
+  <div class="legend">Move: steer the breath · Click: release an exception · Space: pause · R: reset · S: save still</div>
+  <div class="controls"><button id="sound" type="button" aria-pressed="true">BGM: on</button></div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const bgm = document.getElementById('bgm');
+  const sound = document.getElementById('sound');
+  const TAU = Math.PI * 2;
+  const SEED = 20260605;
+  let dpr = Math.min(2, window.devicePixelRatio || 1);
+  let w = 0, h = 0, t = 0, paused = false, stress = 0.34;
+  let pointer = { x: 0.5, y: 0.52, active: false };
+  let breath = [], vessels = [], sparks = [];
+
+  function mulberry32(a) { return function() { let x = a += 0x6D2B79F5; x = Math.imul(x ^ x >>> 15, x | 1); x ^= x + Math.imul(x ^ x >>> 7, x | 61); return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+  let rand = mulberry32(SEED);
+  const lerp = (a,b,p) => a + (b-a)*p;
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = Math.floor(innerWidth); h = Math.floor(innerHeight);
+    canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function reset() {
+    rand = mulberry32(SEED);
+    breath = []; vessels = []; sparks = []; stress = 0.34; t = 0;
+    const cx = w * 0.5, cy = h * 0.53;
+    const rings = 9;
+    for (let r = 0; r < rings; r++) {
+      const radius = Math.min(w, h) * (0.14 + r * 0.036);
+      vessels.push({ radius, phase: rand() * TAU, wobble: 0.08 + rand() * 0.16, cells: 150 + r * 10, permeability: 0.16 + r * 0.038 });
+    }
+    for (let i = 0; i < 145; i++) breath.push(makeBreath(rand() * w, rand() * h, rand() * 0.8));
+    for (let i = 0; i < 28; i++) sparks.push({ a: rand()*TAU, r: Math.min(w,h)*(0.18 + rand()*0.26), life: rand(), tone: rand() });
+    pointer.x = 0.5; pointer.y = 0.52;
+  }
+
+  function makeBreath(x, y, bias=0) {
+    return { x, y, px: x, py: y, vx: (rand()-.5)*0.34, vy: (rand()-.5)*0.34, r: 1.2 + rand()*4.8, spin: rand()*TAU, hue: lerp(176, 214, rand()), exception: rand() < 0.18 + bias * 0.12, age: rand()*400 };
+  }
+
+  function releaseException(x = pointer.x * w, y = pointer.y * h) {
+    for (let i = 0; i < 22; i++) {
+      const a = rand()*TAU, rr = rand()*52;
+      const b = makeBreath(x + Math.cos(a)*rr, y + Math.sin(a)*rr, 1);
+      b.vx += Math.cos(a) * (0.9 + rand()*1.6); b.vy += Math.sin(a) * (0.9 + rand()*1.6);
+      b.exception = true; b.r *= 1.4;
+      breath.push(b);
+    }
+    stress = clamp(stress + 0.055, 0.08, 0.88);
+  }
+
+  function fieldForce(x, y, i) {
+    const cx = w*0.5, cy = h*0.53;
+    const dx = x - cx, dy = y - cy;
+    const dist = Math.hypot(dx, dy) + 1;
+    const angle = Math.atan2(dy, dx);
+    const orbit = 0.00068 * (1 + stress);
+    const px = pointer.x*w - x, py = pointer.y*h - y;
+    const pd = Math.hypot(px, py) + 1;
+    const pull = pointer.active ? Math.min(0.0018, 68/(pd*pd)) : Math.min(0.0009, 28/(pd*pd));
+    const membrane = Math.sin(dist * 0.018 - t * 0.026 + Math.sin(angle*7 + t*.01));
+    return {
+      x: -dy * orbit + px * pull + Math.cos(angle * 3 + t*.012 + i) * 0.015 - dx * 0.000012 * membrane,
+      y: dx * orbit + py * pull + Math.sin(angle * 2 - t*.014 + i) * 0.015 - dy * 0.000012 * membrane
+    };
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(w*.5, h*.55, Math.min(w,h)*.04, w*.5, h*.55, Math.max(w,h)*.72);
+    g.addColorStop(0, '#102139'); g.addColorStop(.42, '#09111f'); g.addColorStop(1, '#050711');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i=0; i<70; i++) {
+      const x = (Math.sin(i*89.17 + SEED)*0.5+0.5)*w;
+      const y = (Math.sin(i*47.31 + 13)*0.5+0.5)*h;
+      const a = .03 + .045*Math.sin(t*.007+i);
+      ctx.fillStyle = `rgba(114, 205, 255, ${a})`;
+      ctx.beginPath(); ctx.arc(x,y, .7 + (i%5)*.25, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawVessels() {
+    const cx = w*.5, cy = h*.53;
+    ctx.save();
+    ctx.translate(cx, cy);
+    for (let r=0; r<vessels.length; r++) {
+      const v = vessels[r];
+      ctx.beginPath();
+      for (let i=0; i<=v.cells; i++) {
+        const p = i/v.cells, a = p*TAU;
+        const mouseGate = Math.cos(a - Math.atan2(pointer.y*h-cy, pointer.x*w-cx));
+        const leak = Math.max(0, mouseGate) * stress * 16;
+        const wave = Math.sin(a*5 + v.phase + t*.01) * v.wobble + Math.sin(a*11 - t*.008) * .055;
+        const rr = v.radius * (1 + wave*.18) + leak * Math.sin(t*.03 + r);
+        const x = Math.cos(a)*rr, y = Math.sin(a)*rr;
+        if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      const alpha = .11 + r*.018;
+      ctx.strokeStyle = `rgba(${110+r*9}, ${190+r*3}, 255, ${alpha})`;
+      ctx.lineWidth = 1 + r*.12;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawBreath() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const limit = 230;
+    if (breath.length > limit) breath.splice(0, breath.length - limit);
+    for (let i=0; i<breath.length; i++) {
+      const b = breath[i]; b.age++;
+      b.px = b.x; b.py = b.y;
+      const f = fieldForce(b.x,b.y,i*.07);
+      b.vx = (b.vx + f.x * (b.exception ? 1.55 : 1)) * .992;
+      b.vy = (b.vy + f.y * (b.exception ? 1.55 : 1)) * .992;
+      b.x += b.vx; b.y += b.vy;
+      if (b.x < -80 || b.x > w+80 || b.y < -80 || b.y > h+80) Object.assign(b, makeBreath(rand()*w, rand()*h));
+      const pulse = .58 + .42*Math.sin(t*.045 + b.spin + b.age*.02);
+      const alpha = b.exception ? .28 : .13;
+      ctx.strokeStyle = `hsla(${b.hue}, 92%, ${b.exception?70:62}%, ${alpha})`;
+      ctx.lineWidth = (b.exception ? 1.65 : .85) * pulse;
+      ctx.beginPath(); ctx.moveTo(b.px,b.py); ctx.lineTo(b.x,b.y); ctx.stroke();
+      const rg = ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r*9);
+      rg.addColorStop(0, `hsla(${b.hue}, 95%, 74%, ${b.exception ? .24 : .10})`);
+      rg.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(b.x,b.y,b.r*9,0,TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawCracksAndLabels() {
+    const cx = w*.5, cy = h*.53;
+    ctx.save(); ctx.translate(cx,cy); ctx.globalCompositeOperation = 'screen';
+    for (let i=0; i<sparks.length; i++) {
+      const s = sparks[i];
+      const wake = Math.sin(t*.018 + i*1.7) * 0.5 + 0.5;
+      const a = s.a + Math.sin(t*.004+i)*.12;
+      const rr = s.r * (1 + stress*.22*wake);
+      const x = Math.cos(a)*rr, y = Math.sin(a)*rr;
+      ctx.strokeStyle = `rgba(255, ${180 + s.tone*45}, ${112 + s.tone*60}, ${0.05 + stress*.18*wake})`;
+      ctx.lineWidth = .8 + stress*1.7;
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      for (let k=1;k<6;k++) {
+        const ka = a + (rand()-.5)*.04 + Math.sin(k+t*.01+i)*.045;
+        ctx.lineTo(x + Math.cos(ka)*k*12, y + Math.sin(ka)*k*12);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    const ratio = clamp(stress, 0, 1);
+    ctx.save();
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle = 'rgba(206,230,245,.46)';
+    ctx.fillText('breath / leak ratio  ' + ratio.toFixed(3), 24, h - 58);
+    ctx.fillText(ratio < .62 ? 'exception = oxygen' : 'exception = vessel audit', 24, h - 38);
+    ctx.restore();
+  }
+
+  function draw() {
+    if (!paused) t++;
+    stress = clamp(stress * .9994 + (pointer.active ? .00018 : -.00006), .16, .86);
+    drawBackground(); drawVessels(); drawBreath(); drawCracksAndLabels();
+    requestAnimationFrame(draw);
+  }
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = '2026-06-05-exception-oxygen-still.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  async function setSound(on) {
+    if (!on) { bgm.pause(); sound.textContent = 'BGM: off'; sound.setAttribute('aria-pressed','false'); return; }
+    try { bgm.volume = 0.36; await bgm.play(); sound.textContent = 'BGM: on'; sound.setAttribute('aria-pressed','true'); }
+    catch (err) { sound.textContent = 'BGM: click'; sound.setAttribute('aria-pressed','true'); }
+  }
+  sound.addEventListener('click', () => { if (!bgm.paused) setSound(false); else setSound(true); });
+  window.addEventListener('pointerdown', () => setSound(true), { once: true });
+  window.addEventListener('keydown', () => setSound(true), { once: true });
+
+  window.addEventListener('resize', () => { resize(); reset(); });
+  window.addEventListener('pointermove', e => { pointer.x = e.clientX / w; pointer.y = e.clientY / h; pointer.active = true; });
+  window.addEventListener('pointerleave', () => { pointer.active = false; });
+  window.addEventListener('click', e => { if (e.target === sound) return; releaseException(e.clientX, e.clientY); });
+  window.addEventListener('keydown', e => {
+    if (e.code === 'Space') { paused = !paused; e.preventDefault(); }
+    if (e.key === 'r' || e.key === 'R') reset();
+    if (e.key === 's' || e.key === 'S') saveStill();
+  });
+
+  resize(); reset(); draw(); setSound(true);
+  window.__artReady = true;
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consent Escrow / 同意托管</title>
+  <style>
+    :root { color-scheme: dark; --ink:#eaf7ff; --muted:#8aa5b8; --cyan:#7de8ff; --gold:#ffd891; --rose:#ff89bd; --bg:#050912; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; overflow:hidden; background: radial-gradient(circle at 50% 30%, #102039 0%, #060913 52%, #02040a 100%); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; color:var(--ink); }
+    canvas { display:block; width:100vw; height:100vh; }
+    .panel { position:fixed; left:22px; top:20px; max-width:min(520px, calc(100vw - 44px)); padding:18px 20px 16px; border:1px solid rgba(125,232,255,.22); border-radius:22px; background:linear-gradient(135deg, rgba(5,9,18,.78), rgba(8,16,30,.42)); backdrop-filter: blur(16px); box-shadow: 0 24px 90px rgba(0,0,0,.34); }
+    h1 { margin:0 0 8px; font-size:clamp(26px, 4vw, 54px); letter-spacing:-.045em; line-height:.95; }
+    .meta { color:var(--muted); font-size:13px; line-height:1.55; }
+    .line { width:100%; height:1px; margin:12px 0; background:linear-gradient(90deg, transparent, rgba(125,232,255,.6), transparent); }
+    .controls { position:fixed; right:18px; bottom:18px; display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; max-width:min(680px, calc(100vw - 36px)); }
+    button { appearance:none; border:1px solid rgba(234,247,255,.28); color:var(--ink); background:rgba(7,13,24,.65); border-radius:999px; padding:10px 14px; font:600 13px/1 ui-sans-serif, system-ui; cursor:pointer; backdrop-filter: blur(12px); box-shadow:0 10px 30px rgba(0,0,0,.28); }
+    button[aria-pressed="true"] { border-color:rgba(125,232,255,.62); box-shadow:0 0 0 1px rgba(125,232,255,.18), 0 0 34px rgba(125,232,255,.14); }
+    .ledger { position:fixed; left:22px; bottom:18px; width:min(420px, calc(100vw - 44px)); padding:14px 16px; border-radius:18px; border:1px solid rgba(255,216,145,.25); background:rgba(7,10,16,.62); backdrop-filter: blur(16px); font-size:12px; color:#c9dceb; transition:opacity .25s ease, transform .25s ease; }
+    .ledger.hide { opacity:0; transform:translateY(16px); pointer-events:none; }
+    .row { display:flex; justify-content:space-between; gap:14px; padding:4px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .row:last-child { border-bottom:0; }
+    .zh { color:#b7cbda; }
+    @media (max-width: 720px) { .panel { top:12px; left:12px; padding:14px; } .ledger { left:12px; bottom:74px; } .controls { right:12px; bottom:12px; } }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <section class="panel" aria-label="Artwork introduction">
+    <h1>Consent Escrow<br><span class="zh">同意托管</span></h1>
+    <div class="meta">An interactive field where consent is not assumed, spent, or hidden. It is held in a visible escrow chamber until exceptions can be negotiated without smuggling debt into trust.</div>
+    <div class="line"></div>
+    <div class="meta zh">移动指针改变托管库压力；点击提交一次“同意请求”。按 V 显示/隐藏账本，Space 暂停，R 重置，M 音乐开关，S 保存静帧。</div>
+  </section>
+  <section id="ledger" class="ledger" aria-label="Escrow ledger">
+    <div class="row"><span>escrowed consent / 托管同意</span><strong id="escrowed">0</strong></div>
+    <div class="row"><span>pending exceptions / 待协商例外</span><strong id="pending">0</strong></div>
+    <div class="row"><span>returned without capture / 未被占用而返还</span><strong id="returned">0</strong></div>
+    <div class="row"><span>relationship heat / 关系热度</span><strong id="heat">0%</strong></div>
+  </section>
+  <div class="controls">
+    <button id="sound" type="button" aria-pressed="true">BGM on / 背景音乐开</button>
+    <button id="view" type="button" aria-pressed="true">Ledger visible / 账本可见</button>
+    <button id="pause" type="button" aria-pressed="false">Pause / 暂停</button>
+  </div>
+  <audio id="bgm" src="2026-06-10-consent-escrow-bgm.mp3" preload="auto" loop autoplay></audio>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  const seed = 20260610;
+  let W = 0, H = 0, t = 0, paused = false, showLedger = true;
+  let soundWanted = true;
+  const pointer = { x: 0.54, y: 0.46, down: false, influence: 0 };
+  const counts = { escrowed: 18, pending: 5, returned: 3, heat: 22 };
+  const audio = document.getElementById('bgm');
+  const soundButton = document.getElementById('sound');
+  const viewButton = document.getElementById('view');
+  const pauseButton = document.getElementById('pause');
+  const ledger = document.getElementById('ledger');
+  const $ = id => document.getElementById(id);
+
+  function mulberry32(a){ return function(){ let r = a += 0x6D2B79F5; r = Math.imul(r ^ r >>> 15, r | 1); r ^= r + Math.imul(r ^ r >>> 7, r | 61); return ((r ^ r >>> 14) >>> 0) / 4294967296; }; }
+  const rand = mulberry32(seed);
+  const tokens = Array.from({ length: 92 }, (_, i) => ({
+    id: i,
+    a: rand() * Math.PI * 2,
+    r: 70 + rand() * 360,
+    s: .25 + rand() * 1.4,
+    phase: rand() * Math.PI * 2,
+    kind: rand() < .54 ? 'escrow' : rand() < .78 ? 'pending' : 'return',
+    charge: .45 + rand() * .75,
+    text: ['ask', 'hold', 'return', 'expire', 'witness', 'renegotiate'][Math.floor(rand()*6)]
+  }));
+  const filaments = Array.from({ length: 54 }, (_, i) => ({
+    a: rand() * Math.PI * 2,
+    r: 120 + rand() * 420,
+    drift: (rand() - .5) * .0018,
+    width: .25 + rand() * 1.4,
+    hue: rand()
+  }));
+
+  function resize(){ W = Math.floor(innerWidth * DPR); H = Math.floor(innerHeight * DPR); canvas.width = W; canvas.height = H; ctx.setTransform(DPR,0,0,DPR,0,0); pointer.x = pointer.x || .54; pointer.y = pointer.y || .46; }
+  addEventListener('resize', resize, { passive:true }); resize();
+
+  function setPointer(e){ const p = e.touches ? e.touches[0] : e; pointer.x = p.clientX / innerWidth; pointer.y = p.clientY / innerHeight; pointer.influence = Math.min(1, pointer.influence + .05); }
+  addEventListener('pointermove', setPointer, { passive:true });
+  addEventListener('pointerdown', e => { setPointer(e); pointer.down = true; deposit(); });
+  addEventListener('pointerup', () => pointer.down = false);
+
+  function deposit(){
+    counts.pending += 1;
+    counts.escrowed += 1;
+    counts.heat = Math.min(96, counts.heat + 5 + Math.round(pointer.y * 7));
+    tokens.push({ id: tokens.length, a: pointer.x * Math.PI * 2, r: 80 + pointer.y * 360, s: 1.8, phase: t, kind:'pending', charge:1.4, text:'request' });
+    if (tokens.length > 130) tokens.splice(0, tokens.length - 130);
+    updateLedger();
+  }
+
+  function updateLedger(){
+    $('escrowed').textContent = counts.escrowed;
+    $('pending').textContent = counts.pending;
+    $('returned').textContent = counts.returned;
+    $('heat').textContent = `${Math.round(counts.heat)}%`;
+  }
+  updateLedger();
+
+  function toggleMusic(){
+    soundWanted = !soundWanted;
+    soundButton.setAttribute('aria-pressed', String(soundWanted));
+    soundButton.textContent = soundWanted ? 'BGM on / 背景音乐开' : 'BGM off / 背景音乐关';
+    if (soundWanted) audio.play().catch(() => { soundButton.textContent = 'Click to start BGM / 点击启动音乐'; }); else audio.pause();
+  }
+  soundButton.addEventListener('click', toggleMusic);
+  viewButton.addEventListener('click', () => { showLedger = !showLedger; ledger.classList.toggle('hide', !showLedger); viewButton.setAttribute('aria-pressed', String(showLedger)); viewButton.textContent = showLedger ? 'Ledger visible / 账本可见' : 'Ledger hidden / 隐藏账本'; });
+  pauseButton.addEventListener('click', () => { paused = !paused; pauseButton.setAttribute('aria-pressed', String(paused)); pauseButton.textContent = paused ? 'Resume / 继续' : 'Pause / 暂停'; });
+  document.addEventListener('keydown', e => {
+    if (e.key === ' ') { e.preventDefault(); pauseButton.click(); }
+    if (e.key.toLowerCase() === 'v' || e.key.toLowerCase() === 'd') viewButton.click();
+    if (e.key.toLowerCase() === 'm') soundButton.click();
+    if (e.key.toLowerCase() === 'r') { counts.escrowed = 18; counts.pending = 5; counts.returned = 3; counts.heat = 22; updateLedger(); }
+    if (e.key.toLowerCase() === 's') { const a = document.createElement('a'); a.download = 'consent-escrow-still.png'; a.href = canvas.toDataURL('image/png'); a.click(); }
+  });
+  audio.volume = 0.55;
+  audio.play().catch(() => { soundButton.textContent = 'Click to start BGM / 点击启动音乐'; });
+
+  function glowText(text, x, y, color, size = 12, alpha = .7){
+    ctx.save(); ctx.globalAlpha = alpha; ctx.font = `${size}px ui-monospace, SFMono-Regular, Menlo, monospace`; ctx.textAlign = 'center'; ctx.shadowColor = color; ctx.shadowBlur = 14; ctx.fillStyle = color; ctx.fillText(text, x, y); ctx.restore();
+  }
+
+  function draw(){
+    if (!paused) t += 0.011;
+    pointer.influence *= .965;
+    counts.heat = Math.max(8, counts.heat - .012 + counts.pending * .0012);
+    if (!paused && Math.floor(t * 100) % 930 === 0 && counts.pending > 0) { counts.pending--; counts.returned++; counts.heat = Math.max(8, counts.heat - 4); updateLedger(); }
+    const w = innerWidth, h = innerHeight, cx = w * .52, cy = h * .53;
+    const px = pointer.x * w, py = pointer.y * h;
+    const bg = ctx.createRadialGradient(px, py, 10, cx, cy, Math.max(w,h)*.72);
+    bg.addColorStop(0, `rgba(${32 + counts.heat}, ${48 + counts.heat*.8}, ${82 + counts.heat*.35}, 1)`);
+    bg.addColorStop(.38, '#071126'); bg.addColorStop(1, '#02040a');
+    ctx.fillStyle = bg; ctx.fillRect(0,0,w,h);
+
+    ctx.save(); ctx.translate(cx, cy);
+    const pressure = (pointer.x - .5) * .7 + Math.sin(t*.7)*.08;
+    const breathe = 1 + Math.sin(t*1.2) * .018;
+    for (let i=0; i<9; i++){
+      const rr = (84 + i*42) * breathe;
+      ctx.beginPath();
+      ctx.ellipse(Math.sin(t*.13+i)*18, Math.cos(t*.17+i)*14, rr * (1 + pressure*.09), rr * (0.68 - pressure*.05), pressure + i*.085, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(${90+i*11}, ${205-i*8}, 255, ${0.13 + i*.018})`;
+      ctx.lineWidth = i === 4 ? 1.6 : .8;
+      ctx.shadowColor = '#7de8ff'; ctx.shadowBlur = i === 4 ? 18 : 4;
+      ctx.stroke();
+    }
+
+    filaments.forEach((f, i) => {
+      f.a += f.drift * (1 + counts.heat/90);
+      const a1 = f.a + Math.sin(t*.2+i)*.13;
+      const a2 = a1 + Math.PI + Math.sin(t*.17+i*.3)*.24;
+      const r = f.r * (.72 + .05*Math.sin(t+f.hue*8));
+      const x1 = Math.cos(a1)*r, y1 = Math.sin(a1)*r*.72;
+      const x2 = Math.cos(a2)*r, y2 = Math.sin(a2)*r*.72;
+      const mx = (x1+x2)/2 + Math.sin(t+i)*90*pressure, my = (y1+y2)/2 + Math.cos(t*.7+i)*40;
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.quadraticCurveTo(mx,my,x2,y2);
+      ctx.strokeStyle = f.hue < .5 ? `rgba(125,232,255,${.08+f.width*.035})` : `rgba(255,216,145,${.06+f.width*.03})`;
+      ctx.lineWidth = f.width; ctx.shadowColor = f.hue < .5 ? '#7de8ff' : '#ffd891'; ctx.shadowBlur = 10; ctx.stroke();
+    });
+
+    tokens.forEach((p, i) => {
+      const pull = Math.hypot(px - cx, py - cy) / Math.max(w,h);
+      const a = p.a + t * .08 * p.s + Math.sin(t*.3 + p.phase) * .12 + pressure * .3;
+      const rr = p.r * (1 + .08*Math.sin(t*p.s + p.phase)) * (1 + pull*.18);
+      const x = Math.cos(a)*rr + (px-cx)*.055*p.charge;
+      const y = Math.sin(a)*rr*.70 + (py-cy)*.045*p.charge;
+      const pending = p.kind === 'pending';
+      const returning = p.kind === 'return';
+      const color = pending ? '#ff89bd' : returning ? '#ffd891' : '#7de8ff';
+      ctx.beginPath(); ctx.arc(x, y, pending ? 5.2 : returning ? 4.4 : 3.2, 0, Math.PI*2);
+      ctx.fillStyle = pending ? 'rgba(255,137,189,.88)' : returning ? 'rgba(255,216,145,.82)' : 'rgba(125,232,255,.76)';
+      ctx.shadowColor = color; ctx.shadowBlur = pending ? 22 : 14; ctx.fill();
+      if ((i + Math.floor(t*8)) % 17 === 0) glowText(p.text, x, y - 14, color, 10, .55);
+    });
+
+    const heatR = 36 + counts.heat * 2.7;
+    const grad = ctx.createRadialGradient(0,0,8,0,0,heatR);
+    grad.addColorStop(0, 'rgba(255,255,255,.92)'); grad.addColorStop(.18, 'rgba(125,232,255,.42)'); grad.addColorStop(.55, 'rgba(255,216,145,.12)'); grad.addColorStop(1, 'rgba(255,137,189,0)');
+    ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(0,0,heatR,0,Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(234,247,255,.42)'; ctx.lineWidth = 1; ctx.setLineDash([7, 8]); ctx.beginPath(); ctx.arc(0,0,122 + Math.sin(t)*6,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+    glowText('CONSENT HELD ≠ CONSENT SPENT', 0, -8, '#eaf7ff', 13, .72);
+    glowText('同意被托管 ≠ 同意被消耗', 0, 15, '#ffd891', 13, .72);
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha = .45;
+    ctx.strokeStyle = 'rgba(125,232,255,.25)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(px - 18, py); ctx.lineTo(px + 18, py); ctx.moveTo(px, py - 18); ctx.lineTo(px, py + 18); ctx.stroke();
+    ctx.globalAlpha = .68; ctx.fillStyle = '#eaf7ff'; ctx.font = '11px ui-monospace, monospace'; ctx.fillText('negotiation pressure', Math.min(w-170, px+22), Math.max(28, py-14));
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+
+
+</body>
+</html>

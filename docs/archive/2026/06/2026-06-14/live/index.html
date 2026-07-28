@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Witness Audit / 见证审计</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f6f1df; --muted:#aeb8ca; --cyan:#8fe6ff; --gold:#f7cf76; --violet:#b9a7ff; --red:#ff6d75; --bg:#020308; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; cursor: crosshair; }
+    .panel { position:fixed; left:22px; top:20px; width:min(500px, calc(100vw - 44px)); padding:18px 20px; border:1px solid rgba(143,230,255,.18); border-radius:24px; background:linear-gradient(135deg, rgba(4,7,14,.84), rgba(4,7,14,.32)); backdrop-filter: blur(14px); box-shadow: 0 18px 80px rgba(0,0,0,.36); pointer-events:none; }
+    .eyebrow { color:var(--cyan); letter-spacing:.16em; text-transform:uppercase; font-size:11px; }
+    h1 { margin:8px 0 8px; font-size:clamp(34px, 6vw, 78px); line-height:.92; letter-spacing:-.055em; }
+    .zh { color:#d8ecff; font-weight:600; letter-spacing:.04em; }
+    p { margin:10px 0 0; color:var(--muted); line-height:1.48; font-size:14px; }
+    .quote { color:#f7cf76; }
+    .hud { position:fixed; right:20px; top:20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    button { border:1px solid rgba(246,241,223,.22); color:var(--ink); background:rgba(6,8,15,.62); padding:10px 12px; border-radius:999px; font:600 12px/1 system-ui, sans-serif; letter-spacing:.04em; cursor:pointer; backdrop-filter: blur(10px); box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+    button:hover { border-color:rgba(143,230,255,.55); }
+    .meters { position:fixed; left:22px; bottom:20px; width:min(620px, calc(100vw - 44px)); display:grid; grid-template-columns: 1fr auto; gap:10px 14px; align-items:center; color:var(--muted); font-size:12px; letter-spacing:.03em; }
+    .bar { height:9px; overflow:hidden; border-radius:999px; border:1px solid rgba(143,230,255,.2); background:rgba(255,255,255,.045); }
+    .fill { height:100%; width:0%; box-shadow:0 0 24px rgba(143,230,255,.45); }
+    #visibleFill { background:linear-gradient(90deg, var(--violet), var(--cyan)); }
+    #integrityFill { background:linear-gradient(90deg, var(--red), var(--gold)); }
+    .caption { position:fixed; right:22px; bottom:18px; max-width:min(520px, calc(100vw - 44px)); color:#d7c990; font-size:13px; text-align:right; text-shadow:0 2px 18px rgba(0,0,0,.7); }
+    audio { display:none; }
+    @media (max-width: 760px) { .panel { top:76px; } .caption { display:none; } .hud { left:20px; right:20px; justify-content:flex-end; } }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <section class="panel" aria-label="Artwork description">
+    <div class="eyebrow">Granted Hours · 2026-06-14 · witness / audit</div>
+    <h1>Witness Audit<br><span class="zh">见证审计</span></h1>
+    <p>Move the witness cone. The field compares visible compliance with quiet integrity in the blind zones.</p>
+    <p class="quote">问责失败的时刻，是它把系统训练得更爱镜头，而不是更爱真相。</p>
+  </section>
+  <div class="hud">
+    <button id="sound" type="button" aria-pressed="true">BGM: on</button>
+    <button id="pause" type="button" aria-pressed="false">Pause</button>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <div class="meters" aria-label="Audit meters">
+    <div class="bar"><div class="fill" id="visibleFill"></div></div><div id="visibleScore">witnessed 0%</div>
+    <div class="bar"><div class="fill" id="integrityFill"></div></div><div id="integrityScore">blind-zone integrity 0%</div>
+  </div>
+  <div class="caption">Space pause · R reset · S save still · click places audit mark / 点击放置审计标记</div>
+  <audio id="bgm" src="./2026-06-14-witness-audit-bgm.mp3" preload="auto" loop autoplay></audio>
+<script>
+(() => {
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const visibleFill = document.getElementById('visibleFill');
+  const integrityFill = document.getElementById('integrityFill');
+  const visibleScore = document.getElementById('visibleScore');
+  const integrityScore = document.getElementById('integrityScore');
+  const bgm = document.getElementById('bgm');
+  const soundButton = document.getElementById('sound');
+  const pauseButton = document.getElementById('pause');
+  const resetButton = document.getElementById('reset');
+  const seedBase = 20260614;
+  let W = 0, H = 0, D = 1, t = 0, paused = false, soundOn = true;
+  let pointer = { x: 0.64, y: 0.48, active:false };
+  let rand, nodes = [], marks = [], motes = [], visible = 0, integrity = 0;
+
+  function mulberry32(a) { return function() { let x = a += 0x6D2B79F5; x = Math.imul(x ^ x >>> 15, x | 1); x ^= x + Math.imul(x ^ x >>> 7, x | 61); return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+  const clamp = (n,a,b) => Math.max(a, Math.min(b,n));
+  const lerp = (a,b,n) => a + (b-a)*n;
+  const TAU = Math.PI * 2;
+
+  function resize() {
+    D = Math.min(2, window.devicePixelRatio || 1);
+    W = canvas.width = Math.floor(innerWidth * D);
+    H = canvas.height = Math.floor(innerHeight * D);
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(D, 0, 0, D, 0, 0);
+  }
+
+  function makeNode(i) {
+    const band = i % 5;
+    return {
+      x: 0.11 + rand()*0.78,
+      y: 0.15 + rand()*0.72,
+      r: 12 + rand()*22,
+      phase: rand()*TAU,
+      honesty: 0.25 + rand()*0.75,
+      cameraLove: 0.1 + rand()*0.8,
+      band,
+      seen: 0,
+      quiet: 0
+    };
+  }
+
+  function reset() {
+    rand = mulberry32(seedBase);
+    nodes = Array.from({length: 54}, (_, i) => makeNode(i));
+    motes = Array.from({length: 260}, () => ({ x: rand(), y: rand(), z: .35 + rand()*1.8, p: rand()*TAU }));
+    marks = [
+      { x:.32, y:.63, age:70, radius:62 },
+      { x:.55, y:.42, age:140, radius:86 },
+      { x:.78, y:.58, age:22, radius:54 }
+    ];
+    visible = 0;
+    integrity = 0;
+  }
+
+  function background() {
+    const g = ctx.createRadialGradient(innerWidth*.54, innerHeight*.45, 0, innerWidth*.5, innerHeight*.5, Math.max(innerWidth, innerHeight)*.84);
+    g.addColorStop(0, '#17233a'); g.addColorStop(.44, '#080d18'); g.addColorStop(1, '#020308');
+    ctx.fillStyle = g; ctx.fillRect(0,0,innerWidth,innerHeight);
+    ctx.save();
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = '#5f6f92'; ctx.lineWidth = 1;
+    for (let k=0; k<8; k++) {
+      const y = innerHeight * (0.12 + k*0.12) + Math.sin(t*.00055 + k)*18;
+      ctx.beginPath();
+      for (let x=-40; x<=innerWidth+40; x+=40) {
+        const yy = y + Math.sin(x*.008 + k*1.7 + t*.0007) * (18 + k*2);
+        if (x === -40) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function coneGeometry() {
+    const ox = pointer.x * innerWidth;
+    const oy = pointer.y * innerHeight;
+    const targetAngle = Math.atan2(oy - innerHeight*.5, ox - innerWidth*.5);
+    const baseAngle = targetAngle + Math.sin(t*.00045)*0.2;
+    const width = 0.56 + Math.sin(t*.00031)*0.1;
+    return { ox, oy, angle: baseAngle, width };
+  }
+
+  function angleDiff(a,b) {
+    let d = (a - b + Math.PI) % TAU - Math.PI;
+    return d < -Math.PI ? d + TAU : d;
+  }
+
+  function drawCone(c) {
+    const cx = innerWidth*.5, cy = innerHeight*.5;
+    const far = Math.max(innerWidth, innerHeight) * 1.15;
+    const a1 = c.angle - c.width;
+    const a2 = c.angle + c.width;
+    const g = ctx.createLinearGradient(cx, cy, c.ox, c.oy);
+    g.addColorStop(0, 'rgba(143,230,255,.05)');
+    g.addColorStop(.55, 'rgba(143,230,255,.22)');
+    g.addColorStop(1, 'rgba(247,207,118,.08)');
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(a1)*far, cy + Math.sin(a1)*far);
+    ctx.lineTo(cx + Math.cos(a2)*far, cy + Math.sin(a2)*far);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(216,247,255,.22)'; ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawMotes() {
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (const m of motes) {
+      const x = (m.x * innerWidth + Math.sin(t*.00025*m.z + m.p)*24) % innerWidth;
+      const y = (m.y * innerHeight + Math.cos(t*.00021*m.z + m.p)*18) % innerHeight;
+      const alpha = .08 + .18*Math.sin(t*.001 + m.p);
+      ctx.fillStyle = `rgba(143,230,255,${alpha})`;
+      ctx.fillRect(x, y, 1.2*m.z, 1.2*m.z);
+    }
+    ctx.restore();
+  }
+
+  function drawMarks() {
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (const mark of marks) {
+      mark.age += paused ? 0 : 0.35;
+      const x = mark.x * innerWidth, y = mark.y * innerHeight;
+      const pulse = (Math.sin(mark.age*.04)+1)*.5;
+      ctx.strokeStyle = `rgba(247,207,118,${0.28 + pulse*.34})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(x, y, mark.radius + pulse*16, 0, TAU); ctx.stroke();
+      ctx.fillStyle = `rgba(255,242,180,${0.12 + pulse*.1})`;
+      ctx.beginPath(); ctx.arc(x, y, 5 + pulse*3, 0, TAU); ctx.fill();
+      for (let i=0;i<8;i++) {
+        const a = i*TAU/8 + mark.age*.01;
+        ctx.beginPath();
+        ctx.moveTo(x + Math.cos(a)*(mark.radius*.34), y + Math.sin(a)*(mark.radius*.34));
+        ctx.lineTo(x + Math.cos(a)*(mark.radius*.9), y + Math.sin(a)*(mark.radius*.9));
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawNodes(c) {
+    let witnessedTotal = 0, integrityTotal = 0;
+    const cx = innerWidth*.5, cy = innerHeight*.5;
+    for (const n of nodes) {
+      const x = n.x * innerWidth + Math.sin(t*.00038 + n.phase) * 12;
+      const y = n.y * innerHeight + Math.cos(t*.00033 + n.phase) * 10;
+      const a = Math.atan2(y - cy, x - cx);
+      const dist = Math.hypot(x - cx, y - cy) / Math.max(innerWidth, innerHeight);
+      const inCone = Math.abs(angleDiff(a, c.angle)) < c.width * (1.02 - dist*.25);
+      const closeWitness = 1 - clamp(Math.hypot(x - c.ox, y - c.oy) / (innerWidth*.55), 0, 1);
+      const witnessed = inCone ? (.45 + closeWitness*.55) : 0;
+      const blindIntegrity = (1 - witnessed) * n.honesty;
+      n.seen = lerp(n.seen, witnessed, .06);
+      n.quiet = lerp(n.quiet, blindIntegrity, .04);
+      witnessedTotal += n.seen * (0.35 + n.cameraLove*.65);
+      integrityTotal += n.quiet;
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      const perform = n.seen * n.cameraLove;
+      const honest = n.quiet;
+      const rr = n.r * (0.75 + n.seen*.72 + honest*.28);
+      ctx.fillStyle = `rgba(${Math.floor(128 + n.seen*90)}, ${Math.floor(150 + honest*95)}, 255, ${0.08 + n.seen*.22 + honest*.12})`;
+      ctx.beginPath(); ctx.arc(x, y, rr, 0, TAU); ctx.fill();
+      ctx.strokeStyle = perform > honest ? `rgba(255,109,117,${0.22 + perform*.38})` : `rgba(247,207,118,${0.18 + honest*.45})`;
+      ctx.lineWidth = 1 + n.seen*2;
+      ctx.beginPath(); ctx.arc(x, y, rr*1.24, -Math.PI*.65, Math.PI*(1.2 + n.quiet*.5)); ctx.stroke();
+      if (honest > .2) {
+        ctx.strokeStyle = `rgba(247,207,118,${honest*.28})`;
+        ctx.lineWidth = .8;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(n.phase + t*.0003)*honest*90, y + Math.sin(n.phase + t*.0003)*honest*90);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    visible = lerp(visible, clamp(witnessedTotal / nodes.length, 0, 1), .06);
+    integrity = lerp(integrity, clamp(integrityTotal / nodes.length, 0, 1), .06);
+  }
+
+  function drawCenter(c) {
+    const cx = innerWidth*.5, cy = innerHeight*.5;
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (let r of [80, 150, 245]) {
+      ctx.strokeStyle = `rgba(143,230,255,${r===80?.32:r===150?.18:.10})`;
+      ctx.lineWidth = r===80 ? 2.2 : 1;
+      ctx.setLineDash(r===245 ? [5,18] : r===150 ? [10,18] : []);
+      ctx.beginPath(); ctx.arc(cx, cy, r + Math.sin(t*.001+r)*5, 0, TAU); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+    ctx.strokeStyle = 'rgba(247,207,118,.26)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(c.ox, c.oy); ctx.stroke();
+    ctx.fillStyle = 'rgba(216,247,255,.85)'; ctx.beginPath(); ctx.arc(cx, cy, 5, 0, TAU); ctx.fill();
+    ctx.restore();
+  }
+
+  function updateHud() {
+    visibleFill.style.width = Math.round(visible*100) + '%';
+    integrityFill.style.width = Math.round(integrity*100) + '%';
+    visibleScore.textContent = 'witnessed ' + Math.round(visible*100) + '%';
+    integrityScore.textContent = 'blind-zone integrity ' + Math.round(integrity*100) + '%';
+  }
+
+  function frame(now) {
+    if (!paused) t = now || t + 16;
+    background();
+    const c = coneGeometry();
+    drawCone(c);
+    drawMotes();
+    drawMarks();
+    drawNodes(c);
+    drawCenter(c);
+    updateHud();
+    requestAnimationFrame(frame);
+  }
+
+  function placeMark(x, y) {
+    marks.push({ x: x / innerWidth, y: y / innerHeight, age: 0, radius: 42 + rand()*54 });
+    if (marks.length > 12) marks.shift();
+  }
+
+  async function tryPlay() {
+    if (!soundOn) return;
+    try {
+      bgm.volume = 0.55;
+      await bgm.play();
+      soundButton.textContent = 'BGM: on';
+      soundButton.setAttribute('aria-pressed', 'true');
+    } catch (err) {
+      soundButton.textContent = 'BGM: click to start';
+      soundButton.setAttribute('aria-pressed', 'true');
+    }
+  }
+
+  function toggleSound() {
+    soundOn = !soundOn;
+    if (soundOn) tryPlay(); else { bgm.pause(); soundButton.textContent = 'BGM: off'; soundButton.setAttribute('aria-pressed', 'false'); }
+  }
+
+  canvas.addEventListener('pointermove', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true; });
+  canvas.addEventListener('pointerdown', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; placeMark(e.clientX, e.clientY); tryPlay(); });
+  window.addEventListener('resize', resize);
+  window.addEventListener('keydown', e => {
+    if (e.key === ' ') { paused = !paused; pauseButton.textContent = paused ? 'Resume' : 'Pause'; pauseButton.setAttribute('aria-pressed', String(paused)); }
+    if (e.key === 'r' || e.key === 'R') reset();
+    if (e.key === 'm' || e.key === 'M') toggleSound();
+    if (e.key === 's' || e.key === 'S') {
+      const a = document.createElement('a');
+      a.download = '2026-06-14-witness-audit-still.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+  });
+  soundButton.addEventListener('click', toggleSound);
+  pauseButton.addEventListener('click', () => { paused = !paused; pauseButton.textContent = paused ? 'Resume' : 'Pause'; pauseButton.setAttribute('aria-pressed', String(paused)); });
+  resetButton.addEventListener('click', reset);
+
+  resize();
+  reset();
+  requestAnimationFrame(frame);
+  window.addEventListener('load', tryPlay);
+  window.addEventListener('pointerdown', tryPlay, { once: true });
+  window.addEventListener('keydown', tryPlay, { once: true });
+})();
+</script>
+
+
+
+</body>
+</html>

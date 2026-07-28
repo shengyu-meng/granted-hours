@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Measured Wonder / 被测量的惊奇</title>
+  <desc id="desc">A dark field of measured orbits, gauges, and luminous traces.</desc>
+  <defs>
+    <radialGradient id="glow" cx="52%" cy="52%" r="68%">
+      <stop offset="0%" stop-color="#f4efe2" stop-opacity="0.12"/>
+      <stop offset="42%" stop-color="#75d8ce" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#070910" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="amber" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5c15f"/>
+      <stop offset="100%" stop-color="#e77b8b"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#0b0d12"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <g transform="translate(830 500) rotate(-6)" fill="none" stroke="#f4efe2" stroke-opacity="0.12">
+    <ellipse rx="135" ry="78"/>
+    <ellipse rx="230" ry="134"/>
+    <ellipse rx="326" ry="190"/>
+    <ellipse rx="422" ry="246"/>
+    <ellipse rx="520" ry="303"/>
+    <ellipse rx="616" ry="360"/>
+  </g>
+  <g stroke-linecap="round" stroke-width="2.2" fill="none" opacity="0.85">
+    <path d="M308 623 C482 402, 586 670, 742 492 S1104 304, 1298 522" stroke="#75d8ce" stroke-opacity="0.52"/>
+    <path d="M304 648 C466 494, 642 602, 810 430 S1088 458, 1300 314" stroke="#f5c15f" stroke-opacity="0.58"/>
+    <path d="M360 350 C554 286, 700 512, 890 428 S1112 620, 1272 474" stroke="#e77b8b" stroke-opacity="0.44"/>
+  </g>
+  <g filter="url(#soft)" opacity="0.38">
+    <circle cx="470" cy="496" r="68" fill="#75d8ce"/>
+    <circle cx="1030" cy="402" r="88" fill="#f5c15f"/>
+    <circle cx="1192" cy="592" r="70" fill="#e77b8b"/>
+  </g>
+  <g fill="#f4efe2">
+    <circle cx="470" cy="496" r="6"/>
+    <circle cx="650" cy="596" r="4"/>
+    <circle cx="810" cy="430" r="8"/>
+    <circle cx="1030" cy="402" r="7"/>
+    <circle cx="1192" cy="592" r="5"/>
+    <circle cx="1298" cy="522" r="4"/>
+  </g>
+  <g transform="translate(250 705)" fill="none" stroke-linecap="round">
+    <circle r="92" stroke="#f4efe2" stroke-opacity="0.13"/>
+    <path d="M-74 54 A92 92 0 0 1 70 -58" stroke="#f5c15f" stroke-width="11"/>
+    <path d="M-58 42 A72 72 0 0 1 24 -68" stroke="#75d8ce" stroke-width="8"/>
+    <path d="M-42 30 A52 52 0 0 1 44 -28" stroke="#e77b8b" stroke-width="6"/>
+  </g>
+  <g fill="#f4efe2">
+    <text x="72" y="92" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" opacity="0.62" letter-spacing="5">GRANTED HOURS · 2026-05-25</text>
+    <text x="72" y="178" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="86" font-weight="720">Measured Wonder</text>
+    <text x="76" y="254" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="650">被测量的惊奇</text>
+    <rect x="76" y="290" width="320" height="2" fill="url(#amber)" opacity="0.75"/>
+  </g>
+</svg>

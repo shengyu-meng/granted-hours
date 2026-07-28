@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hinge Weather / 门轴天气</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 45%, #182035 0%, #080a12 48%, #030406 100%);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    color: rgba(238,246,255,0.86);
+  }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  .label {
+    position: fixed;
+    left: 22px;
+    bottom: 20px;
+    max-width: min(720px, calc(100vw - 44px));
+    padding: 14px 16px;
+    border: 1px solid rgba(180,210,255,0.18);
+    border-radius: 18px;
+    background: rgba(4,8,16,0.44);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    line-height: 1.45;
+    letter-spacing: 0.01em;
+  }
+  .title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(177,214,255,0.92); }
+  .copy { margin-top: 7px; font-size: 12px; color: rgba(238,246,255,0.72); }
+  .keys { margin-top: 8px; font-size: 11px; color: rgba(238,246,255,0.48); }
+
+  .sound-toggle { position: fixed; right: 24px; top: 22px; z-index: 9999; border: 1px solid rgba(245,239,229,.24); border-radius: 999px; padding: 9px 13px; color: rgba(245,239,229,.88); background: rgba(6,7,12,.58); backdrop-filter: blur(14px); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .sound-toggle:hover { border-color: rgba(110,231,216,.56); color: #ffffff; }
+</style>
+</head>
+<body>
+<button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true">sound on</button>
+<audio id="bgm" src="./2026-06-01-hinge-weather-bgm.mp3" preload="auto" autoplay loop></audio>
+
+<canvas id="weather"></canvas>
+<div class="label">
+  <div class="title">Hinge Weather / 门轴天气</div>
+  <div class="copy">A door fails first as weather: pressure, friction, drift, then a hinge learning to glow before it breaks.</div>
+  <div class="keys">Move mouse to change wind · click to repair · Space pause · R reset · S save still</div>
+</div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('weather');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const TAU = Math.PI * 2;
+  const seedBase = 20260601;
+  let seed = seedBase;
+  let w = 0, h = 0, dpr = 1, t = 0, paused = false;
+  let pointer = { x: 0.62, y: 0.42, active: false };
+  let repairPulse = 0;
+  let particles = [];
+  let grains = [];
+
+  function rnd() {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  }
+  function lerp(a, b, p) { return a + (b - a) * p; }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = Math.floor(innerWidth * dpr);
+    h = Math.floor(innerHeight * dpr);
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    resetField(false);
+  }
+
+  function resetField(resetSeed = true) {
+    if (resetSeed) seed = seedBase;
+    particles = [];
+    grains = [];
+    const count = Math.floor(clamp((w * h) / (16000 * dpr), 95, 260));
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: rnd() * w,
+        y: rnd() * h,
+        a: rnd() * TAU,
+        r: lerp(0.55, 2.2, rnd()) * dpr,
+        life: rnd(),
+        bias: lerp(-1, 1, rnd()),
+        tone: rnd()
+      });
+    }
+    for (let i = 0; i < 180; i++) {
+      grains.push({ x: rnd(), y: rnd(), p: rnd(), s: lerp(0.5, 1.6, rnd()) });
+    }
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(w * 0.54, h * 0.46, h * 0.04, w * 0.5, h * 0.5, Math.max(w, h) * 0.72);
+    g.addColorStop(0, '#1d2840');
+    g.addColorStop(0.42, '#0c1222');
+    g.addColorStop(1, '#030407');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const gr of grains) {
+      const drift = Math.sin(t * 0.19 + gr.p * TAU) * 0.012;
+      const x = ((gr.x + drift + 1) % 1) * w;
+      const y = ((gr.y + Math.cos(t * 0.13 + gr.p) * 0.008 + 1) % 1) * h;
+      ctx.fillStyle = `rgba(120,160,210,${0.018 + gr.s * 0.004})`;
+      ctx.fillRect(x, y, gr.s * dpr, gr.s * dpr);
+    }
+    ctx.restore();
+  }
+
+  function hingeState() {
+    const wind = pointer.active ? (pointer.x - 0.5) : Math.sin(t * 0.071) * 0.42;
+    const pressure = 0.5 + 0.5 * Math.sin(t * 0.037 + 1.2) + Math.abs(wind) * 0.62;
+    const friction = 0.42 + 0.28 * Math.sin(t * 0.023 - 0.4) + 0.22 * Math.cos(t * 0.049);
+    const drift = clamp(0.18 + pressure * 0.38 + Math.abs(wind) * 0.42 - repairPulse * 0.32, 0, 1.42);
+    return { wind, pressure, friction, drift };
+  }
+
+  function drawDoorAndHinge(st) {
+    const cx = w * 0.50;
+    const cy = h * 0.50;
+    const hingeX = w * 0.42;
+    const doorH = h * 0.58;
+    const doorW = Math.min(w * 0.28, h * 0.42);
+    const angle = (-0.17 + st.wind * 0.26 + Math.sin(t * 0.045) * 0.035) * (1 + st.drift * 0.25);
+    const stress = clamp(st.drift * 0.74 + st.friction * 0.36, 0, 1);
+
+    ctx.save();
+    ctx.translate(hingeX, cy);
+    ctx.rotate(angle);
+
+    const dg = ctx.createLinearGradient(0, -doorH / 2, doorW, doorH / 2);
+    dg.addColorStop(0, `rgba(30,48,74,${0.40 + stress * 0.12})`);
+    dg.addColorStop(0.5, `rgba(62,83,116,${0.24 + stress * 0.12})`);
+    dg.addColorStop(1, `rgba(10,18,30,${0.54})`);
+    ctx.fillStyle = dg;
+    ctx.strokeStyle = `rgba(180,210,255,${0.16 + stress * 0.10})`;
+    ctx.lineWidth = 1.2 * dpr;
+    roundRect(ctx, 0, -doorH / 2, doorW, doorH, 18 * dpr);
+    ctx.fill();
+    ctx.stroke();
+
+    for (let i = 0; i < 9; i++) {
+      const yy = lerp(-doorH / 2 + doorH * 0.12, doorH / 2 - doorH * 0.12, i / 8);
+      ctx.beginPath();
+      ctx.moveTo(doorW * 0.08, yy + Math.sin(t * 0.08 + i) * 2 * dpr);
+      ctx.lineTo(doorW * 0.92, yy + Math.cos(t * 0.05 + i) * 2 * dpr);
+      ctx.strokeStyle = `rgba(180,210,255,${0.04 + stress * 0.035})`;
+      ctx.lineWidth = 0.8 * dpr;
+      ctx.stroke();
+    }
+
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(hingeX, cy);
+    for (let i = 0; i < 5; i++) {
+      const y = lerp(-doorH * 0.38, doorH * 0.38, i / 4);
+      const glow = 0.18 + stress * 0.72 + Math.sin(t * 0.12 + i) * 0.08;
+      ctx.beginPath();
+      ctx.arc(0, y, (12 + i % 2 * 4) * dpr, 0, TAU);
+      ctx.fillStyle = `rgba(255,${Math.floor(174 + stress * 50)},110,${0.07 + glow * 0.14})`;
+      ctx.fill();
+      ctx.strokeStyle = `rgba(255,210,150,${0.20 + glow * 0.50})`;
+      ctx.lineWidth = (1.1 + stress) * dpr;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(0, y, (3 + stress * 3) * dpr, 0, TAU);
+      ctx.fillStyle = `rgba(255,236,184,${0.40 + glow * 0.35})`;
+      ctx.fill();
+    }
+
+    ctx.globalCompositeOperation = 'screen';
+    const rg = ctx.createRadialGradient(0, 0, 0, 0, 0, doorH * 0.60);
+    rg.addColorStop(0, `rgba(255,170,80,${0.10 + stress * 0.16})`);
+    rg.addColorStop(0.52, `rgba(100,160,255,${0.025 + repairPulse * 0.04})`);
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rg;
+    ctx.fillRect(-doorH * 0.64, -doorH * 0.64, doorH * 1.28, doorH * 1.28);
+    ctx.restore();
+
+    // pressure contour lines
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let k = 0; k < 18; k++) {
+      const p = k / 17;
+      ctx.beginPath();
+      for (let i = 0; i <= 120; i++) {
+        const q = i / 120;
+        const x = lerp(w * 0.08, w * 0.92, q);
+        const wave = Math.sin(q * TAU * (1.2 + p * 2.2) + t * (0.025 + p * 0.03) + k);
+        const y = h * (0.15 + p * 0.70) + wave * h * 0.022 + st.wind * h * (q - 0.5) * 0.13;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(${Math.floor(100 + 120 * p)},${Math.floor(150 + 60 * (1 - p))},255,${0.025 + stress * 0.045})`;
+      ctx.lineWidth = (0.7 + p * 0.9) * dpr;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawParticles(st) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const p of particles) {
+      const nx = (p.x / w - 0.5);
+      const ny = (p.y / h - 0.5);
+      const vortex = Math.atan2(ny, nx) + Math.PI / 2;
+      const wind = st.wind * (1.4 + p.bias * 0.4);
+      p.a = lerp(p.a, vortex + wind + Math.sin(t * 0.03 + p.life * TAU) * 0.8, 0.02);
+      const speed = (0.55 + st.pressure * 1.7 + st.drift * 1.2) * dpr * (0.4 + p.tone);
+      p.x += Math.cos(p.a) * speed + st.wind * 1.7 * dpr;
+      p.y += Math.sin(p.a) * speed + Math.sin(t * 0.017 + p.bias) * 0.48 * dpr;
+      if (p.x < -40) p.x = w + 40;
+      if (p.x > w + 40) p.x = -40;
+      if (p.y < -40) p.y = h + 40;
+      if (p.y > h + 40) p.y = -40;
+      const alpha = 0.06 + st.drift * 0.11 + p.tone * 0.06;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * (0.7 + st.drift * 0.5), 0, TAU);
+      ctx.fillStyle = p.tone > 0.72 ? `rgba(255,190,115,${alpha})` : `rgba(126,178,255,${alpha})`;
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawMeters(st) {
+    const left = w * 0.075;
+    const top = h * 0.14;
+    const bw = Math.min(w * 0.22, 320 * dpr);
+    const names = [
+      ['pressure', st.pressure / 1.55],
+      ['friction', st.friction],
+      ['drift', st.drift / 1.42],
+      ['repair', repairPulse]
+    ];
+    ctx.save();
+    ctx.font = `${11 * dpr}px ui-monospace, monospace`;
+    ctx.textBaseline = 'middle';
+    names.forEach((row, i) => {
+      const y = top + i * 25 * dpr;
+      ctx.fillStyle = 'rgba(215,230,255,0.48)';
+      ctx.fillText(row[0], left, y);
+      ctx.strokeStyle = 'rgba(170,205,255,0.12)';
+      ctx.strokeRect(left + 86 * dpr, y - 4 * dpr, bw, 8 * dpr);
+      const value = clamp(row[1], 0, 1);
+      const grad = ctx.createLinearGradient(left + 86 * dpr, 0, left + 86 * dpr + bw, 0);
+      grad.addColorStop(0, 'rgba(96,155,255,0.52)');
+      grad.addColorStop(0.68, 'rgba(255,210,120,0.62)');
+      grad.addColorStop(1, 'rgba(255,105,82,0.72)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(left + 86 * dpr, y - 4 * dpr, bw * value, 8 * dpr);
+    });
+    ctx.restore();
+  }
+
+  function roundRect(c, x, y, ww, hh, rr) {
+    const r = Math.min(rr, ww / 2, hh / 2);
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.arcTo(x + ww, y, x + ww, y + hh, r);
+    c.arcTo(x + ww, y + hh, x, y + hh, r);
+    c.arcTo(x, y + hh, x, y, r);
+    c.arcTo(x, y, x + ww, y, r);
+    c.closePath();
+  }
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = 'hinge-weather-still.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function frame() {
+    if (!paused) {
+      t += 1;
+      repairPulse *= 0.985;
+    }
+    const st = hingeState();
+    drawBackground();
+    drawParticles(st);
+    drawDoorAndHinge(st);
+    drawMeters(st);
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener('resize', resize);
+  addEventListener('pointermove', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true; });
+  addEventListener('pointerleave', () => { pointer.active = false; });
+  addEventListener('click', () => { repairPulse = clamp(repairPulse + 0.42, 0, 1); });
+  addEventListener('keydown', e => {
+    if (e.code === 'Space') { paused = !paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'r') { repairPulse = 0; t = 0; resetField(true); }
+    if (e.key.toLowerCase() === 's') saveStill();
+  });
+
+  resize();
+  window.__artReady = true;
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<script id="granted-hours-bgm-controller">
+(() => {
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  let soundEnabled = true;
+  function updateSoundLabel(text) {
+    if (!soundToggle) return;
+    soundToggle.textContent = text;
+    soundToggle.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlaySound() {
+    if (!bgm || !soundEnabled) return;
+    bgm.volume = 0.42;
+    try { await bgm.play(); updateSoundLabel('sound on'); }
+    catch (err) { updateSoundLabel('sound click'); }
+  }
+  function setSound(on) {
+    soundEnabled = on;
+    if (!bgm) return;
+    if (on) tryPlaySound();
+    else { bgm.pause(); updateSoundLabel('sound off'); }
+  }
+  if (soundToggle) {
+    soundToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!bgm) return;
+      if (soundEnabled && !bgm.paused) setSound(false);
+      else setSound(true);
+    });
+  }
+  window.addEventListener('load', tryPlaySound);
+  window.addEventListener('pointerdown', tryPlaySound, { once: true });
+  window.addEventListener('keydown', tryPlaySound, { once: true });
+})();
+</script>
+
+
+
+</body>
+</html>

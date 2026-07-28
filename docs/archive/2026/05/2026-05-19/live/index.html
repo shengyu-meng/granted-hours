@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maintenance Without Witness</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --paper: #d7c8a8;
+      --dim: rgba(215, 200, 168, 0.62);
+      --ink: #071014;
+      --cyan: #74e4d1;
+      --amber: #f1bd5b;
+      --red: #d5604a;
+    }
+    html, body { margin: 0; min-height: 100%; background: #040709; overflow: hidden; }
+    body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .panel {
+      position: fixed; left: 24px; top: 22px; z-index: 2; max-width: 430px;
+      color: var(--paper); letter-spacing: 0.02em; user-select: none;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.6);
+    }
+    .kicker { font-size: 11px; color: var(--cyan); text-transform: uppercase; opacity: 0.88; }
+    h1 { font-size: clamp(22px, 3vw, 42px); line-height: 0.95; margin: 7px 0 12px; font-weight: 500; }
+    p { font-size: 12px; line-height: 1.55; margin: 0 0 9px; color: var(--dim); }
+    .keys { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .key { border: 1px solid rgba(215,200,168,0.24); border-radius: 999px; padding: 5px 8px; font-size: 11px; color: rgba(215,200,168,0.78); background: rgba(4,7,9,0.35); backdrop-filter: blur(4px); }
+    .meter {
+      position: fixed; right: 24px; bottom: 22px; width: min(38vw, 420px); height: 8px;
+      border: 1px solid rgba(215,200,168,0.26); border-radius: 999px; overflow: hidden; z-index: 2;
+      background: rgba(215,200,168,0.06); box-shadow: 0 0 28px rgba(116,228,209,0.05);
+    }
+    .meter span { display: block; height: 100%; width: 28%; background: linear-gradient(90deg, var(--cyan), var(--amber), var(--red)); opacity: 0.72; transform-origin: left center; }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="Maintenance Without Witness generative canvas"></canvas>
+  <section class="panel">
+    <div class="kicker">Granted Hours · 2026-05-19 · variable: maintenance</div>
+    <h1>Maintenance Without Witness</h1>
+    <p>The visible surface keeps pretending it is whole. Beneath it, small repairers move before damage becomes a headline.</p>
+    <p>Click to introduce a hairline crack. Press <b>W</b> to witness hidden work; <b>M</b> to raise the maintenance burden; <b>Space</b> to pause; <b>S</b> to save.</p>
+    <div class="keys"><span class="key">click = fracture</span><span class="key">W witness</span><span class="key">M burden</span><span class="key">S export</span></div>
+  </section>
+  <div class="meter"><span id="loadBar"></span></div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const loadBar = document.getElementById('loadBar');
+  const SEED = 20260519;
+  const TAU = Math.PI * 2;
+  let w = 0, h = 0, dpr = 1;
+  let tick = 0, paused = false, witness = false, load = 0.32;
+  let raf = 0;
+  let fractures = [];
+  let repairers = [];
+  let dust = [];
+  let maintenanceLog = [];
+
+  function mulberry32(a) {
+    return function() {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const rand = mulberry32(SEED);
+  const rnd = (a = 1, b = 0) => b + rand() * (a - b);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = Math.floor(window.innerWidth);
+    h = Math.floor(window.innerHeight);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seedSystem();
+  }
+
+  function seedSystem() {
+    fractures = [];
+    repairers = [];
+    dust = [];
+    maintenanceLog = [];
+    const bands = 7;
+    for (let i = 0; i < bands; i++) {
+      const y = h * (0.16 + i * 0.11 + rnd(0.025, -0.025));
+      const len = Math.floor(7 + rnd(8));
+      const pts = [];
+      for (let j = 0; j < len; j++) {
+        pts.push({ x: w * (0.10 + j * 0.82 / (len - 1)), y: y + Math.sin(j * 1.7 + i) * rnd(32, 10) + rnd(38, -38) });
+      }
+      fractures.push({ pts, age: rnd(220), repaired: rnd(0.75, 0.1), stress: rnd(0.7, 0.2), born: tick - rnd(200) });
+    }
+    for (let i = 0; i < 86; i++) {
+      repairers.push({
+        x: rnd(w), y: rnd(h), phase: rnd(TAU), speed: rnd(0.62, 0.2), skill: rnd(1, 0.3), target: Math.floor(rnd(fractures.length)), trail: []
+      });
+    }
+    for (let i = 0; i < 260; i++) dust.push({ x: rnd(w), y: rnd(h), r: rnd(1.2, 0.25), a: rnd(0.25, 0.04), p: rnd(TAU) });
+  }
+
+  function addFracture(x, y) {
+    const pts = [];
+    const len = Math.floor(6 + rnd(8));
+    const angle = rnd(Math.PI * 0.2, -Math.PI * 0.2);
+    for (let i = 0; i < len; i++) {
+      const u = (i / (len - 1) - 0.5) * rnd(Math.min(w, 760), 280);
+      pts.push({ x: x + Math.cos(angle) * u + rnd(18, -18), y: y + Math.sin(angle) * u + Math.sin(i * 1.9) * rnd(36, 10) });
+    }
+    fractures.push({ pts, age: 0, repaired: 0, stress: 1, born: tick });
+    if (fractures.length > 18) fractures.shift();
+  }
+
+  function fracturePoint(frac, t) {
+    const pts = frac.pts;
+    const scaled = t * (pts.length - 1);
+    const i = Math.min(pts.length - 2, Math.max(0, Math.floor(scaled)));
+    const f = scaled - i;
+    return { x: lerp(pts[i].x, pts[i + 1].x, f), y: lerp(pts[i].y, pts[i + 1].y, f) };
+  }
+
+  function drawBackground() {
+    const g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, '#030608'); g.addColorStop(0.45, '#071014'); g.addColorStop(1, '#120d0b');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+    ctx.globalAlpha = 0.18;
+    ctx.strokeStyle = '#d7c8a8'; ctx.lineWidth = 0.55;
+    const step = Math.max(34, Math.min(w, h) / 18);
+    for (let x = -step; x < w + step; x += step) {
+      ctx.beginPath();
+      for (let y = -20; y < h + 20; y += 18) {
+        const drift = Math.sin((y * 0.008) + tick * 0.003 + x * 0.01) * 5;
+        if (y === -20) ctx.moveTo(x + drift, y); else ctx.lineTo(x + drift, y);
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    for (const p of dust) {
+      const a = p.a * (0.55 + 0.45 * Math.sin(tick * 0.011 + p.p));
+      ctx.fillStyle = `rgba(215,200,168,${a})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, TAU); ctx.fill();
+    }
+  }
+
+  function drawFractures() {
+    for (const frac of fractures) {
+      frac.age++;
+      const tremor = Math.sin((tick - frac.born) * 0.04) * (1 - frac.repaired) * 1.8;
+      ctx.save();
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      frac.pts.forEach((p, i) => {
+        const x = p.x + Math.sin(tick * 0.013 + i) * tremor;
+        const y = p.y + Math.cos(tick * 0.017 + i * 0.7) * tremor;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = `rgba(213,96,74,${0.52 * (1 - frac.repaired) + 0.05})`;
+      ctx.lineWidth = 1.2 + 4.2 * (1 - frac.repaired) * frac.stress;
+      ctx.shadowColor = 'rgba(213,96,74,0.45)'; ctx.shadowBlur = 14 * (1 - frac.repaired);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      ctx.beginPath();
+      frac.pts.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+      ctx.strokeStyle = `rgba(116,228,209,${witness ? 0.22 + frac.repaired * 0.24 : 0.02})`;
+      ctx.lineWidth = 6 + 12 * frac.repaired;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function updateRepairers() {
+    for (const r of repairers) {
+      let target = fractures[r.target % fractures.length];
+      if (!target || target.repaired > 0.985 || rand() < 0.003) {
+        r.target = Math.floor(rnd(fractures.length)); target = fractures[r.target];
+      }
+      const u = (Math.sin(tick * 0.009 * r.speed + r.phase) + 1) / 2;
+      const p = fracturePoint(target, u);
+      const dx = p.x - r.x, dy = p.y - r.y;
+      r.x += dx * 0.018 * r.speed + Math.cos(r.phase + tick * 0.018) * (0.22 + load);
+      r.y += dy * 0.018 * r.speed + Math.sin(r.phase * 1.7 + tick * 0.015) * (0.22 + load);
+      r.trail.push({ x: r.x, y: r.y, a: 1 });
+      if (r.trail.length > 22) r.trail.shift();
+      const near = dx * dx + dy * dy < 2600;
+      if (near) {
+        target.repaired = clamp(target.repaired + 0.0009 * r.skill * (0.6 + load), 0, 1);
+        target.stress = clamp(target.stress - 0.0008 * r.skill, 0.05, 1.3);
+        if (rand() < 0.012) maintenanceLog.push({ x: r.x, y: r.y, life: 80, kind: rand() > 0.5 ? 'stitch' : 'seal' });
+      }
+    }
+    const pressure = fractures.reduce((s, f) => s + (1 - f.repaired) * f.stress, 0) / Math.max(1, fractures.length);
+    load = clamp(load * 0.996 + pressure * 0.009, 0.18, 0.92);
+    loadBar.style.transform = `scaleX(${load})`;
+  }
+
+  function drawRepairers() {
+    ctx.save();
+    ctx.globalCompositeOperation = witness ? 'lighter' : 'source-over';
+    for (const r of repairers) {
+      if (!witness && r.skill < 0.82) continue;
+      ctx.beginPath();
+      for (let i = 0; i < r.trail.length; i++) {
+        const p = r.trail[i];
+        if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+      }
+      const alpha = witness ? 0.30 : 0.045;
+      ctx.strokeStyle = `rgba(116,228,209,${alpha})`;
+      ctx.lineWidth = witness ? 1.15 : 0.5;
+      ctx.stroke();
+      ctx.fillStyle = witness ? 'rgba(241,189,91,0.86)' : 'rgba(241,189,91,0.18)';
+      ctx.beginPath(); ctx.arc(r.x, r.y, witness ? 2.4 : 1.15, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+
+    for (let i = maintenanceLog.length - 1; i >= 0; i--) {
+      const e = maintenanceLog[i]; e.life--;
+      const a = e.life / 80;
+      ctx.strokeStyle = e.kind === 'stitch' ? `rgba(215,200,168,${0.32 * a})` : `rgba(116,228,209,${0.25 * a})`;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(e.x - 8 * a, e.y - 4 * a); ctx.lineTo(e.x + 8 * a, e.y + 4 * a);
+      ctx.moveTo(e.x - 5 * a, e.y + 5 * a); ctx.lineTo(e.x + 5 * a, e.y - 5 * a);
+      ctx.stroke();
+      if (e.life <= 0) maintenanceLog.splice(i, 1);
+    }
+  }
+
+  function drawSurface() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const cx = w * 0.58 + Math.sin(tick * 0.006) * 80;
+    const cy = h * 0.50 + Math.cos(tick * 0.005) * 45;
+    const rg = ctx.createRadialGradient(cx, cy, 20, cx, cy, Math.max(w, h) * 0.68);
+    rg.addColorStop(0, 'rgba(215,200,168,0.065)'); rg.addColorStop(0.48, 'rgba(116,228,209,0.026)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rg; ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+    if (!witness) {
+      ctx.fillStyle = 'rgba(4,7,9,0.18)';
+      ctx.fillRect(0, 0, w, h);
+    }
+    ctx.fillStyle = 'rgba(215,200,168,0.42)';
+    ctx.font = '11px ui-monospace, monospace';
+    ctx.fillText(`unwitnessed repairs: ${maintenanceLog.length.toString().padStart(2, '0')} · burden ${(load*100).toFixed(0)}%`, w - 330, h - 42);
+  }
+
+  function renderFrame(step = true) {
+    if (step && !paused) tick++;
+    drawBackground();
+    if (step && !paused) updateRepairers();
+    drawFractures();
+    drawRepairers();
+    drawSurface();
+    window._artReady = true;
+    window._drawHeartbeat = tick;
+  }
+
+  function draw() {
+    renderFrame(true);
+    raf = requestAnimationFrame(draw);
+  }
+
+  function savePNG() {
+    const a = document.createElement('a');
+    a.download = 'maintenance-without-witness.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  canvas.addEventListener('pointerdown', (ev) => addFracture(ev.clientX, ev.clientY));
+  window.addEventListener('keydown', (ev) => {
+    const k = ev.key.toLowerCase();
+    if (k === 'w') witness = !witness;
+    if (k === 'm') { load = clamp(load + 0.14, 0.18, 0.96); addFracture(w * rnd(0.82, 0.18), h * rnd(0.76, 0.22)); }
+    if (k === ' ') { paused = !paused; ev.preventDefault(); }
+    if (k === 's') savePNG();
+  });
+  window.addEventListener('resize', resize);
+
+  window.__getArtStats = function() {
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let lit = 0, cyan = 0, amber = 0;
+    const total = 4096;
+    for (let n = 0; n < total; n++) {
+      const px = (n * 7919) % canvas.width;
+      const py = (n * 1543) % canvas.height;
+      const i = 4 * (py * canvas.width + px);
+      const r = data[i], g = data[i + 1], b = data[i + 2];
+      if (r + g + b > 34) lit++;
+      if (g > r && g > b && g > 45) cyan++;
+      if (r > 120 && g > 70 && b < 120) amber++;
+    }
+    return { tick, witness, load: Number(load.toFixed(3)), fractures: fractures.length, repairers: repairers.length, lit, cyan, amber, ready: !!window._artReady };
+  };
+
+  window.__advanceArt = function(frames = 1) {
+    const n = Math.max(1, Math.min(240, frames | 0));
+    for (let i = 0; i < n; i++) renderFrame(true);
+    return window.__getArtStats();
+  };
+
+  resize();
+  addFracture(window.innerWidth * 0.56, window.innerHeight * 0.53);
+  draw();
+  setTimeout(() => { if (!window._drawHeartbeat) { tick++; draw(); } }, 700);
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-19-maintenance-without-witness-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Naming Latency / 命名延迟器</title>
+<style>
+  :root { color-scheme: dark; --paper:#fff4d8; --dim:rgba(255,244,216,.64); --line:rgba(255,244,216,.17); }
+  * { box-sizing:border-box; }
+  html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#05070f; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+  .panel { position:fixed; left:clamp(18px,4.2vw,76px); top:clamp(22px,5vh,68px); max-width:min(700px, calc(100vw - 36px)); padding:25px 28px 23px; border:1px solid var(--line); border-radius:30px; background:linear-gradient(135deg, rgba(10,13,28,.58), rgba(10,13,28,.18)); box-shadow:0 32px 90px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,244,216,.08); backdrop-filter: blur(18px); }
+  .kicker { color:rgba(255,244,216,.56); font-size:12px; letter-spacing:.2em; text-transform:uppercase; }
+  h1 { margin:.22em 0 0; color:var(--paper); font-size:clamp(43px,7.2vw,96px); line-height:.88; letter-spacing:-.06em; }
+  h2 { margin:.36em 0 .7em; color:rgba(255,244,216,.82); font-size:clamp(24px,3.3vw,40px); line-height:1; font-weight:520; letter-spacing:-.03em; }
+  p { margin:0; max-width:58ch; color:var(--dim); font-size:clamp(15px,1.75vw,20px); line-height:1.52; }
+  .keys { position:fixed; right:22px; bottom:18px; color:rgba(255,244,216,.62); font-size:13px; letter-spacing:.035em; background:rgba(5,7,15,.38); border:1px solid rgba(255,244,216,.13); padding:10px 14px; border-radius:999px; backdrop-filter:blur(10px); }
+  @media(max-width:720px){ .panel{padding:20px;} .keys{left:16px; right:auto; bottom:16px;} }
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+<section class="panel" aria-label="Artwork description">
+  <div class="kicker">Granted Hours · 2026-05-16 · delay instrument</div>
+  <h1>Naming<br>Latency</h1>
+  <h2>命名延迟器</h2>
+  <p>A readable word is not captured here. When the eye approaches, the label steps half a breath backward, leaving a warm afterimage instead of a cage.</p>
+</section>
+<div class="keys">move lens · L labels · R reseed · space pause · S save still</div>
+<script>
+(() => {
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  let W=0, H=0, DPR=1, seed=20260516, rng, paused=false, labelsOn=true, tick=0;
+  let pointer = { x:.63, y:.47, tx:.63, ty:.47, active:false };
+  let terms=[], threads=[], ghosts=[];
+  const WORDS = [
+    ['almost named','几乎被命名'], ['pre-concept','概念以前'], ['kept wild','保留野性'], ['half-legible','半可读'],
+    ['soft retreat','柔软后退'], ['not yet owned','尚未占有'], ['edge grammar','边缘语法'], ['delayed proof','延迟证明'],
+    ['warm refusal','温热拒绝'], ['future noun','未来名词'], ['fugitive label','逃逸标签'], ['unfastened','未扣紧']
+  ];
+  function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function resize(){ DPR=Math.min(2, window.devicePixelRatio||1); W=innerWidth; H=innerHeight; canvas.width=Math.floor(W*DPR); canvas.height=Math.floor(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); init(); }
+  function init(){
+    rng=mulberry32(seed); ghosts=[]; tick=0;
+    terms = Array.from({length:36}, (_,i)=>{
+      const band = i/36, r=.14+rng()*.38, a=band*Math.PI*2 + (rng()-.5)*.22;
+      const x=.52+Math.cos(a)*r*(.9+rng()*.24), y=.53+Math.sin(a)*r*(.58+rng()*.2);
+      return { x, y, vx:(rng()-.5)*.0005, vy:(rng()-.5)*.0005, px:x, py:y, word:WORDS[i%WORDS.length], phase:rng()*Math.PI*2, hue:32+rng()*36, weight:rng() };
+    });
+    threads = Array.from({length:14}, (_,i)=>({ y:.14+i*.061+(rng()-.5)*.032, amp:.018+rng()*.045, speed:.12+rng()*.34, hue:205+i*7+rng()*22, alpha:.05+rng()*.08, cut:rng() }));
+  }
+  function background(t){
+    const g=ctx.createRadialGradient(W*(.2+pointer.x*.38),H*(.16+pointer.y*.24),0,W*.52,H*.52,Math.max(W,H)*.82);
+    g.addColorStop(0,'#ffe6b1'); g.addColorStop(.13,'#d78d7d'); g.addColorStop(.32,'#6d5ca8'); g.addColorStop(.62,'#131936'); g.addColorStop(1,'#05070f');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    const v=ctx.createLinearGradient(0,0,0,H); v.addColorStop(0,'rgba(0,0,0,.05)'); v.addColorStop(.55,'rgba(0,0,0,.06)'); v.addColorStop(1,'rgba(0,0,0,.42)'); ctx.fillStyle=v; ctx.fillRect(0,0,W,H);
+    ctx.save(); ctx.globalAlpha=.12; ctx.globalCompositeOperation='screen';
+    for(let i=0;i<220;i++){ const x=((i*73+seed)%997)/997*W, y=((i*191+seed)%991)/991*H; const a=(Math.sin(i*12.989+t*.3)+1)*.5; ctx.fillStyle=`rgba(255,244,216,${.018+a*.032})`; ctx.fillRect(x,y,1,1); }
+    ctx.restore();
+  }
+  function drawThreads(t){
+    ctx.save(); ctx.globalCompositeOperation='screen'; ctx.lineCap='round';
+    threads.forEach((th,i)=>{
+      ctx.beginPath();
+      for(let k=0;k<=150;k++){
+        const u=k/150; const readableGap=Math.exp(-Math.pow((u-pointer.x)*3.4,2))*Math.sin((u+.1)*Math.PI);
+        const y=(th.y + Math.sin(u*7+i+t*th.speed)*th.amp + Math.sin(u*19-t*.17)*th.amp*.33 + readableGap*(pointer.y-.5)*.035)*H;
+        const x=u*W;
+        if(k===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=`hsla(${th.hue}, 90%, 75%, ${th.alpha})`; ctx.lineWidth=0.75+i*.13; ctx.stroke();
+    });
+    ctx.restore();
+  }
+  function drawLens(t){
+    const x=pointer.x*W, y=pointer.y*H, r=Math.min(W,H)*(.14 + .018*Math.sin(t*1.2));
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    const g=ctx.createRadialGradient(x,y,0,x,y,r*1.45); g.addColorStop(0,'rgba(255,244,216,.22)'); g.addColorStop(.36,'rgba(255,205,142,.09)'); g.addColorStop(.7,'rgba(126,214,255,.045)'); g.addColorStop(1,'rgba(255,244,216,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r*1.45,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,244,216,.16)'; ctx.lineWidth=1; ctx.setLineDash([2,10]); ctx.beginPath(); ctx.arc(x,y,r*.78,0,Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
+  function drawTerms(t){
+    ctx.save(); ctx.textBaseline='middle';
+    terms.forEach((m,i)=>{
+      const dx=m.x-pointer.x, dy=m.y-pointer.y; const d=Math.hypot(dx,dy)||.001;
+      const near=Math.max(0,1-d/.24); const retreat=near*near*.048;
+      const spin = t*.05 + m.phase;
+      m.x += m.vx + Math.sin(spin+i)*.00008; m.y += m.vy + Math.cos(spin*.8+i)*.00007;
+      if(m.x<.08||m.x>.95)m.vx*=-1; if(m.y<.1||m.y>.92)m.vy*=-1;
+      const rx=m.x + dx/d*retreat + Math.sin(t*.8+m.phase)*.003;
+      const ry=m.y + dy/d*retreat + Math.cos(t*.7+m.phase)*.003;
+      const x=rx*W, y=ry*H; const oldx=m.px*W, oldy=m.py*H; m.px=rx; m.py=ry;
+      if(i%3===0 && near>.35) ghosts.push({x:oldx,y:oldy,txt:m.word[0],age:0,h:m.hue});
+      ctx.globalCompositeOperation='lighter';
+      ctx.strokeStyle=`hsla(${m.hue}, 88%, 78%, ${.07+near*.12})`; ctx.lineWidth=.55+near*1.3; ctx.beginPath(); ctx.moveTo(oldx,oldy); ctx.lineTo(x,y); ctx.stroke();
+      if(labelsOn){
+        const blur=near*9; ctx.filter=`blur(${blur.toFixed(2)}px)`;
+        ctx.font=`${11 + m.weight*7 + near*5}px Inter, system-ui, sans-serif`;
+        const alpha=.17 + (1-near)*.36;
+        ctx.fillStyle=`rgba(255,244,216,${alpha})`; ctx.fillText(m.word[0], x+9, y-6);
+        ctx.font=`${10 + m.weight*5}px Inter, system-ui, sans-serif`; ctx.fillStyle=`rgba(255,220,174,${alpha*.74})`; ctx.fillText(m.word[1], x+10, y+11);
+        ctx.filter='none';
+      }
+      ctx.beginPath(); ctx.fillStyle=`hsla(${m.hue}, 90%, ${70+near*18}%, ${.22+near*.45})`; ctx.arc(x,y,1.2+near*4.5,0,Math.PI*2); ctx.fill();
+    });
+    ctx.restore();
+  }
+  function drawGhosts(){
+    ctx.save(); ctx.globalCompositeOperation='screen'; ctx.textBaseline='middle'; ctx.font='12px Inter, system-ui, sans-serif';
+    ghosts = ghosts.filter(g => g.age < 1);
+    ghosts.forEach(g=>{ g.age += .012; ctx.fillStyle=`hsla(${g.h}, 90%, 78%, ${.16*(1-g.age)})`; ctx.fillText(g.txt, g.x + g.age*26, g.y - g.age*19); });
+    ctx.restore();
+  }
+  function draw(tms){
+    if(!paused){ tick++; const t=tms/1000; pointer.x += (pointer.tx-pointer.x)*.055; pointer.y += (pointer.ty-pointer.y)*.055; background(t); drawThreads(t); drawLens(t); drawGhosts(); drawTerms(t); window._drawHeartbeat=tick; }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', resize);
+  addEventListener('pointermove', e=>{ pointer.tx=e.clientX/Math.max(1,W); pointer.ty=e.clientY/Math.max(1,H); pointer.active=true; });
+  addEventListener('pointerdown', e=>{ pointer.tx=e.clientX/Math.max(1,W); pointer.ty=e.clientY/Math.max(1,H); labelsOn=!labelsOn; });
+  addEventListener('keydown', e=>{
+    const k=e.key.toLowerCase();
+    if(k==='l') labelsOn=!labelsOn;
+    if(k===' ') paused=!paused;
+    if(k==='r'){ seed=(seed*1664525+1013904223)>>>0; init(); }
+    if(k==='s'){ const a=document.createElement('a'); a.download='naming-latency.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  });
+  resize(); window._p5Ready=true; setTimeout(()=>{ if(!window._drawHeartbeat) { background(0); drawThreads(0); drawLens(0); drawTerms(0); window._drawHeartbeat=1; } }, 700); requestAnimationFrame(draw);
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-16-naming-latency-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

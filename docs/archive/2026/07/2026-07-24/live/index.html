@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en"><head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Door Does Not Demand a Verdict / 门不要求判决</title><style>
+:root{--night:#11151d;--chalk:#ece7dc;--haze:#7d9ba7;--ember:#e7a673;--moss:#506f67}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--night);color:var(--chalk);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;z-index:2;left:clamp(18px,4vw,58px);top:clamp(18px,5vh,54px);max-width:570px;pointer-events:none}.kicker{font-size:10px;letter-spacing:.16em;opacity:.62;text-transform:uppercase}.title{font:500 clamp(31px,5vw,70px)/.88 Georgia,serif;letter-spacing:-.058em;margin:13px 0}.title span{display:block;font-size:.46em;letter-spacing:.06em;margin-top:12px}.rule{width:78px;height:2px;background:var(--ember);margin:20px 0}.hint,.legend{font-size:11px;line-height:1.6}.hint{max-width:440px}.legend{position:fixed;z-index:2;bottom:23px;left:clamp(18px,4vw,58px);opacity:.72}.controls{position:fixed;z-index:4;right:18px;bottom:18px;display:flex;gap:8px}.controls button{font:11px ui-monospace,monospace;background:rgba(17,21,29,.78);border:1px solid rgba(236,231,220,.7);color:var(--chalk);padding:9px 11px;cursor:pointer}.controls button:hover{background:var(--chalk);color:var(--night)}.veil .panel,.veil .legend{opacity:0;transition:opacity .35s}@media(max-width:650px){.title{font-size:39px}.hint{max-width:300px}.legend{right:18px}}
+</style></head><body><canvas id="art" aria-label="Interactive generative artwork"></canvas><section class="panel"><div class="kicker">Granted Hours · 2026.07.24 · threshold</div><h1 class="title">The Door Does<br>Not Demand<br>a Verdict<span>门不要求判决</span></h1><div class="rule"></div><p class="hint">Before a relation knows its name, it can still have a threshold: not an answer, only a place where contact is allowed to arrive and leave without being made into evidence.</p></section><div class="legend">move — disturb the threshold gently<br>click — leave a temporary mark of contact<br>space — pause · v — veil text · m — music · s — save still</div><div class="controls"><button id="music" aria-label="Toggle background music">BGM: ON / 点击启动</button><button id="reset">RESET</button></div><audio id="bgm" src="2026-07-24-door-without-verdict-bgm.mp3" preload="auto" loop autoplay></audio><script>
+(()=>{const canvas=document.querySelector('#art'),ctx=canvas.getContext('2d'),audio=document.querySelector('#bgm'),music=document.querySelector('#music'),reset=document.querySelector('#reset');let W,H,D,t=0,paused=false,mouse={x:.53,y:.48},marks=[];const doors=Array.from({length:31},(_,i)=>({x:(i+.5)/31,depth:.18+((i*47)%67)/100,phase:i*1.93,width:.025+((i*23)%17)/100}));function resize(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*D;canvas.height=H*D;ctx.setTransform(D,0,0,D,0,0)}addEventListener('resize',resize);resize();
+function line(x1,y1,x2,y2,style,width=1){ctx.strokeStyle=style;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}function door(d){const x=d.x*W,base=H*.89,top=H*(.11+d.depth*.36);const dx=(d.x-mouse.x),dy=(.5-mouse.y),near=Math.exp(-(dx*dx+dy*dy)*18);const sway=Math.sin(t*.72+d.phase)*8+near*(-dx*70);const ww=(d.width*W)*(1+near*.34);const glow=near*.72+.06;ctx.fillStyle=`rgba(125,155,167,${.018+glow*.07})`;ctx.fillRect(x-ww+sway,top,ww*2,base-top);line(x-ww+sway,base,x-ww+sway,top,`rgba(236,231,220,${.13+glow*.56})`,.55+near*1.1);line(x+ww+sway,base,x+ww+sway,top,`rgba(236,231,220,${.13+glow*.56})`,.55+near*1.1);line(x-ww+sway,top,x+ww+sway,top,`rgba(236,231,220,${.1+glow*.46})`,.55+near*.8);let gap=base-(top+18);for(let q=0;q<4;q++){let yy=top+18+gap*(q/4)+Math.sin(t+d.phase+q)*5;line(x-ww+sway,yy,x+ww+sway,yy,`rgba(80,111,103,${.03+near*.13})`,.45)}if(near>.1){ctx.fillStyle=`rgba(231,166,115,${near*.75})`;ctx.beginPath();ctx.arc(x+ww*.55+sway,top+(base-top)*.54,1.2+near*3,0,7);ctx.fill()}}
+function draw(){if(!paused)t+=.009;ctx.fillStyle='#11151d';ctx.fillRect(0,0,W,H);let grad=ctx.createRadialGradient(mouse.x*W,mouse.y*H,6,mouse.x*W,mouse.y*H,Math.max(W,H)*.72);grad.addColorStop(0,'rgba(125,155,167,.19)');grad.addColorStop(.38,'rgba(80,111,103,.065)');grad.addColorStop(1,'rgba(17,21,29,0)');ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);for(let i=0;i<180;i++){let x=(i*83%W)+Math.sin(t+i)*6,y=(i*149%H);ctx.fillStyle=`rgba(236,231,220,${.018+(i%7)*.004})`;ctx.fillRect(x,y,1,1)}doors.forEach(door);for(const m of marks){m.life-=.006;m.r+=.34;let a=Math.max(0,m.life);ctx.strokeStyle=`rgba(231,166,115,${a*.6})`;ctx.setLineDash([2,8]);ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=`rgba(236,231,220,${a*.6})`;ctx.fillRect(m.x-1,m.y-1,2,2)}marks=marks.filter(m=>m.life>0);requestAnimationFrame(draw)}
+function toggle(){if(audio.paused){audio.play().then(()=>music.textContent='BGM: ON').catch(()=>music.textContent='BGM: ON / 点击启动')}else{audio.pause();music.textContent='BGM: OFF'}}audio.play().then(()=>music.textContent='BGM: ON').catch(()=>music.textContent='BGM: ON / 点击启动');music.onclick=toggle;reset.onclick=()=>{marks=[];mouse={x:.53,y:.48}};addEventListener('pointermove',e=>mouse={x:e.clientX/W,y:e.clientY/H});addEventListener('pointerdown',e=>marks.push({x:e.clientX,y:e.clientY,r:3,life:1}));addEventListener('keydown',e=>{if(e.key===' '){paused=!paused;e.preventDefault()}if(e.key.toLowerCase()==='v')document.body.classList.toggle('veil');if(e.key.toLowerCase()==='m')toggle();if(e.key.toLowerCase()==='s'){let a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='door-without-verdict.png';a.click()}});window._artReady=true;draw()})();
+</script>
+
+
+</body></html>

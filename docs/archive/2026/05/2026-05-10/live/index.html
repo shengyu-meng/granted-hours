@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>白夜阈值天气 · Threshold Weather</title>
+  <style>
+    :root {
+      --bg0: #060711;
+      --bg1: #0b1020;
+      --milk: #f2ead7;
+      --fog: rgba(242,234,215,.62);
+      --muted: rgba(242,234,215,.36);
+      --line: rgba(242,234,215,.16);
+      --accent: #f6b36a;
+      --cold: #78d5ff;
+      --violet: #a58cff;
+      --danger: #ff6f91;
+    }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg0); color: var(--milk); font-family: ui-serif, "Noto Serif SC", "Songti SC", Georgia, serif; }
+    canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+    .panel {
+      position: fixed; left: 34px; top: 30px; width: min(420px, calc(100vw - 68px));
+      padding: 22px 24px 20px; border: 1px solid var(--line); border-radius: 26px;
+      background: linear-gradient(135deg, rgba(8,10,23,.78), rgba(12,17,33,.42));
+      box-shadow: 0 18px 70px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.05);
+      backdrop-filter: blur(12px);
+    }
+    .kicker { font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    h1 { font-size: clamp(28px, 3.5vw, 52px); margin: 0; font-weight: 520; letter-spacing: -.06em; line-height: .96; }
+    .sub { margin: 13px 0 0; color: var(--fog); font-size: 14px; line-height: 1.7; }
+    .aphorism { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); color: rgba(246,179,106,.88); font-size: 15px; line-height: 1.65; }
+    .meters { position: fixed; right: 34px; bottom: 30px; width: min(430px, calc(100vw - 68px)); display: grid; gap: 10px; }
+    .meter { display: grid; grid-template-columns: 72px 1fr 42px; gap: 12px; align-items: center; color: var(--fog); font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .track { height: 5px; border-radius: 999px; background: rgba(242,234,215,.12); overflow: hidden; box-shadow: inset 0 0 8px rgba(0,0,0,.45); }
+    .bar { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--cold), var(--violet), var(--accent)); box-shadow: 0 0 14px rgba(246,179,106,.35); transition: width .12s linear, filter .12s linear; }
+    .meter.hot .bar { filter: saturate(1.8) brightness(1.25); background: linear-gradient(90deg, var(--accent), var(--danger)); }
+    .meter.hot .value, .meter.hot .label { color: #ffd19d; }
+    .help { position: fixed; left: 36px; bottom: 28px; color: rgba(242,234,215,.34); font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .05em; }
+    .stamp { position: fixed; right: 34px; top: 30px; color: rgba(242,234,215,.25); font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; text-align: right; }
+    @media (max-width: 760px) { .panel { left: 18px; top: 18px; } .meters { right: 18px; bottom: 54px; } .help { left: 20px; bottom: 14px; } .stamp { right: 18px; top: auto; bottom: 14px; } }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="Threshold weather generative canvas"></canvas>
+  <section class="panel">
+    <div class="kicker">White Night Variable 04 / Latent Signal</div>
+    <h1>阈值天气</h1>
+    <p class="sub">这不是警报器，而是一张未发生之事的气象图：噪声、意图、梦、身体和市场都在慢慢加压。鼠标经过的地方会降低局部阈值，点击会制造一次微型跃迁。</p>
+    <div class="aphorism">阈值不是墙；阈值是世界终于承认：背景噪声已经长成了事件。</div>
+  </section>
+  <div class="stamp">seed 20260510<br/>click: local phase jump<br/>space: pause · s: save</div>
+  <section class="meters" id="meters" aria-label="latent signal meters"></section>
+  <div class="help">Move slowly. 让手变成一枚低温催化剂。</div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const meterRoot = document.getElementById('meters');
+  const seed = 20260510;
+  let W = 0, H = 0, DPR = 1, t = 0, paused = false;
+  const mouse = { x: -9999, y: -9999, down: false, pulse: 0 };
+  const names = ['noise', 'intent', 'dream', 'body', 'market'];
+  const meters = names.map(n => ({ name: n, v: 0, phase: 0, node: null, bar: null, val: null }));
+
+  function mulberry32(a) { return function() { let x = a += 0x6D2B79F5; x = Math.imul(x ^ (x >>> 15), x | 1); x ^= x + Math.imul(x ^ (x >>> 7), x | 61); return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+  const rand = mulberry32(seed);
+  const particles = [];
+  const ridges = [];
+  const jumps = [];
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.floor(window.innerWidth);
+    H = Math.floor(window.innerHeight);
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    if (particles.length === 0) init();
+  }
+
+  function init() {
+    particles.length = 0;
+    ridges.length = 0;
+    jumps.length = 0;
+    const count = Math.min(1900, Math.max(900, Math.floor(W * H / 760)));
+    for (let i = 0; i < count; i++) {
+      const band = rand();
+      particles.push({
+        x: rand() * W,
+        y: rand() * H,
+        px: 0, py: 0,
+        a: rand() * Math.PI * 2,
+        r: 0.6 + Math.pow(rand(), 3) * 2.4,
+        p: 0.18 + rand() * 0.58,
+        threshold: 0.62 + band * 0.24,
+        hue: 198 + rand() * 68,
+        drift: 0.18 + rand() * 0.8,
+        kin: rand() * Math.PI * 2
+      });
+    }
+    for (let i = 0; i < 12; i++) {
+      ridges.push({ x: rand() * W, y: rand() * H, len: 120 + rand() * 520, a: rand() * Math.PI, k: .003 + rand() * .007, bias: rand() });
+    }
+    meterRoot.innerHTML = '';
+    meters.forEach((m, i) => {
+      const row = document.createElement('div');
+      row.className = 'meter';
+      row.innerHTML = `<span class="label">${m.name}</span><span class="track"><span class="bar"></span></span><span class="value">00%</span>`;
+      m.node = row; m.bar = row.querySelector('.bar'); m.val = row.querySelector('.value'); m.phase = i * 1.31;
+      meterRoot.appendChild(row);
+    });
+  }
+
+  function field(x, y, time) {
+    const nx = x / Math.max(W, 1) - 0.5;
+    const ny = y / Math.max(H, 1) - 0.5;
+    const d = Math.sqrt(nx * nx + ny * ny);
+    const wave = Math.sin(nx * 9.3 + time * 0.017) * Math.cos(ny * 7.1 - time * 0.013);
+    const grain = Math.sin((x * 0.017 + Math.sin(y * 0.006 + time * 0.01) * 4.5)) * 0.5 +
+                  Math.cos((y * 0.014 - Math.cos(x * 0.004 - time * 0.009) * 5.0)) * 0.5;
+    const moon = Math.max(0, 1 - d * 1.65);
+    return 0.43 + wave * 0.17 + grain * 0.12 + moon * 0.18;
+  }
+
+  function drawBackground() {
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#050611'); g.addColorStop(.48, '#091129'); g.addColorStop(1, '#120c1c');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.save();
+    ctx.globalAlpha = .20;
+    for (let i = 0; i < 160; i++) {
+      const x = ((i * 97.31 + t * .06) % (W + 180)) - 90;
+      const y = ((i * 53.17 + Math.sin(t * .004 + i) * 12) % (H + 160)) - 80;
+      const a = (i * 2.399 + t * .001) % (Math.PI * 2);
+      ctx.strokeStyle = i % 5 === 0 ? 'rgba(246,179,106,.09)' : 'rgba(120,213,255,.055)';
+      ctx.lineWidth = i % 7 === 0 ? 1.3 : .55;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(a) * (18 + (i % 11) * 7), y + Math.sin(a) * (18 + (i % 11) * 7));
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawRidges() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ridges.forEach((r, idx) => {
+      const hot = (Math.sin(t * r.k + r.bias * 9) + 1) / 2;
+      ctx.strokeStyle = hot > .82 ? `rgba(246,179,106,${0.10 + hot * .18})` : `rgba(242,234,215,${0.035 + hot * .05})`;
+      ctx.lineWidth = hot > .82 ? 1.4 : .7;
+      ctx.beginPath();
+      for (let s = 0; s < 90; s++) {
+        const q = s / 89;
+        const bend = Math.sin(q * Math.PI * 2 + t * .006 + idx) * 38 * (0.3 + hot);
+        const x = r.x + Math.cos(r.a) * (q - .5) * r.len + Math.cos(r.a + Math.PI / 2) * bend;
+        const y = r.y + Math.sin(r.a) * (q - .5) * r.len + Math.sin(r.a + Math.PI / 2) * bend;
+        if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  function updateMeters() {
+    meters.forEach((m, i) => {
+      const base = 0.46 + Math.sin(t * (0.006 + i * .0013) + m.phase) * 0.18 + Math.sin(t * .002 + i * 3.7) * 0.08;
+      const mx = mouse.x / Math.max(W, 1), my = mouse.y / Math.max(H, 1);
+      const proximity = Math.max(0, 1 - Math.hypot(mx - (0.2 + i * .15), my - (0.25 + (i % 2) * .32)) * 1.7);
+      m.v = Math.max(0, Math.min(1, base + proximity * .32 + mouse.pulse * .18));
+      const pct = Math.round(m.v * 100);
+      m.bar.style.width = pct + '%';
+      m.val.textContent = String(pct).padStart(2, '0') + '%';
+      m.node.classList.toggle('hot', m.v > .76);
+    });
+  }
+
+  function drawParticles() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of particles) {
+      p.px = p.x; p.py = p.y;
+      const f = field(p.x, p.y, t);
+      const dx = p.x - mouse.x, dy = p.y - mouse.y;
+      const md = Math.sqrt(dx * dx + dy * dy);
+      const touch = Math.max(0, 1 - md / 210);
+      const localThreshold = p.threshold - touch * .22 - mouse.pulse * .08;
+      const above = f + p.p * .22 > localThreshold;
+      const turn = (f - .5) * 1.9 + Math.sin(p.kin + t * .006) * .45 + touch * .8;
+      p.a += turn * .055;
+      const speed = p.drift * (above ? 2.2 : .74) + touch * 1.2;
+      p.x += Math.cos(p.a) * speed;
+      p.y += Math.sin(p.a) * speed;
+      if (p.x < -20) p.x = W + 20; if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20; if (p.y > H + 20) p.y = -20;
+      const alpha = above ? .34 + Math.min(.34, (f - localThreshold + .14) * 1.4) : .055;
+      const hue = above ? 34 + touch * 28 : p.hue;
+      ctx.strokeStyle = `hsla(${hue}, ${above ? 86 : 56}%, ${above ? 70 : 58}%, ${alpha})`;
+      ctx.lineWidth = above ? p.r * 1.4 : .55;
+      ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+      if (above && (p.x + p.y + t) % 29 < .9) {
+        ctx.fillStyle = `hsla(${hue}, 92%, 74%, ${alpha * .8})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (1.1 + touch * 2.8), 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawJumps() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = jumps.length - 1; i >= 0; i--) {
+      const j = jumps[i]; j.age += 1;
+      const k = j.age / j.life;
+      if (k >= 1) { jumps.splice(i, 1); continue; }
+      ctx.strokeStyle = `rgba(246,179,106,${(1-k)*.46})`;
+      ctx.lineWidth = 1.2 + (1-k) * 4;
+      ctx.beginPath(); ctx.arc(j.x, j.y, 24 + k * 260, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = `rgba(120,213,255,${(1-k)*.18})`;
+      ctx.lineWidth = .8;
+      ctx.beginPath(); ctx.arc(j.x, j.y, 8 + k * 130, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawThresholdLine() {
+    ctx.save();
+    ctx.globalAlpha = .6;
+    ctx.strokeStyle = 'rgba(242,234,215,.14)';
+    ctx.lineWidth = .8;
+    const rows = 9;
+    for (let r = 1; r < rows; r++) {
+      const y0 = H * r / rows;
+      ctx.beginPath();
+      for (let x = -20; x <= W + 20; x += 18) {
+        const f = field(x, y0, t);
+        const y = y0 + Math.sin(x * .012 + t * .01 + r) * 18 + (f - .52) * 72;
+        if (x === -20) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function frame() {
+    if (!paused) t += 1;
+    mouse.pulse *= .94;
+    drawBackground();
+    drawThresholdLine();
+    drawRidges();
+    drawParticles();
+    drawJumps();
+    updateMeters();
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  window.addEventListener('click', e => { mouse.pulse = 1; jumps.push({ x: e.clientX, y: e.clientY, age: 0, life: 118 }); });
+  window.addEventListener('keydown', e => {
+    if (e.key === ' ') paused = !paused;
+    if (e.key.toLowerCase() === 's') {
+      const a = document.createElement('a'); a.download = 'threshold-weather-2026-05-10.png'; a.href = canvas.toDataURL('image/png'); a.click();
+    }
+  });
+  resize();
+  window.__thresholdWeather = { seed, health: () => ({ W, H, particles: particles.length, meters: meters.map(m => Math.round(m.v * 100)), jumps: jumps.length, t }) };
+  frame();
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-10-threshold-weather-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

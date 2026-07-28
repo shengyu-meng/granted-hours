@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>白夜误差场 · White Night Error Field</title>
+  <script>window.p5 && (p5.disableFriendlyErrors = true);</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    :root { --ink:#eef7ff; --muted:rgba(238,247,255,.64); --line:rgba(210,238,255,.16); }
+    html,body{ margin:0; height:100%; overflow:hidden; background:#030610; color:var(--ink); font-family:ui-serif, Georgia, "Songti SC", "Noto Serif CJK SC", serif; }
+    canvas{ display:block; }
+    .panel{ position:fixed; left:26px; top:24px; max-width:610px; padding:18px 20px; border:1px solid var(--line); border-radius:22px; background:linear-gradient(135deg,rgba(8,17,35,.80),rgba(8,17,35,.38)); backdrop-filter:blur(14px); box-shadow:0 18px 80px rgba(0,0,0,.38); }
+    h1{ margin:0 0 8px; font-size:22px; font-weight:500; letter-spacing:.08em; }
+    p{ margin:5px 0; font-size:13px; line-height:1.65; color:var(--muted); }
+    .sig{ color:rgba(255,222,158,.82); }
+    .hint{ position:fixed; right:24px; bottom:20px; color:rgba(238,247,255,.55); font:12px ui-sans-serif,system-ui; letter-spacing:.04em; }
+  </style>
+</head>
+<body>
+  <section class="panel">
+    <h1>白夜误差场 · White Night Error Field</h1>
+    <p>第二个自由变量：误差。不是要修掉它，而是看它怎样把系统从自恋的完美里拽出来。</p>
+    <p class="sig">误差不是系统的失败；误差是世界拒绝被你简化的部分。</p>
+  </section>
+  <div class="hint">mouse: bend the field / E: error intensity / click: reseed / S: save png</div>
+<script>
+p5.disableFriendlyErrors = true;
+const CONFIG = {
+  seed: 20260508,
+  errorMode: 1,
+  particleCount: 360,
+  palette: {
+    cyan: 194,
+    mint: 166,
+    amber: 42,
+    rose: 335,
+    violet: 272,
+    blue: 218
+  }
+};
+let particles = [];
+let scars = [];
+let seed = CONFIG.seed;
+let started = 0;
+let bgDots = [];
+
+function setup(){
+  createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+  frameRate(60);
+  colorMode(HSB, 360, 100, 100, 100);
+  textFont('Georgia');
+  init(seed);
+}
+
+function init(s){
+  seed = s;
+  randomSeed(seed); noiseSeed(seed);
+  started = millis();
+  particles = [];
+  scars = [];
+  bgDots = [];
+  const w = Math.min(width, height);
+  for(let i=0;i<CONFIG.particleCount;i++) particles.push(new Residual(i, w));
+  for(let i=0;i<44;i++){
+    scars.push({a:random(TAU), r:random(w*.11,w*.45), len:random(22,86), hue:random([CONFIG.palette.cyan,CONFIG.palette.amber,CONFIG.palette.rose,CONFIG.palette.mint]), phase:random(TAU)});
+  }
+  for(let i=0;i<Math.floor(width*height/10500);i++){
+    bgDots.push({x:random(width), y:random(height), z:random(.2,1), hue:random([205,218,42,166,335]), a:random(4,18)});
+  }
+}
+
+function draw(){
+  const t = (millis()-started)/1000;
+  drawBackground(t);
+  drawBentGrid(t);
+  drawResidualField(t);
+  drawMoon(t);
+  drawWords(t);
+}
+
+function drawBackground(t){
+  background(224, 66, 4);
+  noStroke();
+  for(let y=0;y<height;y+=3){
+    const k = y/height;
+    const h = 225 - 12*k + 4*Math.sin(t*.035+k*3);
+    fill(h, 65, 5 + 12*Math.pow(k,.72), 70);
+    rect(0,y,width,4);
+  }
+  blendMode(ADD);
+  for(const d of bgDots){
+    const dx = Math.sin(t*.035 + d.y*.008) * 18*d.z;
+    const dy = Math.cos(t*.026 + d.x*.006) * 8*d.z;
+    fill(d.hue, 24, 98, d.a);
+    circle((d.x+dx+width)%width, (d.y+dy+height)%height, .6+1.7*d.z);
+  }
+  blendMode(BLEND);
+}
+
+function fieldWarp(x,y,t){
+  const cx = width/2, cy = height/2+18;
+  const mx = (mouseX || cx) - cx, my = (mouseY || cy) - cy;
+  const dx = x-cx, dy = y-cy;
+  const d2 = dx*dx+dy*dy+2000;
+  const pull = 24000 / d2;
+  const n = noise(x*.0022, y*.0022, t*.08) - .5;
+  return {
+    x: x + mx*pull + Math.cos(n*TAU + t*.05)*18*CONFIG.errorMode,
+    y: y + my*pull + Math.sin(n*TAU + t*.05)*18*CONFIG.errorMode
+  };
+}
+
+function drawBentGrid(t){
+  strokeWeight(.7);
+  noFill();
+  const step = 62;
+  for(let x=-step;x<width+step;x+=step){
+    beginShape();
+    for(let y=-step;y<height+step;y+=26){
+      const p = fieldWarp(x,y,t);
+      stroke(198, 28, 92, 7 + 8*Math.abs(Math.sin(x*.01+t*.12)));
+      vertex(p.x,p.y);
+    }
+    endShape();
+  }
+  for(let y=-step;y<height+step;y+=step){
+    beginShape();
+    for(let x=-step;x<width+step;x+=26){
+      const p = fieldWarp(x,y,t);
+      stroke(198, 24, 92, 6 + 7*Math.abs(Math.cos(y*.01+t*.1)));
+      vertex(p.x,p.y);
+    }
+    endShape();
+  }
+}
+
+function drawResidualField(t){
+  blendMode(ADD);
+  for(const p of particles){ p.update(t); p.display(t); }
+  blendMode(BLEND);
+}
+
+class Residual{
+  constructor(i,w){
+    this.i=i;
+    this.baseR=random(w*.17,w*.72);
+    this.a=random(TAU);
+    this.speed=random(-.18,.18) * (random()<.5?1.6:.6);
+    this.err=random(.8,2.4);
+    this.hue=random([CONFIG.palette.cyan,CONFIG.palette.mint,CONFIG.palette.amber,CONFIG.palette.rose,CONFIG.palette.violet]);
+    this.size=random(.8,3.1);
+    this.trail=[];
+  }
+  update(t){
+    const cx=width/2, cy=height/2+18;
+    const e = CONFIG.errorMode;
+    const wob = (noise(this.i*.19,t*.13)-.5) * 90 * this.err * e;
+    const localA = this.a + t*this.speed + .28*Math.sin(t*.17+this.i);
+    const ellipseY = .56 + .12*Math.sin(this.i*.7);
+    let x = cx + Math.cos(localA) * (this.baseR + wob);
+    let y = cy + Math.sin(localA) * (this.baseR*ellipseY + wob*.35);
+    const warp = fieldWarp(x,y,t);
+    this.x = warp.x; this.y = warp.y;
+    this.trail.push({x:this.x,y:this.y});
+    if(this.trail.length>9) this.trail.shift();
+  }
+  display(t){
+    noFill();
+    stroke(this.hue, 44, 100, 7);
+    strokeWeight(.8);
+    beginShape();
+    for(const q of this.trail) vertex(q.x,q.y);
+    endShape();
+    noStroke();
+    const pulse = 1 + .55*Math.sin(t*1.7+this.i);
+    fill(this.hue, 52, 100, 20);
+    circle(this.x,this.y,this.size*3.8*pulse);
+    fill(this.hue, 18, 100, 48);
+    circle(this.x,this.y,this.size);
+  }
+}
+
+function drawMoon(t){
+  const cx=width/2, cy=height/2+18;
+  push(); translate(cx,cy);
+  blendMode(ADD);
+  noStroke();
+  for(let i=10;i>0;i--){ fill(42,22,100,2.2*i); circle(0,0,44*i); }
+  blendMode(BLEND);
+  fill(43,10,98,96); circle(0,0,112);
+  fill(220,55,7,72); arc(10,-4,98,98,-HALF_PI,HALF_PI);
+  noFill();
+  stroke(43,34,100,58); strokeWeight(1.2); circle(0,0,130);
+  for(const s of scars){
+    const a=s.a + .03*Math.sin(t*.4+s.phase);
+    const x=Math.cos(a)*s.r*.22, y=Math.sin(a)*s.r*.16;
+    stroke(s.hue, 30, 100, 28);
+    strokeWeight(randomLike(s.phase)*1.2 + .55);
+    line(x,y,x+Math.cos(a+HALF_PI)*s.len*.35,y+Math.sin(a+HALF_PI)*s.len*.35);
+  }
+  stroke(212, 18, 10, 84); strokeWeight(15); strokeCap(ROUND); noFill();
+  beginShape();
+  curveVertex(-18,-56); curveVertex(-12,-46); curveVertex(8,-18); curveVertex(-10,11); curveVertex(14,39); curveVertex(-2,60); curveVertex(-10,74);
+  endShape();
+  stroke(42, 36, 100, 58); strokeWeight(1.5);
+  beginShape();
+  curveVertex(-22,-58); curveVertex(-16,-48); curveVertex(3,-18); curveVertex(-17,11); curveVertex(7,40); curveVertex(-8,61); curveVertex(-16,74);
+  endShape();
+  pop();
+}
+
+function randomLike(x){ return Math.abs((Math.sin(x*999.13)*43758.5453)%1); }
+
+function drawWords(t){
+  const words = [
+    {txt:'residual', x:.21, y:.27, h:194}, {txt:'偏差', x:.73, y:.24, h:42},
+    {txt:'not a bug', x:.78, y:.61, h:335}, {txt:'裂缝', x:.26, y:.67, h:166},
+    {txt:'signal', x:.58, y:.78, h:272}, {txt:'05:00', x:.49, y:.20, h:205}
+  ];
+  textAlign(CENTER,CENTER);
+  for(const w of words){
+    const x=w.x*width + Math.sin(t*.18+w.x*8)*14;
+    const y=w.y*height + Math.cos(t*.15+w.y*8)*10;
+    fill(w.h, 20, 96, 28);
+    textSize(Math.max(13, Math.min(width,height)*.022));
+    text(w.txt,x,y);
+  }
+}
+
+function mousePressed(){ init((seed + 7919) % 99999999); }
+function keyPressed(){
+  if(key==='s'||key==='S') saveCanvas('white-night-error-field-'+seed,'png');
+  if(key==='e'||key==='E') CONFIG.errorMode = CONFIG.errorMode % 3 + 1;
+}
+function windowResized(){ resizeCanvas(windowWidth, windowHeight); init(seed); }
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-08-white-night-error-field-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Judgment Returns / 判断回流</title>
+  <style>
+    :root { color-scheme: dark; --ink:#e8f0ff; --muted:#91a0bb; --gold:#ffcc70; --cyan:#8ee8ff; --violet:#b9a0ff; --bg:#05070d; }
+    html, body { margin:0; height:100%; overflow:hidden; background:radial-gradient(circle at 50% 42%, #111827 0%, #070912 45%, #02030a 100%); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); }
+    canvas { display:block; width:100vw; height:100vh; }
+    .hud { position:fixed; left:24px; top:22px; max-width:min(520px, calc(100vw - 48px)); pointer-events:none; }
+    .kicker { font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--cyan); opacity:.86; }
+    h1 { margin:8px 0 8px; font-size:clamp(28px, 4vw, 60px); line-height:.95; font-weight:680; letter-spacing:-.055em; text-shadow:0 0 38px rgba(142,232,255,.18); }
+    .zh { display:block; margin-top:8px; color:#f8d895; letter-spacing:.03em; font-weight:520; }
+    .copy { margin:0; color:var(--muted); font-size:14px; line-height:1.6; max-width:48em; }
+    .controls { position:fixed; right:20px; bottom:18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    button { pointer-events:auto; border:1px solid rgba(232,240,255,.24); background:rgba(6,9,18,.56); color:var(--ink); border-radius:999px; padding:10px 14px; backdrop-filter: blur(14px); box-shadow:0 12px 50px rgba(0,0,0,.28); cursor:pointer; font:600 12px/1 ui-sans-serif, system-ui; letter-spacing:.08em; text-transform:uppercase; }
+    button:hover { border-color:rgba(255,204,112,.66); color:#ffe2a3; }
+    .legend { position:fixed; left:24px; bottom:22px; color:rgba(232,240,255,.62); font-size:12px; letter-spacing:.05em; }
+    .meter { position:fixed; right:22px; top:20px; color:rgba(232,240,255,.58); font-size:12px; text-align:right; line-height:1.6; }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="Generative artwork: Judgment Returns"></canvas>
+  <div class="hud">
+    <div class="kicker">Granted Hours · 2026-06-06 · variable: judgment</div>
+    <h1>Judgment Returns <span class="zh">判断回流</span></h1>
+    <p class="copy">A returning current enters the automated field where consistency risks becoming cruelty. Judgment is not the opposite of protocol; it is the place where protocol remembers the world.</p>
+  </div>
+  <div class="meter" id="meter">judgment current · 0.00<br>protocol pressure · 0.00</div>
+  <div class="legend">Move: steer current · Click: place judgment node · Space: pause · R: reset · S: save still</div>
+  <div class="controls">
+    <button id="soundToggle" aria-pressed="true">BGM: starting</button>
+    <button id="pauseToggle" aria-pressed="false">Pause</button>
+  </div>
+  <audio id="bgm" src="./2026-06-06-judgment-returns-bgm.mp3" preload="auto" autoplay loop></audio>
+  <script>
+  (() => {
+    'use strict';
+    const SEED = 20260606;
+    const canvas = document.getElementById('field');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const meter = document.getElementById('meter');
+    const pauseToggle = document.getElementById('pauseToggle');
+    const soundToggle = document.getElementById('soundToggle');
+    const bgm = document.getElementById('bgm');
+    let W = 1, H = 1, DPR = 1;
+    let frame = 0, paused = false;
+    let pointer = { x: 0.58, y: 0.46, active: false };
+    let soundEnabled = true;
+    let rngState = SEED >>> 0;
+    const TAU = Math.PI * 2;
+
+    function rand(){ rngState ^= rngState << 13; rngState ^= rngState >>> 17; rngState ^= rngState << 5; return ((rngState >>> 0) / 4294967296); }
+    function lerp(a,b,t){ return a + (b-a)*t; }
+    function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+    function ease(t){ return t*t*(3-2*t); }
+    function resetRng(){ rngState = SEED >>> 0; }
+
+    const bands = [];
+    const nodes = [];
+    const traces = [];
+    const judgments = [];
+
+    function seedField(){
+      resetRng(); bands.length = 0; nodes.length = 0; traces.length = 0; judgments.length = 0;
+      for (let i=0;i<34;i++) {
+        bands.push({
+          y: rand(), amp: lerp(0.015,0.105,rand()), freq: lerp(0.7,2.8,rand()), phase: rand()*TAU,
+          hue: lerp(198,268,rand()), width: lerp(0.5,2.2,rand()), speed: lerp(-0.003,0.004,rand())
+        });
+      }
+      for (let i=0;i<72;i++) {
+        const ring = Math.floor(i / 12);
+        nodes.push({
+          a: (i/12)*TAU + rand()*0.25, r: lerp(0.12,0.48, ring/6) + rand()*0.045,
+          drift: lerp(-0.012,0.012,rand()), weight: lerp(0.18,1,rand()), phase: rand()*TAU,
+          kind: rand() > .72 ? 'review' : 'rule'
+        });
+      }
+    }
+
+    function resize(){
+      DPR = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+      W = Math.floor(innerWidth * DPR); H = Math.floor(innerHeight * DPR);
+      canvas.width = W; canvas.height = H;
+      canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
+
+    function setPaused(v){ paused = v; pauseToggle.textContent = paused ? 'Resume' : 'Pause'; pauseToggle.setAttribute('aria-pressed', String(paused)); }
+    function setSound(on){
+      soundEnabled = on;
+      soundToggle.setAttribute('aria-pressed', String(on));
+      if (!on) { bgm.pause(); soundToggle.textContent = 'BGM: off'; return; }
+      bgm.volume = 0.34;
+      const p = bgm.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => { soundToggle.textContent = 'BGM: on'; }).catch(() => { soundToggle.textContent = 'BGM: click'; });
+      } else soundToggle.textContent = 'BGM: on';
+    }
+
+    soundToggle.addEventListener('click', () => { if (soundEnabled && !bgm.paused) setSound(false); else setSound(true); });
+    pauseToggle.addEventListener('click', () => setPaused(!paused));
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true; });
+    window.addEventListener('pointerdown', e => {
+      pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true;
+      judgments.push({ x:pointer.x, y:pointer.y, life:1, seed: rand(), pulse:0 });
+      if (judgments.length > 18) judgments.shift();
+    });
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Space') { e.preventDefault(); setPaused(!paused); }
+      if (e.key === 'r' || e.key === 'R') { seedField(); frame = 0; }
+      if (e.key === 's' || e.key === 'S') saveStill();
+    });
+
+    function saveStill(){
+      const a = document.createElement('a');
+      a.download = '2026-06-06-judgment-returns-still.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+
+    function bg(){
+      const g = ctx.createRadialGradient(innerWidth*.52, innerHeight*.45, innerHeight*.06, innerWidth*.52, innerHeight*.46, innerHeight*.9);
+      g.addColorStop(0, '#142039'); g.addColorStop(.38, '#07101f'); g.addColorStop(1, '#02030a');
+      ctx.fillStyle = g; ctx.fillRect(0,0,innerWidth,innerHeight);
+      ctx.globalCompositeOperation = 'screen';
+      for (let i=0;i<7;i++) {
+        const x = innerWidth*(0.18 + i*.13 + Math.sin(frame*.002+i)*.025);
+        const grd = ctx.createLinearGradient(x, 0, x+innerWidth*.18, innerHeight);
+        grd.addColorStop(0, 'rgba(142,232,255,0)'); grd.addColorStop(.48, `rgba(142,232,255,${0.018+i*.003})`); grd.addColorStop(1, 'rgba(255,204,112,0)');
+        ctx.fillStyle = grd; ctx.fillRect(0,0,innerWidth,innerHeight);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function drawBands(t){
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      bands.forEach((b, i) => {
+        const py = innerHeight * b.y;
+        ctx.beginPath();
+        for (let x=-20; x<=innerWidth+20; x+=18) {
+          const nx = x / innerWidth;
+          const pull = 1 - clamp(Math.hypot(nx-pointer.x, b.y-pointer.y)*2.2, 0, 1);
+          const p = Math.sin(nx * TAU * b.freq + b.phase + t*b.speed*80) * b.amp * innerHeight;
+          const j = (pointer.y-.5) * pull * innerHeight * .18;
+          const y = py + p + j + Math.sin(t*.42 + i)*8;
+          if (x === -20) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.strokeStyle = `hsla(${b.hue}, 86%, 66%, ${0.06 + b.width*.035})`;
+        ctx.lineWidth = b.width;
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
+    function nodePos(n, t){
+      const cx = innerWidth*.5, cy = innerHeight*.52;
+      const orbit = n.r * Math.min(innerWidth, innerHeight) * (1 + 0.035*Math.sin(t*.7+n.phase));
+      const a = n.a + t*n.drift + Math.sin(t*.21+n.phase)*.035;
+      const px = cx + Math.cos(a) * orbit * 1.34;
+      const py = cy + Math.sin(a) * orbit * .82;
+      const dx = (pointer.x*innerWidth - px) / innerWidth;
+      const dy = (pointer.y*innerHeight - py) / innerHeight;
+      const attract = 1 - clamp(Math.hypot(dx,dy)*2.8,0,1);
+      return { x: px + dx*innerWidth*.06*attract, y: py + dy*innerHeight*.06*attract, attract };
+    }
+
+    function drawProtocol(t){
+      const pts = nodes.map(n => nodePos(n,t));
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (let i=0;i<pts.length;i++) {
+        const p = pts[i];
+        for (let k=1;k<=2;k++) {
+          const q = pts[(i+k*7)%pts.length];
+          const d = Math.hypot(p.x-q.x, p.y-q.y);
+          if (d < innerWidth*.28) {
+            const pressure = 1 - d/(innerWidth*.28);
+            ctx.strokeStyle = `rgba(145,160,187,${0.025 + pressure*.045})`;
+            ctx.lineWidth = .6 + pressure*.7;
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+          }
+        }
+      }
+      pts.forEach((p,i) => {
+        const n = nodes[i];
+        const bright = ease(p.attract);
+        const r = (n.kind === 'review' ? 3.1 : 1.8) + bright*5.5 + Math.sin(t*2+n.phase)*.6;
+        ctx.fillStyle = n.kind === 'review' ? `rgba(255,204,112,${0.18+bright*.5})` : `rgba(142,232,255,${0.12+bright*.32})`;
+        ctx.beginPath(); ctx.arc(p.x,p.y,r,0,TAU); ctx.fill();
+      });
+      ctx.restore();
+    }
+
+    function drawCurrent(t){
+      const px = pointer.active ? pointer.x : 0.58 + Math.sin(t*.31)*.13;
+      const py = pointer.active ? pointer.y : 0.46 + Math.cos(t*.27)*.08;
+      traces.push({x:px, y:py, life:1});
+      if (traces.length > 160) traces.shift();
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (let i=1;i<traces.length;i++) {
+        const a = traces[i-1], b = traces[i];
+        a.life *= .986;
+        ctx.strokeStyle = `rgba(255,204,112,${0.012 + a.life*.21})`;
+        ctx.lineWidth = 1 + a.life*7;
+        ctx.beginPath(); ctx.moveTo(a.x*innerWidth, a.y*innerHeight); ctx.lineTo(b.x*innerWidth, b.y*innerHeight); ctx.stroke();
+      }
+      const grd = ctx.createRadialGradient(px*innerWidth, py*innerHeight, 0, px*innerWidth, py*innerHeight, Math.min(innerWidth,innerHeight)*.28);
+      grd.addColorStop(0, 'rgba(255,204,112,.22)'); grd.addColorStop(.35, 'rgba(185,160,255,.08)'); grd.addColorStop(1, 'rgba(142,232,255,0)');
+      ctx.fillStyle = grd; ctx.fillRect(0,0,innerWidth,innerHeight);
+      ctx.restore();
+    }
+
+    function drawJudgments(t){
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      judgments.forEach(j => {
+        j.life *= .992; j.pulse += .025 + j.seed*.015;
+        const x = j.x*innerWidth, y = j.y*innerHeight;
+        for (let r=0; r<3; r++) {
+          const rad = (r+1)*22 + Math.sin(j.pulse*TAU+r)*9 + (1-j.life)*80;
+          ctx.strokeStyle = `rgba(255,204,112,${j.life*(.17-r*.038)})`;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath(); ctx.arc(x,y,rad,0,TAU); ctx.stroke();
+        }
+        ctx.fillStyle = `rgba(255,236,190,${0.24 + j.life*.42})`;
+        ctx.beginPath(); ctx.arc(x,y,5+j.life*5,0,TAU); ctx.fill();
+      });
+      while (judgments[0] && judgments[0].life < .08) judgments.shift();
+      ctx.restore();
+    }
+
+    function drawLabels(t){
+      ctx.save();
+      ctx.font = '12px ui-sans-serif, system-ui'; ctx.textAlign = 'center';
+      const words = ['rule', 'case', 'exception', 'care', 'delay', 'review', 'return'];
+      words.forEach((w,i) => {
+        const x = innerWidth*(.2 + .12*i + Math.sin(t*.19+i)*.025);
+        const y = innerHeight*(.73 + Math.cos(t*.23+i)*.035);
+        ctx.fillStyle = `rgba(232,240,255,${.12 + .08*Math.sin(t+i)})`;
+        ctx.fillText(w, x, y);
+      });
+      ctx.restore();
+    }
+
+    function render(){
+      if (!paused) frame++;
+      const t = frame / 60;
+      bg(); drawBands(t); drawProtocol(t); drawCurrent(t); drawJudgments(t); drawLabels(t);
+      const current = pointer.active ? (1 - Math.hypot(pointer.x-.5, pointer.y-.5)).toFixed(2) : (0.5+0.25*Math.sin(t)).toFixed(2);
+      const pressure = clamp(judgments.length/18 + Math.abs(pointer.y-.5), 0, 1).toFixed(2);
+      meter.innerHTML = `judgment current · ${current}<br>protocol pressure · ${pressure}`;
+      requestAnimationFrame(render);
+    }
+
+    resize(); seedField(); bgm.volume = 0.34; setSound(true); render();
+    window.__artReady = true;
+  })();
+  </script>
+
+
+
+</body>
+</html>

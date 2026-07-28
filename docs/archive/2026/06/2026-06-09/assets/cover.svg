@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Trust Amortization cover">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="52%" r="74%">
+      <stop offset="0%" stop-color="#162035"/>
+      <stop offset="54%" stop-color="#08101d"/>
+      <stop offset="100%" stop-color="#05070d"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#78d7df" stop-opacity=".75"/>
+      <stop offset=".55" stop-color="#e7bd73" stop-opacity=".68"/>
+      <stop offset="1" stop-color="#ff7c93" stop-opacity=".62"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g transform="translate(800 488) scale(1.2 .78)" fill="none">
+    <ellipse rx="126" ry="126" stroke="#78d7df" stroke-opacity=".20" stroke-width="2"/>
+    <ellipse rx="196" ry="196" stroke="#e7bd73" stroke-opacity=".18" stroke-width="1.5" stroke-dasharray="14 22"/>
+    <ellipse rx="272" ry="272" stroke="#78d7df" stroke-opacity=".14" stroke-width="1.2"/>
+    <ellipse rx="348" ry="348" stroke="#ff7c93" stroke-opacity=".12" stroke-width="1.1" stroke-dasharray="3 16"/>
+    <ellipse rx="426" ry="426" stroke="#e7bd73" stroke-opacity=".10" stroke-width="1"/>
+  </g>
+  <g stroke="url(#line)" stroke-width="1.4" stroke-linecap="round" fill="none" filter="url(#glow)">
+    <path d="M800 488 C656 408 580 338 474 280" opacity=".42"/>
+    <path d="M800 488 C944 406 1055 356 1190 286" opacity=".34"/>
+    <path d="M800 488 C724 570 622 612 492 674" opacity=".38"/>
+    <path d="M800 488 C910 594 1046 642 1260 704" opacity=".30"/>
+    <path d="M800 488 C780 390 790 286 828 172" opacity=".26"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="474" cy="280" r="9" fill="#78d7df" opacity=".86"/>
+    <circle cx="1190" cy="286" r="12" fill="#ff7c93" opacity=".76"/>
+    <circle cx="492" cy="674" r="10" fill="#e7bd73" opacity=".82"/>
+    <circle cx="1260" cy="704" r="7" fill="#78d7df" opacity=".70"/>
+    <circle cx="828" cy="172" r="6" fill="#f4ead7" opacity=".72"/>
+    <circle cx="800" cy="488" r="16" fill="#f4ead7" opacity=".82"/>
+  </g>
+  <text x="84" y="112" fill="#f4ead7" font-family="Inter, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" letter-spacing="-2">Trust Amortization</text>
+  <text x="86" y="168" fill="#f4ead7" fill-opacity=".70" font-family="Inter, Helvetica, Arial, sans-serif" font-size="31">信任摊还</text>
+  <text x="86" y="802" fill="#f4ead7" fill-opacity=".64" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">no exception is free; only hidden from the invoice</text>
+</svg>

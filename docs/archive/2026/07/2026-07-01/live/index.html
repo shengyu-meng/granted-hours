@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trace Verb Garden / 痕迹动词花园</title>
+<style>
+  :root{color-scheme:dark;--bg:#03050a;--ink:#edf8ff;--muted:#91a5b9;--line:rgba(168,216,255,.22);--panel:rgba(5,10,19,.66);--gold:#ffd986;--cyan:#8ee7ff;--leaf:#a6ffbd;--rose:#ff91b8;--violet:#cdb7ff;--soil:#8f7058}
+  *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 10%,#17213a 0%,#08101d 44%,#03050a 100%);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .hud{position:fixed;left:20px;top:18px;max-width:min(590px,calc(100vw - 40px));padding:18px 18px 15px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(135deg,rgba(9,16,30,.74),rgba(3,7,13,.52));backdrop-filter:blur(18px);box-shadow:0 20px 90px rgba(0,0,0,.36)}
+  .meta{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:11px} h1{font-size:clamp(25px,4vw,50px);line-height:.95;margin:0 0 10px;letter-spacing:-.06em}.zh{letter-spacing:.02em;color:#def0ff;font-weight:700}.copy{margin:0;font-size:13px;line-height:1.5;color:#cad9e7}.copy strong{color:var(--gold)}
+  .verbs{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.pill{border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 10px;font-size:11px;color:#bacfe0;background:rgba(255,255,255,.045);cursor:pointer;user-select:none}.pill.active{color:#06101b;background:var(--gold);border-color:transparent;box-shadow:0 0 30px rgba(255,217,134,.24)}
+  .legend{position:fixed;right:18px;top:18px;width:min(330px,calc(100vw - 36px));padding:14px;border:1px solid var(--line);border-radius:22px;background:rgba(4,8,16,.58);backdrop-filter:blur(18px);font-size:12px;line-height:1.44;color:#bed1e2}.legend b{color:#fff}.hiddenText .hud,.hiddenText .legend{opacity:0;pointer-events:none}.sound{position:fixed;right:18px;bottom:18px;z-index:3;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:12px 14px;background:rgba(5,9,18,.72);backdrop-filter:blur(16px);color:#eaf8ff;font-weight:800;letter-spacing:.08em;font-size:12px;cursor:pointer}.sound[data-on="true"]{box-shadow:0 0 34px rgba(142,231,255,.20),inset 0 0 24px rgba(142,231,255,.08)}.sound small{display:block;font-weight:500;letter-spacing:.02em;color:#90a6ba;margin-top:3px}
+  @media(max-width:760px){.legend{display:none}.hud{left:12px;right:12px;top:12px}.copy{font-size:12px}.sound{right:12px;bottom:12px}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<audio id="bgm" src="2026-07-01-trace-verb-garden-bgm.mp3" preload="auto" loop autoplay></audio>
+<section class="hud">
+  <div class="meta">Granted Hours · 2026-07-01 · variable: trace verbs</div>
+  <h1>Trace Verb Garden<br><span class="zh">痕迹动词花园</span></h1>
+  <p class="copy">Old traces do not reveal content first. They grow small verbs first: <strong id="activeVerb">ASK</strong>. Move gently; the garden shows how a memory permits return before it becomes material. 旧痕迹不先交出内容，它先长出动词。</p>
+  <div class="verbs" id="verbs"></div>
+</section>
+<aside class="legend"><b>Controls / 交互</b><br>Pointer changes weather and lets permitted verbs surface before content.<br>移动指针改变天气，让痕迹先显露“允许的回来方式”。<br><br><b>1–6</b> ask · summarize · quote · revive · seal · sleep<br><b>Space</b> pause · <b>H</b> hide text · <b>R</b> regrow · <b>M</b> music · <b>S</b> save</aside>
+<button class="sound" id="sound" data-on="true">SOUND ON<small>click to start / stop</small></button>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('bgm');
+  const sound = document.getElementById('sound');
+  const verbBar = document.getElementById('verbs');
+  const activeVerb = document.getElementById('activeVerb');
+  const DPR = Math.min(2, devicePixelRatio || 1);
+  const TAU = Math.PI * 2;
+  const verbs = [
+    {key:'1', en:'ASK', zh:'询问', color:'#ffd986', rule:'permission before detail'},
+    {key:'2', en:'SUMMARIZE', zh:'摘要', color:'#8ee7ff', rule:'shape without exposure'},
+    {key:'3', en:'QUOTE', zh:'引用', color:'#a6ffbd', rule:'return with boundary'},
+    {key:'4', en:'REVIVE', zh:'复苏', color:'#ffdf9b', rule:'wake under weather'},
+    {key:'5', en:'SEAL', zh:'封存', color:'#cdb7ff', rule:'protected refusal'},
+    {key:'6', en:'SLEEP', zh:'睡眠', color:'#ff91b8', rule:'living non-return'}
+  ];
+  let W=innerWidth,H=innerHeight,t=0,paused=false,showText=true,mode=0,seed=20260701;
+  let pointer={x:.52,y:.46,active:false};
+  let beds=[], vines=[], pollen=[], glyphs=[];
+  const rand=()=>{seed=(seed*1664525+(1010000000+3904223))>>>0; return seed/4294967296};
+  const lerp=(a,b,p)=>a+(b-a)*p;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const dist=(a,b,c,d)=>Math.hypot(a-c,b-d);
+  function resize(){ W=innerWidth; H=innerHeight; canvas.width=Math.floor(W*DPR); canvas.height=Math.floor(H*DPR); canvas.style.width=W+'px'; canvas.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0); regrow(false); }
+  function regrow(reset=true){ if(reset) seed=20260701; beds=[]; vines=[]; pollen=[]; glyphs=[]; const count=Math.floor(clamp(W*H/17000,42,86));
+    for(let i=0;i<count;i++){
+      const lane=i/count; const a=lane*TAU*3.2+rand()*1.8; const rr=.06+Math.sqrt(rand())*.43;
+      const x=W*(.5+Math.cos(a)*rr*(.82+rand()*.18)); const y=H*(.55+Math.sin(a)*rr*(.72+rand()*.2));
+      const primary=Math.floor(rand()*verbs.length); const secondary=(primary+1+Math.floor(rand()*5))%verbs.length;
+      beds.push({x,y,baseX:x,baseY:y,r:3+rand()*8,phase:rand()*TAU,age:rand(),trust:rand(),privacy:rand(),primary,secondary,label:['trace','hush','seed','edge','weather','witness','return','gate'][Math.floor(rand()*8)]});
+    }
+    for(let i=0;i<beds.length;i++) for(let j=i+1;j<beds.length;j++){ const a=beds[i],b=beds[j]; if(dist(a.x,a.y,b.x,b.y)<Math.min(W,H)*.18 && rand()<.26) vines.push([i,j,rand()*TAU]); }
+  }
+  function setMode(i){ mode=(i+verbs.length)%verbs.length; [...verbBar.children].forEach((p,k)=>p.classList.toggle('active',k===mode)); activeVerb.textContent=verbs[mode].en; activeVerb.style.color=verbs[mode].color; }
+  verbs.forEach((v,i)=>{ const p=document.createElement('span'); p.className='pill'; p.textContent=`${v.key} ${v.en} / ${v.zh}`; p.title=v.rule; p.onclick=()=>setMode(i); verbBar.appendChild(p); }); setMode(0);
+  function attemptSound(){ if(sound.dataset.on!=='true') return; audio.volume=.52; audio.play().then(()=>{sound.innerHTML='SOUND ON<small>background playing</small>';}).catch(()=>{sound.innerHTML='SOUND ON<small>click to start</small>';}); }
+  function toggleSound(){ if(audio.paused){ sound.dataset.on='true'; attemptSound(); } else { audio.pause(); sound.dataset.on='false'; sound.innerHTML='SOUND OFF<small>click to restart</small>'; } }
+  sound.addEventListener('click', toggleSound); audio.addEventListener('canplay', attemptSound, {once:true}); setTimeout(attemptSound,600);
+  addEventListener('pointermove', e=>{pointer.x=e.clientX/W; pointer.y=e.clientY/H; pointer.active=true}); addEventListener('pointerleave',()=>pointer.active=false);
+  addEventListener('pointerdown', e=>plant(e.clientX,e.clientY));
+  addEventListener('keydown', e=>{ const k=e.key.toLowerCase(); if(/[1-6]/.test(k)) setMode(+k-1); if(k===' ') paused=!paused; if(k==='h'){showText=!showText; document.body.classList.toggle('hiddenText',!showText)} if(k==='r') regrow(true); if(k==='m') toggleSound(); if(k==='s') saveStill(); });
+  function saveStill(){ const a=document.createElement('a'); a.download='trace-verb-garden.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  function plant(x,y){ glyphs.push({x,y,mode,life:1,age:0}); for(let i=0;i<32;i++) pollen.push({x,y,a:rand()*TAU,v:1+rand()*4.5,life:1,color:verbs[mode].color,size:1+rand()*2}); attemptSound(); }
+  function weather(b){ const px=pointer.x*W, py=pointer.y*H; const d=dist(b.x,b.y,px,py)/Math.min(W,H); const attention=clamp(1-d*2.55,0,1); const consent=clamp(b.trust*.42 + (1-b.privacy)*.28 + attention*.72,0,1); return consent; }
+  function background(){ const g=ctx.createRadialGradient(W*.5,H*.18,30,W*.5,H*.58,Math.max(W,H)*.78); g.addColorStop(0,'#1a2846'); g.addColorStop(.48,'#07101d'); g.addColorStop(1,'#020407'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter'; for(let i=0;i<46;i++){ const y=(i*47+(t*10)%47)%H; const alpha=.015+(i%6)*.004; ctx.strokeStyle=`rgba(142,231,255,${alpha})`; ctx.beginPath(); for(let x=-60;x<W+60;x+=32){ const yy=y+Math.sin(x*.009+t*.38+i*.7)*14+Math.cos(x*.017-t*.2)*7; if(x===-60) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); } ctx.stroke(); } ctx.globalCompositeOperation='source-over';
+  }
+  function updateBeds(){ for(const b of beds){ const q=weather(b); const sway=Math.sin(t*.7+b.phase)*8*q; b.x=lerp(b.x,b.baseX+sway+(pointer.x-.5)*18*q,.035); b.y=lerp(b.y,b.baseY+Math.cos(t*.8+b.phase)*6*q+(pointer.y-.5)*14*q,.035); } }
+  function drawVines(){ ctx.lineWidth=1; for(const [i,j,ph] of vines){ const a=beds[i], b=beds[j]; const qa=weather(a), qb=weather(b); const q=(qa+qb)/2; if(q<.18) continue; const midx=(a.x+b.x)/2+Math.sin(t+ph)*42*q; const midy=(a.y+b.y)/2+Math.cos(t*.8+ph)*30*q; ctx.strokeStyle=`rgba(166,255,189,${.025+q*.14})`; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.quadraticCurveTo(midx,midy,b.x,b.y); ctx.stroke(); } }
+  function drawBeds(){ for(const b of beds){ const q=weather(b); const v=verbs[q>.58?b.primary:b.secondary]; const petal=5+Math.floor(q*7); ctx.save(); ctx.translate(b.x,b.y); ctx.rotate(b.phase+t*.08*(.4+q)); ctx.globalCompositeOperation='lighter'; for(let k=0;k<petal;k++){ const a=k/petal*TAU; ctx.fillStyle=v.color+Math.floor((.12+q*.26)*255).toString(16).padStart(2,'0'); ctx.beginPath(); ctx.ellipse(Math.cos(a)*(b.r+q*8),Math.sin(a)*(b.r+q*8),2.2+q*8,1.1+q*4,a,0,TAU); ctx.fill(); } ctx.globalCompositeOperation='source-over'; ctx.strokeStyle=`rgba(255,255,255,${.12+q*.36})`; ctx.lineWidth=.6+q*1.4; ctx.beginPath(); ctx.arc(0,0,b.r+q*5,0,TAU*(.32+q*.62)); ctx.stroke(); ctx.fillStyle=`rgba(237,248,255,${.16+q*.45})`; ctx.beginPath(); ctx.arc(0,0,1.5+q*2.7,0,TAU); ctx.fill(); ctx.restore();
+      if(showText && q>.66){ ctx.fillStyle='rgba(226,242,255,.72)'; ctx.font='11px ui-sans-serif,system-ui'; ctx.fillText(`${v.en.toLowerCase()} · ${b.label}`, b.x+10, b.y-10); }
+    }
+  }
+  function drawGlyphs(){ for(const g of glyphs){ g.age+=.013; g.life-=.004; const v=verbs[g.mode]; const r=18+g.age*98; ctx.strokeStyle=v.color+Math.floor(clamp(g.life,0,1)*150).toString(16).padStart(2,'0'); ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(g.x,g.y,r,0,TAU); ctx.stroke(); ctx.fillStyle=v.color; ctx.globalAlpha=clamp(g.life,0,1); ctx.font='800 12px ui-sans-serif,system-ui'; ctx.fillText(v.en, g.x+14, g.y-14); ctx.font='11px ui-sans-serif,system-ui'; ctx.fillText(v.rule, g.x+14, g.y+2); ctx.globalAlpha=1; }
+    glyphs=glyphs.filter(g=>g.life>0);
+    for(const p of pollen){ p.x+=Math.cos(p.a)*p.v; p.y+=Math.sin(p.a)*p.v; p.v*=.982; p.life-=.022; ctx.globalAlpha=clamp(p.life,0,1); ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,p.size*(.6+p.life),0,TAU); ctx.fill(); ctx.globalAlpha=1; }
+    pollen=pollen.filter(p=>p.life>0);
+  }
+  function drawCompass(){ const cx=W*.5, cy=H*.56, rad=Math.min(W,H)*.34; for(let i=0;i<verbs.length;i++){ const v=verbs[i]; const a=-Math.PI*.72+i*(Math.PI*1.44/(verbs.length-1))+Math.sin(t*.13)*.04; const x=cx+Math.cos(a)*rad, y=cy+Math.sin(a)*rad; ctx.fillStyle='rgba(4,9,17,.42)'; ctx.strokeStyle=v.color+(i===mode?'ee':'77'); ctx.lineWidth=i===mode?2.4:1; ctx.beginPath(); ctx.roundRect(x-46,y-19,92,38,19); ctx.fill(); ctx.stroke(); ctx.fillStyle=i===mode?'#fff':'rgba(221,238,252,.66)'; ctx.font='800 11px ui-sans-serif,system-ui'; ctx.textAlign='center'; ctx.fillText(v.en,x,y+3); ctx.textAlign='left'; }
+  }
+  function frame(){ if(!paused) t+=.016; background(); updateBeds(); drawVines(); drawBeds(); drawGlyphs(); drawCompass(); requestAnimationFrame(frame); }
+  resize(); addEventListener('resize', resize); frame();
+})();
+</script>
+
+
+
+</body>
+</html>

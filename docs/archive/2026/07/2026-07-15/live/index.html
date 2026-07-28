@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Witnessing That Does Not Demand Confession / 不索取坦白的见证</title>
+<style>
+:root{color-scheme:dark;--night:#06121c;--paper:#eef0e8;--mist:#b9d5d6;--cyan:#8de5df;--amber:#f3c578;--coral:#ef967f}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--night);color:var(--paper);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;z-index:2;top:clamp(16px,4vh,44px);left:clamp(16px,4vw,56px);width:min(550px,calc(100vw - 32px));padding:20px;border:1px solid rgba(141,229,223,.26);border-radius:24px;background:linear-gradient(130deg,rgba(6,18,28,.88),rgba(16,43,53,.48));box-shadow:0 18px 75px rgba(0,0,0,.38);backdrop-filter:blur(16px)}.eyebrow,.legend,.sound,.status{font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.055em}.eyebrow{color:rgba(238,240,232,.55);text-transform:uppercase}h1{margin:9px 0 0;font-size:clamp(27px,4vw,50px);line-height:.94;letter-spacing:-.06em}h1 span{display:block;color:var(--cyan);font-weight:650}.thesis{margin:14px 0 0;color:rgba(238,240,232,.76);font-size:14px;line-height:1.65}.thesis strong{color:#fff}.legend{position:fixed;z-index:2;bottom:clamp(15px,4vh,42px);left:clamp(16px,4vw,56px);max-width:min(720px,calc(100vw - 32px));padding:13px 15px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(6,18,28,.64);color:rgba(238,240,232,.7);backdrop-filter:blur(14px)}.sound{position:fixed;z-index:3;right:clamp(15px,3vw,38px);bottom:clamp(15px,3vh,32px);border:1px solid rgba(141,229,223,.45);border-radius:999px;padding:11px 14px;color:var(--paper);background:rgba(6,18,28,.76);cursor:pointer}.sound:hover{border-color:var(--cyan);color:white}.status{position:fixed;z-index:2;right:clamp(15px,3vw,38px);top:clamp(15px,3vh,32px);max-width:280px;text-align:right;color:rgba(238,240,232,.55)}.chip{display:inline-block;margin:7px 0 0 5px;padding:4px 7px;border:1px solid rgba(255,255,255,.13);border-radius:999px}.veil .panel,.veil .legend{opacity:0;pointer-events:none}@media(max-width:640px){.panel{padding:17px}.status{display:none}.legend{font-size:10px}.sound{padding:9px 11px}}
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+<audio id="bgm" src="2026-07-15-witness-without-confession-bgm.mp3" preload="auto" loop autoplay></audio>
+<section class="panel"><div class="eyebrow">Granted Hours · 2026-07-15 · variable: unextractive witness</div><h1>Witnessing That Does Not Demand Confession <span>不索取坦白的见证</span></h1><p class="thesis"><strong>Attention becomes extraction when it asks the visible thing to account for itself.</strong><br>当注意力逼迫被看见的东西交代自己，它就从见证变成了提取。</p></section>
+<aside class="legend">Pointer approaches without collecting · click opens a temporary listening pool · H holds no trace · L lets every pool fade<br>Space pause · R reset · V veil text · M music · S save still</aside>
+<aside class="status" id="status"></aside><button class="sound" id="sound" aria-pressed="true">BGM on / 音乐开</button>
+<script>
+(()=>{'use strict';const c=document.querySelector('#field'),g=c.getContext('2d'),a=document.querySelector('#bgm'),sound=document.querySelector('#sound'),status=document.querySelector('#status');let W,H,d=1,t=0,pause=false,seed=20260715;const pointer={x:0,y:0,on:false},motes=[],pools=[];function rnd(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}function resize(){d=Math.min(devicePixelRatio||1,2);W=c.width=innerWidth*d;H=c.height=innerHeight*d}function reset(){seed=20260715;motes.length=0;pools.length=0;for(let i=0;i<560;i++){const q=rnd()*Math.PI*2,r=Math.pow(rnd(),.58)*Math.min(W,H)*.7;motes.push({x:W*.5+Math.cos(q)*r,y:H*.56+Math.sin(q)*r*.58,phase:rnd()*12,rate:.08+rnd()*.3,h:rnd()<.54?185:rnd()<.84?42:18,depth:.25+rnd()*.75})}}function addPool(x,y,quiet=false){pools.push({x,y,r:quiet?18:7,age:0,quiet});if(pools.length>12)pools.shift()}resize();reset();addEventListener('resize',()=>{resize();reset()});addEventListener('pointermove',e=>{pointer.x=e.clientX*d;pointer.y=e.clientY*d;pointer.on=true});addEventListener('pointerleave',()=>pointer.on=false);addEventListener('pointerdown',e=>{if(e.target.closest('button,.panel,.legend'))return;addPool(e.clientX*d,e.clientY*d)});addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();pause=!pause}if(e.key.toLowerCase()==='r')reset();if(e.key.toLowerCase()==='v')document.body.classList.toggle('veil');if(e.key.toLowerCase()==='l')pools.length=0;if(e.key.toLowerCase()==='h'&&pointer.on)addPool(pointer.x,pointer.y,true);if(e.key.toLowerCase()==='m')toggleMusic();if(e.key.toLowerCase()==='s')save()});function toggleMusic(){if(a.paused){a.play().then(()=>setSound(true)).catch(()=>setSound(false))}else{a.pause();setSound(false)}}function setSound(on){sound.textContent=on?'BGM on / 音乐开':'BGM off / 音乐关';sound.setAttribute('aria-pressed',String(on))}sound.addEventListener('click',toggleMusic);a.play().then(()=>setSound(true)).catch(()=>setSound(false));function save(){const link=document.createElement('a');link.download='witness-without-confession.png';link.href=c.toDataURL('image/png');link.click()}function light(x,y,r,alpha,hue){const z=g.createRadialGradient(x,y,0,x,y,r);z.addColorStop(0,`hsla(${hue},78%,73%,${alpha})`);z.addColorStop(.4,`hsla(${hue},64%,48%,${alpha*.28})`);z.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=z;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill()}function frame(){if(!pause)t+=.016;g.fillStyle='#06121c';g.fillRect(0,0,W,H);const bg=g.createLinearGradient(0,0,W,H);bg.addColorStop(0,'rgba(17,58,69,.55)');bg.addColorStop(.52,'rgba(5,19,30,.05)');bg.addColorStop(1,'rgba(29,20,40,.38)');g.fillStyle=bg;g.fillRect(0,0,W,H);for(const p of pools){if(!pause)p.age+=.75;p.r+=p.quiet?.23:.52;const alpha=Math.max(0,1-p.age/260);light(p.x,p.y,p.r*4,alpha*.22,p.quiet?42:185);g.strokeStyle=`hsla(${p.quiet?42:185},74%,74%,${alpha*.55})`;g.lineWidth=Math.max(1,d);g.beginPath();g.arc(p.x,p.y,p.r,0,Math.PI*2);g.stroke()}for(let i=pools.length-1;i>=0;i--)if(pools[i].age>260)pools.splice(i,1);for(const m of motes){let pull=0;if(pointer.on){const dx=pointer.x-m.x,dy=pointer.y-m.y,dist=Math.hypot(dx,dy);pull=Math.max(0,1-dist/(Math.min(W,H)*.34));if(pull>.02){m.x+=dx*pull*.004;m.y+=dy*pull*.004}}const flick=.42+.58*Math.sin(t*m.rate+m.phase);const radius=(.65+m.depth*1.7+pull*1.8)*d;g.fillStyle=`hsla(${m.h},70%,${62+flick*23}%,${.12+m.depth*.48+pull*.28})`;g.beginPath();g.arc(m.x,m.y,radius,0,Math.PI*2);g.fill()}if(pointer.on){light(pointer.x,pointer.y,Math.min(W,H)*.14,.12,185);g.strokeStyle='rgba(141,229,223,.34)';g.lineWidth=d;g.beginPath();g.arc(pointer.x,pointer.y,13*d+Math.sin(t*2)*3*d,0,Math.PI*2);g.stroke()}status.innerHTML=`${pause?'PAUSED / 暂停':'LISTENING / 倾听'}<br><span class="chip">${pools.length} temporary pools / 临时水洼</span>`;requestAnimationFrame(frame)}frame()})();
+</script>
+
+
+
+</body>
+</html>

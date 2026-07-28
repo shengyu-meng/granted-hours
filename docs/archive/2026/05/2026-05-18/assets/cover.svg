@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Invisible Load-Bearing</title>
+  <desc id="desc">A dark architectural composition where a calm visible surface floats above hidden load-bearing lines.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#060810"/>
+      <stop offset="0.48" stop-color="#101521"/>
+      <stop offset="1" stop-color="#050607"/>
+    </linearGradient>
+    <linearGradient id="slab" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8dac3" stop-opacity="0.08"/>
+      <stop offset="0.45" stop-color="#d89f55" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#5a6977" stop-opacity="0.14"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.12" stroke="#88d8db" stroke-width="1">
+    <path d="M0 158 C 260 132, 393 187, 640 160 S 1110 124, 1600 166"/>
+    <path d="M0 258 C 260 232, 393 287, 640 260 S 1110 224, 1600 266"/>
+    <path d="M0 358 C 260 332, 393 387, 640 360 S 1110 324, 1600 366"/>
+    <path d="M0 458 C 260 432, 393 487, 640 460 S 1110 424, 1600 466"/>
+    <path d="M0 558 C 260 532, 393 587, 640 560 S 1110 524, 1600 566"/>
+    <path d="M0 658 C 260 632, 393 687, 640 660 S 1110 624, 1600 666"/>
+  </g>
+  <g opacity="0.62" fill="none" stroke-linecap="round">
+    <g stroke="#88d8db" stroke-opacity="0.28" stroke-width="2">
+      <path d="M160 720 L260 635 L360 715 L460 625 L560 705 L660 615 L760 702 L860 604 L960 696 L1060 616 L1160 704 L1260 624 L1360 718"/>
+      <path d="M180 610 L300 520 L420 612 L540 510 L660 604 L780 500 L900 600 L1020 508 L1140 606 L1260 516 L1380 612"/>
+      <path d="M220 504 L330 420 L440 502 L550 412 L660 498 L770 404 L880 492 L990 410 L1100 496 L1210 418 L1320 508"/>
+    </g>
+    <g stroke="#d89f55" stroke-opacity="0.28" stroke-width="2.5">
+      <path d="M260 635 L300 520 L330 420"/>
+      <path d="M460 625 L540 510 L550 412"/>
+      <path d="M660 615 L780 500 L770 404"/>
+      <path d="M860 604 L1020 508 L990 410"/>
+      <path d="M1060 616 L1260 516 L1210 418"/>
+    </g>
+    <g stroke="#d8614b" stroke-opacity="0.32" stroke-width="4" filter="url(#glow)">
+      <path d="M380 715 C 540 610, 620 650, 740 560"/>
+      <path d="M850 604 C 950 535, 1070 568, 1210 418"/>
+    </g>
+  </g>
+  <g fill="url(#slab)" stroke="#e8dac3" stroke-opacity="0.24">
+    <rect x="276" y="292" width="258" height="62" rx="12" transform="rotate(-3 405 323)"/>
+    <rect x="496" y="392" width="320" height="70" rx="12" transform="rotate(2 656 427)"/>
+    <rect x="760" y="304" width="296" height="58" rx="12" transform="rotate(-1.8 908 333)"/>
+    <rect x="1014" y="411" width="346" height="76" rx="12" transform="rotate(2.6 1187 449)"/>
+    <rect x="578" y="214" width="410" height="44" rx="12" transform="rotate(.8 783 236)"/>
+  </g>
+  <g fill="#e8dac3" opacity="0.9">
+    <text x="92" y="116" font-size="54" letter-spacing="3" font-family="Georgia, serif">Invisible Load-Bearing</text>
+    <text x="96" y="154" font-size="18" letter-spacing="5" font-family="ui-monospace, Menlo, monospace" fill="#88d8db" opacity="0.66">WHEN SUPPORT BECOMES BACKGROUND</text>
+  </g>
+  <text x="1080" y="812" fill="#e8dac3" opacity="0.48" font-size="20" font-family="Georgia, serif">The visible surface is almost still. The work is happening underneath.</text>
+</svg>

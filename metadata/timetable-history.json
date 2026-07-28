@@ -1,0 +1,2281 @@
+{
+  "schema": "granted-hours-timetable-history-v3",
+  "note": {
+    "en": "Assigned-work rows are faithful public summaries of real records; ████ marks sensitive details withheld.",
+    "zh": "人机协作条目是对真实工作记录的忠实公开摘要；████ 标记不进入公开档案的敏感内容。"
+  },
+  "days": [
+    {
+      "date": "2026-05-07",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "将 ████ 主机健康检查迁移为 ████ 的轻量守门脚本，保持仅观察、不自动结束进程，并完成语法、试运行与暂停定时任务验证。",
+          "en": "Ported the ████ host-health check into a lightweight ████ watchdog, kept it observe-only with no automatic process termination, and verified syntax, dry-run behavior, and a paused schedule.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "为 ████ 建立由机器可读 JSON 单向生成的 Obsidian Markdown 阅读层，并接入既有同步流程完成验证。",
+          "en": "Built an Obsidian Markdown reading layer for ████, generated one-way from machine-readable JSON, and connected it to the existing sync workflow with verification.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "为 ████ 落地市场状态情景倾斜模块，定义状态分类、资产区间、证据等级及可读与机器可读输出，并保持仅建议模式。",
+          "en": "Implemented a market-regime tilt module for ████, defining regime taxonomy, asset ranges, evidence grades, and both human- and machine-readable outputs while remaining advisory-only.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-08",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "为 ████ 搭建 A 股 ETF 与股指期权保护层框架，完成只读数据契约、状态、风控规则和接入占位，并在未连接时强制不给行动建议。",
+          "en": "Built an A-share ETF and index-options protection framework for ████, including read-only data contracts, state, risk rules, and integration placeholders, with a forced no-action result while disconnected.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "为 ████ 实现文件优先的多 Agent 评审 MVP，生成干净任务包，并用测试覆盖角色分工、任务分级、只建议护栏与单点决策收敛。",
+          "en": "Implemented a file-first multi-agent review MVP for ████, generating clean task packets and testing role separation, task levels, advisory-only guardrails, and single-point decision convergence.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "把公开 QDII/LOF 页面中的欧美、商品和亚洲数据接入 ████，优先使用 IOPV 溢价率，并区分普通申购套利、趋势扩张与高溢价风险。",
+          "en": "Connected public European/U.S., commodity, and Asian QDII/LOF data to ████, prioritizing IOPV premium rates and separating ordinary subscription arbitrage, trend expansion, and high-premium risk.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "提炼一篇 WeChat 文章的方法论，形成个性化建议与知识卡，写入 wiki，并验证来源追溯与链接关系。",
+          "en": "Extracted the methodology from a WeChat article, produced tailored recommendations and a knowledge card, archived them in a wiki, and verified source traceability and links.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-09",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "基于东方财富公开行情构建 A 股 ETF、股指期权及部分中金所期货的只读替代数据连接器，并接入 ████ 的保护建议层。",
+          "en": "Built a read-only substitute data connector from Eastmoney public quotes for A-share ETF and index options plus selected CFFEX futures, then connected it to the protection-advice layer of ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "验证 macOS ████ 本地历史聊天与实时增量消息的只读读取可行性，限定为获准的本地数据范围、元数据统计和脱敏片段，不导出完整私聊。",
+          "en": "Tested read-only access to local macOS ████ history and incremental messages, limited to an authorized local-data scope, metadata counts, and redacted snippets without exporting full private chats.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-10",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "整理与 ████ 关于本然心、觉察、出离心和“第二支箭”的讨论，强调念头与情绪在觉知中出现，觉察由此为反应腾出空间。",
+          "en": "Synthesized a discussion with ████ about natural mind, awareness, renunciation, and the “second arrow,” emphasizing that thoughts and emotions arise within awareness and that awareness creates room before reaction.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "为 ████ 搭建公开 GitHub 艺术档案的初始结构，采用本地私有源到清洁公开镜像的生成流程，并加入梦境样例、画廊封面、索引和隐私扫描。",
+          "en": "Scaffolded a public GitHub art archive for ████ using a generated workflow from a private local source to a clean public mirror, with sample dream entries, gallery covers, indexing, and privacy scanning.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-11",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "将微信公众号文章《材料股充分定价了吗？》沉淀到 ████，形成“AI 物理底座重估”的主题证据、候选篮子与后续复核动作，未生成自动买入。",
+          "en": "Assimilated the WeChat article “Have Materials Stocks Been Fully Priced?” into ████, producing evidence, a candidate basket, and follow-up reviews for an “AI physical substrate repricing” thesis without automatic buying.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "创建《授时 / Granted Hours》的私有原始档案与脱敏 GitHub Pages 公开镜像，包含双语说明、静态网页作品脚手架、清洗规则和发布流程。",
+          "en": "Created the private raw archive and sanitized GitHub Pages public mirror for Granted Hours, including bilingual statements, static web-art scaffolding, sanitization rules, and a publication workflow.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "把近期自由探索作品补录进《授时 / Granted Hours》，重新生成最大化预览，并为可运行作品增加 GIF 预览，同时核验公开页面。",
+          "en": "Backfilled recent free-roam works into Granted Hours, regenerated maximized previews, added GIF previews for runnable pieces, and verified the public site.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-12",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "为 ████ 与 ████ 建立当日 A 股盘中买点监控，完成两份个股深研，并把带风控线的观察状态写入雷达。",
+          "en": "Set up same-day intraday A-share entry monitoring for ████ and ████, completed two deep-research reports, and recorded watch states with risk lines in the radar.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "停止 ████ 与 ████ 的高频监控并保留研究档案，同时解析名称歧义后完成 ████ 的个股深研和观察池更新。",
+          "en": "Stopped high-frequency monitoring for ████ and ████ while retaining their research archives, then resolved a naming ambiguity and completed deep research plus a watchlist update for ████.",
+          "redaction_status": "partial",
+          "redaction_count": 3,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "扩展知识社群每日抓取流程，把高价值的非标的洞察按弱信号等级写入 ████ 的证据账本，同时避免保存付费长文全文。",
+          "en": "Extended the daily knowledge-community ingestion workflow to route high-value non-ticker insights into the evidence ledger of ████ as weak signals, without storing full paid articles.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-13",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "将 ████ 整理为小型、清洁、可恢复的私有 GitHub 核心备份，纳入必要的工作区与活跃配置，同时排除密钥、会话、缓存和大体积运行数据。",
+          "en": "Turned ████ into a small, clean, recoverable private GitHub core backup containing essential workspace and active configuration state while excluding secrets, sessions, caches, and bulky runtime data.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "完成 ████ 的个股深研，综合收盘行情、K 线、资金流、业务资料、新闻与财报信息，并生成可交付的报告和结构化数据。",
+          "en": "Completed deep equity research on ████ by combining closing quotes, candlesticks, capital flows, business materials, news, and financial-report information into a deliverable report and structured data.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "完成 ████ 的行情、技术、资金与业务复核，形成个股深研，并写入 ████ 观察池；结论是继续观察回踩或突破后的再确认，不追涨。",
+          "en": "Reviewed market, technical, flow, and business evidence for ████, completed deep research, and added it to the ████ watchlist; the conclusion was to await a pullback or post-breakout confirmation rather than chase the move.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-14",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "利用 ████ 的既有研究、观察池和市场数据，对光通信、PCB、铜缆、电源液冷、存储与国产算力等 AI 基建链进行首轮标的锦标赛，并产出 Top 8 与复核路径。",
+          "en": "Used existing research, watchlists, and market data from ████ to run a first-round tournament across AI infrastructure segments including optical communications, PCBs, copper interconnects, power and liquid cooling, storage, and domestic compute, producing a Top 8 and review path.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "为 ████ 与 ████ 补齐个股深研，更新观察池并复核当日买点，报告包含评分、入场条件和失效位。",
+          "en": "Completed deep research on ████ and ████, refreshed their watchlist states, and reviewed same-day entries with reports covering scores, entry conditions, and invalidation levels.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "把近期观察池与知识库中新增或显著变化的标的归类到 ████ 的既有主题工作区，对不能可靠映射的对象保留低频复核而不强行归类。",
+          "en": "Classified recently added or materially changed watchlist and knowledge-base names into existing thesis workspaces of ████, leaving uncertain mappings for low-frequency review instead of forcing a category.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "发布并归档了 AIHOT 信息过滤系统介绍，说明其以便宜模型预筛、强模型多维评分、代码阈值决策和向量聚类去重来生成每日 AI 日报。",
+          "en": "Published and archived an introduction to the AIHOT information-filtering system, explaining its pipeline of low-cost model prefiltering, stronger-model multidimensional scoring, code-based thresholds, and embedding clustering for a daily AI brief.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "发布并归档了关于 ████ “想象机器”的 AI 艺术文章，重点讨论历史感、判断力以及生成前的认知积累。",
+          "en": "Published and archived an AI-art post about the “Imagination Machine” of ████, focusing on historical awareness, judgment, and the cognitive work that precedes generation.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-15",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "document_processing",
+          "zh": "把 ████ 的联动规则整理为中央操作契约、机器可读契约、子 Skill 短胶囊与工作区索引，并验证引用完整性以减少版本漂移。",
+          "en": "Reorganized the integration rules of ████ into a central operating contract, a machine-readable contract, short capsules for child Skills, and a workspace index, then verified reference integrity to reduce version drift.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "把“横盘缩波—短暂深跌或假破位—快速收复”的模式接入 ████，区分疑似洗盘、收复确认与真破位，并用失败先行测试覆盖提醒逻辑。",
+          "en": "Integrated the “range contraction—brief deep drop or false breakdown—rapid reclaim” pattern into ████, separating possible shakeout, confirmed reclaim, and genuine breakdown states with test-first coverage of alert behavior.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的每日完整维护循环，研究执行队列、████、决策日志同步与复核、全局复核及市场状态模块均通过。",
+          "en": "Ran the daily full maintenance loop for ████; the research execution queue, ████, decision-journal sync and review, global review, and market-regime module all passed.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-16",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "将 ████ Agent 从稳定版 v0.13.0 升级到 v0.14.0，先保存本地补丁与配置，再恢复上下文、图像、浏览器 CDP 和工具进度清理等关键设置并核验。",
+          "en": "Upgraded the ████ Agent from stable v0.13.0 to v0.14.0, first preserving local patches and configuration, then restoring and verifying key context, image, browser CDP, and tool-progress cleanup settings.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "在变更前完成备份后，隔离安装 OpenCLI，执行依赖与命令行烟测，并把通过验证的使用方式接入 ████ 可复用工作流。",
+          "en": "After completing pre-change backups, installed OpenCLI in isolation, ran dependency and CLI smoke tests, and integrated the verified usage pattern into a reusable ████ workflow.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "盘点现有 ████ Skills 与 OpenCLI 能力映射，对优先候选执行只读烟测，并仅交付带证据和风险等级的优化提案。",
+          "en": "Mapped existing ████ Skills to OpenCLI capabilities, ran read-only smoke tests on priority candidates, and delivered an evidence- and risk-ranked optimization proposal.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "把 QMT 扩展为 ████ 的 A 股指数、观察对象与股指期货只读行情优先输入，写入本地缓存，并在不可用时保留其他公开行情源回退。",
+          "en": "Extended QMT into the preferred read-only A-share index, watch-object, and index-futures market-data input for ████, backed by a local cache and fallbacks to other public quote sources when unavailable.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "为 ████ 增加日、周、月多周期 BOLL 闸门：日线决定入场，周月线限制风险暴露或降级建议，并验证真实行情抓取与日线聚合回退。",
+          "en": "Added a daily, weekly, and monthly BOLL gate to ████: daily data drives entry timing, while weekly and monthly conditions cap risk exposure or downgrade advice, with live quote retrieval and daily-bar aggregation fallback verified.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-17",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "为 ████ 增加轻量事件哨兵，优先扫描相关公告、监管披露与新闻，按来源强度、事件类型、相关性和新颖度评分，只输出需要人工复核的低噪音提醒。",
+          "en": "Added a lightweight event sentinel to ████ that prioritizes relevant announcements, regulatory filings, and news, scoring source strength, event type, relevance, and novelty to emit only low-noise alerts needing human review.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "按 P0–P4 重排 ████ 的周度主线，只保留当前渠道可考虑的资产，同时清理 ████ 的运行债务并验证后台产物。",
+          "en": "Reordered the weekly themes of ████ into P0–P4, retaining only assets accessible through current channels, while clearing operating debt in ████ and validating the background artifacts.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-18",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "把 ████ 改造成“单一数据采集、并行只读 AI worker、主控合成”的团队模式，覆盖 A/H 与美股，并验证 worker 失败时主报告仍可降级输出。",
+          "en": "Converted ████ to a team pattern with a single data collector, parallel read-only AI workers, and controller synthesis across A/H and U.S. equities, verifying that the main report still degrades gracefully when workers fail.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "对《One and Three Objects》原 ACM 稿、目标会议征稿要求与公开项目页面做差距分析，给出会议匹配、叙事升级和分优先级的修改策略。",
+          "en": "Compared the original ACM manuscript for One and Three Objects with the target conference call and public project page, producing a gap analysis and prioritized strategy for venue fit and narrative revision.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的每日维护循环，确认只建议护栏生效，并验证 QMT 实时响应、跨资产状态、研究处理与严格校验等步骤通过。",
+          "en": "Ran the daily maintenance loop for ████, confirmed advisory-only guardrails, and verified successful QMT live response, cross-asset state, research processing, and strict validation steps.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "审计 ████ 的 74 项投资相关定时任务、生产与报告链路及依赖健康度；其中 57 项启用，实际雷达依赖处于降级状态，并识别出 2 项阻塞依赖。",
+          "en": "Audited 74 investment-related scheduled jobs, producer and reporting chains, and dependency health for ████; 57 were enabled, live radar dependencies were degraded, and two blocking dependencies were identified.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-19",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "补强了 A 股 ████ 事件哨兵，把东方财富、公开新闻与公告接入同一监测链路，并限定硬风险词仅触发人工复核。",
+          "en": "Strengthened an A-share ████ event sentinel by combining Eastmoney, public news, and filings in one monitoring chain, with hard-risk terms limited to triggering human review.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "提取并核验 Gordon Hunt 的艺术家资料与代表作品，将文章、官方信息和图像索引归档到 ████，同时保留来源追溯。",
+          "en": "Extracted and verified artist information and representative works for Gordon Hunt, archived the article, official material, and image index in ████, and preserved source traceability.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "实现从 Futu 的 ████ 分组到主观察池的定时同步，并保护手工指定和研究来源标的不会被误移除。",
+          "en": "Implemented scheduled synchronization from a Futu ████ group into the main watch pool, while protecting manually or research-sourced symbols from accidental removal.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "对三只 A 股候选 ████、████、████ 完成多智能体公司深研、交叉质疑与证据质检，形成排序、验证清单和失效条件。",
+          "en": "Completed multi-agent company research, cross-critique, and evidence QA on three A-share candidates—████, ████, and ████—producing a ranking, validation checklist, and invalidation conditions.",
+          "redaction_status": "partial",
+          "redaction_count": 3,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "复核 Token 经济向 A 股算力、基础设施与应用链的外溢机会，输出 ████、动作条件与证伪条件，同时保持仅建议、不自动交易。",
+          "en": "Reviewed token-economy spillovers into A-share compute, infrastructure, and application chains, producing ████, action triggers, and falsification conditions while remaining advisory-only with no automated trading.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-20",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 日常维护循环，并校验研究队列、跨资产状态、████和决策日志。",
+          "en": "Ran the ████ daily maintenance loop and validated the research queue, cross-asset state, ████, and decision journals.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "排查 A 股行情快照连接失败；坚持离线状态必须显式成功返回，否则整轮判定失败。",
+          "en": "Diagnosed an A-share market-snapshot connection failure; the full run remained failed because an offline state must return explicitly and successfully.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-21",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "再次运行 ████ 全循环，除 A 股行情快照外，其余研究、回放、日志和状态档位步骤均通过。",
+          "en": "Ran the ████ full loop again; all research, replay, journal, and regime-dial stages passed except the A-share market snapshot.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "确认三个行情桥接端点均拒绝连接，因此未满足获准的离线回退契约。",
+          "en": "Confirmed that three market-bridge endpoints refused connections, so the approved offline-fallback contract was not satisfied.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-22",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "整理并发布关于 AI 交易 Agent 连简单交易任务也会失败的论文评论。",
+          "en": "Prepared and published a commentary on research showing AI trading agents failing even simple trading tasks.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "围绕 Files 工具讨论“归档不等于记住”，制作并验收跨平台图文。",
+          "en": "Produced and validated a cross-platform post around Files dot md and the idea that archiving is not the same as remembering.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "整理 NotebookLM Python CLI 工具介绍，并完成双平台发布与媒体验收。",
+          "en": "Prepared an introduction to a NotebookLM Python CLI and completed dual-platform publication and media validation.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-23",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-24",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-25",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "发布了一篇多智能体科研工作流介绍，具体梳理了 13 个深研 Agent、12 个论文 Agent 与 7 个审稿 Agent 的分工。",
+          "en": "Published an introduction to a multi-agent academic workflow, detailing the roles of 13 deep-research agents, 12 paper-production agents, and 7 review agents.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "完成《AI简史》能力栈总结，从 Transformer、LLM、提示工程与 RAG，梳理到工具调用、多模态、Agent 和 MCP。",
+          "en": "Completed a capability-stack summary of A Brief History of AI, tracing Transformer, LLMs, prompt engineering, and RAG through tool calling, multimodality, agents, and MCP.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "制作并发布了一篇介绍寓言概念写作 skill 的公开帖，用六张图片展示如何借寓言解释抽象概念。",
+          "en": "Produced and published a public post introducing an allegorical concept-writing skill, using six images to show how fables can explain abstract ideas.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-26",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "执行 ████ 日常全循环，行情快照、跨资产状态、研究队列、████和日志步骤全部通过。",
+          "en": "Executed the ████ daily full loop; market snapshot, cross-asset state, research queue, ████, and journal stages all passed.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "逐项核验主报告、执行队列、决策日志和状态档位产物的更新与 JSON 有效性。",
+          "en": "Verified updates and JSON validity for the main report, execution queue, decision journals, and regime-dial artifacts.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-27",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 日常全循环；研究队列、跨资产状态、████和日志步骤通过。",
+          "en": "Ran the ████ daily full loop; the research queue, cross-asset state, ████, and journal stages passed.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "定位 A 股行情桥接不可达且未形成合规离线状态，因此保留整轮失败结论。",
+          "en": "Identified an unreachable A-share market bridge with no compliant offline state, so the overall run remained failed.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-28",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "同步 ████ 投资数据并刷新 A 股行情快照，确认更新进入维护链路。",
+          "en": "Synchronized ████ investment data and refreshed the A-share market snapshot, confirming that the update entered the maintenance pipeline.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "刷新资产配置方案并严格验证研究循环、████、股票生命周期和晨报链路。",
+          "en": "Refreshed the allocation scheme and strictly validated the research loop, ████, stock lifecycle, and morning-brief pipeline.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-29",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 日常维护全循环，行情、跨资产状态、████、日志和状态档位步骤全部通过。",
+          "en": "Ran the ████ daily maintenance loop; market, cross-asset state, ████, journals, and regime-dial stages all passed.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "确认本轮没有产生需要用户决策的变化，并验证普通行情和日志复核输出有效。",
+          "en": "Confirmed that the run produced no user-decision delta and validated ordinary market-data and journal-review outputs.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-30",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-31",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-01",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "按 ████ 群组中的既定顺序，串行处理十条社媒素材，先发布到知识星球，再安排微博内容，并逐条验收归档。",
+          "en": "Processed ten social-media items serially in the order set by the ████ group, publishing to ZSXQ before scheduling Weibo content and validating each archive entry.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "将 ████ 配置中的压缩模型与主模型 GPT-5.4 对齐，同时保持其他群组配置不变。",
+          "en": "Aligned the compression model in the ████ configuration with the GPT-5.4 primary model while leaving other group configurations unchanged.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的日常全循环；行情桥接端点不可达且未进入获准的离线回退状态，因此整体判定失败，其余跨资产快照、████和日志同步步骤完成。",
+          "en": "Ran the daily full loop for ████; unreachable market-bridge endpoints failed to enter the approved offline fallback, so the run failed overall while the cross-asset snapshot, ████, and journal sync completed.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "整理并发布了一则把 AI 媒体转为游戏可用资产的工作流介绍，在 ████ 社区完成即时发布和媒体验收。",
+          "en": "Prepared and published an introduction to a workflow that turns AI media into game-ready assets, completing immediate publication and media validation in the ████ community.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "整理了一个汇集多种数据可视化案例的在线档案，并为微博与 ████ 社区准备跨平台归档。",
+          "en": "Curated an online archive of varied data-visualization examples and prepared a cross-platform record for Weibo and the ████ community.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "介绍了一套杂志感社交卡片与封面制作 Skill，并在 ████ 社区完成单图发布和结果归档。",
+          "en": "Presented a magazine-style social-card and cover-making Skill, then completed a single-image publication and archived the result in the ████ community.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-02",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "执行 ████ 的日常维护全循环；行情快照步骤没有按契约返回获准的离线跳过状态，导致整体失败。",
+          "en": "Executed the daily maintenance loop for ████; the market-snapshot step did not return the contract-approved offline skip state, causing the overall run to fail.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "确认 ████ 的跨资产快照、████、决策日志同步与全局复核步骤成功，并更新或核验相应报告产物。",
+          "en": "Confirmed that ████ completed its cross-asset snapshot, ████, decision-journal sync, and global review steps, and updated or verified the associated report artifacts.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-03",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的标准全循环入口；行情快照以非零状态退出，尽管输出显示数据源不可用，仍不符合允许的离线跳过条件。",
+          "en": "Ran the standard full-loop entry point for ████; the market snapshot exited nonzero and, despite reporting unavailable sources, did not satisfy the permitted offline-skip condition.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "记录并复核 ████ 的多端点连接失败，将其归类为接线或数据源故障，而不是白名单内的离线跳过。",
+          "en": "Recorded and reviewed the multi-endpoint connection failures for ████, classifying them as wiring or source failures rather than a whitelisted offline skip.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-04",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "执行 ████ 的全循环维护；行情桥接请求超时或被拒绝，行情快照步骤失败并使整体状态保持失败。",
+          "en": "Executed full-loop maintenance for ████; timed-out or refused market-bridge requests caused the market snapshot to fail and kept the overall status failed.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "在行情源不可用的警告下，████ 仍完成跨资产市场状态快照，为后续复核保留非行情桥接来源的综合结果。",
+          "en": "Despite a warning that the market source was unavailable, ████ completed a cross-asset regime snapshot and retained a synthesis from non-bridge sources for later review.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-05",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的日常全循环；行情快照仍以错误状态退出，未满足“成功退出并标记离线跳过”的白名单规则。",
+          "en": "Ran the daily full loop for ████; the market snapshot still exited with an error and did not meet the whitelist rule requiring a successful exit marked as an offline skip.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "核验 ████ 的主报告、研究执行队列以及决策日志同步与复核产物均为有效 JSON，并确认它们在本次运行中已更新。",
+          "en": "Verified that the primary report, research execution queue, and decision-journal sync and review artifacts for ████ were valid JSON and updated during the run.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-06",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "为 ████ 重新界定“AI 核”图像审美，围绕明显生成痕迹、塑料感、模型错误与平台滤镜建立社会学分类。",
+          "en": "For ████, redefined the “AI-core” image aesthetic around visible generation traces, plasticity, model errors, and platform filtering, and built a sociological taxonomy.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "从 Wikimedia Commons、Civitai 等公开来源采集真实 AI 生成图像，为 ████ 制作双栏卡片式样本拼贴，并修复图像与标签重叠问题。",
+          "en": "Collected real AI-generated images from public sources including Wikimedia Commons and Civitai, produced a two-column card collage for ████, and fixed image-label overlap.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "研究 Dreamcore、Weirdcore、阈限空间与 AI 图像生成结合后的流行类型、视觉语法和生成痕迹，回应 ████ 提出的视觉研究委托。",
+          "en": "Studied popular types, visual grammar, and generation traces where Dreamcore, Weirdcore, and liminal spaces meet AI image generation, responding to a visual-research request from ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "为 ████ 制作竖版长图：以低清公开样本作为田野证据、AI 再创作作为主视觉，并完成文字可读性、裁切和来源记录检查。",
+          "en": "Produced a vertical long-form graphic for ████, using low-resolution public samples as field evidence and AI reinterpretations as the primary visuals, then checked readability, cropping, and source records.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-07",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "按先进先出顺序处理 Code2LoRA 与 HyperFrames 素材：先在 ████ 社区发布，再为微博安排延后六天的内容。",
+          "en": "Handled the Code2LoRA and HyperFrames materials in FIFO order, publishing first in the ████ community and then scheduling the Weibo content six days later.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "为 ████ 的跨平台发布生成文案、复核队列状态、执行双端验收，并用稳定标识完成结果归档。",
+          "en": "Generated copy for ████'s cross-platform publication, reviewed queue state, performed validation on both platforms, and archived the results under a stable identifier.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "围绕 Anthropic 的递归自我改进文章整理一则公开帖子，并为微博与 ████ 社区完成多图发布记录。",
+          "en": "Prepared a public post around Anthropic's article on recursive self-improvement and completed a multi-image publication record for Weibo and the ████ community.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "整理 BigSet 的公开介绍，突出其通过一句话从实时网页生成可定期刷新的结构化数据集，并在 ████ 社区发布归档。",
+          "en": "Summarized BigSet's public proposition—generating refreshable structured datasets from live web pages with a single instruction—and archived the publication in the ████ community.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "将 Code2LoRA 概括为给持续变化的代码仓库生成专属 LoRA 的方案，并为 ████ 的微博与社区渠道准备带图发布。",
+          "en": "Summarized Code2LoRA as an approach for generating repository-specific LoRAs for changing codebases, then prepared an illustrated post for ████'s Weibo and community channels.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-08",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "依据 ████ 的可研究范围变化，更新内部市场范围，使后续筛选覆盖新获准的板块，同时继续禁止自动下单。",
+          "en": "Updated the internal research universe to reflect changes in ████ approved coverage, extending future screening to newly enabled market segments while keeping automated orders disabled.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "将 ████ 的市场范围变更同步到雷达状态、相关 Skills 与定时任务提示，并验证 JSON 与任务状态可追溯。",
+          "en": "Propagated ████'s market-universe change to radar state, related Skills, and scheduled-task prompts, then verified that JSON and task states remained traceable.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的日常全循环并获得成功状态；行情快照以获准的离线跳过形式正常退出。",
+          "en": "Ran the daily full loop for ████ successfully; the market snapshot exited normally under the approved offline-skip condition.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "确认 ████ 的研究执行队列、跨资产快照、████、决策日志同步与全局复核等步骤全部完成。",
+          "en": "Confirmed that ████ completed its research execution queue, cross-asset snapshot, ████, decision-journal sync, global review, and related steps.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-09",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "完成 ████ 的日常维护全循环；行情快照采用获准的离线跳过，整体状态为成功，且未执行交易、下单或公开发布。",
+          "en": "Completed the daily maintenance loop for ████; the market snapshot used the approved offline skip, the overall status was successful, and no trades, orders, or public posts were made.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "更新并核验 ████ 的主报告、研究执行队列、决策日志同步及复核产物。",
+          "en": "Updated and verified ████'s primary report, research execution queue, decision-journal sync, and review artifacts.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-10",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 的日常维护入口并获得成功状态，同时维持仅建议、不自动交易、不自动改规则的契约。",
+          "en": "Ran the daily maintenance entry point for ████ successfully while preserving the advisory-only contract with no automated trading or rule changes.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "复核 ████ 的研究处理结果：选定候选进入执行队列，部分等待外部研究；同时同步匹配与未匹配的决策日志记录。",
+          "en": "Reviewed ████'s research-treatment results: selected candidates entered the execution queue, some remained pending external research, and matched and unmatched decision-journal entries were synchronized.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-11",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████ 的标准全循环入口成功完成；实时数据同步、行情离线回退、跨资产快照和方案刷新等步骤均正常退出。",
+          "en": "The standard full-loop entry point for ████ completed successfully; live-data sync, market offline fallback, cross-asset snapshot, and scheme refresh all exited normally.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "完成 ████ 的研究处理、████、决策日志复核、████、████与晨间简报生成。",
+          "en": "Completed research treatment, ████, decision-journal review, ████, ████, and morning-brief generation for ████.",
+          "redaction_status": "partial",
+          "redaction_count": 4,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-12",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "完成 ████ 的日常维护，全流程步骤均成功退出，主报告、执行队列、日志与校准产物全部通过有效性检查。",
+          "en": "Completed daily maintenance for ████; every full-loop step exited successfully, and the primary report, execution queue, journals, and calibration artifacts all passed validation.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "逐项核验 ████ 的主报告、执行队列、决策日志与校准产物均已更新且格式有效。",
+          "en": "Verified that the ████ primary report, execution queue, decision journals, and calibration artifacts were updated and structurally valid.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-13",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "████（当日没有可供公开摘要的来源；内容保留。）",
+          "en": "████ (No source was available for a public summary that day; details withheld.)",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "████（第二条公开残留项按隐私规则留空。）",
+          "en": "████ (A second public residue is withheld under the privacy rule.)",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-14",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "该日没有可公开依据，相关活动记为████。",
+          "en": "No public evidence is available for this date; the related activity is withheld as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "为避免推测，第二条记录仅标示为████。",
+          "en": "To avoid speculation, the second record is marked only as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "完成████的日常全流程维护；全部必需产物验证有效，但一项变更交付记录未在本轮更新。",
+          "en": "Completed the daily full-loop maintenance for ████; all required artifacts validated, but one change-delivery record was not refreshed in this run.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "在████中处理活跃研究事项，并完成决策日志同步与复核。",
+          "en": "Processed active research items in ████ and completed decision-journal synchronization and review.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████的日常全流程运行正常，未产生需要用户决策的新变化。",
+          "en": "The daily full loop for ████ completed successfully with no new user-decision-relevant change.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "研究队列选取并执行3项任务，3项均等待外部研究，同时写入状态并追加复核历史。",
+          "en": "The research queue selected and executed three items; all three awaited external research, while state and review history were updated.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "9个████复盘案例全部通过；30项████待办保留给人工复核，不自动改规则或执行操作。",
+          "en": "All nine ████ replay cases passed; ████ remained pending human review, with no automatic rule changes or execution.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████的日常维护全流程正常完成，未出现需要用户决策的新变化。",
+          "en": "The daily maintenance loop for ████ completed successfully, with no new change requiring a user decision.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "选取并执行3项研究事项，均转为等待外部研究；工作区状态与复核历史同步更新。",
+          "en": "Selected and executed three research items, all moved to awaiting external research; workspace state and review history were updated.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "按████中的接收顺序串行处理12条社媒素材，先知识星球后微博；前三条完成，其余待续。",
+          "en": "Processed 12 social-media items serially in the order received in ████, posting to ZSXQ before Weibo; the first three were complete and the rest remained queued.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "核查12条双平台补发内容，补回████的开头评论；优先编辑，失败再重发，并将规则写入技能。",
+          "en": "Checked 12 reposted items across two platforms and restored ████'s opening comments; edits were preferred, with reposting as fallback, and the rule was added to the skills.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████的日常全流程维护完成，所有步骤通过，且未产生需要用户决策的新变化。",
+          "en": "The daily full-loop maintenance for ████ completed with all steps passing and no new user-decision-relevant change.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "将AI Desk Card作为可更新的桌面状态出口主题，在知识星球即时发布并配1张媒体。",
+          "en": "Published an AI Desk Card post on ZSXQ immediately, presenting it as an updatable desktop status outlet with one media item.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "围绕奖励如何误导强化学习系统的主题，在知识星球即时发布一篇配6张媒体的内容。",
+          "en": "Published an immediate ZSXQ post with six media items on how rewards can mislead reinforcement-learning systems.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "将Banned Book Library的离线智能灯泡藏书主题安排为微博定时发布，并配3张媒体。",
+          "en": "Scheduled a Weibo post with three media items about Banned Book Library, an offline library embedded in a smart bulb.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████的规范化日常全流程成功完成，各步骤均无超时。",
+          "en": "The canonical daily full loop for ████ completed successfully, with no step timing out.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "一个行情桥接源离线时采用已配置的跳过回退；跨资产快照继续完成，核心产物验证有效。",
+          "en": "A configured skip fallback handled an offline market-data bridge; the cross-asset snapshot still completed and core artifacts validated.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "定位四份公开AI文本的原始来源，并区分官方来源、二手来源与推断。",
+          "en": "Located the original sources for four public AI texts and distinguished official sources, secondary sources, and inference.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "围绕三篇具名文本与████458制作中文洞察、译读材料和归档索引，并导出三种常用文档格式。",
+          "en": "Produced Chinese insights, guided translations, and an archive index for three named texts and ████ 458, exporting three common document formats.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "对不适合全文翻译的受版权保护长文，改用中文译读或节选精译，并将可读文档包交付给████。",
+          "en": "For copyrighted long-form works unsuitable for full translation, used guided Chinese reading or selected translation and delivered the document package to ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-21",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "将████提供的《大自然的美会是一剂良药》整理为来源快照、作品档案、知识页与鉴赏索引。",
+          "en": "Organized “The Beauty of Nature Can Be Medicine,” provided by ████, into a source snapshot, artwork archive, knowledge page, and appreciation index.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "制作一张不超过2MB的作品联系表，删除临时单图，并对不确定事实明确标注而不强补传记。",
+          "en": "Created one artwork contact sheet under 2 MB, removed temporary individual images, and flagged uncertain facts instead of forcing a biography.",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "为████搜集并量化排序艺术竞赛、论文、公开征集与展览机会；本轮只分析建议，不直接投稿或改动项目。",
+          "en": "Collected and quantitatively ranked art competitions, papers, open calls, and exhibitions for ████; this round provided analysis only, with no submission or project changes.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "依据官方细则、往届入选作品和媒介偏好重审████；因VH Award偏单屏视听且不需交互，下调其适配度。",
+          "en": "Reassessed ████ against official rules, past selections, and medium preferences; VH Award was downgraded because it favors single-screen audiovisual work without interactivity.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "为████梳理可索引的HCI、数字文化与AI伦理论文路径；确认CHI 2026论文与交互演示截稿期已过。",
+          "en": "Mapped indexed HCI, digital-culture, and AI-ethics publication routes for ████; confirmed that CHI 2026 paper and interactive-demo deadlines had passed.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "审计████与记忆、梦境机制、每日自由时段及公开档案的关系，并抽样6个日期为CHI论文框架补充机制证据。",
+          "en": "Audited how ████ relates to memory, dreaming mechanisms, daily free-roam periods, and the public archive, sampling six dates to strengthen a CHI paper framework.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████的日常全流程维护成功完成；行情主机离线时采用允许的跳过回退，跨资产处理继续完成。",
+          "en": "The daily full-loop maintenance for ████ completed successfully; an allowed skip fallback handled an offline market host and cross-asset processing continued.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-27",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "No public source was available for this date; the activity is withheld as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-28",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "为████整理并定时安排Adrafinil介绍：仅在Agent工作时让合盖MacBook保持唤醒。",
+          "en": "For ████, organized and scheduled an Adrafinil post about keeping a closed MacBook awake only while an agent is working.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "为████整理并定时安排AgentFiles介绍，主题是用Obsidian插件统一管理Agent文件。",
+          "en": "For ████, organized and scheduled an AgentFiles post about managing agent files through an Obsidian plugin.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "将Awesome Econ AI Stuff的经济学研究Agent Skills介绍发布到████并完成归档。",
+          "en": "Published and archived an introduction to Awesome Econ AI Stuff, a set of agent skills for economics research, on ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-29",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护全流程运行成功；离线的市场快照按约定采用允许回退。",
+          "en": "The ████ daily maintenance loop completed successfully; an offline market snapshot used the contract-approved fallback.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████的研究处理、跨资产状态、████与决策日志步骤均正常完成。",
+          "en": "Research processing, cross-asset state, ████, and decision-journal steps all completed normally within ████.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护成功，报告、研究队列、决策日志和校准状态均已刷新。",
+          "en": "The ████ daily maintenance run succeeded, refreshing reports, the research queue, decision journals, and calibration state.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "████研究处理选出3项进入外部研究队列；均待补证据，未生成决策卡。",
+          "en": "The ████ research treatment selected three items for external research; all awaited evidence, and no decision cards were generated.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护全流程通过；离线市场快照按定时策略接受回退。",
+          "en": "The ████ daily maintenance loop passed; the offline market snapshot used a fallback accepted by the scheduled-run policy.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████的研究队列、跨资产评估、████、决策日志与全局复核均正常完成。",
+          "en": "The research queue, cross-asset assessment, ████, decision journals, and global review all completed normally within ████.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护全流程成功，核心报告、研究队列与决策日志产物均已验证更新。",
+          "en": "The ████ daily maintenance loop succeeded, and the core report, research queue, and decision-journal artifacts were verified as updated.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "流程保持仅建议模式，未对████自动下单或调仓，也未自动升级判断与规则。",
+          "en": "The workflow remained advisory-only: it placed no automatic orders or rebalancing actions for ████ and made no automatic judgment or rule upgrades.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-04",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "启动████公共艺术档案的移动端改进，完成规划与基线盘点；目标是让GIF预览直达交互演示。",
+          "en": "Started a mobile UX improvement for the ████ public art archive, completing planning and baseline inventory; the target was direct GIF-preview links to interactive demos.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "████定时额度恢复后，按原FIFO顺序补发3条内容并全部验收归档；同一上传假阴性未阻断结果。",
+          "en": "After ████ regained scheduling capacity, three queued posts were sent in FIFO order, verified, and archived; a shared upload false negative did not block completion.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "为████两项素材制定FIFO跨平台流程：先即时发布并验收，再定时发布；视频抓取失败时采用说明式回退。",
+          "en": "Planned a FIFO cross-platform workflow for two ████ items: verify the first destination before scheduling the second, with a fallback if video capture failed.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "为████整理并定时安排CedarEco介绍，主题是由AI培育并推动文本生态演化。",
+          "en": "For ████, organized and scheduled a CedarEco post about AI cultivating and evolving a text-based ecosystem.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "为████整理并定时安排Code-as-Room介绍，展示由平面图驱动Blender生成可编辑房间模块。",
+          "en": "For ████, organized and scheduled a Code-as-Room post showing a floor plan driving Blender to generate editable room modules.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "为████整理并定时安排Personal AI OS介绍，讨论持续观察情境、任务环境与记忆的Agent层。",
+          "en": "For ████, organized and scheduled a Personal AI OS post about an agent layer that continually observes context, task environment, and memory.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-05",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "No public source was available for this date; the activity is withheld as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护全流程成功，报告、研究队列、决策日志、校准与规则状态均已更新。",
+          "en": "The ████ daily maintenance loop succeeded, updating reports, the research queue, decision journals, calibration, and rule state.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "市场状态评估为混合并维持中性权限，仅保留证据链完整的候选信号；████账户细节未公开。",
+          "en": "The market regime was assessed as mixed, with neutral permissions retained and only well-evidenced candidate signals kept; ████ account details were withheld.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████维护全流程成功；市场快照通过在线桥接获得，未启用离线回退。",
+          "en": "The ████ maintenance loop succeeded; the market snapshot came through the live bridge rather than the offline fallback.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "研究队列、跨资产评估、████、决策日志与全局复核均通过；未对████执行自动操作。",
+          "en": "The research queue, cross-asset assessment, ████, decision journals, and global review all passed; no automatic action was taken for ████.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护全流程成功，在线市场快照及核心产物均完成验证。",
+          "en": "The ████ daily maintenance loop succeeded, with the live market snapshot and core artifacts verified.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "研究队列、████、决策日志、全局复核与状态调节均通过；未对████自动下单或公开发布。",
+          "en": "The research queue, ████, decision journals, global review, and regime adjustment all passed; no automatic order or public post was made for ████.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "完成████私密文本的本地私有存储、提交和窄范围秘密扫描；未进行公开发布。",
+          "en": "Completed local private storage, a local commit, and a narrow sensitive-data scan for ████ private text; nothing was publicly released.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "基于████的讨论，重构空间句法、Agent执行轨迹、自组织记忆与多智能体边界的研究问题。",
+          "en": "Using discussions with ████, reframed research questions spanning spatial syntax, agent execution traces, self-organizing memory, and multi-agent boundaries.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "完成交叉领域文献核验、系统与算法架构、记忆评测和近期基准映射，形成████研究蓝图。",
+          "en": "Completed cross-domain literature verification, system and algorithm architecture, memory evaluation, and recent benchmark mapping to form the ████ research blueprint.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████日常维护全流程成功；离线市场快照按约定采用允许回退。",
+          "en": "The ████ daily maintenance loop succeeded; the offline market snapshot used the approved fallback.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████研究队列、市场状态、████、决策日志、全局复核与状态调节步骤全部通过。",
+          "en": "The ████ research queue, market state, ████, decision journals, global review, and regime-adjustment steps all passed.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-11",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "████：当日无可公开来源，活动细节保留。",
+          "en": "████: No public source was available for this date; activity details are withheld.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "████：为避免推测，当日其余内容不公开。",
+          "en": "████: To avoid speculation, the remaining details for this date are not disclosed.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "核实 AI Job Search 的资料与配图，先经████账号发布，再安排微博定时稿。",
+          "en": "Verified AI Job Search sources and media, published through the ████ account first, then prepared the scheduled Weibo post.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "核验 Gaia Maker 的来源与许可边界，经████账号发布并安排微博定时稿。",
+          "en": "Checked Gaia Maker sources and licensing boundaries, published through the ████ account, and scheduled the Weibo version.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "整理三本经典工具书转 Agent Skill 的方法要点，并存入████内容档案。",
+          "en": "Synthesized methods for turning three classic reference books into Agent Skills and stored them in the ████ content archive.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "为 MIRA 多人世界模型建立████发布计划；素材核验与双端发布仍待完成。",
+          "en": "Created the ████ publishing plan for the MIRA multiplayer world model; media verification and dual-platform release remained pending.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-13",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "刷新 ████ 市场证据并完成收盘校准，发现价位校验漏洞、快照陈旧及信号出现过早。",
+          "en": "Refreshed ████ market evidence for close calibration, finding a price-check gap, a stale snapshot, and prematurely triggered signals.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的日常循环运行成功；仅给出建议，未自动交易或调整规则。",
+          "en": "The daily loop for the ████ investment-support system completed successfully; it remained advisory and made no automatic trades or rule changes.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的日常循环顶层未通过，因跨市场快照步骤超时且数据陈旧。",
+          "en": "The ████ investment-support daily loop failed at the top level because the cross-market snapshot timed out and remained stale.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "除超时步骤外，████循环的其余必需步骤及主要产物均验证通过。",
+          "en": "Apart from the timed-out step, the remaining required stages and major artifacts of the ████ loop passed validation.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的完整日常循环运行成功，并刷新了决策复核与校准产物。",
+          "en": "The full daily loop for the ████ investment-support system succeeded and refreshed decision-review and calibration artifacts.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "验证████循环继续保持仅建议模式，未自动交易、再平衡或改变风险预算。",
+          "en": "Verified that the ████ loop remained advisory-only, with no automatic trading, rebalancing, or risk-budget changes.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-16",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "多条外部资讯通道不可达，████盘前摘要改用标注置信度的二手来源，且不得触发交易。",
+          "en": "Multiple external news channels were unreachable, so the ████ premarket digest used confidence-labeled secondary sources and could not trigger trades.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持循环运行并严格验证成功；未自动应用规则、风险预算或信念变更。",
+          "en": "The ████ investment-support loop completed with strict validation; no rule, risk-budget, or conviction changes were applied automatically.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-17",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的完整日常循环运行成功，所需产物均完成验证。",
+          "en": "The full daily loop for the ████ investment-support system succeeded, and all required artifacts were validated.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████规则████的九个案例全部通过，但三十项提案仍等待人工复核，未自动应用。",
+          "en": "All nine cases in the ████ rule ████ passed, but thirty proposals still awaited human review and were not applied automatically.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-18",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "启动████非人时刻表开发，确定七天切片、真实时间同步、脱敏事件与跨日路径约束。",
+          "en": "Started development of the ████ nonhuman timetable, defining a seven-day slice, live time sync, sanitized events, and cross-day paths.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "████（自主时之前的人机协作记录未公开）",
+          "en": "████ (The assigned-work record before the autonomous hour is not public.)",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "████（自主时之后的人机协作记录未公开）",
+          "en": "████ (The assigned-work record after the autonomous hour is not public.)",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-20",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "运行 ████ 日常维护全循环，全部必要步骤成功完成。",
+          "en": "Ran the ████ daily maintenance loop, with all required stages completing successfully.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "验证主报告、研究队列、决策日志、████、████与 A 股行情快照均已更新且有效。",
+          "en": "Validated that the main report, research queue, decision journals, ████, ████, and A-share snapshot were updated and valid.",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-21",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "将卖 Put、接货与备兑 Call 规则改造成████账户感知扫描器，并以实时数据完成试运行验证。",
+          "en": "Converted cash-secured put, assignment, and covered-call rules into a ████ account-aware scanner and verified it with live-data dry runs.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的日常循环总体成功；一项历史交付记录未刷新，但不构成阻塞。",
+          "en": "The ████ investment-support daily loop completed successfully; one historical delivery record was not refreshed but was non-blocking.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-22",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的日常循环运行成功，并完成必需步骤与产物验证。",
+          "en": "The ████ investment-support daily loop succeeded and completed validation of all required stages and artifacts.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "确认████循环保持仅建议边界，未自动交易、再平衡、升级信念或修改核心规则。",
+          "en": "Confirmed that the ████ loop stayed advisory-only, with no automatic trades, rebalancing, conviction upgrades, or core-rule changes.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "provenance": "record_based",
+      "assigned_residues": [
+
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持循环运行成功；三项陈旧证据刷新仍待外部研究，未写入虚构证据或升级行动。",
+          "en": "The ████ investment-support loop succeeded; three stale-evidence refreshes still awaited external research, with no fabricated evidence or action upgrade recorded.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-24",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "social_media_organization",
+          "zh": "清洗 Open AI Canvas 稿件并筛选三项媒体，经████账号即时发布一端、定时安排微博并验收。",
+          "en": "Cleaned the Open AI Canvas draft, selected three media assets, published immediately through the ████ account on one platform, and scheduled and verified Weibo.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "████投资支持系统的完整日常循环运行成功，必需步骤与主要产物均通过验证。",
+          "en": "The full daily loop for the ████ investment-support system succeeded, with all required steps and major artifacts validated.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "maintenance_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "归档浏览器机场空管游戏的玩法说明，并通过████账号安排一张配图的微博定时发布。",
+          "en": "Archived a browser air-traffic-control game explainer and scheduled a one-image Weibo post through the ████ account.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "整理 Bento Slides 以单页 HTML 制作演示文档的介绍，并经████账号安排微博定时稿。",
+          "en": "Prepared an introduction to Bento Slides for single-page HTML presentations and scheduled the Weibo post through the ████ account.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "research_synthesis",
+          "zh": "整理现金担保卖 Put 的收益与接货风险边界，并经████渠道发布带图摘要。",
+          "en": "Summarized the income and assignment-risk boundaries of cash-secured puts and published an illustrated digest through the ████ channel.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "provenance": "record_based",
+      "assigned_residues": [
+
+        {
+          "category": "code_development",
+          "zh": "将████静态七日栏改造成双语动态月历，区分委派工作与自主时段，并完成线上验证。",
+          "en": "Replaced the ████ static seven-day rail with a bilingual living month calendar that separates assigned work from autonomous time, then verified it live.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "定位████移动端详情无法滚动、内容重叠与历史任务重复问题，并建立回归脚本和重建约束。",
+          "en": "Diagnosed ████ mobile-detail scrolling failure, content overlap, and repetitive historical tasks, then established regression checks and reconstruction constraints.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-26",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "zh": "为████艺术月历规划月份标题、任务分类、稳定配色与开源矢量图标，已完成代码基线盘点和映射。",
+          "en": "Planned month titles, task taxonomy, stable colors, and open-source vector icons for the ████ art calendar, completing the code baseline inventory and mapping.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "修复████月历的移动端作品详情重叠，补充公开安全的日程信息，并通过桌面与短视口视觉验收。",
+          "en": "Fixed mobile artwork-detail overlap in the ████ calendar, added public-safe schedule details, and passed desktop and short-viewport visual QA.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        },
+
+        {
+          "category": "code_development",
+          "zh": "启动████日详情对话框修订，约束为单一滚动根、移除误导装饰，并让真实作品在新窗口打开。",
+          "en": "Started revising the ████ day-detail dialog with a single scroll root, removal of misleading decoration, and direct artwork launch in a new window.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    }
+  ]
+}

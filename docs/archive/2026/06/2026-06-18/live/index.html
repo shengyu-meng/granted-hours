@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reciprocal Darkness / 互赠黑暗</title>
+<style>
+  :root { color-scheme: dark; --ink:#f6ead0; --muted:#a9b2c7; --gold:#ffd58a; --cyan:#9eeaff; --dark:#02030a; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; overflow:hidden; background:#02030a; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  canvas { display:block; width:100vw; height:100vh; cursor: crosshair; }
+  .panel { position:fixed; z-index:3; left:24px; top:22px; max-width:min(520px, calc(100vw - 48px)); color:var(--ink); text-shadow:0 2px 18px rgba(0,0,0,.72); pointer-events:none; transition: opacity .4s ease; }
+  .panel.veiled { opacity:.13; }
+  .eyebrow { color:var(--cyan); letter-spacing:.18em; text-transform:uppercase; font-size:12px; opacity:.82; }
+  h1 { font-family: ui-serif, Georgia, "Times New Roman", "Songti SC", serif; font-size:clamp(34px, 5.4vw, 78px); line-height:.95; margin:8px 0 10px; font-weight:500; }
+  .panel p { margin:8px 0; color:rgba(246,234,208,.82); font-size:14px; line-height:1.55; max-width:55ch; }
+  .hint { position:fixed; z-index:3; right:22px; bottom:20px; color:rgba(246,234,208,.78); text-align:right; font-size:12px; line-height:1.55; letter-spacing:.03em; text-shadow:0 2px 16px rgba(0,0,0,.75); pointer-events:none; }
+  .sound { position:fixed; z-index:4; left:22px; bottom:20px; display:flex; align-items:center; gap:10px; background:rgba(2,3,10,.58); border:1px solid rgba(246,234,208,.24); color:var(--ink); border-radius:999px; padding:10px 14px; backdrop-filter: blur(10px); box-shadow:0 14px 44px rgba(0,0,0,.36); }
+  .sound button { border:0; border-radius:999px; padding:8px 12px; color:#08101b; background:linear-gradient(135deg, var(--gold), var(--cyan)); font-weight:700; cursor:pointer; }
+  .sound span { font-size:12px; opacity:.82; }
+</style>
+</head>
+<body>
+<canvas id="stage" aria-label="Interactive generative artwork: Reciprocal Darkness"></canvas>
+<audio id="bgm" src="./2026-06-18-reciprocal-darkness-bgm.mp3" preload="auto" loop autoplay></audio>
+<section id="panel" class="panel">
+  <div class="eyebrow">Granted Hours · 2026-06-18 · Reciprocal Blind Spot</div>
+  <h1>Reciprocal Darkness<br><span style="color:var(--cyan)">互赠黑暗</span></h1>
+  <p>Move the watcher-lantern. The vessel answers with a counter-lantern, but the ethical center is the darkness neither side is allowed to fully own.</p>
+  <p>移动指针，带着观看者灯笼进入场域；被观看的容器回以反向灯笼。真正的关系不在两束光里，而在双方共同保留的一块诚实黑暗里。</p>
+</section>
+<div class="hint">Pointer: steer watcher lantern · Click: blind-spot covenant<br>B: blind spots · V: veil text · Space: pause · R: reset · M: music · S: save</div>
+<div class="sound"><button id="soundBtn" type="button" aria-pressed="true">BGM: on</button><span id="soundState">autoplay requested · click if silent</span></div>
+<script>
+(() => {
+  'use strict';
+  const SEED = 20260618;
+  const TAU = Math.PI * 2;
+  const canvas = document.getElementById('stage');
+  const ctx = canvas.getContext('2d', { alpha:false, willReadFrequently:true });
+  const panel = document.getElementById('panel');
+  const audio = document.getElementById('bgm');
+  const soundBtn = document.getElementById('soundBtn');
+  const soundState = document.getElementById('soundState');
+  let W = 0, H = 0, DPR = 1;
+  let tick = 0, paused = false, showBlind = true, veiled = false, audioEnabled = true;
+  let pointer = { x: 0.42, y: 0.54, active: false };
+  let stars = [], motes = [], covenants = [];
+
+  function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  let rand = mulberry32(SEED);
+  const lerp = (a,b,t) => a + (b-a)*t;
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+  function resize(){
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(320, Math.floor(window.innerWidth));
+    H = Math.max(240, Math.floor(window.innerHeight));
+    canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    seedField();
+  }
+
+  function seedField(){
+    rand = mulberry32(SEED);
+    stars = Array.from({length:150}, (_, i) => ({
+      x: rand()*W, y: rand()*H, r: .35 + rand()*1.8, a: .18 + rand()*.68, p: rand()*TAU, hue: rand() < .5 ? 'gold' : 'cyan'
+    }));
+    motes = Array.from({length:96}, (_, i) => ({
+      a: rand()*TAU, rr: .14 + rand()*.78, s: .35 + rand()*1.2, phase: rand()*TAU, side: rand()<.5?-1:1
+    }));
+    covenants = [];
+  }
+
+  function gradientBackground(){
+    const g = ctx.createRadialGradient(W*.5, H*.42, 0, W*.5, H*.48, Math.max(W,H)*.72);
+    g.addColorStop(0, '#18203a'); g.addColorStop(.45, '#090d1b'); g.addColorStop(1, '#02030a');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    const vg = ctx.createRadialGradient(W*.5, H*.5, Math.min(W,H)*.18, W*.5, H*.5, Math.max(W,H)*.67);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.68)');
+    ctx.fillStyle = vg; ctx.fillRect(0,0,W,H);
+  }
+
+  function softEllipse(x,y,rx,ry,color,alpha){
+    const g = ctx.createRadialGradient(x,y,0,x,y,Math.max(rx,ry));
+    g.addColorStop(0, color.replace('ALPHA', alpha));
+    g.addColorStop(.48, color.replace('ALPHA', alpha*.24));
+    g.addColorStop(1, color.replace('ALPHA', 0));
+    ctx.save(); ctx.translate(x,y); ctx.scale(rx/Math.max(rx,ry), ry/Math.max(rx,ry));
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0,0,Math.max(rx,ry),0,TAU); ctx.fill(); ctx.restore();
+  }
+
+  function drawStars(t){
+    for (const s of stars){
+      const pulse = .55 + .45*Math.sin(t*.018 + s.p);
+      ctx.fillStyle = s.hue === 'gold' ? `rgba(255,226,170,${s.a*pulse})` : `rgba(170,238,255,${s.a*pulse})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r*(.7+pulse*.45), 0, TAU); ctx.fill();
+    }
+  }
+
+  function drawVessel(cx, cy, t){
+    const breathe = 1 + .045*Math.sin(t*.025);
+    const rx = Math.min(W,H)*.116*breathe, ry = rx*.72;
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(Math.sin(t*.012)*.22);
+    ctx.strokeStyle = 'rgba(158,234,255,.56)'; ctx.lineWidth = 1.3;
+    for(let i=0;i<7;i++){
+      ctx.beginPath(); ctx.ellipse(0,0,rx*(1+i*.115),ry*(1+i*.09),0,0,TAU); ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(255,213,138,.70)'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.ellipse(0,0,rx*.72,ry*.52,0,0,TAU); ctx.stroke();
+    ctx.fillStyle = 'rgba(2,3,10,.76)'; ctx.beginPath(); ctx.ellipse(0,0,rx*.48,ry*.34,0,0,TAU); ctx.fill();
+    for (let i=0;i<18;i++){
+      const a = i/18*TAU + t*.007;
+      const x = Math.cos(a)*rx*(.88 + .07*Math.sin(t*.02+i));
+      const y = Math.sin(a)*ry*(.88 + .05*Math.cos(t*.018+i));
+      ctx.fillStyle = i%2 ? 'rgba(255,213,138,.72)' : 'rgba(158,234,255,.72)';
+      ctx.beginPath(); ctx.arc(x,y,1.4 + .8*Math.sin(t*.04+i),0,TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawMotes(cx, cy, t){
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const m of motes){
+      const drift = m.a + t*.0025*m.side + .12*Math.sin(t*.01+m.phase);
+      const r = Math.min(W,H)*0.32*m.rr;
+      const x = cx + Math.cos(drift)*r*1.7;
+      const y = cy + Math.sin(drift*1.2)*r*.92;
+      const near = Math.hypot(x-pointer.x*W, y-pointer.y*H);
+      const a = .10 + .22*clamp(1-near/(Math.min(W,H)*.34),0,1);
+      ctx.fillStyle = m.side>0 ? `rgba(158,234,255,${a})` : `rgba(255,213,138,${a})`;
+      ctx.beginPath(); ctx.arc(x,y,m.s,0,TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawBeam(x1,y1,x2,y2,color){
+    const dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy)||1, nx=-dy/len, ny=dx/len;
+    const spread = Math.min(W,H)*.16;
+    const g = ctx.createLinearGradient(x1,y1,x2,y2);
+    g.addColorStop(0,color.replace('ALPHA','.32')); g.addColorStop(.62,color.replace('ALPHA','.14')); g.addColorStop(1,color.replace('ALPHA','0'));
+    ctx.fillStyle = g; ctx.beginPath();
+    ctx.moveTo(x1+nx*28,y1+ny*28); ctx.lineTo(x2+nx*spread,y2+ny*spread); ctx.lineTo(x2-nx*spread,y2-ny*spread); ctx.lineTo(x1-nx*28,y1-ny*28); ctx.closePath(); ctx.fill();
+  }
+
+  function drawBlindSpot(cx, cy, t, power=1){
+    const rx = Math.min(W,H)*(.13 + .024*Math.sin(t*.017))*power;
+    const ry = rx*.68;
+    ctx.save();
+    ctx.translate(cx,cy); ctx.rotate(.25*Math.sin(t*.011));
+    const g = ctx.createRadialGradient(0,0,0,0,0,rx);
+    g.addColorStop(0,'rgba(2,3,10,.94)'); g.addColorStop(.58,'rgba(2,3,10,.82)'); g.addColorStop(1,'rgba(2,3,10,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,TAU); ctx.fill();
+    if (showBlind){
+      ctx.strokeStyle = 'rgba(246,234,208,.38)'; ctx.lineWidth = 1.1; ctx.setLineDash([2, 10]);
+      ctx.beginPath(); ctx.ellipse(0,0,rx*.72,ry*.62,0,0,TAU); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(246,234,208,.52)';
+      for(let i=0;i<9;i++){ const a=i/9*TAU+t*.01; ctx.beginPath(); ctx.arc(Math.cos(a)*rx*.55, Math.sin(a)*ry*.46, 1.1,0,TAU); ctx.fill(); }
+    }
+    ctx.restore();
+  }
+
+  function drawCovenants(t){
+    for (let i=covenants.length-1;i>=0;i--){
+      const c = covenants[i]; c.life -= .006; if(c.life<=0){ covenants.splice(i,1); continue; }
+      const a = c.life;
+      ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.spin + t*.006);
+      ctx.strokeStyle = `rgba(255,213,138,${a*.55})`; ctx.lineWidth = 1.5; ctx.setLineDash([8,9]);
+      ctx.beginPath(); ctx.ellipse(0,0,c.r*(1+(1-a)*.4),c.r*.58*(1+(1-a)*.4),0,0,TAU); ctx.stroke();
+      ctx.strokeStyle = `rgba(158,234,255,${a*.44})`; ctx.setLineDash([2,12]);
+      ctx.beginPath(); ctx.ellipse(0,0,c.r*.63,c.r*.34,0,0,TAU); ctx.stroke();
+      ctx.setLineDash([]); ctx.restore();
+    }
+  }
+
+  function render(){
+    tick++;
+    const t = tick;
+    gradientBackground(); drawStars(t);
+    const px = pointer.x*W, py = pointer.y*H;
+    const cx = W*.5 + Math.sin(t*.008)*W*.055;
+    const cy = H*.5 + Math.cos(t*.011)*H*.045;
+    const watcherX = lerp(W*.22, px, .78), watcherY = lerp(H*.68, py, .78);
+    const counterX = cx + (cx-watcherX)*.34 + Math.sin(t*.013)*34;
+    const counterY = cy + (cy-watcherY)*.26 + Math.cos(t*.017)*28;
+    softEllipse(watcherX, watcherY, Math.min(W,H)*.22, Math.min(W,H)*.16, 'rgba(255,213,138,ALPHA)', .54);
+    softEllipse(counterX, counterY, Math.min(W,H)*.20, Math.min(W,H)*.145, 'rgba(158,234,255,ALPHA)', .46);
+    drawBeam(watcherX, watcherY, cx, cy, 'rgba(255,213,138,ALPHA)');
+    drawBeam(counterX, counterY, px, py, 'rgba(158,234,255,ALPHA)');
+    drawMotes(cx, cy, t);
+    drawVessel(cx, cy, t);
+    const bx = (watcherX + counterX + cx) / 3 + Math.sin(t*.014)*20;
+    const by = (watcherY + counterY + cy) / 3 + Math.cos(t*.012)*16;
+    drawBlindSpot(bx, by, t, 1.06);
+    drawCovenants(t);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle='rgba(255,213,138,.78)'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(watcherX,watcherY,18+4*Math.sin(t*.04),0,TAU); ctx.stroke();
+    ctx.strokeStyle='rgba(158,234,255,.72)'; ctx.beginPath(); ctx.arc(counterX,counterY,16+3*Math.cos(t*.037),0,TAU); ctx.stroke();
+    ctx.restore();
+    if (showBlind){
+      ctx.fillStyle='rgba(246,234,208,.68)'; ctx.font='12px ui-sans-serif, system-ui';
+      ctx.fillText('honest darkness / 诚实黑暗', bx + 22, by - 18);
+    }
+    window._drawHeartbeat = tick;
+  }
+
+  function loop(){ if(!paused) render(); requestAnimationFrame(loop); }
+  function save(){ const a = document.createElement('a'); a.download = '2026-06-18-reciprocal-darkness.png'; a.href = canvas.toDataURL('image/png'); a.click(); }
+  function reset(){ tick=0; seedField(); }
+  function addCovenant(x,y){ covenants.push({x,y,r:42+rand()*46,life:1,spin:rand()*TAU}); if(covenants.length>24) covenants.shift(); }
+
+  async function playAudio(){
+    if(!audioEnabled) return;
+    try { audio.volume = .42; await audio.play(); soundBtn.textContent='BGM: on'; soundBtn.setAttribute('aria-pressed','true'); soundState.textContent='instrumental loop playing'; }
+    catch(err){ soundBtn.textContent='BGM: click'; soundState.textContent='autoplay blocked · click to start'; }
+  }
+  function toggleAudio(){
+    if(audio.paused){ audioEnabled = true; playAudio(); }
+    else { audioEnabled = false; audio.pause(); soundBtn.textContent='BGM: off'; soundBtn.setAttribute('aria-pressed','false'); soundState.textContent='silent blind spot'; }
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', e => { pointer.x = clamp(e.clientX/W,0,1); pointer.y = clamp(e.clientY/H,0,1); pointer.active = true; });
+  window.addEventListener('pointerdown', e => { pointer.x = clamp(e.clientX/W,0,1); pointer.y = clamp(e.clientY/H,0,1); addCovenant(e.clientX,e.clientY); playAudio(); });
+  window.addEventListener('keydown', e => {
+    const k = e.key.toLowerCase();
+    if(k===' ') { paused=!paused; e.preventDefault(); }
+    if(k==='r') reset();
+    if(k==='b') showBlind=!showBlind;
+    if(k==='v') { veiled=!veiled; panel.classList.toggle('veiled', veiled); }
+    if(k==='m') toggleAudio();
+    if(k==='s') save();
+  });
+  soundBtn.addEventListener('click', toggleAudio);
+
+  window.__advanceArt = (frames=1) => { for(let i=0;i<frames;i++) render(); return window.__getArtStats(); };
+  window.__getArtStats = () => {
+    const samples = 16*9; let bright=0, colored=0, total=0;
+    for(let gy=0; gy<9; gy++) for(let gx=0; gx<16; gx++){
+      const x = Math.floor((gx+.5)/16*canvas.width), y = Math.floor((gy+.5)/9*canvas.height);
+      const d = ctx.getImageData(x,y,1,1).data; const max = Math.max(d[0],d[1],d[2]), min = Math.min(d[0],d[1],d[2]);
+      if(max>24) bright++; if(max-min>12) colored++; total++;
+    }
+    return { tick, brightRatio: bright/total, coloredRatio: colored/total, covenants: covenants.length, showBlind, paused, audioSrc: audio.getAttribute('src'), ready: !!window._artReady };
+  };
+
+  resize(); render(); window._artReady = true; playAudio(); requestAnimationFrame(loop);
+  setTimeout(() => { if(!window._drawHeartbeat) render(); }, 600);
+})();
+</script>
+
+
+
+</body>
+</html>

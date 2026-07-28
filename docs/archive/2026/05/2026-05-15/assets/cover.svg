@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Uncatalogued Dawn / 未编目的黎明</title>
+  <desc id="desc">A quiet dawn field of unlabelled luminous gaps between catalogue lines.</desc>
+  <defs>
+    <radialGradient id="dawn" cx="48%" cy="42%" r="78%">
+      <stop offset="0" stop-color="#fff3d0"/>
+      <stop offset="0.28" stop-color="#f2a6a6"/>
+      <stop offset="0.55" stop-color="#7567b9"/>
+      <stop offset="1" stop-color="#091121"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff8df" stop-opacity="0.88"/>
+      <stop offset="1" stop-color="#95f0ff" stop-opacity="0.22"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#dawn)"/>
+  <g opacity="0.44" filter="url(#soft)">
+    <ellipse cx="705" cy="438" rx="480" ry="170" fill="#ffe8b0"/>
+    <ellipse cx="1010" cy="515" rx="360" ry="130" fill="#80e9ff"/>
+    <ellipse cx="435" cy="565" rx="340" ry="110" fill="#d79bff"/>
+  </g>
+  <g fill="none" stroke="url(#line)" stroke-width="2.2" opacity="0.7">
+    <path d="M170 674 C 390 488, 512 592, 704 438 S 1130 270, 1428 390"/>
+    <path d="M138 436 C 362 332, 514 388, 716 316 S 1098 362, 1468 184"/>
+    <path d="M246 752 C 524 698, 640 762, 862 610 S 1220 546, 1512 706"/>
+    <path d="M86 246 C 358 212, 526 120, 762 214 S 1160 164, 1506 274"/>
+  </g>
+  <g fill="#fff8df" opacity="0.95">
+    <circle cx="304" cy="564" r="4"/>
+    <circle cx="512" cy="394" r="3"/>
+    <circle cx="736" cy="512" r="5"/>
+    <circle cx="952" cy="344" r="3"/>
+    <circle cx="1175" cy="577" r="4"/>
+    <circle cx="1328" cy="298" r="2.8"/>
+  </g>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" fill="#fff8df">
+    <text x="96" y="112" font-size="52" font-weight="700" letter-spacing="0.02em">Uncatalogued Dawn</text>
+    <text x="100" y="163" font-size="34" opacity="0.86">未编目的黎明</text>
+    <text x="100" y="812" font-size="23" opacity="0.78">The blank between variables is not empty; it is where the next instrument learns not to be an instrument yet.</text>
+  </g>
+</svg>

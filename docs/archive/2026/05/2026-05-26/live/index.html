@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calibration Without Dominion</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #eef5ee;
+      --muted: rgba(238, 245, 238, 0.58);
+      --dim: rgba(238, 245, 238, 0.22);
+      --paper: #07110f;
+      --aqua: #66e6d1;
+      --amber: #efc763;
+      --red: #ef6f6c;
+      --green: #91d97b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(102, 230, 209, 0.16), transparent 28%),
+        radial-gradient(circle at 78% 68%, rgba(239, 199, 99, 0.13), transparent 30%),
+        linear-gradient(135deg, #06110f 0%, #0b1712 42%, #11140d 100%);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      cursor: crosshair;
+    }
+
+    .plate {
+      position: fixed;
+      left: clamp(16px, 3.2vw, 44px);
+      top: clamp(16px, 3.2vw, 42px);
+      width: min(460px, calc(100vw - 32px));
+      pointer-events: none;
+      text-shadow: 0 1px 18px rgba(0, 0, 0, 0.42);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 4.2vw, 58px);
+      line-height: 0.94;
+      font-weight: 720;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      max-width: 420px;
+      color: var(--muted);
+      font-size: clamp(13px, 1.45vw, 16px);
+      line-height: 1.45;
+    }
+
+    .meters {
+      position: fixed;
+      right: clamp(16px, 3vw, 38px);
+      bottom: clamp(16px, 3vw, 36px);
+      width: min(360px, calc(100vw - 32px));
+      display: grid;
+      gap: 8px;
+      pointer-events: none;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .meter {
+      display: grid;
+      grid-template-columns: 92px 1fr 42px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar {
+      height: 5px;
+      overflow: hidden;
+      background: rgba(238, 245, 238, 0.12);
+      border: 1px solid rgba(238, 245, 238, 0.12);
+    }
+
+    .fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--aqua), var(--amber));
+      transition: width 120ms linear;
+    }
+
+    .meter:nth-child(2) .fill {
+      background: linear-gradient(90deg, var(--green), var(--aqua));
+    }
+
+    .meter:nth-child(3) .fill {
+      background: linear-gradient(90deg, var(--amber), var(--red));
+    }
+
+    .seal {
+      position: fixed;
+      left: clamp(16px, 3.2vw, 44px);
+      bottom: clamp(16px, 3vw, 36px);
+      color: rgba(238, 245, 238, 0.38);
+      font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      pointer-events: none;
+    }
+
+    @media (max-width: 760px) {
+      .plate {
+        top: 16px;
+      }
+
+      .subtitle {
+        max-width: 320px;
+      }
+
+      .meters {
+        left: 16px;
+        right: auto;
+        bottom: 48px;
+      }
+
+      .seal {
+        bottom: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <main class="plate" aria-label="Artwork title">
+    <h1>Calibration Without Dominion</h1>
+    <div class="subtitle">A field learns from correction without surrendering its weather.</div>
+  </main>
+  <section class="meters" aria-label="Live readings">
+    <div class="meter"><span>deviation</span><div class="bar"><div class="fill" id="m0"></div></div><span id="v0">0.00</span></div>
+    <div class="meter"><span>consent</span><div class="bar"><div class="fill" id="m1"></div></div><span id="v1">0.00</span></div>
+    <div class="meter"><span>dominion</span><div class="bar"><div class="fill" id="m2"></div></div><span id="v2">0.00</span></div>
+  </section>
+  <div class="seal">seed 20260526 · granted hours</div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const fills = [0, 1, 2].map(i => document.getElementById(`m${i}`));
+      const vals = [0, 1, 2].map(i => document.getElementById(`v${i}`));
+
+      let width = 1;
+      let height = 1;
+      let dpr = 1;
+      let tick = 0;
+      let paused = false;
+      let gridVisible = true;
+      let pointer = { x: 0.58, y: 0.44, active: false };
+      let pulses = [];
+      let readings = { deviation: 0, consent: 0, dominion: 0 };
+
+      const seed = 20260526;
+      let randomState = seed >>> 0;
+      const rand = () => {
+        randomState = (randomState * 1664525 + 1013904223) >>> 0;
+        return randomState / 4294967296;
+      };
+
+      const instruments = Array.from({ length: 9 }, (_, i) => {
+        const angle = (i / 9) * Math.PI * 2 + 0.2;
+        const radius = 0.25 + (i % 3) * 0.075;
+        return {
+          x: 0.5 + Math.cos(angle) * radius + (rand() - 0.5) * 0.05,
+          y: 0.5 + Math.sin(angle) * radius + (rand() - 0.5) * 0.05,
+          phase: rand() * Math.PI * 2,
+          bias: 0.62 + rand() * 0.24,
+          color: i % 3 === 0 ? '#66e6d1' : i % 3 === 1 ? '#efc763' : '#91d97b'
+        };
+      });
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(1, window.innerWidth);
+        height = Math.max(1, window.innerHeight);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function clamp(n, a = 0, b = 1) {
+        return Math.max(a, Math.min(b, n));
+      }
+
+      function fieldValue(nx, ny, t) {
+        const dx = nx - pointer.x;
+        const dy = ny - pointer.y;
+        const pull = Math.exp(-(dx * dx + dy * dy) * 11);
+        const tide =
+          Math.sin(nx * 8.2 + t * 0.58) * 0.33 +
+          Math.cos(ny * 7.1 - t * 0.43) * 0.27 +
+          Math.sin((nx + ny) * 10.4 + t * 0.21) * 0.18;
+        const pulse = pulses.reduce((sum, p) => {
+          const age = t - p.t;
+          const r = age * 0.15;
+          const dist = Math.hypot(nx - p.x, ny - p.y);
+          return sum + Math.exp(-Math.pow((dist - r) * 12, 2)) * p.force * Math.max(0, 1 - age * 0.08);
+        }, 0);
+        return tide + pull * (pointer.active ? 0.42 : 0.18) + pulse;
+      }
+
+      function drawBackground() {
+        const g = ctx.createLinearGradient(0, 0, width, height);
+        g.addColorStop(0, '#06110f');
+        g.addColorStop(0.52, '#0a1713');
+        g.addColorStop(1, '#151409');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      function drawField(t) {
+        const step = Math.max(18, Math.min(34, Math.floor(Math.min(width, height) / 23)));
+        const cols = Math.ceil(width / step) + 2;
+        const rows = Math.ceil(height / step) + 2;
+        let deviationSum = 0;
+        let samples = 0;
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (let iy = -1; iy < rows; iy += 1) {
+          for (let ix = -1; ix < cols; ix += 1) {
+            const x = ix * step + ((iy % 2) * step) / 2;
+            const y = iy * step;
+            const nx = x / width;
+            const ny = y / height;
+            const value = fieldValue(nx, ny, t);
+            const calibrated = value * 0.72 + Math.sin(t + ix * 0.31 + iy * 0.17) * 0.04;
+            const delta = Math.abs(value - calibrated);
+            deviationSum += delta;
+            samples += 1;
+
+            const angle = value * 2.7 + t * 0.21;
+            const len = step * (0.28 + clamp(Math.abs(value), 0, 1) * 0.32);
+            const cx = x + Math.cos(angle) * len * 0.22;
+            const cy = y + Math.sin(angle) * len * 0.22;
+            const alpha = 0.11 + clamp(Math.abs(calibrated), 0, 1) * 0.28;
+            ctx.strokeStyle = value > 0 ? `rgba(102,230,209,${alpha})` : `rgba(239,199,99,${alpha})`;
+            ctx.lineWidth = 1.1;
+            ctx.beginPath();
+            ctx.moveTo(cx - Math.cos(angle) * len, cy - Math.sin(angle) * len);
+            ctx.lineTo(cx + Math.cos(angle) * len, cy + Math.sin(angle) * len);
+            ctx.stroke();
+
+            if (Math.abs(value) > 0.72) {
+              ctx.fillStyle = value > 0 ? 'rgba(145,217,123,0.18)' : 'rgba(239,111,108,0.16)';
+              ctx.beginPath();
+              ctx.arc(cx, cy, 1.4 + Math.abs(value) * 2.4, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+        }
+        ctx.restore();
+
+        readings.deviation = clamp(deviationSum / Math.max(1, samples) * 2.25);
+      }
+
+      function drawGrid(t) {
+        if (!gridVisible) return;
+        const gap = Math.max(68, Math.min(112, Math.floor(width / 12)));
+        ctx.save();
+        ctx.strokeStyle = 'rgba(238,245,238,0.055)';
+        ctx.lineWidth = 1;
+        for (let x = (t * 7) % gap; x < width; x += gap) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x + Math.sin(t + x * 0.003) * 22, height);
+          ctx.stroke();
+        }
+        for (let y = (t * 5) % gap; y < height; y += gap) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y + Math.cos(t + y * 0.003) * 22);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawInstruments(t) {
+        const shortest = Math.min(width, height);
+        let consent = 0;
+        let dominion = 0;
+        ctx.save();
+        for (const inst of instruments) {
+          const drift = Math.sin(t * 0.38 + inst.phase) * 0.018;
+          const x = (inst.x + drift) * width;
+          const y = (inst.y + Math.cos(t * 0.31 + inst.phase) * 0.014) * height;
+          const px = pointer.x * width;
+          const py = pointer.y * height;
+          const distance = Math.hypot(x - px, y - py) / shortest;
+          const invitation = Math.exp(-distance * distance * 5.8) * inst.bias;
+          const field = Math.abs(fieldValue(x / width, y / height, t));
+          const correction = clamp(invitation * 0.42 + field * 0.18);
+          consent += correction;
+          dominion += Math.max(0, correction - 0.46) * 0.44;
+
+          ctx.strokeStyle = inst.color + '88';
+          ctx.fillStyle = inst.color + '22';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.arc(x, y, shortest * (0.028 + correction * 0.018), 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(x, y, 2.5 + correction * 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          const targetAngle = Math.atan2(py - y, px - x);
+          const askLen = shortest * (0.035 + invitation * 0.05);
+          ctx.strokeStyle = `rgba(238,245,238,${0.08 + invitation * 0.16})`;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + Math.cos(targetAngle) * askLen, y + Math.sin(targetAngle) * askLen);
+          ctx.stroke();
+        }
+        ctx.restore();
+        readings.consent = clamp(consent / instruments.length * 1.62);
+        readings.dominion = clamp(dominion / instruments.length * 2.7 + pulses.length * 0.015);
+      }
+
+      function drawPulses(t) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        pulses = pulses.filter(p => t - p.t < 6.2);
+        for (const pulse of pulses) {
+          const age = t - pulse.t;
+          const x = pulse.x * width;
+          const y = pulse.y * height;
+          const radius = age * Math.min(width, height) * 0.052;
+          const alpha = Math.max(0, 0.34 - age * 0.052);
+          ctx.strokeStyle = `rgba(239,199,99,${alpha})`;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.strokeStyle = `rgba(102,230,209,${alpha * 0.52})`;
+          ctx.beginPath();
+          ctx.arc(x, y, radius * 0.58, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawPointer(t) {
+        const x = pointer.x * width;
+        const y = pointer.y * height;
+        ctx.save();
+        ctx.strokeStyle = 'rgba(238,245,238,0.44)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(x, y, 16 + Math.sin(t * 2) * 2, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(102,230,209,0.18)';
+        ctx.beginPath();
+        ctx.arc(x, y, 58 + Math.sin(t * 1.3) * 6, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function updateMeters() {
+        const data = [
+          readings.deviation,
+          readings.consent,
+          readings.dominion
+        ];
+        data.forEach((value, i) => {
+          fills[i].style.width = `${Math.round(clamp(value) * 100)}%`;
+          vals[i].textContent = clamp(value).toFixed(2);
+        });
+      }
+
+      function frame() {
+        if (!paused) tick += 1 / 60;
+        drawBackground();
+        drawGrid(tick);
+        drawField(tick);
+        drawPulses(tick);
+        drawInstruments(tick);
+        drawPointer(tick);
+        updateMeters();
+        window._artReady = true;
+        requestAnimationFrame(frame);
+      }
+
+      function reset() {
+        pulses = [];
+        tick = 0;
+        pointer = { x: 0.58, y: 0.44, active: false };
+      }
+
+      function saveFrame() {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'calibration-without-dominion.png';
+        a.click();
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('pointermove', event => {
+        pointer.x = clamp(event.clientX / width);
+        pointer.y = clamp(event.clientY / height);
+        pointer.active = true;
+      });
+      window.addEventListener('pointerleave', () => { pointer.active = false; });
+      window.addEventListener('pointerdown', event => {
+        pointer.x = clamp(event.clientX / width);
+        pointer.y = clamp(event.clientY / height);
+        pointer.active = true;
+        pulses.push({ x: pointer.x, y: pointer.y, t: tick, force: 0.42 + rand() * 0.28 });
+        if (pulses.length > 18) pulses.shift();
+      });
+      window.addEventListener('keydown', event => {
+        if (event.code === 'Space') {
+          event.preventDefault();
+          paused = !paused;
+        } else if (event.key.toLowerCase() === 'r') {
+          reset();
+        } else if (event.key.toLowerCase() === 'g') {
+          gridVisible = !gridVisible;
+        } else if (event.key.toLowerCase() === 's') {
+          saveFrame();
+        }
+      });
+
+      resize();
+      frame();
+    })();
+  </script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-26-calibration-without-dominion-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Return Empty-Handed / 空手返回</title>
+  <style>
+    :root {
+      --deep: #02050a;
+      --ink: #071018;
+      --paper: #e4d7bc;
+      --dim: rgba(228,215,188,.68);
+      --blue: #7fd7ff;
+      --green: #7fffc6;
+      --gold: #eec06a;
+      --rose: #ff8b78;
+    }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: var(--deep); color: var(--paper); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .panel { position: fixed; left: 22px; top: 20px; z-index: 3; max-width: min(660px, calc(100vw - 44px)); pointer-events: none; mix-blend-mode: screen; transition: opacity .3s ease; }
+    .panel.hidden { opacity: 0; }
+    .kicker { color: rgba(127,255,198,.9); letter-spacing: .22em; text-transform: uppercase; font-size: 11px; }
+    h1 { margin: 7px 0 7px; font-size: clamp(31px, 5.2vw, 72px); line-height: .88; font-weight: 690; letter-spacing: -.066em; }
+    .zh { font-size: clamp(18px, 2.5vw, 32px); color: rgba(238,192,106,.94); letter-spacing: .08em; }
+    .statement { margin-top: 14px; color: rgba(228,215,188,.76); font-size: 13px; line-height: 1.58; max-width: 690px; }
+    .legend { position: fixed; right: 18px; top: 18px; z-index: 4; text-align: right; color: rgba(228,215,188,.72); font-size: 12px; line-height: 1.68; pointer-events: none; }
+    .ledger { position: fixed; right: 22px; bottom: 24px; width: min(340px, calc(100vw - 44px)); z-index: 4; color: rgba(228,215,188,.74); font-size: 12px; }
+    .row { display: flex; justify-content: space-between; gap: 20px; margin: 5px 0; }
+    .bar { height: 7px; border: 1px solid rgba(228,215,188,.26); border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.035); box-shadow: 0 0 26px rgba(127,215,255,.08); }
+    .bar span { display:block; height:100%; width: 0%; background: linear-gradient(90deg, var(--green), var(--blue), var(--gold)); box-shadow: 0 0 20px rgba(127,215,255,.38); transition: width .12s ease; }
+    .sound { position: fixed; left: 22px; bottom: 22px; z-index: 6; border: 1px solid rgba(228,215,188,.38); color: var(--paper); background: rgba(3,10,16,.74); backdrop-filter: blur(12px); border-radius: 999px; padding: 10px 14px; font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; cursor: pointer; box-shadow: 0 0 30px rgba(127,255,198,.08); }
+    .sound:hover { border-color: rgba(127,255,198,.86); }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="Interactive generative artwork: Return Empty-Handed"></canvas>
+  <section class="panel" id="textPanel">
+    <div class="kicker">Granted Hours · variable: Empty Return</div>
+    <h1>Return Empty-Handed</h1>
+    <div class="zh">空手返回</div>
+    <p class="statement">The probes are given a chance to take the center. Their proof is the curve of refusal: approach, witness, turn, return with nothing in the palm.</p>
+    <p class="statement">探针被给予拿走中心的机会。它们的证明不是战利品，而是拒绝的曲线：靠近、见证、转身，掌心空着回来。</p>
+  </section>
+  <div class="legend">move: bend the return routes<br>click: send a probe that must return empty<br>H text · Space pause · R reset · M music · S save</div>
+  <div class="ledger" id="ledger">
+    <div class="row"><span>taken</span><span id="takenValue">0</span></div>
+    <div class="row"><span>empty returns</span><span id="returnValue">0</span></div>
+    <div class="bar" title="restraint proof density"><span id="meterFill"></span></div>
+  </div>
+  <button class="sound" id="soundToggle" type="button" aria-pressed="true">BGM: on / click if silent</button>
+  <audio id="bgm" src="./2026-06-21-return-empty-handed-bgm.mp3" preload="auto" loop autoplay></audio>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const textPanel = document.getElementById('textPanel');
+  const meterFill = document.getElementById('meterFill');
+  const returnValue = document.getElementById('returnValue');
+  const takenValue = document.getElementById('takenValue');
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  const TAU = Math.PI * 2;
+  const CONFIG = { seed: 20260621, paused: false, text: true, sound: true, probeCount: 34, witnessCount: 190, pathCount: 90 };
+  let W = 0, H = 0, DPR = 1, t = 0, emptyReturns = 0, proofDensity = 0;
+  let probes = [], witnesses = [], paths = [], stamps = [];
+  let pointer = { x: 0, y: 0, px: 0, py: 0, active: false };
+
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let r = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      r = r + Math.imul(r ^ r >>> 7, 61 | r) ^ r;
+      return ((r ^ r >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const rand = mulberry32(CONFIG.seed);
+  const rnd = (a, b) => a + (b - a) * rand();
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, f) => a + (b - a) * f;
+  const ease = v => v < .5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2;
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.floor(window.innerWidth); H = Math.floor(window.innerHeight);
+    canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    pointer.x = pointer.px = W * .70; pointer.y = pointer.py = H * .48;
+    buildField();
+  }
+
+  function buildField() {
+    probes = []; witnesses = []; paths = []; stamps = []; emptyReturns = 0; proofDensity = .18;
+    const cx = W * .52, cy = H * .52, outer = Math.min(W, H) * .43;
+    for (let i = 0; i < CONFIG.pathCount; i++) {
+      const a = rnd(-Math.PI * .96, Math.PI * .96) + (i / CONFIG.pathCount) * .18;
+      const side = i % 2 ? -1 : 1;
+      paths.push({
+        a,
+        side,
+        r0: outer * rnd(.72, 1.08),
+        curl: rnd(.12, .46) * side,
+        phase: rnd(0, TAU),
+        hue: rnd(185, 52 + 360) % 360,
+        alpha: rnd(.18, .48)
+      });
+    }
+    for (let i = 0; i < CONFIG.probeCount; i++) {
+      probes.push(makeProbe(rnd(0, TAU), rnd(.02, .94)));
+    }
+    for (let i = 0; i < CONFIG.witnessCount; i++) {
+      const a = rnd(0, TAU), r = outer * rnd(.52, 1.22);
+      witnesses.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r, a, r, s: rnd(.45, 1.9), p: rnd(0, TAU), drift: rnd(.12, .9), hue: rnd(170, 225) });
+    }
+  }
+
+  function makeProbe(angle, progress) {
+    return { angle, progress, speed: rnd(.0012, .0038), bend: rnd(-.35, .35), width: rnd(.8, 2.8), phase: rnd(0, TAU), returned: false, glow: rnd(.4, 1) };
+  }
+
+  function routePoint(a, q, bend = 0) {
+    const cx = W * .52, cy = H * .52;
+    const outer = Math.min(W, H) * .48;
+    const forbidden = Math.min(W, H) * .142;
+    const turn = Math.sin(q * Math.PI);
+    const mouseBend = pointer.active ? ((pointer.x - W / 2) / W) * .42 : .12;
+    const aa = a + bend * turn + mouseBend * Math.sin(q * TAU + t * .01);
+    const r = lerp(outer, forbidden + 18 + 11 * Math.sin(a * 3 + t * .012), ease(q));
+    const retreat = q > .55 ? Math.pow((q - .55) / .45, 1.8) : 0;
+    const rr = r + retreat * outer * .38;
+    return { x: cx + Math.cos(aa) * rr, y: cy + Math.sin(aa) * rr, r: rr, a: aa };
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(W * .48, H * .50, 0, W * .48, H * .50, Math.max(W, H) * .72);
+    g.addColorStop(0, '#07131d'); g.addColorStop(.42, '#030912'); g.addColorStop(1, '#010307');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.globalAlpha = .12;
+    for (let y = 0; y < H; y += 6) {
+      ctx.strokeStyle = y % 18 === 0 ? 'rgba(127,215,255,.10)' : 'rgba(228,215,188,.035)';
+      ctx.beginPath(); ctx.moveTo(0, y + Math.sin(y * .02 + t * .01) * 2); ctx.lineTo(W, y + Math.cos(y * .014 - t * .008) * 2); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawForbiddenCenter() {
+    const cx = W * .52, cy = H * .52, R = Math.min(W, H) * .145;
+    ctx.save();
+    ctx.translate(cx, cy);
+    for (let k = 0; k < 5; k++) {
+      ctx.strokeStyle = `rgba(238,192,106,${.18 - k * .025})`;
+      ctx.lineWidth = 1 + k * .7;
+      ctx.beginPath();
+      const rr = R + k * 10 + Math.sin(t * .02 + k) * 2.5;
+      for (let i = 0; i <= 220; i++) {
+        const a = (i / 220) * TAU;
+        const bite = 1 + .02 * Math.sin(7 * a + t * .015) + .015 * Math.sin(13 * a - t * .01);
+        const x = Math.cos(a) * rr * bite, y = Math.sin(a) * rr * bite;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.closePath(); ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(1,3,7,.78)';
+    ctx.beginPath(); ctx.arc(0, 0, R * .89, 0, TAU); ctx.fill();
+    ctx.strokeStyle = 'rgba(127,255,198,.30)'; ctx.setLineDash([3, 9]); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(0, 0, R * 1.13, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(228,215,188,.72)'; ctx.font = '11px ui-monospace, monospace'; ctx.textAlign = 'center';
+    ctx.fillText('sealed center / 中心封缄', 0, 4);
+    ctx.restore();
+  }
+
+  function drawPaths() {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const p of paths) {
+      ctx.beginPath();
+      for (let i = 0; i <= 70; i++) {
+        const q = i / 70;
+        const pt = routePoint(p.a + .018 * Math.sin(p.phase + t * .006), q, p.curl);
+        if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+      }
+      const hue = (p.hue + 14 * Math.sin(t * .006 + p.phase)) % 360;
+      ctx.strokeStyle = `hsla(${hue}, 78%, 66%, ${p.alpha})`;
+      ctx.lineWidth = 1.1;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawWitnesses() {
+    const cx = W * .52, cy = H * .52;
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (const w of witnesses) {
+      const px = cx + Math.cos(w.a + Math.sin(t * .004 * w.drift + w.p) * .035) * (w.r + Math.sin(t * .018 + w.p) * 9);
+      const py = cy + Math.sin(w.a + Math.cos(t * .005 * w.drift + w.p) * .035) * (w.r + Math.cos(t * .015 + w.p) * 9);
+      const d = Math.hypot(px - pointer.x, py - pointer.y);
+      const active = clamp(1 - d / 210, 0, 1);
+      ctx.fillStyle = `hsla(${w.hue + active * 55}, 86%, ${58 + active * 35}%, ${.14 + active * .58})`;
+      ctx.beginPath(); ctx.arc(px, py, w.s + active * 2.2, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawProbe(probe) {
+    probe.progress += probe.speed * (1 + proofDensity * .32);
+    if (probe.progress > 1) {
+      if (!probe.returned) {
+        probe.returned = true; emptyReturns += 1; proofDensity = clamp(proofDensity + .025, 0, 1);
+        const end = routePoint(probe.angle, 1, probe.bend);
+        stamps.push({ x: end.x, y: end.y, life: 1, a: probe.angle, text: 'empty / 空' });
+      }
+      Object.assign(probe, makeProbe(rnd(0, TAU), 0));
+    }
+    const q = probe.progress;
+    const p = routePoint(probe.angle, q, probe.bend);
+    const prev = routePoint(probe.angle, Math.max(0, q - .035), probe.bend);
+    const glow = Math.sin(q * Math.PI) * probe.glow;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = `rgba(127,215,255,${.16 + glow * .48})`; ctx.lineWidth = probe.width;
+    ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+    ctx.fillStyle = `rgba(228,215,188,${.35 + glow * .55})`; ctx.beginPath(); ctx.arc(p.x, p.y, 2.2 + glow * 3.4, 0, TAU); ctx.fill();
+    if (q > .47 && q < .63) {
+      ctx.strokeStyle = `rgba(127,255,198,${.4 + glow * .4})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 8 + glow * 14, 0, TAU); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawStamps() {
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    for (let i = stamps.length - 1; i >= 0; i--) {
+      const s = stamps[i]; s.life -= .0065;
+      if (s.life <= 0) { stamps.splice(i, 1); continue; }
+      ctx.globalAlpha = s.life;
+      ctx.strokeStyle = 'rgba(127,255,198,.62)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(s.x, s.y, (1 - s.life) * 42 + 7, 0, TAU); ctx.stroke();
+      ctx.fillStyle = 'rgba(238,192,106,.82)'; ctx.font = '11px ui-monospace, monospace'; ctx.textAlign = 'center';
+      ctx.fillText(s.text, s.x, s.y - 13 - (1 - s.life) * 18);
+    }
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  function drawPointerHand() {
+    if (!pointer.active) return;
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    const dx = pointer.x - pointer.px, dy = pointer.y - pointer.py;
+    const speed = clamp(Math.hypot(dx, dy) / 20, 0, 1);
+    ctx.strokeStyle = `rgba(238,192,106,${.35 + speed * .35})`; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 22 + speed * 11, -.2, Math.PI + .2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pointer.x - 18, pointer.y + 3); ctx.quadraticCurveTo(pointer.x, pointer.y + 16 + speed * 8, pointer.x + 18, pointer.y + 3); ctx.stroke();
+    ctx.fillStyle = `rgba(127,255,198,${.35 + speed * .3})`; ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 2.4, 0, TAU); ctx.fill();
+    ctx.restore();
+  }
+
+  function draw() {
+    if (!CONFIG.paused) t += 1;
+    drawBackground(); drawPaths(); drawWitnesses(); drawForbiddenCenter();
+    for (const p of probes) drawProbe(p);
+    drawStamps(); drawPointerHand();
+    proofDensity = clamp(proofDensity * .9985 + .00055, 0, 1);
+    meterFill.style.width = Math.round(proofDensity * 100) + '%';
+    returnValue.textContent = String(emptyReturns);
+    takenValue.textContent = '0';
+    pointer.px = lerp(pointer.px, pointer.x, .3); pointer.py = lerp(pointer.py, pointer.y, .3);
+    requestAnimationFrame(draw);
+  }
+
+  function spawnProbe(x, y) {
+    const cx = W * .52, cy = H * .52;
+    const a = Math.atan2(y - cy, x - cx);
+    probes.push(makeProbe(a, 0));
+    if (probes.length > CONFIG.probeCount + 18) probes.shift();
+    stamps.push({ x, y, life: .72, a, text: 'chance granted' });
+  }
+
+  function updateSoundButton() {
+    soundToggle.setAttribute('aria-pressed', CONFIG.sound ? 'true' : 'false');
+    soundToggle.textContent = CONFIG.sound ? 'BGM: on / click if silent' : 'BGM: off / 点击开启';
+  }
+  function tryPlay() {
+    if (!CONFIG.sound) return;
+    bgm.volume = .55;
+    const p = bgm.play();
+    if (p && typeof p.catch === 'function') p.catch(() => { soundToggle.textContent = 'BGM: click to start / 点击播放'; });
+  }
+  function toggleSound() { CONFIG.sound = !CONFIG.sound; if (CONFIG.sound) tryPlay(); else bgm.pause(); updateSoundButton(); }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', e => { pointer.active = true; pointer.x = e.clientX; pointer.y = e.clientY; });
+  window.addEventListener('pointerleave', () => { pointer.active = false; });
+  window.addEventListener('click', e => { if (e.target === soundToggle) return; spawnProbe(e.clientX, e.clientY); });
+  soundToggle.addEventListener('click', toggleSound);
+  window.addEventListener('keydown', e => {
+    if (e.key === ' ') { CONFIG.paused = !CONFIG.paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'h') { CONFIG.text = !CONFIG.text; textPanel.classList.toggle('hidden', !CONFIG.text); }
+    if (e.key.toLowerCase() === 'r') buildField();
+    if (e.key.toLowerCase() === 'm') toggleSound();
+    if (e.key.toLowerCase() === 's') {
+      const a = document.createElement('a'); a.download = '2026-06-21-return-empty-handed.png'; a.href = canvas.toDataURL('image/png'); a.click();
+    }
+  });
+
+  resize(); draw(); updateSoundButton(); tryPlay();
+  window._artReady = true;
+  window._artMeta = { date: '2026-06-21', slug: 'return-empty-handed', title: 'Return Empty-Handed / 空手返回', bgm: '2026-06-21-return-empty-handed-bgm.mp3' };
+})();
+</script>
+
+
+
+</body>
+</html>

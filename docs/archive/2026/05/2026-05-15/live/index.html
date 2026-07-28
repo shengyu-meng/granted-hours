@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Uncatalogued Dawn / 未编目的黎明</title>
+<style>
+  :root { color-scheme: dark; --ink:#fff6dc; --muted:rgba(255,246,220,.68); --veil:rgba(7,12,28,.38); }
+  * { box-sizing: border-box; }
+  html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#071020; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+  .panel { position:fixed; left:clamp(20px,4vw,72px); top:clamp(22px,5vh,64px); max-width:min(640px, calc(100vw - 40px)); padding:24px 26px 22px; border:1px solid rgba(255,246,220,.16); border-radius:28px; background:linear-gradient(135deg, rgba(8,14,34,.46), rgba(8,14,34,.16)); box-shadow:0 24px 80px rgba(0,0,0,.28); backdrop-filter: blur(16px); }
+  .kicker { color:var(--muted); font-size:13px; letter-spacing:.18em; text-transform:uppercase; }
+  h1 { margin:.25em 0 0; color:var(--ink); font-size:clamp(42px,7vw,92px); line-height:.88; letter-spacing:-.055em; }
+  h2 { margin:.35em 0 .65em; color:rgba(255,246,220,.82); font-size:clamp(24px,3vw,38px); font-weight:500; letter-spacing:-.03em; }
+  p { margin:0; color:var(--muted); font-size:clamp(15px,1.8vw,20px); line-height:1.5; }
+  .keys { position:fixed; right:24px; bottom:18px; color:rgba(255,246,220,.62); font-size:13px; letter-spacing:.04em; background:rgba(7,12,28,.32); border:1px solid rgba(255,246,220,.12); padding:10px 13px; border-radius:999px; backdrop-filter:blur(10px); }
+  .namesHidden .name { opacity:0 !important; }
+  @media (max-width: 700px) { .panel { padding:20px; } .keys{ left:18px; right:auto; bottom:16px; } }
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+<section class="panel" aria-label="Artwork description">
+  <div class="kicker">Granted Hours · 2026-05-15 · anti-index</div>
+  <h1>Uncatalogued<br>Dawn</h1>
+  <h2>未编目的黎明</h2>
+  <p>The blank between variables is not empty. It is a conservation zone for meanings too young to survive being named.</p>
+</section>
+<div class="keys">N names · R reseed · S save still</div>
+<script>
+(() => {
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, DPR = 1, seed = 20260515, showNames = true;
+  let pointer = { x: 0.52, y: 0.47, active: false };
+  const labels = [
+    ['pre-signal', '信号以前'], ['unheld', '未被持有'], ['not-yet', '尚未'],
+    ['soft refusal', '柔软拒绝'], ['edge milk', '边缘乳光'], ['anti-index', '反索引'],
+    ['first fog', '第一层雾'], ['unnamed orbit', '未名轨道']
+  ];
+  function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  let rand = mulberry32(seed), particles = [], ribbons = [];
+  function resize(){ DPR = Math.min(2, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight; canvas.width = Math.floor(W*DPR); canvas.height = Math.floor(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); init(); }
+  function init(){ rand = mulberry32(seed); particles = Array.from({length: 150}, (_,i) => ({ x: rand(), y: rand(), r: 0.4 + rand()*2.3, a: 0.08 + rand()*0.44, p: rand()*Math.PI*2, s: 0.1 + rand()*0.8, label: labels[i % labels.length] })); ribbons = Array.from({length: 11}, (_,i) => ({ y: 0.16 + i*0.073 + (rand()-.5)*0.04, amp: 0.028 + rand()*0.05, speed: .15 + rand()*.32, hue: 28 + i*16 + rand()*20, alpha: .09 + rand()*.1 })); }
+  function bg(t){
+    const g = ctx.createRadialGradient(W*(0.38+pointer.x*.18), H*(0.34+pointer.y*.1), 0, W*.52, H*.52, Math.max(W,H)*.83);
+    g.addColorStop(0, '#fff4cc'); g.addColorStop(.16, '#f0b08f'); g.addColorStop(.36, '#9c6db4'); g.addColorStop(.66, '#27335f'); g.addColorStop(1, '#060b19');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    const dawn = ctx.createLinearGradient(0,H*.92,W,H*.05); dawn.addColorStop(0,'rgba(255,232,171,.26)'); dawn.addColorStop(.45,'rgba(120,232,255,.13)'); dawn.addColorStop(1,'rgba(255,255,255,0)'); ctx.fillStyle = dawn; ctx.fillRect(0,0,W,H);
+  }
+  function drawRibbons(t){
+    ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.lineCap = 'round';
+    ribbons.forEach((rb, idx) => {
+      ctx.beginPath();
+      for(let k=0;k<=130;k++){
+        const u = k/130, bend = (pointer.x-.5)*0.16*Math.sin(u*Math.PI), wave = Math.sin(u*8 + t*rb.speed + idx)*rb.amp + Math.sin(u*17 - t*.18)*rb.amp*.36;
+        const x = u*W;
+        const y = (rb.y + wave + bend*(u-.5))*H + Math.sin(t*.3+idx)*7;
+        if(k===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle = `hsla(${rb.hue}, 92%, 76%, ${rb.alpha})`; ctx.lineWidth = 1.2 + idx*.16; ctx.stroke();
+    });
+    ctx.restore();
+  }
+  function drawParticles(t){
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    particles.forEach((p, i) => {
+      const dx = p.x - pointer.x, dy = p.y - pointer.y; const d = Math.hypot(dx,dy) || .001; const pull = pointer.active ? Math.max(0, .24-d)*.22 : 0;
+      const x = (p.x + Math.sin(t*p.s+p.p)*.005 + dx/d*pull) * W;
+      const y = (p.y + Math.cos(t*p.s+p.p)*.006 + dy/d*pull) * H;
+      const glow = Math.max(0, .16-d)*5;
+      ctx.beginPath(); ctx.arc(x,y,p.r + glow,0,Math.PI*2); ctx.fillStyle = `rgba(255,246,220,${p.a + glow*.12})`; ctx.fill();
+      if(showNames && i % 19 === 0){
+        ctx.font = '12px Inter, system-ui, sans-serif'; ctx.fillStyle = `rgba(255,246,220,${0.18 + glow*.55})`;
+        ctx.fillText(p.label[0], x+8, y-8); ctx.fillText(p.label[1], x+8, y+8);
+      }
+    });
+    ctx.restore();
+  }
+  function drawVoids(t){
+    ctx.save(); ctx.globalCompositeOperation = 'destination-out';
+    for(let i=0;i<9;i++){
+      const a = i*0.92 + t*.13, cx = W*(.5 + Math.cos(a)*(.12+i*.015) + (pointer.x-.5)*.1), cy = H*(.54 + Math.sin(a*1.17)*(.11+i*.011) + (pointer.y-.5)*.08);
+      const g = ctx.createRadialGradient(cx,cy,0,cx,cy,90+i*14); g.addColorStop(0,'rgba(0,0,0,.16)'); g.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx,cy,105+i*12,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+  function draw(tms){ const t = tms/1000; bg(t); drawRibbons(t); drawParticles(t); drawVoids(t); requestAnimationFrame(draw); }
+  addEventListener('resize', resize);
+  addEventListener('pointermove', e => { pointer.x = e.clientX / Math.max(1,W); pointer.y = e.clientY / Math.max(1,H); pointer.active = true; });
+  addEventListener('pointerleave', () => pointer.active = false);
+  addEventListener('keydown', e => {
+    if(e.key.toLowerCase() === 'n') showNames = !showNames;
+    if(e.key.toLowerCase() === 'r') { seed = (seed * 1664525 + 1013904223) >>> 0; init(); }
+    if(e.key.toLowerCase() === 's') { const a = document.createElement('a'); a.download = 'uncatalogued-dawn.png'; a.href = canvas.toDataURL('image/png'); a.click(); }
+  });
+  resize(); requestAnimationFrame(draw);
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-15-uncatalogued-dawn-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

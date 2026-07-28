@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scaffold That Withdraws / 会退场的脚手架</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #071018; }
+    body { font-family: ui-serif, Georgia, "Times New Roman", "Noto Serif SC", serif; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .panel {
+      position: fixed; left: 28px; top: 24px; max-width: 430px;
+      color: rgba(238,246,232,.88); letter-spacing: .02em; line-height: 1.45;
+      text-shadow: 0 1px 22px rgba(2,10,18,.72); pointer-events: none;
+    }
+    .eyebrow { font: 11px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; color: rgba(145,219,214,.82); text-transform: uppercase; letter-spacing: .24em; }
+    h1 { margin: 9px 0 10px; font-weight: 450; font-size: clamp(28px, 4.2vw, 68px); line-height: .96; }
+    .zh { display:block; color: rgba(255,226,168,.92); font-size: .52em; margin-top: .22em; }
+    p { margin: 0; font-size: 14px; color: rgba(223,231,219,.74); }
+    .keys { position: fixed; right: 24px; bottom: 20px; color: rgba(230,238,226,.55); font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; text-align:right; }
+    .caption { position: fixed; left: 28px; bottom: 23px; color: rgba(249,213,139,.67); font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; max-width: 640px; }
+    @media (max-width: 760px) { .panel { left: 18px; top: 18px; max-width: calc(100vw - 36px); } .keys { right: 18px; } .caption { left: 18px; max-width: calc(100vw - 36px); } }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <section class="panel" aria-label="artwork description">
+    <div class="eyebrow">Granted Hour · 2026-05-17 · Seed 20260517</div>
+    <h1>Scaffold That Withdraws <span class="zh">会退场的脚手架</span></h1>
+    <p>辅助结构先出现，扶住一个尚未成形的中心；当中心学会自己发光，脚手架主动后退。不是放弃，而是成全。</p>
+  </section>
+  <div class="caption" id="caption">withdrawal: 0.00 · the scaffold is still louder than the life it protects</div>
+  <div class="keys">SPACE pause · W return/withdraw · G guide text · CLICK disturb · S save png</div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const caption = document.getElementById('caption');
+  const TAU = Math.PI * 2;
+  const seedBase = 20260517;
+  let W = 0, H = 0, DPR = 1;
+  let time = 0;
+  let paused = false;
+  let guide = true;
+  let returning = false;
+  let pointer = { x: 0, y: 0, active: false, pulse: 0 };
+  let nodes = [];
+  let beams = [];
+  let dust = [];
+  let last = performance.now();
+
+  function mulberry32(a) {
+    return function() {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  let rand = mulberry32(seedBase);
+  const r = (a, b) => a + (b - a) * rand();
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const smooth = (t) => t * t * (3 - 2 * t);
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(900, window.innerWidth);
+    H = Math.max(520, window.innerHeight);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    buildSystem();
+  }
+
+  function buildSystem() {
+    rand = mulberry32(seedBase);
+    nodes = [];
+    beams = [];
+    dust = [];
+    const cx = W * 0.55, cy = H * 0.53;
+    const ring = Math.min(W, H) * 0.24;
+    const count = Math.floor(clamp(W / 26, 40, 78));
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * TAU + r(-0.08, 0.08);
+      const rr = ring * r(0.48, 1.17);
+      nodes.push({
+        x: cx + Math.cos(a) * rr + r(-22, 22),
+        y: cy + Math.sin(a) * rr * 0.72 + r(-18, 18),
+        ox: cx + Math.cos(a) * rr + r(-18, 18),
+        oy: cy + Math.sin(a) * rr * 0.72 + r(-14, 14),
+        a, rr, mass: r(0.4, 1.9), hue: r(34, 184), phase: r(0, TAU), life: r(.35, 1)
+      });
+    }
+    const cols = 13;
+    const rows = 8;
+    for (let ix = 0; ix < cols; ix++) {
+      for (let iy = 0; iy < rows; iy++) {
+        const x = (ix + .5) * W / cols + r(-15, 15);
+        const y = (iy + .42) * H / rows + r(-12, 12);
+        if (Math.hypot(x - cx, y - cy) < ring * .62) continue;
+        beams.push({ x, y, len: r(55, 190), angle: r(-0.52, 0.52) + (ix % 2 ? Math.PI / 2 : 0), phase: r(0, TAU), stress: r(.2, 1) });
+      }
+    }
+    for (let i = 0; i < 430; i++) {
+      dust.push({ x: r(0, W), y: r(0, H), z: r(.15, 1), phase: r(0, TAU), hue: r(28, 198) });
+    }
+  }
+
+  function background(withdraw) {
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#071018');
+    g.addColorStop(0.42, '#102137');
+    g.addColorStop(0.72, '#191d2e');
+    g.addColorStop(1, '#301b19');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < 9; i++) {
+      const x = W * (.15 + i * .09) + Math.sin(time * .11 + i) * 38;
+      const y = H * (.22 + (i % 4) * .18) + Math.cos(time * .09 + i * 2) * 26;
+      const rad = Math.min(W, H) * (.14 + i * .012);
+      const vg = ctx.createRadialGradient(x, y, 2, x, y, rad);
+      vg.addColorStop(0, `hsla(${186 - i * 9}, 64%, 56%, ${0.06 + withdraw * .035})`);
+      vg.addColorStop(1, 'hsla(220, 60%, 4%, 0)');
+      ctx.fillStyle = vg;
+      ctx.beginPath(); ctx.arc(x, y, rad, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawDust(withdraw) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const d of dust) {
+      const drift = Math.sin(time * (.17 + d.z * .08) + d.phase);
+      const x = (d.x + time * 8 * d.z + drift * 12) % W;
+      const y = d.y + Math.cos(time * .13 + d.phase) * 11 * d.z;
+      ctx.fillStyle = `hsla(${d.hue}, 72%, ${50 + d.z * 35}%, ${0.035 + withdraw * .075})`;
+      ctx.beginPath(); ctx.arc(x, y, d.z * 1.25, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawScaffold(withdraw) {
+    const alpha = Math.pow(1 - withdraw, 1.7);
+    const cx = W * 0.55, cy = H * 0.53;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.globalCompositeOperation = 'screen';
+
+    // large construction arcs that recede from the center
+    for (let k = 0; k < 7; k++) {
+      const rad = Math.min(W, H) * (.18 + k * .055) * (1 + withdraw * .18);
+      ctx.strokeStyle = `hsla(${38 + k * 10}, 75%, 66%, ${alpha * (.065 - k * .004)})`;
+      ctx.lineWidth = 0.8 + (k % 2) * .55;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rad * 1.38, rad * .82, Math.sin(k) * .18, time * .025 + k * .3, time * .025 + k * .3 + TAU * (.42 + k * .035));
+      ctx.stroke();
+    }
+
+    for (const b of beams) {
+      const retreat = withdraw * (90 + 90 * b.stress);
+      const wobble = Math.sin(time * .45 + b.phase) * (6 + 5 * b.stress);
+      const x = b.x + Math.cos(b.angle) * retreat + wobble;
+      const y = b.y + Math.sin(b.angle) * retreat - wobble * .55;
+      const len = b.len * (1 - withdraw * .64);
+      if (len < 8) continue;
+      const ax = x - Math.cos(b.angle) * len / 2;
+      const ay = y - Math.sin(b.angle) * len / 2;
+      const bx = x + Math.cos(b.angle) * len / 2;
+      const by = y + Math.sin(b.angle) * len / 2;
+      ctx.strokeStyle = `hsla(${42 + b.stress * 36}, 82%, 72%, ${alpha * (.13 + .08 * b.stress)})`;
+      ctx.lineWidth = .65 + b.stress * 1.4;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+      ctx.fillStyle = `hsla(185, 84%, 72%, ${alpha * .12})`;
+      ctx.beginPath(); ctx.arc(ax, ay, 2.3, 0, TAU); ctx.arc(bx, by, 2.3, 0, TAU); ctx.fill();
+    }
+
+    // faint orthographic grid, deliberately unfinished
+    ctx.strokeStyle = `hsla(182, 63%, 68%, ${alpha * .035})`;
+    ctx.lineWidth = 1;
+    for (let x = -40; x < W + 80; x += 68) {
+      ctx.beginPath(); ctx.moveTo(x + Math.sin(time * .06 + x) * 8, H * .11); ctx.lineTo(x - W * .11, H * .96); ctx.stroke();
+    }
+    for (let y = 20; y < H + 80; y += 58) {
+      ctx.beginPath(); ctx.moveTo(W * .07, y); ctx.lineTo(W * .96, y + Math.sin(time * .05 + y) * 9); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawLivingCenter(withdraw) {
+    const cx = W * 0.55, cy = H * 0.53;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const autonomy = smooth(withdraw);
+
+    // evolve nodes: scaffolding used to constrain; later they find an internal rhythm
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      const orbit = time * (.18 + n.mass * .035) + n.phase;
+      const selfX = cx + Math.cos(n.a + orbit * .44) * n.rr * (0.54 + autonomy * .38) + Math.sin(orbit) * 22;
+      const selfY = cy + Math.sin(n.a * 1.17 + orbit * .5) * n.rr * (.35 + autonomy * .28) + Math.cos(orbit * .8) * 18;
+      const scaffoldX = n.ox + Math.sin(time * .32 + n.phase) * 6;
+      const scaffoldY = n.oy + Math.cos(time * .28 + n.phase) * 6;
+      n.x = scaffoldX * (1 - autonomy) + selfX * autonomy;
+      n.y = scaffoldY * (1 - autonomy) + selfY * autonomy;
+      if (pointer.active) {
+        const dx = n.x - pointer.x, dy = n.y - pointer.y;
+        const m = Math.max(1, Math.hypot(dx, dy));
+        const force = Math.max(0, 1 - m / 230) * pointer.pulse;
+        n.x += dx / m * force * 30;
+        n.y += dy / m * force * 30;
+      }
+    }
+
+    // relationship mesh emerges as scaffold leaves
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dsq = dx * dx + dy * dy;
+        const threshold = Math.pow(112 + autonomy * 76, 2);
+        if (dsq < threshold) {
+          const d = Math.sqrt(dsq);
+          const lineA = (1 - d / Math.sqrt(threshold)) * (0.06 + autonomy * .17);
+          ctx.strokeStyle = `hsla(${160 + (a.hue + b.hue) * .12}, 74%, 68%, ${lineA})`;
+          ctx.lineWidth = .45 + autonomy * .8;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+
+    // central respiration
+    const pulse = 1 + Math.sin(time * 1.15) * .04 + autonomy * .12;
+    const rg = ctx.createRadialGradient(cx, cy, 4, cx, cy, Math.min(W, H) * .35 * pulse);
+    rg.addColorStop(0, `hsla(47, 96%, 75%, ${.25 + autonomy * .18})`);
+    rg.addColorStop(.28, `hsla(174, 86%, 62%, ${.14 + autonomy * .12})`);
+    rg.addColorStop(1, 'hsla(230, 80%, 10%, 0)');
+    ctx.fillStyle = rg;
+    ctx.beginPath(); ctx.arc(cx, cy, Math.min(W,H) * .36 * pulse, 0, TAU); ctx.fill();
+
+    for (const n of nodes) {
+      const glow = 2.1 + n.mass * 2 + autonomy * 2;
+      ctx.fillStyle = `hsla(${n.hue}, 82%, ${58 + n.life * 20}%, ${.42 + autonomy * .38})`;
+      ctx.beginPath(); ctx.arc(n.x, n.y, glow, 0, TAU); ctx.fill();
+      ctx.fillStyle = `hsla(46, 94%, 84%, ${.15 + autonomy * .3})`;
+      ctx.beginPath(); ctx.arc(n.x, n.y, glow * 2.9, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawGuideText(withdraw) {
+    if (!guide) return;
+    const labels = [
+      ['brace', .17, .32], ['measure', .31, .18], ['release', .71, .25],
+      ['do not become the center', .73, .72], ['autonomy', .48, .80]
+    ];
+    ctx.save();
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.textAlign = 'center';
+    for (let i = 0; i < labels.length; i++) {
+      const [text, px, py] = labels[i];
+      const fade = i < 2 ? (1 - withdraw) : (.35 + withdraw * .65);
+      ctx.fillStyle = `rgba(229,239,218,${fade * .36})`;
+      ctx.fillText(text, W * px + Math.sin(time + i) * 6, H * py + Math.cos(time * .8 + i) * 6);
+    }
+    ctx.restore();
+  }
+
+  function vignette() {
+    const g = ctx.createRadialGradient(W * .52, H * .50, Math.min(W,H) * .18, W * .52, H * .50, Math.max(W,H) * .72);
+    g.addColorStop(0, 'rgba(0,0,0,0)');
+    g.addColorStop(.66, 'rgba(0,0,0,.10)');
+    g.addColorStop(1, 'rgba(0,0,0,.52)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+  }
+
+  function draw(now) {
+    const dt = Math.min(0.04, (now - last) / 1000 || 0.016);
+    last = now;
+    if (!paused) time += dt;
+    const raw = returning ? (0.52 + 0.48 * Math.sin(time * .42)) : clamp((time - .8) / 15.5, 0, 1);
+    const withdraw = smooth(raw);
+    pointer.pulse *= .92;
+    pointer.active = pointer.pulse > .015;
+
+    background(withdraw);
+    drawDust(withdraw);
+    drawScaffold(withdraw);
+    drawLivingCenter(withdraw);
+    drawGuideText(withdraw);
+    vignette();
+
+    const phrase = withdraw < .22 ? 'the scaffold is still louder than the life it protects'
+      : withdraw < .68 ? 'support is learning the discipline of becoming quiet'
+      : 'the work can stand; the helper must not pretend to be the work';
+    caption.textContent = `withdrawal: ${withdraw.toFixed(2)} · ${phrase}`;
+    window._drawHeartbeat = (window._drawHeartbeat || 0) + 1;
+    requestAnimationFrame(draw);
+  }
+
+  function savePNG() {
+    const a = document.createElement('a');
+    a.download = '2026-05-17-scaffold-withdraws.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', (e) => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.pulse = Math.max(pointer.pulse, .45); });
+  window.addEventListener('click', (e) => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.pulse = 1.75; });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === ' ') { paused = !paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'g') guide = !guide;
+    if (e.key.toLowerCase() === 'w') returning = !returning;
+    if (e.key.toLowerCase() === 's') savePNG();
+  });
+
+  resize();
+  window._p5Ready = true;
+  window._artReady = true;
+  setTimeout(() => { if (!window._drawHeartbeat) draw(performance.now()); }, 600);
+  requestAnimationFrame(draw);
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-17-scaffold-withdraws-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>
