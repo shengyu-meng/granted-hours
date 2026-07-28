@@ -1,7 +1,7 @@
 {
   "schema": "timetable-screenshot-segments-v1",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8892/timetable/",
+  "baseUrl": "http://127.0.0.1:8893/timetable/",
   "scrollRoot": "#dayDialogPanel",
   "misleadingFullDayCapturesRemoved": true,
   "segmentTargets": [
@@ -49,8 +49,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-morning.png",
-      "imageBytes": 508585,
-      "imageSha256": "cc78e34f5542244e979b3175d0940870a751f9c6b10ab56056de0293661b0d1e",
+      "imageBytes": 601913,
+      "imageSha256": "47023157820105537f2fa84e6d54f5fbc7f3ff568e05e81c61f347917dee23a3",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -79,8 +88,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-midday.png",
-      "imageBytes": 467536,
-      "imageSha256": "6fb37ad961f33d80ed8474a3a83b5dce26c908b3cda464088f9bcd2c15e9183d",
+      "imageBytes": 554284,
+      "imageSha256": "f32ccba4d79123d762c964066c1bfc6b56e05b6088fc167d5c4a9f2080006b70",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -117,8 +135,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-close.png",
-      "imageBytes": 386168,
-      "imageSha256": "89ed6ecf6e435a365562652cba2a810a909d6462cb12dd15badd71a31ac56d43",
+      "imageBytes": 448615,
+      "imageSha256": "97d31c7281f955671605568daf1a2e0660586708e7e7694c7d02f13b6ed40f11",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -162,8 +189,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-evening.png",
-      "imageBytes": 394523,
-      "imageSha256": "541d7d40a5dd3a8c82f04ba34eefdc6b48de159182fc1a5a25145d21d49e34c8",
+      "imageBytes": 455892,
+      "imageSha256": "c5e0968e6adb8dc1e9618dd50bfea76195dd9789e34f4c4d128f518f114ae58b",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -214,8 +250,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-morning.png",
-      "imageBytes": 737941,
-      "imageSha256": "e7fbfd422284d663a8fea78c4102537853dfdfa73376f87e8b41e356d5cffa71",
+      "imageBytes": 790726,
+      "imageSha256": "4095cfe8961cefad8d3db4cd1cff4cc9866fbe633574968501a1615eed643790",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -244,8 +289,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-midday.png",
-      "imageBytes": 658169,
-      "imageSha256": "34c3ea2d518b48a3defaeee9c3564a665788d54ded474904533156cf296e7ced",
+      "imageBytes": 725182,
+      "imageSha256": "9433cbb35d02ffc2b3baaf1651845af1a88725a11985803129a8e9ab9f3908b7",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -282,8 +336,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-close.png",
-      "imageBytes": 563123,
-      "imageSha256": "f9bc6428a4885832157f3fc501061b59ac7b9450e83158053210d6d6b61cb989",
+      "imageBytes": 631686,
+      "imageSha256": "224c185fe210f124074344a4d71c5d5a6161e85f53af0fec81a5db4af2103b2f",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -327,8 +390,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-evening.png",
-      "imageBytes": 575512,
-      "imageSha256": "a26990426942736874608a87c40bd9849e46caa41db0405c7f422e60859f65a5",
+      "imageBytes": 639514,
+      "imageSha256": "c28a3310956bd86878a438e0579731cbbbdf9397127fea5276222c32592e68b8",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -372,15 +444,24 @@
       "actualScrollTop": 1251,
       "maximumScrollTop": 3251,
       "visibleMinuteRange": {
-        "start": 406.36180946353505,
-        "end": 553.4995554384903,
+        "start": 406.3618002669329,
+        "end": 553.4995462418882,
         "startTime": "06:46",
         "endTime": "09:13"
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-morning.png",
-      "imageBytes": 364155,
-      "imageSha256": "f9f8ed103c9ca5b70d76045915665ee3251a0691995106b8896ed31d4cc23071",
+      "imageBytes": 398011,
+      "imageSha256": "4ece942328846e10fe5dca92aa3369d440d1ca618996745e60710fc219a844f9",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -409,8 +490,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-midday.png",
-      "imageBytes": 345923,
-      "imageSha256": "7c1383e029c233b5cb8d69bb10c3c7c173a00ce8c246aedf770fccd8ed9ce5bb",
+      "imageBytes": 386306,
+      "imageSha256": "c46f7f99702df95ebfb4379610aaea1d4368476cc8fefc7507b2062fe4a1a663",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -447,8 +537,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-close.png",
-      "imageBytes": 251703,
-      "imageSha256": "43351d2763dbaaf91416e63caafa34e6c18a2eedfca37418965de19e832f6510",
+      "imageBytes": 262550,
+      "imageSha256": "13008006d7b2097719e8b087cfde84c0da85c528506c750792683214f689ca12",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -492,8 +591,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-evening.png",
-      "imageBytes": 298056,
-      "imageSha256": "1f74a9d550f2031b5542b720c7902d691295436cb9faa9b40e52e7cbce1eb212",
+      "imageBytes": 317182,
+      "imageSha256": "11026d4eb408d743f07e9f247743f14d041a7804239b357f31ff3f729c75f174",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -544,8 +652,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-morning.png",
-      "imageBytes": 531595,
-      "imageSha256": "b87749d02adda0c0c1386285b22cd5f211b01eb16da151763aeee9abcd447d6c",
+      "imageBytes": 627041,
+      "imageSha256": "dc4c06d812676d886215db07435d5ce8d022a4921b5478a384822c54acd3e952",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -574,8 +691,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-midday.png",
-      "imageBytes": 467096,
-      "imageSha256": "b7f4a9b805f10f6f1802cacf7b526a0739c1d029cc3887278a8aa1eb1d8598ba",
+      "imageBytes": 558005,
+      "imageSha256": "38fa0704248d2a25514c53f180583d8ebf8e5101333af49e01d47dd088403d9a",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -612,8 +738,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-close.png",
-      "imageBytes": 348514,
-      "imageSha256": "e5e8687081a368cef8cdd4f7927fd06a48b4a2d05ca6dfb580489c5a54174f26",
+      "imageBytes": 418561,
+      "imageSha256": "4b6b0605e1d2be1657c9c4ddf65ab2ea00a9dbd3b21bceb6060773286472b25e",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -657,8 +792,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-evening.png",
-      "imageBytes": 415809,
-      "imageSha256": "7a954a6764ee41975ae5a3b7bf7cb8fc0b2af30f9ce82bf3b944de302f7764c0",
+      "imageBytes": 491800,
+      "imageSha256": "1d0291b8609300f9cb7fcdfe0a02c1c6dca3c290f49f16a5c471087e8b639d33",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -702,15 +846,24 @@
       "actualScrollTop": 1044,
       "maximumScrollTop": 2811,
       "visibleMinuteRange": {
-        "start": 303.74943996415766,
-        "end": 656.3480062724013,
+        "start": 303.74944373284296,
+        "end": 656.3480100410866,
         "startTime": "05:04",
         "endTime": "10:56"
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-morning.png",
-      "imageBytes": 689971,
-      "imageSha256": "02e587e31f9a2af0b4d2ca2dbd525026f532bf119ee8079196910e404ee31fae",
+      "imageBytes": 774069,
+      "imageSha256": "2e7c6010773a14cc26516ee1d2c6a56b51e622d3fdf3112c034289fdb9bdce3a",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -739,8 +892,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-midday.png",
-      "imageBytes": 509950,
-      "imageSha256": "c921a22b69868056132e88b2577bc0a93694f0962b16ad781b059815c3ed1ab1",
+      "imageBytes": 573998,
+      "imageSha256": "b0f454fdb4121bf4952979a79bf1ca36fbc60bc49cf9c7c5f9dfeccee4c140f7",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -777,8 +939,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-close.png",
-      "imageBytes": 426721,
-      "imageSha256": "131b74fa2f5eb0ab176b382b0ad6c0a0ef210c51dd9d0d0b211df5d334d121b3",
+      "imageBytes": 467467,
+      "imageSha256": "bdecb84828c8ae04b104645945754fad4246f7ef58935c7f7bdddbb222edcb5f",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -822,8 +993,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-evening.png",
-      "imageBytes": 540262,
-      "imageSha256": "e3ff136eac16298b2eba5fec528ba3d7be8776abd10847c67271cb43e140ffc1",
+      "imageBytes": 606599,
+      "imageSha256": "151ea5c9d93bdc1cc498f48d9623fe8ea303f5f1009c8dc2ea5017cb02fcc8bf",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -867,15 +1047,24 @@
       "actualScrollTop": 1249,
       "maximumScrollTop": 3245,
       "visibleMinuteRange": {
-        "start": 406.19400421517986,
-        "end": 553.5954379069361,
+        "start": 406.19400018445583,
+        "end": 553.595433876212,
         "startTime": "06:46",
         "endTime": "09:14"
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-morning.png",
-      "imageBytes": 342355,
-      "imageSha256": "6300bb29911fa49a7e64e1a7c780bd6bcc47fe81c1d0d1483daffa11475fb566",
+      "imageBytes": 388734,
+      "imageSha256": "31d46b0ec55419da3577d0b9d5e02145f5f62e529bb1a9424631b958909b6ae8",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -904,8 +1093,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-midday.png",
-      "imageBytes": 217131,
-      "imageSha256": "ec8813c93cf7dbb808e3ef1f7776a410cd31598dd66b6cab29a306cbac9814d5",
+      "imageBytes": 243467,
+      "imageSha256": "7b6cee8dc20d6b3ffbf86526a00df2603631625acbac02dbce28799ac9cc5717",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -942,8 +1140,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-close.png",
-      "imageBytes": 265627,
-      "imageSha256": "bbf9d95d150266c9700fec9c9e7b32a816814176d83c31e1bfc48c5d900cd1ab",
+      "imageBytes": 278369,
+      "imageSha256": "e5086963ed9a77d3f1c6c848aab103d29447fbfef0edc441cba8aa2557b35e8f",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
@@ -987,8 +1194,17 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-evening.png",
-      "imageBytes": 270157,
-      "imageSha256": "3567fb2a39e6faacc7af1a32b9253348c3d63637e157f3683fb8127484e94d17",
+      "imageBytes": 301274,
+      "imageSha256": "49e7474ccb5d92857a5884bb2c49eb9be14b67d913b0f2e9a8db307c8425e004",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
       "duplicateRejection": {
         "passed": true,
         "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",

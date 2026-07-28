@@ -171,6 +171,30 @@ async function scrollDialogToMinute(page, targetMinute) {
   return actual;
 }
 
+async function prepareCleanNonHoverCapture(page, label) {
+  const neutral = page.locator(".dialog-toolbar:visible").first();
+  const box = await neutral.boundingBox();
+  assert.ok(box, `${label}: neutral dialog chrome is unavailable`);
+  await page.mouse.move(box.x + Math.min(8, box.width / 2), box.y + 4);
+  await page.evaluate(() => {
+    document.querySelectorAll(".event-reading-card:focus").forEach((card) => card.blur());
+  });
+  await page.waitForTimeout(330);
+  const lens = await page.locator("#inspectionLens").evaluate((element) => ({
+    hidden: element.hidden,
+    visible: element.classList.contains("is-visible")
+      && Number(getComputedStyle(element).opacity) > 0,
+    readingId: element.dataset.readingId || "",
+    mediaKind: element.dataset.mediaKind || "",
+  }));
+  assert.deepEqual(
+    lens,
+    { hidden: true, visible: false, readingId: "", mediaKind: "" },
+    `${label}: unintended inspection lens contaminated hierarchy evidence`,
+  );
+  return lens;
+}
+
 async function inspect(page) {
   return page.evaluate((privateFixtures) => {
     const timeline = document.querySelector(".timeline-list");
@@ -200,6 +224,8 @@ async function inspect(page) {
         bottom: rect.bottom - timelineRect.top,
         opacity: Number(style.opacity),
         zIndex: Number(style.zIndex),
+        borderColor: style.borderColor,
+        boxShadow: style.boxShadow,
         label: card.querySelector(".reading-title")?.textContent?.trim() || "",
         summary: card.querySelector(".reading-summary")?.textContent?.trim() || "",
         titleMetrics: (() => {
@@ -404,9 +430,8 @@ try {
       const foregroundCards = state.cards.filter((card) => ["event", "absence", "beacon"].includes(card.layer));
       assert.ok(climateCards.length > 0 && foregroundCards.length > 0);
       assert.ok(
-        Math.max(...climateCards.map((card) => card.opacity))
-          < Math.min(...foregroundCards.map((card) => card.opacity)),
-        `${date}/${viewport.label}: climate contrast outranks foreground`,
+        climateCards.every((card) => card.opacity >= 0.999),
+        `${date}/${viewport.label}: climate text is weakened by parent opacity`,
       );
       assert.ok(
         Math.max(...climateCards.map((card) => card.zIndex))
@@ -418,6 +443,10 @@ try {
         const viewportSegments = [];
         for (const [segment, targetMinute] of screenshotSegments) {
           const scrollState = await scrollDialogToMinute(page, targetMinute);
+          const lensCleanState = await prepareCleanNonHoverCapture(
+            page,
+            `${date}/${viewport.label}/${segment}`,
+          );
           const segmentPath = new URL(
             `${date}-${viewport.label}-${segment}.png`,
             screenshotRoot,
@@ -484,6 +513,10 @@ try {
             image: path.basename(segmentPath.pathname),
             imageBytes: imageBytes.length,
             imageSha256,
+            inspectionLens: {
+              intended: false,
+              cleanState: lensCleanState,
+            },
             duplicateRejection: {
               passed: true,
               method: "minimum scroll-position delta plus exact image SHA-256 uniqueness",

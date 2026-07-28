@@ -32,6 +32,29 @@ async function createContext(browser, {
   return context;
 }
 
+async function prepareCleanNonHoverCapture(page, label, neutralSelector) {
+  const neutral = page.locator(`${neutralSelector}:visible`).first();
+  const box = await neutral.boundingBox();
+  assert.ok(box, `${label}: neutral chrome is unavailable`);
+  await page.mouse.move(box.x + Math.min(8, box.width / 2), box.y + 4);
+  await page.evaluate(() => {
+    document.querySelectorAll(".event-reading-card:focus").forEach((card) => card.blur());
+  });
+  await page.waitForTimeout(330);
+  const lens = await page.locator("#inspectionLens").evaluate((element) => ({
+    hidden: element.hidden,
+    visible: element.classList.contains("is-visible")
+      && Number(getComputedStyle(element).opacity) > 0,
+    readingId: element.dataset.readingId || "",
+    mediaKind: element.dataset.mediaKind || "",
+  }));
+  assert.deepEqual(
+    lens,
+    { hidden: true, visible: false, readingId: "", mediaKind: "" },
+    `${label}: unintended inspection lens contaminated theme evidence`,
+  );
+}
+
 async function captureTheme(browser, theme, viewport, label, mobile) {
   const context = await createContext(browser, {
     theme,
@@ -86,6 +109,11 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
   await page.evaluate(() => document.activeElement?.blur());
 
   const calendarPath = path.join(screenshotRoot, `${theme}-${label}-calendar.png`);
+  await prepareCleanNonHoverCapture(
+    page,
+    `${theme}-${label}-calendar`,
+    "#themeToggle",
+  );
   await page.screenshot({ path: calendarPath, fullPage: false });
   screenshotPaths.push(calendarPath);
 
@@ -116,6 +144,11 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
   }
 
   const timelinePath = path.join(screenshotRoot, `${theme}-${label}-timeline.png`);
+  await prepareCleanNonHoverCapture(
+    page,
+    `${theme}-${label}-timeline`,
+    ".dialog-toolbar",
+  );
   await page.screenshot({ path: timelinePath, fullPage: false });
   screenshotPaths.push(timelinePath);
   assert.deepEqual(pageErrors, []);

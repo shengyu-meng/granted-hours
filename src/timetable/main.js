@@ -33,6 +33,9 @@ const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
 const THEME_STORAGE_KEY = "granted-hours-theme";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
+const INSPECTION_HIDE_DELAY_MS = 110;
+const INSPECTION_FADE_MS = 150;
 const WEEKDAYS = [
   ["Mon", "一"],
   ["Tue", "二"],
@@ -83,8 +86,19 @@ const TASK_ACCENTS = {
   pink: "#ff98c8",
   slate: "#bdc5d2",
 };
+const SEMANTIC_CATEGORY_LABELS = {
+  "assigned-work": "Assigned work / 人机协作",
+  "ah-market-scan": "A/H scan / A/H 市场扫描",
+  "us-market-scan": "U.S. scan / 美股市场扫描",
+  "ai-brief": "AI brief / AI 日报",
+  "service-support": "Service climate / 服务气候",
+  "private-reminder": "Private absence / 私密缺席",
+  "warning-exception": "Promoted exception / 提升异常",
+  "autonomous-artwork": "Autonomous artwork / AI 自主作品",
+};
 
 const els = {};
+const inspectionPayloadByCard = new WeakMap();
 const state = {
   visibleYear: 0,
   visibleMonth: 0,
@@ -105,11 +119,24 @@ const state = {
   clockDate: "",
   theme: document.documentElement.dataset.theme === "light" ? "light" : "dark",
   reducedMotion: window.matchMedia(REDUCED_MOTION_QUERY).matches,
+  inspectionLensAvailable: false,
+  inspectionCard: null,
+  inspectionHideTimer: 0,
+  inspectionCleanupTimer: 0,
+  inspectionRenderEpoch: 0,
+  inspectionPanelScrollTop: 0,
+  inspectionFocusSuppressedCard: null,
+  inspectionCompatibilityGuardCard: null,
+  inspectionCompatibilityGuardTimer: 0,
+  inputModality: "initial",
+  initiatingPointerType: "",
 };
 let timelinePlacementFrame = 0;
 
 function init() {
   cacheElements();
+  createInspectionLens();
+  setupInspectionCapability();
   setupTheme();
   setupMotionPreference();
   setStaticCopy();
@@ -133,7 +160,22 @@ function init() {
 
   document.addEventListener("keydown", handleDocumentKeydown);
   document.addEventListener("pointerdown", handleDocumentPointerdown);
-  window.addEventListener("resize", scheduleTimelineReadingPlacement);
+  els.dayDialogPanel.addEventListener("scroll", () => {
+    const nextScrollTop = els.dayDialogPanel.scrollTop;
+    const moved = Math.abs(nextScrollTop - state.inspectionPanelScrollTop) > 0.5;
+    state.inspectionPanelScrollTop = nextScrollTop;
+    if (moved) hideInspectionLens({ immediate: true });
+  }, { passive: true });
+  window.addEventListener("scroll", () => {
+    hideInspectionLens({ immediate: true });
+  }, { passive: true });
+  window.addEventListener("resize", () => {
+    hideInspectionLens({ immediate: true });
+    scheduleTimelineReadingPlacement();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) hideInspectionLens({ immediate: true });
+  });
   window.setInterval(renderTimeState, 1000);
 }
 
@@ -186,6 +228,55 @@ function cacheElements() {
   });
 }
 
+function createInspectionLens() {
+  const lens = document.createElement("aside");
+  lens.id = "inspectionLens";
+  lens.className = "inspection-lens";
+  lens.hidden = true;
+  lens.setAttribute("aria-hidden", "true");
+  lens.innerHTML = `
+    <div class="inspection-lens-material">
+      <div class="inspection-lens-media" id="inspectionLensMedia"></div>
+      <div class="inspection-lens-copy" id="inspectionLensCopy">
+        <p class="inspection-lens-kicker" id="inspectionLensKicker"></p>
+        <p class="inspection-lens-time" id="inspectionLensTime"></p>
+        <h3 class="inspection-lens-title" id="inspectionLensTitle"></h3>
+        <p class="inspection-lens-summary" id="inspectionLensSummary"></p>
+      </div>
+    </div>
+  `;
+  document.body.append(lens);
+  els.inspectionLens = lens;
+  els.inspectionLensMedia = lens.querySelector("#inspectionLensMedia");
+  els.inspectionLensCopy = lens.querySelector("#inspectionLensCopy");
+  els.inspectionLensKicker = lens.querySelector("#inspectionLensKicker");
+  els.inspectionLensTime = lens.querySelector("#inspectionLensTime");
+  els.inspectionLensTitle = lens.querySelector("#inspectionLensTitle");
+  els.inspectionLensSummary = lens.querySelector("#inspectionLensSummary");
+}
+
+function setupInspectionCapability() {
+  const capability = window.matchMedia(FINE_POINTER_QUERY);
+  const syncCapability = () => {
+    state.inspectionLensAvailable = capability.matches;
+    document.documentElement.classList.toggle(
+      "inspection-lens-capable",
+      state.inspectionLensAvailable,
+    );
+    document.documentElement.dataset.inspectionLensCapability = state.inspectionLensAvailable
+      ? "fine-hover"
+      : "unavailable";
+    if (!state.inspectionLensAvailable) {
+      hideInspectionLens({ immediate: true });
+      return;
+    }
+    const candidate = currentInspectionCandidate();
+    if (candidate) showInspectionLens(candidate);
+  };
+  syncCapability();
+  capability.addEventListener?.("change", syncCapability);
+}
+
 function setupTheme() {
   applyTheme(state.theme, { persist: false });
   els.themeToggle.addEventListener("click", () => {
@@ -209,6 +300,9 @@ function setupMotionPreference() {
   preference.addEventListener?.("change", (event) => {
     state.reducedMotion = event.matches;
     refreshVisualPreviews();
+    if (state.inspectionCard?.isConnected) {
+      showInspectionLens(state.inspectionCard, { force: true });
+    }
   });
 }
 
@@ -239,6 +333,444 @@ function applyVisualPreviewSource(image) {
 
 function refreshVisualPreviews() {
   document.querySelectorAll("img[data-animated-preview-url]").forEach(applyVisualPreviewSource);
+}
+
+function semanticCategory(item) {
+  if (item.classification === "beacon" || item.origin === "self") {
+    return "autonomous-artwork";
+  }
+  if (item.classification === "promoted_routine_exception") {
+    return "warning-exception";
+  }
+  if (
+    item.classification === "redacted_reminder_residue"
+    || item.category === "daily_reminder"
+  ) {
+    return "private-reminder";
+  }
+  if (item.classification === "foreground_event" || item.origin === "assigned") {
+    return "assigned-work";
+  }
+  const family = item.family || "";
+  const category = item.category || "";
+  if (family === "ah_market" || category === "ah_market_scan") {
+    return "ah-market-scan";
+  }
+  if (family === "us_market" || category === "us_market_scan") {
+    return "us-market-scan";
+  }
+  if (family === "ai_brief" || category === "ai_daily_brief") {
+    return "ai-brief";
+  }
+  return "service-support";
+}
+
+function applySemanticCategory(element, item) {
+  const category = semanticCategory(item);
+  element.dataset.category = category;
+  return category;
+}
+
+function auditedPublicMediaUrl(value, extensions) {
+  if (!value) return "";
+  let url;
+  let canonical;
+  try {
+    canonical = new URL(timetableData.canonical_base_url);
+    url = new URL(value, canonical);
+  } catch {
+    return "";
+  }
+  const normalizedPath = decodeURIComponent(url.pathname);
+  if (
+    url.origin !== canonical.origin
+    || !normalizedPath.startsWith(canonical.pathname)
+    || !normalizedPath.includes("/archive/")
+    || normalizedPath.includes("..")
+    || !extensions.some((extension) => normalizedPath.toLowerCase().endsWith(extension))
+  ) {
+    return "";
+  }
+  return publicAssetUrl(url.href);
+}
+
+function buildInspectionPayload(item) {
+  const videoUrl = auditedPublicMediaUrl(
+    item.video_url || item.motion_video_url,
+    [".mp4", ".webm"],
+  );
+  const animatedUrl = auditedPublicMediaUrl(
+    item.animated_preview_url || item.visual_preview_url,
+    [".gif", ".webp"],
+  );
+  const derivedStaticUrl = staticVisualPreviewUrl(
+    item.animated_preview_url || item.visual_preview_url,
+  );
+  const staticUrl = auditedPublicMediaUrl(
+    item.static_preview_url || item.poster_url || derivedStaticUrl,
+    [".png", ".jpg", ".jpeg", ".webp"],
+  );
+  return {
+    category: semanticCategory(item),
+    categoryLabel: SEMANTIC_CATEGORY_LABELS[semanticCategory(item)],
+    time: `${item.start}-${item.end}`,
+    title: `${item.label_en} / ${item.label_zh}`,
+    summary: `${item.summary_en} / ${item.summary_zh}`,
+    media: {
+      videoUrl,
+      animatedUrl,
+      staticUrl,
+    },
+  };
+}
+
+function canUseInspectionLens() {
+  return state.inspectionLensAvailable
+    && document.documentElement.classList.contains("inspection-lens-capable");
+}
+
+function isCoarsePointerType(pointerType) {
+  return pointerType === "touch" || pointerType === "pen";
+}
+
+function clearInspectionCompatibilityGuard(card = null) {
+  if (card && state.inspectionCompatibilityGuardCard !== card) return;
+  window.clearTimeout(state.inspectionCompatibilityGuardTimer);
+  state.inspectionCompatibilityGuardTimer = 0;
+  state.inspectionCompatibilityGuardCard = null;
+}
+
+function scheduleInspectionCompatibilityGuardClear(card) {
+  window.clearTimeout(state.inspectionCompatibilityGuardTimer);
+  state.inspectionCompatibilityGuardTimer = window.setTimeout(() => {
+    if (state.inspectionCompatibilityGuardCard === card) {
+      state.inspectionCompatibilityGuardCard = null;
+    }
+    state.inspectionCompatibilityGuardTimer = 0;
+  }, 0);
+}
+
+function trackReadingPointerInput(pointerType, card, { activation = false } = {}) {
+  const normalizedPointerType = pointerType || "pointer";
+  state.inputModality = normalizedPointerType;
+  state.initiatingPointerType = pointerType || "";
+  if (isCoarsePointerType(pointerType)) {
+    state.inspectionFocusSuppressedCard = card;
+    if (activation) {
+      clearInspectionCompatibilityGuard();
+      state.inspectionCompatibilityGuardCard = card;
+    }
+    state.hoveredReadingCard = null;
+    hideInspectionLens({ immediate: true });
+    return;
+  }
+  if (pointerType === "mouse") {
+    state.inspectionFocusSuppressedCard = null;
+    clearInspectionCompatibilityGuard();
+  }
+}
+
+function trackKeyboardFocusInput() {
+  state.inputModality = "keyboard";
+  state.initiatingPointerType = "";
+  state.inspectionFocusSuppressedCard = null;
+  clearInspectionCompatibilityGuard();
+}
+
+function currentInspectionCandidate() {
+  const activeCard = document.activeElement instanceof Element
+    ? document.activeElement.closest(".event-reading-card")
+    : null;
+  const focusedCard = activeCard === state.inspectionFocusSuppressedCard
+    ? null
+    : activeCard;
+  return focusedCard?.isConnected
+    ? focusedCard
+    : state.hoveredReadingCard?.isConnected
+      ? state.hoveredReadingCard
+      : null;
+}
+
+function stopInspectionMedia() {
+  const video = els.inspectionLensMedia?.querySelector("video");
+  if (video) {
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+  }
+}
+
+function renderInspectionCopy(payload) {
+  els.inspectionLensCopy.hidden = false;
+  els.inspectionLensKicker.textContent = payload.categoryLabel;
+  els.inspectionLensTime.textContent = payload.time;
+  els.inspectionLensTitle.textContent = payload.title;
+  els.inspectionLensSummary.textContent = payload.summary;
+}
+
+function renderInspectionPlate(payload, renderEpoch) {
+  if (renderEpoch !== state.inspectionRenderEpoch) return;
+  stopInspectionMedia();
+  const plate = document.createElement("div");
+  plate.className = "inspection-typographic-plate";
+  const marker = document.createElement("span");
+  marker.className = "inspection-plate-marker";
+  marker.textContent = payload.categoryLabel;
+  const time = document.createElement("span");
+  time.className = "inspection-plate-time";
+  time.textContent = payload.time;
+  const title = document.createElement("strong");
+  title.className = "inspection-plate-title";
+  title.textContent = payload.title;
+  const summary = document.createElement("span");
+  summary.className = "inspection-plate-summary";
+  summary.textContent = payload.summary;
+  plate.append(marker, time, title, summary);
+  els.inspectionLensMedia.replaceChildren(plate);
+  els.inspectionLensCopy.hidden = true;
+  els.inspectionLens.dataset.mediaKind = "typographic";
+  els.inspectionLens.dataset.mediaState = "ready";
+  positionInspectionLens(state.inspectionCard);
+}
+
+function loadInspectionImage(payload, url, kind, renderEpoch, onFailure) {
+  if (!url || renderEpoch !== state.inspectionRenderEpoch) {
+    onFailure();
+    return;
+  }
+  stopInspectionMedia();
+  const image = document.createElement("img");
+  image.className = "inspection-lens-image";
+  image.alt = "";
+  image.decoding = "async";
+  image.draggable = false;
+  let decodeStarted = false;
+  let settled = false;
+  const isCurrent = () => (
+    renderEpoch === state.inspectionRenderEpoch
+    && image.isConnected
+    && els.inspectionLensMedia.contains(image)
+  );
+  const fail = () => {
+    if (settled) return;
+    settled = true;
+    if (!isCurrent()) return;
+    els.inspectionLens.dataset.mediaDecodeState = "failed";
+    onFailure();
+  };
+  const decodeLoadedImage = async () => {
+    if (decodeStarted || settled || !isCurrent()) return;
+    decodeStarted = true;
+    try {
+      await image.decode();
+      if (settled || !isCurrent()) return;
+      if (image.naturalWidth <= 0 || image.naturalHeight <= 0) {
+        throw new Error("Decoded inspection image has no intrinsic dimensions");
+      }
+      settled = true;
+      els.inspectionLens.dataset.mediaKind = kind;
+      els.inspectionLens.dataset.mediaState = "ready";
+      els.inspectionLens.dataset.mediaDecodeState = "decoded";
+      positionInspectionLens(state.inspectionCard);
+    } catch {
+      fail();
+    }
+  };
+  image.addEventListener("load", () => {
+    void decodeLoadedImage();
+  }, { once: true });
+  image.addEventListener("error", fail, { once: true });
+  els.inspectionLensMedia.replaceChildren(image);
+  els.inspectionLensCopy.hidden = false;
+  els.inspectionLens.dataset.mediaKind = kind;
+  els.inspectionLens.dataset.mediaState = "loading";
+  els.inspectionLens.dataset.mediaDecodeState = "pending";
+  image.src = url;
+  if (image.complete) queueMicrotask(decodeLoadedImage);
+}
+
+function renderInspectionStatic(payload, renderEpoch) {
+  loadInspectionImage(
+    payload,
+    payload.media.staticUrl,
+    "static-image",
+    renderEpoch,
+    () => renderInspectionPlate(payload, renderEpoch),
+  );
+}
+
+function renderInspectionAnimated(payload, renderEpoch) {
+  loadInspectionImage(
+    payload,
+    payload.media.animatedUrl,
+    "animated-image",
+    renderEpoch,
+    () => renderInspectionStatic(payload, renderEpoch),
+  );
+}
+
+function renderInspectionVideo(payload, renderEpoch) {
+  if (!payload.media.videoUrl || renderEpoch !== state.inspectionRenderEpoch) {
+    renderInspectionAnimated(payload, renderEpoch);
+    return;
+  }
+  stopInspectionMedia();
+  const video = document.createElement("video");
+  video.className = "inspection-lens-video";
+  video.muted = true;
+  video.autoplay = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.preload = "metadata";
+  video.addEventListener("canplay", async () => {
+    if (renderEpoch !== state.inspectionRenderEpoch) return;
+    try {
+      await video.play();
+      els.inspectionLens.dataset.mediaKind = "video";
+      els.inspectionLens.dataset.mediaState = "ready";
+      positionInspectionLens(state.inspectionCard);
+    } catch {
+      renderInspectionAnimated(payload, renderEpoch);
+    }
+  }, { once: true });
+  video.addEventListener("error", () => {
+    if (renderEpoch !== state.inspectionRenderEpoch) return;
+    renderInspectionAnimated(payload, renderEpoch);
+  }, { once: true });
+  els.inspectionLensMedia.replaceChildren(video);
+  els.inspectionLensCopy.hidden = false;
+  els.inspectionLens.dataset.mediaKind = "video";
+  els.inspectionLens.dataset.mediaState = "loading";
+  video.src = payload.media.videoUrl;
+}
+
+function renderInspectionMedia(payload) {
+  state.inspectionRenderEpoch += 1;
+  const renderEpoch = state.inspectionRenderEpoch;
+  renderInspectionCopy(payload);
+  if (state.reducedMotion) {
+    renderInspectionStatic(payload, renderEpoch);
+  } else if (payload.media.videoUrl) {
+    renderInspectionVideo(payload, renderEpoch);
+  } else if (payload.media.animatedUrl) {
+    renderInspectionAnimated(payload, renderEpoch);
+  } else if (payload.media.staticUrl) {
+    renderInspectionStatic(payload, renderEpoch);
+  } else {
+    renderInspectionPlate(payload, renderEpoch);
+  }
+}
+
+function positionInspectionLens(trigger) {
+  if (!trigger?.isConnected || els.inspectionLens.hidden) return;
+  const triggerRect = trigger.getBoundingClientRect();
+  const lensRect = els.inspectionLens.getBoundingClientRect();
+  const margin = 16;
+  const gap = 14;
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const maximumLeft = Math.max(margin, viewportWidth - lensRect.width - margin);
+  const maximumTop = Math.max(margin, viewportHeight - lensRect.height - margin);
+  const availableRight = viewportWidth - margin - triggerRect.right - gap;
+  const availableLeft = triggerRect.left - margin - gap;
+  const availableBelow = viewportHeight - margin - triggerRect.bottom - gap;
+  const availableAbove = triggerRect.top - margin - gap;
+  let left;
+  let top;
+  let placement;
+
+  if (availableRight >= lensRect.width || availableRight >= availableLeft) {
+    left = triggerRect.right + gap;
+    top = triggerRect.top + triggerRect.height / 2 - lensRect.height / 2;
+    placement = "right";
+  } else {
+    left = triggerRect.left - lensRect.width - gap;
+    top = triggerRect.top + triggerRect.height / 2 - lensRect.height / 2;
+    placement = "left";
+  }
+
+  left = Math.max(margin, Math.min(maximumLeft, left));
+  top = Math.max(margin, Math.min(maximumTop, top));
+  const sideWouldOverlap = left < triggerRect.right - 1
+    && left + lensRect.width > triggerRect.left + 1
+    && top < triggerRect.bottom - 1
+    && top + lensRect.height > triggerRect.top + 1;
+  if (sideWouldOverlap && availableBelow >= lensRect.height) {
+    left = Math.max(margin, Math.min(maximumLeft, triggerRect.left));
+    top = triggerRect.bottom + gap;
+    placement = "below";
+  } else if (sideWouldOverlap && availableAbove >= lensRect.height) {
+    left = Math.max(margin, Math.min(maximumLeft, triggerRect.left));
+    top = triggerRect.top - lensRect.height - gap;
+    placement = "above";
+  }
+
+  els.inspectionLens.style.left = `${Math.round(left)}px`;
+  els.inspectionLens.style.top = `${Math.round(top)}px`;
+  els.inspectionLens.dataset.placement = placement;
+}
+
+function showInspectionLens(card, { force = false } = {}) {
+  if (!canUseInspectionLens() || !card?.isConnected) return;
+  const payload = inspectionPayloadByCard.get(card);
+  if (!payload) return;
+  window.clearTimeout(state.inspectionHideTimer);
+  window.clearTimeout(state.inspectionCleanupTimer);
+  state.inspectionHideTimer = 0;
+  state.inspectionCleanupTimer = 0;
+  const changed = state.inspectionCard !== card;
+  state.inspectionCard = card;
+  state.inspectionPanelScrollTop = els.dayDialogPanel.scrollTop;
+  els.inspectionLens.hidden = false;
+  els.inspectionLens.setAttribute("aria-hidden", "true");
+  els.inspectionLens.dataset.readingId = card.dataset.readingId || "";
+  els.inspectionLens.dataset.category = payload.category;
+  if (changed || force) renderInspectionMedia(payload);
+  positionInspectionLens(card);
+  requestAnimationFrame(() => {
+    if (state.inspectionCard !== card || els.inspectionLens.hidden) return;
+    positionInspectionLens(card);
+    els.inspectionLens.classList.add("is-visible");
+  });
+}
+
+function hideInspectionLens({ immediate = false } = {}) {
+  window.clearTimeout(state.inspectionHideTimer);
+  window.clearTimeout(state.inspectionCleanupTimer);
+  state.inspectionHideTimer = 0;
+  state.inspectionCleanupTimer = 0;
+  state.inspectionCard = null;
+  state.inspectionRenderEpoch += 1;
+  els.inspectionLens?.classList.remove("is-visible");
+  if (!els.inspectionLens) return;
+  const cleanup = () => {
+    stopInspectionMedia();
+    els.inspectionLensMedia.replaceChildren();
+    els.inspectionLens.hidden = true;
+    delete els.inspectionLens.dataset.readingId;
+    delete els.inspectionLens.dataset.category;
+    delete els.inspectionLens.dataset.mediaKind;
+    delete els.inspectionLens.dataset.mediaState;
+    delete els.inspectionLens.dataset.mediaDecodeState;
+    delete els.inspectionLens.dataset.placement;
+  };
+  if (immediate || state.reducedMotion) {
+    cleanup();
+  } else {
+    state.inspectionCleanupTimer = window.setTimeout(cleanup, INSPECTION_FADE_MS);
+  }
+}
+
+function scheduleInspectionLensHide() {
+  window.clearTimeout(state.inspectionHideTimer);
+  state.inspectionHideTimer = window.setTimeout(() => {
+    const nextCard = currentInspectionCandidate();
+    if (nextCard) {
+      showInspectionLens(nextCard);
+    } else {
+      hideInspectionLens();
+    }
+  }, INSPECTION_HIDE_DELAY_MS);
 }
 
 function applyTheme(theme, options = {}) {
@@ -285,10 +817,17 @@ function setCalendarBgmTrack(index) {
   if (!playlist?.length) return;
   state.calendarBgmIndex = ((index % playlist.length) + playlist.length) % playlist.length;
   const track = playlist[state.calendarBgmIndex];
-  els.calendarBgm.src = track.bgm_url;
+  els.calendarBgm.removeAttribute("src");
+  els.calendarBgm.dataset.source = publicAssetUrl(track.bgm_url);
   els.calendarBgm.dataset.date = track.date;
-  els.calendarBgm.load();
   updateCalendarBgmControl();
+}
+
+function ensureCalendarBgmSource() {
+  const source = els.calendarBgm.dataset.source;
+  if (!source || els.calendarBgm.getAttribute("src") === source) return;
+  els.calendarBgm.src = source;
+  els.calendarBgm.load();
 }
 
 function toggleCalendarBgm() {
@@ -301,6 +840,7 @@ function toggleCalendarBgm() {
   }
   state.calendarBgmUserActivated = true;
   state.calendarBgmDesiredPlaying = true;
+  ensureCalendarBgmSource();
   const playback = els.calendarBgm.play();
   if (playback && typeof playback.catch === "function") {
     playback.catch(() => {
@@ -315,6 +855,7 @@ function advanceCalendarBgm() {
   const shouldContinue = state.calendarBgmUserActivated && state.calendarBgmDesiredPlaying;
   setCalendarBgmTrack(state.calendarBgmIndex + 1);
   if (!shouldContinue) return;
+  ensureCalendarBgmSource();
   const playback = els.calendarBgm.play();
   if (playback && typeof playback.catch === "function") {
     playback.catch(() => {
@@ -483,6 +1024,7 @@ function openDayDetail(date) {
   const day = dayByDate.get(date);
   if (!day) return;
 
+  hideInspectionLens({ immediate: true });
   state.detailLastFocus = document.activeElement;
   state.selectedDate = date;
   const targetMonth = monthKey(date);
@@ -506,6 +1048,7 @@ function openDayDetail(date) {
 }
 
 function closeDayDetail() {
+  hideInspectionLens({ immediate: true });
   if (state.taskDetailOpen) closeTaskDetail({ restoreFocus: false });
   clearSelectedReadingCard({ clearLinked: true });
   state.detailOpen = false;
@@ -522,6 +1065,7 @@ function closeDayDetail() {
 }
 
 function renderDayDetail(day) {
+  hideInspectionLens({ immediate: true });
   clearSelectedReadingCard({ clearLinked: true });
   els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
   els.dialogDate.textContent = formatLongDate(day.date);
@@ -574,6 +1118,8 @@ function renderDayDetail(day) {
     card.dataset.classification = item.classification;
     card.dataset.memberFootprintIds = item.member_footprint_ids.join(" ");
     card.dataset.memberCount = String(item.member_footprint_ids.length);
+    const category = applySemanticCategory(card, item);
+    inspectionPayloadByCard.set(card, buildInspectionPayload(item));
     card.dataset.compositionSeed = [
       item.layer,
       item.classification,
@@ -584,6 +1130,12 @@ function renderDayDetail(day) {
     ].join(":");
     if (item.origin === "background") {
       card.dataset.pulseCategory = item.category || "";
+    }
+    for (const footprintId of item.member_footprint_ids) {
+      const footprintEvent = eventsLayer.querySelector(
+        `.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`,
+      );
+      if (footprintEvent) footprintEvent.dataset.category = category;
     }
     const connector = document.createElement("span");
     connector.className = "event-connector";
@@ -1025,6 +1577,7 @@ function buildExactTimelineEvent(event) {
   item.className = `timeline-event ${originClass}`;
   item.setAttribute("aria-hidden", "true");
   item.dataset.start = event.start;
+  applySemanticCategory(item, event);
   if (event.origin === "assigned") {
     item.style.setProperty("--task-accent", taskAccent(event.task_color));
   }
@@ -1225,8 +1778,12 @@ function setupReadingCardActivation(card, activate) {
   }
   card.addEventListener("pointerdown", (event) => {
     activationPointerType = event.pointerType;
+    trackReadingPointerInput(event.pointerType, card, { activation: true });
   });
   card.addEventListener("pointercancel", () => {
+    if (isCoarsePointerType(activationPointerType)) {
+      scheduleInspectionCompatibilityGuardClear(card);
+    }
     activationPointerType = "";
   });
   card.addEventListener("pointerenter", (event) => {
@@ -1234,9 +1791,15 @@ function setupReadingCardActivation(card, activate) {
       event.pointerType !== "mouse"
       || !window.matchMedia("(hover: hover) and (pointer: fine)").matches
     ) return;
+    if (state.inspectionCompatibilityGuardCard === card) {
+      hideInspectionLens({ immediate: true });
+      return;
+    }
+    trackReadingPointerInput(event.pointerType, card);
     state.linkedFocusSuppressedCard = null;
     state.hoveredReadingCard = card;
     syncLinkedReadingCard();
+    showInspectionLens(card);
   });
   card.addEventListener("pointerleave", (event) => {
     if (
@@ -1245,25 +1808,37 @@ function setupReadingCardActivation(card, activate) {
     ) return;
     if (state.hoveredReadingCard === card) state.hoveredReadingCard = null;
     syncLinkedReadingCard();
+    scheduleInspectionLensHide();
   });
   card.addEventListener("focus", () => {
     state.linkedFocusSuppressedCard = null;
     setLinkedReadingCard(card);
+    if (state.inspectionFocusSuppressedCard === card) {
+      hideInspectionLens({ immediate: true });
+      return;
+    }
+    showInspectionLens(card);
   });
   card.addEventListener("blur", () => {
     requestAnimationFrame(syncLinkedReadingCard);
+    requestAnimationFrame(scheduleInspectionLensHide);
   });
   card.addEventListener("click", (event) => {
     const pointerType = activationPointerType;
     activationPointerType = "";
     const isCoarseActivation = event.detail > 0
-      && (pointerType === "touch" || pointerType === "pen");
+      && isCoarsePointerType(pointerType);
+    if (isCoarseActivation) {
+      scheduleInspectionCompatibilityGuardClear(card);
+      hideInspectionLens({ immediate: true });
+    }
     if (isCoarseActivation && state.selectedReadingCard !== card) {
       event.preventDefault();
       event.stopPropagation();
       selectReadingCard(card);
       return;
     }
+    hideInspectionLens({ immediate: true });
     clearSelectedReadingCard({ clearLinked: true });
     if (typeof activate === "function") {
       event.preventDefault();
@@ -1388,6 +1963,7 @@ function navigatePublicDay(delta) {
   const index = daysAscending.findIndex((day) => day.date === state.selectedDate);
   const target = daysAscending[index + delta];
   if (!target) return;
+  hideInspectionLens({ immediate: true });
   state.selectedDate = target.date;
   setVisibleMonth(monthKey(target.date));
   renderMonth({ transition: delta < 0 ? "previous" : "next" });
@@ -1407,6 +1983,7 @@ function routineTimingLabel(provenance) {
 }
 
 function openTaskDetail(task, trigger) {
+  hideInspectionLens({ immediate: true });
   state.taskDetailOpen = true;
   state.taskDetailLastFocus = trigger;
   state.taskDetailScrollTop = els.dayDialogPanel.scrollTop;
@@ -1516,6 +2093,10 @@ function closeTaskDetail(options = {}) {
 }
 
 function handleDocumentKeydown(event) {
+  if (event.key === "Tab") {
+    trackKeyboardFocusInput();
+  }
+
   if (event.key === "Escape") {
     if (state.taskDetailOpen) {
       event.preventDefault();

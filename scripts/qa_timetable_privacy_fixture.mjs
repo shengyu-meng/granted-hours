@@ -44,6 +44,30 @@ function assertSecretsAbsent(surface, label) {
   }
 }
 
+async function prepareCleanNonHoverCapture(page, label) {
+  const neutral = page.locator(".dialog-toolbar:visible").first();
+  const box = await neutral.boundingBox();
+  assert.ok(box, `${label}: neutral dialog chrome is unavailable`);
+  await page.mouse.move(box.x + Math.min(8, box.width / 2), box.y + 4);
+  await page.evaluate(() => {
+    document.querySelectorAll(".event-reading-card:focus").forEach((card) => card.blur());
+  });
+  await page.waitForTimeout(330);
+  const lens = await page.locator("#inspectionLens").evaluate((element) => ({
+    hidden: element.hidden,
+    visible: element.classList.contains("is-visible")
+      && Number(getComputedStyle(element).opacity) > 0,
+    readingId: element.dataset.readingId || "",
+    mediaKind: element.dataset.mediaKind || "",
+  }));
+  assert.deepEqual(
+    lens,
+    { hidden: true, visible: false, readingId: "", mediaKind: "" },
+    `${label}: unintended inspection lens contaminated privacy evidence`,
+  );
+  return lens;
+}
+
 async function filesUnder(directory) {
   const result = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -219,6 +243,10 @@ try {
     "rendered bars are not fixed length",
   );
 
+  const lensCleanState = await prepareCleanNonHoverCapture(
+    page,
+    "privacy-fixture-rendered-surface",
+  );
   await page.screenshot({ path: screenshotPath, fullPage: false });
   const ocrRun = await execFileAsync(
     "tesseract",
@@ -250,6 +278,10 @@ try {
     fixedBars: renderedSurface.bars.length,
     logEntriesScanned: pageLogs.length,
     ocrCharactersScanned: ocrRun.stdout.length,
+    inspectionLens: {
+      intended: false,
+      cleanState: lensCleanState,
+    },
     screenshot: screenshotPath,
   }, null, 2));
 } finally {
