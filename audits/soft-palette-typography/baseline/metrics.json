@@ -1,0 +1,6179 @@
+{
+  "schema": "timetable-visual-balance-evidence-v1",
+  "phase": "baseline",
+  "passed": true,
+  "baseUrl": "http://127.0.0.1:8894/timetable/",
+  "sampleDate": "2026-07-21",
+  "screenshots": [
+    {
+      "label": "desktop-dark-calendar-resting",
+      "path": "audits/soft-palette-typography/baseline/desktop-dark-calendar-resting.png",
+      "bytes": 461687
+    },
+    {
+      "label": "desktop-dark-day-resting",
+      "path": "audits/soft-palette-typography/baseline/desktop-dark-day-resting.png",
+      "bytes": 468816
+    },
+    {
+      "label": "desktop-dark-task-resting",
+      "path": "audits/soft-palette-typography/baseline/desktop-dark-task-resting.png",
+      "bytes": 407825
+    },
+    {
+      "label": "desktop-dark-intentional-lens",
+      "path": "audits/soft-palette-typography/baseline/desktop-dark-intentional-lens.png",
+      "bytes": 706657
+    },
+    {
+      "label": "desktop-light-calendar-resting",
+      "path": "audits/soft-palette-typography/baseline/desktop-light-calendar-resting.png",
+      "bytes": 483434
+    },
+    {
+      "label": "desktop-light-day-resting",
+      "path": "audits/soft-palette-typography/baseline/desktop-light-day-resting.png",
+      "bytes": 394251
+    },
+    {
+      "label": "390x844-dark-calendar-resting",
+      "path": "audits/soft-palette-typography/baseline/390x844-dark-calendar-resting.png",
+      "bytes": 515555
+    },
+    {
+      "label": "390x844-dark-day-resting",
+      "path": "audits/soft-palette-typography/baseline/390x844-dark-day-resting.png",
+      "bytes": 255945
+    },
+    {
+      "label": "390x844-dark-task-resting",
+      "path": "audits/soft-palette-typography/baseline/390x844-dark-task-resting.png",
+      "bytes": 459453
+    },
+    {
+      "label": "421x386-dark-calendar-resting",
+      "path": "audits/soft-palette-typography/baseline/421x386-dark-calendar-resting.png",
+      "bytes": 295804
+    },
+    {
+      "label": "421x386-dark-day-resting",
+      "path": "audits/soft-palette-typography/baseline/421x386-dark-day-resting.png",
+      "bytes": 145982
+    }
+  ],
+  "configurations": {
+    "desktop-dark": {
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "touch": false,
+      "typography": {
+        "homeDisplay": {
+          "selector": "#monthTitle",
+          "fontSize": 57,
+          "lineHeight": 55.86,
+          "ratio": 0.98,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 1067.109375,
+            "height": 55.859375
+          }
+        },
+        "homeKicker": {
+          "selector": ".section-mark",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1067.109375,
+            "height": 15.9375
+          }
+        },
+        "homeSupporting": {
+          "selector": ".thesis-line",
+          "fontSize": 17,
+          "lineHeight": 22.95,
+          "ratio": 1.3499999999999999,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1067.109375,
+            "height": 45.875
+          }
+        },
+        "homeLegend": {
+          "selector": ".calendar-legend",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1342.1875,
+            "height": 24
+          }
+        },
+        "dayHeading": {
+          "selector": "#dialogTitle",
+          "fontSize": 42,
+          "lineHeight": 43.68,
+          "ratio": 1.04,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 820,
+            "height": 43.671875
+          }
+        },
+        "dayDate": {
+          "selector": "#dialogDate",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 15.9375
+          }
+        },
+        "dayVariable": {
+          "selector": "#dialogVariable",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 15.9375
+          }
+        },
+        "daySupporting": {
+          "selector": ".dialog-mode-thesis",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(234, 217, 159)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 31.875
+          }
+        },
+        "dayBoundary": {
+          "selector": "#dialogBoundary",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 980,
+            "height": 47.8125
+          }
+        },
+        "timelineHeading": {
+          "selector": "#timelineTitle",
+          "fontSize": 12,
+          "lineHeight": 17.4,
+          "ratio": 1.45,
+          "color": "rgb(195, 203, 197)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 1130,
+            "height": 17.390625
+          }
+        },
+        "timelineSupporting": {
+          "selector": ".timeline-help",
+          "fontSize": 8,
+          "lineHeight": 11.6,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 23.1875
+          }
+        },
+        "assignedTitle": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-title",
+          "fontSize": 11,
+          "lineHeight": 13.2,
+          "ratio": 1.2,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "600",
+          "rect": {
+            "width": 305.6875,
+            "height": 13.1875
+          }
+        },
+        "assignedSummary": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-summary",
+          "fontSize": 9,
+          "lineHeight": 11.7,
+          "ratio": 1.2999999999999998,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 509.5,
+            "height": 23.375
+          }
+        },
+        "assignedTime": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-time",
+          "fontSize": 8,
+          "lineHeight": 10,
+          "ratio": 1.25,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 381.15625,
+            "height": 22
+          }
+        },
+        "assignedMeta": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-category",
+          "fontSize": 7,
+          "lineHeight": 10.15,
+          "ratio": 1.45,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 121.34375,
+            "height": 8
+          }
+        },
+        "climateTitle": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 228.015625,
+            "height": 21.59375
+          }
+        },
+        "climateSummary": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 240.75,
+            "height": 110.40625
+          }
+        },
+        "climateTime": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-time",
+          "fontSize": 7,
+          "lineHeight": 7,
+          "ratio": 1,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 240.75,
+            "height": 7
+          }
+        },
+        "climateMeta": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-duration",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "absenceTitle": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(216, 154, 245)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 118.046875,
+            "height": 10.796875
+          }
+        },
+        "absenceSummary": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 240.75,
+            "height": 91.203125
+          }
+        },
+        "beaconTitle": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
+          "fontSize": 15,
+          "lineHeight": 16.8,
+          "ratio": 1.12,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 216.0625,
+            "height": 33.59375
+          }
+        },
+        "beaconSummary": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
+          "fontSize": 8,
+          "lineHeight": 9.6,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.0625,
+            "height": 28.78125
+          }
+        },
+        "beaconTime": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
+          "fontSize": 8,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.0625,
+            "height": 19.4375
+          }
+        },
+        "beaconMeta": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-kicker",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.0625,
+            "height": 9
+          }
+        }
+      },
+      "taskTypography": {
+        "taskHeading": {
+          "selector": "#taskDetailTitle",
+          "fontSize": 34,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 537.81005859375,
+            "height": 92.58999633789062
+          }
+        },
+        "taskKicker": {
+          "selector": ".task-detail-kicker",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 636.31005859375,
+            "height": 14.774993896484375
+          }
+        },
+        "taskTime": {
+          "selector": "#taskDetailTime",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 636.31005859375,
+            "height": 14.7750244140625
+          }
+        },
+        "taskType": {
+          "selector": "#taskDetailType",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 636.31005859375,
+            "height": 14.7750244140625
+          }
+        },
+        "taskSectionHeading": {
+          "selector": ".task-detail-copy h3",
+          "fontSize": 10,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(234, 217, 159)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 606.760009765625,
+            "height": 13.790008544921875
+          }
+        },
+        "taskBody": {
+          "selector": ".task-detail-copy p",
+          "fontSize": 15,
+          "lineHeight": 24.75,
+          "ratio": 1.65,
+          "color": "rgb(195, 203, 197)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 606.760009765625,
+            "height": 48.757476806640625
+          }
+        },
+        "taskProvenance": {
+          "selector": "#taskDetailProvenance",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 636.31005859375,
+            "height": 29.54998779296875
+          }
+        }
+      },
+      "lens": {
+        "typography": {
+          "lensHeading": {
+            "selector": ".inspection-lens-title",
+            "fontSize": 24,
+            "lineHeight": 25.92,
+            "ratio": 1.08,
+            "color": "rgb(244, 247, 244)",
+            "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+            "fontWeight": "550",
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "lensSummary": {
+            "selector": ".inspection-lens-summary",
+            "fontSize": 11,
+            "lineHeight": 15.62,
+            "ratio": 1.42,
+            "color": "rgba(225, 234, 232, 0.78)",
+            "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+            "fontWeight": "400",
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "lensTime": {
+            "selector": ".inspection-lens-time",
+            "fontSize": 9,
+            "lineHeight": 11.7,
+            "ratio": 1.2999999999999998,
+            "color": "rgba(225, 234, 232, 0.62)",
+            "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+            "fontWeight": "400",
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "lensKicker": {
+            "selector": ".inspection-lens-kicker",
+            "fontSize": 9,
+            "lineHeight": 11.7,
+            "ratio": 1.2999999999999998,
+            "color": "color(srgb 0.231373 0.614118 1)",
+            "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+            "fontWeight": "400",
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "lensPlateHeading": {
+            "selector": ".inspection-plate-title",
+            "fontSize": 29,
+            "lineHeight": 30.16,
+            "ratio": 1.04,
+            "color": "rgb(244, 247, 244)",
+            "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+            "fontWeight": "550",
+            "rect": {
+              "width": 330,
+              "height": 90.46875
+            }
+          },
+          "lensPlateSummary": {
+            "selector": ".inspection-plate-summary",
+            "fontSize": 11,
+            "lineHeight": 15.95,
+            "ratio": 1.45,
+            "color": "rgba(225, 234, 232, 0.78)",
+            "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+            "fontWeight": "400",
+            "rect": {
+              "width": 350,
+              "height": 63.75
+            }
+          },
+          "lensPlateTime": {
+            "selector": ".inspection-plate-time",
+            "fontSize": 9,
+            "lineHeight": 11.7,
+            "ratio": 1.2999999999999998,
+            "color": "rgba(225, 234, 232, 0.64)",
+            "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+            "fontWeight": "400",
+            "rect": {
+              "width": 374,
+              "height": 11.6875
+            }
+          },
+          "lensPlateKicker": {
+            "selector": ".inspection-plate-marker",
+            "fontSize": 9,
+            "lineHeight": 11.7,
+            "ratio": 1.2999999999999998,
+            "color": "color(srgb 0.231373 0.614118 1)",
+            "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+            "fontWeight": "400",
+            "rect": {
+              "width": 374,
+              "height": 11.6875
+            }
+          }
+        },
+        "state": {
+          "hidden": false,
+          "visible": true,
+          "readingId": "event-assigned-001",
+          "category": "assigned-work",
+          "mediaKind": "typographic"
+        }
+      },
+      "textFit": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "pageHorizontalOverflow": 0,
+        "panelHorizontalOverflow": 0,
+        "samples": [
+          {
+            "selector": "#monthTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 10,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".thesis-line",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 6,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogVariable",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".dialog-mode-thesis",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogBoundary",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".timeline-help",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-time",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-kicker",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".reading-title",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": true,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-time",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-work-type.reading-title",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-category",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          }
+        ],
+        "failures": []
+      },
+      "colors": {
+        "panelColor": [
+          8,
+          16,
+          22
+        ],
+        "samples": [
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "accent": "#0a84ff",
+            "backgroundColor": "rgb(13, 33, 52)",
+            "borderColor": "color(srgb 0.125379 0.5628 0.993786 / 0.760314)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.143294) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.37) 0px 7px 18px 0px",
+            "opacity": "0.98",
+            "text": [
+              {
+                "className": "assigned-work-type reading-title",
+                "color": "rgb(121, 191, 255)",
+                "fontSize": 11,
+                "lineHeight": 13.2,
+                "compositeColor": [
+                  121,
+                  191,
+                  255
+                ],
+                "contrast": 8.36
+              },
+              {
+                "className": "assigned-copy reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 9,
+                "lineHeight": 11.7,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 14.897
+              },
+              {
+                "className": "assigned-time",
+                "color": "rgb(121, 191, 255)",
+                "fontSize": 8,
+                "lineHeight": 10,
+                "compositeColor": [
+                  121,
+                  191,
+                  255
+                ],
+                "contrast": 8.36
+              },
+              {
+                "className": "assigned-category",
+                "color": "rgb(121, 191, 255)",
+                "fontSize": 7,
+                "lineHeight": 10.15,
+                "compositeColor": [
+                  121,
+                  191,
+                  255
+                ],
+                "contrast": 8.36
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              12,
+              33,
+              51
+            ],
+            "accentColor": [
+              10,
+              132,
+              255
+            ],
+            "borderCompositeColor": [
+              26.226,
+              112.951,
+              197.948
+            ],
+            "surfaceDistance": 33.853,
+            "borderDistance": 201.716,
+            "salience": 114.427
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "accent": "#30d158",
+            "backgroundColor": "color(srgb 0.0419608 0.127098 0.0893333)",
+            "borderColor": "color(srgb 0.354662 0.850935 0.493904 / 0.573059)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(116, 223, 138)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  116,
+                  223,
+                  138
+                ],
+                "contrast": 10.173
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 15.328
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(116, 223, 138)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  116,
+                  223,
+                  138
+                ],
+                "contrast": 10.173
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(116, 223, 138)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  116,
+                  223,
+                  138
+                ],
+                "contrast": 10.173
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              11,
+              33,
+              24
+            ],
+            "accentColor": [
+              48,
+              209,
+              88
+            ],
+            "borderCompositeColor": [
+              55.242,
+              131.178,
+              81.567
+            ],
+            "surfaceDistance": 17.378,
+            "borderDistance": 138.008,
+            "salience": 75.28
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "accent": "#64d2ff",
+            "backgroundColor": "color(srgb 0.0359216 0.121059 0.155765)",
+            "borderColor": "color(srgb 0.507677 0.853878 0.985315 / 0.573059)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(124, 221, 255)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  124,
+                  221,
+                  255
+                ],
+                "contrast": 10.913
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 15.264
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(124, 221, 255)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  124,
+                  221,
+                  255
+                ],
+                "contrast": 10.913
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(124, 221, 255)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  124,
+                  221,
+                  255
+                ],
+                "contrast": 10.913
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              9,
+              32,
+              41
+            ],
+            "accentColor": [
+              100,
+              210,
+              255
+            ],
+            "borderCompositeColor": [
+              77.602,
+              131.608,
+              153.377
+            ],
+            "surfaceDistance": 24.86,
+            "borderDistance": 188.334,
+            "salience": 103.327
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "accent": "#ff9f0a",
+            "backgroundColor": "color(srgb 0.132549 0.0938824 0.0349804)",
+            "borderColor": "color(srgb 0.963778 0.703806 0.264382 / 0.573059)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(255, 183, 77)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  255,
+                  183,
+                  77
+                ],
+                "contrast": 9.99
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 15.713
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(255, 183, 77)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  255,
+                  183,
+                  77
+                ],
+                "contrast": 9.99
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(255, 183, 77)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  255,
+                  183,
+                  77
+                ],
+                "contrast": 9.99
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              35,
+              25,
+              9
+            ],
+            "accentColor": [
+              255,
+              159,
+              10
+            ],
+            "borderCompositeColor": [
+              144.252,
+              109.678,
+              48.027
+            ],
+            "surfaceDistance": 31.289,
+            "borderDistance": 167.385,
+            "salience": 96.615
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "accent": "#7d7aff",
+            "backgroundColor": "color(srgb 0.0721569 0.0787843 0.158784)",
+            "borderColor": "color(srgb 0.581242 0.59493 0.985315 / 0.573059)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(170, 168, 255)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  170,
+                  168,
+                  255
+                ],
+                "contrast": 8.274
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 16.187
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(170, 168, 255)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  170,
+                  168,
+                  255
+                ],
+                "contrast": 8.274
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(170, 168, 255)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  170,
+                  168,
+                  255
+                ],
+                "contrast": 8.274
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              18,
+              23,
+              40
+            ],
+            "accentColor": [
+              125,
+              122,
+              255
+            ],
+            "borderCompositeColor": [
+              88.352,
+              93.768,
+              153.377
+            ],
+            "surfaceDistance": 21.749,
+            "borderDistance": 172.523,
+            "salience": 94.12
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "accent": "#bf5af2",
+            "backgroundColor": "rgb(37, 17, 45)",
+            "borderColor": "color(srgb 0.760204 0.415492 0.948191 / 0.760314)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.143294) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.37) 0px 7px 18px 0px",
+            "opacity": "0.9",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(216, 154, 245)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  216,
+                  154,
+                  245
+                ],
+                "contrast": 8.378
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 16.213
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(216, 154, 245)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  216,
+                  154,
+                  245
+                ],
+                "contrast": 8.378
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(216, 154, 245)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  216,
+                  154,
+                  245
+                ],
+                "contrast": 8.378
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              34,
+              16,
+              43
+            ],
+            "accentColor": [
+              191,
+              90,
+              242
+            ],
+            "borderCompositeColor": [
+              149.306,
+              84.391,
+              189.108
+            ],
+            "surfaceDistance": 33.422,
+            "borderDistance": 229.281,
+            "salience": 127.434
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "accent": "#ff453a",
+            "backgroundColor": "rgb(45, 21, 20)",
+            "borderColor": "color(srgb 0.984673 0.341838 0.302843 / 0.760314)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.143294) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.37) 0px 7px 18px 0px",
+            "opacity": "0.98",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(255, 138, 130)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  255,
+                  138,
+                  130
+                ],
+                "contrast": 7.566
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 15.677
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(255, 138, 130)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  255,
+                  138,
+                  130
+                ],
+                "contrast": 7.566
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(255, 138, 130)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  255,
+                  138,
+                  130
+                ],
+                "contrast": 7.566
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              44,
+              20,
+              20
+            ],
+            "accentColor": [
+              255,
+              69,
+              58
+            ],
+            "borderCompositeColor": [
+              192.826,
+              70.111,
+              63.988
+            ],
+            "surfaceDistance": 36.277,
+            "borderDistance": 197.108,
+            "salience": 113.476
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "accent": "#ffd60a",
+            "backgroundColor": "rgb(39, 35, 13)",
+            "borderColor": "color(srgb 0.984673 0.8504 0.134492 / 0.760314)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.143294) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.37) 0px 7px 18px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "reading-title",
+                "color": "rgb(255, 227, 106)",
+                "fontSize": 15,
+                "lineHeight": 16.8,
+                "compositeColor": [
+                  255,
+                  227,
+                  106
+                ],
+                "contrast": 9.326
+              },
+              {
+                "className": "reading-summary",
+                "color": "rgb(241, 245, 242)",
+                "fontSize": 8,
+                "lineHeight": 9.6,
+                "compositeColor": [
+                  241,
+                  245,
+                  242
+                ],
+                "contrast": 10.82
+              },
+              {
+                "className": "autonomous-time",
+                "color": "rgb(255, 227, 106)",
+                "fontSize": 8,
+                "lineHeight": null,
+                "compositeColor": [
+                  255,
+                  227,
+                  106
+                ],
+                "contrast": 9.326
+              },
+              {
+                "className": "autonomous-kicker",
+                "color": "rgb(255, 227, 106)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  255,
+                  227,
+                  106
+                ],
+                "contrast": 9.326
+              }
+            ],
+            "panelColor": [
+              8,
+              16,
+              22
+            ],
+            "surfaceColor": [
+              63,
+              55,
+              13
+            ],
+            "accentColor": [
+              255,
+              214,
+              10
+            ],
+            "borderCompositeColor": [
+              192.826,
+              168.711,
+              31.348
+            ],
+            "surfaceDistance": 68.022,
+            "borderDistance": 239.934,
+            "salience": 150.54
+          }
+        ],
+        "minimumContrast": 7.566,
+        "minimumAccentDistance": {
+          "value": 55,
+          "pair": [
+            "ai-brief",
+            "autonomous-artwork"
+          ]
+        },
+        "minimumBorderDistance": {
+          "value": 39.337,
+          "pair": [
+            "us-market-scan",
+            "service-support"
+          ]
+        },
+        "meanSurfaceDistance": 33.356,
+        "layerSalience": {
+          "event": 113.952,
+          "climate": 92.336,
+          "absence": 127.434,
+          "beacon": 150.54
+        },
+        "contrasts": [
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-work-type reading-title",
+            "fontSize": 11,
+            "contrast": 8.36
+          },
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-copy reading-summary",
+            "fontSize": 9,
+            "contrast": 14.897
+          },
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-time",
+            "fontSize": 8,
+            "contrast": 8.36
+          },
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-category",
+            "fontSize": 7,
+            "contrast": 8.36
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 10.173
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 15.328
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 10.173
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 10.173
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 10.913
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 15.264
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 10.913
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 10.913
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 9.99
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 15.713
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 9.99
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 9.99
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 8.274
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 16.187
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 8.274
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 8.274
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 8.378
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 16.213
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 8.378
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 8.378
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 7.566
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 15.677
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 7.566
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 7.566
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "reading-title",
+            "fontSize": 15,
+            "contrast": 9.326
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "reading-summary",
+            "fontSize": 8,
+            "contrast": 10.82
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "autonomous-time",
+            "fontSize": 8,
+            "contrast": 9.326
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "autonomous-kicker",
+            "fontSize": 7,
+            "contrast": 9.326
+          }
+        ]
+      },
+      "geometry": [
+        {
+          "footprintId": "beacon-001",
+          "start": "03:17",
+          "end": "04:17",
+          "durationMinutes": 60,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 347.297,
+          "height": 105.766,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-001",
+          "start": "05:00",
+          "end": "05:20",
+          "durationMinutes": 20,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 528.891,
+          "height": 35.25,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-002",
+          "start": "06:00",
+          "end": "06:04",
+          "durationMinutes": 4,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 634.672,
+          "height": 7.047,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-003",
+          "start": "06:47",
+          "end": "06:49",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 717.531,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-004",
+          "start": "07:20",
+          "end": "07:29",
+          "durationMinutes": 9,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 775.719,
+          "height": 15.859,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-005",
+          "start": "07:30",
+          "end": "07:34",
+          "durationMinutes": 4,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 793.344,
+          "height": 7.047,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "assigned-001",
+          "start": "08:00",
+          "end": "10:15",
+          "durationMinutes": 135,
+          "lane": 0,
+          "laneCount": 3,
+          "top": 846.234,
+          "height": 238,
+          "left": 0,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-006",
+          "start": "08:30",
+          "end": "08:53",
+          "durationMinutes": 23,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 899.125,
+          "height": 40.547,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-007",
+          "start": "08:51",
+          "end": "08:55",
+          "durationMinutes": 4,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 936.141,
+          "height": 7.047,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-008",
+          "start": "08:54",
+          "end": "09:02",
+          "durationMinutes": 8,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 941.438,
+          "height": 14.094,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-009",
+          "start": "09:00",
+          "end": "09:02",
+          "durationMinutes": 2,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 952.016,
+          "height": 3.516,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-010",
+          "start": "09:05",
+          "end": "09:11",
+          "durationMinutes": 6,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 960.828,
+          "height": 10.563,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-011",
+          "start": "09:06",
+          "end": "09:08",
+          "durationMinutes": 2,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 962.594,
+          "height": 3.516,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-012",
+          "start": "09:15",
+          "end": "09:22",
+          "durationMinutes": 7,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 978.453,
+          "height": 12.328,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-013",
+          "start": "09:21",
+          "end": "09:23",
+          "durationMinutes": 2,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 989.031,
+          "height": 3.516,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-014",
+          "start": "09:25",
+          "end": "09:30",
+          "durationMinutes": 5,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 996.094,
+          "height": 8.813,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-015",
+          "start": "09:40",
+          "end": "09:42",
+          "durationMinutes": 2,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 1022.531,
+          "height": 3.516,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-016",
+          "start": "09:40",
+          "end": "09:42",
+          "durationMinutes": 2,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 1022.531,
+          "height": 3.516,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-017",
+          "start": "09:45",
+          "end": "09:47",
+          "durationMinutes": 2,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 1031.344,
+          "height": 3.516,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-018",
+          "start": "09:52",
+          "end": "10:03",
+          "durationMinutes": 11,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 1043.688,
+          "height": 19.391,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-019",
+          "start": "10:01",
+          "end": "10:03",
+          "durationMinutes": 2,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 1059.563,
+          "height": 3.516,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-020",
+          "start": "10:52",
+          "end": "11:00",
+          "durationMinutes": 8,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1149.469,
+          "height": 14.094,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-021",
+          "start": "11:03",
+          "end": "11:05",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 2,
+          "top": 1168.859,
+          "height": 3.516,
+          "left": 0,
+          "width": 532
+        },
+        {
+          "footprintId": "background-022",
+          "start": "11:04",
+          "end": "11:06",
+          "durationMinutes": 2,
+          "lane": 1,
+          "laneCount": 2,
+          "top": 1170.625,
+          "height": 3.516,
+          "left": 536,
+          "width": 532
+        },
+        {
+          "footprintId": "background-023",
+          "start": "12:10",
+          "end": "12:12",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1286.984,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-024",
+          "start": "12:19",
+          "end": "12:21",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1302.844,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-025",
+          "start": "12:40",
+          "end": "12:42",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1339.875,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-026",
+          "start": "13:24",
+          "end": "13:26",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1417.438,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-027",
+          "start": "13:31",
+          "end": "13:33",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1429.781,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-028",
+          "start": "13:40",
+          "end": "13:42",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1445.656,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-029",
+          "start": "14:12",
+          "end": "14:26",
+          "durationMinutes": 14,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1502.063,
+          "height": 24.672,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-030",
+          "start": "14:30",
+          "end": "14:34",
+          "durationMinutes": 4,
+          "lane": 0,
+          "laneCount": 2,
+          "top": 1533.797,
+          "height": 7.047,
+          "left": 0,
+          "width": 532
+        },
+        {
+          "footprintId": "background-031",
+          "start": "14:30",
+          "end": "14:34",
+          "durationMinutes": 4,
+          "lane": 1,
+          "laneCount": 2,
+          "top": 1533.797,
+          "height": 7.047,
+          "left": 536,
+          "width": 532
+        },
+        {
+          "footprintId": "background-032",
+          "start": "14:34",
+          "end": "14:36",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1540.859,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-033",
+          "start": "14:40",
+          "end": "14:42",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1551.438,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-034",
+          "start": "15:04",
+          "end": "15:06",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1593.75,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-035",
+          "start": "15:09",
+          "end": "15:12",
+          "durationMinutes": 3,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1602.563,
+          "height": 5.281,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-036",
+          "start": "15:19",
+          "end": "15:21",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1620.188,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-037",
+          "start": "15:25",
+          "end": "15:27",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1630.766,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-038",
+          "start": "15:30",
+          "end": "15:32",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1639.578,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-039",
+          "start": "15:35",
+          "end": "15:48",
+          "durationMinutes": 13,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1648.391,
+          "height": 22.906,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-040",
+          "start": "16:14",
+          "end": "16:16",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1717.156,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-041",
+          "start": "16:26",
+          "end": "16:28",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1738.313,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-042",
+          "start": "16:29",
+          "end": "16:31",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1743.594,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-043",
+          "start": "17:30",
+          "end": "17:35",
+          "durationMinutes": 5,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1851.141,
+          "height": 8.813,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-044",
+          "start": "20:00",
+          "end": "20:02",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2115.594,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-045",
+          "start": "20:29",
+          "end": "20:31",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2166.719,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-046",
+          "start": "20:44",
+          "end": "20:46",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2193.172,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-047",
+          "start": "21:06",
+          "end": "21:08",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 3,
+          "top": 2231.953,
+          "height": 3.516,
+          "left": 0,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-048",
+          "start": "21:06",
+          "end": "21:08",
+          "durationMinutes": 2,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 2231.953,
+          "height": 3.516,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-049",
+          "start": "21:07",
+          "end": "21:13",
+          "durationMinutes": 6,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 2233.719,
+          "height": 10.563,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-050",
+          "start": "21:12",
+          "end": "21:43",
+          "durationMinutes": 31,
+          "lane": 0,
+          "laneCount": 3,
+          "top": 2242.531,
+          "height": 54.641,
+          "left": 0,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-051",
+          "start": "21:46",
+          "end": "21:48",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2302.469,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-052",
+          "start": "21:49",
+          "end": "21:51",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2307.766,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-053",
+          "start": "22:10",
+          "end": "22:14",
+          "durationMinutes": 4,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2344.781,
+          "height": 7.047,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-054",
+          "start": "22:26",
+          "end": "22:28",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2372.984,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-055",
+          "start": "22:31",
+          "end": "22:33",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2381.813,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-056",
+          "start": "23:30",
+          "end": "23:32",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2485.828,
+          "height": 3.516,
+          "left": 0,
+          "width": 1068
+        }
+      ],
+      "diagnostics": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "requestFailures": []
+      }
+    },
+    "desktop-light": {
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "touch": false,
+      "typography": {
+        "homeDisplay": {
+          "selector": "#monthTitle",
+          "fontSize": 57,
+          "lineHeight": 55.86,
+          "ratio": 0.98,
+          "color": "rgb(24, 34, 38)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 1067.109375,
+            "height": 55.859375
+          }
+        },
+        "homeKicker": {
+          "selector": ".section-mark",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(40, 111, 122)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1067.109375,
+            "height": 15.9375
+          }
+        },
+        "homeSupporting": {
+          "selector": ".thesis-line",
+          "fontSize": 17,
+          "lineHeight": 22.95,
+          "ratio": 1.3499999999999999,
+          "color": "rgb(101, 114, 119)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1067.109375,
+            "height": 45.875
+          }
+        },
+        "homeLegend": {
+          "selector": ".calendar-legend",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(101, 114, 119)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1342.1875,
+            "height": 24
+          }
+        },
+        "dayHeading": {
+          "selector": "#dialogTitle",
+          "fontSize": 42,
+          "lineHeight": 43.68,
+          "ratio": 1.04,
+          "color": "rgb(24, 34, 38)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 820,
+            "height": 43.671875
+          }
+        },
+        "dayDate": {
+          "selector": "#dialogDate",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(40, 111, 122)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 15.9375
+          }
+        },
+        "dayVariable": {
+          "selector": "#dialogVariable",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(101, 114, 119)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 15.9375
+          }
+        },
+        "daySupporting": {
+          "selector": ".dialog-mode-thesis",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(117, 92, 32)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 31.875
+          }
+        },
+        "dayBoundary": {
+          "selector": "#dialogBoundary",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(101, 114, 119)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 980,
+            "height": 47.8125
+          }
+        },
+        "timelineHeading": {
+          "selector": "#timelineTitle",
+          "fontSize": 12,
+          "lineHeight": 17.4,
+          "ratio": 1.45,
+          "color": "rgb(63, 77, 81)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 1130,
+            "height": 17.390625
+          }
+        },
+        "timelineSupporting": {
+          "selector": ".timeline-help",
+          "fontSize": 8,
+          "lineHeight": 11.6,
+          "ratio": 1.45,
+          "color": "rgb(101, 114, 119)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 1130,
+            "height": 23.1875
+          }
+        },
+        "assignedTitle": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-title",
+          "fontSize": 11,
+          "lineHeight": 13.2,
+          "ratio": 1.2,
+          "color": "rgb(0, 85, 170)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "600",
+          "rect": {
+            "width": 305.6875,
+            "height": 13.1875
+          }
+        },
+        "assignedSummary": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-summary",
+          "fontSize": 9,
+          "lineHeight": 11.7,
+          "ratio": 1.2999999999999998,
+          "color": "rgb(23, 33, 38)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 509.5,
+            "height": 23.375
+          }
+        },
+        "assignedTime": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-time",
+          "fontSize": 8,
+          "lineHeight": 10,
+          "ratio": 1.25,
+          "color": "rgb(0, 85, 170)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 381.15625,
+            "height": 22
+          }
+        },
+        "assignedMeta": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-category",
+          "fontSize": 7,
+          "lineHeight": 10.15,
+          "ratio": 1.45,
+          "color": "rgb(0, 85, 170)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 121.34375,
+            "height": 8
+          }
+        },
+        "climateTitle": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(63, 58, 160)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 228.015625,
+            "height": 21.59375
+          }
+        },
+        "climateSummary": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(23, 33, 38)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 240.75,
+            "height": 110.40625
+          }
+        },
+        "climateTime": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-time",
+          "fontSize": 7,
+          "lineHeight": 7,
+          "ratio": 1,
+          "color": "rgb(63, 58, 160)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 240.75,
+            "height": 7
+          }
+        },
+        "climateMeta": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-duration",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(63, 58, 160)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "absenceTitle": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(122, 41, 143)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 118.046875,
+            "height": 10.796875
+          }
+        },
+        "absenceSummary": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(23, 33, 38)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 240.75,
+            "height": 91.203125
+          }
+        },
+        "beaconTitle": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
+          "fontSize": 15,
+          "lineHeight": 16.8,
+          "ratio": 1.12,
+          "color": "rgb(103, 80, 0)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 216.0625,
+            "height": 33.59375
+          }
+        },
+        "beaconSummary": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
+          "fontSize": 8,
+          "lineHeight": 9.6,
+          "ratio": 1.2,
+          "color": "rgb(23, 33, 38)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.0625,
+            "height": 28.78125
+          }
+        },
+        "beaconTime": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
+          "fontSize": 8,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(103, 80, 0)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.0625,
+            "height": 19.4375
+          }
+        },
+        "beaconMeta": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-kicker",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(103, 80, 0)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.0625,
+            "height": 9
+          }
+        }
+      },
+      "taskTypography": null,
+      "lens": null,
+      "textFit": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "pageHorizontalOverflow": 0,
+        "panelHorizontalOverflow": 0,
+        "samples": [
+          {
+            "selector": "#monthTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 10,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".thesis-line",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 6,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogVariable",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".dialog-mode-thesis",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogBoundary",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".timeline-help",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-time",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-kicker",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".reading-title",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": true,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-time",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-work-type.reading-title",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-category",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          }
+        ],
+        "failures": []
+      },
+      "colors": {
+        "panelColor": [
+          226,
+          226,
+          220
+        ],
+        "samples": [
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "accent": "#007aff",
+            "backgroundColor": "rgb(229, 241, 255)",
+            "borderColor": "color(srgb 0.00994187 0.448191 0.91798 / 0.760314)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.378824) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.37) 0px 7px 18px 0px",
+            "opacity": "0.98",
+            "text": [
+              {
+                "className": "assigned-work-type reading-title",
+                "color": "rgb(0, 85, 170)",
+                "fontSize": 11,
+                "lineHeight": 13.2,
+                "compositeColor": [
+                  0,
+                  85,
+                  170
+                ],
+                "contrast": 6.318
+              },
+              {
+                "className": "assigned-copy reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 9,
+                "lineHeight": 11.7,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 14.192
+              },
+              {
+                "className": "assigned-time",
+                "color": "rgb(0, 85, 170)",
+                "fontSize": 8,
+                "lineHeight": 10,
+                "compositeColor": [
+                  0,
+                  85,
+                  170
+                ],
+                "contrast": 6.318
+              },
+              {
+                "className": "assigned-category",
+                "color": "rgb(0, 85, 170)",
+                "fontSize": 7,
+                "lineHeight": 10.15,
+                "compositeColor": [
+                  0,
+                  85,
+                  170
+                ],
+                "contrast": 6.318
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              228,
+              240,
+              254
+            ],
+            "accentColor": [
+              0,
+              122,
+              255
+            ],
+            "borderCompositeColor": [
+              56.097,
+              141.064,
+              230.709
+            ],
+            "surfaceDistance": 36.824,
+            "borderDistance": 190.252,
+            "salience": 110.47
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "accent": "#248a3d",
+            "backgroundColor": "color(srgb 0.887216 0.936745 0.890275)",
+            "borderColor": "color(srgb 0.129429 0.454047 0.2353 / 0.573059)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.216471) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(22, 104, 46)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  22,
+                  104,
+                  46
+                ],
+                "contrast": 5.782
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 13.774
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(22, 104, 46)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  22,
+                  104,
+                  46
+                ],
+                "contrast": 5.782
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(22, 104, 46)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  22,
+                  104,
+                  46
+                ],
+                "contrast": 5.782
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              225,
+              239,
+              227
+            ],
+            "accentColor": [
+              36,
+              138,
+              61
+            ],
+            "borderCompositeColor": [
+              115.402,
+              162.839,
+              128.311
+            ],
+            "surfaceDistance": 14.799,
+            "borderDistance": 156.933,
+            "salience": 83.023
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "accent": "#0071a4",
+            "backgroundColor": "color(srgb 0.881176 0.933725 0.944627)",
+            "borderColor": "color(srgb 0.0234956 0.380482 0.538386 / 0.573059)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.216471) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(0, 95, 133)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  0,
+                  95,
+                  133
+                ],
+                "contrast": 5.938
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 13.783
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(0, 95, 133)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  0,
+                  95,
+                  133
+                ],
+                "contrast": 5.938
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(0, 95, 133)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  0,
+                  95,
+                  133
+                ],
+                "contrast": 5.938
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              224,
+              238,
+              241
+            ],
+            "accentColor": [
+              0,
+              113,
+              164
+            ],
+            "borderCompositeColor": [
+              99.922,
+              152.089,
+              172.601
+            ],
+            "surfaceDistance": 24.269,
+            "borderDistance": 153.64,
+            "salience": 86.367
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "accent": "#c93400",
+            "backgroundColor": "color(srgb 0.965725 0.918627 0.848)",
+            "borderColor": "color(srgb 0.614955 0.200985 0.0558021 / 0.573059)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.216471) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(158, 45, 0)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  158,
+                  45,
+                  0
+                ],
+                "contrast": 6.249
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 13.791
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(158, 45, 0)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  158,
+                  45,
+                  0
+                ],
+                "contrast": 6.249
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(158, 45, 0)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  158,
+                  45,
+                  0
+                ],
+                "contrast": 6.249
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              246,
+              234,
+              216
+            ],
+            "accentColor": [
+              201,
+              52,
+              0
+            ],
+            "borderCompositeColor": [
+              186.352,
+              125.859,
+              102.081
+            ],
+            "surfaceDistance": 21.909,
+            "borderDistance": 159.703,
+            "salience": 88.05
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "accent": "#5856d6",
+            "backgroundColor": "color(srgb 0.908353 0.903529 0.950667)",
+            "borderColor": "color(srgb 0.282443 0.301033 0.685515 / 0.573059)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.216471) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.28) 0px 3px 9px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(63, 58, 160)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  63,
+                  58,
+                  160
+                ],
+                "contrast": 7.323
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 13.277
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(63, 58, 160)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  63,
+                  58,
+                  160
+                ],
+                "contrast": 7.323
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(63, 58, 160)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  63,
+                  58,
+                  160
+                ],
+                "contrast": 7.323
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              232,
+              230,
+              241
+            ],
+            "accentColor": [
+              88,
+              86,
+              214
+            ],
+            "borderCompositeColor": [
+              137.762,
+              140.479,
+              194.101
+            ],
+            "surfaceDistance": 22.204,
+            "borderDistance": 125.581,
+            "salience": 71.825
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "accent": "#af52de",
+            "backgroundColor": "rgb(246, 234, 250)",
+            "borderColor": "color(srgb 0.623724 0.307899 0.802238 / 0.760314)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.378824) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.37) 0px 7px 18px 0px",
+            "opacity": "0.9",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(122, 41, 143)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  122,
+                  41,
+                  143
+                ],
+                "contrast": 6.978
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 13.832
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(122, 41, 143)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  122,
+                  41,
+                  143
+                ],
+                "contrast": 6.978
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(122, 41, 143)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  122,
+                  41,
+                  143
+                ],
+                "contrast": 6.978
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              244,
+              232,
+              247
+            ],
+            "accentColor": [
+              175,
+              82,
+              222
+            ],
+            "borderCompositeColor": [
+              175.097,
+              113.865,
+              208.269
+            ],
+            "surfaceDistance": 33,
+            "borderDistance": 123.706,
+            "salience": 76.539
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "accent": "#d70015",
+            "backgroundColor": "rgb(255, 235, 233)",
+            "borderColor": "color(srgb 0.764017 0.020298 0.0972657 / 0.760314)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.378824) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.37) 0px 7px 18px 0px",
+            "opacity": "0.98",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(169, 0, 16)",
+                "fontSize": 9,
+                "lineHeight": 10.8,
+                "compositeColor": [
+                  169,
+                  0,
+                  16
+                ],
+                "contrast": 6.689
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8.5,
+                "lineHeight": 10.2,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 14.059
+              },
+              {
+                "className": "pulse-time",
+                "color": "rgb(169, 0, 16)",
+                "fontSize": 7,
+                "lineHeight": 7,
+                "compositeColor": [
+                  169,
+                  0,
+                  16
+                ],
+                "contrast": 6.689
+              },
+              {
+                "className": "pulse-duration",
+                "color": "rgb(169, 0, 16)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  169,
+                  0,
+                  16
+                ],
+                "contrast": 6.689
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              254,
+              233,
+              231
+            ],
+            "accentColor": [
+              215,
+              0,
+              21
+            ],
+            "borderCompositeColor": [
+              202.297,
+              58.104,
+              71.589
+            ],
+            "surfaceDistance": 30.887,
+            "borderDistance": 225.337,
+            "salience": 124.223
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "accent": "#8a6500",
+            "backgroundColor": "rgb(250, 242, 210)",
+            "borderColor": "color(srgb 0.493953 0.374538 0.0236119 / 0.760314)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.378824) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.23) 0px -1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.37) 0px 7px 18px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "reading-title",
+                "color": "rgb(103, 80, 0)",
+                "fontSize": 15,
+                "lineHeight": 16.8,
+                "compositeColor": [
+                  103,
+                  80,
+                  0
+                ],
+                "contrast": 5.958
+              },
+              {
+                "className": "reading-summary",
+                "color": "rgb(23, 33, 38)",
+                "fontSize": 8,
+                "lineHeight": 9.6,
+                "compositeColor": [
+                  23,
+                  33,
+                  38
+                ],
+                "contrast": 12.661
+              },
+              {
+                "className": "autonomous-time",
+                "color": "rgb(103, 80, 0)",
+                "fontSize": 8,
+                "lineHeight": null,
+                "compositeColor": [
+                  103,
+                  80,
+                  0
+                ],
+                "contrast": 5.958
+              },
+              {
+                "className": "autonomous-kicker",
+                "color": "rgb(103, 80, 0)",
+                "fontSize": 7,
+                "lineHeight": null,
+                "compositeColor": [
+                  103,
+                  80,
+                  0
+                ],
+                "contrast": 5.958
+              }
+            ],
+            "panelColor": [
+              226,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              238,
+              226,
+              187
+            ],
+            "accentColor": [
+              138,
+              101,
+              0
+            ],
+            "borderCompositeColor": [
+              149.937,
+              126.784,
+              57.309
+            ],
+            "surfaceDistance": 35.114,
+            "borderDistance": 205.177,
+            "salience": 116.744
+          }
+        ],
+        "minimumContrast": 5.782,
+        "minimumAccentDistance": {
+          "value": 57.801,
+          "pair": [
+            "ai-brief",
+            "warning-exception"
+          ]
+        },
+        "minimumBorderDistance": {
+          "value": 45.043,
+          "pair": [
+            "us-market-scan",
+            "service-support"
+          ]
+        },
+        "meanSurfaceDistance": 27.376,
+        "layerSalience": {
+          "event": 117.346,
+          "climate": 82.316,
+          "absence": 76.539,
+          "beacon": 116.744
+        },
+        "contrasts": [
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-work-type reading-title",
+            "fontSize": 11,
+            "contrast": 6.318
+          },
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-copy reading-summary",
+            "fontSize": 9,
+            "contrast": 14.192
+          },
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-time",
+            "fontSize": 8,
+            "contrast": 6.318
+          },
+          {
+            "category": "assigned-work",
+            "layer": "event",
+            "className": "assigned-category",
+            "fontSize": 7,
+            "contrast": 6.318
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 5.782
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 13.774
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 5.782
+          },
+          {
+            "category": "ah-market-scan",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 5.782
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 5.938
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 13.783
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 5.938
+          },
+          {
+            "category": "us-market-scan",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 5.938
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 6.249
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 13.791
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 6.249
+          },
+          {
+            "category": "ai-brief",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 6.249
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 7.323
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 13.277
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 7.323
+          },
+          {
+            "category": "service-support",
+            "layer": "climate",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 7.323
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 6.978
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 13.832
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 6.978
+          },
+          {
+            "category": "private-reminder",
+            "layer": "absence",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 6.978
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-label reading-title",
+            "fontSize": 9,
+            "contrast": 6.689
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 8.5,
+            "contrast": 14.059
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-time",
+            "fontSize": 7,
+            "contrast": 6.689
+          },
+          {
+            "category": "warning-exception",
+            "layer": "event",
+            "className": "pulse-duration",
+            "fontSize": 7,
+            "contrast": 6.689
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "reading-title",
+            "fontSize": 15,
+            "contrast": 5.958
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "reading-summary",
+            "fontSize": 8,
+            "contrast": 12.661
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "autonomous-time",
+            "fontSize": 8,
+            "contrast": 5.958
+          },
+          {
+            "category": "autonomous-artwork",
+            "layer": "beacon",
+            "className": "autonomous-kicker",
+            "fontSize": 7,
+            "contrast": 5.958
+          }
+        ]
+      },
+      "geometry": null,
+      "diagnostics": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "requestFailures": []
+      }
+    },
+    "390x844-dark": {
+      "theme": "dark",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "touch": true,
+      "typography": {
+        "homeDisplay": {
+          "selector": "#monthTitle",
+          "fontSize": 28.86,
+          "lineHeight": 28.2828,
+          "ratio": 0.9800000000000001,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 360,
+            "height": 28.28125
+          }
+        },
+        "homeKicker": {
+          "selector": ".section-mark",
+          "fontSize": 8,
+          "lineHeight": 11.6,
+          "ratio": 1.45,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 360,
+            "height": 11.59375
+          }
+        },
+        "homeSupporting": {
+          "selector": ".thesis-line",
+          "fontSize": 10,
+          "lineHeight": 13.5,
+          "ratio": 1.35,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 360,
+            "height": 27
+          }
+        },
+        "homeLegend": {
+          "selector": ".calendar-legend",
+          "fontSize": 7,
+          "lineHeight": 10.15,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 360,
+            "height": 24
+          }
+        },
+        "dayHeading": {
+          "selector": "#dialogTitle",
+          "fontSize": 23.4,
+          "lineHeight": 24.336,
+          "ratio": 1.04,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 366,
+            "height": 48.65625
+          }
+        },
+        "dayDate": {
+          "selector": "#dialogDate",
+          "fontSize": 9,
+          "lineHeight": 12.15,
+          "ratio": 1.35,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 366,
+            "height": 12.140625
+          }
+        },
+        "dayVariable": {
+          "selector": "#dialogVariable",
+          "fontSize": 9,
+          "lineHeight": 12.15,
+          "ratio": 1.35,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 366,
+            "height": 12.140625
+          }
+        },
+        "daySupporting": {
+          "selector": ".dialog-mode-thesis",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(234, 217, 159)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 366,
+            "height": 79.6875
+          }
+        },
+        "dayBoundary": {
+          "selector": "#dialogBoundary",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "timelineHeading": {
+          "selector": "#timelineTitle",
+          "fontSize": 10,
+          "lineHeight": 14.5,
+          "ratio": 1.45,
+          "color": "rgb(195, 203, 197)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 374,
+            "height": 14.5
+          }
+        },
+        "timelineSupporting": {
+          "selector": ".timeline-help",
+          "fontSize": 8,
+          "lineHeight": 11.6,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 374,
+            "height": 57.96875
+          }
+        },
+        "assignedTitle": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-title",
+          "fontSize": 11,
+          "lineHeight": 13.2,
+          "ratio": 1.2,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "600",
+          "rect": {
+            "width": 176.65625,
+            "height": 26.375
+          }
+        },
+        "assignedSummary": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-summary",
+          "fontSize": 9,
+          "lineHeight": 11.7,
+          "ratio": 1.2999999999999998,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 195.65625,
+            "height": 46.75
+          }
+        },
+        "assignedTime": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-time",
+          "fontSize": 8,
+          "lineHeight": 10,
+          "ratio": 1.25,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 195.65625,
+            "height": 10
+          }
+        },
+        "assignedMeta": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-category",
+          "fontSize": 7,
+          "lineHeight": 10.15,
+          "ratio": 1.45,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "climateTitle": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 76.59375,
+            "height": 75.578125
+          }
+        },
+        "climateSummary": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 89.328125,
+            "height": 56.421875
+          }
+        },
+        "climateTime": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-time",
+          "fontSize": 7,
+          "lineHeight": 7,
+          "ratio": 1,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 89.328125,
+            "height": 7
+          }
+        },
+        "climateMeta": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-duration",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "absenceTitle": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(216, 154, 245)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 76.59375,
+            "height": 21.59375
+          }
+        },
+        "absenceSummary": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 89.328125,
+            "height": 80.40625
+          }
+        },
+        "beaconTitle": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
+          "fontSize": 11,
+          "lineHeight": 12.32,
+          "ratio": 1.12,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 88.03125,
+            "height": 36.9375
+          }
+        },
+        "beaconSummary": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
+          "fontSize": 8,
+          "lineHeight": 9.6,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 88.03125,
+            "height": 19.1875
+          }
+        },
+        "beaconTime": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
+          "fontSize": 8,
+          "lineHeight": 8.8,
+          "ratio": 1.1,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 88.03125,
+            "height": 8.796875
+          }
+        },
+        "beaconMeta": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-kicker",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 88.03125,
+            "height": 17
+          }
+        }
+      },
+      "taskTypography": {
+        "taskHeading": {
+          "selector": "#taskDetailTitle",
+          "fontSize": 21,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 260.0400085449219,
+            "height": 85.69497680664062
+          }
+        },
+        "taskKicker": {
+          "selector": ".task-detail-kicker",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 342.7799987792969,
+            "height": 14.774993896484375
+          }
+        },
+        "taskTime": {
+          "selector": "#taskDetailTime",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 342.7799987792969,
+            "height": 14.7750244140625
+          }
+        },
+        "taskType": {
+          "selector": "#taskDetailType",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 342.7799987792969,
+            "height": 29.550018310546875
+          }
+        },
+        "taskSectionHeading": {
+          "selector": ".task-detail-copy h3",
+          "fontSize": 10,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(234, 217, 159)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 319.1400146484375,
+            "height": 13.78997802734375
+          }
+        },
+        "taskBody": {
+          "selector": ".task-detail-copy p",
+          "fontSize": 13,
+          "lineHeight": 20.15,
+          "ratio": 1.5499999999999998,
+          "color": "rgb(195, 203, 197)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 319.1400146484375,
+            "height": 39.677032470703125
+          }
+        },
+        "taskProvenance": {
+          "selector": "#taskDetailProvenance",
+          "fontSize": 10,
+          "lineHeight": 15,
+          "ratio": 1.5,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 342.7799987792969,
+            "height": 44.32501220703125
+          }
+        }
+      },
+      "lens": null,
+      "textFit": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "pageHorizontalOverflow": 0,
+        "panelHorizontalOverflow": 0,
+        "samples": [
+          {
+            "selector": "#monthTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 5,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".thesis-line",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 3,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogVariable",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".dialog-mode-thesis",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".timeline-help",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-time",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-kicker",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".reading-title",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": true,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-time",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-work-type.reading-title",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          }
+        ],
+        "failures": []
+      },
+      "colors": null,
+      "geometry": null,
+      "diagnostics": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "requestFailures": []
+      }
+    },
+    "421x386-dark": {
+      "theme": "dark",
+      "viewport": {
+        "width": 421,
+        "height": 386
+      },
+      "touch": true,
+      "typography": {
+        "homeDisplay": {
+          "selector": "#monthTitle",
+          "fontSize": 29,
+          "lineHeight": 28.42,
+          "ratio": 0.9800000000000001,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 391,
+            "height": 28.40625
+          }
+        },
+        "homeKicker": {
+          "selector": ".section-mark",
+          "fontSize": 8,
+          "lineHeight": 11.6,
+          "ratio": 1.45,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 391,
+            "height": 11.59375
+          }
+        },
+        "homeSupporting": {
+          "selector": ".thesis-line",
+          "fontSize": 10,
+          "lineHeight": 13.5,
+          "ratio": 1.35,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 391,
+            "height": 27
+          }
+        },
+        "homeLegend": {
+          "selector": ".calendar-legend",
+          "fontSize": 7,
+          "lineHeight": 10.15,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 391,
+            "height": 24
+          }
+        },
+        "dayHeading": {
+          "selector": "#dialogTitle",
+          "fontSize": 25.26,
+          "lineHeight": 26.2704,
+          "ratio": 1.0399999999999998,
+          "color": "rgb(237, 242, 236)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "500",
+          "rect": {
+            "width": 397,
+            "height": 52.53125
+          }
+        },
+        "dayDate": {
+          "selector": "#dialogDate",
+          "fontSize": 9,
+          "lineHeight": 12.15,
+          "ratio": 1.35,
+          "color": "rgb(131, 217, 221)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 397,
+            "height": 12.140625
+          }
+        },
+        "dayVariable": {
+          "selector": "#dialogVariable",
+          "fontSize": 9,
+          "lineHeight": 12.15,
+          "ratio": 1.35,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 397,
+            "height": 12.140625
+          }
+        },
+        "daySupporting": {
+          "selector": ".dialog-mode-thesis",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(234, 217, 159)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 397,
+            "height": 63.75
+          }
+        },
+        "dayBoundary": {
+          "selector": "#dialogBoundary",
+          "fontSize": 11,
+          "lineHeight": 15.95,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "timelineHeading": {
+          "selector": "#timelineTitle",
+          "fontSize": 10,
+          "lineHeight": 14.5,
+          "ratio": 1.45,
+          "color": "rgb(195, 203, 197)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 405,
+            "height": 14.5
+          }
+        },
+        "timelineSupporting": {
+          "selector": ".timeline-help",
+          "fontSize": 8,
+          "lineHeight": 11.6,
+          "ratio": 1.45,
+          "color": "rgb(134, 147, 154)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 405,
+            "height": 46.375
+          }
+        },
+        "assignedTitle": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-title",
+          "fontSize": 11,
+          "lineHeight": 13.2,
+          "ratio": 1.2,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "600",
+          "rect": {
+            "width": 197.328125,
+            "height": 26.375
+          }
+        },
+        "assignedSummary": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .reading-summary",
+          "fontSize": 9,
+          "lineHeight": 11.7,
+          "ratio": 1.2999999999999998,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.328125,
+            "height": 46.75
+          }
+        },
+        "assignedTime": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-time",
+          "fontSize": 8,
+          "lineHeight": 10,
+          "ratio": 1.25,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 216.328125,
+            "height": 10
+          }
+        },
+        "assignedMeta": {
+          "selector": ".event-reading-card[data-category=\"assigned-work\"] .assigned-category",
+          "fontSize": 7,
+          "lineHeight": 10.15,
+          "ratio": 1.45,
+          "color": "rgb(121, 191, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "climateTitle": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 86.921875,
+            "height": 64.78125
+          }
+        },
+        "climateSummary": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 99.65625,
+            "height": 67.21875
+          }
+        },
+        "climateTime": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-time",
+          "fontSize": 7,
+          "lineHeight": 7,
+          "ratio": 1,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 99.65625,
+            "height": 7
+          }
+        },
+        "climateMeta": {
+          "selector": ".event-reading-card[data-layer=\"climate\"] .pulse-duration",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(170, 168, 255)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 0,
+            "height": 0
+          }
+        },
+        "absenceTitle": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
+          "fontSize": 9,
+          "lineHeight": 10.8,
+          "ratio": 1.2000000000000002,
+          "color": "rgb(216, 154, 245)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "700",
+          "rect": {
+            "width": 86.921875,
+            "height": 21.59375
+          }
+        },
+        "absenceSummary": {
+          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
+          "fontSize": 8.5,
+          "lineHeight": 10.2,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
+          "fontWeight": "400",
+          "rect": {
+            "width": 99.65625,
+            "height": 80.40625
+          }
+        },
+        "beaconTitle": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
+          "fontSize": 11,
+          "lineHeight": 12.32,
+          "ratio": 1.12,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "500",
+          "rect": {
+            "width": 97.34375,
+            "height": 36.9375
+          }
+        },
+        "beaconSummary": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
+          "fontSize": 8,
+          "lineHeight": 9.6,
+          "ratio": 1.2,
+          "color": "rgb(241, 245, 242)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 97.34375,
+            "height": 19.1875
+          }
+        },
+        "beaconTime": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
+          "fontSize": 8,
+          "lineHeight": 8.8,
+          "ratio": 1.1,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 97.34375,
+            "height": 8.796875
+          }
+        },
+        "beaconMeta": {
+          "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-kicker",
+          "fontSize": 7,
+          "lineHeight": null,
+          "ratio": null,
+          "color": "rgb(255, 227, 106)",
+          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
+          "fontWeight": "400",
+          "rect": {
+            "width": 97.34375,
+            "height": 17
+          }
+        }
+      },
+      "taskTypography": null,
+      "lens": null,
+      "textFit": {
+        "viewport": {
+          "width": 421,
+          "height": 386
+        },
+        "pageHorizontalOverflow": 0,
+        "panelHorizontalOverflow": 0,
+        "samples": [
+          {
+            "selector": "#monthTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 6,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".thesis-line",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogTitle",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 3,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": "#dialogVariable",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".dialog-mode-thesis",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".timeline-help",
+            "readingId": "",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-time",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".autonomous-kicker",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".reading-title",
+            "readingId": "beacon-beacon-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": true,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-01",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-02",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-004",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-005",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-time",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".assigned-work-type.reading-title",
+            "readingId": "event-assigned-001",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-03",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-04",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-008",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-05",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-013",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-06",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-07",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-08",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-035",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-039",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-043",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-09",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-050",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "climate-10",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 1,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "event-background-053",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-time",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "visible",
+            "outsideCard": false
+          },
+          {
+            "selector": ".pulse-label.reading-title",
+            "readingId": "absence-background-056",
+            "horizontalOverflow": 0,
+            "verticalOverflow": 0,
+            "intentionalClamp": false,
+            "overflowY": "hidden",
+            "outsideCard": false
+          }
+        ],
+        "failures": []
+      },
+      "colors": null,
+      "geometry": null,
+      "diagnostics": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "requestFailures": []
+      }
+    }
+  },
+  "comparisons": null,
+  "errors": []
+}

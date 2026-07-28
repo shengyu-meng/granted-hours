@@ -4433,3 +4433,503 @@ html.inspection-lens-capable .inspection-lens:not([hidden]) {
     transition: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Soft semantic reflection + responsive reading scale
+   Category color behaves as light caught by glass, while neutral ink carries
+   the public narrative. Exact temporal geometry and whole-card opacity stay
+   unchanged.
+   -------------------------------------------------------------------------- */
+
+:root,
+:root[data-theme="dark"] {
+  --type-display-home: clamp(25px, 3.08vw, 44px);
+  --type-display-day: clamp(21px, 2.36vw, 34px);
+  --type-display-task: clamp(18px, 2vw, 29px);
+  --type-display-lens: clamp(20px, 1.6vw, 23px);
+  --type-home-support: clamp(13px, 1.12vw, 16px);
+  --type-support: clamp(11.5px, 0.88vw, 13px);
+  --type-support-compact: clamp(10.5px, 0.8vw, 11.5px);
+  --type-card-title: clamp(10.5px, 0.88vw, 12.5px);
+  --type-card-title-strong: clamp(12.25px, 0.98vw, 14px);
+  --type-card-body: clamp(10px, 0.78vw, 11.25px);
+  --type-card-meta: clamp(9px, 0.7vw, 10px);
+  --type-beacon-title: clamp(13px, 1.1vw, 16px);
+  --type-dialog-body: clamp(15px, 1.1vw, 16px);
+  --type-dialog-meta: clamp(11px, 0.85vw, 12px);
+  --type-lens-body: clamp(12px, 0.9vw, 13px);
+  --type-lens-meta: clamp(10px, 0.74vw, 10.5px);
+  --semantic-work-surface: color-mix(in srgb, var(--semantic-work-accent) 6%, var(--pane-solid));
+  --semantic-ah-surface: color-mix(in srgb, var(--semantic-ah-accent) 6%, var(--pane-solid));
+  --semantic-us-surface: color-mix(in srgb, var(--semantic-us-accent) 6%, var(--pane-solid));
+  --semantic-ai-surface: color-mix(in srgb, var(--semantic-ai-accent) 6%, var(--pane-solid));
+  --semantic-support-surface: color-mix(in srgb, var(--semantic-support-accent) 6%, var(--pane-solid));
+  --semantic-private-surface: color-mix(in srgb, var(--semantic-private-accent) 7%, var(--pane-solid));
+  --semantic-warning-surface: color-mix(in srgb, var(--semantic-warning-accent) 7%, var(--pane-solid));
+  --semantic-autonomous-surface: color-mix(in srgb, var(--semantic-autonomous-accent) 7%, var(--pane-solid));
+  --semantic-work-text: color-mix(in srgb, var(--semantic-work-accent) 52%, var(--ink));
+  --semantic-ah-text: color-mix(in srgb, var(--semantic-ah-accent) 48%, var(--ink));
+  --semantic-us-text: color-mix(in srgb, var(--semantic-us-accent) 48%, var(--ink));
+  --semantic-ai-text: color-mix(in srgb, var(--semantic-ai-accent) 51%, var(--ink));
+  --semantic-support-text: color-mix(in srgb, var(--semantic-support-accent) 48%, var(--ink));
+  --semantic-private-text: color-mix(in srgb, var(--semantic-private-accent) 48%, var(--ink));
+  --semantic-warning-text: color-mix(in srgb, var(--semantic-warning-accent) 50%, var(--ink));
+  --semantic-autonomous-text: color-mix(in srgb, var(--semantic-autonomous-accent) 52%, var(--ink));
+  --semantic-card-ink: var(--ink);
+}
+
+:root[data-theme="light"] {
+  --semantic-work-surface: color-mix(in srgb, var(--semantic-work-accent) 6%, var(--pane-solid));
+  --semantic-ah-surface: color-mix(in srgb, var(--semantic-ah-accent) 6%, var(--pane-solid));
+  --semantic-us-surface: color-mix(in srgb, var(--semantic-us-accent) 6%, var(--pane-solid));
+  --semantic-ai-surface: color-mix(in srgb, var(--semantic-ai-accent) 6%, var(--pane-solid));
+  --semantic-support-surface: color-mix(in srgb, var(--semantic-support-accent) 6%, var(--pane-solid));
+  --semantic-private-surface: color-mix(in srgb, var(--semantic-private-accent) 7%, var(--pane-solid));
+  --semantic-warning-surface: color-mix(in srgb, var(--semantic-warning-accent) 7%, var(--pane-solid));
+  --semantic-autonomous-surface: color-mix(in srgb, var(--semantic-autonomous-accent) 7%, var(--pane-solid));
+  --semantic-work-text: color-mix(in srgb, var(--semantic-work-accent) 62%, var(--ink));
+  --semantic-ah-text: color-mix(in srgb, var(--semantic-ah-accent) 66%, var(--ink));
+  --semantic-us-text: color-mix(in srgb, var(--semantic-us-accent) 66%, var(--ink));
+  --semantic-ai-text: color-mix(in srgb, var(--semantic-ai-accent) 66%, var(--ink));
+  --semantic-support-text: color-mix(in srgb, var(--semantic-support-accent) 64%, var(--ink));
+  --semantic-private-text: color-mix(in srgb, var(--semantic-private-accent) 62%, var(--ink));
+  --semantic-warning-text: color-mix(in srgb, var(--semantic-warning-accent) 66%, var(--ink));
+  --semantic-autonomous-text: color-mix(in srgb, var(--semantic-autonomous-accent) 66%, var(--ink));
+  --semantic-card-ink: var(--ink);
+}
+
+h1 {
+  font-size: var(--type-display-home);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.section-mark {
+  font-size: var(--type-support-compact);
+  line-height: 1.4;
+}
+
+.thesis-line {
+  max-width: 68ch;
+  font-size: var(--type-home-support);
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.calendar-legend {
+  font-size: var(--type-support-compact);
+  line-height: 1.4;
+}
+
+.clock-label,
+.calendar-bgm-toggle,
+.theme-toggle,
+.state-sentence,
+.public-note,
+.maze-thread {
+  font-size: clamp(9.5px, 0.72vw, 10.5px);
+  line-height: 1.45;
+}
+
+.dialog-header h2 {
+  max-width: min(100%, 36ch);
+  font-size: var(--type-display-day);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.dialog-date,
+.dialog-variable,
+.dialog-mode-thesis,
+.dialog-boundary {
+  font-size: var(--type-support);
+  line-height: 1.5;
+}
+
+.dialog-mode-thesis,
+.dialog-boundary,
+.timeline-help {
+  text-wrap: pretty;
+}
+
+.timeline-detail > h3 {
+  font-size: var(--type-support);
+  line-height: 1.4;
+}
+
+.timeline-help {
+  font-size: var(--type-support-compact);
+  line-height: 1.5;
+}
+
+.event-reading-card {
+  --event-accent: var(--category-accent);
+  --category-edge: color-mix(in srgb, var(--category-accent) 34%, var(--ink-muted));
+  opacity: 1 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 32%, var(--hairline-strong)) !important;
+  background:
+    linear-gradient(
+      116deg,
+      color-mix(in srgb, var(--category-accent) 5%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(
+      138deg,
+      color-mix(in srgb, var(--edge-light) 8%, transparent),
+      transparent 32%
+    ),
+    var(--category-surface) !important;
+  color: var(--semantic-card-ink) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 32%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--page-bg) 18%, transparent),
+    0 5px 13px color-mix(in srgb, var(--page-bg) 31%, transparent) !important;
+}
+
+.event-reading-card[data-layer="climate"] {
+  z-index: 4 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 24%, var(--hairline-strong)) !important;
+  background:
+    linear-gradient(
+      116deg,
+      color-mix(in srgb, var(--category-accent) 1%, transparent),
+      transparent 51%
+    ),
+    color-mix(in srgb, var(--category-surface) 50%, var(--pane-solid)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 20%, transparent),
+    0 3px 8px color-mix(in srgb, var(--page-bg) 24%, transparent) !important;
+}
+
+.event-reading-card[data-layer="event"] {
+  border-color: color-mix(in srgb, var(--category-accent) 38%, var(--hairline-strong)) !important;
+  background:
+    linear-gradient(
+      116deg,
+      color-mix(in srgb, var(--category-accent) 3%, transparent),
+      transparent 50%
+    ),
+    var(--category-surface) !important;
+}
+
+.event-reading-card[data-layer="absence"] {
+  border-color: color-mix(in srgb, var(--category-accent) 38%, var(--ink-muted)) !important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 12%,
+      color-mix(in srgb, var(--category-accent) 6%, transparent) 12% 13%,
+      transparent 13%
+    ),
+    linear-gradient(
+      116deg,
+      color-mix(in srgb, var(--category-accent) 3%, transparent),
+      transparent 50%
+    ),
+    var(--category-surface) !important;
+  box-shadow:
+    inset 3px 0 0 color-mix(in srgb, var(--category-accent) 30%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 27%, transparent),
+    0 4px 11px color-mix(in srgb, var(--page-bg) 28%, transparent) !important;
+}
+
+.event-reading-card[data-layer="beacon"] {
+  border-color: color-mix(in srgb, var(--category-accent) 38%, var(--hairline-strong)) !important;
+  background:
+    radial-gradient(
+      circle at 84% 26%,
+      color-mix(in srgb, var(--cyan-trace) 3%, transparent),
+      transparent 43%
+    ),
+    linear-gradient(
+      116deg,
+      color-mix(in srgb, var(--category-accent) 4%, transparent),
+      transparent 51%
+    ),
+    var(--category-surface) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 36%, transparent),
+    0 6px 16px color-mix(in srgb, var(--page-bg) 34%, transparent) !important;
+}
+
+.event-reading-card:hover,
+.event-reading-card:focus-visible,
+.event-reading-card.is-selected,
+.event-reading-card[data-layer="climate"]:hover,
+.event-reading-card[data-layer="climate"]:focus-visible,
+.event-reading-card[data-layer="climate"].is-selected,
+.event-reading-card[data-layer="event"]:hover,
+.event-reading-card[data-layer="event"]:focus-visible,
+.event-reading-card[data-layer="event"].is-selected,
+.event-reading-card[data-layer="absence"]:hover,
+.event-reading-card[data-layer="absence"]:focus-visible,
+.event-reading-card[data-layer="absence"].is-selected,
+.event-reading-card[data-layer="beacon"]:hover,
+.event-reading-card[data-layer="beacon"]:focus-visible,
+.event-reading-card[data-layer="beacon"].is-selected {
+  z-index: 30 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 56%, var(--hairline-strong)) !important;
+  background:
+    linear-gradient(
+      116deg,
+      color-mix(in srgb, var(--category-accent) 11%, transparent),
+      transparent 52%
+    ),
+    color-mix(in srgb, var(--category-surface) 88%, var(--pane-solid)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 44%, transparent),
+    0 8px 20px color-mix(in srgb, var(--page-bg) 43%, transparent) !important;
+}
+
+.assigned-item.event-reading-card::before,
+.pulse-item .pulse-line {
+  background: var(--category-edge);
+}
+
+.assigned-item.event-reading-card::after,
+.pulse-item.event-reading-card::before {
+  background: color-mix(in srgb, var(--category-accent) 32%, var(--edge-light));
+}
+
+.assigned-item .assigned-work-type,
+.pulse-item .pulse-label,
+.autonomous-reading-card .autonomous-copy h4 {
+  color: var(--semantic-card-ink);
+}
+
+.assigned-item .assigned-type-icon,
+.assigned-item .assigned-time,
+.assigned-item .assigned-category,
+.pulse-item .pulse-time,
+.pulse-item .pulse-count,
+.pulse-item .pulse-duration,
+.autonomous-reading-card .autonomous-kicker,
+.autonomous-reading-card .autonomous-time,
+.autonomous-reading-card .autonomous-time small,
+.autonomous-work-link.event-reading-card > .autonomous-open-copy {
+  color: var(--category-text);
+}
+
+.pulse-item .pulse-summary,
+.assigned-item .assigned-copy,
+.autonomous-reading-card .autonomous-copy > p:last-child {
+  color: var(--semantic-card-ink);
+}
+
+.assigned-item .assigned-work-type {
+  font-size: var(--type-card-title-strong);
+  line-height: 1.28;
+}
+
+.assigned-item .assigned-copy {
+  font-size: var(--type-card-body);
+  line-height: 1.42;
+}
+
+.assigned-item .assigned-time {
+  font-size: var(--type-card-meta);
+  line-height: 1.35;
+}
+
+.assigned-item .assigned-category,
+.assigned-item .record-provenance,
+.assigned-item .redaction-badge {
+  font-size: max(8.5px, calc(var(--type-card-meta) - 0.5px));
+  line-height: 1.35;
+}
+
+.pulse-item .pulse-label {
+  font-size: var(--type-card-title);
+  line-height: 1.28;
+}
+
+.pulse-item .pulse-summary {
+  font-size: var(--type-card-body);
+  line-height: 1.38;
+}
+
+.pulse-item .pulse-time,
+.pulse-item .pulse-count,
+.pulse-item .pulse-duration {
+  font-size: var(--type-card-meta);
+  line-height: 1.25;
+}
+
+.autonomous-reading-card .autonomous-copy h4 {
+  font-size: var(--type-beacon-title);
+  line-height: 1.17;
+}
+
+.autonomous-reading-card .autonomous-copy > p:last-child {
+  font-size: var(--type-card-body);
+  line-height: 1.4;
+}
+
+.autonomous-reading-card .autonomous-time {
+  font-size: var(--type-card-meta);
+  line-height: 1.3;
+}
+
+.autonomous-reading-card .autonomous-time small,
+.autonomous-reading-card .autonomous-kicker,
+.autonomous-work-link.event-reading-card > .autonomous-open-copy {
+  font-size: max(8.5px, calc(var(--type-card-meta) - 0.5px));
+  line-height: 1.32;
+}
+
+.task-dialog-panel > h2 {
+  max-width: min(calc(100% - 86px), 32ch);
+  font-size: var(--type-display-task);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.task-detail-kicker,
+.task-detail-time,
+.task-detail-type,
+.task-detail-provenance,
+.task-detail-copy h3,
+.task-detail-occurrences > h3,
+.task-occurrence h4 {
+  font-size: var(--type-dialog-meta);
+  line-height: 1.5;
+}
+
+.task-detail-copy p {
+  font-size: var(--type-dialog-body);
+  line-height: 1.62;
+}
+
+.task-occurrence p {
+  font-size: var(--type-support-compact);
+  line-height: 1.5;
+}
+
+.inspection-lens {
+  border-color: color-mix(in srgb, var(--category-accent) 38%, rgba(255, 255, 255, 0.22));
+}
+
+.inspection-lens::before {
+  background:
+    linear-gradient(132deg, rgba(255, 255, 255, 0.1), transparent 23%),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--category-accent) 24%, transparent),
+      transparent 38%
+    );
+}
+
+.inspection-lens-material {
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      color-mix(in srgb, var(--category-accent) 10%, transparent),
+      transparent 35%
+    ),
+    #071016;
+}
+
+.inspection-lens-copy {
+  gap: 6px;
+  background:
+    linear-gradient(
+      104deg,
+      color-mix(in srgb, var(--category-accent) 7%, transparent),
+      transparent 53%
+    ),
+    rgba(7, 16, 22, 0.98);
+}
+
+.inspection-lens-kicker,
+.inspection-lens-time,
+.inspection-plate-marker,
+.inspection-plate-time {
+  font-size: var(--type-lens-meta);
+  line-height: 1.35;
+}
+
+.inspection-lens-title,
+.inspection-plate-title {
+  font-size: var(--type-display-lens);
+  line-height: 1.13;
+  text-wrap: pretty;
+}
+
+.inspection-lens-summary,
+.inspection-plate-summary {
+  font-size: var(--type-lens-body);
+  line-height: 1.5;
+}
+
+.inspection-typographic-plate {
+  gap: 10px;
+  background:
+    linear-gradient(
+      138deg,
+      color-mix(in srgb, var(--category-accent) 15%, transparent),
+      transparent 46%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 19px
+    ),
+    #071016;
+}
+
+@media (max-width: 720px) {
+  .dialog-header {
+    padding: 13px 12px 15px;
+  }
+
+  .dialog-header h2 {
+    font-size: var(--type-display-day);
+  }
+
+  .dialog-boundary {
+    display: none;
+  }
+
+  .calendar-bgm-toggle {
+    font-size: 9.5px;
+  }
+
+  .calendar-legend {
+    font-size: 9px;
+  }
+
+  .pulse-item .pulse-label {
+    font-size: 9.5px;
+    line-height: 1.15;
+  }
+
+  .pulse-item .pulse-summary {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .pulse-item .pulse-time,
+  .pulse-item .pulse-count,
+  .pulse-item .pulse-duration {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .task-dialog-panel > h2 {
+    font-size: var(--type-display-task);
+  }
+}
+
+@media (max-width: 430px) {
+  .section-mark {
+    font-size: 9.5px;
+  }
+
+  .calendar-legend {
+    font-size: 8.5px;
+  }
+
+  .weekday-cell {
+    font-size: 8px;
+  }
+}

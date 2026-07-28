@@ -33,6 +33,17 @@ function rangesOverlap(leftStart, leftEnd, rightStart, rightEnd, tolerance = 1) 
   return leftStart < rightEnd - tolerance && rightStart < leftEnd - tolerance;
 }
 
+async function installOfflineAutonomousTarget(context) {
+  await context.route(
+    "https://shengyu-meng.github.io/granted-hours/archive/**",
+    (route) => route.fulfill({
+      status: 200,
+      contentType: "text/html",
+      body: "<!doctype html><title>Offline autonomous target</title>",
+    }),
+  );
+}
+
 async function inspectComposition(page) {
   return page.evaluate(() => {
     const timeline = document.querySelector(".timeline-list");
@@ -185,6 +196,7 @@ try {
       hasTouch: viewport.touch,
       deviceScaleFactor: viewport.touch ? 2 : 1,
     });
+    await installOfflineAutonomousTarget(context);
     const page = await context.newPage();
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
