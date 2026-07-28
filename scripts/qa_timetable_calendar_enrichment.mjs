@@ -148,14 +148,16 @@ try {
   });
 
   await check("day schedule blocks expose readable work types, colors, and duration-proportional heights", async () => {
-    const result = await page.locator(".assigned-item").evaluateAll((items) => items.map((item) => {
+    const result = await page.locator(".assigned-event").evaluateAll((events) => events.map((event) => {
+      const item = document.querySelector(`.assigned-item[data-event-key="${CSS.escape(event.dataset.eventKey)}"]`);
       const style = getComputedStyle(item);
       return {
-        duration: Number(item.dataset.durationMinutes || 0),
+        duration: Number(event.dataset.durationMinutes || 0),
         provenance: item.dataset.timeProvenance,
         type: item.querySelector(".assigned-work-type")?.textContent?.trim() || "",
         icon: item.querySelector(".assigned-type-icon svg[data-lucide]")?.getAttribute("data-lucide") || "",
-        height: item.getBoundingClientRect().height,
+        footprintHeight: event.getBoundingClientRect().height,
+        cardHeight: item.getBoundingClientRect().height,
         accent: style.getPropertyValue("--task-accent").trim(),
       };
     }));
@@ -165,15 +167,19 @@ try {
       JSON.stringify(result),
     );
     assert.ok(result.every((item) => item.type.length >= 4 && item.icon && item.accent), JSON.stringify(result));
+    assert.ok(result.every((item) => item.cardHeight >= 48), JSON.stringify(result));
     const shortest = result.reduce((a, b) => a.duration < b.duration ? a : b);
     const longest = result.reduce((a, b) => a.duration > b.duration ? a : b);
-    assert.ok(longest.height > shortest.height * 1.2, JSON.stringify({ shortest, longest, result }));
+    assert.ok(
+      longest.footprintHeight > shortest.footprintHeight * 1.2,
+      JSON.stringify({ shortest, longest, result }),
+    );
     for (const longer of result) {
       for (const shorter of result) {
         if (longer.duration >= shorter.duration + 20) {
           assert.ok(
-            longer.height >= shorter.height,
-            `block height must follow duration rather than copy length: ${JSON.stringify({ longer, shorter, result })}`,
+            longer.footprintHeight >= shorter.footprintHeight,
+            `footprint height must follow duration rather than reading-card copy: ${JSON.stringify({ longer, shorter, result })}`,
           );
         }
       }
@@ -186,9 +192,9 @@ try {
       await durationPage.goto(baseUrl, { waitUntil: "networkidle" });
       await durationPage.tap('.calendar-day-button[data-date="2026-07-18"]');
       await durationPage.waitForSelector("#dayDialog.is-open");
-      const result = await durationPage.locator(".assigned-item").evaluateAll((items) => items.map((item) => ({
-        duration: Number(item.dataset.durationMinutes || 0),
-        height: item.getBoundingClientRect().height,
+      const result = await durationPage.locator(".assigned-event").evaluateAll((events) => events.map((event) => ({
+        duration: Number(event.dataset.durationMinutes || 0),
+        height: event.getBoundingClientRect().height,
       })));
       for (const longer of result) {
         for (const shorter of result) {

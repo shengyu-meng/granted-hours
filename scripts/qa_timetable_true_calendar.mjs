@@ -68,10 +68,12 @@ try {
     assert.ok(geometry.horizontalOverflow <= 1, `${viewport.label} horizontal overflow`);
 
     const autonomousAccessibility = await page.locator(".autonomous-event").evaluate((element) => ({
+      footprintHidden: element.getAttribute("aria-hidden"),
       eventName: element.getAttribute("aria-label"),
-      linkName: element.querySelector(".autonomous-work-link")?.getAttribute("aria-label"),
+      linkName: document.querySelector(".autonomous-work-link")?.getAttribute("aria-label"),
     }));
-    assert.match(autonomousAccessibility.eventName || "", /03:17-04:17, 60-minute autonomous event/);
+    assert.equal(autonomousAccessibility.footprintHidden, "true");
+    assert.equal(autonomousAccessibility.eventName, null);
     assert.match(autonomousAccessibility.linkName || "", /03:17-04:17, 60-minute autonomous event/);
 
     for (const event of geometry.events) {
@@ -93,9 +95,7 @@ try {
     }
 
     if (viewport.label === "desktop") {
-      const hoverTarget = page.locator(
-        ".pulse-event.is-last-lane.is-compact-event .pulse-item, .pulse-event.is-last-lane.is-micro-event .pulse-item",
-      ).first();
+      const hoverTarget = page.locator(".routine-reading-card").first();
       await hoverTarget.hover({ force: true });
       const expanded = await hoverTarget.evaluate((element) => {
         const rect = element.getBoundingClientRect();
@@ -106,12 +106,14 @@ try {
           viewportWidth: innerWidth,
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
           summaryDisplay: getComputedStyle(element.querySelector(".pulse-summary")).display,
+          transform: getComputedStyle(element).transform,
         };
       });
-      assert.ok(expanded.width >= 250 && expanded.height >= 70, JSON.stringify(expanded));
+      assert.ok(expanded.width >= 48 && expanded.height >= 48, JSON.stringify(expanded));
       assert.ok(expanded.right <= expanded.viewportWidth + 1, JSON.stringify(expanded));
       assert.ok(expanded.overflow <= 1, JSON.stringify(expanded));
       assert.notEqual(expanded.summaryDisplay, "none");
+      assert.notEqual(expanded.transform, "none");
       await page.mouse.move(0, 0);
     } else {
       const touchToggle = page.locator("#timelineTouchToggle");
@@ -138,8 +140,14 @@ try {
       assert.equal(await touchToggle.getAttribute("aria-expanded"), "false");
     }
 
-    const pulse = page.locator(".pulse-event").filter({ has: page.locator(".pulse-summary") }).first();
-    await pulse.locator(".pulse-item").click({ force: true });
+    const pulse = page.locator(".routine-reading-card").first();
+    if (viewport.label === "mobile") {
+      await pulse.tap();
+      assert.equal(await pulse.getAttribute("aria-expanded"), "true");
+      await pulse.tap();
+    } else {
+      await pulse.click({ force: true });
+    }
     await page.waitForSelector("#taskDialog.is-open");
     assert.ok(((await page.locator("#taskDetailZh").textContent()) || "").trim().length > 20);
     assert.ok(((await page.locator("#taskDetailEn").textContent()) || "").trim().length > 20);

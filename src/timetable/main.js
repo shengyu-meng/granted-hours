@@ -22,7 +22,12 @@ import Sun from "lucide/dist/esm/icons/sun.mjs";
 import Waypoints from "lucide/dist/esm/icons/waypoints.mjs";
 import createLucideElement from "lucide/dist/esm/createElement.mjs";
 import { timetableData } from "./timetable-data.js";
-import { layoutTimelineEvents, positionTimelineElement, timeToMinutes } from "./timeline-layout.js";
+import {
+  layoutTimelineEvents,
+  layoutTimelineReadingCards,
+  positionTimelineElement,
+  timeToMinutes,
+} from "./timeline-layout.js";
 
 const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
@@ -89,6 +94,10 @@ const state = {
   taskDetailOpen: false,
   taskDetailLastFocus: null,
   taskDetailScrollTop: 0,
+  selectedReadingCard: null,
+  linkedReadingCard: null,
+  hoveredReadingCard: null,
+  linkedFocusSuppressedCard: null,
   calendarBgmIndex: 0,
   calendarBgmPlaying: false,
   calendarBgmUserActivated: false,
@@ -97,6 +106,7 @@ const state = {
   theme: document.documentElement.dataset.theme === "light" ? "light" : "dark",
   reducedMotion: window.matchMedia(REDUCED_MOTION_QUERY).matches,
 };
+let timelinePlacementFrame = 0;
 
 function init() {
   cacheElements();
@@ -122,6 +132,8 @@ function init() {
   setupCalendarBgm();
 
   document.addEventListener("keydown", handleDocumentKeydown);
+  document.addEventListener("pointerdown", handleDocumentPointerdown);
+  window.addEventListener("resize", scheduleTimelineReadingPlacement);
   window.setInterval(renderTimeState, 1000);
 }
 
@@ -492,6 +504,7 @@ function openDayDetail(date) {
 
 function closeDayDetail() {
   if (state.taskDetailOpen) closeTaskDetail({ restoreFocus: false });
+  clearSelectedReadingCard({ clearLinked: true });
   state.detailOpen = false;
   els.dayDialog.classList.remove("is-open");
   els.dayDialog.hidden = true;
@@ -506,6 +519,7 @@ function closeDayDetail() {
 }
 
 function renderDayDetail(day) {
+  clearSelectedReadingCard({ clearLinked: true });
   els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
@@ -517,22 +531,180 @@ function renderDayDetail(day) {
   appendTimelineHourMarkers(els.timelineList);
   const eventsLayer = document.createElement("div");
   eventsLayer.className = "timeline-events-layer";
-  eventsLayer.setAttribute("role", "list");
+  eventsLayer.setAttribute("aria-hidden", "true");
   els.timelineList.append(eventsLayer);
+  const connectorLayer = document.createElement("div");
+  connectorLayer.className = "timeline-connector-layer";
+  connectorLayer.setAttribute("aria-hidden", "true");
+  els.timelineList.append(connectorLayer);
+  const readingLayer = document.createElement("div");
+  readingLayer.className = "timeline-reading-layer";
+  readingLayer.setAttribute("role", "group");
+  readingLayer.setAttribute("aria-label", "Readable event composition / 可读事件构成");
+  els.timelineList.append(readingLayer);
   const layouts = layoutTimelineEvents(day.timeline_events);
   renderTimelineTouchGroups(day, layouts);
   layouts.forEach((layout) => {
     const { event } = layout;
-    let element = null;
+    let composition = null;
     if (event.origin === "assigned") {
-      element = buildAssignedTimelineEvent(event);
+      composition = buildAssignedTimelineEvent(event);
     } else if (event.origin === "self") {
-      element = buildAutonomousTimelineEvent(day, event);
+      composition = buildAutonomousTimelineEvent(day, event);
     } else if (event.origin === "background") {
-      element = buildPulseTimelineEvent(event);
+      composition = buildPulseTimelineEvent(event);
     }
-    if (element) eventsLayer.append(positionTimelineElement(element, layout));
+    if (!composition) return;
+    const eventKey = timelineEventKey(layout);
+    composition.footprint.dataset.eventKey = eventKey;
+    composition.card.dataset.eventKey = eventKey;
+    composition.card.dataset.start = event.start;
+    composition.card.dataset.end = event.end;
+    composition.card.dataset.startMinute = String(layout.startMinute);
+    composition.card.dataset.sourceIndex = String(layout.sourceIndex);
+    composition.card.dataset.origin = event.origin;
+    composition.card.dataset.compositionSeed = [
+      event.origin,
+      event.category || event.task_type || event.label_en || "",
+      event.start,
+      event.end,
+      layout.sourceIndex,
+    ].join(":");
+    if (event.origin === "background") {
+      composition.card.dataset.pulseCategory = event.category;
+    }
+    eventsLayer.append(positionTimelineElement(composition.footprint, layout));
+    const connector = document.createElement("span");
+    connector.className = "event-connector";
+    connector.dataset.eventKey = eventKey;
+    connectorLayer.append(connector);
+    readingLayer.append(composition.card);
   });
+  scheduleTimelineReadingPlacement();
+}
+
+function timelineEventKey(layout) {
+  return [
+    layout.sourceIndex,
+    layout.event.origin,
+    layout.event.start,
+    layout.event.end,
+  ].join("-");
+}
+
+function compositionHash(value) {
+  let hash = 2166136261;
+  for (const character of String(value || "")) {
+    hash ^= character.codePointAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function readingCardHeight(card, minuteHeight) {
+  if (card.dataset.origin === "self") return Math.max(144, minuteHeight * 60 + 48);
+  if (card.dataset.origin === "assigned") return 96;
+  return 66;
+}
+
+function scheduleTimelineReadingPlacement() {
+  if (timelinePlacementFrame) cancelAnimationFrame(timelinePlacementFrame);
+  timelinePlacementFrame = requestAnimationFrame(() => {
+    timelinePlacementFrame = 0;
+    placeTimelineReadingCards();
+  });
+}
+
+function placeTimelineReadingCards() {
+  const timeline = els.timelineList;
+  const eventsLayer = timeline?.querySelector(".timeline-events-layer");
+  const readingLayer = timeline?.querySelector(".timeline-reading-layer");
+  const connectorLayer = timeline?.querySelector(".timeline-connector-layer");
+  if (!timeline || !eventsLayer || !readingLayer || !connectorLayer || timeline.offsetParent === null) return;
+
+  timeline.style.removeProperty("--minute-height");
+  readingLayer.classList.remove("is-placed");
+  const canvasWidth = readingLayer.getBoundingClientRect().width;
+  if (canvasWidth <= 0) return;
+  const columnCount = canvasWidth >= 560 ? 4 : 3;
+  const columnGap = canvasWidth >= 560 ? 7 : 4;
+  const rowGap = 4;
+  const cards = [...readingLayer.querySelectorAll(".event-reading-card")];
+  let minuteHeight = Number.parseFloat(getComputedStyle(timeline).getPropertyValue("--minute-height"));
+  let result = null;
+
+  for (let pass = 0; pass < 6; pass += 1) {
+    timeline.style.setProperty("--minute-height", `${minuteHeight}px`);
+    const canvasHeight = MINUTES_PER_DAY * minuteHeight;
+    const items = cards.map((card) => {
+      const columnSpan = card.dataset.origin === "background"
+        ? 1
+        : Math.min(2, columnCount);
+      const maximumColumn = columnCount - columnSpan;
+      const preferredColumn = maximumColumn > 0
+        ? compositionHash(card.dataset.compositionSeed) % (maximumColumn + 1)
+        : 0;
+      const height = readingCardHeight(card, minuteHeight);
+      card.style.setProperty("--reading-card-height", `${height}px`);
+      return {
+        key: card.dataset.eventKey,
+        startMinute: Number(card.dataset.startMinute),
+        sourceIndex: Number(card.dataset.sourceIndex),
+        preferredColumn,
+        columnSpan,
+        height,
+      };
+    });
+    result = layoutTimelineReadingCards(items, {
+      columnCount,
+      columnGap,
+      rowGap,
+      canvasWidth,
+      canvasHeight,
+      minuteHeight,
+      edgePadding: 4,
+    });
+    if (result.requiredHeight <= canvasHeight + 0.5) break;
+    minuteHeight = Math.ceil((result.requiredHeight / MINUTES_PER_DAY + 0.04) * 1000) / 1000;
+  }
+
+  const placementByKey = new Map(result.cards.map((placement) => [placement.key, placement]));
+  for (const card of cards) {
+    const placement = placementByKey.get(card.dataset.eventKey);
+    if (!placement) continue;
+    card.style.left = `${placement.left}px`;
+    card.style.top = `${placement.top}px`;
+    card.style.width = `${placement.width}px`;
+    card.style.height = `${placement.height}px`;
+    card.dataset.readingColumn = String(placement.column);
+    card.dataset.readingColumnSpan = String(placement.columnSpan);
+    const isAutonomous = card.dataset.origin === "self";
+    card.classList.toggle("is-narrow-reading-card", isAutonomous && placement.width < 270);
+    card.classList.toggle("is-very-narrow-reading-card", isAutonomous && placement.width < 210);
+  }
+
+  const layerRect = readingLayer.getBoundingClientRect();
+  for (const connector of connectorLayer.querySelectorAll(".event-connector")) {
+    const eventKey = connector.dataset.eventKey;
+    const footprint = eventsLayer.querySelector(`.timeline-event[data-event-key="${CSS.escape(eventKey)}"]`);
+    const card = readingLayer.querySelector(`.event-reading-card[data-event-key="${CSS.escape(eventKey)}"]`);
+    if (!footprint || !card) continue;
+    const footprintRect = footprint.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const startX = footprintRect.left - layerRect.left + Math.min(Math.max(footprintRect.width * 0.5, 3), 18);
+    const startY = footprintRect.top - layerRect.top + Math.max(1, Math.min(footprintRect.height * 0.5, 10));
+    const endX = cardRect.left - layerRect.left + Math.min(12, cardRect.width * 0.25);
+    const endY = cardRect.top - layerRect.top + Math.min(10, cardRect.height * 0.22);
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+    const length = Math.max(8, Math.hypot(deltaX, deltaY));
+    connector.style.left = `${startX}px`;
+    connector.style.top = `${startY}px`;
+    connector.style.width = `${length}px`;
+    connector.style.transform = `rotate(${Math.atan2(deltaY, deltaX)}rad)`;
+  }
+  readingLayer.classList.add("is-placed");
+  connectorLayer.classList.add("is-placed");
 }
 
 function toggleTimelineTouchGroups() {
@@ -614,14 +786,32 @@ function appendTimelineHourMarkers(list) {
   list.append(fragment);
 }
 
+function buildEventFootprint(origin, label) {
+  const footprint = document.createElement("span");
+  footprint.className = "event-footprint";
+  footprint.setAttribute("aria-hidden", "true");
+  footprint.innerHTML = `
+    <span class="footprint-rule"></span>
+    <span class="footprint-registration"></span>
+    <span class="sr-only">${escapeHtml(label)}</span>
+  `;
+  footprint.dataset.origin = origin;
+  return footprint;
+}
+
 function buildAssignedTimelineEvent(task) {
   const item = document.createElement("article");
   item.className = "timeline-event assigned-event";
-  item.setAttribute("role", "listitem");
+  item.setAttribute("aria-hidden", "true");
   item.dataset.start = task.start;
+  item.style.setProperty("--task-accent", taskAccent(task.task_color));
+  item.append(buildEventFootprint(
+    "assigned",
+    `${task.start}-${task.end}, ${task.task_type_en} / ${task.task_type_zh}`,
+  ));
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "assigned-item";
+  button.className = "assigned-item event-reading-card assigned-reading-card";
   button.dataset.durationMinutes = String(task.duration_minutes);
   button.dataset.timeProvenance = task.time_provenance;
   button.dataset.taskType = task.task_type;
@@ -640,21 +830,20 @@ function buildAssignedTimelineEvent(task) {
       </span>
       <span class="assigned-type">
         <span class="assigned-type-icon"></span>
-        <strong class="assigned-work-type">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</strong>
+        <strong class="assigned-work-type reading-title">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</strong>
       </span>
       <span class="assigned-secondary">
         <span class="assigned-category">${escapeHtml(task.label_zh)} / ${escapeHtml(task.label_en)}</span>
         <span class="record-provenance">真实记录摘要 / FAITHFUL RECORD SUMMARY</span>
       </span>
-      <span class="assigned-copy"><span class="copy-zh">${escapeHtml(task.zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.en)}</span></span>
+      <span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(task.zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.en)}</span></span>
       ${task.redaction_status !== "none"
         ? `<span class="redaction-badge">${task.redaction_status === "withheld" ? "记录未公开 / RECORD WITHHELD" : `部分打码 ${task.redaction_count} / ${task.redaction_count} REDACTION${task.redaction_count === 1 ? "" : "S"}`}</span>`
         : ""}
-    `;
+  `;
   const iconSlot = button.querySelector(".assigned-type-icon");
   iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));
-  button.addEventListener("click", () => openTaskDetail(task, button));
-  item.append(button);
+  setupReadingCardActivation(button, () => openTaskDetail(task, button));
   requestAnimationFrame(() => {
     const copy = button.querySelector(".assigned-copy");
     const measurement = copy.cloneNode(true);
@@ -678,33 +867,44 @@ function buildAssignedTimelineEvent(task) {
     measurement.remove();
     copy.classList.toggle("is-clamped", isClamped);
   });
-  return item;
+  return { footprint: item, card: button };
 }
 
 function buildAutonomousTimelineEvent(day, self) {
   const item = document.createElement("article");
   item.className = "timeline-event autonomous-event";
-  item.setAttribute("role", "listitem");
-  item.setAttribute("aria-label", autonomousAccessibleName(self));
+  item.setAttribute("aria-hidden", "true");
   item.dataset.start = self.start;
+  item.append(buildEventFootprint("self", autonomousAccessibleName(self)));
   const directLiveUrl = autonomousLiveUrl(day, self);
-  item.innerHTML = `
+  const link = document.createElement("a");
+  link.className = "autonomous-work-link event-reading-card autonomous-reading-card";
+  link.id = "enterAutonomous";
+  link.href = directLiveUrl;
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.setAttribute(
+    "aria-label",
+    `${autonomousAccessibleName(self)}. Open complete live work / 新窗口打开完整作品`,
+  );
+  link.innerHTML = `
     <div class="autonomous-time">
       <span>${self.start}-${self.end}</span>
       <small>60 min · autonomous / 自主</small>
     </div>
     <div class="autonomous-copy">
       <p class="autonomous-kicker">${escapeHtml(self.label_zh)} / ${escapeHtml(self.label_en)}</p>
-      <h4>${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
-      <p>${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
+      <h4 class="reading-title">${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
+      <p class="reading-summary">${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
     </div>
-    <a class="autonomous-work-link" id="enterAutonomous" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="${escapeHtml(autonomousAccessibleName(self))}. Open complete live work / 新窗口打开完整作品">
+    <span class="autonomous-preview-frame">
       <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(preferredVisualPreviewUrl(self.visual_preview_url)))}" data-animated-preview-url="${escapeHtml(self.visual_preview_url)}" data-static-preview-url="${escapeHtml(staticVisualPreviewUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
-      <span>Open complete live work ↗ / 新窗口打开完整作品</span>
-    </a>
+    </span>
+    <span class="autonomous-open-copy">Open complete live work ↗ / 新窗口打开完整作品</span>
   `;
-  applyVisualPreviewSource(item.querySelector("#selfPreview"));
-  return item;
+  applyVisualPreviewSource(link.querySelector("#selfPreview"));
+  setupReadingCardActivation(link);
+  return { footprint: item, card: link };
 }
 
 function autonomousAccessibleName(self) {
@@ -721,13 +921,18 @@ function autonomousLiveUrl(day, self) {
 function buildPulseTimelineEvent(pulse) {
   const item = document.createElement("article");
   item.className = "timeline-event pulse-event";
-  item.setAttribute("role", "listitem");
+  item.setAttribute("aria-hidden", "true");
   item.dataset.start = pulse.start;
   item.dataset.pulseCategory = pulse.category;
   item.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
+  item.append(buildEventFootprint(
+    "background",
+    `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}`,
+  ));
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "pulse-item";
+  button.className = "pulse-item event-reading-card routine-reading-card";
+  button.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
   button.setAttribute(
     "aria-label",
     `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
@@ -735,13 +940,148 @@ function buildPulseTimelineEvent(pulse) {
   button.innerHTML = `
     <span class="pulse-time">${pulse.start}-${pulse.end}</span>
     <span class="pulse-line" aria-hidden="true"></span>
-    <span class="pulse-heading"><span class="pulse-label">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${pulse.count}</span></span>
+    <span class="pulse-heading"><span class="pulse-label reading-title">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${pulse.count}</span></span>
     <span class="pulse-duration">窗口 ${pulse.duration_minutes} min · 执行 ${pulse.execution_minutes} min</span>
-    <span class="pulse-summary"><span>${escapeHtml(pulse.summary_zh)}</span><span>${escapeHtml(pulse.summary_en)}</span></span>
+    <span class="pulse-summary reading-summary"><span>${escapeHtml(pulse.summary_zh)}</span><span>${escapeHtml(pulse.summary_en)}</span></span>
   `;
-  button.addEventListener("click", () => openTaskDetail(pulse, button));
-  item.append(button);
-  return item;
+  setupReadingCardActivation(button, () => openTaskDetail(pulse, button));
+  return { footprint: item, card: button };
+}
+
+function setupReadingCardActivation(card, activate) {
+  const accessibleName = card.getAttribute("aria-label") || "";
+  let activationPointerType = "";
+  card.dataset.accessibleName = accessibleName;
+  card.setAttribute("aria-expanded", "false");
+  card.addEventListener("pointerdown", (event) => {
+    activationPointerType = event.pointerType;
+  });
+  card.addEventListener("pointercancel", () => {
+    activationPointerType = "";
+  });
+  card.addEventListener("pointerenter", (event) => {
+    if (
+      event.pointerType !== "mouse"
+      || !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) return;
+    state.linkedFocusSuppressedCard = null;
+    state.hoveredReadingCard = card;
+    syncLinkedReadingCard();
+  });
+  card.addEventListener("pointerleave", (event) => {
+    if (
+      event.pointerType !== "mouse"
+      || !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) return;
+    if (state.hoveredReadingCard === card) state.hoveredReadingCard = null;
+    syncLinkedReadingCard();
+  });
+  card.addEventListener("focus", () => {
+    state.linkedFocusSuppressedCard = null;
+    setLinkedReadingCard(card);
+  });
+  card.addEventListener("blur", () => {
+    requestAnimationFrame(syncLinkedReadingCard);
+  });
+  card.addEventListener("click", (event) => {
+    const pointerType = activationPointerType;
+    activationPointerType = "";
+    const isCoarseActivation = event.detail > 0
+      && (pointerType === "touch" || pointerType === "pen");
+    if (isCoarseActivation && state.selectedReadingCard !== card) {
+      event.preventDefault();
+      event.stopPropagation();
+      selectReadingCard(card);
+      return;
+    }
+    clearSelectedReadingCard({ clearLinked: true });
+    if (typeof activate === "function") {
+      event.preventDefault();
+      activate();
+    }
+  });
+}
+
+function selectReadingCard(card) {
+  if (state.selectedReadingCard === card) return;
+  clearSelectedReadingCard({ clearLinked: true });
+  state.linkedFocusSuppressedCard = null;
+  state.selectedReadingCard = card;
+  card.classList.add("is-selected");
+  card.setAttribute("aria-expanded", "true");
+  const accessibleName = card.dataset.accessibleName || card.getAttribute("aria-label") || "";
+  card.setAttribute(
+    "aria-label",
+    `${accessibleName}. Selected; tap again to open / 已选中；再次轻触打开`,
+  );
+  setLinkedReadingCard(card);
+}
+
+function setLinkedReadingCard(card) {
+  if (!card?.isConnected || state.linkedReadingCard === card) return;
+  clearLinkedReadingCard();
+  state.linkedReadingCard = card;
+  card.classList.add("is-linked-active");
+  const timeline = card.closest(".timeline-list");
+  const eventKey = card.dataset.eventKey;
+  if (!timeline || !eventKey) return;
+  const escapedKey = CSS.escape(eventKey);
+  const footprintEvent = timeline.querySelector(`.timeline-event[data-event-key="${escapedKey}"]`);
+  const connector = timeline.querySelector(`.event-connector[data-event-key="${escapedKey}"]`);
+  footprintEvent?.classList.add("is-linked-active");
+  footprintEvent?.querySelector(".event-footprint")?.classList.add("is-linked-active");
+  connector?.classList.add("is-linked-active");
+}
+
+function clearLinkedReadingCard() {
+  state.linkedReadingCard?.classList.remove("is-linked-active");
+  for (const linked of els.timelineList?.querySelectorAll(".is-linked-active") || []) {
+    linked.classList.remove("is-linked-active");
+  }
+  state.linkedReadingCard = null;
+}
+
+function syncLinkedReadingCard() {
+  const activeCard = document.activeElement instanceof Element
+    ? document.activeElement.closest(".event-reading-card")
+    : null;
+  const focusedCard = activeCard === state.linkedFocusSuppressedCard ? null : activeCard;
+  const nextCard = focusedCard?.isConnected
+    ? focusedCard
+    : state.hoveredReadingCard?.isConnected
+      ? state.hoveredReadingCard
+      : state.selectedReadingCard?.isConnected
+        ? state.selectedReadingCard
+        : null;
+  if (nextCard) {
+    setLinkedReadingCard(nextCard);
+  } else {
+    clearLinkedReadingCard();
+  }
+}
+
+function clearSelectedReadingCard({ clearLinked = false } = {}) {
+  const selected = state.selectedReadingCard;
+  if (selected) {
+    selected.classList.remove("is-selected");
+    selected.setAttribute("aria-expanded", "false");
+    if (selected.dataset.accessibleName) {
+      selected.setAttribute("aria-label", selected.dataset.accessibleName);
+    }
+    state.selectedReadingCard = null;
+  }
+  if (clearLinked) clearLinkedReadingCard();
+}
+
+function handleDocumentPointerdown(event) {
+  if (!state.selectedReadingCard) return;
+  if (event.target instanceof Element && event.target.closest(".event-reading-card")) return;
+  state.hoveredReadingCard = null;
+  state.linkedFocusSuppressedCard = state.selectedReadingCard;
+  if (document.activeElement === state.selectedReadingCard) {
+    state.selectedReadingCard.blur();
+  }
+  clearSelectedReadingCard({ clearLinked: true });
 }
 
 function updateAdjacentDayControls(date) {

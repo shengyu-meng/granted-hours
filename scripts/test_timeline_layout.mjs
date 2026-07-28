@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { layoutTimelineEvents, timeToMinutes } from "../src/timetable/timeline-layout.js";
+import {
+  layoutTimelineEvents,
+  layoutTimelineReadingCards,
+  timeToMinutes,
+} from "../src/timetable/timeline-layout.js";
 
 assert.equal(timeToMinutes("00:00"), 0);
 assert.equal(timeToMinutes("03:17"), 197);
@@ -40,4 +44,37 @@ assert.throws(
   /Invalid event window/,
 );
 
-console.log(JSON.stringify({ passed: true, cases: 4 }));
+const readingItems = [
+  { key: "early-wide", startMinute: 30, height: 112, preferredColumn: 0, columnSpan: 2 },
+  { key: "routine-a", startMinute: 35, height: 48, preferredColumn: 0, columnSpan: 1 },
+  { key: "routine-b", startMinute: 35, height: 48, preferredColumn: 1, columnSpan: 1 },
+  { key: "late", startMinute: 1439, height: 48, preferredColumn: 1, columnSpan: 1 },
+];
+const readingOptions = {
+  columnCount: 2,
+  columnGap: 6,
+  rowGap: 4,
+  canvasWidth: 400,
+  canvasHeight: 1440,
+  minuteHeight: 1,
+  edgePadding: 4,
+};
+const firstReadingLayout = layoutTimelineReadingCards(readingItems, readingOptions);
+const secondReadingLayout = layoutTimelineReadingCards(readingItems, readingOptions);
+assert.deepEqual(firstReadingLayout, secondReadingLayout, "reading placement must be deterministic");
+for (const card of firstReadingLayout.cards) {
+  assert.ok(card.top >= 4);
+  assert.ok(card.bottom <= 1440);
+}
+for (let leftIndex = 0; leftIndex < firstReadingLayout.cards.length; leftIndex += 1) {
+  for (let rightIndex = leftIndex + 1; rightIndex < firstReadingLayout.cards.length; rightIndex += 1) {
+    const left = firstReadingLayout.cards[leftIndex];
+    const right = firstReadingLayout.cards[rightIndex];
+    const horizontalOverlap = left.left < right.left + right.width
+      && right.left < left.left + left.width;
+    const verticalOverlap = left.top < right.bottom && right.top < left.bottom;
+    assert.ok(!(horizontalOverlap && verticalOverlap), JSON.stringify({ left, right }));
+  }
+}
+
+console.log(JSON.stringify({ passed: true, cases: 5 }));

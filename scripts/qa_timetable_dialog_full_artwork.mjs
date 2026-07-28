@@ -71,9 +71,9 @@ try {
     return {
       src: image.currentSrc || image.src,
       alt: image.alt,
-      parentTag: image.parentElement?.tagName,
-      target: image.parentElement?.target,
-      href: image.parentElement?.href,
+      parentTag: image.closest("a")?.tagName,
+      target: image.closest("a")?.target,
+      href: image.closest("a")?.href,
     };
   });
   assert.match(preview.src, /visual-preview\.gif$/);

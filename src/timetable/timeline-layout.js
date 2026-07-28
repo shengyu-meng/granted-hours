@@ -102,4 +102,80 @@ export function positionTimelineElement(element, layout) {
   return element;
 }
 
+function readingRangesOverlap(left, right) {
+  return left.column < right.column + right.columnSpan
+    && right.column < left.column + left.columnSpan;
+}
+
+export function layoutTimelineReadingCards(items, options) {
+  const columnCount = Math.max(1, Number(options.columnCount) || 1);
+  const columnGap = Math.max(0, Number(options.columnGap) || 0);
+  const rowGap = Math.max(0, Number(options.rowGap) || 0);
+  const canvasWidth = Math.max(1, Number(options.canvasWidth) || 1);
+  const canvasHeight = Math.max(1, Number(options.canvasHeight) || MINUTES_PER_DAY);
+  const minuteHeight = Math.max(0.01, Number(options.minuteHeight) || 1);
+  const edgePadding = Math.max(0, Number(options.edgePadding) || 0);
+  const columnWidth = (canvasWidth - columnGap * (columnCount - 1)) / columnCount;
+  const placed = [];
+
+  for (const item of items) {
+    const columnSpan = Math.max(1, Math.min(columnCount, Number(item.columnSpan) || 1));
+    const maximumColumn = columnCount - columnSpan;
+    const preferredColumn = Math.max(0, Math.min(maximumColumn, Number(item.preferredColumn) || 0));
+    const height = Math.max(1, Number(item.height) || 1);
+    const desiredTop = Math.max(
+      edgePadding,
+      Math.min(Number(item.startMinute) * minuteHeight, canvasHeight - height - edgePadding),
+    );
+    let best = null;
+
+    for (let column = 0; column <= maximumColumn; column += 1) {
+      const candidateRange = { column, columnSpan };
+      let top = desiredTop;
+      for (const existing of placed) {
+        if (!readingRangesOverlap(candidateRange, existing)) continue;
+        if (existing.bottom + rowGap > top) top = existing.bottom + rowGap;
+      }
+      const candidate = {
+        column,
+        columnSpan,
+        top,
+        preferenceDistance: Math.abs(column - preferredColumn),
+      };
+      if (
+        !best
+        || candidate.top < best.top
+        || (
+          candidate.top === best.top
+          && candidate.preferenceDistance < best.preferenceDistance
+        )
+        || (
+          candidate.top === best.top
+          && candidate.preferenceDistance === best.preferenceDistance
+          && candidate.column < best.column
+        )
+      ) {
+        best = candidate;
+      }
+    }
+
+    const result = {
+      ...item,
+      column: best.column,
+      columnSpan: best.columnSpan,
+      top: best.top,
+      bottom: best.top + height,
+      left: best.column * (columnWidth + columnGap),
+      width: columnWidth * best.columnSpan + columnGap * (best.columnSpan - 1),
+      height,
+    };
+    placed.push(result);
+  }
+
+  return {
+    cards: placed,
+    requiredHeight: placed.reduce((maximum, item) => Math.max(maximum, item.bottom + edgePadding), 0),
+  };
+}
+
 export { MINUTES_PER_DAY };

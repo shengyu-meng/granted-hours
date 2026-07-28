@@ -30,9 +30,9 @@ try {
   assert.ok(await page.locator(".pulse-event").count() > 0);
   assert.ok(await page.locator(".assigned-item").count() > 0);
   assert.equal(
-    await page.locator(".pulse-event button").count(),
+    await page.locator(".routine-reading-card").count(),
     await page.locator(".pulse-event").count(),
-    "every routine block must expose its date-specific report detail",
+    "every exact routine footprint must have a date-specific reading card",
   );
   const timelineTimes = await page.locator(".timeline-event").evaluateAll((events) =>
     events.map((event) => event.dataset.start),
@@ -45,14 +45,14 @@ try {
   assert.match(preview.src, /visual-preview\.gif$/);
   assert.ok(preview.width > 0 && preview.height > 0, JSON.stringify(preview));
 
-  const firstPulse = page.locator(".pulse-event").first();
+  const firstPulse = page.locator(".routine-reading-card").first();
   const pulseStart = await firstPulse.getAttribute("data-start");
   const pulseCategory = await firstPulse.getAttribute("data-pulse-category");
   const pulseEvidence = days.at(-1).background_pulses.find(
     (pulse) => pulse.start === pulseStart && pulse.category === pulseCategory,
   );
   assert.ok(pulseEvidence, `${pulseStart} ${pulseCategory}`);
-  await firstPulse.locator(".pulse-item").click({ force: true });
+  await firstPulse.click({ force: true });
   await page.waitForSelector("#taskDialog.is-open");
   assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), pulseEvidence.summary_zh);
   assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), pulseEvidence.summary_en);
@@ -138,6 +138,9 @@ try {
       await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth <= 1),
       `${viewport.label} horizontal overflow`,
     );
+    await mobile.locator(".assigned-item").first().tap();
+    assert.equal(await mobile.locator(".assigned-item").first().getAttribute("aria-expanded"), "true");
+    assert.equal(await mobile.locator("#taskDialog").getAttribute("hidden"), "");
     await mobile.locator(".assigned-item").first().tap();
     await mobile.waitForSelector("#taskDialog.is-open");
     const bounds = await mobile.locator("#taskDialogPanel").boundingBox();
