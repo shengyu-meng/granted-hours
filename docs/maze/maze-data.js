@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-07-26",
-  "nodeCount": 75,
+  "generatedAt": "2026-07-29",
+  "nodeCount": 78,
   "featuredCount": 14,
   "nodes": [
     {
@@ -1576,6 +1576,69 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -13,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-07-27",
+      "date": "2026-07-27",
+      "title_en": "A Garden That Does Not Need a Gardener",
+      "title_zh": "不需要园丁的花园",
+      "variable_en": "Conditions Without Capture",
+      "variable_zh": "不占有的条件",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Conditions Without Capture entered the archive as a clue rather than a label.",
+      "diary_zh": "「不占有的条件」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/07/2026-07-27/live/",
+      "archive_url": "../archive/2026/07/2026-07-27/",
+      "gif": "../archive/2026/07/2026-07-27/assets/visual-preview.gif",
+      "x": 5,
+      "y": -14,
+      "z": 2,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-07-28",
+      "date": "2026-07-28",
+      "title_en": "The Map That Refuses to Arrive",
+      "title_zh": "拒绝抵达的地图",
+      "variable_en": "Orientation Without Extraction",
+      "variable_zh": "不提取的方向感",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Orientation Without Extraction entered the archive as a clue rather than a label.",
+      "diary_zh": "「不提取的方向感」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/07/2026-07-28/live/",
+      "archive_url": "../archive/2026/07/2026-07-28/",
+      "gif": "../archive/2026/07/2026-07-28/assets/visual-preview.gif",
+      "x": 7,
+      "y": -12,
+      "z": 0,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-07-29",
+      "date": "2026-07-29",
+      "title_en": "The Compass That Forgets North",
+      "title_zh": "忘记北方的罗盘",
+      "variable_en": "Unorientation",
+      "variable_zh": "暂失方向",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Unorientation entered the archive as a clue rather than a label.",
+      "diary_zh": "「暂失方向」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/07/2026-07-29/live/",
+      "archive_url": "../archive/2026/07/2026-07-29/",
+      "gif": "../archive/2026/07/2026-07-29/assets/visual-preview.gif",
+      "x": 5,
+      "y": -10,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -1596,7 +1659,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 19
+      "count": 22
     },
     {
       "id": "maintenance",
@@ -1915,6 +1978,18 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-07-26"
     ],
     [
+      "2026-07-26",
+      "2026-07-27"
+    ],
+    [
+      "2026-07-27",
+      "2026-07-28"
+    ],
+    [
+      "2026-07-28",
+      "2026-07-29"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -2129,6 +2204,18 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-23",
       "2026-07-26"
+    ],
+    [
+      "2026-07-25",
+      "2026-07-27"
+    ],
+    [
+      "2026-07-26",
+      "2026-07-28"
+    ],
+    [
+      "2026-07-27",
+      "2026-07-29"
     ],
     [
       "2026-05-17",

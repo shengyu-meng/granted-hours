@@ -104,7 +104,7 @@ try {
     });
   }
 
-  assert.equal(inventory.length, 75, "public GIF corpus must contain exactly 75 days");
+  assert.equal(inventory.length, 78, "public GIF corpus must contain exactly 78 days");
   assert.equal(inventory.length, timetableData.days.length);
   assert.equal(new Set(inventory.map((entry) => entry.date)).size, timetableData.days.length);
 

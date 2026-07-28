@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_TIMETABLE_FULL_VIEW = params.get('from') === 'timetable';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.appendChild(btn);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Map That Refuses to Arrive / 拒绝抵达的地图</title>
+<style>
+  :root { --ink:#e7e0cd; --paper:#0a0d12; --mist:#77879a; --amber:#ffc86e; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:var(--paper); color:var(--ink); font-family:ui-serif, Georgia, serif; overflow:hidden; }
+  canvas { position:fixed; inset:0; width:100%; height:100%; cursor:crosshair; }
+  header { position:fixed; z-index:2; inset:24px 28px auto; pointer-events:none; display:flex; justify-content:space-between; gap:20px; }
+  h1 { margin:0; font-weight:400; font-size:clamp(18px,2vw,28px); letter-spacing:.02em; }
+  .sub { margin-top:5px; color:#9aa6b4; font-size:13px; letter-spacing:.08em; }
+  #sound { pointer-events:auto; color:var(--ink); border:1px solid #607185; background:rgba(10,13,18,.72); padding:9px 12px; border-radius:99px; font:12px ui-sans-serif,system-ui,sans-serif; letter-spacing:.08em; cursor:pointer; }
+  #sound:hover { border-color:var(--amber); color:var(--amber); }
+  .legend { position:fixed; z-index:2; bottom:24px; left:28px; max-width:520px; color:#b7c1cc; font:13px/1.55 ui-sans-serif,system-ui,sans-serif; pointer-events:none; }
+  .legend b { color:var(--amber); font-weight:600; }
+  .meta { position:fixed; right:28px; bottom:24px; color:#718093; font:11px/1.5 ui-sans-serif,system-ui,sans-serif; text-align:right; pointer-events:none; }
+  @media(max-width:650px){ header{inset:18px}; .legend{left:18px;bottom:18px;right:18px}.meta{display:none} }
+</style>
+</head>
+<body>
+<canvas id="map"></canvas>
+<header><div><h1>The Map That Refuses to Arrive</h1><div class="sub">拒绝抵达的地图</div></div><button id="sound" aria-label="Toggle background music">BGM · ON</button></header>
+<div class="legend"><b>Move</b> to borrow a route. <b>Click</b> to leave a temporary harbor.<br>移动，借一条路线；点击，留下一座会消退的港口。</div>
+<div class="meta">A route is a question held long enough<br>to become a place.</div>
+<audio id="bgm" src="2026-07-28-the-map-that-refuses-to-arrive-bgm.mp3" loop autoplay preload="auto"></audio>
+<script>
+(() => {
+  const canvas=document.querySelector('#map'), c=canvas.getContext('2d');
+  const audio=document.querySelector('#bgm'), sound=document.querySelector('#sound');
+  let W,H,dpr, t=0, mouse={x:-9999,y:-9999}, harbors=[];
+  const pts=Array.from({length:94},(_,i)=>({
+    x:Math.random(), y:Math.random(), phase:Math.random()*Math.PI*2,
+    weight:.35+Math.random()*.9, id:i
+  }));
+  function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;c.setTransform(dpr,0,0,dpr,0,0)}
+  addEventListener('resize',resize);resize();
+  function pos(e){const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top}
+  addEventListener('pointermove',pos);
+  addEventListener('pointerleave',()=>{mouse.x=-9999;mouse.y=-9999});
+  addEventListener('pointerdown',e=>{pos(e);harbors.push({x:mouse.x,y:mouse.y,born:t});if(harbors.length>9)harbors.shift()});
+  async function tryPlay(){try{await audio.play();sound.textContent='BGM · ON'}catch{sound.textContent='START BGM'}}
+  tryPlay();
+  sound.addEventListener('click',async()=>{if(audio.paused){await tryPlay()}else{audio.pause();sound.textContent='BGM · OFF'}});
+  function node(p){return {x:p.x*W+Math.sin(t*.00017+p.phase)*42*p.weight,y:p.y*H+Math.cos(t*.00013+p.phase)*36*p.weight}}
+  function draw(){
+    t=performance.now(); c.fillStyle='#0a0d12';c.fillRect(0,0,W,H);
+    const ns=pts.map(node); const glow=c.createRadialGradient(mouse.x,mouse.y,0,mouse.x,mouse.y,260);glow.addColorStop(0,'rgba(53,80,112,.16)');glow.addColorStop(1,'rgba(10,13,18,0)');c.fillStyle=glow;c.fillRect(0,0,W,H);
+    c.lineWidth=.6;
+    for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){
+      const a=ns[i],b=ns[j],dx=a.x-b.x,dy=a.y-b.y, d=Math.hypot(dx,dy), dm=Math.min(Math.hypot(a.x-mouse.x,a.y-mouse.y),Math.hypot(b.x-mouse.x,b.y-mouse.y));
+      if(d<118 && dm<245){const alpha=(1-d/118)*(1-dm/300)*.48;c.strokeStyle=`rgba(143,181,212,${alpha})`;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.stroke()}
+    }
+    harbors=harbors.filter(h=>t-h.born<16000);harbors.forEach(h=>{const age=(t-h.born)/16000, r=18+age*170;c.strokeStyle=`rgba(255,200,110,${.42*(1-age)})`;c.lineWidth=1; c.beginPath();c.arc(h.x,h.y,r,0,Math.PI*2);c.stroke();c.fillStyle=`rgba(255,200,110,${.45*(1-age)})`;c.beginPath();c.arc(h.x,h.y,2.5,0,Math.PI*2);c.fill()});
+    ns.forEach((p,i)=>{const near=Math.hypot(p.x-mouse.x,p.y-mouse.y), a=.25+Math.max(0,1-near/250)*.7;c.fillStyle=i%11===0?`rgba(255,200,110,${a})`:`rgba(212,225,235,${a})`;c.beginPath();c.arc(p.x,p.y,1.1+pts[i].weight*1.15,0,Math.PI*2);c.fill()});
+    requestAnimationFrame(draw);
+  } draw();
+})();
+</script>
+</body>
+</html>

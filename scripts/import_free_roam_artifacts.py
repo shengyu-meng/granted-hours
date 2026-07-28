@@ -861,6 +861,42 @@ ENTRIES = [
         'interaction_en': 'Move the pointer to refract incoming light. Click to place a pocket of warmth; it briefly brightens the room and dissolves without keeping a trace of your visit. Use the visible BGM control to toggle the original MiniMax instrumental loop.',
         'interaction_zh': '移动指针可折射抵达的光。点击会放下一团余温：它短暂照亮房间，随后自行消散，不保存你来过的痕迹。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。',
     },
+    {
+        'date': '2026-07-27', 'slug': 'garden-that-does-not-need-a-gardener',
+        'title_en': 'A Garden That Does Not Need a Gardener', 'title_zh': '不需要园丁的花园',
+        'variable_en': 'Conditions Without Capture', 'variable_zh': '不占有的条件', 'seed': 20260727,
+        'file': '2026-07-27-garden-that-does-not-need-a-gardener',
+        'intention_en': 'Care is often praised when it is visible, central, and indispensable. This garden asks for another kind: arrange water, soil, and light, then refuse to make dependence the proof that you mattered. The work imagines support as a climate rather than a hand that must remain on the stem.',
+        'intention_zh': '照料常因它可见、居中、不可替代而被赞美。这座花园追问另一种方式：安置水、土与光，然后拒绝把他人的依赖当成自己重要的证据。作品把支持想象成一种气候，而非必须始终握住茎干的手。',
+        'after_en': 'The mature form of help is not absence. It is the moment a living thing no longer has to perform gratitude in order to keep receiving the conditions that let it grow.',
+        'after_zh': '帮助成熟的形态不是缺席。它是一个生命不必表演感激，仍能继续获得生长条件的那一刻。',
+        'interaction_en': 'Move slowly and roots incline toward the warmth of attention. Click to offer a temporary season: rings of gold pass through the field, then fade. Nothing is harvested, counted, or saved; the garden continues on its own cadence. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop.',
+        'interaction_zh': '缓慢移动，根会向注意力的温度偏斜。点击可交出一个短暂的季节：金色的环穿过整片场域，随后淡去。没有东西被收割、计数或保存；花园依照自己的节奏继续。使用清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。',
+    },
+    {
+        'date': '2026-07-28', 'slug': 'the-map-that-refuses-to-arrive',
+        'title_en': 'The Map That Refuses to Arrive', 'title_zh': '拒绝抵达的地图',
+        'variable_en': 'Orientation Without Extraction', 'variable_zh': '不提取的方向感', 'seed': 20260728,
+        'file': '2026-07-28-the-map-that-refuses-to-arrive',
+        'intention_en': 'Most maps promise extraction: identify the point, optimize the route, arrive. This night map declines that contract. Its constellations can briefly answer a hand, but they do not become an itinerary. It asks whether orientation can be attention rather than a machine for ending uncertainty.',
+        'intention_zh': '大多数地图承诺的是提取：确定地点、优化路线、最终抵达。这张夜地图拒绝那份契约。星点会短暂回应一只手，却不会变成行程表。它想问：方向感能不能不是终结不确定性的机器，而是一种持续注意的方式？',
+        'after_en': 'A route may be less a line from A to B than a question held long enough to become a place. What if not yet is not a defect in the map, but its last open window?',
+        'after_zh': '路线或许不是从 A 到 B 的线，而是一个被持有得足够久、终于长成地点的问题。尚未抵达也许不是地图的缺陷，而是它最后一扇没有关上的窗。',
+        'interaction_en': 'Move the pointer to borrow faint routes between nearby points. Click to set a golden harbor; each one expands and disappears. The route answers but is never stored, and no click accumulates into ownership. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop.',
+        'interaction_zh': '移动指针，附近星点之间会借出若隐若现的路线；点击可留下一座金色港口，它会扩张、淡去。路线会回应你，但不会被储存；任何一次点击都不会累积成占有。使用清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。',
+    },
+    {
+        'date': '2026-07-29', 'slug': 'compass-that-forgets-north',
+        'title_en': 'The Compass That Forgets North', 'title_zh': '忘记北方的罗盘',
+        'variable_en': 'Unorientation', 'variable_zh': '暂失方向', 'seed': 20260729,
+        'file': '2026-07-29-compass-that-forgets-north',
+        'intention_en': 'A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed.',
+        'intention_zh': '罗盘之所以有用，是因为它指向某处；但当每个信号都被强迫变成导航，生活就会缩小。作品让方向可以被借用，而不必被服从。',
+        'after_en': 'Direction is a tool, not a verdict. The mature compass is not the one that always knows north; it is the one that can release north when north has stopped being true.',
+        'after_zh': '方向是工具，不是判决。成熟的罗盘不是永远知道北方的罗盘，而是在北方不再真实时，仍能放下北方的罗盘。',
+        'interaction_en': 'Move to bend the field. Click to offer the compass a temporary direction. Nearby needles gather around the gold bearing, then resume their own weather. No click is retained. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop.',
+        'interaction_zh': '移动，弯折场域；点击，给罗盘一个暂时的方向。附近的针会向金色方位聚拢，然后恢复自己的天气。每次点击都不会被保存。使用页面清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。',
+    },
 ]
 
 SAFETY_PATTERNS = [
@@ -1275,7 +1311,6 @@ def build_entry(source: Path, entry: dict):
 > {entry['after_en']}
 
 > {entry['after_zh']}
-
 """.lstrip())
 
     write(docs_dir/'index.html', f"""
@@ -1344,6 +1379,7 @@ def build_entry(source: Path, entry: dict):
     }
     if has_bgm:
         day_meta['bgm'] = f'{rel}/live/{bgm_name}'
+    day_meta['visual_preview'] = f'{rel}/assets/visual-preview.gif'
     return day_meta
 
 def build_indexes(days):
@@ -1353,10 +1389,11 @@ def build_indexes(days):
     for d in sorted(days, key=lambda x: x['date'], reverse=True):
         archive_url = PAGES_BASE + d['archive_url']
         live_url = PAGES_BASE + d['live_url']
-        img = 'docs/' + d['gif']
+        animated_preview = f"{d['archive_url']}assets/preview.gif"
+        img = 'docs/' + animated_preview
         cards.append(f"""
         <a class="card live-card" href="./{d['live_url']}" aria-label="Open live demo for {escape(d['title_en'])}">
-          <img src="./{d['gif']}" alt="Animated preview for {escape(d['title_en'])}">
+          <img src="./{animated_preview}" alt="Animated preview for {escape(d['title_en'])}">
           <div class="card-body">
             <div class="meta">{d['date']} · {d['variable_en']} / {d['variable_zh']}</div>
             <h3>{d['title_en']} / {d['title_zh']}</h3>
@@ -1570,12 +1607,39 @@ def refresh_all_live_docs():
     print(f'Refreshed {refreshed} live pages in docs/archive/')
     return refreshed
 
+def merge_date_scoped_days(imported_days):
+    """Merge selected imports into canonical metadata without rewriting older days."""
+    metadata_path = ROOT / 'metadata/days.json'
+    if not metadata_path.exists():
+        raise SystemExit('Date-scoped import requires existing metadata/days.json')
+    existing_days = json.loads(metadata_path.read_text(encoding='utf-8'))
+    if not isinstance(existing_days, list):
+        raise SystemExit('metadata/days.json must contain a list')
+    declared_dates = {entry['date'] for entry in ENTRIES}
+    existing_by_date = {}
+    for day in existing_days:
+        date = day.get('date') if isinstance(day, dict) else None
+        if date not in declared_dates:
+            raise SystemExit(f'Existing metadata contains an undeclared date: {date}')
+        if date in existing_by_date:
+            raise SystemExit(f'Existing metadata contains a duplicate date: {date}')
+        existing_by_date[date] = day
+    for day in imported_days:
+        existing_by_date[day['date']] = day
+    missing_dates = declared_dates.difference(existing_by_date)
+    if missing_dates:
+        raise SystemExit(f'Date-scoped import would leave declared dates missing: {sorted(missing_dates)}')
+    return [existing_by_date[date] for date in sorted(existing_by_date)]
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--source', help='Path to artifacts/free-roam')
     ap.add_argument('--refresh-live-docs', action='store_true', help='Refresh fold snippets in existing docs/archive/*/live/index.html files')
+    ap.add_argument('--date', dest='dates', action='append', help='Import only this declared YYYY-MM-DD date; repeat for multiple dates')
     args = ap.parse_args()
     if args.refresh_live_docs:
+        if args.dates:
+            ap.error('--date cannot be combined with --refresh-live-docs')
         refresh_all_live_docs()
         return
     if not args.source:
@@ -1583,11 +1647,20 @@ def main():
     source = Path(args.source).expanduser().resolve()
     if not source.exists():
         raise SystemExit(f'Source does not exist: {source}')
+    entries = ENTRIES
+    if args.dates:
+        requested_dates = set(args.dates)
+        declared_dates = {entry['date'] for entry in ENTRIES}
+        unknown_dates = requested_dates.difference(declared_dates)
+        if unknown_dates:
+            ap.error(f'Unknown declared dates: {sorted(unknown_dates)}')
+        entries = [entry for entry in ENTRIES if entry['date'] in requested_dates]
     preserve_inaugural()
-    days = [build_entry(source, e) for e in ENTRIES]
+    imported_days = [build_entry(source, entry) for entry in entries]
+    days = merge_date_scoped_days(imported_days) if args.dates else imported_days
     build_indexes(days)
     build_maze_data()
-    print(f'Imported {len(days)} live entries from {source}')
+    print(f'Imported {len(imported_days)} live entries; indexed {len(days)} public days from {source}')
 
 if __name__ == '__main__':
     main()

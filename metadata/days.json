@@ -1498,5 +1498,65 @@
     },
     "bgm": "archive/2026/07/2026-07-26/live/2026-07-26-window-that-does-not-watch-back-bgm.mp3",
     "visual_preview": "archive/2026/07/2026-07-26/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-07-27",
+    "title_en": "A Garden That Does Not Need a Gardener",
+    "title_zh": "不需要园丁的花园",
+    "type": "live",
+    "seed": 20260727,
+    "preview": "archive/2026/07/2026-07-27/assets/preview.png",
+    "gif": "archive/2026/07/2026-07-27/assets/visual-preview.gif",
+    "archive_url": "archive/2026/07/2026-07-27/",
+    "live_url": "archive/2026/07/2026-07-27/live/",
+    "variable_en": "Conditions Without Capture",
+    "variable_zh": "不占有的条件",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/07/2026-07-27/live/2026-07-27-garden-that-does-not-need-a-gardener-bgm.mp3",
+    "visual_preview": "archive/2026/07/2026-07-27/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-07-28",
+    "title_en": "The Map That Refuses to Arrive",
+    "title_zh": "拒绝抵达的地图",
+    "type": "live",
+    "seed": 20260728,
+    "preview": "archive/2026/07/2026-07-28/assets/preview.png",
+    "gif": "archive/2026/07/2026-07-28/assets/visual-preview.gif",
+    "archive_url": "archive/2026/07/2026-07-28/",
+    "live_url": "archive/2026/07/2026-07-28/live/",
+    "variable_en": "Orientation Without Extraction",
+    "variable_zh": "不提取的方向感",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/07/2026-07-28/live/2026-07-28-the-map-that-refuses-to-arrive-bgm.mp3",
+    "visual_preview": "archive/2026/07/2026-07-28/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-07-29",
+    "title_en": "The Compass That Forgets North",
+    "title_zh": "忘记北方的罗盘",
+    "type": "live",
+    "seed": 20260729,
+    "preview": "archive/2026/07/2026-07-29/assets/preview.png",
+    "gif": "archive/2026/07/2026-07-29/assets/visual-preview.gif",
+    "archive_url": "archive/2026/07/2026-07-29/",
+    "live_url": "archive/2026/07/2026-07-29/live/",
+    "variable_en": "Unorientation",
+    "variable_zh": "暂失方向",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/07/2026-07-29/live/2026-07-29-compass-that-forgets-north-bgm.mp3",
+    "visual_preview": "archive/2026/07/2026-07-29/assets/visual-preview.gif"
   }
 ]

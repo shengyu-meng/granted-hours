@@ -143,17 +143,26 @@ async function inspectViewport(spec) {
     }
     const bottom = await page.evaluate(() => {
       const panel = document.querySelector("#dayDialogPanel");
-      const last = document.querySelector(".timeline-event:last-child").getBoundingClientRect();
+      const timelineBottomAtEnd = document.querySelector(".timeline-list").getBoundingClientRect().bottom;
       return {
         scrollTop: panel.scrollTop,
         maxScroll: panel.scrollHeight - panel.clientHeight,
-        lastVisible: last.top >= -1 && last.bottom <= innerHeight + 1,
+        timelineEndVisible: timelineBottomAtEnd >= -1 && timelineBottomAtEnd <= innerHeight + 1,
       };
     });
     assert.ok(progress > before.panel.scrollTop + 2, `${spec.label} native touch did not move`);
     assert.ok(bottom.scrollTop >= bottom.maxScroll - 2, `${spec.label} stopped at ${bottom.scrollTop}/${bottom.maxScroll}`);
-    assert.equal(bottom.lastVisible, true);
-    accessibility = bottom;
+    assert.equal(bottom.timelineEndVisible, true);
+    const latestEvent = await page.evaluate(() => {
+      const lastEvent = document.querySelector(".timeline-event:last-child");
+      lastEvent.scrollIntoView({ block: "end" });
+      const last = lastEvent.getBoundingClientRect();
+      return {
+        lastVisible: last.top >= -1 && last.bottom <= innerHeight + 1,
+      };
+    });
+    assert.equal(latestEvent.lastVisible, true);
+    accessibility = { ...bottom, ...latestEvent };
   } else {
     await page.locator(".assigned-item").last().scrollIntoViewIfNeeded();
     assert.ok(await page.locator(".assigned-item").last().isVisible());

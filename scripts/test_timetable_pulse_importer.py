@@ -13,6 +13,46 @@ import import_timetable_pulses as importer
 
 
 class TimetablePulseImporterTests(unittest.TestCase):
+    def test_date_scoped_merge_preserves_existing_days(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            snapshot_path = root / "snapshot.json"
+            existing = {
+                "schema": importer.PULSE_SNAPSHOT_SCHEMA,
+                "timezone": "Asia/Shanghai",
+                "source_file_count": 2,
+                "deduplicated_run_count": 2,
+                "observed_session_window_count": 2,
+                "days": [
+                    {"date": "2026-07-26", "pulses": [{"sentinel": "old"}]},
+                    {"date": "2026-07-27", "pulses": [{"sentinel": "stale"}]},
+                ],
+            }
+            rebuilt = {
+                **existing,
+                "source_file_count": 3,
+                "days": [
+                    {"date": "2026-07-26", "pulses": [{"sentinel": "rebuilt"}]},
+                    {"date": "2026-07-27", "pulses": [{"sentinel": "new"}]},
+                ],
+            }
+            snapshot_path.write_text(json.dumps(existing), encoding="utf-8")
+
+            merged = importer.merge_date_scoped_snapshot(
+                snapshot_path,
+                rebuilt,
+                {"2026-07-27"},
+            )
+
+        self.assertEqual(merged["source_file_count"], 3)
+        self.assertEqual(
+            merged["days"],
+            [
+                {"date": "2026-07-26", "pulses": [{"sentinel": "old"}]},
+                {"date": "2026-07-27", "pulses": [{"sentinel": "new"}]},
+            ],
+        )
+
     def test_import_uses_run_files_not_schedule_inference_and_deduplicates_receipts(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

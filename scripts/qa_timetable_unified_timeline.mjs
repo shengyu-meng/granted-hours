@@ -5,6 +5,8 @@ import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const days = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
+const latestDay = days.at(-1);
+const previousDay = days.at(-2);
 
 let daysWithAssignedWork = 0;
 for (const day of days) {
@@ -22,7 +24,7 @@ try {
   const page = await desktop.newPage();
   await page.goto(baseUrl, { waitUntil: "networkidle" });
 
-  await page.click('.calendar-day-button[data-date="2026-07-26"]');
+  await page.click(`.calendar-day-button[data-date="${latestDay.date}"]`);
   await page.waitForSelector("#dayDialog.is-open");
   assert.equal(await page.locator(".self-detail").count(), 0, "separate autonomous panel must be removed");
   assert.equal(await page.locator(".timeline-list").count(), 1);
@@ -31,7 +33,7 @@ try {
   assert.ok(await page.locator(".assigned-item").count() > 0);
   assert.equal(
     await page.locator(".routine-reading-card").count(),
-    days.at(-1).reading_items.filter(
+    latestDay.reading_items.filter(
       (item) => item.source === "pulses",
     ).length,
     "background reading cards must match the public projection",
@@ -54,11 +56,11 @@ try {
 
   const firstPulse = page.locator(".routine-reading-card").first();
   const readingId = await firstPulse.getAttribute("data-reading-id");
-  const pulseEvidence = days.at(-1).reading_items.find(
+  const pulseEvidence = latestDay.reading_items.find(
     (item) => item.reading_id === readingId,
   );
   assert.ok(pulseEvidence, readingId);
-  const sourcePulse = days.at(-1).background_pulses.find(
+  const sourcePulse = latestDay.background_pulses.find(
     (pulse) => pulse.footprint_id === pulseEvidence.source_refs[0],
   );
   const renderedSummaries = await firstPulse.locator(".pulse-summary > span").allTextContents();
@@ -94,7 +96,7 @@ try {
 
   const triggerIndex = clampedIndex >= 0 ? clampedIndex : 0;
   const trigger = rows.nth(triggerIndex);
-  const selectedTask = days.at(-1).task_residues[triggerIndex];
+  const selectedTask = latestDay.task_residues[triggerIndex];
   await trigger.scrollIntoViewIfNeeded();
   const dayScrollBefore = await page.locator("#dayDialogPanel").evaluate((panel) => {
     return panel.scrollTop;
@@ -115,7 +117,7 @@ try {
   assert.equal(await page.locator("#prevDay").isDisabled(), false);
   await page.locator("#dayDialogPanel").evaluate((panel) => { panel.scrollTop = panel.scrollHeight; });
   await page.click("#prevDay");
-  assert.equal(await page.locator("#dayDialog").getAttribute("data-selected-date"), "2026-07-25");
+  assert.equal(await page.locator("#dayDialog").getAttribute("data-selected-date"), previousDay.date);
   assert.ok(await page.locator("#dayDialogPanel").evaluate((panel) => panel.scrollTop <= 1));
   assert.equal(await page.evaluate(() => document.activeElement?.id), "prevDay");
 

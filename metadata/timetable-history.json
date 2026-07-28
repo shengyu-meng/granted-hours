@@ -2276,6 +2276,132 @@
           "faithfulness": "faithful_summary"
         }
       ]
+    },
+    {
+      "date": "2026-07-27",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "复核历史记录而不把自主时间转化为指派劳动",
+          "en": "Review historical records without converting autonomous self-time into assigned labor",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "将生成状态与事实来源契约对账",
+          "en": "Reconcile generated state with the source-of-truth contract",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "编辑双语公开摘要并保留原始开篇语境",
+          "en": "Edit bilingual public summaries while preserving the original opening context",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "在界面重建后执行公开安全与生成资产检查",
+          "en": "Run public-safety and generated-asset checks after the interface rebuild",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "visual_production",
+          "zh": "设计并集成由主题推导的确定性规划涂鸦为SVG图形",
+          "en": "Design and integrate deterministic theme-derived planner doodles as SVG motifs",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-28",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "zh": "将视觉参考追溯至其公开语境与明确方法",
+          "en": "Trace visual references to their public context and stated method",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "code_development",
+          "zh": "验证底部可达性、焦点行为与真实触控滚动",
+          "en": "Verify bottom reachability, focus behavior, and true touch scrolling",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "document_processing",
+          "zh": "统一审阅材料中的双语术语",
+          "en": "Normalize bilingual terminology across the review materials",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "system_maintenance",
+          "zh": "执行确定性构建、公开安全、语法与回归检查",
+          "en": "Run deterministic build, public-safety, syntax, and regression checks",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "social_media_organization",
+          "zh": "整理公开内容候选但不推进其发布状态",
+          "en": "Organize public-content candidates without advancing their status",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "daily_record",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-29",
+      "provenance": "withheld",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "No public source was available for this date; the activity is withheld as ████.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        },
+        {
+          "category": "redacted_private",
+          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary"
+        }
+      ]
     }
   ]
 }

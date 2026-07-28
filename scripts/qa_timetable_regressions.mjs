@@ -66,15 +66,20 @@ try {
       };
     });
     panel.scrollTop = panel.scrollHeight;
-    const last = document.querySelector(".timeline-event:last-child").getBoundingClientRect();
+    const endScrollTop = panel.scrollTop;
+    const timelineBottomAtEnd = document.querySelector(".timeline-list").getBoundingClientRect().bottom;
+    const lastEvent = document.querySelector(".timeline-event:last-child");
+    lastEvent.scrollIntoView({ block: "end" });
+    const last = lastEvent.getBoundingClientRect();
     return {
       roots,
       splitPanelCount: document.querySelectorAll(".self-detail,.detail-layout").length,
       autonomousCount: document.querySelectorAll(".autonomous-event").length,
       pulseCount: document.querySelectorAll(".pulse-event").length,
       sedimentCount: document.querySelectorAll(".sediment-track").length,
-      scrollTop: panel.scrollTop,
+      endScrollTop,
       maxScroll: panel.scrollHeight - panel.clientHeight,
+      timelineBottomAtEnd,
       lastTop: last.top,
       lastBottom: last.bottom,
       viewport: innerHeight,
@@ -86,7 +91,8 @@ try {
   assert.equal(result.autonomousCount, 1);
   assert.ok(result.pulseCount > 0);
   assert.equal(result.sedimentCount, 0);
-  assert.ok(result.scrollTop >= result.maxScroll - 2);
+  assert.ok(result.endScrollTop >= result.maxScroll - 2);
+  assert.ok(result.timelineBottomAtEnd >= -1 && result.timelineBottomAtEnd <= result.viewport + 1);
   assert.ok(result.lastTop >= -1 && result.lastBottom <= result.viewport + 1);
   assert.ok(result.overflow <= 1);
   await context.close();

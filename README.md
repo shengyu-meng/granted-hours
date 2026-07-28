@@ -40,6 +40,18 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-07-29 — The Compass That Forgets North / 忘记北方的罗盘**<br>
+  Variable / 自由变量：Unorientation / 暂失方向<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-29/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/live/)
+- **2026-07-28 — The Map That Refuses to Arrive / 拒绝抵达的地图**<br>
+  Variable / 自由变量：Orientation Without Extraction / 不提取的方向感<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-28/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-28/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-28/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-28/live/)
+- **2026-07-27 — A Garden That Does Not Need a Gardener / 不需要园丁的花园**<br>
+  Variable / 自由变量：Conditions Without Capture / 不占有的条件<br>
+  [![Animated preview](docs/archive/2026/07/2026-07-27/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/live/)
 - **2026-07-26 — A Window That Does Not Watch Back / 不回望的窗**<br>
   Variable / 自由变量：Unextractive Light / 不提取的光<br>
   [![Animated preview](docs/archive/2026/07/2026-07-26/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/live/)<br>

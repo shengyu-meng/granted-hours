@@ -485,6 +485,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--state-db", type=Path, default=DEFAULT_STATE_DB)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
+        "--date",
+        dest="dates",
+        action="append",
+        help=(
+            "Replace only this YYYY-MM-DD day in an existing snapshot while "
+            "preserving every other public day; repeat for multiple dates."
+        ),
+    )
+    parser.add_argument(
         "--authorize-self-reminder-residues",
         action="store_true",
         help=(
@@ -496,6 +505,57 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def merge_date_scoped_snapshot(
+    existing_path: Path,
+    rebuilt_snapshot: dict,
+    requested_dates: set[str],
+) -> dict:
+    """Merge selected rebuilt days without rewriting older public evidence."""
+    if not existing_path.exists():
+        fail("Date-scoped pulse import requires an existing snapshot")
+    try:
+        existing_snapshot = json.loads(existing_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        fail(f"Could not read existing pulse snapshot: {error}")
+    if existing_snapshot.get("schema") != PULSE_SNAPSHOT_SCHEMA:
+        fail(f"Existing pulse snapshot schema must be {PULSE_SNAPSHOT_SCHEMA}")
+    existing_days = existing_snapshot.get("days")
+    rebuilt_days = rebuilt_snapshot.get("days")
+    if not isinstance(existing_days, list) or not isinstance(rebuilt_days, list):
+        fail("Pulse snapshots must contain day lists")
+    existing_by_date = {
+        entry.get("date"): entry
+        for entry in existing_days
+        if isinstance(entry, dict)
+    }
+    rebuilt_by_date = {
+        entry.get("date"): entry
+        for entry in rebuilt_days
+        if isinstance(entry, dict)
+    }
+    if len(existing_by_date) != len(existing_days):
+        fail("Existing pulse snapshot contains an invalid or duplicate date")
+    if len(rebuilt_by_date) != len(rebuilt_days):
+        fail("Rebuilt pulse snapshot contains an invalid or duplicate date")
+    unknown_dates = requested_dates.difference(rebuilt_by_date)
+    if unknown_dates:
+        fail(f"Requested pulse dates are not public: {', '.join(sorted(unknown_dates))}")
+    merged_by_date = dict(existing_by_date)
+    for day_date in requested_dates:
+        merged_by_date[day_date] = rebuilt_by_date[day_date]
+    missing_dates = set(rebuilt_by_date).difference(merged_by_date)
+    extra_dates = set(merged_by_date).difference(rebuilt_by_date)
+    if missing_dates or extra_dates:
+        fail(
+            "Date-scoped pulse merge does not match the public day set: "
+            f"missing={sorted(missing_dates)}, extra={sorted(extra_dates)}"
+        )
+    return {
+        **rebuilt_snapshot,
+        "days": [merged_by_date[day_date] for day_date in sorted(merged_by_date)],
+    }
+
+
 def main() -> int:
     args = parse_args()
     snapshot = build_snapshot(
@@ -505,6 +565,12 @@ def main() -> int:
         args.state_db,
         authorize_self_reminders=args.authorize_self_reminder_residues,
     )
+    if args.dates:
+        snapshot = merge_date_scoped_snapshot(
+            args.snapshot,
+            snapshot,
+            set(args.dates),
+        )
     args.snapshot.parent.mkdir(parents=True, exist_ok=True)
     args.snapshot.write_text(
         json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n",

@@ -389,6 +389,7 @@ h1 {
   height: 1px;
   content: "";
   background: linear-gradient(90deg, transparent, rgba(238, 231, 215, 0.62), var(--ledger), transparent);
+  pointer-events: none;
 }
 
 .date-cell.is-selected::before {

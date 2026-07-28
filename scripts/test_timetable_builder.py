@@ -25,6 +25,7 @@ class TimetableBuilderTests(unittest.TestCase):
         "2026-07-05",
         "2026-07-11",
         "2026-07-19",
+        "2026-07-29",
     }
 
     @classmethod
@@ -980,6 +981,40 @@ class TimetableBuilderTests(unittest.TestCase):
             self.assertEqual(first, output_path.read_bytes())
             self.assertIn(b'"history_provenance": "inferred"', first)
             self.assertNotIn(b"Entirely Different Autonomous Work", first)
+
+    def test_serialized_module_rehydrates_exact_timeline_without_duplication(self) -> None:
+        output = self.build()
+        source = builder.render_javascript(output)
+        self.assertNotIn('"timeline_events":', source)
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            module_path = temporary / "timetable-data.mjs"
+            expected_path = temporary / "expected.json"
+            module_path.write_text(source, encoding="utf-8")
+            expected_path.write_text(
+                json.dumps(output, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            subprocess.run(
+                [
+                    "node",
+                    "--input-type=module",
+                    "-e",
+                    (
+                        "import assert from 'node:assert/strict';"
+                        "import fs from 'node:fs';"
+                        "const {timetableData}=await import(process.argv[1]);"
+                        "const expected=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));"
+                        "assert.deepEqual(timetableData,expected);"
+                    ),
+                    module_path.as_uri(),
+                    str(expected_path),
+                ],
+                cwd=builder.ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
 
     def test_missing_current_history_cannot_silently_fall_back(self) -> None:
         incomplete_history = dict(self.history)

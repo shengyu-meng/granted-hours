@@ -2084,6 +2084,16 @@ function closeTaskDetail(options = {}) {
   if (options.restoreFocus === false) return;
   if (
     state.taskDetailLastFocus
+    && (
+      isCoarsePointerType(state.initiatingPointerType)
+      || isCoarsePointerType(state.inputModality)
+    )
+  ) {
+    state.inspectionFocusSuppressedCard = state.taskDetailLastFocus;
+    hideInspectionLens({ immediate: true });
+  }
+  if (
+    state.taskDetailLastFocus
     && typeof state.taskDetailLastFocus.focus === "function"
     && document.contains(state.taskDetailLastFocus)
   ) {
