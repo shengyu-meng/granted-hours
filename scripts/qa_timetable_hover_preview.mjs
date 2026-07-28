@@ -1236,6 +1236,7 @@ try {
   assert.equal(penSecondLens.hidden, true);
   await hybridPage.locator("#closeTaskDetail").tap();
   await hybridPage.waitForFunction(() => document.querySelector("#taskDialog")?.hidden);
+  await waitForClosedLens(hybridPage);
   const penCloseLens = await lensState(hybridPage);
   assert.equal(
     await hybridPenCard.evaluate((card) => document.activeElement === card),
