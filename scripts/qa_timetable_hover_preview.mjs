@@ -15,9 +15,17 @@ const screenshotRoot = path.resolve(
 );
 const manifestPath = path.join(screenshotRoot, "evidence-manifest.json");
 const privateFixtures = ["Mara Evergarden", "Orchid Lantern", "CNY 938,271.44"];
+const animatedSampleDate = "2026-07-21";
+const animatedSamplePath = "/archive/2026/07/2026-07-21/assets/visual-preview.gif";
+const localQaHosts = new Set(["127.0.0.1", "localhost"]);
+const auditedCanonicalPaths = new Map([
+  ["granted-hours.pages.dev", animatedSamplePath],
+  ["shengyu-meng.github.io", `/granted-hours${animatedSamplePath}`],
+]);
 const inspectionSettleMs = 340;
 const screenshots = [];
 const diagnostics = [];
+const pageResponses = new WeakMap();
 const evidence = {
   schema: "rounded-hover-preview-evidence-v1",
   passed: false,
@@ -148,6 +156,8 @@ function monitorPage(
   expectedRequestFailurePatterns = [],
   expectedConsoleErrorPatterns = [],
 ) {
+  const responses = new Map();
+  pageResponses.set(page, responses);
   const record = {
     scenario,
     consoleErrors: [],
@@ -169,6 +179,14 @@ function monitorPage(
     record.requestFailures.push({
       url,
       expected: expectedRequestFailurePatterns.some((pattern) => pattern.test(url)),
+    });
+  });
+  page.on("response", (response) => {
+    responses.set(response.url(), {
+      url: response.url(),
+      status: response.status(),
+      ok: response.ok(),
+      contentType: response.headers()["content-type"] || "",
     });
   });
   diagnostics.push(record);
@@ -374,8 +392,79 @@ async function proveAnimatedFrameProgression(page) {
   const source = await page.locator("#inspectionLens img").evaluate((image) => ({
     src: image.currentSrc,
     sameOrigin: new URL(image.currentSrc).origin === location.origin,
+    complete: image.complete,
+    naturalWidth: image.naturalWidth,
+    naturalHeight: image.naturalHeight,
   }));
-  assert.equal(source.sameOrigin, true, "GIF crop source is not same-origin");
+  const canonicalMetadataUrl = await page.locator("#selfPreview").getAttribute(
+    "data-animated-preview-url",
+  );
+  assert.ok(canonicalMetadataUrl, "audited canonical visual_preview_url metadata is missing");
+
+  const pageUrl = new URL(page.url());
+  const sourceUrl = new URL(source.src);
+  const metadataUrl = new URL(canonicalMetadataUrl);
+  const isLocalQa = localQaHosts.has(pageUrl.hostname);
+  const expectedMetadataPath = auditedCanonicalPaths.get(metadataUrl.hostname);
+
+  assert.equal(metadataUrl.protocol, "https:", "canonical visual_preview_url must use HTTPS");
+  assert.ok(
+    expectedMetadataPath,
+    `canonical visual_preview_url host is not public-safe: ${metadataUrl.hostname}`,
+  );
+  assert.equal(metadataUrl.username, "", "canonical visual_preview_url must not contain a username");
+  assert.equal(metadataUrl.password, "", "canonical visual_preview_url must not contain a password");
+  assert.equal(metadataUrl.port, "", "canonical visual_preview_url must use the default HTTPS port");
+  assert.equal(metadataUrl.pathname, expectedMetadataPath);
+  assert.equal(metadataUrl.search, "", "canonical visual_preview_url must not contain a query");
+  assert.equal(metadataUrl.hash, "", "canonical visual_preview_url must not contain a fragment");
+
+  assert.equal(sourceUrl.username, "", "rendered GIF URL must not contain a username");
+  assert.equal(sourceUrl.password, "", "rendered GIF URL must not contain a password");
+  assert.equal(sourceUrl.search, "", "rendered GIF URL must not contain a query");
+  assert.equal(sourceUrl.hash, "", "rendered GIF URL must not contain a fragment");
+  if (isLocalQa) {
+    assert.ok(
+      ["http:", "https:"].includes(sourceUrl.protocol),
+      "local rendered GIF URL must use HTTP or HTTPS",
+    );
+    assert.ok(localQaHosts.has(sourceUrl.hostname), "local rendered GIF URL left localhost");
+    assert.equal(sourceUrl.origin, pageUrl.origin, "local rendered GIF URL is not same-origin");
+    assert.equal(sourceUrl.pathname, animatedSamplePath);
+  } else {
+    assert.equal(sourceUrl.protocol, "https:", "deployed rendered GIF URL must use HTTPS");
+    assert.ok(
+      auditedCanonicalPaths.has(sourceUrl.hostname),
+      `deployed rendered GIF host is not public-safe: ${sourceUrl.hostname}`,
+    );
+    assert.equal(sourceUrl.port, "", "deployed rendered GIF URL must use the default HTTPS port");
+    assert.equal(
+      sourceUrl.href,
+      metadataUrl.href,
+      "deployed rendered GIF URL does not exactly match canonical timetable metadata",
+    );
+  }
+
+  assert.equal(source.complete, true, "animated GIF did not finish loading");
+  assert.ok(
+    source.naturalWidth > 0 && source.naturalHeight > 0,
+    `animated GIF did not decode to positive dimensions: ${source.naturalWidth}x${source.naturalHeight}`,
+  );
+  const network = pageResponses.get(page)?.get(sourceUrl.href);
+  assert.ok(network, `no browser network response observed for animated GIF: ${sourceUrl.href}`);
+  assert.equal(network.ok, true, `animated GIF network response failed: ${network?.status}`);
+  assert.ok(
+    network.status >= 200 && network.status < 300,
+    `animated GIF network response was not successful: ${network.status}`,
+  );
+  assert.match(network.contentType, /^image\/gif(?:;|$)/i);
+
+  source.canonicalMetadataUrl = metadataUrl.href;
+  source.localQa = isLocalQa;
+  source.exactCanonicalMetadataMatch = isLocalQa
+    ? sourceUrl.pathname === animatedSamplePath
+    : sourceUrl.href === metadataUrl.href;
+  source.network = network;
   const firstElapsedMs = await page.evaluate(() => performance.now());
   const firstBytes = await media.screenshot({ type: "png", scale: "css" });
   const firstHash = sha256(firstBytes);
@@ -620,7 +709,7 @@ try {
     const context = await createContext(browser, { theme });
     const page = await context.newPage();
     const diagnostic = monitorPage(page, `desktop-${theme}`);
-    await openDay(page, "2026-07-21");
+    await openDay(page, animatedSampleDate);
     await assertRoundedAndSemantic(page, `desktop-${theme}`);
     assert.deepEqual(
       await page.evaluate(() => ({
