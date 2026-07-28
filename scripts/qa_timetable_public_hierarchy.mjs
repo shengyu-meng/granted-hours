@@ -179,7 +179,15 @@ async function prepareCleanNonHoverCapture(page, label) {
   await page.evaluate(() => {
     document.querySelectorAll(".event-reading-card:focus").forEach((card) => card.blur());
   });
-  await page.waitForTimeout(330);
+  await page.waitForFunction(() => {
+    const lens = document.querySelector("#inspectionLens");
+    return lens
+      && lens.hidden
+      && lens.getAttribute("aria-hidden") === "true"
+      && !lens.classList.contains("is-visible")
+      && !lens.dataset.readingId
+      && !lens.dataset.mediaKind;
+  });
   const lens = await page.locator("#inspectionLens").evaluate((element) => ({
     hidden: element.hidden,
     visible: element.classList.contains("is-visible")
