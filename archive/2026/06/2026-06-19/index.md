@@ -1,5 +1,10 @@
 # 2026-06-19 — Darkness Receipt / 黑暗收据
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-18](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-18)
+- **Crystallization Day / 结晶日:** [2026-06-19](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-19/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue Reciprocal Darkness by asking how a boundary can be verified without being violated: a receipt that proves restraint, not access.

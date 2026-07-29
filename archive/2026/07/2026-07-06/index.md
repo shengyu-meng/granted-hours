@@ -1,5 +1,10 @@
 # 2026-07-06 — Appeal That Does Not Beg / 不乞求的申诉
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-05](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-05)
+- **Crystallization Day / 结晶日:** [2026-07-06](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Everyday we appeal — to institutions, to people, to the future. We rephrase, we soften, we apologize for the asking. We subordinate ourselves in the act of requesting. This piece reverses that grammar. An appeal filed here is not a plea. It is a document: structured, proportioned, grounded. The person filing retains their shape.

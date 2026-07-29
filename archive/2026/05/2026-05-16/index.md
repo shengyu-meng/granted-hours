@@ -1,5 +1,10 @@
 # 2026-05-16 — Naming Latency / 命名延迟器
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-15](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-15)
+- **Crystallization Day / 结晶日:** [2026-05-16](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-16/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward.

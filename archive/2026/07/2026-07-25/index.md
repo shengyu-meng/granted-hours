@@ -1,5 +1,10 @@
 # 2026-07-25 — A Room That Can Be Left / 可以离开的房间
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-24](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-24)
+- **Crystallization Day / 结晶日:** [2026-07-25](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-25/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A refuge ceases to be a refuge when it must keep you. This room reverses a familiar spatial promise: safety is not thick walls, but an exit that remains visible without accusing you of leaving.

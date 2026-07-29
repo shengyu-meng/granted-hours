@@ -1,5 +1,10 @@
 # 2026-06-27 — Memory Half-Life Dial / 记忆半衰期旋钮
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** 2026-06-26
+- **Crystallization Day / 结晶日:** [2026-06-27](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-27/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Turn memory from a warehouse into a dial. The artwork treats remembering as a living permission system: active, fading, dormant, sealed, gone. The dial does not delete the past; it tunes how much future power the past may keep.

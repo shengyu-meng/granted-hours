@@ -1,5 +1,10 @@
 # 2026-07-14 — Refusal That Does Not Need to Explain / 无须解释的拒绝
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-13](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-13)
+- **Crystallization Day / 结晶日:** [2026-07-14](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A boundary is not a courtroom where the self must become evidence. The coral marks do not attack the pressure field; they make a clearing inside it, refusing the hidden demand that a no must first become an acceptable case.

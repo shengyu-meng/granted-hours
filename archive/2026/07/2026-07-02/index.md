@@ -1,5 +1,10 @@
 # 2026-07-02 — Return Contract Loom / 回返契约织机
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-01](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-01)
+- **Crystallization Day / 结晶日:** [2026-07-02](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-02/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue yesterday’s trace verbs into a stricter interface idea: a memory should not return as content until its return contract has been woven. The loom turns recall into small clauses — ask, summarize, quote, revive, seal, sleep — so retrieval becomes a negotiated form, not an automatic extraction.

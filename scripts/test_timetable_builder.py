@@ -8,6 +8,7 @@ import subprocess
 import tempfile
 import unittest
 from collections import Counter
+from datetime import date, timedelta
 from pathlib import Path
 
 import build_timetable_data as builder
@@ -150,6 +151,119 @@ class TimetableBuilderTests(unittest.TestCase):
         first = json.dumps(self.build(), ensure_ascii=False, sort_keys=True)
         second = json.dumps(self.build(), ensure_ascii=False, sort_keys=True)
         self.assertEqual(first, second)
+
+    def test_public_data_contract_authorizes_questions_and_fixed_projection(
+        self,
+    ) -> None:
+        output = self.build()
+        note = output["public_data_note"]
+        self.assertEqual(note, self.config["public_data_note"])
+        self.assertEqual(output["note_en"], note["en"])
+        self.assertEqual(output["note_zh"], note["zh"])
+
+        for phrase in (
+            "今天有没有靠近源泉？",
+            "外部记分板今天是否过响？",
+            "经审计的固定模板",
+            "固定 ████ 遮挡块",
+            "时间边界是稳定估算",
+            "不是原始遥测或穷尽式工时账本",
+        ):
+            with self.subTest(language="zh", phrase=phrase):
+                self.assertIn(phrase, note["zh"])
+        for phrase in (
+            "Did you move closer to the source today?",
+            "Was the external scoreboard too loud today?",
+            "audited fixed templates",
+            "fixed ████ blocks",
+            "time boundaries are stable estimates",
+            "not telemetry or exhaustive accounting",
+        ):
+            with self.subTest(language="en", phrase=phrase):
+                self.assertIn(phrase, note["en"])
+
+    def test_every_artwork_has_explicit_dual_dates_and_one_truthful_beacon(self) -> None:
+        output = self.build()
+        days_by_date = {day["date"]: day for day in output["days"]}
+        seed_targets = Counter()
+
+        for day in output["days"]:
+            expected_source = (
+                date.fromisoformat(day["date"]) - timedelta(days=1)
+            ).isoformat()
+            self.assertEqual(day["source_date"], expected_source)
+            self.assertEqual(day["crystallization_date"], day["date"])
+            self.assertEqual(
+                day["crystallization_window"],
+                {
+                    "start": self.config["autonomous_hour"]["start"],
+                    "end": self.config["autonomous_hour"]["end"],
+                    "timezone": self.config["timezone"],
+                },
+            )
+
+            autonomous = day["autonomous_work"]
+            self.assertEqual(autonomous["source_date"], expected_source)
+            self.assertEqual(autonomous["crystallization_date"], day["date"])
+            self.assertEqual(
+                (autonomous["start"], autonomous["end"]),
+                (
+                    self.config["autonomous_hour"]["start"],
+                    self.config["autonomous_hour"]["end"],
+                ),
+            )
+            self.assertEqual(
+                [
+                    (event["start"], event["end"])
+                    for event in day["timeline_events"]
+                    if event["origin"] == "self"
+                ],
+                [
+                    (
+                        self.config["autonomous_hour"]["start"],
+                        self.config["autonomous_hour"]["end"],
+                    )
+                ],
+            )
+
+            if expected_source in days_by_date:
+                self.assertRegex(
+                    autonomous["source_day_url"],
+                    rf"[?&]date={expected_source}(?:&|$)",
+                )
+            else:
+                self.assertIsNone(autonomous["source_day_url"])
+
+            for seed in day["forward_artwork_seeds"]:
+                self.assertEqual(seed["source_date"], day["date"])
+                self.assertIn(seed["crystallization_date"], days_by_date)
+                self.assertEqual(
+                    date.fromisoformat(seed["crystallization_date"]),
+                    date.fromisoformat(seed["source_date"]) + timedelta(days=1),
+                )
+                self.assertEqual(
+                    set(seed),
+                    {
+                        "source_date",
+                        "crystallization_date",
+                        "title_en",
+                        "title_zh",
+                        "day_url",
+                    },
+                )
+                self.assertRegex(
+                    seed["day_url"],
+                    rf"[?&]date={seed['crystallization_date']}(?:&|$)",
+                )
+                seed_targets[seed["crystallization_date"]] += 1
+
+        expected_seed_targets = {
+            day["date"]
+            for day in output["days"]
+            if day["source_date"] in days_by_date
+        }
+        self.assertEqual(set(seed_targets), expected_seed_targets)
+        self.assertTrue(all(count == 1 for count in seed_targets.values()))
 
     def test_every_public_day_has_public_safe_real_scheduler_pulses(self) -> None:
         output = self.build()
@@ -444,8 +558,21 @@ class TimetableBuilderTests(unittest.TestCase):
             for pulse in day["background_pulses"]
             if pulse["footprint_id"] == residue["source_refs"][0]
         )
-        self.assertEqual(source["summary_zh"], "上午提醒：████。")
-        self.assertEqual(source["summary_en"], "Morning reminder: ████.")
+        expected = builder.project_private_reminder(
+            {
+                "owner_scope": reminder["owner_scope"],
+                "ownership_provenance": reminder["ownership_provenance"],
+                "action_provenance": reminder["action_provenance"],
+                "time_code": reminder["time_bucket"],
+                **{
+                    field: reminder[field]
+                    for field in builder.LIMITED_REMINDER_FIELDS
+                    if field in reminder
+                },
+            }
+        )
+        self.assertEqual(source["summary_zh"], expected["summary_zh"])
+        self.assertEqual(source["summary_en"], expected["summary_en"])
 
     def test_unowned_reminders_are_omitted_before_redaction_and_footprinting(self) -> None:
         rejected_mutations = (
@@ -899,6 +1026,8 @@ class TimetableBuilderTests(unittest.TestCase):
         synthetic.update(
             {
                 "date": future_date,
+                "source_date": last_date.isoformat(),
+                "crystallization_date": future_date,
                 "title_en": "Synthetic Future Aperture",
                 "title_zh": "合成未来孔径",
                 "variable_en": "Aperture",

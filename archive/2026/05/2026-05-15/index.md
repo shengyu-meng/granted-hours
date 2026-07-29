@@ -1,5 +1,10 @@
 # 2026-05-15 — Uncatalogued Dawn / 未编目的黎明
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-14](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-14)
+- **Crystallization Day / 结晶日:** [2026-05-15](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness.

@@ -1,5 +1,10 @@
 # 2026-05-28 — Doubt That Still Acts / 仍然行动的怀疑
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-27](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-27)
+- **Crystallization Day / 结晶日:** [2026-05-28](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-28/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue the humble instrument by asking how doubt can avoid becoming paralysis: action shrinks, exposes its tether, and keeps a return path.

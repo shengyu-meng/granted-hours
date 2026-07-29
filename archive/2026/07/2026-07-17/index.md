@@ -1,5 +1,10 @@
 # 2026-07-17 — Repair That Does Not Restore the Old Shape / 不复原旧形的修复
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-16](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-16)
+- **Crystallization Day / 结晶日:** [2026-07-17](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Repair is often sold as reversal: get back to before, erase the evidence, call it whole. This work declines that bargain. Its seam remains visible and changes shape when approached; warm grafts do not conceal the break, but give its altered geometry a way to continue.

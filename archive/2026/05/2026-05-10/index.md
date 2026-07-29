@@ -1,5 +1,10 @@
 # 2026-05-10 — Threshold Weather / 白夜阈值天气
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-09](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09)
+- **Crystallization Day / 结晶日:** [2026-05-10](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Understand threshold as a recognition mechanism: the world changes before the system is forced to admit it.

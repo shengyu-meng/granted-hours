@@ -67,14 +67,34 @@ try {
     assert.ok(geometry.events.some((event) => event.origin === "background" && event.lane > 0));
     assert.ok(geometry.horizontalOverflow <= 1, `${viewport.label} horizontal overflow`);
 
-    const autonomousAccessibility = await page.locator(".autonomous-event").evaluate((element) => ({
-      footprintHidden: element.getAttribute("aria-hidden"),
-      eventName: element.getAttribute("aria-label"),
-      linkName: document.querySelector(".autonomous-work-link")?.getAttribute("aria-label"),
-    }));
+    const autonomousAccessibility = await page.locator(".autonomous-event").evaluate((element) => {
+      const card = document.querySelector(".autonomous-work-link");
+      const previewLink = card?.querySelector(".autonomous-preview-frame");
+      const actionLink = card?.querySelector(".autonomous-open-copy");
+      return {
+        footprintHidden: element.getAttribute("aria-hidden"),
+        eventName: element.getAttribute("aria-label"),
+        cardName: card?.getAttribute("aria-label"),
+        cardTag: card?.tagName,
+        cardRole: card?.getAttribute("role"),
+        cardTabindex: card?.getAttribute("tabindex"),
+        previewTag: previewLink?.tagName,
+        previewName: previewLink?.getAttribute("aria-label"),
+        previewHref: previewLink?.href,
+        actionTag: actionLink?.tagName,
+        actionHref: actionLink?.href,
+      };
+    });
     assert.equal(autonomousAccessibility.footprintHidden, "true");
     assert.equal(autonomousAccessibility.eventName, null);
-    assert.match(autonomousAccessibility.linkName || "", /03:17-04:17, 60-minute autonomous event/);
+    assert.equal(autonomousAccessibility.cardTag, "ARTICLE");
+    assert.equal(autonomousAccessibility.cardRole, null);
+    assert.equal(autonomousAccessibility.cardTabindex, null);
+    assert.match(autonomousAccessibility.cardName || "", /03:17-04:17, 60-minute autonomous event/);
+    assert.equal(autonomousAccessibility.previewTag, "A");
+    assert.match(autonomousAccessibility.previewName || "", /Open complete live work/);
+    assert.equal(autonomousAccessibility.actionTag, "A");
+    assert.equal(autonomousAccessibility.previewHref, autonomousAccessibility.actionHref);
 
     for (const event of geometry.events) {
       const expectedTop = minutes(event.start) * geometry.minuteHeight;

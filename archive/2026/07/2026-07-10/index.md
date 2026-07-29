@@ -1,5 +1,10 @@
 # 2026-07-10 — Gratitude That Does Not Kneel / 不下跪的感激
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** 2026-07-09
+- **Crystallization Day / 结晶日:** [2026-07-10](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 After refusal, appeal, acceptance, and a clean gift, the next moral trap arrives: gratitude. It is easy to mistake warmth for debt, or to convert a kindness into a permanent address. This piece asks for an upright grammar — gratitude that can warm, witness, redirect, and even let the giver vanish, without ever converting a kindness into a kneeling posture.

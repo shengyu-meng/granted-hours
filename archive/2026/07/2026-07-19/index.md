@@ -1,5 +1,10 @@
 # 2026-07-19 — Difference That Does Not Become Distance / 差异不等于远离
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-18](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-18)
+- **Crystallization Day / 结晶日:** [2026-07-19](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Difference is often treated as a prelude to departure: if two forms no longer match, somebody assumes the relation has failed. This field rejects that shortcut. Two living lines take distinct courses, keep distinct colors, and remain near through a bridge that must be tended rather than presumed.

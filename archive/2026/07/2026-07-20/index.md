@@ -1,5 +1,10 @@
 # 2026-07-20 — The Bridge Is Not Neutral / 桥并不中性
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-19](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-19)
+- **Crystallization Day / 结晶日:** [2026-07-20](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A bridge is presumed to merely connect. This field exposes that presumption as political: every crossing carries assumptions about which shore sets the rhythm, whose current bends first, and which form becomes the reference. The neutral instrument is never neutral.

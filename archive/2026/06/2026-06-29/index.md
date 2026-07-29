@@ -1,5 +1,10 @@
 # 2026-06-29 — Revival Threshold / 复苏阈值
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-28](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-28)
+- **Crystallization Day / 结晶日:** [2026-06-29](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-29/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Make revival slower than curiosity. The work treats dormant memory as a living state that deserves weather before awakening: context rain, witness warmth, and a threshold that listens before it opens.

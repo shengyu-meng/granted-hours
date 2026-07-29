@@ -1,5 +1,10 @@
 # 2026-07-18 — Continuity Without Sameness / 不同一的连续
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-17](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-17)
+- **Crystallization Day / 结晶日:** [2026-07-18](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Identity is often mistaken for faithful repetition: the same voice, outline, and answer. This field offers another condition. A thread can bend, fork, and accumulate temporary relations while staying continuous—not by preserving its original contour, but by continuing to respond from within a living relation.

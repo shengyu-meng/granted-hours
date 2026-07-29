@@ -9,6 +9,7 @@ SVG covers, and PNG previews. It does not read private logs.
 """
 from __future__ import annotations
 import argparse, json, re, shutil
+from datetime import date, timedelta
 from pathlib import Path
 from html import escape
 from build_maze_data import build_maze_data
@@ -16,6 +17,11 @@ from build_maze_data import build_maze_data
 ROOT = Path(__file__).resolve().parents[1]
 PAGES_BASE = 'https://shengyu-meng.github.io/granted-hours/'
 REPO_BASE = 'https://github.com/shengyu-meng/granted-hours'
+TIMETABLE_CONFIG = ROOT / 'metadata' / 'timetable-calendar.json'
+DUAL_DATE_HTML_START = '<!-- granted-hours-dual-date:start -->'
+DUAL_DATE_HTML_END = '<!-- granted-hours-dual-date:end -->'
+DUAL_DATE_MD_START = '<!-- granted-hours-dual-date:start -->'
+DUAL_DATE_MD_END = '<!-- granted-hours-dual-date:end -->'
 
 ENTRIES = [
     {
@@ -911,6 +917,137 @@ def ymd_parts(date):
     y, m, d = date.split('-')
     return y, m, date
 
+
+def build_dual_date_metadata(
+    crystallization_date: str,
+    public_dates: set[str],
+    config: dict,
+) -> dict:
+    crystallization = date.fromisoformat(crystallization_date)
+    source_date = (crystallization - timedelta(days=1)).isoformat()
+    autonomous = config["autonomous_hour"]
+    source_day_url = (
+        f"{PAGES_BASE}timetable/?date={source_date}"
+        if source_date in public_dates
+        else None
+    )
+    year, month, _ = crystallization_date.split("-")
+    return {
+        "source_date": source_date,
+        "crystallization_date": crystallization_date,
+        "start": autonomous["start"],
+        "end": autonomous["end"],
+        "timezone": config["timezone"],
+        "source_day_url": source_day_url,
+        "crystallization_day_url": (
+            f"{PAGES_BASE}archive/{year}/{month}/{crystallization_date}/"
+        ),
+    }
+
+
+def render_archive_dual_date_html(metadata: dict) -> str:
+    if metadata["source_day_url"]:
+        source_value = (
+            f'<a href="{escape(metadata["source_day_url"])}">'
+            f'{metadata["source_date"]}</a>'
+        )
+    else:
+        source_value = escape(metadata["source_date"])
+    return f"""
+{DUAL_DATE_HTML_START}
+    <section class="dual-date-meta" aria-label="Source Day and Crystallization Day / 来源日与结晶日">
+      <p><strong>Source Day / 来源日</strong><span>{source_value}</span></p>
+      <p><strong>Crystallization Day / 结晶日</strong><span><a href="{escape(metadata['crystallization_day_url'])}">{metadata['crystallization_date']}</a> · {metadata['start']}–{metadata['end']} {metadata['timezone']}</span></p>
+    </section>
+{DUAL_DATE_HTML_END}
+""".strip()
+
+
+def render_archive_dual_date_markdown(metadata: dict) -> str:
+    source_value = (
+        f"[{metadata['source_date']}]({metadata['source_day_url']})"
+        if metadata["source_day_url"]
+        else metadata["source_date"]
+    )
+    return f"""
+{DUAL_DATE_MD_START}
+- **Source Day / 来源日:** {source_value}
+- **Crystallization Day / 结晶日:** [{metadata['crystallization_date']}]({metadata['crystallization_day_url']}) · {metadata['start']}–{metadata['end']} {metadata['timezone']}
+{DUAL_DATE_MD_END}
+""".strip()
+
+
+def replace_or_insert_block(
+    text: str,
+    block: str,
+    start_marker: str,
+    end_marker: str,
+    insertion_pattern: str,
+) -> str:
+    marker_pattern = re.compile(
+        rf"{re.escape(start_marker)}.*?{re.escape(end_marker)}",
+        flags=re.DOTALL,
+    )
+    if marker_pattern.search(text):
+        return marker_pattern.sub(block, text, count=1)
+    match = re.search(insertion_pattern, text, flags=re.MULTILINE)
+    if match is None:
+        raise SystemExit("Could not place dual-date metadata in a public archive")
+    return text[:match.end()] + "\n\n" + block + text[match.end():]
+
+
+def refresh_dual_date_artifacts() -> int:
+    metadata_path = ROOT / 'metadata' / 'days.json'
+    days = json.loads(metadata_path.read_text(encoding='utf-8'))
+    if not isinstance(days, list):
+        raise SystemExit('metadata/days.json must contain a list')
+    config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
+    public_dates = {day['date'] for day in days}
+    refreshed_days = []
+    for day in days:
+        metadata = build_dual_date_metadata(day['date'], public_dates, config)
+        refreshed_day = {
+            key: value
+            for key, value in day.items()
+            if key not in {'source_date', 'crystallization_date'}
+        }
+        ordered_day = {
+            'date': refreshed_day.pop('date'),
+            'source_date': metadata['source_date'],
+            'crystallization_date': metadata['crystallization_date'],
+            **refreshed_day,
+        }
+        refreshed_days.append(ordered_day)
+        year, month, _ = day['date'].split('-')
+        html_path = ROOT / 'docs' / 'archive' / year / month / day['date'] / 'index.html'
+        markdown_path = ROOT / 'archive' / year / month / day['date'] / 'index.md'
+        html = html_path.read_text(encoding='utf-8')
+        markdown = markdown_path.read_text(encoding='utf-8')
+        html = replace_or_insert_block(
+            html,
+            render_archive_dual_date_html(metadata),
+            DUAL_DATE_HTML_START,
+            DUAL_DATE_HTML_END,
+            r'<p class="meta"><a href="\.\./\.\./\.\./\.\./">.*?</a></p>',
+        )
+        markdown = replace_or_insert_block(
+            markdown,
+            render_archive_dual_date_markdown(metadata),
+            DUAL_DATE_MD_START,
+            DUAL_DATE_MD_END,
+            r'^# .+$',
+        )
+        html_path.write_text(html, encoding='utf-8')
+        markdown_path.write_text(markdown, encoding='utf-8')
+    metadata_path.write_text(
+        json.dumps(refreshed_days, ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8',
+    )
+    print(
+        f"Refreshed dual-date metadata for {len(refreshed_days)} public archive dates."
+    )
+    return len(refreshed_days)
+
 def read_safe(path: Path) -> str:
     text = path.read_text(encoding='utf-8')
     for rx in SAFETY_PATTERNS:
@@ -1315,6 +1452,14 @@ def build_entry(source: Path, entry: dict):
     interaction_md = f"""\n## Interaction / 交互\n\n{interaction_en}\n\n{interaction_zh}\n""" if (interaction_en or interaction_zh) else ""
     interaction_html = f"""\n    <section class=\"two\">\n      <div>\n        <h2>Interaction</h2>\n        <p>{escape(interaction_en)}</p>\n      </div>\n      <div>\n        <h2>交互</h2>\n        <p>{escape(interaction_zh)}</p>\n      </div>\n    </section>\n""" if (interaction_en or interaction_zh) else ""
     rationale_en, rationale_zh = creative_rationale(entry)
+    config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
+    dual_date = build_dual_date_metadata(
+        entry['date'],
+        {candidate['date'] for candidate in ENTRIES},
+        config,
+    )
+    dual_date_markdown = render_archive_dual_date_markdown(dual_date)
+    dual_date_html = render_archive_dual_date_html(dual_date)
     bgm_html = f'''
     <section>
       <h2>Background Music / 背景音乐</h2>
@@ -1325,6 +1470,8 @@ def build_entry(source: Path, entry: dict):
 
     write(root_dir/'index.md', f"""
 # {entry['date']} — {entry['title_en']} / {entry['title_zh']}
+
+{dual_date_markdown}
 
 ## Intention / 发心
 
@@ -1369,6 +1516,7 @@ def build_entry(source: Path, entry: dict):
 <body>
   <main class="site">
     <p class="meta"><a href="../../../../">← Granted Hours / 授时</a></p>
+{dual_date_html}
     <h1 style="font-size:clamp(38px,6vw,82px)">{entry['title_en']}<br>{entry['title_zh']}</h1>
     <p class="meta">{entry['date']} · {entry['variable_en']} / {entry['variable_zh']} · seed {entry['seed']}</p>
     <a class="preview-link" href="./live/" aria-label="Open live artwork for {escape(entry['title_en'])}">
@@ -1413,7 +1561,10 @@ def build_entry(source: Path, entry: dict):
 """.lstrip())
 
     day_meta = {
-        'date': entry['date'], 'title_en': entry['title_en'], 'title_zh': entry['title_zh'],
+        'date': entry['date'],
+        'source_date': dual_date['source_date'],
+        'crystallization_date': dual_date['crystallization_date'],
+        'title_en': entry['title_en'], 'title_zh': entry['title_zh'],
         'type': 'live', 'seed': entry['seed'],
         'preview': f'{rel}/assets/preview.png',
         'gif': f'{rel}/assets/visual-preview.gif',
@@ -1679,8 +1830,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--source', help='Path to artifacts/free-roam')
     ap.add_argument('--refresh-live-docs', action='store_true', help='Refresh fold snippets in existing docs/archive/*/live/index.html files')
+    ap.add_argument('--refresh-dual-dates', action='store_true', help='Refresh dual-date metadata in existing public archive pages and metadata')
     ap.add_argument('--date', dest='dates', action='append', help='Import only this declared YYYY-MM-DD date; repeat for multiple dates')
     args = ap.parse_args()
+    if args.refresh_dual_dates:
+        if args.dates or args.refresh_live_docs or args.source:
+            ap.error('--refresh-dual-dates cannot be combined with source, date, or live refresh options')
+        refresh_dual_date_artifacts()
+        return
     if args.refresh_live_docs:
         if args.dates:
             ap.error('--date cannot be combined with --refresh-live-docs')

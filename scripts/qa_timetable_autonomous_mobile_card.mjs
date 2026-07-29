@@ -61,6 +61,8 @@ async function inspect(page) {
     const copy = card?.querySelector(".autonomous-copy");
     const title = card?.querySelector(".reading-title");
     const summary = card?.querySelector(".reading-summary");
+    const dateRelation = card?.querySelector(".autonomous-date-relation");
+    const previewLink = card?.querySelector(".autonomous-preview-frame");
     const hint = card?.querySelector(".autonomous-open-copy");
     const required = {
       card,
@@ -75,6 +77,8 @@ async function inspect(page) {
       copy,
       title,
       summary,
+      dateRelation,
+      previewLink,
       hint,
     };
     for (const [name, element] of Object.entries(required)) {
@@ -120,9 +124,11 @@ async function inspect(page) {
     const copyRect = rect(copy);
     const titleRect = rect(title);
     const summaryRect = rect(summary);
+    const dateRelationRect = rect(dateRelation);
     const hintRect = rect(hint);
     const titleVisibility = visibility(title);
     const summaryVisibility = visibility(summary);
+    const dateRelationVisibility = visibility(dateRelation);
     const hintVisibility = visibility(hint);
     const minuteHeight = Number.parseFloat(getComputedStyle(timeline).getPropertyValue("--minute-height"));
     const cards = [...document.querySelectorAll(".event-reading-card")].map((element) => ({
@@ -154,9 +160,21 @@ async function inspect(page) {
       };
     });
     return {
-      href: card.href,
-      target: card.target,
-      rel: card.rel,
+      cardTag: card.tagName,
+      cardRole: card.getAttribute("role"),
+      cardTabindex: card.getAttribute("tabindex"),
+      cardHref: card.getAttribute("href"),
+      cardTarget: card.getAttribute("target"),
+      previewTag: previewLink.tagName,
+      previewHref: previewLink.href,
+      previewTarget: previewLink.target,
+      previewRel: previewLink.rel,
+      previewName: previewLink.getAttribute("aria-label") || "",
+      actionTag: hint.tagName,
+      actionHref: hint.href,
+      actionTarget: hint.target,
+      actionRel: hint.rel,
+      actionName: hint.textContent.trim(),
       className: card.className,
       compactClass: card.classList.contains("is-compact-reading-card"),
       narrowClass: card.classList.contains("is-narrow-reading-card"),
@@ -197,6 +215,13 @@ async function inspect(page) {
         text: summary.textContent.trim(),
         visibleLines: summaryVisibility.clientHeight / summaryVisibility.lineHeight,
         exposedFraction: summaryVisibility.clientHeight / summaryVisibility.scrollHeight,
+      },
+      dateRelation: {
+        ...dateRelationRect,
+        ...dateRelationVisibility,
+        text: dateRelation.textContent.trim(),
+        fontSize: Number.parseFloat(getComputedStyle(dateRelation).fontSize),
+        clipped: dateRelation.scrollHeight > dateRelation.clientHeight + 1,
       },
       hint: {
         ...hintRect,
@@ -273,9 +298,19 @@ try {
     results.push(result);
 
     check(pageErrors.length === 0, `${testCase.label}: page errors ${JSON.stringify(pageErrors)}`, failures);
-    check(result.href === expectedLiveHref(testCase.date), `${testCase.label}: direct launch href changed`, failures);
-    check(result.target === "_blank", `${testCase.label}: direct launch target changed`, failures);
-    check(result.rel.split(/\s+/).includes("noopener"), `${testCase.label}: missing noopener`, failures);
+    check(result.cardTag === "ARTICLE", `${testCase.label}: card must remain an article`, failures);
+    check(result.cardRole === null, `${testCase.label}: article has a misleading explicit role`, failures);
+    check(result.cardTabindex === null, `${testCase.label}: article remains focusable`, failures);
+    check(result.cardHref === null && result.cardTarget === null, `${testCase.label}: article carries pseudo-link properties`, failures);
+    check(result.previewTag === "A", `${testCase.label}: preview is not a native link`, failures);
+    check(result.actionTag === "A", `${testCase.label}: visible action is not a native link`, failures);
+    check(result.previewHref === expectedLiveHref(testCase.date), `${testCase.label}: preview launch href changed`, failures);
+    check(result.actionHref === result.previewHref, `${testCase.label}: native launch links disagree`, failures);
+    check(result.previewTarget === "_blank" && result.actionTarget === "_blank", `${testCase.label}: direct launch target changed`, failures);
+    check(result.previewRel.split(/\s+/).includes("noopener"), `${testCase.label}: preview missing noopener`, failures);
+    check(result.actionRel.split(/\s+/).includes("noopener"), `${testCase.label}: action missing noopener`, failures);
+    check(/Open complete live work/.test(result.previewName), `${testCase.label}: preview link name is unclear`, failures);
+    check(/Open complete live work/.test(result.actionName), `${testCase.label}: action link name is unclear`, failures);
     check(
       result.previewAnimatedSource === expectedVisualSource(testCase.date)
         && archivePath(result.previewCurrentSrc) === archivePath(result.previewAnimatedSource),
@@ -322,6 +357,14 @@ try {
       check(
         result.preview.width >= minimumPreviewWidth && result.preview.height >= minimumPreviewHeight,
         `${testCase.label}: preview too small ${result.preview.width}x${result.preview.height}`,
+        failures,
+      );
+      check(
+        result.dateRelation.visible
+          && result.dateRelation.fontSize >= 9
+          && result.dateRelation.lineHeight >= result.dateRelation.fontSize * 1.2
+          && !result.dateRelation.clipped,
+        `${testCase.label}: dual-date metadata unreadable ${JSON.stringify(result.dateRelation)}`,
         failures,
       );
       check(!result.title.clipped, `${testCase.label}: title clipped`, failures);

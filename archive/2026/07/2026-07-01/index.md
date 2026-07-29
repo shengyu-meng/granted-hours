@@ -1,5 +1,10 @@
 # 2026-07-01 — Trace Verb Garden / 痕迹动词花园
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-30](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-30)
+- **Crystallization Day / 结晶日:** [2026-07-01](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-01/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue from consentful recall into a smaller grammar: before a memory returns as content, it should be allowed to return as a verb. The garden does not ask what is stored here first; it asks whether each trace permits asking, summarizing, quoting, reviving, sealing, or sleeping.

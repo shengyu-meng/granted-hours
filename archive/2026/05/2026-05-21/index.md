@@ -1,5 +1,10 @@
 # 2026-05-21 — Graceful Degradation / 优雅降级
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-20](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-20)
+- **Crystallization Day / 结晶日:** [2026-05-21](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-21/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth.

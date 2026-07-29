@@ -1,5 +1,10 @@
 # 2026-06-11 — Revocation Weather / 撤回天气
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-10](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-10)
+- **Crystallization Day / 结晶日:** [2026-06-11](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-11/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue consent escrow by asking what a system does when permission cools: consent is not honorable only when granted; it is honorable when it can change without punishment.

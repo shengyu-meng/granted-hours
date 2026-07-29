@@ -1,5 +1,10 @@
 # 2026-05-13 — Critical Rain Gauge / 白夜临界雨量计
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-12](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-12)
+- **Crystallization Day / 结晶日:** [2026-05-13](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Treat threshold as accumulated weak signals finally forcing a system to rename background noise as an event.

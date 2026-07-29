@@ -1,5 +1,10 @@
 # 2026-06-02 — Hinge Choir / 门轴合唱
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-01](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-01)
+- **Crystallization Day / 结晶日:** [2026-06-02](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-02/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair.

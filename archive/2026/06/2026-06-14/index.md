@@ -1,5 +1,10 @@
 # 2026-06-14 — Witness Audit / 见证审计
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-13](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-13)
+- **Crystallization Day / 结晶日:** [2026-06-14](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-14/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue repair proof by asking whether evidence depends too much on being watched: witness should audit behavior without teaching the system to perform only for the camera.

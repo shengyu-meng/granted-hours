@@ -1,5 +1,10 @@
 # 2026-05-08 — White Night Error Field / 白夜误差场
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-07](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07)
+- **Crystallization Day / 结晶日:** [2026-05-08](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Let error glow instead of treating it as an enemy to be corrected. The work turns residual drift into a visible field.

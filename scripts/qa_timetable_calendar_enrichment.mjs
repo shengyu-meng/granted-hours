@@ -210,17 +210,51 @@ try {
     }
   });
 
-  await check("calendar opens the complete canonical work instead of an iframe chamber", async () => {
-    const result = await page.locator("#enterAutonomous").evaluate((link) => ({
-      tag: link.tagName,
-      href: link.href,
-      target: link.target,
-      rel: link.rel,
-      chamberCount: document.querySelectorAll("#crystalChamber,#liveFrame").length,
-    }));
-    assert.equal(result.tag, "A", JSON.stringify(result));
+  await check("calendar exposes canonical work and sanitized source-day links without an iframe chamber", async () => {
+    const linkedDateUrl = new URL(baseUrl);
+    linkedDateUrl.searchParams.set("date", "2026-07-17");
+    linkedDateUrl.searchParams.set("regression", "calendar-enrichment");
+    await page.goto(linkedDateUrl.href, { waitUntil: "networkidle" });
+    await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-07-17"]');
+    const result = await page.locator("#enterAutonomous").evaluate((card) => {
+      const previewLink = card.querySelector(".autonomous-preview-frame");
+      const liveLink = card.querySelector(".autonomous-open-copy");
+      const sourceDayLink = card.querySelector(".autonomous-source-day-link");
+      return {
+        tag: card.tagName,
+        role: card.getAttribute("role"),
+        tabindex: card.getAttribute("tabindex"),
+        cardHref: card.getAttribute("href"),
+        cardTarget: card.getAttribute("target"),
+        previewTag: previewLink?.tagName || "",
+        previewHref: previewLink?.href || "",
+        previewTarget: previewLink?.target || "",
+        previewRel: previewLink?.rel || "",
+        previewName: previewLink?.getAttribute("aria-label") || "",
+        liveTag: liveLink?.tagName || "",
+        href: liveLink?.href || "",
+        target: liveLink?.target || "",
+        rel: liveLink?.rel || "",
+        sourceTag: sourceDayLink?.tagName || "",
+        sourceHref: sourceDayLink?.href || "",
+        chamberCount: document.querySelectorAll("#crystalChamber,#liveFrame").length,
+      };
+    });
+    assert.equal(result.tag, "ARTICLE", JSON.stringify(result));
+    assert.equal(result.role, null, JSON.stringify(result));
+    assert.equal(result.tabindex, null, JSON.stringify(result));
+    assert.equal(result.cardHref, null, JSON.stringify(result));
+    assert.equal(result.cardTarget, null, JSON.stringify(result));
+    assert.equal(result.previewTag, "A", JSON.stringify(result));
+    assert.equal(result.liveTag, "A", JSON.stringify(result));
+    assert.equal(result.sourceTag, "A", JSON.stringify(result));
+    assert.match(result.sourceHref, /[?&]date=\d{4}-\d{2}-\d{2}(?:&|$)/);
+    assert.equal(result.previewTarget, "_blank", JSON.stringify(result));
     assert.equal(result.target, "_blank", JSON.stringify(result));
+    assert.match(result.previewRel, /noopener/);
     assert.match(result.rel, /noopener/);
+    assert.match(result.previewName, /Open complete live work/);
+    assert.equal(result.previewHref, result.href);
     assert.doesNotMatch(result.href, /[?&]embed=calendar/);
     assert.match(result.href, /[?&]from=timetable(?:&|$)/);
     assert.equal(result.chamberCount, 0, JSON.stringify(result));

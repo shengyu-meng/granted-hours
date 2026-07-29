@@ -1,5 +1,10 @@
 # 2026-05-20 — Quiet Failure Budget / 安静的失败预算
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-19](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-19)
+- **Crystallization Day / 结晶日:** [2026-05-20](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate.

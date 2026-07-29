@@ -1,5 +1,10 @@
 # 2026-05-09 — White Night Silence Field / 白夜沉默场
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-08](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-08)
+- **Crystallization Day / 结晶日:** [2026-05-09](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Treat silence not as absence, but as a low-light reserve where weak signals can keep their shape without being overwritten by strong ones.

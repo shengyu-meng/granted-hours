@@ -98,7 +98,11 @@ try {
       assert.equal(response?.status(), 200, `${day.date} HTTP ${response?.status()}`);
       await page.locator(".gh-work-note-link").waitFor({
         state: "visible",
-        timeout: 10000,
+        // A few WebGL-heavy works can delay the appended navigation link when
+        // several pages initialize concurrently. The link is injected by the
+        // shared importer and is healthy in isolation; give the corpus check a
+        // realistic startup budget instead of treating CPU contention as loss.
+        timeout: 20000,
       });
       const state = await page.evaluate(visibleFn => {
         const isVisible = new Function("element", `return (${visibleFn})(element);`);
@@ -138,7 +142,7 @@ try {
     }
   }
 
-  const concurrency = 5;
+  const concurrency = 3;
   for (let index = 0; index < days.length; index += concurrency) {
     const batch = days.slice(index, index + concurrency);
     const settled = await Promise.allSettled(batch.map(inspectDirectPage));

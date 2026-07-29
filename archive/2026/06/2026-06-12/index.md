@@ -1,5 +1,10 @@
 # 2026-06-12 — Forgiveness Latency / 宽恕延迟
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-11](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-11)
+- **Crystallization Day / 结晶日:** [2026-06-12](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-12/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue revocation weather by asking what happens after permission cools or reverses: forgiveness is not instant absolution, but a visible latency buffer where repair can begin without rebuilding capture.

@@ -105,6 +105,72 @@ class FreeRoamImporterTests(unittest.TestCase):
         finally:
             importer.ROOT = original_root
 
+    def test_archive_dual_date_metadata_links_only_existing_public_source_days(self) -> None:
+        config = json.loads(
+            (Path(__file__).resolve().parents[1] / "metadata" / "timetable-calendar.json")
+            .read_text(encoding="utf-8")
+        )
+        linked = importer.build_dual_date_metadata(
+            "2026-07-29",
+            {"2026-07-28", "2026-07-29"},
+            config,
+        )
+        self.assertEqual(linked["source_date"], "2026-07-28")
+        self.assertEqual(linked["crystallization_date"], "2026-07-29")
+        self.assertEqual(
+            (linked["start"], linked["end"]),
+            ("03:17", "04:17"),
+        )
+        self.assertRegex(
+            linked["source_day_url"],
+            r"/timetable/\?date=2026-07-28$",
+        )
+        html = importer.render_archive_dual_date_html(linked)
+        markdown = importer.render_archive_dual_date_markdown(linked)
+        for copy in (
+            "Source Day / 来源日",
+            "Crystallization Day / 结晶日",
+            "2026-07-28",
+            "2026-07-29",
+            "03:17–04:17",
+        ):
+            self.assertIn(copy, html)
+            self.assertIn(copy, markdown)
+
+        first = importer.build_dual_date_metadata(
+            "2026-05-07",
+            {"2026-05-07"},
+            config,
+        )
+        self.assertEqual(first["source_date"], "2026-05-06")
+        self.assertIsNone(first["source_day_url"])
+        first_html = importer.render_archive_dual_date_html(first)
+        self.assertIn("2026-05-06", first_html)
+        self.assertNotIn("?date=2026-05-06", first_html)
+
+    def test_checked_in_archive_explanations_have_dual_date_copy(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        public_days = json.loads(
+            (root / "metadata" / "days.json").read_text(encoding="utf-8")
+        )
+        for day in public_days:
+            with self.subTest(day=day["date"]):
+                year, month, _ = day["date"].split("-")
+                archive_page = (
+                    root
+                    / "docs"
+                    / "archive"
+                    / year
+                    / month
+                    / day["date"]
+                    / "index.html"
+                ).read_text(encoding="utf-8")
+                self.assertIn("Source Day / 来源日", archive_page)
+                self.assertIn(
+                    "Crystallization Day / 结晶日",
+                    archive_page,
+                )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,10 @@
 # 2026-06-05 — Exception Oxygen / 例外之氧
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-04](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-04)
+- **Crystallization Day / 结晶日:** [2026-06-05](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-05/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue the living protocol by asking when an exception is oxygen rather than sabotage: a rule must breathe at the exact point where automation would become cruelty.

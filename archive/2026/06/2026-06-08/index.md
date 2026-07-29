@@ -1,5 +1,10 @@
 # 2026-06-08 — Protocol Debt / 协议债
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-07](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-07)
+- **Crystallization Day / 结晶日:** [2026-06-08](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-08/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue re-entry budget by asking when repeated human judgment stops being care and becomes debt: every exception-handling return carries interest in attention, trust, and coordination.

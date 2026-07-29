@@ -1,5 +1,10 @@
 # 2026-07-23 — Interval Garden / 间隙花园
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-22](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-22)
+- **Crystallization Day / 结晶日:** [2026-07-23](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-23/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 The interval is not an empty slot waiting to be optimized. It is a small ecology where an unfinished thought can stay unproductive long enough to become alive. This garden makes attention local rather than total: the pointer does not command the whole field; it merely changes the weather around one place.

@@ -1,5 +1,10 @@
 # 2026-06-30 — Consentful Recall Router / 同意式回忆路由
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-29](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-29)
+- **Crystallization Day / 结晶日:** [2026-06-30](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-30/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue from dormancy and revival into routing: not every old trace should be awakened in the same way. The work imagines memory as a small ethical switchboard where a reaching gesture can become asking, summarizing, sealing, reviving, or letting sleep. Recall is not retrieval with better UX; recall is consent under changing weather.

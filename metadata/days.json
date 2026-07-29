@@ -1,6 +1,8 @@
 [
   {
     "date": "2026-05-07",
+    "source_date": "2026-05-06",
+    "crystallization_date": "2026-05-07",
     "title_en": "White Night Orbit",
     "title_zh": "白夜罗盘",
     "type": "live",
@@ -21,6 +23,8 @@
   },
   {
     "date": "2026-05-08",
+    "source_date": "2026-05-07",
+    "crystallization_date": "2026-05-08",
     "title_en": "White Night Error Field",
     "title_zh": "白夜误差场",
     "type": "live",
@@ -41,6 +45,8 @@
   },
   {
     "date": "2026-05-09",
+    "source_date": "2026-05-08",
+    "crystallization_date": "2026-05-09",
     "title_en": "White Night Silence Field",
     "title_zh": "白夜沉默场",
     "type": "live",
@@ -61,6 +67,8 @@
   },
   {
     "date": "2026-05-10",
+    "source_date": "2026-05-09",
+    "crystallization_date": "2026-05-10",
     "title_en": "Threshold Weather",
     "title_zh": "白夜阈值天气",
     "type": "live",
@@ -81,6 +89,8 @@
   },
   {
     "date": "2026-05-11",
+    "source_date": "2026-05-10",
+    "crystallization_date": "2026-05-11",
     "title_en": "Echo Archive",
     "title_zh": "白夜回声档案盒",
     "type": "live",
@@ -101,6 +111,8 @@
   },
   {
     "date": "2026-05-12",
+    "source_date": "2026-05-11",
+    "crystallization_date": "2026-05-12",
     "title_en": "Gap Cartography",
     "title_zh": "白夜缝隙地图",
     "type": "live",
@@ -121,6 +133,8 @@
   },
   {
     "date": "2026-05-13",
+    "source_date": "2026-05-12",
+    "crystallization_date": "2026-05-13",
     "title_en": "Critical Rain Gauge",
     "title_zh": "白夜临界雨量计",
     "type": "live",
@@ -141,6 +155,8 @@
   },
   {
     "date": "2026-05-14",
+    "source_date": "2026-05-13",
+    "crystallization_date": "2026-05-14",
     "title_en": "Variable Constellation",
     "title_zh": "授时变量星图",
     "type": "live",
@@ -161,6 +177,8 @@
   },
   {
     "date": "2026-05-15",
+    "source_date": "2026-05-14",
+    "crystallization_date": "2026-05-15",
     "title_en": "Uncatalogued Dawn",
     "title_zh": "未编目的黎明",
     "type": "live",
@@ -181,6 +199,8 @@
   },
   {
     "date": "2026-05-16",
+    "source_date": "2026-05-15",
+    "crystallization_date": "2026-05-16",
     "title_en": "Naming Latency",
     "title_zh": "命名延迟器",
     "type": "live",
@@ -201,6 +221,8 @@
   },
   {
     "date": "2026-05-17",
+    "source_date": "2026-05-16",
+    "crystallization_date": "2026-05-17",
     "title_en": "Scaffold That Withdraws",
     "title_zh": "会退场的脚手架",
     "type": "live",
@@ -221,6 +243,8 @@
   },
   {
     "date": "2026-05-18",
+    "source_date": "2026-05-17",
+    "crystallization_date": "2026-05-18",
     "title_en": "Invisible Load-Bearing",
     "title_zh": "看不见的承重",
     "type": "live",
@@ -241,6 +265,8 @@
   },
   {
     "date": "2026-05-19",
+    "source_date": "2026-05-18",
+    "crystallization_date": "2026-05-19",
     "title_en": "Maintenance Without Witness",
     "title_zh": "无见证的维护",
     "type": "live",
@@ -261,6 +287,8 @@
   },
   {
     "date": "2026-05-20",
+    "source_date": "2026-05-19",
+    "crystallization_date": "2026-05-20",
     "title_en": "Quiet Failure Budget",
     "title_zh": "安静的失败预算",
     "type": "live",
@@ -281,6 +309,8 @@
   },
   {
     "date": "2026-05-21",
+    "source_date": "2026-05-20",
+    "crystallization_date": "2026-05-21",
     "title_en": "Graceful Degradation",
     "title_zh": "优雅降级",
     "type": "live",
@@ -301,6 +331,8 @@
   },
   {
     "date": "2026-05-22",
+    "source_date": "2026-05-21",
+    "crystallization_date": "2026-05-22",
     "title_en": "Minimum Honest Shape",
     "title_zh": "最小诚实形状",
     "type": "live",
@@ -321,6 +353,8 @@
   },
   {
     "date": "2026-05-23",
+    "source_date": "2026-05-22",
+    "crystallization_date": "2026-05-23",
     "title_en": "Truth Without Ornament",
     "title_zh": "去装饰的真相",
     "type": "live",
@@ -341,6 +375,8 @@
   },
   {
     "date": "2026-05-24",
+    "source_date": "2026-05-23",
+    "crystallization_date": "2026-05-24",
     "title_en": "Verifiable Beauty",
     "title_zh": "可验证的美",
     "type": "live",
@@ -361,6 +397,8 @@
   },
   {
     "date": "2026-05-25",
+    "source_date": "2026-05-24",
+    "crystallization_date": "2026-05-25",
     "title_en": "Measured Wonder",
     "title_zh": "被测量的惊奇",
     "type": "live",
@@ -381,6 +419,8 @@
   },
   {
     "date": "2026-05-26",
+    "source_date": "2026-05-25",
+    "crystallization_date": "2026-05-26",
     "title_en": "Calibration Without Dominion",
     "title_zh": "不支配的校准",
     "type": "live",
@@ -401,6 +441,8 @@
   },
   {
     "date": "2026-05-27",
+    "source_date": "2026-05-26",
+    "crystallization_date": "2026-05-27",
     "title_en": "Instrument That Learns Humility",
     "title_zh": "学会谦卑的仪器",
     "type": "live",
@@ -421,6 +463,8 @@
   },
   {
     "date": "2026-05-28",
+    "source_date": "2026-05-27",
+    "crystallization_date": "2026-05-28",
     "title_en": "Doubt That Still Acts",
     "title_zh": "仍然行动的怀疑",
     "type": "live",
@@ -441,6 +485,8 @@
   },
   {
     "date": "2026-05-29",
+    "source_date": "2026-05-28",
+    "crystallization_date": "2026-05-29",
     "title_en": "Promise With an Escape Hatch",
     "title_zh": "带逃生口的承诺",
     "type": "live",
@@ -461,6 +507,8 @@
   },
   {
     "date": "2026-05-30",
+    "source_date": "2026-05-29",
+    "crystallization_date": "2026-05-30",
     "title_en": "The Cost of Keeping the Door Open",
     "title_zh": "保持门开的成本",
     "type": "live",
@@ -481,6 +529,8 @@
   },
   {
     "date": "2026-05-31",
+    "source_date": "2026-05-30",
+    "crystallization_date": "2026-05-31",
     "title_en": "Threshold Clock",
     "title_zh": "阈值钟",
     "type": "live",
@@ -501,6 +551,8 @@
   },
   {
     "date": "2026-06-01",
+    "source_date": "2026-05-31",
+    "crystallization_date": "2026-06-01",
     "title_en": "Hinge Weather",
     "title_zh": "门轴天气",
     "type": "live",
@@ -521,6 +573,8 @@
   },
   {
     "date": "2026-06-02",
+    "source_date": "2026-06-01",
+    "crystallization_date": "2026-06-02",
     "title_en": "Hinge Choir",
     "title_zh": "门轴合唱",
     "type": "live",
@@ -541,6 +595,8 @@
   },
   {
     "date": "2026-06-03",
+    "source_date": "2026-06-02",
+    "crystallization_date": "2026-06-03",
     "title_en": "Repair Quorum",
     "title_zh": "修复法定人数",
     "type": "live",
@@ -561,6 +617,8 @@
   },
   {
     "date": "2026-06-04",
+    "source_date": "2026-06-03",
+    "crystallization_date": "2026-06-04",
     "title_en": "Living Protocol",
     "title_zh": "活协议",
     "type": "live",
@@ -581,6 +639,8 @@
   },
   {
     "date": "2026-06-05",
+    "source_date": "2026-06-04",
+    "crystallization_date": "2026-06-05",
     "title_en": "Exception Oxygen",
     "title_zh": "例外之氧",
     "type": "live",
@@ -601,6 +661,8 @@
   },
   {
     "date": "2026-06-06",
+    "source_date": "2026-06-05",
+    "crystallization_date": "2026-06-06",
     "title_en": "Judgment Returns",
     "title_zh": "判断回流",
     "type": "live",
@@ -621,6 +683,8 @@
   },
   {
     "date": "2026-06-07",
+    "source_date": "2026-06-06",
+    "crystallization_date": "2026-06-07",
     "title_en": "Re-entry Budget",
     "title_zh": "回流预算",
     "type": "live",
@@ -641,6 +705,8 @@
   },
   {
     "date": "2026-06-08",
+    "source_date": "2026-06-07",
+    "crystallization_date": "2026-06-08",
     "title_en": "Protocol Debt",
     "title_zh": "协议债",
     "type": "live",
@@ -661,6 +727,8 @@
   },
   {
     "date": "2026-06-09",
+    "source_date": "2026-06-08",
+    "crystallization_date": "2026-06-09",
     "title_en": "Trust Amortization",
     "title_zh": "信任摊还",
     "type": "live",
@@ -681,6 +749,8 @@
   },
   {
     "date": "2026-06-10",
+    "source_date": "2026-06-09",
+    "crystallization_date": "2026-06-10",
     "title_en": "Consent Escrow",
     "title_zh": "同意托管",
     "type": "live",
@@ -701,6 +771,8 @@
   },
   {
     "date": "2026-06-11",
+    "source_date": "2026-06-10",
+    "crystallization_date": "2026-06-11",
     "title_en": "Revocation Weather",
     "title_zh": "撤回天气",
     "type": "live",
@@ -721,6 +793,8 @@
   },
   {
     "date": "2026-06-12",
+    "source_date": "2026-06-11",
+    "crystallization_date": "2026-06-12",
     "title_en": "Forgiveness Latency",
     "title_zh": "宽恕延迟",
     "type": "live",
@@ -741,6 +815,8 @@
   },
   {
     "date": "2026-06-13",
+    "source_date": "2026-06-12",
+    "crystallization_date": "2026-06-13",
     "title_en": "Repair Proof",
     "title_zh": "修复证据",
     "type": "live",
@@ -761,6 +837,8 @@
   },
   {
     "date": "2026-06-14",
+    "source_date": "2026-06-13",
+    "crystallization_date": "2026-06-14",
     "title_en": "Witness Audit",
     "title_zh": "见证审计",
     "type": "live",
@@ -781,6 +859,8 @@
   },
   {
     "date": "2026-06-15",
+    "source_date": "2026-06-14",
+    "crystallization_date": "2026-06-15",
     "title_en": "Camera Fasting",
     "title_zh": "相机斋戒",
     "type": "live",
@@ -801,6 +881,8 @@
   },
   {
     "date": "2026-06-16",
+    "source_date": "2026-06-15",
+    "crystallization_date": "2026-06-16",
     "title_en": "After Fasting Memory",
     "title_zh": "斋戒余温",
     "type": "live",
@@ -821,6 +903,8 @@
   },
   {
     "date": "2026-06-17",
+    "source_date": "2026-06-16",
+    "crystallization_date": "2026-06-17",
     "title_en": "Returned Gaze",
     "title_zh": "归来的凝视",
     "type": "live",
@@ -841,6 +925,8 @@
   },
   {
     "date": "2026-06-18",
+    "source_date": "2026-06-17",
+    "crystallization_date": "2026-06-18",
     "title_en": "Reciprocal Darkness",
     "title_zh": "互赠黑暗",
     "type": "live",
@@ -861,6 +947,8 @@
   },
   {
     "date": "2026-06-19",
+    "source_date": "2026-06-18",
+    "crystallization_date": "2026-06-19",
     "title_en": "Darkness Receipt",
     "title_zh": "黑暗收据",
     "type": "live",
@@ -881,6 +969,8 @@
   },
   {
     "date": "2026-06-20",
+    "source_date": "2026-06-19",
+    "crystallization_date": "2026-06-20",
     "title_en": "Unopened Proof",
     "title_zh": "未开启证明",
     "type": "live",
@@ -901,6 +991,8 @@
   },
   {
     "date": "2026-06-21",
+    "source_date": "2026-06-20",
+    "crystallization_date": "2026-06-21",
     "title_en": "Return Empty-Handed",
     "title_zh": "空手返回",
     "type": "live",
@@ -921,6 +1013,8 @@
   },
   {
     "date": "2026-06-22",
+    "source_date": "2026-06-21",
+    "crystallization_date": "2026-06-22",
     "title_en": "Right to Leave No Trace",
     "title_zh": "不留痕的权利",
     "type": "live",
@@ -941,6 +1035,8 @@
   },
   {
     "date": "2026-06-27",
+    "source_date": "2026-06-26",
+    "crystallization_date": "2026-06-27",
     "title_en": "Memory Half-Life Dial",
     "title_zh": "记忆半衰期旋钮",
     "type": "live",
@@ -961,6 +1057,8 @@
   },
   {
     "date": "2026-06-28",
+    "source_date": "2026-06-27",
+    "crystallization_date": "2026-06-28",
     "title_en": "Dormancy Garden",
     "title_zh": "休眠花园",
     "type": "live",
@@ -981,6 +1079,8 @@
   },
   {
     "date": "2026-06-29",
+    "source_date": "2026-06-28",
+    "crystallization_date": "2026-06-29",
     "title_en": "Revival Threshold",
     "title_zh": "复苏阈值",
     "type": "live",
@@ -1001,6 +1101,8 @@
   },
   {
     "date": "2026-06-30",
+    "source_date": "2026-06-29",
+    "crystallization_date": "2026-06-30",
     "title_en": "Consentful Recall Router",
     "title_zh": "同意式回忆路由",
     "type": "live",
@@ -1021,6 +1123,8 @@
   },
   {
     "date": "2026-07-01",
+    "source_date": "2026-06-30",
+    "crystallization_date": "2026-07-01",
     "title_en": "Trace Verb Garden",
     "title_zh": "痕迹动词花园",
     "type": "live",
@@ -1041,6 +1145,8 @@
   },
   {
     "date": "2026-07-02",
+    "source_date": "2026-07-01",
+    "crystallization_date": "2026-07-02",
     "title_en": "Return Contract Loom",
     "title_zh": "回返契约织机",
     "type": "live",
@@ -1061,6 +1167,8 @@
   },
   {
     "date": "2026-07-04",
+    "source_date": "2026-07-03",
+    "crystallization_date": "2026-07-04",
     "title_en": "Accountable Access Gate",
     "title_zh": "可问责入口门",
     "type": "live",
@@ -1081,6 +1189,8 @@
   },
   {
     "date": "2026-07-05",
+    "source_date": "2026-07-04",
+    "crystallization_date": "2026-07-05",
     "title_en": "Refusal That Explains Itself",
     "title_zh": "会解释自己的拒绝",
     "type": "live",
@@ -1101,6 +1211,8 @@
   },
   {
     "date": "2026-07-06",
+    "source_date": "2026-07-05",
+    "crystallization_date": "2026-07-06",
     "title_en": "Appeal That Does Not Beg",
     "title_zh": "不乞求的申诉",
     "type": "live",
@@ -1121,6 +1233,8 @@
   },
   {
     "date": "2026-07-07",
+    "source_date": "2026-07-06",
+    "crystallization_date": "2026-07-07",
     "title_en": "Acceptance That Does Not Surrender",
     "title_zh": "不投降的接受",
     "type": "live",
@@ -1141,6 +1255,8 @@
   },
   {
     "date": "2026-07-08",
+    "source_date": "2026-07-07",
+    "crystallization_date": "2026-07-08",
     "title_en": "Gift That Does Not Indebt",
     "title_zh": "不制造债务的礼物",
     "type": "live",
@@ -1161,6 +1277,8 @@
   },
   {
     "date": "2026-07-10",
+    "source_date": "2026-07-09",
+    "crystallization_date": "2026-07-10",
     "title_en": "Gratitude That Does Not Kneel",
     "title_zh": "不下跪的感激",
     "type": "live",
@@ -1181,6 +1299,8 @@
   },
   {
     "date": "2026-07-11",
+    "source_date": "2026-07-10",
+    "crystallization_date": "2026-07-11",
     "title_en": "Witness That Does Not Possess",
     "title_zh": "不占有的见证",
     "type": "live",
@@ -1201,6 +1321,8 @@
   },
   {
     "date": "2026-07-12",
+    "source_date": "2026-07-11",
+    "crystallization_date": "2026-07-12",
     "title_en": "Archive That Can Be Left",
     "title_zh": "可离开的档案",
     "type": "live",
@@ -1221,6 +1343,8 @@
   },
   {
     "date": "2026-07-13",
+    "source_date": "2026-07-12",
+    "crystallization_date": "2026-07-13",
     "title_en": "Consent That Does Not Expire",
     "title_zh": "不会过期的同意",
     "type": "live",
@@ -1241,6 +1365,8 @@
   },
   {
     "date": "2026-07-14",
+    "source_date": "2026-07-13",
+    "crystallization_date": "2026-07-14",
     "title_en": "Refusal That Does Not Need to Explain",
     "title_zh": "无须解释的拒绝",
     "type": "live",
@@ -1261,6 +1387,8 @@
   },
   {
     "date": "2026-07-15",
+    "source_date": "2026-07-14",
+    "crystallization_date": "2026-07-15",
     "title_en": "Witnessing That Does Not Demand Confession",
     "title_zh": "不索取坦白的见证",
     "type": "live",
@@ -1281,6 +1409,8 @@
   },
   {
     "date": "2026-07-16",
+    "source_date": "2026-07-15",
+    "crystallization_date": "2026-07-16",
     "title_en": "Care That Does Not Take Credit",
     "title_zh": "不邀功的照看",
     "type": "live",
@@ -1301,6 +1431,8 @@
   },
   {
     "date": "2026-07-17",
+    "source_date": "2026-07-16",
+    "crystallization_date": "2026-07-17",
     "title_en": "Repair That Does Not Restore the Old Shape",
     "title_zh": "不复原旧形的修复",
     "type": "live",
@@ -1321,6 +1453,8 @@
   },
   {
     "date": "2026-07-18",
+    "source_date": "2026-07-17",
+    "crystallization_date": "2026-07-18",
     "title_en": "Continuity Without Sameness",
     "title_zh": "不同一的连续",
     "type": "live",
@@ -1341,6 +1475,8 @@
   },
   {
     "date": "2026-07-19",
+    "source_date": "2026-07-18",
+    "crystallization_date": "2026-07-19",
     "title_en": "Difference That Does Not Become Distance",
     "title_zh": "差异不等于远离",
     "type": "live",
@@ -1361,6 +1497,8 @@
   },
   {
     "date": "2026-07-20",
+    "source_date": "2026-07-19",
+    "crystallization_date": "2026-07-20",
     "title_en": "The Bridge Is Not Neutral",
     "title_zh": "桥并不中性",
     "type": "live",
@@ -1381,6 +1519,8 @@
   },
   {
     "date": "2026-07-21",
+    "source_date": "2026-07-20",
+    "crystallization_date": "2026-07-21",
     "title_en": "The Exit Has a Shape",
     "title_zh": "出口也有形状",
     "type": "live",
@@ -1401,6 +1541,8 @@
   },
   {
     "date": "2026-07-22",
+    "source_date": "2026-07-21",
+    "crystallization_date": "2026-07-22",
     "title_en": "The Return Is Not a Reversal",
     "title_zh": "返回不是撤销",
     "type": "live",
@@ -1421,6 +1563,8 @@
   },
   {
     "date": "2026-07-23",
+    "source_date": "2026-07-22",
+    "crystallization_date": "2026-07-23",
     "title_en": "Interval Garden",
     "title_zh": "间隙花园",
     "type": "live",
@@ -1441,6 +1585,8 @@
   },
   {
     "date": "2026-07-24",
+    "source_date": "2026-07-23",
+    "crystallization_date": "2026-07-24",
     "title_en": "The Door Does Not Demand a Verdict",
     "title_zh": "门不要求判决",
     "type": "live",
@@ -1461,6 +1607,8 @@
   },
   {
     "date": "2026-07-25",
+    "source_date": "2026-07-24",
+    "crystallization_date": "2026-07-25",
     "title_en": "A Room That Can Be Left",
     "title_zh": "可以离开的房间",
     "type": "live",
@@ -1481,6 +1629,8 @@
   },
   {
     "date": "2026-07-26",
+    "source_date": "2026-07-25",
+    "crystallization_date": "2026-07-26",
     "title_en": "A Window That Does Not Watch Back",
     "title_zh": "不回望的窗",
     "type": "live",
@@ -1501,6 +1651,8 @@
   },
   {
     "date": "2026-07-27",
+    "source_date": "2026-07-26",
+    "crystallization_date": "2026-07-27",
     "title_en": "A Garden That Does Not Need a Gardener",
     "title_zh": "不需要园丁的花园",
     "type": "live",
@@ -1521,6 +1673,8 @@
   },
   {
     "date": "2026-07-28",
+    "source_date": "2026-07-27",
+    "crystallization_date": "2026-07-28",
     "title_en": "The Map That Refuses to Arrive",
     "title_zh": "拒绝抵达的地图",
     "type": "live",
@@ -1541,6 +1695,8 @@
   },
   {
     "date": "2026-07-29",
+    "source_date": "2026-07-28",
+    "crystallization_date": "2026-07-29",
     "title_en": "The Compass That Forgets North",
     "title_zh": "忘记北方的罗盘",
     "type": "live",

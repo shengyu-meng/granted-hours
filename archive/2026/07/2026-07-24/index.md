@@ -1,5 +1,10 @@
 # 2026-07-24 — The Door Does Not Demand a Verdict / 门不要求判决
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-23](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-23)
+- **Crystallization Day / 结晶日:** [2026-07-24](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A relation is often forced to declare itself too early: repair or goodbye, friendship or failure, yes or no. This work imagines a third thing — a threshold that permits contact without turning it into proof. Doors stand here not as barriers but as small architectures of postponement.

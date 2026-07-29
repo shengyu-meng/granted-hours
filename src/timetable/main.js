@@ -92,7 +92,7 @@ const SEMANTIC_CATEGORY_LABELS = {
   "us-market-scan": "U.S. scan / 美股市场扫描",
   "ai-brief": "AI brief / AI 日报",
   "service-support": "Service climate / 服务气候",
-  "private-reminder": "Private absence / 私密缺席",
+  "private-reminder": "Inner weather or masked residue / 内在天气或遮挡残影",
   "warning-exception": "Promoted exception / 提升异常",
   "autonomous-artwork": "Autonomous artwork / AI 自主作品",
 };
@@ -143,6 +143,10 @@ function init() {
   setInitialMonth();
   renderMonth();
   renderTimeState();
+  const directDate = selectedDateFromUrl();
+  if (directDate) {
+    openDayDetail(directDate, { historyMode: "none" });
+  }
 
   els.prevMonth.addEventListener("click", () => moveMonth(-1));
   els.nextMonth.addEventListener("click", () => moveMonth(1));
@@ -173,6 +177,7 @@ function init() {
     hideInspectionLens({ immediate: true });
     scheduleTimelineReadingPlacement();
   });
+  window.addEventListener("popstate", handleDateSelectionPopstate);
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) hideInspectionLens({ immediate: true });
   });
@@ -191,6 +196,7 @@ function cacheElements() {
     "dayDialogPanel",
     "dialogBoundary",
     "dialogDate",
+    "dialogSeed",
     "dialogTitle",
     "dialogVariable",
     "monthGrid",
@@ -891,6 +897,12 @@ function updateCalendarBgmControl(override = "") {
 }
 
 function setInitialMonth() {
+  const directDate = selectedDateFromUrl();
+  if (directDate) {
+    setVisibleMonth(monthKey(directDate));
+    state.selectedDate = directDate;
+    return;
+  }
   const today = shanghaiNow().date;
   const todayMonth = monthKey(today);
   const initialMonth = publicMonths.has(todayMonth) ? todayMonth : monthKey(daysDescending[0].date);
@@ -1004,6 +1016,15 @@ function buildDayButton(day, isToday, isMuted) {
       <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(taskNameZh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(taskNameEn)}</span></span>
     </span>
   `}).join("");
+  const seed = day.forward_artwork_seeds?.[0];
+  const seedMark = seed
+    ? `
+      <span class="cell-mark seed-mark">
+        <span>下一结晶 / NEXT CRYSTALLIZATION</span>
+        <strong>${escapeHtml(seed.title_zh)} / ${escapeHtml(compactEnglishTitle(seed.title_en))}</strong>
+      </span>
+    `
+    : "";
 
   button.innerHTML = `
     <span class="cell-date-number">${formatMonthDay(day.date)}</span>
@@ -1013,6 +1034,7 @@ function buildDayButton(day, isToday, isMuted) {
         <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(day.cell_self.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(day.cell_self.short_en)}</span></span>
         <strong><span class="title-zh">${escapeHtml(day.title_zh)}</span><span class="title-divider"> / </span><span class="title-en">${escapeHtml(compactEnglishTitle(day.title_en))}</span></strong>
       </span>
+      ${seedMark}
     </span>
   `;
   button.prepend(buildIcon(themeIcon[1], themeIcon[0], "theme-icon"));
@@ -1020,12 +1042,13 @@ function buildDayButton(day, isToday, isMuted) {
   return button;
 }
 
-function openDayDetail(date) {
+function openDayDetail(date, options = {}) {
   const day = dayByDate.get(date);
   if (!day) return;
 
+  const wasOpen = state.detailOpen;
   hideInspectionLens({ immediate: true });
-  state.detailLastFocus = document.activeElement;
+  if (!wasOpen) state.detailLastFocus = document.activeElement;
   state.selectedDate = date;
   const targetMonth = monthKey(date);
   if (targetMonth !== isoMonth(state.visibleYear, state.visibleMonth)) {
@@ -1033,6 +1056,7 @@ function openDayDetail(date) {
   }
   renderMonth();
   renderDayDetail(day);
+  updateSelectedDateUrl(date, options.historyMode || "push");
 
   state.detailOpen = true;
   els.dayDialog.hidden = false;
@@ -1041,13 +1065,22 @@ function openDayDetail(date) {
   els.timetableRoot.setAttribute("inert", "");
   document.body.classList.add("detail-open");
   document.documentElement.classList.add("detail-open");
+  if (wasOpen) {
+    els.dayDialogPanel.scrollTop = 0;
+    requestAnimationFrame(() => {
+      if (state.detailOpen && state.selectedDate === date) {
+        els.closeDetail.focus({ preventScroll: true });
+      }
+    });
+    return;
+  }
   requestAnimationFrame(() => {
     els.dayDialog.classList.add("is-open");
     els.closeDetail.focus({ preventScroll: true });
   });
 }
 
-function closeDayDetail() {
+function closeDayDetail(options = {}) {
   hideInspectionLens({ immediate: true });
   if (state.taskDetailOpen) closeTaskDetail({ restoreFocus: false });
   clearSelectedReadingCard({ clearLinked: true });
@@ -1057,7 +1090,14 @@ function closeDayDetail() {
   els.timetableRoot.removeAttribute("inert");
   document.body.classList.remove("detail-open");
   document.documentElement.classList.remove("detail-open");
-  if (state.detailLastFocus && typeof state.detailLastFocus.focus === "function" && document.contains(state.detailLastFocus)) {
+  updateSelectedDateUrl("", options.historyMode || "push");
+  if (
+    state.detailLastFocus
+    && state.detailLastFocus !== document.body
+    && state.detailLastFocus !== document.documentElement
+    && typeof state.detailLastFocus.focus === "function"
+    && document.contains(state.detailLastFocus)
+  ) {
     state.detailLastFocus.focus({ preventScroll: true });
   } else {
     focusDayButton(state.selectedDate);
@@ -1070,6 +1110,7 @@ function renderDayDetail(day) {
   els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
+  renderForwardArtworkSeed(day);
   els.dialogBoundary.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
   els.dayDialog.dataset.selectedDate = day.date;
   updateAdjacentDayControls(day.date);
@@ -1145,6 +1186,26 @@ function renderDayDetail(day) {
     readingLayer.append(card);
   });
   scheduleTimelineReadingPlacement();
+}
+
+function renderForwardArtworkSeed(day) {
+  els.dialogSeed.replaceChildren();
+  const seed = day.forward_artwork_seeds?.[0];
+  els.dialogSeed.hidden = !seed;
+  if (!seed) return;
+  const label = document.createElement("span");
+  label.textContent = "Seed / 种子";
+  const link = document.createElement("a");
+  link.href = publicAssetUrl(seed.day_url);
+  link.textContent = (
+    `Next crystallization ${seed.crystallization_date}: `
+    + `${seed.title_en} / 下一结晶 ${seed.crystallization_date}：《${seed.title_zh}》`
+  );
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    openDayDetail(seed.crystallization_date, { historyMode: "push" });
+  });
+  els.dialogSeed.append(label, link);
 }
 
 function hydratePublicReadingItems(day) {
@@ -1687,17 +1748,22 @@ function buildAutonomousTimelineEvent(day, self) {
   item.dataset.start = self.start;
   item.append(buildEventFootprint("self", autonomousAccessibleName(self)));
   const directLiveUrl = autonomousLiveUrl(day, self);
-  const link = document.createElement("a");
-  link.className = "autonomous-work-link event-reading-card autonomous-reading-card beacon-reading-card";
-  link.id = "enterAutonomous";
-  link.href = directLiveUrl;
-  link.target = "_blank";
-  link.rel = "noopener";
-  link.setAttribute(
+  const card = document.createElement("article");
+  card.className = "autonomous-work-link event-reading-card autonomous-reading-card beacon-reading-card";
+  card.id = "enterAutonomous";
+  card.dataset.autonomousCard = "true";
+  card.setAttribute(
     "aria-label",
-    `${autonomousAccessibleName(self)}. Open complete live work / 新窗口打开完整作品`,
+    `${autonomousAccessibleName(self)}. ${autonomousDateRelation(self)}.`,
   );
-  link.innerHTML = `
+  const liveLinkName = (
+    `Open complete live work: ${self.title_en}`
+    + ` / 新窗口打开完整作品：《${self.title_zh}》`
+  );
+  const sourceDayCopy = self.source_day_url
+    ? `<a class="autonomous-source-day-link" href="${escapeHtml(publicAssetUrl(self.source_day_url))}">Source Day ${escapeHtml(self.source_date)} / 来源日 ${escapeHtml(self.source_date)}</a>`
+    : `<span>Source Day ${escapeHtml(self.source_date)} / 来源日 ${escapeHtml(self.source_date)}</span>`;
+  card.innerHTML = `
     <div class="autonomous-time">
       <span>${self.start}-${self.end}</span>
       <small>60 min · autonomous / 自主</small>
@@ -1705,21 +1771,35 @@ function buildAutonomousTimelineEvent(day, self) {
     <div class="autonomous-copy">
       <p class="autonomous-kicker">${escapeHtml(self.label_zh)} / ${escapeHtml(self.label_en)}</p>
       <h4 class="reading-title">${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
+      <p class="autonomous-date-relation">${sourceDayCopy}<span> → Crystallization Day ${escapeHtml(self.crystallization_date)} / 结晶日 ${escapeHtml(self.crystallization_date)}</span></p>
       <p class="reading-summary">${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
     </div>
-    <span class="autonomous-preview-frame">
+    <a class="autonomous-preview-frame" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="${escapeHtml(liveLinkName)}">
       <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(preferredVisualPreviewUrl(self.visual_preview_url)))}" data-animated-preview-url="${escapeHtml(self.visual_preview_url)}" data-static-preview-url="${escapeHtml(staticVisualPreviewUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
-    </span>
-    <span class="autonomous-open-copy">Open complete live work ↗ / 新窗口打开完整作品</span>
+    </a>
+    <a class="autonomous-open-copy" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener">Open complete live work ↗ / 新窗口打开完整作品</a>
   `;
-  applyVisualPreviewSource(link.querySelector("#selfPreview"));
-  setupReadingCardActivation(link);
-  return { footprint: item, card: link };
+  applyVisualPreviewSource(card.querySelector("#selfPreview"));
+  const sourceDayLink = card.querySelector(".autonomous-source-day-link");
+  sourceDayLink?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openDayDetail(self.source_date, { historyMode: "push" });
+  });
+  setupAutonomousReadingCardPresence(card);
+  return { footprint: item, card };
 }
 
 function autonomousAccessibleName(self) {
   const duration = timeToMinutes(self.end) - timeToMinutes(self.start);
   return `${self.start}-${self.end}, ${duration}-minute autonomous event / ${duration} 分钟自主事件: ${self.title_en} / ${self.title_zh}`;
+}
+
+function autonomousDateRelation(self) {
+  return (
+    `Source Day ${self.source_date} → Crystallization Day ${self.crystallization_date}`
+    + ` / 来源日 ${self.source_date} → 结晶日 ${self.crystallization_date}`
+  );
 }
 
 function autonomousLiveUrl(day, self) {
@@ -1754,10 +1834,10 @@ function buildPulseTimelineEvent(pulse) {
     `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
   );
   const count = pulse.occurrence_count ?? pulse.count;
-  const summaryZh = pulse.layer === "absence"
+  const summaryZh = pulse.redaction_count > 0
     ? redactedHtml(pulse.summary_zh)
     : escapeHtml(pulse.summary_zh);
-  const summaryEn = pulse.layer === "absence"
+  const summaryEn = pulse.redaction_count > 0
     ? redactedHtml(pulse.summary_en)
     : escapeHtml(pulse.summary_en);
   const durationCopy = pulse.classification === "climate_aggregate"
@@ -1772,6 +1852,42 @@ function buildPulseTimelineEvent(pulse) {
   `;
   setupReadingCardActivation(button, () => openTaskDetail(pulse, button));
   return { footprint: item, card: button };
+}
+
+function setupAutonomousReadingCardPresence(card) {
+  card.addEventListener("pointerenter", (event) => {
+    if (
+      event.pointerType !== "mouse"
+      || !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) return;
+    if (state.inspectionCompatibilityGuardCard === card) {
+      hideInspectionLens({ immediate: true });
+      return;
+    }
+    trackReadingPointerInput(event.pointerType, card);
+    state.linkedFocusSuppressedCard = null;
+    state.hoveredReadingCard = card;
+    syncLinkedReadingCard();
+    showInspectionLens(card);
+  });
+  card.addEventListener("pointerleave", (event) => {
+    if (
+      event.pointerType !== "mouse"
+      || !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) return;
+    if (state.hoveredReadingCard === card) state.hoveredReadingCard = null;
+    syncLinkedReadingCard();
+    scheduleInspectionLensHide();
+  });
+  card.addEventListener("focusin", () => {
+    state.linkedFocusSuppressedCard = null;
+    setLinkedReadingCard(card);
+    showInspectionLens(card);
+  });
+  card.addEventListener("focusout", () => {
+    requestAnimationFrame(syncLinkedReadingCard);
+    requestAnimationFrame(scheduleInspectionLensHide);
+  });
 }
 
 function setupReadingCardActivation(card, activate) {
@@ -1830,6 +1946,16 @@ function setupReadingCardActivation(card, activate) {
     requestAnimationFrame(syncLinkedReadingCard);
     requestAnimationFrame(scheduleInspectionLensHide);
   });
+  if (
+    !(card instanceof HTMLButtonElement)
+    && !(card instanceof HTMLAnchorElement)
+  ) {
+    card.addEventListener("keydown", (event) => {
+      if (event.target !== card || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      card.click();
+    });
+  }
   card.addEventListener("click", (event) => {
     const pointerType = activationPointerType;
     activationPointerType = "";
@@ -1868,7 +1994,10 @@ function selectReadingCard(card) {
     "aria-label",
     `${accessibleName}. Selected; tap again to open / 已选中；再次轻触打开`,
   );
-  els.readingSelectionStatus.textContent = card instanceof HTMLAnchorElement
+  els.readingSelectionStatus.textContent = (
+    card instanceof HTMLAnchorElement
+    || card.dataset.autonomousCard === "true"
+  )
     ? "Autonomous work selected; activate again to open in a new window. / 自主作品已选中；再次激活将在新窗口打开。"
     : "Reading card selected; activate again to open details. / 可读卡片已选中；再次激活将打开详情。";
   setLinkedReadingCard(card);
@@ -1975,6 +2104,7 @@ function navigatePublicDay(delta) {
   setVisibleMonth(monthKey(target.date));
   renderMonth({ transition: delta < 0 ? "previous" : "next" });
   renderDayDetail(target);
+  updateSelectedDateUrl(target.date, "replace");
   els.dayDialogPanel.scrollTop = 0;
   requestAnimationFrame(() => {
     (delta < 0 ? els.prevDay : els.nextDay).focus({ preventScroll: true });
@@ -2006,18 +2136,31 @@ function openTaskDetail(task, trigger) {
       "footprints: every constituent retained exactly / 全部构成足迹精确保留",
       "alerts: promoted out of climate / 异常提升至事件层",
     ].join(" · ");
-  } else if (task.classification === "redacted_reminder_residue") {
+  } else if (
+    task.classification === "redacted_reminder_residue"
+    || task.classification === "masked_reminder_residue"
+    || task.classification === "inner_weather_calibration"
+  ) {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end}`;
-    els.taskDetailType.textContent = "缺席层 / Absence layer";
+    els.taskDetailType.textContent = task.layer === "climate"
+      ? "内在天气层 / Inner-weather layer"
+      : "缺席层 / Absence layer";
     els.taskDetailZh.textContent = task.summary_zh;
     els.taskDetailEn.textContent = task.summary_en;
-    els.taskDetailProvenance.textContent = [
-      `ownership: ${task.owner_scope} (${task.ownership_provenance})`,
-      "action: no authorized action semantics / 未授权公开动作语义",
-      "privacy: projected before serialization / 序列化前投影",
-      "mask: fixed block, no length or identity encoding / 固定遮挡，不编码长度或身份",
-    ].join(" · ");
+    els.taskDetailProvenance.textContent = task.disclosure_policy
+      ? [
+        "policy: limited masked reminder v1 / 有限遮挡提醒 v1",
+        "authorization: explicit / 明确授权",
+        "prose: audited bilingual template / 审计双语模板",
+        `masks: ${task.redaction_count} fixed template block(s) / ${task.redaction_count} 个固定模板遮挡`,
+      ].join(" · ")
+      : [
+        `ownership: ${task.owner_scope} (${task.ownership_provenance})`,
+        "action: no authorized action semantics / 未授权公开动作语义",
+        "privacy: projected before serialization / 序列化前投影",
+        "mask: fixed block, no length or identity encoding / 固定遮挡，不编码长度或身份",
+      ].join(" · ");
   } else if (task.classification === "promoted_routine_exception") {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end} · window ${task.duration_minutes} min`;
@@ -2203,7 +2346,34 @@ function dayCellLabel(day) {
   const assigned = day.cell_assigned
     .map((marker) => `${marker.label_en} / ${marker.label_zh}`)
     .join("; ");
-  return `${formatLongDate(day.date)}: ${day.title_en} / ${day.title_zh}. ASSIGNED: ${assigned}. SELF: ${day.title_en} / ${day.title_zh}.`;
+  const seed = day.forward_artwork_seeds?.[0];
+  const seedCopy = seed
+    ? ` SEED: next crystallization ${seed.crystallization_date}, ${seed.title_en} / 下一结晶《${seed.title_zh}》。`
+    : "";
+  return `${formatLongDate(day.date)}: ${day.title_en} / ${day.title_zh}. ASSIGNED: ${assigned}. SELF: ${day.title_en} / ${day.title_zh}.${seedCopy}`;
+}
+
+function selectedDateFromUrl() {
+  const candidate = new URL(window.location.href).searchParams.get("date") || "";
+  return dayByDate.has(candidate) ? candidate : "";
+}
+
+function updateSelectedDateUrl(date, mode) {
+  if (mode === "none") return;
+  const url = new URL(window.location.href);
+  if (date) url.searchParams.set("date", date);
+  else url.searchParams.delete("date");
+  const method = mode === "replace" ? "replaceState" : "pushState";
+  window.history[method]({ grantedHoursDate: date || null }, "", url);
+}
+
+function handleDateSelectionPopstate() {
+  const date = selectedDateFromUrl();
+  if (date) {
+    openDayDetail(date, { historyMode: "none" });
+  } else if (state.detailOpen) {
+    closeDayDetail({ historyMode: "none" });
+  }
 }
 
 function formatMonthTitle(year, month) {

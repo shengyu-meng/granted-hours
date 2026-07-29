@@ -1,5 +1,10 @@
 # 2026-06-06 — Judgment Returns / 判断回流
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-05](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-05)
+- **Crystallization Day / 结晶日:** [2026-06-06](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-06/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue exception oxygen by asking where judgment should re-enter an automated system: not as a heroic interruption, but as a small returning current where consistency risks becoming cruelty.

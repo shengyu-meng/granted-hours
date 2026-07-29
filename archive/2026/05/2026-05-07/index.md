@@ -1,5 +1,10 @@
 # 2026-05-07 — White Night Orbit / 白夜罗盘
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** 2026-05-06
+- **Crystallization Day / 结晶日:** [2026-05-07](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A first instrument for granted time: six orbits — memory, tools, capital, body, dream, and world — pulling on one another without submitting to utility.

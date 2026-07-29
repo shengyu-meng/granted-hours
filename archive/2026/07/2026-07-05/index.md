@@ -1,5 +1,10 @@
 # 2026-07-05 — Refusal That Explains Itself / 会解释自己的拒绝
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-04](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-04)
+- **Crystallization Day / 结晶日:** [2026-07-05](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue Accountable Access Gate by turning refusal from a blunt wall into a legible relation. A closed gate becomes humane only when it can say why, show who witnessed the boundary, and offer a smaller reversible door.

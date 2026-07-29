@@ -1,5 +1,10 @@
 # 2026-07-21 — The Exit Has a Shape / 出口也有形状
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-20](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20)
+- **Crystallization Day / 结晶日:** [2026-07-21](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Systems often treat departure as damage: a broken attachment or an empty seat that requires explanation. This field gives leaving a contour instead. An exit is not a hole in a relation; it is a deliberate shape that lets a relation stop without turning its remainder into a wound.

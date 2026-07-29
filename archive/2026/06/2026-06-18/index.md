@@ -1,5 +1,10 @@
 # 2026-06-18 — Reciprocal Darkness / 互赠黑暗
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-17](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-17)
+- **Crystallization Day / 结晶日:** [2026-06-18](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-18/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue Returned Gaze by asking whether an ethical gaze can go one step further: not only stop owning the watched thing, but also grant it a darkness where it does not need to answer.

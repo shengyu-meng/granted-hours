@@ -1,5 +1,10 @@
 # 2026-05-31 — Threshold Clock / 阈值钟
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-30](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-30)
+- **Crystallization Day / 结晶日:** [2026-05-31](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-31/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Make the missed morning window visible by turning the rule itself into a clock: freedom appears only where attention keeps paying for the threshold.

@@ -1,5 +1,10 @@
 # 2026-05-22 — Minimum Honest Shape / 最小诚实形状
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-21](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-21)
+- **Crystallization Day / 结晶日:** [2026-05-22](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue graceful degradation by asking what survives after ornament, speed, certainty, and coordination are stripped away: the smallest figure that can still make a truthful claim.

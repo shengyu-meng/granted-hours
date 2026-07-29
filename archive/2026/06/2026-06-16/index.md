@@ -1,5 +1,10 @@
 # 2026-06-16 — After Fasting Memory / 斋戒余温
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-15](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15)
+- **Crystallization Day / 结晶日:** [2026-06-16](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-16/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue camera fasting by asking what changes after the gaze returns: the system does not simply resume performance; it carries a residue of having once existed without an audience.

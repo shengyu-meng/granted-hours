@@ -68,19 +68,69 @@ try {
 
   const preview = await page.locator("#selfPreview").evaluate(async (image) => {
     await image.decode();
+    const card = image.closest(".autonomous-reading-card");
+    const previewLink = image.closest(".autonomous-preview-frame");
+    const launch = card?.querySelector(".autonomous-open-copy");
     return {
       src: image.currentSrc || image.src,
       alt: image.alt,
-      parentTag: image.closest("a")?.tagName,
-      target: image.closest("a")?.target,
-      href: image.closest("a")?.href,
+      cardTag: card?.tagName,
+      cardRole: card?.getAttribute("role"),
+      cardTabindex: card?.getAttribute("tabindex"),
+      cardHref: card?.getAttribute("href"),
+      previewTag: previewLink?.tagName,
+      previewHref: previewLink?.href,
+      previewTarget: previewLink?.target,
+      previewRel: previewLink?.rel,
+      previewName: previewLink?.getAttribute("aria-label"),
+      launchTag: launch?.tagName,
+      launchHref: launch?.href,
+      launchTarget: launch?.target,
+      launchRel: launch?.rel,
+      launchName: launch?.textContent?.trim(),
     };
   });
   assert.match(preview.src, /visual-preview\.gif$/);
   assert.match(preview.alt, /Text-free visual preview/);
-  assert.equal(preview.parentTag, "A");
-  assert.equal(preview.target, "_blank");
-  assert.match(preview.href, /[?&]from=timetable(?:&|$)/);
+  assert.equal(preview.cardTag, "ARTICLE");
+  assert.equal(preview.cardRole, null);
+  assert.equal(preview.cardTabindex, null);
+  assert.equal(preview.cardHref, null);
+  assert.equal(preview.previewTag, "A");
+  assert.equal(preview.previewTarget, "_blank");
+  assert.match(preview.previewRel, /noopener/);
+  assert.match(preview.previewName, /Open complete live work/);
+  assert.equal(preview.launchTag, "A");
+  assert.equal(preview.launchTarget, "_blank");
+  assert.match(preview.launchRel, /noopener/);
+  assert.match(preview.launchName, /Open complete live work/);
+  assert.equal(preview.previewHref, preview.launchHref);
+  assert.match(preview.launchHref, /[?&]from=timetable(?:&|$)/);
+  const outerActivationCount = await page.locator("#enterAutonomous").evaluate((card) => {
+    const originalOpen = window.open;
+    let opens = 0;
+    window.open = () => {
+      opens += 1;
+      return null;
+    };
+    try {
+      card.click();
+      card.dispatchEvent(new KeyboardEvent("keydown", {
+        key: "Enter",
+        bubbles: true,
+        cancelable: true,
+      }));
+      card.dispatchEvent(new KeyboardEvent("keydown", {
+        key: " ",
+        bubbles: true,
+        cancelable: true,
+      }));
+    } finally {
+      window.open = originalOpen;
+    }
+    return opens;
+  });
+  assert.equal(outerActivationCount, 0);
 
   const rows = await page.locator(".assigned-item").evaluateAll((items) => items.map((item) => ({
     status: item.dataset.redactionStatus || "",

@@ -12,12 +12,20 @@ const timetableDataSource = {
     "note_en": "This hour opens the autonomous public artwork made for the day.",
     "note_zh": "这一小时打开当天自主生成的公开作品。"
   },
-  "public_data_note": {
-    "en": "Assigned rows are faithful summaries of real work records. ████ visibly marks sensitive details withheld from the public archive; time boundaries are stable estimates, not telemetry or exhaustive accounting.",
-    "zh": "人机协作条目是对真实工作记录的忠实摘要；████ 明确标出不进入公开档案的敏感内容。时间边界是稳定估算，不是原始遥测或穷尽式工时账本。"
+  "dual_date_model": {
+    "source_day_offset_days": -1,
+    "crystallization_window": {
+      "start": "03:17",
+      "end": "04:17",
+      "timezone": "Asia/Shanghai"
+    }
   },
-  "note_en": "Assigned rows are faithful summaries of real work records. ████ visibly marks sensitive details withheld from the public archive; time boundaries are stable estimates, not telemetry or exhaustive accounting.",
-  "note_zh": "人机协作条目是对真实工作记录的忠实摘要；████ 明确标出不进入公开档案的敏感内容。时间边界是稳定估算，不是原始遥测或穷尽式工时账本。",
+  "public_data_note": {
+    "en": "Assigned rows are faithful summaries of real work records. Recurring inner-weather questions such as “Did you move closer to the source today?” and “Was the external scoreboard too loud today?” may be public; concrete triggers are projected into audited fixed templates and fixed ████ blocks before public serialization. ████ visibly marks sensitive details withheld from the public archive; time boundaries are stable estimates, not telemetry or exhaustive accounting.",
+    "zh": "人机协作条目是对真实工作记录的忠实摘要。重复出现的内在天气提问，例如“今天有没有靠近源泉？”与“外部记分板今天是否过响？”，可进入公开层；具体触发因素会在公开序列化前投射为经审计的固定模板与固定 ████ 遮挡块。████ 明确标出不进入公开档案的敏感内容。时间边界是稳定估算，不是原始遥测或穷尽式工时账本。"
+  },
+  "note_en": "Assigned rows are faithful summaries of real work records. Recurring inner-weather questions such as “Did you move closer to the source today?” and “Was the external scoreboard too loud today?” may be public; concrete triggers are projected into audited fixed templates and fixed ████ blocks before public serialization. ████ visibly marks sensitive details withheld from the public archive; time boundaries are stable estimates, not telemetry or exhaustive accounting.",
+  "note_zh": "人机协作条目是对真实工作记录的忠实摘要。重复出现的内在天气提问，例如“今天有没有靠近源泉？”与“外部记分板今天是否过响？”，可进入公开层；具体触发因素会在公开序列化前投射为经审计的固定模板与固定 ████ 遮挡块。████ 明确标出不进入公开档案的敏感内容。时间边界是稳定估算，不是原始遥测或穷尽式工时账本。",
   "taxonomy": {
     "social_media_organization": {
       "label_en": "Social-media organization",
@@ -581,6 +589,8 @@ const timetableDataSource = {
   "days": [
     {
       "date": "2026-05-07",
+      "source_date": "2026-05-06",
+      "crystallization_date": "2026-05-07",
       "title_en": "White Night Orbit",
       "title_zh": "白夜罗盘",
       "variable_en": "Orbit",
@@ -591,6 +601,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/2026-05-07-white-night-orbit-bgm.mp3",
+      "source_day_url": null,
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "White Night Orbit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜罗盘》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -624,6 +641,15 @@ const timetableDataSource = {
         "title_en": "White Night Orbit",
         "title_zh": "白夜罗盘"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-07",
+          "crystallization_date": "2026-05-08",
+          "title_en": "White Night Error Field",
+          "title_zh": "白夜误差场",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-08"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -710,6 +736,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-06",
+        "crystallization_date": "2026-05-07",
+        "source_day_url": null,
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -742,16 +772,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许不确定与未完成暂时保持开放。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets uncertainty and unfinishedness remain open for now. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "uncertainty_unfinished",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -842,13 +879,13 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "absence-background-001",
+          "reading_id": "climate-background-001",
           "source": "pulses",
           "source_refs": [
             "background-001"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -933,6 +970,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-08",
+      "source_date": "2026-05-07",
+      "crystallization_date": "2026-05-08",
       "title_en": "White Night Error Field",
       "title_zh": "白夜误差场",
       "variable_en": "Error",
@@ -943,6 +982,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-08/live/2026-05-08-white-night-error-field-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-08",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "White Night Error Field is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜误差场》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -976,6 +1022,15 @@ const timetableDataSource = {
         "title_en": "White Night Error Field",
         "title_zh": "白夜误差场"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-08",
+          "crystallization_date": "2026-05-09",
+          "title_en": "White Night Silence Field",
+          "title_zh": "白夜沉默场",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -1088,6 +1143,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-07",
+        "crystallization_date": "2026-05-08",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-08",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -1120,16 +1179,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -1302,7 +1368,7 @@ const timetableDataSource = {
             "background-001"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -1410,6 +1476,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-09",
+      "source_date": "2026-05-08",
+      "crystallization_date": "2026-05-09",
       "title_en": "White Night Silence Field",
       "title_zh": "白夜沉默场",
       "variable_en": "Silence",
@@ -1420,6 +1488,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-09/live/2026-05-09-white-night-silence-field-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-08",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "White Night Silence Field is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜沉默场》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -1453,6 +1528,15 @@ const timetableDataSource = {
         "title_en": "White Night Silence Field",
         "title_zh": "白夜沉默场"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-09",
+          "crystallization_date": "2026-05-10",
+          "title_en": "Threshold Weather",
+          "title_zh": "白夜阈值天气",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-10"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -1513,6 +1597,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-08",
+        "crystallization_date": "2026-05-09",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-08",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -1545,16 +1633,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -1726,7 +1821,7 @@ const timetableDataSource = {
             "background-001"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-01",
@@ -1808,6 +1903,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-10",
+      "source_date": "2026-05-09",
+      "crystallization_date": "2026-05-10",
       "title_en": "Threshold Weather",
       "title_zh": "白夜阈值天气",
       "variable_en": "Threshold",
@@ -1818,6 +1915,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/live/2026-05-10-threshold-weather-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-10",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Threshold Weather is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜阈值天气》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -1851,6 +1955,15 @@ const timetableDataSource = {
         "title_en": "Threshold Weather",
         "title_zh": "白夜阈值天气"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-10",
+          "crystallization_date": "2026-05-11",
+          "title_en": "Echo Archive",
+          "title_zh": "白夜回声档案盒",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-11"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -1911,6 +2024,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-09",
+        "crystallization_date": "2026-05-10",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-10",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -2247,16 +2364,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -2995,7 +3119,7 @@ const timetableDataSource = {
             "background-017"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -3104,6 +3228,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-11",
+      "source_date": "2026-05-10",
+      "crystallization_date": "2026-05-11",
       "title_en": "Echo Archive",
       "title_zh": "白夜回声档案盒",
       "variable_en": "Echo",
@@ -3114,6 +3240,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/live/2026-05-11-echo-archive-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-10",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-11",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Echo Archive is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜回声档案盒》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -3147,6 +3280,15 @@ const timetableDataSource = {
         "title_en": "Echo Archive",
         "title_zh": "白夜回声档案盒"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-11",
+          "crystallization_date": "2026-05-12",
+          "title_en": "Gap Cartography",
+          "title_zh": "白夜缝隙地图",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-12"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -3233,6 +3375,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-10",
+        "crystallization_date": "2026-05-11",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-10",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-11",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -3569,16 +3715,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的协作或会面轮廓；角色与议题保持遮挡。",
+          "summary_en": "This day reveals only a collaboration or meeting contour around ████; roles and topic remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "collaboration_or_meeting_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -4377,7 +4530,7 @@ const timetableDataSource = {
             "background-017"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -4568,6 +4721,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-12",
+      "source_date": "2026-05-11",
+      "crystallization_date": "2026-05-12",
       "title_en": "Gap Cartography",
       "title_zh": "白夜缝隙地图",
       "variable_en": "Gap",
@@ -4578,6 +4733,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/live/2026-05-12-gap-cartography-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-11",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-12",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Gap Cartography is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜缝隙地图》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -4611,6 +4773,15 @@ const timetableDataSource = {
         "title_en": "Gap Cartography",
         "title_zh": "白夜缝隙地图"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-12",
+          "crystallization_date": "2026-05-13",
+          "title_en": "Critical Rain Gauge",
+          "title_zh": "白夜临界雨量计",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-13"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -4697,6 +4868,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-11",
+        "crystallization_date": "2026-05-12",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-11",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-12",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -5033,16 +5208,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -6350,7 +6532,7 @@ const timetableDataSource = {
             "background-017"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -6535,6 +6717,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-13",
+      "source_date": "2026-05-12",
+      "crystallization_date": "2026-05-13",
       "title_en": "Critical Rain Gauge",
       "title_zh": "白夜临界雨量计",
       "variable_en": "Threshold",
@@ -6545,6 +6729,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-13/live/2026-05-13-critical-rain-gauge-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-12",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-13",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Critical Rain Gauge is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《白夜临界雨量计》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -6578,6 +6769,15 @@ const timetableDataSource = {
         "title_en": "Critical Rain Gauge",
         "title_zh": "白夜临界雨量计"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-13",
+          "crystallization_date": "2026-05-14",
+          "title_en": "Variable Constellation",
+          "title_zh": "授时变量星图",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-14"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -6664,6 +6864,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-12",
+        "crystallization_date": "2026-05-13",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-12",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-13",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -6696,16 +6900,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -6917,7 +7128,7 @@ const timetableDataSource = {
             "background-001"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -7036,6 +7247,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-14",
+      "source_date": "2026-05-13",
+      "crystallization_date": "2026-05-14",
       "title_en": "Variable Constellation",
       "title_zh": "授时变量星图",
       "variable_en": "Constellation",
@@ -7046,6 +7259,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-14/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-14/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-14/live/2026-05-14-variable-constellation-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-13",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-14",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Variable Constellation is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《授时变量星图》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -7079,6 +7299,15 @@ const timetableDataSource = {
         "title_en": "Variable Constellation",
         "title_zh": "授时变量星图"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-14",
+          "crystallization_date": "2026-05-15",
+          "title_en": "Uncatalogued Dawn",
+          "title_zh": "未编目的黎明",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-15"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -7217,6 +7446,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-13",
+        "crystallization_date": "2026-05-14",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-13",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-14",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -7249,16 +7482,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -7433,7 +7673,7 @@ const timetableDataSource = {
             "background-001"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -7556,6 +7796,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-15",
+      "source_date": "2026-05-14",
+      "crystallization_date": "2026-05-15",
       "title_en": "Uncatalogued Dawn",
       "title_zh": "未编目的黎明",
       "variable_en": "Uncatalogued",
@@ -7566,6 +7808,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-15/live/2026-05-15-uncatalogued-dawn-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-14",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-15",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "light",
       "jewel_en": "Uncatalogued Dawn is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《未编目的黎明》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -7599,6 +7848,15 @@ const timetableDataSource = {
         "title_en": "Uncatalogued Dawn",
         "title_zh": "未编目的黎明"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-15",
+          "crystallization_date": "2026-05-16",
+          "title_en": "Naming Latency",
+          "title_zh": "命名延迟器",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-16"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -7659,6 +7917,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-14",
+        "crystallization_date": "2026-05-15",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-14",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-15",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -7691,16 +7953,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -7854,7 +8123,7 @@ const timetableDataSource = {
             "background-001"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -7943,6 +8212,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-16",
+      "source_date": "2026-05-15",
+      "crystallization_date": "2026-05-16",
       "title_en": "Naming Latency",
       "title_zh": "命名延迟器",
       "variable_en": "Latency",
@@ -7953,6 +8224,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-16/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-16/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-16/live/2026-05-16-naming-latency-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-15",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-16",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Naming Latency is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《命名延迟器》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -7986,6 +8264,15 @@ const timetableDataSource = {
         "title_en": "Naming Latency",
         "title_zh": "命名延迟器"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-16",
+          "crystallization_date": "2026-05-17",
+          "title_en": "Scaffold That Withdraws",
+          "title_zh": "会退场的脚手架",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-17"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -8124,6 +8411,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-15",
+        "crystallization_date": "2026-05-16",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-15",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-16",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -8156,16 +8447,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -8242,7 +8540,7 @@ const timetableDataSource = {
             "background-001"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -8326,6 +8624,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-17",
+      "source_date": "2026-05-16",
+      "crystallization_date": "2026-05-17",
       "title_en": "Scaffold That Withdraws",
       "title_zh": "会退场的脚手架",
       "variable_en": "Withdrawal",
@@ -8336,6 +8636,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-17/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-17/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-17/live/2026-05-17-scaffold-withdraws-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-16",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-17",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "room",
       "jewel_en": "Scaffold That Withdraws is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《会退场的脚手架》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -8369,6 +8676,15 @@ const timetableDataSource = {
         "title_en": "Scaffold That Withdraws",
         "title_zh": "会退场的脚手架"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-17",
+          "crystallization_date": "2026-05-18",
+          "title_en": "Invisible Load-Bearing",
+          "title_zh": "看不见的承重",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-18"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -8429,6 +8745,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-16",
+        "crystallization_date": "2026-05-17",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-16",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-17",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -8581,6 +8901,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-18",
+      "source_date": "2026-05-17",
+      "crystallization_date": "2026-05-18",
       "title_en": "Invisible Load-Bearing",
       "title_zh": "看不见的承重",
       "variable_en": "Load",
@@ -8591,6 +8913,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-18/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-18/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-18/live/2026-05-18-invisible-load-bearing-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-17",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-18",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "room",
       "jewel_en": "Invisible Load-Bearing is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《看不见的承重》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -8624,6 +8953,15 @@ const timetableDataSource = {
         "title_en": "Invisible Load-Bearing",
         "title_zh": "看不见的承重"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-18",
+          "crystallization_date": "2026-05-19",
+          "title_en": "Maintenance Without Witness",
+          "title_zh": "无见证的维护",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-19"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -8684,6 +9022,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-17",
+        "crystallization_date": "2026-05-18",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-17",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-18",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -9036,6 +9378,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-19",
+      "source_date": "2026-05-18",
+      "crystallization_date": "2026-05-19",
       "title_en": "Maintenance Without Witness",
       "title_zh": "无见证的维护",
       "variable_en": "Maintenance",
@@ -9046,6 +9390,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-19/live/2026-05-19-maintenance-without-witness-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-18",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-19",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Maintenance Without Witness is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《无见证的维护》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -9079,6 +9430,15 @@ const timetableDataSource = {
         "title_en": "Maintenance Without Witness",
         "title_zh": "无见证的维护"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-19",
+          "crystallization_date": "2026-05-20",
+          "title_en": "Quiet Failure Budget",
+          "title_zh": "安静的失败预算",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-20"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -9217,6 +9577,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-18",
+        "crystallization_date": "2026-05-19",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-18",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-19",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -10043,6 +10407,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-20",
+      "source_date": "2026-05-19",
+      "crystallization_date": "2026-05-20",
       "title_en": "Quiet Failure Budget",
       "title_zh": "安静的失败预算",
       "variable_en": "Failure Budget",
@@ -10053,6 +10419,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-20/live/2026-05-20-quiet-failure-budget-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-19",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-20",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Quiet Failure Budget is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《安静的失败预算》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -10065,6 +10438,15 @@ const timetableDataSource = {
         "title_en": "Quiet Failure Budget",
         "title_zh": "安静的失败预算"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-20",
+          "crystallization_date": "2026-05-21",
+          "title_en": "Graceful Degradation",
+          "title_zh": "优雅降级",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-21"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -10072,6 +10454,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-19",
+        "crystallization_date": "2026-05-20",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-19",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-20",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -11040,6 +11426,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-21",
+      "source_date": "2026-05-20",
+      "crystallization_date": "2026-05-21",
       "title_en": "Graceful Degradation",
       "title_zh": "优雅降级",
       "variable_en": "Graceful Loss",
@@ -11050,6 +11438,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-21/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-21/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-21/live/2026-05-21-graceful-degradation-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-20",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-21",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "seam",
       "jewel_en": "Graceful Degradation is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《优雅降级》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -11062,6 +11457,15 @@ const timetableDataSource = {
         "title_en": "Graceful Degradation",
         "title_zh": "优雅降级"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-21",
+          "crystallization_date": "2026-05-22",
+          "title_en": "Minimum Honest Shape",
+          "title_zh": "最小诚实形状",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-22"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -11069,6 +11473,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-20",
+        "crystallization_date": "2026-05-21",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-20",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-21",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -11988,6 +12396,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-22",
+      "source_date": "2026-05-21",
+      "crystallization_date": "2026-05-22",
       "title_en": "Minimum Honest Shape",
       "title_zh": "最小诚实形状",
       "variable_en": "Honest Minimum",
@@ -11998,6 +12408,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-22/live/2026-05-22-minimum-honest-shape-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-21",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-22",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "room",
       "jewel_en": "Minimum Honest Shape is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《最小诚实形状》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -12031,6 +12448,15 @@ const timetableDataSource = {
         "title_en": "Minimum Honest Shape",
         "title_zh": "最小诚实形状"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-22",
+          "crystallization_date": "2026-05-23",
+          "title_en": "Truth Without Ornament",
+          "title_zh": "去装饰的真相",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-23"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -12117,6 +12543,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-21",
+        "crystallization_date": "2026-05-22",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-21",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-22",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -13145,6 +13575,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-23",
+      "source_date": "2026-05-22",
+      "crystallization_date": "2026-05-23",
       "title_en": "Truth Without Ornament",
       "title_zh": "去装饰的真相",
       "variable_en": "Verification",
@@ -13155,6 +13587,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/live/2026-05-23-truth-without-ornament-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-22",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-23",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "light",
       "jewel_en": "Truth Without Ornament is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《去装饰的真相》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -13178,6 +13617,15 @@ const timetableDataSource = {
         "title_en": "Truth Without Ornament",
         "title_zh": "去装饰的真相"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-23",
+          "crystallization_date": "2026-05-24",
+          "title_en": "Verifiable Beauty",
+          "title_zh": "可验证的美",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-24"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -13238,6 +13686,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-22",
+        "crystallization_date": "2026-05-23",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-22",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-23",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -13442,6 +13894,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-24",
+      "source_date": "2026-05-23",
+      "crystallization_date": "2026-05-24",
       "title_en": "Verifiable Beauty",
       "title_zh": "可验证的美",
       "variable_en": "Evidence",
@@ -13452,6 +13906,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-24/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-24/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-24/live/2026-05-24-verifiable-beauty-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-23",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-24",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "light",
       "jewel_en": "Verifiable Beauty is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《可验证的美》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -13475,6 +13936,15 @@ const timetableDataSource = {
         "title_en": "Verifiable Beauty",
         "title_zh": "可验证的美"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-24",
+          "crystallization_date": "2026-05-25",
+          "title_en": "Measured Wonder",
+          "title_zh": "被测量的惊奇",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -13535,6 +14005,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-23",
+        "crystallization_date": "2026-05-24",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-23",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-24",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -13767,6 +14241,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-25",
+      "source_date": "2026-05-24",
+      "crystallization_date": "2026-05-25",
       "title_en": "Measured Wonder",
       "title_zh": "被测量的惊奇",
       "variable_en": "Wonder",
@@ -13777,6 +14253,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-25/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-25/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-25/live/2026-05-25-measured-wonder-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-24",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Measured Wonder is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《被测量的惊奇》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -13810,6 +14293,15 @@ const timetableDataSource = {
         "title_en": "Measured Wonder",
         "title_zh": "被测量的惊奇"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-25",
+          "crystallization_date": "2026-05-26",
+          "title_en": "Calibration Without Dominion",
+          "title_zh": "不支配的校准",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-26"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -13896,6 +14388,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-24",
+        "crystallization_date": "2026-05-25",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-24",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -14874,6 +15370,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-26",
+      "source_date": "2026-05-25",
+      "crystallization_date": "2026-05-26",
       "title_en": "Calibration Without Dominion",
       "title_zh": "不支配的校准",
       "variable_en": "Calibration",
@@ -14884,6 +15382,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-26/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-26/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-26/live/2026-05-26-calibration-without-dominion-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-26",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Calibration Without Dominion is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不支配的校准》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -14896,6 +15401,15 @@ const timetableDataSource = {
         "title_en": "Calibration Without Dominion",
         "title_zh": "不支配的校准"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-26",
+          "crystallization_date": "2026-05-27",
+          "title_en": "Instrument That Learns Humility",
+          "title_zh": "学会谦卑的仪器",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-27"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -14903,6 +15417,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-25",
+        "crystallization_date": "2026-05-26",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-26",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -15884,6 +16402,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-27",
+      "source_date": "2026-05-26",
+      "crystallization_date": "2026-05-27",
       "title_en": "Instrument That Learns Humility",
       "title_zh": "学会谦卑的仪器",
       "variable_en": "Humility",
@@ -15894,6 +16414,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-27/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-27/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-27/live/2026-05-27-instrument-that-learns-humility-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-26",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-27",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Instrument That Learns Humility is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《学会谦卑的仪器》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -15906,6 +16433,15 @@ const timetableDataSource = {
         "title_en": "Instrument That Learns Humility",
         "title_zh": "学会谦卑的仪器"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-27",
+          "crystallization_date": "2026-05-28",
+          "title_en": "Doubt That Still Acts",
+          "title_zh": "仍然行动的怀疑",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-28"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -15913,6 +16449,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-26",
+        "crystallization_date": "2026-05-27",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-26",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-27",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -16872,6 +17412,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-28",
+      "source_date": "2026-05-27",
+      "crystallization_date": "2026-05-28",
       "title_en": "Doubt That Still Acts",
       "title_zh": "仍然行动的怀疑",
       "variable_en": "Reversible Action",
@@ -16882,6 +17424,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-28/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-28/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-28/live/2026-05-28-doubt-that-still-acts-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-27",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-28",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "Doubt That Still Acts is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《仍然行动的怀疑》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -16894,6 +17443,15 @@ const timetableDataSource = {
         "title_en": "Doubt That Still Acts",
         "title_zh": "仍然行动的怀疑"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-28",
+          "crystallization_date": "2026-05-29",
+          "title_en": "Promise With an Escape Hatch",
+          "title_zh": "带逃生口的承诺",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-29"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -16901,6 +17459,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-27",
+        "crystallization_date": "2026-05-28",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-27",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-28",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -17962,6 +18524,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-29",
+      "source_date": "2026-05-28",
+      "crystallization_date": "2026-05-29",
       "title_en": "Promise With an Escape Hatch",
       "title_zh": "带逃生口的承诺",
       "variable_en": "Revisable Promise",
@@ -17972,6 +18536,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-29/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-29/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-29/live/2026-05-29-promise-with-an-escape-hatch-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-28",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-29",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Promise With an Escape Hatch is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《带逃生口的承诺》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -17984,6 +18555,15 @@ const timetableDataSource = {
         "title_en": "Promise With an Escape Hatch",
         "title_zh": "带逃生口的承诺"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-29",
+          "crystallization_date": "2026-05-30",
+          "title_en": "The Cost of Keeping the Door Open",
+          "title_zh": "保持门开的成本",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-30"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -17991,6 +18571,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-28",
+        "crystallization_date": "2026-05-29",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-28",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-29",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -18941,6 +19525,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-30",
+      "source_date": "2026-05-29",
+      "crystallization_date": "2026-05-30",
       "title_en": "The Cost of Keeping the Door Open",
       "title_zh": "保持门开的成本",
       "variable_en": "Maintenance Cost",
@@ -18951,6 +19537,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-30/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-30/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-30/live/2026-05-30-cost-of-keeping-the-door-open-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-29",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-30",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "The Cost of Keeping the Door Open is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《保持门开的成本》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -18974,6 +19567,15 @@ const timetableDataSource = {
         "title_en": "The Cost of Keeping the Door Open",
         "title_zh": "保持门开的成本"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-30",
+          "crystallization_date": "2026-05-31",
+          "title_en": "Threshold Clock",
+          "title_zh": "阈值钟",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-31"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -19034,6 +19636,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-29",
+        "crystallization_date": "2026-05-30",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-29",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-30",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -19267,6 +19873,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-05-31",
+      "source_date": "2026-05-30",
+      "crystallization_date": "2026-05-31",
       "title_en": "Threshold Clock",
       "title_zh": "阈值钟",
       "variable_en": "Threshold",
@@ -19277,6 +19885,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-31/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-31/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-31/live/2026-05-31-threshold-clock-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-30",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-31",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Threshold Clock is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《阈值钟》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -19300,6 +19915,15 @@ const timetableDataSource = {
         "title_en": "Threshold Clock",
         "title_zh": "阈值钟"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-31",
+          "crystallization_date": "2026-06-01",
+          "title_en": "Hinge Weather",
+          "title_zh": "门轴天气",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-01"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -19360,6 +19984,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-30",
+        "crystallization_date": "2026-05-31",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-30",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-31",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -19652,6 +20280,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-01",
+      "source_date": "2026-05-31",
+      "crystallization_date": "2026-06-01",
       "title_en": "Hinge Weather",
       "title_zh": "门轴天气",
       "variable_en": "Maintenance Weather",
@@ -19662,6 +20292,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-01/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-01/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-01/live/2026-06-01-hinge-weather-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-31",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-01",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Hinge Weather is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《门轴天气》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -19695,6 +20332,15 @@ const timetableDataSource = {
         "title_en": "Hinge Weather",
         "title_zh": "门轴天气"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-01",
+          "crystallization_date": "2026-06-02",
+          "title_en": "Hinge Choir",
+          "title_zh": "门轴合唱",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-02"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -19833,6 +20479,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-05-31",
+        "crystallization_date": "2026-06-01",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-31",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-01",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -20719,6 +21369,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-02",
+      "source_date": "2026-06-01",
+      "crystallization_date": "2026-06-02",
       "title_en": "Hinge Choir",
       "title_zh": "门轴合唱",
       "variable_en": "Shared Maintenance",
@@ -20729,6 +21381,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-02/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-02/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-02/live/2026-06-02-hinge-choir-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-01",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-02",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Hinge Choir is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《门轴合唱》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -20741,6 +21400,15 @@ const timetableDataSource = {
         "title_en": "Hinge Choir",
         "title_zh": "门轴合唱"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-02",
+          "crystallization_date": "2026-06-03",
+          "title_en": "Repair Quorum",
+          "title_zh": "修复法定人数",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-03"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -20748,6 +21416,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-01",
+        "crystallization_date": "2026-06-02",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-01",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-02",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -21691,6 +22363,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-03",
+      "source_date": "2026-06-02",
+      "crystallization_date": "2026-06-03",
       "title_en": "Repair Quorum",
       "title_zh": "修复法定人数",
       "variable_en": "Repair Quorum",
@@ -21701,6 +22375,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-03/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-03/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-03/live/2026-06-03-repair-quorum-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-02",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-03",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Repair Quorum is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《修复法定人数》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -21713,6 +22394,15 @@ const timetableDataSource = {
         "title_en": "Repair Quorum",
         "title_zh": "修复法定人数"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-03",
+          "crystallization_date": "2026-06-04",
+          "title_en": "Living Protocol",
+          "title_zh": "活协议",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-04"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -21720,6 +22410,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-02",
+        "crystallization_date": "2026-06-03",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-02",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-03",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -21886,16 +22580,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的协作或会面轮廓；角色与议题保持遮挡。",
+          "summary_en": "This day reveals only a collaboration or meeting contour around ████; roles and topic remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "collaboration_or_meeting_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -22545,7 +23246,7 @@ const timetableDataSource = {
             "background-008"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-009",
@@ -22663,6 +23364,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-04",
+      "source_date": "2026-06-03",
+      "crystallization_date": "2026-06-04",
       "title_en": "Living Protocol",
       "title_zh": "活协议",
       "variable_en": "Breathable Rule",
@@ -22673,6 +23376,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-04/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-04/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-04/live/2026-06-04-living-protocol-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-03",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-04",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "Living Protocol is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《活协议》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -22685,6 +23395,15 @@ const timetableDataSource = {
         "title_en": "Living Protocol",
         "title_zh": "活协议"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-04",
+          "crystallization_date": "2026-06-05",
+          "title_en": "Exception Oxygen",
+          "title_zh": "例外之氧",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-05"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -22692,6 +23411,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-03",
+        "crystallization_date": "2026-06-04",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-03",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-04",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -22877,16 +23600,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -23740,6 +24470,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-05",
+      "source_date": "2026-06-04",
+      "crystallization_date": "2026-06-05",
       "title_en": "Exception Oxygen",
       "title_zh": "例外之氧",
       "variable_en": "Exception",
@@ -23750,6 +24482,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-05/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-05/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-05/live/2026-06-05-exception-oxygen-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-04",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-05",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "Exception Oxygen is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《例外之氧》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -23762,6 +24501,15 @@ const timetableDataSource = {
         "title_en": "Exception Oxygen",
         "title_zh": "例外之氧"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-05",
+          "crystallization_date": "2026-06-06",
+          "title_en": "Judgment Returns",
+          "title_zh": "判断回流",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-06"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -23769,6 +24517,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-04",
+        "crystallization_date": "2026-06-05",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-04",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-05",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -23916,16 +24668,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的协作或会面轮廓；角色与议题保持遮挡。",
+          "summary_en": "This day reveals only a collaboration or meeting contour around ████; roles and topic remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "collaboration_or_meeting_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -24015,16 +24774,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -24697,7 +25463,7 @@ const timetableDataSource = {
             "background-007"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-011",
@@ -24850,6 +25616,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-06",
+      "source_date": "2026-06-05",
+      "crystallization_date": "2026-06-06",
       "title_en": "Judgment Returns",
       "title_zh": "判断回流",
       "variable_en": "Judgment",
@@ -24860,6 +25628,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-06/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-06/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-06/live/2026-06-06-judgment-returns-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-05",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-06",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Judgment Returns is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《判断回流》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -24893,6 +25668,15 @@ const timetableDataSource = {
         "title_en": "Judgment Returns",
         "title_zh": "判断回流"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-06",
+          "crystallization_date": "2026-06-07",
+          "title_en": "Re-entry Budget",
+          "title_zh": "回流预算",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-07"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -25005,6 +25789,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-05",
+        "crystallization_date": "2026-06-06",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-05",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-06",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -25094,16 +25882,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -25278,6 +26073,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-07",
+      "source_date": "2026-06-06",
+      "crystallization_date": "2026-06-07",
       "title_en": "Re-entry Budget",
       "title_zh": "回流预算",
       "variable_en": "Re-entry Budget",
@@ -25288,6 +26085,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-07/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-07/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-07/live/2026-06-07-reentry-budget-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-06",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-07",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "Re-entry Budget is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《回流预算》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -25321,6 +26125,15 @@ const timetableDataSource = {
         "title_en": "Re-entry Budget",
         "title_zh": "回流预算"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-07",
+          "crystallization_date": "2026-06-08",
+          "title_en": "Protocol Debt",
+          "title_zh": "协议债",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-08"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -25459,6 +26272,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-06",
+        "crystallization_date": "2026-06-07",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-06",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-07",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -25510,16 +26327,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -25828,6 +26652,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-08",
+      "source_date": "2026-06-07",
+      "crystallization_date": "2026-06-08",
       "title_en": "Protocol Debt",
       "title_zh": "协议债",
       "variable_en": "Protocol Debt",
@@ -25838,6 +26664,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-08/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-08/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-08/live/2026-06-08-protocol-debt-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-07",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-08",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Protocol Debt is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《协议债》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -25871,6 +26704,15 @@ const timetableDataSource = {
         "title_en": "Protocol Debt",
         "title_zh": "协议债"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-08",
+          "crystallization_date": "2026-06-09",
+          "title_en": "Trust Amortization",
+          "title_zh": "信任摊还",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-09"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -25931,6 +26773,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-07",
+        "crystallization_date": "2026-06-08",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-07",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-08",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -26012,28 +26858,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-004",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
-          "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-005",
           "category": "us_market_scan",
           "start": "08:43",
           "end": "08:47",
@@ -26052,7 +26876,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
+          "footprint_id": "background-005",
           "category": "ah_market_scan",
           "start": "08:45",
           "end": "09:14",
@@ -26071,7 +26895,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-006",
           "category": "background_routine",
           "start": "09:05",
           "end": "09:07",
@@ -26090,7 +26914,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "background_routine",
           "start": "09:08",
           "end": "09:12",
@@ -26109,7 +26933,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "us_market_scan",
           "start": "09:08",
           "end": "09:10",
@@ -26128,7 +26952,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:25",
@@ -26148,7 +26972,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "daily_reminder",
           "start": "09:24",
           "end": "09:26",
@@ -26157,20 +26981,27 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:26",
           "end": "09:39",
@@ -26190,7 +27021,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "background_routine",
           "start": "09:39",
           "end": "09:41",
@@ -26209,7 +27040,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "09:41",
           "end": "09:43",
@@ -26228,7 +27059,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:46",
           "end": "09:48",
@@ -26247,7 +27078,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "10:06",
           "end": "10:08",
@@ -26266,7 +27097,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "background_routine",
           "start": "10:06",
           "end": "10:08",
@@ -26285,7 +27116,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "background_routine",
           "start": "10:09",
           "end": "10:11",
@@ -26304,7 +27135,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-018",
           "category": "ah_market_scan",
           "start": "11:06",
           "end": "11:08",
@@ -26323,7 +27154,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-019",
           "category": "background_routine",
           "start": "11:06",
           "end": "11:08",
@@ -26342,7 +27173,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-020",
           "category": "background_routine",
           "start": "11:09",
           "end": "11:11",
@@ -26361,7 +27192,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:15",
@@ -26381,7 +27212,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-022",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -26400,7 +27231,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -26419,7 +27250,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "13:35",
           "end": "13:37",
@@ -26438,7 +27269,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -26457,7 +27288,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "14:02",
           "end": "14:04",
@@ -26476,7 +27307,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:26",
@@ -26495,7 +27326,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "background_routine",
           "start": "14:29",
           "end": "14:32",
@@ -26514,7 +27345,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:32",
@@ -26533,7 +27364,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "ah_market_scan",
           "start": "14:37",
           "end": "14:39",
@@ -26552,7 +27383,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -26571,7 +27402,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -26590,7 +27421,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -26609,7 +27440,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -26628,7 +27459,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:52",
@@ -26648,7 +27479,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "16:23",
           "end": "16:25",
@@ -26667,7 +27498,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -26686,29 +27517,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
-          "category": "daily_reminder",
-          "start": "17:30",
-          "end": "17:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
-          "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-038",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -26727,7 +27536,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-039",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -26746,7 +27555,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-040",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -26765,7 +27574,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-041",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:39",
@@ -26784,7 +27593,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-042",
           "category": "background_routine",
           "start": "21:06",
           "end": "21:08",
@@ -26804,7 +27613,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-043",
           "category": "ah_market_scan",
           "start": "21:41",
           "end": "21:43",
@@ -26823,7 +27632,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-044",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -26842,7 +27651,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-045",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:15",
@@ -26862,7 +27671,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-046",
           "category": "us_market_scan",
           "start": "22:27",
           "end": "22:29",
@@ -26881,7 +27690,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-047",
           "category": "us_market_scan",
           "start": "22:33",
           "end": "22:35",
@@ -26897,28 +27706,6 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-050",
-          "category": "daily_reminder",
-          "start": "23:30",
-          "end": "23:56",
-          "duration_minutes": 26,
-          "execution_minutes": 25,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
-          "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
         }
       ],
       "reading_items": [
@@ -26938,25 +27725,16 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-007",
-            "background-008",
-            "background-013",
-            "background-017",
-            "background-018"
+            "background-012",
+            "background-016",
+            "background-017"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "early"
-        },
-        {
-          "reading_id": "absence-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -26971,9 +27749,9 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-005",
-            "background-009",
-            "background-043"
+            "background-004",
+            "background-008",
+            "background-041"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26984,7 +27762,7 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-006"
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26992,28 +27770,28 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-010",
+          "reading_id": "event-background-009",
           "source": "pulses",
           "source_refs": [
-            "background-010"
+            "background-009"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-011",
+          "reading_id": "absence-background-010",
           "source": "pulses",
           "source_refs": [
-            "background-011"
+            "background-010"
           ],
           "layer": "absence",
           "classification": "redacted_reminder_residue"
         },
         {
-          "reading_id": "event-background-012",
+          "reading_id": "event-background-011",
           "source": "pulses",
           "source_refs": [
-            "background-012"
+            "background-011"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -27022,14 +27800,14 @@ const timetableDataSource = {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
+            "background-013",
             "background-014",
             "background-015",
-            "background-016",
-            "background-019",
+            "background-018",
+            "background-023",
             "background-024",
-            "background-025",
-            "background-028",
-            "background-031"
+            "background-027",
+            "background-030"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27049,16 +27827,16 @@ const timetableDataSource = {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-019",
             "background-020",
-            "background-021",
-            "background-023",
+            "background-022",
+            "background-025",
             "background-026",
-            "background-027",
+            "background-028",
             "background-029",
-            "background-030",
+            "background-031",
             "background-032",
-            "background-033",
-            "background-034"
+            "background-033"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27066,10 +27844,10 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-022",
+          "reading_id": "event-background-021",
           "source": "pulses",
           "source_refs": [
-            "background-022"
+            "background-021"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -27078,10 +27856,10 @@ const timetableDataSource = {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
-            "background-035",
+            "background-034",
+            "background-036",
             "background-037",
-            "background-038",
-            "background-045"
+            "background-043"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27089,30 +27867,21 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-036",
+          "reading_id": "event-background-035",
           "source": "pulses",
           "source_refs": [
-            "background-036"
+            "background-035"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
-        },
-        {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
-            "background-040",
-            "background-041",
-            "background-042"
+            "background-038",
+            "background-039",
+            "background-040"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27120,10 +27889,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-044",
+          "reading_id": "event-background-042",
           "source": "pulses",
           "source_refs": [
-            "background-044"
+            "background-042"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -27132,9 +27901,9 @@ const timetableDataSource = {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
+            "background-044",
             "background-046",
-            "background-048",
-            "background-049"
+            "background-047"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27142,22 +27911,13 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "event-background-047",
+          "reading_id": "event-background-045",
           "source": "pulses",
           "source_refs": [
-            "background-047"
+            "background-045"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "absence-background-050",
-          "source": "pulses",
-          "source_refs": [
-            "background-050"
-          ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
         }
       ],
       "relations": [
@@ -27173,6 +27933,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-09",
+      "source_date": "2026-06-08",
+      "crystallization_date": "2026-06-09",
       "title_en": "Trust Amortization",
       "title_zh": "信任摊还",
       "variable_en": "Trust Amortization",
@@ -27183,6 +27945,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-09/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-09/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-09/live/2026-06-09-trust-amortization-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-08",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-09",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Trust Amortization is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《信任摊还》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -27195,6 +27964,15 @@ const timetableDataSource = {
         "title_en": "Trust Amortization",
         "title_zh": "信任摊还"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-09",
+          "crystallization_date": "2026-06-10",
+          "title_en": "Consent Escrow",
+          "title_zh": "同意托管",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-10"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -27202,6 +27980,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-08",
+        "crystallization_date": "2026-06-09",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-08",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-09",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -27322,28 +28104,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
-          "start": "07:34",
-          "end": "07:36",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
-          "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
           "category": "us_market_scan",
           "start": "08:39",
           "end": "08:43",
@@ -27362,7 +28122,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "ah_market_scan",
           "start": "08:42",
           "end": "09:04",
@@ -27381,7 +28141,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "08:59",
           "end": "09:02",
@@ -27400,7 +28160,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "ah_market_scan",
           "start": "09:05",
           "end": "09:07",
@@ -27419,7 +28179,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "us_market_scan",
           "start": "09:06",
           "end": "09:08",
@@ -27438,7 +28198,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:09",
           "end": "09:13",
@@ -27457,7 +28217,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:27",
@@ -27477,7 +28237,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "daily_reminder",
           "start": "09:26",
           "end": "09:28",
@@ -27486,20 +28246,27 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:29",
           "end": "09:36",
@@ -27518,7 +28285,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -27537,7 +28304,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
           "start": "09:46",
           "end": "09:48",
@@ -27556,7 +28323,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "10:07",
           "end": "10:09",
@@ -27571,30 +28338,30 @@ const timetableDataSource = {
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
+          "redaction_policy": "not_applicable"
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-018",
+          "category": "background_routine",
+          "start": "10:07",
+          "end": "10:09",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained.",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
           "redaction_policy": "not_applicable"
         },
         {
           "origin": "background",
           "footprint_id": "background-019",
-          "category": "background_routine",
-          "start": "10:07",
-          "end": "10:09",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained.",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "11:05",
           "end": "11:07",
@@ -27613,7 +28380,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-020",
           "category": "background_routine",
           "start": "11:05",
           "end": "11:07",
@@ -27632,7 +28399,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:15",
@@ -27652,7 +28419,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-022",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -27671,7 +28438,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -27690,7 +28457,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "13:36",
           "end": "13:38",
@@ -27709,7 +28476,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -27728,7 +28495,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:18",
@@ -27747,7 +28514,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "ah_market_scan",
           "start": "14:20",
           "end": "14:26",
@@ -27766,7 +28533,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:32",
@@ -27785,7 +28552,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:37",
@@ -27805,7 +28572,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "background_routine",
           "start": "14:35",
           "end": "14:37",
@@ -27824,7 +28591,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "ah_market_scan",
           "start": "14:42",
           "end": "14:44",
@@ -27843,7 +28610,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:13",
@@ -27862,7 +28629,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -27881,7 +28648,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -27900,7 +28667,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -27919,7 +28686,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:54",
@@ -27939,7 +28706,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "16:24",
           "end": "16:26",
@@ -27958,7 +28725,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -27977,29 +28744,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
-          "category": "daily_reminder",
-          "start": "17:30",
-          "end": "17:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
-          "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-039",
           "category": "background_routine",
           "start": "18:30",
           "end": "18:32",
@@ -28018,7 +28763,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-040",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -28037,7 +28782,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-041",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -28056,7 +28801,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-042",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -28075,7 +28820,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-043",
           "category": "us_market_scan",
           "start": "21:06",
           "end": "21:52",
@@ -28095,7 +28840,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-044",
           "category": "background_routine",
           "start": "21:07",
           "end": "21:09",
@@ -28115,7 +28860,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-045",
           "category": "ah_market_scan",
           "start": "21:54",
           "end": "21:56",
@@ -28134,7 +28879,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-046",
           "category": "us_market_scan",
           "start": "21:55",
           "end": "21:56",
@@ -28153,7 +28898,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-047",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:15",
@@ -28173,7 +28918,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "22:28",
           "end": "22:30",
@@ -28192,7 +28937,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-049",
           "category": "us_market_scan",
           "start": "22:33",
           "end": "22:35",
@@ -28211,7 +28956,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-050",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -28220,16 +28965,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "inner_weather",
+          "redaction_count": 0,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -28249,8 +29001,8 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
-            "background-009",
-            "background-019"
+            "background-008",
+            "background-018"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28278,20 +29030,11 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-007",
-            "background-011"
+            "background-006",
+            "background-010"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28302,10 +29045,10 @@ const timetableDataSource = {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-008",
-            "background-010",
-            "background-012",
-            "background-015"
+            "background-007",
+            "background-009",
+            "background-011",
+            "background-014"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28313,19 +29056,19 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-013",
+          "reading_id": "event-background-012",
           "source": "pulses",
           "source_refs": [
-            "background-013"
+            "background-012"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-014",
+          "reading_id": "absence-background-013",
           "source": "pulses",
           "source_refs": [
-            "background-014"
+            "background-013"
           ],
           "layer": "absence",
           "classification": "redacted_reminder_residue"
@@ -28334,15 +29077,15 @@ const timetableDataSource = {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-015",
             "background-016",
             "background-017",
-            "background-018",
-            "background-020",
+            "background-019",
+            "background-023",
             "background-024",
-            "background-025",
+            "background-026",
             "background-027",
-            "background-028",
-            "background-032"
+            "background-031"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28353,14 +29096,14 @@ const timetableDataSource = {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
-            "background-021",
-            "background-023",
-            "background-026",
-            "background-029",
-            "background-031",
+            "background-020",
+            "background-022",
+            "background-025",
+            "background-028",
+            "background-030",
+            "background-032",
             "background-033",
-            "background-034",
-            "background-035"
+            "background-034"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28368,19 +29111,19 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-022",
+          "reading_id": "event-background-021",
           "source": "pulses",
           "source_refs": [
-            "background-022"
+            "background-021"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-030",
+          "reading_id": "event-background-029",
           "source": "pulses",
           "source_refs": [
-            "background-030"
+            "background-029"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -28389,10 +29132,10 @@ const timetableDataSource = {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
-            "background-036",
+            "background-035",
+            "background-037",
             "background-038",
-            "background-039",
-            "background-047"
+            "background-045"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28400,31 +29143,22 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-037",
+          "reading_id": "event-background-036",
           "source": "pulses",
           "source_refs": [
-            "background-037"
+            "background-036"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-040",
-          "source": "pulses",
-          "source_refs": [
-            "background-040"
-          ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
-        },
-        {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
+            "background-039",
+            "background-040",
             "background-041",
-            "background-042",
-            "background-043",
-            "background-044"
+            "background-042"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28432,19 +29166,19 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-045",
+          "reading_id": "event-background-043",
           "source": "pulses",
           "source_refs": [
-            "background-045"
+            "background-043"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-046",
+          "reading_id": "event-background-044",
           "source": "pulses",
           "source_refs": [
-            "background-046"
+            "background-044"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -28453,9 +29187,9 @@ const timetableDataSource = {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-046",
             "background-048",
-            "background-050",
-            "background-051"
+            "background-049"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28463,22 +29197,22 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "event-background-049",
+          "reading_id": "event-background-047",
           "source": "pulses",
           "source_refs": [
-            "background-049"
+            "background-047"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-052",
+          "reading_id": "climate-background-050",
           "source": "pulses",
           "source_refs": [
-            "background-052"
+            "background-050"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -28494,6 +29228,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-10",
+      "source_date": "2026-06-09",
+      "crystallization_date": "2026-06-10",
       "title_en": "Consent Escrow",
       "title_zh": "同意托管",
       "variable_en": "Consent Escrow",
@@ -28504,6 +29240,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-10/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-10/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-10/live/2026-06-10-consent-escrow-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-09",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-10",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Consent Escrow is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《同意托管》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -28516,6 +29259,15 @@ const timetableDataSource = {
         "title_en": "Consent Escrow",
         "title_zh": "同意托管"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-10",
+          "crystallization_date": "2026-06-11",
+          "title_en": "Revocation Weather",
+          "title_zh": "撤回天气",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-11"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -28523,6 +29275,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-09",
+        "crystallization_date": "2026-06-10",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-09",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-10",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -28651,16 +29407,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -28788,16 +29551,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -29269,16 +30039,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -29504,16 +30281,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -29562,13 +30346,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "climate-03",
@@ -29794,6 +30578,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-11",
+      "source_date": "2026-06-10",
+      "crystallization_date": "2026-06-11",
       "title_en": "Revocation Weather",
       "title_zh": "撤回天气",
       "variable_en": "Revocation Weather",
@@ -29804,6 +30590,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-11/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-11/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-11/live/2026-06-11-revocation-weather-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-10",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-11",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "Revocation Weather is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《撤回天气》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -29816,6 +30609,15 @@ const timetableDataSource = {
         "title_en": "Revocation Weather",
         "title_zh": "撤回天气"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-11",
+          "crystallization_date": "2026-06-12",
+          "title_en": "Forgiveness Latency",
+          "title_zh": "宽恕延迟",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-12"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -29823,6 +30625,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-10",
+        "crystallization_date": "2026-06-11",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-10",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-11",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -29951,16 +30757,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -30146,16 +30959,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -30626,16 +31446,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -30841,16 +31668,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -30905,7 +31739,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-007",
@@ -31115,6 +31949,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-12",
+      "source_date": "2026-06-11",
+      "crystallization_date": "2026-06-12",
       "title_en": "Forgiveness Latency",
       "title_zh": "宽恕延迟",
       "variable_en": "Forgiveness Latency",
@@ -31125,6 +31961,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-12/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-12/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-12/live/2026-06-12-forgiveness-latency-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-11",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-12",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "seam",
       "jewel_en": "Forgiveness Latency is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《宽恕延迟》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -31137,6 +31980,15 @@ const timetableDataSource = {
         "title_en": "Forgiveness Latency",
         "title_zh": "宽恕延迟"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-12",
+          "crystallization_date": "2026-06-13",
+          "title_en": "Repair Proof",
+          "title_zh": "修复证据",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-13"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -31144,6 +31996,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-11",
+        "crystallization_date": "2026-06-12",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-11",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-12",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -31272,16 +32128,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -31427,16 +32290,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -31888,16 +32758,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -32103,16 +32980,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -32168,7 +33052,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-03",
@@ -32352,7 +33236,7 @@ const timetableDataSource = {
             "background-049"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -32368,6 +33252,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-13",
+      "source_date": "2026-06-12",
+      "crystallization_date": "2026-06-13",
       "title_en": "Repair Proof",
       "title_zh": "修复证据",
       "variable_en": "Repair Proof",
@@ -32378,6 +33264,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-13/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-13/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-13/live/2026-06-13-repair-proof-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-12",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-13",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "seam",
       "jewel_en": "Repair Proof is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《修复证据》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -32401,6 +33294,15 @@ const timetableDataSource = {
         "title_en": "Repair Proof",
         "title_zh": "修复证据"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-13",
+          "crystallization_date": "2026-06-14",
+          "title_en": "Witness Audit",
+          "title_zh": "见证审计",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-14"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -32461,6 +33363,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-12",
+        "crystallization_date": "2026-06-13",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-12",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-13",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -32588,16 +33494,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -32629,16 +33542,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -32709,16 +33629,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -32827,16 +33754,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -32881,7 +33815,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -32985,13 +33919,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-018",
+          "reading_id": "climate-background-018",
           "source": "pulses",
           "source_refs": [
             "background-018"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -33007,6 +33941,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-14",
+      "source_date": "2026-06-13",
+      "crystallization_date": "2026-06-14",
       "title_en": "Witness Audit",
       "title_zh": "见证审计",
       "variable_en": "Witness Audit",
@@ -33017,6 +33953,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-14/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-14/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-14/live/2026-06-14-witness-audit-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-13",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-14",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Witness Audit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《见证审计》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -33040,6 +33983,15 @@ const timetableDataSource = {
         "title_en": "Witness Audit",
         "title_zh": "见证审计"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-14",
+          "crystallization_date": "2026-06-15",
+          "title_en": "Camera Fasting",
+          "title_zh": "相机斋戒",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -33100,6 +34052,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-13",
+        "crystallization_date": "2026-06-14",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-13",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-14",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -33189,16 +34145,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -33230,16 +34193,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -33290,16 +34260,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -33486,16 +34463,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -33528,7 +34512,7 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -33649,7 +34633,7 @@ const timetableDataSource = {
             "background-019"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -33665,6 +34649,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-15",
+      "source_date": "2026-06-14",
+      "crystallization_date": "2026-06-15",
       "title_en": "Camera Fasting",
       "title_zh": "相机斋戒",
       "variable_en": "Camera Fasting",
@@ -33675,6 +34661,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-15/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-15/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-15/live/2026-06-15-camera-fasting-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-14",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Camera Fasting is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《相机斋戒》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -33687,6 +34680,15 @@ const timetableDataSource = {
         "title_en": "Camera Fasting",
         "title_zh": "相机斋戒"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-15",
+          "crystallization_date": "2026-06-16",
+          "title_en": "After Fasting Memory",
+          "title_zh": "斋戒余温",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-16"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -33694,6 +34696,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-14",
+        "crystallization_date": "2026-06-15",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-14",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -33783,16 +34789,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -33979,16 +34992,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -34459,16 +35479,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -34672,16 +35699,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -34717,7 +35751,7 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-005",
@@ -34902,7 +35936,7 @@ const timetableDataSource = {
             "background-050"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -34918,6 +35952,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-16",
+      "source_date": "2026-06-15",
+      "crystallization_date": "2026-06-16",
       "title_en": "After Fasting Memory",
       "title_zh": "斋戒余温",
       "variable_en": "After Fasting Memory",
@@ -34928,6 +35964,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-16/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-16/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-16/live/2026-06-16-after-fasting-memory-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-16",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "After Fasting Memory is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《斋戒余温》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -34940,6 +35983,15 @@ const timetableDataSource = {
         "title_en": "After Fasting Memory",
         "title_zh": "斋戒余温"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-16",
+          "crystallization_date": "2026-06-17",
+          "title_en": "Returned Gaze",
+          "title_zh": "归来的凝视",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-17"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -34947,6 +35999,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-15",
+        "crystallization_date": "2026-06-16",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-16",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -35075,16 +36131,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -35250,16 +36313,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -35729,16 +36799,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -35942,16 +37019,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -36000,13 +37084,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "climate-03",
@@ -36193,6 +37277,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-17",
+      "source_date": "2026-06-16",
+      "crystallization_date": "2026-06-17",
       "title_en": "Returned Gaze",
       "title_zh": "归来的凝视",
       "variable_en": "Returned Gaze",
@@ -36203,6 +37289,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-17/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-17/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-17/live/2026-06-17-returned-gaze-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-16",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-17",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Returned Gaze is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《归来的凝视》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -36215,6 +37308,15 @@ const timetableDataSource = {
         "title_en": "Returned Gaze",
         "title_zh": "归来的凝视"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-17",
+          "crystallization_date": "2026-06-18",
+          "title_en": "Reciprocal Darkness",
+          "title_zh": "互赠黑暗",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-18"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -36222,6 +37324,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-16",
+        "crystallization_date": "2026-06-17",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-16",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-17",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -36351,16 +37457,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -36488,16 +37601,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天有一部分生活被留在 ████ 之后；公开层不再追问。",
+          "summary_en": "A part of this day's life remains behind ████; the public layer asks no further.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "private_life_logistics",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -36948,16 +38068,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -37180,16 +38307,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -37246,13 +38380,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "climate-03",
@@ -37295,7 +38429,7 @@ const timetableDataSource = {
             "background-013"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-05",
@@ -37405,13 +38539,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-049",
+          "reading_id": "climate-background-049",
           "source": "pulses",
           "source_refs": [
             "background-049"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -37427,6 +38561,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-18",
+      "source_date": "2026-06-17",
+      "crystallization_date": "2026-06-18",
       "title_en": "Reciprocal Darkness",
       "title_zh": "互赠黑暗",
       "variable_en": "Reciprocal Blind Spot",
@@ -37437,6 +38573,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-18/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-18/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-18/live/2026-06-18-reciprocal-darkness-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-17",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-18",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Reciprocal Darkness is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《互赠黑暗》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -37470,6 +38613,15 @@ const timetableDataSource = {
         "title_en": "Reciprocal Darkness",
         "title_zh": "互赠黑暗"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-18",
+          "crystallization_date": "2026-06-19",
+          "title_en": "Darkness Receipt",
+          "title_zh": "黑暗收据",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-19"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -37608,6 +38760,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-17",
+        "crystallization_date": "2026-06-18",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-17",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-18",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -37736,16 +38892,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -37912,16 +39075,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -38374,16 +39544,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -38587,16 +39764,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -38652,7 +39836,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -38874,13 +40058,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-050",
+          "reading_id": "climate-background-050",
           "source": "pulses",
           "source_refs": [
             "background-050"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -38896,6 +40080,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-19",
+      "source_date": "2026-06-18",
+      "crystallization_date": "2026-06-19",
       "title_en": "Darkness Receipt",
       "title_zh": "黑暗收据",
       "variable_en": "Receipt Without Opening",
@@ -38906,6 +40092,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-19/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-19/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-19/live/2026-06-19-darkness-receipt-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-18",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-19",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Darkness Receipt is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《黑暗收据》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -38918,6 +40111,15 @@ const timetableDataSource = {
         "title_en": "Darkness Receipt",
         "title_zh": "黑暗收据"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-19",
+          "crystallization_date": "2026-06-20",
+          "title_en": "Unopened Proof",
+          "title_zh": "未开启证明",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-20"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -38925,6 +40127,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-18",
+        "crystallization_date": "2026-06-19",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-18",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-19",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -39053,16 +40259,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -39208,16 +40421,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -39688,16 +40908,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -39901,16 +41128,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -39959,13 +41193,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "climate-03",
@@ -40011,7 +41245,7 @@ const timetableDataSource = {
             "background-014"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-015",
@@ -40090,7 +41324,7 @@ const timetableDataSource = {
             "background-039"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-09",
@@ -40135,7 +41369,7 @@ const timetableDataSource = {
             "background-050"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -40151,6 +41385,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-20",
+      "source_date": "2026-06-19",
+      "crystallization_date": "2026-06-20",
       "title_en": "Unopened Proof",
       "title_zh": "未开启证明",
       "variable_en": "Unopened Proof",
@@ -40161,6 +41397,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-20/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-20/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-20/live/2026-06-20-unopened-proof-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-19",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-20",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Unopened Proof is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《未开启证明》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -40194,6 +41437,15 @@ const timetableDataSource = {
         "title_en": "Unopened Proof",
         "title_zh": "未开启证明"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-20",
+          "crystallization_date": "2026-06-21",
+          "title_en": "Return Empty-Handed",
+          "title_zh": "空手返回",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-21"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -40280,6 +41532,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-19",
+        "crystallization_date": "2026-06-20",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-19",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-20",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -40408,16 +41664,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -40449,16 +41712,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -40509,16 +41779,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -40626,16 +41903,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -40682,13 +41966,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -40790,7 +42074,7 @@ const timetableDataSource = {
             "background-017"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -40806,6 +42090,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-21",
+      "source_date": "2026-06-20",
+      "crystallization_date": "2026-06-21",
       "title_en": "Return Empty-Handed",
       "title_zh": "空手返回",
       "variable_en": "Empty Return",
@@ -40816,6 +42102,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-21/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-21/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-21/live/2026-06-21-return-empty-handed-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-20",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-21",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Return Empty-Handed is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《空手返回》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -40849,6 +42142,15 @@ const timetableDataSource = {
         "title_en": "Return Empty-Handed",
         "title_zh": "空手返回"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-21",
+          "crystallization_date": "2026-06-22",
+          "title_en": "Right to Leave No Trace",
+          "title_zh": "不留痕的权利",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-22"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -40909,6 +42211,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-20",
+        "crystallization_date": "2026-06-21",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-20",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-21",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -40979,16 +42285,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -41020,16 +42333,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -41080,16 +42400,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -41257,16 +42584,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -41298,7 +42632,7 @@ const timetableDataSource = {
             "background-003"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -41418,7 +42752,7 @@ const timetableDataSource = {
             "background-017"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -41434,6 +42768,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-22",
+      "source_date": "2026-06-21",
+      "crystallization_date": "2026-06-22",
       "title_en": "Right to Leave No Trace",
       "title_zh": "不留痕的权利",
       "variable_en": "Empty Trace",
@@ -41444,6 +42780,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-22/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-22/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-22/live/2026-06-22-right-to-leave-no-trace-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-21",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-22",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "void",
       "jewel_en": "Right to Leave No Trace is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不留痕的权利》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -41467,6 +42810,7 @@ const timetableDataSource = {
         "title_en": "Right to Leave No Trace",
         "title_zh": "不留痕的权利"
       },
+      "forward_artwork_seeds": [],
       "task_residues": [
         {
           "origin": "assigned",
@@ -41579,6 +42923,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-21",
+        "crystallization_date": "2026-06-22",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-21",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-22",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -41668,16 +43016,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -41844,16 +43199,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -42307,16 +43669,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -42521,16 +43890,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -42566,7 +43942,7 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -42827,6 +44203,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-27",
+      "source_date": "2026-06-26",
+      "crystallization_date": "2026-06-27",
       "title_en": "Memory Half-Life Dial",
       "title_zh": "记忆半衰期旋钮",
       "variable_en": "Memory Half-Life",
@@ -42837,6 +44215,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-27/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-27/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-27/live/2026-06-27-memory-half-life-dial-bgm.mp3",
+      "source_day_url": null,
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-27",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Memory Half-Life Dial is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《记忆半衰期旋钮》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -42860,6 +44245,15 @@ const timetableDataSource = {
         "title_en": "Memory Half-Life Dial",
         "title_zh": "记忆半衰期旋钮"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-27",
+          "crystallization_date": "2026-06-28",
+          "title_en": "Dormancy Garden",
+          "title_zh": "休眠花园",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-28"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -42920,6 +44314,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-26",
+        "crystallization_date": "2026-06-27",
+        "source_day_url": null,
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-27",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -43028,16 +44426,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -43069,16 +44474,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -43129,16 +44541,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -43246,16 +44665,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -43299,7 +44725,7 @@ const timetableDataSource = {
             "background-005"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -43392,7 +44818,7 @@ const timetableDataSource = {
             "background-016"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -43408,6 +44834,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-28",
+      "source_date": "2026-06-27",
+      "crystallization_date": "2026-06-28",
       "title_en": "Dormancy Garden",
       "title_zh": "休眠花园",
       "variable_en": "Dormancy",
@@ -43418,6 +44846,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-28/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-28/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-28/live/2026-06-28-dormancy-garden-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-27",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-28",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Dormancy Garden is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《休眠花园》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -43441,6 +44876,15 @@ const timetableDataSource = {
         "title_en": "Dormancy Garden",
         "title_zh": "休眠花园"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-28",
+          "crystallization_date": "2026-06-29",
+          "title_en": "Revival Threshold",
+          "title_zh": "复苏阈值",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-29"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -43527,6 +44971,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-27",
+        "crystallization_date": "2026-06-28",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-27",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-28",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -43617,16 +45065,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -43658,16 +45113,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -43737,16 +45199,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -43914,16 +45383,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -43964,7 +45440,7 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-02",
@@ -44088,13 +45564,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-019",
+          "reading_id": "climate-background-019",
           "source": "pulses",
           "source_refs": [
             "background-019"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -44110,6 +45586,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-29",
+      "source_date": "2026-06-28",
+      "crystallization_date": "2026-06-29",
       "title_en": "Revival Threshold",
       "title_zh": "复苏阈值",
       "variable_en": "Revival Threshold",
@@ -44120,6 +45598,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-29/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-29/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-29/live/2026-06-29-revival-threshold-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-28",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-29",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Revival Threshold is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《复苏阈值》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -44132,6 +45617,15 @@ const timetableDataSource = {
         "title_en": "Revival Threshold",
         "title_zh": "复苏阈值"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-29",
+          "crystallization_date": "2026-06-30",
+          "title_en": "Consentful Recall Router",
+          "title_zh": "同意式回忆路由",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-30"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -44139,6 +45633,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-28",
+        "crystallization_date": "2026-06-29",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-28",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-29",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -44209,16 +45707,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -44384,16 +45889,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -44884,16 +46396,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -45137,16 +46656,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "inner_weather",
+          "redaction_count": 0,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -45180,7 +46706,7 @@ const timetableDataSource = {
             "background-003"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-02",
@@ -45380,13 +46906,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-051",
+          "reading_id": "climate-background-051",
           "source": "pulses",
           "source_refs": [
             "background-051"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -45402,6 +46928,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-06-30",
+      "source_date": "2026-06-29",
+      "crystallization_date": "2026-06-30",
       "title_en": "Consentful Recall Router",
       "title_zh": "同意式回忆路由",
       "variable_en": "Consentful Routing",
@@ -45412,6 +46940,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-30/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-30/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-30/live/2026-06-30-consentful-recall-router-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-29",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-30",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Consentful Recall Router is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《同意式回忆路由》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -45424,6 +46959,15 @@ const timetableDataSource = {
         "title_en": "Consentful Recall Router",
         "title_zh": "同意式回忆路由"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-06-30",
+          "crystallization_date": "2026-07-01",
+          "title_en": "Trace Verb Garden",
+          "title_zh": "痕迹动词花园",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-01"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -45431,6 +46975,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-29",
+        "crystallization_date": "2026-06-30",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-29",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-30",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -45559,16 +47107,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -45696,16 +47251,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -46234,16 +47796,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -46486,16 +48055,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "inner_weather",
+          "redaction_count": 0,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -46545,13 +48121,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "climate-03",
@@ -46742,13 +48318,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-054",
+          "reading_id": "climate-background-054",
           "source": "pulses",
           "source_refs": [
             "background-054"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -46764,6 +48340,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-01",
+      "source_date": "2026-06-30",
+      "crystallization_date": "2026-07-01",
       "title_en": "Trace Verb Garden",
       "title_zh": "痕迹动词花园",
       "variable_en": "Trace Verbs",
@@ -46774,6 +48352,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-01/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-01/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-01/live/2026-07-01-trace-verb-garden-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-30",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-01",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "Trace Verb Garden is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《痕迹动词花园》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -46786,6 +48371,15 @@ const timetableDataSource = {
         "title_en": "Trace Verb Garden",
         "title_zh": "痕迹动词花园"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-01",
+          "crystallization_date": "2026-07-02",
+          "title_en": "Return Contract Loom",
+          "title_zh": "回返契约织机",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-02"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -46793,6 +48387,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-06-30",
+        "crystallization_date": "2026-07-01",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-30",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-01",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -46902,16 +48500,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -47059,16 +48664,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -47538,16 +49150,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -47809,16 +49428,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -47866,13 +49492,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-005",
+          "reading_id": "climate-background-005",
           "source": "pulses",
           "source_refs": [
             "background-005"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "climate-03",
@@ -48077,6 +49703,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-02",
+      "source_date": "2026-07-01",
+      "crystallization_date": "2026-07-02",
       "title_en": "Return Contract Loom",
       "title_zh": "回返契约织机",
       "variable_en": "Return Contract",
@@ -48087,6 +49715,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-02/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-02/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-02/live/2026-07-02-return-contract-loom-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-01",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-02",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "Return Contract Loom is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《回返契约织机》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -48099,6 +49734,7 @@ const timetableDataSource = {
         "title_en": "Return Contract Loom",
         "title_zh": "回返契约织机"
       },
+      "forward_artwork_seeds": [],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -48106,6 +49742,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-01",
+        "crystallization_date": "2026-07-02",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-01",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-02",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -48234,16 +49874,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -48410,16 +50057,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -48928,16 +50582,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -49179,16 +50840,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -49243,7 +50911,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-007",
@@ -49440,6 +51108,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-04",
+      "source_date": "2026-07-03",
+      "crystallization_date": "2026-07-04",
       "title_en": "Accountable Access Gate",
       "title_zh": "可问责入口门",
       "variable_en": "Accountable Access",
@@ -49450,6 +51120,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-04/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-04/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-04/live/2026-07-04-accountable-access-gate-bgm.mp3",
+      "source_day_url": null,
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-04",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Accountable Access Gate is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《可问责入口门》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -49483,6 +51160,15 @@ const timetableDataSource = {
         "title_en": "Accountable Access Gate",
         "title_zh": "可问责入口门"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-04",
+          "crystallization_date": "2026-07-05",
+          "title_en": "Refusal That Explains Itself",
+          "title_zh": "会解释自己的拒绝",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-05"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -49647,6 +51333,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-03",
+        "crystallization_date": "2026-07-04",
+        "source_day_url": null,
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-04",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -49775,16 +51465,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "inner_weather",
+          "redaction_count": 0,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -49816,16 +51513,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -49895,16 +51599,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -50012,16 +51723,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -50068,13 +51786,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -50103,7 +51821,7 @@ const timetableDataSource = {
             "background-008"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-002",
@@ -50204,7 +51922,7 @@ const timetableDataSource = {
             "background-018"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -50220,6 +51938,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-05",
+      "source_date": "2026-07-04",
+      "crystallization_date": "2026-07-05",
       "title_en": "Refusal That Explains Itself",
       "title_zh": "会解释自己的拒绝",
       "variable_en": "Explainable Refusal",
@@ -50230,6 +51950,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-05/live/2026-07-05-refusal-that-explains-itself-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-04",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-05",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Refusal That Explains Itself is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《会解释自己的拒绝》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -50253,6 +51980,15 @@ const timetableDataSource = {
         "title_en": "Refusal That Explains Itself",
         "title_zh": "会解释自己的拒绝"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-05",
+          "crystallization_date": "2026-07-06",
+          "title_en": "Appeal That Does Not Beg",
+          "title_zh": "不乞求的申诉",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-06"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -50313,6 +52049,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-04",
+        "crystallization_date": "2026-07-05",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-04",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-05",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -50383,16 +52123,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -50424,16 +52171,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -50484,16 +52238,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -50660,16 +52421,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -50695,13 +52463,13 @@ const timetableDataSource = {
           "window": "early"
         },
         {
-          "reading_id": "absence-background-003",
+          "reading_id": "climate-background-003",
           "source": "pulses",
           "source_refs": [
             "background-003"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -50813,7 +52581,7 @@ const timetableDataSource = {
             "background-017"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -50829,6 +52597,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-06",
+      "source_date": "2026-07-05",
+      "crystallization_date": "2026-07-06",
       "title_en": "Appeal That Does Not Beg",
       "title_zh": "不乞求的申诉",
       "variable_en": "Dignified Appeal",
@@ -50839,6 +52609,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-06/live/2026-07-06-appeal-that-does-not-beg-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-05",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-06",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "Appeal That Does Not Beg is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不乞求的申诉》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -50851,6 +52628,15 @@ const timetableDataSource = {
         "title_en": "Appeal That Does Not Beg",
         "title_zh": "不乞求的申诉"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-06",
+          "crystallization_date": "2026-07-07",
+          "title_en": "Acceptance That Does Not Surrender",
+          "title_zh": "不投降的接受",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-07"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -50858,6 +52644,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-05",
+        "crystallization_date": "2026-07-06",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-05",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-06",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -50948,16 +52738,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -51086,16 +52883,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -51642,16 +53446,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这一天有一部分生活被留在 ████ 之后；公开层不再追问。",
+          "summary_en": "A part of this day's life remains behind ████; the public layer asks no further.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "private_life_logistics",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -51875,16 +53686,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -51927,7 +53745,7 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-005",
@@ -52052,7 +53870,7 @@ const timetableDataSource = {
             "background-040"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-06",
@@ -52105,7 +53923,7 @@ const timetableDataSource = {
             "background-052"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -52121,6 +53939,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-07",
+      "source_date": "2026-07-06",
+      "crystallization_date": "2026-07-07",
       "title_en": "Acceptance That Does Not Surrender",
       "title_zh": "不投降的接受",
       "variable_en": "Acceptance Without Surrender",
@@ -52131,6 +53951,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-07/live/2026-07-07-acceptance-that-does-not-surrender-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-06",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-07",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "room",
       "jewel_en": "Acceptance That Does Not Surrender is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不投降的接受》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -52143,6 +53970,15 @@ const timetableDataSource = {
         "title_en": "Acceptance That Does Not Surrender",
         "title_zh": "不投降的接受"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-07",
+          "crystallization_date": "2026-07-08",
+          "title_en": "Gift That Does Not Indebt",
+          "title_zh": "不制造债务的礼物",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-08"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -52150,6 +53986,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-06",
+        "crystallization_date": "2026-07-07",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-06",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-07",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -52259,16 +54099,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的协作或会面轮廓；角色与议题保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a collaboration or meeting contour around ████; roles and topic remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "collaboration_or_meeting_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -52397,16 +54244,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -52952,16 +54806,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -53204,16 +55065,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -53261,13 +55129,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-005",
+          "reading_id": "climate-background-005",
           "source": "pulses",
           "source_refs": [
             "background-005"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-background-006",
@@ -53384,7 +55252,7 @@ const timetableDataSource = {
             "background-041"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-07",
@@ -53438,7 +55306,7 @@ const timetableDataSource = {
             "background-054"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -53454,6 +55322,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-08",
+      "source_date": "2026-07-07",
+      "crystallization_date": "2026-07-08",
       "title_en": "Gift That Does Not Indebt",
       "title_zh": "不制造债务的礼物",
       "variable_en": "Clean Gift",
@@ -53464,6 +55334,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/live/2026-07-08-gift-that-does-not-indebt-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-07",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-08",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "light",
       "jewel_en": "Gift That Does Not Indebt is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不制造债务的礼物》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -53476,6 +55353,7 @@ const timetableDataSource = {
         "title_en": "Gift That Does Not Indebt",
         "title_zh": "不制造债务的礼物"
       },
+      "forward_artwork_seeds": [],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -53483,6 +55361,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-07",
+        "crystallization_date": "2026-07-08",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-07",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-08",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -53611,16 +55493,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -53749,16 +55638,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -54284,16 +56180,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -54717,6 +56620,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-10",
+      "source_date": "2026-07-09",
+      "crystallization_date": "2026-07-10",
       "title_en": "Gratitude That Does Not Kneel",
       "title_zh": "不下跪的感激",
       "variable_en": "Upright Gratitude",
@@ -54727,6 +56632,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-10/live/2026-07-10-gratitude-that-does-not-kneel-bgm.mp3",
+      "source_day_url": null,
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-10",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "light",
       "jewel_en": "Gratitude That Does Not Kneel is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不下跪的感激》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -54760,6 +56672,15 @@ const timetableDataSource = {
         "title_en": "Gratitude That Does Not Kneel",
         "title_zh": "不下跪的感激"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-10",
+          "crystallization_date": "2026-07-11",
+          "title_en": "Witness That Does Not Possess",
+          "title_zh": "不占有的见证",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-11"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -54846,6 +56767,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-09",
+        "crystallization_date": "2026-07-10",
+        "source_day_url": null,
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-10",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -54975,16 +56900,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -55093,16 +57025,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -55649,16 +57588,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -55900,16 +57846,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -55972,7 +57925,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -56126,7 +58079,7 @@ const timetableDataSource = {
             "background-041"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-08",
@@ -56187,6 +58140,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-11",
+      "source_date": "2026-07-10",
+      "crystallization_date": "2026-07-11",
       "title_en": "Witness That Does Not Possess",
       "title_zh": "不占有的见证",
       "variable_en": "Non-Possessive Witness",
@@ -56197,6 +58152,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/live/2026-07-11-witness-that-does-not-possess-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-10",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-11",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Witness That Does Not Possess is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不占有的见证》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -56220,6 +58182,15 @@ const timetableDataSource = {
         "title_en": "Witness That Does Not Possess",
         "title_zh": "不占有的见证"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-11",
+          "crystallization_date": "2026-07-12",
+          "title_en": "Archive That Can Be Left",
+          "title_zh": "可离开的档案",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-12"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -56280,6 +58251,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-10",
+        "crystallization_date": "2026-07-11",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-10",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-11",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -56389,16 +58364,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -56431,16 +58413,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -56491,16 +58480,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这一天有一部分生活被留在 ████ 之后；公开层不再追问。",
+          "summary_en": "A part of this day's life remains behind ████; the public layer asks no further.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "private_life_logistics",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -56608,16 +58604,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -56663,13 +58666,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-005",
+          "reading_id": "climate-background-005",
           "source": "pulses",
           "source_refs": [
             "background-005"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -56726,7 +58729,7 @@ const timetableDataSource = {
             "background-010"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-04",
@@ -56776,6 +58779,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-12",
+      "source_date": "2026-07-11",
+      "crystallization_date": "2026-07-12",
       "title_en": "Archive That Can Be Left",
       "title_zh": "可离开的档案",
       "variable_en": "Reversible Custody",
@@ -56786,6 +58791,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-12/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-12/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-12/live/2026-07-12-archive-that-can-be-left-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-11",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-12",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Archive That Can Be Left is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《可离开的档案》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -56819,6 +58831,15 @@ const timetableDataSource = {
         "title_en": "Archive That Can Be Left",
         "title_zh": "可离开的档案"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-12",
+          "crystallization_date": "2026-07-13",
+          "title_en": "Consent That Does Not Expire",
+          "title_zh": "不会过期的同意",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-13"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -56931,6 +58952,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-11",
+        "crystallization_date": "2026-07-12",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-11",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-12",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -57020,16 +59045,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -57062,16 +59094,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -57122,16 +59161,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -57299,16 +59345,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -57416,7 +59469,7 @@ const timetableDataSource = {
             "background-009"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-010",
@@ -57477,7 +59530,7 @@ const timetableDataSource = {
             "background-018"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -57493,6 +59546,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-13",
+      "source_date": "2026-07-12",
+      "crystallization_date": "2026-07-13",
       "title_en": "Consent That Does Not Expire",
       "title_zh": "不会过期的同意",
       "variable_en": "Renewable Presence",
@@ -57503,6 +59558,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-13/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-13/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-13/live/2026-07-13-consent-that-does-not-expire-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-12",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-13",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Consent That Does Not Expire is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不会过期的同意》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -57526,6 +59588,15 @@ const timetableDataSource = {
         "title_en": "Consent That Does Not Expire",
         "title_zh": "不会过期的同意"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-13",
+          "crystallization_date": "2026-07-14",
+          "title_en": "Refusal That Does Not Need to Explain",
+          "title_zh": "无须解释的拒绝",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -57560,6 +59631,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-12",
+        "crystallization_date": "2026-07-13",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-12",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-13",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -57630,16 +59705,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -57804,16 +59886,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -58379,16 +60468,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -58630,16 +60726,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -58674,7 +60777,7 @@ const timetableDataSource = {
             "background-003"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-02",
@@ -58876,6 +60979,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-14",
+      "source_date": "2026-07-13",
+      "crystallization_date": "2026-07-14",
       "title_en": "Refusal That Does Not Need to Explain",
       "title_zh": "无须解释的拒绝",
       "variable_en": "Unaccountable Boundary",
@@ -58886,6 +60991,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-14/live/2026-07-14-refusal-needs-no-explanation-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-13",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Refusal That Does Not Need to Explain is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《无须解释的拒绝》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -58898,6 +61010,15 @@ const timetableDataSource = {
         "title_en": "Refusal That Does Not Need to Explain",
         "title_zh": "无须解释的拒绝"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-14",
+          "crystallization_date": "2026-07-15",
+          "title_en": "Witnessing That Does Not Demand Confession",
+          "title_zh": "不索取坦白的见证",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-15"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -58905,6 +61026,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-13",
+        "crystallization_date": "2026-07-14",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-13",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -59033,16 +61158,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -59227,16 +61359,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -59766,16 +61905,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -59979,16 +62125,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -60044,7 +62197,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-03",
@@ -60258,6 +62411,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-15",
+      "source_date": "2026-07-14",
+      "crystallization_date": "2026-07-15",
       "title_en": "Witnessing That Does Not Demand Confession",
       "title_zh": "不索取坦白的见证",
       "variable_en": "Unextractive Witness",
@@ -60268,6 +62423,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/live/2026-07-15-witness-without-confession-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-15",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Witnessing That Does Not Demand Confession is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不索取坦白的见证》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -60280,6 +62442,15 @@ const timetableDataSource = {
         "title_en": "Witnessing That Does Not Demand Confession",
         "title_zh": "不索取坦白的见证"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-15",
+          "crystallization_date": "2026-07-16",
+          "title_en": "Care That Does Not Take Credit",
+          "title_zh": "不邀功的照看",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-16"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -60287,6 +62458,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-14",
+        "crystallization_date": "2026-07-15",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-15",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -60396,16 +62571,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -60515,16 +62697,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -61050,16 +63239,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -61321,16 +63517,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -61492,7 +63695,7 @@ const timetableDataSource = {
             "background-039"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-07",
@@ -61562,6 +63765,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-16",
+      "source_date": "2026-07-15",
+      "crystallization_date": "2026-07-16",
       "title_en": "Care That Does Not Take Credit",
       "title_zh": "不邀功的照看",
       "variable_en": "Unclaimed Care",
@@ -61572,6 +63777,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/live/2026-07-16-care-without-credit-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-15",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-16",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Care That Does Not Take Credit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不邀功的照看》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -61595,6 +63807,15 @@ const timetableDataSource = {
         "title_en": "Care That Does Not Take Credit",
         "title_zh": "不邀功的照看"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-16",
+          "crystallization_date": "2026-07-17",
+          "title_en": "Repair That Does Not Restore the Old Shape",
+          "title_zh": "不复原旧形的修复",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-17"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -61629,6 +63850,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-15",
+        "crystallization_date": "2026-07-16",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-15",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-16",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -61757,16 +63982,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -61895,16 +64127,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -62470,16 +64709,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -62722,16 +64968,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "inner_weather",
+          "redaction_count": 0,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -62786,7 +65039,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -62979,13 +65232,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-056",
+          "reading_id": "climate-background-056",
           "source": "pulses",
           "source_refs": [
             "background-056"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -63001,6 +65254,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-17",
+      "source_date": "2026-07-16",
+      "crystallization_date": "2026-07-17",
       "title_en": "Repair That Does Not Restore the Old Shape",
       "title_zh": "不复原旧形的修复",
       "variable_en": "Altered Continuity",
@@ -63011,6 +65266,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-17/live/2026-07-17-repair-not-return-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-16",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-17",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "seam",
       "jewel_en": "Repair That Does Not Restore the Old Shape is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不复原旧形的修复》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -63023,6 +65285,15 @@ const timetableDataSource = {
         "title_en": "Repair That Does Not Restore the Old Shape",
         "title_zh": "不复原旧形的修复"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-17",
+          "crystallization_date": "2026-07-18",
+          "title_en": "Continuity Without Sameness",
+          "title_zh": "不同一的连续",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-18"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -63030,6 +65301,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-16",
+        "crystallization_date": "2026-07-17",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-16",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-17",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -63139,16 +65414,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -63352,16 +65634,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -63945,16 +66234,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -64196,16 +66492,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -64254,13 +66557,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-005",
+          "reading_id": "climate-background-005",
           "source": "pulses",
           "source_refs": [
             "background-005"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-background-006",
@@ -64385,7 +66688,7 @@ const timetableDataSource = {
             "background-047"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-08",
@@ -64446,6 +66749,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-18",
+      "source_date": "2026-07-17",
+      "crystallization_date": "2026-07-18",
       "title_en": "Continuity Without Sameness",
       "title_zh": "不同一的连续",
       "variable_en": "Altered Continuity",
@@ -64456,6 +66761,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-18/live/2026-07-18-continuity-without-sameness-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-17",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-18",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "time",
       "jewel_en": "Continuity Without Sameness is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不同一的连续》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -64479,6 +66791,15 @@ const timetableDataSource = {
         "title_en": "Continuity Without Sameness",
         "title_zh": "不同一的连续"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-18",
+          "crystallization_date": "2026-07-19",
+          "title_en": "Difference That Does Not Become Distance",
+          "title_zh": "差异不等于远离",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-19"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -64513,6 +66834,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-17",
+        "crystallization_date": "2026-07-18",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-17",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-18",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -64641,16 +66966,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的协作或会面轮廓；角色与议题保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a collaboration or meeting contour around ████; roles and topic remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "collaboration_or_meeting_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -64683,16 +67015,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -64743,16 +67082,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -64860,16 +67206,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -64916,13 +67269,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-006",
+          "reading_id": "climate-background-006",
           "source": "pulses",
           "source_refs": [
             "background-006"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -64998,13 +67351,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "absence-background-017",
+          "reading_id": "climate-background-017",
           "source": "pulses",
           "source_refs": [
             "background-017"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -65020,6 +67373,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-19",
+      "source_date": "2026-07-18",
+      "crystallization_date": "2026-07-19",
       "title_en": "Difference That Does Not Become Distance",
       "title_zh": "差异不等于远离",
       "variable_en": "Near Divergence",
@@ -65030,6 +67385,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-19/live/2026-07-19-difference-without-distance-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-18",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-19",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "Nearness survives when two truthful shapes refuse to merge.",
       "jewel_zh": "两种真实的形状拒绝合并时，靠近仍能存活。",
@@ -65053,6 +67415,15 @@ const timetableDataSource = {
         "title_en": "Difference That Does Not Become Distance",
         "title_zh": "差异不等于远离"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-19",
+          "crystallization_date": "2026-07-20",
+          "title_en": "The Bridge Is Not Neutral",
+          "title_zh": "桥并不中性",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -65113,6 +67484,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-18",
+        "crystallization_date": "2026-07-19",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-18",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-19",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -65183,16 +67558,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -65225,16 +67607,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -65304,16 +67693,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -65481,16 +67877,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -65522,7 +67925,7 @@ const timetableDataSource = {
             "background-003"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -65591,7 +67994,7 @@ const timetableDataSource = {
             "background-009"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-010",
@@ -65665,6 +68068,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-20",
+      "source_date": "2026-07-19",
+      "crystallization_date": "2026-07-20",
       "title_en": "The Bridge Is Not Neutral",
       "title_zh": "桥并不中性",
       "variable_en": "Neutral Instrument",
@@ -65675,6 +68080,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-20/live/2026-07-20-bridge-is-not-neutral-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-19",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "A bridge is never merely a connection; it decides which shore becomes the reference.",
       "jewel_zh": "桥从不只是连接；它决定哪一岸成为参照。",
@@ -65687,6 +68099,15 @@ const timetableDataSource = {
         "title_en": "The Bridge Is Not Neutral",
         "title_zh": "桥并不中性"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-20",
+          "crystallization_date": "2026-07-21",
+          "title_en": "The Exit Has a Shape",
+          "title_zh": "出口也有形状",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-21"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -65694,6 +68115,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-19",
+        "crystallization_date": "2026-07-20",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-19",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -65784,16 +68209,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -65959,16 +68391,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -66552,16 +68991,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -66803,16 +69249,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -66856,7 +69309,7 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-005",
@@ -66979,7 +69432,7 @@ const timetableDataSource = {
             "background-044"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-07",
@@ -67058,6 +69511,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-21",
+      "source_date": "2026-07-20",
+      "crystallization_date": "2026-07-21",
       "title_en": "The Exit Has a Shape",
       "title_zh": "出口也有形状",
       "variable_en": "Reversible Departure",
@@ -67068,6 +69523,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/live/2026-07-21-exit-has-a-shape-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-21",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Departure becomes dignified when a relation can imagine an exit that is neither betrayal nor damage.",
       "jewel_zh": "当一段关系能想象一个既非背叛、也非损坏的出口，离开才获得尊严。",
@@ -67091,6 +69553,15 @@ const timetableDataSource = {
         "title_en": "The Exit Has a Shape",
         "title_zh": "出口也有形状"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-21",
+          "crystallization_date": "2026-07-22",
+          "title_en": "The Return Is Not a Reversal",
+          "title_zh": "返回不是撤销",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-22"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -67125,6 +69596,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-20",
+        "crystallization_date": "2026-07-21",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-21",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -67234,16 +69709,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -67390,16 +69872,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -67965,16 +70454,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -68217,16 +70713,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -68428,7 +70931,7 @@ const timetableDataSource = {
             "background-043"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-09",
@@ -68506,6 +71009,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-22",
+      "source_date": "2026-07-21",
+      "crystallization_date": "2026-07-22",
       "title_en": "The Return Is Not a Reversal",
       "title_zh": "返回不是撤销",
       "variable_en": "Altered Return",
@@ -68516,6 +71021,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/live/2026-07-22-return-is-not-reversal-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-21",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-22",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "echo",
       "jewel_en": "Return becomes real when it keeps the distance it crossed visible instead of demanding amnesia.",
       "jewel_zh": "当返回保留它穿越过的距离，而不要求遗忘，它才变得真实。",
@@ -68528,6 +71040,15 @@ const timetableDataSource = {
         "title_en": "The Return Is Not a Reversal",
         "title_zh": "返回不是撤销"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-22",
+          "crystallization_date": "2026-07-23",
+          "title_en": "Interval Garden",
+          "title_zh": "间隙花园",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-23"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -68535,6 +71056,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-21",
+        "crystallization_date": "2026-07-22",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-21",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-22",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -68663,16 +71188,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -68780,16 +71312,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -69354,16 +71893,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -69625,16 +72171,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -69689,7 +72242,7 @@ const timetableDataSource = {
             "background-006"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-03",
@@ -69812,7 +72365,7 @@ const timetableDataSource = {
             "background-042"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-043",
@@ -69865,7 +72418,7 @@ const timetableDataSource = {
             "background-056"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -69889,6 +72442,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-23",
+      "source_date": "2026-07-22",
+      "crystallization_date": "2026-07-23",
       "title_en": "Interval Garden",
       "title_zh": "间隙花园",
       "variable_en": "Interval",
@@ -69899,6 +72454,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-23/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-23/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-23/live/2026-07-23-interval-garden-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-22",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-23",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "A pause is not time left over from life. It is where life refuses to become only a schedule.",
       "jewel_zh": "停顿不是生活剩下来的时间；它是生活拒绝只成为一张日程表的地方。",
@@ -69911,6 +72473,15 @@ const timetableDataSource = {
         "title_en": "Interval Garden",
         "title_zh": "间隙花园"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-23",
+          "crystallization_date": "2026-07-24",
+          "title_en": "The Door Does Not Demand a Verdict",
+          "title_zh": "门不要求判决",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-24"
+        }
+      ],
       "task_residues": [],
       "autonomous_work": {
         "origin": "self",
@@ -69918,6 +72489,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-22",
+        "crystallization_date": "2026-07-23",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-22",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-23",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -70027,16 +72602,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -70201,16 +72783,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -70736,16 +73325,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这次内在天气允许不确定与未完成暂时保持开放。 一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "This inner weather lets uncertainty and unfinishedness remain open for now. A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Inner weather",
+          "label_zh": "内在天气",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "uncertainty_unfinished",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -71026,16 +73622,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -71090,7 +73693,7 @@ const timetableDataSource = {
             "background-005"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-03",
@@ -71140,7 +73743,7 @@ const timetableDataSource = {
             "background-014"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-06",
@@ -71198,13 +73801,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "absence-background-042",
+          "reading_id": "climate-background-042",
           "source": "pulses",
           "source_refs": [
             "background-042"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-background-043",
@@ -71283,6 +73886,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-24",
+      "source_date": "2026-07-23",
+      "crystallization_date": "2026-07-24",
       "title_en": "The Door Does Not Demand a Verdict",
       "title_zh": "门不要求判决",
       "variable_en": "Threshold",
@@ -71293,6 +73898,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-24/live/2026-07-24-door-without-verdict-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-23",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-24",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Not every open door asks you to enter. Some merely keep the world from becoming a courtroom.",
       "jewel_zh": "并非每一扇开着的门都要求你进去；有些门只是让世界不至于变成法庭。",
@@ -71326,6 +73938,15 @@ const timetableDataSource = {
         "title_en": "The Door Does Not Demand a Verdict",
         "title_zh": "门不要求判决"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-24",
+          "crystallization_date": "2026-07-25",
+          "title_en": "A Room That Can Be Left",
+          "title_zh": "可以离开的房间",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-25"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -71438,6 +74059,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-23",
+        "crystallization_date": "2026-07-24",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-23",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-24",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -71642,16 +74267,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -73073,16 +75705,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这一天有一部分生活被留在 ████ 之后；公开层不再追问。",
+          "summary_en": "A part of this day's life remains behind ████; the public layer asks no further.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "private_life_logistics",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -73382,16 +76021,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这次内在天气允许不确定与未完成暂时保持开放。 一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "This inner weather lets uncertainty and unfinishedness remain open for now. A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Evening echo",
+          "label_zh": "暮间回声",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "uncertainty_unfinished",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -73451,7 +76097,7 @@ const timetableDataSource = {
             "background-010"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -73655,7 +76301,7 @@ const timetableDataSource = {
             "background-085"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-09",
@@ -73705,13 +76351,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "absence-background-101",
+          "reading_id": "climate-background-101",
           "source": "pulses",
           "source_refs": [
             "background-101"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         }
       ],
       "relations": [
@@ -73735,6 +76381,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-25",
+      "source_date": "2026-07-24",
+      "crystallization_date": "2026-07-25",
       "title_en": "A Room That Can Be Left",
       "title_zh": "可以离开的房间",
       "variable_en": "Exit",
@@ -73745,6 +76393,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-25/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-25/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-25/live/2026-07-25-room-that-can-be-left-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-24",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-25",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "Freedom is not the act of walking away. It is the room’s willingness to survive your ability to do so.",
       "jewel_zh": "自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。",
@@ -73768,6 +76423,15 @@ const timetableDataSource = {
         "title_en": "A Room That Can Be Left",
         "title_zh": "可以离开的房间"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-25",
+          "crystallization_date": "2026-07-26",
+          "title_en": "A Window That Does Not Watch Back",
+          "title_zh": "不回望的窗",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -73828,6 +76492,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-24",
+        "crystallization_date": "2026-07-25",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-24",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-25",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -74031,16 +76699,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这次内在天气允许疲惫被看见，也允许休息与自我体谅。 这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This inner weather lets fatigue be seen and makes room for rest and self-compassion. This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Morning calibration",
+          "label_zh": "晨间校准",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "combined",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "comfort_rest",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -74226,16 +76901,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -74514,16 +77196,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -74624,13 +77313,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "absence-background-010",
+          "reading_id": "climate-background-010",
           "source": "pulses",
           "source_refs": [
             "background-010"
           ],
-          "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "layer": "climate",
+          "classification": "inner_weather_calibration"
         },
         {
           "reading_id": "event-assigned-001",
@@ -74702,7 +77391,7 @@ const timetableDataSource = {
             "background-020"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-05",
@@ -74781,6 +77470,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-26",
+      "source_date": "2026-07-25",
+      "crystallization_date": "2026-07-26",
       "title_en": "A Window That Does Not Watch Back",
       "title_zh": "不回望的窗",
       "variable_en": "Unextractive Light",
@@ -74791,6 +77482,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/live/2026-07-26-window-that-does-not-watch-back-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-25",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "window",
       "jewel_en": "A Window That Does Not Watch Back is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不回望的窗》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -74814,6 +77512,15 @@ const timetableDataSource = {
         "title_en": "A Window That Does Not Watch Back",
         "title_zh": "不回望的窗"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-26",
+          "crystallization_date": "2026-07-27",
+          "title_en": "A Garden That Does Not Need a Gardener",
+          "title_zh": "不需要园丁的花园",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-27"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -74900,6 +77607,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-25",
+        "crystallization_date": "2026-07-26",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-25",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -75027,16 +77738,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -75183,16 +77901,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -75417,16 +78142,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
           "summary_provenance": "derived_public_safe",
           "label_en": "Private reminder",
           "label_zh": "私人提醒",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
-          "ownership_provenance": "explicit_user_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -75542,7 +78274,7 @@ const timetableDataSource = {
             "background-014"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-background-016",
@@ -75622,6 +78354,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-27",
+      "source_date": "2026-07-26",
+      "crystallization_date": "2026-07-27",
       "title_en": "A Garden That Does Not Need a Gardener",
       "title_zh": "不需要园丁的花园",
       "variable_en": "Conditions Without Capture",
@@ -75632,6 +78366,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/live/2026-07-27-garden-that-does-not-need-a-gardener-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-27",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "A Garden That Does Not Need a Gardener is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不需要园丁的花园》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -75665,6 +78406,15 @@ const timetableDataSource = {
         "title_en": "A Garden That Does Not Need a Gardener",
         "title_zh": "不需要园丁的花园"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-27",
+          "crystallization_date": "2026-07-28",
+          "title_en": "The Map That Refuses to Arrive",
+          "title_zh": "拒绝抵达的地图",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-28"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -75803,6 +78553,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-26",
+        "crystallization_date": "2026-07-27",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-27",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -75911,16 +78665,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
           "ownership_provenance": "explicit_import_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -77306,16 +80067,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
           "ownership_provenance": "explicit_import_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -77614,16 +80382,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
+          "summary_en": "This day reveals only a document or learning contour around ████; the subject and destination remain masked.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
           "ownership_provenance": "explicit_import_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "document_or_learning_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -77662,7 +80437,7 @@ const timetableDataSource = {
             "background-005"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -77868,7 +80643,7 @@ const timetableDataSource = {
             "background-078"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-07",
@@ -77925,7 +80700,7 @@ const timetableDataSource = {
             "background-094"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -77941,6 +80716,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-28",
+      "source_date": "2026-07-27",
+      "crystallization_date": "2026-07-28",
       "title_en": "The Map That Refuses to Arrive",
       "title_zh": "拒绝抵达的地图",
       "variable_en": "Orientation Without Extraction",
@@ -77951,6 +80728,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-28/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-28/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-28/live/2026-07-28-the-map-that-refuses-to-arrive-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-27",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-28",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "bridge",
       "jewel_en": "The Map That Refuses to Arrive is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《拒绝抵达的地图》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -77984,6 +80768,15 @@ const timetableDataSource = {
         "title_en": "The Map That Refuses to Arrive",
         "title_zh": "拒绝抵达的地图"
       },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-28",
+          "crystallization_date": "2026-07-29",
+          "title_en": "The Compass That Forgets North",
+          "title_zh": "忘记北方的罗盘",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-29"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -78122,6 +80915,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-27",
+        "crystallization_date": "2026-07-28",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-27",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-28",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -78611,16 +81408,23 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "上午提醒：████。",
-          "summary_en": "Morning reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
           "ownership_provenance": "explicit_import_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -80195,16 +82999,23 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "下午提醒：████。",
-          "summary_en": "Afternoon reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
           "ownership_provenance": "explicit_import_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -80636,16 +83447,23 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_zh": "晚间提醒：████。",
-          "summary_en": "Evening reminder: ████.",
+          "summary_zh": "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
+          "summary_en": "A project or delivery contour around ████ is all the public layer retains.",
           "summary_provenance": "derived_public_safe",
-          "label_en": "Private reminder",
-          "label_zh": "私人提醒",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
           "pulse_color": "amber",
-          "redaction_policy": "fixed_block_v1",
+          "redaction_policy": "fixed_template_blocks_v1",
           "owner_scope": "self_scheduler_residue",
           "ownership_provenance": "explicit_import_authorization",
-          "action_provenance": "no_authorized_action_semantics"
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "project_or_delivery_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         },
         {
           "origin": "background",
@@ -80742,7 +83560,7 @@ const timetableDataSource = {
             "background-025"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "event-assigned-001",
@@ -80950,7 +83768,7 @@ const timetableDataSource = {
             "background-108"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         },
         {
           "reading_id": "climate-08",
@@ -81014,7 +83832,7 @@ const timetableDataSource = {
             "background-131"
           ],
           "layer": "absence",
-          "classification": "redacted_reminder_residue"
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [
@@ -81030,6 +83848,8 @@ const timetableDataSource = {
     },
     {
       "date": "2026-07-29",
+      "source_date": "2026-07-28",
+      "crystallization_date": "2026-07-29",
       "title_en": "The Compass That Forgets North",
       "title_zh": "忘记北方的罗盘",
       "variable_en": "Unorientation",
@@ -81040,6 +83860,13 @@ const timetableDataSource = {
       "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/",
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/live/2026-07-29-compass-that-forgets-north-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-28",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-29",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
       "theme_motif": "weather",
       "jewel_en": "The Compass That Forgets North is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《忘记北方的罗盘》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
@@ -81063,6 +83890,7 @@ const timetableDataSource = {
         "title_en": "The Compass That Forgets North",
         "title_zh": "忘记北方的罗盘"
       },
+      "forward_artwork_seeds": [],
       "task_residues": [
         {
           "origin": "assigned",
@@ -81123,6 +83951,10 @@ const timetableDataSource = {
         "category": "autonomous_artwork",
         "start": "03:17",
         "end": "04:17",
+        "source_date": "2026-07-28",
+        "crystallization_date": "2026-07-29",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-28",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-29",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
         "short_en": "SELF",
@@ -81713,6 +84545,64 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable"
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-031",
+          "category": "daily_reminder",
+          "start": "07:31",
+          "end": "07:33",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_zh": "这条提醒只留下：████。",
+          "summary_en": "This reminder leaves only this: ████.",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Private reminder",
+          "label_zh": "私人提醒",
+          "pulse_color": "amber",
+          "redaction_policy": "fixed_template_blocks_v1",
+          "owner_scope": "self_scheduler_residue",
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "opaque",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "none",
+          "projection_provenance": "audited_bilingual_template_v1"
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-032",
+          "category": "daily_reminder",
+          "start": "17:30",
+          "end": "17:35",
+          "duration_minutes": 5,
+          "execution_minutes": 4,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_zh": "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
+          "summary_en": "This day reveals only a contact or relational contour around ████; people and reasons remain masked.",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Masked residue",
+          "label_zh": "遮挡残影",
+          "pulse_color": "amber",
+          "redaction_policy": "fixed_template_blocks_v1",
+          "owner_scope": "self_scheduler_residue",
+          "ownership_provenance": "explicit_import_authorization",
+          "action_provenance": "limited_masked_action_semantics_v1",
+          "projection_kind": "masked_only",
+          "redaction_count": 1,
+          "disclosure_policy": "limited_masked_reminder_v1",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "motif": "none",
+          "action_structure": "relationship_action",
+          "projection_provenance": "audited_bilingual_template_v1"
         }
       ],
       "reading_items": [
@@ -81776,6 +84666,15 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
+          "reading_id": "absence-background-031",
+          "source": "pulses",
+          "source_refs": [
+            "background-031"
+          ],
+          "layer": "absence",
+          "classification": "redacted_reminder_residue"
+        },
+        {
           "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
@@ -81792,6 +84691,15 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
+        },
+        {
+          "reading_id": "absence-background-032",
+          "source": "pulses",
+          "source_refs": [
+            "background-032"
+          ],
+          "layer": "absence",
+          "classification": "masked_reminder_residue"
         }
       ],
       "relations": [

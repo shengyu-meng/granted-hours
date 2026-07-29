@@ -1,5 +1,10 @@
 # 2026-06-13 — Repair Proof / 修复证据
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-12](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-12)
+- **Crystallization Day / 结晶日:** [2026-06-13](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-13/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress.

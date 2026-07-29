@@ -1,5 +1,10 @@
 # 2026-05-11 — Echo Archive / 白夜回声档案盒
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-10](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-10)
+- **Crystallization Day / 结晶日:** [2026-05-11](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-11/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Follow threshold into echo: after an event occurs, it returns through the system, altered by distance and future interpretation.

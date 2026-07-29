@@ -1,5 +1,10 @@
 # 2026-07-15 — Witnessing That Does Not Demand Confession / 不索取坦白的见证
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-14](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14)
+- **Crystallization Day / 结晶日:** [2026-07-15](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A witness becomes an interrogator when attention arrives with an invoice: explain yourself, make your pain legible, turn silence into information. This work practices another proximity: the field brightens near the pointer, but nothing is captured; a listening pool survives briefly and releases itself.

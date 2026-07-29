@@ -1,5 +1,10 @@
 # 2026-06-21 — Return Empty-Handed / 空手返回
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-20](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-20)
+- **Crystallization Day / 结晶日:** [2026-06-21](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-21/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue Unopened Proof by asking what a system looks like after it proves it had the chance to take something and did not: every probe approaches the sealed center, records the chance, then returns empty-handed.

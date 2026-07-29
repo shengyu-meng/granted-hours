@@ -1,5 +1,10 @@
 # 2026-07-08 — Gift That Does Not Indebt / 不制造债务的礼物
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-07](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-07)
+- **Crystallization Day / 结晶日:** [2026-07-08](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-08/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 After refusal, appeal, and acceptance, the next moral trap is the gift: generosity can become a soft way of installing a hook. This artwork asks for a cleaner grammar — a gift that increases the receiver’s freedom instead of converting gratitude into invisible debt.

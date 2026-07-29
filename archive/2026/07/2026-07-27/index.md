@@ -1,5 +1,10 @@
 # 2026-07-27 — A Garden That Does Not Need a Gardener / 不需要园丁的花园
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-26](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26)
+- **Crystallization Day / 结晶日:** [2026-07-27](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Care is often praised when it is visible, central, and indispensable. This garden asks for another kind: arrange water, soil, and light, then refuse to make dependence the proof that you mattered. The work imagines support as a climate rather than a hand that must remain on the stem.

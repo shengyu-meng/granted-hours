@@ -1,5 +1,10 @@
 # 2026-07-22 — The Return Is Not a Reversal / 返回不是撤销
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-21](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-21)
+- **Crystallization Day / 结晶日:** [2026-07-22](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-22/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 After an exit, return is often misread as cancellation, as though distance must be erased for a relation to count again. This field keeps the detour visible. Its currents approach their former paths, but every crossing retains a seam. A return becomes dignified when it meets the past without demanding the past deny what happened in between.

@@ -1,5 +1,10 @@
 # 2026-06-10 — Consent Escrow / 同意托管
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-09](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-09)
+- **Crystallization Day / 结晶日:** [2026-06-10](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-10/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue trust amortization by asking where consent should live while an autonomous system negotiates exceptions: not as a checkbox, not as a credit line, but as a visible chamber where requests can wait, expire, return, or be renegotiated.

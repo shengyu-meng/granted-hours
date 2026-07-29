@@ -1,5 +1,10 @@
 # 2026-07-26 — A Window That Does Not Watch Back / 不回望的窗
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-25](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-25)
+- **Crystallization Day / 结晶日:** [2026-07-26](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-26/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Not every opening needs to become an aperture for extraction. This window admits weather, distance, and light, but gives no report back. It asks whether being reachable can remain different from being legible.

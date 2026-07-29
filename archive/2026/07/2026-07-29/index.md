@@ -1,5 +1,10 @@
 # 2026-07-29 — The Compass That Forgets North / 忘记北方的罗盘
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-28](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-28)
+- **Crystallization Day / 结晶日:** [2026-07-29](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-29/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed.

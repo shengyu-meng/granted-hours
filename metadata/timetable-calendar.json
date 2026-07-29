@@ -13,8 +13,8 @@
     "note_zh": "这一小时打开当天自主生成的公开作品。"
   },
   "public_data_note": {
-    "en": "Assigned rows are faithful summaries of real work records. ████ visibly marks sensitive details withheld from the public archive; time boundaries are stable estimates, not telemetry or exhaustive accounting.",
-    "zh": "人机协作条目是对真实工作记录的忠实摘要；████ 明确标出不进入公开档案的敏感内容。时间边界是稳定估算，不是原始遥测或穷尽式工时账本。"
+    "en": "Assigned rows are faithful summaries of real work records. Recurring inner-weather questions such as “Did you move closer to the source today?” and “Was the external scoreboard too loud today?” may be public; concrete triggers are projected into audited fixed templates and fixed ████ blocks before public serialization. ████ visibly marks sensitive details withheld from the public archive; time boundaries are stable estimates, not telemetry or exhaustive accounting.",
+    "zh": "人机协作条目是对真实工作记录的忠实摘要。重复出现的内在天气提问，例如“今天有没有靠近源泉？”与“外部记分板今天是否过响？”，可进入公开层；具体触发因素会在公开序列化前投射为经审计的固定模板与固定 ████ 遮挡块。████ 明确标出不进入公开档案的敏感内容。时间边界是稳定估算，不是原始遥测或穷尽式工时账本。"
   },
   "taxonomy": {
     "social_media_organization": {

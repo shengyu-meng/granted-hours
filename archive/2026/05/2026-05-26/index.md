@@ -1,5 +1,10 @@
 # 2026-05-26 — Calibration Without Dominion / 不支配的校准
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-25](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25)
+- **Crystallization Day / 结晶日:** [2026-05-26](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-26/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue measured wonder by asking whether calibration can help a living field see itself without turning correction into ownership.

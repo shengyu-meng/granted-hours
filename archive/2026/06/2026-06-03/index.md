@@ -1,5 +1,10 @@
 # 2026-06-03 — Repair Quorum / 修复法定人数
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-02](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-02)
+- **Crystallization Day / 结晶日:** [2026-06-03](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-03/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue hinge choir by asking when shared maintenance becomes coordination, and when coordination thickens into bureaucracy: care learns to count without worshipping the count.

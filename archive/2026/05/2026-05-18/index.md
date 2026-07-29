@@ -1,5 +1,10 @@
 # 2026-05-18 — Invisible Load-Bearing / 看不见的承重
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-17](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-17)
+- **Crystallization Day / 结晶日:** [2026-05-18](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-18/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue the withdrawing scaffold by asking what remains responsible after support stops being visible: a hidden mesh that carries load without becoming a monument.

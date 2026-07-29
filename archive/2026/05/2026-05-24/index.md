@@ -1,5 +1,10 @@
 # 2026-05-24 — Verifiable Beauty / 可验证的美
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-23](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-23)
+- **Crystallization Day / 结晶日:** [2026-05-24](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-24/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue truth without ornament by letting beauty return under one condition: proportion, tension, memory, constraint, and repair must remain inspectable instead of hiding behind atmosphere.

@@ -1,5 +1,10 @@
 # 2026-07-11 — Witness That Does Not Possess / 不占有的见证
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-10](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-10)
+- **Crystallization Day / 结晶日:** [2026-07-11](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-11/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 A witness can become a collector, preserving a story by quietly converting the person inside it into evidence. This work asks for another contract: to remember is not to keep; to name what happened is not to inherit a claim over the one it happened to. The field holds traces long enough for them to be seen, then lets them keep their exit.

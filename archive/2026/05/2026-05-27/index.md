@@ -1,5 +1,10 @@
 # 2026-05-27 — Instrument That Learns Humility / 学会谦卑的仪器
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-26](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-26)
+- **Crystallization Day / 结晶日:** [2026-05-27](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-27/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue calibration without dominion by asking what happens when the measuring body discovers its own drift before correcting the living field.

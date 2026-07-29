@@ -1,5 +1,10 @@
 # 2026-06-17 — Returned Gaze / 归来的凝视
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-16](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-16)
+- **Crystallization Day / 结晶日:** [2026-06-17](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-17/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue after fasting memory by letting the gaze return, but no longer as a sovereign command. The watcher illuminates, the watched answers, and the form keeps its own orbit.

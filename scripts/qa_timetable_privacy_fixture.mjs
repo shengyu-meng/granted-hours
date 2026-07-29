@@ -78,6 +78,20 @@ async function filesUnder(directory) {
   return result;
 }
 
+async function scanCanonicalDownstream() {
+  const textExtensions = new Set([".css", ".html", ".js", ".json", ".map", ".md", ".svg", ".txt"]);
+  const candidates = [
+    path.join(root, "metadata", "timetable-pulses.json"),
+    path.join(root, "src", "timetable", "timetable-data.js"),
+    ...await filesUnder(path.join(root, "docs", "timetable")),
+    ...await filesUnder(path.join(root, "docs", "archive")),
+  ].filter((filePath) => textExtensions.has(path.extname(filePath)));
+  for (const filePath of candidates) {
+    assertSecretsAbsent(await readFile(filePath, "utf8"), "canonical downstream");
+  }
+  return candidates.length;
+}
+
 function mimeType(filePath) {
   return {
     ".css": "text/css; charset=utf-8",
@@ -113,6 +127,7 @@ async function startStaticServer(directory) {
 let browser;
 let server;
 try {
+  const canonicalFilesScanned = await scanCanonicalDownstream();
   await mkdir(fixtureSource, { recursive: true });
   await mkdir(auditRoot, { recursive: true });
   await cp(path.join(root, "src", "timetable"), fixtureSource, { recursive: true });
@@ -132,6 +147,39 @@ try {
   );
 
   const builderOutput = path.join(fixtureSource, "timetable-data.js");
+  let tamperedProjectionRejected = false;
+  try {
+    await execFileAsync(
+      "python3",
+      [
+        path.join(root, "scripts", "build_timetable_data.py"),
+        "--pulses",
+        fixturePulses,
+        "--output",
+        builderOutput,
+      ],
+      { cwd: root },
+    );
+  } catch (error) {
+    tamperedProjectionRejected = true;
+    assertSecretsAbsent(
+      `${error.stdout || ""}\n${error.stderr || ""}`,
+      "fail-closed builder logs",
+    );
+  }
+  assert.equal(
+    tamperedProjectionRejected,
+    true,
+    "tampered limited-disclosure prose must fail closed",
+  );
+  const canonicalSnapshot = JSON.parse(
+    await readFile(path.join(root, "metadata", "timetable-pulses.json"), "utf8"),
+  );
+  await writeFile(
+    fixturePulses,
+    `${JSON.stringify(canonicalSnapshot, null, 2)}\n`,
+    "utf8",
+  );
   const builderRun = await execFileAsync(
     "python3",
     [
@@ -196,10 +244,8 @@ try {
       && document.querySelectorAll(".absence-reading-card").length > 0,
   );
 
-  const morningReminder = page.locator(".absence-reading-card").filter({
-    hasText: "Morning reminder",
-  }).first();
-  await morningReminder.scrollIntoViewIfNeeded();
+  const maskedReminder = page.locator(".absence-reading-card").first();
+  await maskedReminder.scrollIntoViewIfNeeded();
   await page.waitForTimeout(150);
   const renderedSurface = await page.evaluate(() => {
     const attributes = [...document.querySelectorAll("*")]
@@ -266,7 +312,9 @@ try {
   console.log(JSON.stringify({
     passed: true,
     canonicalOutputUntouched: true,
+    tamperedProjectionRejected,
     scans: [
+      "canonical generated and built artifacts",
       "isolated generated projection",
       "isolated built JS/CSS/HTML",
       "DOM and visible text",
@@ -276,6 +324,7 @@ try {
       "screenshot OCR surface",
     ],
     fixedBars: renderedSurface.bars.length,
+    canonicalFilesScanned,
     logEntriesScanned: pageLogs.length,
     ocrCharactersScanned: ocrRun.stdout.length,
     inspectionLens: {

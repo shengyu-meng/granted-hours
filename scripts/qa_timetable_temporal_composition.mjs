@@ -390,15 +390,16 @@ try {
       assert.equal(await page.evaluate(() => document.activeElement?.classList.contains("routine-reading-card")), true);
 
       const autonomousTouch = page.locator(".autonomous-reading-card");
+      const previewLink = autonomousTouch.locator(".autonomous-preview-frame");
+      const actionLink = autonomousTouch.locator(".autonomous-open-copy");
       await autonomousTouch.scrollIntoViewIfNeeded();
-      await autonomousTouch.tap();
-      assert.equal(await autonomousTouch.getAttribute("aria-expanded"), null);
-      assert.match(
-        (await page.locator("#readingSelectionStatus").textContent()) || "",
-        /Autonomous work selected/,
-      );
+      assert.equal(await autonomousTouch.getAttribute("tabindex"), null);
+      assert.equal(await autonomousTouch.getAttribute("role"), null);
+      assert.equal(await previewLink.evaluate((link) => link.tagName), "A");
+      assert.equal(await actionLink.evaluate((link) => link.tagName), "A");
+      assert.equal(await previewLink.getAttribute("href"), await actionLink.getAttribute("href"));
       const popupPromise = page.waitForEvent("popup");
-      await autonomousTouch.tap();
+      await previewLink.tap();
       const popup = await popupPromise;
       assert.match(popup.url(), /[?&]from=timetable(?:&|$)/);
       await popup.close();
@@ -494,7 +495,6 @@ try {
   await reducedPage.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
   await reducedPage.waitForSelector("#dayDialog.is-open");
   const reducedCard = reducedPage.locator(".autonomous-reading-card");
-  await reducedCard.tap();
   const reducedState = await reducedCard.evaluate((card) => ({
     transform: getComputedStyle(card).transform,
     transitionDuration: getComputedStyle(card).transitionDuration,

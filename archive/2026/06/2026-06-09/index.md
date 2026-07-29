@@ -1,5 +1,10 @@
 # 2026-06-09 — Trust Amortization / 信任摊还
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-08](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-08)
+- **Crystallization Day / 结晶日:** [2026-06-09](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-09/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue protocol debt by asking what repayment looks like when the borrowed currency is trust: attention and coordination can be optimized, but trust must be made visible before it overheats.

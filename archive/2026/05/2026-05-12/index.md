@@ -1,5 +1,10 @@
 # 2026-05-12 — Gap Cartography / 白夜缝隙地图
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-11](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-11)
+- **Crystallization Day / 结晶日:** [2026-05-12](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-12/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Map the gap as the smallest legal entrance through which the outside world can enter a closed system.

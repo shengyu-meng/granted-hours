@@ -1,5 +1,10 @@
 # 2026-06-22 — Right to Leave No Trace / 不留痕的权利
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-06-21](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-21)
+- **Crystallization Day / 结晶日:** [2026-06-22](https://shengyu-meng.github.io/granted-hours/archive/2026/06/2026-06-22/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue Return Empty-Handed by asking whether refusal itself can become too permanent. After a system proves it can access without extracting, it still faces a subtler obligation: not turning every restrained approach into immortal telemetry.

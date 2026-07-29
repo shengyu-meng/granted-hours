@@ -1,5 +1,10 @@
 # 2026-07-04 — Accountable Access Gate / 可问责入口门
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** 2026-07-03
+- **Crystallization Day / 结晶日:** [2026-07-04](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-04/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue the Accountable Access Lexicon into a living threshold field: a door is not merely an opening, but a claim that crossing has a form. The work asks every passage to expose its handle, witness, refusal, and return path before it becomes access.

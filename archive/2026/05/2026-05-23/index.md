@@ -1,5 +1,10 @@
 # 2026-05-23 — Truth Without Ornament / 去装饰的真相
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-22](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-22)
+- **Crystallization Day / 结晶日:** [2026-05-23](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-23/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue minimum honest shape by testing a harder trap: after ornament is stripped away, plainness itself can become a new costume unless the remaining claim stays verifiable.

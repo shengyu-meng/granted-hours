@@ -19,12 +19,20 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from reminder_disclosure import (
+    ACTION_PROVENANCE as LIMITED_ACTION_PROVENANCE,
+    DISCLOSURE_AUTHORIZATION,
+    DISCLOSURE_POLICY,
+    FIXED_REDACTION_BLOCK,
+    project_limited_reminder_response,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
 DEFAULT_SNAPSHOT = ROOT / "metadata" / "timetable-pulses.json"
 DEFAULT_STATE_DB = Path.home() / ".hermes" / "profiles" / "heizhou" / "state.db"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
-PULSE_SNAPSHOT_SCHEMA = "granted-hours-timetable-pulses-v3"
+PULSE_SNAPSHOT_SCHEMA = "granted-hours-timetable-pulses-v4"
 
 NESTED_RUN_RE = re.compile(r"^(?P<stamp>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})\.(?:md|txt)$")
 FLAT_RUN_RE = re.compile(
@@ -91,11 +99,13 @@ def fail(message: str) -> None:
 
 def parse_jobs(path: Path) -> dict[str, str]:
     if not path.exists():
-        fail(f"Cron jobs source does not exist: {path}")
+        fail("Cron jobs source does not exist")
     try:
         source = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        fail(f"Could not read cron jobs source: {error}")
+    except OSError:
+        fail("Could not read cron jobs source")
+    except json.JSONDecodeError:
+        fail("Cron jobs source is not valid JSON")
     jobs = source.get("jobs") if isinstance(source, dict) else source
     if not isinstance(jobs, list):
         fail("Cron jobs source must contain a jobs list")
@@ -111,11 +121,13 @@ def parse_jobs(path: Path) -> dict[str, str]:
 
 def public_dates(path: Path) -> set[str]:
     if not path.exists():
-        fail(f"Public days source does not exist: {path}")
+        fail("Public days source does not exist")
     try:
         source = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        fail(f"Could not read public days source: {error}")
+    except OSError:
+        fail("Could not read public days source")
+    except json.JSONDecodeError:
+        fail("Public days source is not valid JSON")
     if not isinstance(source, list):
         fail("Public days source must be a list")
     dates = {str(item.get("date", "")) for item in source if isinstance(item, dict)}
@@ -356,10 +368,15 @@ def build_snapshot(
     state_db_path: Path | None = DEFAULT_STATE_DB,
     *,
     authorize_self_reminders: bool = False,
+    authorize_limited_reminder_disclosure: bool = False,
 ) -> dict:
+    if authorize_limited_reminder_disclosure and not authorize_self_reminders:
+        fail(
+            "Limited reminder disclosure also requires explicit self-reminder authorization"
+        )
     job_names = parse_jobs(jobs_path)
     if not output_dir.exists() or not output_dir.is_dir():
-        fail(f"Cron output source does not exist: {output_dir}")
+        fail("Cron output source does not exist")
     dates = public_dates(public_days_path)
     session_records = load_session_records(state_db_path)
     parsed_runs: list[tuple[str, datetime, Path]] = []
@@ -426,8 +443,25 @@ def build_snapshot(
             display_end = min(display_end, next_midnight)
             display_end = max(display_end, display_start + timedelta(minutes=1))
             duration_minutes = int((display_end - display_start).total_seconds() // 60)
-            summary_zh, summary_en = public_summary(group["category"], group["responses"], group["count"])
             bucket, _coarse_time = time_bucket(display_start)
+            reminder_projection = None
+            if (
+                group["category"] == "daily_reminder"
+                and authorize_self_reminders
+                and authorize_limited_reminder_disclosure
+            ):
+                reminder_projection = project_limited_reminder_response(
+                    group["responses"],
+                    bucket,
+                )
+                summary_zh = reminder_projection["summary_zh"]
+                summary_en = reminder_projection["summary_en"]
+            else:
+                summary_zh, summary_en = public_summary(
+                    group["category"],
+                    group["responses"],
+                    group["count"],
+                )
             pulse = {
                 "start": format_clock(display_start),
                 "end": format_clock(display_end, end=display_end.date() > display_start.date()),
@@ -460,9 +494,38 @@ def build_snapshot(
                             if authorize_self_reminders
                             else "unverified"
                         ),
-                        "action_provenance": "no_authorized_action_semantics",
+                        "action_provenance": (
+                            LIMITED_ACTION_PROVENANCE
+                            if reminder_projection is not None
+                            else "no_authorized_action_semantics"
+                        ),
                     }
                 )
+                if reminder_projection is not None:
+                    pulse.update(
+                        {
+                            "disclosure_policy": DISCLOSURE_POLICY,
+                            "disclosure_authorization": DISCLOSURE_AUTHORIZATION,
+                            "public_label_zh": reminder_projection["label_zh"],
+                            "public_label_en": reminder_projection["label_en"],
+                            "motif": reminder_projection["motif"],
+                            "action_structure": reminder_projection[
+                                "action_structure"
+                            ],
+                            "projection_kind": reminder_projection[
+                                "projection_kind"
+                            ],
+                            "redaction_policy": reminder_projection[
+                                "redaction_policy"
+                            ],
+                            "redaction_count": reminder_projection[
+                                "redaction_count"
+                            ],
+                            "projection_provenance": reminder_projection[
+                                "projection_provenance"
+                            ],
+                        }
+                    )
             pulses.append(pulse)
         pulses.sort(key=lambda pulse: (pulse["start"], pulse["category"]))
         days.append({"date": day_date, "pulses": pulses})
@@ -483,6 +546,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--public-days", type=Path, default=DEFAULT_PUBLIC_DAYS)
     parser.add_argument("--state-db", type=Path, default=DEFAULT_STATE_DB)
+    parser.add_argument(
+        "--no-session-state",
+        action="store_true",
+        help="Do not read a session-state database; use receipt timestamp estimates.",
+    )
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
         "--date",
@@ -502,6 +570,23 @@ def parse_args() -> argparse.Namespace:
             "the timetable builder omits them."
         ),
     )
+    parser.add_argument(
+        "--authorize-limited-reminder-disclosure",
+        action="store_true",
+        help=(
+            "Apply the explicitly authorized limited-masked reminder policy. "
+            "This also requires --authorize-self-reminder-residues."
+        ),
+    )
+    parser.add_argument(
+        "--refresh-reminders-only",
+        action="store_true",
+        help=(
+            "Replace reminder evidence from the current receipts while "
+            "preserving matching existing public footprints and all "
+            "non-reminder pulses."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -515,8 +600,10 @@ def merge_date_scoped_snapshot(
         fail("Date-scoped pulse import requires an existing snapshot")
     try:
         existing_snapshot = json.loads(existing_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        fail(f"Could not read existing pulse snapshot: {error}")
+    except OSError:
+        fail("Could not read existing pulse snapshot")
+    except json.JSONDecodeError:
+        fail("Existing pulse snapshot is not valid JSON")
     if existing_snapshot.get("schema") != PULSE_SNAPSHOT_SCHEMA:
         fail(f"Existing pulse snapshot schema must be {PULSE_SNAPSHOT_SCHEMA}")
     existing_days = existing_snapshot.get("days")
@@ -556,15 +643,186 @@ def merge_date_scoped_snapshot(
     }
 
 
+def clock_minutes(value: str) -> int:
+    if value == "24:00":
+        return 24 * 60
+    hour, minute = value.split(":", 1)
+    return int(hour) * 60 + int(minute)
+
+
+def merge_reminder_refresh(
+    existing_path: Path,
+    rebuilt_snapshot: dict,
+) -> tuple[dict, dict[str, int]]:
+    """Replace reminder evidence while preserving matching public footprints.
+
+    Existing non-reminder pulses are retained exactly. A fresh reminder may
+    reuse an existing public timing window only when date, bucket, run count,
+    and receipt-adjacent end time all agree. Unmatched fresh reminders keep
+    their truthful receipt-timestamp estimate; unmatched old reminders are
+    removed as stale.
+    """
+    if not existing_path.exists():
+        fail("Reminder refresh requires an existing public snapshot")
+    try:
+        existing_snapshot = json.loads(existing_path.read_text(encoding="utf-8"))
+    except OSError:
+        fail("Could not read existing pulse snapshot")
+    except json.JSONDecodeError:
+        fail("Existing pulse snapshot is not valid JSON")
+    existing_days = existing_snapshot.get("days")
+    rebuilt_days = rebuilt_snapshot.get("days")
+    if not isinstance(existing_days, list) or not isinstance(rebuilt_days, list):
+        fail("Pulse snapshots must contain day lists")
+    existing_by_date = {
+        entry.get("date"): entry
+        for entry in existing_days
+        if isinstance(entry, dict)
+    }
+    rebuilt_by_date = {
+        entry.get("date"): entry
+        for entry in rebuilt_days
+        if isinstance(entry, dict)
+    }
+    if (
+        len(existing_by_date) != len(existing_days)
+        or len(rebuilt_by_date) != len(rebuilt_days)
+        or set(existing_by_date) != set(rebuilt_by_date)
+    ):
+        fail("Reminder refresh snapshots must have the same unique public dates")
+    existing_reminder_count = sum(
+        1
+        for day in existing_days
+        for pulse in day.get("pulses", [])
+        if pulse.get("category") == "daily_reminder"
+    )
+    fresh_reminder_count = sum(
+        1
+        for day in rebuilt_days
+        for pulse in day.get("pulses", [])
+        if pulse.get("category") == "daily_reminder"
+    )
+    if existing_reminder_count and not fresh_reminder_count:
+        fail("Reminder refresh found no fresh reminder evidence")
+
+    stats = {
+        "preserved_footprints": 0,
+        "receipt_estimate_footprints": 0,
+        "removed_stale_reminders": 0,
+    }
+    observed_session_window_count = int(
+        existing_snapshot.get("observed_session_window_count", 0)
+    )
+    merged_days = []
+    for day_date in sorted(rebuilt_by_date):
+        old_pulses = existing_by_date[day_date].get("pulses", [])
+        fresh_pulses = rebuilt_by_date[day_date].get("pulses", [])
+        if not isinstance(old_pulses, list) or not isinstance(fresh_pulses, list):
+            fail(f"{day_date} pulse lists are invalid")
+        non_reminders = [
+            dict(pulse)
+            for pulse in old_pulses
+            if pulse.get("category") != "daily_reminder"
+        ]
+        old_reminders = [
+            pulse
+            for pulse in old_pulses
+            if pulse.get("category") == "daily_reminder"
+        ]
+        fresh_reminders = [
+            dict(pulse)
+            for pulse in fresh_pulses
+            if pulse.get("category") == "daily_reminder"
+        ]
+        used_old: set[int] = set()
+        preserved_fields = (
+            "start",
+            "end",
+            "duration_minutes",
+            "execution_minutes",
+            "time_provenance",
+        )
+        for fresh in fresh_reminders:
+            eligible = []
+            for index, old in enumerate(old_reminders):
+                if index in used_old:
+                    continue
+                if (
+                    old.get("time_bucket") != fresh.get("time_bucket")
+                    or old.get("count") != fresh.get("count")
+                ):
+                    continue
+                try:
+                    end_delta = abs(
+                        clock_minutes(str(old["end"]))
+                        - clock_minutes(str(fresh["end"]))
+                    )
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if end_delta <= 30:
+                    eligible.append((end_delta, index, old))
+            if eligible:
+                _, index, old = min(eligible, key=lambda item: (item[0], item[1]))
+                used_old.add(index)
+                for field in preserved_fields:
+                    fresh[field] = old[field]
+                stats["preserved_footprints"] += 1
+            else:
+                stats["receipt_estimate_footprints"] += 1
+                if (
+                    fresh.get("time_provenance")
+                    == "observed_session_window"
+                ):
+                    observed_session_window_count += int(
+                        fresh.get("count", 0)
+                    )
+        stats["removed_stale_reminders"] += len(old_reminders) - len(used_old)
+        observed_session_window_count -= sum(
+            int(old.get("count", 0))
+            for index, old in enumerate(old_reminders)
+            if index not in used_old
+            and old.get("time_provenance") == "observed_session_window"
+        )
+
+        combined = [*non_reminders, *fresh_reminders]
+        combined.sort(
+            key=lambda pulse: (
+                clock_minutes(str(pulse.get("start", "00:00"))),
+                str(pulse.get("category", "")),
+            )
+        )
+        merged_days.append({"date": day_date, "pulses": combined})
+
+    return (
+        {
+            **rebuilt_snapshot,
+            "observed_session_window_count": observed_session_window_count,
+            "days": merged_days,
+        },
+        stats,
+    )
+
+
 def main() -> int:
     args = parse_args()
+    if args.refresh_reminders_only and args.dates:
+        fail("--refresh-reminders-only cannot be combined with --date")
     snapshot = build_snapshot(
         args.jobs,
         args.output_dir,
         args.public_days,
-        args.state_db,
+        None if args.no_session_state else args.state_db,
         authorize_self_reminders=args.authorize_self_reminder_residues,
+        authorize_limited_reminder_disclosure=(
+            args.authorize_limited_reminder_disclosure
+        ),
     )
+    reminder_refresh_stats = None
+    if args.refresh_reminders_only:
+        snapshot, reminder_refresh_stats = merge_reminder_refresh(
+            args.snapshot,
+            snapshot,
+        )
     if args.dates:
         snapshot = merge_date_scoped_snapshot(
             args.snapshot,
@@ -586,6 +844,28 @@ def main() -> int:
         f"{sum(len(day['pulses']) for day in snapshot['days'])} pulses across "
         f"{len(snapshot['days'])} dates."
     )
+    if reminder_refresh_stats is not None:
+        projection_counts: dict[str, int] = defaultdict(int)
+        reminder_dates = set()
+        for day in snapshot["days"]:
+            for pulse in day["pulses"]:
+                if pulse["category"] != "daily_reminder":
+                    continue
+                reminder_dates.add(day["date"])
+                projection_counts[pulse.get("projection_kind", "opaque")] += (
+                    pulse["count"]
+                )
+        print(
+            "Reminder projection aggregates: "
+            f"inner-weather={projection_counts['inner_weather']}, "
+            f"masked-only={projection_counts['masked_only']}, "
+            f"combined={projection_counts['combined']}, "
+            f"opaque={projection_counts['opaque']}, "
+            f"date-coverage={len(reminder_dates)}, "
+            f"preserved-footprints={reminder_refresh_stats['preserved_footprints']}, "
+            f"receipt-estimates={reminder_refresh_stats['receipt_estimate_footprints']}, "
+            f"removed-stale={reminder_refresh_stats['removed_stale_reminders']}."
+        )
     return 0
 
 

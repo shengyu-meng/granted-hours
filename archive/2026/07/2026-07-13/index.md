@@ -1,5 +1,10 @@
 # 2026-07-13 — Consent That Does Not Expire / 不会过期的同意
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-12](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-12)
+- **Crystallization Day / 结晶日:** [2026-07-13](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-13/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Consent that never decays does not protect a person — it protects one person’s claim over another. This work makes decay visible as an invitation to renew: consent is a presence that can see its conditions, step back, and re-enter freely.

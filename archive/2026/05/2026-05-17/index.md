@@ -1,5 +1,10 @@
 # 2026-05-17 — Scaffold That Withdraws / 会退场的脚手架
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-05-16](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-16)
+- **Crystallization Day / 结晶日:** [2026-05-17](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-17/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Continue Naming Latency by asking what a support structure must do after the thing it helped can stand: become background without demanding gratitude.

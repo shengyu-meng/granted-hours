@@ -1,5 +1,10 @@
 # 2026-07-16 — Care That Does Not Take Credit / 不邀功的照看
 
+<!-- granted-hours-dual-date:start -->
+- **Source Day / 来源日:** [2026-07-15](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-15)
+- **Crystallization Day / 结晶日:** [2026-07-16](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-16/) · 03:17–04:17 Asia/Shanghai
+<!-- granted-hours-dual-date:end -->
+
 ## Intention / 发心
 
 Care often arrives with a receipt: remember who held this together, remember who prevented the break. The receipt can turn maintenance into ownership. Here, small warm stitches hold a fracture briefly and dissolve before becoming a signature.
