@@ -1353,8 +1353,10 @@ function compositionHash(value) {
   return hash >>> 0;
 }
 
-function readingCardHeight(card, minuteHeight) {
-  if (card.dataset.layer === "beacon") return Math.max(184, minuteHeight * 60 + 60);
+function readingCardHeight(card, minuteHeight, isCompactReadingCanvas) {
+  if (card.dataset.layer === "beacon") {
+    return isCompactReadingCanvas ? 380 : Math.max(184, minuteHeight * 60 + 60);
+  }
   if (card.dataset.layer === "event") return card.dataset.origin === "assigned" ? 168 : 144;
   if (card.dataset.layer === "absence") return 126;
   return 156;
@@ -1379,8 +1381,9 @@ function placeTimelineReadingCards() {
   readingLayer.classList.remove("is-placed");
   const canvasWidth = readingLayer.getBoundingClientRect().width;
   if (canvasWidth <= 0) return;
-  const columnCount = canvasWidth >= 560 ? 4 : 3;
-  const columnGap = canvasWidth >= 560 ? 7 : 4;
+  const isCompactReadingCanvas = canvasWidth < 560;
+  const columnCount = isCompactReadingCanvas ? 3 : 4;
+  const columnGap = isCompactReadingCanvas ? 4 : 7;
   const rowGap = 4;
   const cards = [...readingLayer.querySelectorAll(".event-reading-card")];
   let minuteHeight = Number.parseFloat(getComputedStyle(timeline).getPropertyValue("--minute-height"));
@@ -1390,14 +1393,17 @@ function placeTimelineReadingCards() {
     timeline.style.setProperty("--minute-height", `${minuteHeight}px`);
     const canvasHeight = MINUTES_PER_DAY * minuteHeight;
     const items = cards.map((card) => {
-      const columnSpan = ["beacon", "event"].includes(card.dataset.layer)
-        ? Math.min(2, columnCount)
-        : 1;
+      const isAutonomous = card.dataset.layer === "beacon";
+      const columnSpan = isAutonomous && isCompactReadingCanvas
+        ? columnCount
+        : ["beacon", "event"].includes(card.dataset.layer)
+          ? Math.min(2, columnCount)
+          : 1;
       const maximumColumn = columnCount - columnSpan;
       const preferredColumn = maximumColumn > 0
         ? compositionHash(card.dataset.compositionSeed) % (maximumColumn + 1)
         : 0;
-      const height = readingCardHeight(card, minuteHeight);
+      const height = readingCardHeight(card, minuteHeight, isCompactReadingCanvas);
       card.style.setProperty("--reading-card-height", `${height}px`);
       return {
         key: card.dataset.eventKey,
@@ -1432,6 +1438,7 @@ function placeTimelineReadingCards() {
     card.dataset.readingColumn = String(placement.column);
     card.dataset.readingColumnSpan = String(placement.columnSpan);
     const isAutonomous = card.dataset.layer === "beacon";
+    card.classList.toggle("is-compact-reading-card", isAutonomous && isCompactReadingCanvas);
     card.classList.toggle("is-narrow-reading-card", isAutonomous && placement.width < 270);
     card.classList.toggle("is-very-narrow-reading-card", isAutonomous && placement.width < 210);
   }

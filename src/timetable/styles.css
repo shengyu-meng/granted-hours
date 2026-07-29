@@ -4935,3 +4935,71 @@ h1 {
     font-size: 8px;
   }
 }
+
+/* JS assigns this mode from the reading canvas width used by the placement solver. */
+.autonomous-work-link.event-reading-card.is-compact-reading-card {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: 7px;
+  padding: 9px;
+}
+
+.autonomous-reading-card.is-compact-reading-card .autonomous-time {
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1px;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+.autonomous-reading-card.is-compact-reading-card .autonomous-time small {
+  display: block;
+}
+
+.autonomous-work-link.event-reading-card.is-compact-reading-card
+  > .autonomous-preview-frame {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: stretch;
+  width: 100%;
+  border-left: 0;
+}
+
+.autonomous-reading-card.is-compact-reading-card .autonomous-copy {
+  display: block;
+  grid-column: 1;
+  grid-row: 3;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.autonomous-reading-card.is-compact-reading-card .autonomous-kicker {
+  display: none;
+}
+
+.autonomous-reading-card.is-compact-reading-card .autonomous-copy h4 {
+  display: block;
+  margin: 0 0 5px;
+  overflow: visible;
+  white-space: normal;
+  -webkit-line-clamp: unset;
+}
+
+.autonomous-reading-card.is-compact-reading-card .autonomous-copy > p:last-child {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.autonomous-work-link.event-reading-card.is-compact-reading-card
+  > .autonomous-open-copy {
+  display: block;
+  grid-column: 1;
+  grid-row: 4;
+  align-self: end;
+}
