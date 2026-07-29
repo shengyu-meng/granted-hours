@@ -295,11 +295,14 @@ try {
     const preview = await autonomous.locator("#selfPreview").evaluate(async (image) => {
       await image.decode();
       const rect = image.getBoundingClientRect();
+      const frameRect = image.closest(".autonomous-preview-frame").getBoundingClientRect();
       return {
         width: image.naturalWidth,
         height: image.naturalHeight,
         renderedWidth: rect.width,
         renderedHeight: rect.height,
+        frameWidth: frameRect.width,
+        frameHeight: frameRect.height,
         visible: getComputedStyle(image).display !== "none"
           && getComputedStyle(image).visibility !== "hidden",
         src: image.currentSrc || image.src,
@@ -309,9 +312,20 @@ try {
       preview.width > 0
         && preview.height > 0
         && preview.renderedWidth > 0
-        && preview.renderedHeight >= 112
+        && preview.renderedHeight > 0
+        && preview.frameWidth > 0
+        && preview.frameHeight >= 52
         && preview.visible,
       `${viewport.label}: ${JSON.stringify(preview)}`,
+    );
+    const naturalRatio = preview.width / preview.height;
+    assert.ok(
+      Math.abs((preview.frameWidth / preview.frameHeight) - naturalRatio) <= 0.08,
+      `${viewport.label}: autonomous preview frame must preserve the artwork thumbnail aspect ratio ${JSON.stringify(preview)}`,
+    );
+    assert.ok(
+      Math.abs((preview.renderedWidth / preview.renderedHeight) - naturalRatio) <= 0.08,
+      `${viewport.label}: autonomous preview image must not be compressed inside its frame ${JSON.stringify(preview)}`,
     );
     assert.match(preview.src, /visual-preview\.gif$/);
 
