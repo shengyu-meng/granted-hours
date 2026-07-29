@@ -243,6 +243,8 @@ try {
         return image?.complete && image.naturalWidth > 0 && image.naturalHeight > 0;
       },
     );
+    await page.mouse.move(1, 1);
+    await page.waitForTimeout(200);
     const result = {
       label: testCase.label,
       date: testCase.date,
