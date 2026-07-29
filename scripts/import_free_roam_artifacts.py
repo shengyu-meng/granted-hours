@@ -948,6 +948,39 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     touch-action: manipulation;
   }
   .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-link {
+    position: fixed;
+    z-index: 2147483647;
+    left: calc(12px + env(safe-area-inset-left, 0px));
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    display: inline-flex;
+    min-height: 40px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    padding: 0 13px;
+    background: rgba(5,9,15,.58);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    text-decoration: none;
+    white-space: nowrap;
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    backdrop-filter: blur(14px) saturate(1.08);
+    box-shadow: 0 8px 28px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.07);
+    touch-action: manipulation;
+  }
+  .gh-work-note-link:hover {
+    border-color: rgba(242,195,107,.58);
+    background: rgba(7,12,20,.7);
+    color: #fff3cf;
+  }
+  .gh-work-note-link:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
   body.gh-text-folded .panel,
   body.gh-text-folded .card,
   body.gh-text-folded .state,
@@ -967,6 +1000,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   body.gh-text-folded .gh-fold-toggle {
     background: rgba(3,7,13,.82);
   }
+  body.gh-chamber-embed .gh-work-note-link,
   body.gh-chamber-embed .gh-fold-toggle,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
@@ -998,6 +1032,10 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   }
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-link {
+      left: calc(10px + env(safe-area-inset-left, 0px));
+      bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    }
   }
 </style>
 <script id="granted-hours-fold-script">
@@ -1064,10 +1102,16 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   btn.className = 'gh-fold-toggle';
   btn.setAttribute('aria-controls', 'textPanel legend');
   btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('a');
+  workNote.className = 'gh-work-note-link';
+  workNote.href = '../';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork intention and context note / 打开作品发心与创作语境说明');
   document.addEventListener('DOMContentLoaded', init, { once: true });
   if (document.readyState !== 'loading') init();
   function init() {
     if (!document.body || document.body.contains(btn)) return;
+    if (!IS_EMBED) document.body.appendChild(workNote);
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
       silenceEmbeddedMedia();

@@ -14,6 +14,44 @@ import import_free_roam_artifacts as importer
 
 
 class FreeRoamImporterTests(unittest.TestCase):
+    def test_live_enhancement_adds_one_embed_aware_work_note_link(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            live_html = Path(temporary_directory) / "index.html"
+            live_html.write_text(
+                """<!doctype html>
+<html>
+<head>
+  <style id="granted-hours-fold-style">stale style</style>
+  <script id="granted-hours-fold-script">stale script</script>
+</head>
+<body><main>Artwork</main></body>
+</html>
+""",
+                encoding="utf-8",
+            )
+
+            importer.enhance_live_html(live_html)
+            importer.enhance_live_html(live_html)
+            refreshed = live_html.read_text(encoding="utf-8")
+
+        self.assertEqual(refreshed.count('id="granted-hours-fold-style"'), 1)
+        self.assertEqual(refreshed.count('id="granted-hours-fold-script"'), 1)
+        self.assertEqual(refreshed.count("document.createElement('a')"), 1)
+        self.assertEqual(refreshed.count("workNote.href = '../';"), 1)
+        self.assertEqual(
+            refreshed.count("workNote.textContent = 'Work note / 作品说明';"),
+            1,
+        )
+        self.assertEqual(
+            refreshed.count(
+                "workNote.setAttribute('aria-label', "
+                "'Open the artwork intention and context note / 打开作品发心与创作语境说明');"
+            ),
+            1,
+        )
+        self.assertIn("body.gh-chamber-embed .gh-work-note-link", refreshed)
+        self.assertIn("if (!IS_EMBED) document.body.appendChild(workNote);", refreshed)
+
     def test_latest_entries_are_declared_in_chronological_order(self) -> None:
         latest = importer.ENTRIES[-3:]
         self.assertEqual(
