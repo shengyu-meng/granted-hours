@@ -19,6 +19,195 @@ import reminder_disclosure as disclosure
 
 
 class TimetablePulseImporterTests(unittest.TestCase):
+    def assert_public_market_summary_safe(
+        self,
+        summary_zh: str,
+        summary_en: str,
+        synthetic_tokens: tuple[str, ...],
+    ) -> None:
+        combined = f"{summary_zh}\n{summary_en}"
+        self.assertGreaterEqual(summary_zh.count("。"), 1)
+        self.assertLessEqual(summary_zh.count("。"), 3)
+        self.assertGreaterEqual(summary_en.count("."), 1)
+        self.assertLessEqual(summary_en.count("."), 3)
+        self.assertLessEqual(len(summary_zh), 150)
+        self.assertLessEqual(len(summary_en), 260)
+        self.assertNotIn("未形成公开级别结论", combined)
+        self.assertNotIn("no public-level regime conclusion", combined)
+        self.assertNotRegex(combined, r"(?i)https?://|www\.")
+        self.assertNotRegex(combined, r"\[[^\]]+\]\([^)]+\)")
+        self.assertNotIn("|", combined)
+        self.assertNotRegex(combined, r"\d{4,}")
+        for cue in (
+            "according to",
+            "source:",
+            "来源",
+            "据报道",
+            "公众号",
+            "博主",
+            "媒体",
+            "频道",
+            "文章",
+            "平台",
+        ):
+            self.assertNotIn(cue, combined.casefold())
+        for token in synthetic_tokens:
+            self.assertNotIn(token.casefold(), combined.casefold())
+
+    def test_defensive_market_summary_synthesizes_theme_and_confirmation_stance(
+        self,
+    ) -> None:
+        synthetic_tokens = (
+            "SignalForge媒体",
+            "https://example.invalid/defensive",
+            "ZX.987654",
+            "17.25%",
+            "账户BlueVault",
+            "持仓Orchid",
+            "立刻卖出",
+        )
+        response = (
+            "据报道，SignalForge媒体：https://example.invalid/defensive\n"
+            "| 指标 | 读数 |\n|---|---|\n| ZX.987654 | 17.25% |\n"
+            "日内风险偏好回落，市场广度走弱，防守占优；红利和医药相对稳健。"
+            "账户BlueVault持仓Orchid，立刻卖出。"
+        )
+        summary_zh, summary_en = importer.public_summary(
+            "ah_market_scan",
+            [response],
+            1,
+        )
+
+        self.assertIn("风险偏好走弱", summary_zh)
+        self.assertIn("防守", summary_zh)
+        self.assertIn("红利防御", summary_zh)
+        self.assertIn("等待", summary_zh)
+        self.assertIn("确认", summary_zh)
+        self.assertIn("weaker", summary_en)
+        self.assertIn("defensive", summary_en)
+        self.assertIn("defensive yield", summary_en)
+        self.assertIn("confirmation", summary_en)
+        self.assert_public_market_summary_safe(summary_zh, summary_en, synthetic_tokens)
+
+    def test_offensive_market_summary_synthesizes_broad_strength_and_avoids_chasing(
+        self,
+    ) -> None:
+        synthetic_tokens = (
+            "MarketOracle频道",
+            "https://example.invalid/offensive",
+            "USX-246810",
+            "12.75%",
+            "holdings=MoonDesk",
+            "BUY NOW",
+        )
+        response = (
+            "According to MarketOracle频道 https://example.invalid/offensive, "
+            "USX-246810 rose 12.75%. holdings=MoonDesk; BUY NOW.\n"
+            "Risk-on conditions and broad-based strength improved; offensive leadership "
+            "came from AI hardware, semiconductors, robotics and embodied AI. Avoid chasing."
+        )
+        summary_zh, summary_en = importer.public_summary(
+            "us_market_scan",
+            [response],
+            1,
+        )
+
+        self.assertIn("风险偏好改善", summary_zh)
+        self.assertIn("整体偏强", summary_zh)
+        self.assertIn("AI 硬件与半导体", summary_zh)
+        self.assertIn("具身智能", summary_zh)
+        self.assertIn("避免追高", summary_zh)
+        self.assertIn("improving", summary_en)
+        self.assertIn("broad strength", summary_en)
+        self.assertIn("AI hardware and semiconductors", summary_en)
+        self.assertIn("avoid chasing", summary_en)
+        self.assert_public_market_summary_safe(summary_zh, summary_en, synthetic_tokens)
+
+    def test_divergent_rotation_summary_is_structural_and_selective(self) -> None:
+        synthetic_tokens = (
+            "Alpha公众号",
+            "https://example.invalid/rotation",
+            "AH.135790",
+            "23.50%",
+            "私人持仓Cedar",
+            "满仓买入",
+        )
+        response = (
+            "Alpha公众号文章 https://example.invalid/rotation 称 AH.135790 变化23.50%；"
+            "私人持仓Cedar，满仓买入。A股与港股强弱分化，高低切换和板块轮动明显，"
+            "属于结构性市场；消费与金融存在选择性机会，等待持续性确认，不追高。"
+        )
+        summary_zh, summary_en = importer.public_summary(
+            "ah_market_scan",
+            [response],
+            1,
+        )
+
+        self.assertIn("强弱分化", summary_zh)
+        self.assertIn("结构性轮动", summary_zh)
+        self.assertIn("消费与金融", summary_zh)
+        self.assertIn("机会偏选择性", summary_zh)
+        self.assertIn("divergent", summary_en)
+        self.assertIn("structural rotation", summary_en)
+        self.assertIn("selective", summary_en)
+        self.assertIn("confirmation", summary_en)
+        self.assert_public_market_summary_safe(summary_zh, summary_en, synthetic_tokens)
+
+    def test_market_warning_is_a_concise_freshness_caveat(self) -> None:
+        synthetic_tokens = (
+            "WireDesk平台",
+            "https://example.invalid/stale",
+            "HK.112233",
+            "31.00%",
+            "账户Quartz",
+            "立即买入",
+        )
+        response = (
+            "WireDesk平台来源：https://example.invalid/stale；HK.112233 31.00%；"
+            "账户Quartz，立即买入。市场中性且均衡，但数据陈旧并有新鲜度警告，"
+            "需要等待确认。"
+        )
+        summary_zh, summary_en = importer.public_summary(
+            "ah_market_scan",
+            [response],
+            1,
+        )
+
+        self.assertIn("大致均衡", summary_zh)
+        self.assertIn("新鲜度", summary_zh)
+        self.assertIn("不确定性", summary_zh)
+        self.assertIn("broadly balanced", summary_en)
+        self.assertIn("freshness", summary_en)
+        self.assertIn("uncertain", summary_en)
+        self.assert_public_market_summary_safe(summary_zh, summary_en, synthetic_tokens)
+
+    def test_market_no_evidence_falls_back_to_useful_neutral_observation(self) -> None:
+        synthetic_tokens = (
+            "Echo博主",
+            "https://example.invalid/empty",
+            "QQ.445566",
+            "44.40%",
+            "portfolio=NightJar",
+            "SELL ALL",
+        )
+        response = (
+            "Echo博主 source: https://example.invalid/empty\n"
+            "| QQ.445566 | 44.40% | portfolio=NightJar | SELL ALL |"
+        )
+        summary_zh, summary_en = importer.public_summary(
+            "us_market_scan",
+            [response],
+            1,
+        )
+
+        self.assertIn("方向信号有限", summary_zh)
+        self.assertIn("中性观察", summary_zh)
+        self.assertIn("等待更多确认", summary_zh)
+        self.assertIn("directional signals are limited", summary_en)
+        self.assertIn("neutral observation", summary_en)
+        self.assertIn("wait for more confirmation", summary_en.lower())
+        self.assert_public_market_summary_safe(summary_zh, summary_en, synthetic_tokens)
+
     def test_reminder_refresh_summary_does_not_claim_unmeasured_owner_omissions(
         self,
     ) -> None:

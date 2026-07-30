@@ -2757,9 +2757,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -2796,9 +2795,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：光互连、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: optical interconnects, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：光互连、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -2892,8 +2890,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：光互连、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -3089,6 +3087,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-034",
+            "background-041",
+            "background-043",
             "background-046",
             "background-048"
           ],
@@ -3117,24 +3117,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-041",
-          "source": "pulses",
-          "source_refs": [
-            "background-041"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-043",
-          "source": "pulses",
-          "source_refs": [
-            "background-043"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -5129,9 +5111,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -6344,13 +6325,15 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-020",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-020"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-021",
@@ -6398,7 +6381,7 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "climate-02",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-026",
@@ -6471,7 +6454,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-03",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-080"
@@ -8317,9 +8300,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -8356,9 +8338,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         }
       ],
       "reading_items": [
@@ -8390,16 +8371,19 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
-            "background-001"
+            "background-001",
+            "background-003"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "close"
         },
         {
-          "reading_id": "climate-01",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-002"
@@ -8408,15 +8392,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -9072,216 +9047,23 @@ const timetableDataSource = {
           "footprint_id": "background-001",
           "category": "background_routine",
           "start": "09:00",
-          "end": "09:03",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
+          "end": "09:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 2,
+          "count": 1,
           "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "Other background run record",
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
           "footprint_id": "background-002",
-          "category": "ah_market_scan",
-          "start": "09:05",
-          "end": "09:07",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-003",
-          "category": "us_market_scan",
-          "start": "09:06",
-          "end": "09:08",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-004",
-          "category": "ah_market_scan",
-          "start": "09:08",
-          "end": "09:10",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-005",
-          "category": "ah_market_scan",
-          "start": "09:15",
-          "end": "09:24",
-          "duration_minutes": 9,
-          "execution_minutes": 9,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-006",
-          "category": "ah_market_scan",
-          "start": "09:25",
-          "end": "09:30",
-          "duration_minutes": 5,
-          "execution_minutes": 4,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
-          "category": "ah_market_scan",
-          "start": "09:51",
-          "end": "09:53",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-008",
-          "category": "ah_market_scan",
-          "start": "11:01",
-          "end": "11:03",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-009",
-          "category": "background_routine",
-          "start": "11:03",
-          "end": "11:10",
-          "duration_minutes": 7,
-          "execution_minutes": 7,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-010",
-          "category": "ah_market_scan",
-          "start": "13:34",
-          "end": "13:35",
-          "duration_minutes": 1,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-011",
-          "category": "ah_market_scan",
-          "start": "15:35",
-          "end": "15:51",
-          "duration_minutes": 16,
-          "execution_minutes": 16,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "22:05",
           "end": "22:07",
@@ -9324,71 +9106,7 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002",
-            "background-004",
-            "background-005"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "premarket"
-        },
-        {
-          "reading_id": "climate-03",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "us_market",
-          "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-04",
-          "source": "pulses",
-          "source_refs": [
-            "background-007",
-            "background-008",
-            "background-010"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-05",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
+            "background-002"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -9484,122 +9202,25 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "system_routine",
-          "start": "05:30",
-          "end": "05:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "dawn",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-002",
-          "category": "us_market_scan",
-          "start": "06:46",
-          "end": "06:48",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "dawn",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-003",
-          "category": "us_market_scan",
-          "start": "07:20",
-          "end": "07:28",
-          "duration_minutes": 8,
-          "execution_minutes": 8,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-004",
-          "category": "us_market_scan",
-          "start": "08:40",
-          "end": "08:42",
+          "category": "ah_market_scan",
+          "start": "09:08",
+          "end": "09:10",
           "duration_minutes": 2,
           "execution_minutes": 2,
           "time_bucket": "morning",
-          "count": 1,
+          "count": 2,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-005",
-          "category": "us_market_scan",
-          "start": "08:45",
-          "end": "08:47",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-006",
-          "category": "ah_market_scan",
-          "start": "08:46",
-          "end": "09:10",
-          "duration_minutes": 24,
-          "execution_minutes": 24,
-          "time_bucket": "morning",
-          "count": 6,
-          "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-002",
           "category": "us_market_scan",
           "start": "09:08",
           "end": "09:10",
@@ -9618,7 +9239,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-003",
           "category": "background_routine",
           "start": "09:09",
           "end": "09:11",
@@ -9637,7 +9258,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-004",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:26",
@@ -9651,12 +9272,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-005",
           "category": "ah_market_scan",
           "start": "09:27",
           "end": "09:33",
@@ -9670,13 +9291,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-006",
           "category": "ah_market_scan",
           "start": "09:39",
           "end": "09:41",
@@ -9695,64 +9315,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
-          "category": "ah_market_scan",
-          "start": "09:45",
-          "end": "09:47",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-013",
-          "category": "ah_market_scan",
-          "start": "10:02",
-          "end": "10:04",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-014",
-          "category": "background_routine",
-          "start": "10:03",
-          "end": "10:09",
-          "duration_minutes": 6,
-          "execution_minutes": 5,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-007",
           "category": "ah_market_scan",
           "start": "11:00",
           "end": "11:02",
@@ -9771,7 +9334,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "11:02",
           "end": "11:08",
@@ -9791,45 +9354,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
-          "category": "ah_market_scan",
-          "start": "12:10",
-          "end": "12:13",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-018",
-          "category": "ah_market_scan",
-          "start": "13:24",
-          "end": "13:26",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-009",
           "category": "ah_market_scan",
           "start": "13:32",
           "end": "13:34",
@@ -9848,159 +9373,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
-          "category": "ah_market_scan",
-          "start": "14:12",
-          "end": "14:18",
-          "duration_minutes": 6,
-          "execution_minutes": 4,
-          "time_bucket": "afternoon",
-          "count": 3,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-021",
-          "category": "ah_market_scan",
-          "start": "14:20",
-          "end": "14:26",
-          "duration_minutes": 6,
-          "execution_minutes": 4,
-          "time_bucket": "afternoon",
-          "count": 4,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-022",
-          "category": "background_routine",
-          "start": "14:30",
-          "end": "14:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-023",
-          "category": "background_routine",
-          "start": "14:34",
-          "end": "14:37",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-024",
-          "category": "ah_market_scan",
-          "start": "14:39",
-          "end": "14:41",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-025",
-          "category": "background_routine",
-          "start": "15:10",
-          "end": "15:13",
-          "duration_minutes": 3,
-          "execution_minutes": 4,
-          "time_bucket": "afternoon",
-          "count": 2,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-026",
-          "category": "system_routine",
-          "start": "15:25",
-          "end": "15:27",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-027",
-          "category": "ah_market_scan",
-          "start": "15:30",
-          "end": "15:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:50",
@@ -10012,161 +9385,6 @@ const timetableDataSource = {
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-029",
-          "category": "ah_market_scan",
-          "start": "16:22",
-          "end": "16:24",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-030",
-          "category": "ah_market_scan",
-          "start": "16:30",
-          "end": "16:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-031",
-          "category": "background_routine",
-          "start": "20:30",
-          "end": "20:45",
-          "duration_minutes": 15,
-          "execution_minutes": 15,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-032",
-          "category": "us_market_scan",
-          "start": "21:06",
-          "end": "21:40",
-          "duration_minutes": 34,
-          "execution_minutes": 32,
-          "time_bucket": "evening",
-          "count": 5,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-033",
-          "category": "ah_market_scan",
-          "start": "21:40",
-          "end": "21:45",
-          "duration_minutes": 5,
-          "execution_minutes": 4,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-034",
-          "category": "us_market_scan",
-          "start": "22:10",
-          "end": "22:15",
-          "duration_minutes": 5,
-          "execution_minutes": 4,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-035",
-          "category": "us_market_scan",
-          "start": "22:24",
-          "end": "22:26",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-036",
-          "category": "us_market_scan",
-          "start": "22:34",
-          "end": "22:36",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
           "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
@@ -10188,13 +9406,13 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-001",
-            "background-008",
-            "background-014"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "early"
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "climate-02",
@@ -10205,55 +9423,37 @@ const timetableDataSource = {
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
-          "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "window": "premarket"
         },
         {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-004",
-            "background-005",
-            "background-007"
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
-          "family": "us_market",
-          "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
+            "background-006",
+            "background-007",
             "background-009"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
-          "window": "premarket"
+          "window": "intraday"
         },
         {
-          "reading_id": "event-background-010",
+          "reading_id": "event-background-008",
           "source": "pulses",
           "source_refs": [
-            "background-010"
+            "background-008"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -10262,108 +9462,12 @@ const timetableDataSource = {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
-            "background-011",
-            "background-012",
-            "background-013",
-            "background-015",
-            "background-017",
-            "background-018",
-            "background-019",
-            "background-020",
-            "background-021",
-            "background-024"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-06",
-          "source": "pulses",
-          "source_refs": [
-            "background-022",
-            "background-023",
-            "background-025",
-            "background-026"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "daytime"
-        },
-        {
-          "reading_id": "climate-07",
-          "source": "pulses",
-          "source_refs": [
-            "background-027",
-            "background-029",
-            "background-030",
-            "background-033"
+            "background-010"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-028",
-          "source": "pulses",
-          "source_refs": [
-            "background-028"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-08",
-          "source": "pulses",
-          "source_refs": [
-            "background-031"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "evening"
-        },
-        {
-          "reading_id": "event-background-032",
-          "source": "pulses",
-          "source_refs": [
-            "background-032"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-034",
-          "source": "pulses",
-          "source_refs": [
-            "background-034"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-09",
-          "source": "pulses",
-          "source_refs": [
-            "background-035",
-            "background-036"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "us_market",
-          "window": "intraday"
         }
       ],
       "relations": [
@@ -10605,9 +9709,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -10663,8 +9766,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：光互连；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -10758,8 +9861,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：光互连、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: optical interconnects, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：光互连、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -10948,9 +10051,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -11159,9 +10261,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -11255,8 +10356,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -11293,9 +10394,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -11365,21 +10465,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-001",
@@ -11427,6 +10519,7 @@ const timetableDataSource = {
             "background-016",
             "background-017",
             "background-019",
+            "background-021",
             "background-022",
             "background-023",
             "background-024",
@@ -11462,15 +10555,6 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-021",
-          "source": "pulses",
-          "source_refs": [
-            "background-021"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "event-assigned-003",
           "source": "tasks",
           "source_refs": [
@@ -11493,6 +10577,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-031",
+            "background-032",
             "background-033",
             "background-034",
             "background-035",
@@ -11502,15 +10587,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-032",
-          "source": "pulses",
-          "source_refs": [
-            "background-032"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-08",
@@ -11524,18 +10600,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-039",
             "background-040",
             "background-041"
           ],
@@ -11748,8 +10816,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -12048,9 +11116,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -12068,9 +11135,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -12170,25 +11236,21 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-002",
-          "source": "pulses",
-          "source_refs": [
-            "background-002"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-002",
+            "background-003",
+            "background-005",
+            "background-006"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "close"
+        },
+        {
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-004"
@@ -12197,18 +11259,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "climate-03",
-          "source": "pulses",
-          "source_refs": [
-            "background-005",
-            "background-006"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "close"
         }
       ],
       "relations": [
@@ -12507,9 +11557,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：进攻 / 风险扩张；公开主题：光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: offensive / risk-expansion; public themes: optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：光互连；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -12718,8 +11767,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -12947,9 +11996,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -13100,9 +12148,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -13195,21 +12242,13 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-003",
+            "background-006",
             "background-007"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-008",
@@ -13287,6 +12326,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-028",
+            "background-029",
             "background-030",
             "background-031",
             "background-032",
@@ -13296,15 +12336,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-029",
-          "source": "pulses",
-          "source_refs": [
-            "background-029"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-07",
@@ -13319,18 +12350,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-037",
-          "source": "pulses",
-          "source_refs": [
-            "background-037"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
+            "background-037",
             "background-038",
             "background-039"
           ],
@@ -13479,9 +12502,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -13613,9 +12635,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -13633,9 +12654,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -13805,8 +12825,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14015,8 +13035,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14110,8 +13130,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14148,9 +13168,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14221,21 +13240,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -14255,30 +13266,14 @@ const timetableDataSource = {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-006"
+            "background-006",
+            "background-010",
+            "background-011"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-05",
@@ -14351,18 +13346,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-038",
-          "source": "pulses",
-          "source_refs": [
-            "background-038"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-038",
             "background-039",
             "background-040"
           ],
@@ -14511,9 +13498,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14645,9 +13631,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14760,9 +13745,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14837,9 +13821,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -14972,9 +13955,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -15087,8 +14069,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -15144,9 +14126,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -15215,21 +14196,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -15250,6 +14223,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-005",
             "background-008",
+            "background-010",
             "background-011"
           ],
           "layer": "climate",
@@ -15258,38 +14232,22 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-012",
             "background-013",
             "background-014",
+            "background-016",
             "background-018",
             "background-019",
+            "background-020",
             "background-021"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-06",
@@ -15307,19 +14265,11 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-020",
-          "source": "pulses",
-          "source_refs": [
-            "background-020"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-024",
+            "background-027",
             "background-029",
             "background-030",
             "background-034",
@@ -15340,15 +14290,6 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-027",
-          "source": "pulses",
-          "source_refs": [
-            "background-027"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
@@ -15361,18 +14302,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-036",
-          "source": "pulses",
-          "source_refs": [
-            "background-036"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-036",
             "background-037",
             "background-038"
           ],
@@ -15521,9 +14454,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -15541,8 +14473,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -15674,8 +14606,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -15846,8 +14778,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16093,9 +15025,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16228,8 +15159,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16266,9 +15197,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16337,21 +15267,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -16433,6 +15355,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-032",
+            "background-033",
             "background-034",
             "background-035",
             "background-036",
@@ -16442,15 +15365,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-033",
-          "source": "pulses",
-          "source_refs": [
-            "background-033"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-037",
@@ -16473,18 +15387,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-042",
             "background-043",
             "background-044"
           ],
@@ -16633,9 +15539,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16691,9 +15596,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16768,9 +15672,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -16922,8 +15825,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -17131,9 +16034,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -17227,8 +16129,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -17265,9 +16167,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -17335,21 +16236,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -17366,33 +16259,17 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-008"
+            "background-006",
+            "background-008",
+            "background-010"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-011",
@@ -17443,6 +16320,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-028",
+            "background-029",
             "background-030",
             "background-031",
             "background-035"
@@ -17451,15 +16329,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-029",
-          "source": "pulses",
-          "source_refs": [
-            "background-029"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-08",
@@ -17474,18 +16343,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-036",
-          "source": "pulses",
-          "source_refs": [
-            "background-036"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-036",
             "background-037",
             "background-038"
           ],
@@ -17698,9 +16559,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -17785,21 +16645,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-001",
@@ -18065,9 +16917,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -18085,9 +16936,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -18162,8 +17012,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         }
       ],
       "reading_items": [
@@ -18211,6 +17061,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-003",
+            "background-004",
+            "background-005",
             "background-008",
             "background-009"
           ],
@@ -18218,24 +17070,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -18541,9 +17375,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 7 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "7 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 7 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "7 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -18618,9 +17451,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -18733,8 +17565,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -18961,9 +17793,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -19057,9 +17888,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -19096,9 +17926,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -19177,7 +18006,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-002",
-            "background-006"
+            "background-006",
+            "background-030"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -19185,27 +18015,21 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-003",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-003"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
-          "reading_id": "event-background-007",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-007"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-03",
-          "source": "pulses",
-          "source_refs": [
+            "background-007",
             "background-008",
             "background-010",
             "background-013",
@@ -19230,7 +18054,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-04",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-011",
@@ -19256,10 +18080,11 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-024",
+            "background-025",
             "background-026",
             "background-027",
             "background-031"
@@ -19268,15 +18093,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-025",
-          "source": "pulses",
-          "source_refs": [
-            "background-025"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-004",
@@ -19297,7 +18113,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-06",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-028",
@@ -19309,27 +18125,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-030",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-030"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-032",
-          "source": "pulses",
-          "source_refs": [
-            "background-032"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-07",
-          "source": "pulses",
-          "source_refs": [
+            "background-032",
             "background-033",
             "background-034"
           ],
@@ -19478,9 +18277,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -19517,8 +18315,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：进攻 / 风险扩张；公开主题：光互连；未保留公开级别链路提示。",
-          "summary_en": "6 scan(s) completed; regime: offensive / risk-expansion; public themes: optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：光互连；未保留公开级别链路提示。",
+          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -19574,9 +18372,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -20069,8 +18866,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -20126,9 +18923,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -20197,21 +18993,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -20231,21 +19019,13 @@ const timetableDataSource = {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-005"
+            "background-005",
+            "background-008"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-008",
-          "source": "pulses",
-          "source_refs": [
-            "background-008"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-05",
@@ -20312,18 +19092,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-037",
-          "source": "pulses",
-          "source_refs": [
-            "background-037"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-037",
             "background-038",
             "background-039"
           ],
@@ -20472,9 +19244,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -20511,8 +19282,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "8 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -20938,9 +19709,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21034,8 +19804,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21110,9 +19880,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21180,21 +19949,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -21278,6 +20039,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-026",
+            "background-027",
             "background-028",
             "background-029",
             "background-033",
@@ -21287,15 +20049,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-027",
-          "source": "pulses",
-          "source_refs": [
-            "background-027"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-08",
@@ -21314,6 +20067,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-034",
+            "background-036",
             "background-037",
             "background-038"
           ],
@@ -21321,15 +20075,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-036",
-          "source": "pulses",
-          "source_refs": [
-            "background-036"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -21471,9 +20216,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21491,8 +20235,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：光互连、市场状态与波动；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: optical interconnects, market regime and volatility; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：光互连、市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: optical interconnects, market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21548,8 +20292,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "6 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21651,9 +20395,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21747,9 +20490,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21824,9 +20566,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -21999,9 +20740,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -22114,8 +20854,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -22171,9 +20911,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -22242,21 +20981,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -22295,22 +21026,16 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-012",
             "background-013",
             "background-015",
+            "background-017",
             "background-019",
             "background-020",
+            "background-021",
             "background-022",
             "background-025"
           ],
@@ -22332,24 +21057,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-021",
-          "source": "pulses",
-          "source_refs": [
-            "background-021"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-024",
@@ -22383,6 +21090,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-029",
+            "background-030",
             "background-031",
             "background-032",
             "background-037"
@@ -22391,15 +21099,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-030",
-          "source": "pulses",
-          "source_refs": [
-            "background-030"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-08",
@@ -22418,6 +21117,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-038",
+            "background-039",
             "background-040",
             "background-041"
           ],
@@ -22425,15 +21125,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -22575,9 +21266,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -22736,9 +21426,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -22783,9 +21472,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -22918,8 +21606,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -23166,9 +21854,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -23281,8 +21968,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "6 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -23319,9 +22006,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -23389,21 +22075,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
@@ -23424,7 +22102,9 @@ const timetableDataSource = {
           "source_refs": [
             "background-005",
             "background-008",
-            "background-010"
+            "background-010",
+            "background-011",
+            "background-013"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -23441,15 +22121,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "event-background-012",
           "source": "pulses",
           "source_refs": [
@@ -23457,15 +22128,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-013",
-          "source": "pulses",
-          "source_refs": [
-            "background-013"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-05",
@@ -23525,6 +22187,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-032",
+            "background-033",
             "background-034",
             "background-035",
             "background-040"
@@ -23533,15 +22196,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-033",
-          "source": "pulses",
-          "source_refs": [
-            "background-033"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-08",
@@ -23557,18 +22211,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-041",
-          "source": "pulses",
-          "source_refs": [
-            "background-041"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-041",
             "background-042",
             "background-043"
           ],
@@ -23843,8 +22489,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -24351,9 +22997,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -24371,9 +23016,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -24448,9 +23092,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         }
       ],
       "reading_items": [
@@ -24524,7 +23167,10 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-003",
-            "background-008"
+            "background-004",
+            "background-005",
+            "background-008",
+            "background-009"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -24541,24 +23187,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
@@ -24569,15 +23197,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -24869,9 +23488,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -24916,9 +23534,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -25107,9 +23724,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -25336,9 +23952,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -25432,8 +24047,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -25489,9 +24104,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -25584,21 +24198,14 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-007",
+            "background-009"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-007",
-          "source": "pulses",
-          "source_refs": [
-            "background-007"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-008",
@@ -25610,15 +24217,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
@@ -25626,6 +24224,7 @@ const timetableDataSource = {
             "background-012",
             "background-013",
             "background-016",
+            "background-019",
             "background-021",
             "background-022",
             "background-024",
@@ -25664,19 +24263,11 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-019",
-          "source": "pulses",
-          "source_refs": [
-            "background-019"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-030",
+            "background-031",
             "background-032",
             "background-033",
             "background-037"
@@ -25685,15 +24276,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-031",
-          "source": "pulses",
-          "source_refs": [
-            "background-031"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-07",
@@ -25712,6 +24294,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-038",
+            "background-039",
             "background-040",
             "background-041"
           ],
@@ -25719,15 +24302,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -25869,9 +24443,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -25908,8 +24481,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -26003,9 +24576,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -26183,9 +24755,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -26247,25 +24818,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-023",
-          "category": "system_routine",
-          "start": "13:40",
-          "end": "13:42",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:18",
@@ -26284,7 +24836,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "14:20",
           "end": "14:26",
@@ -26303,7 +24855,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:32",
@@ -26322,7 +24874,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "14:35",
           "end": "14:37",
@@ -26341,7 +24893,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "ah_market_scan",
           "start": "14:42",
           "end": "14:44",
@@ -26360,7 +24912,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:13",
@@ -26379,7 +24931,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -26398,7 +24950,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -26417,7 +24969,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -26436,7 +24988,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:54",
@@ -26450,13 +25002,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "ah_market_scan",
           "start": "16:24",
           "end": "16:26",
@@ -26475,7 +25026,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -26494,7 +25045,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "background_routine",
           "start": "18:30",
           "end": "18:32",
@@ -26513,7 +25064,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -26532,7 +25083,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -26551,7 +25102,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-038",
           "category": "us_market_scan",
           "start": "21:06",
           "end": "21:52",
@@ -26565,13 +25116,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-039",
           "category": "ah_market_scan",
           "start": "21:54",
           "end": "21:56",
@@ -26590,7 +25140,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-040",
           "category": "us_market_scan",
           "start": "21:55",
           "end": "21:56",
@@ -26609,7 +25159,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-041",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:15",
@@ -26623,13 +25173,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-042",
           "category": "us_market_scan",
           "start": "22:28",
           "end": "22:30",
@@ -26648,7 +25197,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-043",
           "category": "us_market_scan",
           "start": "22:33",
           "end": "22:35",
@@ -26693,7 +25242,8 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26701,20 +25251,12 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-004",
-            "background-008"
+            "background-008",
+            "background-038"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26728,21 +25270,13 @@ const timetableDataSource = {
             "background-005",
             "background-007",
             "background-009",
+            "background-010",
             "background-012"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-011",
@@ -26761,11 +25295,12 @@ const timetableDataSource = {
             "background-014",
             "background-015",
             "background-017",
+            "background-019",
             "background-021",
             "background-022",
+            "background-023",
             "background-024",
-            "background-025",
-            "background-028"
+            "background-027"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26778,12 +25313,11 @@ const timetableDataSource = {
           "source_refs": [
             "background-018",
             "background-020",
-            "background-023",
+            "background-025",
             "background-026",
-            "background-027",
+            "background-028",
             "background-029",
-            "background-030",
-            "background-031"
+            "background-030"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26791,22 +25325,14 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-019",
-          "source": "pulses",
-          "source_refs": [
-            "background-019"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
+            "background-031",
             "background-032",
+            "background-033",
             "background-034",
-            "background-035",
-            "background-040"
+            "background-039"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26814,21 +25340,12 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-033",
-          "source": "pulses",
-          "source_refs": [
-            "background-033"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
+            "background-035",
             "background-036",
-            "background-037",
-            "background-038"
+            "background-037"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -26836,35 +25353,18 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-040",
             "background-041",
-            "background-043",
-            "background-044"
+            "background-042",
+            "background-043"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -26955,25 +25455,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "background_routine",
-          "start": "05:00",
-          "end": "05:12",
-          "duration_minutes": 12,
-          "execution_minutes": 11,
-          "time_bucket": "dawn",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-002",
           "category": "system_routine",
           "start": "05:31",
           "end": "05:33",
@@ -26992,26 +25473,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-003",
-          "category": "system_routine",
-          "start": "06:00",
-          "end": "06:06",
-          "duration_minutes": 6,
-          "execution_minutes": 5,
-          "time_bucket": "dawn",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-004",
+          "footprint_id": "background-002",
           "category": "us_market_scan",
           "start": "06:46",
           "end": "06:48",
@@ -27030,7 +25492,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-005",
+          "footprint_id": "background-003",
           "category": "us_market_scan",
           "start": "07:20",
           "end": "07:30",
@@ -27044,40 +25506,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:32",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "source_wording_entity_masked",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "targeted_entity_mask_v2",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 12,
-          "summary_original": "**🦞 每日提醒 · 2026-06-10 周三**\n\n---\n\n**今天轻轻碰一下**\n\n1. **████ Lecture 3 审阅** — startup-brief 里记着：████ 需要审阅 v0.8 教材与图片气质，确认后可从教材拆 PPT。这是当前课程线上最近的一个可见下一步。如果今天状态好，顺手过一遍；如果只想躺着也没关系，它不是今天的硬截止。\n2. **Token 经济 A 股软件研究反馈** — 5月19日那份 Top5 研究结论还在等 ████ 判断：软件末梢五只全部仍是观察灯，不买不加不追，但判断本身需要他看一眼才算闭环。不急着今天，但别让它再悬着超过一周。\n3. **今天创作容器** — 黑昼今早完成了 `████`，下一步方向是\"撤回时的天气\"。如果 ████ 今天想用自己的方式接触创作容器，这是一个可接的线索；如果只想休息也没关系。\n\n---\n\n**靠近的 deadline / 提前量**\n\n我没在今天的文件里看到硬截止。如果 ████ 知道有广艺/中████院/████的近端截止，请在对话框里告诉我，我把它正式录入。\n\n---\n\n**秘书提醒**\n\n- 市场窗口：10:20–10:35 / 14:35–14:50，████ 在 autopilot 上跑着，昨天 maintenance loop 全绿，无异常。\n- 社交发布队列：6月7日那一批 FIFO 已全部闭环，目前队列干净，没有待发内容。\n- 黑昼今早05:10左右完成了自由时段创作，作品已上链归档。如果 ████ 想查看：`████\n\n---\n\n**心灵按摩**\n\n今天是周三，按 baseline 是 recovery-creative-ke-yin 日。这个设定的意思是：今天本来就不是冲刺日，也不是空白日。恢复和创作并行，不是先恢复再创作。\n\n不要因为今天是周三就觉得自己应该做更多，也不要因为昨晚睡得晚就觉得自己欠了债。债是系统让你觉得的，不是真的。\n\n---\n\n**放松/理解自己的一小步**\n\n如果今天什么都不想推进，只想看剧、刷手机、或者就躺在那里——那也是今天真实的一部分，不是失败。可以设定一个很低的底线：比如只打开一下那个 ████ 的页面，看一眼黑昼今早做了什么，然后告诉自己\"我知道了\"。这不算工作，但算接触。\n\n---\n\n**今天别做什么**\n\n不要因为\"感觉应该做点什么\"就临时找一个工具来折腾，或者开一个新的研究文件夹。进度感不是进展；可能性不是作品。如果今天没有真实接触容器，那就休息，而不是用准备代替创作。",
-          "excerpt_original": "**🦞 每日提醒 · 2026-06-10 周三**\n\n---\n\n**今天轻轻碰一下**\n\n1. **████ Lecture 3 审阅** — startup-brief 里记着：████ 需要审阅 v0.8 教材与图片气质，确认后可从教材拆 PPT。这是当前课程线上最近的一个可见下一步。如果今天状态好，顺手过一遍；如果只想躺着也没关系，它不是今天的硬截止。\n2.…",
-          "original_language": "mixed",
-          "disclosure_policy": "authentic_entity_masked_reminder_v2",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "source_wording_entity_masked"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-004",
           "category": "us_market_scan",
           "start": "08:44",
           "end": "08:46",
@@ -27096,7 +25530,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-005",
           "category": "ah_market_scan",
           "start": "08:46",
           "end": "09:25",
@@ -27110,13 +25544,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "8 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-006",
           "category": "us_market_scan",
           "start": "08:48",
           "end": "08:50",
@@ -27135,7 +25568,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-007",
           "category": "background_routine",
           "start": "09:08",
           "end": "09:15",
@@ -27154,7 +25587,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-008",
           "category": "us_market_scan",
           "start": "09:13",
           "end": "09:15",
@@ -27173,7 +25606,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-009",
           "category": "daily_reminder",
           "start": "09:24",
           "end": "09:26",
@@ -27200,7 +25633,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "09:26",
           "end": "09:34",
@@ -27219,7 +25652,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -27238,7 +25671,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "09:48",
           "end": "09:50",
@@ -27257,7 +25690,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "10:06",
           "end": "10:08",
@@ -27273,67 +25706,67 @@ const timetableDataSource = {
           "redaction_policy": "not_applicable",
           "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
           "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-014",
+          "category": "background_routine",
+          "start": "10:06",
+          "end": "10:08",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-015",
+          "category": "ah_market_scan",
+          "start": "11:08",
+          "end": "11:10",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-016",
+          "category": "background_routine",
+          "start": "11:08",
+          "end": "11:10",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
           "footprint_id": "background-017",
-          "category": "background_routine",
-          "start": "10:06",
-          "end": "10:08",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-018",
-          "category": "ah_market_scan",
-          "start": "11:08",
-          "end": "11:10",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-019",
-          "category": "background_routine",
-          "start": "11:08",
-          "end": "11:10",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:15",
@@ -27347,13 +25780,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-018",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -27372,7 +25804,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-019",
           "category": "ah_market_scan",
           "start": "13:25",
           "end": "13:27",
@@ -27391,7 +25823,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "13:36",
           "end": "13:38",
@@ -27410,7 +25842,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-021",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -27429,7 +25861,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:18",
@@ -27448,7 +25880,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "14:20",
           "end": "14:26",
@@ -27467,7 +25899,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-024",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:33",
@@ -27486,27 +25918,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
-          "category": "system_routine",
-          "start": "14:31",
-          "end": "14:33",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "14:38",
           "end": "14:40",
@@ -27525,7 +25937,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -27544,7 +25956,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-027",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -27563,7 +25975,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-028",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -27582,7 +25994,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-029",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -27601,7 +26013,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-030",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:54",
@@ -27615,13 +26027,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-031",
           "category": "ah_market_scan",
           "start": "16:20",
           "end": "16:25",
@@ -27640,7 +26051,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -27659,54 +26070,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
-          "category": "daily_reminder",
-          "start": "17:30",
-          "end": "17:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "source_wording_entity_masked",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "targeted_entity_mask_v2",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "summary_original": "████，今天供电了吗？\n\n没有的话，今晚 20 分钟，随便动一下就行。",
-          "excerpt_original": "████，今天供电了吗？\n\n没有的话，今晚 20 分钟，随便动一下就行。",
-          "original_language": "zh",
-          "disclosure_policy": "authentic_entity_masked_reminder_v2",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "source_wording_entity_masked"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-038",
-          "category": "system_routine",
-          "start": "20:00",
-          "end": "20:02",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-033",
           "category": "background_routine",
           "start": "20:30",
           "end": "20:32",
@@ -27725,7 +26089,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-034",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -27744,7 +26108,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-035",
           "category": "us_market_scan",
           "start": "21:06",
           "end": "21:38",
@@ -27758,33 +26122,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
-          "category": "background_routine",
-          "start": "21:07",
-          "end": "21:09",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "21:40",
           "end": "21:42",
@@ -27803,7 +26146,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-037",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -27822,7 +26165,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "22:05",
           "end": "22:08",
@@ -27841,7 +26184,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-039",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:16",
@@ -27855,13 +26198,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-040",
           "category": "us_market_scan",
           "start": "22:24",
           "end": "22:26",
@@ -27880,7 +26222,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-041",
           "category": "us_market_scan",
           "start": "22:34",
           "end": "22:36",
@@ -27899,7 +26241,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-042",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -27940,10 +26282,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-001",
-            "background-002",
-            "background-003",
-            "background-010",
-            "background-017"
+            "background-007",
+            "background-014"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27954,7 +26294,8 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27962,30 +26303,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-007",
-            "background-009",
-            "background-011"
+            "background-004",
+            "background-006",
+            "background-008",
+            "background-035"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -27993,28 +26317,11 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-008",
-          "source": "pulses",
-          "source_refs": [
-            "background-008"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-013"
+            "background-005",
+            "background-010"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28022,18 +26329,28 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
+          "reading_id": "event-background-009",
+          "source": "pulses",
+          "source_refs": [
+            "background-009"
+          ],
+          "layer": "event",
+          "classification": "readable_reminder"
+        },
+        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
-            "background-014",
+            "background-011",
+            "background-012",
+            "background-013",
             "background-015",
-            "background-016",
-            "background-018",
+            "background-017",
+            "background-019",
+            "background-020",
             "background-022",
             "background-023",
-            "background-025",
-            "background-026",
-            "background-029"
+            "background-025"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28044,13 +26361,13 @@ const timetableDataSource = {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
-            "background-019",
+            "background-016",
+            "background-018",
             "background-021",
             "background-024",
+            "background-026",
             "background-027",
-            "background-030",
-            "background-031",
-            "background-032"
+            "background-028"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28058,32 +26375,15 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-020",
-          "source": "pulses",
-          "source_refs": [
-            "background-020"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-028",
-          "source": "pulses",
-          "source_refs": [
-            "background-028"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
-            "background-033",
-            "background-035",
+            "background-029",
+            "background-030",
+            "background-031",
+            "background-032",
             "background-036",
-            "background-043",
-            "background-045"
+            "background-038"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28091,38 +26391,11 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-034",
-          "source": "pulses",
-          "source_refs": [
-            "background-034"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-037",
-          "source": "pulses",
-          "source_refs": [
-            "background-037"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-038",
-          "source": "pulses",
-          "source_refs": [
-            "background-038"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-039",
-            "background-040"
+            "background-033",
+            "background-034"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28130,30 +26403,13 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-041",
-          "source": "pulses",
-          "source_refs": [
-            "background-041"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
-            "background-044",
-            "background-047",
-            "background-048"
+            "background-037",
+            "background-039",
+            "background-040",
+            "background-041"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -28161,19 +26417,10 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "event-background-046",
+          "reading_id": "event-background-042",
           "source": "pulses",
           "source_refs": [
-            "background-046"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-049",
-          "source": "pulses",
-          "source_refs": [
-            "background-049"
+            "background-042"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -28356,9 +26603,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -28390,26 +26636,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-007",
-          "category": "ai_daily_brief",
-          "start": "08:30",
-          "end": "08:42",
-          "duration_minutes": 12,
-          "execution_minutes": 12,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "AI brief collection",
-          "label_zh": "AI 日报采集",
-          "pulse_color": "cyan",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-008",
           "category": "us_market_scan",
           "start": "08:42",
           "end": "08:44",
@@ -28428,7 +26654,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "us_market_scan",
           "start": "08:46",
           "end": "08:48",
@@ -28447,7 +26673,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "ah_market_scan",
           "start": "08:47",
           "end": "09:04",
@@ -28461,12 +26687,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "background_routine",
           "start": "09:02",
           "end": "09:05",
@@ -28485,7 +26711,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:07",
           "end": "09:09",
@@ -28504,7 +26730,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "us_market_scan",
           "start": "09:08",
           "end": "09:10",
@@ -28523,7 +26749,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "09:11",
           "end": "09:14",
@@ -28542,7 +26768,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:28",
@@ -28556,13 +26782,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "daily_reminder",
           "start": "09:27",
           "end": "09:29",
@@ -28589,7 +26814,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
           "start": "09:29",
           "end": "09:37",
@@ -28608,7 +26833,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "09:41",
           "end": "09:43",
@@ -28627,7 +26852,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-018",
           "category": "ah_market_scan",
           "start": "09:45",
           "end": "09:47",
@@ -28646,7 +26871,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-019",
           "category": "ah_market_scan",
           "start": "10:05",
           "end": "10:07",
@@ -28662,29 +26887,29 @@ const timetableDataSource = {
           "redaction_policy": "not_applicable",
           "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
           "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-020",
+          "category": "background_routine",
+          "start": "10:05",
+          "end": "10:07",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
           "footprint_id": "background-021",
-          "category": "background_routine",
-          "start": "10:05",
-          "end": "10:07",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Other background run record",
-          "label_zh": "其他后台运行记录",
-          "pulse_color": "slate",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "11:05",
           "end": "11:07",
@@ -28703,7 +26928,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-022",
           "category": "background_routine",
           "start": "11:05",
           "end": "11:07",
@@ -28722,7 +26947,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:19",
@@ -28736,13 +26961,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "background_routine",
           "start": "12:20",
           "end": "12:22",
@@ -28761,7 +26985,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "13:25",
           "end": "13:27",
@@ -28780,7 +27004,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "ah_market_scan",
           "start": "13:34",
           "end": "13:36",
@@ -28799,7 +27023,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -28818,7 +27042,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:18",
@@ -28837,7 +27061,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "ah_market_scan",
           "start": "14:20",
           "end": "14:26",
@@ -28856,7 +27080,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:34",
@@ -28875,7 +27099,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:34",
@@ -28894,7 +27118,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "14:38",
           "end": "14:40",
@@ -28913,7 +27137,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -28932,7 +27156,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -28951,7 +27175,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -28970,7 +27194,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -28989,7 +27213,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:48",
@@ -29003,13 +27227,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "16:21",
           "end": "16:23",
@@ -29028,7 +27251,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-039",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -29047,7 +27270,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-040",
           "category": "daily_reminder",
           "start": "17:30",
           "end": "17:32",
@@ -29074,7 +27297,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-041",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -29094,7 +27317,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-042",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -29113,7 +27336,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-043",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -29132,7 +27355,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-044",
           "category": "us_market_scan",
           "start": "21:06",
           "end": "21:31",
@@ -29146,12 +27369,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-045",
           "category": "background_routine",
           "start": "21:07",
           "end": "21:09",
@@ -29171,7 +27394,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-046",
           "category": "ah_market_scan",
           "start": "21:33",
           "end": "21:35",
@@ -29190,7 +27413,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-047",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -29209,7 +27432,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:15",
@@ -29223,13 +27446,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-049",
           "category": "us_market_scan",
           "start": "22:26",
           "end": "22:28",
@@ -29248,7 +27470,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "22:33",
           "end": "22:35",
@@ -29267,7 +27489,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-051",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -29310,8 +27532,8 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
-            "background-011",
-            "background-021"
+            "background-010",
+            "background-020"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29322,21 +27544,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -29348,22 +27562,13 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-007",
-          "source": "pulses",
-          "source_refs": [
-            "background-007"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
+            "background-007",
             "background-008",
-            "background-009",
-            "background-013",
-            "background-045"
+            "background-012",
+            "background-044"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29374,10 +27579,11 @@ const timetableDataSource = {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-010",
-            "background-012",
+            "background-009",
+            "background-011",
+            "background-013",
             "background-014",
-            "background-017"
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29391,30 +27597,22 @@ const timetableDataSource = {
             "background-015"
           ],
           "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
           "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-017",
             "background-018",
             "background-019",
-            "background-020",
-            "background-022",
+            "background-021",
+            "background-023",
+            "background-025",
             "background-026",
-            "background-027",
+            "background-028",
             "background-029",
-            "background-030",
-            "background-033"
+            "background-032"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29425,14 +27623,14 @@ const timetableDataSource = {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
-            "background-023",
-            "background-025",
-            "background-028",
+            "background-022",
+            "background-024",
+            "background-027",
+            "background-030",
             "background-031",
-            "background-032",
+            "background-033",
             "background-034",
-            "background-035",
-            "background-036"
+            "background-035"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29440,22 +27638,14 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-024",
-          "source": "pulses",
-          "source_refs": [
-            "background-024"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
+            "background-036",
             "background-037",
+            "background-038",
             "background-039",
-            "background-040",
-            "background-047"
+            "background-046"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29463,13 +27653,13 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-038",
+          "reading_id": "event-background-040",
           "source": "pulses",
           "source_refs": [
-            "background-038"
+            "background-040"
           ],
           "layer": "event",
-          "classification": "promoted_routine_exception"
+          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-041",
@@ -29478,23 +27668,14 @@ const timetableDataSource = {
             "background-041"
           ],
           "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-043",
-            "background-044"
+            "background-042",
+            "background-043"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29502,10 +27683,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-046",
+          "reading_id": "event-background-045",
           "source": "pulses",
           "source_refs": [
-            "background-046"
+            "background-045"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -29514,9 +27695,10 @@ const timetableDataSource = {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-047",
             "background-048",
-            "background-050",
-            "background-051"
+            "background-049",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -29524,19 +27706,10 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "event-background-049",
+          "reading_id": "event-background-051",
           "source": "pulses",
           "source_refs": [
-            "background-049"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-052",
-          "source": "pulses",
-          "source_refs": [
-            "background-052"
+            "background-051"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -29719,9 +27892,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -29804,8 +27976,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "8 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -30040,8 +28212,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -30307,9 +28479,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -30450,8 +28621,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -30527,9 +28698,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -30627,21 +28797,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -30748,6 +28910,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-034",
+            "background-035",
             "background-036",
             "background-037",
             "background-044"
@@ -30756,15 +28919,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-035",
-          "source": "pulses",
-          "source_refs": [
-            "background-035"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-038",
@@ -30810,6 +28964,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-045",
+            "background-046",
             "background-047",
             "background-048"
           ],
@@ -30817,15 +28972,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-046",
-          "source": "pulses",
-          "source_refs": [
-            "background-046"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-049",
@@ -31878,9 +30024,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -31898,9 +30043,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -32033,8 +30177,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -32156,22 +30300,18 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-010",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-010"
+            "background-010",
+            "background-011",
+            "background-016",
+            "background-018"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "close"
         },
         {
           "reading_id": "event-background-012",
@@ -32183,7 +30323,7 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "climate-04",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-013",
@@ -32195,18 +30335,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "climate-05",
-          "source": "pulses",
-          "source_refs": [
-            "background-016",
-            "background-018"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "close"
         },
         {
           "reading_id": "event-background-019",
@@ -32442,9 +30570,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -32557,9 +30684,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -32737,9 +30863,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -33004,9 +31129,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -33165,8 +31289,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -33222,9 +31346,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -33350,35 +31473,19 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-007",
-          "source": "pulses",
-          "source_refs": [
-            "background-007"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
+            "background-007",
             "background-010",
             "background-012",
+            "background-013",
             "background-015"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-013",
-          "source": "pulses",
-          "source_refs": [
-            "background-013"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-014",
@@ -33397,6 +31504,7 @@ const timetableDataSource = {
             "background-017",
             "background-018",
             "background-020",
+            "background-022",
             "background-024",
             "background-025",
             "background-027",
@@ -33427,19 +31535,11 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-022",
-          "source": "pulses",
-          "source_refs": [
-            "background-022"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-035",
+            "background-036",
             "background-037",
             "background-038",
             "background-045"
@@ -33448,15 +31548,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-036",
-          "source": "pulses",
-          "source_refs": [
-            "background-036"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-039",
@@ -33486,6 +31577,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-046",
+            "background-047",
             "background-048",
             "background-049"
           ],
@@ -33493,15 +31585,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-047",
-          "source": "pulses",
-          "source_refs": [
-            "background-047"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-050",
@@ -33690,9 +31773,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -33870,9 +31952,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -33917,9 +31998,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -34051,8 +32131,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -34317,8 +32397,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -34477,8 +32557,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -34534,9 +32614,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -34633,21 +32712,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -34688,21 +32759,14 @@ const timetableDataSource = {
           "source_refs": [
             "background-009",
             "background-011",
-            "background-013"
+            "background-013",
+            "background-014",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-014",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-015",
@@ -34712,15 +32776,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-06",
@@ -34803,6 +32858,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-047",
+            "background-048",
             "background-049",
             "background-050"
           ],
@@ -34810,15 +32866,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-048",
-          "source": "pulses",
-          "source_refs": [
-            "background-048"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-051",
@@ -35008,9 +33055,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -35093,9 +33139,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "8 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -35311,8 +33356,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -35577,9 +33622,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -35738,8 +33782,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -35814,9 +33858,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -35921,21 +33964,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -35972,13 +34007,15 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-009",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-009"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-013",
@@ -35990,7 +34027,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-014",
@@ -36010,7 +34047,7 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "climate-06",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-019",
@@ -36028,10 +34065,11 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "climate-07",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
             "background-033",
+            "background-034",
             "background-035",
             "background-036",
             "background-043",
@@ -36043,15 +34081,6 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-034",
-          "source": "pulses",
-          "source_refs": [
-            "background-034"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "event-background-037",
           "source": "pulses",
           "source_refs": [
@@ -36061,7 +34090,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-08",
+          "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
             "background-038",
@@ -36075,10 +34104,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "climate-09",
+          "reading_id": "climate-10",
           "source": "pulses",
           "source_refs": [
             "background-044",
+            "background-046",
             "background-047",
             "background-048"
           ],
@@ -36086,15 +34116,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-046",
-          "source": "pulses",
-          "source_refs": [
-            "background-046"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-049",
@@ -36435,9 +34456,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -36521,9 +34541,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -36617,8 +34636,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -36663,9 +34682,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -36778,8 +34796,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -37045,9 +35063,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -37206,8 +35223,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -37263,9 +35280,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -37363,21 +35379,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -37421,18 +35429,10 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
+            "background-009",
             "background-014"
           ],
           "layer": "climate",
@@ -37450,18 +35450,10 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-016",
             "background-017",
             "background-018",
             "background-020",
@@ -37526,6 +35518,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-035",
+            "background-036",
             "background-037",
             "background-038",
             "background-045"
@@ -37534,15 +35527,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-036",
-          "source": "pulses",
-          "source_refs": [
-            "background-036"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-004",
@@ -37590,6 +35574,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-046",
+            "background-047",
             "background-048",
             "background-049"
           ],
@@ -37597,15 +35582,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-047",
-          "source": "pulses",
-          "source_refs": [
-            "background-047"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-050",
@@ -37794,9 +35770,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -37817,8 +35792,8 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
-          "summary_original": "🐾 **Friday, June 19 · 每日轻提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 收尾**：v0.8 改写已完成，████ 还未审阅教材与图片气质。今天若有一点时间，可以轻轻看一下那张 `lecture3-v08-gptimage-text-in-prompt-contact-sheet.jpg`——确认图片气质是否符合预期，而不是继续埋头改 PPT。确认后，再从教材拆 slides 才不是白做。\n- **社会publishing队列**：上次（6/7）FIFO 队列已全部闭环。如果今天有新素材，队列文件 `tmp/social-publish-queue.json` 还在，随时可以加进去处理。没有新素材就不用动。\n- **主系统（黑昼侧）**：今天盘中有两段 market window（10:20-10:35 / 14:35-14:50），A/H 监控照旧跑。若有触发事件，radar 会写快照，不需要 ████ 盯盘。\n\n---\n\n**靠近的 deadline / 提前量**\n\n我没看到今天有什么硬截止。任务总档最后更新是 4月初，████课程的下一步（████ 审阅）没有写死日期，社媒队列 6/7 已清空。\n\n---\n\n**秘书提醒**\n\n- ████课程下一步动作是 ████ 亲自看一眼 v0.8 教材——这件事只能他做，黑昼做不了。找一段不累的时间打开看一眼就行，不用一口气审完全部。\n- 若今天有钒钛/多智能体相关素材要处理，记到 `knowledge/人生系统/entries/` 或直接丢进队列，不要散在聊天里消失。\n- 市场如果有异常波动，radar 会主动出声；今天不需要主动干预。\n\n---\n\n**心灵按摩**\n\n周五了。\n\n你知道你不是一个需要每分钟都 production 的人。今天可以做完一件事，也可以只做半件事，剩下的时间不是浪费，是底盘在回血。\n\n进度感不是进展，可能性不是作品——但休息也不等于放弃。有时候不动，比硬撑更诚实。\n\n---\n\n**放松/理解自己的一小步**\n\n今天不需要做什么来\"证明\"这周没白过。\n\n如果晚上有一段不陪娃的窗口，哪怕只有 20 分钟，去做一件完全不需要意义的事：散步、听歌、发呆、买一瓶便利店不想喝的气泡水。**训练系统不恐慌**，这本身就是一种进度。\n\n---\n\n**今天别做什么**\n\n别把\"下周要做什么\"当成今天必须想清楚的事。周末是属于缓冲的，不是属于提前透支的。",
+          "redaction_count": 4,
+          "summary_original": "🐾 **Friday, June 19 · 每日轻提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 收尾**：v0.8 改写已完成，████ 还未审阅教材与图片气质。今天若有一点时间，可以轻轻看一下那张 `lecture3-v08-gptimage-text-in-prompt-contact-sheet.jpg`——确认图片气质是否符合预期，而不是继续埋头改 PPT。确认后，再从教材拆 slides 才不是白做。\n- **社会publishing队列**：上次（6/7）FIFO 队列已全部闭环。如果今天有新素材，队列文件 `tmp/social-publish-queue.json` 还在，随时可以加进去处理。没有新素材就不用动。\n- **主系统（黑昼侧）**：今天盘中有两段 market window（10:20-10:35 / 14:35-14:50），A/H 监控照旧跑。若有触发事件，radar 会写快照，不需要 ████ 盯盘。\n\n---\n\n**靠近的 deadline / 提前量**\n\n我没看到今天有什么硬截止。任务总档最后更新是 4月初，████课程的下一步（████ 审阅）没有写死日期，社媒队列 6/7 已清空。\n\n---\n\n**秘书提醒**\n\n- ████课程下一步动作是 ████ 亲自看一眼 v0.8 教材——这件事只能他做，黑昼做不了。找一段不累的时间打开看一眼就行，不用一口气审完全部。\n- 若今天有████/多智能体相关素材要处理，记到 `knowledge/人生系统/entries/` 或直接丢进队列，不要散在聊天里消失。\n- 市场如果有异常波动，radar 会主动出声；今天不需要主动干预。\n\n---\n\n**心灵按摩**\n\n周五了。\n\n你知道你不是一个需要每分钟都 production 的人。今天可以做完一件事，也可以只做半件事，剩下的时间不是浪费，是底盘在回血。\n\n进度感不是进展，可能性不是作品——但休息也不等于放弃。有时候不动，比硬撑更诚实。\n\n---\n\n**放松/理解自己的一小步**\n\n今天不需要做什么来\"证明\"这周没白过。\n\n如果晚上有一段不陪娃的窗口，哪怕只有 20 分钟，去做一件完全不需要意义的事：散步、听歌、发呆、买一瓶便利店不想喝的气泡水。**训练系统不恐慌**，这本身就是一种进度。\n\n---\n\n**今天别做什么**\n\n别把\"下周要做什么\"当成今天必须想清楚的事。周末是属于缓冲的，不是属于提前透支的。",
           "excerpt_original": "🐾 **Friday, June 19 · 每日轻提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 收尾**：v0.8 改写已完成，████ 还未审阅教材与图片气质。今天若有一点时间，可以轻轻看一下那张 `lecture3-v08-gptimage-text-in-prompt-contact-sheet.jpg`——确认图片气质是否符合预期，而不是继续埋头改 PPT。确认后，再从教材拆 slides 才不是白做。…",
           "original_language": "mixed",
           "disclosure_policy": "authentic_entity_masked_reminder_v2",
@@ -37879,8 +35854,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 7 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "7 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 7 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "7 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -37955,8 +35930,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -38001,9 +35976,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -38562,8 +36536,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -38619,9 +36593,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -38718,21 +36691,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -38773,7 +36738,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-009",
-            "background-013"
+            "background-013",
+            "background-015"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -38788,15 +36754,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-015",
-          "source": "pulses",
-          "source_refs": [
-            "background-015"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-06",
@@ -38887,6 +36844,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-045",
+            "background-047",
             "background-048",
             "background-049"
           ],
@@ -38894,15 +36852,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-047",
-          "source": "pulses",
-          "source_refs": [
-            "background-047"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-050",
@@ -39962,9 +37911,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -39982,9 +37930,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -40097,9 +38044,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -40220,25 +38166,21 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
+          "source": "pulses",
+          "source_refs": [
+            "background-009",
+            "background-010",
+            "background-014",
+            "background-016"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "close"
+        },
+        {
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-011",
@@ -40250,26 +38192,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "climate-05",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "close"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-017",
@@ -40612,9 +38534,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -40708,9 +38629,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -40755,9 +38675,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -40889,9 +38808,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -41100,9 +39018,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -41261,9 +39178,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -41319,9 +39235,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -41449,7 +39364,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-006",
-            "background-011"
+            "background-011",
+            "background-040"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -41457,33 +39373,18 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-007",
-          "source": "pulses",
-          "source_refs": [
-            "background-007"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-010"
+            "background-007",
+            "background-010",
+            "background-012",
+            "background-014"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-013",
@@ -41495,15 +39396,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-014",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
@@ -41511,6 +39403,7 @@ const timetableDataSource = {
             "background-016",
             "background-017",
             "background-019",
+            "background-021",
             "background-023",
             "background-024",
             "background-027"
@@ -41546,15 +39439,6 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-021",
-          "source": "pulses",
-          "source_refs": [
-            "background-021"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "event-assigned-003",
           "source": "tasks",
           "source_refs": [
@@ -41577,6 +39461,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-031",
+            "background-032",
             "background-033",
             "background-034",
             "background-041"
@@ -41585,15 +39470,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-032",
-          "source": "pulses",
-          "source_refs": [
-            "background-032"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-004",
@@ -41628,19 +39504,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-040",
-          "source": "pulses",
-          "source_refs": [
-            "background-040"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
             "background-042",
+            "background-043",
             "background-044",
             "background-045"
           ],
@@ -41648,15 +39516,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-043",
-          "source": "pulses",
-          "source_refs": [
-            "background-043"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-046",
@@ -41890,8 +39749,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -42697,9 +40556,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -42717,9 +40575,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -42832,9 +40689,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -42968,7 +40824,10 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-009",
-            "background-016"
+            "background-011",
+            "background-012",
+            "background-016",
+            "background-018"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -42985,24 +40844,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
@@ -43015,15 +40856,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-018",
-          "source": "pulses",
-          "source_refs": [
-            "background-018"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-019",
@@ -43334,9 +41166,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -43381,9 +41212,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -43515,9 +41345,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -43801,9 +41630,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -44001,9 +41829,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -44059,9 +41886,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -44179,7 +42005,8 @@ const timetableDataSource = {
           "source_refs": [
             "background-005",
             "background-009",
-            "background-043"
+            "background-043",
+            "background-045"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -44192,21 +42019,14 @@ const timetableDataSource = {
           "source_refs": [
             "background-006",
             "background-008",
-            "background-010"
+            "background-010",
+            "background-011",
+            "background-013"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-012",
@@ -44218,15 +42038,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-013",
-          "source": "pulses",
-          "source_refs": [
-            "background-013"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
@@ -44234,6 +42045,7 @@ const timetableDataSource = {
             "background-015",
             "background-016",
             "background-018",
+            "background-020",
             "background-022",
             "background-023",
             "background-025",
@@ -44264,20 +42076,12 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-020",
-          "source": "pulses",
-          "source_refs": [
-            "background-020"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-030",
             "background-034",
+            "background-035",
             "background-036",
             "background-037",
             "background-044",
@@ -44287,15 +42091,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-035",
-          "source": "pulses",
-          "source_refs": [
-            "background-035"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-038",
@@ -44329,19 +42124,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-045",
-          "source": "pulses",
-          "source_refs": [
-            "background-045"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
             "background-047",
+            "background-048",
             "background-049",
             "background-050"
           ],
@@ -44349,15 +42136,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-048",
-          "source": "pulses",
-          "source_refs": [
-            "background-048"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-051",
@@ -44631,9 +42409,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：具身智能、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: embodied AI, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：具身智能、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: embodied AI, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -44689,8 +42466,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -44735,9 +42512,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -44926,9 +42702,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -45193,9 +42968,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -45373,9 +43147,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -45393,8 +43166,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -45450,9 +43223,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -45601,19 +43373,12 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
-            "background-012"
+            "background-009",
+            "background-012",
+            "background-014"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -45630,15 +43395,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-014",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
@@ -45647,6 +43403,7 @@ const timetableDataSource = {
             "background-018",
             "background-020",
             "background-021",
+            "background-024",
             "background-026",
             "background-027",
             "background-029",
@@ -45677,37 +43434,21 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-024",
-          "source": "pulses",
-          "source_refs": [
-            "background-024"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
             "background-033",
             "background-037",
+            "background-038",
             "background-039",
             "background-040",
+            "background-047",
             "background-049"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-038",
-          "source": "pulses",
-          "source_refs": [
-            "background-038"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-041",
@@ -45733,19 +43474,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-047",
-          "source": "pulses",
-          "source_refs": [
-            "background-047"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-10",
           "source": "pulses",
           "source_refs": [
             "background-050",
+            "background-051",
             "background-052",
             "background-053"
           ],
@@ -45753,15 +43486,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-051",
-          "source": "pulses",
-          "source_refs": [
-            "background-051"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-054",
@@ -45931,9 +43655,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46016,9 +43739,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46093,9 +43815,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46273,8 +43994,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46539,9 +44260,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46739,8 +44459,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46796,8 +44516,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46815,9 +44535,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -46913,21 +44632,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -46964,33 +44675,17 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-008",
-          "source": "pulses",
-          "source_refs": [
-            "background-008"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
-            "background-010"
+            "background-008",
+            "background-010",
+            "background-012"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-013",
@@ -47045,6 +44740,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-030",
             "background-034",
+            "background-035",
             "background-036",
             "background-037",
             "background-044",
@@ -47055,15 +44751,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-035",
-          "source": "pulses",
-          "source_refs": [
-            "background-035"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-038",
@@ -47101,6 +44788,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-047",
+            "background-049",
             "background-050",
             "background-051"
           ],
@@ -47108,15 +44796,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-049",
-          "source": "pulses",
-          "source_refs": [
-            "background-049"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-052",
@@ -47297,9 +44976,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -47478,9 +45156,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -47525,9 +45202,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -47678,8 +45354,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -47963,9 +45639,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -48162,8 +45837,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：进攻 / 风险扩张；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: offensive / risk-expansion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -48219,9 +45894,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -48318,21 +45992,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -48372,21 +46038,14 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-010",
-            "background-012"
+            "background-012",
+            "background-014",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-014",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-015",
@@ -48396,15 +46055,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-05",
@@ -48451,6 +46101,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-034",
             "background-038",
+            "background-039",
             "background-040",
             "background-041",
             "background-048",
@@ -48460,15 +46111,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-042",
@@ -48498,6 +46140,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-051",
+            "background-052",
             "background-053",
             "background-054"
           ],
@@ -48505,15 +46148,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-052",
-          "source": "pulses",
-          "source_refs": [
-            "background-052"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-055",
@@ -48880,9 +46514,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -49191,21 +46824,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -49688,9 +47313,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：资源与利率、市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: resources and rates, market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率、市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates, market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -49708,8 +47332,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -49822,9 +47446,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -49945,20 +47568,13 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
+            "background-009",
             "background-010",
-            "background-014"
+            "background-014",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -49978,15 +47594,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-017",
@@ -50242,9 +47849,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 10 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "10 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 10 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "10 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -50441,9 +48047,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -50727,9 +48332,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -50926,9 +48530,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -50946,8 +48549,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -50984,9 +48587,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -51121,13 +48723,15 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-008",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-008"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-011",
@@ -51139,13 +48743,14 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-03",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-012",
             "background-013",
             "background-014",
             "background-016",
+            "background-018",
             "background-020",
             "background-021",
             "background-023",
@@ -51158,7 +48763,7 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "climate-04",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-017",
@@ -51176,38 +48781,22 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-018",
-          "source": "pulses",
-          "source_refs": [
-            "background-018"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-028",
             "background-032",
+            "background-033",
             "background-034",
             "background-035",
             "background-036",
+            "background-043",
             "background-045"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-033",
-          "source": "pulses",
-          "source_refs": [
-            "background-033"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-037",
@@ -51219,7 +48808,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-06",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-038",
@@ -51233,27 +48822,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-043",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-043"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-046",
-          "source": "pulses",
-          "source_refs": [
-            "background-046"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-07",
-          "source": "pulses",
-          "source_refs": [
+            "background-046",
             "background-047",
             "background-048"
           ],
@@ -51430,9 +49002,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -51535,9 +49106,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 10 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "10 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 10 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "10 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -51626,25 +49196,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-014",
-          "category": "us_market_scan",
-          "start": "09:40",
-          "end": "09:42",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "09:44",
           "end": "09:46",
@@ -51663,7 +49214,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "09:52",
           "end": "10:02",
@@ -51682,7 +49233,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "background_routine",
           "start": "10:01",
           "end": "10:03",
@@ -51701,7 +49252,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "10:52",
           "end": "11:03",
@@ -51720,7 +49271,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-018",
           "category": "background_routine",
           "start": "11:01",
           "end": "11:03",
@@ -51739,7 +49290,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-019",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:15",
@@ -51753,13 +49304,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-020",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -51778,26 +49328,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
-          "category": "us_market_scan",
-          "start": "12:40",
-          "end": "12:42",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -51816,7 +49347,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "13:32",
           "end": "13:34",
@@ -51835,7 +49366,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-023",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -51854,7 +49385,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:17",
@@ -51873,7 +49404,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "14:18",
           "end": "14:26",
@@ -51892,7 +49423,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:33",
@@ -51911,7 +49442,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-027",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:33",
@@ -51930,7 +49461,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "14:33",
           "end": "14:35",
@@ -51949,26 +49480,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
-          "category": "us_market_scan",
-          "start": "14:40",
-          "end": "14:42",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-029",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -51987,7 +49499,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-030",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -52006,7 +49518,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-031",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -52025,7 +49537,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-032",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -52044,7 +49556,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-033",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -52063,7 +49575,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:43",
@@ -52082,7 +49594,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -52101,7 +49613,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "16:20",
           "end": "16:24",
@@ -52120,7 +49632,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -52139,7 +49651,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-038",
           "category": "daily_reminder",
           "start": "17:30",
           "end": "17:34",
@@ -52166,7 +49678,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-039",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -52185,7 +49697,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-040",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -52204,7 +49716,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-041",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -52223,7 +49735,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-042",
           "category": "background_routine",
           "start": "21:05",
           "end": "21:07",
@@ -52242,7 +49754,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-043",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:07",
@@ -52261,7 +49773,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-044",
           "category": "ah_market_scan",
           "start": "21:06",
           "end": "21:18",
@@ -52280,7 +49792,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-045",
           "category": "us_market_scan",
           "start": "21:17",
           "end": "21:46",
@@ -52294,13 +49806,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-046",
           "category": "ah_market_scan",
           "start": "21:46",
           "end": "21:48",
@@ -52319,7 +49830,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-047",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -52338,7 +49849,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:14",
@@ -52352,13 +49863,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-049",
           "category": "us_market_scan",
           "start": "22:26",
           "end": "22:28",
@@ -52377,7 +49887,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "22:31",
           "end": "22:33",
@@ -52396,7 +49906,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-054",
+          "footprint_id": "background-051",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -52439,7 +49949,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-010",
-            "background-017"
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52450,21 +49960,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -52491,10 +49993,8 @@ const timetableDataSource = {
             "background-007",
             "background-008",
             "background-011",
-            "background-014",
-            "background-022",
-            "background-031",
-            "background-046"
+            "background-043",
+            "background-045"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52502,13 +50002,15 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-009",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-009"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-012",
@@ -52520,18 +50022,19 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-04",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-013",
+            "background-014",
             "background-015",
-            "background-016",
-            "background-018",
-            "background-023",
+            "background-017",
+            "background-019",
+            "background-021",
+            "background-022",
             "background-024",
-            "background-026",
-            "background-027",
-            "background-030"
+            "background-025",
+            "background-028"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52539,17 +50042,17 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
-            "background-019",
-            "background-021",
-            "background-025",
-            "background-028",
-            "background-029",
-            "background-033",
-            "background-034",
-            "background-035"
+            "background-018",
+            "background-020",
+            "background-023",
+            "background-026",
+            "background-027",
+            "background-030",
+            "background-031",
+            "background-032"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52557,26 +50060,17 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-020",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
-            "background-020"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-06",
-          "source": "pulses",
-          "source_refs": [
-            "background-032",
+            "background-029",
+            "background-033",
+            "background-034",
+            "background-035",
             "background-036",
             "background-037",
-            "background-038",
-            "background-039",
-            "background-040",
-            "background-047",
-            "background-049"
+            "background-044",
+            "background-046"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52584,22 +50078,22 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-041",
+          "reading_id": "event-background-038",
           "source": "pulses",
           "source_refs": [
-            "background-041"
+            "background-038"
           ],
           "layer": "event",
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-07",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-042",
-            "background-043",
-            "background-044",
-            "background-045"
+            "background-039",
+            "background-040",
+            "background-041",
+            "background-042"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52607,21 +50101,13 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-048",
+          "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
-            "background-048"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-08",
-          "source": "pulses",
-          "source_refs": [
-            "background-050",
-            "background-052",
-            "background-053"
+            "background-047",
+            "background-048",
+            "background-049",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -52633,15 +50119,6 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-051"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-054",
-          "source": "pulses",
-          "source_refs": [
-            "background-054"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -52816,9 +50293,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -52901,9 +50377,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -52959,9 +50434,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -53139,8 +50613,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -53443,8 +50917,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -53672,9 +51146,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -53725,21 +51198,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -53778,22 +51243,16 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-009",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
+            "background-009",
             "background-012"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-013",
@@ -53805,7 +51264,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-014",
@@ -53824,7 +51283,7 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "climate-06",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-020",
@@ -53842,7 +51301,7 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "climate-07",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
             "background-032",
@@ -53870,7 +51329,7 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "climate-08",
+          "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
             "background-042",
@@ -53883,24 +51342,16 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "climate-09",
+          "reading_id": "climate-10",
           "source": "pulses",
           "source_refs": [
-            "background-047"
+            "background-047",
+            "background-049"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-049",
-          "source": "pulses",
-          "source_refs": [
-            "background-049"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         }
       ],
       "relations": [
@@ -54181,9 +51632,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -54266,9 +51716,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 12 次扫描；状态：进攻 / 风险扩张；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "12 scan(s) completed; regime: offensive / risk-expansion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 12 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "12 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -54427,9 +51876,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -54485,8 +51933,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：进攻 / 风险扩张；公开主题：资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: offensive / risk-expansion; public themes: resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -54789,9 +52237,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -55083,9 +52530,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -55190,21 +52636,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -55253,13 +52691,15 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-009",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-009"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-012",
@@ -55271,11 +52711,12 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-014",
             "background-015",
+            "background-017",
             "background-018",
             "background-020",
             "background-023",
@@ -55298,16 +52739,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-06",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-019",
@@ -55334,11 +52766,12 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-07",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
             "background-031",
             "background-035",
+            "background-036",
             "background-037",
             "background-038",
             "background-039",
@@ -55352,15 +52785,6 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-036",
-          "source": "pulses",
-          "source_refs": [
-            "background-036"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "event-background-041",
           "source": "pulses",
           "source_refs": [
@@ -55370,7 +52794,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-08",
+          "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
             "background-042",
@@ -55384,10 +52808,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "climate-09",
+          "reading_id": "climate-10",
           "source": "pulses",
           "source_refs": [
             "background-050",
+            "background-051",
             "background-052",
             "background-053"
           ],
@@ -55395,15 +52820,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-051",
-          "source": "pulses",
-          "source_refs": [
-            "background-051"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-054",
@@ -55637,9 +53053,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -55929,21 +53344,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -56469,9 +53876,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -56489,9 +53895,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -56604,9 +54009,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -56744,25 +54148,21 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-03",
+          "source": "pulses",
+          "source_refs": [
+            "background-010",
+            "background-011",
+            "background-015",
+            "background-017"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "close"
+        },
+        {
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-012",
@@ -56774,26 +54174,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "climate-04",
-          "source": "pulses",
-          "source_refs": [
-            "background-015"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "close"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-018",
@@ -57142,8 +54522,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -57340,8 +54720,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -57664,9 +55044,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -57882,8 +55261,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -57939,9 +55318,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -58146,6 +55524,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-033",
             "background-037",
+            "background-038",
             "background-039",
             "background-040",
             "background-041",
@@ -58156,15 +55535,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-038",
-          "source": "pulses",
-          "source_refs": [
-            "background-038"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-001",
@@ -58203,6 +55573,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-051",
+            "background-052",
             "background-053",
             "background-054"
           ],
@@ -58210,15 +55581,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-052",
-          "source": "pulses",
-          "source_refs": [
-            "background-052"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-055",
@@ -58407,9 +55769,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -58606,9 +55967,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -58653,9 +56013,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -58787,9 +56146,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、具身智能；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, embodied AI; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、具身智能；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, embodied AI; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -59093,9 +56451,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -59292,8 +56649,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：市场状态与波动；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: market regime and volatility; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -59311,9 +56668,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 7 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "7 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 7 次扫描；状态：未形成公开级别状态结论；公开主题：资源与利率；未保留公开级别链路提示。",
+          "summary_en": "7 scan(s) completed; regime: no public-level regime conclusion; public themes: resources and rates; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -59430,21 +56786,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -59488,21 +56836,13 @@ const timetableDataSource = {
           "source_refs": [
             "background-009",
             "background-012",
-            "background-014"
+            "background-014",
+            "background-015"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-015",
-          "source": "pulses",
-          "source_refs": [
-            "background-015"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-016",
@@ -59514,21 +56854,14 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
+            "background-017",
             "background-019",
             "background-020",
             "background-022",
+            "background-024",
             "background-027",
             "background-028",
             "background-030",
@@ -59557,15 +56890,6 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-024",
-          "source": "pulses",
-          "source_refs": [
-            "background-024"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "event-background-029",
           "source": "pulses",
           "source_refs": [
@@ -59580,6 +56904,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-035",
             "background-039",
+            "background-040",
             "background-041",
             "background-042",
             "background-043",
@@ -59590,15 +56915,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-040",
-          "source": "pulses",
-          "source_refs": [
-            "background-040"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-044",
@@ -59624,18 +56940,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-051",
-          "source": "pulses",
-          "source_refs": [
-            "background-051"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-10",
           "source": "pulses",
           "source_refs": [
+            "background-051",
             "background-053",
             "background-054"
           ],
@@ -59812,9 +57120,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -59898,9 +57205,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 10 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "10 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 10 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "10 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -60116,8 +57422,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -60637,9 +57943,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -60714,9 +58019,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -60812,21 +58116,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -60855,7 +58151,8 @@ const timetableDataSource = {
             "background-013",
             "background-021",
             "background-029",
-            "background-044"
+            "background-044",
+            "background-046"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -60863,13 +58160,15 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-008",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-008"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-011",
@@ -60881,7 +58180,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-04",
+          "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-012",
@@ -60900,7 +58199,7 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "climate-05",
+          "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-018",
@@ -60918,7 +58217,7 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "climate-06",
+          "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
             "background-030",
@@ -60946,7 +58245,7 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "climate-07",
+          "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
             "background-040",
@@ -60960,19 +58259,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-046",
-          "source": "pulses",
-          "source_refs": [
-            "background-046"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-08",
+          "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
             "background-048",
+            "background-050",
             "background-051",
             "background-052"
           ],
@@ -60980,15 +58271,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-050",
-          "source": "pulses",
-          "source_refs": [
-            "background-050"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-053",
@@ -61215,9 +58497,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -61320,9 +58601,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 9 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "9 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 9 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "9 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -61405,8 +58685,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -61557,8 +58837,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -61881,9 +59161,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -62157,9 +59436,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -62256,21 +59534,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -62318,13 +59588,16 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-010",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-010"
+            "background-010",
+            "background-014"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "premarket"
         },
         {
           "reading_id": "event-background-013",
@@ -62334,17 +59607,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "climate-04",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "premarket"
         },
         {
           "reading_id": "climate-05",
@@ -62398,6 +59660,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-034",
             "background-038",
+            "background-039",
             "background-040",
             "background-041",
             "background-042",
@@ -62408,15 +59671,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-043",
@@ -62454,6 +59708,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-052",
+            "background-053",
             "background-054",
             "background-055"
           ],
@@ -62461,15 +59716,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-053",
-          "source": "pulses",
-          "source_refs": [
-            "background-053"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-056",
@@ -62639,9 +59885,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -63094,8 +60339,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -63399,8 +60644,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、市场状态与波动；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, market regime and volatility; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -63673,9 +60918,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -63772,21 +61016,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -63941,6 +61177,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-056",
+            "background-057",
             "background-058",
             "background-059"
           ],
@@ -63948,15 +61185,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-057",
-          "source": "pulses",
-          "source_refs": [
-            "background-057"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-060",
@@ -64183,9 +61411,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -64476,21 +61703,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -64945,9 +62164,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -64965,9 +62183,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -65080,9 +62297,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -65196,7 +62412,10 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-008",
-            "background-015"
+            "background-010",
+            "background-011",
+            "background-015",
+            "background-017"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -65213,24 +62432,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
@@ -65243,15 +62444,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-018",
@@ -66131,9 +63323,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -66406,9 +63597,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -66613,6 +63803,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-035",
             "background-039",
+            "background-040",
             "background-041",
             "background-042",
             "background-043",
@@ -66623,15 +63814,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-040",
-          "source": "pulses",
-          "source_refs": [
-            "background-040"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-044",
@@ -66668,18 +63850,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-054",
-          "source": "pulses",
-          "source_refs": [
-            "background-054"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
+            "background-054",
             "background-055",
             "background-056"
           ],
@@ -66902,9 +64076,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -66987,9 +64160,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -67281,8 +64453,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -67586,9 +64758,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -67804,9 +64975,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -67862,9 +65032,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -67960,21 +65129,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -68014,7 +65175,8 @@ const timetableDataSource = {
             "background-016",
             "background-025",
             "background-033",
-            "background-048"
+            "background-048",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -68022,18 +65184,10 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-008",
-          "source": "pulses",
-          "source_refs": [
-            "background-008"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-008",
             "background-010",
             "background-012",
             "background-014"
@@ -68095,6 +65249,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-034",
             "background-038",
+            "background-039",
             "background-040",
             "background-041",
             "background-042",
@@ -68111,15 +65266,6 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-035"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -68148,19 +65294,11 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-050",
-          "source": "pulses",
-          "source_refs": [
-            "background-050"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-10",
           "source": "pulses",
           "source_refs": [
             "background-052",
+            "background-053",
             "background-054",
             "background-055"
           ],
@@ -68168,15 +65306,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-053",
-          "source": "pulses",
-          "source_refs": [
-            "background-053"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-056",
@@ -68373,9 +65502,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -69017,9 +66145,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -69312,9 +66439,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -69411,21 +66537,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -69529,6 +66647,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-033",
             "background-037",
+            "background-038",
             "background-039",
             "background-040",
             "background-041",
@@ -69540,15 +66659,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-038",
-          "source": "pulses",
-          "source_refs": [
-            "background-038"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-042",
@@ -69586,6 +66696,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-051",
+            "background-053",
             "background-054",
             "background-055"
           ],
@@ -69593,15 +66704,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-053",
-          "source": "pulses",
-          "source_refs": [
-            "background-053"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-056",
@@ -69779,9 +66881,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -70138,8 +67239,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、资源与利率；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, resources and rates; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -70717,9 +67818,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -70816,21 +67916,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-005",
@@ -70982,6 +68074,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-051",
+            "background-052",
             "background-053",
             "background-054"
           ],
@@ -70989,15 +68082,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-052",
-          "source": "pulses",
-          "source_refs": [
-            "background-052"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-055",
@@ -71320,9 +68404,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -71519,9 +68602,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -71672,8 +68754,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -71996,9 +69078,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -72272,9 +69353,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -72371,21 +69451,13 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-004"
+            "background-004",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-006",
@@ -72440,21 +69512,13 @@ const timetableDataSource = {
             "background-009",
             "background-011",
             "background-013",
-            "background-014"
+            "background-014",
+            "background-015"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-015",
-          "source": "pulses",
-          "source_refs": [
-            "background-015"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-06",
@@ -72526,6 +69590,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-035",
             "background-039",
+            "background-040",
             "background-041",
             "background-042",
             "background-043",
@@ -72536,15 +69601,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-040",
-          "source": "pulses",
-          "source_refs": [
-            "background-040"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-004",
@@ -72591,6 +69647,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-053",
+            "background-054",
             "background-055",
             "background-056"
           ],
@@ -72598,15 +69655,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-054",
-          "source": "pulses",
-          "source_refs": [
-            "background-054"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-057",
@@ -72848,8 +69896,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -72987,25 +70035,6 @@ const timetableDataSource = {
           "origin": "background",
           "footprint_id": "background-011",
           "category": "system_routine",
-          "start": "19:28",
-          "end": "19:30",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-012",
-          "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
           "duration_minutes": 2,
@@ -73023,7 +70052,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -73042,7 +70071,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -73061,7 +70090,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "21:00",
           "end": "21:02",
@@ -73080,7 +70109,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "background_routine",
           "start": "21:04",
           "end": "21:06",
@@ -73099,26 +70128,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
-          "category": "system_routine",
-          "start": "21:29",
-          "end": "21:31",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-016",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -73142,25 +70152,6 @@ const timetableDataSource = {
           "disclosure_policy": "authentic_entity_masked_reminder_v2",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "source_wording_entity_masked"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-019",
-          "category": "system_routine",
-          "start": "23:30",
-          "end": "23:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
         }
       ],
       "reading_items": [
@@ -73258,7 +70249,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-009",
-            "background-015"
+            "background-014"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -73281,10 +70272,7 @@ const timetableDataSource = {
             "background-011",
             "background-012",
             "background-013",
-            "background-014",
-            "background-016",
-            "background-017",
-            "background-019"
+            "background-015"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -73292,10 +70280,10 @@ const timetableDataSource = {
           "window": "evening"
         },
         {
-          "reading_id": "event-background-018",
+          "reading_id": "event-background-016",
           "source": "pulses",
           "source_refs": [
-            "background-018"
+            "background-016"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -73487,44 +70475,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "system_routine",
-          "start": "01:31",
-          "end": "01:33",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "overnight",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-002",
-          "category": "system_routine",
-          "start": "03:32",
-          "end": "03:34",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "overnight",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-003",
           "category": "background_routine",
           "start": "05:00",
           "end": "05:17",
@@ -73543,26 +70493,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-004",
+          "footprint_id": "background-002",
           "category": "system_routine",
           "start": "05:39",
-          "end": "05:42",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
+          "end": "05:41",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "dawn",
-          "count": 2,
-          "time_provenance": "mixed_observed_and_receipt",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "Service health & freshness check",
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-005",
+          "footprint_id": "background-003",
           "category": "system_routine",
           "start": "06:00",
           "end": "06:04",
@@ -73581,7 +70531,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
+          "footprint_id": "background-004",
           "category": "daily_reminder",
           "start": "07:30",
           "end": "07:34",
@@ -73608,26 +70558,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
-          "category": "system_routine",
-          "start": "07:41",
-          "end": "07:43",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-005",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "08:44",
@@ -73647,64 +70578,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
-          "category": "system_routine",
-          "start": "09:42",
-          "end": "09:44",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-010",
-          "category": "system_routine",
-          "start": "11:43",
-          "end": "11:45",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-006",
           "category": "system_routine",
           "start": "13:40",
-          "end": "13:53",
-          "duration_minutes": 13,
-          "execution_minutes": 12,
+          "end": "13:51",
+          "duration_minutes": 11,
+          "execution_minutes": 11,
           "time_bucket": "midday",
-          "count": 2,
+          "count": 1,
           "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "Service health & freshness check",
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-007",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:32",
@@ -73723,26 +70616,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
-          "category": "system_routine",
-          "start": "15:53",
-          "end": "15:55",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-008",
           "category": "daily_reminder",
           "start": "17:36",
           "end": "17:44",
@@ -73769,7 +70643,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-009",
           "category": "system_routine",
           "start": "17:55",
           "end": "17:57",
@@ -73788,7 +70662,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "19:30",
           "end": "19:34",
@@ -73802,13 +70676,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-011",
           "category": "system_routine",
           "start": "19:56",
           "end": "19:58",
@@ -73827,7 +70700,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-012",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -73846,7 +70719,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "20:01",
           "end": "20:06",
@@ -73860,13 +70733,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-014",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -73885,7 +70757,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-015",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -73904,7 +70776,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
           "start": "21:00",
           "end": "21:04",
@@ -73923,7 +70795,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-017",
           "category": "background_routine",
           "start": "21:04",
           "end": "21:06",
@@ -73942,7 +70814,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-018",
           "category": "ah_market_scan",
           "start": "21:30",
           "end": "21:36",
@@ -73956,13 +70828,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：均衡 / 中性；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: balanced / neutral; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-019",
           "category": "system_routine",
           "start": "21:56",
           "end": "21:58",
@@ -73981,7 +70852,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-020",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -74008,7 +70879,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-021",
           "category": "system_routine",
           "start": "23:57",
           "end": "23:59",
@@ -74028,23 +70899,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "climate-01",
-          "source": "pulses",
-          "source_refs": [
-            "background-001",
-            "background-002",
-            "background-003",
-            "background-004",
-            "background-005",
-            "background-007",
-            "background-009"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "early"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -74054,10 +70908,23 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-background-006",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
-            "background-006"
+            "background-001",
+            "background-002",
+            "background-003"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
+        },
+        {
+          "reading_id": "event-background-004",
+          "source": "pulses",
+          "source_refs": [
+            "background-004"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -74072,10 +70939,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-008",
+          "reading_id": "event-background-005",
           "source": "pulses",
           "source_refs": [
-            "background-008"
+            "background-005"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -74093,11 +70960,9 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-010",
-            "background-011",
-            "background-012",
-            "background-013",
-            "background-015"
+            "background-006",
+            "background-007",
+            "background-009"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -74114,54 +70979,22 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-014",
+          "reading_id": "event-background-008",
           "source": "pulses",
           "source_refs": [
-            "background-014"
+            "background-008"
           ],
           "layer": "event",
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-017",
-            "background-018",
-            "background-020",
-            "background-021",
-            "background-023",
-            "background-025",
-            "background-027"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "evening"
-        },
-        {
-          "reading_id": "event-background-019",
-          "source": "pulses",
-          "source_refs": [
-            "background-019"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "climate-04",
-          "source": "pulses",
-          "source_refs": [
-            "background-022"
+            "background-010",
+            "background-013",
+            "background-016",
+            "background-018"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -74169,19 +71002,27 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-024",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-024"
+            "background-011",
+            "background-012",
+            "background-014",
+            "background-015",
+            "background-017",
+            "background-019",
+            "background-021"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "evening"
         },
         {
-          "reading_id": "event-background-026",
+          "reading_id": "event-background-020",
           "source": "pulses",
           "source_refs": [
-            "background-026"
+            "background-020"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -74734,9 +71575,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -75059,9 +71899,8 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -75257,13 +72096,13 @@ const timetableDataSource = {
           "origin": "background",
           "footprint_id": "background-044",
           "category": "ah_market_scan",
-          "start": "15:37",
-          "end": "15:39",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
+          "start": "15:41",
+          "end": "16:22",
+          "duration_minutes": 41,
+          "execution_minutes": 41,
           "time_bucket": "afternoon",
           "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
+          "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
@@ -75275,26 +72114,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-045",
-          "category": "ah_market_scan",
-          "start": "15:41",
-          "end": "16:29",
-          "duration_minutes": 48,
-          "execution_minutes": 44,
-          "time_bucket": "afternoon",
-          "count": 4,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-046",
           "category": "system_routine",
           "start": "16:25",
           "end": "16:27",
@@ -75310,6 +72129,25 @@ const timetableDataSource = {
           "redaction_policy": "not_applicable",
           "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
           "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-046",
+          "category": "ah_market_scan",
+          "start": "16:26",
+          "end": "16:29",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -75582,9 +72420,8 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
@@ -75751,21 +72588,13 @@ const timetableDataSource = {
             "background-009",
             "background-012",
             "background-014",
-            "background-015"
+            "background-015",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "premarket"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-04",
@@ -75778,6 +72607,7 @@ const timetableDataSource = {
             "background-026",
             "background-029",
             "background-030",
+            "background-033",
             "background-034",
             "background-037"
           ],
@@ -75808,7 +72638,7 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-042",
-            "background-046"
+            "background-045"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -75834,21 +72664,13 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-033",
-          "source": "pulses",
-          "source_refs": [
-            "background-033"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-039",
             "background-043",
             "background-044",
+            "background-046",
             "background-047",
             "background-056",
             "background-058"
@@ -75857,15 +72679,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-045",
-          "source": "pulses",
-          "source_refs": [
-            "background-045"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-004",
@@ -75916,6 +72729,7 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-059",
+            "background-060",
             "background-062",
             "background-063"
           ],
@@ -75923,15 +72737,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "intraday"
-        },
-        {
-          "reading_id": "event-background-060",
-          "source": "pulses",
-          "source_refs": [
-            "background-060"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-064",
@@ -76278,25 +73083,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "us_market_scan",
-          "start": "05:44",
-          "end": "05:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "dawn",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
           "category": "system_routine",
           "start": "06:00",
           "end": "06:03",
@@ -76315,7 +73101,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "system_routine",
           "start": "06:29",
           "end": "06:31",
@@ -76334,7 +73120,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "us_market_scan",
           "start": "06:46",
           "end": "06:48",
@@ -76353,7 +73139,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "us_market_scan",
           "start": "07:20",
           "end": "07:29",
@@ -76367,13 +73153,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "daily_reminder",
           "start": "07:30",
           "end": "07:33",
@@ -76400,7 +73185,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "08:45",
@@ -76420,7 +73205,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "us_market_scan",
           "start": "08:43",
           "end": "08:46",
@@ -76439,7 +73224,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "system_routine",
           "start": "08:44",
           "end": "08:46",
@@ -76458,7 +73243,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "08:45",
           "end": "08:55",
@@ -76477,7 +73262,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "background_routine",
           "start": "08:53",
           "end": "08:55",
@@ -76496,26 +73281,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
-          "category": "ah_market_scan",
-          "start": "09:00",
-          "end": "09:02",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-016",
           "category": "background_routine",
           "start": "09:00",
           "end": "09:02",
@@ -76534,7 +73300,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "09:05",
           "end": "09:07",
@@ -76553,7 +73319,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-018",
           "category": "us_market_scan",
           "start": "09:06",
           "end": "09:08",
@@ -76572,7 +73338,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-019",
           "category": "ah_market_scan",
           "start": "09:08",
           "end": "09:12",
@@ -76591,27 +73357,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "09:15",
-          "end": "09:32",
-          "duration_minutes": 17,
-          "execution_minutes": 15,
+          "end": "09:30",
+          "duration_minutes": 15,
+          "execution_minutes": 13,
           "time_bucket": "morning",
-          "count": 4,
-          "time_provenance": "mixed_observed_and_receipt",
+          "count": 2,
+          "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -76630,7 +73395,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-022",
           "category": "us_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -76649,26 +73414,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "09:44",
-          "end": "09:47",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
+          "end": "09:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 2,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "09:52",
           "end": "10:00",
@@ -76687,26 +73452,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "10:01",
-          "end": "10:04",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
+          "end": "10:03",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 2,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "10:02",
           "end": "10:04",
@@ -76725,64 +73490,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
-          "category": "ah_market_scan",
-          "start": "10:15",
-          "end": "10:17",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-030",
-          "category": "ah_market_scan",
-          "start": "10:29",
-          "end": "10:32",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
-          "time_bucket": "morning",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-031",
-          "category": "ah_market_scan",
-          "start": "10:39",
-          "end": "10:41",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-027",
           "category": "system_routine",
           "start": "10:44",
           "end": "10:46",
@@ -76801,45 +73509,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
-          "start": "10:45",
-          "end": "10:47",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
+          "start": "10:52",
+          "end": "11:00",
+          "duration_minutes": 8,
+          "execution_minutes": 6,
           "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
+          "count": 5,
+          "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
-          "category": "ah_market_scan",
-          "start": "10:49",
-          "end": "11:02",
-          "duration_minutes": 13,
-          "execution_minutes": 9,
-          "time_bucket": "morning",
-          "count": 8,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "8 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-029",
           "category": "background_routine",
           "start": "10:59",
           "end": "11:01",
@@ -76858,7 +73547,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-030",
           "category": "ah_market_scan",
           "start": "11:04",
           "end": "11:06",
@@ -76877,140 +73566,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
-          "category": "ah_market_scan",
-          "start": "11:09",
-          "end": "11:11",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-038",
-          "category": "ah_market_scan",
-          "start": "11:15",
-          "end": "11:17",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-039",
-          "category": "ah_market_scan",
-          "start": "11:19",
-          "end": "11:21",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-040",
-          "category": "ah_market_scan",
-          "start": "11:30",
-          "end": "11:34",
-          "duration_minutes": 4,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-041",
-          "category": "ah_market_scan",
-          "start": "11:40",
-          "end": "11:42",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-042",
-          "category": "ah_market_scan",
-          "start": "11:45",
-          "end": "11:47",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-043",
-          "category": "ah_market_scan",
-          "start": "11:50",
-          "end": "11:51",
-          "duration_minutes": 1,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-031",
           "category": "ah_market_scan",
           "start": "12:11",
           "end": "12:13",
@@ -77024,13 +73580,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-032",
           "category": "background_routine",
           "start": "12:20",
           "end": "12:22",
@@ -77049,45 +73604,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
-          "category": "ah_market_scan",
-          "start": "12:29",
-          "end": "12:32",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-047",
-          "category": "ah_market_scan",
-          "start": "12:40",
-          "end": "12:42",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-033",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -77106,7 +73623,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-034",
           "category": "system_routine",
           "start": "12:44",
           "end": "12:46",
@@ -77125,121 +73642,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
-          "category": "ah_market_scan",
-          "start": "12:45",
-          "end": "12:47",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-051",
-          "category": "ah_market_scan",
-          "start": "12:50",
-          "end": "12:51",
-          "duration_minutes": 1,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-052",
-          "category": "ah_market_scan",
-          "start": "13:00",
-          "end": "13:02",
-          "duration_minutes": 2,
-          "execution_minutes": 4,
-          "time_bucket": "midday",
-          "count": 4,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-053",
-          "category": "ah_market_scan",
-          "start": "13:10",
-          "end": "13:12",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-054",
-          "category": "ah_market_scan",
-          "start": "13:15",
-          "end": "13:17",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-055",
-          "category": "ah_market_scan",
-          "start": "13:20",
-          "end": "13:22",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-056",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
           "start": "13:25",
           "end": "13:27",
@@ -77258,26 +73661,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-057",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "13:32",
-          "end": "13:35",
-          "duration_minutes": 3,
-          "execution_minutes": 5,
+          "end": "13:34",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "midday",
-          "count": 5,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-058",
+          "footprint_id": "background-037",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:43",
@@ -77296,102 +73699,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-059",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
-          "start": "13:41",
-          "end": "13:43",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-060",
-          "category": "ah_market_scan",
-          "start": "13:45",
-          "end": "13:47",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-061",
-          "category": "ah_market_scan",
-          "start": "13:50",
-          "end": "13:52",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "midday",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-062",
-          "category": "ah_market_scan",
-          "start": "13:59",
-          "end": "14:01",
-          "duration_minutes": 2,
-          "execution_minutes": 4,
-          "time_bucket": "midday",
-          "count": 4,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-063",
-          "category": "ah_market_scan",
-          "start": "14:09",
+          "start": "14:12",
           "end": "14:26",
-          "duration_minutes": 17,
-          "execution_minutes": 14,
+          "duration_minutes": 14,
+          "execution_minutes": 8,
           "time_bucket": "afternoon",
-          "count": 13,
+          "count": 7,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 13 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "13 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 7 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "7 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-064",
+          "footprint_id": "background-039",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:34",
@@ -77410,7 +73737,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-065",
+          "footprint_id": "background-040",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:33",
@@ -77429,45 +73756,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-066",
+          "footprint_id": "background-041",
           "category": "ah_market_scan",
-          "start": "14:32",
+          "start": "14:34",
           "end": "14:36",
-          "duration_minutes": 4,
-          "execution_minutes": 5,
-          "time_bucket": "afternoon",
-          "count": 5,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-067",
-          "category": "ah_market_scan",
-          "start": "14:39",
-          "end": "14:41",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 1,
           "time_bucket": "afternoon",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-068",
+          "footprint_id": "background-042",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -77486,26 +73794,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-069",
-          "category": "ah_market_scan",
-          "start": "14:44",
-          "end": "14:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "afternoon",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-070",
+          "footprint_id": "background-043",
           "category": "system_routine",
           "start": "14:45",
           "end": "14:47",
@@ -77524,45 +73813,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-071",
-          "category": "ah_market_scan",
-          "start": "14:49",
-          "end": "14:51",
-          "duration_minutes": 2,
-          "execution_minutes": 3,
-          "time_bucket": "afternoon",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-072",
-          "category": "ah_market_scan",
-          "start": "14:59",
-          "end": "15:01",
-          "duration_minutes": 2,
-          "execution_minutes": 3,
-          "time_bucket": "afternoon",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-073",
+          "footprint_id": "background-044",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -77581,26 +73832,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-074",
-          "category": "ah_market_scan",
-          "start": "15:09",
-          "end": "15:11",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-075",
+          "footprint_id": "background-045",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -77619,29 +73851,10 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-076",
+          "footprint_id": "background-046",
           "category": "ah_market_scan",
           "start": "15:14",
           "end": "15:16",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "afternoon",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-077",
-          "category": "ah_market_scan",
-          "start": "15:19",
-          "end": "15:21",
           "duration_minutes": 2,
           "execution_minutes": 1,
           "time_bucket": "afternoon",
@@ -77657,7 +73870,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-078",
+          "footprint_id": "background-047",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -77676,7 +73889,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-079",
+          "footprint_id": "background-048",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -77695,92 +73908,15 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-080",
+          "footprint_id": "background-049",
           "category": "ah_market_scan",
-          "start": "15:29",
+          "start": "15:30",
           "end": "15:32",
-          "duration_minutes": 3,
-          "execution_minutes": 4,
-          "time_bucket": "afternoon",
-          "count": 4,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-081",
-          "category": "ah_market_scan",
-          "start": "15:35",
-          "end": "15:46",
-          "duration_minutes": 11,
-          "execution_minutes": 12,
-          "time_bucket": "afternoon",
-          "count": 4,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-082",
-          "category": "ah_market_scan",
-          "start": "15:49",
-          "end": "15:51",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-083",
-          "category": "ah_market_scan",
-          "start": "15:59",
-          "end": "16:01",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-084",
-          "category": "ah_market_scan",
-          "start": "16:14",
-          "end": "16:16",
           "duration_minutes": 2,
           "execution_minutes": 2,
           "time_bucket": "afternoon",
           "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
+          "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
@@ -77791,7 +73927,45 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-085",
+          "footprint_id": "background-050",
+          "category": "ah_market_scan",
+          "start": "15:35",
+          "end": "15:46",
+          "duration_minutes": 11,
+          "execution_minutes": 10,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-051",
+          "category": "ah_market_scan",
+          "start": "16:14",
+          "end": "16:16",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-052",
           "category": "ah_market_scan",
           "start": "16:20",
           "end": "16:23",
@@ -77810,29 +73984,10 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-086",
+          "footprint_id": "background-053",
           "category": "ah_market_scan",
           "start": "16:29",
           "end": "16:31",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "afternoon",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-087",
-          "category": "ah_market_scan",
-          "start": "16:44",
-          "end": "16:46",
           "duration_minutes": 2,
           "execution_minutes": 1,
           "time_bucket": "afternoon",
@@ -77848,7 +74003,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-088",
+          "footprint_id": "background-054",
           "category": "system_routine",
           "start": "16:45",
           "end": "16:47",
@@ -77867,7 +74022,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-089",
+          "footprint_id": "background-055",
           "category": "daily_reminder",
           "start": "17:31",
           "end": "17:36",
@@ -77894,7 +74049,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-090",
+          "footprint_id": "background-056",
           "category": "system_routine",
           "start": "18:45",
           "end": "18:47",
@@ -77913,7 +74068,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-091",
+          "footprint_id": "background-057",
           "category": "system_routine",
           "start": "20:02",
           "end": "20:04",
@@ -77932,7 +74087,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-092",
+          "footprint_id": "background-058",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -77951,7 +74106,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-093",
+          "footprint_id": "background-059",
           "category": "background_routine",
           "start": "20:45",
           "end": "20:47",
@@ -77970,7 +74125,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-094",
+          "footprint_id": "background-060",
           "category": "system_routine",
           "start": "20:45",
           "end": "20:47",
@@ -77989,26 +74144,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-095",
-          "category": "us_market_scan",
-          "start": "21:00",
-          "end": "21:02",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-096",
+          "footprint_id": "background-061",
           "category": "us_market_scan",
           "start": "21:06",
           "end": "21:08",
@@ -78027,7 +74163,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-097",
+          "footprint_id": "background-062",
           "category": "background_routine",
           "start": "21:07",
           "end": "21:09",
@@ -78046,7 +74182,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-098",
+          "footprint_id": "background-063",
           "category": "ah_market_scan",
           "start": "21:08",
           "end": "21:16",
@@ -78065,26 +74201,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-099",
+          "footprint_id": "background-064",
           "category": "us_market_scan",
           "start": "21:15",
           "end": "21:31",
           "duration_minutes": 16,
-          "execution_minutes": 18,
+          "execution_minutes": 16,
           "time_bucket": "evening",
-          "count": 6,
+          "count": 4,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "U.S. market scan",
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-100",
+          "footprint_id": "background-065",
           "category": "ah_market_scan",
           "start": "21:32",
           "end": "21:34",
@@ -78103,26 +74239,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-101",
-          "category": "us_market_scan",
-          "start": "21:44",
-          "end": "21:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-102",
+          "footprint_id": "background-066",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -78141,15 +74258,15 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-103",
+          "footprint_id": "background-067",
           "category": "us_market_scan",
-          "start": "21:59",
-          "end": "22:01",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
+          "start": "22:10",
+          "end": "22:14",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
           "time_bucket": "evening",
           "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
+          "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "U.S. market scan",
           "label_zh": "美股市场扫描",
@@ -78160,27 +74277,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-104",
-          "category": "us_market_scan",
-          "start": "22:10",
-          "end": "22:16",
-          "duration_minutes": 6,
-          "execution_minutes": 5,
-          "time_bucket": "evening",
-          "count": 4,
-          "time_provenance": "mixed_observed_and_receipt",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-105",
+          "footprint_id": "background-068",
           "category": "us_market_scan",
           "start": "22:28",
           "end": "22:30",
@@ -78199,45 +74296,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-106",
+          "footprint_id": "background-069",
           "category": "us_market_scan",
           "start": "22:32",
           "end": "22:34",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 1,
           "time_bucket": "evening",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "U.S. market scan",
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-107",
-          "category": "us_market_scan",
-          "start": "22:44",
-          "end": "22:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-108",
+          "footprint_id": "background-070",
           "category": "system_routine",
           "start": "22:46",
           "end": "22:48",
@@ -78256,64 +74334,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-109",
-          "category": "us_market_scan",
-          "start": "22:59",
-          "end": "23:01",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-110",
-          "category": "us_market_scan",
-          "start": "23:14",
-          "end": "23:17",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-111",
-          "category": "us_market_scan",
-          "start": "23:29",
-          "end": "23:32",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-112",
+          "footprint_id": "background-071",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -78337,25 +74358,6 @@ const timetableDataSource = {
           "disclosure_policy": "authentic_entity_masked_reminder_v2",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "source_wording_entity_masked"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-113",
-          "category": "us_market_scan",
-          "start": "23:44",
-          "end": "23:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "evening",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         }
       ],
       "reading_items": [
@@ -78368,14 +74370,14 @@ const timetableDataSource = {
             "background-003",
             "background-004",
             "background-005",
+            "background-006",
             "background-007",
-            "background-008",
-            "background-014",
+            "background-013",
+            "background-015",
             "background-016",
-            "background-018",
-            "background-028",
-            "background-032",
-            "background-035"
+            "background-026",
+            "background-027",
+            "background-029"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78395,7 +74397,7 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-006",
+            "background-008",
             "background-009"
           ],
           "layer": "climate",
@@ -78410,15 +74412,6 @@ const timetableDataSource = {
             "background-010"
           ],
           "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
           "classification": "readable_reminder"
         },
         {
@@ -78431,10 +74424,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-012",
+          "reading_id": "event-background-011",
           "source": "pulses",
           "source_refs": [
-            "background-012"
+            "background-011"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -78443,14 +74436,13 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-013",
-            "background-020",
-            "background-024",
-            "background-048",
-            "background-068",
-            "background-095",
-            "background-096",
-            "background-099"
+            "background-012",
+            "background-018",
+            "background-022",
+            "background-033",
+            "background-042",
+            "background-061",
+            "background-064"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78461,10 +74453,10 @@ const timetableDataSource = {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-015",
+            "background-014",
             "background-017",
             "background-019",
-            "background-021"
+            "background-020"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78472,55 +74464,20 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-022",
-          "source": "pulses",
-          "source_refs": [
-            "background-022"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-021",
             "background-023",
+            "background-024",
             "background-025",
-            "background-026",
-            "background-027",
-            "background-029",
+            "background-028",
             "background-030",
             "background-031",
-            "background-033",
-            "background-034",
+            "background-035",
             "background-036",
-            "background-037",
             "background-038",
-            "background-039",
-            "background-040",
-            "background-041",
-            "background-042",
-            "background-043",
-            "background-046",
-            "background-047",
-            "background-050",
-            "background-051",
-            "background-052",
-            "background-053",
-            "background-054",
-            "background-055",
-            "background-056",
-            "background-057",
-            "background-059",
-            "background-060",
-            "background-061",
-            "background-062",
-            "background-063",
-            "background-066",
-            "background-067",
-            "background-069",
-            "background-071",
-            "background-072"
+            "background-041"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78537,28 +74494,19 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-044",
-          "source": "pulses",
-          "source_refs": [
-            "background-044"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
+            "background-032",
+            "background-034",
+            "background-037",
+            "background-039",
+            "background-040",
+            "background-043",
             "background-045",
-            "background-049",
-            "background-058",
-            "background-064",
-            "background-065",
-            "background-070",
-            "background-075",
-            "background-078",
-            "background-079",
-            "background-088"
+            "background-047",
+            "background-048",
+            "background-054"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78578,33 +74526,20 @@ const timetableDataSource = {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
-            "background-073",
-            "background-074",
-            "background-076",
-            "background-077",
-            "background-080",
-            "background-082",
-            "background-083",
-            "background-084",
-            "background-085",
-            "background-086",
-            "background-087",
-            "background-098",
-            "background-100"
+            "background-044",
+            "background-046",
+            "background-049",
+            "background-050",
+            "background-051",
+            "background-052",
+            "background-053",
+            "background-063",
+            "background-065"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "close"
-        },
-        {
-          "reading_id": "event-background-081",
-          "source": "pulses",
-          "source_refs": [
-            "background-081"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-assigned-004",
@@ -78616,10 +74551,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-089",
+          "reading_id": "event-background-055",
           "source": "pulses",
           "source_refs": [
-            "background-089"
+            "background-055"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -78628,13 +74563,13 @@ const timetableDataSource = {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-090",
-            "background-091",
-            "background-092",
-            "background-093",
-            "background-094",
-            "background-097",
-            "background-108"
+            "background-056",
+            "background-057",
+            "background-058",
+            "background-059",
+            "background-060",
+            "background-062",
+            "background-070"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78654,16 +74589,10 @@ const timetableDataSource = {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
-            "background-101",
-            "background-102",
-            "background-103",
-            "background-105",
-            "background-106",
-            "background-107",
-            "background-109",
-            "background-110",
-            "background-111",
-            "background-113"
+            "background-066",
+            "background-067",
+            "background-068",
+            "background-069"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78671,19 +74600,10 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "event-background-104",
+          "reading_id": "event-background-071",
           "source": "pulses",
           "source_refs": [
-            "background-104"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-112",
-          "source": "pulses",
-          "source_refs": [
-            "background-112"
+            "background-071"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -78833,82 +74753,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "us_market_scan",
-          "start": "00:00",
-          "end": "00:02",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-002",
-          "category": "us_market_scan",
-          "start": "00:15",
-          "end": "00:17",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-003",
-          "category": "us_market_scan",
-          "start": "00:29",
-          "end": "00:31",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-004",
-          "category": "us_market_scan",
-          "start": "00:44",
-          "end": "00:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-005",
           "category": "system_routine",
           "start": "00:47",
           "end": "00:49",
@@ -78927,159 +74771,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
-          "category": "us_market_scan",
-          "start": "00:59",
-          "end": "01:01",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
-          "category": "us_market_scan",
-          "start": "01:14",
-          "end": "01:16",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-008",
-          "category": "us_market_scan",
-          "start": "01:29",
-          "end": "01:31",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-009",
-          "category": "us_market_scan",
-          "start": "01:44",
-          "end": "01:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-010",
-          "category": "us_market_scan",
-          "start": "01:59",
-          "end": "02:01",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-011",
-          "category": "us_market_scan",
-          "start": "02:14",
-          "end": "02:16",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-012",
-          "category": "us_market_scan",
-          "start": "02:29",
-          "end": "02:31",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-013",
-          "category": "us_market_scan",
-          "start": "02:44",
-          "end": "02:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-002",
           "category": "system_routine",
           "start": "02:47",
           "end": "02:49",
@@ -79098,140 +74790,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
-          "category": "us_market_scan",
-          "start": "02:59",
-          "end": "03:01",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-016",
-          "category": "us_market_scan",
-          "start": "03:14",
-          "end": "03:16",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-017",
-          "category": "us_market_scan",
-          "start": "03:29",
-          "end": "03:31",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-018",
-          "category": "us_market_scan",
-          "start": "03:44",
-          "end": "03:46",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-019",
-          "category": "us_market_scan",
-          "start": "03:59",
-          "end": "04:01",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-020",
-          "category": "us_market_scan",
-          "start": "04:14",
-          "end": "04:16",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "dawn",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-021",
-          "category": "us_market_scan",
-          "start": "04:29",
-          "end": "04:31",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "dawn",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. market scan",
-          "label_zh": "美股市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-003",
           "category": "us_market_scan",
           "start": "04:44",
           "end": "04:46",
@@ -79250,7 +74809,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-004",
           "category": "system_routine",
           "start": "04:48",
           "end": "04:50",
@@ -79269,7 +74828,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-005",
           "category": "background_routine",
           "start": "05:00",
           "end": "05:15",
@@ -79288,7 +74847,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-006",
           "category": "us_market_scan",
           "start": "05:13",
           "end": "05:16",
@@ -79307,7 +74866,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-007",
           "category": "us_market_scan",
           "start": "05:29",
           "end": "05:31",
@@ -79326,7 +74885,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-008",
           "category": "us_market_scan",
           "start": "05:44",
           "end": "05:46",
@@ -79345,7 +74904,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-009",
           "category": "system_routine",
           "start": "06:00",
           "end": "06:03",
@@ -79364,7 +74923,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-010",
           "category": "us_market_scan",
           "start": "06:46",
           "end": "06:48",
@@ -79383,7 +74942,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-011",
           "category": "system_routine",
           "start": "06:49",
           "end": "06:51",
@@ -79402,7 +74961,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-012",
           "category": "us_market_scan",
           "start": "07:20",
           "end": "07:27",
@@ -79416,13 +74975,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；出现公开级别链路或新鲜度提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：市场状态与波动；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: market regime and volatility; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-013",
           "category": "daily_reminder",
           "start": "07:30",
           "end": "07:33",
@@ -79449,7 +75007,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-014",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "09:00",
@@ -79469,7 +75027,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-015",
           "category": "us_market_scan",
           "start": "08:58",
           "end": "09:01",
@@ -79488,27 +75046,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
-          "start": "08:59",
+          "start": "09:01",
           "end": "09:14",
-          "duration_minutes": 15,
-          "execution_minutes": 21,
+          "duration_minutes": 13,
+          "execution_minutes": 16,
           "time_bucket": "morning",
-          "count": 14,
+          "count": 9,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 14 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "14 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 9 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "9 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-017",
           "category": "background_routine",
           "start": "09:09",
           "end": "09:12",
@@ -79527,7 +75084,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-018",
           "category": "system_routine",
           "start": "09:10",
           "end": "09:12",
@@ -79546,7 +75103,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-019",
           "category": "us_market_scan",
           "start": "09:11",
           "end": "09:13",
@@ -79565,65 +75122,64 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:23",
           "duration_minutes": 8,
-          "execution_minutes": 12,
+          "execution_minutes": 8,
           "time_bucket": "morning",
-          "count": 6,
+          "count": 2,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "09:25",
           "end": "09:32",
           "duration_minutes": 7,
-          "execution_minutes": 9,
+          "execution_minutes": 5,
           "time_bucket": "morning",
-          "count": 6,
+          "count": 2,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "09:35",
           "end": "09:42",
           "duration_minutes": 7,
-          "execution_minutes": 9,
+          "execution_minutes": 6,
           "time_bucket": "morning",
-          "count": 5,
+          "count": 2,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-023",
           "category": "us_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -79642,45 +75198,45 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "09:44",
           "end": "09:47",
           "duration_minutes": 3,
-          "execution_minutes": 3,
+          "execution_minutes": 2,
           "time_bucket": "morning",
-          "count": 3,
+          "count": 2,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
-          "start": "09:49",
+          "start": "09:52",
           "end": "10:03",
-          "duration_minutes": 14,
-          "execution_minutes": 14,
+          "duration_minutes": 11,
+          "execution_minutes": 7,
           "time_bucket": "morning",
-          "count": 14,
+          "count": 7,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 14 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "14 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 7 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "7 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "10:01",
           "end": "10:03",
@@ -79699,106 +75255,68 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-027",
           "category": "ah_market_scan",
           "start": "10:09",
           "end": "10:11",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "10:15",
           "end": "10:17",
           "duration_minutes": 2,
-          "execution_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 2,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-029",
           "category": "ah_market_scan",
           "start": "10:19",
           "end": "10:21",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-030",
           "category": "ah_market_scan",
           "start": "10:29",
           "end": "10:32",
           "duration_minutes": 3,
-          "execution_minutes": 5,
-          "time_bucket": "morning",
-          "count": 5,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-050",
-          "category": "ah_market_scan",
-          "start": "10:39",
-          "end": "10:41",
-          "duration_minutes": 2,
-          "execution_minutes": 3,
-          "time_bucket": "morning",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-051",
-          "category": "ah_market_scan",
-          "start": "10:45",
-          "end": "10:47",
-          "duration_minutes": 2,
           "execution_minutes": 2,
           "time_bucket": "morning",
           "count": 2,
@@ -79813,26 +75331,64 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-031",
           "category": "ah_market_scan",
-          "start": "10:49",
-          "end": "11:04",
-          "duration_minutes": 15,
-          "execution_minutes": 14,
+          "start": "10:39",
+          "end": "10:41",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "morning",
-          "count": 14,
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-032",
+          "category": "ah_market_scan",
+          "start": "10:45",
+          "end": "10:47",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-033",
+          "category": "ah_market_scan",
+          "start": "10:50",
+          "end": "11:04",
+          "duration_minutes": 14,
+          "execution_minutes": 9,
+          "time_bucket": "morning",
+          "count": 9,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 14 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "14 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 9 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "9 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-034",
           "category": "background_routine",
           "start": "11:01",
           "end": "11:03",
@@ -79851,26 +75407,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-054",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
-          "start": "11:09",
+          "start": "11:10",
           "end": "11:12",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-055",
+          "footprint_id": "background-036",
           "category": "system_routine",
           "start": "11:10",
           "end": "11:12",
@@ -79889,87 +75445,49 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-056",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "11:15",
           "end": "11:17",
           "duration_minutes": 2,
-          "execution_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "midday",
-          "count": 2,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-057",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "11:19",
           "end": "11:21",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 1,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-058",
+          "footprint_id": "background-039",
           "category": "ah_market_scan",
-          "start": "11:29",
+          "start": "11:30",
           "end": "11:33",
-          "duration_minutes": 4,
-          "execution_minutes": 5,
-          "time_bucket": "midday",
-          "count": 5,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-059",
-          "category": "ah_market_scan",
-          "start": "11:39",
-          "end": "11:42",
           "duration_minutes": 3,
-          "execution_minutes": 3,
-          "time_bucket": "midday",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-060",
-          "category": "ah_market_scan",
-          "start": "11:45",
-          "end": "11:47",
-          "duration_minutes": 2,
           "execution_minutes": 2,
           "time_bucket": "midday",
           "count": 2,
@@ -79984,64 +75502,83 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-061",
+          "footprint_id": "background-040",
           "category": "ah_market_scan",
-          "start": "11:49",
+          "start": "11:40",
+          "end": "11:42",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-041",
+          "category": "ah_market_scan",
+          "start": "11:45",
+          "end": "11:47",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-042",
+          "category": "ah_market_scan",
+          "start": "11:50",
           "end": "11:52",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-062",
-          "category": "ah_market_scan",
-          "start": "11:59",
-          "end": "12:02",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
-          "time_bucket": "midday",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-063",
+          "footprint_id": "background-043",
           "category": "ah_market_scan",
           "start": "12:09",
           "end": "12:13",
           "duration_minutes": 4,
-          "execution_minutes": 4,
+          "execution_minutes": 3,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 2,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：防守 / 风险收缩；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: defensive / risk-contraction; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：AI 硬件与半导体、光互连；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: AI hardware and semiconductors, optical interconnects; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-064",
+          "footprint_id": "background-044",
           "category": "ah_market_scan",
           "start": "12:15",
           "end": "12:17",
@@ -80060,26 +75597,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-065",
+          "footprint_id": "background-045",
           "category": "ah_market_scan",
           "start": "12:19",
           "end": "12:21",
           "duration_minutes": 2,
-          "execution_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "midday",
-          "count": 2,
+          "count": 1,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-066",
+          "footprint_id": "background-046",
           "category": "background_routine",
           "start": "12:20",
           "end": "12:22",
@@ -80098,30 +75635,11 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-067",
+          "footprint_id": "background-047",
           "category": "ah_market_scan",
           "start": "12:29",
           "end": "12:32",
           "duration_minutes": 3,
-          "execution_minutes": 3,
-          "time_bucket": "midday",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-068",
-          "category": "ah_market_scan",
-          "start": "12:40",
-          "end": "12:42",
-          "duration_minutes": 2,
           "execution_minutes": 2,
           "time_bucket": "midday",
           "count": 2,
@@ -80136,7 +75654,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-069",
+          "footprint_id": "background-048",
+          "category": "ah_market_scan",
+          "start": "12:40",
+          "end": "12:42",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-049",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -80155,7 +75692,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-070",
+          "footprint_id": "background-050",
           "category": "ah_market_scan",
           "start": "12:45",
           "end": "12:47",
@@ -80174,10 +75711,48 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-071",
+          "footprint_id": "background-051",
           "category": "ah_market_scan",
           "start": "12:50",
           "end": "12:52",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-052",
+          "category": "ah_market_scan",
+          "start": "13:00",
+          "end": "13:02",
+          "duration_minutes": 2,
+          "execution_minutes": 4,
+          "time_bucket": "midday",
+          "count": 4,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-053",
+          "category": "ah_market_scan",
+          "start": "13:10",
+          "end": "13:12",
           "duration_minutes": 2,
           "execution_minutes": 2,
           "time_bucket": "midday",
@@ -80193,45 +75768,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-072",
-          "category": "ah_market_scan",
-          "start": "12:59",
-          "end": "13:02",
-          "duration_minutes": 3,
-          "execution_minutes": 5,
-          "time_bucket": "midday",
-          "count": 5,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-073",
-          "category": "ah_market_scan",
-          "start": "13:10",
-          "end": "13:12",
-          "duration_minutes": 2,
-          "execution_minutes": 3,
-          "time_bucket": "midday",
-          "count": 3,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-074",
+          "footprint_id": "background-054",
           "category": "system_routine",
           "start": "13:10",
           "end": "13:12",
@@ -80250,7 +75787,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-075",
+          "footprint_id": "background-055",
           "category": "ah_market_scan",
           "start": "13:15",
           "end": "13:17",
@@ -80269,26 +75806,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-076",
+          "footprint_id": "background-056",
           "category": "ah_market_scan",
           "start": "13:20",
           "end": "13:22",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 2,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 2,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-077",
+          "footprint_id": "background-057",
           "category": "ah_market_scan",
           "start": "13:25",
           "end": "13:27",
@@ -80307,26 +75844,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-078",
-          "category": "ah_market_scan",
-          "start": "13:30",
-          "end": "13:32",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "1 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-079",
+          "footprint_id": "background-058",
           "category": "ah_market_scan",
           "start": "13:33",
           "end": "13:35",
@@ -80345,26 +75863,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-080",
+          "footprint_id": "background-059",
           "category": "ah_market_scan",
-          "start": "13:40",
+          "start": "13:41",
           "end": "13:43",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
+          "duration_minutes": 2,
+          "execution_minutes": 2,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 2,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-081",
+          "footprint_id": "background-060",
           "category": "system_routine",
           "start": "13:41",
           "end": "13:43",
@@ -80384,7 +75902,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-082",
+          "footprint_id": "background-061",
           "category": "ah_market_scan",
           "start": "13:45",
           "end": "13:47",
@@ -80403,45 +75921,45 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-083",
+          "footprint_id": "background-062",
           "category": "ah_market_scan",
           "start": "13:49",
           "end": "13:51",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 2,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 2,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-084",
+          "footprint_id": "background-063",
           "category": "ah_market_scan",
           "start": "13:59",
           "end": "14:01",
           "duration_minutes": 2,
-          "execution_minutes": 3,
+          "execution_minutes": 2,
           "time_bucket": "midday",
-          "count": 3,
+          "count": 2,
           "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "3 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 2 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "2 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-085",
+          "footprint_id": "background-064",
           "category": "ah_market_scan",
           "start": "14:02",
           "end": "14:04",
@@ -80460,45 +75978,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-086",
+          "footprint_id": "background-065",
           "category": "ah_market_scan",
           "start": "14:09",
           "end": "14:26",
           "duration_minutes": 17,
-          "execution_minutes": 16,
+          "execution_minutes": 14,
           "time_bucket": "afternoon",
-          "count": 15,
+          "count": 13,
           "time_provenance": "mixed_observed_and_receipt",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H market scan",
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 15 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "15 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+          "summary_zh": "完成 13 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "13 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-087",
-          "category": "ah_market_scan",
-          "start": "14:29",
-          "end": "14:36",
-          "duration_minutes": 7,
-          "execution_minutes": 6,
-          "time_bucket": "afternoon",
-          "count": 6,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H market scan",
-          "label_zh": "A/H 市场扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 6 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
-          "summary_en": "6 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-088",
+          "footprint_id": "background-066",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:34",
@@ -80517,7 +76016,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-089",
+          "footprint_id": "background-067",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:33",
@@ -80536,7 +76035,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-090",
+          "footprint_id": "background-068",
+          "category": "ah_market_scan",
+          "start": "14:32",
+          "end": "14:36",
+          "duration_minutes": 4,
+          "execution_minutes": 5,
+          "time_bucket": "afternoon",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H market scan",
+          "label_zh": "A/H 市场扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 5 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "5 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-069",
           "category": "ah_market_scan",
           "start": "14:39",
           "end": "14:42",
@@ -80555,7 +76073,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-091",
+          "footprint_id": "background-070",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -80574,7 +76092,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-092",
+          "footprint_id": "background-071",
           "category": "ah_market_scan",
           "start": "14:44",
           "end": "14:46",
@@ -80593,7 +76111,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-093",
+          "footprint_id": "background-072",
           "category": "ah_market_scan",
           "start": "14:49",
           "end": "14:51",
@@ -80612,7 +76130,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-094",
+          "footprint_id": "background-073",
           "category": "ah_market_scan",
           "start": "14:59",
           "end": "15:01",
@@ -80631,7 +76149,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-095",
+          "footprint_id": "background-074",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -80650,7 +76168,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-096",
+          "footprint_id": "background-075",
           "category": "ah_market_scan",
           "start": "15:09",
           "end": "15:11",
@@ -80669,7 +76187,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-097",
+          "footprint_id": "background-076",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -80688,7 +76206,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-098",
+          "footprint_id": "background-077",
           "category": "system_routine",
           "start": "15:11",
           "end": "15:13",
@@ -80707,7 +76225,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-099",
+          "footprint_id": "background-078",
           "category": "ah_market_scan",
           "start": "15:14",
           "end": "15:17",
@@ -80726,7 +76244,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-100",
+          "footprint_id": "background-079",
           "category": "ah_market_scan",
           "start": "15:19",
           "end": "15:21",
@@ -80745,7 +76263,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-101",
+          "footprint_id": "background-080",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -80764,7 +76282,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-102",
+          "footprint_id": "background-081",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -80783,7 +76301,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-103",
+          "footprint_id": "background-082",
           "category": "ah_market_scan",
           "start": "15:29",
           "end": "15:32",
@@ -80802,7 +76320,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-104",
+          "footprint_id": "background-083",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:47",
@@ -80816,13 +76334,12 @@ const timetableDataSource = {
           "label_zh": "A/H 市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：均衡 / 中性；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: balanced / neutral; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-105",
+          "footprint_id": "background-084",
           "category": "ah_market_scan",
           "start": "15:49",
           "end": "15:51",
@@ -80841,7 +76358,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-106",
+          "footprint_id": "background-085",
           "category": "ah_market_scan",
           "start": "16:00",
           "end": "16:02",
@@ -80860,7 +76377,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-107",
+          "footprint_id": "background-086",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -80879,7 +76396,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-108",
+          "footprint_id": "background-087",
           "category": "ah_market_scan",
           "start": "16:21",
           "end": "16:23",
@@ -80898,7 +76415,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-109",
+          "footprint_id": "background-088",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -80917,7 +76434,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-110",
+          "footprint_id": "background-089",
           "category": "ah_market_scan",
           "start": "16:45",
           "end": "16:47",
@@ -80936,7 +76453,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-111",
+          "footprint_id": "background-090",
           "category": "system_routine",
           "start": "17:11",
           "end": "17:13",
@@ -80956,7 +76473,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-112",
+          "footprint_id": "background-091",
           "category": "daily_reminder",
           "start": "17:30",
           "end": "17:35",
@@ -80983,7 +76500,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-113",
+          "footprint_id": "background-092",
           "category": "system_routine",
           "start": "19:12",
           "end": "19:14",
@@ -81002,7 +76519,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-114",
+          "footprint_id": "background-093",
           "category": "system_routine",
           "start": "20:02",
           "end": "20:04",
@@ -81021,7 +76538,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-115",
+          "footprint_id": "background-094",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -81040,7 +76557,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-116",
+          "footprint_id": "background-095",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -81059,7 +76576,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-117",
+          "footprint_id": "background-096",
           "category": "us_market_scan",
           "start": "20:59",
           "end": "21:01",
@@ -81078,7 +76595,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-118",
+          "footprint_id": "background-097",
           "category": "background_routine",
           "start": "21:05",
           "end": "21:07",
@@ -81097,7 +76614,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-119",
+          "footprint_id": "background-098",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:26",
@@ -81116,7 +76633,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-120",
+          "footprint_id": "background-099",
           "category": "system_routine",
           "start": "21:15",
           "end": "21:17",
@@ -81135,7 +76652,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-121",
+          "footprint_id": "background-100",
           "category": "ah_market_scan",
           "start": "21:31",
           "end": "21:33",
@@ -81154,7 +76671,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-122",
+          "footprint_id": "background-101",
           "category": "us_market_scan",
           "start": "21:32",
           "end": "21:34",
@@ -81173,7 +76690,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-123",
+          "footprint_id": "background-102",
           "category": "us_market_scan",
           "start": "21:44",
           "end": "21:46",
@@ -81192,7 +76709,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-124",
+          "footprint_id": "background-103",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -81211,7 +76728,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-125",
+          "footprint_id": "background-104",
           "category": "us_market_scan",
           "start": "21:59",
           "end": "22:01",
@@ -81230,7 +76747,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-126",
+          "footprint_id": "background-105",
           "category": "ah_market_scan",
           "start": "22:05",
           "end": "22:07",
@@ -81249,7 +76766,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-127",
+          "footprint_id": "background-106",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:17",
@@ -81263,13 +76780,12 @@ const timetableDataSource = {
           "label_zh": "美股市场扫描",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；出现公开级别链路或新鲜度提示。",
-          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; a public-level pipeline or freshness alert was retained.",
-          "public_alert": true
+          "summary_zh": "完成 4 次扫描；状态：未形成公开级别状态结论；公开主题：无额外公开主题；未保留公开级别链路提示。",
+          "summary_en": "4 scan(s) completed; regime: no public-level regime conclusion; public themes: no additional public theme; no public-level pipeline alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-128",
+          "footprint_id": "background-107",
           "category": "us_market_scan",
           "start": "22:26",
           "end": "22:28",
@@ -81288,7 +76804,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-129",
+          "footprint_id": "background-108",
           "category": "us_market_scan",
           "start": "22:32",
           "end": "22:35",
@@ -81307,7 +76823,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-130",
+          "footprint_id": "background-109",
           "category": "us_market_scan",
           "start": "22:45",
           "end": "22:47",
@@ -81326,7 +76842,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-131",
+          "footprint_id": "background-110",
           "category": "us_market_scan",
           "start": "22:59",
           "end": "23:02",
@@ -81345,7 +76861,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-132",
+          "footprint_id": "background-111",
           "category": "system_routine",
           "start": "23:15",
           "end": "23:17",
@@ -81364,7 +76880,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-133",
+          "footprint_id": "background-112",
           "category": "us_market_scan",
           "start": "23:15",
           "end": "23:17",
@@ -81383,7 +76899,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-134",
+          "footprint_id": "background-113",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -81410,7 +76926,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-135",
+          "footprint_id": "background-114",
           "category": "us_market_scan",
           "start": "23:30",
           "end": "23:32",
@@ -81429,7 +76945,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-136",
+          "footprint_id": "background-115",
           "category": "us_market_scan",
           "start": "23:45",
           "end": "23:47",
@@ -81454,47 +76970,13 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-003",
             "background-004",
-            "background-006",
-            "background-007",
-            "background-008",
+            "background-005",
             "background-009",
-            "background-010",
             "background-011",
-            "background-012",
-            "background-013",
-            "background-015",
-            "background-016",
             "background-017",
             "background-018",
-            "background-019",
-            "background-020",
-            "background-021",
-            "background-022",
-            "background-025",
-            "background-026",
-            "background-027",
-            "background-029"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "us_market",
-          "window": "close"
-        },
-        {
-          "reading_id": "climate-02",
-          "source": "pulses",
-          "source_refs": [
-            "background-005",
-            "background-014",
-            "background-023",
-            "background-024",
-            "background-028",
-            "background-030",
-            "background-036",
-            "background-037",
-            "background-045"
+            "background-026"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81511,19 +76993,26 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-background-031",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-031"
+            "background-003",
+            "background-006",
+            "background-007",
+            "background-008",
+            "background-010",
+            "background-012"
           ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "us_market",
+          "window": "close"
         },
         {
-          "reading_id": "event-background-032",
+          "reading_id": "event-background-013",
           "source": "pulses",
           "source_refs": [
-            "background-032"
+            "background-013"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -81538,10 +77027,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-033",
+          "reading_id": "event-background-014",
           "source": "pulses",
           "source_refs": [
-            "background-033"
+            "background-014"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -81550,13 +77039,13 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-034",
-            "background-038",
-            "background-042",
-            "background-069",
-            "background-091",
-            "background-117",
-            "background-119"
+            "background-015",
+            "background-019",
+            "background-023",
+            "background-049",
+            "background-070",
+            "background-096",
+            "background-098"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81564,19 +77053,12 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-035",
-          "source": "pulses",
-          "source_refs": [
-            "background-035"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
-            "background-039"
+            "background-016",
+            "background-020",
+            "background-021"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81584,61 +77066,50 @@ const timetableDataSource = {
           "window": "premarket"
         },
         {
-          "reading_id": "event-background-040",
-          "source": "pulses",
-          "source_refs": [
-            "background-040"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
+            "background-022",
+            "background-024",
+            "background-025",
+            "background-027",
+            "background-028",
+            "background-029",
+            "background-030",
+            "background-031",
+            "background-032",
+            "background-033",
+            "background-035",
+            "background-037",
+            "background-038",
+            "background-039",
+            "background-040",
             "background-041",
+            "background-042",
             "background-043",
             "background-044",
-            "background-046",
+            "background-045",
             "background-047",
             "background-048",
-            "background-049",
             "background-050",
             "background-051",
             "background-052",
-            "background-054",
+            "background-053",
+            "background-055",
             "background-056",
             "background-057",
             "background-058",
             "background-059",
-            "background-060",
             "background-061",
             "background-062",
             "background-063",
             "background-064",
             "background-065",
-            "background-067",
             "background-068",
-            "background-070",
+            "background-069",
             "background-071",
             "background-072",
-            "background-073",
-            "background-075",
-            "background-076",
-            "background-077",
-            "background-078",
-            "background-079",
-            "background-080",
-            "background-082",
-            "background-083",
-            "background-084",
-            "background-085",
-            "background-086",
-            "background-087",
-            "background-090",
-            "background-092",
-            "background-093",
-            "background-094"
+            "background-073"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81658,16 +77129,16 @@ const timetableDataSource = {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
-            "background-053",
-            "background-055",
+            "background-034",
+            "background-036",
+            "background-046",
+            "background-054",
             "background-066",
-            "background-074",
-            "background-088",
-            "background-089",
-            "background-097",
-            "background-098",
-            "background-101",
-            "background-102"
+            "background-067",
+            "background-076",
+            "background-077",
+            "background-080",
+            "background-081"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81675,10 +77146,10 @@ const timetableDataSource = {
           "window": "daytime"
         },
         {
-          "reading_id": "event-background-081",
+          "reading_id": "event-background-060",
           "source": "pulses",
           "source_refs": [
-            "background-081"
+            "background-060"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -81687,19 +77158,20 @@ const timetableDataSource = {
           "reading_id": "climate-07",
           "source": "pulses",
           "source_refs": [
-            "background-095",
-            "background-096",
-            "background-099",
+            "background-074",
+            "background-075",
+            "background-078",
+            "background-079",
+            "background-082",
+            "background-083",
+            "background-084",
+            "background-085",
+            "background-086",
+            "background-087",
+            "background-088",
+            "background-089",
             "background-100",
-            "background-103",
-            "background-105",
-            "background-106",
-            "background-107",
-            "background-108",
-            "background-109",
-            "background-110",
-            "background-121",
-            "background-126"
+            "background-105"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81707,28 +77179,19 @@ const timetableDataSource = {
           "window": "close"
         },
         {
-          "reading_id": "event-background-104",
+          "reading_id": "event-background-090",
           "source": "pulses",
           "source_refs": [
-            "background-104"
+            "background-090"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-111",
+          "reading_id": "event-background-091",
           "source": "pulses",
           "source_refs": [
-            "background-111"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-112",
-          "source": "pulses",
-          "source_refs": [
-            "background-112"
+            "background-091"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -81737,13 +77200,13 @@ const timetableDataSource = {
           "reading_id": "climate-08",
           "source": "pulses",
           "source_refs": [
-            "background-113",
-            "background-114",
-            "background-115",
-            "background-116",
-            "background-118",
-            "background-120",
-            "background-132"
+            "background-092",
+            "background-093",
+            "background-094",
+            "background-095",
+            "background-097",
+            "background-099",
+            "background-111"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81754,17 +77217,18 @@ const timetableDataSource = {
           "reading_id": "climate-09",
           "source": "pulses",
           "source_refs": [
-            "background-122",
-            "background-123",
-            "background-124",
-            "background-125",
-            "background-128",
-            "background-129",
-            "background-130",
-            "background-131",
-            "background-133",
-            "background-135",
-            "background-136"
+            "background-101",
+            "background-102",
+            "background-103",
+            "background-104",
+            "background-106",
+            "background-107",
+            "background-108",
+            "background-109",
+            "background-110",
+            "background-112",
+            "background-114",
+            "background-115"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81772,19 +77236,10 @@ const timetableDataSource = {
           "window": "intraday"
         },
         {
-          "reading_id": "event-background-127",
+          "reading_id": "event-background-113",
           "source": "pulses",
           "source_refs": [
-            "background-127"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-134",
-          "source": "pulses",
-          "source_refs": [
-            "background-134"
+            "background-113"
           ],
           "layer": "event",
           "classification": "readable_reminder"

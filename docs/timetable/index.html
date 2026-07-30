@@ -20,8 +20,8 @@
       })();
     </script>
     <title>Granted Hours / 授时</title>
-    <script type="module" crossorigin src="./assets/index-D-9Byj5S.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CKhwSzvP.css">
+    <script type="module" crossorigin src="./assets/index-Bz1TuEas.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-vLwivvkU.css">
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
@@ -125,13 +125,12 @@
         <p class="task-detail-time" id="taskDetailTime"></p>
         <p class="task-detail-type" id="taskDetailType"></p>
         <div class="task-detail-copy">
-          <section aria-labelledby="taskDetailZhLabel">
-            <h3 id="taskDetailZhLabel">中文摘要</h3>
-            <div class="task-detail-body" id="taskDetailZh"></div>
-          </section>
-          <section aria-labelledby="taskDetailEnLabel">
-            <h3 id="taskDetailEnLabel">English summary</h3>
-            <div class="task-detail-body" id="taskDetailEn"></div>
+          <section class="task-detail-summary" id="taskDetailSummary" aria-labelledby="taskDetailSummaryHeading">
+            <h3 class="summary-card-heading" id="taskDetailSummaryHeading">Summary / 摘要</h3>
+            <div class="summary-language-bodies">
+              <div class="task-detail-body task-detail-body-zh" id="taskDetailZh" lang="zh"></div>
+              <div class="task-detail-body task-detail-body-en" id="taskDetailEn" lang="en"></div>
+            </div>
           </section>
         </div>
         <section class="task-detail-occurrences" id="taskDetailOccurrences" aria-labelledby="taskDetailOccurrencesTitle" hidden>

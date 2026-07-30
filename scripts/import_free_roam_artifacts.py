@@ -10,8 +10,9 @@ SVG covers, and PNG previews. It does not read private logs.
 from __future__ import annotations
 import argparse, json, re, shutil
 from datetime import date, timedelta
-from pathlib import Path
 from html import escape
+from html.parser import HTMLParser
+from pathlib import Path
 from build_maze_data import build_maze_data
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1064,11 +1065,167 @@ def write(path: Path, text: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding='utf-8')
 
+WORK_NOTE_HEADINGS = (
+    'Intention',
+    'Afterimage',
+    '发心',
+    '余像',
+    'Creative Rationale',
+    '创作缘由',
+)
+LIVE_ENHANCEMENT_START = '<!-- granted-hours-live-enhancement:start -->'
+LIVE_ENHANCEMENT_END = '<!-- granted-hours-live-enhancement:end -->'
+
+
+class PublicArchiveCopyParser(HTMLParser):
+    """Extract text-only heading/paragraph pairs from the first two section.two blocks."""
+
+    _VOID_ELEMENTS = {
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+        'link', 'meta', 'param', 'source', 'track', 'wbr',
+    }
+    _FORBIDDEN_ELEMENTS = {
+        'a', 'audio', 'button', 'canvas', 'embed', 'form', 'iframe', 'img',
+        'input', 'link', 'meta', 'object', 'script', 'select', 'style',
+        'svg', 'template', 'textarea', 'video',
+    }
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.depth = 0
+        self.selected_sections = 0
+        self.section_depth: int | None = None
+        self.capture_tag: str | None = None
+        self.capture_depth: int | None = None
+        self.capture_parts: list[str] = []
+        self.forbidden_tags: list[str] = []
+        self.elements: list[tuple[str, str]] = []
+        self.invalid = False
+
+    def handle_starttag(
+        self,
+        tag: str,
+        attrs: list[tuple[str, str | None]],
+    ) -> None:
+        tag = tag.lower()
+        attributes = dict(attrs)
+        classes = set((attributes.get('class') or '').split())
+        if (
+            tag == 'section'
+            and 'two' in classes
+            and self.section_depth is None
+            and self.selected_sections < 2
+        ):
+            self.section_depth = self.depth
+            self.selected_sections += 1
+
+        if self.section_depth is not None:
+            if self.capture_tag is None and tag in {'h2', 'p'}:
+                self.capture_tag = tag
+                self.capture_depth = self.depth
+                self.capture_parts = []
+                self.forbidden_tags = []
+            elif (
+                self.capture_tag is not None
+                and tag in self._FORBIDDEN_ELEMENTS
+                and tag not in self._VOID_ELEMENTS
+            ):
+                self.forbidden_tags.append(tag)
+        self.depth += 1
+
+    def handle_startendtag(
+        self,
+        tag: str,
+        attrs: list[tuple[str, str | None]],
+    ) -> None:
+        self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
+
+    def handle_data(self, data: str) -> None:
+        if self.capture_tag is not None and not self.forbidden_tags:
+            self.capture_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        tag = tag.lower()
+        self.depth = max(0, self.depth - 1)
+        if self.capture_tag is not None:
+            if self.forbidden_tags and tag == self.forbidden_tags[-1]:
+                self.forbidden_tags.pop()
+            if tag == self.capture_tag and self.depth == self.capture_depth:
+                if self.forbidden_tags:
+                    self.invalid = True
+                text = ' '.join(''.join(self.capture_parts).split())
+                self.elements.append((self.capture_tag, text))
+                self.capture_tag = None
+                self.capture_depth = None
+                self.capture_parts = []
+                self.forbidden_tags = []
+        if (
+            self.section_depth is not None
+            and tag == 'section'
+            and self.depth == self.section_depth
+        ):
+            self.section_depth = None
+
+
+def extract_public_archive_copy(archive_path: Path) -> tuple[tuple[str, str], ...]:
+    if not archive_path.is_file():
+        raise SystemExit(f'Missing public sibling archive: {archive_path}')
+    parser = PublicArchiveCopyParser()
+    try:
+        parser.feed(archive_path.read_text(encoding='utf-8'))
+        parser.close()
+    except (OSError, UnicodeError) as error:
+        raise SystemExit(
+            f'Could not read public sibling archive {archive_path}: {error}'
+        ) from error
+    expected_elements = []
+    for heading in WORK_NOTE_HEADINGS:
+        expected_elements.extend((('h2', heading), ('p', None)))
+    valid = (
+        not parser.invalid
+        and parser.selected_sections == 2
+        and parser.section_depth is None
+        and parser.capture_tag is None
+        and len(parser.elements) == len(expected_elements)
+    )
+    if valid:
+        for actual, expected in zip(parser.elements, expected_elements):
+            actual_tag, actual_text = actual
+            expected_tag, expected_text = expected
+            if (
+                actual_tag != expected_tag
+                or not actual_text
+                or (expected_text is not None and actual_text != expected_text)
+            ):
+                valid = False
+                break
+    if not valid:
+        raise SystemExit(
+            'Invalid public work-note archive '
+            f'{archive_path}: expected the six heading/paragraph pairs '
+            'in the first two section.two blocks'
+        )
+    return tuple(
+        (parser.elements[index][1], parser.elements[index + 1][1])
+        for index in range(0, len(parser.elements), 2)
+    )
+
+
+def render_work_note_copy(copy: tuple[tuple[str, str], ...]) -> str:
+    return '\n'.join(
+        f'        <section><h2>{escape(heading, quote=True)}</h2>'
+        f'<p>{escape(paragraph, quote=True)}</p></section>'
+        for heading, paragraph in copy
+    )
+
+
 LIVE_TEXT_FOLD_SNIPPET = r"""
+<!-- granted-hours-live-enhancement:start -->
 <style id="granted-hours-fold-style">
   .gh-fold-toggle {
     position: fixed;
-    z-index: 2147483647;
+    z-index: 2147483646;
     top: max(12px, env(safe-area-inset-top));
     right: max(12px, env(safe-area-inset-right));
     min-height: 38px;
@@ -1092,22 +1249,36 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  .gh-work-note-link {
+  .gh-work-note-actions {
     position: static;
     z-index: auto;
     display: flex;
     flex: 0 0 100%;
     grid-column: 1 / -1;
     width: 100%;
-    min-height: 40px;
     box-sizing: border-box;
     align-items: center;
-    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 14px 0 0;
     border: 0;
     border-top: 1px solid rgba(255,255,255,.2);
     border-radius: 0;
     padding: 11px 0 0;
+    background: transparent;
+  }
+  .gh-work-note-action {
+    position: static;
+    z-index: auto;
+    display: inline-flex;
+    min-height: 40px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 8px 0;
     background: transparent;
     color: rgba(250,246,237,.92);
     font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -1117,18 +1288,26 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     box-shadow: none;
     pointer-events: auto;
     touch-action: manipulation;
+    cursor: pointer;
+    appearance: none;
   }
-  .gh-work-note-link:hover {
-    border-color: rgba(242,195,107,.58);
+  .gh-work-note-action + .gh-work-note-action::before {
+    content: "·";
+    margin-right: 10px;
+    color: rgba(250,246,237,.42);
+    pointer-events: none;
+  }
+  .gh-work-note-action:hover {
     color: #fff3cf;
   }
-  .gh-work-note-link:focus-visible {
+  .gh-work-note-action:focus-visible,
+  .gh-work-note-close:focus-visible {
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
   .gh-work-note-host-fallback {
     position: fixed;
-    z-index: 2147483646;
+    z-index: 2147483645;
     top: max(16px, env(safe-area-inset-top));
     left: max(16px, env(safe-area-inset-left));
     width: min(320px, calc(100vw - 32px));
@@ -1139,10 +1318,112 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     -webkit-backdrop-filter: blur(14px) saturate(1.08);
     backdrop-filter: blur(14px) saturate(1.08);
   }
-  .gh-work-note-host-fallback .gh-work-note-link {
+  .gh-work-note-host-fallback .gh-work-note-actions {
     margin-top: 0;
     border-top: 0;
     padding-top: 0;
+  }
+  body.gh-work-note-open {
+    overflow: hidden !important;
+  }
+  .gh-work-note-modal {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+    background: rgba(1,4,9,.42);
+    -webkit-backdrop-filter: blur(16px) saturate(1.08);
+    backdrop-filter: blur(16px) saturate(1.08);
+  }
+  .gh-work-note-modal[hidden] {
+    display: none !important;
+  }
+  .gh-work-note-glass {
+    width: min(720px, 100%);
+    max-height: calc(100dvh - 24px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 22px;
+    background: rgba(7,11,18,.76);
+    color: rgba(250,246,237,.94);
+    -webkit-backdrop-filter: blur(22px) saturate(1.14);
+    backdrop-filter: blur(22px) saturate(1.14);
+    box-shadow: 0 28px 90px rgba(0,0,0,.48);
+  }
+  .gh-work-note-header {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.16);
+    border-radius: 22px 22px 0 0;
+    background: rgba(7,11,18,.9);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+  .gh-work-note-header h1 {
+    margin: 0;
+    color: #fff3cf;
+    font: 600 16px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+  }
+  .gh-work-note-close {
+    position: static;
+    z-index: auto;
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.06);
+    color: rgba(250,246,237,.94);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-work-note-close:hover {
+    border-color: rgba(242,195,107,.72);
+    color: #fff3cf;
+  }
+  .gh-work-note-copy {
+    padding: 20px;
+  }
+  .gh-work-note-copy section + section {
+    margin-top: 20px;
+  }
+  .gh-work-note-copy h2 {
+    margin: 0 0 7px;
+    color: rgba(242,195,107,.96);
+    font: 600 13px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .04em;
+  }
+  .gh-work-note-copy p {
+    margin: 0;
+    color: rgba(250,246,237,.88);
+    font: 15px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
   body.gh-text-folded .gh-work-note-host,
   body.gh-text-folded .panel,
@@ -1164,7 +1445,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   body.gh-text-folded .gh-fold-toggle {
     background: rgba(3,7,13,.82);
   }
-  body.gh-chamber-embed .gh-work-note-link,
+  body.gh-chamber-embed .gh-work-note-actions,
+  body.gh-chamber-embed .gh-work-note-modal,
   body.gh-chamber-embed .gh-fold-toggle,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
@@ -1197,8 +1479,26 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-host-fallback { top: 10px; left: 10px; }
+    .gh-work-note-modal { align-items: flex-start; padding: 10px; }
+    .gh-work-note-glass { max-height: calc(100dvh - 20px); border-radius: 18px; }
+    .gh-work-note-header { padding: 12px 14px; border-radius: 18px 18px 0 0; }
+    .gh-work-note-copy { padding: 16px 14px 20px; }
+    .gh-work-note-copy section + section { margin-top: 16px; }
   }
 </style>
+<template id="gh-work-note-template">
+  <div class="gh-work-note-modal" id="gh-work-note-dialog" role="dialog" aria-modal="true" aria-labelledby="gh-work-note-title" hidden>
+    <div class="gh-work-note-glass" role="document">
+      <header class="gh-work-note-header">
+        <h1 id="gh-work-note-title">Work note / 作品说明</h1>
+        <button class="gh-work-note-close" type="button" aria-label="Close work note / 关闭作品说明">Close / 关闭</button>
+      </header>
+      <div class="gh-work-note-copy">
+__GH_WORK_NOTE_COPY__
+      </div>
+    </div>
+  </div>
+</template>
 <script id="granted-hours-fold-script">
 (() => {
   if (window.__grantedHoursFoldReady) return;
@@ -1263,11 +1563,21 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   btn.className = 'gh-fold-toggle';
   btn.setAttribute('aria-controls', 'textPanel legend');
   btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
-  const workNote = document.createElement('a');
-  workNote.className = 'gh-work-note-link';
-  workNote.href = '../';
+  const actionRow = document.createElement('div');
+  actionRow.className = 'gh-work-note-actions';
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-action gh-work-note-button';
   workNote.textContent = 'Work note / 作品说明';
   workNote.setAttribute('aria-label', 'Open the artwork intention and context note / 打开作品发心与创作语境说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'gh-work-note-dialog');
+  const archiveLink = document.createElement('a');
+  archiveLink.className = 'gh-work-note-action gh-artwork-archive-link';
+  archiveLink.href = '../';
+  archiveLink.textContent = 'Artwork archive / 作品档案';
+  archiveLink.setAttribute('aria-label', 'Open the artwork archive / 打开作品档案');
+  actionRow.append(workNote, archiveLink);
   document.addEventListener('DOMContentLoaded', init, { once: true });
   if (document.readyState !== 'loading') init();
   function init() {
@@ -1290,14 +1600,43 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       window.setTimeout(silenceEmbeddedMedia, 250);
       return;
     }
+    const modalTemplate = document.getElementById('gh-work-note-template');
+    if (!(modalTemplate instanceof HTMLTemplateElement)) return;
+    const modal = modalTemplate.content.firstElementChild.cloneNode(true);
+    const closeButton = modal.querySelector('.gh-work-note-close');
+    if (!(modal instanceof HTMLElement) || !(closeButton instanceof HTMLButtonElement)) return;
+    document.body.appendChild(modal);
     const workNoteHost = findWorkNoteHost() || createWorkNoteFallbackHost();
     workNoteHost.classList.add('gh-work-note-host');
-    workNoteHost.appendChild(workNote);
+    workNoteHost.appendChild(actionRow);
     document.body.appendChild(btn);
     const stored = localStorage.getItem(STORAGE_KEY);
     const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
     setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
     btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    closeButton.addEventListener('click', closeWorkNote);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeWorkNote();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hidden) {
+        event.preventDefault();
+        closeWorkNote();
+      }
+    });
+    function openWorkNote() {
+      if (!modal.hidden) return;
+      modal.hidden = false;
+      document.body.classList.add('gh-work-note-open');
+      closeButton.focus({ preventScroll: true });
+    }
+    function closeWorkNote() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.classList.remove('gh-work-note-open');
+      workNote.focus({ preventScroll: true });
+    }
   }
   function findWorkNoteHost() {
     const candidates = new Set(document.querySelectorAll(
@@ -1314,7 +1653,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     const scored = [...candidates]
       .filter((element) => {
         if (!(element instanceof HTMLElement)) return false;
-        if (element.closest('.gh-fold-toggle, .gh-work-note-link')) return false;
+        if (element.closest('.gh-fold-toggle, .gh-work-note-actions, .gh-work-note-modal')) return false;
         const style = getComputedStyle(element);
         const rect = element.getBoundingClientRect();
         return style.display !== 'none'
@@ -1383,26 +1722,66 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   }
 })();
 </script>
+<!-- granted-hours-live-enhancement:end -->
 """
 
-def enhance_live_html(path: Path):
+
+def render_live_text_fold_snippet(
+    work_note_copy: tuple[tuple[str, str], ...],
+) -> str:
+    return LIVE_TEXT_FOLD_SNIPPET.replace(
+        '__GH_WORK_NOTE_COPY__',
+        render_work_note_copy(work_note_copy),
+    )
+
+
+def enhance_live_html(
+    path: Path,
+    work_note_copy: tuple[tuple[str, str], ...] | None = None,
+):
+    if work_note_copy is None:
+        work_note_copy = extract_public_archive_copy(path.parent.parent / 'index.html')
     text = path.read_text(encoding='utf-8')
     if '</body>' not in text:
         raise SystemExit(f'Cannot inject fold controls into {path}: missing </body>')
+    snippet = render_live_text_fold_snippet(work_note_copy)
     # Always refresh the snippet and place it before artwork scripts.
-    if 'id="granted-hours-fold-script"' in text:
+    marker_pattern = re.compile(
+        rf'{re.escape(LIVE_ENHANCEMENT_START)}.*?'
+        rf'{re.escape(LIVE_ENHANCEMENT_END)}\s*',
+        flags=re.DOTALL,
+    )
+    if marker_pattern.search(text):
+        text = marker_pattern.sub('', text, count=1)
+    elif 'id="granted-hours-fold-script"' in text:
         text = re.sub(r'<style id="granted-hours-fold-style">.*?</style>\s*', '', text, flags=re.DOTALL)
         text = re.sub(r'<script id="granted-hours-fold-script">.*?</script>\s*', '', text, flags=re.DOTALL)
-    if re.search(r'<head(?:\s[^>]*)?>', text, flags=re.IGNORECASE):
-        text = re.sub(
-            r'(<head(?:\s[^>]*)?>)',
-            lambda match: match.group(1) + '\n' + LIVE_TEXT_FOLD_SNIPPET,
-            text,
-            count=1,
+    head_match = re.search(r'<head(?:\s[^>]*)?>', text, flags=re.IGNORECASE)
+    if head_match:
+        head_end = text.lower().find('</head>', head_match.end())
+        charset_match = re.search(
+            r'<meta\b[^>]*\bcharset\s*=\s*'
+            r'(?:"[^"]+"|\'[^\']+\'|[^\s/>]+)[^>]*>',
+            text[head_match.end():head_end if head_end >= 0 else len(text)],
             flags=re.IGNORECASE,
         )
+        if charset_match:
+            insertion_index = head_match.end() + charset_match.end()
+            text = text[:insertion_index] + '\n' + snippet + text[insertion_index:]
+        else:
+            insertion_index = head_match.end()
+            text = (
+                text[:insertion_index]
+                + '\n<meta charset="utf-8">\n'
+                + snippet
+                + text[insertion_index:]
+            )
     else:
-        text = text.replace('</body>', LIVE_TEXT_FOLD_SNIPPET + '\n</body>', 1)
+        text = text.replace(
+            '</body>',
+            '<meta charset="utf-8">\n' + snippet + '\n</body>',
+            1,
+        )
     path.write_text(text, encoding='utf-8')
 
 def creative_rationale(entry: dict) -> tuple[str, str]:
@@ -1501,7 +1880,6 @@ def build_entry(source: Path, entry: dict):
 
     docs_live.mkdir(parents=True, exist_ok=True)
     shutil.copy2(html_src, docs_live/'index.html')
-    enhance_live_html(docs_live/'index.html')
     copy_if_exists(svg_src, assets_docs/'cover.svg')
     copy_if_exists(svg_src, assets_root/'cover.svg')
     copy_if_exists(png_src, assets_docs/'source-preview.png')
@@ -1632,6 +2010,7 @@ def build_entry(source: Path, entry: dict):
 </body>
 </html>
 """.lstrip())
+    enhance_live_html(docs_live/'index.html')
 
     day_meta = {
         'date': entry['date'],
@@ -1865,12 +2244,16 @@ See [LICENSE.md](LICENSE.md).
 def refresh_all_live_docs():
     """Refresh fold snippets across all existing docs/archive/**/live/index.html files."""
     docs_root = ROOT / 'docs'
-    live_pages = list(docs_root.glob('archive/**/live/index.html'))
+    live_pages = sorted(docs_root.glob('archive/**/live/index.html'))
     if len(live_pages) != len(ENTRIES):
         raise SystemExit(f'Expected {len(ENTRIES)} live pages, found {len(live_pages)}')
+    work_note_copies = {
+        path: extract_public_archive_copy(path.parent.parent / 'index.html')
+        for path in live_pages
+    }
     refreshed = 0
-    for path in sorted(live_pages):
-        enhance_live_html(path)
+    for path in live_pages:
+        enhance_live_html(path, work_note_copies[path])
         refreshed += 1
     print(f'Refreshed {refreshed} live pages in docs/archive/')
     return refreshed

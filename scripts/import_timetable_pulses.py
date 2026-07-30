@@ -75,9 +75,45 @@ SYSTEM_RE = re.compile(
 SESSION_ID_RE = re.compile(r"^cron_(?P<job>.+)_(?P<date>\d{8})_(?P<time>\d{6})$")
 WARNING_RE = re.compile(r"(?i)(?:失败|异常|不可达|陈旧|新鲜度|警告|stale|warning|error|failed|unreachable)")
 NO_ACTION_RE = re.compile(r"(?i)(?:\[SILENT\]|本周无|无直接|不产生直接|无公开动作|no\s+(?:direct\s+)?action)")
-DEFENSIVE_RE = re.compile(r"(?i)(?:防守|风险收缩|risk[- ]?off|defensive)")
-BALANCED_RE = re.compile(r"(?i)(?:均衡|中性|平衡|balanced|neutral)")
-OFFENSIVE_RE = re.compile(r"(?i)(?:进攻|风险扩张|risk[- ]?on|offensive)")
+DEFENSIVE_RE = re.compile(
+    r"(?i)(?:防守|风险(?:偏好)?(?:收缩|回落|走弱|下降|降温)|市场广度走弱|"
+    r"risk[- ]?off|defensive|risk appetite (?:weaken(?:ed|ing)?|fell|contract(?:ed|ing)?)|"
+    r"weak(?:er)? (?:market )?breadth|broad (?:market )?weakness)"
+)
+BALANCED_RE = re.compile(
+    r"(?i)(?:均衡|中性|平衡|震荡|balanced|neutral|range[- ]?bound|sideways)"
+)
+OFFENSIVE_RE = re.compile(
+    r"(?i)(?:进攻|风险(?:偏好)?(?:扩张|回升|改善|上升|升温)|市场广度改善|"
+    r"risk[- ]?on|offensive|risk appetite (?:improv(?:ed|ing)?|rose|expand(?:ed|ing)?)|"
+    r"broad[- ]based strength|broad strength|breadth improved)"
+)
+DIVERGENCE_RE = re.compile(
+    r"(?i)(?:分化|背离|结构性市场|结构行情|structural market|divergen(?:ce|t)|"
+    r"narrow leadership|mixed tape|uneven market|bifurcat(?:ed|ion))"
+)
+ROTATION_RE = re.compile(
+    r"(?i)(?:轮动|高低切(?:换)?|风格切换|板块切换|rotation|leadership shift|"
+    r"sector shift|style shift)"
+)
+A_STRONGER_THAN_H_RE = re.compile(
+    r"(?is)(?:A股|A[- ]?shares?).{0,48}(?:强于|好于|跑赢|firmer|stronger|outperform)"
+    r".{0,24}(?:港股|Hong Kong|HK)"
+)
+H_STRONGER_THAN_A_RE = re.compile(
+    r"(?is)(?:港股|Hong Kong|HK).{0,48}(?:强于|好于|跑赢|firmer|stronger|outperform)"
+    r".{0,24}(?:A股|A[- ]?shares?)"
+)
+CONFIRMATION_RE = re.compile(
+    r"(?i)(?:等待.{0,12}确认|确认后|持续性确认|wait(?:ing)? for confirmation|"
+    r"needs? confirmation|follow[- ]?through)"
+)
+AVOID_CHASING_RE = re.compile(
+    r"(?i)(?:不追高|避免追高|谨防追高|avoid chasing|do not chase|don't chase)"
+)
+SELECTIVE_RE = re.compile(
+    r"(?i)(?:选择性|精选|结构性机会|selective(?: opportunities?)?|stock[- ]?specific)"
+)
 AI_BRIEF_FAILURE_LINE_RE = re.compile(
     r"""(?ix)
     ^\s*(?:\#{1,6}\s*)?
@@ -97,6 +133,8 @@ SAFE_MARKET_THEMES = (
     (re.compile(r"(?i)(?:AI\s*硬件|AI hardware|半导体|semiconductor|存储|memory cycle)"), "AI 硬件与半导体", "AI hardware and semiconductors"),
     (re.compile(r"(?i)(?:CPO|光互连|optical interconnect|光通信)"), "光互连", "optical interconnects"),
     (re.compile(r"(?i)(?:机器人|具身智能|robotics|embodied AI)"), "具身智能", "embodied AI"),
+    (re.compile(r"(?i)(?:红利|高股息|公用事业|医药|防御板块|dividend|high yield|utilities|healthcare|defensive yield)"), "红利防御", "defensive yield"),
+    (re.compile(r"(?i)(?:消费|金融|银行|保险|consumer|consumption|financials?|banks?|insurers?)"), "消费与金融", "consumption and financials"),
     (re.compile(r"(?i)(?:能源|资源|利率|energy|resources|rates|duration pressure)"), "资源与利率", "resources and rates"),
     (re.compile(r"(?i)(?:市场状态|market regime|波动|volatility)"), "市场状态与波动", "market regime and volatility"),
 )
@@ -380,35 +418,167 @@ def final_response(path: Path) -> str:
     return text.rsplit(marker, 1)[-1].strip()[:50_000]
 
 
+def market_evidence_count(pattern: re.Pattern[str], texts: list[str]) -> int:
+    """Count matching responses without allowing repetition to dominate a day."""
+    return sum(bool(pattern.search(text)) for text in texts)
+
+
+def market_regime_scores(texts: list[str]) -> dict[str, int]:
+    """Return coarse, fixed-vocabulary day-level regime evidence."""
+    return {
+        "defensive": market_evidence_count(DEFENSIVE_RE, texts),
+        "offensive": market_evidence_count(OFFENSIVE_RE, texts),
+        "balanced": market_evidence_count(BALANCED_RE, texts),
+    }
+
+
+def select_market_regime(scores: dict[str, int]) -> str:
+    """Resolve regime evidence deterministically, treating conflict as balanced."""
+    if not any(scores.values()):
+        return "neutral_observation"
+    if (
+        scores["defensive"] == scores["offensive"]
+        and scores["defensive"] > 0
+        and scores["balanced"] <= scores["defensive"]
+    ):
+        return "balanced"
+    return max(
+        ("defensive", "offensive", "balanced"),
+        key=lambda regime: scores[regime],
+    )
+
+
+def market_stance(
+    regime: str,
+    *,
+    structural: bool,
+    selective_signal: bool,
+    avoid_chasing_signal: bool,
+    confirmation_signal: bool,
+) -> tuple[str, str]:
+    """Compose a non-personal observation stance from fixed public language."""
+    if structural:
+        return (
+            "机会偏选择性，等待结构延续确认并避免追高",
+            "opportunities are selective; wait for confirmation and avoid chasing",
+        )
+    if selective_signal:
+        suffix_zh = "并避免追高" if avoid_chasing_signal else ""
+        suffix_en = " and avoid chasing" if avoid_chasing_signal else ""
+        return (
+            f"机会偏选择性，等待方向确认{suffix_zh}",
+            f"opportunities look selective; wait for directional confirmation{suffix_en}",
+        )
+    if regime == "defensive":
+        suffix_zh = "并避免追高" if avoid_chasing_signal else ""
+        suffix_en = " and avoid chasing" if avoid_chasing_signal else ""
+        return (
+            f"保持观察，等待风险偏好企稳确认{suffix_zh}",
+            f"keep observing and wait for confirmation that risk appetite is stabilizing{suffix_en}",
+        )
+    if regime == "offensive":
+        if confirmation_signal:
+            return (
+                "等待强势延续确认，避免追高",
+                "wait for follow-through confirmation and avoid chasing",
+            )
+        return (
+            "关注强势能否延续，避免追高",
+            "watch for follow-through and avoid chasing",
+        )
+    if regime == "balanced":
+        suffix_zh = "并避免追高" if avoid_chasing_signal else ""
+        suffix_en = " and avoid chasing" if avoid_chasing_signal else ""
+        return (
+            f"保持选择性，等待方向确认{suffix_zh}",
+            f"stay selective and wait for directional confirmation{suffix_en}",
+        )
+    return (
+        "等待更多确认，不追逐未经确认的波动",
+        "wait for more confirmation and avoid chasing unconfirmed moves",
+    )
+
+
 def public_summary(category: str, responses: list[str], count: int) -> tuple[str, str]:
     """Reduce private outputs to fixed-vocabulary, public-safe operational facts."""
     texts = [text for text in responses if text]
     combined = "\n".join(texts)
     silent_count = sum(text.strip() == "[SILENT]" for text in texts)
     warning_count = sum(bool(WARNING_RE.search(text)) for text in texts)
-    no_action_count = sum(bool(NO_ACTION_RE.search(text)) for text in texts)
 
     if category in {"ah_market_scan", "us_market_scan"}:
-        label_zh = "A/H 市场扫描" if category == "ah_market_scan" else "美股市场扫描"
-        label_en = "A/H market scans" if category == "ah_market_scan" else "U.S. market scans"
-        state_candidates = [
-            (sum(bool(DEFENSIVE_RE.search(text)) for text in texts), "防守 / 风险收缩", "defensive / risk-contraction"),
-            (sum(bool(OFFENSIVE_RE.search(text)) for text in texts), "进攻 / 风险扩张", "offensive / risk-expansion"),
-            (sum(bool(BALANCED_RE.search(text)) for text in texts), "均衡 / 中性", "balanced / neutral"),
-        ]
-        state_score, state_zh, state_en = max(state_candidates, key=lambda item: item[0])
-        if state_score == 0:
-            state_zh, state_en = "未形成公开级别结论", "no public-level regime conclusion"
+        subject_zh = "A/H 市场" if category == "ah_market_scan" else "美股"
+        subject_en = "A/H equities" if category == "ah_market_scan" else "US equities"
+        regime_scores = market_regime_scores(texts)
+        regime = select_market_regime(regime_scores)
+        regime_text = {
+            "defensive": (
+                f"{subject_zh}日内风险偏好走弱，整体偏防守",
+                f"{subject_en} show weaker day-level risk appetite and a defensive tone",
+            ),
+            "offensive": (
+                f"{subject_zh}日内风险偏好改善，整体偏强",
+                f"{subject_en} show improving day-level risk appetite and broad strength",
+            ),
+            "balanced": (
+                f"{subject_zh}日内风险偏好大致均衡，整体震荡中性",
+                f"{subject_en} show broadly balanced day-level risk appetite and a neutral tone",
+            ),
+            "neutral_observation": (
+                f"{subject_zh}日内方向信号有限，暂按中性观察",
+                f"Day-level directional signals are limited for {subject_en}; neutral observation is warranted",
+            ),
+        }[regime]
+
+        divergent = bool(DIVERGENCE_RE.search(combined)) or (
+            regime_scores["defensive"] > 0 and regime_scores["offensive"] > 0
+        )
+        rotating = bool(ROTATION_RE.search(combined))
+        a_stronger = category == "ah_market_scan" and bool(
+            A_STRONGER_THAN_H_RE.search(combined)
+        )
+        h_stronger = category == "ah_market_scan" and bool(
+            H_STRONGER_THAN_A_RE.search(combined)
+        )
+        if a_stronger and not h_stronger:
+            structure_zh = "；A 股相对偏强，港股相对偏弱"
+            structure_en = "; A shares are relatively firmer than Hong Kong equities"
+        elif h_stronger and not a_stronger:
+            structure_zh = "；港股相对偏强，A 股相对偏弱"
+            structure_en = "; Hong Kong equities are relatively firmer than A shares"
+        elif divergent and rotating:
+            structure_zh = "；强弱分化，仍以结构性轮动为主"
+            structure_en = "; performance is divergent and led by structural rotation"
+        elif rotating:
+            structure_zh = "；主线以结构性轮动为主"
+            structure_en = "; leadership is driven by structural rotation"
+        elif divergent:
+            structure_zh = "；强弱分化，市场偏结构性"
+            structure_en = "; performance is divergent and the market remains structural"
+        else:
+            structure_zh = ""
+            structure_en = ""
+
         themes = [(zh, en) for pattern, zh, en in SAFE_MARKET_THEMES if pattern.search(combined)][:2]
-        theme_zh = "、".join(item[0] for item in themes) if themes else "无额外公开主题"
-        theme_en = ", ".join(item[1] for item in themes) if themes else "no additional public theme"
-        action_zh = f"{max(silent_count, no_action_count)} 次未形成公开动作信号" if max(silent_count, no_action_count) else "存在公开报告输出"
-        action_en = f"{max(silent_count, no_action_count)} run(s) produced no public action signal" if max(silent_count, no_action_count) else "public report output was produced"
-        warning_zh = "；存在数据或链路新鲜度警告" if warning_count else "；未检测到公开级别链路警告"
-        warning_en = "; data or pipeline-freshness warnings were present" if warning_count else "; no public-level pipeline warning was detected"
+        structural = bool(structure_zh)
+        stance_zh, stance_en = market_stance(
+            regime,
+            structural=structural,
+            selective_signal=bool(SELECTIVE_RE.search(combined)),
+            avoid_chasing_signal=bool(AVOID_CHASING_RE.search(combined)),
+            confirmation_signal=bool(CONFIRMATION_RE.search(combined)),
+        )
+        if themes:
+            theme_zh = f"主题：{'、'.join(item[0] for item in themes)}；"
+            theme_en = f"Themes: {', '.join(item[1] for item in themes)}; "
+        else:
+            theme_zh = ""
+            theme_en = ""
+        warning_zh = "存在数据新鲜度警告，结论仍有不确定性。" if warning_count else ""
+        warning_en = " A data-freshness warning adds uncertainty." if warning_count else ""
         return (
-            f"本窗口完成 {count} 次{label_zh}；状态：{state_zh}；{action_zh}{warning_zh}。公开主题：{theme_zh}。",
-            f"{count} {label_en} completed in this window; regime: {state_en}; {action_en}{warning_en}. Public themes: {theme_en}.",
+            f"{regime_text[0]}{structure_zh}。{theme_zh}{stance_zh}。{warning_zh}",
+            f"{regime_text[1]}{structure_en}. {theme_en}{stance_en.capitalize()}.{warning_en}",
         )
 
     if category == "ai_daily_brief":

@@ -14,9 +14,60 @@ import import_free_roam_artifacts as importer
 
 
 class FreeRoamImporterTests(unittest.TestCase):
-    def test_live_enhancement_adds_one_embed_aware_work_note_link(self) -> None:
+    def test_live_enhancement_adds_public_archive_dialog_and_separate_link(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
-            live_html = Path(temporary_directory) / "index.html"
+            archive_directory = Path(temporary_directory) / "2026-07-29"
+            live_html = archive_directory / "live" / "index.html"
+            archive_html = archive_directory / "index.html"
+            live_html.parent.mkdir(parents=True)
+            archive_html.write_text(
+                """<!doctype html>
+<html>
+<head>
+  <meta name="private-decoy" content="DO_NOT_INJECT_METADATA">
+  <style>.decoy { content: "DO_NOT_INJECT_STYLE"; }</style>
+</head>
+<body>
+  <section class="two">
+    <div>
+      <h2>Intention</h2>
+      <p>A public &amp; safe <em>&lt;glass&gt;</em> &quot;note&quot;.</p>
+      <h2>Afterimage</h2>
+      <p>First public afterimage.</p>
+    </div>
+    <div>
+      <h2>发心</h2>
+      <p>公开发心。</p>
+      <h2>余像</h2>
+      <p>公开余像。</p>
+    </div>
+  </section>
+  <section class="two featured">
+    <div>
+      <h2>Creative Rationale</h2>
+      <p>Public rationale only.</p>
+    </div>
+    <div>
+      <h2>创作缘由</h2>
+      <p>仅公开创作缘由。</p>
+    </div>
+  </section>
+  <section class="two">
+    <div>
+      <h2>Interaction</h2>
+      <p>DO_NOT_INJECT_INTERACTION</p>
+      <a href="https://decoy.invalid/private">DO_NOT_INJECT_LINK</a>
+      <button type="button">DO_NOT_INJECT_CONTROL</button>
+      <audio controls src="./private-decoy.mp3"></audio>
+      <img src="./private-decoy.png" alt="DO_NOT_INJECT_IMAGE">
+      <script>window.DO_NOT_INJECT_SCRIPT = true;</script>
+    </div>
+  </section>
+</body>
+</html>
+""",
+                encoding="utf-8",
+            )
             live_html.write_text(
                 """<!doctype html>
 <html>
@@ -36,10 +87,34 @@ class FreeRoamImporterTests(unittest.TestCase):
 
         self.assertEqual(refreshed.count('id="granted-hours-fold-style"'), 1)
         self.assertEqual(refreshed.count('id="granted-hours-fold-script"'), 1)
-        self.assertEqual(refreshed.count("document.createElement('a')"), 1)
-        self.assertEqual(refreshed.count("workNote.href = '../';"), 1)
+        self.assertEqual(refreshed.count('<meta charset="utf-8">'), 1)
+        self.assertLess(
+            refreshed.index('<meta charset="utf-8">'),
+            refreshed.index(importer.LIVE_ENHANCEMENT_START),
+        )
+        self.assertEqual(refreshed.count('id="gh-work-note-dialog"'), 1)
+        self.assertIn('role="dialog"', refreshed)
+        self.assertIn('aria-modal="true"', refreshed)
+        self.assertIn('aria-labelledby="gh-work-note-title"', refreshed)
+        self.assertEqual(
+            refreshed.count("const workNote = document.createElement('button');"),
+            1,
+        )
+        self.assertIn("workNote.type = 'button';", refreshed)
+        self.assertNotIn("workNote.href", refreshed)
         self.assertEqual(
             refreshed.count("workNote.textContent = 'Work note / 作品说明';"),
+            1,
+        )
+        self.assertEqual(
+            refreshed.count("const archiveLink = document.createElement('a');"),
+            1,
+        )
+        self.assertEqual(refreshed.count("archiveLink.href = '../';"), 1)
+        self.assertEqual(
+            refreshed.count(
+                "archiveLink.textContent = 'Artwork archive / 作品档案';"
+            ),
             1,
         )
         self.assertEqual(
@@ -49,12 +124,90 @@ class FreeRoamImporterTests(unittest.TestCase):
             ),
             1,
         )
-        self.assertIn("body.gh-chamber-embed .gh-work-note-link", refreshed)
+        expected_copy = (
+            ("Intention", "A public & safe <glass> \"note\"."),
+            ("Afterimage", "First public afterimage."),
+            ("发心", "公开发心。"),
+            ("余像", "公开余像。"),
+            ("Creative Rationale", "Public rationale only."),
+            ("创作缘由", "仅公开创作缘由。"),
+        )
+        for heading, paragraph in expected_copy:
+            self.assertEqual(
+                refreshed.count(f"<h2>{heading}</h2>"),
+                1,
+                heading,
+            )
+            escaped_paragraph = (
+                paragraph.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace('"', "&quot;")
+            )
+            self.assertEqual(
+                refreshed.count(f"<p>{escaped_paragraph}</p>"),
+                1,
+                paragraph,
+            )
+        for excluded in (
+            "DO_NOT_INJECT_METADATA",
+            "DO_NOT_INJECT_STYLE",
+            "DO_NOT_INJECT_INTERACTION",
+            "DO_NOT_INJECT_LINK",
+            "DO_NOT_INJECT_CONTROL",
+            "DO_NOT_INJECT_IMAGE",
+            "DO_NOT_INJECT_SCRIPT",
+            "https://decoy.invalid/private",
+            "private-decoy.mp3",
+            "private-decoy.png",
+        ):
+            self.assertNotIn(excluded, refreshed)
+        self.assertNotRegex(refreshed, r"\bfetch\s*\(")
+        self.assertNotIn(".innerHTML", refreshed)
+        self.assertIn("body.gh-chamber-embed .gh-work-note-actions", refreshed)
+        self.assertIn("body.gh-chamber-embed .gh-work-note-modal", refreshed)
+        self.assertRegex(
+            refreshed,
+            r"(?s)\.gh-work-note-close \{.*?pointer-events: auto;",
+        )
         self.assertIn("function findWorkNoteHost()", refreshed)
-        self.assertIn("workNoteHost.appendChild(workNote);", refreshed)
+        self.assertIn("actionRow.append(workNote, archiveLink);", refreshed)
+        self.assertIn("workNoteHost.appendChild(actionRow);", refreshed)
         self.assertIn("workNoteHost.classList.add('gh-work-note-host');", refreshed)
         self.assertIn("position: static;", refreshed)
         self.assertNotIn("document.body.appendChild(workNote);", refreshed)
+
+    def test_live_enhancement_fails_closed_without_valid_public_archive(self) -> None:
+        fixtures = {
+            "missing": None,
+            "invalid": """<!doctype html>
+<section class="two"><h2>Intention</h2><p>Incomplete.</p></section>
+""",
+        }
+        for label, archive_source in fixtures.items():
+            with self.subTest(label=label):
+                with tempfile.TemporaryDirectory() as temporary_directory:
+                    archive_directory = Path(temporary_directory) / label
+                    live_html = archive_directory / "live" / "index.html"
+                    live_html.parent.mkdir(parents=True)
+                    original = "<!doctype html><body><canvas></canvas></body>"
+                    live_html.write_text(original, encoding="utf-8")
+                    if archive_source is not None:
+                        (archive_directory / "index.html").write_text(
+                            archive_source,
+                            encoding="utf-8",
+                        )
+
+                    with self.assertRaisesRegex(
+                        SystemExit,
+                        r"public sibling archive|public work-note archive",
+                    ):
+                        importer.enhance_live_html(live_html)
+
+                    self.assertEqual(
+                        live_html.read_text(encoding="utf-8"),
+                        original,
+                    )
 
     def test_latest_entries_are_declared_in_chronological_order(self) -> None:
         latest = importer.ENTRIES[-3:]

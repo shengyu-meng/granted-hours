@@ -196,6 +196,8 @@ function cacheElements() {
     "taskDetailOccurrenceList",
     "taskDetailOccurrences",
     "taskDetailProvenance",
+    "taskDetailSummary",
+    "taskDetailSummaryHeading",
     "taskDetailTime",
     "taskDetailTitle",
     "taskDetailType",
@@ -2112,14 +2114,12 @@ function openTaskDetail(task, trigger) {
   state.taskDetailLastFocus = trigger;
   state.taskDetailScrollTop = els.dayDialogPanel.scrollTop;
   renderTaskOccurrences(task.constituents || []);
-  const originalSection = els.taskDetailZh.closest("section");
-  const translatedSection = els.taskDetailEn.closest("section");
   clearMarkdownRendering(els.taskDetailZh);
   clearMarkdownRendering(els.taskDetailEn);
-  originalSection.hidden = false;
-  translatedSection.hidden = false;
-  document.getElementById("taskDetailZhLabel").textContent = "中文摘要";
-  document.getElementById("taskDetailEnLabel").textContent = "English summary";
+  els.taskDetailSummary.hidden = false;
+  els.taskDetailSummaryHeading.textContent = "Summary / 摘要";
+  els.taskDetailZh.hidden = false;
+  els.taskDetailEn.hidden = false;
   if (task.classification === "climate_aggregate") {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.window_count} exact windows / ${task.window_count} 个精确窗口`;
@@ -2138,10 +2138,10 @@ function openTaskDetail(task, trigger) {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end}`;
     els.taskDetailType.textContent = "提醒 / Reminder";
-    document.getElementById("taskDetailZhLabel").textContent = "提醒原文 / Original reminder";
+    els.taskDetailSummaryHeading.textContent = "Original reminder / 提醒原文";
     renderMarkdownInto(els.taskDetailZh, task.summary_original);
     els.taskDetailEn.textContent = "";
-    translatedSection.hidden = true;
+    els.taskDetailEn.hidden = true;
     els.taskDetailProvenance.textContent = task.redaction_count > 0
       ? (
         `原文摘录 · 已遮 ${task.redaction_count} 处可识别实体`

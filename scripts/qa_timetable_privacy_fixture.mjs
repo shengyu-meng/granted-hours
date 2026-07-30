@@ -7,6 +7,7 @@ import {
   mkdtemp,
   readFile,
   readdir,
+  realpath,
   rm,
   stat,
   writeFile,
@@ -23,7 +24,9 @@ const fixtureSource = path.join(fixtureRoot, "src", "timetable");
 const fixtureSite = path.join(fixtureRoot, "site");
 const fixturePulses = path.join(fixtureRoot, "pulses.json");
 const auditRoot = path.join(root, "audits", "public-readable-hierarchy");
-const screenshotPath = path.join(auditRoot, "privacy-fixture-rendered-surface.png");
+const screenshotPath = process.env.TIMETABLE_PRIVACY_SCREENSHOT_PATH
+  ? path.resolve(process.env.TIMETABLE_PRIVACY_SCREENSHOT_PATH)
+  : path.join(auditRoot, "privacy-fixture-rendered-surface.png");
 const fixedBlock = "████";
 const syntheticSecrets = [
   { kind: "person", value: "Mara Evergarden" },
@@ -129,7 +132,7 @@ let server;
 try {
   const canonicalFilesScanned = await scanCanonicalDownstream();
   await mkdir(fixtureSource, { recursive: true });
-  await mkdir(auditRoot, { recursive: true });
+  await mkdir(path.dirname(screenshotPath), { recursive: true });
   await cp(path.join(root, "src", "timetable"), fixtureSource, { recursive: true });
 
   const pulseSnapshot = JSON.parse(
@@ -304,13 +307,35 @@ try {
     /Masked residue|Inner weather|absence layer|public layer|contour/i,
   );
   await maskedReminder.click();
-  await page.waitForSelector("#taskDialog:not([hidden])");
+  await page.waitForSelector("#taskDialog.is-open");
+  await page.waitForFunction(() => (
+    document.activeElement?.id === "closeTaskDetail"
+    && getComputedStyle(document.querySelector("#taskDialog")).opacity === "1"
+    && getComputedStyle(document.querySelector("#taskDialogPanel")).transform === "none"
+  ));
   const detailBody = (await page.locator("#taskDetailZh").textContent()) || "";
-  const detailEnglishSectionVisible = await page.locator("#taskDetailEn")
-    .evaluate((element) => !element.closest("section").hidden);
+  const detailEnglishBodyVisible = await page.locator("#taskDetailEn")
+    .evaluate((element) => !element.hidden);
+  const detailSummarySectionVisible = await page.locator("#taskDetailSummary")
+    .evaluate((element) => !element.hidden);
+  const detailSummaryHeading = (
+    await page.locator("#taskDetailSummaryHeading").textContent()
+  ) || "";
+  const detailTopology = await page.locator(".task-detail-copy").evaluate((copy) => ({
+    sections: copy.querySelectorAll(":scope > section").length,
+    headings: copy.querySelectorAll("h3").length,
+    englishDisplay: getComputedStyle(copy.querySelector("#taskDetailEn")).display,
+  }));
   const detailProvenance = (await page.locator("#taskDetailProvenance").textContent()) || "";
   assert.equal(detailBody, originalBody);
-  assert.equal(detailEnglishSectionVisible, false);
+  assert.equal(detailEnglishBodyVisible, false);
+  assert.equal(detailSummarySectionVisible, true);
+  assert.equal(detailSummaryHeading, "Original reminder / 提醒原文");
+  assert.deepEqual(detailTopology, {
+    sections: 1,
+    headings: 1,
+    englishDisplay: "none",
+  });
   assert.equal(
     detailProvenance,
     "原文摘录 · 已遮 2 处可识别实体 / Original wording · 2 identifying entities masked",
@@ -362,9 +387,10 @@ try {
     "privacy-fixture-rendered-surface",
   );
   await page.screenshot({ path: screenshotPath, fullPage: false });
+  const screenshotOcrPath = await realpath(screenshotPath);
   const ocrRun = await execFileAsync(
     "tesseract",
-    [screenshotPath, "stdout", "-l", "eng"],
+    [screenshotOcrPath, "stdout", "-l", "eng"],
     { cwd: root },
   );
   assertSecretsAbsent(ocrRun.stdout, "screenshot OCR surface");

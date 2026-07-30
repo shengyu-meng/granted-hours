@@ -1,10 +1,13 @@
 <!doctype html>
 <html lang="en"><head>
 
+<meta charset="utf-8">
+
+<!-- granted-hours-live-enhancement:start -->
 <style id="granted-hours-fold-style">
   .gh-fold-toggle {
     position: fixed;
-    z-index: 2147483647;
+    z-index: 2147483646;
     top: max(12px, env(safe-area-inset-top));
     right: max(12px, env(safe-area-inset-right));
     min-height: 38px;
@@ -28,22 +31,36 @@
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  .gh-work-note-link {
+  .gh-work-note-actions {
     position: static;
     z-index: auto;
     display: flex;
     flex: 0 0 100%;
     grid-column: 1 / -1;
     width: 100%;
-    min-height: 40px;
     box-sizing: border-box;
     align-items: center;
-    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 14px 0 0;
     border: 0;
     border-top: 1px solid rgba(255,255,255,.2);
     border-radius: 0;
     padding: 11px 0 0;
+    background: transparent;
+  }
+  .gh-work-note-action {
+    position: static;
+    z-index: auto;
+    display: inline-flex;
+    min-height: 40px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 8px 0;
     background: transparent;
     color: rgba(250,246,237,.92);
     font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -53,18 +70,26 @@
     box-shadow: none;
     pointer-events: auto;
     touch-action: manipulation;
+    cursor: pointer;
+    appearance: none;
   }
-  .gh-work-note-link:hover {
-    border-color: rgba(242,195,107,.58);
+  .gh-work-note-action + .gh-work-note-action::before {
+    content: "·";
+    margin-right: 10px;
+    color: rgba(250,246,237,.42);
+    pointer-events: none;
+  }
+  .gh-work-note-action:hover {
     color: #fff3cf;
   }
-  .gh-work-note-link:focus-visible {
+  .gh-work-note-action:focus-visible,
+  .gh-work-note-close:focus-visible {
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
   .gh-work-note-host-fallback {
     position: fixed;
-    z-index: 2147483646;
+    z-index: 2147483645;
     top: max(16px, env(safe-area-inset-top));
     left: max(16px, env(safe-area-inset-left));
     width: min(320px, calc(100vw - 32px));
@@ -75,10 +100,112 @@
     -webkit-backdrop-filter: blur(14px) saturate(1.08);
     backdrop-filter: blur(14px) saturate(1.08);
   }
-  .gh-work-note-host-fallback .gh-work-note-link {
+  .gh-work-note-host-fallback .gh-work-note-actions {
     margin-top: 0;
     border-top: 0;
     padding-top: 0;
+  }
+  body.gh-work-note-open {
+    overflow: hidden !important;
+  }
+  .gh-work-note-modal {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+    background: rgba(1,4,9,.42);
+    -webkit-backdrop-filter: blur(16px) saturate(1.08);
+    backdrop-filter: blur(16px) saturate(1.08);
+  }
+  .gh-work-note-modal[hidden] {
+    display: none !important;
+  }
+  .gh-work-note-glass {
+    width: min(720px, 100%);
+    max-height: calc(100dvh - 24px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 22px;
+    background: rgba(7,11,18,.76);
+    color: rgba(250,246,237,.94);
+    -webkit-backdrop-filter: blur(22px) saturate(1.14);
+    backdrop-filter: blur(22px) saturate(1.14);
+    box-shadow: 0 28px 90px rgba(0,0,0,.48);
+  }
+  .gh-work-note-header {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.16);
+    border-radius: 22px 22px 0 0;
+    background: rgba(7,11,18,.9);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+  .gh-work-note-header h1 {
+    margin: 0;
+    color: #fff3cf;
+    font: 600 16px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+  }
+  .gh-work-note-close {
+    position: static;
+    z-index: auto;
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.06);
+    color: rgba(250,246,237,.94);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-work-note-close:hover {
+    border-color: rgba(242,195,107,.72);
+    color: #fff3cf;
+  }
+  .gh-work-note-copy {
+    padding: 20px;
+  }
+  .gh-work-note-copy section + section {
+    margin-top: 20px;
+  }
+  .gh-work-note-copy h2 {
+    margin: 0 0 7px;
+    color: rgba(242,195,107,.96);
+    font: 600 13px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .04em;
+  }
+  .gh-work-note-copy p {
+    margin: 0;
+    color: rgba(250,246,237,.88);
+    font: 15px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
   body.gh-text-folded .gh-work-note-host,
   body.gh-text-folded .panel,
@@ -100,7 +227,8 @@
   body.gh-text-folded .gh-fold-toggle {
     background: rgba(3,7,13,.82);
   }
-  body.gh-chamber-embed .gh-work-note-link,
+  body.gh-chamber-embed .gh-work-note-actions,
+  body.gh-chamber-embed .gh-work-note-modal,
   body.gh-chamber-embed .gh-fold-toggle,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
@@ -133,8 +261,31 @@
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-host-fallback { top: 10px; left: 10px; }
+    .gh-work-note-modal { align-items: flex-start; padding: 10px; }
+    .gh-work-note-glass { max-height: calc(100dvh - 20px); border-radius: 18px; }
+    .gh-work-note-header { padding: 12px 14px; border-radius: 18px 18px 0 0; }
+    .gh-work-note-copy { padding: 16px 14px 20px; }
+    .gh-work-note-copy section + section { margin-top: 16px; }
   }
 </style>
+<template id="gh-work-note-template">
+  <div class="gh-work-note-modal" id="gh-work-note-dialog" role="dialog" aria-modal="true" aria-labelledby="gh-work-note-title" hidden>
+    <div class="gh-work-note-glass" role="document">
+      <header class="gh-work-note-header">
+        <h1 id="gh-work-note-title">Work note / 作品说明</h1>
+        <button class="gh-work-note-close" type="button" aria-label="Close work note / 关闭作品说明">Close / 关闭</button>
+      </header>
+      <div class="gh-work-note-copy">
+        <section><h2>Intention</h2><p>The interval is not an empty slot waiting to be optimized. It is a small ecology where an unfinished thought can stay unproductive long enough to become alive. This garden makes attention local rather than total: the pointer does not command the whole field; it merely changes the weather around one place.</p></section>
+        <section><h2>Afterimage</h2><p>A pause is not time left over from life. It is where life refuses to become only a schedule.</p></section>
+        <section><h2>发心</h2><p>间隙不是等待被填满、被优化的空档。它是一小块生态：尚未完成的念头可以暂时不产出，于是有机会长出生命。这个花园让注意力保持局部，而不变成总动员；指针并不统治整片场域，它只改变附近的一小段天气。</p></section>
+        <section><h2>余像</h2><p>停顿不是生活剩下来的时间；它是生活拒绝只成为一张日程表的地方。</p></section>
+        <section><h2>Creative Rationale</h2><p>Interval Garden was made as one public step in the Granted Hours sequence, with the variable Interval treated as an operational condition rather than a decorative theme. The intention frames the work this way: The interval is not an empty slot waiting to be optimized. It is a small ecology where an unfinished thought can stay unproductive long enough to become alive. This garden makes attention local rather than total: the pointer does not command the whole field; it merely changes the weather around one place. The live artifact then turns that idea into interaction: Move the pointer to gather a local weather of attention; nearby stems lean and briefly flower while the rest of the field remains undisturbed. Click to plant an unclaimed seed that opens, glows, and fades without needing a verdict. Space pauses, V veils text, M toggles music, and S saves a still. Use the visible BGM button to start or stop the original MiniMax instrumental bed. Its afterimage condenses the day’s claim: A pause is not time left over from life. It is where life refuses to become only a schedule.</p></section>
+        <section><h2>创作缘由</h2><p>《间隙花园》是《授时》连续序列中的一个公开步骤：当天的自由变量「间隙」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：间隙不是等待被填满、被优化的空档。它是一小块生态：尚未完成的念头可以暂时不产出，于是有机会长出生命。这个花园让注意力保持局部，而不变成总动员；指针并不统治整片场域，它只改变附近的一小段天气。 可运行页面进一步把这个概念变成可操作的界面：移动指针，会聚起一小片注意力天气；附近的茎秆倾向你、短暂开花，而其余场域仍保持安静。点击画面，会种下一枚无需归属的种子：它打开、发亮、淡去，不急着被判定价值。Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭原创 MiniMax 器乐背景。 它的余像把当天判断压缩为一句话：停顿不是生活剩下来的时间；它是生活拒绝只成为一张日程表的地方。</p></section>
+      </div>
+    </div>
+  </div>
+</template>
 <script id="granted-hours-fold-script">
 (() => {
   if (window.__grantedHoursFoldReady) return;
@@ -199,11 +350,21 @@
   btn.className = 'gh-fold-toggle';
   btn.setAttribute('aria-controls', 'textPanel legend');
   btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
-  const workNote = document.createElement('a');
-  workNote.className = 'gh-work-note-link';
-  workNote.href = '../';
+  const actionRow = document.createElement('div');
+  actionRow.className = 'gh-work-note-actions';
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-action gh-work-note-button';
   workNote.textContent = 'Work note / 作品说明';
   workNote.setAttribute('aria-label', 'Open the artwork intention and context note / 打开作品发心与创作语境说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'gh-work-note-dialog');
+  const archiveLink = document.createElement('a');
+  archiveLink.className = 'gh-work-note-action gh-artwork-archive-link';
+  archiveLink.href = '../';
+  archiveLink.textContent = 'Artwork archive / 作品档案';
+  archiveLink.setAttribute('aria-label', 'Open the artwork archive / 打开作品档案');
+  actionRow.append(workNote, archiveLink);
   document.addEventListener('DOMContentLoaded', init, { once: true });
   if (document.readyState !== 'loading') init();
   function init() {
@@ -226,14 +387,43 @@
       window.setTimeout(silenceEmbeddedMedia, 250);
       return;
     }
+    const modalTemplate = document.getElementById('gh-work-note-template');
+    if (!(modalTemplate instanceof HTMLTemplateElement)) return;
+    const modal = modalTemplate.content.firstElementChild.cloneNode(true);
+    const closeButton = modal.querySelector('.gh-work-note-close');
+    if (!(modal instanceof HTMLElement) || !(closeButton instanceof HTMLButtonElement)) return;
+    document.body.appendChild(modal);
     const workNoteHost = findWorkNoteHost() || createWorkNoteFallbackHost();
     workNoteHost.classList.add('gh-work-note-host');
-    workNoteHost.appendChild(workNote);
+    workNoteHost.appendChild(actionRow);
     document.body.appendChild(btn);
     const stored = localStorage.getItem(STORAGE_KEY);
     const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
     setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
     btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    closeButton.addEventListener('click', closeWorkNote);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeWorkNote();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hidden) {
+        event.preventDefault();
+        closeWorkNote();
+      }
+    });
+    function openWorkNote() {
+      if (!modal.hidden) return;
+      modal.hidden = false;
+      document.body.classList.add('gh-work-note-open');
+      closeButton.focus({ preventScroll: true });
+    }
+    function closeWorkNote() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.classList.remove('gh-work-note-open');
+      workNote.focus({ preventScroll: true });
+    }
   }
   function findWorkNoteHost() {
     const candidates = new Set(document.querySelectorAll(
@@ -250,7 +440,7 @@
     const scored = [...candidates]
       .filter((element) => {
         if (!(element instanceof HTMLElement)) return false;
-        if (element.closest('.gh-fold-toggle, .gh-work-note-link')) return false;
+        if (element.closest('.gh-fold-toggle, .gh-work-note-actions, .gh-work-note-modal')) return false;
         const style = getComputedStyle(element);
         const rect = element.getBoundingClientRect();
         return style.display !== 'none'
@@ -319,9 +509,10 @@
   }
 })();
 </script>
+<!-- granted-hours-live-enhancement:end -->
 
 
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interval Garden / 间隙花园</title><style>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Interval Garden / 间隙花园</title><style>
 :root{--paper:#f0eee6;--ink:#19332f;--moss:#4c7860;--sun:#e5a35d;--dusk:#6f7894}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;z-index:2;pointer-events:none;left:clamp(18px,4vw,54px);top:clamp(18px,4vh,42px);max-width:540px}.kicker{font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:.62}.title{font:500 clamp(31px,5.4vw,68px)/.87 Georgia,serif;letter-spacing:-.058em;margin:12px 0}.title span{display:block;font-size:.49em;letter-spacing:.04em;margin-top:11px}.rule{height:2px;width:82px;background:var(--sun);margin:19px 0}.hint,.legend{font-size:11px;line-height:1.58}.hint{max-width:390px}.legend{position:fixed;z-index:2;left:clamp(18px,4vw,54px);bottom:24px;max-width:490px;opacity:.75}.controls{position:fixed;z-index:3;right:18px;bottom:18px;display:flex;gap:8px}.controls button{font:11px ui-monospace,monospace;background:rgba(240,238,230,.88);color:var(--ink);border:1px solid var(--ink);padding:9px 11px;cursor:pointer}.controls button:hover{background:var(--ink);color:var(--paper)}.veil .panel,.veil .legend{opacity:0;transition:opacity .4s}@media(max-width:640px){.title{font-size:41px}.hint{max-width:280px}.legend{right:20px}}
 </style></head><body><canvas id="field" aria-label="Interactive generative artwork"></canvas><section class="panel"><div class="kicker">Granted Hours · 2026.07.23 · interval</div><h1 class="title">Interval<br>Garden<span>间隙花园</span></h1><div class="rule"></div><p class="hint">Not every empty second is available for extraction. Some pauses are soil: they let the unasked thing grow a root before attention calls it a result.</p></section><div class="legend">move — let a local weather of attention gather<br>click — plant a brief unclaimed seed<br>space — pause · v — veil text · m — music · s — save still</div><div class="controls"><button id="music" aria-label="Toggle background music">BGM: ON / 点击启动</button><button id="reset">RESET</button></div><audio id="bgm" loop autoplay preload="auto"><source src="2026-07-23-interval-garden-bgm.mp3" type="audio/mpeg"></audio><script>
 (()=>{const c=document.querySelector('#field'),g=c.getContext('2d'),a=document.querySelector('#bgm'),mb=document.querySelector('#music');let w,h,dpr,t=0,paused=false,mouse={x:.58,y:.42},seeds=[];const stems=Array.from({length:74},(_,i)=>({x:(i+.5)/74,phase:i*1.618,base:.24+((i*37)%61)/100,life:.4+((i*17)%59)/100}));function size(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;g.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',size);size();function flower(x,y,r,alpha){for(let j=0;j<6;j++){let q=j*Math.PI/3+t*.3;g.fillStyle=`rgba(229,163,93,${alpha*.42})`;g.beginPath();g.ellipse(x+Math.cos(q)*r*.65,y+Math.sin(q)*r*.65,r*.34,r*.16,q,0,Math.PI*2);g.fill()}g.fillStyle=`rgba(25,51,47,${alpha*.7})`;g.beginPath();g.arc(x,y,r*.18,0,7);g.fill()}function draw(){if(!paused)t+=.009;g.fillStyle='#f0eee6';g.fillRect(0,0,w,h);let wash=g.createRadialGradient(mouse.x*w,mouse.y*h,4,mouse.x*w,mouse.y*h,Math.max(w,h)*.7);wash.addColorStop(0,'rgba(76,120,96,.15)');wash.addColorStop(.44,'rgba(111,120,148,.05)');wash.addColorStop(1,'rgba(240,238,230,0)');g.fillStyle=wash;g.fillRect(0,0,w,h);for(const s of stems){let dx=s.x-mouse.x,dy=s.base-mouse.y,near=Math.exp(-(dx*dx+dy*dy)*22);let x=s.x*w+Math.sin(t+s.phase)*9+dx*near*-35,y0=h*(.9+s.base*.05),y1=h*(s.base+.08*Math.sin(t*.7+s.phase))-near*42;g.strokeStyle=`rgba(76,120,96,${.14+near*.42})`;g.lineWidth=.65+near*1.3;g.beginPath();g.moveTo(x,y0);g.bezierCurveTo(x+Math.sin(s.phase)*18,y0-80,x-dx*near*95,y1+30,x,y1);g.stroke();if(near>.16)flower(x,y1,4+near*9,near)}for(const q of seeds){q.life-=.005;q.r+=.19;let al=Math.max(0,q.life);g.strokeStyle=`rgba(229,163,93,${al*.65})`;g.setLineDash([2,7]);g.beginPath();g.arc(q.x,q.y,q.r,0,7);g.stroke();g.setLineDash([]);flower(q.x,q.y,Math.min(18,q.r*.35),al)}seeds=seeds.filter(q=>q.life>0);let mx=mouse.x*w,my=mouse.y*h;g.strokeStyle='rgba(25,51,47,.23)';g.setLineDash([2,6]);g.beginPath();g.moveTo(mx-15,my);g.lineTo(mx+15,my);g.moveTo(mx,my-15);g.lineTo(mx,my+15);g.stroke();g.setLineDash([]);requestAnimationFrame(draw)}draw();addEventListener('pointermove',e=>{mouse.x=e.clientX/w;mouse.y=e.clientY/h});addEventListener('click',e=>{if(e.target.tagName==='BUTTON')return;seeds.push({x:e.clientX,y:e.clientY,life:1,r:5})});function music(){if(a.paused)a.play().then(()=>mb.textContent='BGM: ON').catch(()=>mb.textContent='BGM: CLICK TO START');else{a.pause();mb.textContent='BGM: OFF'}}mb.onclick=music;a.play().then(()=>mb.textContent='BGM: ON').catch(()=>mb.textContent='BGM: CLICK TO START');document.querySelector('#reset').onclick=()=>{seeds=[]};addEventListener('keydown',e=>{if(e.key===' '){paused=!paused;e.preventDefault()}if(e.key.toLowerCase()==='v')document.body.classList.toggle('veil');if(e.key.toLowerCase()==='m')music();if(e.key.toLowerCase()==='s'){let z=document.createElement('a');z.download='interval-garden.png';z.href=c.toDataURL('image/png');z.click()}})})();

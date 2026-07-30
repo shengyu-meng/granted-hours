@@ -13,6 +13,14 @@ const days = JSON.parse(
   readFileSync(new URL("../metadata/days.json", import.meta.url), "utf8"),
 );
 const expectedCount = 78;
+const expectedHeadings = [
+  "Intention",
+  "Afterimage",
+  "发心",
+  "余像",
+  "Creative Rationale",
+  "创作缘由",
+];
 const failures = [];
 const results = [];
 
@@ -67,88 +75,250 @@ function trackPageHealth(page, label) {
   };
 }
 
-function visible(element) {
-  if (!element) return false;
-  const style = getComputedStyle(element);
-  const rect = element.getBoundingClientRect();
-  return style.display !== "none"
-    && style.visibility !== "hidden"
-    && Number(style.opacity) > 0.01
-    && rect.width > 1
-    && rect.height > 1;
+async function assertClosedWithFocusReturn(page, label) {
+  assert.equal(
+    await page.locator(".gh-work-note-modal").isHidden(),
+    true,
+    `${label} dialog did not close`,
+  );
+  assert.equal(
+    await page.evaluate(() => document.body.classList.contains("gh-work-note-open")),
+    false,
+    `${label} body scroll lock remained after close`,
+  );
+  assert.equal(
+    await page.evaluate(
+      () => document.activeElement?.classList.contains("gh-work-note-button") || false,
+    ),
+    true,
+    `${label} focus did not return to Work note`,
+  );
 }
 
 const browser = await chromium.launch({ headless: true });
 try {
+  const parserPage = await browser.newPage();
+  const archiveSources = days.map((day) => ({
+    date: day.date,
+    source: readFileSync(archivePaths(day).explanationFile, "utf8"),
+  }));
+  const expectedCopyEntries = await parserPage.evaluate(
+    ({ sources, headings }) => sources.map(({ date, source }) => {
+      const documentNode = new DOMParser().parseFromString(source, "text/html");
+      const sections = [...documentNode.querySelectorAll("section.two")].slice(0, 2);
+      const copy = sections.flatMap((section) => [...section.querySelectorAll("h2")].map(
+        (heading) => ({
+          heading: heading.textContent.replace(/\s+/g, " ").trim(),
+          paragraph:
+            heading.nextElementSibling?.matches("p")
+              ? heading.nextElementSibling.textContent.replace(/\s+/g, " ").trim()
+              : null,
+        }),
+      ));
+      if (
+        sections.length !== 2
+        || copy.length !== headings.length
+        || copy.some((item, index) => (
+          item.heading !== headings[index] || !item.paragraph
+        ))
+      ) {
+        throw new Error(`${date} does not have the required first-two-section copy`);
+      }
+      return [date, copy];
+    }),
+    { sources: archiveSources, headings: expectedHeadings },
+  );
+  await parserPage.close();
+  const expectedCopyByDate = new Map(expectedCopyEntries);
+
   const corpusContext = await browser.newContext({
     viewport: { width: 1280, height: 720 },
   });
 
-  async function inspectDirectPage(day) {
+  async function inspectDirectAndEmbedPage(day) {
     const paths = archivePaths(day);
     const page = await corpusContext.newPage();
     const health = trackPageHealth(page, day.date);
     try {
       const directUrl = new URL(paths.liveUrl);
+      directUrl.searchParams.set("from", "timetable");
       directUrl.searchParams.set("qa", "work-note-corpus");
       const response = await page.goto(directUrl.href, {
         waitUntil: "domcontentloaded",
         timeout: 45000,
       });
       assert.equal(response?.status(), 200, `${day.date} HTTP ${response?.status()}`);
-      await page.locator(".gh-work-note-link").waitFor({
-        state: "visible",
-        // A few WebGL-heavy works can delay the appended navigation link when
-        // several pages initialize concurrently. The link is injected by the
-        // shared importer and is healthy in isolation; give the corpus check a
-        // realistic startup budget instead of treating CPU contention as loss.
-        timeout: 20000,
-      });
-      const state = await page.evaluate(visibleFn => {
-        const isVisible = new Function("element", `return (${visibleFn})(element);`);
-        const links = [...document.querySelectorAll(".gh-work-note-link")];
+      const actions = page.locator(".gh-work-note-actions");
+      await actions.waitFor({ state: "visible", timeout: 20000 });
+
+      const expectedCopy = expectedCopyByDate.get(day.date);
+      const state = await page.evaluate(() => {
+        const workNoteButtons = [...document.querySelectorAll("button")]
+          .filter((element) => element.textContent.trim() === "Work note / 作品说明");
+        const archiveLinks = [...document.querySelectorAll("a")]
+          .filter((element) => element.textContent.trim() === "Artwork archive / 作品档案");
+        const actionRows = [...document.querySelectorAll(".gh-work-note-actions")];
+        const modal = document.querySelector(".gh-work-note-modal");
+        const copy = modal
+          ? [...modal.querySelectorAll(".gh-work-note-copy section")].map((section) => ({
+            heading: section.querySelector("h2")?.textContent.replace(/\s+/g, " ").trim(),
+            paragraph: section.querySelector("p")?.textContent.replace(/\s+/g, " ").trim(),
+            headingCount: section.querySelectorAll("h2").length,
+            paragraphCount: section.querySelectorAll("p").length,
+          }))
+          : [];
+        const scriptText =
+          document.getElementById("granted-hours-fold-script")?.textContent || "";
         return {
-          count: links.length,
-          visibleCount: links.filter(isVisible).length,
-          text: links[0]?.textContent,
-          hrefAttribute: links[0]?.getAttribute("href"),
-          resolvedHref: links[0]?.href,
-          ariaLabel: links[0]?.getAttribute("aria-label"),
-          hostClass: links[0]?.parentElement?.className || "",
-          isLastChild: links[0]?.parentElement?.lastElementChild === links[0],
-          position: links[0] ? getComputedStyle(links[0]).position : "",
+          buttonCount: workNoteButtons.length,
+          buttonTag: workNoteButtons[0]?.tagName,
+          buttonHref: workNoteButtons[0]?.getAttribute("href"),
+          archiveCount: archiveLinks.length,
+          archiveTag: archiveLinks[0]?.tagName,
+          archiveHref: archiveLinks[0]?.getAttribute("href"),
+          archiveResolvedHref: archiveLinks[0]?.href,
+          actionRowCount: actionRows.length,
+          actionRowFinal:
+            actionRows[0]?.parentElement?.lastElementChild === actionRows[0],
+          actionRowPosition:
+            actionRows[0] ? getComputedStyle(actionRows[0]).position : "",
+          hostClass: actionRows[0]?.parentElement?.className || "",
+          modalCount: document.querySelectorAll(".gh-work-note-modal").length,
+          modalHidden: modal?.hidden,
+          role: modal?.getAttribute("role"),
+          ariaModal: modal?.getAttribute("aria-modal"),
+          labelledBy: modal?.getAttribute("aria-labelledby"),
+          labelledHeading: modal
+            ? document.getElementById(modal.getAttribute("aria-labelledby"))?.textContent
+            : null,
+          closeCount: modal?.querySelectorAll("button.gh-work-note-close").length || 0,
+          copy,
+          modalForbiddenCount:
+            modal?.querySelectorAll(
+              ".gh-work-note-copy a, .gh-work-note-copy audio, .gh-work-note-copy button, "
+              + ".gh-work-note-copy canvas, .gh-work-note-copy form, "
+              + ".gh-work-note-copy iframe, .gh-work-note-copy img, "
+              + ".gh-work-note-copy input, .gh-work-note-copy link, "
+              + ".gh-work-note-copy meta, .gh-work-note-copy script, "
+              + ".gh-work-note-copy style, .gh-work-note-copy svg, "
+              + ".gh-work-note-copy video",
+            ).length || 0,
+          sourceFetch: /\bfetch\s*\(/.test(scriptText),
+          sourceInnerHtml: /\.innerHTML\b/.test(scriptText),
+          bodyLocked: document.body.classList.contains("gh-work-note-open"),
         };
-      }, visible.toString());
+      });
       assert.deepEqual(
         {
-          count: state.count,
-          visibleCount: state.visibleCount,
-          text: state.text,
-          hrefAttribute: state.hrefAttribute,
-          resolvedHref: state.resolvedHref,
-          ariaLabel: state.ariaLabel,
-          isLastChild: state.isLastChild,
-          position: state.position,
+          buttonCount: state.buttonCount,
+          buttonTag: state.buttonTag,
+          buttonHref: state.buttonHref,
+          archiveCount: state.archiveCount,
+          archiveTag: state.archiveTag,
+          archiveHref: state.archiveHref,
+          archiveResolvedHref: state.archiveResolvedHref,
+          actionRowCount: state.actionRowCount,
+          actionRowFinal: state.actionRowFinal,
+          actionRowPosition: state.actionRowPosition,
+          modalCount: state.modalCount,
+          modalHidden: state.modalHidden,
+          role: state.role,
+          ariaModal: state.ariaModal,
+          labelledBy: state.labelledBy,
+          labelledHeading: state.labelledHeading,
+          closeCount: state.closeCount,
+          copy: state.copy,
+          modalForbiddenCount: state.modalForbiddenCount,
+          sourceFetch: state.sourceFetch,
+          sourceInnerHtml: state.sourceInnerHtml,
+          bodyLocked: state.bodyLocked,
         },
         {
-          count: 1,
-          visibleCount: 1,
-          text: "Work note / 作品说明",
-          hrefAttribute: "../",
-          resolvedHref: paths.explanationUrl,
-          ariaLabel: "Open the artwork intention and context note / 打开作品发心与创作语境说明",
-          isLastChild: true,
-          position: "static",
+          buttonCount: 1,
+          buttonTag: "BUTTON",
+          buttonHref: null,
+          archiveCount: 1,
+          archiveTag: "A",
+          archiveHref: "../",
+          archiveResolvedHref: paths.explanationUrl,
+          actionRowCount: 1,
+          actionRowFinal: true,
+          actionRowPosition: "static",
+          modalCount: 1,
+          modalHidden: true,
+          role: "dialog",
+          ariaModal: "true",
+          labelledBy: "gh-work-note-title",
+          labelledHeading: "Work note / 作品说明",
+          closeCount: 1,
+          copy: expectedCopy.map((item) => ({
+            ...item,
+            headingCount: 1,
+            paragraphCount: 1,
+          })),
+          modalForbiddenCount: 0,
+          sourceFetch: false,
+          sourceInnerHtml: false,
+          bodyLocked: false,
         },
-        `${day.date} work-note contract`,
+        `${day.date} direct dialog contract`,
       );
-      assert.match(
-        state.hostClass,
-        /gh-work-note-host/,
-        `${day.date} note is not inside the information panel`,
+
+      const directHref = page.url();
+      await page.locator(".gh-work-note-button").click();
+      await page.locator(".gh-work-note-modal").waitFor({ state: "visible" });
+      assert.equal(page.url(), directHref, `${day.date} Work note navigated or reloaded`);
+      assert.equal(
+        await page.evaluate(() => document.body.classList.contains("gh-work-note-open")),
+        true,
+        `${day.date} body scroll was not locked while open`,
+      );
+      assert.equal(
+        await page.evaluate(
+          () => document.activeElement?.classList.contains("gh-work-note-close") || false,
+        ),
+        true,
+        `${day.date} focus did not move to close`,
+      );
+      await page.locator(".gh-work-note-close").click();
+      await assertClosedWithFocusReturn(page, `${day.date} close button`);
+      assert.equal(page.url(), directHref, `${day.date} close changed the live URL`);
+
+      const embedUrl = new URL(paths.liveUrl);
+      embedUrl.searchParams.set("embed", "calendar");
+      embedUrl.searchParams.set("qa", "work-note-embed-corpus");
+      const embedResponse = await page.goto(embedUrl.href, {
+        waitUntil: "domcontentloaded",
+        timeout: 45000,
+      });
+      assert.equal(
+        embedResponse?.status(),
+        200,
+        `${day.date} embed HTTP ${embedResponse?.status()}`,
+      );
+      await page.waitForFunction(
+        () => document.body.classList.contains("gh-chamber-embed"),
+      );
+      assert.deepEqual(
+        await page.evaluate(() => ({
+          actions: document.querySelectorAll(".gh-work-note-actions").length,
+          buttons: document.querySelectorAll(".gh-work-note-button").length,
+          archives: document.querySelectorAll(".gh-artwork-archive-link").length,
+          modals: document.querySelectorAll(".gh-work-note-modal").length,
+        })),
+        { actions: 0, buttons: 0, archives: 0, modals: 0 },
+        `${day.date} embed exposed work-note UI`,
       );
       health.assertHealthy();
-      return day.date;
+      return {
+        date: day.date,
+        button: 1,
+        archive: 1,
+        finalRow: 1,
+        modalCopy: 1,
+        openClose: 1,
+        embedHidden: 1,
+      };
     } finally {
       await page.close();
     }
@@ -157,7 +327,9 @@ try {
   const concurrency = 3;
   for (let index = 0; index < days.length; index += concurrency) {
     const batch = days.slice(index, index + concurrency);
-    const settled = await Promise.allSettled(batch.map(inspectDirectPage));
+    const settled = await Promise.allSettled(
+      batch.map(inspectDirectAndEmbedPage),
+    );
     settled.forEach((result, batchIndex) => {
       if (result.status === "fulfilled") results.push(result.value);
       else failures.push(`${batch[batchIndex].date}: ${result.reason.message}`);
@@ -174,42 +346,75 @@ try {
 
   const latest = days.at(-1);
   const latestPaths = archivePaths(latest);
-
-  const clickContext = await browser.newContext({
+  const behaviorContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },
   });
-  const clickPage = await clickContext.newPage();
-  const clickHealth = trackPageHealth(clickPage, `${latest.date} click`);
-  const clickUrl = new URL(latestPaths.liveUrl);
-  clickUrl.searchParams.set("from", "timetable");
-  clickUrl.searchParams.set("qa", "work-note-click");
-  await clickPage.goto(clickUrl.href, { waitUntil: "domcontentloaded" });
-  await clickPage.locator(".gh-work-note-link").click();
-  await clickPage.waitForURL(latestPaths.explanationUrl);
-  await clickPage.getByRole("heading", { name: "Intention", exact: true }).waitFor();
-  await clickPage.getByRole("heading", { name: "发心", exact: true }).waitFor();
-  await clickPage.getByRole("heading", { name: "Creative Rationale", exact: true }).waitFor();
-  await clickPage.getByRole("heading", { name: "创作缘由", exact: true }).waitFor();
-  clickHealth.assertHealthy();
-  await clickContext.close();
+  const behaviorPage = await behaviorContext.newPage();
+  const behaviorHealth = trackPageHealth(behaviorPage, `${latest.date} behavior`);
+  const behaviorUrl = new URL(latestPaths.liveUrl);
+  behaviorUrl.searchParams.set("from", "timetable");
+  behaviorUrl.searchParams.set("qa", "work-note-behavior");
+  await behaviorPage.goto(behaviorUrl.href, { waitUntil: "domcontentloaded" });
+  const behaviorButton = behaviorPage.locator(".gh-work-note-button");
+  const behaviorModal = behaviorPage.locator(".gh-work-note-modal");
+  await behaviorButton.waitFor({ state: "visible" });
 
-  const embedContext = await browser.newContext({
-    viewport: { width: 960, height: 540 },
-  });
-  const embedPage = await embedContext.newPage();
-  const embedHealth = trackPageHealth(embedPage, `${latest.date} embed`);
-  const embedUrl = new URL(latestPaths.liveUrl);
-  embedUrl.searchParams.set("embed", "calendar");
-  embedUrl.searchParams.set("qa", "work-note-embed");
-  await embedPage.goto(embedUrl.href, { waitUntil: "domcontentloaded" });
-  await embedPage.waitForFunction(() => document.body.classList.contains("gh-chamber-embed"));
+  await behaviorButton.click();
+  await behaviorPage.keyboard.press("Escape");
+  await assertClosedWithFocusReturn(behaviorPage, "Escape");
+
+  await behaviorButton.click();
+  await behaviorModal.locator(".gh-work-note-copy p").first().click();
   assert.equal(
-    await embedPage.locator(".gh-work-note-link").count(),
-    0,
-    "Embed mode exposed the work-note link",
+    await behaviorModal.isVisible(),
+    true,
+    "Clicking inside the dialog closed it",
   );
-  embedHealth.assertHealthy();
-  await embedContext.close();
+  await behaviorModal.click({ position: { x: 2, y: 2 } });
+  await assertClosedWithFocusReturn(behaviorPage, "backdrop");
+
+  const behaviorActions = behaviorPage.locator(".gh-work-note-actions");
+  const behaviorFold = behaviorPage.locator(".gh-fold-toggle");
+  await behaviorFold.click();
+  await behaviorPage.waitForFunction(
+    () => document.body.classList.contains("gh-text-folded"),
+  );
+  assert.equal(
+    await behaviorActions.isVisible(),
+    false,
+    "Folded information panel left actions floating",
+  );
+  await behaviorFold.click();
+  await behaviorPage.waitForFunction(
+    () => !document.body.classList.contains("gh-text-folded"),
+  );
+  assert.equal(
+    await behaviorActions.isVisible(),
+    true,
+    "Actions did not return with the unfolded panel",
+  );
+  behaviorHealth.assertHealthy();
+  await behaviorContext.close();
+
+  const navigationContext = await browser.newContext({
+    viewport: { width: 1440, height: 900 },
+  });
+  const navigationPage = await navigationContext.newPage();
+  const navigationHealth = trackPageHealth(
+    navigationPage,
+    `${latest.date} archive navigation`,
+  );
+  const navigationUrl = new URL(latestPaths.liveUrl);
+  navigationUrl.searchParams.set("from", "timetable");
+  navigationUrl.searchParams.set("qa", "archive-navigation");
+  await navigationPage.goto(navigationUrl.href, { waitUntil: "domcontentloaded" });
+  await navigationPage.locator(".gh-artwork-archive-link").click();
+  await navigationPage.waitForURL(latestPaths.explanationUrl);
+  for (const heading of expectedHeadings) {
+    await navigationPage.getByRole("heading", { name: heading, exact: true }).waitFor();
+  }
+  navigationHealth.assertHealthy();
+  await navigationContext.close();
 
   const viewportSpecs = [
     {
@@ -247,36 +452,45 @@ try {
     url.searchParams.set("from", "timetable");
     url.searchParams.set("qa", spec.label);
     await page.goto(url.href, { waitUntil: "domcontentloaded" });
-    const note = page.locator(".gh-work-note-link");
+    const actions = page.locator(".gh-work-note-actions");
+    const workNote = page.locator(".gh-work-note-button");
+    const archiveLink = page.locator(".gh-artwork-archive-link");
     const fold = page.locator(".gh-fold-toggle");
-    await note.waitFor({ state: "visible" });
+    await actions.waitFor({ state: "visible" });
     await fold.waitFor({ state: "visible" });
-    assert.ok(await note.isVisible(), `${spec.label} work-note link is not initially visible`);
-    await note.scrollIntoViewIfNeeded();
+    await actions.scrollIntoViewIfNeeded();
 
     const geometry = await page.evaluate(() => {
-      const noteElement = document.querySelector(".gh-work-note-link");
-      const hostElement = noteElement.parentElement;
-      const noteRect = noteElement.getBoundingClientRect();
+      const actionElement = document.querySelector(".gh-work-note-actions");
+      const workNoteElement = document.querySelector(".gh-work-note-button");
+      const archiveElement = document.querySelector(".gh-artwork-archive-link");
+      const hostElement = actionElement.parentElement;
+      const actionRect = actionElement.getBoundingClientRect();
+      const workNoteRect = workNoteElement.getBoundingClientRect();
+      const archiveRect = archiveElement.getBoundingClientRect();
       const hostRect = hostElement.getBoundingClientRect();
       const foldRect = document.querySelector(".gh-fold-toggle").getBoundingClientRect();
       const overlapWidth = Math.max(
         0,
-        Math.min(noteRect.right, foldRect.right) - Math.max(noteRect.left, foldRect.left),
+        Math.min(actionRect.right, foldRect.right)
+          - Math.max(actionRect.left, foldRect.left),
       );
       const overlapHeight = Math.max(
         0,
-        Math.min(noteRect.bottom, foldRect.bottom) - Math.max(noteRect.top, foldRect.top),
+        Math.min(actionRect.bottom, foldRect.bottom)
+          - Math.max(actionRect.top, foldRect.top),
       );
       return {
         viewport: { width: innerWidth, height: innerHeight },
         horizontalOverflow:
           document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        note: noteRect.toJSON(),
+        actions: actionRect.toJSON(),
+        workNote: workNoteRect.toJSON(),
+        archive: archiveRect.toJSON(),
         host: hostRect.toJSON(),
         hostClass: hostElement.className,
-        notePosition: getComputedStyle(noteElement).position,
-        isLastChild: hostElement.lastElementChild === noteElement,
+        actionPosition: getComputedStyle(actionElement).position,
+        isLastChild: hostElement.lastElementChild === actionElement,
         fold: foldRect.toJSON(),
         overlapArea: overlapWidth * overlapHeight,
       };
@@ -285,23 +499,26 @@ try {
       geometry.horizontalOverflow <= 1,
       `${spec.label} horizontal overflow ${geometry.horizontalOverflow}`,
     );
-    assert.ok(geometry.note.height >= 40, `${spec.label} touch target ${geometry.note.height}px`);
     assert.ok(
-      /gh-work-note-host/.test(geometry.hostClass)
-        && geometry.notePosition === "static"
-        && geometry.isLastChild
-        && geometry.note.left >= geometry.host.left - 1
-        && geometry.note.top >= geometry.host.top - 1
-        && geometry.note.right <= geometry.host.right + 1
-        && geometry.note.bottom <= geometry.host.bottom + 1,
-      `${spec.label} link is not the final row inside the information panel: ${JSON.stringify(geometry)}`,
+      geometry.workNote.height >= 40 && geometry.archive.height >= 40,
+      `${spec.label} action touch targets are too short`,
     );
     assert.ok(
-      geometry.note.left >= 0
-        && geometry.note.top >= 0
-        && geometry.note.right <= geometry.viewport.width
-        && geometry.note.bottom <= geometry.viewport.height,
-      `${spec.label} panel link is not reachable inside the viewport: ${JSON.stringify(geometry)}`,
+      /gh-work-note-host/.test(geometry.hostClass)
+        && geometry.actionPosition === "static"
+        && geometry.isLastChild
+        && geometry.actions.left >= geometry.host.left - 1
+        && geometry.actions.top >= geometry.host.top - 1
+        && geometry.actions.right <= geometry.host.right + 1
+        && geometry.actions.bottom <= geometry.host.bottom + 1,
+      `${spec.label} action row is not final inside its panel: ${JSON.stringify(geometry)}`,
+    );
+    assert.ok(
+      geometry.actions.left >= 0
+        && geometry.actions.top >= 0
+        && geometry.actions.right <= geometry.viewport.width
+        && geometry.actions.bottom <= geometry.viewport.height,
+      `${spec.label} actions are not reachable in the viewport: ${JSON.stringify(geometry)}`,
     );
     assert.ok(
       geometry.fold.left >= 0
@@ -313,38 +530,110 @@ try {
     assert.equal(
       geometry.overlapArea,
       0,
-      `${spec.label} work-note link collides with fold toggle`,
+      `${spec.label} actions collide with fold toggle`,
     );
+
     if (spec.touch) await fold.tap();
     else await fold.click();
-    await page.waitForFunction(() => document.body.classList.contains("gh-text-folded"));
+    await page.waitForFunction(
+      () => document.body.classList.contains("gh-text-folded"),
+    );
     assert.equal(
-      await note.isVisible(),
+      await actions.isVisible(),
       false,
-      `${spec.label} folded information panel left the note floating`,
+      `${spec.label} folded information panel left actions floating`,
     );
     if (spec.touch) await fold.tap();
     else await fold.click();
-    await page.waitForFunction(() => !document.body.classList.contains("gh-text-folded"));
-    assert.ok(await note.isVisible(), `${spec.label} note did not return with its panel`);
+    await page.waitForFunction(
+      () => !document.body.classList.contains("gh-text-folded"),
+    );
+    assert.equal(
+      await actions.isVisible(),
+      true,
+      `${spec.label} actions did not return with the panel`,
+    );
+
+    if (spec.touch) await workNote.tap();
+    else await workNote.click();
+    const modal = page.locator(".gh-work-note-modal");
+    await modal.waitFor({ state: "visible" });
+    const dialogGeometry = await page.evaluate(() => {
+      const modalElement = document.querySelector(".gh-work-note-modal");
+      const glassElement = modalElement.querySelector(".gh-work-note-glass");
+      const closeElement = modalElement.querySelector(".gh-work-note-close");
+      return {
+        viewport: { width: innerWidth, height: innerHeight },
+        modal: modalElement.getBoundingClientRect().toJSON(),
+        glass: glassElement.getBoundingClientRect().toJSON(),
+        close: closeElement.getBoundingClientRect().toJSON(),
+        internalOverflow: glassElement.scrollHeight - glassElement.clientHeight,
+        bodyLocked: document.body.classList.contains("gh-work-note-open"),
+        closeFocused: document.activeElement === closeElement,
+      };
+    });
+    assert.equal(dialogGeometry.bodyLocked, true, `${spec.label} body was not locked`);
+    assert.equal(dialogGeometry.closeFocused, true, `${spec.label} close was not focused`);
+    assert.ok(
+      dialogGeometry.close.left >= 0
+        && dialogGeometry.close.top >= 0
+        && dialogGeometry.close.right <= dialogGeometry.viewport.width
+        && dialogGeometry.close.bottom <= dialogGeometry.viewport.height,
+      `${spec.label} close is unreachable: ${JSON.stringify(dialogGeometry)}`,
+    );
+    assert.ok(
+      dialogGeometry.glass.top >= 0
+        && dialogGeometry.glass.bottom <= dialogGeometry.viewport.height + 1,
+      `${spec.label} glass exceeds viewport: ${JSON.stringify(dialogGeometry)}`,
+    );
+    if (spec.touch) {
+      assert.ok(
+        dialogGeometry.internalOverflow > 0,
+        `${spec.label} dialog does not provide internal scroll`,
+      );
+    }
+    const close = page.locator(".gh-work-note-close");
+    if (spec.touch) await close.tap();
+    else await close.click();
+    await assertClosedWithFocusReturn(page, `${spec.label} close`);
+    assert.equal(
+      await archiveLink.getAttribute("href"),
+      "../",
+      `${spec.label} archive href changed`,
+    );
     health.assertHealthy();
-    viewportResults.push({ label: spec.label, ...geometry });
+    viewportResults.push({
+      label: spec.label,
+      horizontalOverflow: geometry.horizontalOverflow,
+      actionRowFinal: geometry.isLastChild,
+      workNoteHeight: geometry.workNote.height,
+      archiveHeight: geometry.archive.height,
+      dialogInternalOverflow: dialogGeometry.internalOverflow,
+      closeReachable: true,
+    });
     await context.close();
   }
 
+  const sum = (field) => results.reduce((total, result) => total + result[field], 0);
   console.log(JSON.stringify({
     passed: true,
     siteUrl: siteUrl.href,
-    declaredExplanationPages: expectedCount,
-    directLiveWorkNoteLinks: results.length,
-    latestClickDestination: latestPaths.explanationUrl,
-    latestExplanationHeadings: [
-      "Intention",
-      "发心",
-      "Creative Rationale",
-      "创作缘由",
-    ],
-    embedHidden: true,
+    declaredArchivePages: expectedCount,
+    directLivePages: results.length,
+    workNoteButtons: sum("button"),
+    archiveLinks: sum("archive"),
+    actionRowsFinal: sum("finalRow"),
+    modalCopyMatches: sum("modalCopy"),
+    buttonOpenCloseChecks: sum("openClose"),
+    embedHiddenPages: sum("embedHidden"),
+    escapeCloseChecks: 1,
+    insideClickChecks: 1,
+    backdropCloseChecks: 1,
+    focusReturnChecks: expectedCount + 2 + viewportSpecs.length,
+    bodyScrollLockChecks: expectedCount + 2 + viewportSpecs.length,
+    foldUnfoldChecks: 1 + viewportSpecs.length,
+    archiveNavigationChecks: 1,
+    viewportChecks: viewportSpecs.length,
     viewportResults,
     pageErrors: 0,
     sameOriginHttpFailures: 0,

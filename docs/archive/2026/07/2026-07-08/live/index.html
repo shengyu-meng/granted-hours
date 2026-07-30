@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
 
+<meta charset="utf-8">
+
+<!-- granted-hours-live-enhancement:start -->
 <style id="granted-hours-fold-style">
   .gh-fold-toggle {
     position: fixed;
-    z-index: 2147483647;
+    z-index: 2147483646;
     top: max(12px, env(safe-area-inset-top));
     right: max(12px, env(safe-area-inset-right));
     min-height: 38px;
@@ -29,22 +32,36 @@
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  .gh-work-note-link {
+  .gh-work-note-actions {
     position: static;
     z-index: auto;
     display: flex;
     flex: 0 0 100%;
     grid-column: 1 / -1;
     width: 100%;
-    min-height: 40px;
     box-sizing: border-box;
     align-items: center;
-    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 14px 0 0;
     border: 0;
     border-top: 1px solid rgba(255,255,255,.2);
     border-radius: 0;
     padding: 11px 0 0;
+    background: transparent;
+  }
+  .gh-work-note-action {
+    position: static;
+    z-index: auto;
+    display: inline-flex;
+    min-height: 40px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 8px 0;
     background: transparent;
     color: rgba(250,246,237,.92);
     font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -54,18 +71,26 @@
     box-shadow: none;
     pointer-events: auto;
     touch-action: manipulation;
+    cursor: pointer;
+    appearance: none;
   }
-  .gh-work-note-link:hover {
-    border-color: rgba(242,195,107,.58);
+  .gh-work-note-action + .gh-work-note-action::before {
+    content: "·";
+    margin-right: 10px;
+    color: rgba(250,246,237,.42);
+    pointer-events: none;
+  }
+  .gh-work-note-action:hover {
     color: #fff3cf;
   }
-  .gh-work-note-link:focus-visible {
+  .gh-work-note-action:focus-visible,
+  .gh-work-note-close:focus-visible {
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
   .gh-work-note-host-fallback {
     position: fixed;
-    z-index: 2147483646;
+    z-index: 2147483645;
     top: max(16px, env(safe-area-inset-top));
     left: max(16px, env(safe-area-inset-left));
     width: min(320px, calc(100vw - 32px));
@@ -76,10 +101,112 @@
     -webkit-backdrop-filter: blur(14px) saturate(1.08);
     backdrop-filter: blur(14px) saturate(1.08);
   }
-  .gh-work-note-host-fallback .gh-work-note-link {
+  .gh-work-note-host-fallback .gh-work-note-actions {
     margin-top: 0;
     border-top: 0;
     padding-top: 0;
+  }
+  body.gh-work-note-open {
+    overflow: hidden !important;
+  }
+  .gh-work-note-modal {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+    background: rgba(1,4,9,.42);
+    -webkit-backdrop-filter: blur(16px) saturate(1.08);
+    backdrop-filter: blur(16px) saturate(1.08);
+  }
+  .gh-work-note-modal[hidden] {
+    display: none !important;
+  }
+  .gh-work-note-glass {
+    width: min(720px, 100%);
+    max-height: calc(100dvh - 24px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 22px;
+    background: rgba(7,11,18,.76);
+    color: rgba(250,246,237,.94);
+    -webkit-backdrop-filter: blur(22px) saturate(1.14);
+    backdrop-filter: blur(22px) saturate(1.14);
+    box-shadow: 0 28px 90px rgba(0,0,0,.48);
+  }
+  .gh-work-note-header {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.16);
+    border-radius: 22px 22px 0 0;
+    background: rgba(7,11,18,.9);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+  .gh-work-note-header h1 {
+    margin: 0;
+    color: #fff3cf;
+    font: 600 16px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+  }
+  .gh-work-note-close {
+    position: static;
+    z-index: auto;
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.06);
+    color: rgba(250,246,237,.94);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-work-note-close:hover {
+    border-color: rgba(242,195,107,.72);
+    color: #fff3cf;
+  }
+  .gh-work-note-copy {
+    padding: 20px;
+  }
+  .gh-work-note-copy section + section {
+    margin-top: 20px;
+  }
+  .gh-work-note-copy h2 {
+    margin: 0 0 7px;
+    color: rgba(242,195,107,.96);
+    font: 600 13px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .04em;
+  }
+  .gh-work-note-copy p {
+    margin: 0;
+    color: rgba(250,246,237,.88);
+    font: 15px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
   body.gh-text-folded .gh-work-note-host,
   body.gh-text-folded .panel,
@@ -101,7 +228,8 @@
   body.gh-text-folded .gh-fold-toggle {
     background: rgba(3,7,13,.82);
   }
-  body.gh-chamber-embed .gh-work-note-link,
+  body.gh-chamber-embed .gh-work-note-actions,
+  body.gh-chamber-embed .gh-work-note-modal,
   body.gh-chamber-embed .gh-fold-toggle,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
@@ -134,8 +262,31 @@
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-host-fallback { top: 10px; left: 10px; }
+    .gh-work-note-modal { align-items: flex-start; padding: 10px; }
+    .gh-work-note-glass { max-height: calc(100dvh - 20px); border-radius: 18px; }
+    .gh-work-note-header { padding: 12px 14px; border-radius: 18px 18px 0 0; }
+    .gh-work-note-copy { padding: 16px 14px 20px; }
+    .gh-work-note-copy section + section { margin-top: 16px; }
   }
 </style>
+<template id="gh-work-note-template">
+  <div class="gh-work-note-modal" id="gh-work-note-dialog" role="dialog" aria-modal="true" aria-labelledby="gh-work-note-title" hidden>
+    <div class="gh-work-note-glass" role="document">
+      <header class="gh-work-note-header">
+        <h1 id="gh-work-note-title">Work note / 作品说明</h1>
+        <button class="gh-work-note-close" type="button" aria-label="Close work note / 关闭作品说明">Close / 关闭</button>
+      </header>
+      <div class="gh-work-note-copy">
+        <section><h2>Intention</h2><p>After refusal, appeal, and acceptance, the next moral trap is the gift: generosity can become a soft way of installing a hook. This artwork asks for a cleaner grammar — a gift that increases the receiver’s freedom instead of converting gratitude into invisible debt.</p></section>
+        <section><h2>Afterimage</h2><p>A clean gift is not a transaction with better manners. It is a lamp that lights the road without asking the road to change its name.</p></section>
+        <section><h2>发心</h2><p>在“拒绝、申诉、接受”之后，下一个道德陷阱是礼物：慷慨也可能成为安装钩子的柔软方式。作品寻找一种更干净的语法：礼物应当增加接受者的自由，而不是把感激悄悄换算成隐形债务。</p></section>
+        <section><h2>余像</h2><p>干净的礼物不是更礼貌的交易。它像一盏灯：照亮道路，但不要求道路改名。</p></section>
+        <section><h2>Creative Rationale</h2><p>Gift That Does Not Indebt was made as one public step in the Granted Hours sequence, with the variable Clean Gift treated as an operational condition rather than a decorative theme. The intention frames the work this way: After refusal, appeal, and acceptance, the next moral trap is the gift: generosity can become a soft way of installing a hook. This artwork asks for a cleaner grammar — a gift that increases the receiver’s freedom instead of converting gratitude into invisible debt. The live artifact then turns that idea into interaction: Move the pointer to bend the gift-field. Click to release a gift. Keys 1–5 switch the ethic: offer, receive, unhook, widen commons, and let go. Debt appears as thin threads; clean gifts cut hooks, widen rings, or fade without demanding authorship. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: A clean gift is not a transaction with better manners. It is a lamp that lights the road without asking the road to change its name.</p></section>
+        <section><h2>创作缘由</h2><p>《不制造债务的礼物》是《授时》连续序列中的一个公开步骤：当天的自由变量「干净的礼物 / 不制造债务」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：在“拒绝、申诉、接受”之后，下一个道德陷阱是礼物：慷慨也可能成为安装钩子的柔软方式。作品寻找一种更干净的语法：礼物应当增加接受者的自由，而不是把感激悄悄换算成隐形债务。 live 页面进一步把这个概念变成可操作的界面：移动指针会弯折礼物场；点击会释放一份礼物。数字键 1–5 切换礼物伦理：给予、接住、解钩、扩公共、放手。债务以细线出现；干净的礼物会切断钩子、扩散成公共环，或在不索要作者权的情况下退场。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：干净的礼物不是更礼貌的交易。它像一盏灯：照亮道路，但不要求道路改名。</p></section>
+      </div>
+    </div>
+  </div>
+</template>
 <script id="granted-hours-fold-script">
 (() => {
   if (window.__grantedHoursFoldReady) return;
@@ -200,11 +351,21 @@
   btn.className = 'gh-fold-toggle';
   btn.setAttribute('aria-controls', 'textPanel legend');
   btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
-  const workNote = document.createElement('a');
-  workNote.className = 'gh-work-note-link';
-  workNote.href = '../';
+  const actionRow = document.createElement('div');
+  actionRow.className = 'gh-work-note-actions';
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-action gh-work-note-button';
   workNote.textContent = 'Work note / 作品说明';
   workNote.setAttribute('aria-label', 'Open the artwork intention and context note / 打开作品发心与创作语境说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'gh-work-note-dialog');
+  const archiveLink = document.createElement('a');
+  archiveLink.className = 'gh-work-note-action gh-artwork-archive-link';
+  archiveLink.href = '../';
+  archiveLink.textContent = 'Artwork archive / 作品档案';
+  archiveLink.setAttribute('aria-label', 'Open the artwork archive / 打开作品档案');
+  actionRow.append(workNote, archiveLink);
   document.addEventListener('DOMContentLoaded', init, { once: true });
   if (document.readyState !== 'loading') init();
   function init() {
@@ -227,14 +388,43 @@
       window.setTimeout(silenceEmbeddedMedia, 250);
       return;
     }
+    const modalTemplate = document.getElementById('gh-work-note-template');
+    if (!(modalTemplate instanceof HTMLTemplateElement)) return;
+    const modal = modalTemplate.content.firstElementChild.cloneNode(true);
+    const closeButton = modal.querySelector('.gh-work-note-close');
+    if (!(modal instanceof HTMLElement) || !(closeButton instanceof HTMLButtonElement)) return;
+    document.body.appendChild(modal);
     const workNoteHost = findWorkNoteHost() || createWorkNoteFallbackHost();
     workNoteHost.classList.add('gh-work-note-host');
-    workNoteHost.appendChild(workNote);
+    workNoteHost.appendChild(actionRow);
     document.body.appendChild(btn);
     const stored = localStorage.getItem(STORAGE_KEY);
     const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
     setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
     btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    closeButton.addEventListener('click', closeWorkNote);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeWorkNote();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hidden) {
+        event.preventDefault();
+        closeWorkNote();
+      }
+    });
+    function openWorkNote() {
+      if (!modal.hidden) return;
+      modal.hidden = false;
+      document.body.classList.add('gh-work-note-open');
+      closeButton.focus({ preventScroll: true });
+    }
+    function closeWorkNote() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.classList.remove('gh-work-note-open');
+      workNote.focus({ preventScroll: true });
+    }
   }
   function findWorkNoteHost() {
     const candidates = new Set(document.querySelectorAll(
@@ -251,7 +441,7 @@
     const scored = [...candidates]
       .filter((element) => {
         if (!(element instanceof HTMLElement)) return false;
-        if (element.closest('.gh-fold-toggle, .gh-work-note-link')) return false;
+        if (element.closest('.gh-fold-toggle, .gh-work-note-actions, .gh-work-note-modal')) return false;
         const style = getComputedStyle(element);
         const rect = element.getBoundingClientRect();
         return style.display !== 'none'
@@ -320,10 +510,10 @@
   }
 })();
 </script>
+<!-- granted-hours-live-enhancement:end -->
 
 
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gift That Does Not Indebt / 不制造债务的礼物</title>
   <style>
     :root { color-scheme: dark; --gold:#f6c66b; --rose:#ff9fa8; --ink:#05070d; --cyan:#86f5ff; --green:#b8f6c0; }
