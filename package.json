@@ -5,7 +5,9 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "dompurify": "^3.4.12",
     "lucide": "^1.27.0",
+    "marked": "^18.0.7",
     "three": "^0.185.1"
   },
   "scripts": {

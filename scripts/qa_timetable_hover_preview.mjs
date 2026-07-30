@@ -1184,6 +1184,7 @@ try {
   assert.equal(touchSecondLens.hidden, true);
   await hybridPage.locator("#closeTaskDetail").tap();
   await hybridPage.waitForFunction(() => document.querySelector("#taskDialog")?.hidden);
+  await waitForClosedLens(hybridPage);
   const touchCloseLens = await lensState(hybridPage);
   assert.equal(
     await hybridTouchCard.evaluate((card) => document.activeElement === card),

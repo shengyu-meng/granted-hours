@@ -5029,6 +5029,179 @@ h1 {
   }
 }
 
-.original-reminder-copy {
+.task-detail-body {
+  color: var(--ink-soft);
+  font-size: var(--type-dialog-body);
+  line-height: 1.62;
+  overflow-wrap: anywhere;
   white-space: pre-wrap;
+}
+
+.markdown-content {
+  min-width: 0;
+  max-width: 100%;
+  color: inherit;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.markdown-content > :first-child {
+  margin-top: 0;
+}
+
+.markdown-content > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content :is(p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre) {
+  max-width: 100%;
+}
+
+.markdown-content p {
+  margin: 0 0 0.72em;
+  color: inherit;
+}
+
+.markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  margin: 1.05em 0 0.42em;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.08em;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.markdown-content :is(ul, ol) {
+  margin: 0.56em 0 0.78em;
+  padding-inline-start: 1.65em;
+}
+
+.markdown-content li {
+  margin: 0.22em 0;
+  padding-inline-start: 0.16em;
+}
+
+.markdown-content blockquote {
+  margin: 0.7em 0;
+  padding: 0.24em 0 0.24em 0.82em;
+  border-inline-start: 2px solid color-mix(in srgb, var(--category-accent, var(--cyan-trace)) 62%, var(--hairline-strong));
+  color: color-mix(in srgb, currentColor 78%, var(--ink-muted));
+}
+
+.markdown-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content code {
+  padding: 0.08em 0.3em;
+  border: 1px solid color-mix(in srgb, var(--hairline-strong) 72%, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--pane-strong) 82%, transparent);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
+.markdown-content pre {
+  max-width: 100%;
+  margin: 0.7em 0;
+  overflow-x: auto;
+  padding: 0.68em 0.78em;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--pane-solid) 90%, var(--page-bg));
+  overscroll-behavior-inline: contain;
+}
+
+.markdown-content pre code {
+  display: block;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.markdown-content a,
+.markdown-content .markdown-link-label {
+  color: color-mix(in srgb, var(--cyan-trace) 78%, var(--ink));
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.pulse-item.has-markdown .pulse-summary {
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  -webkit-line-clamp: unset;
+}
+
+.original-reminder-copy.markdown-content--compact {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.markdown-content--compact {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-content--compact :is(p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre) {
+  margin-top: 0;
+  margin-bottom: 0.34em;
+}
+
+.markdown-content--compact :is(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: inherit;
+}
+
+.markdown-content--compact :is(ul, ol) {
+  padding-inline-start: 1.25em;
+}
+
+.markdown-content--compact li {
+  margin: 0.08em 0;
+}
+
+.markdown-content--compact blockquote {
+  padding-block: 0;
+  padding-inline-start: 0.55em;
+}
+
+.markdown-content--compact code {
+  padding: 0.02em 0.2em;
+  font-size: 0.9em;
+}
+
+.markdown-content--compact pre {
+  overflow: hidden;
+  padding: 0.3em 0.4em;
+}
+
+@media (max-width: 720px), (max-height: 430px) {
+  .task-detail-copy {
+    gap: 10px;
+  }
+
+  .task-detail-copy section {
+    padding: 11px;
+  }
+
+  .markdown-content :is(ul, ol) {
+    padding-inline-start: 1.4em;
+  }
+
+  .markdown-content pre {
+    padding: 0.52em 0.58em;
+  }
 }

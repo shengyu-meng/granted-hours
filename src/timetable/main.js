@@ -11,6 +11,11 @@ import Presentation from "lucide/dist/esm/icons/presentation.mjs";
 import Search from "lucide/dist/esm/icons/search.mjs";
 import Settings from "lucide/dist/esm/icons/settings.mjs";
 import createLucideElement from "lucide/dist/esm/createElement.mjs";
+import {
+  clearMarkdownRendering,
+  markdownToPlainText,
+  renderMarkdownInto,
+} from "./markdown.js";
 import { timetableData } from "./timetable-data.js";
 import {
   layoutTimelineEvents,
@@ -397,9 +402,11 @@ function buildInspectionPayload(item) {
     categoryLabel: SEMANTIC_CATEGORY_LABELS[semanticCategory(item)],
     time: `${item.start}-${item.end}`,
     title: `${item.label_en} / ${item.label_zh}`,
-    summary: item.excerpt_original
-      || item.summary_original
-      || `${item.summary_en} / ${item.summary_zh}`,
+    summary: item.classification === "readable_reminder"
+      ? markdownToPlainText(item.excerpt_original || item.summary_original)
+      : item.excerpt_original
+        || item.summary_original
+        || `${item.summary_en} / ${item.summary_zh}`,
     media: {
       videoUrl,
       animatedUrl,
@@ -1789,6 +1796,7 @@ function buildPulseTimelineEvent(pulse) {
     "background",
     `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}`,
   ));
+  const isReadableReminder = pulse.classification === "readable_reminder";
   const button = document.createElement("button");
   button.type = "button";
   const layerClass = {
@@ -1797,25 +1805,22 @@ function buildPulseTimelineEvent(pulse) {
     absence: "absence-reading-card",
   }[pulse.layer] || "climate-reading-card";
   button.className = `pulse-item event-reading-card routine-reading-card ${layerClass}`;
+  button.classList.toggle("has-markdown", isReadableReminder);
   button.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
   button.setAttribute("aria-haspopup", "dialog");
   button.setAttribute(
     "aria-label",
-    pulse.classification === "readable_reminder"
-      ? `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.excerpt_original}`
+    isReadableReminder
+      ? `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${markdownToPlainText(pulse.excerpt_original)}`
       : `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
   );
   const count = pulse.occurrence_count ?? pulse.count;
-  const isReadableReminder = pulse.classification === "readable_reminder";
   const summaryZh = !isReadableReminder && pulse.redaction_count > 0
     ? redactedHtml(pulse.summary_zh)
     : escapeHtml(pulse.summary_zh || "");
   const summaryEn = !isReadableReminder && pulse.redaction_count > 0
     ? redactedHtml(pulse.summary_en)
     : escapeHtml(pulse.summary_en || "");
-  const originalSummary = pulse.redaction_count > 0
-    ? redactedHtml(pulse.excerpt_original || "")
-    : escapeHtml(pulse.excerpt_original || "");
   const durationCopy = pulse.classification === "climate_aggregate"
     ? `${pulse.window_count} exact windows / ${pulse.window_count} 个精确窗口`
     : `window ${pulse.duration_minutes} min / 窗口 ${pulse.duration_minutes} 分钟`;
@@ -1824,10 +1829,17 @@ function buildPulseTimelineEvent(pulse) {
     <span class="pulse-line" aria-hidden="true"></span>
     <span class="pulse-heading"><span class="pulse-label reading-title">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${count}</span></span>
     <span class="pulse-duration">${durationCopy}</span>
-    <span class="pulse-summary reading-summary">${isReadableReminder
-      ? `<span class="original-reminder-copy">${originalSummary}</span>`
-      : `<span>${summaryZh}</span><span>${summaryEn}</span>`}</span>
+    ${isReadableReminder
+      ? '<div class="pulse-summary reading-summary"><div class="original-reminder-copy"></div></div>'
+      : `<span class="pulse-summary reading-summary"><span>${summaryZh}</span><span>${summaryEn}</span></span>`}
   `;
+  if (isReadableReminder) {
+    renderMarkdownInto(
+      button.querySelector(".original-reminder-copy"),
+      pulse.excerpt_original,
+      { compact: true },
+    );
+  }
   setupReadingCardActivation(button, () => openTaskDetail(pulse, button));
   return { footprint: item, card: button };
 }
@@ -1924,10 +1936,7 @@ function setupReadingCardActivation(card, activate) {
     requestAnimationFrame(syncLinkedReadingCard);
     requestAnimationFrame(scheduleInspectionLensHide);
   });
-  if (
-    !(card instanceof HTMLButtonElement)
-    && !(card instanceof HTMLAnchorElement)
-  ) {
+  if (!(card instanceof HTMLButtonElement) && !(card instanceof HTMLAnchorElement)) {
     card.addEventListener("keydown", (event) => {
       if (event.target !== card || !["Enter", " "].includes(event.key)) return;
       event.preventDefault();
@@ -2105,6 +2114,8 @@ function openTaskDetail(task, trigger) {
   renderTaskOccurrences(task.constituents || []);
   const originalSection = els.taskDetailZh.closest("section");
   const translatedSection = els.taskDetailEn.closest("section");
+  clearMarkdownRendering(els.taskDetailZh);
+  clearMarkdownRendering(els.taskDetailEn);
   originalSection.hidden = false;
   translatedSection.hidden = false;
   document.getElementById("taskDetailZhLabel").textContent = "中文摘要";
@@ -2128,7 +2139,7 @@ function openTaskDetail(task, trigger) {
     els.taskDetailTime.textContent = `${task.start}-${task.end}`;
     els.taskDetailType.textContent = "提醒 / Reminder";
     document.getElementById("taskDetailZhLabel").textContent = "提醒原文 / Original reminder";
-    els.taskDetailZh.textContent = task.summary_original;
+    renderMarkdownInto(els.taskDetailZh, task.summary_original);
     els.taskDetailEn.textContent = "";
     translatedSection.hidden = true;
     els.taskDetailProvenance.textContent = task.redaction_count > 0
