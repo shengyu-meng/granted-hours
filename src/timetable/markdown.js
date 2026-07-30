@@ -106,7 +106,8 @@ function decorateFixedRedactions(fragment) {
       if (index >= parts.length - 1) return;
       const block = document.createElement("span");
       block.className = "redaction-block";
-      block.setAttribute("aria-hidden", "true");
+      block.setAttribute("role", "img");
+      block.setAttribute("aria-label", "已打码 / redacted");
       block.textContent = FIXED_REDACTION_BLOCK;
       replacement.append(block);
     });

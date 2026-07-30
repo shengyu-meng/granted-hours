@@ -23,15 +23,17 @@ const fixtureSite = path.join(fixtureRoot, "site");
 const fixturePulses = path.join(fixtureRoot, "pulses.json");
 const fixtureDate = "2026-07-21";
 const fixedBlock = "████";
-const markdownBody = [
+const markdownExcerptBody = [
   "# Grounding",
   "",
   "P **steady** *gentle*  ",
   `L \`inline()\` ${fixedBlock}`,
   "",
-  "- u",
+  "- u-one",
+  "- u-two",
   "",
-  "1. o",
+  "1. o-one",
+  "2. o-two",
   "",
   "> q",
   "",
@@ -39,11 +41,20 @@ const markdownBody = [
   "x()",
   "```",
   "",
-  "[h](https://e.co) [m](mailto:q%40e.invalid) [j](javascript:x) [d](data:x) [v](vbscript:x)",
-  "<script>x</script><style>x</style><iframe></iframe><img src=x onerror=x>",
+  "[h](https://e.co) [m](mailto:q%40e.invalid) [j](javascript:window.__markdownXss='lower')",
+].join("\n");
+const markdownExcerpt = `${markdownExcerptBody}\n…`;
+const markdownBody = [
+  markdownExcerptBody,
+  "[J](JaVaScRiPt:window.__markdownXss='mixed') [e](jav&#x61;script:window.__markdownXss='entity') [d](data:text/html,x) [v](vbscript:x)",
+  "<script>window.__markdownXss='script'</script><style>x</style><iframe></iframe><img src=x onerror=\"window.__markdownXss='img'\">",
+  "<svg><g onload=\"window.__markdownXss='svg'\"></g></svg><math><mtext><img src=x onerror=\"window.__markdownXss='math'\"></mtext></math>",
+  "<a id=markdownClobber name=markdownClobber href=javascript:window.__markdownXss='clobber'>clobber</a>",
 ].join("\n");
 const viewports = [
   { width: 1440, height: 900, label: "desktop", touch: false },
+  { width: 1024, height: 768, label: "desktop-narrow", touch: false },
+  { width: 768, height: 1024, label: "tablet-touch", touch: true },
   { width: 390, height: 844, label: "mobile", touch: true },
   { width: 421, height: 386, label: "short-touch", touch: true },
 ];
@@ -93,9 +104,9 @@ async function assertMarkdownSemantics(container, label) {
   assert.ok(await container.locator(":scope > p").count() >= 1, `${label}: paragraph`);
   assert.equal(await container.locator("strong").count(), 1, `${label}: strong`);
   assert.equal(await container.locator("em").count(), 1, `${label}: emphasis`);
-  assert.equal(await container.locator("br").count(), 1, `${label}: hard line break`);
-  assert.equal(await container.locator(":scope > ul").count(), 1, `${label}: unordered list`);
-  assert.equal(await container.locator(":scope > ol").count(), 1, `${label}: ordered list`);
+  assert.ok(await container.locator("br").count() >= 1, `${label}: hard line break`);
+  assert.equal(await container.locator(":scope > ul > li").count(), 2, `${label}: unordered list`);
+  assert.equal(await container.locator(":scope > ol > li").count(), 2, `${label}: ordered list`);
   assert.equal(await container.locator(":scope > blockquote").count(), 1, `${label}: blockquote`);
   assert.equal(await container.locator("p > code").count(), 1, `${label}: inline code`);
   assert.equal(await container.locator(":scope > pre > code").count(), 1, `${label}: fenced code`);
@@ -111,6 +122,11 @@ async function assertXssBoundary(page, container, label, { interactiveLinks = tr
     await container.locator("[onabort], [onerror], [onload], [onclick], [onmouseover]").count(),
     0,
     `${label}: event-handler attributes`,
+  );
+  assert.equal(
+    await container.locator("[id], [name]").count(),
+    0,
+    `${label}: DOM clobbering attributes`,
   );
   const links = await container.locator("a").evaluateAll((anchors) => anchors.map((anchor) => ({
     href: anchor.getAttribute("href"),
@@ -177,6 +193,8 @@ async function inspectViewport(browser, url, viewport) {
   const accessibleName = await card.getAttribute("aria-label") || "";
   assert.match(accessibleName, /Grounding/, `${viewport.label}: plain accessible name`);
   assert.ok(accessibleName.includes(fixedBlock), `${viewport.label}: accessible redaction block`);
+  assert.match(accessibleName, /u-one\s+u-two/, `${viewport.label}: unordered items separated`);
+  assert.match(accessibleName, /o-one\s+o-two/, `${viewport.label}: ordered items separated`);
   assert.doesNotMatch(
     accessibleName,
     /(?:^|\s)#{1,6}\s|\*\*|```|`inline|\]\(|<script|<style|<iframe|<img/i,
@@ -238,6 +256,10 @@ async function inspectViewport(browser, url, viewport) {
     [fixedBlock],
     `${viewport.label}: fixed detail redaction`,
   );
+  const detailRedaction = detailMarkdown.locator(".redaction-block").first();
+  assert.equal(await detailRedaction.getAttribute("aria-hidden"), null);
+  assert.equal(await detailRedaction.getAttribute("role"), "img");
+  assert.equal(await detailRedaction.getAttribute("aria-label"), "已打码 / redacted");
 
   const geometry = await page.evaluate(() => {
     const documentElement = document.documentElement;
@@ -341,6 +363,18 @@ async function inspectViewport(browser, url, viewport) {
 let browser;
 let server;
 try {
+  await execFileAsync(
+    "python3",
+    [
+      "-m",
+      "unittest",
+      "scripts.test_timetable_pulse_importer.TimetablePulseImporterTests.test_technical_secrets_are_removed_without_phone_date_confusion",
+    ],
+    {
+      cwd: root,
+      env: { ...process.env, PYTHONPATH: path.join(root, "scripts") },
+    },
+  );
   await cp(path.join(root, "src", "timetable"), fixtureSource, { recursive: true });
   const pulseSnapshot = JSON.parse(
     await readFile(path.join(root, "metadata", "timetable-pulses.json"), "utf8"),
@@ -358,7 +392,7 @@ try {
   fixtureDay.pulses.push({
     ...sourceReminder,
     summary_original: markdownBody,
-    excerpt_original: markdownBody,
+    excerpt_original: markdownExcerpt,
     original_language: "en",
     projection_kind: "verbatim_redacted",
     redaction_policy: "targeted_entity_mask_v2",
@@ -404,6 +438,7 @@ try {
   console.log(JSON.stringify({
     passed: true,
     fixtureDate,
+    projectionBoundary: "private Markdown link targets are stripped by the importer before this public renderer fixture",
     semantics: [
       "paragraphs and hard line breaks",
       "strong and emphasis",
@@ -414,9 +449,10 @@ try {
       "allowlisted links",
     ],
     xssBoundary: [
-      "raw script/style/iframe/img",
-      "event-handler attributes",
-      "javascript/data/vbscript URLs",
+      "raw script/style/iframe/img/svg/math",
+      "event-handler and DOM-clobbering attributes",
+      "lowercase, mixed-case, and entity-obfuscated executable URLs",
+      "javascript/data/vbscript protocols",
     ],
     viewports: results,
   }, null, 2));
