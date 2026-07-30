@@ -299,7 +299,7 @@ async function waitForOpenLens(page, readingId = null) {
 async function waitForClosedLens(page) {
   await page.waitForFunction(() => {
     const lens = document.querySelector("#inspectionLens");
-    return lens && (lens.hidden || !lens.classList.contains("is-visible"));
+    return lens?.hidden === true;
   });
 }
 
@@ -619,7 +619,7 @@ async function assertRoundedAndSemantic(page, label) {
       roleContrast.filter((sample) => sample.ratio < 4.5),
     )}`,
   );
-  for (const layer of ["event", "climate", "absence", "beacon"]) {
+  for (const layer of ["event", "climate", "beacon"]) {
     assert.ok(
       roleContrast.some((sample) => sample.layer === layer),
       `${label}: no descendant contrast sample for ${layer}`,
@@ -629,7 +629,6 @@ async function assertRoundedAndSemantic(page, label) {
     "assigned-work",
     "ah-market-scan",
     "service-support",
-    "private-reminder",
     "autonomous-artwork",
   ]) {
     assert.ok(
@@ -640,16 +639,19 @@ async function assertRoundedAndSemantic(page, label) {
   const representatives = new Map(
     result.cards.map((card) => [card.category, card.accent]),
   );
-  for (const category of [
+  const requiredCategories = [
     "assigned-work",
     "ah-market-scan",
     "us-market-scan",
     "ai-brief",
     "service-support",
-    "private-reminder",
     "warning-exception",
     "autonomous-artwork",
-  ]) {
+  ];
+  if (representatives.has("daily-reminder")) {
+    requiredCategories.push("daily-reminder");
+  }
+  for (const category of requiredCategories) {
     assert.ok(representatives.has(category), `${label}: missing category ${category}`);
   }
   assert.equal(
@@ -658,7 +660,7 @@ async function assertRoundedAndSemantic(page, label) {
     `${label}: categories do not have deterministic distinct accents`,
   );
   const climate = result.cards.filter((card) => card.layer === "climate");
-  const foreground = result.cards.filter((card) => ["event", "absence", "beacon"].includes(card.layer));
+  const foreground = result.cards.filter((card) => ["event", "beacon"].includes(card.layer));
   assert.ok(
     climate.every((card) => card.opacity >= 0.999),
     `${label}: climate text is weakened by parent opacity`,
@@ -1047,7 +1049,7 @@ try {
     '.event-reading-card[data-category="autonomous-artwork"]',
   );
   await reducedAutonomous.scrollIntoViewIfNeeded();
-  await reducedAutonomous.focus();
+  await reducedAutonomous.hover();
   await reducedPage.waitForFunction(() => {
     const lens = document.querySelector("#inspectionLens");
     const image = lens?.querySelector("img");

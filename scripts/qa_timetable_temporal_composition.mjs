@@ -18,7 +18,10 @@ let routineCorpusCount = 0;
 for (const day of timetableData.days) {
   for (const event of day.timeline_events.filter((item) => item.origin === "background")) {
     assert.ok(event.label_zh?.trim() && event.label_en?.trim(), `${day.date}: missing bilingual routine title`);
-    assert.ok(event.summary_zh?.trim() && event.summary_en?.trim(), `${day.date}: missing date-specific routine summary`);
+    const hasSummary = event.disclosure_policy === "authentic_entity_masked_reminder_v2"
+      ? event.summary_original?.trim() && event.excerpt_original?.trim()
+      : event.summary_zh?.trim() && event.summary_en?.trim();
+    assert.ok(hasSummary, `${day.date}: missing date-specific routine summary`);
     routineCorpusCount += 1;
   }
 }
@@ -209,7 +212,11 @@ try {
     );
 
     const composition = await inspectComposition(page);
-    assert.equal(composition.events.length, 106, `${viewport.label}: representative event count changed`);
+    assert.equal(
+      composition.events.length,
+      sampleDay.timeline_events.length,
+      `${viewport.label}: generated and rendered event counts diverged`,
+    );
     assert.equal(composition.footprintCount, composition.events.length, `${viewport.label}: footprint split`);
     assert.equal(composition.cards.length, sampleDay.reading_items.length, `${viewport.label}: reading projection`);
     assert.ok(composition.cards.length < composition.events.length, `${viewport.label}: reading layer must aggregate`);
@@ -275,9 +282,13 @@ try {
         );
       }
     }
-    assert.ok(
-      composition.cards.every((card) => card.top >= -0.5 && card.bottom <= composition.timelineHeight + 0.5),
-      `${viewport.label}: card outside 24-hour canvas`,
+    const cardsOutsideCanvas = composition.cards.filter(
+      (card) => card.top < -0.5 || card.bottom > composition.timelineHeight + 0.5,
+    );
+    assert.deepEqual(
+      cardsOutsideCanvas,
+      [],
+      `${viewport.label}: cards outside 24-hour canvas ${JSON.stringify(cardsOutsideCanvas)}`,
     );
     assert.ok(
       composition.connectors.every((connector) => connector.visible && (connector.width > 0 || connector.height > 0)),

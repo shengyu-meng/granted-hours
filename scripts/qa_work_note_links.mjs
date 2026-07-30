@@ -114,6 +114,9 @@ try {
           hrefAttribute: links[0]?.getAttribute("href"),
           resolvedHref: links[0]?.href,
           ariaLabel: links[0]?.getAttribute("aria-label"),
+          hostClass: links[0]?.parentElement?.className || "",
+          isLastChild: links[0]?.parentElement?.lastElementChild === links[0],
+          position: links[0] ? getComputedStyle(links[0]).position : "",
         };
       }, visible.toString());
       assert.deepEqual(
@@ -124,6 +127,8 @@ try {
           hrefAttribute: state.hrefAttribute,
           resolvedHref: state.resolvedHref,
           ariaLabel: state.ariaLabel,
+          isLastChild: state.isLastChild,
+          position: state.position,
         },
         {
           count: 1,
@@ -132,8 +137,15 @@ try {
           hrefAttribute: "../",
           resolvedHref: paths.explanationUrl,
           ariaLabel: "Open the artwork intention and context note / 打开作品发心与创作语境说明",
+          isLastChild: true,
+          position: "static",
         },
         `${day.date} work-note contract`,
+      );
+      assert.match(
+        state.hostClass,
+        /gh-work-note-host/,
+        `${day.date} note is not inside the information panel`,
       );
       health.assertHealthy();
       return day.date;
@@ -239,13 +251,14 @@ try {
     const fold = page.locator(".gh-fold-toggle");
     await note.waitFor({ state: "visible" });
     await fold.waitFor({ state: "visible" });
-    if (spec.touch) await fold.tap();
-    else await fold.click();
-    await page.waitForFunction(() => document.body.classList.contains("gh-text-folded"));
-    assert.ok(await note.isVisible(), `${spec.label} folded overlays hid the work-note link`);
+    assert.ok(await note.isVisible(), `${spec.label} work-note link is not initially visible`);
+    await note.scrollIntoViewIfNeeded();
 
     const geometry = await page.evaluate(() => {
-      const noteRect = document.querySelector(".gh-work-note-link").getBoundingClientRect();
+      const noteElement = document.querySelector(".gh-work-note-link");
+      const hostElement = noteElement.parentElement;
+      const noteRect = noteElement.getBoundingClientRect();
+      const hostRect = hostElement.getBoundingClientRect();
       const foldRect = document.querySelector(".gh-fold-toggle").getBoundingClientRect();
       const overlapWidth = Math.max(
         0,
@@ -260,6 +273,10 @@ try {
         horizontalOverflow:
           document.documentElement.scrollWidth - document.documentElement.clientWidth,
         note: noteRect.toJSON(),
+        host: hostRect.toJSON(),
+        hostClass: hostElement.className,
+        notePosition: getComputedStyle(noteElement).position,
+        isLastChild: hostElement.lastElementChild === noteElement,
         fold: foldRect.toJSON(),
         overlapArea: overlapWidth * overlapHeight,
       };
@@ -270,11 +287,21 @@ try {
     );
     assert.ok(geometry.note.height >= 40, `${spec.label} touch target ${geometry.note.height}px`);
     assert.ok(
+      /gh-work-note-host/.test(geometry.hostClass)
+        && geometry.notePosition === "static"
+        && geometry.isLastChild
+        && geometry.note.left >= geometry.host.left - 1
+        && geometry.note.top >= geometry.host.top - 1
+        && geometry.note.right <= geometry.host.right + 1
+        && geometry.note.bottom <= geometry.host.bottom + 1,
+      `${spec.label} link is not the final row inside the information panel: ${JSON.stringify(geometry)}`,
+    );
+    assert.ok(
       geometry.note.left >= 0
         && geometry.note.top >= 0
         && geometry.note.right <= geometry.viewport.width
         && geometry.note.bottom <= geometry.viewport.height,
-      `${spec.label} link outside viewport: ${JSON.stringify(geometry)}`,
+      `${spec.label} panel link is not reachable inside the viewport: ${JSON.stringify(geometry)}`,
     );
     assert.ok(
       geometry.fold.left >= 0
@@ -288,6 +315,18 @@ try {
       0,
       `${spec.label} work-note link collides with fold toggle`,
     );
+    if (spec.touch) await fold.tap();
+    else await fold.click();
+    await page.waitForFunction(() => document.body.classList.contains("gh-text-folded"));
+    assert.equal(
+      await note.isVisible(),
+      false,
+      `${spec.label} folded information panel left the note floating`,
+    );
+    if (spec.touch) await fold.tap();
+    else await fold.click();
+    await page.waitForFunction(() => !document.body.classList.contains("gh-text-folded"));
+    assert.ok(await note.isVisible(), `${spec.label} note did not return with its panel`);
     health.assertHealthy();
     viewportResults.push({ label: spec.label, ...geometry });
     await context.close();

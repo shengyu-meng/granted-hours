@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""Focused tests for the public mirror safety boundary."""
+from __future__ import annotations
+
+import contextlib
+import io
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import check_public_safety as safety
+
+
+class PublicSafetyTests(unittest.TestCase):
+    def scan(self, files: dict[str, str]) -> tuple[int, str]:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            for relative, content in files.items():
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content, encoding="utf-8")
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = safety.main(root)
+            return result, output.getvalue()
+
+    def test_authentic_narrative_language_is_not_treated_as_a_secret(self) -> None:
+        result, output = self.scan({
+            "public.txt": (
+                "黑昼提醒：今天看看源泉，也可以复核持仓和仓位。"
+                "Hermes Agent 的工作流是今天真实发生的一部分。"
+            )
+        })
+        self.assertEqual(result, 0, output)
+
+    def test_public_url_does_not_exempt_a_secret_on_the_same_line(self) -> None:
+        fake_secret = "sk-" + "A" * 24
+        result, output = self.scan({
+            "public.txt": (
+                "https://shengyu-meng.github.io/granted-hours/ " + fake_secret
+            )
+        })
+        self.assertEqual(result, 1)
+        self.assertIn("openai_key", output)
+
+    def test_prose_prompt_is_allowed_but_serialized_private_key_is_not(self) -> None:
+        prose_result, prose_output = self.scan({
+            "metadata/timetable-pulses.json": '{"summary_original":"把 prompt 写清楚"}'
+        })
+        self.assertEqual(prose_result, 0, prose_output)
+
+        key_result, key_output = self.scan({
+            "metadata/timetable-pulses.json": '{"prompt":"private scheduler text"}'
+        })
+        self.assertEqual(key_result, 1)
+        self.assertIn("cron_private_identifier", key_output)
+
+
+if __name__ == "__main__":
+    unittest.main()

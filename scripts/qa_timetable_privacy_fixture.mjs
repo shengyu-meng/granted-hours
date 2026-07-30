@@ -28,7 +28,7 @@ const fixedBlock = "████";
 const syntheticSecrets = [
   { kind: "person", value: "Mara Evergarden" },
   { kind: "project", value: "Orchid Lantern" },
-  { kind: "amount", value: "CNY 938,271.44" },
+  { kind: "institution", value: "Northlake Institute" },
 ];
 const transparentPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
@@ -135,14 +135,55 @@ try {
   const pulseSnapshot = JSON.parse(
     await readFile(path.join(root, "metadata", "timetable-pulses.json"), "utf8"),
   );
+  pulseSnapshot.schema = "granted-hours-timetable-pulses-v5";
   const fixtureDay = pulseSnapshot.days.find((day) => day.date === "2026-07-21");
-  const reminder = fixtureDay.pulses.find((pulse) => pulse.category === "daily_reminder");
-  assert.ok(reminder, "fixture needs an authorized reminder source");
-  reminder.summary_en = `Contact ${syntheticSecrets[0].value} about ${syntheticSecrets[1].value} and ${syntheticSecrets[2].value}.`;
-  reminder.summary_zh = `联系 ${syntheticSecrets[0].value}，确认 ${syntheticSecrets[1].value} 与 ${syntheticSecrets[2].value}。`;
+  const legacyReminder = fixtureDay.pulses.find(
+    (pulse) => pulse.category === "daily_reminder",
+  );
+  assert.ok(legacyReminder, "fixture needs a reminder timing footprint");
+  for (const day of pulseSnapshot.days) {
+    day.pulses = day.pulses.filter((pulse) => pulse.category !== "daily_reminder");
+  }
+  const originalBody = (
+    "Contact ████ about the ████ project.\n\n"
+    + "You do not have to prove your worth to the external scoreboard. Allow yourself to rest."
+  );
+  const reminder = {
+    start: legacyReminder.start,
+    end: legacyReminder.end,
+    duration_minutes: legacyReminder.duration_minutes,
+    execution_minutes: legacyReminder.execution_minutes,
+    time_bucket: legacyReminder.time_bucket,
+    category: "daily_reminder",
+    count: legacyReminder.count,
+    time_provenance: legacyReminder.time_provenance,
+    summary_provenance: "source_wording_entity_masked",
+    owner_scope: "self",
+    ownership_provenance: "explicit_import_authorization",
+    disclosure_policy: "authentic_entity_masked_reminder_v2",
+    disclosure_authorization: "explicit_user_authorization_2026-07-29",
+    public_label_zh: "晨间提醒",
+    public_label_en: "Morning reminder",
+    summary_original: originalBody,
+    excerpt_original: originalBody,
+    original_language: "en",
+    projection_kind: "verbatim_redacted",
+    redaction_policy: "targeted_entity_mask_v2",
+    redaction_count: 2,
+    projection_provenance: "source_wording_entity_masked",
+  };
+  fixtureDay.pulses.push(reminder);
+  fixtureDay.pulses.sort((left, right) => (
+    left.start.localeCompare(right.start) || left.category.localeCompare(right.category)
+  ));
+  const tamperedSnapshot = structuredClone(pulseSnapshot);
+  const tamperedReminder = tamperedSnapshot.days
+    .find((day) => day.date === fixtureDay.date)
+    .pulses.find((pulse) => pulse.category === "daily_reminder");
+  tamperedReminder.raw_reconstruction_trap = syntheticSecrets.map((item) => item.value).join(" / ");
   await writeFile(
     fixturePulses,
-    `${JSON.stringify(pulseSnapshot, null, 2)}\n`,
+    `${JSON.stringify(tamperedSnapshot, null, 2)}\n`,
     "utf8",
   );
 
@@ -170,14 +211,11 @@ try {
   assert.equal(
     tamperedProjectionRejected,
     true,
-    "tampered limited-disclosure prose must fail closed",
-  );
-  const canonicalSnapshot = JSON.parse(
-    await readFile(path.join(root, "metadata", "timetable-pulses.json"), "utf8"),
+    "a v2 reminder carrying a raw reconstruction field must fail closed",
   );
   await writeFile(
     fixturePulses,
-    `${JSON.stringify(canonicalSnapshot, null, 2)}\n`,
+    `${JSON.stringify(pulseSnapshot, null, 2)}\n`,
     "utf8",
   );
   const builderRun = await execFileAsync(
@@ -194,6 +232,14 @@ try {
   const generatedProjection = await readFile(builderOutput, "utf8");
   assertSecretsAbsent(generatedProjection, "isolated generated projection");
   assert.ok(generatedProjection.includes(fixedBlock), "generated projection lost fixed bars");
+  assert.ok(
+    generatedProjection.includes("Contact ████ about the ████ project."),
+    "generated projection lost the original opening",
+  );
+  assert.ok(
+    generatedProjection.includes("You do not have to prove your worth to the external scoreboard."),
+    "generated projection lost the original reminder wording",
+  );
   assertSecretsAbsent(`${builderRun.stdout}\n${builderRun.stderr}`, "builder logs");
 
   const viteRun = await execFileAsync(
@@ -241,12 +287,34 @@ try {
   await page.waitForSelector("#dayDialog.is-open");
   await page.waitForFunction(
     () => document.querySelector(".timeline-reading-layer.is-placed")
-      && document.querySelectorAll(".absence-reading-card").length > 0,
+      && document.querySelectorAll(
+        ".routine-reading-card[data-pulse-category='daily_reminder']",
+      ).length > 0,
   );
 
-  const maskedReminder = page.locator(".absence-reading-card").first();
+  const maskedReminder = page.locator(
+    ".routine-reading-card[data-pulse-category='daily_reminder']",
+  ).first();
   await maskedReminder.scrollIntoViewIfNeeded();
   await page.waitForTimeout(150);
+  const reminderCardText = (await maskedReminder.textContent()) || "";
+  assert.equal(reminderCardText.split("external scoreboard").length - 1, 1);
+  assert.doesNotMatch(
+    reminderCardText,
+    /Masked residue|Inner weather|absence layer|public layer|contour/i,
+  );
+  await maskedReminder.click();
+  await page.waitForSelector("#taskDialog:not([hidden])");
+  const detailBody = (await page.locator("#taskDetailZh").textContent()) || "";
+  const detailEnglishSectionVisible = await page.locator("#taskDetailEn")
+    .evaluate((element) => !element.closest("section").hidden);
+  const detailProvenance = (await page.locator("#taskDetailProvenance").textContent()) || "";
+  assert.equal(detailBody, originalBody);
+  assert.equal(detailEnglishSectionVisible, false);
+  assert.equal(
+    detailProvenance,
+    "原文摘录 · 已遮 2 处可识别实体 / Original wording · 2 identifying entities masked",
+  );
   const renderedSurface = await page.evaluate(() => {
     const attributes = [...document.querySelectorAll("*")]
       .flatMap((element) => [...element.attributes].map(

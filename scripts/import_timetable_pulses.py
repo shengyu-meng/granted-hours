@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Build public-safe, evidence-rich calendar windows from real cron runs.
 
-The importer reads only the final ``## Response`` section of run receipts and
-reduces it to a tiny fixed-vocabulary status summary. Raw job names, IDs,
-prompts, output text, delivery targets, accounts, holdings, and source paths are
-never written to the snapshot.
+Operational runs are reduced to fixed public facts. Explicitly authorized
+self-reminders retain their original wording once, with identifying entities
+and technical secrets masked before serialization. Raw job names, IDs, prompts,
+delivery targets, accounts, holdings, and source paths are never written to the
+snapshot.
 """
 from __future__ import annotations
 
@@ -13,17 +14,20 @@ import json
 import math
 import re
 import sqlite3
+import subprocess
+import sys
 from collections import defaultdict
+from collections.abc import Callable, Sequence
 from contextlib import closing
 from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from reminder_disclosure import (
-    ACTION_PROVENANCE as LIMITED_ACTION_PROVENANCE,
     DISCLOSURE_AUTHORIZATION,
     DISCLOSURE_POLICY,
-    FIXED_REDACTION_BLOCK,
+    EntityDetectionError,
+    join_reminder_responses,
     project_limited_reminder_response,
 )
 
@@ -31,8 +35,13 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
 DEFAULT_SNAPSHOT = ROOT / "metadata" / "timetable-pulses.json"
 DEFAULT_STATE_DB = Path.home() / ".hermes" / "profiles" / "heizhou" / "state.db"
+DEFAULT_ENTITY_DETECTOR = ROOT / "scripts" / "detect_reminder_entities.swift"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
-PULSE_SNAPSHOT_SCHEMA = "granted-hours-timetable-pulses-v4"
+PULSE_SNAPSHOT_SCHEMA = "granted-hours-timetable-pulses-v5"
+LEGACY_PULSE_SNAPSHOT_SCHEMAS = {
+    "granted-hours-timetable-pulses-v3",
+    "granted-hours-timetable-pulses-v4",
+}
 
 NESTED_RUN_RE = re.compile(r"^(?P<stamp>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})\.(?:md|txt)$")
 FLAT_RUN_RE = re.compile(
@@ -95,6 +104,82 @@ SAFE_MARKET_THEMES = (
 
 def fail(message: str) -> None:
     raise SystemExit(message)
+
+
+def load_private_redaction_terms(path: Path | None) -> tuple[str, ...]:
+    """Load exact terms from an ignored .private JSON file without retaining it."""
+    if path is None:
+        return ()
+    resolved = path.resolve()
+    if ".private" not in resolved.parts:
+        fail("Private redaction terms must be stored under an ignored .private directory")
+    try:
+        source = json.loads(resolved.read_text(encoding="utf-8"))
+    except OSError:
+        fail("Could not read private redaction terms")
+    except json.JSONDecodeError:
+        fail("Private redaction terms are not valid JSON")
+    values = source.get("terms") if isinstance(source, dict) else source
+    if not isinstance(values, list) or not all(
+        isinstance(value, str) for value in values
+    ):
+        fail("Private redaction terms JSON must be a string list or a terms string list")
+    return tuple(
+        sorted(
+            {value for value in values if value},
+            key=lambda value: (-len(value), value),
+        )
+    )
+
+
+def detect_reminder_entities_batch(
+    texts: list[str],
+    helper_path: Path = DEFAULT_ENTITY_DETECTOR,
+) -> list[dict[str, list[str]]]:
+    """Call the Apple NaturalLanguage helper once for a batch of reminders."""
+    if not texts:
+        return []
+    if sys.platform != "darwin":
+        raise EntityDetectionError("Apple NaturalLanguage is unavailable")
+    try:
+        result = subprocess.run(
+            ["swift", str(helper_path)],
+            input=json.dumps(texts, ensure_ascii=False),
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as error:
+        raise EntityDetectionError("Apple NaturalLanguage helper failed") from error
+    if result.returncode != 0:
+        raise EntityDetectionError("Apple NaturalLanguage helper failed")
+    try:
+        detections = json.loads(result.stdout)
+    except json.JSONDecodeError as error:
+        raise EntityDetectionError("Apple NaturalLanguage helper returned invalid JSON") from error
+    if not isinstance(detections, list) or len(detections) != len(texts):
+        raise EntityDetectionError("Apple NaturalLanguage helper returned the wrong batch size")
+    normalized: list[dict[str, list[str]]] = []
+    for detection in detections:
+        if not isinstance(detection, dict) or set(detection) != {
+            "PersonalName",
+            "OrganizationName",
+        }:
+            raise EntityDetectionError("Apple NaturalLanguage helper returned invalid fields")
+        if not all(
+            isinstance(values, list)
+            and all(isinstance(value, str) for value in values)
+            for values in detection.values()
+        ):
+            raise EntityDetectionError("Apple NaturalLanguage helper returned invalid entities")
+        normalized.append(
+            {
+                "PersonalName": list(detection["PersonalName"]),
+                "OrganizationName": list(detection["OrganizationName"]),
+            }
+        )
+    return normalized
 
 
 def parse_jobs(path: Path) -> dict[str, str]:
@@ -368,11 +453,19 @@ def build_snapshot(
     state_db_path: Path | None = DEFAULT_STATE_DB,
     *,
     authorize_self_reminders: bool = False,
-    authorize_limited_reminder_disclosure: bool = False,
+    authorize_authentic_reminder_disclosure: bool = False,
+    private_redaction_terms: Sequence[str] = (),
+    entity_detector: (
+        Callable[[list[str]], list[dict[str, list[str]]]] | None
+    ) = None,
+    allow_entity_detector_bypass_for_tests: bool = False,
+    authorize_limited_reminder_disclosure: bool | None = None,
 ) -> dict:
-    if authorize_limited_reminder_disclosure and not authorize_self_reminders:
+    if authorize_limited_reminder_disclosure:
+        authorize_authentic_reminder_disclosure = True
+    if authorize_authentic_reminder_disclosure and not authorize_self_reminders:
         fail(
-            "Limited reminder disclosure also requires explicit self-reminder authorization"
+            "Authentic reminder disclosure also requires explicit self-reminder authorization"
         )
     job_names = parse_jobs(jobs_path)
     if not output_dir.exists() or not output_dir.is_dir():
@@ -428,6 +521,45 @@ def build_snapshot(
             current = dict(run)
             grouped[day_date].append(current)
 
+    detected_entities_by_group: dict[int, tuple[str, ...]] = {}
+    if authorize_authentic_reminder_disclosure:
+        reminder_groups = [
+            group
+            for day_groups in grouped.values()
+            for group in day_groups
+            if group["category"] == "daily_reminder"
+            and join_reminder_responses(group["responses"])
+        ]
+        reminder_texts = [
+            join_reminder_responses(group["responses"]) for group in reminder_groups
+        ]
+        if allow_entity_detector_bypass_for_tests:
+            detections = [
+                {"PersonalName": [], "OrganizationName": []}
+                for _text in reminder_texts
+            ]
+        else:
+            detector = entity_detector or detect_reminder_entities_batch
+            try:
+                detections = detector(reminder_texts)
+            except Exception:
+                fail("Authorized reminder entity detection failed closed")
+        if len(detections) != len(reminder_groups):
+            fail("Authorized reminder entity detection failed closed")
+        for group, detection in zip(reminder_groups, detections):
+            if not isinstance(detection, dict) or set(detection) != {
+                "PersonalName",
+                "OrganizationName",
+            }:
+                fail("Authorized reminder entity detection failed closed")
+            values = [
+                *detection["PersonalName"],
+                *detection["OrganizationName"],
+            ]
+            if not all(isinstance(value, str) for value in values):
+                fail("Authorized reminder entity detection failed closed")
+            detected_entities_by_group[id(group)] = tuple(values)
+
     days = []
     for day_date in sorted(dates):
         pulses = []
@@ -448,15 +580,17 @@ def build_snapshot(
             if (
                 group["category"] == "daily_reminder"
                 and authorize_self_reminders
-                and authorize_limited_reminder_disclosure
+                and authorize_authentic_reminder_disclosure
             ):
                 reminder_projection = project_limited_reminder_response(
                     group["responses"],
                     bucket,
+                    exact_terms=private_redaction_terms,
+                    detected_entities=detected_entities_by_group.get(id(group), ()),
                 )
-                summary_zh = reminder_projection["summary_zh"]
-                summary_en = reminder_projection["summary_en"]
-            else:
+                if reminder_projection is None:
+                    continue
+            elif group["category"] != "daily_reminder":
                 summary_zh, summary_en = public_summary(
                     group["category"],
                     group["responses"],
@@ -477,15 +611,29 @@ def build_snapshot(
                     if group["observed_count"] == 0
                     else "mixed_observed_and_receipt"
                 ),
-                "summary_zh": summary_zh,
-                "summary_en": summary_en,
-                "summary_provenance": "derived_public_safe",
             }
+            if reminder_projection is None:
+                if group["category"] == "daily_reminder":
+                    pulse.update(
+                        {
+                            "summary_zh": "提醒未公开。",
+                            "summary_en": "Reminder not published.",
+                            "summary_provenance": "withheld_unverified",
+                        }
+                    )
+                else:
+                    pulse.update(
+                        {
+                            "summary_zh": summary_zh,
+                            "summary_en": summary_en,
+                            "summary_provenance": "derived_public_safe",
+                        }
+                    )
             if group["category"] == "daily_reminder":
                 pulse.update(
                     {
                         "owner_scope": (
-                            "self_scheduler_residue"
+                            "self"
                             if authorize_self_reminders
                             else "unknown"
                         ),
@@ -494,38 +642,11 @@ def build_snapshot(
                             if authorize_self_reminders
                             else "unverified"
                         ),
-                        "action_provenance": (
-                            LIMITED_ACTION_PROVENANCE
-                            if reminder_projection is not None
-                            else "no_authorized_action_semantics"
-                        ),
                     }
                 )
                 if reminder_projection is not None:
-                    pulse.update(
-                        {
-                            "disclosure_policy": DISCLOSURE_POLICY,
-                            "disclosure_authorization": DISCLOSURE_AUTHORIZATION,
-                            "public_label_zh": reminder_projection["label_zh"],
-                            "public_label_en": reminder_projection["label_en"],
-                            "motif": reminder_projection["motif"],
-                            "action_structure": reminder_projection[
-                                "action_structure"
-                            ],
-                            "projection_kind": reminder_projection[
-                                "projection_kind"
-                            ],
-                            "redaction_policy": reminder_projection[
-                                "redaction_policy"
-                            ],
-                            "redaction_count": reminder_projection[
-                                "redaction_count"
-                            ],
-                            "projection_provenance": reminder_projection[
-                                "projection_provenance"
-                            ],
-                        }
-                    )
+                    pulse.update(reminder_projection)
+                    pulse["summary_provenance"] = "source_wording_entity_masked"
             pulses.append(pulse)
         pulses.sort(key=lambda pulse: (pulse["start"], pulse["category"]))
         days.append({"date": day_date, "pulses": pulses})
@@ -562,20 +683,48 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
-        "--authorize-self-reminder-residues",
+        "--authorize-self-reminders",
         action="store_true",
         help=(
-            "Explicitly authorize reminder run residues as self-owned for masked "
-            "public projection. Without this flag they are marked unknown and "
-            "the timetable builder omits them."
+            "Explicitly authorize the reminder runs as self-owned. Without this "
+            "flag their wording is not published."
         ),
     )
     parser.add_argument(
-        "--authorize-limited-reminder-disclosure",
+        "--authorize-authentic-reminder-disclosure",
         action="store_true",
         help=(
-            "Apply the explicitly authorized limited-masked reminder policy. "
-            "This also requires --authorize-self-reminder-residues."
+            "Preserve reminder wording and order while masking only identifying "
+            "entities and technical secrets. Requires --authorize-self-reminders "
+            "and fails closed if batch entity detection fails."
+        ),
+    )
+    parser.add_argument(
+        "--authorize-self-reminder-residues",
+        dest="authorize_self_reminders",
+        action="store_true",
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        "--authorize-limited-reminder-disclosure",
+        dest="authorize_authentic_reminder_disclosure",
+        action="store_true",
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        "--private-redaction-terms",
+        type=Path,
+        help=(
+            "Ignored .private JSON string list of exact identifying terms to mask "
+            "longest-first. Terms are never serialized."
+        ),
+    )
+    parser.add_argument(
+        "--test-only-bypass-entity-detector",
+        action="store_true",
+        help=(
+            "TEST ONLY: deliberately bypass Apple entity detection for synthetic "
+            "fixtures; never use for an authentic import."
         ),
     )
     parser.add_argument(
@@ -605,7 +754,10 @@ def merge_date_scoped_snapshot(
     except json.JSONDecodeError:
         fail("Existing pulse snapshot is not valid JSON")
     if existing_snapshot.get("schema") != PULSE_SNAPSHOT_SCHEMA:
-        fail(f"Existing pulse snapshot schema must be {PULSE_SNAPSHOT_SCHEMA}")
+        fail(
+            "Date-scoped import requires a current v5 snapshot; perform one full "
+            "authentic reminder import to migrate older snapshots"
+        )
     existing_days = existing_snapshot.get("days")
     rebuilt_days = rebuilt_snapshot.get("days")
     if not isinstance(existing_days, list) or not isinstance(rebuilt_days, list):
@@ -812,9 +964,15 @@ def main() -> int:
         args.output_dir,
         args.public_days,
         None if args.no_session_state else args.state_db,
-        authorize_self_reminders=args.authorize_self_reminder_residues,
-        authorize_limited_reminder_disclosure=(
-            args.authorize_limited_reminder_disclosure
+        authorize_self_reminders=args.authorize_self_reminders,
+        authorize_authentic_reminder_disclosure=(
+            args.authorize_authentic_reminder_disclosure
+        ),
+        private_redaction_terms=load_private_redaction_terms(
+            args.private_redaction_terms
+        ),
+        allow_entity_detector_bypass_for_tests=(
+            args.test_only_bypass_entity_detector
         ),
     )
     reminder_refresh_stats = None
@@ -852,15 +1010,14 @@ def main() -> int:
                 if pulse["category"] != "daily_reminder":
                     continue
                 reminder_dates.add(day["date"])
-                projection_counts[pulse.get("projection_kind", "opaque")] += (
+                projection_counts[pulse.get("projection_kind", "withheld")] += (
                     pulse["count"]
                 )
         print(
             "Reminder projection aggregates: "
-            f"inner-weather={projection_counts['inner_weather']}, "
-            f"masked-only={projection_counts['masked_only']}, "
-            f"combined={projection_counts['combined']}, "
-            f"opaque={projection_counts['opaque']}, "
+            f"verbatim={projection_counts['verbatim']}, "
+            f"verbatim-redacted={projection_counts['verbatim_redacted']}, "
+            f"withheld={projection_counts['withheld']}, "
             f"date-coverage={len(reminder_dates)}, "
             f"preserved-footprints={reminder_refresh_stats['preserved_footprints']}, "
             f"receipt-estimates={reminder_refresh_stats['receipt_estimate_footprints']}, "

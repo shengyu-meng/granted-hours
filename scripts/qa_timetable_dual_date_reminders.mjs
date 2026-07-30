@@ -26,14 +26,17 @@ const browser = await chromium.launch({ headless: true });
 const results = [];
 
 function assertPublicContract(text, label) {
-  assert.match(text, /今天有没有靠近源泉？/, label);
-  assert.match(text, /外部记分板今天是否过响？/, label);
-  assert.match(text, /经审计的固定模板/, label);
-  assert.match(text, /固定 ████ 遮挡块/, label);
-  assert.match(text, /Did you move closer to the source today\?/, label);
-  assert.match(text, /Was the external scoreboard too loud today\?/, label);
-  assert.match(text, /audited fixed templates/, label);
-  assert.match(text, /fixed ████ blocks/, label);
+  assert.match(text, /提醒尽量保留原句；可识别实体以 ████ 遮挡。/, label);
+  assert.match(
+    text,
+    /Reminders retain original wording; identifying entities appear as ████\./,
+    label,
+  );
+  assert.doesNotMatch(
+    text,
+    /audited templates|fixed templates|Masked residue|Reminder residue|Inner weather|absence layer|public layer retains|This day reveals only|经审计|固定模板|遮挡残影|提醒残影|内在天气|缺席层|公开层留下|这一天只显出一处/i,
+    label,
+  );
 }
 
 try {
@@ -58,7 +61,7 @@ try {
 
     const sourceState = await page.evaluate(() => {
       const panel = document.querySelector("#dayDialogPanel");
-      const seed = document.querySelector("#dialogSeed a");
+      const seed = document.querySelector("#dialogCrystallizationLink a");
       const roots = [
         document.querySelector("#dayDialog"),
         panel,
@@ -90,6 +93,12 @@ try {
         scrollRoots: roots.map((element) => (
           element.id ? `#${element.id}` : `.${element.classList[0]}`
         )),
+        decorativeIconCount: document.querySelectorAll(
+          ".theme-icon, .theme-toggle-icon, .seed-mark",
+        ).length,
+        forbiddenVisibleCopy: document.body.innerText.match(
+          /Seed\s*\/\s*种子|Masked residue|Inner weather|absence layer|遮挡残影|内在天气|缺席层/gi,
+        ) || [],
       };
     });
     assert.equal(sourceState.selectedDate, sourceDay.date, testCase.label);
@@ -103,8 +112,10 @@ try {
     assertPublicContract(sourceState.dialogBoundary.text, `${testCase.label} dialog contract`);
     assert.ok(sourceState.horizontalOverflow <= 1, testCase.label);
     assert.deepEqual(sourceState.scrollRoots, ["#dayDialogPanel"]);
+    assert.equal(sourceState.decorativeIconCount, 0);
+    assert.deepEqual(sourceState.forbiddenVisibleCopy, []);
 
-    await page.locator("#dialogSeed a").click();
+    await page.locator("#dialogCrystallizationLink a").click();
     await page.waitForFunction(
       (date) => document.querySelector("#dayDialog")?.dataset.selectedDate === date,
       linkedDay.date,
@@ -177,8 +188,8 @@ try {
     assert.equal(crystalState.start, timetableData.autonomous_hour.start);
     assert.equal(crystalState.end, timetableData.autonomous_hour.end);
     assert.equal(crystalState.duration, "60");
-    assert.match(crystalState.relationText, /Source Day.*Crystallization Day/);
-    assert.match(crystalState.relationText, /来源日.*结晶日/);
+    assert.match(crystalState.relationText, /Source.*Crystallized/);
+    assert.match(crystalState.relationText, /来源.*结晶/);
     assert.match(crystalState.relationAria, /Source Day.*Crystallization Day/);
     assert.equal(crystalState.cardTag, "ARTICLE");
     assert.equal(crystalState.cardRole, null);
@@ -186,7 +197,7 @@ try {
     assert.equal(crystalState.cardHref, null);
     assert.equal(crystalState.sourceTag, "A");
     assert.match(crystalState.sourceHref, new RegExp(`[?&]date=${sourceDay.date}(?:&|$)`));
-    assert.match(crystalState.sourceName, /Source Day|来源日/);
+    assert.match(crystalState.sourceName, /Source|来源/);
     assert.equal(crystalState.previewTag, "A");
     assert.equal(crystalState.actionTag, "A");
     assert.equal(crystalState.previewHref, crystalState.actionHref);
@@ -208,7 +219,11 @@ try {
       const meaning = `${await card.textContent()} ${await card.getAttribute("aria-label")}`;
       assert.match(
         meaning,
-        /Inner weather|Morning calibration|Evening echo|Masked residue|内在天气|晨间校准|暮间回声|遮挡残影/,
+        /Morning reminder|Midday reminder|Evening reminder|晨间提醒|午间提醒|晚间提醒/,
+      );
+      assert.doesNotMatch(
+        meaning,
+        /Inner weather|Masked residue|absence layer|内在天气|遮挡残影|缺席层/i,
       );
       assert.doesNotMatch(
         await card.getAttribute("data-accessible-name") || "",

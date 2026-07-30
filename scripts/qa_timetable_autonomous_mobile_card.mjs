@@ -11,6 +11,7 @@ const screenshotPhase = process.env.QA_SCREENSHOT_PHASE || "qa";
 const regressionDate = "2026-07-17";
 const latestDate = [...timetableData.days].map((day) => day.date).sort().at(-1);
 const cases = [
+  { date: "2026-07-11", width: 1440, height: 900, label: "2026-07-11-desktop-overlap-regression", compact: false, touch: false },
   { date: regressionDate, width: 390, height: 844, label: "2026-07-17-mobile", compact: true, touch: true },
   { date: latestDate, width: 390, height: 844, label: "latest-mobile", compact: true, touch: true },
   { date: regressionDate, width: 421, height: 386, label: "2026-07-17-short-touch", compact: true, touch: true },
@@ -59,6 +60,7 @@ async function inspect(page) {
     const preview = card?.querySelector(".self-preview");
     const time = card?.querySelector(".autonomous-time");
     const copy = card?.querySelector(".autonomous-copy");
+    const kicker = card?.querySelector(".autonomous-kicker");
     const title = card?.querySelector(".reading-title");
     const summary = card?.querySelector(".reading-summary");
     const dateRelation = card?.querySelector(".autonomous-date-relation");
@@ -75,6 +77,7 @@ async function inspect(page) {
       preview,
       time,
       copy,
+      kicker,
       title,
       summary,
       dateRelation,
@@ -122,6 +125,7 @@ async function inspect(page) {
     const previewImageRect = rect(preview);
     const timeRect = rect(time);
     const copyRect = rect(copy);
+    const kickerRect = rect(kicker);
     const titleRect = rect(title);
     const summaryRect = rect(summary);
     const dateRelationRect = rect(dateRelation);
@@ -203,6 +207,7 @@ async function inspect(page) {
       previewAnimatedSource: preview.dataset.animatedPreviewUrl,
       time: timeRect,
       copy: copyRect,
+      kicker: kickerRect,
       title: {
         ...titleRect,
         ...titleVisibility,
@@ -409,6 +414,23 @@ try {
       check(result.card.height >= 180 && result.card.height <= 230, `${testCase.label}: desktop height changed`, failures);
       check(result.fullWidthDelta >= result.readingLayer.width * 0.35, `${testCase.label}: desktop card became full-width`, failures);
       check(result.preview.left >= result.copy.right - 1, `${testCase.label}: desktop is no longer side-by-side`, failures);
+      check(
+        result.kicker.bottom <= result.title.top + 1
+          && result.title.bottom <= result.dateRelation.top + 1
+          && result.dateRelation.bottom <= result.summary.top + 1
+          && result.summary.bottom <= result.copy.bottom + 1
+          && result.copy.bottom <= result.hint.top + 1
+          && result.hint.bottom <= result.card.bottom - 4,
+        `${testCase.label}: autonomous copy regions overlap or escape their column `
+          + JSON.stringify({
+            kicker: result.kicker,
+            title: result.title,
+            dateRelation: result.dateRelation,
+            summary: result.summary,
+            copy: result.copy,
+          }),
+        failures,
+      );
     }
 
     if (

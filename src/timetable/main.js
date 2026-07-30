@@ -1,25 +1,15 @@
 import "./styles.css";
-import AppWindow from "lucide/dist/esm/icons/app-window.mjs";
 import BookOpenCheck from "lucide/dist/esm/icons/book-open-check.mjs";
 import ChartNoAxesCombined from "lucide/dist/esm/icons/chart-no-axes-combined.mjs";
-import CircleOff from "lucide/dist/esm/icons/circle-off.mjs";
-import Clock3 from "lucide/dist/esm/icons/clock-3.mjs";
-import CloudSun from "lucide/dist/esm/icons/cloud-sun.mjs";
 import CodeXml from "lucide/dist/esm/icons/code-xml.mjs";
 import FilePenLine from "lucide/dist/esm/icons/file-pen-line.mjs";
 import FileText from "lucide/dist/esm/icons/file-text.mjs";
-import House from "lucide/dist/esm/icons/house.mjs";
 import LockKeyhole from "lucide/dist/esm/icons/lock-keyhole.mjs";
 import Megaphone from "lucide/dist/esm/icons/megaphone.mjs";
-import Moon from "lucide/dist/esm/icons/moon.mjs";
 import Palette from "lucide/dist/esm/icons/palette.mjs";
 import Presentation from "lucide/dist/esm/icons/presentation.mjs";
-import Radio from "lucide/dist/esm/icons/radio.mjs";
 import Search from "lucide/dist/esm/icons/search.mjs";
 import Settings from "lucide/dist/esm/icons/settings.mjs";
-import Split from "lucide/dist/esm/icons/split.mjs";
-import Sun from "lucide/dist/esm/icons/sun.mjs";
-import Waypoints from "lucide/dist/esm/icons/waypoints.mjs";
 import createLucideElement from "lucide/dist/esm/createElement.mjs";
 import { timetableData } from "./timetable-data.js";
 import {
@@ -50,17 +40,6 @@ const dayByDate = new Map(timetableData.days.map((day) => [day.date, day]));
 const daysAscending = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
 const daysDescending = [...daysAscending].reverse();
 const publicMonths = new Set(daysAscending.map((day) => monthKey(day.date)));
-const THEME_ICONS = {
-  window: ["app-window", AppWindow],
-  seam: ["split", Split],
-  bridge: ["waypoints", Waypoints],
-  echo: ["radio", Radio],
-  weather: ["cloud-sun", CloudSun],
-  time: ["clock-3", Clock3],
-  room: ["house", House],
-  light: ["sun", Sun],
-  void: ["circle-off", CircleOff],
-};
 const TASK_ICONS = {
   "file-pen-line": FilePenLine,
   megaphone: Megaphone,
@@ -92,7 +71,7 @@ const SEMANTIC_CATEGORY_LABELS = {
   "us-market-scan": "U.S. scan / 美股市场扫描",
   "ai-brief": "AI brief / AI 日报",
   "service-support": "Service climate / 服务气候",
-  "private-reminder": "Inner weather or masked residue / 内在天气或遮挡残影",
+  "daily-reminder": "提醒 / Reminder",
   "warning-exception": "Promoted exception / 提升异常",
   "autonomous-artwork": "Autonomous artwork / AI 自主作品",
 };
@@ -196,7 +175,7 @@ function cacheElements() {
     "dayDialogPanel",
     "dialogBoundary",
     "dialogDate",
-    "dialogSeed",
+    "dialogCrystallizationLink",
     "dialogTitle",
     "dialogVariable",
     "monthGrid",
@@ -348,11 +327,8 @@ function semanticCategory(item) {
   if (item.classification === "promoted_routine_exception") {
     return "warning-exception";
   }
-  if (
-    item.classification === "redacted_reminder_residue"
-    || item.category === "daily_reminder"
-  ) {
-    return "private-reminder";
+  if (item.category === "daily_reminder") {
+    return "daily-reminder";
   }
   if (item.classification === "foreground_event" || item.origin === "assigned") {
     return "assigned-work";
@@ -421,7 +397,9 @@ function buildInspectionPayload(item) {
     categoryLabel: SEMANTIC_CATEGORY_LABELS[semanticCategory(item)],
     time: `${item.start}-${item.end}`,
     title: `${item.label_en} / ${item.label_zh}`,
-    summary: `${item.summary_en} / ${item.summary_zh}`,
+    summary: item.excerpt_original
+      || item.summary_original
+      || `${item.summary_en} / ${item.summary_zh}`,
     media: {
       videoUrl,
       animatedUrl,
@@ -789,10 +767,7 @@ function applyTheme(theme, options = {}) {
   const currentLabel = normalized === "dark" ? "Dark rite / 暗仪式" : "Light rite / 明仪式";
   const nextLabel = next === "dark" ? "dark theme / 暗色主题" : "light theme / 亮色主题";
   els.themeToggleLabel.textContent = currentLabel;
-  els.themeToggle.replaceChildren(
-    buildIcon(normalized === "dark" ? Moon : Sun, normalized === "dark" ? "moon" : "sun", "theme-toggle-icon"),
-    els.themeToggleLabel,
-  );
+  els.themeToggle.replaceChildren(els.themeToggleLabel);
   els.themeToggle.setAttribute("aria-label", `${currentLabel}. Switch to ${nextLabel}.`);
   els.themeToggle.title = `Switch to ${nextLabel}`;
   if (options.persist) {
@@ -1004,10 +979,6 @@ function buildDayButton(day, isToday, isMuted) {
     button.setAttribute("aria-current", "date");
   }
 
-  const motif = day.theme_motif;
-  const themeIcon = THEME_ICONS[motif];
-  if (!themeIcon) throw new Error(`Missing semantic theme motif for ${day.date}`);
-
   const assigned = day.cell_assigned.slice(0, 2).map((marker) => {
     const taskNameZh = marker.task_name_zh || marker.short_zh;
     const taskNameEn = marker.task_name_en || marker.short_en;
@@ -1016,16 +987,6 @@ function buildDayButton(day, isToday, isMuted) {
       <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(taskNameZh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(taskNameEn)}</span></span>
     </span>
   `}).join("");
-  const seed = day.forward_artwork_seeds?.[0];
-  const seedMark = seed
-    ? `
-      <span class="cell-mark seed-mark">
-        <span>下一结晶 / NEXT CRYSTALLIZATION</span>
-        <strong>${escapeHtml(seed.title_zh)} / ${escapeHtml(compactEnglishTitle(seed.title_en))}</strong>
-      </span>
-    `
-    : "";
-
   button.innerHTML = `
     <span class="cell-date-number">${formatMonthDay(day.date)}</span>
     <span class="cell-material">
@@ -1034,10 +995,8 @@ function buildDayButton(day, isToday, isMuted) {
         <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(day.cell_self.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(day.cell_self.short_en)}</span></span>
         <strong><span class="title-zh">${escapeHtml(day.title_zh)}</span><span class="title-divider"> / </span><span class="title-en">${escapeHtml(compactEnglishTitle(day.title_en))}</span></strong>
       </span>
-      ${seedMark}
     </span>
   `;
-  button.prepend(buildIcon(themeIcon[1], themeIcon[0], "theme-icon"));
   button.addEventListener("click", () => openDayDetail(day.date));
   return button;
 }
@@ -1110,7 +1069,7 @@ function renderDayDetail(day) {
   els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
-  renderForwardArtworkSeed(day);
+  renderForwardCrystallizationLink(day);
   els.dialogBoundary.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
   els.dayDialog.dataset.selectedDate = day.date;
   updateAdjacentDayControls(day.date);
@@ -1188,24 +1147,22 @@ function renderDayDetail(day) {
   scheduleTimelineReadingPlacement();
 }
 
-function renderForwardArtworkSeed(day) {
-  els.dialogSeed.replaceChildren();
-  const seed = day.forward_artwork_seeds?.[0];
-  els.dialogSeed.hidden = !seed;
-  if (!seed) return;
-  const label = document.createElement("span");
-  label.textContent = "Seed / 种子";
+function renderForwardCrystallizationLink(day) {
+  els.dialogCrystallizationLink.replaceChildren();
+  const relation = day.forward_artwork_seeds?.[0];
+  els.dialogCrystallizationLink.hidden = !relation;
+  if (!relation) return;
   const link = document.createElement("a");
-  link.href = publicAssetUrl(seed.day_url);
+  link.href = publicAssetUrl(relation.day_url);
   link.textContent = (
-    `Next crystallization ${seed.crystallization_date}: `
-    + `${seed.title_en} / 下一结晶 ${seed.crystallization_date}：《${seed.title_zh}》`
+    `下一结晶 ${relation.crystallization_date}`
+    + ` / Next crystallization ${relation.crystallization_date}`
   );
   link.addEventListener("click", (event) => {
     event.preventDefault();
-    openDayDetail(seed.crystallization_date, { historyMode: "push" });
+    openDayDetail(relation.crystallization_date, { historyMode: "push" });
   });
-  els.dialogSeed.append(label, link);
+  els.dialogCrystallizationLink.append(link);
 }
 
 function hydratePublicReadingItems(day) {
@@ -1317,6 +1274,17 @@ function hydratePublicReadingItems(day) {
         constituents: [],
       };
     }
+    if (projection.classification === "readable_reminder") {
+      return {
+        ...shared,
+        label_zh: primary.label_zh,
+        label_en: primary.label_en,
+        summary_original: primary.summary_original,
+        excerpt_original: primary.excerpt_original,
+        original_language: primary.original_language,
+        constituents: [],
+      };
+    }
     return {
       ...shared,
       label_zh: primary.label_zh,
@@ -1416,7 +1384,7 @@ function compositionHash(value) {
 
 function readingCardHeight(card, minuteHeight, isCompactReadingCanvas) {
   if (card.dataset.layer === "beacon") {
-    return isCompactReadingCanvas ? 380 : Math.max(184, minuteHeight * 60 + 60);
+    return isCompactReadingCanvas ? 380 : Math.max(224, minuteHeight * 60 + 60);
   }
   if (card.dataset.layer === "event") return card.dataset.origin === "assigned" ? 168 : 144;
   if (card.dataset.layer === "absence") return 126;
@@ -1591,8 +1559,10 @@ function buildTimelineTouchControl(day, event) {
     button.addEventListener("click", () => openTaskDetail(event, button));
   } else {
     const labels = publicBackgroundLabels(event.category);
-    const publicEvent = { ...event, label_zh: labels[0], label_en: labels[1] };
-    button.textContent = `${event.start}-${event.end} · ${labels[0]} / ${labels[1]}`;
+    const labelZh = event.label_zh || labels[0];
+    const labelEn = event.label_en || labels[1];
+    const publicEvent = { ...event, label_zh: labelZh, label_en: labelEn };
+    button.textContent = `${event.start}-${event.end} · ${labelZh} / ${labelEn}`;
     button.addEventListener("click", () => openTaskDetail(publicEvent, button));
   }
   return button;
@@ -1603,7 +1573,7 @@ function publicBackgroundLabels(category) {
     ah_market_scan: ["A/H 市场扫描", "A/H market scan"],
     us_market_scan: ["美股市场扫描", "U.S. market scan"],
     ai_daily_brief: ["AI 日报采集", "AI brief collection"],
-    daily_reminder: ["私人提醒", "Private reminder"],
+    daily_reminder: ["提醒", "Reminder"],
     system_routine: ["服务健康与时效检查", "Service health & freshness check"],
     background_routine: ["其他后台运行记录", "Other background run record"],
   }[category] || ["公开流程", "Public process"];
@@ -1761,8 +1731,8 @@ function buildAutonomousTimelineEvent(day, self) {
     + ` / 新窗口打开完整作品：《${self.title_zh}》`
   );
   const sourceDayCopy = self.source_day_url
-    ? `<a class="autonomous-source-day-link" href="${escapeHtml(publicAssetUrl(self.source_day_url))}">Source Day ${escapeHtml(self.source_date)} / 来源日 ${escapeHtml(self.source_date)}</a>`
-    : `<span>Source Day ${escapeHtml(self.source_date)} / 来源日 ${escapeHtml(self.source_date)}</span>`;
+    ? `<a class="autonomous-source-day-link" href="${escapeHtml(publicAssetUrl(self.source_day_url))}">来源 ${escapeHtml(self.source_date)} / Source</a>`
+    : `<span>来源 ${escapeHtml(self.source_date)} / Source</span>`;
   card.innerHTML = `
     <div class="autonomous-time">
       <span>${self.start}-${self.end}</span>
@@ -1771,7 +1741,7 @@ function buildAutonomousTimelineEvent(day, self) {
     <div class="autonomous-copy">
       <p class="autonomous-kicker">${escapeHtml(self.label_zh)} / ${escapeHtml(self.label_en)}</p>
       <h4 class="reading-title">${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
-      <p class="autonomous-date-relation">${sourceDayCopy}<span> → Crystallization Day ${escapeHtml(self.crystallization_date)} / 结晶日 ${escapeHtml(self.crystallization_date)}</span></p>
+      <p class="autonomous-date-relation">${sourceDayCopy}<span> → 结晶 ${escapeHtml(self.crystallization_date)} / Crystallized</span></p>
       <p class="reading-summary">${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
     </div>
     <a class="autonomous-preview-frame" href="${escapeHtml(directLiveUrl)}" target="_blank" rel="noopener" aria-label="${escapeHtml(liveLinkName)}">
@@ -1831,15 +1801,21 @@ function buildPulseTimelineEvent(pulse) {
   button.setAttribute("aria-haspopup", "dialog");
   button.setAttribute(
     "aria-label",
-    `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
+    pulse.classification === "readable_reminder"
+      ? `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.excerpt_original}`
+      : `${pulse.start}-${pulse.end}, ${pulse.label_en} / ${pulse.label_zh}: ${pulse.summary_en} / ${pulse.summary_zh}`,
   );
   const count = pulse.occurrence_count ?? pulse.count;
-  const summaryZh = pulse.redaction_count > 0
+  const isReadableReminder = pulse.classification === "readable_reminder";
+  const summaryZh = !isReadableReminder && pulse.redaction_count > 0
     ? redactedHtml(pulse.summary_zh)
-    : escapeHtml(pulse.summary_zh);
-  const summaryEn = pulse.redaction_count > 0
+    : escapeHtml(pulse.summary_zh || "");
+  const summaryEn = !isReadableReminder && pulse.redaction_count > 0
     ? redactedHtml(pulse.summary_en)
-    : escapeHtml(pulse.summary_en);
+    : escapeHtml(pulse.summary_en || "");
+  const originalSummary = pulse.redaction_count > 0
+    ? redactedHtml(pulse.excerpt_original || "")
+    : escapeHtml(pulse.excerpt_original || "");
   const durationCopy = pulse.classification === "climate_aggregate"
     ? `${pulse.window_count} exact windows / ${pulse.window_count} 个精确窗口`
     : `window ${pulse.duration_minutes} min / 窗口 ${pulse.duration_minutes} 分钟`;
@@ -1848,7 +1824,9 @@ function buildPulseTimelineEvent(pulse) {
     <span class="pulse-line" aria-hidden="true"></span>
     <span class="pulse-heading"><span class="pulse-label reading-title">${escapeHtml(pulse.label_zh)} / ${escapeHtml(pulse.label_en)}</span><span class="pulse-count">×${count}</span></span>
     <span class="pulse-duration">${durationCopy}</span>
-    <span class="pulse-summary reading-summary"><span>${summaryZh}</span><span>${summaryEn}</span></span>
+    <span class="pulse-summary reading-summary">${isReadableReminder
+      ? `<span class="original-reminder-copy">${originalSummary}</span>`
+      : `<span>${summaryZh}</span><span>${summaryEn}</span>`}</span>
   `;
   setupReadingCardActivation(button, () => openTaskDetail(pulse, button));
   return { footprint: item, card: button };
@@ -2125,6 +2103,12 @@ function openTaskDetail(task, trigger) {
   state.taskDetailLastFocus = trigger;
   state.taskDetailScrollTop = els.dayDialogPanel.scrollTop;
   renderTaskOccurrences(task.constituents || []);
+  const originalSection = els.taskDetailZh.closest("section");
+  const translatedSection = els.taskDetailEn.closest("section");
+  originalSection.hidden = false;
+  translatedSection.hidden = false;
+  document.getElementById("taskDetailZhLabel").textContent = "中文摘要";
+  document.getElementById("taskDetailEnLabel").textContent = "English summary";
   if (task.classification === "climate_aggregate") {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end} · ${task.window_count} exact windows / ${task.window_count} 个精确窗口`;
@@ -2137,30 +2121,22 @@ function openTaskDetail(task, trigger) {
       "alerts: promoted out of climate / 异常提升至事件层",
     ].join(" · ");
   } else if (
-    task.classification === "redacted_reminder_residue"
-    || task.classification === "masked_reminder_residue"
-    || task.classification === "inner_weather_calibration"
+    task.classification === "readable_reminder"
+    || (task.category === "daily_reminder" && task.summary_original)
   ) {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end}`;
-    els.taskDetailType.textContent = task.layer === "climate"
-      ? "内在天气层 / Inner-weather layer"
-      : "缺席层 / Absence layer";
-    els.taskDetailZh.textContent = task.summary_zh;
-    els.taskDetailEn.textContent = task.summary_en;
-    els.taskDetailProvenance.textContent = task.disclosure_policy
-      ? [
-        "policy: limited masked reminder v1 / 有限遮挡提醒 v1",
-        "authorization: explicit / 明确授权",
-        "prose: audited bilingual template / 审计双语模板",
-        `masks: ${task.redaction_count} fixed template block(s) / ${task.redaction_count} 个固定模板遮挡`,
-      ].join(" · ")
-      : [
-        `ownership: ${task.owner_scope} (${task.ownership_provenance})`,
-        "action: no authorized action semantics / 未授权公开动作语义",
-        "privacy: projected before serialization / 序列化前投影",
-        "mask: fixed block, no length or identity encoding / 固定遮挡，不编码长度或身份",
-      ].join(" · ");
+    els.taskDetailType.textContent = "提醒 / Reminder";
+    document.getElementById("taskDetailZhLabel").textContent = "提醒原文 / Original reminder";
+    els.taskDetailZh.textContent = task.summary_original;
+    els.taskDetailEn.textContent = "";
+    translatedSection.hidden = true;
+    els.taskDetailProvenance.textContent = task.redaction_count > 0
+      ? (
+        `原文摘录 · 已遮 ${task.redaction_count} 处可识别实体`
+        + ` / Original wording · ${task.redaction_count} identifying entities masked`
+      )
+      : "原文摘录 / Original wording";
   } else if (task.classification === "promoted_routine_exception") {
     els.taskDetailTitle.textContent = `${task.label_zh} / ${task.label_en}`;
     els.taskDetailTime.textContent = `${task.start}-${task.end} · window ${task.duration_minutes} min`;
@@ -2232,13 +2208,14 @@ function closeTaskDetail(options = {}) {
   els.dayDialogPanel.removeAttribute("inert");
   els.dayDialogPanel.scrollTop = state.taskDetailScrollTop;
   if (options.restoreFocus === false) return;
-  if (
+  const suppressInspectionOnRestore = Boolean(
     state.taskDetailLastFocus
     && (
       isCoarsePointerType(state.initiatingPointerType)
       || isCoarsePointerType(state.inputModality)
     )
-  ) {
+  );
+  if (suppressInspectionOnRestore) {
     state.inspectionFocusSuppressedCard = state.taskDetailLastFocus;
     hideInspectionLens({ immediate: true });
   }
@@ -2249,6 +2226,7 @@ function closeTaskDetail(options = {}) {
   ) {
     state.taskDetailLastFocus.focus({ preventScroll: true });
     els.dayDialogPanel.scrollTop = state.taskDetailScrollTop;
+    if (suppressInspectionOnRestore) hideInspectionLens({ immediate: true });
   }
 }
 

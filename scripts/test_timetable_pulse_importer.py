@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import shutil
 import sqlite3
+import sys
 import tempfile
 import unittest
 from contextlib import closing, redirect_stdout
@@ -29,7 +31,7 @@ class TimetablePulseImporterTests(unittest.TestCase):
                     "pulses": [
                         {
                             "category": "daily_reminder",
-                            "projection_kind": "inner_weather",
+                            "projection_kind": "verbatim",
                             "count": 1,
                         }
                     ],
@@ -51,8 +53,10 @@ class TimetablePulseImporterTests(unittest.TestCase):
                 public_days=Path("unused-days.json"),
                 no_session_state=True,
                 state_db=None,
-                authorize_self_reminder_residues=True,
-                authorize_limited_reminder_disclosure=True,
+                authorize_self_reminders=True,
+                authorize_authentic_reminder_disclosure=True,
+                private_redaction_terms=None,
+                test_only_bypass_entity_detector=True,
                 snapshot=snapshot_path,
             )
             output = StringIO()
@@ -153,8 +157,8 @@ class TimetablePulseImporterTests(unittest.TestCase):
                 "duration_minutes": 1,
                 "execution_minutes": 1,
                 "time_provenance": "receipt_timestamp_estimate",
-                "summary_zh": "固定公开模板。",
-                "summary_en": "Fixed public template.",
+                "summary_original": "Keep the original reminder.",
+                "excerpt_original": "Keep the original reminder.",
             }
             rebuilt = {
                 "schema": importer.PULSE_SNAPSHOT_SCHEMA,
@@ -191,7 +195,7 @@ class TimetablePulseImporterTests(unittest.TestCase):
             ),
             ("07:59", "08:03", 4, 3, "observed_session_window"),
         )
-        self.assertEqual(reminder["summary_en"], "Fixed public template.")
+        self.assertEqual(reminder["summary_original"], "Keep the original reminder.")
         self.assertEqual(
             stats,
             {
@@ -367,27 +371,40 @@ class TimetablePulseImporterTests(unittest.TestCase):
         self.assertIn("未达发布闸门", failure_zh)
         self.assertIn("did not pass", failure_en)
 
+    def reminder_fixture(
+        self,
+        root: Path,
+        responses: list[tuple[str, str]],
+    ) -> tuple[Path, Path, Path]:
+        output = root / "output"
+        output.mkdir()
+        jobs_path = root / "jobs.json"
+        days_path = root / "days.json"
+        jobs_path.write_text(
+            json.dumps(
+                {"jobs": [{"id": "reminder-job", "name": "daily reminder"}]}
+            ),
+            encoding="utf-8",
+        )
+        dates = sorted({stamp[:10] for stamp, _ in responses})
+        days_path.write_text(
+            json.dumps([{"date": day_date} for day_date in dates]),
+            encoding="utf-8",
+        )
+        (output / "reminder-job").mkdir()
+        for stamp, response in responses:
+            (output / "reminder-job" / f"{stamp}.md").write_text(
+                f"private prompt\n## Response\n{response}",
+                encoding="utf-8",
+            )
+        return jobs_path, output, days_path
+
     def test_reminder_ownership_requires_explicit_import_authorization(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
-            output = root / "output"
-            output.mkdir()
-            jobs_path = root / "jobs.json"
-            days_path = root / "days.json"
-            jobs_path.write_text(
-                json.dumps(
-                    {"jobs": [{"id": "reminder-job", "name": "daily reminder"}]}
-                ),
-                encoding="utf-8",
-            )
-            days_path.write_text(
-                json.dumps([{"date": "2026-07-01"}]),
-                encoding="utf-8",
-            )
-            (output / "reminder-job").mkdir()
-            (output / "reminder-job" / "2026-07-01_08-00-00.md").write_text(
-                "private prompt\n## Response\nprivate response",
-                encoding="utf-8",
+            jobs_path, output, days_path = self.reminder_fixture(
+                root,
+                [("2026-07-01_08-00-00", "允许自己休息。")],
             )
 
             unverified = importer.build_snapshot(
@@ -402,269 +419,279 @@ class TimetablePulseImporterTests(unittest.TestCase):
                 days_path,
                 None,
                 authorize_self_reminders=True,
+                authorize_authentic_reminder_disclosure=True,
+                allow_entity_detector_bypass_for_tests=True,
             )["days"][0]["pulses"][0]
 
         self.assertEqual(unverified["owner_scope"], "unknown")
         self.assertEqual(unverified["ownership_provenance"], "unverified")
-        self.assertEqual(authorized["owner_scope"], "self_scheduler_residue")
+        self.assertEqual(authorized["owner_scope"], "self")
         self.assertEqual(
             authorized["ownership_provenance"],
             "explicit_import_authorization",
         )
         self.assertEqual(
-            authorized["action_provenance"],
-            "no_authorized_action_semantics",
+            authorized["disclosure_policy"],
+            "authentic_entity_masked_reminder_v2",
         )
-        self.assertEqual(authorized["summary_zh"], "提醒残留。")
-        self.assertEqual(authorized["summary_en"], "Reminder residue.")
+        self.assertEqual(authorized["summary_original"], "允许自己休息。")
+        self.assertNotIn("action_provenance", authorized)
 
-    def test_limited_disclosure_requires_a_separate_explicit_policy_authorization(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            root = Path(temporary_directory)
-            output = root / "output"
-            output.mkdir()
-            jobs_path = root / "jobs.json"
-            days_path = root / "days.json"
-            jobs_path.write_text(
-                json.dumps(
-                    {"jobs": [{"id": "reminder-job", "name": "daily reminder"}]}
-                ),
-                encoding="utf-8",
-            )
-            days_path.write_text(
-                json.dumps([{"date": "2026-07-01"}]),
-                encoding="utf-8",
-            )
-            (output / "reminder-job").mkdir()
-            (output / "reminder-job" / "2026-07-01_08-00-00.md").write_text(
-                "private prompt\n## Response\n靠近源泉。",
-                encoding="utf-8",
-            )
-
-            old_policy = importer.build_snapshot(
-                jobs_path,
-                output,
-                days_path,
-                None,
-                authorize_self_reminders=True,
-            )["days"][0]["pulses"][0]
-            limited = importer.build_snapshot(
-                jobs_path,
-                output,
-                days_path,
-                None,
-                authorize_self_reminders=True,
-                authorize_limited_reminder_disclosure=True,
-            )["days"][0]["pulses"][0]
-
-        self.assertEqual(
-            old_policy["action_provenance"],
-            "no_authorized_action_semantics",
-        )
-        self.assertNotIn("disclosure_policy", old_policy)
-        self.assertEqual(
-            limited["disclosure_policy"],
-            "limited_masked_reminder_v1",
-        )
-        self.assertEqual(
-            limited["disclosure_authorization"],
-            "explicit_user_authorization_2026-07-29",
-        )
-        self.assertEqual(
-            limited["action_provenance"],
-            "limited_masked_action_semantics_v1",
-        )
-        self.assertEqual(limited["motif"], "source_proximity")
-        self.assertNotEqual(limited["summary_zh"], "提醒残留。")
-
-    def test_exact_allowed_motif_maps_to_one_audited_bilingual_template(self) -> None:
+    def test_exact_emotional_reminder_passes_through_without_translation(self) -> None:
+        source = "今天有没有靠近源泉？外部记分板今天是否过响？允许自己休息。"
         projection = importer.project_limited_reminder_response(
-            ["靠近源泉。"],
+            [source],
             "morning",
         )
-        self.assertEqual(projection["motif"], "source_proximity")
-        self.assertEqual(projection["projection_kind"], "inner_weather")
-        self.assertEqual(projection["label_zh"], "晨间校准")
-        self.assertEqual(projection["label_en"], "Morning calibration")
-        self.assertEqual(
-            projection["summary_zh"],
-            "这次校准把注意力重新带回内在源头。",
-        )
-        self.assertEqual(
-            projection["summary_en"],
-            "This calibration brings attention back toward an inner source.",
-        )
+        self.assertEqual(projection["summary_original"], source)
+        self.assertEqual(projection["excerpt_original"], source)
+        self.assertEqual(projection["original_language"], "zh")
+        self.assertEqual(projection["projection_kind"], "verbatim")
         self.assertEqual(projection["redaction_count"], 0)
         self.assertEqual(
             projection["projection_provenance"],
-            "audited_bilingual_template_v1",
+            "source_wording_entity_masked",
         )
+        self.assertNotIn("summary_zh", projection)
+        self.assertNotIn("summary_en", projection)
 
-    def test_exact_external_scoreboard_phrase_is_allowed_without_a_score_catch_all(
-        self,
-    ) -> None:
-        for phrase in ("外部记分板", "external scoreboard"):
-            with self.subTest(phrase=phrase):
-                self.assertEqual(
-                    disclosure.classify_motif(phrase),
-                    "external_scoreboard",
-                )
-        for arbitrary in (
-            "今天整理了一块外部展板。",
-            "The score was saved for an unrelated game.",
-            "A wholly unrelated sentence.",
-        ):
-            with self.subTest(arbitrary=arbitrary):
-                self.assertEqual(disclosure.classify_motif(arbitrary), "none")
-
-    def test_exact_self_compassion_phrases_are_conservative(self) -> None:
-        allowed = (
-            "给自己一点安慰。",
-            "愿这句话带来宽慰。",
-            "没关系。",
-            "辛苦了。",
-            "今天也要照顾自己。",
-            "请对自己温柔。",
-            "允许自己。",
-            "允许自己休息。",
-            "不必向任何人证明自己。",
-            "不用再证明你值得被爱。",
-            "It's okay.",
-            "Be gentle with yourself.",
-            "You are enough.",
-            "You do not have to prove yourself.",
-            "You don't have to prove that you are enough.",
+    def test_source_sections_keep_order_paragraphs_and_exact_dedup_only(self) -> None:
+        first = "先问自己：\n\n- 我累了吗？\n- 我需要休息吗？"
+        second = "Then leave uncertainty open."
+        projection = importer.project_limited_reminder_response(
+            [first, "[SILENT]", first, "", second],
+            "evening",
         )
-        for phrase in allowed:
-            with self.subTest(phrase=phrase):
-                self.assertEqual(disclosure.classify_motif(phrase), "comfort_rest")
+        self.assertEqual(projection["summary_original"], f"{first}\n\n{second}")
+        self.assertEqual(projection["original_language"], "mixed")
 
-        operational = (
-            "允许任务写入缓存。",
-            "允许自己访问生产数据库。",
-            "不必重启服务。",
-            "不用证明文件也可以提交申请。",
-            "You do not have to prove the theorem in this test.",
-            "The deployment score remained stable.",
-        )
-        for phrase in operational:
-            with self.subTest(phrase=phrase):
-                self.assertEqual(disclosure.classify_motif(phrase), "none")
-
-    def test_fixed_masked_templates_are_immersive_and_classifier_faithful(
-        self,
-    ) -> None:
-        expected = {
-            "document_or_learning_action": (
-                "这一天只显出一处与 ████ 相关的文档或学习轮廓；对象与去向保持遮挡。",
-                "This day reveals only a document or learning contour around ████; "
-                "the subject and destination remain masked.",
-            ),
-            "collaboration_or_meeting_action": (
-                "这一天只显出一处与 ████ 相关的协作或会面轮廓；角色与议题保持遮挡。",
-                "This day reveals only a collaboration or meeting contour around ████; "
-                "roles and topic remain masked.",
-            ),
-            "project_or_delivery_action": (
-                "一项围绕 ████ 的项目或交付轮廓，是公开层留下的全部。",
-                "A project or delivery contour around ████ is all the public layer retains.",
-            ),
-            "private_life_logistics": (
-                "这一天有一部分生活被留在 ████ 之后；公开层不再追问。",
-                "A part of this day's life remains behind ████; "
-                "the public layer asks no further.",
-            ),
-            "relationship_action": (
-                "这一天只显出一处与 ████ 相关的联系或关系轮廓；人物与缘由保持遮挡。",
-                "This day reveals only a contact or relational contour around ████; "
-                "people and reasons remain masked.",
-            ),
-        }
-        for action_structure, (expected_zh, expected_en) in expected.items():
-            with self.subTest(action_structure=action_structure):
-                projection = disclosure.render_reminder_projection(
-                    "none",
-                    action_structure,
-                    "afternoon",
-                )
-                self.assertEqual(projection["summary_zh"], expected_zh)
-                self.assertEqual(projection["summary_en"], expected_en)
-                self.assertEqual(projection["redaction_count"], 1)
-
-        opaque = disclosure.render_reminder_projection("none", "none", "afternoon")
-        self.assertEqual(opaque["summary_zh"], "这条提醒只留下：████。")
-        self.assertEqual(opaque["summary_en"], "This reminder leaves only this: ████.")
-
-    def test_limited_projection_never_passes_raw_spans_and_masks_concrete_action(self) -> None:
-        synthetic_values = (
-            "Aster Vale",
-            "Thesis Kestrel",
-            "Northlake Institute",
-            "USD 48,291",
-            "ACCT-Z9Q4",
-            "Juniper condition",
-            "Rowan household",
-            "Harbor City",
-        )
+    def test_synthetic_person_work_project_school_and_unit_are_masked(self) -> None:
         response = (
-            "You may rest and meet fatigue with care. "
-            "Review Thesis Kestrel with Aster Vale at Northlake Institute; "
-            "the private logistics mention USD 48,291, ACCT-Z9Q4, "
-            "Juniper condition, Rowan household, and Harbor City."
+            "联系 Mara Lin，在 Northlake School 的 Aurora Unit 讨论项目《Orchid "
+            "Lantern》，以及名为 “Blue Echo” 的作品。然后允许自己休息。"
         )
         projection = importer.project_limited_reminder_response(
             [response],
-            "evening",
+            "midday",
+            detected_entities=(
+                "Mara Lin",
+                "Northlake School",
+                "Aurora Unit",
+            ),
         )
         serialized = json.dumps(projection, ensure_ascii=False, sort_keys=True)
-        for value in synthetic_values:
+        for value in (
+            "Mara Lin",
+            "Northlake School",
+            "Aurora Unit",
+            "Orchid Lantern",
+            "Blue Echo",
+        ):
             self.assertNotIn(value, serialized)
-        self.assertNotIn(response, serialized)
-        self.assertEqual(projection["motif"], "comfort_rest")
-        self.assertEqual(
-            projection["action_structure"],
-            "document_or_learning_action",
-        )
-        self.assertEqual(projection["projection_kind"], "combined")
-        self.assertEqual(projection["redaction_policy"], "fixed_template_blocks_v1")
-        self.assertEqual(projection["redaction_count"], 1)
-        self.assertEqual(
-            projection["summary_zh"].count(importer.FIXED_REDACTION_BLOCK),
-            1,
-        )
-        self.assertEqual(
-            projection["summary_en"].count(importer.FIXED_REDACTION_BLOCK),
-            1,
-        )
+        self.assertIn("讨论项目《████》", projection["summary_original"])
+        self.assertIn("然后允许自己休息。", projection["summary_original"])
+        self.assertEqual(projection["projection_kind"], "verbatim_redacted")
+        self.assertEqual(projection["redaction_policy"], "targeted_entity_mask_v2")
+        self.assertNotIn("motif", projection)
+        self.assertNotIn("action_structure", projection)
 
-    def test_secret_length_does_not_change_masked_structural_output(self) -> None:
-        short = importer.project_limited_reminder_response(
-            ["Review thesis Q at Institute R."],
-            "afternoon",
+    def test_corner_quotes_backticks_and_bold_artwork_titles_are_masked(self) -> None:
+        source = (
+            "黑昼今早完成了「Appeal That Does Not Beg」；"
+            "昨晚做完了 `Consent Escrow / 同意托管`。"
+            "新的互动网页作品：**Dormancy Garden / 休眠花园**。"
+            "如果有精力，看看“不下跪的感激”的那个 Canvas 作品。"
         )
-        long = importer.project_limited_reminder_response(
-            [
-                "Review thesis QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ "
-                "at Institute RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR."
-            ],
-            "afternoon",
-        )
-        self.assertEqual(
-            json.dumps(short, ensure_ascii=False, sort_keys=True),
-            json.dumps(long, ensure_ascii=False, sort_keys=True),
-        )
+        projection = importer.project_limited_reminder_response([source], "morning")
+        assert projection is not None
+        serialized = json.dumps(projection, ensure_ascii=False)
+        for title in (
+            "Appeal That Does Not Beg",
+            "Consent Escrow",
+            "同意托管",
+            "Dormancy Garden",
+            "休眠花园",
+            "不下跪的感激",
+        ):
+            self.assertNotIn(title, serialized)
+        self.assertIn("完成了「████」", projection["summary_original"])
+        self.assertIn("作品：**████**", projection["summary_original"])
 
-    def test_unknown_text_cannot_become_a_public_sentence_or_scoreboard_motif(self) -> None:
-        arbitrary = "A wholly unrelated fabricated sentence should never pass through."
+    def test_ordinary_quotes_dates_and_times_are_not_entities(self) -> None:
+        source = "记住“你已经足够了”，明天 2026-07-29 08:30 再看；不要急着回答。"
         projection = importer.project_limited_reminder_response(
-            [arbitrary],
+            [source],
             "morning",
         )
+        self.assertEqual(projection["summary_original"], source)
+        self.assertEqual(projection["redaction_count"], 0)
+
+    def test_long_excerpt_is_a_literal_extractive_prefix(self) -> None:
+        source = "".join(
+            f"第{i}句话提醒你照顾自己的感受，并且保留不确定性。"
+            for i in range(1, 260)
+        )
+        projection = importer.project_limited_reminder_response(
+            [source],
+            "morning",
+        )
+        summary = projection["summary_original"]
+        excerpt = projection["excerpt_original"]
+        self.assertGreater(len(summary), 5000)
+        self.assertLessEqual(len(excerpt), 260)
+        self.assertTrue(excerpt.endswith("…"))
+        self.assertEqual(excerpt[:-1], summary[: len(excerpt) - 1])
+        self.assertEqual(excerpt.count("…"), 1)
+
+    def test_empty_and_silent_reminder_can_be_omitted(self) -> None:
+        self.assertIsNone(
+            importer.project_limited_reminder_response(
+                ["", "  ", "[SILENT]", " [SILENT] "],
+                "morning",
+            )
+        )
+
+    def test_private_exact_terms_are_longest_first_and_never_serialized(self) -> None:
+        source = "Meet PRIVATE CORMORANT STUDIO and cormorant tomorrow."
+        projection = importer.project_limited_reminder_response(
+            [source],
+            "morning",
+            exact_terms=("Cormorant", "Private Cormorant Studio"),
+        )
         serialized = json.dumps(projection, ensure_ascii=False)
-        self.assertNotIn(arbitrary, serialized)
-        self.assertEqual(projection["motif"], "none")
-        self.assertEqual(projection["projection_kind"], "opaque")
-        self.assertNotIn("scoreboard", serialized.lower())
+        self.assertNotIn("private cormorant studio", serialized.casefold())
+        self.assertNotIn("cormorant", serialized.casefold())
+        self.assertNotIn("exact_terms", serialized)
+        self.assertNotRegex(projection["summary_original"], r"█{5,}")
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            private_dir = Path(temporary_directory) / ".private"
+            private_dir.mkdir()
+            terms_path = private_dir / "reminder-redactions.json"
+            terms_path.write_text(
+                json.dumps({"terms": ["Private Cormorant Studio", "Cormorant"]}),
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                importer.load_private_redaction_terms(terms_path),
+                ("Private Cormorant Studio", "Cormorant"),
+            )
+
+    def test_technical_secrets_are_removed_without_phone_date_confusion(self) -> None:
+        phone = "138-" + "1234-" + "5678"
+        secret_label = "pass" + "word"
+        routing_label = "chat" + "_id"
+        routing_id = "-100" + "1234567890"
+        source = (
+            "保留日期 2026-07-29 和时间 08:30。联系 care@example.com 或 "
+            f"{phone}；{secret_label}=hunter-echo-77，{routing_label}={routing_id}。"
+            "查看 [项目说明](https://example.com/private?id=abc) 与 "
+            "`/Users/example/private/note.md`；状态库 state.db，调度目录 cron/output。"
+        )
+        projection = importer.project_limited_reminder_response([source], "morning")
+        assert projection is not None
+        masked = projection["summary_original"]
+        self.assertIn("2026-07-29", masked)
+        self.assertIn("08:30", masked)
+        self.assertIn("项目说明", masked)
+        self.assertIn("`████`", masked)
+        self.assertEqual(projection["redaction_count"], masked.count("████"))
+        for secret in (
+            "care@example.com",
+            phone,
+            "hunter-echo-77",
+            routing_id,
+            "https://example.com",
+            "/Users/example",
+            "state.db",
+            "cron/output",
+        ):
+            self.assertNotIn(secret, masked)
+
+    def test_batch_detector_is_called_once_for_an_authorized_import(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            jobs_path, output, days_path = self.reminder_fixture(
+                root,
+                [
+                    ("2026-07-01_08-00-00", "Meet Ada at Acme Studio."),
+                    ("2026-07-02_18-00-00", "Meet Grace at North Lab."),
+                ],
+            )
+            calls: list[list[str]] = []
+
+            def detector(texts: list[str]) -> list[dict[str, list[str]]]:
+                calls.append(texts)
+                return [
+                    {"PersonalName": ["Ada"], "OrganizationName": ["Acme Studio"]},
+                    {"PersonalName": ["Grace"], "OrganizationName": ["North Lab"]},
+                ]
+
+            snapshot = importer.build_snapshot(
+                jobs_path,
+                output,
+                days_path,
+                None,
+                authorize_self_reminders=True,
+                authorize_authentic_reminder_disclosure=True,
+                entity_detector=detector,
+            )
+
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(len(calls[0]), 2)
+        serialized = json.dumps(snapshot, ensure_ascii=False)
+        for entity in ("Ada", "Acme Studio", "Grace", "North Lab"):
+            self.assertNotIn(entity, serialized)
+        for day in snapshot["days"]:
+            [pulse] = day["pulses"]
+            self.assertEqual(
+                pulse["disclosure_policy"],
+                "authentic_entity_masked_reminder_v2",
+            )
+            self.assertNotIn("summary_zh", pulse)
+            self.assertNotIn("summary_en", pulse)
+            self.assertNotIn("action_provenance", pulse)
+
+    def test_authorized_detector_failure_fails_closed_without_test_bypass(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            jobs_path, output, days_path = self.reminder_fixture(
+                root,
+                [("2026-07-01_08-00-00", "Meet Ada.")],
+            )
+
+            def failed_detector(_texts: list[str]) -> list[dict[str, list[str]]]:
+                raise disclosure.EntityDetectionError("synthetic failure")
+
+            with self.assertRaisesRegex(SystemExit, "entity detection failed closed"):
+                importer.build_snapshot(
+                    jobs_path,
+                    output,
+                    days_path,
+                    None,
+                    authorize_self_reminders=True,
+                    authorize_authentic_reminder_disclosure=True,
+                    entity_detector=failed_detector,
+                )
+
+    @unittest.skipUnless(
+        sys.platform == "darwin" and shutil.which("swift"),
+        "Apple NaturalLanguage helper requires macOS and Swift",
+    )
+    def test_swift_batch_helper_has_synthetic_json_contract(self) -> None:
+        result = importer.detect_reminder_entities_batch(
+            ["Ada Lovelace met the team at OpenAI.", "今天允许自己休息。"]
+        )
+        self.assertEqual(len(result), 2)
+        for entry in result:
+            self.assertEqual(set(entry), {"PersonalName", "OrganizationName"})
+            self.assertTrue(
+                all(
+                    isinstance(value, str)
+                    for values in entry.values()
+                    for value in values
+                )
+            )
 
     def test_adjacent_invalid_run_cannot_borrow_same_job_valid_window(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

@@ -22,39 +22,66 @@
     touch-action: manipulation;
   }
   .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-host {
+    max-height: calc(100vh - 40px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
   .gh-work-note-link {
-    position: fixed;
-    z-index: 2147483647;
-    left: calc(12px + env(safe-area-inset-left, 0px));
-    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    display: inline-flex;
+    position: static;
+    z-index: auto;
+    display: flex;
+    flex: 0 0 100%;
+    grid-column: 1 / -1;
+    width: 100%;
     min-height: 40px;
     box-sizing: border-box;
     align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 999px;
-    padding: 0 13px;
-    background: rgba(5,9,15,.58);
+    justify-content: flex-start;
+    margin: 14px 0 0;
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,.2);
+    border-radius: 0;
+    padding: 11px 0 0;
+    background: transparent;
     color: rgba(250,246,237,.92);
-    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     letter-spacing: .02em;
     text-decoration: none;
-    white-space: nowrap;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08);
-    backdrop-filter: blur(14px) saturate(1.08);
-    box-shadow: 0 8px 28px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.07);
+    white-space: normal;
+    box-shadow: none;
+    pointer-events: auto;
     touch-action: manipulation;
   }
   .gh-work-note-link:hover {
     border-color: rgba(242,195,107,.58);
-    background: rgba(7,12,20,.7);
     color: #fff3cf;
   }
   .gh-work-note-link:focus-visible {
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
+  .gh-work-note-host-fallback {
+    position: fixed;
+    z-index: 2147483646;
+    top: max(16px, env(safe-area-inset-top));
+    left: max(16px, env(safe-area-inset-left));
+    width: min(320px, calc(100vw - 32px));
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 16px;
+    background: rgba(5,9,15,.62);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    backdrop-filter: blur(14px) saturate(1.08);
+  }
+  .gh-work-note-host-fallback .gh-work-note-link {
+    margin-top: 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+  body.gh-text-folded .gh-work-note-host,
   body.gh-text-folded .panel,
   body.gh-text-folded .card,
   body.gh-text-folded .state,
@@ -106,10 +133,7 @@
   }
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
-    .gh-work-note-link {
-      left: calc(10px + env(safe-area-inset-left, 0px));
-      bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-    }
+    .gh-work-note-host-fallback { top: 10px; left: 10px; }
   }
 </style>
 <script id="granted-hours-fold-script">
@@ -185,7 +209,6 @@
   if (document.readyState !== 'loading') init();
   function init() {
     if (!document.body || document.body.contains(btn)) return;
-    if (!IS_EMBED) document.body.appendChild(workNote);
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
       silenceEmbeddedMedia();
@@ -204,11 +227,61 @@
       window.setTimeout(silenceEmbeddedMedia, 250);
       return;
     }
+    const workNoteHost = findWorkNoteHost() || createWorkNoteFallbackHost();
+    workNoteHost.classList.add('gh-work-note-host');
+    workNoteHost.appendChild(workNote);
     document.body.appendChild(btn);
     const stored = localStorage.getItem(STORAGE_KEY);
     const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
     setFolded(IS_TIMETABLE_FULL_VIEW ? false : (stored === null ? mobileDefault : stored === '1'), false);
     btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+  }
+  function findWorkNoteHost() {
+    const candidates = new Set(document.querySelectorAll(
+      '.panel, #panel, #textPanel, .card, .hud, .caption, .plate, .label, .intro, .info, .statement, header, .fallback'
+    ));
+    document.querySelectorAll('h1, h2, .title').forEach((title) => {
+      let current = title.parentElement;
+      while (current && current !== document.body) {
+        candidates.add(current);
+        if (current.matches('section, aside, header, article, main, .panel, .card, .hud, .caption, .plate, .label, .intro, .info')) break;
+        current = current.parentElement;
+      }
+    });
+    const scored = [...candidates]
+      .filter((element) => {
+        if (!(element instanceof HTMLElement)) return false;
+        if (element.closest('.gh-fold-toggle, .gh-work-note-link')) return false;
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return style.display !== 'none'
+          && style.visibility !== 'hidden'
+          && rect.width >= 120
+          && rect.height >= 24;
+      })
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        const identity = `${element.id} ${element.className}`.toLowerCase();
+        let score = Math.min((element.textContent || '').trim().length, 120) / 8;
+        if (element.querySelector('h1')) score += 180;
+        else if (element.querySelector('h2')) score += 90;
+        if (element.querySelector('.title')) score += 70;
+        if (/panel|card|hud|caption|plate|intro|info/.test(identity) || element.tagName === 'HEADER') score += 45;
+        if (/legend|hint|control|toolbar|status|sound|meter|gauge/.test(identity)) score -= 120;
+        if (rect.left <= innerWidth * .45) score += 24;
+        if (rect.top <= innerHeight * .45) score += 24;
+        if (rect.width >= 220 && rect.width <= Math.max(760, innerWidth * .72)) score += 16;
+        return { element, score };
+      })
+      .sort((left, right) => right.score - left.score);
+    return scored[0]?.element || null;
+  }
+  function createWorkNoteFallbackHost() {
+    const host = document.createElement('aside');
+    host.className = 'gh-work-note-host-fallback';
+    host.setAttribute('aria-label', 'Artwork information / 作品信息');
+    document.body.appendChild(host);
+    return host;
   }
   function setFolded(folded, persist) {
     document.body.classList.toggle('gh-text-folded', folded);

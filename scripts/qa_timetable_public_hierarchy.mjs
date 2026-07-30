@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import {
   mkdir,
+  readFile,
   rm,
   writeFile,
 } from "node:fs/promises";
@@ -22,6 +23,31 @@ const viewports = [
 ];
 const screenshotRoot = new URL("../audits/public-readable-hierarchy/", import.meta.url);
 const segmentManifestPath = new URL("screenshot-segments.json", screenshotRoot);
+const pulseSnapshot = JSON.parse(
+  await readFile(new URL("../metadata/timetable-pulses.json", import.meta.url), "utf8"),
+);
+const publicPulseCountByDate = new Map(pulseSnapshot.days.map((day) => [
+  day.date,
+  day.pulses.filter((pulse) => (
+    pulse.category !== "daily_reminder"
+    || (
+      pulse.disclosure_policy === "authentic_entity_masked_reminder_v2"
+      && pulse.disclosure_authorization === "explicit_user_authorization_2026-07-29"
+      && ["self", "self_scheduler_residue"].includes(pulse.owner_scope)
+      && ["explicit_user_authorization", "explicit_import_authorization"].includes(
+        pulse.ownership_provenance,
+      )
+    )
+  )).length,
+]));
+const redactedReminderCountByDate = new Map(pulseSnapshot.days.map((day) => [
+  day.date,
+  day.pulses.filter((pulse) => (
+    pulse.category === "daily_reminder"
+    && pulse.disclosure_policy === "authentic_entity_masked_reminder_v2"
+    && pulse.redaction_count > 0
+  )).length,
+]));
 await mkdir(screenshotRoot, { recursive: true });
 const screenshotSegments = [
   ["morning", 8 * 60],
@@ -325,7 +351,11 @@ try {
   for (const date of targetDates) {
     const day = new Map(timetableData.days.map((entry) => [entry.date, entry])).get(date);
     assert.ok(day, `${date}: missing day`);
-    assert.equal(day.background_pulses.length, 56, `${date}: exact source windows changed`);
+    assert.equal(
+      day.background_pulses.length,
+      publicPulseCountByDate.get(date),
+      `${date}: projected source windows changed`,
+    );
     assert.equal(
       new Set(day.timeline_events.map((event) => event.footprint_id)).size,
       day.timeline_events.length,
@@ -363,7 +393,12 @@ try {
       assert.equal(state.cards.length, day.reading_items.length, `${date}/${viewport.label}: reading projection`);
       assert.ok(state.overflow <= 1, `${date}/${viewport.label}: horizontal overflow ${state.overflow}`);
       assert.deepEqual(state.vagueTitles, [], `${date}/${viewport.label}: vague titles`);
-      assert.ok(state.redactionBlocks.length > 0, `${date}/${viewport.label}: missing fixed redaction blocks`);
+      if (redactedReminderCountByDate.get(date) > 0) {
+        assert.ok(
+          state.redactionBlocks.length > 0,
+          `${date}/${viewport.label}: missing fixed redaction blocks`,
+        );
+      }
       assert.ok(
         state.redactionBlocks.every((block) => block === "████"),
         `${date}/${viewport.label}: bars encode source length`,

@@ -24,7 +24,7 @@ class FreeRoamImporterTests(unittest.TestCase):
   <style id="granted-hours-fold-style">stale style</style>
   <script id="granted-hours-fold-script">stale script</script>
 </head>
-<body><main>Artwork</main></body>
+<body><canvas></canvas><section class="panel"><h1>Artwork</h1><p>Statement</p></section></body>
 </html>
 """,
                 encoding="utf-8",
@@ -50,7 +50,11 @@ class FreeRoamImporterTests(unittest.TestCase):
             1,
         )
         self.assertIn("body.gh-chamber-embed .gh-work-note-link", refreshed)
-        self.assertIn("if (!IS_EMBED) document.body.appendChild(workNote);", refreshed)
+        self.assertIn("function findWorkNoteHost()", refreshed)
+        self.assertIn("workNoteHost.appendChild(workNote);", refreshed)
+        self.assertIn("workNoteHost.classList.add('gh-work-note-host');", refreshed)
+        self.assertIn("position: static;", refreshed)
+        self.assertNotIn("document.body.appendChild(workNote);", refreshed)
 
     def test_latest_entries_are_declared_in_chronological_order(self) -> None:
         latest = importer.ENTRIES[-3:]

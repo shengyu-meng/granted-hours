@@ -425,26 +425,6 @@ h1 {
   cursor: pointer;
 }
 
-.theme-icon {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  display: grid;
-  width: 21px;
-  height: 18px;
-  place-items: center;
-  color: rgba(120, 217, 230, 0.35);
-  opacity: 0.76;
-  transform: rotate(-2deg);
-}
-
-.theme-icon svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 6px rgba(120, 217, 230, 0.09));
-  vector-effect: non-scaling-stroke;
-}
-
 .calendar-day-button:hover {
   background:
     linear-gradient(180deg, rgba(140, 64, 55, 0.07), transparent 54%),
@@ -1041,6 +1021,10 @@ h1 {
   background: rgba(238, 231, 215, 0.025);
 }
 
+.task-detail-copy section[hidden] {
+  display: none;
+}
+
 .task-detail-copy h3 {
   margin: 0 0 8px;
   color: var(--gold-pale);
@@ -1053,6 +1037,7 @@ h1 {
   font-size: 15px;
   line-height: 1.65;
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .task-detail-provenance {
@@ -2206,6 +2191,7 @@ h1 {
   display: block;
   grid-column: 1;
   grid-row: 2;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -2236,6 +2222,11 @@ h1 {
   line-height: 1.2;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.autonomous-reading-card:not(.is-compact-reading-card)
+  .autonomous-copy > p:last-child {
+  -webkit-line-clamp: 1;
 }
 
 .autonomous-work-link.event-reading-card > .autonomous-preview-frame {
@@ -3233,7 +3224,7 @@ iframe:focus-visible {
   display: inline-grid;
   min-width: 126px;
   min-height: 44px;
-  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: 7px;
   padding: 5px 9px;
@@ -3242,24 +3233,6 @@ iframe:focus-visible {
   line-height: 1.25;
   text-align: left;
   cursor: pointer;
-}
-
-.theme-toggle-icon {
-  display: grid;
-  width: 22px;
-  height: 22px;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--cyan-trace) 42%, transparent);
-  border-radius: 50%;
-  color: var(--cyan-trace);
-  box-shadow:
-    4px 0 0 -3px color-mix(in srgb, var(--red-anomaly) 58%, transparent),
-    -4px 0 0 -3px color-mix(in srgb, var(--gold-trace) 58%, transparent);
-}
-
-.theme-toggle-icon svg {
-  width: 13px;
-  height: 13px;
 }
 
 .theme-toggle:hover,
@@ -3412,14 +3385,6 @@ h1,
   background:
     linear-gradient(142deg, color-mix(in srgb, var(--edge-light) 14%, transparent), transparent 32%),
     color-mix(in srgb, var(--cyan-trace) 5%, transparent);
-}
-
-.theme-icon {
-  color: var(--cyan-trace);
-  opacity: 0.48;
-  filter:
-    drop-shadow(1px 0 0 color-mix(in srgb, var(--red-anomaly) 48%, transparent))
-    drop-shadow(-1px 0 0 color-mix(in srgb, var(--gold-trace) 35%, transparent));
 }
 
 .cell-date-number {
@@ -4067,7 +4032,7 @@ h1,
   --category-text: var(--semantic-support-text);
 }
 
-:is(.event-reading-card, .timeline-event, .inspection-lens)[data-category="private-reminder"] {
+:is(.event-reading-card, .timeline-event, .inspection-lens)[data-category="daily-reminder"] {
   --category-accent: var(--semantic-private-accent);
   --category-surface: var(--semantic-private-surface);
   --category-text: var(--semantic-private-text);
@@ -4996,48 +4961,8 @@ h1 {
   align-self: end;
 }
 
-/* Dual-date model: the source-day seed stays quieter than the artwork beacon. */
-.seed-mark {
-  position: relative;
-  display: grid;
-  gap: 1px;
-  margin-top: 1px;
-  padding: 2px 0 0 8px;
-  border-left: 1px dotted color-mix(in srgb, var(--gold-trace) 48%, transparent);
-  color: color-mix(in srgb, var(--gold-pale) 62%, var(--ink-muted));
-  font-size: 7px;
-  letter-spacing: 0.04em;
-  opacity: 0.76;
-  text-transform: uppercase;
-}
-
-.seed-mark::before {
-  position: absolute;
-  left: -2px;
-  top: 3px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--gold-trace);
-  content: "";
-}
-
-.seed-mark strong {
-  display: block;
-  overflow: hidden;
-  color: var(--ink-muted);
-  font-size: 7px;
-  font-weight: 500;
-  text-overflow: ellipsis;
-  text-transform: none;
-  white-space: nowrap;
-}
-
-.dialog-seed {
+.dialog-crystallization-link {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 10px;
   margin-top: 9px;
   color: var(--ink-muted);
   font-family: var(--font-mono);
@@ -5045,16 +4970,11 @@ h1 {
   line-height: 1.45;
 }
 
-.dialog-seed[hidden] {
+.dialog-crystallization-link[hidden] {
   display: none;
 }
 
-.dialog-seed > span {
-  color: var(--gold-pale);
-  text-transform: uppercase;
-}
-
-.dialog-seed a {
+.dialog-crystallization-link a {
   color: var(--cyan-trace);
   text-decoration-color: color-mix(in srgb, var(--cyan-trace) 42%, transparent);
   text-underline-offset: 3px;
@@ -5104,11 +5024,11 @@ h1 {
 }
 
 @media (max-width: 720px) {
-  .seed-mark strong {
-    display: none;
-  }
-
-  .dialog-seed {
+  .dialog-crystallization-link {
     font-size: 9px;
   }
+}
+
+.original-reminder-copy {
+  white-space: pre-wrap;
 }

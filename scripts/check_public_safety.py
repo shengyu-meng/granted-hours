@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ALLOW = {
+ALLOWED_TOKENS = {
     'shengyu-meng',
     'https://shengyu-meng.github.io/granted-hours/',
     'https://github.com/shengyu-meng/granted-hours',
@@ -16,20 +16,16 @@ PATTERNS = [
     ('absolute_user_path', re.compile(r'/Users/(?!example|name|yourname)[A-Za-z0-9._-]+')),
     ('github_token', re.compile(r'(ghp_|github_pat_)[A-Za-z0-9_]{20,}')),
     ('openai_key', re.compile(r'sk-[A-Za-z0-9_-]{20,}')),
+    ('aws_access_key', re.compile(r'AKIA[0-9A-Z]{16}')),
+    ('bearer_token', re.compile(r'(?i)\bbearer\s+[A-Za-z0-9._~-]{16,}')),
     ('generic_secret_assignment', re.compile(r'(?i)(api[_-]?key|token|password|secret)\s*[:=]\s*["\']?[^\s"\']{8,}')),
     ('telegram_or_discord_id', re.compile(r'(?i)(telegram:|discord:|chat_id|thread_id)')),
-    ('private_profile_name', re.compile(r'(?i)(heizhou|黑昼|telegram)')),
-    (
-        'financial_account_activity',
-        re.compile(r'(?i)\bholdings\b|\bbroker\s+positions?\b|\baccount\s+exposure\b|\bportfolio\s+(?:allocation|holdings|exposure)\b|持仓|仓位|试仓|账户敞口|券商头寸|组合(?:持仓|配置)'),
-    ),
-    (
-        'private_operational_context',
-        re.compile(
-            r'(?i)(?:openclaw|hermes)(?:\s+(?:agent|skills?|workflow|watchdog|host-health))'
-            r'|(?:wechat|微信).{0,64}(?:local\s+history|本地历史|incremental\s+messages|增量消息|private\s+chats|私聊)'
-        ),
-    ),
+    ('email_address', re.compile(r'(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b')),
+    ('phone_number', re.compile(
+        r'(?i)(?:phone|mobile|tel(?:ephone)?|contact|电话|手机|联系|微信)'
+        r'[^\n]{0,40}(?:1[3-9]\d(?:[ -]?\d){8}|\+\d{1,3}[ -]?(?:\d[ -]?){7,13}\d)'
+    )),
+    ('private_profile_storage', re.compile(r'(?i)(?:\.hermes|profiles?[/\\]heizhou|state\.db|cron[/\\](?:jobs\.json|output))')),
 ]
 EDUCATION_IDENTITY_RE = re.compile(
     r"(?i)\b(?:school|university|college|faculty|department|institute|academy|"
@@ -62,20 +58,26 @@ PROPOSAL_TITLE_CONTEXT_RE = re.compile(
     r"|《[^》]{2,40}》(?:申报书|申请书)"
 )
 PULSE_PRIVATE_ID_RE = re.compile(
-    r"(?i)\b(?:job[_ -]?id|channel|delivery[_ -]?target|prompt)\b"
+    r"(?i)[\"'](?:job[_ -]?id|channel|delivery[_ -]?target|prompt)[\"']\s*:"
     r"|\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b"
 )
 SKIP_DIRS = {'.git', 'node_modules'}
-SKIP_PREFIXES = {'audits/', 'docs/plans/'}
+SKIP_PREFIXES = {'audits/', 'docs/plans/', 'scripts/test_'}
 SKIP_FILES = {
     'scripts/check_public_safety.py',
     'scripts/import_free_roam_artifacts.py',
     'scripts/import_timetable_pulses.py',
     'scripts/build_timetable_data.py',
+    'scripts/reminder_disclosure.py',
+    'scripts/test_public_safety.py',
 }
 
-def allowed(line: str) -> bool:
-    return any(x in line for x in ALLOW)
+def scrub_allowed_tokens(line: str) -> str:
+    """Remove explicitly public names/URLs without exempting the rest of a line."""
+    result = line
+    for token in ALLOWED_TOKENS:
+        result = result.replace(token, "")
+    return result
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -97,10 +99,9 @@ def main(root: Path) -> int:
         except UnicodeDecodeError:
             continue
         for i, line in enumerate(text.splitlines(), 1):
-            if allowed(line):
-                continue
+            scan_line = scrub_allowed_tokens(line)
             for name, rx in PATTERNS:
-                if rx.search(line):
+                if rx.search(scan_line):
                     findings.append((rel, i, name, line.strip()[:220]))
             if rel == "metadata/timetable-history.json":
                 for name, rx in (

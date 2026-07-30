@@ -119,19 +119,17 @@ try {
     assert.equal((await page.locator("#todayButton").textContent())?.trim() || "", before);
   });
 
-  await check("public days use varied library-backed vector icons", async () => {
+  await check("calendar cells contain no decorative theme icons", async () => {
     const result = await page.evaluate(() => {
       const buttons = [...document.querySelectorAll(".calendar-day-button")];
-      const icons = buttons.map((button) => button.querySelector(".theme-icon svg[data-lucide]")?.getAttribute("data-lucide") || "");
       return {
         buttonCount: buttons.length,
-        iconCount: icons.filter(Boolean).length,
-        iconTypeCount: new Set(icons.filter(Boolean)).size,
+        iconCount: document.querySelectorAll(".calendar-day-button .theme-icon").length,
         customDoodleCount: document.querySelectorAll(".theme-doodle").length,
       };
     });
-    assert.equal(result.iconCount, result.buttonCount, JSON.stringify(result));
-    assert.ok(result.iconTypeCount >= 3, `current month needs thematic vector variation: ${JSON.stringify(result)}`);
+    assert.ok(result.buttonCount > 0, JSON.stringify(result));
+    assert.equal(result.iconCount, 0, JSON.stringify(result));
     assert.equal(result.customDoodleCount, 0, JSON.stringify(result));
   });
 

@@ -136,21 +136,46 @@ export function layoutTimelineReadingCards(items, options) {
         if (!readingRangesOverlap(candidateRange, existing)) continue;
         if (existing.bottom + rowGap > top) top = existing.bottom + rowGap;
       }
+      if (top + height + edgePadding > canvasHeight) {
+        let upwardTop = desiredTop;
+        const blockers = placed
+          .filter((existing) => readingRangesOverlap(candidateRange, existing))
+          .sort((left, right) => right.top - left.top);
+        for (const existing of blockers) {
+          const overlapsVertically = upwardTop < existing.bottom + rowGap
+            && existing.top - rowGap < upwardTop + height;
+          if (overlapsVertically) upwardTop = existing.top - rowGap - height;
+        }
+        const fitsAbove = upwardTop >= edgePadding
+          && blockers.every((existing) => (
+            upwardTop + height + rowGap <= existing.top
+            || upwardTop >= existing.bottom + rowGap
+          ));
+        if (fitsAbove) top = upwardTop;
+      }
       const candidate = {
         column,
         columnSpan,
         top,
+        overflow: Math.max(0, top + height + edgePadding - canvasHeight),
+        displacement: Math.abs(top - desiredTop),
         preferenceDistance: Math.abs(column - preferredColumn),
       };
       if (
         !best
-        || candidate.top < best.top
+        || candidate.overflow < best.overflow
         || (
-          candidate.top === best.top
+          candidate.overflow === best.overflow
+          && candidate.displacement < best.displacement
+        )
+        || (
+          candidate.overflow === best.overflow
+          && candidate.displacement === best.displacement
           && candidate.preferenceDistance < best.preferenceDistance
         )
         || (
-          candidate.top === best.top
+          candidate.overflow === best.overflow
+          && candidate.displacement === best.displacement
           && candidate.preferenceDistance === best.preferenceDistance
           && candidate.column < best.column
         )

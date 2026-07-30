@@ -34,6 +34,18 @@ function errorMessage(error) {
   return error instanceof Error ? error.message : String(error);
 }
 
+function isProjectedPublicPulse(pulse) {
+  if (pulse.category !== "daily_reminder") return true;
+  return (
+    pulse.disclosure_policy === "authentic_entity_masked_reminder_v2"
+    && pulse.disclosure_authorization === "explicit_user_authorization_2026-07-29"
+    && ["self", "self_scheduler_residue"].includes(pulse.owner_scope)
+    && ["explicit_user_authorization", "explicit_import_authorization"].includes(
+      pulse.ownership_provenance,
+    )
+  );
+}
+
 async function filesUnder(directory) {
   const result = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -236,7 +248,10 @@ try {
   assert.equal(timetableData.days.length, history.days.length, "history/generated parity");
   assert.equal(timetableData.days.length, pulses.days.length, "pulse/generated parity");
   const historyByDate = new Map(history.days.map((day) => [day.date, day]));
-  const pulsesByDate = new Map(pulses.days.map((day) => [day.date, day.pulses]));
+  const pulsesByDate = new Map(pulses.days.map((day) => [
+    day.date,
+    day.pulses.filter(isProjectedPublicPulse),
+  ]));
   for (const day of timetableData.days) {
     const historyDay = historyByDate.get(day.date);
     assert.ok(
@@ -416,7 +431,7 @@ try {
     "granted-hours-timetable-v2",
     "2026-07-21",
     "2026-07-22",
-    "Morning reminder: ████.",
+    "Reminders retain original wording; identifying entities appear as ████.",
   ]) {
     assert.ok(builtText.includes(token), `built/source parity missing ${token}`);
   }
