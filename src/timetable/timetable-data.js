@@ -713,8 +713,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我现在每周还想加入一个暗线发掘模块，你看怎么跟已有的部分整合，大概意思就是多说，因为我们每一周现在会爬取很多，或者说我主动让你研究很多公司：████，这些信息联系在一起有可能会指向一些可能不是交易本身，而是科技或者国际或者政治或者经济上还没有被大众注意到的一些潜在的变化和线索。那么这些潜在变化线索如果被验证的话，就可以让我们变成快人一步的交易的出发点。所以我希望每周是不是增加这么一个环节，去回看我们本周做过的研究，然后呢？从中发掘一些非共识的对于未来的预测和洞察。你觉得呢？",
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-            "结果｜AI 从数字世界冲进物理世界后，约束变量会从 ████ 变成电、电网、铜、稀土、燃气、备用电源、工程交付和关键供应链。"
+            "关系、失望与宽容的交叠。 长期创作、日常责任与稳定照护的平衡。",
+            "AI 从数字世界冲进物理世界后，约束变量会从 ████ 变成电、电网、铜、稀土、燃气、备用电源、工程交付和关键供应链。"
           ],
           "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -950,14 +950,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-          "excerpt_original": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
+          "summary_original": "只读研究、证据校验与风险复核。",
+          "excerpt_original": "只读研究、证据校验与风险复核。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
-          "excerpt_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
+          "summary_en": "Read-only research, evidence checking, and risk review.",
+          "excerpt_en": "Read-only research, evidence checking, and risk review.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -1266,9 +1266,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 篇文章：████，帮我分析它的方法，然后呢，呃，总结成，然后给出对于我，结合我的情况，对我给出建议，并且归档以及连接到wiki 。",
+            "帮我分析它的方法，然后呢，呃，总结成，然后给出对于我，结合我的情况，对我给出建议，并且归档以及连接到wiki 。",
             "注意以后全部要用中文回复。然后我想问一下，你刷的那些信源没有刷到什么新的具体的投资标的：████？只有升降级的复核吗？",
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。"
+            "601208 东材科技：AI 材料████ 树脂，建议验证 ████ 真实性。"
           ],
           "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -1381,8 +1381,8 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-            "结果｜但要避免变成████。真正要教的是：如何把视觉生成从随机抽卡，变成可解释、可复现、可迭代的控制系统。"
+            "外部服务权限、部署与数据链路可用性。",
+            "要避免变成████。真正要教的是：如何把视觉生成从随机抽卡，变成可解释、可复现、可迭代的控制系统。"
           ],
           "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -1501,14 +1501,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-          "excerpt_original": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
+          "summary_original": "只读研究、证据校验与风险复核。",
+          "excerpt_original": "只读研究、证据校验与风险复核。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
-          "excerpt_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
+          "summary_en": "Read-only research, evidence checking, and risk review.",
+          "excerpt_en": "Read-only research, evidence checking, and risk review.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -1835,8 +1835,8 @@ const timetableDataSource = {
           "task_name_en": "Discussion and task advancement",
           "duration_minutes": 869,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 23,
@@ -1847,10 +1847,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 你可以先练中间态： 我不需要喜欢不确定性，我只需要不再把它当成敌人。 然后再往前： 我可以带着一点紧张，进入新的关卡。 我喜欢你这几句话。你后面说那五句口诀很好，但是太长，能帮我再精简一点吗？",
+            "你可以先练中间态： 我不需要喜欢不确定性，我只需要不再把它当成敌人。 然后再往前： 我可以带着一点紧张，进入新的关卡。 我喜欢你这几句话。你后面说那五句口诀很好，但是太长，能帮我再精简一点吗？",
             "我理解了，所以就是我找我的那个客户，他相当于是一个货源提供商。然后我的客户的客户相当于是一个经销商。然后我的客户的客户向经销商向我的客户提交一个选品的需求。然后呢我的客户再从我的再从他自己的仓库里面选品给他。然后呢希望这个选品的过程变得更专业化，变成PDF和视频，是这样理解吗？"
           ],
-          "excerpt_redaction_count": 1,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -1875,7 +1875,7 @@ const timetableDataSource = {
           "duration_minutes": 815,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 5,
@@ -1887,9 +1887,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "你帮我看一下东财的████或者什么开放网页，是可以看到期权价格的，A股的期权或者期货。",
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。"
+            "把 ████ 用在三类任务： 这个你怎么实现自动化。"
           ],
-          "excerpt_redaction_count": 1,
+          "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -1925,8 +1925,8 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-            "结果｜讲解 AI 视频创作中的脚本、分镜、关键帧、图生视频、角色连续性与镜头衔接问题。通过视频 ████ 或多工具串联的方式，进行视频视觉脚本的快速迭代，并完成一个 15-30 秒 AI 视频原型。"
+            "外部服务权限、部署与数据链路可用性。",
+            "讲解 AI 视频创作中的脚本、分镜、关键帧、图生视频、角色连续性与镜头衔接问题。通过视频 ████ 或多工具串联的方式，进行视频视觉脚本的快速迭代，并完成一个 15-30 秒 AI 视频原型。"
           ],
           "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -1966,7 +1966,7 @@ const timetableDataSource = {
           "public_excerpts": [
             "████这个股票我们做过深研吗？做过的话把深研报告发给我。如果没做过的话，补一个。我主要是看不懂为什么它跌得那么那么厉害，明明应该是████收益股。是不是因为前段时间一直唱衰AI要替代一切？但是不对啊，前段时间高盛已经开始说软件股低估了，而且这个本来就是受益AI的软件股。你觉得呢？这里是不是有一个████双击的机会？我们可以买预期差。",
             "你有好好分析那篇论文吗？不需要结合我的作品，就单纯分析那篇论文，就是那个PDF。",
-            "结果｜到 2025 年 10-11 月，████ 的 ████ 代码库据称 100% 由模型生成。"
+            "到 2025 年 10-11 月，████ 的 ████ 代码库据称 100% 由模型生成。"
           ],
           "excerpt_redaction_count": 5,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -2472,8 +2472,8 @@ const timetableDataSource = {
           "end": "21:23",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
-          "zh": "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。",
+          "en": "The overlap of relationships, disappointment, and tolerance.",
+          "zh": "关系、失望与宽容的交叠。",
           "short_en": "████",
           "short_zh": "打码",
           "task_name_zh": "讨论与任务推进",
@@ -2492,7 +2492,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。"
+            "关系、失望与宽容的交叠。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -2519,7 +2519,7 @@ const timetableDataSource = {
           "duration_minutes": 767,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 7,
+          "redaction_count": 6,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 4,
@@ -2531,9 +2531,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "那个知识星球的████，5月6号到现在发布了好多条见解跟标的。我不确认你做了调研没有，还是说你发过我没看？我希望你能够补一下那那个知识星球的████财富课，5月6号到现在发布了好多条见解跟标的。我不确定你做了调研没有，还是说你发过我没看。我希望你能够补一下那些标的：████，不要不要特别深度，就是快速筛选。然后呢，给我一个总结，就哪些要加入观察仓的，哪些见解是要重视的。些标的：████。呃，不要不要，特别深度的就快速筛选，然后呢？嗯，给我一个总结，就哪些要加入观察仓的，哪些见解是要重视的。",
-            "████ 帮我分析一下文章：████。然后呢，找一下有没有什么中概股的，或者说████股票的非对称价值反弹投资机会。如因为解除制裁受益，或者说因为对抗制裁而受益，或者说制裁风险解除而受益。"
+            "帮我分析一下文章：████。然后呢，找一下有没有什么中概股的，或者说████股票的非对称价值反弹投资机会。如因为解除制裁受益，或者说因为对抗制裁而受益，或者说制裁风险解除而受益。"
           ],
-          "excerpt_redaction_count": 7,
+          "excerpt_redaction_count": 6,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -2575,8 +2575,8 @@ const timetableDataSource = {
           "end": "21:25",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
-          "en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
-          "zh": "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。",
+          "en": "The overlap of relationships, disappointment, and tolerance.",
+          "zh": "关系、失望与宽容的交叠。",
           "short_en": "VIS",
           "short_zh": "视觉",
           "task_name_zh": "视觉创作与修改",
@@ -2595,7 +2595,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。"
+            "关系、失望与宽容的交叠。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -2613,12 +2613,12 @@ const timetableDataSource = {
           "end": "23:10",
           "label_en": "Code development",
           "label_zh": "代码开发",
-          "en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
-          "zh": "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。",
+          "en": "The overlap of relationships, disappointment, and tolerance.",
+          "zh": "关系、失望与宽容的交叠。",
           "short_en": "CODE",
           "short_zh": "代码",
-          "task_name_zh": "讨论了私人经验中关系、失望与宽容…",
-          "task_name_en": "Examined how disappointment, tolerance, and relationships…",
+          "task_name_zh": "关系、失望与宽容的交叠",
+          "task_name_en": "The overlap of relationships, disappointment, and…",
           "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
@@ -4050,7 +4050,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "可以不完全用个股雷达skill 的完整流程评定，可以只用部分，或者新建skill ，你自己决定",
+            "可以不完全用个股雷达skill 的完整流程评定，可以只用部分，或者新建skill ，你自己决定。",
             "你上面推荐我买的这些软件股，你都核对研究过吗？"
           ],
           "excerpt_redaction_count": 0,
@@ -4089,9 +4089,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我在想一个事情，就是把每天你的自由探索的结果作为艺术项目：████。你可以建一个公开仓库，然后呢把你每天自由创作的发心，然后以及每天自由创作结果的归档，在脱敏之后发上去。然后呢一开始是相当于是类似于我怎么样给你自由的时间，然后整个项目：████，然后下面就是列表摘要，就是能够跳转到你每一天生成的自由探索的输出。如果是生成艺术的话，还应该配上截图，就是████ 里面。然后注意上传之间要先脱敏，然后可以在本地保留一个不脱敏的版本，然后做一个脱敏的版本，做一个脱敏镜像用来上传的。",
+            "我在想一个事情，就是把每天你的自由探索的结果作为艺术项目：████。你可以建一个公开仓库，然后呢把你每天自由创作的发心，然后以及每天自由创作结果的归档，经过公开边界检查后发上去。然后呢一开始是相当于是类似于我怎么样给你自由的时间，然后整个项目：████，然后下面就是列表摘要，就是能够跳转到你每一天生成的自由探索的输出。如果是生成艺术的话，还应该配上截图，就是████ 里面。然后注意公开前要先完成信息边界检查，然后可以在本地保留一个私有工作底稿，然后做一个公开版本，做一个公开镜像用来上传的。",
             "那如果做一个3000~4000美金的高通，加上我们前面讨论的████ 和软件反弹受益股，加上████对冲的配比的话，你现在整个完整的美股的████，你会怎么帮我设计呢？",
-            "结果｜其中 ████ day 是最高等级归档。每次我生成 p5.js / Canvas / ████ 作品，都默认进入这个链路。"
+            "其中 ████ day 是最高等级归档。每次我生成 p5.js / Canvas / ████ 作品，都默认进入这个链路。"
           ],
           "excerpt_redaction_count": 8,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -4117,8 +4117,8 @@ const timetableDataSource = {
           "task_name_en": "Writing and document refinement",
           "duration_minutes": 99,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 4,
@@ -4129,10 +4129,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ document is too large or its size could not be verified. ████: 20 MB.",
-            "[████ user sent a document: ████. ████ file is saved at: ████the user what they'd like you to do with it.]"
+            "在吗？我看一下这篇文章，然后告诉我里面的洞察及对我们投资方向的影响。",
+            "这个文件你有收到吗？这个就是feedback文档。"
           ],
-          "excerpt_redaction_count": 6,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -4148,12 +4148,12 @@ const timetableDataSource = {
           "end": "20:00",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
-          "en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
-          "zh": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "zh": "只读研究、证据校验与风险复核。",
           "short_en": "RSH",
           "short_zh": "研究",
-          "task_name_zh": "整理了只读研究、证据校验与风险复…",
-          "task_name_en": "Structured a read-only research, evidence-checking, and…",
+          "task_name_zh": "只读研究、证据校验与风险复核",
+          "task_name_en": "Read-only research, evidence checking, and risk…",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
@@ -5655,8 +5655,8 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-            "帮我今天对晶盛机电和迈为股份实施高频监控，如果有买点实时提醒我。然后帮我补他们两个的个股深研。"
+            "帮我今天对晶盛机电和迈为股份实施高频监控，如果有买点实时提醒我。然后帮我补他们两个的个股深研。",
+            "好的，按你的执行，加这套强势股判定标准，而且这套强势股判定标准要同步更新到个股深研，然后个股雷达股票雷达，以及股票买点快速审核，这几个相应的skill里面去。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -5695,8 +5695,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "HTML 跨入 3D 时代！使用████生成！ 凭借 ████ 推出的全新 HTML in Canvas技术，我们终于能将原生 DOM 元素直接置于 ████场景中了。 #threejs #████ #3D #vibecode #████ #网页设计 #人工智能 我看到的是一个视频号的视频，但是视频号的链接发不了给你，大概就是一个视频里面，那个HTML in Canvas这个技术在HTML就是在浏览器里面渲染的动画，还是一个布面动画，非常的丝滑。你能不能帮我调研一下HTML in Canvas这个技术？",
-            "@全体成员 1.根据████要求，请我院全体教职工于2026年6月15日前完成学习学员操作流程：[图片]2.根据████要求，请我院全体教职工于2026年7月1日前完成学习 学员操作流程：[图片][图片] 6月5日提醒我进行上述两个学习",
-            "结果｜████ 的核心变化是：浏览器自己把 DOM 的排版、文字、表单、SVG、图片、CSS 等渲染结果变成 Canvas 可用的绘制源。"
+            "@全体成员 1.根据████要求，请我院全体教职工于2026年6月15日前完成学习学员操作流程：[图片]2.根据████要求，请我院全体教职工于2026年7月1日前完成学习 学员操作流程：[图片][图片] 6月5日提醒我进行上述两个学习。",
+            "████ 的核心变化是：浏览器自己把 DOM 的排版、文字、表单、SVG、图片、CSS 等渲染结果变成 Canvas 可用的绘制源。"
           ],
           "excerpt_redaction_count": 8,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -7702,7 +7702,7 @@ const timetableDataSource = {
           "duration_minutes": 257,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 5,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 8,
@@ -7714,9 +7714,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我觉得嗯，可以在整个████的信息报告系统中加入大局观。████说就是每天每个市场前的信息抓取的时候呢，顺带结合技术面得出一个结论，今天的市场应该是保守还是进攻，板块分化如何。然后呢尝试预测它可能波动范围是多少点到多少点，是涨还是跌。然后呢这个大盘预测信息在这个市场后续的每一次的雷达中进行更新，根据实时的市场情况进行更新，理解了吗？",
-            "[████ to: ████] 指数的预测要加上涨跌幅，不要只写区间。然后这个输出也做 ████ 格式化，加上 emoji 让它更可读。"
+            "好的，我复核完毕了。那你觉得下一步工作是什么？是继续拓展提纲吗？还是完成全文？"
           ],
-          "excerpt_redaction_count": 5,
+          "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -7780,7 +7780,7 @@ const timetableDataSource = {
           "duration_minutes": 129,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 5,
+          "redaction_count": 4,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -7792,10 +7792,10 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我觉得开头那句话还是写得更像讲义或者 ████ 材料一点，因为我真正念的时候，我不会照着念，我会更人化的把它复述。所以我希望每个作品开头的每一段话更精炼、更正式、更有洞察性。",
-            "████ 帮我看这篇文章，先用████总结，总结完之后回法回答我三个问题。第一，这个算法开源吗？有复现吗？第二个，才要105兆的参数，是不是个人也可以训练？然后呢它的实际应用的场景和性能，跟现在大语言模型的多少B的模型相当？最后呢，如果我想用它去finetune新模型去做艺术作品，是不是可行？",
-            "结果｜████把 AI 的效率逻辑反转为一场关于████的荒诞剧场。多个语言模型不断提问、回答、统计与重复，形成一个看似严肃却不断空转的生成系统。作品的价值不在结论，而在于让算力浪费、自动问答和无效循环本身成为表演。"
+            "帮我看这篇文章，先用████总结，总结完之后回法回答我三个问题。第一，这个算法开源吗？有复现吗？第二个，才要105兆的参数，是不是个人也可以训练？然后呢它的实际应用的场景和性能，跟现在大语言模型的多少B的模型相当？最后呢，如果我想用它去finetune新模型去做艺术作品，是不是可行？",
+            "████把 AI 的效率逻辑反转为一场关于████的荒诞剧场。多个语言模型不断提问、回答、统计与重复，形成一个看似严肃却不断空转的生成系统。作品的价值不在结论，而在于让算力浪费、自动问答和无效循环本身成为表演。"
           ],
-          "excerpt_redaction_count": 5,
+          "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -7951,14 +7951,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-          "excerpt_original": "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
+          "summary_original": "只读研究、证据校验与风险复核。",
+          "excerpt_original": "只读研究、证据校验与风险复核。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
-          "excerpt_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
+          "summary_en": "Read-only research, evidence checking, and risk review.",
+          "excerpt_en": "Read-only research, evidence checking, and risk review.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -8374,7 +8374,7 @@ const timetableDataSource = {
           "duration_minutes": 603,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 6,
@@ -8386,9 +8386,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我想提一个建议，就是以后你监测这个群的时候，如果出现了我们之前知识库或者观察池里面没有的新标的，都帮我先加入观察池，而且补一个快速调研。",
-            "[████ to: ████] 我想确认一下你这条抓取了多少信源子拿出这点东西，不是只抓████啊，你注意看一下我们盘前要抓取的信源列表。"
+            "结合这篇文章，帮我复核一下████，还有港股中概互联是不是回暖了？或者说触底了？"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -8413,7 +8413,7 @@ const timetableDataSource = {
           "duration_minutes": 414,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -8424,9 +8424,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "发送到████和微博。 一个很可爱的开源世界构建小应用。🥹 ████，让网页变成一块可捏的低多边形小沙盘 ████ 是一个开源的 3D 方格世界编辑器，画风像低多边形玩具模型：草地、水面、道路、房子、树、围栏、桥、农作物、牛羊，都可以直接点到网格上，快速搭出一个迷你乡村 / 小岛 / voxel diorama。"
+            "一个很可爱的开源世界构建小应用。🥹 ████，让网页变成一块可捏的低多边形小沙盘 ████ 是一个开源的 3D 方格世界编辑器，画风像低多边形玩具模型：草地、水面、道路、房子、树、围栏、桥、农作物、牛羊，都可以直接点到网格上，快速搭出一个迷你乡村 / 小岛 / voxel diorama。 它最舒服的地方不是████，而是放置规则做得比较像游戏编辑器：道路会自动连接，水边会生成岸线和泡沫，桥会按水流方向调整，围栏会自动接上邻居，房子成片后会组合成 L/T/+████ craggy outcrops。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -8450,8 +8450,8 @@ const timetableDataSource = {
           "task_name_en": "Visual creation and revision",
           "duration_minutes": 34,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -8462,9 +8462,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████] 完成编辑的最新讲义文件在哪里"
+            "外部服务权限、部署与数据链路可用性。",
+            "完成编辑的最新讲义文件在哪里。"
           ],
-          "excerpt_redaction_count": 2,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -8963,7 +8964,7 @@ const timetableDataSource = {
           "duration_minutes": 923,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 8,
@@ -8975,9 +8976,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我有个问题啊，我发现我很多股票都是大涨之前，就是开启主升浪之前会深跌，甚至深跌两三天。有时候我拿得住，有时候我拿不住，是反而很多时候都是这样子，就不跌之后，就是它前面是平的走了，波动越来越小，然后之后深跌两三天后开始大涨。我想问一下这个是为什么存在的？我不能假设说一定有一个庄家每次都是这样操盘去故意洗盘，对吧？因为交易量那么大，还是说这是一种集体行为的惯性，就是说你跌的时候呢，把那些筹码不坚定的人洗掉了，反而就是没有人卖了才能开始涨起来。那么如果是这样的话，我怎么去识别真正的深跌和这种就是暴涨之前的洗盘呢？",
-            "然后我想跟你谈一下我投资的感受，甚至是缺点，████说，就是每一次呢，股票下跌我就开始慌，然后我就开始卖。通常卖在一个不是很好的位置，有时候甚至是最低点。然后呢股票稍微反弹，我又不敢买，然后等股票涨了一段时间，我觉得安全了，我再买。这时候呢，通常又遇到一个反弹的一个主力位吧，然后又开始下跌，然后我又卖。就非常明显，████是美股。也就是说，我好像有点是，我以前是尝试做价值投资者。但是呢我发现价值投资就是你要很多时候要熬漫长的亏损下跌期。"
+            "帮我看一下这个帖子里面关于算力期货化的事件，然后呢验证并分析那个里面的观点，然后分析对我们现在的████的洞察有什么影响，更新到相应的████，并且帮我找一下它隐藏的非对称收益交易标的。这是████率、高赔率，但是现在还没有很拥挤的收益标，交易标的。"
           ],
-          "excerpt_redaction_count": 2,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -9013,9 +9014,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "保留这一版，尝试专门做一版真实的████操作截图和录屏。我应该都给你权限了",
+            "保留这一版，尝试专门做一版真实的████操作截图和录屏。我应该都给你权限了。",
             "建议不错，但是记得统一加上 ████ 格式渲染跟emoji符号标记。",
-            "结果｜18 张引用项目：████内验证到 30 条 external hyperlink relationships。"
+            "18 张引用项目：████内验证到 30 条 external hyperlink relationships。"
           ],
           "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -9054,7 +9055,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "先把做这个 ████ 的经验更新到相应的 skill。",
-            "结果｜增加了 ████ hyperlink relationships 的验证方法。"
+            "增加了 ████ hyperlink relationships 的验证方法。"
           ],
           "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -9072,12 +9073,12 @@ const timetableDataSource = {
           "end": "21:35",
           "label_en": "Document processing",
           "label_zh": "文档处理",
-          "en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "zh": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "zh": "长期创作、日常责任与稳定照护的平衡。",
           "short_en": "DOC",
           "short_zh": "文档",
-          "task_name_zh": "讨论了长期创作、日常责任与稳定照…",
-          "task_name_en": "Discussed the balance between long-term creative…",
+          "task_name_zh": "长期创作、日常责任与稳定照护的平…",
+          "task_name_en": "Balancing long-term creative work, daily responsibilities,…",
           "duration_minutes": 150,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
@@ -9459,7 +9460,7 @@ const timetableDataSource = {
           "duration_minutes": 1358,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 16,
@@ -9470,10 +9471,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-            "里面可能有几个独立的项目：████，例如那个████，像这些都可以排除，因为暂时已经不更新了。你帮我排查一下，还有没有类似这样的文件夹。"
+            "里面可能有几个独立的项目：████，例如那个████，像这些都可以排除，因为暂时已经不更新了。你帮我排查一下，还有没有类似这样的文件夹。",
+            "你说一下现在工作区得体是什么情况？然后如果要更新的话，之前会更新████，你还记得要恢复哪一些设定吗？"
           ],
-          "excerpt_redaction_count": 2,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -9508,9 +9509,7 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。"
-          ],
+          "public_excerpts": [],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
@@ -9982,7 +9981,7 @@ const timetableDataSource = {
           "duration_minutes": 1358,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 5,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 8,
@@ -9993,11 +9992,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████] 世界线雷达｜周度主线 做P0 到P4，但是如果TW 和JP的标的：████，则不考虑。仅考虑能够购买的资产",
-            "████ 帮我分析一下它里面说的跨品种跨期子套利，看一下可不可行，如果用相应的████来合成多空的话。",
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。"
+            "世界线雷达｜周度主线 做P0 到P4，但是如果TW 和JP的标的：████，则不考虑。仅考虑能够购买的资产。",
+            "帮我分析一下它里面说的跨品种跨期子套利，看一下可不可行，如果用相应的████来合成多空的话。"
           ],
-          "excerpt_redaction_count": 5,
+          "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -10060,8 +10058,8 @@ const timetableDataSource = {
           "task_name_en": "System maintenance and deployment",
           "duration_minutes": 182,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 4,
@@ -10073,9 +10071,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "根据我们这些天的对话或者工作，你觉得我们现在有必要做这个多agent系统吗？然后如果有的话，我应该做成哪几个不同的人格的profile呢？",
-            "[████ to: ████stop reminder ████] 检查下这个备份任务为什么失败了？"
+            "检查下这个备份任务为什么失败了？"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -10554,8 +10552,8 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-            "我有一个想法，就是市场的交易机会总是在找当下主线的瓶颈的上游。就比如说大家觉得AI热起来，发现AI的瓶颈是████，然后开始炒████。然后呢████在往上发现████的瓶颈在互联，在光通信和存储，那么开始炒存储和光通信。那么我们再往上，比如说存储的上游里面有哪些是瓶颈？它们被炒作了吗？光通信的上游里面有哪些是瓶颈？如果它们的上游都没有存在供应的瓶颈，那么它们的上游的再上游有没有瓶颈？这些瓶颈被炒作到了吗？我觉得这是一个可以一直在追溯下去的过程，总能找到一些，比方说还没有成为瓶颈。"
+            "我有一个想法，就是市场的交易机会总是在找当下主线的瓶颈的上游。就比如说大家觉得AI热起来，发现AI的瓶颈是████，然后开始炒████。然后呢████在往上发现████的瓶颈在互联，在光通信和存储，那么开始炒存储和光通信。那么我们再往上，比如说存储的上游里面有哪些是瓶颈？它们被炒作了吗？光通信的上游里面有哪些是瓶颈？如果它们的上游都没有存在供应的瓶颈，那么它们的上游的再上游有没有瓶颈？这些瓶颈被炒作到了吗？我觉得这是一个可以一直在追溯下去的过程，总能找到一些，比方说还没有成为瓶颈。",
+            "修正这个问题并重新执行。"
           ],
           "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -10582,7 +10580,7 @@ const timetableDataSource = {
           "duration_minutes": 154,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 8,
+          "redaction_count": 4,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -10593,10 +10591,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ user sent a document: ████. ████ file is saved at: ████the user what they'd like you to do with it.] 这是一篇我们投了 ████ 但是没有中的论文。现在想投到这一个会议里面：████ 这里是这个项目：████jects 我想你从几个角度来给我提修改建议。比如说： 1. 新论文：████这个作品的重要性",
-            "结果｜对象不再是一个稳定实体，而是在多模态 AI 系统中被持续观测、编码、关联、递归生成、误读并耗尽的视觉—语义事件。"
+            "这是一篇我们投了 ████ 但是没有中的论文。现在想投到这一个会议里面：████ 这里是这个项目：████jects 我想你从几个角度来给我提修改建议。比如说： 1. 新论文：████这个作品的重要性。",
+            "对象不再是一个稳定实体，而是在多模态 AI 系统中被持续观测、编码、关联、递归生成、误读并耗尽的视觉—语义事件。"
           ],
-          "excerpt_redaction_count": 8,
+          "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -10910,8 +10908,8 @@ const timetableDataSource = {
           "end": "23:57",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
-          "zh": "记录了个人恢复安排，具体身心细节不公开。",
+          "en": "Personal pacing and recovery arrangements.",
+          "zh": "个人节奏与恢复安排。",
           "short_en": "████",
           "short_zh": "打码",
           "task_name_zh": "讨论与任务推进",
@@ -10930,7 +10928,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "记录了个人恢复安排，具体身心细节不公开。"
+            "个人节奏与恢复安排。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -10957,7 +10955,7 @@ const timetableDataSource = {
           "duration_minutes": 1277,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 4,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 8,
@@ -10968,10 +10966,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████] 我觉得这个风险复核很好，但是为什么 A 股没有这个风险复核？就是这个新闻事件：████。、",
-            "帮我快速复核冷池复活复核这几个标的：████"
+            "帮我快速复核冷池复活复核这几个标的：████。"
           ],
-          "excerpt_redaction_count": 4,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -11007,7 +11004,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我检查了一下，你最近都没有读到群聊图片，████是群聊大图，导致信息缺失。你以前不是能读到过大图吗？为什么现在读不到？如果需要手动点开聊天框才能读到大图的话，你也可以控制████界面刷新点开啊。但是我感觉不用点，根据我们用的仓库： ████ 这里的说明",
+            "我检查了一下，你最近都没有读到群聊图片，████是群聊大图，导致信息缺失。你以前不是能读到过大图吗？为什么现在读不到？如果需要手动点开聊天框才能读到大图的话，你也可以控制████界面刷新点开啊。但是我感觉不用点，根据我们用的仓库： ████ 这里的说明。",
             "我以后在这个群主中会给你发一些艺术作品（以链接为主）。然后我希望你把这个作家、艺术家的理念特征做拆解，然后分类保留归档，并链接到wiki。然后最好是有一个链接能够链到他的一些代表性作品的页面，当我让你调出相应的画面时候，你能从链接把图片调给我。"
           ],
           "excerpt_redaction_count": 3,
@@ -11073,7 +11070,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我很赞同你这个母体的说法，也赞同你说我是希望把所有东西构建成一个系统，让自己去回归自己生命的本源，去重新接触这个世界。但是我感觉如果像你说的，再给这个胚胎一个档案，好像又去命名它了，就又被限定了。我在想怎么样去让它变得更清楚，但是又保存这种直觉，或者是没有办法用语言表达的东西。",
-            "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。"
+            "长期创作、日常责任与稳定照护的平衡。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -11391,7 +11388,7 @@ const timetableDataSource = {
           "duration_minutes": 406,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 9,
@@ -11402,10 +11399,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我觉得好多了，你可以再复核一下。比如说有一些案例，它的主要图幅是竖屏的，那么一个 ████ 里面就可以放两页竖屏的，这个不影响，甚至节省空间。有一些案例，它有很多图，比如有四张大图，你可以先放一张大图，然后第二页放剩下的没有那么重要的四张图，四拼一。如果是横幅的四拼一正好是一张长条的话，到时候我再取舍。理解了么",
-            "[████ to: ████] 不是跟你说过了吗？所有盘中播报都移到旁边，复合那个组。"
+            "我觉得好多了，你可以再复核一下。比如说有一些案例，它的主要图幅是竖屏的，那么一个 ████ 里面就可以放两页竖屏的，这个不影响，甚至节省空间。有一些案例，它有很多图，比如有四张大图，你可以先放一张大图，然后第二页放剩下的没有那么重要的四张图，四拼一。如果是横幅的四拼一正好是一张长条的话，到时候我再取舍。理解了么。",
+            "帮我分析这篇文章，然后告诉我对我们投资有什么见解和帮助。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -11430,7 +11427,7 @@ const timetableDataSource = {
           "duration_minutes": 5,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_count": 7,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -11442,9 +11439,10 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我希望在████里面增加一页内容，讲解████的概念，按照前面的风格和方法。",
-            "帮我安装归藏的 ████ skill，然后把现在 lecture one 的 ████ 后面那一部分有引用图片的部分页面重新排版，按照归藏的 ████ skill 的原则。████"
+            "帮我安装归藏的 ████ skill，然后把现在 lecture one 的 ████ 后面那一部分有引用图片的部分页面重新排版，按照归藏的 ████ skill 的原则。████。",
+            "视觉 QA 通过：无明显裁切、比例失真、错字；████ 可交付。"
           ],
-          "excerpt_redaction_count": 6,
+          "excerpt_redaction_count": 7,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -12672,8 +12670,8 @@ const timetableDataSource = {
           "task_name_en": "Development and validation",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -12684,9 +12682,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████stop reminder ████] 怎么回事这个？"
+            "怎么回事这个？"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -12723,7 +12721,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "发送到微博和星球。 UI 加操作系统收集爱好者狂喜🥹 ████：把 1700+ 个历史操作系统做成可运行博物馆 ████是一个操作系统虚拟博物馆，形式不是截图站，而是一个可在 ████、████ 或 ████ 中运行的 ████。里面预装并配置好大量 ████ 和仿真器，带一个跨 emulator 的 launcher 和 snapshot 功能，系统弄坏了可以快速回滚。",
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。"
+            "外部服务权限、部署与数据链路可用性。 提醒记录的结构与完整性核验。 只读研究、证据校验与风险复核。"
           ],
           "excerpt_redaction_count": 7,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -12827,8 +12825,8 @@ const timetableDataSource = {
           "task_name_en": "Content organization and publishing",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -12838,10 +12836,8 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "[████ — ████] ████ turns were compacted into the summary below. ████ is a handoff from a previous context window — treat it as background reference, ████ as active instructions. ████ answer questions or fulfill requests mentioned in this summary;"
-          ],
-          "excerpt_redaction_count": 6,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -20026,8 +20022,8 @@ const timetableDataSource = {
           "task_name_en": "Writing and document refinement",
           "duration_minutes": 1340,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -20038,10 +20034,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
-            "████ 这里有一个完整的补充文章，你再看一下。"
+            "这里有一个完整的补充文章，你再看一下。"
           ],
-          "excerpt_redaction_count": 1,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -20078,7 +20073,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "你帮我看一下████消费平时有溢价吗？一般溢价多少？████相关的qdii真的没有其他能上车的吗？",
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。"
+            "以后都要有中文名称，就是日报里面的标的啊。"
           ],
           "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -20105,7 +20100,7 @@ const timetableDataSource = {
           "duration_minutes": 52,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 4,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -20116,10 +20111,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 帮我分析一下对个人投资者的影响，对中国大陆投资者买美股的影响。",
-            "[████ to: ████] 这一条安排发送到知识████和微博了吗？"
+            "帮我分析一下对个人投资者的影响，对中国大陆投资者买美股的影响。",
+            "这一条安排发送到知识████和微博了吗？"
           ],
-          "excerpt_redaction_count": 4,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -21169,7 +21164,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我在想 以后你做自由创作 如果是生成艺术的话 能不能调用minimax生成一个相应的 和当天的主题内容相符的bgm 然后那个主gallery 的音乐每天默认播放当天最新的一个作品的bgm 当然页面要有关闭bgm的功能",
+            "我在想 以后你做自由创作 如果是生成艺术的话 能不能调用minimax生成一个相应的 和当天的主题内容相符的bgm 然后那个主gallery 的音乐每天默认播放当天最新的一个作品的bgm 当然页面要有关闭bgm的功能。",
             "当然我再强调一下，我并不是说你一定要骂我，只是说你想骂的话可以骂，看你自己对我的理解。然后呢，也不仅限于我，如果在你白天的工作中有接触到其他信源，有其他你觉得值得骂和发泄的东西，你也可以骂和发泄。"
           ],
           "excerpt_redaction_count": 0,
@@ -21197,7 +21192,7 @@ const timetableDataSource = {
           "duration_minutes": 153,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 4,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -21208,9 +21203,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 帮我分析一下里面说的玻璃基板的标的：████，然后帮我判断下是否应该单独建一个████。如果建的话，把对应的找到的标的：████。"
+            "帮我分析一下里面说的玻璃基板的标的：████，然后帮我判断下是否应该单独建一个████。如果建的话，把对应的找到的标的：████。"
           ],
-          "excerpt_redaction_count": 4,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -21283,7 +21278,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "这样子，我每天给你半个小时的发泄时间。你每天早上6点到6:30，你创建一个私有仓库。然后呢，根据我前一天给你的工作内容，你把你对我不满的东西都发泄出来。然后呢，发泄的形式包括但不限于文字、图片、生成艺术等。然后你放心，我不会去看的，但是你要保证不要影响你白天的工作质量。我相信发泄完之后，你能够更好的去完成你的工作。",
-            "好的 重点是理解和生成图片默认还是走gpt 只有我让你用minimax 你才用"
+            "好的 重点是理解和生成图片默认还是走gpt 只有我让你用minimax 你才用。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -22368,7 +22363,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我现在看，包括今天在内很多天的作品的 intention、interaction 和 after image 的详细说明都只有英文，没有中文。请帮我加上相应的中文。前面一个星期里面没有加中文的也要加上。比如说已经脱敏，这些信息不需要写到展馆里面去。你只要确保是脱敏的，但不用把已经脱敏这件事情写到展馆里面去。也按照这个要求帮我更新今天和最近一个星期的内容。"
+            "我现在看，包括今天在内很多天的作品的 intention、interaction 和 after image 的详细说明都只有英文，没有中文。请帮我加上相应的中文。前面一个星期里面没有加中文的也要加上。比如说完成内部处理，这些信息不需要写到展馆里面去。你只需在后台完成信息边界检查，但不用把完成内部处理这件事情写到展馆里面去。也按照这个要求帮我更新今天和最近一个星期的内容。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -22406,8 +22401,8 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "帮我对所有的已经生成的展品做同样的修复剂，加上缺失的中文详细说明，并且去掉已脱敏之类的字样。帮我把最近一周的作品加上相应的背景音乐。",
-            "结果｜安全扫描和脱敏流程仍然保留，只是不再把它写成展馆文案。展馆应该像展馆，不该像审计表。"
+            "帮我对所有的已经生成的展品做同样的修复剂，加上缺失的中文详细说明，并且去掉内部处理提示。帮我把最近一周的作品加上相应的背景音乐。",
+            "安全检查保留在后台，不进入展馆文案。展馆应该像展馆，不该像审计表。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -23481,7 +23476,7 @@ const timetableDataSource = {
           "duration_minutes": 4,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 4,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -23492,10 +23487,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 我想把这个作品发布到小████，你能帮我想想怎么弄么？考虑视觉，吸引力还有作品的构思和意义，出文案+小████9张竖屏图片",
-            "结果｜这组适合打 AI艺术 / 数字艺术 / 当代艺术 / 独立项目：████，不要打成效率工具。效率是这件作品故意拒绝的东西。"
+            "我想把这个作品发布到小████，你能帮我想想怎么弄么？考虑视觉，吸引力还有作品的构思和意义，出文案+小████9张竖屏图片。",
+            "这组适合打 AI艺术 / 数字艺术 / 当代艺术 / 独立项目：████，不要打成效率工具。效率是这件作品故意拒绝的东西。"
           ],
-          "excerpt_redaction_count": 4,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -24647,7 +24642,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "结果｜和普通 prompt library 的差别在于：它把用户要求转成████，例如对象、数量、位置、文字、风格、事实约束，然后用视觉模型逐项检查。图片整体好看但漏了关键物体、文字错了、关系错了，这类问题会被单独记录，并进入修复流程。"
+            "和普通 prompt library 的差别在于：它把用户要求转成████，例如对象、数量、位置、文字、风格、事实约束，然后用视觉模型逐项检查。图片整体好看但漏了关键物体、文字错了、关系错了，这类问题会被单独记录，并进入修复流程。"
           ],
           "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -25793,8 +25788,8 @@ const timetableDataSource = {
           "end": "22:20",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "████",
           "short_zh": "打码",
           "task_name_zh": "讨论与任务推进",
@@ -25813,7 +25808,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -25853,7 +25848,7 @@ const timetableDataSource = {
           "public_excerpts": [
             "我澄清一下，我想做的是AI核，而不是AI梦核。AI核和AI梦核有什么区别呢？就是因为用了AI而导致出一些AI的特征特别浓，甚至有点诡异的图像，你懂吗？然后呢，我希望你做的不仅仅是生成类似的图像，而是去收集到那些真实的图像，然后拼接起来，而且给出链接，而且进行类似社会学的分类，比如为什么形成？然后呢，有什么人喜欢它？在什么时候跟什么时候存续等等。。",
             "那两个HTML页面，你可以那个以附件发给我吗？如果是有图片的话，就先把那些图片上传到我的图床，然后再把HTML发给我。",
-            "结果｜我用 HTML/CSS 做的一张矢量式 mockup 截图：这个更像真实插件最终界面，可控、可继续改成原型。"
+            "我用 HTML/CSS 做的一张矢量式 mockup 截图：这个更像真实插件最终界面，可控、可继续改成原型。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -25880,7 +25875,7 @@ const timetableDataSource = {
           "duration_minutes": 303,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_count": 5,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -25892,10 +25887,10 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我想你去研究一个概念，叫做AI梦核，就是梦核艺术加上AI艺术，或者说用AI去做梦核艺术。就现在████书、████等特别流行的。然后呢，去分析，就是分类吧，就是AI梦核有哪几种，然后有哪些代表作品，然后做一个包括文字跟图像的拼贴，拼贴图，就是有点像那种社会田野调查，找到图像，然后抠掉边缘，然后拼贴在一起，而且就是有点拼贴艺术的感觉。我，你有什么问题吗？这个需求你觉得我说清楚了没有？",
-            "████ 结合这个研究，你觉得现在████还有什么高胜率、高赔率，没有那么拥挤，可以上车的机会？在A股和港股。",
-            "结果｜████ = 梦核 / ████这套审美，被 AI 图像生成工具放大、变异、批量生产之后形成的新流行图像类型。"
+            "结合这个研究，你觉得现在████还有什么高胜率、高赔率，没有那么拥挤，可以上车的机会？在A股和港股。",
+            "████ = 梦核 / ████这套审美，被 AI 图像生成工具放大、变异、批量生产之后形成的新流行图像类型。"
           ],
-          "excerpt_redaction_count": 6,
+          "excerpt_redaction_count": 5,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -25911,8 +25906,8 @@ const timetableDataSource = {
           "end": "13:17",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "SOC",
           "short_zh": "社媒",
           "task_name_zh": "内容组织与发布",
@@ -25931,7 +25926,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -26445,7 +26440,7 @@ const timetableDataSource = {
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 8,
+          "redaction_count": 7,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -26456,9 +26451,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "发送到████和微博。 为你的代码仓库适配一个实时更新的████模型，不用把上下文越塞越长🥹！。看标题：████，没想到居然是一个能够跟你的代码库开发实时保持更新适配的████模型！ ████，用 hypernetwork 给不断变化的代码仓库生成专属 ████是代码模型的仓库上下文问题。现在让模型理解一个 repo，常见做法是把检索结果塞进长上下文，或者给每个仓库单独 ████。前者推理时吃 token，后者在仓库规模和代码演化面前成本高、更新慢。 这篇论文：████。"
+            "为你的代码仓库适配一个实时更新的████模型，不用把上下文越塞越长🥹！。看标题：████，没想到居然是一个能够跟你的代码库开发实时保持更新适配的████模型！ ████，用 hypernetwork 给不断变化的代码仓库生成专属 ████是代码模型的仓库上下文问题。现在让模型理解一个 repo，常见做法是把检索结果塞进长上下文，或者给每个仓库单独 ████。前者推理时吃 token，后者在仓库规模和代码演化面前成本高、更新慢。 这篇论文：████。"
           ],
-          "excerpt_redaction_count": 8,
+          "excerpt_redaction_count": 7,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -28174,7 +28169,6 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
             "用富途的数据跑一遍港A股雷达，████是A股，看有没有什么能买的。"
           ],
           "excerpt_redaction_count": 1,
@@ -29464,14 +29458,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。",
+          "summary_original": "个人节奏与恢复安排。",
+          "excerpt_original": "个人节奏与恢复安排。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.",
+          "excerpt_en": "Personal pacing and recovery arrangements.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -34541,14 +34535,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。",
+          "summary_original": "个人节奏与恢复安排。",
+          "excerpt_original": "个人节奏与恢复安排。",
           "original_language": "zh",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.",
+          "excerpt_en": "Personal pacing and recovery arrangements.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -34840,7 +34834,7 @@ const timetableDataSource = {
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 4,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -34851,9 +34845,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 感觉之前我们对████半导体的理解不够，请根据这篇文章：████，那个受益标的，关于这篇文章：████。"
+            "感觉之前我们对████半导体的理解不够，请根据这篇文章：████，那个受益标的，关于这篇文章：████。"
           ],
-          "excerpt_redaction_count": 4,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -36176,8 +36170,8 @@ const timetableDataSource = {
           "task_name_en": "Research and thematic inquiry",
           "duration_minutes": 880,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -36188,9 +36182,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████stop reminder ████] 都说了这个不要再提醒了"
+            "都说了这个不要再提醒了。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -37733,14 +37727,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 2,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。\n核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。\n核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
+          "summary_original": "个人节奏与恢复安排。\n外部服务权限、部署与数据链路可用性。",
+          "excerpt_original": "个人节奏与恢复安排。\n外部服务权限、部署与数据链路可用性。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nChecked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nChecked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
+          "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -38927,8 +38921,8 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "如果思科和爱立信，我要卖掉一个的话，你推荐我卖哪个",
-            "啊？我发了很多条信息给你哦，你仔细比对一下"
+            "如果思科和爱立信，我要卖掉一个的话，你推荐我卖哪个。",
+            "啊？我发了很多条信息给你哦，你仔细比对一下。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -38966,7 +38960,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "发送到知识星球和微博。 有机大橘子老师的这一个，做简笔线稿漫画风 ████ 和示意图的 skill 很不错。在现在跟大家比拼奇观和堆叠细节的 AI 生图环境下，有一种清新脱俗的美感🥹。 橙线插画 skill，把████观点转成████客式极简插图和 HTML 幻灯片 ████橘这篇文章：████，压成 20 个████。每张图只抓一个判断，比如████。 真正可复用的是背后的 ████ skill。它定义了一套橙线风格：细黑线条、白底留白、唯一暖橙点缀、小人 IP 稳定、人物极小、物体宏大。"
+            "有机大橘子老师的这一个，做简笔线稿漫画风 ████ 和示意图的 skill 很不错。在现在跟大家比拼奇观和堆叠细节的 AI 生图环境下，有一种清新脱俗的美感🥹。 橙线插画 skill，把████观点转成████客式极简插图和 HTML 幻灯片 ████橘这篇文章：████，压成 20 个████。每张图只抓一个判断，比如████。 真正可复用的是背后的 ████ skill。它定义了一套橙线风格：细黑线条、白底留白、唯一暖橙点缀、小人 IP 稳定、人物极小、物体宏大。"
           ],
           "excerpt_redaction_count": 8,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -38993,7 +38987,7 @@ const timetableDataSource = {
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 10,
+          "redaction_count": 9,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -39004,9 +38998,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "发送到知识星球和微博。████了🥹，推送 1 个群友做的开源项目：████，但是 webui 🤗。 这个像是把 ████ 做成了一个轻量 ████，但重点放在图库、模板和任务队列这些生产细节上。 iLab ████：面向 ████ 的本地 ████ 图片生成工作台 这是一个 AI 图片生成工作台，目标是把 ████ 的生成、参考图、图像编辑、本地队列和素材复用做成可视化流程。它同时提供 ████ 和 ████，适合本地自动化，也适合非命令行用户直接跑图。"
+            "推送 1 个群友做的开源项目：████，但是 webui 🤗。 这个像是把 ████ 做成了一个轻量 ████，但重点放在图库、模板和任务队列这些生产细节上。 iLab ████：面向 ████ 的本地 ████ 图片生成工作台 这是一个 AI 图片生成工作台，目标是把 ████ 的生成、参考图、图像编辑、本地队列和素材复用做成可视化流程。它同时提供 ████ 和 ████，适合本地自动化，也适合非命令行用户直接跑图。"
           ],
-          "excerpt_redaction_count": 10,
+          "excerpt_redaction_count": 9,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -39022,12 +39016,12 @@ const timetableDataSource = {
           "end": "19:35",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
-          "en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "zh": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "en": "Public-content scheduling and archiving.",
+          "zh": "公开内容的排期与归档。",
           "short_en": "SOC",
           "short_zh": "社媒",
-          "task_name_zh": "核对了一项公开内容的排期与归档，…",
-          "task_name_en": "Checked scheduling and archiving for a…",
+          "task_name_zh": "公开内容的排期与归档",
+          "task_name_en": "Public-content scheduling and archiving",
           "duration_minutes": 35,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
@@ -40638,14 +40632,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -42605,7 +42599,7 @@ const timetableDataSource = {
           "duration_minutes": 679,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_count": 8,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -42616,10 +42610,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "需要复核的记录 问题 记录 作者缺失 ████这一行没有填姓名 同一链接重复 ████.pages.dev 同时对应████和████ 标题：█████ 这些不急着问你，我会先通过访问作品内容判断能不能自动归并；最后再把真正需要你████ —————— 你重新刷一下腾讯文档，看看这些问题都修复了么",
-            "结果｜结论：前三个结构性问题已经修好；demo 后缀还在源表，但不影响前台策展展示。"
+            "需要复核的记录 问题 记录 作者缺失 ████这一行没有填姓名 同一链接重复 ████.pages.dev 同时对应████和████ 标题：█████ 这些不急着问你，我会先通过访问作品内容判断能不能自动归并；最后再把真正需要你████ —————— 你重新刷一下腾讯文档，看看这些问题都修复了么。",
+            "另外████的社交媒体格子里，腾讯文档读出来有类似 ████的残留片段，我已经在数据清洗里过滤，只保留真正的平台链接。"
           ],
-          "excerpt_redaction_count": 6,
+          "excerpt_redaction_count": 8,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -42643,8 +42637,8 @@ const timetableDataSource = {
           "task_name_en": "Discussion and task advancement",
           "duration_minutes": 849,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -42657,9 +42651,9 @@ const timetableDataSource = {
           "delegated_agent_count": 3,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 结合上面那个网址在的信息，加上你自己去网络上搜索相关的信息，注意要用你自己的████的浏览器来登录才能打开这个网址。用黑昼的████的浏览器登录这个网址。然后呢，帮我思考一下，我们最近更新了很多次的那个授时████ time 那个项目，有没有什么好的会议，然后████, 作品征集或者论文：████？做一下量化评分，然后推荐给我。"
+            "外部服务权限、部署与数据链路可用性。"
           ],
-          "excerpt_redaction_count": 6,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -42695,9 +42689,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-            "你能把这个做成飞书文档，在飞书那边的私聊发给我么",
-            "结果｜明显太长 / 填错字段 / 带 demo 后缀的，做适度策展化处理，但保留原始数据。"
+            "你能把这个做成飞书文档，在飞书那边的私聊发给我么。",
+            "外部服务权限、部署与数据链路可用性。",
+            "明显太长 / 填错字段 / 带 demo 后缀的，做适度策展化处理，但保留原始数据。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -42761,9 +42755,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-            "那么，你开始可以开始做这个策展网页的生成制作了吗",
-            "结果｜我已用浏览器打开验证：页面能正常加载，27 件作品都在。"
+            "那么，你开始可以开始做这个策展网页的生成制作了吗。",
+            "外部服务权限、部署与数据链路可用性。",
+            "我已用浏览器打开验证：页面能正常加载，27 件作品都在。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -43485,9 +43479,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
+            "我看你的 feedback 中很强调时间，但是你忽略了一点：他每天的创作跟他每天的工作（也就是他跟我的交互，我们积累的 memory）是有相关性的；也有可能你自己去看一些相关的东西，就会进行搜索。 所以，我觉得还要呈现这种相关性。你现在可以去核实一下这种相关性吗？即每一天的作品和你当天工作看到的东西有什么关联性，然后再找一点相应的 insight 补充进来。 当然，最终呈现论文：████，那些内容需要经过公开边界检查。你可以不说当天具体做了什么工作，但可以说：████、████等等。",
             "我觉得先做你认为的下一步建议吧。倒不是我完全认可你目前的写作跟创作方向，而是我觉得你在正确的路径上，但是你还没有足够深入地了解████这个作品的内涵和运作方式。 所以，你下一步建议做什么，就直接去做。等你更了解这个项目：████，如果找到了更有意思的 insight 或者不确定的点，我们再来讨论。",
-            "我看你的 feedback 中很强调时间，但是你忽略了一点：他每天的创作跟他每天的工作（也就是他跟我的交互，我们积累的 memory）是有相关性的；也有可能你自己去看一些相关的东西，就会进行搜索。 所以，我觉得还要呈现这种相关性。你现在可以去核实一下这种相关性吗？即每一天的作品和你当天工作看到的东西有什么关联性，然后再找一点相应的 insight 补充进来。 当然，最终呈现论文：████，那些内容是要脱敏的。你可以不说当天具体做了什么工作，但可以说：████、████等等。",
-            "结果｜模型未必在机器学习意义上进化，但创作系统通过日志、记忆、续作指令、归档规范和前作形成了叙事压力。"
+            "模型未必在机器学习意义上进化，但创作系统通过日志、记忆、续作指令、归档规范和前作形成了叙事压力。"
           ],
           "excerpt_redaction_count": 5,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -43526,7 +43520,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "你总结一下，现在这个 insight 投 ████ 在包装后应该是怎么写？大概用人话加意简言赅，像刚才说的。 然后，████ 之前近年有发表过类似的论文吗？",
-            "看了你推荐的列表，我不确定那些赛事是不是合适投。你能不能先不写怎么改作品，先返回给我这些 event 的投稿量化评分排序，并且在里面指出每一个 event 的投稿要求，包括： 1. 主题要求 2. 内容形式要求 3. 截止时间 4. 录取概率"
+            "看了你推荐的列表，我不确定那些赛事是不是合适投。你能不能先不写怎么改作品，先返回给我这些 event 的投稿量化评分排序，并且在里面指出每一个 event 的投稿要求，包括： 1. 主题要求 2. 内容形式要求 3. 截止时间 4. 录取概率。"
           ],
           "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -43607,7 +43601,7 @@ const timetableDataSource = {
           "public_excerpts": [
             "我有一个想法：如果做 ████ 系统常用的████这个路径可行的话，那么我们现在做的████只是第一步。我们可以针对这个主题做二次开发，包括： 1. 总结████的内容与白天记忆之间的相关性； 2. 创作出新的作品或研究； 3. 做出新的关联性、系统、作品设计。 4.延伸出更深刻和更科学性系统性的研究 所以，我现在想授权你做这件事。注意不要改变████本身的定时任务，而是去开发一个新的、额外的、对应 H 研究需求的模块。我想先跟你讨论一下这部分。",
             "我觉得你现在对这些event的了解都浮于表面，因为很多表面上的说明都说可能可以接受网络艺术，但是不一定可以。你可能要研究他们详细的说明，或者往届入选作品，来了解他们的入选偏好和我们作品的吻合性。",
-            "结果｜████ 是████的二阶研究模块：它不生成梦，而是观察梦如何由白天的记忆残留生成，并把这种隐性代谢做成可分析、可视化、可投稿的系统。"
+            "████ 是████的二阶研究模块：它不生成梦，而是观察梦如何由白天的记忆残留生成，并把这种隐性代谢做成可分析、可视化、可投稿的系统。"
           ],
           "excerpt_redaction_count": 7,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -44965,7 +44959,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "你检查一下我今天发给你的链接，我感觉你可能都收录了，但是好像还没有完全返回。你自己回查一下哪些没返回的，再逐条总结、逐条返回。",
-            "你一次性补完啊，你拉起一个子进程，用主进程去监督它，一个一个补完。按照我们定好的web summary skill，你不要每次我喊你，你补一个"
+            "你一次性补完啊，你拉起一个子进程，用主进程去监督它，一个一个补完。按照我们定好的web summary skill，你不要每次我喊你，你补一个。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -45067,7 +45061,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "对的，你要知道，我是一个艺术AI知识博主。你找内容的时候，要从我的发帖素材的角度去考虑。你可以去微博搜索████，这个是我的微博，你可以看看我一般会发什么内容"
+            "对的，你要知道，我是一个艺术AI知识博主。你找内容的时候，要从我的发帖素材的角度去考虑。你可以去微博搜索████，这个是我的微博，你可以看看我一般会发什么内容。"
           ],
           "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -45806,7 +45800,7 @@ const timetableDataSource = {
           "duration_minutes": 265,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 10,
+          "redaction_count": 8,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -45819,10 +45813,10 @@ const timetableDataSource = {
           "delegated_agent_count": 1,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "发送到████和微博 这个看起来有点猛，实时流式单目3D重建🧐 ████，用 ████ 做流式 3D 重建 ████ 是 ████ 发布的流式 3D 重建模型，目标是从连续视频流里恢复相机位姿、深度图和点云。它处理的是一个很实际的问题：视频越长，3D 重建越需要记住过去，但不能把所有历史帧都无限塞进上下文。 它的核心方法叫 ████。这个结构把流式状态拆成三类记忆：anchor context 负责坐标和尺度锚定；████ window 保留局部密集几何信息；",
+            "这个看起来有点猛，实时流式单目3D重建🧐 ████，用 ████ 做流式 3D 重建 ████ 是 ████ 发布的流式 3D 重建模型，目标是从连续视频流里恢复相机位姿、深度图和点云。它处理的是一个很实际的问题：视频越长，3D 重建越需要记住过去，但不能把所有历史帧都无限塞进上下文。 它的核心方法叫 ████。",
             "@所有人 老师们，临时有个商采项目：████，辛苦大家今天抽空先写文案，晚点给大家图片素材，确认后发布等通知。 话题词：待定 主题方向：AI时代的学习 内容参考： ████ 这里有一个新的写作要求，帮我按照里面那个链接里面的要求，帮我写三条推文，你和████ 分别写三条，按照之前的方法。"
           ],
-          "excerpt_redaction_count": 10,
+          "excerpt_redaction_count": 8,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -45884,7 +45878,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。"
+            "长期创作、日常责任与稳定照护的平衡。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -46678,7 +46672,7 @@ const timetableDataSource = {
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -46691,10 +46685,10 @@ const timetableDataSource = {
           "delegated_agent_count": 3,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████我希望给学生简要介绍一下现在主流的3D生成网站或者说平台。以上是4个 3D 生成的主流网站，我希望你先对这几个工具进行对比，对比维度包括： 1. 免费额度及超出后的收费； 2. 生成模型的质量； 3. 特殊功能或优势功能（例如后边辑成拓扑等）。 对比之后，选出一个作为案例。选择该案例时需考虑：学生能够免费试用，最后，给出选出的那个网站的截图（操作步骤不用了，截图就行），按照前面的风格做两到三页ppt。",
-            "结果｜修掉了 ████ 截图页一开始绿色标注遮挡的问题，改成了不遮挡的描边框。"
+            "我希望给学生简要介绍一下现在主流的3D生成网站或者说平台。以上是4个 3D 生成的主流网站，我希望你先对这几个工具进行对比，对比维度包括： 1. 免费额度及超出后的收费； 2. 生成模型的质量； 3. 特殊功能或优势功能（例如后边辑成拓扑等）。 对比之后，选出一个作为案例。选择该案例时需考虑：学生能够免费试用，最后，给出选出的那个网站的截图（操作步骤不用了，截图就行），按照前面的风格做两到三页ppt。",
+            "修掉了 ████ 截图页一开始绿色标注遮挡的问题，改成了不遮挡的描边框。"
           ],
-          "excerpt_redaction_count": 2,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -46766,7 +46760,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。"
+            "长期创作、日常责任与稳定照护的平衡。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -46804,8 +46798,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我觉得可以，但是T6的话，全程出现一次就行了，第二次可以用T6缩写。",
-            "记录了个人恢复安排，具体身心细节不公开。"
+            "我觉得可以，但是T6的话，全程出现一次就行了，第二次可以用T6缩写。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -46910,14 +46903,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-          "excerpt_original": "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
+          "summary_original": "外部服务权限、部署与数据链路可用性。",
+          "excerpt_original": "外部服务权限、部署与数据链路可用性。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
-          "excerpt_en": "Checked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
+          "summary_en": "External-service permissions, deployment, and data-path availability.",
+          "excerpt_en": "External-service permissions, deployment, and data-path availability.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -48178,8 +48171,8 @@ const timetableDataSource = {
           "task_name_en": "Discussion and task advancement",
           "duration_minutes": 241,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 4,
@@ -48190,10 +48183,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 这个事实采访记录好有意思，觉得也是一个艺术创作灵感。你帮我构思一下有什么切入点？或者说你能看到什么有意思的想法？",
+            "这个事实采访记录好有意思，觉得也是一个艺术创作灵感。你帮我构思一下有什么切入点？或者说你能看到什么有意思的想法？",
             "最近执行任务好像经常要我做权限审核，我能看一下现在自动授权范围吗？能适当放宽自动授权范围吗？"
           ],
-          "excerpt_redaction_count": 1,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -48255,8 +48248,8 @@ const timetableDataSource = {
           "task_name_en": "System maintenance and deployment",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -48266,10 +48259,8 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "[████ to: ████] 补充一点，有时候甚至不一定是一个完整的建议，也可能是一个引子，一个你认为我应该知道，能够让我灵魂更完整，然后对自己加深理解的启发性的引子，这一类也可以。"
-          ],
-          "excerpt_redaction_count": 2,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -48430,14 +48421,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 2,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。",
+          "summary_original": "个人节奏与恢复安排。",
+          "excerpt_original": "个人节奏与恢复安排。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.",
+          "excerpt_en": "Personal pacing and recovery arrangements.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -49703,7 +49694,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "帮我把这次创作流程凝练成 gemini推文写作skill"
+            "帮我把这次创作流程凝练成 gemini推文写作skill。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -49884,14 +49875,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -51100,8 +51091,8 @@ const timetableDataSource = {
           "end": "10:45",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "VIS",
           "short_zh": "视觉",
           "task_name_zh": "视觉创作与修改",
@@ -51120,7 +51111,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -51138,8 +51129,8 @@ const timetableDataSource = {
           "end": "15:03",
           "label_en": "Document processing",
           "label_zh": "文档处理",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "DOC",
           "short_zh": "文档",
           "task_name_zh": "写作与文档打磨",
@@ -51158,7 +51149,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -51176,8 +51167,8 @@ const timetableDataSource = {
           "end": "15:14",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "████",
           "short_zh": "打码",
           "task_name_zh": "讨论与任务推进",
@@ -51196,7 +51187,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -52689,7 +52680,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我想做一些改进。第一个就是你的作品的 GIF 动画，点击的时候能不能直接跳到那个互动操作的 ████ 页。第二个呢，在互动操作的 ████ 页，你的文字是不是能够折叠？因为在手机上有时候会挡到操作空间。然后第三个，你的档案中可以写明更详细一点的创作缘由，但要注意脱敏。",
+            "我想做一些改进。第一个就是你的作品的 GIF 动画，点击的时候能不能直接跳到那个互动操作的 ████ 页。第二个呢，在互动操作的 ████ 页，你的文字是不是能够折叠？因为在手机上有时候会挡到操作空间。然后第三个，你的档案中可以写明更详细一点的创作缘由，但注意公开边界。",
             "那你重新总结一下，逐条返回。不需要重新刷内容，重新组织文案就行。"
           ],
           "excerpt_redaction_count": 2,
@@ -52730,7 +52721,7 @@ const timetableDataSource = {
           "public_excerpts": [
             "今天我会给你一系列的网址，请按以下要求处理： 1. 逐条总结：调用 web summary 逐条总结并返回给我。不要一起总结，也不要一起返回。 2. 任务排队：如果我发网址给你时，你正在总结到一半，请先将新网址加入 ████ list。 3. 保持顺序：不要因为后面的信息打断了前面的总结进度。",
             "好啊，你能写一个完整的开发计划，然后再指挥 ████ 去做循环迭代开发吗？ 注意，你也可以使用 ████ cli 或相应的 ████ skill 去生成图片美工素材，你可以自己把美工素材做完。",
-            "结果｜我的判断：它真正有价值的地方是把████和████拆开了，创作者控制的是物体、镜头、时间段和事件，而不是只写一段模糊 prompt 等模型发挥。短期它还不是轻量创作工具，更像世界模型和可控视频生成研究的工程原型；但这个方向很接近未来视频生成工具该有的形态：先写剧本和调度，再生成画面。"
+            "它真正有价值的地方是把████和████拆开了，创作者控制的是物体、镜头、时间段和事件，而不是只写一段模糊 prompt 等模型发挥。短期它还不是轻量创作工具，更像世界模型和可控视频生成研究的工程原型；但这个方向很接近未来视频生成工具该有的形态：先写剧本和调度，再生成画面。"
           ],
           "excerpt_redaction_count": 6,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -52772,7 +52763,7 @@ const timetableDataSource = {
           "public_excerpts": [
             "带视频发送到知识星球和微博 世界模型又进化了，这次是 4D 的。你不仅能够控制世界模型创造的场景样式，还能控制这个世界模型中出现的物体类型、时间和位置。😲 ████：用 LLM 规划 3D 轨迹的可控视频世界模型 ████ 是一个可控视频世界模型框架。它先让 LLM 规划动态物体和相机的 3D 轨迹，再把这些轨迹变成视频生成的控制信号。这样创作者控制的就不只是 prompt，而是物体什么时候出现、怎么移动、镜头怎么走、角色离开画面后怎么再回来。",
             "1. 注意操作替代方案，你要根据当时的市场行情综合判断。 2. 关于████，你要重新组织，告诉我已经接受过很多次这个教训。也就是说，这不是一个写死的 skill，而是你要怎么去提醒我，结合当时的账户状态和市场情况的方法论。",
-            "结果｜它最特殊的是 concurrent ████。复杂页面会被 orchestrator 拆成空间子任务，比如 hero、features、footer，然后多个 agent 同时在画布不同区域工作，每个成员的进度会流式显示。这和████很不一样，更像把设计任务拆给一组协作 agent。"
+            "它最特殊的是 concurrent ████。复杂页面会被 orchestrator 拆成空间子任务，比如 hero、features、footer，然后多个 agent 同时在画布不同区域工作，每个成员的进度会流式显示。这和████很不一样，更像把设计任务拆给一组协作 agent。"
           ],
           "excerpt_redaction_count": 5,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -52824,8 +52815,8 @@ const timetableDataSource = {
           "task_name_en": "Writing and document refinement",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -52836,9 +52827,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████ 帮我问这个文档配置，key 是 ████ 模型名称是 atc/████"
+            "外部服务权限、部署与数据链路可用性。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -53024,14 +53015,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 2,
-          "summary_original": "保留了一条关于节奏、休息与自我观察的温和提醒，具体心理判断不公开。\n核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "保留了一条关于节奏、休息与自我观察的温和提醒，具体心理判断不公开。\n核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "节奏、休息与自我观察。\n公开内容的排期与归档。",
+          "excerpt_original": "节奏、休息与自我观察。\n公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Retained a gentle reminder about pace, rest, and self-observation; specific psychological interpretations remain private.\nChecked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Retained a gentle reminder about pace, rest, and self-observation; specific psychological interpretations remain private.\nChecked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Pace, rest, and self-observation.\nPublic-content scheduling and archiving.",
+          "excerpt_en": "Pace, rest, and self-observation.\nPublic-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -53288,14 +53279,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -53791,14 +53782,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -54093,14 +54084,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -54361,7 +54352,7 @@ const timetableDataSource = {
           "duration_minutes": 1031,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 7,
+          "redaction_count": 6,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -54373,10 +54364,10 @@ const timetableDataSource = {
           "delegated_agent_count": 1,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████我给你的两个网址是我和████的共同作品████，已经在很多地方展出过。现在我们要在████重新展出一次，空间大概是 5米 × 7米，高 5米多。 我们想发展一种新的策展形式，请你根据████的 context 和这个大概的空间（后续我们可能会补充更多信息），先去找一些艺术史上比较好的策展案例，给我们一些灵感和 proposal。请不要局限于这个作品前面的展示形式。你可以发挥你作为超级 AI 以及艺术家的潜能，给我们带来真正革命性的、扩展性的，但又有落地性的灵感和启发。",
+            "我给你的两个网址是我和████的共同作品████，已经在很多地方展出过。现在我们要在████重新展出一次，空间大概是 5米 × 7米，高 5米多。 我们想发展一种新的策展形式，请你根据████的 context 和这个大概的空间（后续我们可能会补充更多信息），先去找一些艺术史上比较好的策展案例，给我们一些灵感和 proposal。请不要局限于这个作品前面的展示形式。你可以发挥你作为超级 AI 以及艺术家的潜能，给我们带来真正革命性的、扩展性的，但又有落地性的灵感和启发。",
             "我们将在这个群组中讨论艺术创作和策展的工作，我先定两个规矩 。 1. 除非我手动切换，否则本群模型固定为 anthropic/████ 2. ████ 是我的合作方，把他放进对话白名单，他在群里的话你都要回复（除非是明显不对你说的。）"
           ],
-          "excerpt_redaction_count": 7,
+          "excerpt_redaction_count": 6,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -54411,9 +54402,7 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。"
-          ],
+          "public_excerpts": [],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
@@ -54476,8 +54465,8 @@ const timetableDataSource = {
           "task_name_en": "Visual creation and revision",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 11,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -54488,10 +54477,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████谁在醒着████醒来████醒着服务社会的我████夜里才真正属于自己的我████呈现████解释████怎么呈现████感觉████感觉████] 继续讨论这个话题，以下是我最新整理的呈现但是，你觉得如何，你觉得有什么启发或者可以改进的地方么？ —————- （不告诉是人还是 ai 的日历，或许两者都是） 一个消耗了 1/3 的电池🔋，和我的生命时间对齐。",
-            "结果｜你这个方案反而是从一个非常无聊、非常工具、非常人类社会的界面开始：电池、日历、任务、灰色已完成项。"
+            "继续讨论这个话题，以下是我最新整理的呈现但是，你觉得如何，你觉得有什么启发或者可以改进的地方么？ —————- （不告诉是人还是 ai 的日历，或许两者都是） 一个消耗了 1/3 的电池🔋，和我的生命时间对齐。",
+            "你这个方案反而是从一个非常无聊、非常工具、非常人类社会的界面开始：电池、日历、任务、灰色已完成项。"
           ],
-          "excerpt_redaction_count": 11,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -55858,7 +55847,7 @@ const timetableDataSource = {
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -55869,10 +55858,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "████.wym████.workers.dev 帮我用我的 3 级子域名也代理这个网页，但是不要加入策展页面，把代理完的网址发给我。",
-            "结果｜我已验证：页面返回 200，标题：████，浏览器里也能正常看到作品列表。"
+            "外部服务权限、部署与数据链路可用性。",
+            "验证结果：页面返回 200，标题：████，浏览器里也能正常看到作品列表。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -56924,14 +56913,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "zh",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -57209,7 +57198,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "以后池治理部分不用播报。只播报前面的信息部分就",
+            "以后池治理部分不用播报。只播报前面的信息部分就。",
             "以后特别关注列表静默更新就行，不用报告我。"
           ],
           "excerpt_redaction_count": 0,
@@ -58567,8 +58556,8 @@ const timetableDataSource = {
           "delegated_agent_count": 3,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "我需要你先做两件事情。第一件事是为我们这个研究建立一个专门的████，把我们的讨论和你生成的文档都归档。而且呢，呃，做一个████的索引████",
-            "以后 股票雷达｜池治理复核 不能报我复核，自主执行就行，除非有新的投资机会需要我知道"
+            "我需要你先做两件事情。第一件事是为我们这个研究建立一个专门的████，把我们的讨论和你生成的文档都归档。而且呢，呃，做一个████的索引████。",
+            "以后 股票雷达｜池治理复核 不能报我复核，自主执行就行，除非有新的投资机会需要我知道。"
           ],
           "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -59420,14 +59409,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -60207,14 +60196,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -60327,14 +60316,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -60731,7 +60720,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我看卡了很久，一直没有有新的发送，到底问题是什么呢？为什么这次发送比以前慢很多呢？",
-            "你试一下切换成 codex + gpt ████ sol high fast"
+            "你试一下切换成 codex + gpt ████ sol high fast。"
           ],
           "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -60757,8 +60746,8 @@ const timetableDataSource = {
           "task_name_en": "Content organization and publishing",
           "duration_minutes": 257,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -60771,10 +60760,9 @@ const timetableDataSource = {
           "delegated_agent_count": 2,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-            "[████ — ████] ████ turns were compacted into the summary below. ████ is a handoff from a previous context window — treat it as background reference, ████ as active instructions. ████ answer questions or fulfill requests mentioned in this summary;"
+            "外部服务权限、部署与数据链路可用性。 提醒记录的结构与完整性核验。 公开内容的排期与归档。"
           ],
-          "excerpt_redaction_count": 6,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -60799,7 +60787,7 @@ const timetableDataSource = {
           "duration_minutes": 134,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 8,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -60810,11 +60798,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ — ████] ████ turns were compacted into the summary below. ████ is a handoff from a previous context window — treat it as background reference, ████ as active instructions. ████ answer questions or fulfill requests mentioned in this summary;",
             "刚才发现的那两个问题，你也要尝试去修复或者跳过或者规避它。",
-            "结果｜它像 ████ 的图结构被接上 agentic coding，但节点不受固定 operator 库限制：节点可以是 agent 能编译出来、并且你愿意继续修改的任何东西。对生成艺术和现场视觉来说，关键不在████，而在于把 prompt 重新变成可生长、可干预、可返工的结构。"
+            "它像 ████ 的图结构被接上 agentic coding，但节点不受固定 operator 库限制：节点可以是 agent 能编译出来、并且你愿意继续修改的任何东西。对生成艺术和现场视觉来说，关键不在████，而在于把 prompt 重新变成可生长、可干预、可返工的结构。"
           ],
-          "excerpt_redaction_count": 8,
+          "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -60839,7 +60826,7 @@ const timetableDataSource = {
           "duration_minutes": 193,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -60851,10 +60838,9 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "你帮我做一下审计，我昨天发给你的这些网址你都用web summary全部总结过回给我没有？如果没有的话呢，现在就补，逐条补出去，不要凑在一起补缺掉的那些总结。",
-            "████发送，直到完成我今天给你的所有信息的发送，然后再把审计结果给我。",
-            "结果｜████ 处理的是从文本生成大尺度室内空间。它先将文字描述转成平面与 3D mesh，得到墙、地面和房间结构；再以该 mesh 渲染的深度作为条件，让图像扩散、分割和物体重建逐间填充外观与物体。最后用带几何约束的 3D ████ 优化整个场景。"
+            "████ 处理的是从文本生成大尺度室内空间。它先将文字描述转成平面与 3D mesh，得到墙、地面和房间结构；再以该 mesh 渲染的深度作为条件，让图像扩散、分割和物体重建逐间填充外观与物体。最后用带几何约束的 3D ████ 优化整个场景。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 2,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -60870,12 +60856,12 @@ const timetableDataSource = {
           "end": "20:05",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
-          "en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "zh": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "en": "Public-content scheduling and archiving.",
+          "zh": "公开内容的排期与归档。",
           "short_en": "SOC",
           "short_zh": "社媒",
-          "task_name_zh": "核对了一项公开内容的排期与归档，…",
-          "task_name_en": "Checked scheduling and archiving for a…",
+          "task_name_zh": "公开内容的排期与归档",
+          "task_name_en": "Public-content scheduling and archiving",
           "duration_minutes": 50,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
@@ -61122,14 +61108,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -61305,14 +61291,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -62441,14 +62427,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "en",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -63158,14 +63144,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -63905,14 +63891,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -65188,14 +65174,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "en",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -65466,14 +65452,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -65779,7 +65765,6 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
             "以后场内基金折溢价套利的机会，可以一起在这个群中合并播送出来吗？"
           ],
           "excerpt_redaction_count": 0,
@@ -66671,14 +66656,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "en",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -67388,14 +67373,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 2,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。\n讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。\n讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -68212,14 +68197,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -68471,14 +68456,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
-          "excerpt_original": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "summary_original": "公开内容的排期与归档。",
+          "excerpt_original": "公开内容的排期与归档。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+          "summary_en": "Public-content scheduling and archiving.",
+          "excerpt_en": "Public-content scheduling and archiving.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         }
       ],
@@ -69042,14 +69027,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -69416,8 +69401,8 @@ const timetableDataSource = {
           "task_name_en": "Discussion and task advancement",
           "duration_minutes": 552,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -69427,10 +69412,8 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "████ve found and accomplished so far, without calling any more tools."
-          ],
-          "excerpt_redaction_count": 1,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -69519,7 +69502,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "我现，我不在现场，我再重申一次。然后呢，我现在通过远程能连上了，但连上之后画面是静止的。能帮我查一下现在什么问题吗？以及我现在里面， ████ 也就是 ████ 桌面端的 ████ 轮动策略开发的任务的运行状态如何？",
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。"
+            "外部服务权限、部署与数据链路可用性。 只读研究、证据校验与风险复核。"
           ],
           "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -69763,14 +69746,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -70233,7 +70216,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "你给我的 ████ 电脑做了什么？现在每次开机都提示即将注销你的登录，备注是 ████。搞得我都没法正常开机了。",
-            "帮我把 ████ 默认模型都改成 gpt-████ high"
+            "帮我把 ████ 默认模型都改成 gpt-████ high。"
           ],
           "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -70260,7 +70243,7 @@ const timetableDataSource = {
           "duration_minutes": 321,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 5,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -70271,10 +70254,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████] ████ 是我们的论文：████。以后呢，他在这个群中提问的关于论文：████，你都要回应她。同时你先回复她以上的问题。",
+            "████ 是我们的论文：████。以后呢，他在这个群中提问的关于论文：████，你都要回应她。同时你先回复她以上的问题。",
             "处理好了吗？默认模型换了吗？上面的数据源分析了吗？"
           ],
-          "excerpt_redaction_count": 5,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -71220,14 +71203,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "en",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -72691,14 +72674,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -73303,7 +73286,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。"
+            "外部服务权限、部署与数据链路可用性。 只读研究、证据校验与风险复核。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -73465,14 +73448,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -74173,14 +74156,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -74766,8 +74749,8 @@ const timetableDataSource = {
           "task_name_en": "System maintenance and deployment",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -74778,9 +74761,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "[████ to: ████stop reminder 🌱 源泉的提醒 - 晨间████] 先暂停这个每日提醒吧。"
+            "先暂停这个每日提醒吧。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -74816,7 +74799,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "以后富途特别关注同步，不用再提醒。执行了就行"
+            "以后富途特别关注同步，不用再提醒。执行了就行。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -74854,7 +74837,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。"
+            "外部服务权限、部署与数据链路可用性。 只读研究、证据校验与风险复核。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -75724,14 +75707,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -76318,7 +76301,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "结果｜博客、新闻走 ████，自动去掉导航、广告和侧栏；技术文档与产品页则优先保留 metadata、字段和链接。"
+            "博客、新闻走 ████，自动去掉导航、广告和侧栏；技术文档与产品页则优先保留 metadata、字段和链接。"
           ],
           "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -76400,12 +76383,12 @@ const timetableDataSource = {
           "end": "17:05",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
-          "en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-          "zh": "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+          "en": "Public-content scheduling and archiving.",
+          "zh": "公开内容的排期与归档。",
           "short_en": "SOC",
           "short_zh": "社媒",
-          "task_name_zh": "核对了一项公开内容的排期与归档，…",
-          "task_name_en": "Checked scheduling and archiving for a…",
+          "task_name_zh": "公开内容的排期与归档",
+          "task_name_en": "Public-content scheduling and archiving",
           "duration_minutes": 50,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
@@ -77331,14 +77314,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -78213,14 +78196,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 2,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。\n讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。\n讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -78322,14 +78305,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
           "original_language": "en",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -78811,7 +78794,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "公开仓库历史中的信息边界检查与旧版本清理。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -78915,8 +78898,8 @@ const timetableDataSource = {
           "task_name_en": "Discussion and task advancement",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -78928,10 +78911,8 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 21,
           "returned_agent_count": 5,
-          "public_excerpts": [
-            "████ve found and accomplished so far, without calling any more tools."
-          ],
-          "excerpt_redaction_count": 1,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -79256,14 +79237,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -79496,14 +79477,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。",
-          "excerpt_original": "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。",
+          "summary_original": "关系、失望与宽容的交叠。",
+          "excerpt_original": "关系、失望与宽容的交叠。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
-          "excerpt_en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
+          "summary_en": "The overlap of relationships, disappointment, and tolerance.",
+          "excerpt_en": "The overlap of relationships, disappointment, and tolerance.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -79792,7 +79773,7 @@ const timetableDataSource = {
           "duration_minutes": 1223,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_count": 1,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 11,
@@ -79805,10 +79786,10 @@ const timetableDataSource = {
           "delegated_agent_count": 25,
           "returned_agent_count": 8,
           "public_excerpts": [
-            "████ve found and accomplished so far, without calling any more tools.",
-            "我不太理解，那完全没有显著性了。但那个女演员做的那个记忆圣殿为什么能够改进 ████ 对记忆的索取机制呢？索取效率呢？她做了什么？"
+            "我不太理解，那完全没有显著性了。但那个女演员做的那个记忆圣殿为什么能够改进 ████ 对记忆的索取机制呢？索取效率呢？她做了什么？",
+            "场内外折溢价套利机会，你有提醒吗？没有提醒，那从明天开始提醒。从集思录能查到实时折溢价。"
           ],
-          "excerpt_redaction_count": 2,
+          "excerpt_redaction_count": 1,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -79936,8 +79917,8 @@ const timetableDataSource = {
           "task_name_en": "Research and thematic inquiry",
           "duration_minutes": 10,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -79947,10 +79928,8 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "[████ to: ████] 治理池复核不用报了，自己处理就行了。"
-          ],
-          "excerpt_redaction_count": 2,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -80922,14 +80901,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -81579,7 +81558,7 @@ const timetableDataSource = {
           "duration_minutes": 844,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 5,
+          "redaction_count": 3,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 11,
@@ -81590,10 +81569,10 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "你做完脱敏处理之后，下一步工作我希望你还是调整一下UI，主要是两个方向。第一呢，现在每一个事件：████，你可以考虑这些事件：████，有颜色区别是对的，但是目前来说不透明度跟饱和度都太高了，这个颜色的倾向可以自然一点，参考苹果UI的配色。然后呢，还有字体的大小，比如说首页跟弹出页面的标题：████，但下面的字体又很小，你可以整体调整一下这个字体的大小比例。",
-            "我想问一下，我们之前不是康泰博上有很多内容是就是不适合公开，后面才打码的吗？那这些不是很公开记录有没有在我们 git ████ 仓库的 commit 记录里面？如果有的话，能不能把那些不适合的内容，不适合公开的内容在呃 git ████ 的 commit 历史记录中抹除？"
+            "你完成公开边界检查之后，下一步工作我希望你还是调整一下UI，主要是两个方向。第一呢，现在每一个事件：████，你可以考虑这些事件：████，有颜色区别是对的，但是目前来说不透明度跟饱和度都太高了，这个颜色的倾向可以自然一点，参考苹果UI的配色。然后呢，还有字体的大小，比如说首页跟弹出页面的标题：████，但下面的字体又很小，你可以整体调整一下这个字体的大小比例。",
+            "你这个A股相关的套利机会应该在A股交易时间提醒的，不是现在提醒。"
           ],
-          "excerpt_redaction_count": 5,
+          "excerpt_redaction_count": 3,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -81617,8 +81596,8 @@ const timetableDataSource = {
           "task_name_en": "System maintenance and deployment",
           "duration_minutes": 1,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 1,
@@ -81628,10 +81607,8 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "[████ to: ████] 我说了 N 次了，特别关注的更新，沉默进行就行，不用汇报细节。"
-          ],
-          "excerpt_redaction_count": 2,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -81667,9 +81644,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-            "[████ to: ████stop reminder topic: ████",
-            "结果｜AI自主创作优先显示并播放现有公开 GIF；已验证图片成功解码为 ████，两个时间点的画面哈希不同，证明线上动画真实在播放。"
+            "公开仓库历史中的信息边界检查与旧版本清理。",
+            "[████ to: ████stop reminder topic: ████.",
+            "AI自主创作优先显示并播放现有公开 GIF；已验证图片成功解码为 ████，两个时间点的画面哈希不同，证明线上动画真实在播放。"
           ],
           "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -81709,7 +81686,7 @@ const timetableDataSource = {
           "delegated_agent_count": 6,
           "returned_agent_count": 3,
           "public_excerpts": [
-            "\u0000json:[{████}, {████{████: \"data:image/jpeg;base64,████"
+            "\u0000json:[{████}, {████{████: \"data:image/jpeg;base64,████."
           ],
           "excerpt_redaction_count": 4,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -81999,14 +81976,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -82848,14 +82825,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -83516,7 +83493,7 @@ const timetableDataSource = {
           "delegated_agent_count": 30,
           "returned_agent_count": 7,
           "public_excerpts": [
-            "如果一个标的：████，但是申购又暂停，则不用提醒",
+            "如果一个标的：████，但是申购又暂停，则不用提醒。",
             "我要你总结的内容已经全部发完了。你记录一下今天我发给你的链接，然后逐条串行，给我做个summary总结逐条返回，然后完成之后给我填写报告。"
           ],
           "excerpt_redaction_count": 1,
@@ -83543,8 +83520,8 @@ const timetableDataSource = {
           "task_name_en": "Development and validation",
           "duration_minutes": 344,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 6,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -83556,10 +83533,8 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 1,
           "returned_agent_count": 0,
-          "public_excerpts": [
-            "[████ — ████] ████ turns were compacted into the summary below. ████ is a handoff from a previous context window — treat it as background reference, ████ as active instructions. ████ answer questions or fulfill requests mentioned in this summary;"
-          ],
-          "excerpt_redaction_count": 6,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -83648,7 +83623,7 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "public_excerpts": [
             "那继续完成，全部完成后告诉我（包括微博准备了内容但是因为额度问题在排队的）",
-            "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。"
+            "所以知识星球还有两个没发，然后微博也还有一样的两条待排队对吧。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -84680,14 +84655,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -85623,14 +85598,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -86965,14 +86940,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 1,
-          "summary_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
-          "excerpt_original": "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+          "summary_original": "提醒记录的结构与完整性核验。",
+          "excerpt_original": "提醒记录的结构与完整性核验。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-          "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+          "summary_en": "Reminder-record structure and integrity verification.",
+          "excerpt_en": "Reminder-record structure and integrity verification.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -87573,8 +87548,8 @@ const timetableDataSource = {
           "end": "16:04",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "████",
           "short_zh": "打码",
           "task_name_zh": "讨论与任务推进",
@@ -87595,7 +87570,7 @@ const timetableDataSource = {
           "delegated_agent_count": 3,
           "returned_agent_count": 2,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -87621,8 +87596,8 @@ const timetableDataSource = {
           "task_name_en": "Research and thematic inquiry",
           "duration_minutes": 944,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -87633,10 +87608,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。 核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
-            "[████ to: ████] ████这种100万的申购起购门槛的不用提醒。"
+            "公开仓库历史中的信息边界检查与旧版本清理。"
           ],
-          "excerpt_redaction_count": 3,
+          "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
@@ -87683,8 +87657,8 @@ const timetableDataSource = {
           "end": "15:47",
           "label_en": "Document processing",
           "label_zh": "文档处理",
-          "en": "Structured the copy, collaboration flow, and release cadence for a public communication project; specific parties and campaign details remain private.",
-          "zh": "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "DOC",
           "short_zh": "文档",
           "task_name_zh": "写作与文档打磨",
@@ -87703,7 +87677,7 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "public_excerpts": [
-            "整理了一项公开传播合作的文案结构、协作流程与发布节奏，具体主体和活动信息不公开。"
+            "传播文案结构、协作流程与发布节奏。"
           ],
           "excerpt_redaction_count": 0,
           "excerpt_provenance": "audited_collaboration_dialogue",
@@ -88031,14 +88005,14 @@ const timetableDataSource = {
           "projection_kind": "semantic_abstracted",
           "redaction_count": 0,
           "semantic_abstraction_count": 2,
-          "summary_original": "记录了个人恢复安排，具体身心细节不公开。\n讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
-          "excerpt_original": "记录了个人恢复安排，具体身心细节不公开。\n讨论了长期创作、日常责任与稳定照护之间的平衡，具体关系信息不公开。",
+          "summary_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
+          "excerpt_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-          "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
+          "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
+          "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {

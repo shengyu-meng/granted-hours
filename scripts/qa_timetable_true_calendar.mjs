@@ -172,10 +172,8 @@ try {
     await page.waitForSelector("#taskDialog.is-open");
     assert.ok(((await page.locator("#taskDetailZh").textContent()) || "").trim().length > 20);
     assert.ok(((await page.locator("#taskDetailEn").textContent()) || "").trim().length > 20);
-    assert.match(
-      (await page.locator("#taskDetailProvenance").textContent()) || "",
-      /(?:public-safe daily report|deterministic semantic-family\/window aggregate|explicit public-level alert evidence)/,
-    );
+    assert.equal((await page.locator("#taskDetailProvenance").textContent())?.trim(), "");
+    assert.equal(await page.locator("#taskDetailProvenance").isHidden(), true);
     await page.keyboard.press("Escape");
 
     results.push({

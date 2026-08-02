@@ -25,6 +25,7 @@ from reminder_disclosure import (
 from semantic_public_policy import (
     abstract_for_tags,
     abstract_sensitive_public_text,
+    polish_public_excerpt,
     projection_tags,
 )
 
@@ -120,11 +121,12 @@ def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
                 stats["abstracted"] += sum(
                     str(excerpt) != sanitized for excerpt in excerpts
                 )
-                sanitized_excerpts = [sanitized]
+                sanitized_excerpts = [polish_public_excerpt(sanitized)]
             else:
                 for excerpt in excerpts:
                     stats["fields"] += 1
                     sanitized, tags = abstract_sensitive_public_text(str(excerpt))
+                    sanitized = polish_public_excerpt(sanitized)
                     if tags:
                         stats["abstracted"] += 1
                     if sanitized and sanitized not in sanitized_excerpts:

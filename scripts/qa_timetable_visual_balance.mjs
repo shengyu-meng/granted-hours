@@ -91,7 +91,6 @@ const taskTypographySelectors = {
   taskType: "#taskDetailType",
   taskSectionHeading: ".task-detail-copy h3",
   taskBody: ".task-detail-body",
-  taskProvenance: "#taskDetailProvenance",
 };
 
 const lensTypographySelectors = {
@@ -131,7 +130,6 @@ const taskFitSelectors = [
   ".task-detail-kicker",
   "#taskDetailTime",
   "#taskDetailType",
-  "#taskDetailProvenance",
   ".task-detail-copy h3",
   ".task-detail-body",
   ".task-detail-occurrences > h3",
@@ -816,7 +814,6 @@ function assertAfterComparisons(baseline) {
     "taskType",
     "taskSectionHeading",
     "taskBody",
-    "taskProvenance",
   ];
   const taskSupporting = {};
   for (const configurationLabel of ["desktop-dark", "390x844-dark"]) {

@@ -8,52 +8,52 @@
     {
       "label": "desktop-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-calendar-resting.png",
-      "bytes": 520900
+      "bytes": 520986
     },
     {
       "label": "desktop-dark-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-day-resting.png",
-      "bytes": 535383
+      "bytes": 536932
     },
     {
       "label": "desktop-dark-task-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-task-resting.png",
-      "bytes": 478524
+      "bytes": 477246
     },
     {
       "label": "desktop-dark-intentional-lens",
       "path": "audits/soft-palette-typography/after/desktop-dark-intentional-lens.png",
-      "bytes": 796717
+      "bytes": 797183
     },
     {
       "label": "desktop-light-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-calendar-resting.png",
-      "bytes": 552231
+      "bytes": 552559
     },
     {
       "label": "desktop-light-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-day-resting.png",
-      "bytes": 480452
+      "bytes": 478332
     },
     {
       "label": "390x844-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-calendar-resting.png",
-      "bytes": 540215
+      "bytes": 540433
     },
     {
       "label": "390x844-dark-day-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-day-resting.png",
-      "bytes": 476168
+      "bytes": 474120
     },
     {
       "label": "390x844-dark-task-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-task-resting.png",
-      "bytes": 454274
+      "bytes": 464158
     },
     {
       "label": "421x386-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-calendar-resting.png",
-      "bytes": 274507
+      "bytes": 273966
     },
     {
       "label": "421x386-dark-day-resting",
@@ -447,19 +447,6 @@
           "rect": {
             "width": 606.760009765625,
             "height": 50.54278564453125
-          }
-        },
-        "taskProvenance": {
-          "selector": "#taskDetailProvenance",
-          "fontSize": 12,
-          "lineHeight": 18,
-          "ratio": 1.5,
-          "color": "rgb(131, 217, 221)",
-          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
-          "fontWeight": "400",
-          "rect": {
-            "width": 636.31005859375,
-            "height": 35.4599609375
           }
         }
       },
@@ -1460,18 +1447,6 @@
               "outsideVertically": false,
               "containerScrollsVertically": false,
               "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailProvenance",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
             }
           ],
           "failures": []
@@ -1538,9 +1513,9 @@
       },
       "colors": {
         "panelColor": [
-          7,
-          15,
-          20
+          8,
+          16,
+          22
         ],
         "samples": [
           {
@@ -1602,9 +1577,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               9,
@@ -1617,13 +1592,13 @@
               255
             ],
             "borderCompositeColor": [
-              40.973,
-              94.627,
-              143.534
+              41.438,
+              95.092,
+              144.463
             ],
-            "surfaceDistance": 22.913,
-            "borderDistance": 150.849,
-            "salience": 84.322
+            "surfaceDistance": 20.616,
+            "borderDistance": 149.568,
+            "salience": 82.513
           },
           {
             "category": "ah-market-scan",
@@ -1684,9 +1659,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               10,
@@ -1699,13 +1674,13 @@
               88
             ],
             "borderCompositeColor": [
-              57.087,
-              104.668,
-              78.284
+              57.657,
+              105.238,
+              79.422
             ],
-            "surfaceDistance": 13.153,
-            "borderDistance": 118.094,
-            "salience": 63.525
+            "surfaceDistance": 11,
+            "borderDistance": 117.16,
+            "salience": 61.957
           },
           {
             "category": "us-market-scan",
@@ -1766,9 +1741,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               12,
@@ -1781,13 +1756,13 @@
               255
             ],
             "borderCompositeColor": [
-              69.567,
-              104.908,
-              118.364
+              70.136,
+              105.478,
+              119.502
             ],
-            "surfaceDistance": 17.146,
-            "borderDistance": 147.22,
-            "salience": 79.582
+            "surfaceDistance": 14.765,
+            "borderDistance": 146.198,
+            "salience": 77.853
           },
           {
             "category": "ai-brief",
@@ -1848,9 +1823,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               16,
@@ -1863,13 +1838,13 @@
               10
             ],
             "borderCompositeColor": [
-              106.767,
-              92.668,
-              59.564
+              107.336,
+              93.238,
+              60.702
             ],
-            "surfaceDistance": 12.45,
-            "borderDistance": 132.481,
-            "salience": 70.065
+            "surfaceDistance": 10.44,
+            "borderDistance": 131.648,
+            "salience": 68.62
           },
           {
             "category": "service-support",
@@ -1930,9 +1905,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               12,
@@ -1945,13 +1920,13 @@
               255
             ],
             "borderCompositeColor": [
-              75.567,
-              83.788,
-              118.364
+              76.136,
+              84.358,
+              119.502
             ],
-            "surfaceDistance": 15.166,
-            "borderDistance": 138.234,
-            "salience": 74.239
+            "surfaceDistance": 12.728,
+            "borderDistance": 137.194,
+            "salience": 72.471
           },
           {
             "category": "warning-exception",
@@ -2012,9 +1987,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               26,
@@ -2027,13 +2002,13 @@
               58
             ],
             "borderCompositeColor": [
-              134.073,
-              70.687,
-              68.674
+              134.538,
+              71.152,
+              69.603
             ],
-            "surfaceDistance": 21.424,
-            "borderDistance": 147.03,
-            "salience": 81.715
+            "surfaceDistance": 19.621,
+            "borderDistance": 146.012,
+            "salience": 80.289
           },
           {
             "category": "autonomous-artwork",
@@ -2094,9 +2069,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               30,
@@ -2109,13 +2084,13 @@
               10
             ],
             "borderCompositeColor": [
-              134.073,
-              125.787,
-              50.434
+              134.538,
+              126.252,
+              51.363
             ],
-            "surfaceDistance": 31.401,
-            "borderDistance": 171.312,
-            "salience": 98.558
+            "surfaceDistance": 29.799,
+            "borderDistance": 170.38,
+            "salience": 97.278
           },
           {
             "category": "daily-reminder",
@@ -2176,9 +2151,9 @@
               }
             ],
             "panelColor": [
-              7,
-              15,
-              20
+              8,
+              16,
+              22
             ],
             "surfaceColor": [
               22,
@@ -2191,13 +2166,13 @@
               242
             ],
             "borderCompositeColor": [
-              109.753,
-              78.667,
-              138.594
+              110.218,
+              79.132,
+              139.523
             ],
-            "surfaceDistance": 27.331,
-            "borderDistance": 169.341,
-            "salience": 95.496
+            "surfaceDistance": 24.92,
+            "borderDistance": 168.064,
+            "salience": 93.629
           }
         ],
         "minimumContrast": 8.433,
@@ -2215,11 +2190,11 @@
             "service-support"
           ]
         },
-        "meanSurfaceDistance": 20.123,
+        "meanSurfaceDistance": 17.986,
         "layerSalience": {
-          "event": 87.178,
-          "climate": 71.853,
-          "beacon": 98.558
+          "event": 85.477,
+          "climate": 70.225,
+          "beacon": 97.278
         },
         "contrasts": [
           {
@@ -3538,19 +3513,6 @@
             "width": 606.760009765625,
             "height": 50.54278564453125
           }
-        },
-        "taskProvenance": {
-          "selector": "#taskDetailProvenance",
-          "fontSize": 12,
-          "lineHeight": 18,
-          "ratio": 1.5,
-          "color": "rgb(40, 111, 122)",
-          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
-          "fontWeight": "400",
-          "rect": {
-            "width": 636.31005859375,
-            "height": 35.4599609375
-          }
         }
       },
       "lens": null,
@@ -4377,18 +4339,6 @@
               "outsideVertically": false,
               "containerScrollsVertically": false,
               "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailProvenance",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
             }
           ],
           "failures": []
@@ -4397,7 +4347,7 @@
       },
       "colors": {
         "panelColor": [
-          225,
+          226,
           226,
           220
         ],
@@ -4461,7 +4411,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4476,13 +4426,13 @@
               255
             ],
             "borderCompositeColor": [
-              108.223,
+              108.687,
               158.937,
               207.936
             ],
-            "surfaceDistance": 12.806,
-            "borderDistance": 135.203,
-            "salience": 71.557
+            "surfaceDistance": 13,
+            "borderDistance": 135.666,
+            "salience": 71.88
           },
           {
             "category": "ah-market-scan",
@@ -4543,7 +4493,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4558,13 +4508,13 @@
               61
             ],
             "borderCompositeColor": [
-              141.3,
+              141.87,
               171.118,
               150.749
             ],
-            "surfaceDistance": 11.747,
-            "borderDistance": 121.71,
-            "salience": 64.53
+            "surfaceDistance": 11.18,
+            "borderDistance": 122.007,
+            "salience": 64.377
           },
           {
             "category": "us-market-scan",
@@ -4625,7 +4575,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4640,13 +4590,13 @@
               164
             ],
             "borderCompositeColor": [
-              132.66,
+              133.23,
               165.118,
               175.469
             ],
-            "surfaceDistance": 11.747,
-            "borderDistance": 119.232,
-            "salience": 63.34
+            "surfaceDistance": 11.358,
+            "borderDistance": 119.566,
+            "salience": 63.298
           },
           {
             "category": "ai-brief",
@@ -4707,7 +4657,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4722,13 +4672,13 @@
               0
             ],
             "borderCompositeColor": [
-              180.9,
+              181.47,
               150.478,
               136.109
             ],
-            "surfaceDistance": 13.342,
-            "borderDistance": 121.186,
-            "salience": 65.107
+            "surfaceDistance": 12.45,
+            "borderDistance": 121.344,
+            "salience": 64.719
           },
           {
             "category": "service-support",
@@ -4789,7 +4739,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4804,13 +4754,13 @@
               214
             ],
             "borderCompositeColor": [
-              153.78,
+              154.349,
               158.638,
               187.469
             ],
-            "surfaceDistance": 14.731,
-            "borderDistance": 103.287,
-            "salience": 57.238
+            "surfaceDistance": 14.142,
+            "borderDistance": 103.584,
+            "salience": 57.074
           },
           {
             "category": "warning-exception",
@@ -4871,7 +4821,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4886,13 +4836,13 @@
               21
             ],
             "borderCompositeColor": [
-              189.923,
+              190.387,
               112.577,
               119.016
             ],
-            "surfaceDistance": 13.491,
-            "borderDistance": 155.862,
-            "salience": 81.829
+            "surfaceDistance": 12.689,
+            "borderDistance": 155.983,
+            "salience": 81.47
           },
           {
             "category": "autonomous-artwork",
@@ -4953,7 +4903,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -4968,13 +4918,13 @@
               0
             ],
             "borderCompositeColor": [
-              160.663,
+              161.127,
               150.957,
               111.036
             ],
-            "surfaceDistance": 10.954,
-            "borderDistance": 147.118,
-            "salience": 76.313
+            "surfaceDistance": 10.63,
+            "borderDistance": 147.354,
+            "salience": 76.257
           },
           {
             "category": "daily-reminder",
@@ -5035,7 +4985,7 @@
               }
             ],
             "panelColor": [
-              225,
+              226,
               226,
               220
             ],
@@ -5050,13 +5000,13 @@
               222
             ],
             "borderCompositeColor": [
-              174.723,
+              175.187,
               143.737,
               195.396
             ],
-            "surfaceDistance": 12.728,
-            "borderDistance": 99.5,
-            "salience": 54.379
+            "surfaceDistance": 12.042,
+            "borderDistance": 99.772,
+            "salience": 54.152
           }
         ],
         "minimumContrast": 5.493,
@@ -5068,17 +5018,17 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 25.141,
+          "value": 25.14,
           "pair": [
             "us-market-scan",
             "service-support"
           ]
         },
-        "meanSurfaceDistance": 12.693,
+        "meanSurfaceDistance": 12.186,
         "layerSalience": {
-          "event": 69.255,
-          "climate": 62.554,
-          "beacon": 76.313
+          "event": 69.167,
+          "climate": 62.367,
+          "beacon": 76.257
         },
         "contrasts": [
           {
@@ -5633,7 +5583,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 258.07000732421875,
-            "height": 39.70780944824219
+            "height": 39.707794189453125
           }
         },
         "taskKicker": {
@@ -5646,7 +5596,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 342.7799987792969,
-            "height": 16.25250244140625
+            "height": 16.252487182617188
           }
         },
         "taskTime": {
@@ -5699,19 +5649,6 @@
           "rect": {
             "width": 319.1400146484375,
             "height": 71.7972412109375
-          }
-        },
-        "taskProvenance": {
-          "selector": "#taskDetailProvenance",
-          "fontSize": 11,
-          "lineHeight": 16.5,
-          "ratio": 1.5,
-          "color": "rgb(131, 217, 221)",
-          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
-          "fontWeight": "400",
-          "rect": {
-            "width": 342.7799987792969,
-            "height": 48.7574462890625
           }
         }
       },
@@ -6317,7 +6254,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-043",
               "horizontalOverflow": 0,
-              "verticalOverflow": 49,
+              "verticalOverflow": 36,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -6506,18 +6443,6 @@
             },
             {
               "selector": "#taskDetailEn",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailProvenance",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -6927,19 +6852,6 @@
             "width": 349.675048828125,
             "height": 47.86485290527344
           }
-        },
-        "taskProvenance": {
-          "selector": "#taskDetailProvenance",
-          "fontSize": 11,
-          "lineHeight": 16.5,
-          "ratio": 1.5,
-          "color": "rgb(131, 217, 221)",
-          "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
-          "fontWeight": "400",
-          "rect": {
-            "width": 373.3149719238281,
-            "height": 32.5050048828125
-          }
         }
       },
       "lens": null,
@@ -7544,7 +7456,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-043",
               "horizontalOverflow": 0,
-              "verticalOverflow": 49,
+              "verticalOverflow": 36,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7740,18 +7652,6 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailProvenance",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": true,
               "containerScrollsVertically": true,
               "outsideContainer": false
             }
@@ -8024,12 +7924,11 @@
           "taskTime",
           "taskType",
           "taskSectionHeading",
-          "taskBody",
-          "taskProvenance"
+          "taskBody"
         ],
-        "beforeMean": 10.833,
-        "afterMean": 12.64,
-        "growth": 0.167
+        "beforeMean": 11,
+        "afterMean": 12.768,
+        "growth": 0.161
       },
       "390x844-dark": {
         "keys": [
@@ -8037,12 +7936,11 @@
           "taskTime",
           "taskType",
           "taskSectionHeading",
-          "taskBody",
-          "taskProvenance"
+          "taskBody"
         ],
-        "beforeMean": 10.5,
-        "afterMean": 11.667,
-        "growth": 0.111
+        "beforeMean": 10.6,
+        "afterMean": 11.8,
+        "growth": 0.113
       }
     },
     "lensSupporting": {
@@ -8059,8 +7957,8 @@
       "desktop-dark": {
         "surfaceDistance": {
           "before": 33.356,
-          "after": 20.123,
-          "reduction": 0.428
+          "after": 17.986,
+          "reduction": 0.49
         },
         "minimumContrast": 8.433,
         "minimumAccentDistance": {
@@ -8078,65 +7976,65 @@
           ]
         },
         "layerSalience": {
-          "event": 87.178,
-          "climate": 71.853,
-          "beacon": 98.558
+          "event": 85.477,
+          "climate": 70.225,
+          "beacon": 97.278
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 33.853,
-            "after": 22.913,
-            "reduction": 0.323
+            "after": 20.616,
+            "reduction": 0.391
           },
           "ah-market-scan": {
             "before": 17.378,
-            "after": 13.153,
-            "reduction": 0.243
+            "after": 11,
+            "reduction": 0.367
           },
           "us-market-scan": {
             "before": 24.86,
-            "after": 17.146,
-            "reduction": 0.31
+            "after": 14.765,
+            "reduction": 0.406
           },
           "ai-brief": {
             "before": 31.289,
-            "after": 12.45,
-            "reduction": 0.602
+            "after": 10.44,
+            "reduction": 0.666
           },
           "service-support": {
             "before": 21.749,
-            "after": 15.166,
-            "reduction": 0.303
+            "after": 12.728,
+            "reduction": 0.415
           },
           "warning-exception": {
             "before": 36.277,
-            "after": 21.424,
-            "reduction": 0.409
+            "after": 19.621,
+            "reduction": 0.459
           },
           "autonomous-artwork": {
             "before": 68.022,
-            "after": 31.401,
-            "reduction": 0.538
+            "after": 29.799,
+            "reduction": 0.562
           },
           "daily-reminder": {
             "before": null,
-            "after": 27.331,
+            "after": 24.92,
             "reduction": null,
             "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 79.582,
+        "maximumClimateSalience": 77.853,
         "activeSalience": {
-          "assigned-work": 84.322,
-          "warning-exception": 81.715,
-          "autonomous-artwork": 98.558
+          "assigned-work": 82.513,
+          "warning-exception": 80.289,
+          "autonomous-artwork": 97.278
         }
       },
       "desktop-light": {
         "surfaceDistance": {
           "before": 27.376,
-          "after": 12.693,
-          "reduction": 0.537
+          "after": 12.186,
+          "reduction": 0.554
         },
         "minimumContrast": 5.493,
         "minimumAccentDistance": {
@@ -8147,65 +8045,65 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 25.141,
+          "value": 25.14,
           "pair": [
             "us-market-scan",
             "service-support"
           ]
         },
         "layerSalience": {
-          "event": 69.255,
-          "climate": 62.554,
-          "beacon": 76.313
+          "event": 69.167,
+          "climate": 62.367,
+          "beacon": 76.257
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 36.824,
-            "after": 12.806,
-            "reduction": 0.652
+            "after": 13,
+            "reduction": 0.647
           },
           "ah-market-scan": {
             "before": 14.799,
-            "after": 11.747,
-            "reduction": 0.206
+            "after": 11.18,
+            "reduction": 0.245
           },
           "us-market-scan": {
             "before": 24.269,
-            "after": 11.747,
-            "reduction": 0.516
+            "after": 11.358,
+            "reduction": 0.532
           },
           "ai-brief": {
             "before": 21.909,
-            "after": 13.342,
-            "reduction": 0.391
+            "after": 12.45,
+            "reduction": 0.432
           },
           "service-support": {
             "before": 22.204,
-            "after": 14.731,
-            "reduction": 0.337
+            "after": 14.142,
+            "reduction": 0.363
           },
           "warning-exception": {
             "before": 30.887,
-            "after": 13.491,
-            "reduction": 0.563
+            "after": 12.689,
+            "reduction": 0.589
           },
           "autonomous-artwork": {
             "before": 35.114,
-            "after": 10.954,
-            "reduction": 0.688
+            "after": 10.63,
+            "reduction": 0.697
           },
           "daily-reminder": {
             "before": null,
-            "after": 12.728,
+            "after": 12.042,
             "reduction": null,
             "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 65.107,
+        "maximumClimateSalience": 64.719,
         "activeSalience": {
-          "assigned-work": 71.557,
-          "warning-exception": 81.829,
-          "autonomous-artwork": 76.313
+          "assigned-work": 71.88,
+          "warning-exception": 81.47,
+          "autonomous-artwork": 76.257
         }
       }
     },

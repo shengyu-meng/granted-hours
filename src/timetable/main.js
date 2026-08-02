@@ -2499,6 +2499,8 @@ function openTaskDetail(task, trigger) {
       ...collaborationEvidence,
     ].join(" · ");
   }
+  els.taskDetailProvenance.textContent = "";
+  els.taskDetailProvenance.hidden = true;
   els.dayDialogPanel.setAttribute("inert", "");
   els.taskDialog.hidden = false;
   requestAnimationFrame(() => {

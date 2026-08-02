@@ -19,6 +19,7 @@ from zoneinfo import ZoneInfo
 from import_agent_events import collect_agent_events
 from semantic_public_policy import (
     abstract_sensitive_public_text,
+    polish_public_excerpt,
     projection_tags,
     semantic_risk_tags,
 )
@@ -392,11 +393,7 @@ def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[st
     value = re.sub(r"\s+", " ", value).strip(" ,，;；")
     if RESIDUAL_PRIVATE_RE.search(value): return ""
     if len(re.sub(r"\s+", "", value.replace(MASK, ""))) < 18: return ""
-    if len(value) > MAX_EXCERPT_CHARS:
-        candidate = value[: MAX_EXCERPT_CHARS - 1]
-        boundary = max(candidate.rfind(mark) for mark in "。！？.!?；;")
-        value = candidate[:boundary + 1] if boundary >= MAX_EXCERPT_CHARS // 2 else candidate.rstrip() + "…"
-    return value
+    return polish_public_excerpt(value, MAX_EXCERPT_CHARS)
 
 
 def outcome_candidates(value: object) -> list[str]:
@@ -450,7 +447,7 @@ def sanitize_outcome_excerpt(
         return ""
     if value.count(MASK) > 2 or len(value.replace(MASK, "").strip()) < 28:
         return ""
-    return f"结果｜{value}"
+    return polish_public_excerpt(value, MAX_EXCERPT_CHARS)
 
 
 def information_score(value: str) -> tuple[int, int, str]:

@@ -152,6 +152,12 @@
       "excerpt_en": "**🦞Daily reminder · Sunday · June 21**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 teaching materials and pictures**: The materials reached v0.8 last week, and ████ has not reviewed them yet.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
+    "20dc25aa0e32373de4468b51fb67a6ec72726f83b0513c92f1e4fb1c861d7963": {
+      "source_sha256": "20dc25aa0e32373de4468b51fb67a6ec72726f83b0513c92f1e4fb1c861d7963",
+      "summary_en": "Public-content scheduling and archiving.",
+      "excerpt_en": "Public-content scheduling and archiving.",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
     "2160b2c7399bb6a24f189a8141e92584f74a7772f1fcd76f06a5e468629ba4d9": {
       "source_sha256": "2160b2c7399bb6a24f189a8141e92584f74a7772f1fcd76f06a5e468629ba4d9",
       "summary_en": "🌙 Good night · July 23, 2026\n\nToday’s activity has gone quiet, with no new events added to the record. Let the day end just as quietly.\n\nThe tail end of Friday is mostly yours: shed the day’s residual warmth and leave tomorrow’s first waking thought by the bedside. Do not overthink it. Falling asleep is a win.\n\nWhen you wake tomorrow, drink some water before deciding whether to open a new page. Good night.",
@@ -174,12 +180,6 @@
       "source_sha256": "253a1219d3325ba4c48ea51969bb01165cc63de4a3f57e8ec1424d3ac6866b40",
       "summary_en": "Done. The JSON passed validation, and the new recommendation was written correctly to the state file. The cron dispatch for this run has already been delivered as the final response. No further action is needed.",
       "excerpt_en": "Done. The JSON passed validation, and the new recommendation was written correctly to the state file. The cron dispatch for this run has already been delivered as the final response. No further action is needed.",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
-    "2684c2f0915c3c72ff15f3055b8cf5c4c54d1d9f4d133a340a87661cce9d2d56": {
-      "source_sha256": "2684c2f0915c3c72ff15f3055b8cf5c4c54d1d9f4d133a340a87661cce9d2d56",
-      "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nChecked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
-      "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nChecked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "27e3fb14baf9f359bf848bd514658d514903755ed8aabcb16cd2bc9ab64fe4e7": {
@@ -242,10 +242,16 @@
       "excerpt_en": "Morning.\n\nIt is Saturday. Set aside 45 minutes for the wellspring.\n\nYou do not need to prepare your mood, feel excited, or have any reason—\njust go. Let it be as natural as breathing.\n\nDo not just maintain the machinery of daily life.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "3c151a5bd60c82f9d08907b3214a8e1a55ea6d0c95057c0e92f08d887d42ef4e": {
-      "source_sha256": "3c151a5bd60c82f9d08907b3214a8e1a55ea6d0c95057c0e92f08d887d42ef4e",
-      "summary_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-      "excerpt_en": "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+    "3953c87c501a48880962950dfcc77be272329bf08bcf15bb45f72070cf62a971": {
+      "source_sha256": "3953c87c501a48880962950dfcc77be272329bf08bcf15bb45f72070cf62a971",
+      "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
+      "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
+    "3ac8659fd123e7d9dccdabb3730f8b0b3347451b50c543a6f86327a968386b2a": {
+      "source_sha256": "3ac8659fd123e7d9dccdabb3730f8b0b3347451b50c543a6f86327a968386b2a",
+      "summary_en": "Reminder-record structure and integrity verification.",
+      "excerpt_en": "Reminder-record structure and integrity verification.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "41d8cc78952fcaa659fa6ddf58919a5fa42e6e17d268eb5fe908908d983ed074": {
@@ -386,22 +392,16 @@
       "excerpt_en": "Morning.\n\nThe machinery is running, and you are feeding it.\nBut today, do not be only its mechanic.\n\nThere is another door by the wellspring—\npush it open, and beyond it is where you truly shine.\n\nThis morning, take 45 minutes, turn off notifications,…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "67e331e470f8ee86a488a85904e591362f147df8baa3a5f3bc90abe56af5017e": {
-      "source_sha256": "67e331e470f8ee86a488a85904e591362f147df8baa3a5f3bc90abe56af5017e",
-      "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-      "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.\nDiscussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
     "69cd96baf889a79a7ab79da8d6642b1b181314df5282db33aec79c65a0521db2": {
       "source_sha256": "69cd96baf889a79a7ab79da8d6642b1b181314df5282db33aec79c65a0521db2",
       "summary_en": "Morning.\n\nThe wellspring is not something to touch only after you feel inspired.\n\nGive ████ / ████ / ████ a priority slot this morning—even if it is only 45 minutes, even if you merely play around with something. Do not wait until you feel right or ready. Sit down first and let the luminous place light up.\n\nThe machinery needs maintenance, but the place you truly want to go needs power too.\n\nGo. ✨",
       "excerpt_en": "Morning.\n\nThe wellspring is not something to touch only after you feel inspired.\n\nGive ████ / ████ / ████ a priority slot this morning—even if it is only 45 minutes, even if you merely play around with something. Do not wait until you feel right or ready.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "6ef58bbcd1eeb2052c41ef03c9bb7f163c91568e04e967597aeefb7eaf404b75": {
-      "source_sha256": "6ef58bbcd1eeb2052c41ef03c9bb7f163c91568e04e967597aeefb7eaf404b75",
-      "summary_en": "Retained a gentle reminder about pace, rest, and self-observation; specific psychological interpretations remain private.\nChecked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
-      "excerpt_en": "Retained a gentle reminder about pace, rest, and self-observation; specific psychological interpretations remain private.\nChecked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+    "6d428d39c6b8909f5b6da0aebe4bdb5073aafb0085cb94e4163a80d0b341b3e9": {
+      "source_sha256": "6d428d39c6b8909f5b6da0aebe4bdb5073aafb0085cb94e4163a80d0b341b3e9",
+      "summary_en": "Pace, rest, and self-observation.\nPublic-content scheduling and archiving.",
+      "excerpt_en": "Pace, rest, and self-observation.\nPublic-content scheduling and archiving.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "72dc54d9f2b2495e676f16878ec3e9dfff847b2325c5cb36a82a42fba052a100": {
@@ -512,12 +512,6 @@
       "excerpt_en": "🌙 **Good night · June 27, 2026**\n\nToday left no detailed trace in the logs, but the conversations and progress that genuinely happened between us will not disappear because of that. They are resting quietly in your memory and in my working files.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "8c5fc2439164a078738bd5ec43a7fd1e39309676812f0271f3898b00bddd1856": {
-      "source_sha256": "8c5fc2439164a078738bd5ec43a7fd1e39309676812f0271f3898b00bddd1856",
-      "summary_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
-      "excerpt_en": "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
     "8d98aa9ee50292c55e33e53f61e168bcb5eb81d27ff89c7a615dbfae156c9a6c": {
       "source_sha256": "8d98aa9ee50292c55e33e53f61e168bcb5eb81d27ff89c7a615dbfae156c9a6c",
       "summary_en": "Morning.\n\nGive the wellspring a priority slot this morning—at least 45 minutes.\n\nIt is fine if you feel no excitement. Sitting down is already a form of recharging.\n\nDo not just maintain the machinery of daily life. Supply power to the places that truly shine, too. ✨",
@@ -578,6 +572,12 @@
       "excerpt_en": "Morning.\n\nThe machinery needs maintenance, and the wellspring needs feeding.\n\nGive ████ / ████ / ████ at least 45 minutes this morning. Sit there even if inspiration is absent.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
+    "a06a9781b01ce0e44c9078b10fb10617bf8b3964b28e67c7eb9dfc96b57d36a1": {
+      "source_sha256": "a06a9781b01ce0e44c9078b10fb10617bf8b3964b28e67c7eb9dfc96b57d36a1",
+      "summary_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
+      "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
     "a0e947188ee029858b46781c0d7ad6ec946f28c4a76f3bef7390a88e97a9c209": {
       "source_sha256": "a0e947188ee029858b46781c0d7ad6ec946f28c4a76f3bef7390a88e97a9c209",
       "summary_en": "████, did you recharge today?\n\nIf not, take 20 minutes tonight. Anything will do: generate one image, read one page of notes, or write three lines about that vague idea in your head.\n\nDo not wait until you are “in the right state” before moving.…",
@@ -608,22 +608,16 @@
       "excerpt_en": "The wellspring will not light itself.\n\nDid you supply it with power today?\n\nIf not, spend 20 minutes tonight on any one action: write a line of a prompt, adjust a parameter, or draw an image. Choose the smallest one. Just that.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "a75c87b7c0db7ed57456c8692231256a293ca49cc8795e0b324f5cb99f64c1a5": {
-      "source_sha256": "a75c87b7c0db7ed57456c8692231256a293ca49cc8795e0b324f5cb99f64c1a5",
-      "summary_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-      "excerpt_en": "Discussed the balance between long-term creative work, daily responsibilities, and dependable care; relationship details remain private.",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
     "a99f4e9ae6d0aec72a27330828c4459576bcf6f73236be4d3345ecdb2cffaabe": {
       "source_sha256": "a99f4e9ae6d0aec72a27330828c4459576bcf6f73236be4d3345ecdb2cffaabe",
       "summary_en": "**A Question About the Wellspring**\n\nDid you truly reach the wellspring today, or did you linger at the door—researching, planning, preparing, then telling yourself “soon”? If you do only one thing tonight, make it this: move closer. You do not need to produce anything; you only need to arrive.\n\n**Heizhou’s Evening Thought / Prompt**\n\nThe wellspring does not need you to be ready. It does not need you to be clear, useful, or complete. It only needs you to draw near. The real obstacle is not a lack of ability, but “I’m not ready yet”—a doorway that forever moves away. Tonight, try appearing once without preparing and see what happens.",
       "excerpt_en": "**A Question About the Wellspring**\n\nDid you truly reach the wellspring today, or did you linger at the door—researching, planning, preparing, then telling yourself “soon”? If you do only one thing tonight, make it this: move closer.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "ac8f0bd59287bb7b73bfbf5aa37730021d053edd40d55ed08dae60d6d27be67f": {
-      "source_sha256": "ac8f0bd59287bb7b73bfbf5aa37730021d053edd40d55ed08dae60d6d27be67f",
-      "summary_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
-      "excerpt_en": "Checked the reminder record for structural integrity; internal execution details remain private.",
+    "aa575d35f50ddb5e612d7699d0a51136fe448934e56da2f9b22f7908a439b960": {
+      "source_sha256": "aa575d35f50ddb5e612d7699d0a51136fe448934e56da2f9b22f7908a439b960",
+      "summary_en": "The overlap of relationships, disappointment, and tolerance.",
+      "excerpt_en": "The overlap of relationships, disappointment, and tolerance.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "aef1806866223d0f212b1ba5820b4c7ddde6c1b6094883bb8b3eb7726660436c": {
@@ -680,16 +674,16 @@
       "excerpt_en": "The wellspring.\n\nDid you give it power today?\n\nAn unpowered lamp is dark, however bright it could be. Twenty minutes is enough for one tiny action: write one line, draw one frame, move one pixel. Keep it breathing.\n\nMake it up tonight.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "c18985b4a03c24a692849078d25f1b51b72182b6081f7c313bf17b8727a85f0a": {
-      "source_sha256": "c18985b4a03c24a692849078d25f1b51b72182b6081f7c313bf17b8727a85f0a",
-      "summary_en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
-      "excerpt_en": "Examined how disappointment, tolerance, and relationships overlap in a private experience; the underlying narrative remains private.",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
     "c316df81084793a583e19c1ea6358717fa63fae96be73084a3897784c6fc4431": {
       "source_sha256": "c316df81084793a583e19c1ea6358717fa63fae96be73084a3897784c6fc4431",
       "summary_en": "Morning ☀️\n\nThe wellspring does not need you to soar with excitement every time.\nIt only needs you to sit beside it, even if all you do is quietly touch the door.\n\nGive “████ / ████ / ████” 45 minutes this morning.\nThis is not a task or a KPI. The circuit that makes you shine needs power regularly.\n\nCross the gray zone, ████. 🌊",
       "excerpt_en": "Morning ☀️\n\nThe wellspring does not need you to soar with excitement every time.\nIt only needs you to sit beside it, even if all you do is quietly touch the door.\n\nGive “████ / ████ / ████” 45 minutes this morning.\nThis is not a task or a KPI.…",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
+    "c4bd9823a4b94887245bb57eae7987091f221544f0ea24dadac229cf9263bbe4": {
+      "source_sha256": "c4bd9823a4b94887245bb57eae7987091f221544f0ea24dadac229cf9263bbe4",
+      "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
+      "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "c9b881d7ed761d41e8d5ebad4597ee593e700cedfc6153f83edee34c2e1c28eb": {
@@ -738,6 +732,12 @@
       "source_sha256": "cfecc712844e25d676b1b12a658e7334ce6c400acf7220f3b51051ee1732ac12",
       "summary_en": "🌙 Good night · July 14, 2026\n\nYou know today—and who you were today—better than I do. I will not review it for you.\n\nOne small thing to leave by the bedside: R-14 and R-15 are still blocked by Weibo having zero available slots. Do not wrestle with it. Glance at it when you wake; if you can publish the two items, do so, and if not, leave them there. Do not let the issue steal tomorrow’s sleep budget.\n\nPut your phone far away and go to sleep.",
       "excerpt_en": "🌙 Good night · July 14, 2026\n\nYou know today—and who you were today—better than I do. I will not review it for you.\n\nOne small thing to leave by the bedside: R-14 and R-15 are still blocked by Weibo having zero available slots. Do not wrestle with it.…",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
+    "d10901036fed09ffeb5901fb7a1dc401698b4d151c1178ac7c5c5203f0e6b7c5": {
+      "source_sha256": "d10901036fed09ffeb5901fb7a1dc401698b4d151c1178ac7c5c5203f0e6b7c5",
+      "summary_en": "External-service permissions, deployment, and data-path availability.",
+      "excerpt_en": "External-service permissions, deployment, and data-path availability.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "d1ba4b74a05b48999881b8dc664372063e3749f17d60b9ad13af65f5ee96fa04": {
@@ -830,10 +830,22 @@
       "excerpt_en": "🦞 **████, today is Saturday. **\n\n---\n\n**Touch these lightly today**\n\n1. **████ Lecture 3 Lecture Notes v0.8** — Already waiting for your review: teaching materials + visual tone.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
+    "e8cc3d597b7233ac08cfdcc44ef3d86ec4b6f47cf12a29c5da42a24baec23e00": {
+      "source_sha256": "e8cc3d597b7233ac08cfdcc44ef3d86ec4b6f47cf12a29c5da42a24baec23e00",
+      "summary_en": "Personal pacing and recovery arrangements.",
+      "excerpt_en": "Personal pacing and recovery arrangements.",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
     "e90c23b00896c62e5062d8b513cf115680d61e9b88c486a092b92e30f2daac59": {
       "source_sha256": "e90c23b00896c62e5062d8b513cf115680d61e9b88c486a092b92e30f2daac59",
       "summary_en": "☀️ Morning, ████.\n\nIt is 09:15, and a new day’s circuits are about to switch on—but do not rush to service the “machinery of daily life” yet.\n\nGive the wellspring a priority slot this morning—at least 45 minutes.\nEven if inspiration is absent, even if you feel no excitement, even if all you do is sit across from “…",
       "excerpt_en": "☀️ Morning, ████.\n\nIt is 09:15, and a new day’s circuits are about to switch on—but do not rush to service the “machinery of daily life” yet.\n\nGive the wellspring a priority slot this morning—at least 45 minutes.…",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
+    "ead2baaa388db33d77c1c72a499269f1cd4196fd72af6e0450d501e451daa0d4": {
+      "source_sha256": "ead2baaa388db33d77c1c72a499269f1cd4196fd72af6e0450d501e451daa0d4",
+      "summary_en": "Read-only research, evidence checking, and risk review.",
+      "excerpt_en": "Read-only research, evidence checking, and risk review.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "ee46aafeafc1fcdc7b5525acac918c3344a558bb77afb418e05ec606d0dd6587": {
@@ -866,12 +878,6 @@
       "excerpt_en": "Morning.\n\nWellspring reminder: give ████ / ████ / ████ at least 45 minutes this morning.\n\nDo not spend all your time oiling the machinery of daily life. The machinery runs in circles; you are the generator.\nSit in that chair even without excitement.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
-    "f8e46fd5986a832529c739ef3288ff387dd5b496db42b6baa513e41da46d3a0f": {
-      "source_sha256": "f8e46fd5986a832529c739ef3288ff387dd5b496db42b6baa513e41da46d3a0f",
-      "summary_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
-      "excerpt_en": "Recorded a personal recovery arrangement; specific physical and emotional details remain private.",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
     "f94c4afbf8046a96a978ef05d4f17fb5c0780271c9fa772cc12c0d06e6671ebc": {
       "source_sha256": "f94c4afbf8046a96a978ef05d4f17fb5c0780271c9fa772cc12c0d06e6671ebc",
       "summary_en": "July 27, 2026 · Monday\n\n---\n\n**Touch these lightly today**\n\n- ████ / Main work: Monday Art Day, baseline is art-heavy. See if there is a 45–90-minute block in which you can engage directly with the work, rather than the systems surrounding it.\n- R-22…",
@@ -894,12 +900,6 @@
       "source_sha256": "fdc7013fac69f6722727d2cd78a717dabf2339a75092a1c4cb4fb51d4720abdd",
       "summary_en": "Morning, ████.\n\nThe machinery of daily life will turn on its own today. Do not give the whole morning to maintaining it.\n\nGive the wellspring 45 minutes. Choose ████ / ████ / Sky Eye and sit down inside it.\n\nBe there even without excitement. There is no inspiration in the gray zone; the wellspring lights only when you sit down and set your hands in motion.",
       "excerpt_en": "Morning, ████.\n\nThe machinery of daily life will turn on its own today. Do not give the whole morning to maintaining it.\n\nGive the wellspring 45 minutes. Choose ████ / ████ / Sky Eye and sit down inside it.\n\nBe there even without excitement.…",
-      "translation_provenance": "public_mask_preserving_translation_v1"
-    },
-    "ffa5c982bef23aaf92d48bdc6e06bceafdb6bdabf622818003e035d97a81d5dd": {
-      "source_sha256": "ffa5c982bef23aaf92d48bdc6e06bceafdb6bdabf622818003e035d97a81d5dd",
-      "summary_en": "Checked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
-      "excerpt_en": "Checked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "ffb05c3915de18339a1e902e76f5925014692cf25ededf9b4b97b979c82d2fab": {

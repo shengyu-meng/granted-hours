@@ -6,44 +6,44 @@
     {
       "path": "audits/rounded-hover-preview/2026-07-21-desktop-dark-assigned-lens.png",
       "type": "intentional-hover",
-      "bytes": 796935,
-      "sha256": "eec02c13b54a08ee6c1a7bd8c29b9ddb8290aa81f3113a542daea2f1e501e499"
+      "bytes": 797991,
+      "sha256": "e352b40553f411c2b5482550027b510f6964386aae7e8ade5c6ef7a85f53dacc"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-a.png",
       "type": "intentional-hover-gif-frame",
-      "bytes": 81714,
-      "sha256": "275f94e83297519bbb8eea3734b12ba69912add0432daf650e01af42a14fcd77"
+      "bytes": 84643,
+      "sha256": "e28be020b42e0d030f70fcb1930e64f705d4fb9e8464021487d1881d11b9c4bd"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-b.png",
       "type": "intentional-hover-gif-frame",
-      "bytes": 84235,
-      "sha256": "799373a5f292ae21db3dc373df0ac1535e025f2bc858005933c76f59ce91a14d"
+      "bytes": 84474,
+      "sha256": "9933e54123dcd25b216d1b7f5da95ff62b483ca27573eec60703d9cad74fef0b"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-desktop-dark-autonomous-motion-lens.png",
       "type": "intentional-hover",
-      "bytes": 861637,
-      "sha256": "8a8d8a15b3a8feb63a71600f45da6a06e296de3558ae1217ac05215e83c74dc5"
+      "bytes": 860189,
+      "sha256": "441cc4b178d54a2b1cff449c3611d48c7d7cbdfe01adc5dbeb98cee3217f2ce2"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-22-desktop-light-market-support-lens.png",
       "type": "intentional-hover",
-      "bytes": 558920,
-      "sha256": "4fd84113a9f524e12c714986203d71fac23d5d6f52c577f3f37a46ff27c49595"
+      "bytes": 558700,
+      "sha256": "1193aae53965ee5d34bdbedc7248f23bb35084622d66a171a5e770526018715e"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-390x844-no-hover-resting.png",
       "type": "non-hover",
-      "bytes": 297152,
-      "sha256": "97fb31267a5a99cfc88955815d041eb580842c123d80b716195c6d84d85aaa56"
+      "bytes": 296634,
+      "sha256": "7f9461662c8ecaeb290c3e00ab6811d7324cde15a35c7265ed4d016923e1455e"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-421x386-no-hover-resting.png",
       "type": "non-hover",
-      "bytes": 138946,
-      "sha256": "8353cc0e4ac359b2e631d8a144731642baf2dd6f8886a89df1a4542e92457c63"
+      "bytes": 126271,
+      "sha256": "58868349505018b2ae0bd237e6254f8b6b22fd95290bc297d52d047273a9f019"
     }
   ],
   "lenses": {
@@ -221,7 +221,7 @@
     },
     "allLoadFailure": {
       "hidden": false,
-      "visible": true,
+      "visible": false,
       "readingId": "beacon-beacon-001",
       "category": "autonomous-artwork",
       "mediaKind": "typographic",
@@ -237,18 +237,18 @@
       "display": "block",
       "transitionDuration": "0.14s, 0.16s",
       "rect": {
-        "left": 54,
-        "top": 607,
-        "right": 474,
-        "bottom": 862,
-        "width": 420,
-        "height": 255
+        "left": 57.149993896484375,
+        "top": 613.9124755859375,
+        "right": 470.8500061035156,
+        "bottom": 865.0874633789062,
+        "width": 413.70001220703125,
+        "height": 251.17498779296875
       },
       "triggerRect": {
-        "left": 475.09375,
-        "top": 617.9812622070312,
-        "right": 1020.90625,
-        "bottom": 847.5812377929688
+        "left": 481.75,
+        "top": 620.78125,
+        "right": 1014.25,
+        "bottom": 844.78125
       },
       "viewport": {
         "width": 1440,
@@ -451,13 +451,13 @@
     },
     "first": {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-a.png",
-      "elapsedMs": 25136.5,
-      "sha256": "275f94e83297519bbb8eea3734b12ba69912add0432daf650e01af42a14fcd77"
+      "elapsedMs": 32970.69999999553,
+      "sha256": "e28be020b42e0d030f70fcb1930e64f705d4fb9e8464021487d1881d11b9c4bd"
     },
     "second": {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-b.png",
-      "elapsedMs": 27659.60000000149,
-      "sha256": "799373a5f292ae21db3dc373df0ac1535e025f2bc858005933c76f59ce91a14d"
+      "elapsedMs": 37284.89999999851,
+      "sha256": "9933e54123dcd25b216d1b7f5da95ff62b483ca27573eec60703d9cad74fef0b"
     },
     "changed": true
   },

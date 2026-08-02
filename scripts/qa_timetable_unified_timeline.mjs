@@ -112,7 +112,8 @@ try {
     assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), selectedTask.zh);
     assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), selectedTask.en);
   }
-  assert.ok((await page.locator("#taskDetailProvenance").textContent())?.includes(selectedTask.source_kind));
+  assert.equal((await page.locator("#taskDetailProvenance").textContent())?.trim(), "");
+  assert.equal(await page.locator("#taskDetailProvenance").isHidden(), true);
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("#taskDialog").getAttribute("hidden"), "");
   assert.equal(await page.locator("#dayDialog").getAttribute("hidden"), null);

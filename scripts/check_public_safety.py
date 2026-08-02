@@ -88,6 +88,11 @@ PUBLIC_MARKET_PRIVATE_RE = re.compile(
     r"investment[-_/ ]os|qmt_[a-z0-9_]+|record[_ -]?key)\b|"
     r"\b(?:HK|US|SZ|SH)\.\d{3,6}\b|真实账户|真实仓位|持仓|仓位|试仓"
 )
+PUBLIC_COPY_META_RE = re.compile(
+    r"(?is)结果｜|turns?\s+were\s+compacted|handoff\s+from\s+a\s+previous\s+context|"
+    r"具体(?:叙事|身心细节|关系信息|主体和活动信息|平台和技术细节|心理判断|资产、账户和操作)不公开|"
+    r"(?:underlying narrative|specific (?:physical|relationship|parties|platform|psychological|assets)).{0,80}remains? private"
+)
 
 def scrub_allowed_tokens(line: str) -> str:
     """Remove explicitly public names/URLs without exempting the rest of a line."""
@@ -132,6 +137,8 @@ def main(root: Path) -> int:
                 findings.append((rel, 0, f'semantic_private_context:{tag}', '[value withheld]'))
             if PUBLIC_MARKET_PRIVATE_RE.search(text):
                 findings.append((rel, 0, 'private_market_operational_context', '[value withheld]'))
+            if PUBLIC_COPY_META_RE.search(text):
+                findings.append((rel, 0, 'reader_facing_audit_or_handoff_copy', '[value withheld]'))
         for i, line in enumerate(text.splitlines(), 1):
             scan_line = scrub_allowed_tokens(line)
             if denied_terms_present(scan_line, identity_terms):

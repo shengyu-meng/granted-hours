@@ -319,10 +319,8 @@ try {
   const detailProvenance = (await page.locator("#taskDetailProvenance").textContent()) || "";
   assert.equal(detailBody, originalBodyZh);
   assert.equal(detailEnglishSectionVisible, true);
-  assert.equal(
-    detailProvenance,
-    "中文保留原文 · 英文为公开安全翻译 · 已遮 2 处可识别实体 / Chinese source wording retained · public-safe English translation · 2 identifying entities masked",
-  );
+  assert.equal(detailProvenance, "");
+  assert.equal(await page.locator("#taskDetailProvenance").isHidden(), true);
   const renderedSurface = await page.evaluate(() => {
     const attributes = [...document.querySelectorAll("*")]
       .flatMap((element) => [...element.attributes].map(

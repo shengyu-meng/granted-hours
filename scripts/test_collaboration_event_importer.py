@@ -305,9 +305,7 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
             "其他用户的私密项目",
         ):
             self.assertNotIn(forbidden, serialized)
-        self.assertTrue(
-            importer.MASK in serialized or "具体身心细节不公开" in serialized
-        )
+        self.assertTrue(importer.MASK in serialized or "个人节奏与恢复安排" in serialized)
         self.assertGreater(result["audit"]["public_excerpt_count"], 0)
         research = next(
             residue
@@ -319,7 +317,7 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         self.assertNotIn("Hermes", research["zh"])
         self.assertNotIn("you initiated", research["en"].lower())
         self.assertTrue(
-            any(excerpt.startswith("结果｜核验完成") for excerpt in research["public_excerpts"])
+            any(excerpt.startswith("核验完成") for excerpt in research["public_excerpts"])
         )
         self.assertEqual(
             research["excerpt_provenance"], "audited_collaboration_dialogue"
