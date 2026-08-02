@@ -17,7 +17,11 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from import_agent_events import collect_agent_events
-from semantic_public_policy import abstract_sensitive_public_text
+from semantic_public_policy import (
+    abstract_sensitive_public_text,
+    projection_tags,
+    semantic_risk_tags,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STATE_DB = Path.home() / ".hermes" / "profiles" / "heizhou" / "state.db"
@@ -32,7 +36,10 @@ HISTORY_SCHEMA = "granted-hours-timetable-history-v3"
 MASK = "████"
 MAX_HISTORY_RESIDUES = 6
 MAX_COLLABORATIONS_PER_DAY = 4
-MAX_EXCERPTS_PER_CARD = 2
+MAX_OWNER_EXCERPTS_PER_CARD = 2
+MAX_OUTCOME_EXCERPTS_PER_CARD = 1
+MAX_EXCERPTS_PER_CARD = MAX_OWNER_EXCERPTS_PER_CARD + MAX_OUTCOME_EXCERPTS_PER_CARD
+MAX_OUTCOME_CANDIDATES_PER_GROUP = 4
 MAX_EXCERPT_CHARS = 260
 GENERATED_KINDS = {"collaboration_session", "agent_session"}
 
@@ -46,6 +53,68 @@ WRAPPER_RE = re.compile(
     r"(?:tool[-\s]?progress|watch[-\s]?pattern)\s+notice|"
     r"\[The\ user\ sent\ an\ image|I(?:’|')m\ sorry,\ but\ I\ don(?:’|')t\ have\ the\ ability\ to\ view|"
     r"(?:conversation|context)\s+(?:was\s+)?compact(?:ed|ion)\b.{0,80}\bhandoff\b"
+)
+OUTCOME_CUE_RE = re.compile(
+    r"(?ix)\b(?:completed|implemented|created|built|fixed|updated|changed|"
+    r"verified|validated|passed|confirmed|found|conclusion|result|kept|removed|"
+    r"merged|generated|selected|decided|compared|rejected|delivered)\b|"
+    r"(?:已|已经|现已)?(?:完成|实现|创建|构建|修复|更新|调整|改为|改成|核验|"
+    r"验证|通过|确认|发现|保留|移除|删除|合并|生成|选择|决定|比较|拒绝|交付)|"
+    r"结论|结果"
+)
+NON_OUTCOME_RE = re.compile(
+    r"(?ix)\b(?:will|plan(?:ned)?|next|todo|in[- ]?progress|pending|blocked|"
+    r"cannot|unable|failed|could\s+not|not\s+(?:completed|finished|done))\b|"
+    r"接下来|下一步|计划|准备|待办|稍后|正在|仍在|尚未|未完成|无法|失败|卡住|"
+    r"我会|我将"
+)
+MARKDOWN_PREFIX_RE = re.compile(r"^\s*(?:#{1,6}\s+|[-*+]\s+|\d+[.)、]\s+|>\s*)")
+OUTCOME_ALLOWED_CATEGORIES = {
+    "research_synthesis",
+    "visual_production",
+    "document_processing",
+    "code_development",
+}
+OUTCOME_PRIVATE_DOMAIN_RE = re.compile(
+    r"(?ix)"
+    r"股票|个股|市场|持仓|仓位|买点|买入|卖出|买卖|减仓|加仓|止损|止盈|"
+    r"申购|套利|期权|行权|covered\s+call|call\s+spread|strike|"
+    r"美\s*股|港\s*股|A\s*股|A/H|ETF|LOF|QDII|BOLL|KDJ|MACD|盘口|券商|账户|"
+    r"交易|财报|财务|行情|资金|收益|催化|估值|高开|低走|港元|涨幅|"
+    r"利润兑现|预期差|恐慌卖|硬触发|观察逻辑|主观察|discovery\s+signal|"
+    r"单股|触发价|强势股|日线|大阴线|站回|卖铲人|模块股|基础设施税|"
+    r"标的|池内刷新|低优先提及|低\s*beta|US\.|可执行资产|全局诊断|"
+    r"财经日报|盘前|盘中|盘后|alpha|put\s+spread|theta|Stage\s*2|"
+    r"\b(?:stock|equity|ticker|holding|position|portfolio|trade|trading|option)\b|"
+    r"GitHub|git\b|repo(?:sitory)?|commit|push|branch|release|tag\b|"
+    r"deploy|auth|login|callback|endpoint|provider|token|API\b|cron|skill|"
+    r"workspace|session|model\s+override|端口|授权|登录|会话记录|"
+    r"部署|仓库|分支|提交|推送|远程|本地路径|文件路径|目录|备份|依赖|安装|"
+    r"定时任务|监控链路|脚本上下文|漏洞|雷达任务|任务列表|worker|queue|browser|浏览器发布|"
+    r"发布链路|只读功能验证|只测了|暂不碰|"
+    r"微博|知识星球|公众号|学生|课堂|课程|学校|老师|参赛|"
+    r"药物|疾病|症状|身体|情绪|伴侣|孩子|家庭|父职|母职"
+)
+OUTCOME_PROCESS_RE = re.compile(
+    r"(?ix)^(?:请|帮我|把|你愿意|你确认|请确认|收到|规则确认|输出格式)|"
+    r"等你|回我|你点|之后再|以后再|下一轮|下一步|接下来|后续再讨论|"
+    r"可以改|可改|需要改|建议改|"
+    r"目前还没有|暂时没有|尚未|仍未|没有完成|中断|卡死|卡住|"
+    r"真实调用|完成后会|会自动回|先做.{0,24}再|"
+    r"artifacts?/|untracked|working\s+tree|status\b|"
+    r"the document is too large|size could not be verified|"
+    r"^[^\n]*[：:]\s*$|[{}]|(?:^|\s)\|(?:\s|$)"
+)
+OUTCOME_PERSONAL_JUDGMENT_RE = re.compile(
+    r"你现在最容易|我们要把你|你的关系|你的直觉|你本人|个人状态|"
+    r"心理|情绪|主权层|结果层劫持"
+)
+OUTCOME_PUBLIC_VALUE_RE = re.compile(
+    r"(?ix)结论|核心|关键|差别|变化|意味着|说明|边界|结构|取舍|"
+    r"证据|事实|推断|验证|实现|修复|改成|改为|保留|移除|合并|"
+    r"创作|作品|叙事|对象|界面|页面|视觉|模型|系统|流程|方法|"
+    r"conclusion|result|core|key|difference|change|means|boundary|"
+    r"evidence|fact|inference|verified|implemented|fixed|structure|method"
 )
 CATEGORY_PATTERNS = {
     "research_synthesis": re.compile(r"(?ix)\b(?:research|investigat|analy[sz]|evidence|source|audit|review|verify|fact.?check|synthesi|sector|theme|market|stock|equity)\b|调研|研究|分析|证据|来源|审计|复核|核验|综述|题材|股票|市场|个股|行业"),
@@ -84,10 +153,18 @@ ACCOUNT_RE = re.compile(
 HANDLE_RE = re.compile(r"(?<![\w@])@[A-Za-z0-9_]{2,}")
 SECRET_RE = re.compile(r"(?ix)\b(?:ghp_|github_pat_|sk-)[A-Za-z0-9_-]{8,}|(?:api[_ -]?key|access[_ -]?token|password|secret)\s*[:：=]\s*\S{6,}")
 ID_RE = re.compile(r"(?<!\d)\d{7,}(?!\d)|\b[0-9a-f]{16,}\b")
-CN_SCOPE_RE = re.compile(r"(?ix)(项目|课题|研究课题|题材|事件|论文|文章|疾病|病名|诊断|持仓|标的|地点|城市|公司|机构|学校)(?:名|名称|题目)?(?:叫|为|是|[:：])?\s*([^，。；;！？!?\n]{2,48})")
+VERSION_RE = re.compile(r"(?i)\bv?\d+\.\d+(?:\.\d+)?(?:[-_][A-Za-z0-9.]+)?\b")
+CN_SCOPE_RE = re.compile(r"(?ix)(项目|课题|研究课题|题材|事件|论文|文章|标题|疾病|病名|诊断|持仓|标的|地点|城市|公司|机构|学校)(?:名|名称|题目)?(?:叫|为|是|[:：])?\s*([^，。；;！？!?\n]{2,48})")
+CN_NAMED_SYSTEM_RE = re.compile(r"[\u4e00-\u9fff]{2,12}(?:雷达|系统|计划|工程)(?=不是|是|的|：|:|\s)")
 EN_SCOPE_RE = re.compile(r"(?ix)\b(project|research\s+topic|topic|paper|thesis|dissertation|event|disease|diagnosis|holding|position|ticker|company|organization|person|place|location|city)(?:\s+(?:called|named|titled|is))?\s*[:=-]?\s*([A-Za-z0-9][^,.;!?\n]{1,60})")
 DISEASE_RE = re.compile(r"[\u4e00-\u9fffA-Za-z]{2,20}(?:综合征|障碍|癌|炎|病|症)")
 TITLE_CASE_RE = re.compile(r"(?<![A-Za-z])[A-Z][A-Za-z0-9_-]+(?:\s+[A-Z][A-Za-z0-9_-]+)+(?![A-Za-z])")
+COMPOUND_IDENTIFIER_RE = re.compile(r"(?i)\b[A-Z][A-Z0-9]*(?:[-_][A-Z0-9]+)+\b")
+SINGLE_PROPER_TOKEN_RE = re.compile(r"(?<![A-Za-z])[A-Z][A-Za-z0-9]{2,}(?![A-Za-z])")
+PUBLIC_TECH_TOKENS = {
+    "AI", "LLM", "HTML", "CSS", "DOM", "UI", "UX", "GIF", "PNG", "SVG",
+    "PDF", "JSON", "XML", "BGM", "QA", "HCI", "Canvas", "JavaScript",
+}
 CN_PERSON_BEFORE_CUE_RE = re.compile(
     r"(?<![\u4e00-\u9fff])"
     r"([赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜"
@@ -289,6 +366,15 @@ def mask_term(text: str, term: str) -> str:
     return text if not term or term in ENTITY_ALLOWLIST else re.sub(re.escape(term), MASK, text, flags=re.IGNORECASE)
 
 
+def mask_unknown_proper_tokens(text: str) -> str:
+    return SINGLE_PROPER_TOKEN_RE.sub(
+        lambda match: match.group(0)
+        if match.group(0) in PUBLIC_TECH_TOKENS
+        else MASK,
+        text,
+    )
+
+
 def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[str, ...]) -> str:
     public_text, _semantic_tags = abstract_sensitive_public_text(normalize(text))
     value = QUOTED_RE.sub(MASK, public_text)
@@ -297,8 +383,11 @@ def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[st
     value = CN_PERSON_BEFORE_CUE_RE.sub(MASK, value)
     value = CN_SCOPE_RE.sub(lambda match: f"{match.group(1)}：{MASK}", value)
     value = EN_SCOPE_RE.sub(lambda match: f"{match.group(1)}: {MASK}", value)
-    for pattern in (URL_RE, PATH_RE, EMAIL_RE, PHONE_RE, ACCOUNT_RE, HANDLE_RE, SECRET_RE, ID_RE, DISEASE_RE, TITLE_CASE_RE, EDUCATION_TERM_RE):
+    for pattern in (URL_RE, PATH_RE, EMAIL_RE, PHONE_RE, ACCOUNT_RE, HANDLE_RE, SECRET_RE, ID_RE, VERSION_RE, DISEASE_RE, TITLE_CASE_RE, COMPOUND_IDENTIFIER_RE, EDUCATION_TERM_RE):
         value = pattern.sub(MASK, value)
+    value = mask_unknown_proper_tokens(value)
+    value = CN_NAMED_SYSTEM_RE.sub(MASK, value)
+    value = re.sub(r"[*_]{1,3}", "", value)
     value = re.sub(rf"(?:{re.escape(MASK)}[\s,，;；:/\\|-]*){{2,}}", MASK, value)
     value = re.sub(r"\s+", " ", value).strip(" ,，;；")
     if RESIDUAL_PRIVATE_RE.search(value): return ""
@@ -310,9 +399,74 @@ def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[st
     return value
 
 
+def outcome_candidates(value: object) -> list[str]:
+    """Extract bounded result statements without publishing progress chatter."""
+    text = str(value or "").replace("\r\n", "\n").replace("\r", "\n")
+    if not text or WRAPPER_RE.search(text):
+        return []
+    text = re.sub(r"(?s)```.*?```", " ", text)
+    parts = re.split(r"\n+|(?<=[。！？.!?；;])\s+", text)
+    candidates: list[str] = []
+    for part in parts:
+        candidate = MARKDOWN_PREFIX_RE.sub("", part).strip()
+        if not candidate or len(candidate) > 1200:
+            continue
+        candidate = normalize(candidate)
+        if (
+            len(re.sub(r"\s+", "", candidate)) < 18
+            or candidate.endswith(("?", "？"))
+            or not OUTCOME_CUE_RE.search(candidate)
+            or NON_OUTCOME_RE.search(candidate)
+        ):
+            continue
+        if candidate not in candidates:
+            candidates.append(candidate)
+    return candidates
+
+
+def outcome_publication_eligible(text: str, category: str) -> bool:
+    """Apply a conservative public-interest gate before entity redaction."""
+    return (
+        category in OUTCOME_ALLOWED_CATEGORIES
+        and OUTCOME_PRIVATE_DOMAIN_RE.search(text) is None
+        and OUTCOME_PROCESS_RE.search(text) is None
+        and OUTCOME_PERSONAL_JUDGMENT_RE.search(text) is None
+        and OUTCOME_PUBLIC_VALUE_RE.search(text) is not None
+        and semantic_risk_tags(text) == ()
+        and projection_tags(text) == ()
+    )
+
+
+def sanitize_outcome_excerpt(
+    text: str,
+    entity_terms: list[str],
+    private_terms: tuple[str, ...],
+) -> str:
+    """Publish only non-sensitive collaboration outcomes; risky outcomes fail closed."""
+    if semantic_risk_tags(text) or projection_tags(text):
+        return ""
+    value = sanitize_excerpt(text, entity_terms, private_terms)
+    if not value or semantic_risk_tags(value) or projection_tags(value):
+        return ""
+    if value.count(MASK) > 2 or len(value.replace(MASK, "").strip()) < 28:
+        return ""
+    return f"结果｜{value}"
+
+
 def information_score(value: str) -> tuple[int, int, str]:
     reasoning = len(re.findall(r"(?i)因为|所以|但是|如果|需要|希望|应该|why|because|but|if|need|should", value))
     return reasoning, len(value.replace(MASK, "")), value
+
+
+def outcome_information_score(value: str) -> tuple[int, int, str]:
+    specificity = len(
+        re.findall(
+            r"(?ix)比较|证据|结论|推断|事实|取舍|差异|原因|依据|边界|"
+            r"compared?|evidence|conclusion|inference|fact|trade.?off|difference|reason|boundary",
+            value,
+        )
+    )
+    return specificity, len(value.replace(MASK, "")), value
 
 
 def clock_window(first: float, last: float) -> tuple[str, str]:
@@ -381,11 +535,37 @@ def collect(state_db: Path, dates: list[str], detector: Path, denylist_paths: tu
         groups, by_session = {}, defaultdict(list)
         for item, entities in zip(records, entity_batches):
             key = (item["date"], item["category"])
-            group = groups.setdefault(key, {"timestamps": [], "sessions": set(), "excerpts": [], "delegated": 0, "returned": 0, "agents": {"Hermes"}})
+            group = groups.setdefault(key, {"timestamps": [], "sessions": set(), "excerpts": [], "outcomes": [], "delegated": 0, "returned": 0, "agents": {"Hermes"}})
             group["timestamps"].append(item["timestamp"]); group["sessions"].add(item["session"])
             excerpt = sanitize_excerpt(item["text"], entities, private_terms)
             if excerpt and excerpt not in group["excerpts"]: group["excerpts"].append(excerpt)
             by_session[item["session"]].append((item["timestamp"], item["date"], item["category"]))
+        outcome_candidate_groups = defaultdict(list)
+        semantic_outcome_rejections = 0
+        policy_outcome_rejections = 0
+        for row in connection.execute("SELECT id,session_id,content,timestamp FROM messages WHERE role='assistant' AND COALESCE(active,1)=1 AND timestamp>=? AND timestamp<? ORDER BY timestamp,id", (first, last)):
+            session_id = str(row["session_id"])
+            parent_messages = by_session.get(session_id, [])
+            if not parent_messages:
+                continue
+            timestamp = float(row["timestamp"])
+            if not math.isfinite(timestamp):
+                continue
+            day = datetime.fromtimestamp(timestamp, TIMEZONE).date().isoformat()
+            prior = [message for message in parent_messages if message[0] <= timestamp and message[1] == day]
+            if not prior:
+                continue
+            _, _, category = prior[-1]
+            for candidate in outcome_candidates(row["content"]):
+                if semantic_risk_tags(candidate) or projection_tags(candidate):
+                    semantic_outcome_rejections += 1
+                    continue
+                if not outcome_publication_eligible(candidate, category):
+                    policy_outcome_rejections += 1
+                    continue
+                key = (day, category)
+                if candidate not in outcome_candidate_groups[key]:
+                    outcome_candidate_groups[key].append(candidate)
         delegated_total = returned_total = 0
         child_query = """SELECT c.id,c.parent_session_id,c.model,c.started_at,c.ended_at,(SELECT m.content FROM messages m WHERE m.session_id=c.id AND m.role='assistant' AND COALESCE(m.active,1)=1 ORDER BY m.timestamp DESC,m.id DESC LIMIT 1) final_result FROM sessions c WHERE c.source='subagent' AND c.parent_session_id IS NOT NULL AND c.started_at>=? AND c.started_at<? ORDER BY c.started_at,c.id"""
         for child in connection.execute(child_query, (first, last)):
@@ -395,15 +575,50 @@ def collect(state_db: Path, dates: list[str], detector: Path, denylist_paths: tu
             prior = [message for message in parent_messages if message[0] <= started]
             _, day, category = prior[-1] if prior else min(parent_messages, key=lambda message: abs(message[0] - started))
             group = groups[(day, category)]; group["delegated"] += 1; delegated_total += 1
-            if child["ended_at"] is not None and positive_return(child["final_result"]): group["returned"] += 1; returned_total += 1
+            if child["ended_at"] is not None and positive_return(child["final_result"]):
+                group["returned"] += 1; returned_total += 1
+                for candidate in outcome_candidates(child["final_result"]):
+                    if semantic_risk_tags(candidate) or projection_tags(candidate):
+                        semantic_outcome_rejections += 1
+                        continue
+                    if not outcome_publication_eligible(candidate, category):
+                        policy_outcome_rejections += 1
+                        continue
+                    key = (day, category)
+                    if candidate not in outcome_candidate_groups[key]:
+                        outcome_candidate_groups[key].append(candidate)
             model = str(child["model"] or "").casefold()
             if "gpt" in model: group["agents"].add("GPT")
             if "claude" in model: group["agents"].add("Claude")
             group["agents"].add("subagent")
+        outcome_records = []
+        low_information_outcome_count = 0
+        for (day, category), candidates in outcome_candidate_groups.items():
+            ranked = sorted(candidates, key=outcome_information_score, reverse=True)
+            selected_candidates = ranked[:MAX_OUTCOME_CANDIDATES_PER_GROUP]
+            low_information_outcome_count += len(ranked) - len(selected_candidates)
+            outcome_records.extend(
+                {"date": day, "category": category, "text": candidate}
+                for candidate in selected_candidates
+            )
+        outcome_entity_batches = detect_entities([item["text"] for item in outcome_records], detector)
+        safe_outcome_count = 0
+        rejected_outcome_count = semantic_outcome_rejections + policy_outcome_rejections
+        for item, entities in zip(outcome_records, outcome_entity_batches):
+            excerpt = sanitize_outcome_excerpt(item["text"], entities, private_terms)
+            if not excerpt:
+                rejected_outcome_count += 1
+                continue
+            group = groups[(item["date"], item["category"])]
+            if excerpt not in group["outcomes"]:
+                group["outcomes"].append(excerpt)
+                safe_outcome_count += 1
         events_by_date, excerpt_count = defaultdict(list), 0
         for (day, category), group in groups.items():
             timestamps = sorted(group["timestamps"]); start, end = clock_window(timestamps[0], timestamps[-1])
-            excerpts = sorted(group["excerpts"], key=information_score, reverse=True)[:MAX_EXCERPTS_PER_CARD]; excerpt_count += len(excerpts)
+            owner_excerpts = sorted(group["excerpts"], key=information_score, reverse=True)[:MAX_OWNER_EXCERPTS_PER_CARD]
+            outcome_excerpts = sorted(group["outcomes"], key=outcome_information_score, reverse=True)[:MAX_OUTCOME_EXCERPTS_PER_CARD]
+            excerpts = [*owner_excerpts, *outcome_excerpts]; excerpt_count += len(excerpts)
             en, zh = summary(category, day, len(timestamps), len(group["sessions"]), group["delegated"], group["returned"])
             excerpt_masks = sum(value.count(MASK) for value in excerpts)
             events_by_date[day].append({
@@ -413,14 +628,14 @@ def collect(state_db: Path, dates: list[str], detector: Path, denylist_paths: tu
                 "source_kind": "collaboration_session", "faithfulness": "faithful_summary", "evidence_count": len(timestamps),
                 "session_count": len(group["sessions"]), "delegated_agent_count": group["delegated"], "returned_agent_count": group["returned"],
                 "public_excerpts": excerpts, "excerpt_redaction_count": excerpt_masks,
-                "excerpt_provenance": "sanitized_owner_dialogue", "agent_labels": [label for label in AGENT_ORDER if label in group["agents"]],
+                "excerpt_provenance": "audited_collaboration_dialogue", "agent_labels": [label for label in AGENT_ORDER if label in group["agents"]],
                 "start": start, "end": end, "time_provenance": "observed_message_envelope",
             })
         selected = {}
         for day, events in events_by_date.items():
             events.sort(key=lambda event: (0 if event["category"] == "research_synthesis" else 1, 0 if event["delegated_agent_count"] else 1, -event["evidence_count"], CATEGORY_PRIORITY[event["category"]], event["start"]))
             selected[day] = events[:MAX_COLLABORATIONS_PER_DAY]
-        return dict(selected), {"verified_owner_session_count": len(sessions), "meaningful_message_count": len(records), "active_day_count": len(events_by_date), "delegated_agent_count": delegated_total, "returned_agent_count": returned_total, "public_excerpt_count": excerpt_count}
+        return dict(selected), {"verified_owner_session_count": len(sessions), "meaningful_message_count": len(records), "active_day_count": len(events_by_date), "delegated_agent_count": delegated_total, "returned_agent_count": returned_total, "public_excerpt_count": excerpt_count, "safe_outcome_candidate_count": safe_outcome_count, "rejected_outcome_candidate_count": rejected_outcome_count, "semantic_outcome_rejection_count": semantic_outcome_rejections, "policy_outcome_rejection_count": policy_outcome_rejections, "discarded_low_information_outcome_count": low_information_outcome_count}
     finally:
         connection.close()
 
@@ -472,7 +687,7 @@ def main() -> int:
     except (OSError, ValueError, TypeError, OverflowError, sqlite3.Error, json.JSONDecodeError, subprocess.SubprocessError) as error:
         print(f"Collaboration event import failed: {type(error).__name__}", file=sys.stderr); return 1
     audit = result["audit"]; mode = "would write" if args.dry_run else "wrote" if result["changed"] else "already current"
-    print(f"Collaboration events {mode}; events={result['event_count']}; dates={len(result['event_dates'])}; meaningful_messages={audit['meaningful_message_count']}; public_excerpts={audit['public_excerpt_count']}; delegated_agents={audit['delegated_agent_count']}; categories={result['category_counts']}.")
+    print(f"Collaboration events {mode}; events={result['event_count']}; dates={len(result['event_dates'])}; meaningful_messages={audit['meaningful_message_count']}; public_excerpts={audit['public_excerpt_count']}; safe_outcomes={audit['safe_outcome_candidate_count']}; rejected_outcomes={audit['rejected_outcome_candidate_count']}; delegated_agents={audit['delegated_agent_count']}; categories={result['category_counts']}.")
     return 0
 
 

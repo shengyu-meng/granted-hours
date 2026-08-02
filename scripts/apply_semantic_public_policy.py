@@ -79,7 +79,7 @@ def atomic_write_json(path: Path, value: object) -> bool:
 
 
 def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
-    stats = {"fields": 0, "abstracted": 0}
+    stats = {"fields": 0, "abstracted": 0, "merged_duplicates": 0}
     for day in source.get("days", []):
         day_date = str(day.get("date", ""))
         for residue_index, residue in enumerate(day.get("assigned_residues", [])):
@@ -134,6 +134,20 @@ def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
             residue["excerpt_redaction_count"] = excerpt_masks
             residue["redaction_count"] = excerpt_masks
             residue["redaction_status"] = "partial" if excerpt_masks else "none"
+        unique_residues = []
+        signatures = set()
+        for residue in day.get("assigned_residues", []):
+            signature = (
+                residue.get("category"),
+                residue.get("en"),
+                residue.get("zh"),
+            )
+            if signature in signatures:
+                stats["merged_duplicates"] += 1
+                continue
+            signatures.add(signature)
+            unique_residues.append(residue)
+        day["assigned_residues"] = unique_residues
     return source, stats
 
 

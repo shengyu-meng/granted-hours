@@ -149,8 +149,9 @@ class ProductionCliPathTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 0, completed.stderr)
         public_copy = json.dumps(rewritten, ensure_ascii=False)
-        self.assertIn("PUBLICQ", public_copy)
-        self.assertIn("42.30", public_copy)
+        self.assertIn("美股市场扫描", public_copy)
+        self.assertNotIn("PUBLICQ", public_copy)
+        self.assertNotIn("42.30", public_copy)
         self.assertNotIn("HOLDQ", public_copy)
         self.assertNotIn("Source Studio", public_copy)
 
@@ -262,9 +263,12 @@ class ProductionCliPathTests(unittest.TestCase):
         ]
         self.assertEqual(rewritten_reminder, reminder)
         public_copy = json.dumps(rewritten, ensure_ascii=False)
-        for expected in ("SAFEQ", "42.30", "+3.1%"):
+        for expected in ("美股市场扫描", "derived_public_safe"):
             self.assertIn(expected, public_copy)
         for forbidden in (
+            "SAFEQ",
+            "42.30",
+            "+3.1%",
             "HOLDQ",
             "Source Studio",
             "no additional public theme",

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
 
@@ -13,15 +14,20 @@ TARGET_JOB_IDS = {
     "bb2eeb6f4e4f",
     "4ad8b289d364",
 }
-MARKER = "[授时公开语义隐私契约 v3]"
+MARKER = "[授时公开语义隐私契约 v4]"
+CONTRACT_BLOCK_RE = re.compile(
+    r"(?:\n+)?\[授时公开语义隐私契约 v\d+\]\n(?:- [^\n]*(?:\n|$))+\Z"
+)
 CONTRACT = """
 
-[授时公开语义隐私契约 v3]
+[授时公开语义隐私契约 v4]
 - 公开文本的处理优先级固定为：先改写为可读的抽象表达，再对仍有辨识风险的实体打码；只有连抽象意义都会泄露私人事实时才删除整条。不得把“删除整条”当作默认方案。
 - 家庭梦境、亲密关系、照护与父母子女角色，只能保留为“私人经验中的关系/责任/照护平衡”等抽象协作主题；不得公开具体人物、情节、冲突或家庭结构。
 - 身体、药物、疾病、症状、低能量和情绪状态，只能保留为“个人恢复安排”等抽象主题；不得公开具体名称、表现或时间线。
 - 未公开品牌、产品、媒体、采购、活动和合作 Brief，只能保留文案结构、协作流程、发布节奏等工作方法；不得公开主体、产品、活动、身份、账户或合作语境。
 - 密钥、Token、部署平台、量化终端、数据链路和账户状态，只能保留为“核对外部服务权限、部署与数据链路可用性”；不得公开平台名、凭据、故障细节或运行状态。
+- 从 AI 回复补充公开结果时，必须先做独立二次审核；只允许已完成的发现、设计取舍、方法或可验证公开成果。家庭/健康、未公开商业、投资标的与操作、发布运营、教育身份、账户与基础设施、进度闲聊一律不作为新增结果；未知的人名、项目名、事件名、论文名、课题名和技术标识必须打码。没有安全结果时保持为空，不得编造补齐。
+- A/H 与美股例行扫描只提交聚合卡片：保留运行次数、宽泛主题、有限状态和通用新鲜度提示；不得提交标的、持仓、价格、动作建议、终端名、源状态、Workspace 标识或维护路径。
 - 生成或导入日历后，必须先运行 `python3 scripts/apply_semantic_public_policy.py --write`，再运行 `python3 scripts/test_semantic_public_policy.py` 与 `python3 scripts/check_public_safety.py`。任一门禁失败时停止构建、提交、推送和部署，且日志不得回显命中的原文。
 - `npm run build:timetable` 已内置同一语义清洗步骤；不得绕开它直接发布旧的 timetable 数据或静态产物。
 """.rstrip()
@@ -52,9 +58,10 @@ def main() -> int:
             raise SystemExit(f"Target cron job {job_id} has no prompt")
         if prompt.count(MARKER) > 1:
             raise SystemExit(f"Target cron job {job_id} has duplicate privacy contracts")
-        if MARKER in prompt:
+        if MARKER in prompt and CONTRACT_BLOCK_RE.search(prompt):
             continue
-        job["prompt"] = f"{prompt.rstrip()}\n{CONTRACT}\n"
+        base = CONTRACT_BLOCK_RE.sub("", prompt).rstrip()
+        job["prompt"] = f"{base}\n{CONTRACT}\n"
         changed += 1
     missing = TARGET_JOB_IDS - matched
     if missing:

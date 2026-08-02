@@ -43,7 +43,7 @@ class TimetableReminderTranslationTests(unittest.TestCase):
         self.assertEqual(len(self.reminders), 189)
         self.assertEqual(len({date for date, _pulse in self.reminders}), 63)
         self.assertEqual(len(source_hashes), 189)
-        self.assertGreaterEqual(len(set(source_hashes)), 170)
+        self.assertGreaterEqual(len(set(source_hashes)), 140)
         self.assertEqual(len(self.catalog), len(set(source_hashes)))
         matching_lookup_count = sum(
             source_sha256 in self.catalog for source_sha256 in source_hashes

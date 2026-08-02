@@ -12,4 +12,8 @@ The public layer must not serialize intimate family narratives, relationship or 
 
 Safe public copy may still state the collaboration method and outcome: balancing long-term creative work with daily responsibilities, arranging personal recovery, structuring copy and release cadence, or checking external-service permissions and data-path availability.
 
-Every import and build must run the semantic sanitizer, deterministic tests, and public safety scan. A failed gate blocks commit, push, and deployment; its log reports categories and counts only, never the matched source text.
+Further disclosure from AI replies uses a stricter gate. Only a completed finding, design decision, method, or verifiable public result may be added. Candidates are excluded rather than abstracted when they concern family or health, unpublished commercial work, financial instruments or personal trading, publishing operations, account or infrastructure state, education identity, progress chatter, or an unknown private context. Unknown person, project, event, paper, research-topic, and technical-identifier tokens are masked. No card is filled with invented copy when a safe result does not survive.
+
+Routine A/H and U.S. market runs remain visible only as aggregated cards with bounded state, broad public themes, run counts, and a generic freshness warning. Instrument names, holdings, prices, action advice, account information, terminal names, source status, workspace identifiers, and maintenance paths never enter the committed public snapshot.
+
+Every import and build must run the semantic sanitizer, deterministic tests, and public safety scan. New collaboration-result candidates also require a second semantic audit of the already-masked public projection before publication. A failed gate blocks commit, push, and deployment; its log reports categories and counts only, never the matched source text.

@@ -149,6 +149,24 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
             ),
             "2026-07-01 09:05:00",
         )
+        self.add_message(
+            "owner-current",
+            "assistant",
+            "核验完成：比较了三组公开证据，保留可复核的共同结论，并把推断与事实分开。",
+            "2026-07-01 09:05:30",
+        )
+        self.add_message(
+            "owner-current",
+            "assistant",
+            "已经完成 Cloudflare API Token 状态核验并记录部署结果。",
+            "2026-07-01 09:05:40",
+        )
+        self.add_message(
+            "owner-current",
+            "assistant",
+            "已经完成具体药物与身体状态的整理，并确认恢复安排。",
+            "2026-07-01 09:05:50",
+        )
         self.add_message("owner-current", "user", "继续", "2026-07-01 09:06:00")
         self.add_message(
             "owner-current",
@@ -300,12 +318,44 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         self.assertNotIn("你主动与", research["zh"])
         self.assertNotIn("Hermes", research["zh"])
         self.assertNotIn("you initiated", research["en"].lower())
+        self.assertTrue(
+            any(excerpt.startswith("结果｜核验完成") for excerpt in research["public_excerpts"])
+        )
+        self.assertEqual(
+            research["excerpt_provenance"], "audited_collaboration_dialogue"
+        )
+        self.assertGreaterEqual(result["audit"]["rejected_outcome_candidate_count"], 2)
+        self.assertNotIn("Cloudflare", serialized)
+        self.assertNotIn("API Token", serialized)
+        self.assertNotIn("具体药物", serialized)
 
     def test_import_is_idempotent(self) -> None:
         first = self.run_import(dry_run=False)
         second = self.run_import(dry_run=False)
         self.assertTrue(first["changed"])
         self.assertFalse(second["changed"])
+
+    def test_outcome_gate_rejects_private_domains_and_masks_unknown_names(self) -> None:
+        self.assertTrue(
+            importer.outcome_publication_eligible(
+                "结论：界面结构已经修复，视觉证据与文字判断可以逐项对应。",
+                "visual_production",
+            )
+        )
+        for text, category in (
+            ("结论：单股触发价已经确认。", "research_synthesis"),
+            ("部署链路已经通过远程验证。", "code_development"),
+            ("你的情绪结果已经整理。", "document_processing"),
+            ("结论：系统边界已经确认。", "redacted_private"),
+        ):
+            self.assertFalse(importer.outcome_publication_eligible(text, category))
+        sanitized = importer.sanitize_outcome_excerpt(
+            "结论：Rodin 页面结构已经修复，并保留可验证的视觉证据与完整判断链条。",
+            [],
+            (),
+        )
+        self.assertNotIn("Rodin", sanitized)
+        self.assertIn(importer.MASK, sanitized)
 
     def test_sanitizer_fails_closed_without_private_denylists(self) -> None:
         self.holdings.unlink()

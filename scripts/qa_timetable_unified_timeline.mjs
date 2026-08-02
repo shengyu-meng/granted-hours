@@ -104,8 +104,14 @@ try {
   await trigger.click();
   await page.waitForSelector("#taskDialog.is-open");
   assert.equal(await page.evaluate(() => document.activeElement?.id), "closeTaskDetail");
-  assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), selectedTask.zh);
-  assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), selectedTask.en);
+  if (selectedTask.source_kind === "collaboration_session" && selectedTask.public_excerpts.length) {
+    const expectedContent = selectedTask.public_excerpts.map((excerpt) => `• ${excerpt}`).join("\n");
+    assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), expectedContent);
+    assert.equal(await page.locator("#taskDetailEn").isHidden(), true);
+  } else {
+    assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), selectedTask.zh);
+    assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), selectedTask.en);
+  }
   assert.ok((await page.locator("#taskDetailProvenance").textContent())?.includes(selectedTask.source_kind));
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("#taskDialog").getAttribute("hidden"), "");

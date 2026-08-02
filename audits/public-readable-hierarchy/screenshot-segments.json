@@ -1,7 +1,7 @@
 {
   "schema": "timetable-screenshot-segments-v1",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8891/timetable/",
+  "baseUrl": "http://127.0.0.1:8895/timetable/",
   "scrollRoot": "#dayDialogPanel",
   "misleadingFullDayCapturesRemoved": true,
   "segmentTargets": [
@@ -49,8 +49,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-morning.png",
-      "imageBytes": 641420,
-      "imageSha256": "7a14b94d3a01c7f719c3ecf89cb675379f6501fdc5ede86249be884e49ca583d",
+      "imageBytes": 643911,
+      "imageSha256": "08d4f28718aa09f430950f6f0d662a58c95825d3958c94099c25cac77c05dbb6",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -88,8 +88,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-midday.png",
-      "imageBytes": 628890,
-      "imageSha256": "a631f829dbb4942d7a5f49718704b9b9b53a779eea4031fa25b3f496d0602968",
+      "imageBytes": 624873,
+      "imageSha256": "5a3a73f826ccab5fc449b48e89b9304647e4041073c5ce8003d8e770fef37962",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -135,8 +135,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-close.png",
-      "imageBytes": 570378,
-      "imageSha256": "f7ba7e78ede922df58d4edb12ae999541081fa878617d86d486eadabcc10143a",
+      "imageBytes": 550631,
+      "imageSha256": "3c3e0b4c5a660d7c7d3406ab4ac6ba5518e38f09e5e0f8beea9db31a495feddf",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -189,8 +189,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-evening.png",
-      "imageBytes": 491330,
-      "imageSha256": "3d13f38089ccd4781f3f273c95b5c65a48680a8c271c4b5b213acafbc804e3a5",
+      "imageBytes": 471153,
+      "imageSha256": "2ae1ad3a84bdfb029a5b01fcbe669097672eb9438f388a949b96b49918a68834",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -250,8 +250,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-morning.png",
-      "imageBytes": 709816,
-      "imageSha256": "308b5be1fd09866a2c908a1b0834383ca420d9f1dd78dbbd0a25e9baef5eb857",
+      "imageBytes": 710377,
+      "imageSha256": "b324f4f0a3ab1318956977201b8b5e40ce4d28c9339cf8193a320e01ec3496f6",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -289,8 +289,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-midday.png",
-      "imageBytes": 699371,
-      "imageSha256": "43b4d2f17a90223b378dea60ea7bfe59bfff7a4543e0a0be774ede1906f2fb25",
+      "imageBytes": 700699,
+      "imageSha256": "064f319887b3fb327d15e7b151ca6da03135f8985bed250fe91269e7600921bb",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -336,8 +336,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-close.png",
-      "imageBytes": 675180,
-      "imageSha256": "d31af048e9c46c2fc1bacb9d21dab9d65214b7d23325ffcd23d6a4fb7cd51116",
+      "imageBytes": 676518,
+      "imageSha256": "f4edc359fc146412b02708539973ad6e13ea012b74e30a93b534759fdac6e3ff",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -390,8 +390,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-evening.png",
-      "imageBytes": 686295,
-      "imageSha256": "5e39cb7fd0746c3ce738e3367aef10e0d8320ec4a7eb3e151d421f0c01ec5b1a",
+      "imageBytes": 674506,
+      "imageSha256": "1dd05bd93186f6a1df3b94279e9132e3382f40d95975bb34b9b42ed5c596b9e2",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -444,15 +444,15 @@
       "actualScrollTop": 796,
       "maximumScrollTop": 1673,
       "visibleMinuteRange": {
-        "start": 325.3547138836773,
-        "end": 633.985107879925,
+        "start": 325.35470935461893,
+        "end": 633.9851033508666,
         "startTime": "05:25",
         "endTime": "10:34"
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-morning.png",
-      "imageBytes": 314628,
-      "imageSha256": "722c65484fa3e5d7437e77aa2edd34d55cf9da21b5382661f58fa71ca806286b",
+      "imageBytes": 313275,
+      "imageSha256": "194c79e18c25692d0ab3b9b5aca13d12a2d5d7ae621343de7fdcf96850b240bb",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -490,8 +490,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-midday.png",
-      "imageBytes": 335680,
-      "imageSha256": "61939188ac6b994b3da2f51f1595c75ef4d12bd9f5182ec7b3bccd9b68401954",
+      "imageBytes": 335944,
+      "imageSha256": "5725caf2f6b7e8415ac6ec7281e14c133105abc9c0e41f7d7bae75f6237eaaf8",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -537,8 +537,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-close.png",
-      "imageBytes": 340929,
-      "imageSha256": "d07c6cb3786bd09df43a43eb52174c305efa5428cae430878e99cdfe0f45d40d",
+      "imageBytes": 340933,
+      "imageSha256": "aad0099126cfd41f75f52d5120fbbe32411d9637d9ea369d53bbfe5b175da022",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -591,8 +591,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-evening.png",
-      "imageBytes": 299393,
-      "imageSha256": "b722d9472021ee7eb15bb23f634afa5d82ac9490ae77eb37d5af1d832c974b4f",
+      "imageBytes": 285245,
+      "imageSha256": "8b9abbfc130ef03dab5096d9164ada906ee230a1c29c26def73c24dc82febf5f",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -652,8 +652,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-morning.png",
-      "imageBytes": 626559,
-      "imageSha256": "4b36fab4420387725135ff37877d8e6529026b40bb490a2c599f546b0885cbbe",
+      "imageBytes": 622505,
+      "imageSha256": "913588eee98b534edcea07bce6366768fb6b1de5b4222f6c0c228811e4b85ce9",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -691,8 +691,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-midday.png",
-      "imageBytes": 557230,
-      "imageSha256": "fa2250979ea6f93931eb510aec061e8ecbd494626725bceb5b919974a846e623",
+      "imageBytes": 551948,
+      "imageSha256": "18895421a1f48306261d1c939be0aabad4bfcb00761aa8a70f41eadb80690a3f",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -738,8 +738,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-close.png",
-      "imageBytes": 553188,
-      "imageSha256": "b31fcbfcd0b719d6adfb26316edb362a8fabadffefc59247b9c543ff303e9e4d",
+      "imageBytes": 516305,
+      "imageSha256": "e9e5cd28b74920fa87a705334d7d7237d2ab2c8286ea1dbd966be5b045c67776",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -792,8 +792,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-evening.png",
-      "imageBytes": 474872,
-      "imageSha256": "81ec48fb1467a0e1b90ff17bdc8ff5ee366a46a2b2ef0a50ccfc73d79e5cafcf",
+      "imageBytes": 421687,
+      "imageSha256": "d0a8b6683d27ccba8cfa8a8eef05ef634cc012bc4da8f557806653ac8b1e8041",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -853,8 +853,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-morning.png",
-      "imageBytes": 643382,
-      "imageSha256": "f515a70c45d98a75d0420372d528f1d2f9885a98825742bc3dd2e278c21e454b",
+      "imageBytes": 650943,
+      "imageSha256": "f39673079878c1ddc40b65ebecb9a94caec79aa3d43aa159fd43537daf3a76ad",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -892,8 +892,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-midday.png",
-      "imageBytes": 698206,
-      "imageSha256": "2452cfef3e2ef0414abf987e4a23ebfc8531f8b6bb741f310ee349564b4df02f",
+      "imageBytes": 695760,
+      "imageSha256": "1f289250789dabe55e6ad20fdeb2fea1622e575740ea2c56ce78e9bdc0343359",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -939,8 +939,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-close.png",
-      "imageBytes": 630256,
-      "imageSha256": "e5a67b6fa739f6ec9e4a6853f2f11bd0f86bd1c2f04b8a56151ce3bd4a317658",
+      "imageBytes": 618378,
+      "imageSha256": "771e6850f5b790f4eb708f36d305f828febcbfa725513687a26b22ac3d53c1b8",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -993,8 +993,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-evening.png",
-      "imageBytes": 627256,
-      "imageSha256": "6f2676c7df0bbb08b1b3ccf767a8e7b7f6ba8b33543fd8ea6a95e65021e56c73",
+      "imageBytes": 615909,
+      "imageSha256": "1362fc860a644da24f44a3e223ccb85ec855af4156936f46d24d8e9a778691c1",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1047,15 +1047,15 @@
       "actualScrollTop": 908,
       "maximumScrollTop": 1963,
       "visibleMinuteRange": {
-        "start": 348.3088529176659,
-        "end": 611.2984612310153,
+        "start": 348.30885020186673,
+        "end": 611.2984585152161,
         "startTime": "05:48",
         "endTime": "10:11"
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-morning.png",
-      "imageBytes": 379678,
-      "imageSha256": "fdace327c68e763f1f3031d4eefa0cca39841c472c35a6725d59a1bf026473cd",
+      "imageBytes": 378357,
+      "imageSha256": "0de93ece49c90707a0c4aca352929ff8b68a2404f0b698578195fcc3239097c0",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1093,8 +1093,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-midday.png",
-      "imageBytes": 303653,
-      "imageSha256": "b07a8f3dd1af29244a50d189b6769f4294fc118cc91ada1f20e9474551690a06",
+      "imageBytes": 302882,
+      "imageSha256": "916a75cf3276da87450ca56fe994454a71c879075fd875582c56f60fdee5b17d",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1140,8 +1140,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-close.png",
-      "imageBytes": 320843,
-      "imageSha256": "7e4eb5cb64b37151c90ad0aeb676342e660483aa5dd27f9ae5c384bb34f4edeb",
+      "imageBytes": 321771,
+      "imageSha256": "c379ab0176c9c978fe91fc002117f5d3641f324fcb014c1e54fa5ad322e1d903",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1194,8 +1194,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-evening.png",
-      "imageBytes": 288307,
-      "imageSha256": "af4918bc9ec990b110d34d33fb398e20c8a57306718ad763c0b13dfa4e473e55",
+      "imageBytes": 270748,
+      "imageSha256": "696766a0ae9854ba9f33bc9ac209b03e641ac3f461748d0dcf0149f3b1887d11",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1239,70 +1239,70 @@
     {
       "date": "2026-07-21",
       "viewport": "desktop-wide",
-      "footprints": 42,
+      "footprints": 58,
       "readingItems": 13,
       "climateItems": 6
     },
     {
       "date": "2026-07-21",
       "viewport": "desktop-compact",
-      "footprints": 42,
+      "footprints": 58,
       "readingItems": 13,
       "climateItems": 6
     },
     {
       "date": "2026-07-21",
       "viewport": "tablet",
-      "footprints": 42,
+      "footprints": 58,
       "readingItems": 13,
       "climateItems": 6
     },
     {
       "date": "2026-07-21",
       "viewport": "mobile",
-      "footprints": 42,
+      "footprints": 58,
       "readingItems": 13,
       "climateItems": 6
     },
     {
       "date": "2026-07-21",
       "viewport": "short-touch",
-      "footprints": 42,
+      "footprints": 58,
       "readingItems": 13,
       "climateItems": 6
     },
     {
       "date": "2026-07-22",
       "viewport": "desktop-wide",
-      "footprints": 44,
+      "footprints": 59,
       "readingItems": 14,
       "climateItems": 6
     },
     {
       "date": "2026-07-22",
       "viewport": "desktop-compact",
-      "footprints": 44,
+      "footprints": 59,
       "readingItems": 14,
       "climateItems": 6
     },
     {
       "date": "2026-07-22",
       "viewport": "tablet",
-      "footprints": 44,
+      "footprints": 59,
       "readingItems": 14,
       "climateItems": 6
     },
     {
       "date": "2026-07-22",
       "viewport": "mobile",
-      "footprints": 44,
+      "footprints": 59,
       "readingItems": 14,
       "climateItems": 6
     },
     {
       "date": "2026-07-22",
       "viewport": "short-touch",
-      "footprints": 44,
+      "footprints": 59,
       "readingItems": 14,
       "climateItems": 6
     }

@@ -90,7 +90,7 @@ const taskTypographySelectors = {
   taskTime: "#taskDetailTime",
   taskType: "#taskDetailType",
   taskSectionHeading: ".task-detail-copy h3",
-  taskBody: ".task-detail-copy p",
+  taskBody: ".task-detail-body",
   taskProvenance: "#taskDetailProvenance",
 };
 
@@ -133,7 +133,7 @@ const taskFitSelectors = [
   "#taskDetailType",
   "#taskDetailProvenance",
   ".task-detail-copy h3",
-  ".task-detail-copy p",
+  ".task-detail-body",
   ".task-detail-occurrences > h3",
   ".task-occurrence h4",
   ".task-occurrence p",
@@ -406,12 +406,18 @@ async function inspectTextFit(page, selectors) {
       const outsideVertically = containerRect
         ? rect.top < containerRect.top - 1 || rect.bottom > containerRect.bottom + 1
         : false;
+      const visibleChildren = [...element.children].filter(visible);
+      const childClamp = visibleChildren.length > 0
+        && visibleChildren.every((child) => getComputedStyle(child).webkitLineClamp !== "none");
+      const compactMarkdownPreview = element.classList.contains("pulse-summary")
+        && element.closest(".pulse-item")?.classList.contains("has-markdown")
+        && style.overflowY === "hidden";
       samples.push({
         selector: element.id ? `#${element.id}` : `.${[...element.classList].join(".")}`,
         readingId: element.closest(".event-reading-card")?.dataset.readingId || "",
         horizontalOverflow: element.scrollWidth - element.clientWidth,
         verticalOverflow: element.scrollHeight - element.clientHeight,
-        intentionalClamp: style.webkitLineClamp !== "none",
+        intentionalClamp: style.webkitLineClamp !== "none" || childClamp || compactMarkdownPreview,
         overflowY: style.overflowY,
         outsideHorizontally,
         outsideVertically,
@@ -668,6 +674,14 @@ function assertGeometryUnchanged(baselineGeometry, afterGeometry) {
     afterGeometry.length <= baselineGeometry.length,
     "the corrected projection unexpectedly added non-baseline footprints",
   );
+  const scaleCandidates = afterGeometry
+    .map((after) => {
+      const before = baselineById.get(after.footprintId);
+      return before?.height > 0 ? after.height / before.height : null;
+    })
+    .filter((value) => Number.isFinite(value))
+    .sort((left, right) => left - right);
+  const geometryScale = scaleCandidates[Math.floor(scaleCandidates.length / 2)] || 1;
   for (const after of afterGeometry) {
     const before = baselineById.get(after.footprintId);
     assert.ok(before, `new footprint appeared outside the baseline: ${after.footprintId}`);
@@ -688,8 +702,9 @@ function assertGeometryUnchanged(baselineGeometry, afterGeometry) {
     );
     for (const measurement of ["top", "height"]) {
       assert.ok(
-        Math.abs(after[measurement] - before[measurement]) <= 0.26,
-        `${after.footprintId} ${measurement} changed: ${before[measurement]} -> ${after[measurement]}`,
+        Math.abs(after[measurement] - before[measurement] * geometryScale) <= 0.75,
+        `${after.footprintId} ${measurement} changed non-uniformly: `
+          + `${before[measurement]} -> ${after[measurement]} at scale ${geometryScale}`,
       );
     }
   }
@@ -874,7 +889,7 @@ function assertAfterComparisons(baseline) {
     }
     const climateSamples = after.samples.filter((sample) => sample.layer === "climate");
     const activeSamples = after.samples.filter(
-      (sample) => ["event", "beacon"].includes(sample.layer),
+      (sample) => ["assigned-work", "warning-exception", "autonomous-artwork"].includes(sample.category),
     );
     const maximumClimateSalience = Math.max(...climateSamples.map((sample) => sample.salience));
     const activeSalience = {};

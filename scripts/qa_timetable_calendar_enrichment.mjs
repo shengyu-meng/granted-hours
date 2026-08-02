@@ -139,11 +139,11 @@ try {
   await page.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await page.waitForFunction(() => document.activeElement?.id === "closeDetail");
 
-  await check("day detail presents faithful record provenance and concrete work summary without duplication", async () => {
+  await check("day detail presents active human–AI provenance and concrete work content without duplication", async () => {
     const task = page.locator(".assigned-item").first();
     const provenance = (await task.locator(".record-provenance").textContent())?.trim() || "";
     const detail = (await task.locator(".assigned-copy").textContent())?.trim() || "";
-    assert.match(provenance, /FAITHFUL RECORD SUMMARY/);
+    assert.match(provenance, /ACTIVE HUMAN–AI COLLABORATION/);
     assert.ok(detail.length >= 12, `work summary too short: ${JSON.stringify(detail)}`);
     assert.equal(await task.locator(".assigned-task-name").count(), 0);
   });
@@ -166,7 +166,10 @@ try {
     }));
     assert.ok(result.length >= 2, JSON.stringify(result));
     assert.ok(
-      result.every((item) => item.duration > 0 && item.provenance === "estimated_semantic_window"),
+      result.every((item) =>
+        item.duration > 0
+        && ["estimated_semantic_window", "observed_message_envelope", "observed_session_window"].includes(item.provenance)
+      ),
       JSON.stringify(result),
     );
     assert.ok(result.every((item) => item.type.length >= 4 && item.icon && item.accent), JSON.stringify(result));

@@ -2,63 +2,63 @@
   "schema": "timetable-visual-balance-evidence-v1",
   "phase": "after",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8894/timetable/",
+  "baseUrl": "http://127.0.0.1:8895/timetable/",
   "sampleDate": "2026-07-21",
   "screenshots": [
     {
       "label": "desktop-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-calendar-resting.png",
-      "bytes": 457852
+      "bytes": 520900
     },
     {
       "label": "desktop-dark-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-day-resting.png",
-      "bytes": 453042
+      "bytes": 535383
     },
     {
       "label": "desktop-dark-task-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-task-resting.png",
-      "bytes": 435733
+      "bytes": 478524
     },
     {
       "label": "desktop-dark-intentional-lens",
       "path": "audits/soft-palette-typography/after/desktop-dark-intentional-lens.png",
-      "bytes": 755546
+      "bytes": 796717
     },
     {
       "label": "desktop-light-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-calendar-resting.png",
-      "bytes": 479962
+      "bytes": 552231
     },
     {
       "label": "desktop-light-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-day-resting.png",
-      "bytes": 383141
+      "bytes": 480452
     },
     {
       "label": "390x844-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-calendar-resting.png",
-      "bytes": 519753
+      "bytes": 540215
     },
     {
       "label": "390x844-dark-day-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-day-resting.png",
-      "bytes": 268655
+      "bytes": 476168
     },
     {
       "label": "390x844-dark-task-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-task-resting.png",
-      "bytes": 444315
+      "bytes": 454274
     },
     {
       "label": "421x386-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-calendar-resting.png",
-      "bytes": 288583
+      "bytes": 274507
     },
     {
       "label": "421x386-dark-day-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-day-resting.png",
-      "bytes": 139789
+      "bytes": 145520
     }
   ],
   "configurations": {
@@ -184,7 +184,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 980,
-            "height": 57
+            "height": 19
           }
         },
         "timelineHeading": {
@@ -317,32 +317,6 @@
             "height": 0
           }
         },
-        "absenceTitle": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
-          "fontSize": 12.5,
-          "lineHeight": 16,
-          "ratio": 1.28,
-          "color": "rgb(237, 242, 236)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "700",
-          "rect": {
-            "width": 163.953125,
-            "height": 16
-          }
-        },
-        "absenceSummary": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
-          "fontSize": 11.232,
-          "lineHeight": 15.5002,
-          "ratio": 1.3800035612535613,
-          "color": "rgb(237, 242, 236)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "400",
-          "rect": {
-            "width": 240.75,
-            "height": 80.5
-          }
-        },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
           "fontSize": 15.84,
@@ -366,7 +340,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 216.0625,
-            "height": 47.15625
+            "height": 15.71875
           }
         },
         "beaconTime": {
@@ -379,7 +353,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 216.0625,
-            "height": 26.53125
+            "height": 39.0625
           }
         },
         "beaconMeta": {
@@ -407,7 +381,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 504.8586730957031,
-            "height": 63.532501220703125
+            "height": 63.532470703125
           }
         },
         "taskKicker": {
@@ -420,7 +394,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.729995727539062
+            "height": 17.730010986328125
           }
         },
         "taskTime": {
@@ -446,7 +420,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.72998046875
+            "height": 17.730010986328125
           }
         },
         "taskSectionHeading": {
@@ -463,7 +437,7 @@
           }
         },
         "taskBody": {
-          "selector": ".task-detail-copy p",
+          "selector": ".task-detail-body",
           "fontSize": 15.84,
           "lineHeight": 25.6608,
           "ratio": 1.6199999999999999,
@@ -472,7 +446,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 606.760009765625,
-            "height": 50.542816162109375
+            "height": 50.54278564453125
           }
         },
         "taskProvenance": {
@@ -808,7 +782,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 47,
+              "verticalOverflow": 78,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -914,7 +888,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -926,7 +900,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -938,7 +912,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -950,57 +924,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 42,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -1154,7 +1080,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1166,7 +1092,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1178,7 +1104,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1190,9 +1116,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 61,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -1239,198 +1165,6 @@
             {
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-05",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-08",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
@@ -1490,7 +1224,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1502,7 +1236,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1514,7 +1248,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1526,7 +1260,55 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 26,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "climate-06",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
@@ -1538,7 +1320,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1550,7 +1332,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1562,7 +1344,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1574,249 +1356,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 76,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -1884,7 +1426,7 @@
               "outsideContainer": false
             },
             {
-              "selector": "#taskDetailZhLabel",
+              "selector": "#taskDetailSummaryLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -1897,18 +1439,6 @@
             },
             {
               "selector": "#taskDetailZh",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailEnLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -2008,9 +1538,9 @@
       },
       "colors": {
         "panelColor": [
-          8,
-          16,
-          22
+          7,
+          15,
+          20
         ],
         "samples": [
           {
@@ -2072,9 +1602,9 @@
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
               9,
@@ -2087,13 +1617,13 @@
               255
             ],
             "borderCompositeColor": [
-              41.438,
-              95.092,
-              144.463
+              40.973,
+              94.627,
+              143.534
             ],
-            "surfaceDistance": 20.616,
-            "borderDistance": 149.568,
-            "salience": 82.513
+            "surfaceDistance": 22.913,
+            "borderDistance": 150.849,
+            "salience": 84.322
           },
           {
             "category": "ah-market-scan",
@@ -2114,7 +1644,7 @@
                   242,
                   236
                 ],
-                "contrast": 15.853
+                "contrast": 15.84
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -2126,7 +1656,7 @@
                   242,
                   236
                 ],
-                "contrast": 15.853
+                "contrast": 15.84
               },
               {
                 "className": "pulse-time",
@@ -2138,7 +1668,7 @@
                   226.16,
                   164.96
                 ],
-                "contrast": 11.703
+                "contrast": 11.693
               },
               {
                 "className": "pulse-duration",
@@ -2150,18 +1680,18 @@
                   226.16,
                   164.96
                 ],
-                "contrast": 11.703
+                "contrast": 11.693
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
               10,
               25,
-              27
+              28
             ],
             "accentColor": [
               48,
@@ -2169,13 +1699,13 @@
               88
             ],
             "borderCompositeColor": [
-              57.657,
-              105.238,
-              79.422
+              57.087,
+              104.668,
+              78.284
             ],
-            "surfaceDistance": 10.488,
-            "borderDistance": 117.16,
-            "salience": 61.691
+            "surfaceDistance": 13.153,
+            "borderDistance": 118.094,
+            "salience": 63.525
           },
           {
             "category": "us-market-scan",
@@ -2236,9 +1766,9 @@
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
               12,
@@ -2251,13 +1781,13 @@
               255
             ],
             "borderCompositeColor": [
-              70.136,
-              105.478,
-              119.502
+              69.567,
+              104.908,
+              118.364
             ],
-            "surfaceDistance": 14.765,
-            "borderDistance": 146.198,
-            "salience": 77.853
+            "surfaceDistance": 17.146,
+            "borderDistance": 147.22,
+            "salience": 79.582
           },
           {
             "category": "ai-brief",
@@ -2318,9 +1848,9 @@
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
               16,
@@ -2333,13 +1863,13 @@
               10
             ],
             "borderCompositeColor": [
-              107.336,
-              93.238,
-              60.702
+              106.767,
+              92.668,
+              59.564
             ],
-            "surfaceDistance": 10.44,
-            "borderDistance": 131.648,
-            "salience": 68.62
+            "surfaceDistance": 12.45,
+            "borderDistance": 132.481,
+            "salience": 70.065
           },
           {
             "category": "service-support",
@@ -2360,7 +1890,7 @@
                   242,
                   236
                 ],
-                "contrast": 16.045
+                "contrast": 16.171
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -2372,7 +1902,7 @@
                   242,
                   236
                 ],
-                "contrast": 16.045
+                "contrast": 16.171
               },
               {
                 "className": "pulse-time",
@@ -2384,7 +1914,7 @@
                   184.4,
                   245.12
                 ],
-                "contrast": 9.732
+                "contrast": 9.808
               },
               {
                 "className": "pulse-duration",
@@ -2396,17 +1926,17 @@
                   184.4,
                   245.12
                 ],
-                "contrast": 9.732
+                "contrast": 9.808
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
-              13,
-              22,
+              12,
+              21,
               33
             ],
             "accentColor": [
@@ -2415,95 +1945,13 @@
               255
             ],
             "borderCompositeColor": [
-              76.136,
-              84.358,
-              119.502
+              75.567,
+              83.788,
+              118.364
             ],
-            "surfaceDistance": 13.491,
-            "borderDistance": 137.194,
-            "salience": 72.868
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "accent": "#bf5af2",
-            "backgroundColor": "color(srgb 0.0852549 0.0903529 0.157608)",
-            "borderColor": "color(srgb 0.610431 0.491529 0.735059)",
-            "boxShadow": "color(srgb 0.74902 0.352941 0.94902 / 0.3) 3px 0px 0px 0px inset, color(srgb 0.929412 1 0.988235 / 0.0921176) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.28) 0px 4px 11px 0px",
-            "opacity": "1",
-            "text": [
-              {
-                "className": "pulse-label reading-title",
-                "color": "rgb(237, 242, 236)",
-                "fontSize": 12.5,
-                "lineHeight": 16,
-                "compositeColor": [
-                  237,
-                  242,
-                  236
-                ],
-                "contrast": 15.574
-              },
-              {
-                "className": "pulse-summary reading-summary",
-                "color": "rgb(237, 242, 236)",
-                "fontSize": 11.232,
-                "lineHeight": 15.5002,
-                "compositeColor": [
-                  237,
-                  242,
-                  236
-                ],
-                "contrast": 15.574
-              },
-              {
-                "className": "pulse-time",
-                "color": "color(srgb 0.842824 0.662902 0.936784)",
-                "fontSize": 10,
-                "lineHeight": 12.5,
-                "compositeColor": [
-                  214.92,
-                  169.04,
-                  238.88
-                ],
-                "contrast": 9.094
-              },
-              {
-                "className": "pulse-duration",
-                "color": "color(srgb 0.842824 0.662902 0.936784)",
-                "fontSize": 10,
-                "lineHeight": 12.5,
-                "compositeColor": [
-                  214.92,
-                  169.04,
-                  238.88
-                ],
-                "contrast": 9.094
-              }
-            ],
-            "panelColor": [
-              8,
-              16,
-              22
-            ],
-            "surfaceColor": [
-              22,
-              23,
-              41
-            ],
-            "accentColor": [
-              191,
-              90,
-              242
-            ],
-            "borderCompositeColor": [
-              155.66,
-              125.34,
-              187.44
-            ],
-            "surfaceDistance": 24.617,
-            "borderDistance": 247.243,
-            "salience": 131.477
+            "surfaceDistance": 15.166,
+            "borderDistance": 138.234,
+            "salience": 74.239
           },
           {
             "category": "warning-exception",
@@ -2564,9 +2012,9 @@
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
               26,
@@ -2579,13 +2027,13 @@
               58
             ],
             "borderCompositeColor": [
-              134.538,
-              71.152,
-              69.603
+              134.073,
+              70.687,
+              68.674
             ],
-            "surfaceDistance": 19.621,
-            "borderDistance": 146.012,
-            "salience": 80.289
+            "surfaceDistance": 21.424,
+            "borderDistance": 147.03,
+            "salience": 81.715
           },
           {
             "category": "autonomous-artwork",
@@ -2606,7 +2054,7 @@
                   242,
                   236
                 ],
-                "contrast": 13.985
+                "contrast": 14.017
               },
               {
                 "className": "reading-summary",
@@ -2618,7 +2066,7 @@
                   242,
                   236
                 ],
-                "contrast": 13.985
+                "contrast": 14.017
               },
               {
                 "className": "autonomous-time",
@@ -2630,7 +2078,7 @@
                   227.44,
                   118.48
                 ],
-                "contrast": 12.261
+                "contrast": 12.29
               },
               {
                 "className": "autonomous-kicker",
@@ -2642,16 +2090,16 @@
                   227.44,
                   118.48
                 ],
-                "contrast": 12.261
+                "contrast": 12.29
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              7,
+              15,
+              20
             ],
             "surfaceColor": [
-              31,
+              30,
               36,
               24
             ],
@@ -2661,13 +2109,95 @@
               10
             ],
             "borderCompositeColor": [
-              134.538,
-              126.252,
-              51.363
+              134.073,
+              125.787,
+              50.434
             ],
-            "surfaceDistance": 30.545,
-            "borderDistance": 170.38,
-            "salience": 97.666
+            "surfaceDistance": 31.401,
+            "borderDistance": 171.312,
+            "salience": 98.558
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "accent": "#bf5af2",
+            "backgroundColor": "color(srgb 0.0852549 0.0903529 0.157608)",
+            "borderColor": "color(srgb 0.779781 0.524978 0.946741 / 0.535608)",
+            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.109176) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.18) 0px -1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.31) 0px 5px 13px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(237, 242, 236)",
+                "fontSize": 12.5,
+                "lineHeight": 16,
+                "compositeColor": [
+                  237,
+                  242,
+                  236
+                ],
+                "contrast": 15.469
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(237, 242, 236)",
+                "fontSize": 11.232,
+                "lineHeight": 15.5002,
+                "compositeColor": [
+                  237,
+                  242,
+                  236
+                ],
+                "contrast": 15.469
+              },
+              {
+                "className": "pulse-time",
+                "color": "color(srgb 0.842824 0.662902 0.936784)",
+                "fontSize": 10,
+                "lineHeight": 12.5,
+                "compositeColor": [
+                  214.92,
+                  169.04,
+                  238.88
+                ],
+                "contrast": 9.033
+              },
+              {
+                "className": "pulse-duration",
+                "color": "color(srgb 0.842824 0.662902 0.936784)",
+                "fontSize": 10,
+                "lineHeight": 12.5,
+                "compositeColor": [
+                  214.92,
+                  169.04,
+                  238.88
+                ],
+                "contrast": 9.033
+              }
+            ],
+            "panelColor": [
+              7,
+              15,
+              20
+            ],
+            "surfaceColor": [
+              22,
+              24,
+              41
+            ],
+            "accentColor": [
+              191,
+              90,
+              242
+            ],
+            "borderCompositeColor": [
+              109.753,
+              78.667,
+              138.594
+            ],
+            "surfaceDistance": 27.331,
+            "borderDistance": 169.341,
+            "salience": 95.496
           }
         ],
         "minimumContrast": 8.433,
@@ -2685,12 +2215,11 @@
             "service-support"
           ]
         },
-        "meanSurfaceDistance": 18.073,
+        "meanSurfaceDistance": 20.123,
         "layerSalience": {
-          "event": 81.401,
-          "climate": 70.258,
-          "absence": 131.477,
-          "beacon": 97.666
+          "event": 87.178,
+          "climate": 71.853,
+          "beacon": 98.558
         },
         "contrasts": [
           {
@@ -2726,28 +2255,28 @@
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 15.853
+            "contrast": 15.84
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 15.853
+            "contrast": 15.84
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 11.703
+            "contrast": 11.693
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 11.703
+            "contrast": 11.693
           },
           {
             "category": "us-market-scan",
@@ -2810,56 +2339,28 @@
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 16.045
+            "contrast": 16.171
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 16.045
+            "contrast": 16.171
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 9.732
+            "contrast": 9.808
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 9.732
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-label reading-title",
-            "fontSize": 12.5,
-            "contrast": 15.574
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-summary reading-summary",
-            "fontSize": 11.232,
-            "contrast": 15.574
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-time",
-            "fontSize": 10,
-            "contrast": 9.094
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-duration",
-            "fontSize": 10,
-            "contrast": 9.094
+            "contrast": 9.808
           },
           {
             "category": "warning-exception",
@@ -2894,28 +2395,56 @@
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 13.985
+            "contrast": 14.017
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 13.985
+            "contrast": 14.017
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 12.261
+            "contrast": 12.29
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 12.261
+            "contrast": 12.29
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-label reading-title",
+            "fontSize": 12.5,
+            "contrast": 15.469
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 11.232,
+            "contrast": 15.469
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-time",
+            "fontSize": 10,
+            "contrast": 9.033
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-duration",
+            "fontSize": 10,
+            "contrast": 9.033
           }
         ]
       },
@@ -2927,8 +2456,8 @@
           "durationMinutes": 60,
           "lane": 0,
           "laneCount": 1,
-          "top": 347.297,
-          "height": 105.766,
+          "top": 206.844,
+          "height": 63,
           "left": 0,
           "width": 1068
         },
@@ -2939,8 +2468,8 @@
           "durationMinutes": 20,
           "lane": 0,
           "laneCount": 1,
-          "top": 528.891,
-          "height": 35.25,
+          "top": 315,
+          "height": 21,
           "left": 0,
           "width": 1068
         },
@@ -2951,8 +2480,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 634.672,
-          "height": 7.047,
+          "top": 378,
+          "height": 4.188,
           "left": 0,
           "width": 1068
         },
@@ -2963,8 +2492,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 717.531,
-          "height": 3.516,
+          "top": 427.344,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2975,8 +2504,8 @@
           "durationMinutes": 9,
           "lane": 0,
           "laneCount": 1,
-          "top": 775.719,
-          "height": 15.859,
+          "top": 462,
+          "height": 9.438,
           "left": 0,
           "width": 1068
         },
@@ -2987,8 +2516,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 793.344,
-          "height": 7.047,
+          "top": 472.5,
+          "height": 4.188,
           "left": 0,
           "width": 1068
         },
@@ -2999,8 +2528,8 @@
           "durationMinutes": 135,
           "lane": 0,
           "laneCount": 3,
-          "top": 846.234,
-          "height": 238,
+          "top": 504,
+          "height": 141.75,
           "left": 0,
           "width": 353.328
         },
@@ -3011,8 +2540,8 @@
           "durationMinutes": 23,
           "lane": 1,
           "laneCount": 3,
-          "top": 899.125,
-          "height": 40.547,
+          "top": 535.5,
+          "height": 24.141,
           "left": 357.328,
           "width": 353.328
         },
@@ -3023,8 +2552,8 @@
           "durationMinutes": 4,
           "lane": 2,
           "laneCount": 3,
-          "top": 936.141,
-          "height": 7.047,
+          "top": 557.547,
+          "height": 4.188,
           "left": 714.656,
           "width": 353.328
         },
@@ -3035,8 +2564,8 @@
           "durationMinutes": 8,
           "lane": 1,
           "laneCount": 3,
-          "top": 941.438,
-          "height": 14.094,
+          "top": 560.688,
+          "height": 8.391,
           "left": 357.328,
           "width": 353.328
         },
@@ -3047,8 +2576,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 952.016,
-          "height": 3.516,
+          "top": 567,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -3059,8 +2588,8 @@
           "durationMinutes": 6,
           "lane": 1,
           "laneCount": 3,
-          "top": 960.828,
-          "height": 10.563,
+          "top": 572.25,
+          "height": 6.297,
           "left": 357.328,
           "width": 353.328
         },
@@ -3071,8 +2600,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 962.594,
-          "height": 3.516,
+          "top": 573.297,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -3083,8 +2612,8 @@
           "durationMinutes": 7,
           "lane": 1,
           "laneCount": 3,
-          "top": 978.453,
-          "height": 12.328,
+          "top": 582.75,
+          "height": 7.344,
           "left": 357.328,
           "width": 353.328
         },
@@ -3095,8 +2624,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 989.031,
-          "height": 3.516,
+          "top": 589.047,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -3107,8 +2636,8 @@
           "durationMinutes": 5,
           "lane": 1,
           "laneCount": 3,
-          "top": 996.094,
-          "height": 8.813,
+          "top": 593.25,
+          "height": 5.25,
           "left": 357.328,
           "width": 353.328
         },
@@ -3119,8 +2648,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 1022.531,
-          "height": 3.516,
+          "top": 609,
+          "height": 2.094,
           "left": 357.328,
           "width": 353.328
         },
@@ -3131,8 +2660,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 1022.531,
-          "height": 3.516,
+          "top": 609,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -3143,8 +2672,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 1031.344,
-          "height": 3.516,
+          "top": 614.25,
+          "height": 2.094,
           "left": 357.328,
           "width": 353.328
         },
@@ -3155,8 +2684,8 @@
           "durationMinutes": 11,
           "lane": 1,
           "laneCount": 3,
-          "top": 1043.688,
-          "height": 19.391,
+          "top": 621.594,
+          "height": 11.547,
           "left": 357.328,
           "width": 353.328
         },
@@ -3167,8 +2696,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 1059.563,
-          "height": 3.516,
+          "top": 631.047,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -3179,8 +2708,8 @@
           "durationMinutes": 8,
           "lane": 0,
           "laneCount": 1,
-          "top": 1149.469,
-          "height": 14.094,
+          "top": 684.594,
+          "height": 8.391,
           "left": 0,
           "width": 1068
         },
@@ -3191,8 +2720,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 2,
-          "top": 1168.859,
-          "height": 3.516,
+          "top": 696.141,
+          "height": 2.094,
           "left": 0,
           "width": 532
         },
@@ -3203,8 +2732,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 2,
-          "top": 1170.625,
-          "height": 3.516,
+          "top": 697.188,
+          "height": 2.094,
           "left": 536,
           "width": 532
         },
@@ -3215,8 +2744,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1286.984,
-          "height": 3.516,
+          "top": 766.5,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3227,8 +2756,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1302.844,
-          "height": 3.516,
+          "top": 775.938,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3239,8 +2768,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1339.875,
-          "height": 3.516,
+          "top": 798,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3251,8 +2780,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1417.438,
-          "height": 3.516,
+          "top": 844.188,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3263,8 +2792,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1429.781,
-          "height": 3.516,
+          "top": 851.547,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3275,8 +2804,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1445.656,
-          "height": 3.516,
+          "top": 861,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3287,8 +2816,8 @@
           "durationMinutes": 14,
           "lane": 0,
           "laneCount": 1,
-          "top": 1502.063,
-          "height": 24.672,
+          "top": 894.594,
+          "height": 14.688,
           "left": 0,
           "width": 1068
         },
@@ -3299,8 +2828,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 2,
-          "top": 1533.797,
-          "height": 7.047,
+          "top": 913.5,
+          "height": 4.188,
           "left": 0,
           "width": 532
         },
@@ -3311,8 +2840,8 @@
           "durationMinutes": 4,
           "lane": 1,
           "laneCount": 2,
-          "top": 1533.797,
-          "height": 7.047,
+          "top": 913.5,
+          "height": 4.188,
           "left": 536,
           "width": 532
         },
@@ -3323,8 +2852,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1540.859,
-          "height": 3.516,
+          "top": 917.688,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3335,8 +2864,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1551.438,
-          "height": 3.516,
+          "top": 924,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3347,8 +2876,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1593.75,
-          "height": 3.516,
+          "top": 949.188,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3359,8 +2888,8 @@
           "durationMinutes": 3,
           "lane": 0,
           "laneCount": 1,
-          "top": 1602.563,
-          "height": 5.281,
+          "top": 954.438,
+          "height": 3.141,
           "left": 0,
           "width": 1068
         },
@@ -3371,8 +2900,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1620.188,
-          "height": 3.516,
+          "top": 964.938,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3383,8 +2912,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1630.766,
-          "height": 3.516,
+          "top": 971.25,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3395,8 +2924,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1639.578,
-          "height": 3.516,
+          "top": 976.5,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3407,8 +2936,8 @@
           "durationMinutes": 13,
           "lane": 0,
           "laneCount": 1,
-          "top": 1648.391,
-          "height": 22.906,
+          "top": 981.75,
+          "height": 13.641,
           "left": 0,
           "width": 1068
         },
@@ -3419,8 +2948,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1717.156,
-          "height": 3.516,
+          "top": 1022.688,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3431,8 +2960,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1738.313,
-          "height": 3.516,
+          "top": 1035.297,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3443,8 +2972,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1743.594,
-          "height": 3.516,
+          "top": 1038.438,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3455,8 +2984,8 @@
           "durationMinutes": 5,
           "lane": 0,
           "laneCount": 1,
-          "top": 1851.141,
-          "height": 8.813,
+          "top": 1102.5,
+          "height": 5.25,
           "left": 0,
           "width": 1068
         },
@@ -3467,8 +2996,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2115.594,
-          "height": 3.516,
+          "top": 1260,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3479,8 +3008,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2166.719,
-          "height": 3.516,
+          "top": 1290.438,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3491,8 +3020,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2193.172,
-          "height": 3.516,
+          "top": 1306.188,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3503,8 +3032,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 3,
-          "top": 2231.953,
-          "height": 3.516,
+          "top": 1329.297,
+          "height": 2.094,
           "left": 0,
           "width": 353.328
         },
@@ -3515,8 +3044,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 2231.953,
-          "height": 3.516,
+          "top": 1329.297,
+          "height": 2.094,
           "left": 357.328,
           "width": 353.328
         },
@@ -3527,8 +3056,8 @@
           "durationMinutes": 6,
           "lane": 2,
           "laneCount": 3,
-          "top": 2233.719,
-          "height": 10.563,
+          "top": 1330.344,
+          "height": 6.297,
           "left": 714.656,
           "width": 353.328
         },
@@ -3539,8 +3068,8 @@
           "durationMinutes": 31,
           "lane": 0,
           "laneCount": 3,
-          "top": 2242.531,
-          "height": 54.641,
+          "top": 1335.594,
+          "height": 32.547,
           "left": 0,
           "width": 353.328
         },
@@ -3551,8 +3080,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2302.469,
-          "height": 3.516,
+          "top": 1371.297,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3563,8 +3092,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2307.766,
-          "height": 3.516,
+          "top": 1374.438,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3575,8 +3104,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 2344.781,
-          "height": 7.047,
+          "top": 1396.5,
+          "height": 4.188,
           "left": 0,
           "width": 1068
         },
@@ -3587,8 +3116,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2372.984,
-          "height": 3.516,
+          "top": 1413.297,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3599,8 +3128,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2381.813,
-          "height": 3.516,
+          "top": 1418.547,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -3611,8 +3140,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2485.828,
-          "height": 3.516,
+          "top": 1480.5,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         }
@@ -3745,7 +3274,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 980,
-            "height": 57
+            "height": 19
           }
         },
         "timelineHeading": {
@@ -3878,32 +3407,6 @@
             "height": 0
           }
         },
-        "absenceTitle": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
-          "fontSize": 12.5,
-          "lineHeight": 16,
-          "ratio": 1.28,
-          "color": "rgb(24, 34, 38)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "700",
-          "rect": {
-            "width": 163.953125,
-            "height": 16
-          }
-        },
-        "absenceSummary": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
-          "fontSize": 11.232,
-          "lineHeight": 15.5002,
-          "ratio": 1.3800035612535613,
-          "color": "rgb(24, 34, 38)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "400",
-          "rect": {
-            "width": 240.75,
-            "height": 80.5
-          }
-        },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
           "fontSize": 15.84,
@@ -3927,7 +3430,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 216.0625,
-            "height": 47.15625
+            "height": 15.71875
           }
         },
         "beaconTime": {
@@ -3940,7 +3443,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 216.0625,
-            "height": 26.53125
+            "height": 39.0625
           }
         },
         "beaconMeta": {
@@ -3968,7 +3471,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 504.8586730957031,
-            "height": 63.532501220703125
+            "height": 63.532470703125
           }
         },
         "taskKicker": {
@@ -3981,7 +3484,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.729995727539062
+            "height": 17.730010986328125
           }
         },
         "taskTime": {
@@ -4007,7 +3510,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.72998046875
+            "height": 17.730010986328125
           }
         },
         "taskSectionHeading": {
@@ -4024,7 +3527,7 @@
           }
         },
         "taskBody": {
-          "selector": ".task-detail-copy p",
+          "selector": ".task-detail-body",
           "fontSize": 15.84,
           "lineHeight": 25.6608,
           "ratio": 1.6199999999999999,
@@ -4033,7 +3536,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 606.760009765625,
-            "height": 50.542816162109375
+            "height": 50.54278564453125
           }
         },
         "taskProvenance": {
@@ -4196,7 +3699,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 47,
+              "verticalOverflow": 78,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -4302,7 +3805,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4314,7 +3817,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4326,7 +3829,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4338,57 +3841,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 42,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -4542,7 +3997,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4554,7 +4009,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4566,7 +4021,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4578,9 +4033,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 61,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -4627,198 +4082,6 @@
             {
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-05",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-08",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
@@ -4878,7 +4141,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4890,7 +4153,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4902,7 +4165,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4914,7 +4177,55 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 26,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "climate-06",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
@@ -4926,7 +4237,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4938,7 +4249,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4950,7 +4261,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4962,249 +4273,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 76,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -5272,7 +4343,7 @@
               "outsideContainer": false
             },
             {
-              "selector": "#taskDetailZhLabel",
+              "selector": "#taskDetailSummaryLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -5285,18 +4356,6 @@
             },
             {
               "selector": "#taskDetailZh",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailEnLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -5338,7 +4397,7 @@
       },
       "colors": {
         "panelColor": [
-          226,
+          225,
           226,
           220
         ],
@@ -5402,7 +4461,7 @@
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
@@ -5417,13 +4476,13 @@
               255
             ],
             "borderCompositeColor": [
-              108.687,
+              108.223,
               158.937,
               207.936
             ],
-            "surfaceDistance": 13,
-            "borderDistance": 135.666,
-            "salience": 71.88
+            "surfaceDistance": 12.806,
+            "borderDistance": 135.203,
+            "salience": 71.557
           },
           {
             "category": "ah-market-scan",
@@ -5484,7 +4543,7 @@
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
@@ -5499,13 +4558,13 @@
               61
             ],
             "borderCompositeColor": [
-              141.87,
+              141.3,
               171.118,
               150.749
             ],
-            "surfaceDistance": 11.18,
-            "borderDistance": 122.007,
-            "salience": 64.377
+            "surfaceDistance": 11.747,
+            "borderDistance": 121.71,
+            "salience": 64.53
           },
           {
             "category": "us-market-scan",
@@ -5566,7 +4625,7 @@
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
@@ -5581,13 +4640,13 @@
               164
             ],
             "borderCompositeColor": [
-              133.23,
+              132.66,
               165.118,
               175.469
             ],
-            "surfaceDistance": 11.358,
-            "borderDistance": 119.566,
-            "salience": 63.298
+            "surfaceDistance": 11.747,
+            "borderDistance": 119.232,
+            "salience": 63.34
           },
           {
             "category": "ai-brief",
@@ -5648,7 +4707,7 @@
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
@@ -5663,13 +4722,13 @@
               0
             ],
             "borderCompositeColor": [
-              181.47,
+              180.9,
               150.478,
               136.109
             ],
-            "surfaceDistance": 12.45,
-            "borderDistance": 121.344,
-            "salience": 64.719
+            "surfaceDistance": 13.342,
+            "borderDistance": 121.186,
+            "salience": 65.107
           },
           {
             "category": "service-support",
@@ -5730,7 +4789,7 @@
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
@@ -5745,95 +4804,13 @@
               214
             ],
             "borderCompositeColor": [
-              154.349,
+              153.78,
               158.638,
               187.469
             ],
-            "surfaceDistance": 14.142,
-            "borderDistance": 103.584,
-            "salience": 57.074
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "accent": "#af52de",
-            "backgroundColor": "color(srgb 0.916039 0.886863 0.899765)",
-            "borderColor": "color(srgb 0.506353 0.399373 0.620157)",
-            "boxShadow": "color(srgb 0.686275 0.321569 0.870588 / 0.3) 3px 0px 0px 0px inset, color(srgb 1 1 0.984314 / 0.243529) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.28) 0px 4px 11px 0px",
-            "opacity": "1",
-            "text": [
-              {
-                "className": "pulse-label reading-title",
-                "color": "rgb(24, 34, 38)",
-                "fontSize": 12.5,
-                "lineHeight": 16,
-                "compositeColor": [
-                  24,
-                  34,
-                  38
-                ],
-                "contrast": 12.742
-              },
-              {
-                "className": "pulse-summary reading-summary",
-                "color": "rgb(24, 34, 38)",
-                "fontSize": 11.232,
-                "lineHeight": 15.5002,
-                "compositeColor": [
-                  24,
-                  34,
-                  38
-                ],
-                "contrast": 12.742
-              },
-              {
-                "className": "pulse-time",
-                "color": "color(srgb 0.461255 0.250039 0.596392)",
-                "fontSize": 10,
-                "lineHeight": 12.5,
-                "compositeColor": [
-                  117.62,
-                  63.76,
-                  152.08
-                ],
-                "contrast": 5.602
-              },
-              {
-                "className": "pulse-duration",
-                "color": "color(srgb 0.461255 0.250039 0.596392)",
-                "fontSize": 10,
-                "lineHeight": 12.5,
-                "compositeColor": [
-                  117.62,
-                  63.76,
-                  152.08
-                ],
-                "contrast": 5.602
-              }
-            ],
-            "panelColor": [
-              226,
-              226,
-              220
-            ],
-            "surfaceColor": [
-              234,
-              226,
-              229
-            ],
-            "accentColor": [
-              175,
-              82,
-              222
-            ],
-            "borderCompositeColor": [
-              129.12,
-              101.84,
-              158.14
-            ],
-            "surfaceDistance": 12.042,
-            "borderDistance": 169.198,
-            "salience": 87.477
+            "surfaceDistance": 14.731,
+            "borderDistance": 103.287,
+            "salience": 57.238
           },
           {
             "category": "warning-exception",
@@ -5854,7 +4831,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.095
+                "contrast": 12.183
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -5866,7 +4843,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.095
+                "contrast": 12.183
               },
               {
                 "className": "pulse-time",
@@ -5878,7 +4855,7 @@
                   11.56,
                   26.78
                 ],
-                "contrast": 6.629
+                "contrast": 6.677
               },
               {
                 "className": "pulse-duration",
@@ -5890,18 +4867,18 @@
                   11.56,
                   26.78
                 ],
-                "contrast": 6.629
+                "contrast": 6.677
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
             "surfaceColor": [
               236,
-              219,
-              214
+              220,
+              215
             ],
             "accentColor": [
               215,
@@ -5909,13 +4886,13 @@
               21
             ],
             "borderCompositeColor": [
-              190.387,
+              189.923,
               112.577,
               119.016
             ],
-            "surfaceDistance": 13.601,
-            "borderDistance": 155.983,
-            "salience": 81.945
+            "surfaceDistance": 13.491,
+            "borderDistance": 155.862,
+            "salience": 81.829
           },
           {
             "category": "autonomous-artwork",
@@ -5936,7 +4913,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.283
+                "contrast": 12.291
               },
               {
                 "className": "reading-summary",
@@ -5948,7 +4925,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.283
+                "contrast": 12.291
               },
               {
                 "className": "autonomous-time",
@@ -5960,7 +4937,7 @@
                   78.22,
                   12.92
                 ],
-                "contrast": 6.04
+                "contrast": 6.043
               },
               {
                 "className": "autonomous-kicker",
@@ -5972,18 +4949,18 @@
                   78.22,
                   12.92
                 ],
-                "contrast": 6.04
+                "contrast": 6.043
               }
             ],
             "panelColor": [
-              226,
+              225,
               226,
               220
             ],
             "surfaceColor": [
               229,
               224,
-              209
+              210
             ],
             "accentColor": [
               138,
@@ -5991,13 +4968,95 @@
               0
             ],
             "borderCompositeColor": [
-              161.127,
+              160.663,
               150.957,
               111.036
             ],
-            "surfaceDistance": 11.576,
-            "borderDistance": 147.354,
-            "salience": 76.749
+            "surfaceDistance": 10.954,
+            "borderDistance": 147.118,
+            "salience": 76.313
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "accent": "#af52de",
+            "backgroundColor": "color(srgb 0.916039 0.886863 0.899765)",
+            "borderColor": "color(srgb 0.514238 0.283971 0.682601 / 0.535608)",
+            "boxShadow": "color(srgb 1 1 0.984314 / 0.288627) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.18) 0px -1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.31) 0px 5px 13px 0px",
+            "opacity": "1",
+            "text": [
+              {
+                "className": "pulse-label reading-title",
+                "color": "rgb(24, 34, 38)",
+                "fontSize": 12.5,
+                "lineHeight": 16,
+                "compositeColor": [
+                  24,
+                  34,
+                  38
+                ],
+                "contrast": 12.742
+              },
+              {
+                "className": "pulse-summary reading-summary",
+                "color": "rgb(24, 34, 38)",
+                "fontSize": 11.232,
+                "lineHeight": 15.5002,
+                "compositeColor": [
+                  24,
+                  34,
+                  38
+                ],
+                "contrast": 12.742
+              },
+              {
+                "className": "pulse-time",
+                "color": "color(srgb 0.461255 0.250039 0.596392)",
+                "fontSize": 10,
+                "lineHeight": 12.5,
+                "compositeColor": [
+                  117.62,
+                  63.76,
+                  152.08
+                ],
+                "contrast": 5.602
+              },
+              {
+                "className": "pulse-duration",
+                "color": "color(srgb 0.461255 0.250039 0.596392)",
+                "fontSize": 10,
+                "lineHeight": 12.5,
+                "compositeColor": [
+                  117.62,
+                  63.76,
+                  152.08
+                ],
+                "contrast": 5.602
+              }
+            ],
+            "panelColor": [
+              225,
+              226,
+              220
+            ],
+            "surfaceColor": [
+              234,
+              226,
+              229
+            ],
+            "accentColor": [
+              175,
+              82,
+              222
+            ],
+            "borderCompositeColor": [
+              174.723,
+              143.737,
+              195.396
+            ],
+            "surfaceDistance": 12.728,
+            "borderDistance": 99.5,
+            "salience": 54.379
           }
         ],
         "minimumContrast": 5.493,
@@ -6009,18 +5068,17 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 25.14,
+          "value": 25.141,
           "pair": [
             "us-market-scan",
             "service-support"
           ]
         },
-        "meanSurfaceDistance": 12.419,
+        "meanSurfaceDistance": 12.693,
         "layerSalience": {
-          "event": 76.913,
-          "climate": 62.367,
-          "absence": 87.477,
-          "beacon": 76.749
+          "event": 69.255,
+          "climate": 62.554,
+          "beacon": 76.313
         },
         "contrasts": [
           {
@@ -6164,88 +5222,88 @@
             "contrast": 6.933
           },
           {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-label reading-title",
-            "fontSize": 12.5,
-            "contrast": 12.742
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-summary reading-summary",
-            "fontSize": 11.232,
-            "contrast": 12.742
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-time",
-            "fontSize": 10,
-            "contrast": 5.602
-          },
-          {
-            "category": "private-reminder",
-            "layer": "absence",
-            "className": "pulse-duration",
-            "fontSize": 10,
-            "contrast": 5.602
-          },
-          {
             "category": "warning-exception",
             "layer": "event",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 12.095
+            "contrast": 12.183
           },
           {
             "category": "warning-exception",
             "layer": "event",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.095
+            "contrast": 12.183
           },
           {
             "category": "warning-exception",
             "layer": "event",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 6.629
+            "contrast": 6.677
           },
           {
             "category": "warning-exception",
             "layer": "event",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 6.629
+            "contrast": 6.677
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 12.283
+            "contrast": 12.291
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.283
+            "contrast": 12.291
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 6.04
+            "contrast": 6.043
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 6.04
+            "contrast": 6.043
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-label reading-title",
+            "fontSize": 12.5,
+            "contrast": 12.742
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-summary reading-summary",
+            "fontSize": 11.232,
+            "contrast": 12.742
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-time",
+            "fontSize": 10,
+            "contrast": 5.602
+          },
+          {
+            "category": "daily-reminder",
+            "layer": "event",
+            "className": "pulse-duration",
+            "fontSize": 10,
+            "contrast": 5.602
           }
         ]
       },
@@ -6273,7 +5331,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "500",
           "rect": {
-            "width": 360,
+            "width": 437.828125,
             "height": 25.5
           }
         },
@@ -6286,7 +5344,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 360,
+            "width": 437.828125,
             "height": 13.296875
           }
         },
@@ -6299,8 +5357,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 360,
-            "height": 57.703125
+            "width": 437.828125,
+            "height": 38.46875
           }
         },
         "homeLegend": {
@@ -6312,7 +5370,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 360,
+            "width": 437.828125,
             "height": 24
           }
         },
@@ -6377,8 +5435,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 0,
-            "height": 0
+            "width": 366,
+            "height": 51.75
           }
         },
         "timelineHeading": {
@@ -6511,32 +5569,6 @@
             "height": 0
           }
         },
-        "absenceTitle": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
-          "fontSize": 9.5,
-          "lineHeight": 10.925,
-          "ratio": 1.1500000000000001,
-          "color": "rgb(237, 242, 236)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "700",
-          "rect": {
-            "width": 73.8125,
-            "height": 32.765625
-          }
-        },
-        "absenceSummary": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
-          "fontSize": 10,
-          "lineHeight": 13,
-          "ratio": 1.3,
-          "color": "rgb(237, 242, 236)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "400",
-          "rect": {
-            "width": 89.328125,
-            "height": 65.4375
-          }
-        },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
           "fontSize": 13,
@@ -6546,34 +5578,34 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 88.03125,
-            "height": 45.609375
+            "width": 308,
+            "height": 15.203125
           }
         },
         "beaconSummary": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
           "fontSize": 10,
-          "lineHeight": 14,
-          "ratio": 1.4,
+          "lineHeight": 12.5,
+          "ratio": 1.25,
           "color": "rgb(237, 242, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 88.03125,
-            "height": 28
+            "width": 308,
+            "height": 50
           }
         },
         "beaconTime": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
           "fontSize": 9,
-          "lineHeight": 9.9,
-          "ratio": 1.1,
+          "lineHeight": 11.7,
+          "ratio": 1.2999999999999998,
           "color": "color(srgb 0.966118 0.891922 0.464627)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 88.03125,
-            "height": 9.890625
+            "width": 308,
+            "height": 35.125
           }
         },
         "beaconMeta": {
@@ -6585,8 +5617,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 88.03125,
-            "height": 33.65625
+            "width": 0,
+            "height": 0
           }
         }
       },
@@ -6657,7 +5689,7 @@
           }
         },
         "taskBody": {
-          "selector": ".task-detail-copy p",
+          "selector": ".task-detail-body",
           "fontSize": 15,
           "lineHeight": 24.3,
           "ratio": 1.62,
@@ -6666,7 +5698,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 319.1400146484375,
-            "height": 71.79730224609375
+            "height": 71.7972412109375
           }
         },
         "taskProvenance": {
@@ -6679,7 +5711,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 342.7799987792969,
-            "height": 48.757568359375
+            "height": 48.7574462890625
           }
         }
       },
@@ -6766,6 +5798,18 @@
               "outsideContainer": false
             },
             {
+              "selector": "#dialogBoundary",
+              "readingId": "",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
               "selector": ".timeline-help",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -6790,7 +5834,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".autonomous-kicker",
+              "selector": ".reading-title",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -6802,22 +5846,10 @@
               "outsideContainer": false
             },
             {
-              "selector": ".reading-title",
-              "readingId": "beacon-beacon-001",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 15,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 154,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -6865,7 +5897,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-01",
               "horizontalOverflow": 0,
-              "verticalOverflow": 78,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -6913,7 +5945,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-02",
               "horizontalOverflow": 0,
-              "verticalOverflow": 84,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -6923,7 +5955,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -6935,7 +5967,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -6947,7 +5979,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -6959,57 +5991,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 62,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7093,7 +6077,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-03",
               "horizontalOverflow": 0,
-              "verticalOverflow": 6,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7141,7 +6125,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-04",
               "horizontalOverflow": 0,
-              "verticalOverflow": 84,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7151,7 +6135,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7163,7 +6147,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7175,7 +6159,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7187,9 +6171,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 79,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7237,199 +6221,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-05",
               "horizontalOverflow": 0,
-              "verticalOverflow": 84,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 110,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 67,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 84,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7487,7 +6279,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7499,7 +6291,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7511,7 +6303,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7523,7 +6315,55 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 49,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "climate-06",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
@@ -7535,7 +6375,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7547,7 +6387,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7559,7 +6399,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -7571,249 +6411,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 67,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 10,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 84,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 92,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -7881,7 +6481,7 @@
               "outsideContainer": false
             },
             {
-              "selector": "#taskDetailZhLabel",
+              "selector": "#taskDetailSummaryLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -7894,18 +6494,6 @@
             },
             {
               "selector": "#taskDetailZh",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#taskDetailEnLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -7970,7 +6558,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "500",
           "rect": {
-            "width": 391,
+            "width": 437.828125,
             "height": 25.5
           }
         },
@@ -7983,7 +6571,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 391,
+            "width": 437.828125,
             "height": 13.296875
           }
         },
@@ -7996,8 +6584,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 391,
-            "height": 57.703125
+            "width": 437.828125,
+            "height": 38.46875
           }
         },
         "homeLegend": {
@@ -8009,7 +6597,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 391,
+            "width": 437.828125,
             "height": 24
           }
         },
@@ -8074,8 +6662,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 0,
-            "height": 0
+            "width": 397,
+            "height": 34.5
           }
         },
         "timelineHeading": {
@@ -8208,32 +6796,6 @@
             "height": 0
           }
         },
-        "absenceTitle": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-title",
-          "fontSize": 9.5,
-          "lineHeight": 10.925,
-          "ratio": 1.1500000000000001,
-          "color": "rgb(237, 242, 236)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "700",
-          "rect": {
-            "width": 84.140625,
-            "height": 21.84375
-          }
-        },
-        "absenceSummary": {
-          "selector": ".event-reading-card[data-layer=\"absence\"] .reading-summary",
-          "fontSize": 10,
-          "lineHeight": 13,
-          "ratio": 1.3,
-          "color": "rgb(237, 242, 236)",
-          "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
-          "fontWeight": "400",
-          "rect": {
-            "width": 99.65625,
-            "height": 76.359375
-          }
-        },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
           "fontSize": 13,
@@ -8243,34 +6805,34 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 97.34375,
-            "height": 45.609375
+            "width": 339,
+            "height": 15.203125
           }
         },
         "beaconSummary": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
           "fontSize": 10,
-          "lineHeight": 14,
-          "ratio": 1.4,
+          "lineHeight": 12.5,
+          "ratio": 1.25,
           "color": "rgb(237, 242, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 97.34375,
-            "height": 28
+            "width": 339,
+            "height": 37.5
           }
         },
         "beaconTime": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
           "fontSize": 9,
-          "lineHeight": 9.9,
-          "ratio": 1.1,
+          "lineHeight": 11.7,
+          "ratio": 1.2999999999999998,
           "color": "color(srgb 0.966118 0.891922 0.464627)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 97.34375,
-            "height": 9.890625
+            "width": 339,
+            "height": 23.90625
           }
         },
         "beaconMeta": {
@@ -8282,8 +6844,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 97.34375,
-            "height": 22.4375
+            "width": 0,
+            "height": 0
           }
         }
       },
@@ -8354,7 +6916,7 @@
           }
         },
         "taskBody": {
-          "selector": ".task-detail-copy p",
+          "selector": ".task-detail-body",
           "fontSize": 15,
           "lineHeight": 24.3,
           "ratio": 1.62,
@@ -8376,7 +6938,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 373.3149719238281,
-            "height": 48.75750732421875
+            "height": 32.5050048828125
           }
         }
       },
@@ -8463,6 +7025,18 @@
               "outsideContainer": false
             },
             {
+              "selector": "#dialogBoundary",
+              "readingId": "",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
               "selector": ".timeline-help",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -8487,24 +7061,12 @@
               "outsideContainer": false
             },
             {
-              "selector": ".autonomous-kicker",
+              "selector": ".reading-title",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
               "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".reading-title",
-              "readingId": "beacon-beacon-001",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -8514,7 +7076,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 140,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -8562,7 +7124,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-01",
               "horizontalOverflow": 0,
-              "verticalOverflow": 54,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -8610,7 +7172,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-02",
               "horizontalOverflow": 0,
-              "verticalOverflow": 71,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -8620,7 +7182,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -8632,7 +7194,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -8644,7 +7206,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -8656,57 +7218,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-004",
+              "readingId": "event-background-005",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-005",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 62,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -8838,7 +7352,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-04",
               "horizontalOverflow": 0,
-              "verticalOverflow": 61,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -8848,7 +7362,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -8860,7 +7374,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -8872,7 +7386,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -8884,9 +7398,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-008",
+              "readingId": "event-background-013",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 79,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -8934,199 +7448,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "climate-05",
               "horizontalOverflow": 0,
-              "verticalOverflow": 61,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-013",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-06",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 74,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-07",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 43,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-08",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 71,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -9184,7 +7506,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -9196,7 +7518,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -9208,7 +7530,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -9220,7 +7542,55 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-039",
+              "readingId": "event-background-043",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 49,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "climate-06",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "climate-06",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
@@ -9232,7 +7602,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -9244,7 +7614,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -9256,7 +7626,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -9268,249 +7638,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-043",
+              "readingId": "event-background-056",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-09",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 43,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-050",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "climate-10",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 61,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-053",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-time",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-label.reading-title",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "hidden",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-count",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".pulse-summary.reading-summary",
-              "readingId": "absence-background-056",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
+              "verticalOverflow": 92,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -9578,7 +7708,7 @@
               "outsideContainer": false
             },
             {
-              "selector": "#taskDetailZhLabel",
+              "selector": "#taskDetailSummaryLabel",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -9602,18 +7732,6 @@
               "outsideContainer": false
             },
             {
-              "selector": "#taskDetailEnLabel",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": true,
-              "outsideContainer": false
-            },
-            {
               "selector": "#taskDetailEn",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -9621,7 +7739,7 @@
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": true,
+              "outsideVertically": false,
               "containerScrollsVertically": true,
               "outsideContainer": false
             },
@@ -9727,18 +7845,16 @@
           "keys": [
             "assignedTitle",
             "climateTitle",
-            "absenceTitle",
             "beaconTitle"
           ],
-          "beforeMean": 11,
-          "afterMean": 13.71,
-          "growth": 0.246
+          "beforeMean": 11.667,
+          "afterMean": 14.113,
+          "growth": 0.21
         },
         "cardBody": {
           "keys": [
             "assignedSummary",
             "climateSummary",
-            "absenceSummary",
             "beaconSummary"
           ],
           "beforeMean": 8.5,
@@ -9776,18 +7892,16 @@
           "keys": [
             "assignedTitle",
             "climateTitle",
-            "absenceTitle",
             "beaconTitle"
           ],
-          "beforeMean": 11,
-          "afterMean": 13.71,
-          "growth": 0.246
+          "beforeMean": 11.667,
+          "afterMean": 14.113,
+          "growth": 0.21
         },
         "cardBody": {
           "keys": [
             "assignedSummary",
             "climateSummary",
-            "absenceSummary",
             "beaconSummary"
           ],
           "beforeMean": 8.5,
@@ -9825,18 +7939,16 @@
           "keys": [
             "assignedTitle",
             "climateTitle",
-            "absenceTitle",
             "beaconTitle"
           ],
-          "beforeMean": 10,
-          "afterMean": 11.063,
-          "growth": 0.106
+          "beforeMean": 10.333,
+          "afterMean": 11.583,
+          "growth": 0.121
         },
         "cardBody": {
           "keys": [
             "assignedSummary",
             "climateSummary",
-            "absenceSummary",
             "beaconSummary"
           ],
           "beforeMean": 8.5,
@@ -9874,18 +7986,16 @@
           "keys": [
             "assignedTitle",
             "climateTitle",
-            "absenceTitle",
             "beaconTitle"
           ],
-          "beforeMean": 10,
-          "afterMean": 11.063,
-          "growth": 0.106
+          "beforeMean": 10.333,
+          "afterMean": 11.583,
+          "growth": 0.121
         },
         "cardBody": {
           "keys": [
             "assignedSummary",
             "climateSummary",
-            "absenceSummary",
             "beaconSummary"
           ],
           "beforeMean": 8.5,
@@ -9949,8 +8059,8 @@
       "desktop-dark": {
         "surfaceDistance": {
           "before": 33.356,
-          "after": 18.073,
-          "reduction": 0.458
+          "after": 20.123,
+          "reduction": 0.428
         },
         "minimumContrast": 8.433,
         "minimumAccentDistance": {
@@ -9968,66 +8078,65 @@
           ]
         },
         "layerSalience": {
-          "event": 81.401,
-          "climate": 70.258,
-          "absence": 131.477,
-          "beacon": 97.666
+          "event": 87.178,
+          "climate": 71.853,
+          "beacon": 98.558
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 33.853,
-            "after": 20.616,
-            "reduction": 0.391
+            "after": 22.913,
+            "reduction": 0.323
           },
           "ah-market-scan": {
             "before": 17.378,
-            "after": 10.488,
-            "reduction": 0.396
+            "after": 13.153,
+            "reduction": 0.243
           },
           "us-market-scan": {
             "before": 24.86,
-            "after": 14.765,
-            "reduction": 0.406
+            "after": 17.146,
+            "reduction": 0.31
           },
           "ai-brief": {
             "before": 31.289,
-            "after": 10.44,
-            "reduction": 0.666
+            "after": 12.45,
+            "reduction": 0.602
           },
           "service-support": {
             "before": 21.749,
-            "after": 13.491,
-            "reduction": 0.38
-          },
-          "private-reminder": {
-            "before": 33.422,
-            "after": 24.617,
-            "reduction": 0.263
+            "after": 15.166,
+            "reduction": 0.303
           },
           "warning-exception": {
             "before": 36.277,
-            "after": 19.621,
-            "reduction": 0.459
+            "after": 21.424,
+            "reduction": 0.409
           },
           "autonomous-artwork": {
             "before": 68.022,
-            "after": 30.545,
-            "reduction": 0.551
+            "after": 31.401,
+            "reduction": 0.538
+          },
+          "daily-reminder": {
+            "before": null,
+            "after": 27.331,
+            "reduction": null,
+            "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 77.853,
+        "maximumClimateSalience": 79.582,
         "activeSalience": {
-          "assigned-work": 82.513,
-          "private-reminder": 131.477,
-          "warning-exception": 80.289,
-          "autonomous-artwork": 97.666
+          "assigned-work": 84.322,
+          "warning-exception": 81.715,
+          "autonomous-artwork": 98.558
         }
       },
       "desktop-light": {
         "surfaceDistance": {
           "before": 27.376,
-          "after": 12.419,
-          "reduction": 0.546
+          "after": 12.693,
+          "reduction": 0.537
         },
         "minimumContrast": 5.493,
         "minimumAccentDistance": {
@@ -10038,66 +8147,65 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 25.14,
+          "value": 25.141,
           "pair": [
             "us-market-scan",
             "service-support"
           ]
         },
         "layerSalience": {
-          "event": 76.913,
-          "climate": 62.367,
-          "absence": 87.477,
-          "beacon": 76.749
+          "event": 69.255,
+          "climate": 62.554,
+          "beacon": 76.313
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 36.824,
-            "after": 13,
-            "reduction": 0.647
+            "after": 12.806,
+            "reduction": 0.652
           },
           "ah-market-scan": {
             "before": 14.799,
-            "after": 11.18,
-            "reduction": 0.245
+            "after": 11.747,
+            "reduction": 0.206
           },
           "us-market-scan": {
             "before": 24.269,
-            "after": 11.358,
-            "reduction": 0.532
+            "after": 11.747,
+            "reduction": 0.516
           },
           "ai-brief": {
             "before": 21.909,
-            "after": 12.45,
-            "reduction": 0.432
+            "after": 13.342,
+            "reduction": 0.391
           },
           "service-support": {
             "before": 22.204,
-            "after": 14.142,
-            "reduction": 0.363
-          },
-          "private-reminder": {
-            "before": 33,
-            "after": 12.042,
-            "reduction": 0.635
+            "after": 14.731,
+            "reduction": 0.337
           },
           "warning-exception": {
             "before": 30.887,
-            "after": 13.601,
-            "reduction": 0.56
+            "after": 13.491,
+            "reduction": 0.563
           },
           "autonomous-artwork": {
             "before": 35.114,
-            "after": 11.576,
-            "reduction": 0.67
+            "after": 10.954,
+            "reduction": 0.688
+          },
+          "daily-reminder": {
+            "before": null,
+            "after": 12.728,
+            "reduction": null,
+            "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 64.719,
+        "maximumClimateSalience": 65.107,
         "activeSalience": {
-          "assigned-work": 71.88,
-          "private-reminder": 87.477,
-          "warning-exception": 81.945,
-          "autonomous-artwork": 76.749
+          "assigned-work": 71.557,
+          "warning-exception": 81.829,
+          "autonomous-artwork": 76.313
         }
       }
     },

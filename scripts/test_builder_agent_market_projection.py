@@ -44,7 +44,7 @@ class BuilderAgentMarketProjectionTests(unittest.TestCase):
             "returned_agent_count": 1,
             "public_excerpts": ["请比较 ████ 的证据，并解释为什么结论仍需保留条件。"],
             "excerpt_redaction_count": 1,
-            "excerpt_provenance": "sanitized_owner_dialogue",
+            "excerpt_provenance": "audited_collaboration_dialogue",
             "agent_labels": ["Hermes", "GPT", "subagent"],
             "start": "02:30",
             "end": "23:10",

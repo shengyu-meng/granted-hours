@@ -79,6 +79,54 @@ RULES = (
         "核对了外部服务权限、部署与数据链路的可用性，具体平台和技术细节不公开。",
         "Checked the availability of external-service permissions, deployment, and data paths; platform names and technical details remain private.",
     ),
+    SemanticRule(
+        "internal_verification_chatter",
+        re.compile(
+            r"(?is)verification\s+status|verification\s+summary|concrete\s+blocker|"
+            r"file[- ]mutation\s+verifier|ad[- ]hoc[- ]verified|no\s+(?:shell|terminal)|"
+            r"read_file|write_file|search_files|shell_exec|sensitive\s+system\s+path|"
+            r"temp(?:orary)?\s+(?:verification\s+)?script|"
+            r"运行时核验|执行阻塞|临时验证脚本|文件变更验证器|内部校验脚本",
+        ),
+        "核验了提醒记录的结构与完整性，内部执行细节不公开。",
+        "Checked the reminder record for structural integrity; internal execution details remain private.",
+    ),
+    SemanticRule(
+        "personal_psychological_interpretation",
+        re.compile(
+            r"(?is)source\s+of\s+guilt|not\s+enough\s+trust|deceiv(?:e|ing)\s+yourself|"
+            r"you\s+can(?:no|'t)\s+really\s+rest|if\s+you\s+feel\s+(?:empty|bored)|"
+            r"you\s+are\s+not\s+a\s+machine|no\s+progress.{0,30}terrible|"
+            r"内疚|不够信任|欺骗自己|无法真正休息|感到空虚|你不是机器|"
+            r"没有进展.{0,20}(?:可怕|糟糕)",
+        ),
+        "保留了一条关于节奏、休息与自我观察的温和提醒，具体心理判断不公开。",
+        "Retained a gentle reminder about pace, rest, and self-observation; specific psychological interpretations remain private.",
+    ),
+    SemanticRule(
+        "publishing_operation",
+        re.compile(
+            r"(?is)social[- ]publishing\s+queue|scheduling\s+quota|"
+            r"drafts?.{0,80}waiting\s+in\s+the\s+queue|"
+            r"weibo.{0,80}(?:schedul|quota|queue)|"
+            r"发布队列|定时配额|排队稿件|微博.{0,40}(?:定时|配额|队列)",
+        ),
+        "核对了一项公开内容的排期与归档，具体平台、稿件和运行状态不公开。",
+        "Checked scheduling and archiving for a public-content item; platform, draft, and operational details remain private.",
+    ),
+    SemanticRule(
+        "personal_finance_or_trading",
+        re.compile(
+            r"(?is)持仓|仓位|试仓|真实账户|真实仓位|金融终端|触发价|"
+            r"止盈|止损|补仓|减仓|买入|卖出|申购套利|"
+            r"\b(?:HK|US|SZ|SH)\.\d{3,6}\b|\bQMT\b|\bFutu\b|\bSWHY\b|"
+            r"\bportfolio\s+(?:holding|position|allocation|exposure)s?\b|"
+            r"\bholdings?\s+(?:query|snapshot|automation)\b|"
+            r"\btrading\s+account\b|\bbuy[/ ]sell\b",
+        ),
+        "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。",
+        "Structured a read-only research, evidence-checking, and risk-review workflow; specific assets, accounts, and actions remain private.",
+    ),
 )
 
 _ABSTRACT_MARKERS = tuple(

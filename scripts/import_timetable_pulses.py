@@ -1402,21 +1402,33 @@ def normalize_legacy_market_pulse(pulse: dict) -> dict:
     if not clues_zh:
         clues_zh.append("市场扫描足迹")
         clues_en.append("a public market-scan footprint")
-    summary_zh = (
-        f"本窗口完成 {count} 次{label_zh}；保留的公开线索："
-        f"{'；'.join(clues_zh)}。本历史窗口仅保留经隐私闸门核验的聚合证据。"
-    )
-    summary_en = (
-        f"{count} {label_en} run(s) completed; retained public signals: "
-        f"{'; '.join(clues_en)}. This historical window retains only "
-        "privacy-gated aggregate evidence."
-    )
+    summary_zh = f"{count} 次{label_zh}；{'；'.join(clues_zh)}。"
+    summary_en = f"{count} {label_en} run(s); {'; '.join(clues_en)}."
     return {
         **pulse,
         "summary_zh": summary_zh,
         "summary_en": summary_en,
         "summary_provenance": "derived_public_safe",
     }
+
+
+def aggregate_public_market_copy(snapshot: dict) -> dict:
+    """Keep routine market cards useful without exposing instruments or terminals."""
+    days = snapshot.get("days")
+    if not isinstance(days, list):
+        fail("Market aggregation requires a pulse day list")
+    aggregated_days = []
+    for entry in days:
+        if not isinstance(entry, dict) or not isinstance(entry.get("pulses"), list):
+            fail("Market aggregation received an invalid pulse day")
+        pulses = [
+            normalize_legacy_market_pulse(pulse)
+            if isinstance(pulse, dict) and pulse.get("category") in MARKET_CATEGORIES
+            else pulse
+            for pulse in entry["pulses"]
+        ]
+        aggregated_days.append({**entry, "pulses": pulses})
+    return {**snapshot, "days": aggregated_days}
 
 
 def refresh_market_snapshot_from_receipts(
@@ -2138,6 +2150,7 @@ def main() -> int:
             snapshot,
             set(args.dates),
         )
+    snapshot = aggregate_public_market_copy(snapshot)
     validate_snapshot_reminder_parity(snapshot)
     empty_dates = [entry["date"] for entry in snapshot["days"] if not entry["pulses"]]
     if empty_dates:

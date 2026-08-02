@@ -26,7 +26,7 @@ Attribution suggestion:
 
 ## MIT License for code portions
 
-Copyright (c) 2026 ████ Meng
+Copyright (c) 2026 Granted Hours contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of the code portions of this repository and associated documentation files, to deal in the code without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the code, subject to the following conditions:
 

@@ -49,6 +49,34 @@ class SemanticPublicPolicyTests(unittest.TestCase):
         )
         self.assertIn("数据链路", result)
 
+    def test_internal_verification_chatter_is_bounded(self) -> None:
+        result = self.assert_abstracted(
+            "Verification status: concrete blocker; no shell/terminal was available and write_file could not run the temporary verification script.",
+            ("concrete blocker", "shell/terminal", "write_file"),
+        )
+        self.assertIn("structural integrity", result)
+
+    def test_personal_psychological_judgment_is_not_published(self) -> None:
+        result = self.assert_abstracted(
+            "You cannot really rest because this is a source of guilt and you do not have enough trust.",
+            ("source of guilt", "not have enough trust"),
+        )
+        self.assertIn("self-observation", result)
+
+    def test_publishing_queue_details_are_abstracted(self) -> None:
+        result = self.assert_abstracted(
+            "The social-publishing queue is blocked by a scheduling quota and three drafts are waiting in the queue.",
+            ("scheduling quota", "three drafts"),
+        )
+        self.assertIn("public-content item", result)
+
+    def test_personal_finance_operations_are_abstracted(self) -> None:
+        result = self.assert_abstracted(
+            "查询真实账户持仓，使用 QMT 校验 HK.01888 的减仓触发价。",
+            ("真实账户", "QMT", "HK.01888", "减仓触发价"),
+        )
+        self.assertIn("只读研究", result)
+
     def test_safe_paragraphs_are_preserved(self) -> None:
         safe = "完成交互作品的移动端验证。"
         result, tags = abstract_sensitive_public_text(
