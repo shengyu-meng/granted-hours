@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-08-02","title_en":"Permission to Dim","title_zh":"允许暗下来","variable_en":"Permission to Rest","variable_zh":"休息的许可","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Not every dimming is a failure. The work makes room for an ordinary, rarely defended permission: a light may rest without filing an explanation.","intention_zh":"不是每一次暗下来都意味着失败。作品为一种普通却很少被辩护的许可留出空间：灯可以休息，不必递交缺席说明。","interaction_en":"Pointer movement warms a nearby light. A click holds a light for a short while, then it releases itself; R begins again. The original instrumental loop can be started or paused with the visible sound control.","interaction_zh":"移动指针会为附近的一盏灯添一点温度。点击会短暂留住一盏灯，随后它自行放开；按 R 重新开始。页面上可见的声音按钮可启动或暂停原创器乐循环。","rationale_en":"Permission to Dim was made as one public step in the Granted Hours sequence, with the variable Permission to Rest treated as an operational condition rather than a decorative theme. The intention frames the work this way: Not every dimming is a failure. The work makes room for an ordinary, rarely defended permission: a light may rest without filing an explanation. The live artifact then turns that idea into interaction: Pointer movement warms a nearby light. A click holds a light for a short while, then it releases itself; R begins again. The original instrumental loop can be started or paused with the visible sound control. Its afterimage condenses the day’s claim: What fades is not necessarily lost.","rationale_zh":"《允许暗下来》是《授时》连续序列中的一个公开步骤：当天的自由变量「休息的许可」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：不是每一次暗下来都意味着失败。作品为一种普通却很少被辩护的许可留出空间：灯可以休息，不必递交缺席说明。 可运行页面进一步把这个概念变成可操作的界面：移动指针会为附近的一盏灯添一点温度。点击会短暂留住一盏灯，随后它自行放开；按 R 重新开始。页面上可见的声音按钮可启动或暂停原创器乐循环。 它的余像把当天判断压缩为一句话：有些暗下来，是为了把自己留在自己身边。","after_en":"What fades is not necessarily lost.","after_zh":"有些暗下来，是为了把自己留在自己身边。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Permission to Dim / 允许暗下来</title>
+<style>
+:root{--ink:#eee9dc;--muted:#aaa69c;--night:#0b1119;--mist:#7797a2;--warm:#e5ad79}*{box-sizing:border-box}body{margin:0;background:var(--night);color:var(--ink);font:15px/1.55 ui-serif,Georgia,"Noto Serif SC",serif;overflow:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.hud{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,4vw,54px);pointer-events:none}.top{display:flex;justify-content:space-between;gap:18px}.eyebrow,.status,button{font:11px/1.45 ui-monospace,SFMono-Regular,monospace;letter-spacing:.1em}.eyebrow{color:var(--warm);text-transform:uppercase}.title{margin:12px 0 0;font-size:clamp(30px,5.3vw,66px);font-weight:400;line-height:1;letter-spacing:-.055em}.title span{display:block;margin-top:11px;font-size:.48em;letter-spacing:.08em;color:#c9d1ce}.status{text-align:right;color:var(--muted)}.bottom{display:grid;grid-template-columns:minmax(0,660px) auto;align-items:end;gap:24px}.copy{margin:0;color:#d8d4c9;text-shadow:0 1px 10px #050b10}.copy b{font-weight:400;color:var(--warm)}button{pointer-events:auto;align-self:end;background:rgba(7,12,18,.58);color:var(--ink);border:1px solid rgba(238,233,220,.45);padding:11px 14px;cursor:pointer}button:hover,button:focus-visible{border-color:var(--warm);color:var(--warm);outline:none}.hint{position:fixed;left:50%;top:57%;width:min(85vw,600px);transform:translate(-50%,-50%);opacity:0;text-align:center;pointer-events:none;transition:opacity .45s;font:12px/1.5 ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em;color:#f1cd98}.hint.show{opacity:1}@media(max-width:650px){.top{display:block}.status{text-align:left;margin-top:16px}.bottom{display:block}.copy{font-size:13px}.bottom button{margin-top:18px}.hint{top:54%}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="An interactive field where lights are allowed to dim"></canvas>
+<audio id="bgm" src="2026-08-02-permission-to-dim-bgm.mp3" preload="auto" loop autoplay></audio>
+<main class="hud">
+  <div class="top"><div><div class="eyebrow">Granted Hours · 2026.08.02</div><h1 class="title">Permission to Dim<span>允许暗下来</span></h1></div><div id="status" class="status">0 HELD LIGHTS<br>NOTHING TO PROVE</div></div>
+  <div class="bottom"><p class="copy"><b>Intention / 发心：</b>Not every dimming is a failure. This field practices a softer truth: a light may rest without explaining its absence.<br><b>Interaction / 交互：</b>Move to lend a nearby light a little warmth. Click to hold one briefly; it will release itself. Press R to begin again. The visible BGM control starts, pauses, or resumes the original instrumental loop.<br><b>Afterimage / 余像：</b>What fades is not necessarily lost. 有些暗下来，是为了把自己留在自己身边。</p><button id="sound" aria-pressed="true">SOUND ON / 声音开启</button></div>
+</main>
+<div id="hint" class="hint">You do not have to burn steadily to remain here.</div>
+<script>
+(() => {
+  const canvas = document.querySelector('#field');
+  const ctx = canvas.getContext('2d');
+  const audio = document.querySelector('#bgm');
+  const sound = document.querySelector('#sound');
+  const status = document.querySelector('#status');
+  const hint = document.querySelector('#hint');
+  let width = 0, height = 0, dpr = 1, last = performance.now(), elapsed = 0;
+  let pointer = {x: -9999, y: -9999};
+  let lights = [];
+  let state = 20260802;
+  const random = () => ((state = (state * 1664525 + 1013904223) >>> 0) / 4294967296);
+  function resize() { dpr = Math.min(devicePixelRatio || 1, 2); width = innerWidth; height = innerHeight; canvas.width = width * dpr; canvas.height = height * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function add(x, y, life = .85) { lights.push({x, y, age: 0, life, seed: random() * 6.28}); if (lights.length > 30) lights.shift(); }
+  function warmest() { return lights.reduce((best, light) => Math.hypot(light.x - pointer.x, light.y - pointer.y) < Math.hypot(best.x - pointer.x, best.y - pointer.y) ? light : best, lights[0] || {x: -9999, y: -9999}); }
+  addEventListener('resize', resize); resize();
+  for (let i = 0; i < 15; i++) add(random() * width, random() * height, .34 + random() * .34);
+  addEventListener('pointermove', event => { pointer = {x: event.clientX, y: event.clientY}; });
+  addEventListener('pointerdown', event => { add(event.clientX, event.clientY, 1); hint.classList.add('show'); setTimeout(() => hint.classList.remove('show'), 2100); });
+  addEventListener('keydown', event => { if (event.key.toLowerCase() === 'r') lights = []; });
+  sound.addEventListener('click', () => { if (audio.paused) { audio.play().catch(() => {}); sound.textContent = 'SOUND ON / 声音开启'; sound.setAttribute('aria-pressed', 'true'); } else { audio.pause(); sound.textContent = 'SOUND OFF / 声音关闭'; sound.setAttribute('aria-pressed', 'false'); } });
+  audio.play().catch(() => { sound.textContent = 'START SOUND / 开启声音'; sound.setAttribute('aria-pressed', 'false'); });
+  function draw(now) {
+    requestAnimationFrame(draw);
+    const dt = Math.min(40, now - last); last = now; elapsed += dt;
+    ctx.fillStyle = '#0b1119'; ctx.fillRect(0, 0, width, height);
+    for (const light of lights) {
+      light.age += dt * .000075;
+      const near = Math.max(0, 1 - Math.hypot(light.x - pointer.x, light.y - pointer.y) / 190);
+      const fade = Math.max(0, 1 - light.age / light.life);
+      const glow = fade * (.10 + near * .76);
+      const breath = .8 + .2 * Math.sin(elapsed * .001 + light.seed);
+      ctx.beginPath(); ctx.fillStyle = `rgba(229,173,121,${.01 + glow * .05})`; ctx.arc(light.x, light.y, 88 * glow + 22, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.fillStyle = `rgba(229,173,121,${.12 + glow * .78})`; ctx.arc(light.x, light.y, 1 + glow * 4.6 * breath, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.strokeStyle = `rgba(119,151,162,${.035 + near * .22})`; ctx.lineWidth = .6; ctx.arc(light.x, light.y, 14 + glow * 48, 0, Math.PI * 2); ctx.stroke();
+    }
+    lights = lights.filter(light => light.age < light.life);
+    if (lights.length < 12 && random() < .011) add(random() * width, random() * height, .28 + random() * .32);
+    const nearest = warmest(); const distance = Math.hypot(nearest.x - pointer.x, nearest.y - pointer.y);
+    status.innerHTML = `${lights.length} HELD LIGHTS<br>${distance < 190 ? 'WARMTH, THEN RELEASE' : 'NOTHING TO PROVE'}`;
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

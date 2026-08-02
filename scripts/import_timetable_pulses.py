@@ -41,6 +41,9 @@ from public_projection_privacy import (
     project_market_evidence,
     replace_private_terms,
 )
+from semantic_public_policy import (
+    reminder_requires_routine_projection as reminder_text_requires_routine_projection,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
@@ -82,6 +85,10 @@ GENERIC_REMINDER_TRANSLATIONS = {
     "A reminder was published.",
     "Reminder not published.",
 }
+ROUTINE_ONLY_REMINDER_SUMMARY = (
+    "日常计划与优先级复核。",
+    "Daily planning and priority review.",
+)
 
 NESTED_RUN_RE = re.compile(r"^(?P<stamp>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})\.(?:md|txt)$")
 FLAT_RUN_RE = re.compile(
@@ -108,6 +115,9 @@ AH_MARKET_RE = re.compile(
 AI_BRIEF_RE = re.compile(r"(?i)(?:ai[- ]?daily|daily[- ]?brief|AI日报)")
 REMINDER_RE = re.compile(
     r"(?i)(?:remind|reminder|gentle|dispatch|回顾|提醒|晚安|日记|reflection)"
+)
+INTERNAL_REFLECTION_RE = re.compile(
+    r"(?i)(?:redo[-_ ]?reflection|self[-_ ]?review|internal[-_ ]?scoreboard)"
 )
 SYSTEM_RE = re.compile(
     r"(?i)(?:backup|sync|health|update|maintenance|workspace|version|"
@@ -593,11 +603,19 @@ def categorize_job(name: str) -> str:
         return "us_market_scan"
     if AH_MARKET_RE.search(name):
         return "ah_market_scan"
+    if INTERNAL_REFLECTION_RE.search(name):
+        return "background_routine"
     if REMINDER_RE.search(name):
         return "daily_reminder"
     if SYSTEM_RE.search(name):
         return "system_routine"
     return "background_routine"
+
+
+def reminder_requires_routine_projection(projection: dict) -> bool:
+    """Reduce a sensitive reminder to a routine footprint, not public prose."""
+    summary = projection.get("summary_original")
+    return reminder_text_requires_routine_projection(summary)
 
 
 def time_bucket(timestamp: datetime) -> tuple[str, str]:
@@ -953,6 +971,7 @@ def build_snapshot(
     for day_date in sorted(dates):
         pulses = []
         for group in grouped.get(day_date, []):
+            public_category = group["category"]
             display_start = group["start_at"].replace(second=0, microsecond=0)
             display_end = group["end_at"].replace(second=0, microsecond=0)
             if group["end_at"] > display_end:
@@ -979,6 +998,10 @@ def build_snapshot(
                 )
                 if reminder_projection is None:
                     continue
+                if reminder_requires_routine_projection(reminder_projection):
+                    public_category = "background_routine"
+                    reminder_projection = None
+                    summary_zh, summary_en = ROUTINE_ONLY_REMINDER_SUMMARY
             elif group["category"] != "daily_reminder":
                 summary_zh, summary_en = public_summary(
                     group["category"],
@@ -993,7 +1016,7 @@ def build_snapshot(
                 "duration_minutes": duration_minutes,
                 "execution_minutes": max(1, math.ceil(group["execution_seconds"] / 60)),
                 "time_bucket": bucket,
-                "category": group["category"],
+                "category": public_category,
                 "count": group["count"],
                 "time_provenance": (
                     "observed_session_window"
@@ -1004,7 +1027,7 @@ def build_snapshot(
                 ),
             }
             if reminder_projection is None:
-                if group["category"] == "daily_reminder":
+                if public_category == "daily_reminder":
                     pulse.update(
                         {
                             "summary_zh": "提醒未公开。",
@@ -1020,7 +1043,7 @@ def build_snapshot(
                             "summary_provenance": "derived_public_safe",
                         }
                     )
-            if group["category"] == "daily_reminder":
+            if public_category == "daily_reminder":
                 pulse.update(
                     {
                         "owner_scope": (

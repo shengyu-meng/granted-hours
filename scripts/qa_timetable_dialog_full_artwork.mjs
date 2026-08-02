@@ -32,15 +32,16 @@ async function scrollTopology(page) {
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
   const page = await context.newPage();
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  const sampleUrl = new URL(baseUrl);
+  sampleUrl.searchParams.set("date", sampleDate);
+  await page.goto(sampleUrl.href, { waitUntil: "networkidle" });
 
   const latest = [...timetableData.days].sort((a, b) => b.date.localeCompare(a.date))[0];
   assert.equal(timetableData.bgm_playlist.length, timetableData.days.length);
   assert.equal(timetableData.bgm_playlist[0].date, latest.date);
   assert.equal(await page.locator("#calendarBgm").getAttribute("data-date"), latest.date);
 
-  await page.click(`.calendar-day-button[data-date="${sampleDate}"]`);
-  await page.waitForSelector("#dayDialog.is-open");
+  await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
   await page.waitForFunction(() => {
     const panel = document.querySelector("#dayDialogPanel");
     if (!panel) return false;
@@ -161,9 +162,8 @@ try {
     deviceScaleFactor: 2.75,
   });
   const mobilePage = await mobile.newPage();
-  await mobilePage.goto(baseUrl, { waitUntil: "networkidle" });
-  await mobilePage.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
-  await mobilePage.waitForSelector("#dayDialog.is-open");
+  await mobilePage.goto(sampleUrl.href, { waitUntil: "networkidle" });
+  await mobilePage.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
   const mobileRoots = await scrollTopology(mobilePage);
   assert.deepEqual(
     mobileRoots.filter((root) => root.canScroll).map((root) => root.selector),

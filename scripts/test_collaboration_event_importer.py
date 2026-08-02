@@ -18,6 +18,52 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 
 
 class CollaborationEventImporterTests(unittest.TestCase):
+    def test_new_public_date_with_foreground_is_added_without_placeholder(self) -> None:
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "note": {"en": "note", "zh": "说明"},
+            "days": [],
+        }
+        collaboration = {
+            "category": "code_development",
+            "en": "A complete public result.",
+            "zh": "一条完整的公开结果。",
+            "redaction_status": "none",
+            "redaction_count": 0,
+            "source_kind": "collaboration_session",
+            "faithfulness": "faithful_summary",
+            "evidence_count": 1,
+            "session_count": 1,
+            "delegated_agent_count": 0,
+            "returned_agent_count": 0,
+            "public_excerpts": ["一条完整的公开结果。"],
+            "excerpt_redaction_count": 0,
+            "excerpt_provenance": "audited_collaboration_dialogue",
+            "agent_labels": ["Hermes"],
+            "start": "10:00",
+            "end": "10:10",
+            "time_provenance": "observed_message_envelope",
+        }
+        merged = importer.merge_history(
+            history,
+            {"2026-08-02": [collaboration]},
+            {},
+            ["2026-08-02"],
+        )
+        self.assertEqual(len(merged["days"]), 1)
+        self.assertEqual(merged["days"][0]["date"], "2026-08-02")
+        self.assertEqual(merged["days"][0]["provenance"], "dialogue_based")
+        self.assertEqual(merged["days"][0]["assigned_residues"], [collaboration])
+
+    def test_new_public_date_without_foreground_keeps_builder_fallback(self) -> None:
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "note": {"en": "note", "zh": "说明"},
+            "days": [],
+        }
+        merged = importer.merge_history(history, {}, {}, ["2026-08-02"])
+        self.assertEqual(merged["days"], [])
+
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary_directory.name)

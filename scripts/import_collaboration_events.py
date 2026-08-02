@@ -637,13 +637,32 @@ def collect(state_db: Path, dates: list[str], detector: Path, denylist_paths: tu
         connection.close()
 
 
-def merge_history(history: dict, collaborations: dict[str, list[dict]], agents: dict[str, list[dict]]) -> dict:
+def merge_history(
+    history: dict,
+    collaborations: dict[str, list[dict]],
+    agents: dict[str, list[dict]],
+    public_dates: list[str] | None = None,
+) -> dict:
     if history.get("schema") != HISTORY_SCHEMA or not isinstance(history.get("days"), list): raise ValueError("Invalid history")
+    history_by_date = {str(entry["date"]): entry for entry in history["days"]}
+    ordered_dates = sorted(set(history_by_date) | set(public_dates or ()))
     output = []
-    for entry in history["days"]:
+    for day in ordered_dates:
+        entry = history_by_date.get(day)
+        foreground = [*collaborations.get(day, []), *agents.get(day, [])[:1]]
+        if entry is None:
+            # A newly imported artwork can precede its first dialogue sync. Admit
+            # only evidence-backed foreground here; dates with no evidence keep
+            # using the builder's inferred fallback until a later refresh.
+            if not foreground:
+                continue
+            entry = {
+                "date": day,
+                "provenance": "dialogue_based" if collaborations.get(day) else "record_based",
+                "assigned_residues": [],
+            }
         existing = [item for item in entry["assigned_residues"] if item.get("source_kind") not in GENERATED_KINDS]
         existing = [item for _, item in sorted(enumerate(existing), key=lambda pair: (EXISTING_PRIORITY.get(pair[1].get("source_kind"), 99), pair[0]))]
-        day = str(entry["date"]); foreground = [*collaborations.get(day, []), *agents.get(day, [])[:1]]
         residues = [*foreground, *existing[:max(0, MAX_HISTORY_RESIDUES - len(foreground))]]
         if not residues: raise ValueError(f"{day} empty")
         provenance = (
@@ -661,7 +680,7 @@ def import_events(state_db: Path, days_path: Path, history_path: Path, detector:
     dates = public_dates(days_path); history = read_json(history_path)
     collaborations, audit = collect(state_db, dates, detector, denylists)
     agents = collect_agent_events(state_db, dates, excluded_parent_sources={"telegram"})
-    merged = merge_history(history, collaborations, agents)
+    merged = merge_history(history, collaborations, agents, dates)
     inserted = [item for day in merged["days"] for item in day["assigned_residues"] if item.get("source_kind") == "collaboration_session"]
     changed = json.dumps(merged, ensure_ascii=False, indent=2) + "\n" != history_path.read_text(encoding="utf-8")
     if changed and not dry_run: write_json(history_path, merged)

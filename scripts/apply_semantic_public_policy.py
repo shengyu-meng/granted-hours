@@ -22,11 +22,13 @@ from reminder_disclosure import (
     extractive_prefix,
     projection_kind_for_counts,
 )
+from public_projection_privacy import load_private_denylist, replace_private_terms
 from semantic_public_policy import (
     abstract_for_tags,
     abstract_sensitive_public_text,
     polish_public_excerpt,
     projection_tags,
+    reminder_requires_routine_projection,
 )
 
 
@@ -34,7 +36,12 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_HISTORY = ROOT / "metadata" / "timetable-history.json"
 DEFAULT_PULSES = ROOT / "metadata" / "timetable-pulses.json"
 DEFAULT_TRANSLATIONS = ROOT / "metadata" / "timetable-reminder-translations.json"
+DEFAULT_IDENTITY_DENYLIST = ROOT / ".private" / "identity-denylist.json"
 MASK = "████"
+ROUTINE_SUMMARY = (
+    "日常计划与优先级复核。",
+    "Daily planning and priority review.",
+)
 KNOWN_HISTORY_ABSTRACTIONS = {
     "2026-05-10": {1: ("intimate_family_dream",), 2: ("intimate_family_dream",)},
     "2026-05-19": {1: ("health_or_emotional_state",)},
@@ -79,8 +86,17 @@ def atomic_write_json(path: Path, value: object) -> bool:
     return True
 
 
-def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
-    stats = {"fields": 0, "abstracted": 0, "merged_duplicates": 0}
+def sanitize_history(
+    source: dict,
+    *,
+    identity_terms: tuple[str, ...] = (),
+) -> tuple[dict, dict[str, int]]:
+    stats = {
+        "fields": 0,
+        "abstracted": 0,
+        "identity_masks": 0,
+        "merged_duplicates": 0,
+    }
     for day in source.get("days", []):
         day_date = str(day.get("date", ""))
         for residue_index, residue in enumerate(day.get("assigned_residues", [])):
@@ -91,6 +107,14 @@ def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
             zh = residue.get("zh")
             en = residue.get("en")
             if isinstance(zh, str) and isinstance(en, str):
+                masked_zh = replace_private_terms(zh, identity_terms, MASK)
+                masked_en = replace_private_terms(en, identity_terms, MASK)
+                stats["identity_masks"] += int(masked_zh != zh) + int(
+                    masked_en != en
+                )
+                zh, en = masked_zh, masked_en
+                residue["zh"] = zh
+                residue["en"] = en
                 tags = tuple(
                     dict.fromkeys(
                         (*forced_tags, *projection_tags(zh), *projection_tags(en))
@@ -125,7 +149,16 @@ def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
             else:
                 for excerpt in excerpts:
                     stats["fields"] += 1
-                    sanitized, tags = abstract_sensitive_public_text(str(excerpt))
+                    original_excerpt = str(excerpt)
+                    masked_excerpt = replace_private_terms(
+                        original_excerpt,
+                        identity_terms,
+                        MASK,
+                    )
+                    stats["identity_masks"] += int(
+                        masked_excerpt != original_excerpt
+                    )
+                    sanitized, tags = abstract_sensitive_public_text(masked_excerpt)
                     sanitized = polish_public_excerpt(sanitized)
                     if tags:
                         stats["abstracted"] += 1
@@ -153,8 +186,18 @@ def sanitize_history(source: dict) -> tuple[dict, dict[str, int]]:
     return source, stats
 
 
-def sanitize_pulses(source: dict) -> tuple[dict, dict[str, int]]:
-    stats = {"fields": 0, "abstracted": 0, "reminders": 0}
+def sanitize_pulses(
+    source: dict,
+    *,
+    identity_terms: tuple[str, ...] = (),
+) -> tuple[dict, dict[str, int]]:
+    stats = {
+        "fields": 0,
+        "abstracted": 0,
+        "identity_masks": 0,
+        "reminders": 0,
+        "routine_reductions": 0,
+    }
     for day in source.get("days", []):
         for pulse in day.get("pulses", []):
             if pulse.get("category") == "daily_reminder" and all(
@@ -164,15 +207,56 @@ def sanitize_pulses(source: dict) -> tuple[dict, dict[str, int]]:
                 stats["reminders"] += 1
                 previous_original = pulse["summary_original"]
                 previous_english = pulse["summary_en"]
-                original_tags = projection_tags(previous_original)
-                english_tags = projection_tags(previous_english)
+                masked_original = replace_private_terms(
+                    previous_original,
+                    identity_terms,
+                    MASK,
+                )
+                masked_english = replace_private_terms(
+                    previous_english,
+                    identity_terms,
+                    MASK,
+                )
+                stats["identity_masks"] += int(
+                    masked_original != previous_original
+                ) + int(masked_english != previous_english)
+                if reminder_requires_routine_projection(
+                    f"{previous_original}\n{previous_english}"
+                ):
+                    retained = {
+                        key: pulse[key]
+                        for key in (
+                            "start",
+                            "end",
+                            "duration_minutes",
+                            "execution_minutes",
+                            "time_bucket",
+                            "count",
+                            "time_provenance",
+                        )
+                        if key in pulse
+                    }
+                    pulse.clear()
+                    pulse.update(retained)
+                    pulse.update(
+                        {
+                            "category": "background_routine",
+                            "summary_zh": ROUTINE_SUMMARY[0],
+                            "summary_en": ROUTINE_SUMMARY[1],
+                            "summary_provenance": "derived_public_safe",
+                        }
+                    )
+                    stats["routine_reductions"] += 1
+                    continue
+                original_tags = projection_tags(masked_original)
+                english_tags = projection_tags(masked_english)
                 tags = tuple(dict.fromkeys((*original_tags, *english_tags)))
                 if tags:
                     original = abstract_for_tags(tags, "zh")
                     english = abstract_for_tags(tags, "en")
                 else:
-                    original = pulse["summary_original"]
-                    english = pulse["summary_en"]
+                    original = masked_original
+                    english = masked_english
                 if original.count(MASK) != english.count(MASK):
                     original = original.replace(MASK, "某项未公开内容")
                     english = english.replace(MASK, "a private item")
@@ -207,9 +291,11 @@ def sanitize_pulses(source: dict) -> tuple[dict, dict[str, int]]:
                 if not isinstance(value, str):
                     continue
                 stats["fields"] += 1
-                sanitized, tags = abstract_sensitive_public_text(value)
+                masked = replace_private_terms(value, identity_terms, MASK)
+                stats["identity_masks"] += int(masked != value)
+                sanitized, tags = abstract_sensitive_public_text(masked)
+                pulse[field] = sanitized
                 if tags:
-                    pulse[field] = sanitized
                     stats["abstracted"] += 1
     return source, stats
 
@@ -253,14 +339,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY)
     parser.add_argument("--pulses", type=Path, default=DEFAULT_PULSES)
     parser.add_argument("--translations", type=Path, default=DEFAULT_TRANSLATIONS)
+    parser.add_argument(
+        "--identity-denylist",
+        type=Path,
+        default=DEFAULT_IDENTITY_DENYLIST,
+    )
     parser.add_argument("--write", action="store_true")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    history, history_stats = sanitize_history(read_json(args.history))
-    pulses, pulse_stats = sanitize_pulses(read_json(args.pulses))
+    identity_terms = load_private_denylist(args.identity_denylist, "identities")
+    history, history_stats = sanitize_history(
+        read_json(args.history),
+        identity_terms=identity_terms,
+    )
+    pulses, pulse_stats = sanitize_pulses(
+        read_json(args.pulses),
+        identity_terms=identity_terms,
+    )
     translations = translation_catalog_from_pulses(pulses)
     changed = {"history": False, "pulses": False, "translations": False}
     if args.write:
@@ -272,7 +370,9 @@ def main() -> int:
         f"mode={'write' if args.write else 'audit'}; "
         f"history_abstracted={history_stats['abstracted']}; "
         f"pulse_abstracted={pulse_stats['abstracted']}; "
+        f"identity_masks={history_stats['identity_masks'] + pulse_stats['identity_masks']}; "
         f"reminders={pulse_stats['reminders']}; "
+        f"routine_reductions={pulse_stats['routine_reductions']}; "
         f"changed={sum(changed.values())}."
     )
     return 0

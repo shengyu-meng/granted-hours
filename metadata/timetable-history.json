@@ -6449,6 +6449,126 @@
           "faithfulness": "faithful_summary"
         }
       ]
+    },
+    {
+      "date": "2026-08-01",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "2026-08-01 · Research And Thematic Inquiry · 1 message(s) · 1 session(s)",
+          "zh": "2026-08-01｜调研与题材研究 · 1 条内容 · 1 个会话",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
+          "excerpt_provenance": "audited_collaboration_dialogue",
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "10:49",
+          "end": "10:50",
+          "time_provenance": "observed_message_envelope"
+        },
+        {
+          "category": "code_development",
+          "en": "2026-08-01 · Development And Validation · 3 message(s) · 1 session(s) · 24 delegated Agent run(s) · 10 completed return(s)",
+          "zh": "2026-08-01｜开发与验证 · 3 条内容 · 1 个会话 · 24 次 Agent 委派 · 10 次完成回传",
+          "redaction_status": "partial",
+          "redaction_count": 7,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 1,
+          "delegated_agent_count": 24,
+          "returned_agent_count": 10,
+          "public_excerpts": [
+            "你已经做了整整两天了，你仔细审视一下你的实验流程是不是过于严格和臃肿？我不觉得跑一个记忆可达性的实验需要两天的时间。你仔细检查一下后，重新确保在几个小时内能完成所有的实验。你重新写一个可靠的实验流程，然后报我审批。另外，其中说用 ████ m3 去执行这个实验，不是让 ████ 的主进程切换到 m3 去执行这个实验，而是让它用 ████ 设计完实验，用 ████ 设计完实验之后，然后呢，调用 ████ 的 ████，就我们内置的那个 ████ 后去作为实验中测试用的大语言模型去完成那个实验的流程。",
+            "长期创作、日常责任与稳定照护的平衡。 提醒记录的结构与完整性核验。 只读研究、证据校验与风险复核。"
+          ],
+          "excerpt_redaction_count": 7,
+          "excerpt_provenance": "audited_collaboration_dialogue",
+          "agent_labels": [
+            "Hermes",
+            "GPT",
+            "subagent"
+          ],
+          "start": "11:14",
+          "end": "13:59",
+          "time_provenance": "observed_message_envelope"
+        },
+        {
+          "category": "redacted_private",
+          "en": "2026-08-01 · Discussion, Judgment, And Task Advancement · 4 message(s) · 2 session(s)",
+          "zh": "2026-08-01｜讨论、判断与任务推进 · 4 条内容 · 2 个会话",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 4,
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "public_excerpts": [
+            "我希望你先对现在的仓库与实验进度进行完整的梳理、归档和索引构建，并推送到远程。然后呢，再撰写接下来的还没有完成的实验计划报我审批。",
+            "不是吧？让你归档一下，出一个继续快速实验的报告都要花那么久。"
+          ],
+          "excerpt_redaction_count": 0,
+          "excerpt_provenance": "audited_collaboration_dialogue",
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "13:11",
+          "end": "15:25",
+          "time_provenance": "observed_message_envelope"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-08-01, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "2026-08-01，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "16:31",
+          "end": "16:32",
+          "time_provenance": "observed_session_window"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-08-02, GPT/subagent completed evidence-backed research and review for ████; findings or review results were returned.",
+          "zh": "2026-08-02，GPT/子 Agent 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "GPT",
+            "subagent"
+          ],
+          "start": "17:25",
+          "end": "17:35",
+          "time_provenance": "observed_session_window"
+        }
+      ]
     }
   ]
 }

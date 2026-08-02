@@ -64,6 +64,11 @@ PULSE_PRIVATE_ID_RE = re.compile(
     r"|\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b"
 )
 SKIP_DIRS = {'.git', '.private', 'node_modules'}
+TEXT_SUFFIXES = {
+    '.css', '.csv', '.html', '.js', '.json', '.md', '.mjs', '.cjs', '.py',
+    '.svg', '.toml', '.txt', '.xml', '.yaml', '.yml',
+}
+TEXT_FILENAMES = {'LICENSE', 'README', 'CNAME'}
 SKIP_PREFIXES = {'audits/', 'docs/plans/', 'scripts/test_'}
 SKIP_FILES = {
     'scripts/check_public_safety.py',
@@ -123,6 +128,8 @@ def main(root: Path) -> int:
             continue
         rel = path.relative_to(root).as_posix()
         if rel in SKIP_FILES or any(rel.startswith(prefix) for prefix in SKIP_PREFIXES):
+            continue
+        if path.suffix.lower() not in TEXT_SUFFIXES and path.name not in TEXT_FILENAMES:
             continue
         try:
             text = path.read_text(encoding='utf-8')

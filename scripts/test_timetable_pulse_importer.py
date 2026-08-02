@@ -39,6 +39,58 @@ class TimetablePulseImporterTests(unittest.TestCase):
             }
         return catalog
 
+    def test_internal_reflection_is_not_published_as_a_personal_reminder(self) -> None:
+        self.assertEqual(
+            importer.categorize_job("redo-reflection-daily-0750"),
+            "background_routine",
+        )
+        self.assertEqual(
+            importer.categorize_job("simon-daily-gentle-dispatch-730"),
+            "daily_reminder",
+        )
+
+    def test_sensitive_reminder_becomes_routine_footprint(self) -> None:
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "检查持仓、发布队列与个人恢复安排。"}
+            )
+        )
+        self.assertFalse(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "先把叙事讲清楚，再继续推进。"}
+            )
+        )
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "核对课程讲义、投资巡航与社会媒体队列。"}
+            )
+        )
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "R-02 的 Gateway 重启flag还在等待处理。"}
+            )
+        )
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "今天的 memory 仍然空白，明早再看 startup-brief。"}
+            )
+        )
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "验证已执行：临时脚本完成 JSON 解析。"}
+            )
+        )
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "Verification already completed. JSON valid: YES."}
+            )
+        )
+        self.assertTrue(
+            importer.reminder_requires_routine_projection(
+                {"summary_original": "已验证完毕，JSON 有效，无需重复操作。"}
+            )
+        )
+
     def test_reminder_refresh_summary_does_not_claim_unmeasured_owner_omissions(
         self,
     ) -> None:

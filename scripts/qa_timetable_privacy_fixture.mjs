@@ -290,9 +290,10 @@ try {
   await page.route(/\.(?:gif|png|webp)(?:\?.*)?$/i, async (route) => {
     await route.fulfill({ status: 200, contentType: "image/png", body: transparentPng });
   });
-  await page.goto(staticServer.url, { waitUntil: "domcontentloaded" });
-  await page.locator('.calendar-day-button[data-date="2026-07-21"]').click();
-  await page.waitForSelector("#dayDialog.is-open");
+  const fixtureUrl = new URL(staticServer.url);
+  fixtureUrl.searchParams.set("date", "2026-07-21");
+  await page.goto(fixtureUrl.href, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-07-21"]');
   await page.waitForFunction(
     () => document.querySelector(".timeline-reading-layer.is-placed")
       && document.querySelectorAll(

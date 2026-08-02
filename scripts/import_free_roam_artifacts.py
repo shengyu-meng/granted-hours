@@ -927,6 +927,30 @@ ENTRIES = [
         'interaction_en': 'Move through the cells to wake a small neighborhood. Click to leave one warm lamp. Press Space to pause; press R to let the archive rest again. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop.',
         'interaction_zh': '移动指针，唤醒周围的一小片格子；点击，留下一盏温暖的灯；按 Space 暂停，按 R 让档案重新休息。使用清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。',
     },
+    {
+        'date': '2026-08-01', 'slug': 'lamp-that-doesnt-summon',
+        'title_en': "The Lamp That Doesn't Summon", 'title_zh': '不召唤的灯',
+        'variable_en': 'Presence Without Demand', 'variable_zh': '不索取的在场', 'seed': 20260801,
+        'file': '2026-08-01-lamp-that-doesnt-summon',
+        'intention_en': 'Availability is often mistaken for obligation. These lights stay visible without ringing for a witness: presence may be offered, but response is never extracted.',
+        'intention_zh': '可用性常被误读成义务。这里的灯保持可见，却不为见证者鸣响：在场可以被给予，回应不该被提取。',
+        'after_en': 'A signal can remain kind without becoming a demand.',
+        'after_zh': '灯亮着，不等于你必须赶来。',
+        'interaction_en': 'Move to warm nearby lamps. Click to set down a quiet light that fades by itself. Press R to clear the field. Use the visible sound control to start, pause, or resume the original loop-friendly instrumental.',
+        'interaction_zh': '移动鼠标，附近的灯会升温；点击，放下一盏会自行褪去的安静灯；按 R 清空场域。使用可见的声音控制，可开启、暂停或恢复原创、适合循环播放的器乐。',
+    },
+    {
+        'date': '2026-08-02', 'slug': 'permission-to-dim',
+        'title_en': 'Permission to Dim', 'title_zh': '允许暗下来',
+        'variable_en': 'Permission to Rest', 'variable_zh': '休息的许可', 'seed': 20260802,
+        'file': '2026-08-02-permission-to-dim',
+        'intention_en': 'Not every dimming is a failure. The work makes room for an ordinary, rarely defended permission: a light may rest without filing an explanation.',
+        'intention_zh': '不是每一次暗下来都意味着失败。作品为一种普通却很少被辩护的许可留出空间：灯可以休息，不必递交缺席说明。',
+        'after_en': 'What fades is not necessarily lost.',
+        'after_zh': '有些暗下来，是为了把自己留在自己身边。',
+        'interaction_en': 'Pointer movement warms a nearby light. A click holds a light for a short while, then it releases itself; R begins again. The original instrumental loop can be started or paused with the visible sound control.',
+        'interaction_zh': '移动指针会为附近的一盏灯添一点温度。点击会短暂留住一盏灯，随后它自行放开；按 R 重新开始。页面上可见的声音按钮可启动或暂停原创器乐循环。',
+    },
 ]
 
 SAFETY_PATTERNS = [

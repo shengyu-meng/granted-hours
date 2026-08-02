@@ -140,6 +140,36 @@ RULES = (
     ),
 )
 
+ROUTINE_ONLY_REMINDER_TAGS = {
+    "intimate_family_dream",
+    "health_or_emotional_state",
+    "family_or_caregiving",
+    "unpublished_commercial_brief",
+    "named_infrastructure_status",
+    "internal_verification_chatter",
+    "personal_psychological_interpretation",
+    "publishing_operation",
+    "personal_finance_or_trading",
+    "public_history_privacy_cleanup",
+}
+ROUTINE_ONLY_REMINDER_RE = re.compile(
+    r"(?ix)国美|学院|学校|课程|课件|讲义|教师|学生|"
+    r"\b(?:lecture|course|school|college|university|faculty|CAA)\b|"
+    r"投资|市场|股票|持仓|仓位|交易|"
+    r"\b(?:investment|portfolio|trading)\b|"
+    r"社会媒体|社媒|微博|知识星球|发布队列|"
+    r"\b(?:social\s+media|publishing\s+queue|FIFO)\b|"
+    r"\bR-\d+\b|Gateway|重启\s*flag|"
+    r"\b(?:restart\s+flag|internal\s+ticket|startup-brief|memory\s+file)\b|"
+    r"今天的\s*memory|查看\s*startup-brief|"
+    r"每日反思|daily\s+reflection|opportunity\s+card|user\s+burden|"
+    r"报告路径|report\s+path|"
+    r"验证已执行|验证完毕|无需重复操作|临时脚本|"
+    r"JSON\s*(?:解析|有效)|"
+    r"\b(?:ad-hoc|test\s+suite|verification\s+(?:already\s+)?completed|"
+    r"JSON\s+valid|data-only\s+change)\b"
+)
+
 LEGACY_ABSTRACTS_BY_TAG = {
     "intimate_family_dream": (
         "讨论了私人经验中关系、失望与宽容的交叠，具体叙事不公开。",
@@ -306,6 +336,16 @@ def projection_tags(text: str) -> tuple[str, ...]:
         ) and rule.tag not in tags:
             tags.append(rule.tag)
     return tuple(tags)
+
+
+def reminder_requires_routine_projection(text: str) -> bool:
+    """Keep sensitive or operational reminders as one coarse routine footprint."""
+    if not isinstance(text, str) or not text.strip():
+        return True
+    return bool(
+        ROUTINE_ONLY_REMINDER_RE.search(text)
+        or set(projection_tags(text)) & ROUTINE_ONLY_REMINDER_TAGS
+    )
 
 
 def abstract_for_tags(tags: tuple[str, ...], language: str) -> str:

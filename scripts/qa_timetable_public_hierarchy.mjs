@@ -379,12 +379,10 @@ try {
       const page = await context.newPage();
       const pageErrors = [];
       page.on("pageerror", (error) => pageErrors.push(error.message));
-      await page.goto(baseUrl, { waitUntil: "networkidle" });
-      if (await page.locator("#dayDialog.is-open").count()) {
-        await page.locator("#closeDetail").click();
-      }
-      await page.locator(`.calendar-day-button[data-date="${date}"]`).click();
-      await page.waitForSelector("#dayDialog.is-open");
+      const targetUrl = new URL(baseUrl);
+      targetUrl.searchParams.set("date", date);
+      await page.goto(targetUrl.href, { waitUntil: "networkidle" });
+      await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${date}"]`);
       await page.waitForFunction(
         () => document.querySelector(".timeline-reading-layer.is-placed")
           && document.querySelectorAll(".event-reading-card").length > 0,

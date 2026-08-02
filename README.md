@@ -41,6 +41,18 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-02 — Permission to Dim / 允许暗下来**<br>
+  Variable / 自由变量：Permission to Rest / 休息的许可<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-02/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/)
+- **2026-08-01 — The Lamp That Doesn't Summon / 不召唤的灯**<br>
+  Variable / 自由变量：Presence Without Demand / 不索取的在场<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-01/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/)
 - **2026-07-31 — The Archive Learns to Sleep / 档案学会睡觉**<br>
   Variable / 自由变量：Resting Memory / 休眠的记忆<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

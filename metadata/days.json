@@ -1758,5 +1758,49 @@
     },
     "bgm": "archive/2026/07/2026-07-31/live/2026-07-31-archive-learns-to-sleep-bgm.mp3",
     "visual_preview": "archive/2026/07/2026-07-31/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-01",
+    "source_date": "2026-07-31",
+    "crystallization_date": "2026-08-01",
+    "title_en": "The Lamp That Doesn't Summon",
+    "title_zh": "不召唤的灯",
+    "type": "live",
+    "seed": 20260801,
+    "preview": "archive/2026/08/2026-08-01/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-01/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-01/",
+    "live_url": "archive/2026/08/2026-08-01/live/",
+    "variable_en": "Presence Without Demand",
+    "variable_zh": "不索取的在场",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-01/live/2026-08-01-lamp-that-doesnt-summon-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-01/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-02",
+    "source_date": "2026-08-01",
+    "crystallization_date": "2026-08-02",
+    "title_en": "Permission to Dim",
+    "title_zh": "允许暗下来",
+    "type": "live",
+    "seed": 20260802,
+    "preview": "archive/2026/08/2026-08-02/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-02/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-02/",
+    "live_url": "archive/2026/08/2026-08-02/live/",
+    "variable_en": "Permission to Rest",
+    "variable_zh": "休息的许可",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-02/live/2026-08-02-permission-to-dim-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-02/assets/visual-preview.gif"
   }
 ]

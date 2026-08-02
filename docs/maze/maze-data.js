@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-07-31",
-  "nodeCount": 80,
+  "generatedAt": "2026-08-02",
+  "nodeCount": 82,
   "featuredCount": 14,
   "nodes": [
     {
@@ -1681,6 +1681,48 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 8,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-01",
+      "date": "2026-08-01",
+      "title_en": "The Lamp That Doesn't Summon",
+      "title_zh": "不召唤的灯",
+      "variable_en": "Presence Without Demand",
+      "variable_zh": "不索取的在场",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Presence Without Demand entered the archive as a clue rather than a label.",
+      "diary_zh": "「不索取的在场」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-01/live/",
+      "archive_url": "../archive/2026/08/2026-08-01/",
+      "gif": "../archive/2026/08/2026-08-01/assets/visual-preview.gif",
+      "x": -1,
+      "y": -10,
+      "z": 0,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-02",
+      "date": "2026-08-02",
+      "title_en": "Permission to Dim",
+      "title_zh": "允许暗下来",
+      "variable_en": "Permission to Rest",
+      "variable_zh": "休息的许可",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Permission to Rest entered the archive as a clue rather than a label.",
+      "diary_zh": "「休息的许可」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-02/live/",
+      "archive_url": "../archive/2026/08/2026-08-02/",
+      "gif": "../archive/2026/08/2026-08-02/assets/visual-preview.gif",
+      "x": -2,
+      "y": -12,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -1701,7 +1743,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 23
+      "count": 25
     },
     {
       "id": "maintenance",
@@ -2040,6 +2082,14 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-07-31"
     ],
     [
+      "2026-07-31",
+      "2026-08-01"
+    ],
+    [
+      "2026-08-01",
+      "2026-08-02"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -2274,6 +2324,14 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-28",
       "2026-07-30"
+    ],
+    [
+      "2026-07-29",
+      "2026-08-01"
+    ],
+    [
+      "2026-07-30",
+      "2026-08-02"
     ],
     [
       "2026-05-17",

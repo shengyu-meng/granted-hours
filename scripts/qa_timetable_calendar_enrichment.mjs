@@ -100,7 +100,12 @@ try {
     localStorage.setItem("grantedHoursTextFolded", "0");
   });
   const page = await context.newPage();
-  await page.goto(`${baseUrl}?regression=calendar-enrichment`, { waitUntil: "networkidle" });
+  const initialUrl = new URL(baseUrl);
+  initialUrl.searchParams.set("date", sampleDate);
+  initialUrl.searchParams.set("regression", "calendar-enrichment");
+  await page.goto(initialUrl.href, { waitUntil: "networkidle" });
+  await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
+  await page.keyboard.press("Escape");
 
   await check("month control shows the concrete visible month and changes with navigation", async () => {
     const before = (await page.locator("#todayButton").textContent())?.trim() || "";
@@ -195,9 +200,10 @@ try {
   await check("proposal-day block geometry follows duration even when copy lengths differ", async () => {
     const durationPage = await context.newPage();
     try {
-      await durationPage.goto(baseUrl, { waitUntil: "networkidle" });
-      await durationPage.tap('.calendar-day-button[data-date="2026-07-18"]');
-      await durationPage.waitForSelector("#dayDialog.is-open");
+      const durationUrl = new URL(baseUrl);
+      durationUrl.searchParams.set("date", "2026-07-18");
+      await durationPage.goto(durationUrl.href, { waitUntil: "networkidle" });
+      await durationPage.waitForSelector('#dayDialog.is-open[data-selected-date="2026-07-18"]');
       const result = await durationPage.locator(".assigned-event").evaluateAll((events) => events.map((event) => ({
         duration: Number(event.dataset.durationMinutes || 0),
         height: event.getBoundingClientRect().height,

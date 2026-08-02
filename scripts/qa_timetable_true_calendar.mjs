@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { chromium } from "@playwright/test";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
+const sampleDate = "2026-07-16";
 const browser = await chromium.launch({ headless: true });
 const results = [];
 
@@ -25,9 +26,10 @@ try {
     const page = await context.newPage();
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
-    await page.goto(baseUrl, { waitUntil: "networkidle" });
-    await page.click('.calendar-day-button[data-date="2026-07-16"]');
-    await page.waitForSelector("#dayDialog.is-open");
+    const sampleUrl = new URL(baseUrl);
+    sampleUrl.searchParams.set("date", sampleDate);
+    await page.goto(sampleUrl.href, { waitUntil: "networkidle" });
+    await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
     await page.waitForTimeout(240);
 
     const geometry = await page.evaluate(() => {

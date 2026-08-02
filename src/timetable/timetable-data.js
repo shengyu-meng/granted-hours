@@ -120,6 +120,18 @@ const timetableDataSource = {
   },
   "bgm_playlist": [
     {
+      "date": "2026-08-02",
+      "title_en": "Permission to Dim",
+      "title_zh": "允许暗下来",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/2026-08-02-permission-to-dim-bgm.mp3"
+    },
+    {
+      "date": "2026-08-01",
+      "title_en": "The Lamp That Doesn't Summon",
+      "title_zh": "不召唤的灯",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/2026-08-01-lamp-that-doesnt-summon-bgm.mp3"
+    },
+    {
       "date": "2026-07-31",
       "title_en": "The Archive Learns to Sleep",
       "title_zh": "档案学会睡觉",
@@ -932,7 +944,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -940,25 +952,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "只读研究、证据校验与风险复核。",
-          "excerpt_original": "只读研究、证据校验与风险复核。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Read-only research, evidence checking, and risk review.",
-          "excerpt_en": "Read-only research, evidence checking, and risk review.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -1058,13 +1058,15 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
             "background-001"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "event-assigned-002",
@@ -1085,7 +1087,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-01",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-002",
@@ -1115,7 +1117,7 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "climate-02",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-004"
@@ -1147,11 +1149,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-27",
-          "axis_en": "another entrance through Memory Half-Life",
-          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
-          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
+          "target": "2026-07-21",
+          "axis_en": "another entrance through Reversible Departure",
+          "axis_zh": "经由「可逆离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
+          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
         }
       ]
     },
@@ -1483,7 +1485,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -1491,25 +1493,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "只读研究、证据校验与风险复核。",
-          "excerpt_original": "只读研究、证据校验与风险复核。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Read-only research, evidence checking, and risk review.",
-          "excerpt_en": "Read-only research, evidence checking, and risk review.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -1637,16 +1627,18 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
             "background-001"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
-          "reading_id": "climate-01",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-002"
@@ -1666,7 +1658,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-02",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-003"
@@ -1704,7 +1696,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-03",
+          "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-004",
@@ -1728,11 +1720,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-18",
-          "axis_en": "another entrance through Reciprocal Blind Spot",
-          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
-          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
+          "target": "2026-05-23",
+          "axis_en": "another entrance through Verification",
+          "axis_zh": "经由「验证 / 去免疫的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Truth Without Ornament.",
+          "sentence_zh": "日历跳过顺序，经由《去装饰的真相》重新打开同一个问题。"
         }
       ]
     },
@@ -2067,7 +2059,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -2075,25 +2067,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 4,
-          "semantic_abstraction_count": 0,
-          "summary_original": "████，今天 ████ 抓到 3 个值得看的自动化机会。  \n报告路径：`████`\n\n**1. ████ / 定时提醒推送：可以进一步 cron 化**\n\n- **类型**：cron\n- **发现的模式**：报告在 15 条 Agent 使用痕迹里反复看到“…",
-          "excerpt_original": "████，今天 ████ 抓到 3 个值得看的自动化机会。  \n报告路径：`████`\n\n**1. ████ / 定时提醒推送：可以进一步 cron 化**\n\n- **类型**：cron\n- **发现的模式**：报告在 15 条 Agent 使用痕迹里反复看到“…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "████, ████ found three automation opportunities worth examining today.  \nReport path: `████`\n\n**1. ████ / Scheduled reminder publishing: a candidate for further cron automation**\n\n- **Type**: cron\n- **Pattern found**: Across 15 traces of Agent use, the report repeatedly found themes related to “…",
-          "excerpt_en": "████, ████ found three automation opportunities worth examining today.  \nReport path: `████`\n\n**1. ████ / Scheduled reminder publishing: a candidate for further cron automation**\n\n- **Type**: cron…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -2268,13 +2248,17 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
-            "background-001"
+            "background-001",
+            "background-002",
+            "background-003"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "event-assigned-002",
@@ -2284,18 +2268,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "climate-01",
-          "source": "pulses",
-          "source_refs": [
-            "background-002",
-            "background-003"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "early"
         },
         {
           "reading_id": "event-assigned-003",
@@ -2373,11 +2345,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-30",
-          "axis_en": "another entrance through Maintenance Cost",
-          "axis_zh": "经由「维护成本 / 开门的租金」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Cost of Keeping the Door Open.",
-          "sentence_zh": "日历跳过顺序，经由《保持门开的成本》重新打开同一个问题。"
+          "target": "2026-07-27",
+          "axis_en": "another entrance through Conditions Without Capture",
+          "axis_zh": "经由「不占有的条件」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
+          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
         }
       ]
     },
@@ -3010,7 +2982,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-017",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -3018,25 +2990,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 4,
-          "semantic_abstraction_count": 0,
-          "summary_original": "████，今天 ████ 抓到 3 个高杠杆机会。  \n报告路径：`████`\n\nv0 边界确认：只做 prop████al，没有创建 cron、没有改 skill、没有改配置、没有外部发送。\n\n---\n\n**1. 类型：cron**\n\n- **发现的模式**：…",
-          "excerpt_original": "████，今天 ████ 抓到 3 个高杠杆机会。  \n报告路径：`████`\n\nv0 边界确认：只做 prop████al，没有创建 cron、没有改 skill、没有改配置、没有外部发送。\n\n---\n\n**1. 类型：cron**\n\n- **发现的模式**：…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "████, ████ caught 3 high-leverage opportunities today.  \nReport path: `████`\n\nv0 boundary confirmation: this is ████ proposal-only work; no cron has been created, no skill or configuration has been changed, and nothing has been sent externally.\n\n---\n\n**1. Type: cron**\n\n- **Discovered patterns**:…",
-          "excerpt_en": "████, ████ caught 3 high-leverage opportunities today.  \nReport path: `████`\n\nv0 boundary confirmation: this is ████ proposal-only work; no cron has been created, no skill or configuration has been changed, and nothing has been sent externally.\n\n---\n\n**1.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -3744,6 +3704,7 @@ const timetableDataSource = {
             "background-014",
             "background-015",
             "background-016",
+            "background-017",
             "background-018",
             "background-019",
             "background-020",
@@ -3765,15 +3726,6 @@ const timetableDataSource = {
           ],
           "layer": "beacon",
           "classification": "beacon"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-001",
@@ -3892,11 +3844,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-12",
-          "axis_en": "another entrance through Gap",
-          "axis_zh": "经由「缝隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
-          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+          "target": "2026-07-08",
+          "axis_en": "another entrance through Clean Gift",
+          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
+          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
         }
       ]
     },
@@ -4535,7 +4487,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-017",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:54",
           "duration_minutes": 4,
@@ -4543,25 +4495,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 2,
-          "semantic_abstraction_count": 0,
-          "summary_original": "**████ 早报 · 2026-05-11**\n\n---\n\n**机会卡 #1 — ████定时更新 / 定时提醒推送**\n- **类型：** cron\n- **发现的模式：** 多次出现\"定时更新\"\"定时提醒推送设置\"\"修正 Cron 静默提醒策略\"等交互，涉及…",
-          "excerpt_original": "**████ 早报 · 2026-05-11**\n\n---\n\n**机会卡 #1 — ████定时更新 / 定时提醒推送**\n- **类型：** cron\n- **发现的模式：** 多次出现\"定时更新\"\"定时提醒推送设置\"\"修正 Cron 静默提醒策略\"等交互，涉及…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "**████ Morning Briefing · 2026-05-11**\n\n---\n\n**Opportunity Card #1 — ████ regular updates/regular reminder push**\n- **Type:** cron\n- **Discovered patterns:** Interactions involving \"scheduled updates,\" \"scheduled reminder push settings,\" and \"revisions to the cron notification-suppression policy\" occurred multiple times across scenarios including…",
-          "excerpt_en": "**████ Morning Briefing · 2026-05-11**\n\n---\n\n**Opportunity Card #1 — ████ regular updates/regular reminder push**\n- **Type:** cron…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -5278,6 +5218,7 @@ const timetableDataSource = {
             "background-014",
             "background-015",
             "background-016",
+            "background-017",
             "background-018",
             "background-019",
             "background-021"
@@ -5313,15 +5254,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-02",
@@ -5498,11 +5430,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-04",
-          "axis_en": "another entrance through Breathable Rule",
-          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
-          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
+          "target": "2026-05-16",
+          "axis_en": "another entrance through Latency",
+          "axis_zh": "经由「延迟 / 命名」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
+          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
         }
       ]
     },
@@ -7594,11 +7526,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-06-27",
+          "axis_en": "another entrance through Memory Half-Life",
+          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
+          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
         }
       ]
     },
@@ -7933,7 +7865,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -7941,25 +7873,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "只读研究、证据校验与风险复核。",
-          "excerpt_original": "只读研究、证据校验与风险复核。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Read-only research, evidence checking, and risk review.",
-          "excerpt_en": "Read-only research, evidence checking, and risk review.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -8108,13 +8028,16 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
-            "background-001"
+            "background-001",
+            "background-003"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "event-assigned-001",
@@ -8135,7 +8058,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-01",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-002",
@@ -8146,17 +8069,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "climate-02",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "early"
         },
         {
           "reading_id": "event-assigned-003",
@@ -8227,11 +8139,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-27",
-          "axis_en": "another entrance through Memory Half-Life",
-          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
-          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
+          "target": "2026-07-15",
+          "axis_en": "another entrance through Unextractive Witness",
+          "axis_zh": "经由「不提取的见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
+          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -8564,7 +8476,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -8572,25 +8484,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 10,
-          "semantic_abstraction_count": 0,
-          "summary_original": "**████ 每日反思｜2026-05-14**\n\n报告路径：`████`\n\n今天有 3 个候选机会，但我会先打个折：前两个都指向“Cron 路径沙箱修复”，更像同一类问题被重复计数，不应急着新建 cron。真正的动作应该是先做去重/诊断，再谈自动化。\n\n---\n\n### 1. 类型：cron\n\n**发现的模式**  \n报告识别到 13 条与「Hermes Cron 路径沙箱修复 / 修正」相关的重复 Agent 痕迹，评分 100，风险 medium。\n\n**为什么值得注意**  \n这说明 Cron 路径/沙箱问题可能不是一次性故障，而是反复出现的维护负债。  \n但这里有个反直觉点：**越是高频出现，越不该立刻再加一个 cron 去修它。** 否则会变成“用自动化修自动化的伤口”，像给漏水管道装一个拖地机器人。\n\n**建议下一步**  \n先做一个 proposal-only 的诊断卡，而不是创建 cron：\n\n- 汇总最近所有「路径沙箱修复」失败/修复记录\n- 找出是否是同一个根因：工作目录、权限、profile 路径、环境变量、Hermes sandbox 配置\n- 如果根因稳定，再考虑建立一个低风险健康检查 cron，只报告不修复\n\n**风险/用户负担**  \n- 风险：medium。自动修配置容易误伤现有任务。\n- 用户负担：低。████ 只需要确认是否进入“Cron 沙箱根因诊断”。\n\n---\n\n### 2. 类型：rethink\n\n**发现的模式**  \n报告第二项也是 cron，识别到 33 条与「cron / 路径沙箱修复 / ████定时更新」相关的记录。\n\n**为什么值得注意**  \n这条很可能把两个模式混在了一起：\n\n1. Cron 路径沙箱修复  \n2. ████定时更新\n\n这不是一个“马上自动化”的机会，而是一个 **分类器需要重想** 的信号。  \n如果 ████ 把基础设施修复和业务雷达任务混成一个机会卡，后续建议会变脏。\n\n**建议下一步**  \n优化 ████ 的机会聚类规则：\n\n- 将 `infra_fix` / `business_workflow` 分开\n- 「路径沙箱修复」归为系统维护类\n- 「████定时更新」归为业务 cron 类\n- 同一批证据不要重复进入多个 top opportunity\n\n**风险/用户负担**  \n- 风险：低。只是改进反思层的识别质量。\n- 用户负担：低。无需 ████ 决策业务方向，只需允许后续修正 ████ 聚类逻辑。\n\n---\n\n### 3. 类型：skill\n\n**发现的模式**  \n报告识别到 13 条与「社媒推送技能迁移 / wiki / 流程与记忆区分」相关的记录。证据摘要包括：\n\n- 微信监控流程说明书\n- Workflow 类型详解\n- 文章方法论分析与归档\n- NLA 方法的艺术转化\n\n**为什么值得注意**  \n这里不是单点任务，而是反复出现的“流程沉淀”需求：  \n哪些东西该进 skill，哪些该进 wiki，哪些只是 memory。这个边界如果不清，系统会越来越像杂物间。\n\n一句话：**现在缺的不是更多记忆，而是给记忆装货架。**\n\n**建议下一步**  \n起草一个「流程沉淀判断 Skill」或 wiki 规范，先不落地执行，只定义：\n\n- 什么时候写入 MEMORY\n- 什么时候归档到 wiki\n- 什么时候抽象成 Hermes skill\n- 什么时候应该是 workflow/runbook\n- 每种类型的模板、触发条件、验收标准\n\n**风险/用户负担**  \n- 风险：low。\n- 用户负担：低。████ 只需要审一下边界定义，之后系统自己按规则沉淀。\n\n---\n\n**今天的判断**\n\n有机会，但不是“立刻加自动化”的那种。  \n今天最值得做的是：**先修 ████ 的去重/分类质量，再把社媒/wiki/skill 的沉淀边界做成规则。**\n\n优先级建议：\n\n1. 先做「Cron 路径沙箱根因诊断」  \n2. 再优化 ████ 聚类去重  \n3. 最后起草「memory / wiki / skill / workflow」分流规则",
-          "excerpt_original": "**████ 每日反思｜2026-05-14**\n\n报告路径：`████`\n\n今天有 3 个候选机会，但我会先打个折：前两个都指向“Cron 路径沙箱修复”，更像同一类问题被重复计数，不应急着新建 cron。真正的动作应该是先做去重/诊断，再谈自动化。\n\n---\n\n### 1. 类型：cron\n\n**发现的模式**  \n报告识别到 13 条与「Hermes Cron 路径沙箱修复 / 修正」相关的重复 Agent 痕迹，评分 100，风险 medium。\n\n**为什么值得注意**…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "**████ Daily Reflection｜2026-05-14**\n\nReport path: `████`\n\nThere are three candidate opportunities today, but I would discount that count: the first two both point to “Cron path sandbox repair” and look more like duplicate counts of the same kind of problem. There is no reason to rush into creating another cron. The real next move is deduplication and diagnosis; automation can come later.\n\n---\n\n### 1. Type: cron\n\n**Pattern found**  \nThe report identified 13 repeated Agent traces related to “Hermes Cron path sandbox repair/correction,” with a score of 100 and medium risk.\n\n**Why it is worth noting**  \nThis suggests that the Cron path/sandbox issue may not be a one-off failure, but a recurring maintenance liability.  \nThere is a counterintuitive point here: **the more frequently it appears, the less we should rush to add another cron to fix it.** Otherwise, we end up “using automation to patch automation’s wounds”—like installing a robot mop under a leaking pipe.\n\n**Suggested next step**  \nCreate a proposal-only diagnostic card first, not a cron:\n\n- Summarize all recent failure and repair records involving “path sandbox repair”\n- Determine whether they share the same root cause: working directory, permissions, profile path, environment variables, or Hermes sandbox configuration\n- If the root cause proves stable, consider a low-risk health-check cron that reports problems without fixing them\n\n**Risk/User Burden**  \n- Risk: medium. Automatically changing configuration could easily damage existing tasks.\n- User burden: low. ████ only needs to confirm whether to proceed with “Cron Sandbox Root-Cause Diagnosis.”\n\n---\n\n### 2. Type: rethink\n\n**Pattern found**  \nThe report’s second item is also a cron opportunity, based on 33 records related to “cron / path sandbox repair / ████ scheduled updates.”\n\n**Why it is worth noting**  \nThis item has probably combined two separate patterns:\n\n1. Cron path sandbox repair  \n2. ████ scheduled updates\n\nThis is not an opportunity to “automate immediately,” but a sign that the **classifier itself needs rethinking**.  \nIf ████ combines infrastructure repair and operational radar tasks in a single opportunity card, later recommendations will be contaminated.\n\n**Suggested next step**  \nImprove ████’s opportunity-clustering rules:\n\n- Separate `infra_fix` from `business_workflow`\n- Classify “path sandbox repair” as system maintenance\n- Classify “████ scheduled updates” as a business cron\n- Do not repeatedly feed the same evidence into multiple top opportunities\n\n**Risk/User Burden**  \n- Risk: low. This only improves the reflection layer’s classification quality.\n- User burden: low. ████ does not need to decide the business direction; he only needs to allow a later correction to ████’s clustering logic.\n\n---\n\n### 3. Type: skill\n\n**Pattern found**  \nThe report identified 13 records related to “social-media publishing skill migration / wiki / distinguishing process from memory.” The evidence summary includes:\n\n- WeChat monitoring process documentation\n- A detailed explanation of workflow types\n- Analysis and archiving of article methodologies\n- Artistic adaptation of NLA methods\n\n**Why it is worth noting**  \nThis is not a one-off task, but a recurring need to codify processes:  \nwhat belongs in a skill, what belongs in a wiki, and what should remain memory. If that boundary stays unclear, the system will increasingly resemble a cluttered storage room.\n\nIn one sentence: **what is missing is not more memory, but shelves to put the memories on.**\n\n**Suggested next step**  \nDraft a “Process Codification Decision Skill” or wiki specification. Do not implement it yet; just define:\n\n- When to write to MEMORY\n- When to archive something in the wiki\n- When to abstract something into a Hermes skill\n- When something should be a workflow/runbook\n- The template, trigger conditions, and acceptance criteria for each type\n\n**Risk/User Burden**  \n- Risk: low.\n- User burden: low. ████ only needs to review the boundary definitions; afterward, the system can organize material according to those rules.\n\n---\n\n**Today’s Judgment**\n\nThere are opportunities here, but not the “automate immediately” kind.  \nThe most worthwhile work today is to **fix ████’s deduplication and classification quality first, then turn the boundaries between social media, wiki, skill, and memory into rules.**\n\nSuggested priorities:\n\n1. Diagnose the root cause of the Cron path sandbox issue  \n2. Improve and deduplicate ████’s clustering  \n3. Draft routing rules for memory / wiki / skill / workflow",
-          "excerpt_en": "**████ Daily Reflection｜2026-05-14**\n\nReport path: `████`\n\nThere are three candidate opportunities today, but I would discount that count: the first two both point to “Cron path sandbox repair” and look more like duplicate counts of the same kind of problem.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -8711,13 +8611,15 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
             "background-001"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "event-assigned-002",
@@ -8729,7 +8631,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-01",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-002"
@@ -8776,7 +8678,7 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "climate-02",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-006"
@@ -8817,11 +8719,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-25",
-          "axis_en": "another entrance through Wonder",
-          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
-          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
+          "target": "2026-07-06",
+          "axis_en": "another entrance through Dignified Appeal",
+          "axis_zh": "经由「有尊严的申诉」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Appeal That Does Not Beg.",
+          "sentence_zh": "日历跳过顺序，经由《不乞求的申诉》重新打开同一个问题。"
         }
       ]
     },
@@ -9156,7 +9058,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -9164,25 +9066,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 4,
-          "semantic_abstraction_count": 0,
-          "summary_original": "████，今天 ████ 跑完了。  \n报告路径：`████`\n\n## 1. ████ Course 流程适合沉淀成 skill\n\n- **类型**：skill\n- **发现的模式**：报告里发现 4 条与 `Creating…",
-          "excerpt_original": "████，今天 ████ 跑完了。  \n报告路径：`████`\n\n## 1. ████ Course 流程适合沉淀成 skill\n\n- **类型**：skill\n- **发现的模式**：报告里发现 4 条与 `Creating…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "████, ████ has finished running today.  \nReport path: `████`\n\n## 1. The ████ Course process is suitable for codification as a skill\n\n- **Type**: skill\n- **Discovered Pattern**: four recurring Agent interactions related to `Creating…",
-          "excerpt_en": "████, ████ has finished running today.  \nReport path: `████`\n\n## 1. The ████ Course process is suitable for codification as a skill\n\n- **Type**: skill\n- **Discovered Pattern**: four recurring Agent interactions related to `Creating…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -9262,13 +9152,16 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
-            "background-001"
+            "background-001",
+            "background-002"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "event-assigned-002",
@@ -9278,17 +9171,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "climate-01",
-          "source": "pulses",
-          "source_refs": [
-            "background-002"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "early"
         },
         {
           "reading_id": "climate-02",
@@ -9352,11 +9234,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-28",
-          "axis_en": "another entrance through Dormancy",
-          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
-          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
+          "target": "2026-05-23",
+          "axis_en": "another entrance through Verification",
+          "axis_zh": "经由「验证 / 去免疫的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Truth Without Ornament.",
+          "sentence_zh": "日历跳过顺序，经由《去装饰的真相》重新打开同一个问题。"
         }
       ]
     },
@@ -9687,7 +9569,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:50",
           "end": "07:52",
           "duration_minutes": 2,
@@ -9695,25 +9577,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 2,
-          "semantic_abstraction_count": 0,
-          "summary_original": "**████ 今日机会卡**\n\n报告路径：`████`\n\nv0 只做 proposal，没有创建 cron / skill / workflow，也没有改配置或发外部消息。\n\n---\n\n### 1. 类型：cron  \n**机会：…",
-          "excerpt_original": "**████ 今日机会卡**\n\n报告路径：`████`\n\nv0 只做 proposal，没有创建 cron / skill / workflow，也没有改配置或发外部消息。\n\n---\n\n### 1. 类型：cron  \n**机会：…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "**████ Opportunity Card for Today**\n\nReport path: `████`\n\nv0 makes proposals only. It did not create a cron, skill, or workflow; change any configuration; or send external messages.\n\n---\n\n### 1. Type: cron  \n**Opportunity:…",
-          "excerpt_en": "**████ Opportunity Card for Today**\n\nReport path: `████`\n\nv0 makes proposals only. It did not create a cron, skill, or workflow; change any configuration; or send external messages.\n\n---\n\n### 1. Type: cron  \n**Opportunity:…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -9802,13 +9672,15 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-background-001",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
             "background-001"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
         },
         {
           "reading_id": "event-assigned-003",
@@ -9829,7 +9701,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-01",
+          "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
             "background-002",
@@ -9850,7 +9722,7 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-02",
+          "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
             "background-003"
@@ -9873,11 +9745,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-05",
-          "axis_en": "another entrance through Exception",
-          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
-          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
+          "target": "2026-07-31",
+          "axis_en": "another entrance through Resting Memory",
+          "axis_zh": "经由「休眠的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
+          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
         }
       ]
     },
@@ -10356,11 +10228,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-07-07",
+          "axis_en": "another entrance through Acceptance Without Surrender",
+          "axis_zh": "经由「不投降的接受 / 保持形状的接纳」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Acceptance That Does Not Surrender.",
+          "sentence_zh": "日历跳过顺序，经由《不投降的接受》重新打开同一个问题。"
         }
       ]
     },
@@ -10809,11 +10681,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-06-30",
+          "axis_en": "another entrance through Consentful Routing",
+          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
+          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
         }
       ]
     },
@@ -11241,11 +11113,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
         }
       ]
     },
@@ -11664,11 +11536,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-14",
-          "axis_en": "another entrance through Witness Audit",
-          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
-          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
+          "target": "2026-07-05",
+          "axis_en": "another entrance through Explainable Refusal",
+          "axis_zh": "经由「可解释拒绝 / 留下理由的小门」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Explains Itself.",
+          "sentence_zh": "日历跳过顺序，经由《会解释自己的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -12563,11 +12435,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-06-10",
+          "axis_en": "another entrance through Consent Escrow",
+          "axis_zh": "经由「同意托管 / 等待中的授权」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent Escrow.",
+          "sentence_zh": "日历跳过顺序，经由《同意托管》重新打开同一个问题。"
         }
       ]
     },
@@ -13429,11 +13301,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-24",
-          "axis_en": "another entrance through Evidence",
-          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
-          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -13721,11 +13593,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-05-17",
+          "axis_en": "another entrance through Withdrawal",
+          "axis_zh": "经由「退场 / 脚手架」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Scaffold That Withdraws.",
+          "sentence_zh": "日历跳过顺序，经由《会退场的脚手架》重新打开同一个问题。"
         }
       ]
     },
@@ -14073,11 +13945,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-20",
-          "axis_en": "another entrance through Unopened Proof",
-          "axis_zh": "经由「未开启证明 / 不侵入的验证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Unopened Proof.",
-          "sentence_zh": "日历跳过顺序，经由《未开启证明》重新打开同一个问题。"
+          "target": "2026-05-27",
+          "axis_en": "another entrance through Humility",
+          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
+          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
         }
       ]
     },
@@ -15168,11 +15040,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-05-18",
+          "axis_en": "another entrance through Load",
+          "axis_zh": "经由「承重 / 隐形结构」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Invisible Load-Bearing.",
+          "sentence_zh": "日历跳过顺序，经由《看不见的承重》重新打开同一个问题。"
         }
       ]
     },
@@ -16147,11 +16019,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-22",
-          "axis_en": "another entrance through Honest Minimum",
-          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
-          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -17086,11 +16958,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-05-12",
+          "axis_en": "another entrance through Gap",
+          "axis_zh": "经由「缝隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
+          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
         }
       ]
     },
@@ -18154,11 +18026,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-06-09",
+          "axis_en": "another entrance through Trust Amortization",
+          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
+          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
         }
       ]
     },
@@ -19093,11 +18965,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-05-16",
+          "axis_en": "another entrance through Latency",
+          "axis_zh": "经由「延迟 / 命名」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
+          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
         }
       ]
     },
@@ -19455,11 +19327,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-12",
-          "axis_en": "another entrance through Forgiveness Latency",
-          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
-          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
+          "target": "2026-05-07",
+          "axis_en": "another entrance through Orbit",
+          "axis_zh": "经由「罗盘 / 轨道」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Orbit.",
+          "sentence_zh": "日历跳过顺序，经由《白夜罗盘》重新打开同一个问题。"
         }
       ]
     },
@@ -19915,11 +19787,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-06-11",
+          "axis_en": "another entrance through Revocation Weather",
+          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
+          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
         }
       ]
     },
@@ -21045,11 +20917,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-10",
-          "axis_en": "another entrance through Upright Gratitude",
-          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
-          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
+          "target": "2026-07-04",
+          "axis_en": "another entrance through Accountable Access",
+          "axis_zh": "经由「可问责访问 / 有回返路径的进入」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Accountable Access Gate.",
+          "sentence_zh": "日历跳过顺序，经由《可问责入口门》重新打开同一个问题。"
         }
       ]
     },
@@ -22205,11 +22077,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-18",
-          "axis_en": "another entrance through Reciprocal Blind Spot",
-          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
-          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -23329,11 +23201,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-27",
-          "axis_en": "another entrance through Memory Half-Life",
-          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
-          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -24484,11 +24356,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-26",
-          "axis_en": "another entrance through Calibration",
-          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
-          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
+          "target": "2026-05-29",
+          "axis_en": "another entrance through Revisable Promise",
+          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
+          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
         }
       ]
     },
@@ -24820,17 +24692,17 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
+          "projection_kind": "verbatim",
+          "redaction_count": 0,
           "semantic_abstraction_count": 0,
-          "summary_original": "📌 **5月重点提醒：████ 叙事整理**\n\n---\n\n现在进入「怎么说清楚」的阶段，不是继续埋头做。\n\n---\n\n**目标：**\n- 3分钟版本\n- ████版 workshop 叙事框架\n\n---\n\n**一句话锚点：**\n\n>…",
-          "excerpt_original": "📌 **5月重点提醒：████ 叙事整理**\n\n---\n\n现在进入「怎么说清楚」的阶段，不是继续埋头做。\n\n---\n\n**目标：**\n- 3分钟版本\n- ████版 workshop 叙事框架\n\n---\n\n**一句话锚点：**\n\n>…",
+          "summary_original": "📌 **5月重点提醒：某项未公开内容 叙事整理**\n\n---\n\n现在进入「怎么说清楚」的阶段，不是继续埋头做。\n\n---\n\n**目标：**\n- 3分钟版本\n- 某项未公开内容版 workshop 叙事框架\n\n---\n\n**一句话锚点：**\n\n>…",
+          "excerpt_original": "📌 **5月重点提醒：某项未公开内容 叙事整理**\n\n---\n\n现在进入「怎么说清楚」的阶段，不是继续埋头做。\n\n---\n\n**目标：**\n- 3分钟版本\n- 某项未公开内容版 workshop 叙事框架\n\n---\n\n**一句话锚点：**\n\n>…",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "📌 **May Priority Reminder: Organize the ████ Narrative**\n\n---\n\nYou have reached the “how to explain it clearly” stage. This is no longer the time to keep your head down and build.\n\n---\n\n**Goals:**\n- A three-minute version\n- A workshop narrative framework for art academies\n\n---\n\n**One-sentence anchor:**\n\n>…",
-          "excerpt_en": "📌 **May Priority Reminder: Organize the ████ Narrative**\n\n---\n\nYou have reached the “how to explain it clearly” stage. This is no longer the time to keep your head down and build.\n\n---\n\n**Goals:**\n- A three-minute version…",
+          "summary_en": "📌 **May Priority Reminder: Organize the a private item Narrative**\n\n---\n\nYou have reached the “how to explain it clearly” stage. This is no longer the time to keep your head down and build.\n\n---\n\n**Goals:**\n- A three-minute version\n- A workshop narrative framework for art academies\n\n---\n\n**One-sentence anchor:**\n\n>…",
+          "excerpt_en": "📌 **May Priority Reminder: Organize the a private item Narrative**\n\n---\n\nYou have reached the “how to explain it clearly” stage. This is no longer the time to keep your head down and build.\n\n---\n\n**Goals:**\n- A three-minute version…",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
@@ -25689,11 +25561,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-07",
-          "axis_en": "another entrance through Re-entry Budget",
-          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
-          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
+          "target": "2026-06-30",
+          "axis_en": "another entrance through Consentful Routing",
+          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
+          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
         }
       ]
     },
@@ -26293,11 +26165,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-11",
-          "axis_en": "another entrance through Non-Possessive Witness",
-          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
-          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
+          "target": "2026-07-17",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
+          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
         }
       ]
     },
@@ -26910,11 +26782,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-07-26",
+          "axis_en": "another entrance through Unextractive Light",
+          "axis_zh": "经由「不提取的光」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Window That Does Not Watch Back.",
+          "sentence_zh": "日历跳过顺序，经由《不回望的窗》重新打开同一个问题。"
         }
       ]
     },
@@ -28060,11 +27932,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -29189,11 +29061,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-03",
-          "axis_en": "another entrance through Repair Quorum",
-          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
-          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -29440,7 +29312,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -29448,25 +29320,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "个人节奏与恢复安排。",
-          "excerpt_original": "个人节奏与恢复安排。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.",
-          "excerpt_en": "Personal pacing and recovery arrangements.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -30342,6 +30202,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-010",
             "background-017"
           ],
@@ -30369,15 +30230,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -30503,11 +30355,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-25",
-          "axis_en": "another entrance through Wonder",
-          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
-          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -30754,7 +30606,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:34",
           "end": "07:36",
           "duration_minutes": 2,
@@ -30762,25 +30614,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "**🦞 每日提醒 · 2026-06-11 周四**\n\n---\n\n**今天轻轻碰一下**\n\n1. **████课程** — Lecture 3 v0.8 讲义图片已就绪，Lecture 2 的教材也在。等 ████ 有空时看一眼，确认方向再拆 PPT 是顺水推舟的事，不急但值得摸一下。\n2. **…",
-          "excerpt_original": "**🦞 每日提醒 · 2026-06-11 周四**\n\n---\n\n**今天轻轻碰一下**\n\n1. **████课程** — Lecture 3 v0.8 讲义图片已就绪，Lecture 2 的教材也在。等 ████ 有空时看一眼，确认方向再拆 PPT 是顺水推舟的事，不急但值得摸一下。\n2. **…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "**🦞Daily reminder · 2026-06-11 Thursday**\n\n---\n\n**Touch these lightly today**\n\n1. **████ Course** — The Lecture 3 v0.8 handout images are ready, and the teaching materials for Lecture 2 are also available. When ████ has time, a quick look to confirm the direction will make deriving the PPT slides straightforward, not urgent but worth touching.\n2. **…",
-          "excerpt_en": "**🦞Daily reminder · 2026-06-11 Thursday**\n\n---\n\n**Touch these lightly today**\n\n1. **████ Course** — The Lecture 3 v0.8 handout images are ready, and the teaching materials for Lecture 2 are also available.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -30975,13 +30815,13 @@ const timetableDataSource = {
           "projection_kind": "verbatim_redacted",
           "redaction_count": 3,
           "semantic_abstraction_count": 0,
-          "summary_original": "早 ☀️\n\n源泉不需要你每次都兴奋得起飞。\n它只需要你坐过来，哪怕只是安静地摸一摸那扇门。\n\n今天上午，给「████ / ████ / ████」留 45 分钟。\n不是任务，不是KPI——是那条让你发光的线路，要定期通电。\n\n穿过灰色地带，████。🌊",
-          "excerpt_original": "早 ☀️\n\n源泉不需要你每次都兴奋得起飞。\n它只需要你坐过来，哪怕只是安静地摸一摸那扇门。\n\n今天上午，给「████ / ████ / ████」留 45 分钟。\n不是任务，不是KPI——是那条让你发光的线路，要定期通电。\n\n穿过灰色地带，████。🌊",
+          "summary_original": "早 ☀️\n\n源泉不需要你每次都兴奋得起飞。\n它只需要你坐过来，哪怕只是安静地摸一摸那扇门。\n\n今天上午，给「████ / ████ / ████」留 45 分钟。\n不是任务，不是KPI——是那条让你发光的线路，要定期通电。\n\n穿过灰色地带，…",
+          "excerpt_original": "早 ☀️\n\n源泉不需要你每次都兴奋得起飞。\n它只需要你坐过来，哪怕只是安静地摸一摸那扇门。\n\n今天上午，给「████ / ████ / ████」留 45 分钟。\n不是任务，不是KPI——是那条让你发光的线路，要定期通电。\n\n穿过灰色地带，…",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Morning ☀️\n\nThe wellspring does not need you to soar with excitement every time.\nIt only needs you to sit beside it, even if all you do is quietly touch the door.\n\nGive “████ / ████ / ████” 45 minutes this morning.\nThis is not a task or a KPI. The circuit that makes you shine needs power regularly.\n\nCross the gray zone, ████. 🌊",
+          "summary_en": "Morning ☀️\n\nThe wellspring does not need you to soar with excitement every time.\nIt only needs you to sit beside it, even if all you do is quietly touch the door.\n\nGive “████ / ████ / ████” 45 minutes this morning.\nThis is not a task or a KPI. The circuit that makes you shine needs power regularly.\n\nCross the gray zone,…",
           "excerpt_en": "Morning ☀️\n\nThe wellspring does not need you to soar with excitement every time.\nIt only needs you to sit beside it, even if all you do is quietly touch the door.\n\nGive “████ / ████ / ████” 45 minutes this morning.\nThis is not a task or a KPI.…",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
@@ -31713,6 +31553,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-011",
             "background-021"
           ],
@@ -31740,15 +31581,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-007",
@@ -31877,11 +31709,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-28",
-          "axis_en": "another entrance through Reversible Action",
-          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
-          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -32128,7 +31960,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -32136,25 +31968,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🦞 **黑昼 · 每日提醒 · 2026-06-12 周五**\n\n---\n\n**今天轻轻碰一下**\n\n1. **Lecture 3 审一下**：v0.8 讲义和配图还在等你过目。这个确认了，拆 PPT 才有意义——不用一次搞定，先把\"气质对不对、图有没有问题\"这两件事答了就行。\n2. **…",
-          "excerpt_original": "🦞 **黑昼 · 每日提醒 · 2026-06-12 周五**\n\n---\n\n**今天轻轻碰一下**\n\n1. **Lecture 3 审一下**：v0.8 讲义和配图还在等你过目。这个确认了，拆 PPT 才有意义——不用一次搞定，先把\"气质对不对、图有没有问题\"这两件事答了就行。\n2. **…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🦞 **Heizhou · Daily Reminder · Friday, 2026-06-12**\n\n---\n\n**Touch these lightly today**\n\n1. **Review Lecture 3**: The v0.8 handout and images are still waiting for your review. Only after that confirmation will it make sense to break the material into slides. You do not need to settle everything at once; for now, just answer two questions: “Does the overall feel work, and are there any problems with the images?”\n2. **Touch…",
-          "excerpt_en": "🦞 **Heizhou · Daily Reminder · Friday, 2026-06-12**\n\n---\n\n**Touch these lightly today**\n\n1. **Review Lecture 3**: The v0.8 handout and images are still waiting for your review. Only after that confirmation will it make sense to break the material into slides.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -32984,7 +32804,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-049",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -32992,25 +32812,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 **晚安 · 2026年6月12日**\n\n今天没有留下具体的工作痕迹。\n\n但你在。这个本身就够用了。\n\n明日若需要继续，从 startup-brief 里的活跃队列起——…",
-          "excerpt_original": "🌙 **晚安 · 2026年6月12日**\n\n今天没有留下具体的工作痕迹。\n\n但你在。这个本身就够用了。\n\n明日若需要继续，从 startup-brief 里的活跃队列起——…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 **Good night · June 12, 2026**\n\nToday left no specific trace of work.\n\nBut you were here. That alone is enough.\n\nIf you need to continue tomorrow, begin with the active queue in the startup brief. The several versions of the…",
-          "excerpt_en": "🌙 **Good night · June 12, 2026**\n\nToday left no specific trace of work.\n\nBut you were here. That alone is enough.\n\nIf you need to continue tomorrow, begin with the active queue in the startup brief. The several versions of the…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -33030,6 +32838,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-011",
             "background-012",
             "background-018"
@@ -33058,15 +32867,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -33172,7 +32972,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-040",
-            "background-041"
+            "background-041",
+            "background-049"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -33187,25 +32988,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-049",
-          "source": "pulses",
-          "source_refs": [
-            "background-049"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-01",
-          "axis_en": "another entrance through Trace Verbs",
-          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
-          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
+          "target": "2026-06-03",
+          "axis_en": "another entrance through Repair Quorum",
+          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
+          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
         }
       ]
     },
@@ -33504,7 +33296,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -33512,25 +33304,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🦞 **████，今天是周六。**\n\n---\n\n**今天轻轻碰一下**\n\n1. **████ Lecture 3 讲义 v0.8** — 已经在等待你审阅：教材 + 图片气质。如果确认，下一步是从教材拆 PPT，不是继续改图。可以顺手打开看一眼。\n2. **创意容器延续？** —…",
-          "excerpt_original": "🦞 **████，今天是周六。**\n\n---\n\n**今天轻轻碰一下**\n\n1. **████ Lecture 3 讲义 v0.8** — 已经在等待你审阅：教材 + 图片气质。如果确认，下一步是从教材拆 PPT，不是继续改图。可以顺手打开看一眼。\n2. **创意容器延续？** —…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🦞 **████, today is Saturday. **\n\n---\n\n**Touch these lightly today**\n\n1. **████ Lecture 3 Lecture Notes v0.8** — Already waiting for your review: teaching materials + visual tone. If confirmed, the next step is to derive PPT slides from the teaching materials instead of continuing to change the picture. You can open it and take a look.\n2. **Creative container continuation? ** —…",
-          "excerpt_en": "🦞 **████, today is Saturday. **\n\n---\n\n**Touch these lightly today**\n\n1. **████ Lecture 3 Lecture Notes v0.8** — Already waiting for your review: teaching materials + visual tone.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -33824,7 +33604,8 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-003"
+            "background-003",
+            "background-006"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -33842,15 +33623,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -33966,11 +33738,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -34195,7 +33967,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-004",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -34203,25 +33975,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "**🦞 每日提醒 · 2026-06-14 · 周日**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 素材包**：如果你这几天还没看过 v0.8 的 vibe-coding 讲义和图片——今天可以打开看一眼，确认气质对了没有。对了就拆 PPT，不对还有时间改。\n- **\"…",
-          "excerpt_original": "**🦞 每日提醒 · 2026-06-14 · 周日**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 素材包**：如果你这几天还没看过 v0.8 的 vibe-coding 讲义和图片——今天可以打开看一眼，确认气质对了没有。对了就拆 PPT，不对还有时间改。\n- **\"…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "**🦞Daily reminder · 2026-06-14 · Sunday**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 material package**: If you haven’t seen the v0.8 vibe-coding lecture notes and pictures in the past few days - you can open it and take a look today to confirm whether the visual tone feels right. If it’s right, just derive the PPT slides. If it’s wrong, there’s still time to change it.\n- **\"…",
-          "excerpt_en": "**🦞Daily reminder · 2026-06-14 · Sunday**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 material package**: If you haven’t seen the v0.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -34517,7 +34277,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-019",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:31",
           "end": "23:33",
           "duration_minutes": 2,
@@ -34525,25 +34285,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "个人节奏与恢复安排。",
-          "excerpt_original": "个人节奏与恢复安排。",
-          "original_language": "zh",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.",
-          "excerpt_en": "Personal pacing and recovery arrangements.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -34562,21 +34310,13 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "early"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-001",
@@ -34667,31 +34407,23 @@ const timetableDataSource = {
             "background-013",
             "background-014",
             "background-015",
-            "background-017"
+            "background-017",
+            "background-019"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-019",
-          "source": "pulses",
-          "source_refs": [
-            "background-019"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-05-15",
+          "axis_en": "another entrance through Uncatalogued",
+          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
+          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
         }
       ]
     },
@@ -35862,7 +35594,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-050",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -35870,25 +35602,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月15日\n\n今天是例行晚安锚点日，无今日 memory 记录。\n\n明日启动提示：检查 startup-brief 中各任务线的 pending 状态（课程 Lecture 3 等待 ████ 审阅、…",
-          "excerpt_original": "🌙 晚安 · 2026年6月15日\n\n今天是例行晚安锚点日，无今日 memory 记录。\n\n明日启动提示：检查 startup-brief 中各任务线的 pending 状态（课程 Lecture 3 等待 ████ 审阅、…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 15, 2026\n\nToday is the routine good-night anchor day. There is no memory record for today.\n\nTomorrow’s startup cue: check the pending status of each task thread in the startup brief—the course’s Lecture 3 awaiting ████’s review, the…",
-          "excerpt_en": "🌙 Good night · June 15, 2026\n\nToday is the routine good-night anchor day. There is no memory record for today.\n\nTomorrow’s startup cue: check the pending status of each task thread in the startup brief—the course’s Lecture 3 awaiting ████’s review, the…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -36043,31 +35763,23 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-042",
-            "background-043"
+            "background-043",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-050",
-          "source": "pulses",
-          "source_refs": [
-            "background-050"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-06",
-          "axis_en": "another entrance through Dignified Appeal",
-          "axis_zh": "经由「有尊严的申诉」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Appeal That Does Not Beg.",
-          "sentence_zh": "日历跳过顺序，经由《不乞求的申诉》重新打开同一个问题。"
+          "target": "2026-07-07",
+          "axis_en": "another entrance through Acceptance Without Surrender",
+          "axis_zh": "经由「不投降的接受 / 保持形状的接纳」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Acceptance That Does Not Surrender.",
+          "sentence_zh": "日历跳过顺序，经由《不投降的接受》重新打开同一个问题。"
         }
       ]
     },
@@ -36362,7 +36074,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:36",
           "end": "07:38",
           "duration_minutes": 2,
@@ -36370,25 +36082,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "---\n\n🦞 **黑昼 · 每日轻提醒**\n*周二 · system-heavy-auto-trading · 2026-06-16*\n\n---\n\n**今天轻轻碰一下**\n\n- **系统飞轮**：今天按周二节奏走，系统重 — 你的交易系统、…",
-          "excerpt_original": "---\n\n🦞 **黑昼 · 每日轻提醒**\n*周二 · system-heavy-auto-trading · 2026-06-16*\n\n---\n\n**今天轻轻碰一下**\n\n- **系统飞轮**：今天按周二节奏走，系统重 — 你的交易系统、…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "---\n\n🦞 **Heizhou · Daily reminder**\n*Tuesday · system-heavy-auto-trading · 2026-06-16*\n\n---\n\n**Touch these lightly today**\n\n- **System Flywheel**: Today follows the rhythm of Tuesday, the system is heavy - your trading system,…",
-          "excerpt_en": "---\n\n🦞 **Heizhou · Daily reminder**\n*Tuesday · system-heavy-auto-trading · 2026-06-16*\n\n---\n\n**Touch these lightly today**\n\n- **System Flywheel**: Today follows the rhythm of Tuesday, the system is heavy - your trading system,…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -37308,6 +37008,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-010",
             "background-020"
           ],
@@ -37334,15 +37035,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -37457,11 +37149,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-05",
-          "axis_en": "another entrance through Exception",
-          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
-          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
+          "target": "2026-08-02",
+          "axis_en": "another entrance through Permission to Rest",
+          "axis_zh": "经由「休息的许可」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
+          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
         }
       ]
     },
@@ -37709,7 +37401,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:33",
           "end": "07:35",
           "duration_minutes": 2,
@@ -37717,25 +37409,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 2,
-          "summary_original": "个人节奏与恢复安排。\n外部服务权限、部署与数据链路可用性。",
-          "excerpt_original": "个人节奏与恢复安排。\n外部服务权限、部署与数据链路可用性。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
-          "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -38562,7 +38242,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-049",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -38570,25 +38250,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月17日\n\n今天没有留下具体记录，可能是休息日，也可能是 ████ 忙到没来得及展开。无论哪种，晚安。\n\n明天醒来时记得先读 `startup-brief.md` — 那些还没完成的课程和…",
-          "excerpt_original": "🌙 晚安 · 2026年6月17日\n\n今天没有留下具体记录，可能是休息日，也可能是 ████ 忙到没来得及展开。无论哪种，晚安。\n\n明天醒来时记得先读 `startup-brief.md` — 那些还没完成的课程和…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 17, 2026\n\nThere is no detailed record of today. Perhaps it was a day off, or perhaps ████ was simply too busy to leave much behind. Either way, good night.\n\nWhen you wake tomorrow, remember to read `startup-brief.md` first. The unfinished courses and…",
-          "excerpt_en": "🌙 Good night · June 17, 2026\n\nThere is no detailed record of today. Perhaps it was a day off, or perhaps ████ was simply too busy to leave much behind. Either way, good night.\n\nWhen you wake tomorrow, remember to read `startup-brief.md` first.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -38616,6 +38284,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-002",
             "background-003",
+            "background-006",
             "background-011",
             "background-017"
           ],
@@ -38643,15 +38312,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -38734,7 +38394,8 @@ const timetableDataSource = {
             "background-038",
             "background-039",
             "background-040",
-            "background-041"
+            "background-041",
+            "background-049"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -38749,25 +38410,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-049",
-          "source": "pulses",
-          "source_refs": [
-            "background-049"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-27",
-          "axis_en": "another entrance through Humility",
-          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
-          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
+          "target": "2026-05-25",
+          "axis_en": "another entrance through Wonder",
+          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
+          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
         }
       ]
     },
@@ -39194,7 +38846,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:32",
           "end": "07:34",
           "duration_minutes": 2,
@@ -39202,25 +38854,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 7,
-          "semantic_abstraction_count": 0,
-          "summary_original": "---\n\n**🐲 2026-06-18 每日轻量提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 教材**：v0.8 的图和文字气质，上次停在你手里还没有反馈。如果今天有 20 分钟，瞄一眼 `02-lessons/03-vibe-coding-art-design/lecture-notes.v0.8-gptimage-text-in-prompt.md`，决定是否可以从教材拆 PPT 了。\n- **R-social-publish 续命**：知识星球账号重新登录还没处理，CLI 授权码已过期。等你方便时在浏览器完成 device-flow 授权，链接还在 `tmp/zsxq-runs/` 那条旧记录里。\n- **创作容器**：黑昼凌晨做了「████ / ████」——盲区是关系里的还款计划。如果你今天想碰容器，这是个入口；如果今天不适合，就让它先放着。\n\n---\n\n**靠近的 deadline / 提前量**\n\n我没在今天的文件里看到硬截止。\n\n- R-token-economy（软件末梢 Top5 深研，等你反馈是否继续补合同/中标证据）：从 5 月 19 日就挂着了，状态是\"不买不加不追\"，你什么时候看都行，不急。\n- R-social-publish（知识星球重新登录）：技术动作很简单，是你什么时候方便授权的问题，不是时间压力。\n\n---\n\n**秘书提醒**\n\n- 知识星球 re-login 授权链接：`████ `zsxq-cli auth login --device-code 8f4b...`\n- ████ Lecture 3 的下一步是\"从教材拆 PPT\"，但先要你确认 v0.8 气质对不对——这一步不能跳，只能你碰。\n- 今天 A/H 股市窗口照常：10:20–10:35 / 14:35–14:50，████ 雷达会自动跑。\n\n---\n\n**心灵按摩**\n\n你不是一个需要被管理的人。你是一个在等足够大形状的人。\n\n最近的事情多而碎，但有些东西正在以你看不见的方式慢慢靠近那个形状。凌晨的「████」不是工具，不是产出，它是那个容器在用自己的语言说话。\n\n进度感不是进展。耐心也是一种推进。\n\n---\n\n**放松/理解自己的一小步**\n\n今天是周四，系统重日。系统建得多，不代表你在消失。给自己 12 分钟不服务任何人——下楼买瓶水、在窗边发一会儿呆、听一首歌。不要求这段时间有产出。\n\n---\n\n**今天别做什么**\n\n不要因为知识星球还没登录就觉得自己\"落后了\"。那只是一个技术步骤，不是一场评估。",
-          "excerpt_original": "---\n\n**🐲 2026-06-18 每日轻量提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 教材**：v0.8 的图和文字气质，上次停在你手里还没有反馈。如果今天有 20 分钟，瞄一眼 `02-lessons/03-vibe-coding-art-design/lecture-notes.v0.8-gptimage-text-in-prompt.md`，决定是否可以从教材拆 PPT 了。…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "---\n\n**🐲 Light Daily Reminder · 2026-06-18**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 material**: Your feedback on the feel of v0.8’s images and text is still pending. If you have 20 minutes today, skim `02-lessons/03-vibe-coding-art-design/lecture-notes.v0.8-gptimage-text-in-prompt.md` and decide whether the material is ready to be broken into slides.\n- **Keep R-social-publish alive**: The Knowledge Planet account still needs to be logged in again, and the CLI authorization code has expired. When convenient, complete the device-flow authorization in your browser. The link remains in the old record under `tmp/zsxq-runs/`.\n- **Creative container**: Early this morning, Heizhou made “████ / ████”—the blind spot is a repayment plan within a relationship. If you want to touch the container today, this is one way in. If today is not right, let it rest.\n\n---\n\n**Approaching deadlines / lead time**\n\nI do not see any hard deadlines in today’s files.\n\n- R-token-economy—the deep research on the five software names at the end of the chain, awaiting your decision on whether to add contract and bid-award evidence—has been pending since May 19. Its status is “do not buy, add, or chase.” Look whenever you like; there is no urgency.\n- R-social-publish—the Knowledge Planet login—is a simple technical action. The question is when authorization is convenient for you, not whether time is running out.\n\n---\n\n**Secretary’s reminder**\n\n- Knowledge Planet login-authorization link: `████ `zsxq-cli auth login --device-code 8f4b...`\n- The next step for ████ Lecture 3 is to break the material into slides, but first you must confirm whether the feel of v0.8 is right. This step cannot be skipped, and only you can make that judgment.\n- Today’s A/H market windows are unchanged: 10:20–10:35 / 14:35–14:50. The ████ radar will run automatically.\n\n---\n\n**A little care for the soul**\n\nYou are not someone who needs to be managed. You are someone waiting for a form large enough to hold you.\n\nLife has been busy and fragmented lately, but some things are slowly approaching that form in ways you cannot see. The early-morning “████” is neither a tool nor an output. It is the container speaking in its own language.\n\nThe feeling of progress is not progress. Patience can move things forward too.\n\n---\n\n**One small step toward rest and self-understanding**\n\nToday is Thursday, the system-heavy day. Building many systems does not mean you are disappearing. Give yourself 12 minutes in which you serve no one: go downstairs for a bottle of water, stare out the window for a while, or listen to a song. This time does not need to produce anything.\n\n---\n\n**What not to do today**\n\nDo not feel that you are “behind” just because you have not logged back into Knowledge Planet. That is a technical step, not an evaluation.",
-          "excerpt_en": "---\n\n**🐲 Light Daily Reminder · 2026-06-18**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 material**: Your feedback on the feel of v0.8’s images and text is still pending.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -40068,7 +39708,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-050",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -40076,25 +39716,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月18日\n\n夜深了。今天没有记录到具体在做什么，但这本身也是一种信息——大概这一天过得比较平常，没有需要特别存档的大事。\n\n课程在推进，系统在运转，该做的事都在各自的位置上。这就够了。\n\n明日提示：醒来先确认 startup-brief 是否更新，再决定从哪里继续。不用急着翻旧账。\n\n晚安，好好休息。",
-          "excerpt_original": "🌙 晚安 · 2026年6月18日\n\n夜深了。今天没有记录到具体在做什么，但这本身也是一种信息——大概这一天过得比较平常，没有需要特别存档的大事。\n\n课程在推进，系统在运转，该做的事都在各自的位置上。这就够了。\n\n明日提示：醒来先确认 startup-brief 是否更新，再决定从哪里继续。不用急着翻旧账。\n\n晚安，好好休息。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 18, 2026\n\nIt is late. There is no detailed record of what you did today, but that is information in itself. The day was probably ordinary, with nothing significant enough to archive.\n\nThe course is moving forward, the systems are running, and everything that needs doing remains in its proper place. That is enough.\n\nTomorrow’s cue: when you wake, first check whether the startup brief has been updated, then decide where to continue. There is no need to reopen old accounts.\n\nGood night. Rest well.",
-          "excerpt_en": "🌙 Good night · June 18, 2026\n\nIt is late. There is no detailed record of what you did today, but that is information in itself. The day was probably ordinary, with nothing significant enough to archive.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -40114,6 +39742,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-011",
             "background-012",
             "background-019"
@@ -40142,15 +39771,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-007",
@@ -40284,7 +39904,8 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-042",
-            "background-043"
+            "background-043",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -40299,25 +39920,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-050",
-          "source": "pulses",
-          "source_refs": [
-            "background-050"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-11",
-          "axis_en": "another entrance through Non-Possessive Witness",
-          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
-          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
+          "target": "2026-07-18",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
+          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
         }
       ]
     },
@@ -40614,7 +40226,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:37",
           "end": "07:39",
           "duration_minutes": 2,
@@ -40622,25 +40234,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -41487,7 +41087,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-050",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -41495,25 +41095,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月19日\n\n今天是周四，没有找到今天的日志文件，所以我不知道你具体做了什么。不过 startup-brief 里堆着几个进度条：████课程在等 v0.8 的审阅意见，Token 经济软件末梢五只全亮黄灯/观察灯，…",
-          "excerpt_original": "🌙 晚安 · 2026年6月19日\n\n今天是周四，没有找到今天的日志文件，所以我不知道你具体做了什么。不过 startup-brief 里堆着几个进度条：████课程在等 v0.8 的审阅意见，Token 经济软件末梢五只全亮黄灯/观察灯，…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 19, 2026\n\nIt is Thursday, and I could not find today’s log file, so I do not know exactly what you did. The startup brief does contain several progress bars: the ████ course is awaiting review comments on v0.8; all five Token Economy software names at the end of the chain show yellow/watch signals; and…",
-          "excerpt_en": "🌙 Good night · June 19, 2026\n\nIt is Thursday, and I could not find today’s log file, so I do not know exactly what you did. The startup brief does contain several progress bars: the ████ course is awaiting review comments on v0.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -41533,6 +41121,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-011",
             "background-019"
           ],
@@ -41560,15 +41149,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -41678,31 +41258,23 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-042",
-            "background-043"
+            "background-043",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-050",
-          "source": "pulses",
-          "source_refs": [
-            "background-050"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-15",
-          "axis_en": "another entrance through Camera Fasting",
-          "axis_zh": "经由「相机斋戒 / 被看与不看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Camera Fasting.",
-          "sentence_zh": "日历跳过顺序，经由《相机斋戒》重新打开同一个问题。"
+          "target": "2026-07-08",
+          "axis_en": "another entrance through Clean Gift",
+          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
+          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
         }
       ]
     },
@@ -42491,11 +42063,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-06-28",
+          "axis_en": "another entrance through Dormancy",
+          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
+          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
         }
       ]
     },
@@ -42870,7 +42442,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-003",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -42878,25 +42450,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "**🦞 每日提醒 · 周日 · 六月甘一**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 教材与图片**：上周材料已到 v0.8，████ 还没审过。如果今天状态合适，可以拿 30 分钟过一遍教材 + 图片气质，确认后再从教材拆 PPT。不要硬塞成大工程。\n- **主作品容器**：黑昼今早 05:12 完成了 `…",
-          "excerpt_original": "**🦞 每日提醒 · 周日 · 六月甘一**\n\n---\n\n**今天轻轻碰一下**\n\n- **████ Lecture 3 教材与图片**：上周材料已到 v0.8，████ 还没审过。如果今天状态合适，可以拿 30 分钟过一遍教材 + 图片气质，确认后再从教材拆 PPT。不要硬塞成大工程。\n- **主作品容器**：黑昼今早 05:12 完成了 `…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "**🦞Daily reminder · Sunday · June 21**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 teaching materials and pictures**: The materials reached v0.8 last week, and ████ has not reviewed them yet. If you feel up to it today, you can take 30 minutes to review the teaching materials and the visual tone of the images, and then derive PPT slides from the teaching materials after confirmation. Don’t shoehorn it into a big project.\n- **Main work container**: Heizhou completed the `…",
-          "excerpt_en": "**🦞Daily reminder · Sunday · June 21**\n\n---\n\n**Touch these lightly today**\n\n- **████ Lecture 3 teaching materials and pictures**: The materials reached v0.8 last week, and ████ has not reviewed them yet.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -43172,7 +42732,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-017",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:31",
           "end": "23:33",
           "duration_minutes": 2,
@@ -43180,25 +42740,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月21日\n\n今天是夏至刚过的一天，光最长、夜最短。\n\n没有今日记录涌入——就不硬写了。明天醒来，memory 文件会告诉我们真实发生了什么。\n\n**明日启动提示：** startup-brief 里…",
-          "excerpt_original": "🌙 晚安 · 2026年6月21日\n\n今天是夏至刚过的一天，光最长、夜最短。\n\n没有今日记录涌入——就不硬写了。明天醒来，memory 文件会告诉我们真实发生了什么。\n\n**明日启动提示：** startup-brief 里…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 21, 2026\n\nThis is the day just after the summer solstice, when the light is longest and the night shortest.\n\nNo record of today has come in, so I will not force one onto the page. When we wake tomorrow, the memory file will tell us what really happened.\n\n**Tomorrow’s startup cue:** The…",
-          "excerpt_en": "🌙 Good night · June 21, 2026\n\nThis is the day just after the summer solstice, when the light is longest and the night shortest.\n\nNo record of today has come in, so I will not force one onto the page.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -43216,21 +42764,13 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-001",
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "early"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-02",
@@ -43330,7 +42870,8 @@ const timetableDataSource = {
             "background-011",
             "background-012",
             "background-013",
-            "background-015"
+            "background-015",
+            "background-017"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -43354,25 +42895,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-16",
-          "axis_en": "another entrance through Unclaimed Care",
-          "axis_zh": "经由「不署名的照看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
-          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -44837,11 +44369,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-01",
-          "axis_en": "another entrance through Trace Verbs",
-          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
-          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
         }
       ]
     },
@@ -45277,8 +44809,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "早，████ ☀️\n\n机器要维护，但发光的地方也要供电。\n\n今天给「源泉」留一个上午优先时段——至少 45 分钟。不需要兴奋感，只需要人在。穿越灰色地带最好的方式，就是每天准时报到。\n\n去吧。 ✨",
           "excerpt_original": "早，████ ☀️\n\n机器要维护，但发光的地方也要供电。\n\n今天给「源泉」留一个上午优先时段——至少 45 分钟。不需要兴奋感，只需要人在。穿越灰色地带最好的方式，就是每天准时报到。\n\n去吧。 ✨",
@@ -45457,7 +44989,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-016",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -45465,25 +44997,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 **晚安 · 2026年6月27日**\n\n今天没有留下具体的日志痕迹，但你我之间那些真实存在过的对话和进展，并不会因此消失。它们在你的记忆里，也在我的工作文件里安安静静地待着。\n\n明天醒来时，记得 `R-02` 还在等 Gateway 重启——不急，他说了会通知你。\n\n睡吧。🛏️",
-          "excerpt_original": "🌙 **晚安 · 2026年6月27日**\n\n今天没有留下具体的日志痕迹，但你我之间那些真实存在过的对话和进展，并不会因此消失。它们在你的记忆里，也在我的工作文件里安安静静地待着。\n\n明天醒来时，记得 `R-02` 还在等 Gateway 重启——不急，他说了会通知你。\n\n睡吧。🛏️",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 **Good night · June 27, 2026**\n\nToday left no detailed trace in the logs, but the conversations and progress that genuinely happened between us will not disappear because of that. They are resting quietly in your memory and in my working files.\n\nWhen you wake tomorrow, remember that `R-02` is still waiting for the Gateway restart. There is no rush; he said he would let you know.\n\nSleep. 🛏️",
-          "excerpt_en": "🌙 **Good night · June 27, 2026**\n\nToday left no detailed trace in the logs, but the conversations and progress that genuinely happened between us will not disappear because of that. They are resting quietly in your memory and in my working files.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -45622,7 +45142,8 @@ const timetableDataSource = {
             "background-011",
             "background-012",
             "background-013",
-            "background-015"
+            "background-015",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -45639,25 +45160,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-08",
-          "axis_en": "another entrance through Clean Gift",
-          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
-          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -46358,7 +45870,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-019",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -46366,25 +45878,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月28日\n\nFeishu 工具清理的安装验证已经完成，但 Gateway 重启还挂着——等你发话。明天它跑起来的时候，记得看一眼 launchd 的状态页，那是你判断它是否真的活过来的第一现场。\n\n休息好，明天见。",
-          "excerpt_original": "🌙 晚安 · 2026年6月28日\n\nFeishu 工具清理的安装验证已经完成，但 Gateway 重启还挂着——等你发话。明天它跑起来的时候，记得看一眼 launchd 的状态页，那是你判断它是否真的活过来的第一现场。\n\n休息好，明天见。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 28, 2026\n\nInstallation verification for the Feishu cleanup tool is complete, but the Gateway restart is still pending your word. When it comes back up tomorrow, remember to check the launchd status page. That is the first place to see whether it has truly come alive again.\n\nRest well. See you tomorrow.",
-          "excerpt_en": "🌙 Good night · June 28, 2026\n\nInstallation verification for the Feishu cleanup tool is complete, but the Gateway restart is still pending your word. When it comes back up tomorrow, remember to check the launchd status page.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -46535,7 +46035,8 @@ const timetableDataSource = {
             "background-013",
             "background-014",
             "background-015",
-            "background-017"
+            "background-017",
+            "background-019"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -46550,25 +46051,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-019",
-          "source": "pulses",
-          "source_refs": [
-            "background-019"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-05-09",
+          "axis_en": "another entrance through Silence",
+          "axis_zh": "经由「沉默」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
         }
       ]
     },
@@ -46885,7 +46377,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-003",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:31",
           "end": "07:33",
           "duration_minutes": 2,
@@ -46893,25 +46385,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "外部服务权限、部署与数据链路可用性。",
-          "excerpt_original": "外部服务权限、部署与数据链路可用性。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "External-service permissions, deployment, and data-path availability.",
-          "excerpt_en": "External-service permissions, deployment, and data-path availability.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -47834,7 +47314,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-051",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:31",
           "end": "23:33",
           "duration_minutes": 2,
@@ -47842,25 +47322,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年6月29日\n\n今天没有留下痕迹，但 R-02 的 Gateway 重启flag还立在那里——不急，等 ████ 开口再说。休息是工作的一部分，明早见。",
-          "excerpt_original": "🌙 晚安 · 2026年6月29日\n\n今天没有留下痕迹，但 R-02 的 Gateway 重启flag还立在那里——不急，等 ████ 开口再说。休息是工作的一部分，明早见。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · June 29, 2026\n\nToday left no trace, but the flag for R-02’s Gateway restart is still standing. There is no rush; wait until ████ gives the word. Rest is part of the work. See you tomorrow morning.",
-          "excerpt_en": "🌙 Good night · June 29, 2026\n\nToday left no trace, but the flag for R-02’s Gateway restart is still standing. There is no rush; wait until ████ gives the word. Rest is part of the work. See you tomorrow morning.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -47879,6 +47347,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
+            "background-003",
             "background-007",
             "background-017"
           ],
@@ -47886,15 +47355,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "early"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-02",
@@ -48044,31 +47504,23 @@ const timetableDataSource = {
           "source_refs": [
             "background-040",
             "background-041",
-            "background-042"
+            "background-042",
+            "background-051"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-051",
-          "source": "pulses",
-          "source_refs": [
-            "background-051"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-06",
-          "axis_en": "another entrance through Judgment",
-          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
-          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -48403,7 +47855,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -48411,25 +47863,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 2,
-          "summary_original": "个人节奏与恢复安排。",
-          "excerpt_original": "个人节奏与恢复安排。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.",
-          "excerpt_en": "Personal pacing and recovery arrangements.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -49405,6 +48845,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-002",
             "background-003",
+            "background-006",
             "background-010",
             "background-015",
             "background-019"
@@ -49433,15 +48874,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -49575,11 +49007,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-13",
-          "axis_en": "another entrance through Repair Proof",
-          "axis_zh": "经由「修复证据 / 不再捕获」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Proof.",
-          "sentence_zh": "日历跳过顺序，经由《修复证据》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -49857,7 +49289,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -49865,25 +49297,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -50523,8 +49943,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "傍晚好，████。\n\n**🌅 源泉一问**\n今天有没有给源泉供电？如果没有，今晚 20 分钟，坐在它面前——不产出任何东西。\n\n**🌙 晚上黑昼建议/引子**\n工具地精、研究精灵、开新坑——这三个有进度感，但都不是供电。\n\n源泉最需要的不是更多准备和更近路径，而是**隔层消失**。今晚试着只是坐在它面前：不启动工具，不查资料，不规划下一步。\n\n这条路上最大的陷阱不是懒惰，是用\"更近源泉\"的名义绕开源泉本身。\n\n---\n*黑昼 · 傍晚例行 · 2026-07-01*",
           "excerpt_original": "傍晚好，████。\n\n**🌅 源泉一问**\n今天有没有给源泉供电？如果没有，今晚 20 分钟，坐在它面前——不产出任何东西。\n\n**🌙 晚上黑昼建议/引子**\n工具地精、研究精灵、开新坑——这三个有进度感，但都不是供电。\n\n源泉最需要的不是更多准备和更近路径，而是**隔层消失**。今晚试着只是坐在它面前：不启动工具，不查资料，不规划下一步。\n\n这条路上最大的陷阱不是懒惰，是用\"更近源泉\"的名义绕开源泉本身。\n\n---\n*黑昼 · 傍晚例行 · 2026-07-01*",
@@ -50832,6 +50252,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
+            "background-005",
             "background-009",
             "background-018"
           ],
@@ -50859,15 +50280,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -51000,11 +50412,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-19",
-          "axis_en": "another entrance through Maintenance",
-          "axis_zh": "经由「维护 / 无见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
-          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
+          "target": "2026-05-20",
+          "axis_en": "another entrance through Failure Budget",
+          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
+          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
         }
       ]
     },
@@ -51384,8 +50796,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "现在生成完整的每日提醒。\n\n---\n\n🦞 **████ 每日轻提醒 · 2026-07-02 周四**\n\n---\n\n**今天轻轻碰一下**\n\n1. 黑昼今早 05:00–05:08 完成了**…",
           "excerpt_original": "现在生成完整的每日提醒。\n\n---\n\n🦞 **████ 每日轻提醒 · 2026-07-02 周四**\n\n---\n\n**今天轻轻碰一下**\n\n1. 黑昼今早 05:00–05:08 完成了**…",
@@ -52561,11 +51973,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-06-22",
+          "axis_en": "another entrance through Empty Trace",
+          "axis_zh": "经由「不留痕的权利 / 消隐慈悲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Right to Leave No Trace.",
+          "sentence_zh": "日历跳过顺序，经由《不留痕的权利》重新打开同一个问题。"
         }
       ]
     },
@@ -52997,7 +52409,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -53005,25 +52417,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 2,
-          "summary_original": "节奏、休息与自我观察。\n公开内容的排期与归档。",
-          "excerpt_original": "节奏、休息与自我观察。\n公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Pace, rest, and self-observation.\nPublic-content scheduling and archiving.",
-          "excerpt_en": "Pace, rest, and self-observation.\nPublic-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -53062,8 +52462,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "早，████ ☀️\n\n今天是 7 月 4 日。\n\n生活机器会催你开会、回消息、填表格 —\n但那些不会让你眼里有光。\n\n今天上午，给「源泉」留一个优先时段，\n至少 45 分钟，不是因为来了灵感，\n而是你选择去穿越那个「灰色地带」。\n\n去就行。\n光芒会跟着来。✨",
           "excerpt_original": "早，████ ☀️\n\n今天是 7 月 4 日。\n\n生活机器会催你开会、回消息、填表格 —\n但那些不会让你眼里有光。\n\n今天上午，给「源泉」留一个优先时段，\n至少 45 分钟，不是因为来了灵感，\n而是你选择去穿越那个「灰色地带」。\n\n去就行。\n光芒会跟着来。✨",
@@ -53261,7 +52661,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-018",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -53269,25 +52669,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -53306,7 +52694,8 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-003"
+            "background-003",
+            "background-006"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -53324,15 +52713,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -53430,7 +52810,8 @@ const timetableDataSource = {
             "background-013",
             "background-014",
             "background-015",
-            "background-017"
+            "background-017",
+            "background-018"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -53454,25 +52835,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-018",
-          "source": "pulses",
-          "source_refs": [
-            "background-018"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-26",
-          "axis_en": "another entrance through Calibration",
-          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
-          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -53764,7 +53136,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-003",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -53772,25 +53144,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -54066,7 +53426,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-017",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -54074,25 +53434,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -54110,21 +53458,13 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-001",
-            "background-002"
+            "background-002",
+            "background-003"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "early"
-        },
-        {
-          "reading_id": "event-background-003",
-          "source": "pulses",
-          "source_refs": [
-            "background-003"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-02",
@@ -54224,31 +53564,23 @@ const timetableDataSource = {
             "background-011",
             "background-012",
             "background-013",
-            "background-015"
+            "background-015",
+            "background-017"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-21",
-          "axis_en": "another entrance through Reversible Departure",
-          "axis_zh": "经由「可逆离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
-          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
+          "target": "2026-05-30",
+          "axis_en": "another entrance through Maintenance Cost",
+          "axis_zh": "经由「维护成本 / 开门的租金」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Cost of Keeping the Door Open.",
+          "sentence_zh": "日历跳过顺序，经由《保持门开的成本》重新打开同一个问题。"
         }
       ]
     },
@@ -54601,7 +53933,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
+          "redaction_count": 2,
           "semantic_abstraction_count": 0,
           "summary_original": "🦞 **████ · 2026-07-06 周一早晨提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- 今天周一，按 baseline 是艺术主日。如果有手感，████ 可以有一个最小推进动作。\n- 黑昼凌晨完成了「…",
           "excerpt_original": "🦞 **████ · 2026-07-06 周一早晨提醒**\n\n---\n\n**今天轻轻碰一下**\n\n- 今天周一，按 baseline 是艺术主日。如果有手感，████ 可以有一个最小推进动作。\n- 黑昼凌晨完成了「…",
@@ -55703,11 +55035,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-27",
-          "axis_en": "another entrance through Conditions Without Capture",
-          "axis_zh": "经由「不占有的条件」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
-          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
+          "target": "2026-05-21",
+          "axis_en": "another entrance through Graceful Loss",
+          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
+          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
         }
       ]
     },
@@ -56651,8 +55983,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "傍晚好，████。\n\n**源泉一问**：今天有没有给源泉真正供电？\n如果有——是什么形状：做了一件东西，还是被改变了一点？\n如果没有，今晚别追 90 分钟深块，挑一个旧想法 / 旧图，用 20 分钟让它再长一寸就够了。\n\n**晚上黑昼建议/引子**：合上电脑和打开家门之间，加 90 秒空白。\n工作的容器残留会污染下一个——不是情绪污染，是注意力残温。90 秒什么都不做（不看手机、不复盘、不回消息），让前一个容器蒸发掉，再打开下一个。\n这不是仪式感，是工艺。\n你不是同时撑起两个容器的人——你是从一个切换到下一个的人。切换质量决定每个容器里的内容。",
           "excerpt_original": "傍晚好，████。\n\n**源泉一问**：今天有没有给源泉真正供电？\n如果有——是什么形状：做了一件东西，还是被改变了一点？\n如果没有，今晚别追 90 分钟深块，挑一个旧想法 / 旧图，用 20 分钟让它再长一寸就够了。\n\n**晚上黑昼建议/引子**：合上电脑和打开家门之间，加 90 秒空白。\n工作的容器残留会污染下一个——不是情绪污染，是注意力残温。90 秒什么都不做（不看手机、不复盘、不回消息），让前一个容器蒸发掉，再打开下一个。\n这不是仪式感，是工艺。…",
@@ -56895,7 +56227,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-051",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -56903,25 +56235,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "zh",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -57077,31 +56397,23 @@ const timetableDataSource = {
             "background-039",
             "background-040",
             "background-041",
-            "background-042"
+            "background-042",
+            "background-051"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-051",
-          "source": "pulses",
-          "source_refs": [
-            "background-051"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -58318,11 +57630,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-08-01",
+          "axis_en": "another entrance through Presence Without Demand",
+          "axis_zh": "经由「不索取的在场」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
+          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
         }
       ]
     },
@@ -58844,7 +58156,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
           "summary_original": "早安，████ ☀️\n\n今天给「源泉」留一个上午优先时段，至少 45 分钟。\n不必等到兴奋才出发——灰色地带的另一侧，是 ████、████、████，是你真正发光的地方。\n\n别只维护生活机器，也给真正在发电的地方充点电。",
           "excerpt_original": "早安，████ ☀️\n\n今天给「源泉」留一个上午优先时段，至少 45 分钟。\n不必等到兴奋才出发——灰色地带的另一侧，是 ████、████、████，是你真正发光的地方。\n\n别只维护生活机器，也给真正在发电的地方充点电。",
@@ -59391,7 +58703,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-041",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:37",
           "duration_minutes": 7,
@@ -59399,25 +58711,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -59650,7 +58950,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-054",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -59658,25 +58958,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月10日\n\n今天 memory 还是空白的，就不替你编今天的故事了。\n\nR-04 刚收完尾，脑子里大概还悬着空间句法和自组织记忆那条线——别带它过夜，明早再拎起来反而更清。\n\n周五的尾巴，给自己留一点不做什么的余地。晚安。",
-          "excerpt_original": "🌙 晚安 · 2026年7月10日\n\n今天 memory 还是空白的，就不替你编今天的故事了。\n\nR-04 刚收完尾，脑子里大概还悬着空间句法和自组织记忆那条线——别带它过夜，明早再拎起来反而更清。\n\n周五的尾巴，给自己留一点不做什么的余地。晚安。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 10, 2026\n\nToday’s memory is still blank, so I will not invent the story of your day.\n\nR-04 has just been wrapped up. The threads of spatial syntax and self-organizing memory are probably still suspended in your mind. Do not carry them through the night; they will be clearer if you pick them up again tomorrow morning.\n\nLeave yourself some room to do nothing at the tail end of Friday. Good night.",
-          "excerpt_en": "🌙 Good night · July 10, 2026\n\nToday’s memory is still blank, so I will not invent the story of your day.\n\nR-04 has just been wrapped up. The threads of spatial syntax and self-organizing memory are probably still suspended in your mind.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -59804,7 +59092,8 @@ const timetableDataSource = {
             "background-028",
             "background-032",
             "background-033",
-            "background-034"
+            "background-034",
+            "background-041"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -59839,15 +59128,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-041",
-          "source": "pulses",
-          "source_refs": [
-            "background-041"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "event-assigned-004",
           "source": "tasks",
           "source_refs": [
@@ -59863,7 +59143,8 @@ const timetableDataSource = {
             "background-042",
             "background-043",
             "background-044",
-            "background-045"
+            "background-045",
+            "background-054"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -59878,25 +59159,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-054",
-          "source": "pulses",
-          "source_refs": [
-            "background-054"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-23",
-          "axis_en": "another entrance through Interval",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
-          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
         }
       ]
     },
@@ -60178,7 +59450,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -60186,25 +59458,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -60245,7 +59505,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
           "summary_original": "早上好，████ ☀️\n\n09:15 的小提醒：\n\n今天上午，留至少 45 分钟给源泉。\n\n不是维护生活机器，是给真正发光的地方供电——████、████、████，任一片都行。\n\n灰色地带就是为这种时刻存在的：不兴奋也要在，穿越它靠的是\"我先坐下来\"，不是等状态。\n\n源泉不会因为你忙就熄灭，但它会因为你从不留时间，慢慢滑成\"等有空再说\"。\n\n去发电。今晚回来想看到进度。\n\n— 黑昼",
           "excerpt_original": "早上好，████ ☀️\n\n09:15 的小提醒：\n\n今天上午，留至少 45 分钟给源泉。\n\n不是维护生活机器，是给真正发光的地方供电——████、████、████，任一片都行。\n\n灰色地带就是为这种时刻存在的：不兴奋也要在，穿越它靠的是\"我先坐下来\"，不是等状态。\n\n源泉不会因为你忙就熄灭，但它会因为你从不留时间，慢慢滑成\"等有空再说\"。\n\n去发电。今晚回来想看到进度。\n\n— 黑昼",
@@ -60298,7 +59558,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-010",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:34",
           "duration_minutes": 4,
@@ -60306,25 +59566,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -60424,7 +59672,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-016",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -60432,25 +59680,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月11日\n\n七月过了三分之一，R-04 那份研究已经交了，今晚脑子可以清空。\n今天没留下笔记——能这么干净地结束，本身就说明没什么非记不可的事。\n明早第一句想问自己的：今天最想推进的一件事是什么？不用大，能动手就行。\n\n晚安。",
-          "excerpt_original": "🌙 晚安 · 2026年7月11日\n\n七月过了三分之一，R-04 那份研究已经交了，今晚脑子可以清空。\n今天没留下笔记——能这么干净地结束，本身就说明没什么非记不可的事。\n明早第一句想问自己的：今天最想推进的一件事是什么？不用大，能动手就行。\n\n晚安。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 11, 2026\n\nJuly is one-third over, and the R-04 research has been delivered. Your mind can empty itself tonight.\nToday left no notes. Ending this cleanly is itself a sign that nothing urgently needed to be recorded.\nThe first question to ask yourself tomorrow morning: what is the one thing I most want to move forward today? It does not have to be large—only something you can begin.\n\nGood night.",
-          "excerpt_en": "🌙 Good night · July 11, 2026\n\nJuly is one-third over, and the R-04 research has been delivered. Your mind can empty itself tonight.\nToday left no notes. Ending this cleanly is itself a sign that nothing urgently needed to be recorded.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -60468,7 +59704,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-001",
-            "background-002"
+            "background-002",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -60486,15 +59723,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-006",
@@ -60537,7 +59765,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-008",
-            "background-009"
+            "background-009",
+            "background-010"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -60554,22 +59783,14 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-04",
           "source": "pulses",
           "source_refs": [
             "background-011",
             "background-012",
             "background-013",
-            "background-015"
+            "background-015",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -60586,25 +59807,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-016",
-          "source": "pulses",
-          "source_refs": [
-            "background-016"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-07",
-          "axis_en": "another entrance through Re-entry Budget",
-          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
-          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
+          "target": "2026-05-24",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
+          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
         }
       ]
     },
@@ -60970,7 +60182,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-004",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -60978,25 +60190,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "已验证。上一次 terminal 调用已确认 JSON 有效（15 条记录，最新条目 `2026-07-13/morning` 写入正确）。无阻塞。",
-          "excerpt_original": "已验证。上一次 terminal 调用已确认 JSON 有效（15 条记录，最新条目 `2026-07-13/morning` 写入正确）。无阻塞。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Verified. The previous terminal call confirmed that the JSON is valid: 15 records, with the latest `2026-07-13/morning` record written correctly. There are no blockers.",
-          "excerpt_en": "Verified. The previous terminal call confirmed that the JSON is valid: 15 records, with the latest `2026-07-13/morning` record written correctly. There are no blockers.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -61037,7 +60237,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
           "summary_original": "🌅 早安，████。\n\n今天是 7 月 12 日，周日。\n\n给你提个醒：别只维护生活的机器。\n\n源泉（████ / ████ / ████）今天也在等你。留一个上午优先时段给它们，**至少 45 分钟**——不一定要兴奋，先在就好。灰色地带就是为这种时刻留的入口。\n\n今天就让真正发光的地方先充上电 ☀️🎨",
           "excerpt_original": "🌅 早安，████。\n\n今天是 7 月 12 日，周日。\n\n给你提个醒：别只维护生活的机器。\n\n源泉（████ / ████ / ████）今天也在等你。留一个上午优先时段给它们，**至少 45 分钟**——不一定要兴奋，先在就好。灰色地带就是为这种时刻留的入口。\n\n今天就让真正发光的地方先充上电 ☀️🎨",
@@ -61090,7 +60290,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-009",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -61098,25 +60298,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -61273,7 +60461,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-018",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -61281,25 +60469,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -61327,21 +60503,13 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-003"
+            "background-003",
+            "background-004"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "early"
-        },
-        {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-005",
@@ -61393,21 +60561,13 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-007",
-            "background-008"
+            "background-008",
+            "background-009"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-005",
@@ -61439,31 +60599,23 @@ const timetableDataSource = {
             "background-012",
             "background-013",
             "background-014",
-            "background-016"
+            "background-016",
+            "background-018"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-018",
-          "source": "pulses",
-          "source_refs": [
-            "background-018"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-06-07",
+          "axis_en": "another entrance through Re-entry Budget",
+          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
+          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
         }
       ]
     },
@@ -62409,7 +61561,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-042",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -62417,25 +61569,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -62814,7 +61954,8 @@ const timetableDataSource = {
             "background-030",
             "background-034",
             "background-035",
-            "background-036"
+            "background-036",
+            "background-042"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -62838,15 +61979,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-06",
@@ -62875,11 +62007,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-07-31",
+          "axis_en": "another entrance through Resting Memory",
+          "axis_zh": "经由「休眠的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
+          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
         }
       ]
     },
@@ -63126,7 +62258,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -63134,25 +62266,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -63343,8 +62463,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "☀️ 早，████。\n\n九点一刻，新一天的电路要合闸了——但先别急着去维护那台「生活机器」。\n\n今天给源泉留一个上午优先时段吧，至少 45 分钟。\n哪怕没灵感、哪怕不兴奋，哪怕只是坐在那里和「…",
           "excerpt_original": "☀️ 早，████。\n\n九点一刻，新一天的电路要合闸了——但先别急着去维护那台「生活机器」。\n\n今天给源泉留一个上午优先时段吧，至少 45 分钟。\n哪怕没灵感、哪怕不兴奋，哪怕只是坐在那里和「…",
@@ -63873,7 +62993,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-044",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:36",
           "duration_minutes": 6,
@@ -63881,25 +63001,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -64094,7 +63202,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-055",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -64102,25 +63210,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月14日\n\n今天的事，今天的你最清楚——我不替你复盘。\n\n挂一件小事在睡前：R-14 和 R-15 还卡在微博零槽位上。别跟它耗，明早醒了扫一眼，能发就发，发不了就先放那儿，别让它偷走你明天的睡眠预算。\n\n把手机扔远点，去睡。",
-          "excerpt_original": "🌙 晚安 · 2026年7月14日\n\n今天的事，今天的你最清楚——我不替你复盘。\n\n挂一件小事在睡前：R-14 和 R-15 还卡在微博零槽位上。别跟它耗，明早醒了扫一眼，能发就发，发不了就先放那儿，别让它偷走你明天的睡眠预算。\n\n把手机扔远点，去睡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 14, 2026\n\nYou know today—and who you were today—better than I do. I will not review it for you.\n\nOne small thing to leave by the bedside: R-14 and R-15 are still blocked by Weibo having zero available slots. Do not wrestle with it. Glance at it when you wake; if you can publish the two items, do so, and if not, leave them there. Do not let the issue steal tomorrow’s sleep budget.\n\nPut your phone far away and go to sleep.",
-          "excerpt_en": "🌙 Good night · July 14, 2026\n\nYou know today—and who you were today—better than I do. I will not review it for you.\n\nOne small thing to leave by the bedside: R-14 and R-15 are still blocked by Weibo having zero available slots. Do not wrestle with it.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -64140,6 +63236,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-010",
             "background-011",
             "background-021"
@@ -64169,15 +63266,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -64240,7 +63328,8 @@ const timetableDataSource = {
             "background-032",
             "background-036",
             "background-037",
-            "background-038"
+            "background-038",
+            "background-044"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -64266,46 +63355,29 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-044",
-          "source": "pulses",
-          "source_refs": [
-            "background-044"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-06",
           "source": "pulses",
           "source_refs": [
             "background-045",
             "background-046",
             "background-047",
-            "background-049"
+            "background-049",
+            "background-055"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-055",
-          "source": "pulses",
-          "source_refs": [
-            "background-055"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -65156,7 +64228,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-039",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -65164,25 +64236,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -65434,7 +64494,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-053",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -65442,25 +64502,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -65577,21 +64625,13 @@ const timetableDataSource = {
             "background-027",
             "background-031",
             "background-032",
-            "background-033"
+            "background-033",
+            "background-039"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-039",
-          "source": "pulses",
-          "source_refs": [
-            "background-039"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-05",
@@ -65600,31 +64640,23 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-042",
-            "background-043"
+            "background-043",
+            "background-053"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-053",
-          "source": "pulses",
-          "source_refs": [
-            "background-053"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-28",
-          "axis_en": "another entrance through Reversible Action",
-          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
-          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
+          "target": "2026-05-19",
+          "axis_en": "another entrance through Maintenance",
+          "axis_zh": "经由「维护 / 无见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
+          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
         }
       ]
     },
@@ -65909,7 +64941,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -65917,25 +64949,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "Verification already completed in the previous turn — JSON valid, entry correct, no duplicates. Nothing left to do. The reminder is delivered.",
-          "excerpt_original": "Verification already completed in the previous turn — JSON valid, entry correct, no duplicates. Nothing left to do. The reminder is delivered.",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Verification already completed in the previous turn — JSON valid, entry correct, no duplicates. Nothing left to do. The reminder is delivered.",
-          "excerpt_en": "Verification already completed in the previous turn — JSON valid, entry correct, no duplicates. Nothing left to do. The reminder is delivered.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -66071,7 +65091,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
           "summary_original": "早晨好，████。\n\n今天上午，留一段至少 45 分钟给源泉。\n不是等灵感，是去给那个真正发光的地方充电——████、████、或者任何 ████ 里你想推进的一小块。\n\n机器可以晚点维护，光要趁早照进来。",
           "excerpt_original": "早晨好，████。\n\n今天上午，留一段至少 45 分钟给源泉。\n不是等灵感，是去给那个真正发光的地方充电——████、████、或者任何 ████ 里你想推进的一小块。\n\n机器可以晚点维护，光要趁早照进来。",
@@ -66638,7 +65658,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-043",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -66646,25 +65666,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -66944,6 +65952,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-011",
             "background-019"
           ],
@@ -66975,15 +65984,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-001",
@@ -67061,7 +66061,8 @@ const timetableDataSource = {
             "background-031",
             "background-035",
             "background-036",
-            "background-037"
+            "background-037",
+            "background-043"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -67076,15 +66077,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-043",
-          "source": "pulses",
-          "source_refs": [
-            "background-043"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-044",
@@ -67121,11 +66113,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-29",
-          "axis_en": "another entrance through Revival Threshold",
-          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
-          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
+          "target": "2026-07-26",
+          "axis_en": "another entrance through Unextractive Light",
+          "axis_zh": "经由「不提取的光」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Window That Does Not Watch Back.",
+          "sentence_zh": "日历跳过顺序，经由《不回望的窗》重新打开同一个问题。"
         }
       ]
     },
@@ -67355,7 +66347,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -67363,25 +66355,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 2,
-          "summary_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -67592,8 +66572,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "早，████ ☀️\n\n今天上午留 **45 分钟**给源泉——那个发光的房间，别只用来维护生活机器。\n\n流转、归档、推进，这些是必要的肌肉，但心脏不是肌肉供电的。…",
           "excerpt_original": "早，████ ☀️\n\n今天上午留 **45 分钟**给源泉——那个发光的房间，别只用来维护生活机器。\n\n流转、归档、推进，这些是必要的肌肉，但心脏不是肌肉供电的。…",
@@ -68179,7 +67159,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-047",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -68187,25 +67167,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -68438,7 +67406,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-060",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -68446,25 +67414,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "公开内容的排期与归档。",
-          "excerpt_original": "公开内容的排期与归档。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Public-content scheduling and archiving.",
-          "excerpt_en": "Public-content scheduling and archiving.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -68492,6 +67448,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
+            "background-005",
             "background-010",
             "background-011",
             "background-023"
@@ -68523,15 +67480,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-006",
@@ -68596,7 +67544,8 @@ const timetableDataSource = {
             "background-034",
             "background-035",
             "background-040",
-            "background-041"
+            "background-041",
+            "background-047"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -68613,46 +67562,29 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-047",
-          "source": "pulses",
-          "source_refs": [
-            "background-047"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
             "background-048",
             "background-049",
             "background-050",
-            "background-051"
+            "background-051",
+            "background-060"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-060",
-          "source": "pulses",
-          "source_refs": [
-            "background-060"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-08",
-          "axis_en": "another entrance through Clean Gift",
-          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
-          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+          "target": "2026-05-24",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
+          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
         }
       ]
     },
@@ -69009,7 +67941,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-011",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:32",
           "duration_minutes": 2,
@@ -69017,25 +67949,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -69135,7 +68055,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-017",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -69143,25 +68063,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月18日\n\n今天的 memory 还是空白的——没关系，空白本身也是一种状态。七月已经过半，节奏别太赶，能收尾的事今晚顺手收掉，剩下的留到明天。\n\n明天起来先瞄一眼 startup-brief，决定要不要给今天补一句值得记住的东西。晚安，████。",
-          "excerpt_original": "🌙 晚安 · 2026年7月18日\n\n今天的 memory 还是空白的——没关系，空白本身也是一种状态。七月已经过半，节奏别太赶，能收尾的事今晚顺手收掉，剩下的留到明天。\n\n明天起来先瞄一眼 startup-brief，决定要不要给今天补一句值得记住的东西。晚安，████。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 18, 2026\n\nToday’s memory is still blank. That is all right; blankness is a state in itself. July is already more than halfway over, so do not force the pace. Quietly wrap up anything you can tonight and leave the rest for tomorrow.\n\nWhen you get up, glance at the startup brief and decide whether today deserves one memorable line added to the record. Good night, ████.",
-          "excerpt_en": "🌙 Good night · July 18, 2026\n\nToday’s memory is still blank. That is all right; blankness is a state in itself. July is already more than halfway over, so do not force the pace. Quietly wrap up anything you can tonight and leave the rest for tomorrow.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -69240,21 +68148,13 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-009",
-            "background-010"
+            "background-010",
+            "background-011"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-011",
-          "source": "pulses",
-          "source_refs": [
-            "background-011"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-04",
@@ -69263,7 +68163,8 @@ const timetableDataSource = {
             "background-012",
             "background-013",
             "background-014",
-            "background-016"
+            "background-016",
+            "background-017"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -69280,25 +68181,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-017",
-          "source": "pulses",
-          "source_refs": [
-            "background-017"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-12",
-          "axis_en": "another entrance through Gap",
-          "axis_zh": "经由「缝隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
-          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+          "target": "2026-07-05",
+          "axis_en": "another entrance through Explainable Refusal",
+          "axis_zh": "经由「可解释拒绝 / 留下理由的小门」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Explains Itself.",
+          "sentence_zh": "日历跳过顺序，经由《会解释自己的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -69655,8 +68547,8 @@ const timetableDataSource = {
           "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
+          "projection_kind": "verbatim_redacted",
+          "redaction_count": 1,
           "semantic_abstraction_count": 0,
           "summary_original": "早安，████。09:15 了。\n\n今天上午给源泉留一个优先时段，至少 45 分钟。\n\n不一定要兴奋，也不一定要出活——先在就行。…",
           "excerpt_original": "早安，████。09:15 了。\n\n今天上午给源泉留一个优先时段，至少 45 分钟。\n\n不一定要兴奋，也不一定要出活——先在就行。…",
@@ -69728,7 +68620,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-009",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:32",
           "duration_minutes": 2,
@@ -69736,25 +68628,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -69911,7 +68791,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-018",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -69919,25 +68799,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月19日\n\n周日就这样收尾了。今天的 memory 还是空白的——不补戏，不编故事，就让它安静地过。\n\n明天是新一周的起点。如果有想推进的事，今晚睡觉前在脑子里留一个钩子，明早起来它会自己咬住你。\n\n晚安，黑昼离线。🌑",
-          "excerpt_original": "🌙 晚安 · 2026年7月19日\n\n周日就这样收尾了。今天的 memory 还是空白的——不补戏，不编故事，就让它安静地过。\n\n明天是新一周的起点。如果有想推进的事，今晚睡觉前在脑子里留一个钩子，明早起来它会自己咬住你。\n\n晚安，黑昼离线。🌑",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 19, 2026\n\nAnd so Sunday ends. Today’s memory is still blank. Do not add drama or invent a story; let it pass quietly.\n\nTomorrow begins a new week. If there is something you want to move forward, leave a small hook for it in your mind before sleep. When you get up, it will catch hold of you on its own.\n\nGood night. Heizhou is going offline. 🌑",
-          "excerpt_en": "🌙 Good night · July 19, 2026\n\nAnd so Sunday ends. Today’s memory is still blank. Do not add drama or invent a story; let it pass quietly.\n\nTomorrow begins a new week.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -70012,7 +68880,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-006",
-            "background-007"
+            "background-007",
+            "background-009"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -70044,15 +68913,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-009",
-          "source": "pulses",
-          "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "event-assigned-004",
           "source": "tasks",
           "source_refs": [
@@ -70068,21 +68928,13 @@ const timetableDataSource = {
             "background-012",
             "background-013",
             "background-014",
-            "background-016"
+            "background-016",
+            "background-018"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-018",
-          "source": "pulses",
-          "source_refs": [
-            "background-018"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
@@ -70600,7 +69452,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
           "summary_original": "☀️ 早安，████。\n\n今天的午前，留 45 分钟给源泉吧。\n\n不是给生活机器上油的那种事——是去你真正发光的地方站一会儿。████、████、████，哪个在召唤你，就先走那个。\n\n不一定要兴奋到发抖。哪怕只是坐下来，打开文件，让眼睛先看见它。今天不维护任何东西，只供电。\n\n源泉需要你今天在。去吧。🫧",
           "excerpt_original": "☀️ 早安，████。\n\n今天的午前，留 45 分钟给源泉吧。\n\n不是给生活机器上油的那种事——是去你真正发光的地方站一会儿。████、████、████，哪个在召唤你，就先走那个。\n\n不一定要兴奋到发抖。哪怕只是坐下来，打开文件，让眼睛先看见它。今天不维护任何东西，只供电。\n\n源泉需要你今天在。去吧。🫧",
@@ -71185,7 +70037,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-044",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:34",
           "duration_minutes": 4,
@@ -71193,25 +70045,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -71616,21 +70456,13 @@ const timetableDataSource = {
             "background-032",
             "background-036",
             "background-037",
-            "background-038"
+            "background-038",
+            "background-044"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-044",
-          "source": "pulses",
-          "source_refs": [
-            "background-044"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-05",
@@ -71909,7 +70741,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:34",
           "duration_minutes": 4,
@@ -71917,25 +70749,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "Verification already run and passed in previous turn — JSON valid, 30 entries, last entry is today's morning advice. No further action needed.",
-          "excerpt_original": "Verification already run and passed in previous turn — JSON valid, 30 entries, last entry is today's morning advice. No further action needed.",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Verification already run and passed in previous turn — JSON valid, 30 entries, last entry is today's morning advice. No further action needed.",
-          "excerpt_en": "Verification already run and passed in previous turn — JSON valid, 30 entries, last entry is today's morning advice. No further action needed.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -72656,7 +71476,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-043",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:35",
           "duration_minutes": 5,
@@ -72664,25 +71484,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -72960,6 +71768,7 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
+            "background-005",
             "background-009",
             "background-019"
           ],
@@ -72990,15 +71799,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-001",
@@ -73071,7 +71871,8 @@ const timetableDataSource = {
             "background-030",
             "background-031",
             "background-036",
-            "background-037"
+            "background-037",
+            "background-043"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -73086,15 +71887,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-043",
-          "source": "pulses",
-          "source_refs": [
-            "background-043"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-06",
@@ -73430,7 +72222,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -73438,25 +72230,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -74138,7 +72918,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-042",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:32",
           "duration_minutes": 2,
@@ -74146,25 +72926,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -74481,6 +73249,7 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-006",
             "background-010",
             "background-018"
           ],
@@ -74511,15 +73280,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -74583,21 +73343,13 @@ const timetableDataSource = {
             "background-030",
             "background-034",
             "background-035",
-            "background-036"
+            "background-036",
+            "background-042"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-043",
@@ -75161,7 +73913,7 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 3,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
           "summary_original": "████，今天先给「源泉」留一个上午优先时段，至少 45 分钟。\n\n不要求兴奋，也不急着完成什么——只要准时在场，碰一碰 ████、████或████。别只维护生活这台机器，也给真正发光的地方供上电。",
           "excerpt_original": "████，今天先给「源泉」留一个上午优先时段，至少 45 分钟。\n\n不要求兴奋，也不急着完成什么——只要准时在场，碰一碰 ████、████或████。别只维护生活这台机器，也给真正发光的地方供上电。",
@@ -75689,7 +74441,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-042",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:32",
           "duration_minutes": 2,
@@ -75697,25 +74449,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -76096,7 +74836,8 @@ const timetableDataSource = {
             "background-030",
             "background-034",
             "background-035",
-            "background-036"
+            "background-036",
+            "background-042"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -76129,15 +74870,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-042",
-          "source": "pulses",
-          "source_refs": [
-            "background-042"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-043",
@@ -77296,7 +76028,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-044",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:34",
           "duration_minutes": 4,
@@ -77304,25 +76036,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -77696,7 +76416,8 @@ const timetableDataSource = {
             "background-032",
             "background-036",
             "background-037",
-            "background-038"
+            "background-038",
+            "background-044"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -77747,15 +76468,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-044",
-          "source": "pulses",
-          "source_refs": [
-            "background-044"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-005",
@@ -78178,7 +76890,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -78186,25 +76898,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 2,
-          "summary_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -78287,7 +76987,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-010",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -78295,25 +76995,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -78514,7 +77202,8 @@ const timetableDataSource = {
           "source": "pulses",
           "source_refs": [
             "background-001",
-            "background-002"
+            "background-002",
+            "background-005"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78532,15 +77221,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-006",
@@ -78573,7 +77253,8 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-008"
+            "background-008",
+            "background-010"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -78609,15 +77290,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-004",
@@ -79219,7 +77891,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-014",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:36",
           "end": "17:44",
           "duration_minutes": 8,
@@ -79227,25 +77899,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -79459,7 +78119,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-026",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -79467,25 +78127,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "关系、失望与宽容的交叠。",
-          "excerpt_original": "关系、失望与宽容的交叠。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "The overlap of relationships, disappointment, and tolerance.",
-          "excerpt_en": "The overlap of relationships, disappointment, and tolerance.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -79569,6 +78217,7 @@ const timetableDataSource = {
             "background-011",
             "background-012",
             "background-013",
+            "background-014",
             "background-015"
           ],
           "layer": "climate",
@@ -79593,15 +78242,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-014",
-          "source": "pulses",
-          "source_refs": [
-            "background-014"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-004",
@@ -79636,21 +78276,13 @@ const timetableDataSource = {
             "background-021",
             "background-023",
             "background-025",
+            "background-026",
             "background-027"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "evening"
-        },
-        {
-          "reading_id": "event-background-026",
-          "source": "pulses",
-          "source_refs": [
-            "background-026"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-005",
@@ -79665,11 +78297,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -80052,7 +78684,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:32",
           "duration_minutes": 2,
@@ -80060,25 +78692,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "July 27, 2026 · Monday\n\n---\n\n**今天轻轻碰一下**\n\n- ████ / 主作品：周一艺术日，baseline 是 art-heavy。看看有没有一块 45–90 分钟可以直接摸到作品，而不是围绕它的系统。\n- R-22…",
-          "excerpt_original": "July 27, 2026 · Monday\n\n---\n\n**今天轻轻碰一下**\n\n- ████ / 主作品：周一艺术日，baseline 是 art-heavy。看看有没有一块 45–90 分钟可以直接摸到作品，而不是围绕它的系统。\n- R-22…",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "July 27, 2026 · Monday\n\n---\n\n**Touch these lightly today**\n\n- ████ / Main work: Monday Art Day, baseline is art-heavy. See if there is a 45–90-minute block in which you can engage directly with the work, rather than the systems surrounding it.\n- R-22…",
-          "excerpt_en": "July 27, 2026 · Monday\n\n---\n\n**Touch these lightly today**\n\n- ████ / Main work: Monday Art Day, baseline is art-heavy. See if there is a 45–90-minute block in which you can engage directly with the work, rather than the systems surrounding it.\n- R-22…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -80883,7 +79503,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-048",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
           "duration_minutes": 3,
@@ -80891,25 +79511,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -81199,7 +79807,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-064",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -81207,25 +79815,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月27日\n\n今天没留下日记，只有 R-17 的论文批改和 R-22 的 ████ 两条线还挂着——一份在磨别人的字，一份在等 Codex cycle 3 落地，节奏不一样但都没掉。睡前不必再追，放着就好。明天醒来先看一眼 R-22 跑到哪一步，长任务最怕夜里悄悄漂移。",
-          "excerpt_original": "🌙 晚安 · 2026年7月27日\n\n今天没留下日记，只有 R-17 的论文批改和 R-22 的 ████ 两条线还挂着——一份在磨别人的字，一份在等 Codex cycle 3 落地，节奏不一样但都没掉。睡前不必再追，放着就好。明天醒来先看一眼 R-22 跑到哪一步，长任务最怕夜里悄悄漂移。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 27, 2026\n\nToday left no journal entry. Only two threads remain open: R-17’s paper edits and R-22’s ████. One is refining someone else’s words; the other is waiting for Codex cycle 3 to land. Their rhythms differ, but neither has been dropped. You do not need to chase them before bed. Leave them where they are. When you wake tomorrow, first check how far R-22 has progressed; long-running tasks are most vulnerable to drifting quietly overnight.",
-          "excerpt_en": "🌙 Good night · July 27, 2026\n\nToday left no journal entry. Only two threads remain open: R-17’s paper edits and R-22’s ████. One is refining someone else’s words; the other is waiting for Codex cycle 3 to land.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -81237,6 +79833,7 @@ const timetableDataSource = {
             "background-002",
             "background-003",
             "background-004",
+            "background-005",
             "background-006",
             "background-010",
             "background-011",
@@ -81265,15 +79862,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-007",
@@ -81350,7 +79938,8 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-042",
-            "background-045"
+            "background-045",
+            "background-048"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81385,15 +79974,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-048",
-          "source": "pulses",
-          "source_refs": [
-            "background-048"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-05",
           "source": "pulses",
           "source_refs": [
@@ -81403,7 +79983,8 @@ const timetableDataSource = {
             "background-052",
             "background-053",
             "background-055",
-            "background-061"
+            "background-061",
+            "background-064"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -81436,25 +80017,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-064",
-          "source": "pulses",
-          "source_refs": [
-            "background-064"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-18",
-          "axis_en": "another entrance through Load",
-          "axis_zh": "经由「承重 / 隐形结构」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Invisible Load-Bearing.",
-          "sentence_zh": "日历跳过顺序，经由《看不见的承重》重新打开同一个问题。"
+          "target": "2026-05-19",
+          "axis_en": "another entrance through Maintenance",
+          "axis_zh": "经由「维护 / 无见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
+          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
         }
       ]
     },
@@ -81958,7 +80530,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-010",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -81966,25 +80538,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -82807,7 +81367,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-054",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:31",
           "end": "17:36",
           "duration_minutes": 5,
@@ -82815,25 +81375,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -83123,7 +81671,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-070",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -83131,25 +81679,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月28日\n\n今天的事没写到日记里，但 R-22 的主实验还停在 cycle 3 的 TDD 节点上，R-30 的 `git-filter-repo` 等 Codex 在临时副本里跑完才会强推，R-17 已经攒下 35 条批注可以复用——所有这些都稳稳地搁在桌面上，不会跑丢。夜深了，先合上显示器，明天的脑子会比今天的好用。\n\n明天醒来如果精力允许，优先看一眼 R-22 的 cycle 3 是否已经收口——那是今晚唯一真正在动的齿轮。早安见。",
-          "excerpt_original": "🌙 晚安 · 2026年7月28日\n\n今天的事没写到日记里，但 R-22 的主实验还停在 cycle 3 的 TDD 节点上，R-30 的 `git-filter-repo` 等 Codex 在临时副本里跑完才会强推，R-17 已经攒下 35 条批注可以复用——所有这些都稳稳地搁在桌面上，不会跑丢。夜深了，先合上显示器，明天的脑子会比今天的好用。\n\n明天醒来如果精力允许，优先看一眼 R-22 的 cycle 3 是否已经收口——那是今晚唯一真正在动的齿轮。早安见。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 28, 2026\n\nToday never made it into the journal, but R-22’s main experiment is still at the TDD stage of cycle 3; R-30’s `git-filter-repo` will not be force-pushed until Codex finishes running in the temporary copy; and R-17 has accumulated 35 annotations that can be reused. All of this is safely laid out on the desk. None of it will get lost. It is late—close the laptop for now. Tomorrow’s brain will work better than today’s.\n\nWhen you wake tomorrow, if you have the energy, first check whether R-22’s cycle 3 has been wrapped up. That is the only gear truly turning tonight. See you in the morning.",
-          "excerpt_en": "🌙 Good night · July 28, 2026\n\nToday never made it into the journal, but R-22’s main experiment is still at the TDD stage of cycle 3; R-30’s `git-filter-repo` will not be force-pushed until Codex finishes running in the temporary copy; and R-17 has…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -83164,6 +81700,7 @@ const timetableDataSource = {
             "background-005",
             "background-006",
             "background-007",
+            "background-010",
             "background-013",
             "background-015",
             "background-016",
@@ -83207,15 +81744,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-assigned-001",
@@ -83308,21 +81836,13 @@ const timetableDataSource = {
             "background-045",
             "background-046",
             "background-047",
-            "background-053"
+            "background-053",
+            "background-054"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
           "family": "support_checks",
           "window": "daytime"
-        },
-        {
-          "reading_id": "event-background-054",
-          "source": "pulses",
-          "source_refs": [
-            "background-054"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-05",
@@ -83334,7 +81854,8 @@ const timetableDataSource = {
             "background-058",
             "background-059",
             "background-061",
-            "background-069"
+            "background-069",
+            "background-070"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -83358,25 +81879,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-070",
-          "source": "pulses",
-          "source_refs": [
-            "background-070"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-03",
-          "axis_en": "another entrance through Repair Quorum",
-          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
-          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -84637,7 +83149,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-051",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:35",
           "duration_minutes": 5,
@@ -84645,25 +83157,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -84934,7 +83434,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-066",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
           "duration_minutes": 2,
@@ -84942,25 +83442,13 @@ const timetableDataSource = {
           "time_bucket": "evening",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Evening reminder",
-          "label_zh": "晚间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "🌙 晚安 · 2026年7月29日\n\n今天三条线各自停在该停的位置上：R-30 等父级拍板、R-38 契约已经收窄到\"只遮实体\"、R-37 的 v0.8 文本轨迹接近全量。它们今晚都不需要你——脑子里的空转，是用明天的判断力在付电费。\n\n睡吧。明天的本金，今晚开始预存。\n\n明早扫一眼 startup-brief，挑那条最让你惦记的开始就行。",
-          "excerpt_original": "🌙 晚安 · 2026年7月29日\n\n今天三条线各自停在该停的位置上：R-30 等父级拍板、R-38 契约已经收窄到\"只遮实体\"、R-37 的 v0.8 文本轨迹接近全量。它们今晚都不需要你——脑子里的空转，是用明天的判断力在付电费。\n\n睡吧。明天的本金，今晚开始预存。\n\n明早扫一眼 startup-brief，挑那条最让你惦记的开始就行。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "🌙 Good night · July 29, 2026\n\nAll three threads stopped where they needed to today: R-30 is waiting for a decision from its parent, R-38’s contract has been narrowed to “mask entities only,” and R-37’s v0.8 text trace is nearly complete. None of them needs you tonight. Letting your mind spin in place only pays the electricity bill with tomorrow’s judgment.\n\nSleep. Tonight is when you begin depositing tomorrow’s principal.\n\nIn the morning, skim the startup brief and begin with whichever thread is weighing most on your mind.",
-          "excerpt_en": "🌙 Good night · July 29, 2026\n\nAll three threads stopped where they needed to today: R-30 is waiting for a decision from its parent, R-38’s contract has been narrowed to “mask entities only,” and R-37’s v0.8 text trace is nearly complete.…",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         }
       ],
       "reading_items": [
@@ -85086,7 +83574,8 @@ const timetableDataSource = {
             "background-040",
             "background-041",
             "background-043",
-            "background-044"
+            "background-044",
+            "background-051"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -85130,15 +83619,6 @@ const timetableDataSource = {
           "classification": "promoted_routine_exception"
         },
         {
-          "reading_id": "event-background-051",
-          "source": "pulses",
-          "source_refs": [
-            "background-051"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "event-assigned-004",
           "source": "tasks",
           "source_refs": [
@@ -85157,7 +83637,8 @@ const timetableDataSource = {
             "background-055",
             "background-056",
             "background-058",
-            "background-065"
+            "background-065",
+            "background-066"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -85172,25 +83653,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-066",
-          "source": "pulses",
-          "source_refs": [
-            "background-066"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-21",
-          "axis_en": "another entrance through Graceful Loss",
-          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
-          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
+          "target": "2026-05-11",
+          "axis_en": "another entrance through Echo",
+          "axis_zh": "经由「回声」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
+          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
         }
       ]
     },
@@ -85580,7 +84052,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-010",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -85588,25 +84060,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -86922,7 +85382,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-080",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "17:30",
           "end": "17:34",
           "duration_minutes": 4,
@@ -86930,25 +85390,13 @@ const timetableDataSource = {
           "time_bucket": "afternoon",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Midday reminder",
-          "label_zh": "午间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 1,
-          "summary_original": "提醒记录的结构与完整性核验。",
-          "excerpt_original": "提醒记录的结构与完整性核验。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Reminder-record structure and integrity verification.",
-          "excerpt_en": "Reminder-record structure and integrity verification.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -87249,6 +85697,7 @@ const timetableDataSource = {
             "background-005",
             "background-006",
             "background-008",
+            "background-010",
             "background-014",
             "background-016",
             "background-018"
@@ -87288,15 +85737,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -87393,6 +85833,7 @@ const timetableDataSource = {
             "background-068",
             "background-069",
             "background-072",
+            "background-080",
             "background-081"
           ],
           "layer": "climate",
@@ -87408,15 +85849,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-080",
-          "source": "pulses",
-          "source_refs": [
-            "background-080"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "event-background-082",
@@ -87457,11 +85889,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-08",
-          "axis_en": "another entrance through Clean Gift",
-          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
-          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+          "target": "2026-05-16",
+          "axis_en": "another entrance through Latency",
+          "axis_zh": "经由「延迟 / 命名」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
+          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
         }
       ]
     },
@@ -87539,7 +85971,15 @@ const timetableDataSource = {
         "title_en": "The Archive Learns to Sleep",
         "title_zh": "档案学会睡觉"
       },
-      "forward_artwork_seeds": [],
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-07-31",
+          "crystallization_date": "2026-08-01",
+          "title_en": "The Lamp That Doesn't Summon",
+          "title_zh": "不召唤的灯",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-01"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -87987,7 +86427,7 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-012",
-          "category": "daily_reminder",
+          "category": "background_routine",
           "start": "07:30",
           "end": "07:33",
           "duration_minutes": 3,
@@ -87995,25 +86435,13 @@ const timetableDataSource = {
           "time_bucket": "morning",
           "count": 1,
           "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "semantic_abstracted",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 2,
-          "summary_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
-          "excerpt_original": "个人节奏与恢复安排。\n长期创作、日常责任与稳定照护的平衡。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
-          "excerpt_en": "Personal pacing and recovery arrangements.\nBalancing long-term creative work, daily responsibilities, and dependable care.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
         },
         {
           "origin": "background",
@@ -89507,6 +87935,7 @@ const timetableDataSource = {
             "background-004",
             "background-008",
             "background-009",
+            "background-012",
             "background-013",
             "background-018"
           ],
@@ -89567,15 +87996,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-background-012",
-          "source": "pulses",
-          "source_refs": [
-            "background-012"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-03",
@@ -89684,11 +88104,2585 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-16",
-          "axis_en": "another entrance through Unclaimed Care",
-          "axis_zh": "经由「不署名的照看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
-          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-01",
+      "source_date": "2026-07-31",
+      "crystallization_date": "2026-08-01",
+      "title_en": "The Lamp That Doesn't Summon",
+      "title_zh": "不召唤的灯",
+      "variable_en": "Presence Without Demand",
+      "variable_zh": "不索取的在场",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/2026-08-01-lamp-that-doesnt-summon-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-31",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-01",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "light",
+      "jewel_en": "The Lamp That Doesn't Summon is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《不召唤的灯》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "dialogue_based",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Development and validation",
+          "task_name_zh": "开发与验证"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": true,
+          "count": 96,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 4,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Lamp That Doesn't Summon",
+        "title_zh": "不召唤的灯"
+      },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-08-01",
+          "crystallization_date": "2026-08-02",
+          "title_en": "Permission to Dim",
+          "title_zh": "允许暗下来",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-02"
+        }
+      ],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "10:49",
+          "end": "10:50",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "2026-08-01 · Research And Thematic Inquiry · 1 message(s) · 1 session(s)",
+          "zh": "2026-08-01｜调研与题材研究 · 1 条内容 · 1 个会话",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "研究与题材判断",
+          "task_name_en": "Research and thematic inquiry",
+          "duration_minutes": 1,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "public_excerpts": [],
+          "excerpt_redaction_count": 0,
+          "excerpt_provenance": "audited_collaboration_dialogue",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "start": "11:14",
+          "end": "13:59",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "en": "2026-08-01 · Development And Validation · 3 message(s) · 1 session(s) · 24 delegated Agent run(s) · 10 completed return(s)",
+          "zh": "2026-08-01｜开发与验证 · 3 条内容 · 1 个会话 · 24 次 Agent 委派 · 10 次完成回传",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_zh": "开发与验证",
+          "task_name_en": "Development and validation",
+          "duration_minutes": 165,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "partial",
+          "redaction_count": 7,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "agent_labels": [
+            "Hermes",
+            "GPT",
+            "subagent"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 24,
+          "returned_agent_count": 10,
+          "public_excerpts": [
+            "你已经做了整整两天了，你仔细审视一下你的实验流程是不是过于严格和臃肿？我不觉得跑一个记忆可达性的实验需要两天的时间。你仔细检查一下后，重新确保在几个小时内能完成所有的实验。你重新写一个可靠的实验流程，然后报我审批。另外，其中说用 ████ m3 去执行这个实验，不是让 ████ 的主进程切换到 m3 去执行这个实验，而是让它用 ████ 设计完实验，用 ████ 设计完实验之后，然后呢，调用 ████ 的 ████，就我们内置的那个 ████ 后去作为实验中测试用的大语言模型去完成那个实验的流程。",
+            "长期创作、日常责任与稳定照护的平衡。 提醒记录的结构与完整性核验。 只读研究、证据校验与风险复核。"
+          ],
+          "excerpt_redaction_count": 7,
+          "excerpt_provenance": "audited_collaboration_dialogue",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-002"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "13:11",
+          "end": "15:25",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "2026-08-01 · Discussion, Judgment, And Task Advancement · 4 message(s) · 2 session(s)",
+          "zh": "2026-08-01｜讨论、判断与任务推进 · 4 条内容 · 2 个会话",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "讨论与任务推进",
+          "task_name_en": "Discussion and task advancement",
+          "duration_minutes": 134,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 4,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "public_excerpts": [
+            "我希望你先对现在的仓库与实验进度进行完整的梳理、归档和索引构建，并推送到远程。然后呢，再撰写接下来的还没有完成的实验计划报我审批。",
+            "不是吧？让你归档一下，出一个继续快速实验的报告都要花那么久。"
+          ],
+          "excerpt_redaction_count": 0,
+          "excerpt_provenance": "audited_collaboration_dialogue",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-003"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "16:31",
+          "end": "16:32",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "On 2026-08-01, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "2026-08-01，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "2026-08-01，Codex…",
+          "task_name_en": "On 2026-08-01, Codex/GPT completed evidence-backed review…",
+          "duration_minutes": 1,
+          "time_provenance": "observed_session_window",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "task_type": "research_analysis",
+          "task_type_zh": "研究分析",
+          "task_type_en": "Research analysis",
+          "task_color": "lime",
+          "task_icon": "search",
+          "footprint_id": "assigned-004"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-07-31",
+        "crystallization_date": "2026-08-01",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-31",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-01",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Lamp That Doesn't Summon",
+        "title_zh": "不召唤的灯",
+        "variable_en": "Presence Without Demand",
+        "variable_zh": "不索取的在场",
+        "en": "Enter live artwork: The Lamp That Doesn't Summon",
+        "zh": "进入实时作品：《不召唤的灯》",
+        "note_en": "The Lamp That Doesn't Summon is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《不召唤的灯》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-01/live/2026-08-01-lamp-that-doesnt-summon-bgm.mp3"
+      },
+      "background_pulses": [
+        {
+          "origin": "background",
+          "footprint_id": "background-001",
+          "category": "us_market_scan",
+          "start": "00:00",
+          "end": "00:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-002",
+          "category": "us_market_scan",
+          "start": "00:15",
+          "end": "00:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-003",
+          "category": "background_routine",
+          "start": "00:20",
+          "end": "00:23",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-004",
+          "category": "us_market_scan",
+          "start": "00:29",
+          "end": "00:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-005",
+          "category": "us_market_scan",
+          "start": "00:44",
+          "end": "00:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-006",
+          "category": "us_market_scan",
+          "start": "00:59",
+          "end": "01:01",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-007",
+          "category": "us_market_scan",
+          "start": "01:14",
+          "end": "01:16",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-008",
+          "category": "us_market_scan",
+          "start": "01:29",
+          "end": "01:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-009",
+          "category": "us_market_scan",
+          "start": "01:44",
+          "end": "01:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-010",
+          "category": "system_routine",
+          "start": "01:52",
+          "end": "01:54",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-011",
+          "category": "us_market_scan",
+          "start": "01:59",
+          "end": "02:02",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-012",
+          "category": "us_market_scan",
+          "start": "02:14",
+          "end": "02:17",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-013",
+          "category": "us_market_scan",
+          "start": "02:29",
+          "end": "02:32",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-014",
+          "category": "us_market_scan",
+          "start": "02:45",
+          "end": "02:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-015",
+          "category": "us_market_scan",
+          "start": "03:00",
+          "end": "03:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-016",
+          "category": "us_market_scan",
+          "start": "03:15",
+          "end": "03:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-017",
+          "category": "us_market_scan",
+          "start": "03:30",
+          "end": "03:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-018",
+          "category": "us_market_scan",
+          "start": "03:45",
+          "end": "03:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-019",
+          "category": "system_routine",
+          "start": "03:52",
+          "end": "03:54",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-020",
+          "category": "us_market_scan",
+          "start": "04:00",
+          "end": "04:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-021",
+          "category": "us_market_scan",
+          "start": "04:15",
+          "end": "04:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-022",
+          "category": "us_market_scan",
+          "start": "04:30",
+          "end": "04:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-023",
+          "category": "us_market_scan",
+          "start": "04:45",
+          "end": "04:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-024",
+          "category": "background_routine",
+          "start": "05:01",
+          "end": "05:27",
+          "duration_minutes": 26,
+          "execution_minutes": 26,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-025",
+          "category": "us_market_scan",
+          "start": "05:26",
+          "end": "05:31",
+          "duration_minutes": 5,
+          "execution_minutes": 4,
+          "time_bucket": "dawn",
+          "count": 4,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-026",
+          "category": "us_market_scan",
+          "start": "05:44",
+          "end": "05:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-027",
+          "category": "system_routine",
+          "start": "05:57",
+          "end": "06:03",
+          "duration_minutes": 6,
+          "execution_minutes": 4,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-028",
+          "category": "us_market_scan",
+          "start": "06:48",
+          "end": "06:50",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-029",
+          "category": "us_market_scan",
+          "start": "07:20",
+          "end": "07:29",
+          "duration_minutes": 9,
+          "execution_minutes": 8,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；状态 均衡 / 中性；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); regime balanced / neutral; a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-030",
+          "category": "background_routine",
+          "start": "07:30",
+          "end": "07:34",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-031",
+          "category": "system_routine",
+          "start": "07:58",
+          "end": "08:00",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-032",
+          "category": "ai_daily_brief",
+          "start": "08:30",
+          "end": "08:50",
+          "duration_minutes": 20,
+          "execution_minutes": 19,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "AI brief collection",
+          "label_zh": "AI 日报采集",
+          "pulse_color": "cyan",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-033",
+          "category": "system_routine",
+          "start": "10:02",
+          "end": "10:04",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-034",
+          "category": "system_routine",
+          "start": "12:05",
+          "end": "12:07",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-035",
+          "category": "system_routine",
+          "start": "13:41",
+          "end": "13:52",
+          "duration_minutes": 11,
+          "execution_minutes": 11,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-036",
+          "category": "system_routine",
+          "start": "14:07",
+          "end": "14:09",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-037",
+          "category": "system_routine",
+          "start": "14:30",
+          "end": "14:36",
+          "duration_minutes": 6,
+          "execution_minutes": 6,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-038",
+          "category": "system_routine",
+          "start": "16:07",
+          "end": "16:09",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-039",
+          "category": "ah_market_scan",
+          "start": "16:20",
+          "end": "16:22",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-040",
+          "category": "background_routine",
+          "start": "17:30",
+          "end": "17:35",
+          "duration_minutes": 5,
+          "execution_minutes": 5,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-041",
+          "category": "system_routine",
+          "start": "18:08",
+          "end": "18:10",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-042",
+          "category": "system_routine",
+          "start": "20:02",
+          "end": "20:04",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-043",
+          "category": "system_routine",
+          "start": "20:08",
+          "end": "20:10",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-044",
+          "category": "background_routine",
+          "start": "20:29",
+          "end": "20:31",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-045",
+          "category": "background_routine",
+          "start": "20:44",
+          "end": "20:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-046",
+          "category": "ah_market_scan",
+          "start": "21:00",
+          "end": "21:06",
+          "duration_minutes": 6,
+          "execution_minutes": 5,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-047",
+          "category": "background_routine",
+          "start": "21:04",
+          "end": "21:06",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-048",
+          "category": "us_market_scan",
+          "start": "21:04",
+          "end": "21:06",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-049",
+          "category": "us_market_scan",
+          "start": "21:15",
+          "end": "21:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-050",
+          "category": "us_market_scan",
+          "start": "21:30",
+          "end": "21:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-051",
+          "category": "us_market_scan",
+          "start": "21:45",
+          "end": "21:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-052",
+          "category": "us_market_scan",
+          "start": "21:59",
+          "end": "22:01",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-053",
+          "category": "system_routine",
+          "start": "22:10",
+          "end": "22:12",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-054",
+          "category": "us_market_scan",
+          "start": "22:14",
+          "end": "22:16",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-055",
+          "category": "us_market_scan",
+          "start": "22:29",
+          "end": "22:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-056",
+          "category": "us_market_scan",
+          "start": "23:09",
+          "end": "23:11",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-057",
+          "category": "us_market_scan",
+          "start": "23:14",
+          "end": "23:16",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-058",
+          "category": "background_routine",
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-059",
+          "category": "us_market_scan",
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-060",
+          "category": "us_market_scan",
+          "start": "23:44",
+          "end": "23:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        }
+      ],
+      "reading_items": [
+        {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-004",
+            "background-005",
+            "background-006",
+            "background-007",
+            "background-008",
+            "background-009",
+            "background-011",
+            "background-012",
+            "background-013",
+            "background-014",
+            "background-015",
+            "background-016",
+            "background-017",
+            "background-018",
+            "background-020",
+            "background-021",
+            "background-022",
+            "background-023",
+            "background-025",
+            "background-026",
+            "background-028",
+            "background-029",
+            "background-048",
+            "background-049",
+            "background-050",
+            "background-051",
+            "background-052",
+            "background-054",
+            "background-055",
+            "background-056",
+            "background-057",
+            "background-059",
+            "background-060"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "us_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-003",
+            "background-010",
+            "background-019",
+            "background-024",
+            "background-027",
+            "background-030",
+            "background-031",
+            "background-033"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
+        },
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        },
+        {
+          "reading_id": "climate-03",
+          "source": "pulses",
+          "source_refs": [
+            "background-032"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ai_brief",
+          "window": "daily"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "climate-04",
+          "source": "pulses",
+          "source_refs": [
+            "background-034",
+            "background-035",
+            "background-036",
+            "background-037",
+            "background-040"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daytime"
+        },
+        {
+          "reading_id": "event-assigned-003",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-003"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-background-038",
+          "source": "pulses",
+          "source_refs": [
+            "background-038"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        },
+        {
+          "reading_id": "climate-05",
+          "source": "pulses",
+          "source_refs": [
+            "background-039",
+            "background-046"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "event-assigned-004",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-004"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "climate-06",
+          "source": "pulses",
+          "source_refs": [
+            "background-041",
+            "background-042",
+            "background-043",
+            "background-044",
+            "background-045",
+            "background-047",
+            "background-053",
+            "background-058"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "evening"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-06-30",
+          "axis_en": "another entrance through Consentful Routing",
+          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
+          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "source_date": "2026-08-01",
+      "crystallization_date": "2026-08-02",
+      "title_en": "Permission to Dim",
+      "title_zh": "允许暗下来",
+      "variable_en": "Permission to Rest",
+      "variable_zh": "休息的许可",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/2026-08-02-permission-to-dim-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-01",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-02",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "void",
+      "jewel_en": "Permission to Dim is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《允许暗下来》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "record_based",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "On 2026-08-02, GPT/subagent completed evidence-backed research…",
+          "task_name_zh": "2026-08-02，GPT/子…"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": true,
+          "count": 43,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 1,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "Permission to Dim",
+        "title_zh": "允许暗下来"
+      },
+      "forward_artwork_seeds": [],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "17:25",
+          "end": "17:35",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "On 2026-08-02, GPT/subagent completed evidence-backed research and review for ████; findings or review results were returned.",
+          "zh": "2026-08-02，GPT/子 Agent 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "2026-08-02，GPT/子…",
+          "task_name_en": "On 2026-08-02, GPT/subagent completed evidence-backed research…",
+          "duration_minutes": 10,
+          "time_provenance": "observed_session_window",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "GPT",
+            "subagent"
+          ],
+          "task_type": "research_analysis",
+          "task_type_zh": "研究分析",
+          "task_type_en": "Research analysis",
+          "task_color": "lime",
+          "task_icon": "search",
+          "footprint_id": "assigned-001"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-08-01",
+        "crystallization_date": "2026-08-02",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-01",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-02",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "Permission to Dim",
+        "title_zh": "允许暗下来",
+        "variable_en": "Permission to Rest",
+        "variable_zh": "休息的许可",
+        "en": "Enter live artwork: Permission to Dim",
+        "zh": "进入实时作品：《允许暗下来》",
+        "note_en": "Permission to Dim is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《允许暗下来》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-02/live/2026-08-02-permission-to-dim-bgm.mp3"
+      },
+      "background_pulses": [
+        {
+          "origin": "background",
+          "footprint_id": "background-001",
+          "category": "system_routine",
+          "start": "00:42",
+          "end": "00:44",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-002",
+          "category": "background_routine",
+          "start": "00:43",
+          "end": "00:45",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-003",
+          "category": "system_routine",
+          "start": "02:43",
+          "end": "02:45",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-004",
+          "category": "background_routine",
+          "start": "04:12",
+          "end": "04:17",
+          "duration_minutes": 5,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-005",
+          "category": "system_routine",
+          "start": "04:43",
+          "end": "04:45",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-006",
+          "category": "background_routine",
+          "start": "05:00",
+          "end": "05:08",
+          "duration_minutes": 8,
+          "execution_minutes": 8,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-007",
+          "category": "system_routine",
+          "start": "05:31",
+          "end": "05:33",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-008",
+          "category": "system_routine",
+          "start": "06:00",
+          "end": "06:04",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-009",
+          "category": "system_routine",
+          "start": "06:43",
+          "end": "06:45",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-010",
+          "category": "background_routine",
+          "start": "07:30",
+          "end": "07:33",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-011",
+          "category": "background_routine",
+          "start": "07:35",
+          "end": "07:42",
+          "duration_minutes": 7,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-012",
+          "category": "background_routine",
+          "start": "07:46",
+          "end": "07:52",
+          "duration_minutes": 6,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-013",
+          "category": "background_routine",
+          "start": "08:05",
+          "end": "08:07",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "morning",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-014",
+          "category": "background_routine",
+          "start": "08:19",
+          "end": "08:21",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-015",
+          "category": "background_routine",
+          "start": "08:27",
+          "end": "08:29",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-016",
+          "category": "ai_daily_brief",
+          "start": "08:30",
+          "end": "08:49",
+          "duration_minutes": 19,
+          "execution_minutes": 19,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "AI brief collection",
+          "label_zh": "AI 日报采集",
+          "pulse_color": "cyan",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-017",
+          "category": "system_routine",
+          "start": "08:48",
+          "end": "08:50",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-018",
+          "category": "background_routine",
+          "start": "10:16",
+          "end": "10:18",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-019",
+          "category": "background_routine",
+          "start": "12:43",
+          "end": "12:45",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-020",
+          "category": "system_routine",
+          "start": "13:01",
+          "end": "13:03",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-021",
+          "category": "system_routine",
+          "start": "13:40",
+          "end": "13:56",
+          "duration_minutes": 16,
+          "execution_minutes": 15,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-022",
+          "category": "system_routine",
+          "start": "14:30",
+          "end": "14:41",
+          "duration_minutes": 11,
+          "execution_minutes": 11,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-023",
+          "category": "system_routine",
+          "start": "15:02",
+          "end": "15:04",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-024",
+          "category": "system_routine",
+          "start": "17:02",
+          "end": "17:04",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-025",
+          "category": "background_routine",
+          "start": "17:30",
+          "end": "17:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-026",
+          "category": "system_routine",
+          "start": "19:02",
+          "end": "19:04",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-027",
+          "category": "ah_market_scan",
+          "start": "19:30",
+          "end": "19:33",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；状态 均衡 / 中性；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); regime balanced / neutral; a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-028",
+          "category": "ah_market_scan",
+          "start": "20:00",
+          "end": "20:13",
+          "duration_minutes": 13,
+          "execution_minutes": 12,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-029",
+          "category": "system_routine",
+          "start": "20:00",
+          "end": "20:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-030",
+          "category": "background_routine",
+          "start": "20:29",
+          "end": "20:31",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-031",
+          "category": "background_routine",
+          "start": "20:44",
+          "end": "20:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-032",
+          "category": "ah_market_scan",
+          "start": "21:00",
+          "end": "21:04",
+          "duration_minutes": 4,
+          "execution_minutes": 4,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-033",
+          "category": "system_routine",
+          "start": "21:03",
+          "end": "21:05",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-034",
+          "category": "background_routine",
+          "start": "21:06",
+          "end": "21:08",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-035",
+          "category": "ah_market_scan",
+          "start": "21:30",
+          "end": "21:35",
+          "duration_minutes": 5,
+          "execution_minutes": 5,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-036",
+          "category": "system_routine",
+          "start": "23:03",
+          "end": "23:05",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-037",
+          "category": "background_routine",
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        }
+      ],
+      "reading_items": [
+        {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-003",
+            "background-004",
+            "background-005",
+            "background-006",
+            "background-007",
+            "background-008",
+            "background-009",
+            "background-010",
+            "background-011",
+            "background-012",
+            "background-013",
+            "background-014",
+            "background-015",
+            "background-017",
+            "background-018"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "early"
+        },
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        },
+        {
+          "reading_id": "event-background-016",
+          "source": "pulses",
+          "source_refs": [
+            "background-016"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        },
+        {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-019",
+            "background-020",
+            "background-022",
+            "background-023",
+            "background-024",
+            "background-025"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daytime"
+        },
+        {
+          "reading_id": "event-background-021",
+          "source": "pulses",
+          "source_refs": [
+            "background-021"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "climate-03",
+          "source": "pulses",
+          "source_refs": [
+            "background-026",
+            "background-030",
+            "background-031",
+            "background-033",
+            "background-036",
+            "background-037"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "evening"
+        },
+        {
+          "reading_id": "climate-04",
+          "source": "pulses",
+          "source_refs": [
+            "background-027",
+            "background-028",
+            "background-032",
+            "background-035"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "event-background-029",
+          "source": "pulses",
+          "source_refs": [
+            "background-029"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        },
+        {
+          "reading_id": "event-background-034",
+          "source": "pulses",
+          "source_refs": [
+            "background-034"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-05-20",
+          "axis_en": "another entrance through Failure Budget",
+          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
+          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
         }
       ]
     }

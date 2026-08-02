@@ -262,9 +262,10 @@ try {
     const page = await context.newPage();
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
-    await page.goto(baseUrl, { waitUntil: "networkidle" });
-    await page.locator(`.calendar-day-button[data-date="${testCase.date}"]`).click();
-    await page.waitForSelector("#dayDialog.is-open");
+    const caseUrl = new URL(baseUrl);
+    caseUrl.searchParams.set("date", testCase.date);
+    await page.goto(caseUrl.href, { waitUntil: "networkidle" });
+    await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${testCase.date}"]`);
     await page.waitForFunction(
       () => document.querySelector(".timeline-reading-layer.is-placed")
         && document.querySelector(".autonomous-reading-card")?.getBoundingClientRect().width > 0,

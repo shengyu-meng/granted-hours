@@ -129,16 +129,18 @@ try {
   assert.equal(await page.evaluate(() => document.activeElement?.id), "prevDay");
 
   await page.keyboard.press("Escape");
-  await page.click("#prevMonth");
-  await page.click("#prevMonth");
-  await page.click('.calendar-day-button[data-date="2026-05-31"]');
+  const mayEndUrl = new URL(baseUrl);
+  mayEndUrl.searchParams.set("date", "2026-05-31");
+  await page.goto(mayEndUrl.href, { waitUntil: "networkidle" });
+  await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-05-31"]');
   await page.click("#nextDay");
   assert.equal(await page.locator("#dayDialog").getAttribute("data-selected-date"), "2026-06-01");
   assert.match((await page.locator("#todayButton").textContent()) || "", /June|6月/);
   await page.keyboard.press("Escape");
-
-  await page.click("#prevMonth");
-  await page.click('.calendar-day-button[data-date="2026-05-07"]');
+  const firstDayUrl = new URL(baseUrl);
+  firstDayUrl.searchParams.set("date", "2026-05-07");
+  await page.goto(firstDayUrl.href, { waitUntil: "networkidle" });
+  await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-05-07"]');
   assert.equal(await page.locator("#prevDay").isDisabled(), true);
   assert.equal(await page.locator("#nextDay").isDisabled(), false);
   await page.keyboard.press("Escape");
@@ -155,9 +157,10 @@ try {
       deviceScaleFactor: 2,
     });
     const mobile = await context.newPage();
-    await mobile.goto(baseUrl, { waitUntil: "networkidle" });
-    await mobile.tap('.calendar-day-button[data-date="2026-07-24"]');
-    await mobile.waitForSelector("#dayDialog.is-open");
+    const mobileUrl = new URL(baseUrl);
+    mobileUrl.searchParams.set("date", "2026-07-24");
+    await mobile.goto(mobileUrl.href, { waitUntil: "networkidle" });
+    await mobile.waitForSelector('#dayDialog.is-open[data-selected-date="2026-07-24"]');
     assert.ok(
       await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth <= 1),
       `${viewport.label} horizontal overflow`,
