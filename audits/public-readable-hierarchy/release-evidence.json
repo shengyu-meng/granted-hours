@@ -1,0 +1,207 @@
+{
+  "schema": "timetable-release-evidence-v1",
+  "passed": true,
+  "evidencePath": "audits/public-readable-hierarchy/release-evidence.json",
+  "sourceData": {
+    "path": "src/timetable/timetable-data.js",
+    "bytes": 4390187,
+    "gzipBytes": 525768,
+    "sha256": "10628b68ce2b1969afa080fa945d30df6b8d11ae17423af8f000ba23c94c528b",
+    "budgetBytes": 6100000,
+    "deterministicBuilds": [
+      {
+        "label": "data-build-a",
+        "bytes": 4390187,
+        "sha256": "10628b68ce2b1969afa080fa945d30df6b8d11ae17423af8f000ba23c94c528b"
+      },
+      {
+        "label": "data-build-b",
+        "bytes": 4390187,
+        "sha256": "10628b68ce2b1969afa080fa945d30df6b8d11ae17423af8f000ba23c94c528b"
+      }
+    ],
+    "deterministicParity": true
+  },
+  "bundle": {
+    "deterministicBuilds": [
+      {
+        "label": "isolated-build-a",
+        "manifestBytes": 491,
+        "manifestSha256": "835dc2ff1e2fcd9cb667e5a1bff3c88a30c2d9b9676e1445927dcaaa0ff090fc",
+        "files": [
+          {
+            "path": "assets/index-Bdaj6iJ1.css",
+            "bytes": 104404,
+            "gzipBytes": 18461,
+            "sha256": "7ee92fa66ce683c1df934f850f18ba030a9402a51eb45fb71bb2d1cdd5ec61e4"
+          },
+          {
+            "path": "assets/index-BF38CAob.js",
+            "bytes": 3467228,
+            "gzipBytes": 518423,
+            "sha256": "3e08f097f2eed0f37815d4804f12f08e05b1cc0941d2471a05032fe020696c3e"
+          },
+          {
+            "path": "index.html",
+            "bytes": 9560,
+            "sha256": "be5588bf75e73d754b4a65bafeb0ee2be40a6a6696ca2144577aec0855c5885c"
+          }
+        ]
+      },
+      {
+        "label": "isolated-build-b",
+        "manifestBytes": 491,
+        "manifestSha256": "835dc2ff1e2fcd9cb667e5a1bff3c88a30c2d9b9676e1445927dcaaa0ff090fc",
+        "files": [
+          {
+            "path": "assets/index-Bdaj6iJ1.css",
+            "bytes": 104404,
+            "gzipBytes": 18461,
+            "sha256": "7ee92fa66ce683c1df934f850f18ba030a9402a51eb45fb71bb2d1cdd5ec61e4"
+          },
+          {
+            "path": "assets/index-BF38CAob.js",
+            "bytes": 3467228,
+            "gzipBytes": 518423,
+            "sha256": "3e08f097f2eed0f37815d4804f12f08e05b1cc0941d2471a05032fe020696c3e"
+          },
+          {
+            "path": "index.html",
+            "bytes": 9560,
+            "sha256": "be5588bf75e73d754b4a65bafeb0ee2be40a6a6696ca2144577aec0855c5885c"
+          }
+        ]
+      }
+    ],
+    "deterministicParity": {
+      "exact": true,
+      "byteForByte": true,
+      "manifestHashEqual": true,
+      "missing": [],
+      "extra": [],
+      "stale": []
+    },
+    "canonical": {
+      "directory": "docs/timetable",
+      "manifestBytes": 491,
+      "manifestSha256": "835dc2ff1e2fcd9cb667e5a1bff3c88a30c2d9b9676e1445927dcaaa0ff090fc",
+      "files": [
+        {
+          "path": "assets/index-Bdaj6iJ1.css",
+          "bytes": 104404,
+          "gzipBytes": 18461,
+          "sha256": "7ee92fa66ce683c1df934f850f18ba030a9402a51eb45fb71bb2d1cdd5ec61e4"
+        },
+        {
+          "path": "assets/index-BF38CAob.js",
+          "bytes": 3467228,
+          "gzipBytes": 518423,
+          "sha256": "3e08f097f2eed0f37815d4804f12f08e05b1cc0941d2471a05032fe020696c3e"
+        },
+        {
+          "path": "index.html",
+          "bytes": 9560,
+          "sha256": "be5588bf75e73d754b4a65bafeb0ee2be40a6a6696ca2144577aec0855c5885c"
+        }
+      ]
+    },
+    "canonicalParity": {
+      "exact": true,
+      "byteForByte": true,
+      "manifestHashEqual": true,
+      "missing": [],
+      "extra": [],
+      "stale": []
+    },
+    "assets": {
+      "javascript": {
+        "files": [
+          {
+            "path": "assets/index-BF38CAob.js",
+            "bytes": 3467228,
+            "gzipBytes": 518423,
+            "sha256": "3e08f097f2eed0f37815d4804f12f08e05b1cc0941d2471a05032fe020696c3e"
+          }
+        ],
+        "totals": {
+          "bytes": 3467228,
+          "gzipBytes": 518423,
+          "budgetBytes": 4800000,
+          "gzipBudgetBytes": 528730,
+          "translatedReminderCount": 189,
+          "translatedReminderGzipBudgetBytes": 122850,
+          "collaborationExcerptCount": 254,
+          "collaborationExcerptGzipBudgetBytes": 55880
+        }
+      },
+      "css": {
+        "files": [
+          {
+            "path": "assets/index-Bdaj6iJ1.css",
+            "bytes": 104404,
+            "gzipBytes": 18461,
+            "sha256": "7ee92fa66ce683c1df934f850f18ba030a9402a51eb45fb71bb2d1cdd5ec61e4"
+          }
+        ],
+        "totals": {
+          "bytes": 104404,
+          "gzipBytes": 18461
+        }
+      }
+    },
+    "dataParity": {
+      "publicDays": 80,
+      "generatedDays": 80,
+      "pulseSchema": "granted-hours-timetable-pulses-v6"
+    }
+  },
+  "publicSafety": {
+    "command": "python3 scripts/check_public_safety.py --root .",
+    "passed": true,
+    "exitCode": 0,
+    "stdoutBytes": 27,
+    "stdoutSha256": "f2200426f038e3dc05301477c9f0ec317438df8597a66ca1b1e13ffbdabfab7a",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary": "Public safety scan passed."
+  },
+  "npmAudit": {
+    "command": "npm audit --omit=dev --audit-level=high --json",
+    "auditLevel": "high",
+    "omit": "dev",
+    "passed": true,
+    "exitCode": 0,
+    "stdoutBytes": 360,
+    "stdoutSha256": "0318190992d3f5f65a1976092c07b31ef362a7886fbb98ffa9db9f0afdd2d952",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {},\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 0,\n      \"high\": 0,\n      \"critical\": 0,\n      \"total\": 0\n    },\n    \"dependencies\": {\n      \"prod\": 5,\n      \"dev\": 20,\n      \"optional\": 5,\n      \"peer\": 0,\n      \"peerOptional\": 0,\n      \"total\": 25\n    }\n  }\n}",
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 5,
+        "dev": 20,
+        "optional": 5,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 25
+      }
+    },
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "errors": []
+}

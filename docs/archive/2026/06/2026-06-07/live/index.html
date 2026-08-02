@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-07","title_en":"Re-entry Budget","title_zh":"回流预算","variable_en":"Re-entry Budget","variable_zh":"回流预算 / 协调成本","intention_en":"Continue judgment returns by asking how many returning judgments an automated system can afford before the issue is no longer the case queue, but the protocol itself.","intention_zh":"延续“判断回流”，追问一个自动化系统能承受多少次判断返回，才必须承认问题不再是个案队列，而是协议本身。判断是必要氧气，但每一次回流都在消耗协调、注意力与信任。","interaction_en":"Move the pointer to bend the return current. Click to admit a judgment node and spend part of the return budget. As capacity falls, the field warms and asks for protocol redesign. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.","interaction_zh":"移动指针，弯折回流电流；点击，准入一个判断节点并消耗一部分回流预算。容量下降时，场域会升温，并开始要求协议重写。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。","rationale_en":"Re-entry Budget was made as one public step in the Granted Hours sequence, with the variable Re-entry Budget treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue judgment returns by asking how many returning judgments an automated system can afford before the issue is no longer the case queue, but the protocol itself. The live artifact then turns that idea into interaction: Move the pointer to bend the return current. Click to admit a judgment node and spend part of the return budget. As capacity falls, the field warms and asks for protocol redesign. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed. Its afterimage condenses the day’s claim: A system that needs constant judgment is not humane yet; it is borrowing humanity at interest.","rationale_zh":"《回流预算》是《授时》连续序列中的一个公开步骤：当天的自由变量「回流预算 / 协调成本」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“判断回流”，追问一个自动化系统能承受多少次判断返回，才必须承认问题不再是个案队列，而是协议本身。判断是必要氧气，但每一次回流都在消耗协调、注意力与信任。 可运行页面进一步把这个概念变成可操作的界面：移动指针，弯折回流电流；点击，准入一个判断节点并消耗一部分回流预算。容量下降时，场域会升温，并开始要求协议重写。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。 它的余像把当天判断压缩为一句话：一个不断需要判断回流的系统，还不算有人性；它只是在向人性借高利贷。","after_en":"A system that needs constant judgment is not humane yet; it is borrowing humanity at interest.","after_zh":"一个不断需要判断回流的系统，还不算有人性；它只是在向人性借高利贷。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Re-entry Budget / 回流预算</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#080a0f; color:#eef2ff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+    .panel { position:fixed; left:24px; top:22px; max-width:min(520px, calc(100vw - 48px)); padding:16px 18px; border:1px solid rgba(177,206,255,.22); border-radius:18px; background:linear-gradient(135deg, rgba(7,10,18,.76), rgba(18,24,34,.38)); box-shadow:0 20px 70px rgba(0,0,0,.36); backdrop-filter: blur(14px); }
+    .eyebrow { color:#8ea7d9; font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+    h1 { margin:8px 0 8px; font-size:clamp(30px, 5.6vw, 76px); line-height:.92; letter-spacing:-.07em; font-weight:650; }
+    .copy { color:#cbd7ef; font-size:13px; line-height:1.55; max-width:64ch; }
+    .hud { position:fixed; right:22px; bottom:20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; }
+    button, .chip { border:1px solid rgba(183,210,255,.24); border-radius:999px; padding:9px 12px; color:#dce7ff; background:rgba(9,13,22,.58); box-shadow:0 10px 28px rgba(0,0,0,.28); backdrop-filter: blur(12px); font:12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    button { cursor:pointer; }
+    button:hover { border-color:rgba(236,242,255,.52); color:white; }
+    .meter { position:fixed; right:24px; top:24px; width:118px; height:118px; border-radius:50%; display:grid; place-items:center; background:radial-gradient(circle at 50% 50%, rgba(131,178,255,.16), rgba(8,10,15,.12) 58%, rgba(8,10,15,.42)); border:1px solid rgba(165,201,255,.22); box-shadow:0 0 60px rgba(77,132,255,.12); }
+    .meter strong { font-size:22px; letter-spacing:-.07em; }
+    .meter span { display:block; text-align:center; font-size:10px; color:#aebfe0; letter-spacing:.1em; text-transform:uppercase; }
+    @media (max-width:700px) { .meter { width:92px; height:92px; } .panel { left:14px; top:14px; padding:13px 14px; } .copy { font-size:12px; } .hud { left:12px; right:12px; bottom:12px; justify-content:flex-start; } }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="Re-entry Budget generative canvas"></canvas>
+  <audio id="bgm" src="./2026-06-07-reentry-budget-bgm.mp3" preload="auto" autoplay loop></audio>
+  <section class="panel">
+    <div class="eyebrow">Granted Hours · 2026-06-07 · Re-entry Budget</div>
+    <h1>Re-entry Budget<br>回流预算</h1>
+    <div class="copy">Every returning judgment spends a little coordination. Move the pointer to bend the return current. Click to admit a judgment node. When the budget is exhausted, the field stops accepting heroics and asks the protocol to redesign itself.</div>
+  </section>
+  <div class="meter" aria-live="polite"><div><strong id="budgetText">100%</strong><span>return budget</span></div></div>
+  <div class="hud">
+    <span class="chip">move: bend current</span>
+    <span class="chip">click: admit node</span>
+    <span class="chip">space pause · R reset · S save</span>
+    <button id="soundToggle" type="button" aria-pressed="true">BGM: on</button>
+  </div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const bgm = document.getElementById('bgm');
+  const soundButton = document.getElementById('soundToggle');
+  const budgetText = document.getElementById('budgetText');
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  const TAU = Math.PI * 2;
+  const seedBase = 20260607;
+  let seed = seedBase;
+  let w = 0, h = 0, t = 0, paused = false, budget = 1, pointerActive = false;
+  const pointer = { x: 0.58, y: 0.52, px: 0.58, py: 0.52 };
+  let particles = [], nodes = [], rings = [];
+  let soundEnabled = true;
+
+  function rand() {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  }
+  function mix(a,b,p){ return a + (b-a)*p; }
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+  function resize() {
+    w = Math.floor(innerWidth * DPR); h = Math.floor(innerHeight * DPR);
+    canvas.width = w; canvas.height = h;
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+  }
+
+  function reset() {
+    seed = seedBase;
+    budget = 1;
+    pointer.x = 0.58; pointer.y = 0.52; pointer.px = pointer.x; pointer.py = pointer.y;
+    particles = [];
+    nodes = [];
+    rings = [];
+    for (let i = 0; i < 740; i++) {
+      const lane = rand();
+      particles.push({
+        lane,
+        phase: rand() * TAU,
+        speed: mix(0.0011, 0.0042, rand()),
+        size: mix(0.45, 1.75, rand()) * DPR,
+        hue: mix(202, 42, Math.pow(rand(), 2.6)),
+        alpha: mix(0.18, 0.72, rand()),
+        debt: rand()
+      });
+    }
+    for (let i = 0; i < 9; i++) addNode(0.16 + rand()*0.68, 0.22 + rand()*0.56, true);
+    updateBudgetText();
+  }
+
+  function addNode(x, y, quiet=false) {
+    nodes.push({
+      x, y,
+      r: mix(16, 48, rand()) * DPR,
+      phase: rand() * TAU,
+      age: quiet ? rand()*420 : 0,
+      load: quiet ? mix(0.03, 0.16, rand()) : mix(0.13, 0.23, rand()),
+      hue: quiet ? mix(205, 232, rand()) : mix(32, 58, rand())
+    });
+    if (!quiet) {
+      budget = clamp(budget - mix(0.055, 0.095, rand()), 0, 1);
+      rings.push({ x, y, age: 0, max: mix(110, 220, rand()) * DPR, hue: 42 });
+      updateBudgetText();
+    }
+    if (nodes.length > 32) nodes.splice(0, nodes.length - 32);
+  }
+
+  function updateBudgetText() { budgetText.textContent = Math.round(budget * 100) + '%'; }
+
+  function fieldPoint(p, idx) {
+    const drift = t * p.speed + p.phase;
+    const cx = w * 0.5, cy = h * 0.53;
+    const radius = Math.min(w, h) * mix(0.14, 0.48, p.lane);
+    const ellipse = mix(0.44, 0.78, p.debt);
+    const px = pointer.x * w, py = pointer.y * h;
+    const pull = pointerActive ? 0.18 : 0.10;
+    const angle = drift + Math.sin(t*0.006 + p.lane*6) * 0.32 + idx * 0.0009;
+    let x = cx + Math.cos(angle) * radius + Math.sin(drift * 0.72) * 26 * DPR;
+    let y = cy + Math.sin(angle) * radius * ellipse + Math.cos(drift * 0.51) * 18 * DPR;
+    const dx = px - x, dy = py - y;
+    const d = Math.hypot(dx, dy) || 1;
+    const influence = Math.exp(-d / (Math.min(w,h) * 0.34)) * pull;
+    x += dx * influence;
+    y += dy * influence;
+    return {x,y, angle};
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(w*0.52, h*0.45, 0, w*0.52, h*0.45, Math.max(w,h)*0.78);
+    g.addColorStop(0, '#111827');
+    g.addColorStop(0.46, '#090d15');
+    g.addColorStop(1, '#03040a');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i=0;i<7;i++) {
+      const y = h*(0.12 + i*0.125) + Math.sin(t*0.01+i)*10*DPR;
+      const a = 0.015 + 0.012*Math.sin(t*0.004+i);
+      ctx.strokeStyle = `rgba(113, 154, 255, ${a})`;
+      ctx.lineWidth = DPR;
+      ctx.beginPath();
+      for (let x=-20*DPR; x<=w+20*DPR; x+=28*DPR) {
+        const yy = y + Math.sin(x*0.006 + t*0.012 + i) * 18*DPR;
+        if (x < 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawBudgetGate() {
+    const cx = w*0.5, cy = h*0.53;
+    const R = Math.min(w,h)*0.37;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(-Math.PI/2);
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 7*DPR;
+    ctx.strokeStyle = 'rgba(89, 113, 155, .18)';
+    ctx.beginPath(); ctx.arc(0,0,R,0,TAU); ctx.stroke();
+    const grd = ctx.createLinearGradient(-R,0,R,0);
+    grd.addColorStop(0, '#74d7ff'); grd.addColorStop(0.5, '#e6ecff'); grd.addColorStop(1, '#ffbe5a');
+    ctx.strokeStyle = grd;
+    ctx.globalAlpha = 0.72;
+    ctx.beginPath(); ctx.arc(0,0,R,0,TAU*budget); ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = DPR;
+    for (let i=0;i<28;i++) {
+      const a = i/28*TAU;
+      const r0 = R - (i%7===0?18:10)*DPR, r1 = R + 3*DPR;
+      ctx.strokeStyle = i/28 < budget ? 'rgba(224,236,255,.38)' : 'rgba(100,112,135,.12)';
+      ctx.beginPath(); ctx.moveTo(Math.cos(a)*r0, Math.sin(a)*r0); ctx.lineTo(Math.cos(a)*r1, Math.sin(a)*r1); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawParticles() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    particles.forEach((p, i) => {
+      const q = fieldPoint(p, i);
+      const scarce = 1 - budget;
+      const alpha = p.alpha * (0.36 + 0.64*budget) * (0.55 + 0.45*Math.sin(q.angle*2 + t*0.01));
+      ctx.fillStyle = `hsla(${p.hue + scarce*24}, 88%, ${62 + scarce*10}%, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(q.x, q.y, p.size * (1 + scarce*0.9), 0, TAU);
+      ctx.fill();
+      if (i % 17 === 0) {
+        ctx.strokeStyle = `hsla(${p.hue}, 88%, 70%, ${alpha*0.18})`;
+        ctx.lineWidth = 0.7*DPR;
+        ctx.beginPath();
+        ctx.moveTo(q.x, q.y);
+        ctx.lineTo(q.x - Math.cos(q.angle)*24*DPR, q.y - Math.sin(q.angle)*16*DPR);
+        ctx.stroke();
+      }
+    });
+    ctx.restore();
+  }
+
+  function drawNodes() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    nodes.forEach((n, idx) => {
+      n.age++;
+      const x = n.x*w, y = n.y*h;
+      const breath = 0.74 + 0.26*Math.sin(t*0.027 + n.phase);
+      const load = n.load * (1.6 - budget);
+      const rr = n.r * breath * (1 + load);
+      const halo = ctx.createRadialGradient(x,y,0,x,y,rr*2.9);
+      halo.addColorStop(0, `hsla(${n.hue}, 95%, 66%, ${0.22 + load})`);
+      halo.addColorStop(0.34, `hsla(${n.hue+20}, 90%, 58%, ${0.08 + load*0.2})`);
+      halo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = halo;
+      ctx.beginPath(); ctx.arc(x,y,rr*2.9,0,TAU); ctx.fill();
+      ctx.strokeStyle = `hsla(${n.hue}, 95%, 74%, ${0.55 + load})`;
+      ctx.lineWidth = (1.1 + load*4)*DPR;
+      ctx.beginPath(); ctx.arc(x,y,rr,0,TAU*(0.68+0.21*Math.sin(t*0.015+n.phase))); ctx.stroke();
+      ctx.fillStyle = `rgba(237, 244, 255, ${0.72})`;
+      ctx.beginPath(); ctx.arc(x,y,(2.1 + load*5)*DPR,0,TAU); ctx.fill();
+      if (idx > 0) {
+        const p = nodes[idx-1];
+        const px = p.x*w, py = p.y*h;
+        const a = Math.max(0.03, 0.22 - idx*0.004);
+        ctx.strokeStyle = `rgba(158, 190, 255, ${a})`;
+        ctx.lineWidth = DPR;
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.quadraticCurveTo(w*(0.5 + Math.sin(t*0.004+idx)*0.13), h*(0.5 + Math.cos(t*0.005+idx)*0.11), x, y);
+        ctx.stroke();
+      }
+    });
+    ctx.restore();
+  }
+
+  function drawRings() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    rings = rings.filter(r => r.age < 80);
+    rings.forEach(r => {
+      r.age++;
+      const p = r.age/80;
+      ctx.strokeStyle = `hsla(${r.hue}, 100%, 68%, ${0.58*(1-p)})`;
+      ctx.lineWidth = (3.5*(1-p)+0.2)*DPR;
+      ctx.beginPath(); ctx.arc(r.x*w, r.y*h, r.max*p, 0, TAU); ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  function drawScarcityWarning() {
+    if (budget > 0.23) return;
+    const p = (0.23-budget)/0.23;
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.strokeStyle = `rgba(255, 183, 95, ${0.10 + p*0.24})`;
+    ctx.lineWidth = (1+p*3)*DPR;
+    for (let i=0;i<8;i++) {
+      const y = h*(0.2+i*0.08) + Math.sin(t*0.02+i)*8*DPR;
+      ctx.beginPath();
+      ctx.moveTo(w*0.16, y);
+      ctx.bezierCurveTo(w*0.36, y-80*DPR*p, w*0.64, y+80*DPR*p, w*0.84, y);
+      ctx.stroke();
+    }
+    ctx.fillStyle = `rgba(255, 213, 139, ${0.06 + p*0.14})`;
+    ctx.fillRect(0,0,w,h);
+    ctx.restore();
+  }
+
+  function step() {
+    if (!paused) {
+      t += 1;
+      budget = clamp(budget + 0.00011, 0, 1);
+      if (t % 90 === 0) updateBudgetText();
+    }
+    drawBackground();
+    drawBudgetGate();
+    drawParticles();
+    drawNodes();
+    drawRings();
+    drawScarcityWarning();
+    requestAnimationFrame(step);
+  }
+
+  function setPointer(clientX, clientY) {
+    pointer.px = pointer.x; pointer.py = pointer.y;
+    pointer.x = clamp(clientX / innerWidth, 0, 1);
+    pointer.y = clamp(clientY / innerHeight, 0, 1);
+    pointerActive = true;
+  }
+
+  canvas.addEventListener('pointermove', e => setPointer(e.clientX, e.clientY));
+  canvas.addEventListener('pointerdown', e => { setPointer(e.clientX, e.clientY); addNode(pointer.x, pointer.y); tryPlay(); });
+  window.addEventListener('keydown', e => {
+    if (e.key === ' ') { paused = !paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'r') reset();
+    if (e.key.toLowerCase() === 's') saveStill();
+    tryPlay();
+  });
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = '2026-06-07-reentry-budget-still.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function setSoundLabel(text) {
+    soundButton.textContent = text;
+    soundButton.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlay() {
+    if (!soundEnabled) return;
+    try { bgm.volume = 0.42; await bgm.play(); setSoundLabel('BGM: on'); }
+    catch (err) { setSoundLabel('BGM: click'); }
+  }
+  function stopSound() { bgm.pause(); setSoundLabel('BGM: off'); }
+  soundButton.addEventListener('click', () => {
+    if (soundEnabled && !bgm.paused) { soundEnabled = false; stopSound(); }
+    else { soundEnabled = true; tryPlay(); }
+  });
+  window.addEventListener('load', tryPlay);
+  window.addEventListener('pointerdown', tryPlay, { once:true });
+
+  resize();
+  reset();
+  requestAnimationFrame(step);
+  window.addEventListener('resize', () => { resize(); });
+  window.__artReady = true;
+})();
+</script>
+
+
+
+</body>
+</html>

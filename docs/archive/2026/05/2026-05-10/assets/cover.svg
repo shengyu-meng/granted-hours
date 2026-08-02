@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050611"/>
+      <stop offset="0.52" stop-color="#0a132a"/>
+      <stop offset="1" stop-color="#150d20"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="58%" cy="42%" r="44%">
+      <stop offset="0" stop-color="#f2ead7" stop-opacity="0.16"/>
+      <stop offset="0.34" stop-color="#78d5ff" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="2.2"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#moon)"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M-20 165 C160 112 282 210 448 163 S775 97 943 154 1233 246 1620 138" stroke="#f2ead7" stroke-opacity="0.12" stroke-width="2"/>
+    <path d="M-20 295 C178 250 336 380 510 302 S814 220 984 286 1240 404 1620 264" stroke="#78d5ff" stroke-opacity="0.13" stroke-width="1.2"/>
+    <path d="M-20 460 C130 372 290 520 480 444 S806 330 1012 431 1268 552 1620 428" stroke="#f6b36a" stroke-opacity="0.16" stroke-width="2.8"/>
+    <path d="M-20 620 C140 570 332 688 526 600 S835 530 1000 612 1290 730 1620 584" stroke="#f2ead7" stroke-opacity="0.11" stroke-width="1.6"/>
+    <path d="M-20 760 C174 700 322 820 512 742 S860 668 1054 736 1324 842 1620 714" stroke="#a58cff" stroke-opacity="0.14" stroke-width="1.4"/>
+  </g>
+  <g opacity="0.82">
+    <circle cx="1030" cy="420" r="34" fill="none" stroke="#f6b36a" stroke-opacity="0.52" stroke-width="4"/>
+    <circle cx="1030" cy="420" r="96" fill="none" stroke="#f6b36a" stroke-opacity="0.24" stroke-width="2"/>
+    <circle cx="1030" cy="420" r="188" fill="none" stroke="#78d5ff" stroke-opacity="0.13" stroke-width="1.2"/>
+    <circle cx="1030" cy="420" r="9" fill="#ffd19d" opacity="0.92" filter="url(#soft)"/>
+  </g>
+  <g fill="#f2ead7" opacity="0.38">
+    <circle cx="228" cy="220" r="1.8"/><circle cx="342" cy="172" r="1.1"/><circle cx="475" cy="258" r="1.4"/><circle cx="617" cy="188" r="1.2"/><circle cx="748" cy="244" r="2.1"/><circle cx="882" cy="198" r="1.3"/><circle cx="1168" cy="228" r="1.6"/><circle cx="1298" cy="304" r="1.2"/><circle cx="1388" cy="206" r="1.9"/><circle cx="250" cy="612" r="1.2"/><circle cx="406" cy="690" r="1.8"/><circle cx="692" cy="650" r="1.1"/><circle cx="870" cy="752" r="1.4"/><circle cx="1202" cy="660" r="1.7"/><circle cx="1430" cy="710" r="1.1"/>
+  </g>
+  <g font-family="ui-serif, 'Songti SC', Georgia, serif" fill="#f2ead7">
+    <text x="88" y="108" font-size="24" opacity="0.42" letter-spacing="7">WHITE NIGHT VARIABLE 04</text>
+    <text x="86" y="190" font-size="92" font-weight="500" letter-spacing="-7">阈值天气</text>
+    <text x="92" y="250" font-size="28" opacity="0.72">背景噪声已经长成了事件。</text>
+    <text x="92" y="790" font-size="22" opacity="0.42">Threshold is not a wall. It is an admission.</text>
+  </g>
+  <g transform="translate(92 312)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#f2ead7" opacity="0.62">
+    <text y="0">noise     ▓▓▓▓▓▓▓░░ 76%</text>
+    <text y="34">intent    ▓▓▓▓▓░░░░ 53%</text>
+    <text y="68">dream     ▓▓▓▓▓▓░░░ 64%</text>
+    <text y="102">body      ▓▓▓░░░░░░ 38%</text>
+    <text y="136">market    ▓▓▓▓▓▓▓▓░ 81%</text>
+  </g>
+</svg>

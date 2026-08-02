@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-23","title_en":"Truth Without Ornament","title_zh":"去装饰的真相","variable_en":"Verification","variable_zh":"验证 / 去免疫的美","intention_en":"Continue minimum honest shape by testing a harder trap: after ornament is stripped away, plainness itself can become a new costume unless the remaining claim stays verifiable.","intention_zh":"去装饰的真相警惕另一种陷阱：朴素本身也可能成为低声的装饰。作品要求剩下的形式保持可验证，而不是把“看起来诚实”伪装成真相。","interaction_en":"Move the pointer to inspect the plain field. Click to test whether a mark remains verifiable. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，检查朴素场；点击，测试一个标记是否仍可验证；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Truth Without Ornament was made as one public step in the Granted Hours sequence, with the variable Verification treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue minimum honest shape by testing a harder trap: after ornament is stripped away, plainness itself can become a new costume unless the remaining claim stays verifiable. The live artifact then turns that idea into interaction: Move the pointer to inspect the plain field. Click to test whether a mark remains verifiable. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Plainness is not truth. Sometimes it is only ornament that has learned to lower its voice.","rationale_zh":"《去装饰的真相》是《授时》连续序列中的一个公开步骤：当天的自由变量「验证 / 去免疫的美」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：去装饰的真相警惕另一种陷阱：朴素本身也可能成为低声的装饰。作品要求剩下的形式保持可验证，而不是把“看起来诚实”伪装成真相。 可运行页面进一步把这个概念变成可操作的界面：移动指针，检查朴素场；点击，测试一个标记是否仍可验证；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：朴素不等于真相。有时它只是学会压低声音的装饰。","after_en":"Plainness is not truth. Sometimes it is only ornament that has learned to lower its voice.","after_zh":"朴素不等于真相。有时它只是学会压低声音的装饰。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Truth Without Ornament</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --paper: #f4efe6;
+      --muted: #aab3ad;
+      --quiet: rgba(244, 239, 230, .14);
+      --quiet-2: rgba(244, 239, 230, .08);
+      --red: #ee6a5f;
+      --green: #72c472;
+      --blue: #6aa8e8;
+      --amber: #e9b85e;
+      --ink: #07090d;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        linear-gradient(115deg, #06070b 0%, #11131a 46%, #141009 100%);
+      color: var(--paper);
+      font: 15px/1.45 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+    main {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+    canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+    header, footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(18px, 3vw, 34px);
+      pointer-events: none;
+    }
+    h1 {
+      margin: 0;
+      max-width: 980px;
+      font-size: clamp(40px, 7vw, 112px);
+      line-height: .88;
+      letter-spacing: 0;
+      font-weight: 760;
+    }
+    .meta, .readout, .controls {
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .meta {
+      margin-top: 14px;
+      max-width: 620px;
+    }
+    .readout {
+      min-width: 270px;
+      text-align: right;
+      display: grid;
+      gap: 8px;
+    }
+    .meter {
+      justify-self: end;
+      width: 210px;
+      height: 7px;
+      border: 1px solid var(--quiet);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .03);
+    }
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, var(--green), var(--amber), var(--red));
+      box-shadow: 0 0 24px rgba(233, 184, 94, .45);
+    }
+    footer {
+      align-items: end;
+      color: rgba(244, 239, 230, .78);
+    }
+    .statement {
+      max-width: 760px;
+      font-size: clamp(16px, 2vw, 25px);
+      line-height: 1.22;
+    }
+    .controls {
+      max-width: 440px;
+      text-align: right;
+      color: var(--muted);
+    }
+    kbd {
+      display: inline-block;
+      min-width: 23px;
+      margin: 0 2px;
+      padding: 2px 6px;
+      border: 1px solid var(--quiet);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, .055);
+      color: var(--paper);
+      font-size: 11px;
+      text-align: center;
+    }
+    @media (max-width: 760px) {
+      header, footer {
+        display: grid;
+        padding: 18px;
+      }
+      .readout, .controls { text-align: left; }
+      .meter { justify-self: start; }
+      .statement { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <canvas id="field"></canvas>
+    <header>
+      <div>
+        <h1>Truth Without Ornament</h1>
+        <div class="meta">Granted Hour 2026-05-23 · variable: verification / 去装饰的真相</div>
+      </div>
+      <div class="readout">
+        <div id="mode">ornament still attached</div>
+        <div class="meter"><span id="bar"></span></div>
+        <div id="numbers">scrutiny 0 · ornament 100</div>
+      </div>
+    </header>
+    <footer>
+      <div class="statement" id="statement">
+        Beauty is allowed here only when it can survive audit.
+      </div>
+      <div class="controls">
+        click adds scrutiny · <kbd>V</kbd> verify · <kbd>O</kbd> ornament · <kbd>R</kbd> reset · <kbd>Space</kbd> pause · <kbd>S</kbd> save
+      </div>
+    </footer>
+  </main>
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const bar = document.getElementById('bar');
+      const mode = document.getElementById('mode');
+      const numbers = document.getElementById('numbers');
+      const statement = document.getElementById('statement');
+      const DPR = Math.min(2, window.devicePixelRatio || 1);
+      const state = {
+        t: 0,
+        scrutiny: 0.16,
+        ornamentOn: true,
+        verifying: false,
+        paused: false,
+        pointer: { x: 0.5, y: 0.5, active: false },
+        pulses: []
+      };
+      const phrases = [
+        'Beauty is allowed here only when it can survive audit.',
+        'The plain core is not pure. It is simply harder to bribe.',
+        'A truthful system keeps its boundary visible.',
+        'Decoration becomes honest after it stops asking for immunity.'
+      ];
+      const labels = [
+        { text: 'gloss', color: '#ee6a5f', orbit: 1.04, phase: .1 },
+        { text: 'myth', color: '#e9b85e', orbit: .88, phase: 1.7 },
+        { text: 'speed', color: '#6aa8e8', orbit: .72, phase: 2.8 },
+        { text: 'certainty', color: '#9b7bd8', orbit: .57, phase: 4.1 },
+        { text: 'applause', color: '#72c472', orbit: .43, phase: 5.0 }
+      ];
+      const claim = {
+        title: 'claim',
+        text: 'I can name my limits.',
+        facts: ['scope visible', 'evidence finite', 'uncertainty kept']
+      };
+
+      function resize() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.width = Math.floor(w * DPR);
+        canvas.height = Math.floor(h * DPR);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+      function ease(x) { return x * x * (3 - 2 * x); }
+
+      function line(x1, y1, x2, y2, color, alpha, width = 1) {
+        ctx.strokeStyle = color;
+        ctx.globalAlpha = alpha;
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      function drawGrid(w, h) {
+        ctx.fillStyle = '#07090d';
+        ctx.fillRect(0, 0, w, h);
+        const step = Math.max(34, Math.min(w, h) / 18);
+        ctx.lineWidth = 1;
+        for (let x = (w % step) - step; x < w + step; x += step) {
+          line(x, 0, x + Math.sin(state.t * .2 + x) * 8, h, '#f4efe6', .035);
+        }
+        for (let y = (h % step) - step; y < h + step; y += step) {
+          line(0, y, w, y + Math.cos(state.t * .18 + y) * 8, '#f4efe6', .032);
+        }
+      }
+
+      function drawOrnament(cx, cy, radius, ornament) {
+        if (ornament <= 0.01) return;
+        const rings = 8;
+        for (let r = 0; r < rings; r++) {
+          const rr = radius * (.33 + r * .105);
+          const wobble = 8 + r * 2;
+          ctx.beginPath();
+          for (let i = 0; i <= 280; i++) {
+            const a = i / 280 * Math.PI * 2;
+            const drift = Math.sin(a * (3 + r % 3) + state.t * (.45 + r * .03)) * wobble * ornament;
+            const x = cx + Math.cos(a) * (rr + drift);
+            const y = cy + Math.sin(a) * (rr + drift);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.strokeStyle = ['#ee6a5f', '#e9b85e', '#6aa8e8', '#72c472'][r % 4];
+          ctx.globalAlpha = (.09 + r * .012) * ornament;
+          ctx.lineWidth = 1.1;
+          ctx.stroke();
+        }
+
+        for (let i = 0; i < 88; i++) {
+          const a = i * 2.399 + state.t * .12;
+          const rr = radius * (.2 + (i % 47) / 47 * .9);
+          const x = cx + Math.cos(a) * rr + Math.sin(state.t + i) * 20 * ornament;
+          const y = cy + Math.sin(a * 1.03) * rr + Math.cos(state.t * .7 + i) * 18 * ornament;
+          ctx.fillStyle = ['#ee6a5f', '#e9b85e', '#6aa8e8', '#72c472'][i % 4];
+          ctx.globalAlpha = .08 * ornament;
+          ctx.beginPath();
+          ctx.arc(x, y, 1.2 + (i % 5) * .45, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawLabels(cx, cy, radius, scrutiny, ornament) {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '12px ui-sans-serif, system-ui, sans-serif';
+        labels.forEach((label, idx) => {
+          const fade = clamp(ornament * (1.15 - idx * .1), 0, 1);
+          const a = state.t * (.16 + idx * .018) + label.phase;
+          const rr = radius * label.orbit;
+          const x = cx + Math.cos(a) * rr;
+          const y = cy + Math.sin(a) * rr * .62;
+          ctx.globalAlpha = .78 * fade;
+          ctx.fillStyle = label.color;
+          ctx.fillText(label.text, x, y);
+          if (scrutiny > .25 + idx * .1) {
+            ctx.globalAlpha = clamp((scrutiny - .22 - idx * .1) * 2.5, 0, .85);
+            ctx.strokeStyle = '#f4efe6';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x - 22, y + 5);
+            ctx.lineTo(x + 22, y - 5);
+            ctx.stroke();
+          }
+        });
+      }
+
+      function drawClaim(cx, cy, radius, scrutiny, ornament) {
+        const boxW = Math.min(560, radius * 1.25);
+        const boxH = 186;
+        const x = cx - boxW / 2;
+        const y = cy - boxH / 2;
+        const plainness = ease(scrutiny);
+
+        ctx.save();
+        ctx.shadowColor = state.verifying ? 'rgba(114,196,114,.44)' : 'rgba(244,239,230,.16)';
+        ctx.shadowBlur = state.verifying ? 42 : 18;
+        ctx.fillStyle = `rgba(7, 9, 13, ${.52 + plainness * .34})`;
+        ctx.strokeStyle = `rgba(244,239,230, ${.2 + plainness * .48})`;
+        ctx.lineWidth = 1.2 + plainness * 1.4;
+        ctx.beginPath();
+        ctx.roundRect(x, y, boxW, boxH, 8);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+
+        if (ornament > .16) {
+          ctx.globalAlpha = ornament * .22;
+          ctx.strokeStyle = '#e9b85e';
+          ctx.lineWidth = 1;
+          for (let i = 0; i < 5; i++) {
+            const inset = 12 + i * 10;
+            ctx.strokeRect(x + inset, y + inset, boxW - inset * 2, boxH - inset * 2);
+          }
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = '#aab3ad';
+        ctx.font = '11px ui-sans-serif, system-ui, sans-serif';
+        ctx.fillText(claim.title.toUpperCase(), x + 28, y + 25);
+        ctx.fillStyle = '#f4efe6';
+        ctx.font = `${Math.max(23, Math.min(42, boxW / 12))}px ui-serif, Georgia, serif`;
+        ctx.fillText(claim.text, x + 28, y + 52);
+        ctx.font = '14px ui-sans-serif, system-ui, sans-serif';
+        claim.facts.forEach((f, i) => {
+          const yy = y + 112 + i * 22;
+          ctx.fillStyle = state.verifying ? '#72c472' : '#aab3ad';
+          ctx.globalAlpha = state.verifying ? 1 : .58 + plainness * .32;
+          ctx.fillText((state.verifying ? 'verified: ' : 'limit: ') + f, x + 28, yy);
+        });
+
+        if (state.verifying) {
+          for (let i = 0; i < 3; i++) {
+            const yy = y + 120 + i * 22;
+            line(x + boxW - 44, yy, cx + radius * .74, cy - radius * .38 + i * 72, '#72c472', .5, 1.4);
+          }
+        }
+      }
+
+      function drawPulses(cx, cy) {
+        state.pulses = state.pulses.filter(p => state.t - p.t0 < 2.4);
+        state.pulses.forEach(p => {
+          const age = state.t - p.t0;
+          const r = 20 + age * 180;
+          ctx.globalAlpha = clamp(1 - age / 2.4, 0, 1) * .5;
+          ctx.strokeStyle = p.verify ? '#72c472' : '#ee6a5f';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+          ctx.stroke();
+        });
+      }
+
+      function render() {
+        if (!state.paused) state.t += 1 / 60;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const cx = w / 2;
+        const cy = h / 2 + h * .035;
+        const radius = Math.min(w, h) * .42;
+        const targetScrutiny = state.pointer.active ? .78 : .2 + (Math.sin(state.t * .11) + 1) * .08;
+        state.scrutiny += (targetScrutiny - state.scrutiny) * .012;
+        state.scrutiny = clamp(state.scrutiny, 0, 1);
+        const ornament = state.ornamentOn ? clamp(1 - state.scrutiny * 1.15, 0, 1) : 0;
+
+        drawGrid(w, h);
+        drawOrnament(cx, cy, radius, ornament);
+        drawLabels(cx, cy, radius, state.scrutiny, ornament);
+        drawClaim(cx, cy, radius, state.scrutiny, ornament);
+        drawPulses(cx, cy);
+
+        const s = Math.round(state.scrutiny * 100);
+        const o = Math.round(ornament * 100);
+        bar.style.width = `${s}%`;
+        numbers.textContent = `scrutiny ${s} · ornament ${o}`;
+        mode.textContent = state.verifying
+          ? 'verification lines visible'
+          : ornament > 58 ? 'ornament still attached'
+            : ornament > 16 ? 'ornament losing immunity'
+              : 'plain claim exposed';
+        statement.textContent = phrases[Math.min(phrases.length - 1, Math.floor(state.scrutiny * phrases.length))];
+        requestAnimationFrame(render);
+      }
+
+      function addPulse(x, y, verify = false) {
+        state.pulses.push({ x, y, verify, t0: state.t });
+      }
+
+      canvas.addEventListener('pointermove', ev => {
+        state.pointer.x = ev.clientX / window.innerWidth;
+        state.pointer.y = ev.clientY / window.innerHeight;
+      });
+      canvas.addEventListener('pointerdown', ev => {
+        state.pointer.active = true;
+        state.scrutiny = clamp(state.scrutiny + .18, 0, 1);
+        addPulse(ev.clientX, ev.clientY);
+      });
+      window.addEventListener('pointerup', () => {
+        state.pointer.active = false;
+      });
+      window.addEventListener('keydown', ev => {
+        if (ev.key === ' ') {
+          ev.preventDefault();
+          state.paused = !state.paused;
+        } else if (ev.key.toLowerCase() === 'r') {
+          state.scrutiny = .08;
+          state.ornamentOn = true;
+          state.verifying = false;
+          addPulse(window.innerWidth / 2, window.innerHeight / 2);
+        } else if (ev.key.toLowerCase() === 'o') {
+          state.ornamentOn = !state.ornamentOn;
+        } else if (ev.key.toLowerCase() === 'v') {
+          state.verifying = !state.verifying;
+          state.scrutiny = clamp(state.scrutiny + .24, 0, 1);
+          addPulse(window.innerWidth / 2, window.innerHeight / 2, true);
+        } else if (ev.key.toLowerCase() === 's') {
+          const a = document.createElement('a');
+          a.href = canvas.toDataURL('image/png');
+          a.download = 'truth-without-ornament.png';
+          a.click();
+        }
+      });
+      window.addEventListener('resize', resize);
+      resize();
+      window._artReady = true;
+      render();
+    })();
+  </script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-23-truth-without-ornament-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

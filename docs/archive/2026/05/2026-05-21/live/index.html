@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-21","title_en":"Graceful Degradation","title_zh":"优雅降级","variable_en":"Graceful Loss","variable_zh":"优雅损失 / 诚实变少","intention_en":"Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth.","intention_zh":"优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。","interaction_en":"Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Graceful Degradation was made as one public step in the Granted Hours sequence, with the variable Graceful Loss treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth. The live artifact then turns that idea into interaction: Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Collapse is not the first failure; the first failure is a system that has no smaller honest shape.","rationale_zh":"《优雅降级》是《授时》连续序列中的一个公开步骤：当天的自由变量「优雅损失 / 诚实变少」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。 可运行页面进一步把这个概念变成可操作的界面：移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。","after_en":"Collapse is not the first failure; the first failure is a system that has no smaller honest shape.","after_zh":"崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Graceful Degradation / 优雅降级</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #050609; }
+    body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .hud {
+      position: fixed; left: 22px; top: 18px; max-width: min(620px, calc(100vw - 44px));
+      color: rgba(238, 231, 204, .78); font-size: 12px; line-height: 1.55; letter-spacing: .01em;
+      text-shadow: 0 1px 12px rgba(0,0,0,.7); pointer-events: none;
+    }
+    .hud b { color: #f6d893; font-weight: 700; }
+    .hud .dim { color: rgba(238,231,204,.46); }
+    .gauge {
+      position: fixed; right: 24px; top: 22px; width: 186px; min-height: 150px;
+      border: 1px solid rgba(246,216,147,.18); background: rgba(9,13,18,.38);
+      box-shadow: 0 0 38px rgba(111,182,200,.05) inset, 0 18px 60px rgba(0,0,0,.24);
+      color: rgba(238,231,204,.68); padding: 14px 16px; pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+    .gauge .label { font-size: 11px; color: rgba(238,231,204,.45); }
+    .gauge .value { font-size: 34px; color: #f6d893; letter-spacing: -.08em; margin: 4px 0 10px; }
+    .bar { height: 4px; background: rgba(238,231,204,.13); margin: 9px 0 14px; overflow: hidden; }
+    .bar i { display: block; height: 100%; width: var(--w, 0%); background: linear-gradient(90deg, #6fb6c8, #f6d893, #df7759); }
+    .steps { display: grid; gap: 5px; font-size: 10px; color: rgba(238,231,204,.48); }
+    .steps span { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(238,231,204,.06); padding-bottom: 3px; }
+    .steps .gone { color: rgba(223,119,89,.72); }
+    @media (max-width: 720px) {
+      .gauge { right: 14px; top: auto; bottom: 14px; width: 158px; }
+      .hud { left: 14px; top: 12px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" aria-label="Interactive canvas artwork: Graceful Degradation"></canvas>
+  <div class="hud">
+    <b>Graceful Degradation / 优雅降级</b><br>
+    A system has dignity when it can become less without becoming false.<br>
+    <span class="dim">click = add pressure · D = degrade one layer · H = hierarchy · R = recover · Space = pause · S = save PNG</span>
+  </div>
+  <div class="gauge">
+    <div class="label">pressure</div>
+    <div class="value" id="pressure">00</div>
+    <div class="bar" style="--w:0%" id="bar"><i></i></div>
+    <div class="label">current honest shape</div>
+    <div class="steps" id="steps"></div>
+  </div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const pressureEl = document.getElementById('pressure');
+  const barEl = document.getElementById('bar');
+  const stepsEl = document.getElementById('steps');
+  const TAU = Math.PI * 2;
+  const DPR_CAP = 2;
+  const cfg = { seed: 20260521, t: 0, pressure: 16, stage: 0, paused: false, hierarchy: true };
+  const stages = [
+    { name: 'ornament', zh: '装饰', threshold: 22, alpha: 1.00, radius: 1.14 },
+    { name: 'abundance', zh: '丰裕', threshold: 39, alpha: .78, radius: .96 },
+    { name: 'speed', zh: '速度', threshold: 56, alpha: .56, radius: .78 },
+    { name: 'precision', zh: '精度', threshold: 71, alpha: .38, radius: .60 },
+    { name: 'memory', zh: '记忆', threshold: 84, alpha: .20, radius: .43 },
+    { name: 'truth', zh: '真实', threshold: 96, alpha: 1.00, radius: .24 }
+  ];
+  const names = ['cache', 'index', 'search', 'render', 'voice', 'map', 'forecast', 'archive', 'queue', 'mirror', 'sensor', 'scribe'];
+  let W = 0, H = 0, dpr = 1, cx = 0, cy = 0, R = 0;
+  let rng = mulberry32(cfg.seed);
+  let services = [], sparks = [], dust = [], pulses = [];
+
+  function mulberry32(a) {
+    return function() {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const rand = (a = 1, b = 0) => b + rng() * (a - b);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, p) => a + (b - a) * p;
+  const ease = x => x * x * (3 - 2 * x);
+
+  function resize() {
+    dpr = Math.min(DPR_CAP, window.devicePixelRatio || 1);
+    W = Math.floor(window.innerWidth); H = Math.floor(window.innerHeight);
+    canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = W * 0.5; cy = H * 0.52; R = Math.min(W, H) * 0.34;
+    build(false);
+    draw();
+  }
+
+  function build(reset = true) {
+    if (reset) { rng = mulberry32(cfg.seed); cfg.t = 0; cfg.pressure = 16; cfg.stage = 0; sparks = []; pulses = []; }
+    services = [];
+    dust = [];
+    const count = Math.max(42, Math.floor((W * H) / 24500));
+    for (let i = 0; i < count; i++) {
+      const layer = i % 6;
+      const a = (i / count) * TAU + rand(.22, -.22);
+      const rr = R * stages[layer].radius * rand(1.08, .86);
+      services.push({
+        id: i, layer, name: names[i % names.length], a, rr,
+        x: cx + Math.cos(a) * rr,
+        y: cy + Math.sin(a) * rr * .70,
+        phase: rand(TAU), size: rand(2.2, 6.8), health: rand(.74, 1)
+      });
+    }
+    for (let i = 0; i < 420; i++) dust.push({ x: rand(W), y: rand(H), s: rand(.25, 1.4), a: rand(.03, .20), p: rand(TAU) });
+  }
+
+  function setStageFromPressure() {
+    let next = 0;
+    for (let i = 0; i < stages.length; i++) if (cfg.pressure >= stages[i].threshold) next = i;
+    if (next !== cfg.stage) {
+      cfg.stage = next;
+      pulses.push({ r: R * stages[next].radius, life: 72, color: next > 3 ? '#df7759' : '#f6d893' });
+    }
+  }
+
+  function addPressure(x, y, force = 1) {
+    cfg.pressure = clamp(cfg.pressure + 8.5 * force, 0, 100);
+    const angle = Math.atan2((y - cy) / .70, x - cx);
+    for (let i = 0; i < 18 * force; i++) {
+      const sp = rand(2.4, .5) * force;
+      const a = angle + rand(1.2, -1.2);
+      sparks.push({
+        x: x + rand(22, -22), y: y + rand(22, -22),
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * .68,
+        life: rand(66, 140), max: 140, heat: rand(.45, 1)
+      });
+    }
+    setStageFromPressure();
+  }
+
+  function forceDegrade() {
+    const target = Math.min(stages.length - 1, cfg.stage + 1);
+    cfg.pressure = Math.max(cfg.pressure, stages[target].threshold + 1);
+    setStageFromPressure();
+  }
+
+  function recover() {
+    cfg.seed = (cfg.seed + 97) >>> 0;
+    build(true);
+    updateUI();
+  }
+
+  function update() {
+    cfg.t++;
+    cfg.pressure = lerp(cfg.pressure, Math.max(6, cfg.pressure - .018), .022);
+    if (cfg.t % 168 === 0) {
+      const a = rand(TAU);
+      const rr = R * rand(1.18, .78);
+      addPressure(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr * .70, rand(.68, .28));
+    }
+    setStageFromPressure();
+    services.forEach(s => {
+      const targetAlpha = s.layer >= cfg.stage ? 1 : stages[s.layer].alpha * .30;
+      s.health = lerp(s.health, targetAlpha, .035);
+      const orbitSpeed = .00055 * (1 - cfg.stage * .105);
+      s.a += orbitSpeed * (s.layer % 2 ? -1 : 1);
+      const shrink = lerp(1, stages[Math.min(cfg.stage + 1, 5)].radius / Math.max(stages[s.layer].radius, .01), .11);
+      const rr = s.rr * lerp(1, shrink, .34);
+      s.x = cx + Math.cos(s.a + Math.sin(cfg.t * .006 + s.phase) * .018) * rr;
+      s.y = cy + Math.sin(s.a) * rr * .70;
+    });
+    sparks.forEach(p => {
+      const dx = cx - p.x, dy = cy - p.y;
+      const d = Math.sqrt(dx * dx + dy * dy) || 1;
+      p.vx += dx / d * .018; p.vy += dy / d * .018;
+      p.vx *= .985; p.vy *= .985;
+      p.x += p.vx; p.y += p.vy; p.life -= .75;
+    });
+    sparks = sparks.filter(p => p.life > 0);
+    pulses.forEach(p => p.life--);
+    pulses = pulses.filter(p => p.life > 0);
+    updateUI();
+  }
+
+  function background() {
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * .74);
+    g.addColorStop(0, '#15232a'); g.addColorStop(.43, '#0b1117'); g.addColorStop(1, '#050609');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of dust) {
+      const shimmer = .45 + .55 * Math.sin(cfg.t * .009 + p.p);
+      ctx.fillStyle = `rgba(111,182,200,${p.a * (.28 + shimmer * .54)})`;
+      ctx.fillRect(p.x, p.y + Math.sin(cfg.t * .002 + p.p) * 8, p.s, p.s);
+    }
+    ctx.restore();
+  }
+
+  function drawHierarchy() {
+    if (!cfg.hierarchy) return;
+    ctx.save();
+    ctx.translate(cx, cy);
+    for (let i = 0; i < stages.length; i++) {
+      const gone = i < cfg.stage;
+      const active = i === cfg.stage;
+      const rr = R * stages[i].radius;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, rr, rr * .70, 0, 0, TAU);
+      ctx.strokeStyle = gone ? 'rgba(223,119,89,.12)' : active ? 'rgba(246,216,147,.44)' : 'rgba(111,182,200,.18)';
+      ctx.lineWidth = active ? 1.6 : .9;
+      ctx.setLineDash(i === 5 ? [] : [3, 15]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const labelX = Math.cos(-.72) * rr;
+      const labelY = Math.sin(-.72) * rr * .70;
+      ctx.fillStyle = gone ? 'rgba(223,119,89,.42)' : 'rgba(238,231,204,.32)';
+      ctx.font = '10px ui-monospace, SFMono-Regular, Menlo, monospace';
+      ctx.fillText(stages[i].name, labelX + 9, labelY);
+    }
+    ctx.restore();
+  }
+
+  function drawConnections() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < services.length; i++) {
+      const a = services[i];
+      for (let j = i + 1; j < services.length; j++) {
+        const b = services[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = dx * dx + dy * dy;
+        if (d > 14800 || Math.abs(a.layer - b.layer) > 1) continue;
+        const near = 1 - d / 14800;
+        const health = Math.min(a.health, b.health);
+        ctx.strokeStyle = `rgba(${a.layer < cfg.stage ? '223,119,89' : '111,182,200'},${near * health * .18})`;
+        ctx.lineWidth = .55 + near * .7;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawServices() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const s of services) {
+      const gone = s.layer < cfg.stage;
+      const pulse = .5 + .5 * Math.sin(cfg.t * .028 + s.phase);
+      const alpha = s.health * (gone ? .20 : .72);
+      ctx.fillStyle = gone ? `rgba(223,119,89,${alpha * .28})` : `rgba(246,216,147,${alpha * (.52 + pulse * .28)})`;
+      ctx.strokeStyle = gone ? `rgba(223,119,89,${alpha * .45})` : `rgba(111,182,200,${alpha * .48})`;
+      ctx.lineWidth = gone ? .7 : 1.15;
+      ctx.beginPath();
+      ctx.rect(s.x - s.size * 1.7, s.y - s.size, s.size * 3.4, s.size * 2);
+      ctx.fill(); ctx.stroke();
+      if (!gone && s.layer >= cfg.stage + 1 && cfg.hierarchy && W > 760) {
+        ctx.fillStyle = `rgba(238,231,204,${alpha * .34})`;
+        ctx.font = '9px ui-monospace, SFMono-Regular, Menlo, monospace';
+        ctx.fillText(s.name, s.x + s.size * 2.5, s.y + 3);
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawCore() {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const breath = 1 + Math.sin(cfg.t * .035) * .025;
+    const heat = clamp((cfg.pressure - 60) / 40, 0, 1);
+    const r = R * .116 * breath;
+    const halo = ctx.createRadialGradient(0, 0, r * .2, 0, 0, r * 3.9);
+    halo.addColorStop(0, `rgba(246,216,147,${.18 + heat * .18})`);
+    halo.addColorStop(.34, `rgba(111,182,200,${.10 - heat * .04})`);
+    halo.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = halo;
+    ctx.beginPath(); ctx.arc(0, 0, r * 4, 0, TAU); ctx.fill();
+    ctx.fillStyle = '#101920';
+    ctx.strokeStyle = heat > .6 ? '#df7759' : '#f6d893';
+    ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = `rgba(246,216,147,${.82 - heat * .18})`;
+    ctx.beginPath();
+    ctx.moveTo(-r * .58, -r * .10);
+    ctx.bezierCurveTo(-r * .28, -r * .52, r * .30, -r * .50, r * .58, -r * .08);
+    ctx.bezierCurveTo(r * .24, r * .34, -r * .22, r * .35, -r * .58, -r * .10);
+    ctx.fill();
+    ctx.strokeStyle = '#071016';
+    ctx.lineWidth = Math.max(3, r * .13);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-r * .26, r * .04); ctx.lineTo(-r * .05, -r * .28); ctx.lineTo(r * .10, .01); ctx.lineTo(r * .32, -r * .38);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(238,231,204,.44)';
+    ctx.font = '10px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('truth stays', 0, r + 26);
+    ctx.restore();
+  }
+
+  function drawSparks() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of sparks) {
+      const a = clamp(p.life / p.max, 0, 1);
+      ctx.strokeStyle = `rgba(223,119,89,${a * p.heat * .42})`;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x - p.vx * 7, p.y - p.vy * 7);
+      ctx.stroke();
+      ctx.fillStyle = `rgba(246,216,147,${a * .55})`;
+      ctx.fillRect(p.x, p.y, 1.4, 1.4);
+    }
+    for (const p of pulses) {
+      const a = p.life / 72;
+      ctx.strokeStyle = p.color === '#df7759' ? `rgba(223,119,89,${a * .34})` : `rgba(246,216,147,${a * .28})`;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, p.r * (1 + (1 - a) * .18), p.r * .70 * (1 + (1 - a) * .18), 0, 0, TAU);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawCaption() {
+    ctx.save();
+    const y = H - 36;
+    ctx.fillStyle = 'rgba(238,231,204,.48)';
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillText('collapse is not the first failure; the first failure is having no smaller honest shape', 24, y);
+    const current = stages[cfg.stage];
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(246,216,147,.62)';
+    ctx.fillText(`${current.name} / ${current.zh}`, W - 24, y);
+    ctx.restore();
+  }
+
+  function updateUI() {
+    const p = Math.round(cfg.pressure);
+    pressureEl.textContent = String(p).padStart(2, '0');
+    barEl.style.setProperty('--w', `${clamp(p, 0, 100)}%`);
+    stepsEl.innerHTML = stages.map((s, i) => {
+      const cls = i < cfg.stage ? ' class="gone"' : '';
+      const mark = i < cfg.stage ? 'shed' : i === cfg.stage ? 'active' : 'held';
+      return `<span${cls}><em>${s.name}</em><b>${mark}</b></span>`;
+    }).join('');
+  }
+
+  function draw() {
+    background();
+    drawHierarchy();
+    drawConnections();
+    drawServices();
+    drawSparks();
+    drawCore();
+    drawCaption();
+    window._artReady = true;
+    window.__artState = { pressure: cfg.pressure, stage: cfg.stage, services: services.length, sparks: sparks.length };
+  }
+
+  function loop() {
+    if (!cfg.paused) update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function savePNG() {
+    const a = document.createElement('a');
+    a.download = 'graceful-degradation-2026-05-21.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  canvas.addEventListener('pointerdown', ev => addPressure(ev.clientX, ev.clientY, 1));
+  window.addEventListener('resize', resize);
+  window.addEventListener('keydown', ev => {
+    if (ev.key === ' ') { cfg.paused = !cfg.paused; ev.preventDefault(); }
+    else if (ev.key.toLowerCase() === 'd') forceDegrade();
+    else if (ev.key.toLowerCase() === 'h') cfg.hierarchy = !cfg.hierarchy;
+    else if (ev.key.toLowerCase() === 'r') recover();
+    else if (ev.key.toLowerCase() === 's') savePNG();
+  });
+
+  window.__advanceArt = frames => {
+    const n = Math.max(0, Math.floor(frames || 1));
+    for (let i = 0; i < n; i++) update();
+    draw();
+    return window.__artState;
+  };
+  resize();
+  loop();
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-21-graceful-degradation-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

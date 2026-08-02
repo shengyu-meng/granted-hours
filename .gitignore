@@ -1,0 +1,17 @@
+.DS_Store
+.env
+*.log
+__pycache__/
+*.pyc
+/.pytest_cache
+/.pytest_cache/
+/.wrangler
+/.wrangler/
+/dist
+dist/
+/node_modules
+node_modules/
+/.private
+.private/
+raw/
+secrets/

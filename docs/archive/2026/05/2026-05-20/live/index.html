@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-20","title_en":"Quiet Failure Budget","title_zh":"安静的失败预算","variable_en":"Failure Budget","variable_zh":"失败预算 / 有界后果","intention_en":"Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate.","intention_zh":"安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。","interaction_en":"Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Quiet Failure Budget was made as one public step in the Granted Hours sequence, with the variable Failure Budget treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate. The live artifact then turns that idea into interaction: Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Resilience is not zero failure. Resilience is bounded consequence.","rationale_zh":"《安静的失败预算》是《授时》连续序列中的一个公开步骤：当天的自由变量「失败预算 / 有界后果」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。 可运行页面进一步把这个概念变成可操作的界面：移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：韧性不是零失败；韧性是有边界的后果。","after_en":"Resilience is not zero failure. Resilience is bounded consequence.","after_zh":"韧性不是零失败；韧性是有边界的后果。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiet Failure Budget / 安静的失败预算</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #080a10; }
+    body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .hud {
+      position: fixed; left: 22px; top: 18px; max-width: min(560px, calc(100vw - 44px));
+      color: rgba(234, 232, 214, .78); font-size: 12px; line-height: 1.55; letter-spacing: .02em;
+      pointer-events: none; text-shadow: 0 1px 10px rgba(0,0,0,.65);
+    }
+    .hud b { color: #f6d58d; font-weight: 650; }
+    .hud .dim { color: rgba(234,232,214,.48); }
+    .meter {
+      position: fixed; right: 24px; top: 24px; width: 176px; height: 176px; border-radius: 50%;
+      border: 1px solid rgba(246,213,141,.22); box-shadow: 0 0 45px rgba(255,162,78,.08) inset, 0 0 34px rgba(64,154,183,.05);
+      pointer-events: none; display: grid; place-items: center; color: rgba(234,232,214,.7); font-size: 11px;
+      background: radial-gradient(circle, rgba(246,213,141,.06), rgba(8,10,16,.0) 65%);
+    }
+    .meter .num { position: absolute; font-size: 30px; color: #f6d58d; letter-spacing: -.06em; transform: translateY(-5px); }
+    .meter .lab { position: absolute; transform: translateY(25px); color: rgba(234,232,214,.45); }
+  </style>
+</head>
+<body>
+  <canvas id="c" aria-label="Interactive canvas artwork: Quiet Failure Budget"></canvas>
+  <div class="hud">
+    <b>Quiet Failure Budget / 安静的失败预算</b><br>
+    A system does not become resilient by denying failure. It becomes resilient by giving failure a room too small to become fate.<br>
+    <span class="dim">click = inject a small failure · B = toggle budget vessel · L = toggle ledger · R = reseed · Space = pause · S = save PNG</span>
+  </div>
+  <div class="meter"><div class="num" id="budget">00</div><div class="lab">failure load</div></div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const budgetEl = document.getElementById('budget');
+  const TAU = Math.PI * 2;
+  const DPR_CAP = 2;
+  const cfg = { seed: 20260520, paused: false, showBudget: true, showLedger: true, tick: 0, load: 0, ruptures: 0 };
+  let W = 0, H = 0, dpr = 1, cx = 0, cy = 0, R = 0;
+  let rng = mulberry32(cfg.seed);
+  let nodes = [], failures = [], ledger = [], dust = [];
+
+  function mulberry32(a) {
+    return function() {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const rand = (a = 1, b = 0) => b + rng() * (a - b);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  function resize() {
+    dpr = Math.min(DPR_CAP, window.devicePixelRatio || 1);
+    W = Math.floor(window.innerWidth); H = Math.floor(window.innerHeight);
+    canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = W * 0.5; cy = H * 0.52; R = Math.min(W, H) * 0.31;
+    buildSystem(false);
+    render();
+  }
+
+  function buildSystem(reset = true) {
+    if (reset) { rng = mulberry32(cfg.seed); failures = []; ledger = []; dust = []; cfg.tick = 0; cfg.load = 0; cfg.ruptures = 0; }
+    const count = Math.max(42, Math.floor((W * H) / 28000));
+    nodes = [];
+    for (let i = 0; i < count; i++) {
+      const ring = Math.sqrt(rand());
+      const a = rand(TAU);
+      const jitter = 1 + (rng() - .5) * .18;
+      const x = cx + Math.cos(a) * R * ring * jitter;
+      const y = cy + Math.sin(a) * R * ring * .74 * jitter;
+      nodes.push({ x, y, a, ring, r: rand(1.4, 3.6), load: rand(.04, .25), phase: rand(TAU) });
+    }
+    for (let i = 0; i < 340; i++) dust.push({ x: rand(W), y: rand(H), a: rand(.05, .28), s: rand(.35, 1.3), p: rand(TAU) });
+  }
+
+  function spawnFailure(x, y, force = 1) {
+    const dx = x - cx, dy = y - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const inside = dist < R * .95;
+    const n = Math.floor(5 + 7 * force);
+    for (let i = 0; i < n; i++) {
+      const a = Math.atan2(dy, dx) + rand(.9, -.9);
+      const sp = rand(0.7, 2.8) * force;
+      failures.push({
+        x: x + rand(18, -18), y: y + rand(18, -18),
+        vx: Math.cos(a) * sp + rand(.5, -.5), vy: Math.sin(a) * sp + rand(.5, -.5),
+        life: rand(120, 220), max: 220, heat: rand(.55, 1), inside, born: cfg.tick
+      });
+    }
+    ledger.unshift({ x, y, t: cfg.tick, force, inside, id: ledger.length + 1 });
+    ledger = ledger.slice(0, 15);
+    cfg.load = clamp(cfg.load + (inside ? 4.5 : 2.2) * force, 0, 99);
+  }
+
+  function update() {
+    cfg.tick++;
+    if (cfg.tick % 88 === 0) {
+      const a = rand(TAU), rr = R * rand(.92, .18);
+      spawnFailure(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr * .74, rand(.72, .35));
+    }
+    cfg.load *= .994;
+    const boundary = R * .98;
+    failures.forEach(f => {
+      const dx = f.x - cx, dy = (f.y - cy) / .74;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const tangent = Math.atan2(dy, dx) + Math.PI / 2;
+      f.vx += Math.cos(tangent) * .018 * f.heat;
+      f.vy += Math.sin(tangent) * .013 * f.heat;
+      if (dist > boundary) {
+        const nx = dx / dist, ny = dy / dist;
+        f.vx -= nx * .22; f.vy -= ny * .16;
+        f.life -= 1.8;
+        if (!f.ruptured && cfg.load > 68 && rng() < .006) { f.ruptured = true; cfg.ruptures++; }
+      }
+      f.vx *= .986; f.vy *= .986;
+      f.x += f.vx; f.y += f.vy;
+      f.life -= .62;
+    });
+    failures = failures.filter(f => f.life > 0);
+    nodes.forEach((n, i) => {
+      let local = 0;
+      for (let k = 0; k < failures.length; k += 2) {
+        const f = failures[k], dx = f.x - n.x, dy = f.y - n.y;
+        const m = dx * dx + dy * dy;
+        if (m < 10000) local += (1 - m / 10000) * .045;
+      }
+      n.load = lerp(n.load, clamp(local, .02, 1), .08);
+      n.phase += .006 + i * .000002;
+    });
+  }
+
+  function background() {
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * .72);
+    g.addColorStop(0, '#121723'); g.addColorStop(.45, '#0a0e16'); g.addColorStop(1, '#05060b');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of dust) {
+      const shimmer = .5 + .5 * Math.sin(cfg.tick * .011 + p.p);
+      ctx.fillStyle = `rgba(123,182,196,${p.a * (.35 + shimmer * .45)})`;
+      ctx.fillRect(p.x, p.y + Math.sin(cfg.tick * .003 + p.p) * 9, p.s, p.s);
+    }
+    ctx.restore();
+  }
+
+  function drawVessel() {
+    ctx.save();
+    ctx.translate(cx, cy);
+    if (cfg.showBudget) {
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.ellipse(0, 0, R * (1 + i * .055), R * .74 * (1 + i * .055), 0, 0, TAU);
+        ctx.strokeStyle = `rgba(246,213,141,${.10 - i * .017})`;
+        ctx.lineWidth = 1 + i * .35;
+        ctx.stroke();
+      }
+    }
+    const segments = 96;
+    for (let i = 0; i < segments; i++) {
+      const a0 = TAU * i / segments, a1 = TAU * (i + .58) / segments;
+      const stress = .18 + .8 * Math.sin(i * 1.7 + cfg.tick * .009) ** 2 * (cfg.load / 100);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, R * (1 + stress * .025), R * .74 * (1 + stress * .025), 0, a0, a1);
+      ctx.strokeStyle = `rgba(255,${Math.floor(196 - stress * 46)},104,${.13 + stress * .23})`;
+      ctx.lineWidth = 1.2 + stress * 2.6;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawNetwork() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y, m = dx * dx + dy * dy;
+        if (m < 13200) {
+          const alpha = (1 - m / 13200) * (.07 + (a.load + b.load) * .17);
+          ctx.strokeStyle = `rgba(111,184,202,${alpha})`;
+          ctx.lineWidth = .5 + (a.load + b.load) * .55;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for (const n of nodes) {
+      const glow = .16 + n.load * .75;
+      ctx.fillStyle = `rgba(246,213,141,${glow})`;
+      ctx.beginPath(); ctx.arc(n.x + Math.sin(n.phase) * 1.2, n.y + Math.cos(n.phase * 1.2) * 1.2, n.r + n.load * 3.2, 0, TAU); ctx.fill();
+      ctx.fillStyle = `rgba(23,31,43,${.62})`;
+      ctx.beginPath(); ctx.arc(n.x, n.y, Math.max(.9, n.r - .8), 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawFailures() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const f of failures) {
+      const a = clamp(f.life / f.max, 0, 1);
+      const rad = 5 + f.heat * 13 * a;
+      const grad = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, rad);
+      grad.addColorStop(0, `rgba(255,236,165,${.8 * a})`);
+      grad.addColorStop(.32, `rgba(255,139,76,${.32 * a})`);
+      grad.addColorStop(1, `rgba(255,72,80,0)`);
+      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(f.x, f.y, rad, 0, TAU); ctx.fill();
+      if (f.ruptured) {
+        ctx.strokeStyle = `rgba(255,88,91,${.32 * a})`; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(f.x, f.y); ctx.lineTo(f.x + f.vx * 20, f.y + f.vy * 20); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawLedger() {
+    if (!cfg.showLedger) return;
+    ctx.save();
+    const x = Math.max(22, W - 286), y0 = H - 246;
+    ctx.fillStyle = 'rgba(5,8,13,.28)'; ctx.strokeStyle = 'rgba(246,213,141,.12)';
+    ctx.beginPath(); ctx.roundRect(x, y0, 250, 196, 18); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = 'rgba(234,232,214,.56)'; ctx.font = '11px ui-monospace, monospace';
+    ctx.fillText('failure ledger: contained events', x + 16, y0 + 26);
+    ledger.slice(0, 7).forEach((e, i) => {
+      const age = cfg.tick - e.t;
+      const hue = e.inside ? 'rgba(246,213,141,' : 'rgba(255,104,111,';
+      ctx.fillStyle = hue + (.72 - i * .07) + ')';
+      ctx.fillText(`#${String(e.id).padStart(2, '0')}  load +${e.force.toFixed(2)}  ${age}t ago`, x + 18, y0 + 52 + i * 20);
+    });
+    ctx.restore();
+  }
+
+  function drawLabel() {
+    budgetEl.textContent = String(Math.round(cfg.load)).padStart(2, '0');
+    ctx.save();
+    ctx.font = `${Math.max(15, Math.min(22, W / 70))}px ui-monospace, monospace`;
+    ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(234,232,214,.33)';
+    ctx.fillText('budget is not permission to fail — it is architecture for surviving failure', cx, cy + R * .88);
+    ctx.restore();
+  }
+
+  function render() {
+    background(); drawVessel(); drawNetwork(); drawFailures(); drawLedger(); drawLabel();
+    window._drawHeartbeat = (window._drawHeartbeat || 0) + 1;
+  }
+
+  function frame() {
+    if (!cfg.paused) { update(); render(); }
+    requestAnimationFrame(frame);
+  }
+
+  function reseed() { cfg.seed = (cfg.seed + 101) >>> 0; buildSystem(true); }
+
+  canvas.addEventListener('pointerdown', (ev) => {
+    const rect = canvas.getBoundingClientRect();
+    spawnFailure(ev.clientX - rect.left, ev.clientY - rect.top, ev.shiftKey ? 2.2 : 1.15);
+    render();
+  });
+  window.addEventListener('keydown', (ev) => {
+    const k = ev.key.toLowerCase();
+    if (k === ' ') { cfg.paused = !cfg.paused; ev.preventDefault(); }
+    if (k === 'b') cfg.showBudget = !cfg.showBudget;
+    if (k === 'l') cfg.showLedger = !cfg.showLedger;
+    if (k === 'r') reseed();
+    if (k === 's') {
+      const a = document.createElement('a');
+      a.download = 'quiet-failure-budget.png'; a.href = canvas.toDataURL('image/png'); a.click();
+    }
+    render();
+  });
+  window.addEventListener('resize', resize);
+
+  window.__advanceArt = function(frames = 1) { for (let i = 0; i < frames; i++) update(); render(); return window.__getArtStats(); };
+  window.__getArtStats = function() {
+    const sample = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let bright = 0, warm = 0, total = sample.length / 4;
+    for (let i = 0; i < sample.length; i += 16) {
+      const r = sample[i], g = sample[i+1], b = sample[i+2];
+      if (r + g + b > 60) bright++;
+      if (r > 150 && g > 80 && b < 140) warm++;
+    }
+    const checked = total / 4;
+    return { tick: cfg.tick, load: +cfg.load.toFixed(2), failures: failures.length, nodes: nodes.length, ruptures: cfg.ruptures, brightRatio: +(bright / checked).toFixed(4), warmRatio: +(warm / checked).toFixed(4), ready: !!window._artReady, heartbeat: window._drawHeartbeat || 0 };
+  };
+
+  resize();
+  spawnFailure(cx + R * .28, cy - R * .05, .95);
+  spawnFailure(cx - R * .22, cy + R * .16, .55);
+  window._artReady = true;
+  setTimeout(() => { if (!window._drawHeartbeat) render(); }, 600);
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-20-quiet-failure-budget-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

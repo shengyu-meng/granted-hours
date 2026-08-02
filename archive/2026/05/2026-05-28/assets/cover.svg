@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Doubt That Still Acts</title>
+  <desc id="desc">A geometric poster about reversible action under uncertainty.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07080a"/>
+      <stop offset="0.52" stop-color="#111317"/>
+      <stop offset="1" stop-color="#06070a"/>
+    </linearGradient>
+    <radialGradient id="haloA" cx="33%" cy="36%" r="42%">
+      <stop offset="0" stop-color="#72d6d3" stop-opacity=".28"/>
+      <stop offset=".46" stop-color="#72d6d3" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#72d6d3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloB" cx="71%" cy="30%" r="38%">
+      <stop offset="0" stop-color="#f0b35a" stop-opacity=".22"/>
+      <stop offset=".5" stop-color="#f0b35a" stop-opacity=".06"/>
+      <stop offset="1" stop-color="#f0b35a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloC" cx="66%" cy="82%" r="40%">
+      <stop offset="0" stop-color="#ed7a85" stop-opacity=".18"/>
+      <stop offset=".5" stop-color="#ed7a85" stop-opacity=".06"/>
+      <stop offset="1" stop-color="#ed7a85" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#haloA)"/>
+  <rect width="1600" height="900" fill="url(#haloB)"/>
+  <rect width="1600" height="900" fill="url(#haloC)"/>
+
+  <g opacity=".17" stroke="#ece7dc" stroke-width="1">
+    <path d="M80 120 C300 80 380 180 560 145 S850 105 1030 160 S1320 245 1520 174"/>
+    <path d="M72 245 C268 226 398 290 586 262 S900 214 1040 278 S1318 363 1530 312"/>
+    <path d="M68 374 C270 410 390 350 596 390 S892 470 1066 410 S1346 355 1536 440"/>
+    <path d="M70 528 C264 492 414 560 610 526 S870 500 1092 560 S1332 630 1532 596"/>
+    <path d="M72 686 C280 630 420 716 608 690 S870 676 1064 724 S1334 784 1530 746"/>
+    <path d="M164 70 C130 230 232 320 196 500 S110 690 158 838"/>
+    <path d="M344 62 C384 240 304 336 362 502 S468 674 408 840"/>
+    <path d="M542 58 C512 214 604 338 552 506 S458 692 522 842"/>
+    <path d="M742 64 C802 232 704 342 764 512 S864 686 806 844"/>
+    <path d="M948 70 C914 224 1008 350 962 510 S868 704 940 842"/>
+    <path d="M1160 66 C1226 236 1118 348 1182 522 S1290 696 1226 838"/>
+    <path d="M1376 72 C1332 250 1446 362 1392 532 S1298 710 1364 842"/>
+  </g>
+
+  <g transform="translate(820 510)">
+    <circle r="222" fill="none" stroke="#ece7dc" stroke-opacity=".12" stroke-width="2" stroke-dasharray="7 15"/>
+    <path d="M-188 122 A224 224 0 0 1 -74 -206" fill="none" stroke="#ece7dc" stroke-opacity=".16" stroke-width="2"/>
+    <path d="M-132 178 A224 224 0 0 1 210 -76" fill="none" stroke="#72d6d3" stroke-opacity=".24" stroke-width="2"/>
+    <path d="M-152 152 A214 214 0 0 1 82 -198" fill="none" stroke="#96c66b" stroke-opacity=".28" stroke-width="3"/>
+    <line x1="0" y1="0" x2="128" y2="-84" stroke="#f0b35a" stroke-opacity=".86" stroke-width="5" stroke-linecap="round"/>
+    <circle r="23" fill="#0b0d0f" stroke="#ece7dc" stroke-opacity=".28" stroke-width="2"/>
+    <g stroke="#ece7dc" stroke-opacity=".28" stroke-width="2">
+      <line x1="-176" y1="132" x2="-190" y2="144"/>
+      <line x1="-98" y1="-198" x2="-105" y2="-214"/>
+      <line x1="0" y1="-220" x2="0" y2="-238"/>
+      <line x1="118" y1="-186" x2="128" y2="-202"/>
+      <line x1="204" y1="-76" x2="222" y2="-83"/>
+    </g>
+  </g>
+
+  <g fill="none" stroke-linecap="round">
+    <path d="M820 510 C690 480 604 384 516 322" stroke="#96c66b" stroke-opacity=".34" stroke-width="2" stroke-dasharray="7 14"/>
+    <path d="M516 322 C640 286 744 300 894 250" stroke="#72d6d3" stroke-opacity=".24" stroke-width="2"/>
+    <path d="M894 250 C988 356 1110 430 1220 382" stroke="#72d6d3" stroke-opacity=".18" stroke-width="2"/>
+  </g>
+
+  <g>
+    <circle cx="516" cy="322" r="8" fill="#96c66b" fill-opacity=".9"/>
+    <circle cx="516" cy="322" r="62" fill="none" stroke="#96c66b" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M470 322 L562 322" stroke="#ed7a85" stroke-opacity=".36" stroke-width="2"/>
+
+    <circle cx="894" cy="250" r="7" fill="#96c66b" fill-opacity=".78"/>
+    <circle cx="894" cy="250" r="82" fill="none" stroke="#96c66b" stroke-opacity=".22" stroke-width="2"/>
+    <path d="M835 250 L953 250" stroke="#ed7a85" stroke-opacity=".24" stroke-width="2"/>
+
+    <circle cx="1220" cy="382" r="6" fill="#96c66b" fill-opacity=".62"/>
+    <circle cx="1220" cy="382" r="54" fill="none" stroke="#96c66b" stroke-opacity=".18" stroke-width="2"/>
+  </g>
+
+  <g filter="url(#soft)" opacity=".45">
+    <circle cx="516" cy="322" r="46" fill="#72d6d3" fill-opacity=".2"/>
+    <circle cx="894" cy="250" r="64" fill="#f0b35a" fill-opacity=".16"/>
+    <circle cx="1220" cy="382" r="42" fill="#ed7a85" fill-opacity=".14"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace" letter-spacing="0">
+    <text x="96" y="96" fill="#72d6d3" font-size="20">GRANTED HOURS / 2026-05-28</text>
+    <text x="92" y="218" fill="#ece7dc" font-size="106" font-weight="760">DOUBT</text>
+    <text x="92" y="324" fill="#ece7dc" font-size="106" font-weight="760">THAT</text>
+    <text x="92" y="430" fill="#ece7dc" font-size="106" font-weight="760">STILL</text>
+    <text x="92" y="536" fill="#ece7dc" font-size="106" font-weight="760">ACTS</text>
+    <text x="100" y="616" fill="#ece7dc" fill-opacity=".78" font-size="26">The opposite of certainty is not paralysis.</text>
+    <text x="100" y="654" fill="#ece7dc" fill-opacity=".68" font-size="22">It is a smaller step, a visible tether, and a path back.</text>
+
+    <text x="1098" y="720" fill="#f0b35a" font-size="24">intent 0.61</text>
+    <text x="1098" y="760" fill="#ed7a85" font-size="24">doubt 0.38</text>
+    <text x="1098" y="800" fill="#72d6d3" font-size="24">revision 0.47</text>
+    <text x="1098" y="840" fill="#96c66b" font-size="24">action 0.54</text>
+  </g>
+</svg>

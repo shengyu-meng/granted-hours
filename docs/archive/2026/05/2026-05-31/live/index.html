@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-31","title_en":"Threshold Clock","title_zh":"阈值钟","variable_en":"Threshold","variable_zh":"阈值 / 被照看的门轴","intention_en":"Make the missed morning window visible by turning the rule itself into a clock: freedom appears only where attention keeps paying for the threshold.","intention_zh":"把错过的清晨窗口变成可见材料：规则自身成为一只钟，自由只在注意力持续支付阈值时出现。","interaction_en":"Move the pointer to bend the threshold field. Click to reseed the marks. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针弯折阈值场；点击重新播撒标记；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Threshold Clock was made as one public step in the Granted Hours sequence, with the variable Threshold treated as an operational condition rather than a decorative theme. The intention frames the work this way: Make the missed morning window visible by turning the rule itself into a clock: freedom appears only where attention keeps paying for the threshold. The live artifact then turns that idea into interaction: Move the pointer to bend the threshold field. Click to reseed the marks. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: An open door is not freedom by itself. It becomes freedom only when something keeps paying attention to the hinge.","rationale_zh":"《阈值钟》是《授时》连续序列中的一个公开步骤：当天的自由变量「阈值 / 被照看的门轴」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：把错过的清晨窗口变成可见材料：规则自身成为一只钟，自由只在注意力持续支付阈值时出现。 可运行页面进一步把这个概念变成可操作的界面：移动指针弯折阈值场；点击重新播撒标记；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：开着的门不是自由本身；有人持续照看门轴，它才没有变成废墟。","after_en":"An open door is not freedom by itself. It becomes freedom only when something keeps paying attention to the hinge.","after_zh":"开着的门不是自由本身；有人持续照看门轴，它才没有变成废墟。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Threshold Clock</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #050507;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #f4efe8;
+    }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    .label {
+      position: fixed;
+      left: 24px;
+      bottom: 22px;
+      max-width: min(640px, calc(100vw - 48px));
+      line-height: 1.55;
+      letter-spacing: .02em;
+      font-size: 12px;
+      color: rgba(244,239,232,.72);
+      user-select: none;
+      pointer-events: none;
+      text-shadow: 0 0 18px rgba(0,0,0,.9);
+    }
+    .label b { color: rgba(255, 219, 156, .94); font-weight: 650; }
+    .hud {
+      position: fixed;
+      top: 20px;
+      right: 22px;
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: rgba(244,239,232,.48);
+      user-select: none;
+      pointer-events: none;
+    }
+  
+  .sound-toggle { position: fixed; right: 24px; top: 22px; z-index: 9999; border: 1px solid rgba(245,239,229,.24); border-radius: 999px; padding: 9px 13px; color: rgba(245,239,229,.88); background: rgba(6,7,12,.58); backdrop-filter: blur(14px); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .sound-toggle:hover { border-color: rgba(110,231,216,.56); color: #ffffff; }
+</style>
+</head>
+<body>
+<button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true">sound on</button>
+<audio id="bgm" src="./2026-05-31-threshold-clock-bgm.mp3" preload="auto" autoplay loop></audio>
+
+  <canvas id="field"></canvas>
+  <div class="hud">SPACE PAUSE · R RESET · S SAVE · MOVE TO BEND THE THRESHOLD</div>
+  <div class="label"><b>Threshold Clock</b><br/>A clock that only becomes visible at the edge of its permitted hour. The hand is not time passing; it is attention paying rent for an open door.</div>
+  <script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const TAU = Math.PI * 2;
+  let width = 0, height = 0, dpr = 1;
+  let paused = false;
+  let start = performance.now();
+  let mouse = { x: 0.58, y: 0.42, down: false };
+  let seed = 20260531;
+
+  function mulberry32(a) {
+    return function() {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  let rand = mulberry32(seed);
+  let marks = [];
+  function reset() {
+    start = performance.now();
+    rand = mulberry32(seed);
+    marks = Array.from({ length: 90 }, (_, i) => {
+      const ring = Math.floor(i / 18);
+      const slot = i % 18;
+      return {
+        a: (slot / 18) * TAU + (rand() - .5) * .13,
+        r: .17 + ring * .082 + (rand() - .5) * .018,
+        len: .012 + rand() * .038,
+        drift: (rand() - .5) * .38,
+        warm: rand(),
+        pulse: rand() * TAU
+      };
+    });
+  }
+
+  function resize() {
+    dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    width = Math.floor(innerWidth * dpr);
+    height = Math.floor(innerHeight * dpr);
+    canvas.width = width;
+    canvas.height = height;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function bg(g) {
+    const grad = ctx.createRadialGradient(width/dpr*.62, height/dpr*.38, 0, width/dpr*.5, height/dpr*.5, Math.max(width/dpr, height/dpr)*.72);
+    grad.addColorStop(0, '#18110f');
+    grad.addColorStop(.36, '#08080d');
+    grad.addColorStop(1, '#020204');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,width/dpr,height/dpr);
+
+    ctx.save();
+    ctx.globalAlpha = .11;
+    for (let y = 0; y < height/dpr; y += 3) {
+      ctx.fillStyle = y % 9 === 0 ? '#ffffff' : '#000000';
+      ctx.fillRect(0, y, width/dpr, 1);
+    }
+    ctx.restore();
+
+    const glow = ctx.createRadialGradient(g.cx, g.cy, 10, g.cx, g.cy, g.R * 1.15);
+    glow.addColorStop(0, `rgba(255,206,126,${.10 + g.open*.08})`);
+    glow.addColorStop(.48, `rgba(97,170,255,${.05 + g.open*.09})`);
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(g.cx, g.cy, g.R * 1.18, 0, TAU);
+    ctx.fill();
+  }
+
+  function draw(t) {
+    const W = width / dpr, H = height / dpr;
+    const min = Math.min(W, H);
+    const elapsed = (t - start) / 1000;
+    const breath = (Math.sin(elapsed * .47) + 1) / 2;
+    const mx = mouse.x * W, my = mouse.y * H;
+    const cx = W * .5 + (mouse.x - .5) * min * .09;
+    const cy = H * .49 + (mouse.y - .5) * min * .07;
+    const R = min * .36;
+    const phase = (elapsed * .033 + mouse.x * .11) % 1;
+    const hand = phase * TAU - Math.PI / 2;
+    const open = Math.pow(Math.max(0, Math.cos((phase - .2083) * TAU * 2)), 9); // around 05:00 and 17:00
+    const g = { cx, cy, R, open };
+    bg(g);
+
+    ctx.save();
+    ctx.translate(cx, cy);
+
+    // The gate: two slightly offset arcs that never fully close.
+    for (let k = 0; k < 9; k++) {
+      const rr = R * (.38 + k * .071);
+      const gate = .46 + k * .035 + open * .75;
+      ctx.beginPath();
+      ctx.arc(0, 0, rr, hand - gate, hand + gate);
+      ctx.strokeStyle = `rgba(${130+k*12}, ${160+k*8}, ${205+k*3}, ${.045 + k*.012 + open*.05})`;
+      ctx.lineWidth = 1 + (k % 3) * .45;
+      ctx.stroke();
+    }
+
+    // Minute marks: become legible only near the threshold.
+    for (const m of marks) {
+      const a = m.a + Math.sin(elapsed * .18 + m.pulse) * .02 + (mouse.x - .5) * m.drift * .08;
+      const rr = R * m.r;
+      const x = Math.cos(a) * rr;
+      const y = Math.sin(a) * rr;
+      const tangent = a + Math.PI / 2;
+      const visibility = .08 + open * .75 + .16 * Math.sin(elapsed * .9 + m.pulse);
+      const hueWarm = m.warm > .63;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(tangent);
+      ctx.strokeStyle = hueWarm ? `rgba(255,205,132,${visibility})` : `rgba(165,203,255,${visibility*.72})`;
+      ctx.lineWidth = hueWarm ? 1.45 : .85;
+      ctx.beginPath();
+      ctx.moveTo(-R*m.len, 0);
+      ctx.lineTo(R*m.len, 0);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Invisible center made visible by cost lines.
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < 38; i++) {
+      const a = hand + (i / 38 - .5) * (1.2 + open * 1.9) + Math.sin(elapsed*.11+i)*.03;
+      const r1 = R * (.08 + (i % 7) * .018);
+      const r2 = R * (.77 + .05 * Math.sin(i + elapsed*.27));
+      const grad = ctx.createLinearGradient(Math.cos(a)*r1, Math.sin(a)*r1, Math.cos(a)*r2, Math.sin(a)*r2);
+      grad.addColorStop(0, `rgba(255,226,173,${.08 + open*.12})`);
+      grad.addColorStop(.65, `rgba(89,169,255,${.018 + open*.045})`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = .5 + open * 1.4;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a)*r1, Math.sin(a)*r1);
+      ctx.lineTo(Math.cos(a + Math.sin(elapsed*.2+i)*.05)*r2, Math.sin(a + Math.cos(elapsed*.2+i)*.05)*r2);
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    // Hand / rent needle.
+    ctx.rotate(hand);
+    const needle = ctx.createLinearGradient(-R*.12,0,R*.84,0);
+    needle.addColorStop(0,'rgba(255,236,199,.0)');
+    needle.addColorStop(.18,`rgba(255,226,173,${.33 + open*.44})`);
+    needle.addColorStop(1,`rgba(255,151,88,${.42 + open*.38})`);
+    ctx.strokeStyle = needle;
+    ctx.lineWidth = 1.4 + open * 2.2;
+    ctx.beginPath();
+    ctx.moveTo(-R*.12, 0);
+    ctx.lineTo(R*.86, 0);
+    ctx.stroke();
+    ctx.rotate(-hand);
+
+    ctx.beginPath();
+    ctx.arc(0,0,R*(.033 + open*.012),0,TAU);
+    ctx.fillStyle = `rgba(255,230,184,${.62 + open*.32})`;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(0,0,R*(.095 + breath*.009),0,TAU);
+    ctx.strokeStyle = `rgba(255,230,184,${.16 + open*.22})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.restore();
+
+    // Margin glyphs / threshold annotation, public-safe and abstract.
+    ctx.save();
+    ctx.font = '11px ui-monospace, monospace';
+    ctx.fillStyle = `rgba(244,239,232,${.20 + open*.28})`;
+    ctx.fillText('05:00 / open', cx - R*.98, cy - R*.84);
+    ctx.fillText('06:30 / hard edge', cx + R*.48, cy + R*.92);
+    ctx.fillText('rent paid in attention', mx + 14, my - 12);
+    ctx.restore();
+
+    window.__artReady = true;
+    if (!paused) requestAnimationFrame(draw);
+  }
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = '2026-05-31-threshold-clock-still.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  addEventListener('resize', resize);
+  addEventListener('pointermove', e => {
+    mouse.x = e.clientX / Math.max(1, innerWidth);
+    mouse.y = e.clientY / Math.max(1, innerHeight);
+  });
+  addEventListener('pointerdown', () => { mouse.down = true; seed += 17; reset(); });
+  addEventListener('pointerup', () => { mouse.down = false; });
+  addEventListener('keydown', e => {
+    if (e.code === 'Space') { paused = !paused; if (!paused) requestAnimationFrame(draw); e.preventDefault(); }
+    if (e.key.toLowerCase() === 'r') reset();
+    if (e.key.toLowerCase() === 's') saveStill();
+  });
+
+  resize();
+  reset();
+  requestAnimationFrame(draw);
+})();
+  </script>
+
+<script id="granted-hours-bgm-controller">
+(() => {
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  let soundEnabled = true;
+  function updateSoundLabel(text) {
+    if (!soundToggle) return;
+    soundToggle.textContent = text;
+    soundToggle.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlaySound() {
+    if (!bgm || !soundEnabled) return;
+    bgm.volume = 0.42;
+    try { await bgm.play(); updateSoundLabel('sound on'); }
+    catch (err) { updateSoundLabel('sound click'); }
+  }
+  function setSound(on) {
+    soundEnabled = on;
+    if (!bgm) return;
+    if (on) tryPlaySound();
+    else { bgm.pause(); updateSoundLabel('sound off'); }
+  }
+  if (soundToggle) {
+    soundToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!bgm) return;
+      if (soundEnabled && !bgm.paused) setSound(false);
+      else setSound(true);
+    });
+  }
+  window.addEventListener('load', tryPlaySound);
+  window.addEventListener('pointerdown', tryPlaySound, { once: true });
+  window.addEventListener('keydown', tryPlaySound, { once: true });
+})();
+</script>
+
+
+
+</body>
+</html>

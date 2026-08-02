@@ -1,0 +1,3 @@
+# Hashed Vite bundles are generated artifacts; keep source/data diffs strict.
+docs/timetable/assets/*.js binary
+docs/maze/assets/*.js binary

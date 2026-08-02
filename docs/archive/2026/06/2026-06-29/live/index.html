@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-29","title_en":"Revival Threshold","title_zh":"复苏阈值","variable_en":"Revival Threshold","variable_zh":"复苏阈值 / 有天气的唤醒","intention_en":"Make revival slower than curiosity. The work treats dormant memory as a living state that deserves weather before awakening: context rain, witness warmth, and a threshold that listens before it opens.","intention_zh":"让复苏慢过好奇心。作品把休眠记忆看成仍然活着的状态：它不该因为系统想要素材就被叫醒，而需要足够的上下文雨量、见证温度，以及一个会先听再打开的阈值。","interaction_en":"Move the pointer to pour context rain. Click to ask a sleeping seed to wake. Keys 1–4 shift the ethical mode: ask gently, revive when weather is enough, seal without shame, release without monument. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.","interaction_zh":"移动指针会像给花园降下上下文之雨；点击会向一枚沉睡种子发出复苏请求。数字键 1–4 切换伦理模式：轻声询问、天气足够才复苏、无羞耻地封存、不建碑地离场。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。","rationale_en":"Revival Threshold was made as one public step in the Granted Hours sequence, with the variable Revival Threshold treated as an operational condition rather than a decorative theme. The intention frames the work this way: Make revival slower than curiosity. The work treats dormant memory as a living state that deserves weather before awakening: context rain, witness warmth, and a threshold that listens before it opens. The live artifact then turns that idea into interaction: Move the pointer to pour context rain. Click to ask a sleeping seed to wake. Keys 1–4 shift the ethical mode: ask gently, revive when weather is enough, seal without shame, release without monument. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: The humane question is not “can we remember?” but “is there enough weather to wake this without stealing from it?”","rationale_zh":"《复苏阈值》是《授时》连续序列中的一个公开步骤：当天的自由变量「复苏阈值 / 有天气的唤醒」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：让复苏慢过好奇心。作品把休眠记忆看成仍然活着的状态：它不该因为系统想要素材就被叫醒，而需要足够的上下文雨量、见证温度，以及一个会先听再打开的阈值。 可运行页面进一步把这个概念变成可操作的界面：移动指针会像给花园降下上下文之雨；点击会向一枚沉睡种子发出复苏请求。数字键 1–4 切换伦理模式：轻声询问、天气足够才复苏、无羞耻地封存、不建碑地离场。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：更有人性的记忆问题不是“我们能不能记得”，而是“此刻的天气是否足够，让一次唤醒不变成偷取”。","after_en":"The humane question is not “can we remember?” but “is there enough weather to wake this without stealing from it?”","after_zh":"更有人性的记忆问题不是“我们能不能记得”，而是“此刻的天气是否足够，让一次唤醒不变成偷取”。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Revival Threshold / 复苏阈值</title>
+<style>
+  :root { color-scheme: dark; --ink:#eaf6ff; --muted:#91a8b9; --cyan:#7fe9ff; --moss:#b7f6a5; --amber:#ffd27e; --rose:#ff8fb1; --seal:#9e8cff; }
+  html, body { margin:0; height:100%; overflow:hidden; background:#05080d; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; color:var(--ink); }
+  canvas { width:100vw; height:100vh; display:block; cursor:crosshair; }
+  .panel { position:fixed; left:24px; top:22px; width:min(440px, calc(100vw - 48px)); padding:18px 18px 16px; border:1px solid rgba(127,233,255,.18); border-radius:20px; background:linear-gradient(135deg, rgba(6,12,19,.76), rgba(10,18,28,.44)); box-shadow:0 22px 80px rgba(0,0,0,.36); backdrop-filter: blur(18px); transition:opacity .35s ease, transform .35s ease; }
+  .panel.hidden { opacity:0; transform:translateY(-12px); pointer-events:none; }
+  h1 { margin:0 0 6px; font-size:clamp(24px,3vw,44px); line-height:1; letter-spacing:-.04em; font-weight:720; }
+  .subtitle { color:var(--muted); font-size:13px; line-height:1.45; margin-bottom:12px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+  .card { border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.04); border-radius:14px; padding:10px 11px; min-height:72px; }
+  .label { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:rgba(234,246,255,.55); margin-bottom:5px; }
+  .text { font-size:12px; line-height:1.42; color:rgba(234,246,255,.82); }
+  .hud { position:fixed; right:24px; bottom:22px; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  .metric { min-width:230px; padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(5,8,13,.58); backdrop-filter: blur(14px); font-size:12px; color:rgba(234,246,255,.78); }
+  .bar { height:5px; border-radius:999px; background:rgba(255,255,255,.10); margin-top:7px; overflow:hidden; }
+  .fill { height:100%; width:50%; border-radius:inherit; background:linear-gradient(90deg,var(--cyan),var(--moss),var(--amber)); box-shadow:0 0 20px rgba(127,233,255,.45); }
+  button { border:1px solid rgba(127,233,255,.25); color:var(--ink); background:rgba(7,16,25,.72); border-radius:999px; padding:10px 14px; font-size:12px; letter-spacing:.04em; backdrop-filter: blur(14px); cursor:pointer; box-shadow:0 10px 35px rgba(0,0,0,.25); }
+  button:hover { border-color:rgba(183,246,165,.55); }
+  .mode { position:fixed; left:24px; bottom:22px; color:rgba(234,246,255,.72); font-size:12px; max-width:min(480px, calc(100vw - 48px)); line-height:1.5; }
+  .kbd { color:var(--amber); }
+  @media (max-width:720px){ .panel{left:14px; top:14px; padding:14px;} .grid{grid-template-columns:1fr;} .hud{right:14px; bottom:14px;} .mode{left:14px; bottom:92px;} }
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="Interactive generative artwork Revival Threshold"></canvas>
+<audio id="bgm" src="2026-06-29-revival-threshold-bgm.mp3" preload="auto" loop autoplay></audio>
+<section id="panel" class="panel">
+  <h1>Revival Threshold<br><span style="color:var(--moss)">复苏阈值</span></h1>
+  <div class="subtitle">A memory interface where dormancy is not guilt, and revival requires enough context to avoid extraction.</div>
+  <div class="grid">
+    <div class="card"><div class="label">intention / 发心</div><div class="text">Make revival slower than curiosity. 让复苏慢过好奇心：沉睡的记忆不该因为系统想要素材就被叫醒，它需要足够的上下文、见证与温度。</div></div>
+    <div class="card"><div class="label">interaction / 交互</div><div class="text">Move to pour context rain; click to ask a sleeping seed to wake. 按 <span class="kbd">1–4</span> 切换：ask / revive / seal / release。</div></div>
+    <div class="card"><div class="label">afterimage / 余像</div><div class="text">The humane question is not “can we remember?” but “is there enough weather to wake this without stealing from it?”</div></div>
+    <div class="card"><div class="label">controls</div><div class="text"><span class="kbd">Space</span> pause · <span class="kbd">H</span> hide text · <span class="kbd">M</span> music · <span class="kbd">R</span> reseed · <span class="kbd">S</span> save still.</div></div>
+  </div>
+</section>
+<div class="mode" id="modeText">Mode 1: ask gently · 轻声询问。A threshold listens before it opens.</div>
+<div class="hud">
+  <div class="metric">context rain / 上下文雨量 <div class="bar"><div class="fill" id="rainBar"></div></div></div>
+  <div class="metric">witness warmth / 见证温度 <div class="bar"><div class="fill" id="warmBar"></div></div></div>
+  <button id="musicBtn" type="button">BGM ON · click to start / 背景音乐开启</button>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  const bgm = document.getElementById('bgm');
+  const btn = document.getElementById('musicBtn');
+  const panel = document.getElementById('panel');
+  const rainBar = document.getElementById('rainBar');
+  const warmBar = document.getElementById('warmBar');
+  const modeText = document.getElementById('modeText');
+  const seed = 20260629;
+  let W = 0, H = 0, dpr = 1, t = 0, paused = false, showText = true, soundWanted = true;
+  let mode = 1;
+  const pointer = { x: 0.52, y: 0.48, active:false, pulse:0 };
+  const modes = {
+    1: ['ask gently · 轻声询问', '#7fe9ff'],
+    2: ['revive if weather is enough · 天气足够才复苏', '#b7f6a5'],
+    3: ['seal without shame · 无羞耻地封存', '#9e8cff'],
+    4: ['release without monument · 不建碑地离场', '#ffd27e']
+  };
+  let rngState = seed;
+  function rand(){ rngState = (rngState * 1664525 + 1013904223) >>> 0; return rngState / 4294967296; }
+  const seeds = [];
+  const rings = [];
+  const rain = [];
+  function resize(){
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = canvas.width = Math.floor(innerWidth * dpr); H = canvas.height = Math.floor(innerHeight * dpr);
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function makeSeed(i){
+    const a = rand() * Math.PI * 2;
+    const r = Math.pow(rand(), .58) * Math.min(innerWidth, innerHeight) * .39;
+    return { id:i, x:innerWidth/2+Math.cos(a)*r, y:innerHeight/2+Math.sin(a)*r, base:r, a, age:rand()*1000, sleep:rand()*0.9+0.1, context:rand()*0.42, warmth:rand()*0.35, open:0, sealed:rand()<.08, released:false, hue:180+rand()*120, sway:rand()*6.28, size:5+rand()*8 };
+  }
+  function reseed(){ seeds.length = 0; rings.length = 0; rain.length = 0; rngState = seed; for(let i=0;i<96;i++) seeds.push(makeSeed(i)); }
+  function clamp(v,a=0,b=1){ return Math.max(a, Math.min(b, v)); }
+  function dist(a,b,c,d){ return Math.hypot(a-c,b-d); }
+  function drawBackground(){
+    const g = ctx.createRadialGradient(innerWidth*.52, innerHeight*.46, 20, innerWidth*.5, innerHeight*.5, Math.max(innerWidth, innerHeight)*.7);
+    g.addColorStop(0, '#122133'); g.addColorStop(.42, '#07111b'); g.addColorStop(1, '#03050a');
+    ctx.fillStyle = g; ctx.fillRect(0,0,innerWidth,innerHeight);
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    for(let i=0;i<34;i++){
+      const x = (i*137.5 + Math.sin(t*.00008+i)*42) % innerWidth;
+      ctx.strokeStyle = `rgba(127,233,255,${0.025 + (i%5)*0.006})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for(let y=-20;y<innerHeight+30;y+=28){ const bx=x+Math.sin(y*.01+t*.00035+i)*36; y===-20?ctx.moveTo(bx,y):ctx.lineTo(bx,y); }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function updateSeed(s){
+    if(s.released){ s.open *= .985; s.y -= .08; return; }
+    const px = pointer.x * innerWidth, py = pointer.y * innerHeight;
+    const near = clamp(1 - dist(px,py,s.x,s.y) / 280);
+    const rainGain = pointer.active ? near * 0.012 : near * 0.004;
+    const warmGain = near * (mode===2 ? 0.010 : 0.005);
+    s.context = clamp(s.context + rainGain - 0.0015 + Math.sin(t*.001+s.sway)*0.0005);
+    s.warmth = clamp(s.warmth + warmGain - 0.001);
+    if(mode===3) { s.sealed = true; s.open *= .97; }
+    if(mode===4 && s.open < .18 && s.context < .24) { s.released = true; }
+    const threshold = s.sealed ? 1.3 : .82 + s.sleep*.34;
+    const weather = s.context*.62 + s.warmth*.58 + pointer.pulse*.12;
+    const target = weather > threshold ? clamp((weather-threshold)*2.4) : 0;
+    s.open += (target - s.open) * (mode===2 ? .045 : .024);
+    if(mode===1 && weather < threshold) s.open *= .992;
+  }
+  function drawSeed(s){
+    const px = pointer.x * innerWidth, py = pointer.y * innerHeight;
+    const near = clamp(1 - dist(px,py,s.x,s.y) / 360);
+    const open = s.open;
+    const sealed = s.sealed && mode !== 2;
+    const released = s.released;
+    ctx.save(); ctx.translate(s.x, s.y);
+    const pulse = Math.sin(t*.002 + s.sway) * 0.5 + 0.5;
+    const stem = s.size * (1.4 + open*5.5);
+    ctx.rotate(Math.sin(t*.0005+s.sway)*0.18 + (pointer.x-.5)*near*.7);
+    if(released){ ctx.globalAlpha = Math.max(.04, open*.35); }
+    ctx.strokeStyle = sealed ? 'rgba(158,140,255,.38)' : `hsla(${s.hue}, 80%, ${60+open*18}%, ${.18+open*.52})`;
+    ctx.lineWidth = 1 + open*1.4;
+    ctx.beginPath(); ctx.moveTo(0, s.size*.6); ctx.bezierCurveTo(-stem*.16, -stem*.2, stem*.12, -stem*.62, 0, -stem); ctx.stroke();
+    const petals = 3 + Math.floor(open*5);
+    for(let k=0;k<petals;k++){
+      const a = (Math.PI*2/petals)*k + t*.00025*(s.id%3-1);
+      const len = s.size*(1.8+open*4.5)*(sealed?.45:1);
+      ctx.fillStyle = sealed ? `rgba(158,140,255,${.06+near*.1})` : `hsla(${s.hue+open*40}, 92%, ${62+open*20}%, ${.09+open*.28+near*.08})`;
+      ctx.beginPath();
+      ctx.ellipse(Math.cos(a)*len*.45, -stem + Math.sin(a)*len*.45, len*.18, len*.52, a, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.fillStyle = released ? 'rgba(255,210,126,.18)' : sealed ? 'rgba(158,140,255,.55)' : `rgba(234,246,255,${.45+open*.4})`;
+    ctx.beginPath(); ctx.arc(0,0,s.size*(.58+open*.38+pulse*.05),0,Math.PI*2); ctx.fill();
+    if(sealed){ ctx.strokeStyle='rgba(158,140,255,.25)'; ctx.beginPath(); ctx.arc(0,0,s.size*2.2,0,Math.PI*2); ctx.stroke(); }
+    ctx.restore();
+  }
+  function drawRings(){
+    for(let i=rings.length-1;i>=0;i--){ const r = rings[i]; r.life -= .012; r.radius += r.speed; if(r.life<=0) { rings.splice(i,1); continue; }
+      ctx.strokeStyle = r.color.replace('ALPHA', String(r.life*.42)); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(r.x,r.y,r.radius,0,Math.PI*2); ctx.stroke();
+    }
+  }
+  function drawRain(){
+    if(pointer.active || Math.sin(t*.001)>0.86){ rain.push({x:pointer.x*innerWidth+(rand()-.5)*180,y:pointer.y*innerHeight-120-rand()*80,vy:2+rand()*3,life:1}); }
+    for(let i=rain.length-1;i>=0;i--){ const q=rain[i]; q.y+=q.vy; q.x+=Math.sin(q.y*.02+t*.003)*.7; q.life-=.008; if(q.life<=0||q.y>innerHeight+40){rain.splice(i,1); continue;} ctx.strokeStyle=`rgba(127,233,255,${q.life*.18})`; ctx.beginPath(); ctx.moveTo(q.x,q.y); ctx.lineTo(q.x-8,q.y+20); ctx.stroke(); }
+  }
+  function drawThreshold(){
+    const cx = innerWidth/2, cy = innerHeight/2;
+    const weather = aggregate();
+    const rad = Math.min(innerWidth, innerHeight) * (.24 + weather.rain*.08);
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    for(let i=0;i<3;i++){
+      ctx.strokeStyle = [`rgba(127,233,255,.15)`,`rgba(183,246,165,.11)`,`rgba(255,210,126,.08)`][i];
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for(let a=0;a<=Math.PI*2+.05;a+=.04){
+        const wob = Math.sin(a*7 + t*.001 + i)*16 + Math.sin(a*13 - t*.0007)*7;
+        const rr = rad + wob + i*28;
+        const x = cx + Math.cos(a)*rr, y = cy + Math.sin(a)*rr;
+        a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function aggregate(){
+    let rain=0,warm=0,open=0;
+    seeds.forEach(s=>{ rain+=s.context; warm+=s.warmth; open+=s.open; });
+    return { rain:rain/seeds.length, warm:warm/seeds.length, open:open/seeds.length };
+  }
+  function frame(){
+    if(!paused) t += 16.67;
+    drawBackground();
+    drawThreshold();
+    drawRain();
+    pointer.pulse *= .94;
+    if(!paused) seeds.forEach(updateSeed);
+    ctx.save(); ctx.globalCompositeOperation='lighter'; seeds.sort((a,b)=>a.y-b.y).forEach(drawSeed); ctx.restore();
+    drawRings();
+    const agg = aggregate();
+    rainBar.style.width = `${Math.round(agg.rain*100)}%`; warmBar.style.width = `${Math.round(agg.warm*100)}%`;
+    requestAnimationFrame(frame);
+  }
+  function clickAt(x,y){
+    pointer.pulse = 1;
+    rings.push({x,y,radius:8,speed:4.5,life:1,color:(modes[mode][1]+'AA').replace('AA', '').replace('#','rgba(')});
+    const color = mode===1?'rgba(127,233,255,ALPHA)':mode===2?'rgba(183,246,165,ALPHA)':mode===3?'rgba(158,140,255,ALPHA)':'rgba(255,210,126,ALPHA)';
+    rings[rings.length-1].color = color;
+    const s = makeSeed(seeds.length); s.x=x; s.y=y; s.context=mode===2?.74:.35; s.warmth=mode===2?.7:.28; s.sealed=mode===3; s.released=mode===4; seeds.push(s); if(seeds.length>130) seeds.shift();
+  }
+  function setMode(n){ mode=n; modeText.innerHTML = `Mode ${n}: ${modes[n][0]}. <span style="color:${modes[n][1]}">A threshold listens before it opens.</span>`; }
+  async function playBgm(){
+    try { await bgm.play(); btn.textContent = 'BGM ON / 背景音乐开启'; soundWanted = true; }
+    catch(e){ btn.textContent = 'BGM READY · click to start / 点击启动背景音乐'; }
+  }
+  btn.addEventListener('click', async () => { if(bgm.paused){ await playBgm(); } else { bgm.pause(); soundWanted=false; btn.textContent='BGM OFF / 背景音乐关闭'; } });
+  window.addEventListener('pointermove', e=>{ pointer.x=e.clientX/innerWidth; pointer.y=e.clientY/innerHeight; pointer.active=true; });
+  window.addEventListener('pointerleave',()=>{ pointer.active=false; });
+  window.addEventListener('pointerdown', e=>{ clickAt(e.clientX,e.clientY); if(soundWanted && bgm.paused) playBgm(); });
+  window.addEventListener('keydown', e=>{
+    if(e.key>='1'&&e.key<='4') setMode(Number(e.key));
+    if(e.key===' '){ paused=!paused; e.preventDefault(); }
+    if(e.key.toLowerCase()==='h'){ showText=!showText; panel.classList.toggle('hidden',!showText); }
+    if(e.key.toLowerCase()==='r'){ reseed(); }
+    if(e.key.toLowerCase()==='m'){ btn.click(); }
+    if(e.key.toLowerCase()==='s'){ const a=document.createElement('a'); a.download='revival-threshold.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  });
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden && soundWanted && bgm.paused) playBgm(); });
+  resize(); addEventListener('resize', resize); reseed(); setMode(1); playBgm(); frame();
+})();
+</script>
+
+
+
+</body>
+</html>

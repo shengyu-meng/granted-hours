@@ -1,0 +1,17 @@
+{
+  "schema": "granted-hours-artwork-display-allowances-v1",
+  "days": {
+    "2026-05-12": {
+      "visual_mode": "canvas_text_suppressed",
+      "live_mode": "canvas",
+      "copy_mode": "canvas_native",
+      "reason": "The canonical title and explanation are intentionally painted inside the generative canvas; the dedicated preview suppresses that canvas typography while full mode retains it."
+    },
+    "2026-07-06": {
+      "visual_mode": "text_free_form_structure",
+      "live_mode": "interactive_form",
+      "copy_mode": "dom",
+      "reason": "The canonical work is intentionally a typography-native interactive form with no canvas; its dedicated timetable preview preserves the work's paper, rules, and form geometry while making every text layer transparent."
+    }
+  }
+}

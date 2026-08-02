@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Granted Hours living month calendar: public assigned-time residues and one daily AI autonomous hour opening the live artwork."
+    >
+    <script>
+      (() => {
+        const key = "granted-hours-theme";
+        let theme = "";
+        try {
+          const saved = localStorage.getItem(key);
+          if (saved === "dark" || saved === "light") theme = saved;
+        } catch {}
+        if (!theme) theme = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <title>Granted Hours / 授时</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#monthGrid">Skip to calendar</a>
+
+    <main class="timetable-app" id="timetableRoot">
+      <header class="protocol-bar" aria-label="Granted Hours timetable protocol">
+        <a class="brand-mark" href="../" aria-label="Return to Granted Hours archive">
+          <span>授时 / Granted Hours</span>
+        </a>
+        <div class="clock-block" aria-live="polite">
+          <span class="clock-time" id="clockTime">--:--:--</span>
+          <span class="clock-label">Asia/Shanghai</span>
+        </div>
+        <nav class="quiet-nav" aria-label="Related entrances">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"></button>
+          <div class="calendar-bgm-control">
+            <button
+              class="calendar-bgm-toggle"
+              id="calendarBgmToggle"
+              type="button"
+              aria-pressed="false"
+            ></button>
+            <audio id="calendarBgm" preload="metadata"></audio>
+          </div>
+          <a href="../">Archive</a>
+          <a href="../maze/">Interior</a>
+        </nav>
+      </header>
+
+      <section class="calendar-shell" aria-labelledby="monthTitle">
+        <div class="calendar-head">
+          <div class="month-heading">
+            <p class="section-mark">授时 / Granted Hours</p>
+            <h1 id="monthTitle">Loading month</h1>
+            <p class="thesis-line"><span>同一个 Agent，两种时间：二十三小时协作，一小时自主。</span><span>One agent, two modes of time: twenty-three hours of co-work, one autonomous hour.</span></p>
+          </div>
+
+          <div class="month-controls" aria-label="Month navigation">
+            <button class="month-button" id="prevMonth" type="button" aria-label="Previous month">‹</button>
+            <button class="today-button" id="todayButton" type="button">Loading month / 正在载入月份</button>
+            <button class="month-button" id="nextMonth" type="button" aria-label="Next month">›</button>
+          </div>
+        </div>
+
+        <div class="calendar-legend" aria-label="Daily source types">
+          <span><i class="legend-line free-creation" aria-hidden="true"></i>自由创作 / FREE CREATION</span>
+          <span><i class="legend-line routine" aria-hidden="true"></i>例行任务 / ROUTINE</span>
+          <span><i class="legend-line active-collaboration" aria-hidden="true"></i>人机主动协作 / ACTIVE HUMAN–AI</span>
+        </div>
+
+        <div class="month-grid" id="monthGrid" role="grid" aria-labelledby="monthTitle"></div>
+
+        <div class="calendar-foot">
+          <p class="state-sentence" id="stateSentence"></p>
+          <p class="public-note" id="publicNote"></p>
+          <a class="maze-thread" href="../maze/">更深的内景 / Deeper interior</a>
+        </div>
+      </section>
+    </main>
+
+    <section class="day-dialog" id="dayDialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-describedby="dialogBoundary" hidden>
+      <div class="day-dialog-panel" id="dayDialogPanel" role="document">
+        <nav class="dialog-toolbar" aria-label="Public day navigation / 公开日期导航">
+          <button class="dialog-day-nav" id="prevDay" type="button" aria-label="Previous public day / 前一个公开日">←</button>
+          <button class="dialog-day-nav" id="nextDay" type="button" aria-label="Next public day / 后一个公开日">→</button>
+          <button class="dialog-close" id="closeDetail" type="button">Close / 关闭</button>
+        </nav>
+        <div class="dialog-header">
+          <p class="dialog-kicker">Selected day / 被切开的日期</p>
+          <h2 id="dialogTitle"></h2>
+          <p class="dialog-date" id="dialogDate"></p>
+          <p class="dialog-variable" id="dialogVariable"></p>
+          <p class="dialog-crystallization-link" id="dialogCrystallizationLink" hidden></p>
+          <p class="dialog-mode-thesis">时间足迹保持真实位置、时长与并行关系；可读浮签由登记线连接到精确足迹。<br>Footprints preserve exact position, duration, and concurrency; readable planes register back to them with visible rules.</p>
+          <p class="dialog-boundary" id="dialogBoundary"></p>
+        </div>
+
+        <section class="timeline-detail" aria-labelledby="timelineTitle">
+          <h3 id="timelineTitle">时间构成 / TEMPORAL COMPOSITION</h3>
+          <p class="timeline-help">足迹：位置 = 开始时间 · 高度 = 真实时长 · 横向 = 精确并行｜浮签：双语标题 + 当日摘要 · 连接线 = 足迹登记<br>Footprint: position = start · height = exact duration · lanes = exact concurrency | Plane: bilingual title + daily summary · rule = footprint registration</p>
+          <span class="sr-only" id="readingSelectionStatus" role="status" aria-live="polite"></span>
+          <div class="timeline-touch-access">
+            <button class="timeline-touch-toggle" id="timelineTouchToggle" type="button" aria-expanded="false" aria-controls="timelineTouchGroups">
+              Explore touch-accessible event groups / 浏览触控事件组
+            </button>
+            <div class="timeline-touch-groups" id="timelineTouchGroups" hidden></div>
+          </div>
+          <div class="timeline-list" id="timelineList"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="artwork-dialog" id="artworkDialog" role="dialog" aria-modal="true" aria-labelledby="artworkDetailTitle" aria-describedby="artworkDetailMeta" hidden>
+      <div class="artwork-dialog-panel" id="artworkDialogPanel" role="document">
+        <button class="artwork-dialog-close" id="closeArtworkDetail" type="button" aria-label="Close artwork detail / 关闭作品详情">
+          <span aria-hidden="true">×</span>
+        </button>
+        <p class="artwork-detail-kicker">Autonomous artwork / AI 自主作品</p>
+        <h2 id="artworkDetailTitle"></h2>
+        <p class="artwork-detail-meta" id="artworkDetailMeta"></p>
+        <div class="artwork-detail-layout">
+          <figure class="artwork-detail-preview-frame">
+            <img id="artworkDetailPreview" alt="" loading="eager">
+          </figure>
+          <div class="artwork-detail-copy">
+            <section class="artwork-summary-card" aria-labelledby="artworkSummaryLabel">
+              <h3 id="artworkSummaryLabel">Summary / 摘要</h3>
+              <p class="artwork-summary-zh" id="artworkDetailZh" lang="zh"></p>
+              <div class="bilingual-summary-divider" aria-hidden="true"></div>
+              <p class="artwork-summary-en" id="artworkDetailEn" lang="en"></p>
+            </section>
+            <div class="artwork-bgm-control">
+              <p id="artworkBgmLabel">Artwork BGM / 作品音乐</p>
+              <audio id="artworkBgm" controls preload="metadata" aria-labelledby="artworkBgmLabel"></audio>
+            </div>
+            <a class="artwork-archive-link" id="artworkArchiveLink" target="_blank" rel="noopener">View full archive page / 查看完整档案页 ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="task-dialog" id="taskDialog" role="dialog" aria-modal="true" aria-labelledby="taskDetailTitle" aria-describedby="taskDetailProvenance" hidden>
+      <div class="task-dialog-panel" id="taskDialogPanel" role="document">
+        <button class="task-dialog-close" id="closeTaskDetail" type="button">Close / 关闭</button>
+        <p class="task-detail-kicker">Event detail / 事件详情</p>
+        <h2 id="taskDetailTitle"></h2>
+        <p class="task-detail-time" id="taskDetailTime"></p>
+        <p class="task-detail-type" id="taskDetailType"></p>
+        <div class="task-detail-copy">
+          <section class="task-detail-summary-card" aria-labelledby="taskDetailSummaryLabel">
+            <h3 id="taskDetailSummaryLabel">Summary / 摘要</h3>
+            <div class="task-detail-body" id="taskDetailZh" lang="zh"></div>
+            <div class="bilingual-summary-divider" id="taskDetailSummaryDivider" aria-hidden="true"></div>
+            <div class="task-detail-body" id="taskDetailEn" lang="en"></div>
+          </section>
+        </div>
+        <section class="task-detail-occurrences" id="taskDetailOccurrences" aria-labelledby="taskDetailOccurrencesTitle" hidden>
+          <h3 id="taskDetailOccurrencesTitle">Exact constituent windows / 精确构成窗口</h3>
+          <ol id="taskDetailOccurrenceList"></ol>
+        </section>
+        <p class="task-detail-provenance" id="taskDetailProvenance"></p>
+      </div>
+    </section>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

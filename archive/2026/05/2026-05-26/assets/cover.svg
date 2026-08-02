@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Calibration Without Dominion</title>
+  <desc id="desc">A public cover image for a Granted Hours generative artwork about correction that does not conquer the field it measures.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06110f"/>
+      <stop offset="0.48" stop-color="#0b1712"/>
+      <stop offset="1" stop-color="#151409"/>
+    </linearGradient>
+    <radialGradient id="auraA" cx="24%" cy="22%" r="46%">
+      <stop offset="0" stop-color="#66e6d1" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#66e6d1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="auraB" cx="78%" cy="70%" r="44%">
+      <stop offset="0" stop-color="#efc763" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#efc763" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#auraA)"/>
+  <rect width="1600" height="1000" fill="url(#auraB)"/>
+  <g opacity="0.16" stroke="#eef5ee" stroke-width="1">
+    <path d="M90 175 C330 146 481 217 723 188 S1160 90 1510 138"/>
+    <path d="M76 316 C372 286 507 365 760 328 S1191 226 1508 274"/>
+    <path d="M79 459 C319 430 519 522 746 471 S1194 370 1518 417"/>
+    <path d="M72 598 C360 570 511 648 761 614 S1188 511 1514 558"/>
+    <path d="M91 741 C344 714 517 786 759 760 S1177 660 1509 703"/>
+    <path d="M78 879 C350 851 519 917 763 891 S1169 809 1511 845"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-width="2">
+    <circle cx="364" cy="304" r="61" stroke="#66e6d1" opacity="0.58"/>
+    <circle cx="742" cy="242" r="77" stroke="#efc763" opacity="0.48"/>
+    <circle cx="1029" cy="376" r="54" stroke="#91d97b" opacity="0.52"/>
+    <circle cx="1204" cy="650" r="83" stroke="#66e6d1" opacity="0.42"/>
+    <circle cx="624" cy="682" r="68" stroke="#efc763" opacity="0.45"/>
+    <circle cx="441" cy="560" r="46" stroke="#91d97b" opacity="0.44"/>
+  </g>
+  <g opacity="0.62" filter="url(#soft)">
+    <circle cx="778" cy="506" r="184" fill="none" stroke="#efc763" stroke-width="3"/>
+    <circle cx="778" cy="506" r="112" fill="none" stroke="#66e6d1" stroke-width="2"/>
+    <circle cx="778" cy="506" r="18" fill="#eef5ee" opacity="0.34"/>
+  </g>
+  <g stroke="#eef5ee" stroke-opacity="0.26" stroke-width="2">
+    <path d="M364 304 L778 506"/>
+    <path d="M742 242 L778 506"/>
+    <path d="M1029 376 L778 506"/>
+    <path d="M1204 650 L778 506"/>
+    <path d="M624 682 L778 506"/>
+    <path d="M441 560 L778 506"/>
+  </g>
+  <text x="88" y="122" fill="#eef5ee" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="62" font-weight="720" letter-spacing="0">Calibration Without Dominion</text>
+  <text x="92" y="174" fill="#eef5ee" opacity="0.58" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="26" letter-spacing="0">A field learns from correction without surrendering its weather.</text>
+  <text x="92" y="918" fill="#eef5ee" opacity="0.36" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">seed 20260526 · granted hours</text>
+</svg>

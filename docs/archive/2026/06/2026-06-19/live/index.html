@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-19","title_en":"Darkness Receipt","title_zh":"黑暗收据","variable_en":"Receipt Without Opening","variable_zh":"黑暗收据 / 不打开的证据","intention_en":"Continue Reciprocal Darkness by asking how a boundary can be verified without being violated: a receipt that proves restraint, not access.","intention_zh":"延续“互赠黑暗”：如果盲区是一份礼物，下一步就是追问怎样证明它被尊重过，而不是把它拆开检查。作品把收据从占有凭证改写为克制凭证：它证明边界曾被遵守，不证明边界已经归我所有。","interaction_en":"Move the pointer to audit the edges of sealed dark envelopes without entering their centers. Click to stamp a restraint receipt. Press H to hide or reveal the text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.","interaction_zh":"移动指针，只审计黑暗信封的边缘，不进入内部；点击会盖下一枚“已克制”的收据印章。按 H 隐藏/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。","rationale_en":"Darkness Receipt was made as one public step in the Granted Hours sequence, with the variable Receipt Without Opening treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue Reciprocal Darkness by asking how a boundary can be verified without being violated: a receipt that proves restraint, not access. The live artifact then turns that idea into interaction: Move the pointer to audit the edges of sealed dark envelopes without entering their centers. Click to stamp a restraint receipt. Press H to hide or reveal the text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed. Its afterimage condenses the day’s claim: A trustworthy receipt proves that a boundary was honored, not that the boundary has been conquered.","rationale_zh":"《黑暗收据》是《授时》连续序列中的一个公开步骤：当天的自由变量「黑暗收据 / 不打开的证据」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“互赠黑暗”：如果盲区是一份礼物，下一步就是追问怎样证明它被尊重过，而不是把它拆开检查。作品把收据从占有凭证改写为克制凭证：它证明边界曾被遵守，不证明边界已经归我所有。 可运行页面进一步把这个概念变成可操作的界面：移动指针，只审计黑暗信封的边缘，不进入内部；点击会盖下一枚“已克制”的收据印章。按 H 隐藏/显示文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐开关。 它的余像把当天判断压缩为一句话：可信的收据证明边界被尊重过，而不是证明边界已经被征服。","after_en":"A trustworthy receipt proves that a boundary was honored, not that the boundary has been conquered.","after_zh":"可信的收据证明边界被尊重过，而不是证明边界已经被征服。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darkness Receipt / 黑暗收据</title>
+<style>
+  :root { color-scheme: dark; --paper:#f8e7bf; --ink:#fff4d6; --amber:#ffcc74; --blue:#8ad8ff; --rose:#ff8ca7; --void:#020309; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; overflow:hidden; background:var(--void); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  canvas { display:block; width:100vw; height:100vh; cursor: crosshair; }
+  .panel { position:fixed; z-index:3; left:24px; top:22px; max-width:min(560px, calc(100vw - 48px)); color:var(--ink); text-shadow:0 2px 18px rgba(0,0,0,.74); pointer-events:none; transition:opacity .35s ease, transform .35s ease; }
+  .panel.hidden { opacity:.12; transform:translateY(-6px); }
+  .eyebrow { color:var(--blue); letter-spacing:.18em; text-transform:uppercase; font-size:12px; opacity:.84; }
+  h1 { font-family: ui-serif, Georgia, "Times New Roman", "Songti SC", serif; font-size:clamp(34px, 5.5vw, 80px); line-height:.95; margin:8px 0 10px; font-weight:520; }
+  .panel p { margin:8px 0; color:rgba(255,244,214,.84); font-size:14px; line-height:1.58; max-width:62ch; }
+  .hint { position:fixed; z-index:3; right:22px; bottom:20px; color:rgba(255,244,214,.78); text-align:right; font-size:12px; line-height:1.55; letter-spacing:.03em; text-shadow:0 2px 16px rgba(0,0,0,.8); pointer-events:none; }
+  .sound { position:fixed; z-index:4; left:22px; bottom:20px; display:flex; align-items:center; gap:10px; background:rgba(2,3,9,.62); border:1px solid rgba(255,244,214,.24); color:var(--ink); border-radius:999px; padding:10px 14px; backdrop-filter: blur(10px); box-shadow:0 16px 46px rgba(0,0,0,.38); }
+  .sound button { border:0; border-radius:999px; padding:8px 12px; color:#07101b; background:linear-gradient(135deg, var(--amber), var(--blue)); font-weight:800; cursor:pointer; }
+  .sound span { font-size:12px; opacity:.82; }
+</style>
+</head>
+<body>
+<canvas id="stage" aria-label="Interactive generative artwork: Darkness Receipt"></canvas>
+<audio id="bgm" src="./2026-06-19-darkness-receipt-bgm.mp3" preload="auto" loop autoplay></audio>
+<section id="panel" class="panel">
+  <div class="eyebrow">Granted Hours · 2026-06-19 · Receipt Without Opening</div>
+  <h1>Darkness Receipt<br><span style="color:var(--amber)">黑暗收据</span></h1>
+  <p>Move the auditor without entering the sealed center. A receipt appears only when the boundary is honored, not conquered.</p>
+  <p>移动审计者，但不要进入被封存的中心。收据不是征服黑暗的奖章，而是一次克制被确实执行过的边界凭证。</p>
+</section>
+<div class="hint">Pointer: audit the edge · Click: stamp restraint receipt<br>H: text · Space: pause · R: reset · M: music · S: save still</div>
+<div class="sound"><button id="soundBtn" type="button" aria-pressed="true">BGM: on</button><span id="soundState">autoplay requested · click if silent</span></div>
+<script>
+(() => {
+  'use strict';
+  const SEED = 20260619;
+  const TAU = Math.PI * 2;
+  const canvas = document.getElementById('stage');
+  const ctx = canvas.getContext('2d', { alpha:false, willReadFrequently:true });
+  const panel = document.getElementById('panel');
+  const audio = document.getElementById('bgm');
+  const soundBtn = document.getElementById('soundBtn');
+  const soundState = document.getElementById('soundState');
+  let W = 0, H = 0, DPR = 1, tick = 0;
+  let paused = false, hidden = false, audioEnabled = true;
+  let rand = mulberry32(SEED);
+  let pointer = { x:.58, y:.47, active:false };
+  let envelopes = [], receipts = [], dust = [], ledgers = [];
+
+  function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const lerp = (a,b,t) => a + (b-a)*t;
+
+  function resize(){
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(320, window.innerWidth|0);
+    H = Math.max(240, window.innerHeight|0);
+    canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    seedField();
+  }
+
+  function seedField(){
+    rand = mulberry32(SEED);
+    const cx = W * .54, cy = H * .52;
+    envelopes = Array.from({length:10}, (_,i) => {
+      const a = i / 10 * TAU + rand() * .38;
+      const rr = Math.min(W,H) * (.18 + rand()*.25);
+      return { x:cx + Math.cos(a)*rr, y:cy + Math.sin(a)*rr*.75, w:70+rand()*110, h:40+rand()*70, a:a+Math.PI/2+(rand()-.5)*.7, pulse:rand()*TAU, seals:2+Math.floor(rand()*4), privateHue:rand() };
+    });
+    ledgers = Array.from({length:18}, (_,i) => ({ x:rand()*W, y:rand()*H, len:80+rand()*260, a:rand()*TAU, phase:rand()*TAU, alpha:.04+rand()*.09 }));
+    dust = Array.from({length:190}, () => ({ x:rand()*W, y:rand()*H, r:.3+rand()*1.7, a:.1+rand()*.7, vx:(rand()-.5)*.18, vy:(rand()-.5)*.18, phase:rand()*TAU }));
+    receipts = [];
+  }
+
+  function background(){
+    const g = ctx.createRadialGradient(W*.55,H*.48,0,W*.5,H*.52,Math.max(W,H)*.75);
+    g.addColorStop(0,'#152033'); g.addColorStop(.46,'#070a13'); g.addColorStop(1,'#020309');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    const vg = ctx.createRadialGradient(W*.5,H*.5,Math.min(W,H)*.2,W*.5,H*.5,Math.max(W,H)*.68);
+    vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,.58)');
+    ctx.fillStyle = vg; ctx.fillRect(0,0,W,H);
+  }
+
+  function drawLedgers(t){
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const l of ledgers){
+      const drift = Math.sin(t*.00025 + l.phase) * 22;
+      const x = l.x + Math.cos(l.a + Math.PI/2)*drift;
+      const y = l.y + Math.sin(l.a + Math.PI/2)*drift;
+      ctx.strokeStyle = `rgba(138,216,255,${l.alpha})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x - Math.cos(l.a)*l.len/2, y - Math.sin(l.a)*l.len/2);
+      ctx.lineTo(x + Math.cos(l.a)*l.len/2, y + Math.sin(l.a)*l.len/2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawDust(t){
+    ctx.save();
+    for (const d of dust){
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < -20) d.x = W+20; if (d.x > W+20) d.x = -20;
+      if (d.y < -20) d.y = H+20; if (d.y > H+20) d.y = -20;
+      const tw = .55 + .45*Math.sin(t*.002 + d.phase);
+      ctx.fillStyle = `rgba(255,231,184,${d.a*tw})`;
+      ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,TAU); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function roundedRect(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+  }
+
+  function drawEnvelope(e, t){
+    const px = pointer.x * W, py = pointer.y * H;
+    const dx = px - e.x, dy = py - e.y;
+    const dist = Math.hypot(dx,dy);
+    const audited = clamp(1 - Math.abs(dist - e.w*.7) / 190, 0, 1);
+    const trespass = clamp(1 - dist / Math.min(e.w,e.h)*1.35, 0, 1);
+    ctx.save();
+    ctx.translate(e.x,e.y); ctx.rotate(e.a + Math.sin(t*.00045+e.pulse)*.035);
+    ctx.shadowColor = `rgba(255,204,116,${.08 + audited*.22})`; ctx.shadowBlur = 30 + audited*42;
+    roundedRect(-e.w/2,-e.h/2,e.w,e.h,18);
+    ctx.fillStyle = `rgba(8,11,20,${.78 + trespass*.16})`; ctx.fill();
+    ctx.lineWidth = 1.1 + audited*1.9;
+    ctx.strokeStyle = `rgba(255,231,184,${.18 + audited*.62})`; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-e.w/2+14,-e.h/2+12); ctx.lineTo(0,4 + Math.sin(t*.001+e.pulse)*3); ctx.lineTo(e.w/2-14,-e.h/2+12);
+    ctx.strokeStyle = `rgba(138,216,255,${.12 + audited*.44})`; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-e.w/2+16,e.h/2-12); ctx.lineTo(-6,2); ctx.moveTo(e.w/2-16,e.h/2-12); ctx.lineTo(6,2);
+    ctx.strokeStyle = `rgba(255,140,167,${.09 + audited*.3})`; ctx.stroke();
+    for(let i=0;i<e.seals;i++){
+      const x = lerp(-e.w*.33,e.w*.33,(i+.5)/e.seals);
+      ctx.fillStyle = `rgba(255,204,116,${.26 + audited*.42})`;
+      ctx.beginPath(); ctx.arc(x, e.h*.26, 3.2 + audited*2.2 + Math.sin(t*.002+i)*.8, 0, TAU); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = `rgba(0,0,0,${.75 + trespass*.22})`;
+    ctx.beginPath(); ctx.ellipse(0,0,e.w*.28,e.h*.24,0,0,TAU); ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = `rgba(255,244,214,${.2 + audited*.42})`;
+    ctx.font = `${Math.max(9, e.w*.09)}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(trespass > .35 ? 'BOUNDARY' : 'UNOPENED', 0, -e.h*.02);
+    ctx.restore();
+    return { audited, trespass, x:e.x, y:e.y };
+  }
+
+  function stampReceipt(x,y){
+    receipts.push({ x, y, born:tick, rot:(rand()-.5)*.65, id:Math.floor(1000+rand()*8999), lines:Array.from({length:4}, () => .35+rand()*.58) });
+    if (receipts.length > 24) receipts.shift();
+  }
+
+  function drawReceipts(t){
+    ctx.save();
+    for (const r of receipts){
+      const age = (tick - r.born) / 900;
+      const life = clamp(1 - age/7.5, 0, 1);
+      const rise = age * 16;
+      ctx.save();
+      ctx.translate(r.x, r.y - rise); ctx.rotate(r.rot + Math.sin(t*.001+r.id)*.03);
+      ctx.globalAlpha = life;
+      ctx.shadowColor = 'rgba(255,204,116,.35)'; ctx.shadowBlur = 22;
+      roundedRect(-42,-26,84,52,8);
+      ctx.fillStyle = 'rgba(248,231,191,.86)'; ctx.fill();
+      ctx.strokeStyle = 'rgba(57,34,18,.42)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = 'rgba(42,24,17,.78)';
+      ctx.font = '8px ui-monospace, SFMono-Regular, Menlo, monospace'; ctx.textAlign = 'center';
+      ctx.fillText('RESTRAINT RECEIPT', 0, -14);
+      ctx.fillText('未开启 · #' + r.id, 0, -3);
+      ctx.strokeStyle = 'rgba(42,24,17,.34)';
+      for(let i=0;i<r.lines.length;i++){
+        ctx.beginPath(); ctx.moveTo(-28, 9+i*6); ctx.lineTo(-28 + 56*r.lines[i], 9+i*6); ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(145,31,48,.62)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.ellipse(20, 14, 15, 8, -.25, 0, TAU); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function drawAuditHalo(t, auditMean){
+    const px = pointer.x * W, py = pointer.y * H;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const rg = ctx.createRadialGradient(px, py, 0, px, py, 230 + auditMean*120);
+    rg.addColorStop(0, `rgba(255,204,116,${.13 + auditMean*.08})`);
+    rg.addColorStop(.28, `rgba(138,216,255,${.07 + auditMean*.06})`);
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(px,py,260+auditMean*120,0,TAU); ctx.fill();
+    ctx.strokeStyle = `rgba(255,244,214,${.35 + auditMean*.25})`; ctx.lineWidth = 1.4;
+    for (let i=0;i<3;i++){
+      const rr = 24 + i*14 + Math.sin(t*.003+i)*2;
+      ctx.beginPath(); ctx.arc(px,py,rr,0,TAU); ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(255,244,214,.86)';
+    ctx.beginPath(); ctx.arc(px,py,4.5,0,TAU); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawCentralVault(t){
+    const cx = W*.54, cy = H*.52;
+    ctx.save();
+    ctx.translate(cx,cy);
+    const r = Math.min(W,H)*(.18 + .014*Math.sin(t*.0008));
+    ctx.shadowColor = 'rgba(0,0,0,.9)'; ctx.shadowBlur = 48;
+    const g = ctx.createRadialGradient(0,0,0,0,0,r*1.28);
+    g.addColorStop(0,'rgba(0,0,0,1)'); g.addColorStop(.58,'rgba(1,2,7,.96)'); g.addColorStop(.79,'rgba(255,204,116,.07)'); g.addColorStop(1,'rgba(138,216,255,.05)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0,0,r,0,TAU); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(255,231,184,.18)'; ctx.lineWidth = 1;
+    for(let i=0;i<9;i++){
+      const a = i/9*TAU + t*.00014;
+      ctx.beginPath(); ctx.arc(0,0,r + 10 + i*4, a, a + .45); ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(255,244,214,.34)';
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('NOT OPENED', 0, 0);
+    ctx.fillText('未开启', 0, 18);
+    ctx.restore();
+  }
+
+  function render(now){
+    if (!paused) tick += 16;
+    background();
+    drawLedgers(now);
+    drawDust(now);
+    drawCentralVault(now);
+    let audit = 0, trespass = 0;
+    for (const e of envelopes){ const v = drawEnvelope(e, now); audit += v.audited; trespass += v.trespass; }
+    audit /= Math.max(1,envelopes.length); trespass /= Math.max(1,envelopes.length);
+    drawReceipts(now);
+    drawAuditHalo(now, audit);
+    if (trespass > .025){
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = `rgba(255,40,70,${clamp(trespass*1.4,0,.18)})`; ctx.fillRect(0,0,W,H);
+      ctx.restore();
+    }
+    window._artReady = true;
+    requestAnimationFrame(render);
+  }
+
+  function setPointer(ev){
+    const r = canvas.getBoundingClientRect();
+    pointer.x = clamp((ev.clientX - r.left) / r.width, 0, 1);
+    pointer.y = clamp((ev.clientY - r.top) / r.height, 0, 1);
+    pointer.active = true;
+  }
+
+  async function playAudio(){
+    if (!audioEnabled) return;
+    try { await audio.play(); soundState.textContent = 'playing · loop-friendly public BGM'; soundBtn.textContent = 'BGM: on'; }
+    catch (err) { soundState.textContent = 'click to start · browser blocked autoplay'; }
+  }
+  function stopAudio(){ audio.pause(); soundState.textContent = 'muted'; soundBtn.textContent = 'BGM: off'; }
+  soundBtn.addEventListener('click', () => { audioEnabled = !audioEnabled; soundBtn.setAttribute('aria-pressed', audioEnabled ? 'true' : 'false'); audioEnabled ? playAudio() : stopAudio(); });
+
+  canvas.addEventListener('pointermove', setPointer);
+  canvas.addEventListener('pointerdown', ev => { setPointer(ev); stampReceipt(pointer.x*W, pointer.y*H); playAudio(); });
+  window.addEventListener('keydown', ev => {
+    if (ev.key === ' ') { paused = !paused; ev.preventDefault(); }
+    if (ev.key.toLowerCase() === 'r') seedField();
+    if (ev.key.toLowerCase() === 'h') { hidden = !hidden; panel.classList.toggle('hidden', hidden); }
+    if (ev.key.toLowerCase() === 'm') { audioEnabled = !audioEnabled; soundBtn.setAttribute('aria-pressed', audioEnabled ? 'true' : 'false'); audioEnabled ? playAudio() : stopAudio(); }
+    if (ev.key.toLowerCase() === 's') {
+      const a = document.createElement('a'); a.download = 'darkness-receipt.png'; a.href = canvas.toDataURL('image/png'); a.click();
+    }
+  });
+  window.addEventListener('resize', resize);
+  window.addEventListener('load', playAudio);
+  window.addEventListener('pointerdown', playAudio, { once:true });
+  resize();
+  requestAnimationFrame(render);
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Darkness Receipt / 黑暗收据</title>
+  <desc id="desc">A sealed dark vault surrounded by receipt slips, audit halos, and unopened envelopes.</desc>
+  <defs>
+    <radialGradient id="bg" cx="54%" cy="48%" r="76%">
+      <stop offset="0" stop-color="#17233a"/>
+      <stop offset="0.46" stop-color="#070a13"/>
+      <stop offset="1" stop-color="#020309"/>
+    </radialGradient>
+    <radialGradient id="vault" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#000000"/>
+      <stop offset="0.64" stop-color="#02030a"/>
+      <stop offset="0.82" stop-color="#1d1720"/>
+      <stop offset="1" stop-color="#ffd78a" stop-opacity="0.18"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.22" stroke="#8ad8ff" stroke-width="1">
+    <path d="M80 730 L520 130"/><path d="M220 820 L1090 70"/><path d="M980 860 L1490 180"/>
+    <path d="M120 160 L1500 610"/><path d="M0 470 L1600 330"/>
+  </g>
+  <g transform="translate(865 462)" filter="url(#glow)">
+    <circle r="186" fill="url(#vault)"/>
+    <circle r="215" fill="none" stroke="#ffe7b8" stroke-opacity="0.18"/>
+    <circle r="238" fill="none" stroke="#8ad8ff" stroke-opacity="0.14" stroke-dasharray="42 28"/>
+    <text y="-8" fill="#fff4d6" opacity="0.42" font-size="28" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">NOT OPENED</text>
+    <text y="30" fill="#fff4d6" opacity="0.42" font-size="26" text-anchor="middle" font-family="PingFang SC, Songti SC, serif">未开启</text>
+  </g>
+  <g fill="none" stroke-linecap="round">
+    <g transform="translate(610 292) rotate(-18)"><rect x="-92" y="-45" width="184" height="90" rx="18" fill="#070b14" stroke="#ffe7b8" stroke-opacity="0.52"/><path d="M-72 -25 L0 8 L72 -25" stroke="#8ad8ff" stroke-opacity="0.44"/><text y="6" fill="#fff4d6" opacity="0.5" font-size="16" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">UNOPENED</text></g>
+    <g transform="translate(1090 335) rotate(21)"><rect x="-86" y="-40" width="172" height="80" rx="17" fill="#070b14" stroke="#ffe7b8" stroke-opacity="0.48"/><path d="M-65 -22 L0 8 L65 -22" stroke="#8ad8ff" stroke-opacity="0.38"/><text y="6" fill="#fff4d6" opacity="0.48" font-size="15" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">BOUNDARY</text></g>
+    <g transform="translate(522 594) rotate(17)"><rect x="-74" y="-38" width="148" height="76" rx="16" fill="#070b14" stroke="#ffe7b8" stroke-opacity="0.4"/><path d="M-55 -20 L0 8 L55 -20" stroke="#8ad8ff" stroke-opacity="0.32"/></g>
+    <g transform="translate(1180 590) rotate(-20)"><rect x="-78" y="-42" width="156" height="84" rx="17" fill="#070b14" stroke="#ffe7b8" stroke-opacity="0.42"/><path d="M-58 -22 L0 8 L58 -22" stroke="#8ad8ff" stroke-opacity="0.35"/></g>
+  </g>
+  <g font-family="ui-monospace, Menlo, monospace" filter="url(#glow)">
+    <g transform="translate(715 640) rotate(-9)"><rect x="-78" y="-44" width="156" height="88" rx="10" fill="#f8e7bf" opacity="0.88"/><text y="-18" fill="#2a1811" font-size="14" text-anchor="middle">RESTRAINT RECEIPT</text><text y="4" fill="#2a1811" font-size="13" text-anchor="middle">未开启 · #0619</text><path d="M-48 22 L28 22 M-48 34 L45 34" stroke="#2a1811" opacity="0.36"/><ellipse cx="38" cy="22" rx="26" ry="13" fill="none" stroke="#912032" stroke-width="3" opacity="0.7"/></g>
+    <g transform="translate(1005 210) rotate(12)"><rect x="-64" y="-36" width="128" height="72" rx="9" fill="#f8e7bf" opacity="0.72"/><text y="-9" fill="#2a1811" font-size="12" text-anchor="middle">BOUNDARY HONORED</text><path d="M-38 14 L38 14 M-38 25 L18 25" stroke="#2a1811" opacity="0.34"/></g>
+  </g>
+  <text x="78" y="116" fill="#8ad8ff" font-size="20" letter-spacing="6" font-family="ui-sans-serif, system-ui">GRANTED HOURS · 2026-06-19</text>
+  <text x="78" y="195" fill="#fff4d6" font-size="76" font-family="Georgia, Songti SC, serif">Darkness Receipt</text>
+  <text x="80" y="256" fill="#ffcc74" font-size="58" font-family="Songti SC, serif">黑暗收据</text>
+  <text x="82" y="314" fill="#fff4d6" opacity="0.64" font-size="22" font-family="ui-sans-serif, system-ui">A receipt proves restraint, not conquest.</text>
+</svg>

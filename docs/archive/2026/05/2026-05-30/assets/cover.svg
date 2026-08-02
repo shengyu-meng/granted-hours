@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Cost of Keeping the Door Open / 保持门开的成本</title>
+  <desc id="desc">A public-safe cover image for a generative artwork about revisable commitment and the maintenance cost of an escape hatch.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101215"/>
+      <stop offset="0.48" stop-color="#171817"/>
+      <stop offset="1" stop-color="#11171a"/>
+    </linearGradient>
+    <radialGradient id="doorGlow" cx="68%" cy="53%" r="46%">
+      <stop offset="0" stop-color="#ec6f5b" stop-opacity="0.32"/>
+      <stop offset="0.38" stop-color="#d8b45d" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#101215" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="290" y1="455" x2="1090" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6ea5d9" stop-opacity="0.36"/>
+      <stop offset="0.48" stop-color="#d8b45d" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#ec6f5b" stop-opacity="0.44"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#doorGlow)"/>
+  <g opacity="0.32">
+    <path d="M300 572 C520 548 760 596 1290 572" fill="none" stroke="#eef3e7" stroke-opacity="0.26" stroke-width="5" stroke-linecap="round"/>
+    <path d="M300 600 C520 576 760 624 1290 600" fill="none" stroke="#eef3e7" stroke-opacity="0.10" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <g>
+    <circle cx="350" cy="455" r="115" fill="#6ea5d9" fill-opacity="0.08" stroke="#6ea5d9" stroke-opacity="0.48" stroke-width="3"/>
+    <circle cx="710" cy="455" r="84" fill="#d8b45d" fill-opacity="0.08" stroke="#d8b45d" stroke-opacity="0.5" stroke-width="3"/>
+    <path d="M458 455 C560 348 660 535 710 455 C820 350 940 530 1090 470" fill="none" stroke="url(#beam)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M458 455 C560 348 660 535 710 455 C820 350 940 530 1090 470" fill="none" stroke="#eef3e7" stroke-opacity="0.16" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(1090 470) rotate(-5)">
+    <rect x="-82" y="-220" width="164" height="440" rx="12" fill="#eef3e7" fill-opacity="0.035" stroke="#eef3e7" stroke-opacity="0.34" stroke-width="4"/>
+    <rect x="-54" y="-207" width="108" height="414" fill="#101215" fill-opacity="0.78"/>
+    <rect x="-54" y="-207" width="108" height="414" fill="#ec6f5b" fill-opacity="0.22"/>
+    <line x1="-82" y1="-220" x2="-54" y2="-207" stroke="#eef3e7" stroke-opacity="0.25" stroke-width="2"/>
+    <line x1="82" y1="-220" x2="54" y2="-207" stroke="#eef3e7" stroke-opacity="0.25" stroke-width="2"/>
+    <circle cx="62" cy="0" r="8" fill="#d8b45d"/>
+  </g>
+  <g fill="none" stroke="#65d2a5" stroke-opacity="0.28" stroke-linecap="round">
+    <path d="M1010 286 C1120 210 1210 295 1176 384"/>
+    <path d="M1196 332 C1330 430 1268 608 1112 620"/>
+    <path d="M1024 640 C900 568 930 400 1018 342"/>
+    <path d="M954 468 C1010 386 1152 370 1210 452"/>
+  </g>
+  <g fill="#d8b45d" fill-opacity="0.28" stroke="#d8b45d" stroke-opacity="0.58">
+    <circle cx="780" cy="390" r="16"/>
+    <circle cx="858" cy="514" r="12"/>
+    <circle cx="970" cy="418" r="14"/>
+    <circle cx="1018" cy="548" r="10"/>
+  </g>
+  <g stroke="#ec6f5b" stroke-opacity="0.27" stroke-width="4">
+    <line x1="320" y1="700" x2="320" y2="655"/>
+    <line x1="360" y1="706" x2="360" y2="635"/>
+    <line x1="400" y1="698" x2="400" y2="615"/>
+    <line x1="440" y1="710" x2="440" y2="626"/>
+    <line x1="480" y1="704" x2="480" y2="643"/>
+    <line x1="520" y1="700" x2="520" y2="622"/>
+    <line x1="560" y1="709" x2="560" y2="607"/>
+    <line x1="600" y1="702" x2="600" y2="590"/>
+    <line x1="640" y1="708" x2="640" y2="604"/>
+    <line x1="680" y1="700" x2="680" y2="628"/>
+    <line x1="720" y1="707" x2="720" y2="612"/>
+    <line x1="760" y1="702" x2="760" y2="594"/>
+    <line x1="800" y1="708" x2="800" y2="614"/>
+    <line x1="840" y1="701" x2="840" y2="630"/>
+    <line x1="880" y1="706" x2="880" y2="642"/>
+    <line x1="920" y1="700" x2="920" y2="618"/>
+    <line x1="960" y1="707" x2="960" y2="596"/>
+    <line x1="1000" y1="702" x2="1000" y2="606"/>
+    <line x1="1040" y1="708" x2="1040" y2="632"/>
+    <line x1="1080" y1="700" x2="1080" y2="648"/>
+    <line x1="1120" y1="706" x2="1120" y2="636"/>
+    <line x1="1160" y1="701" x2="1160" y2="620"/>
+    <line x1="1200" y1="707" x2="1200" y2="642"/>
+  </g>
+  <g fill="#eef3e7">
+    <text x="84" y="112" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="720">The Cost of Keeping</text>
+    <text x="84" y="178" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="720">the Door Open</text>
+    <text x="84" y="235" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" fill-opacity="0.72">保持门开的成本</text>
+    <text x="84" y="285" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="19" fill-opacity="0.55">Every escape hatch charges rent in attention.</text>
+  </g>
+  <text x="350" y="305" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="20" fill="#eef3e7" fill-opacity="0.52">possible futures</text>
+  <text x="710" y="342" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="20" fill="#eef3e7" fill-opacity="0.58">chosen promise</text>
+  <text x="1090" y="214" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="20" fill="#eef3e7" fill-opacity="0.58">escape hatch</text>
+  <text x="800" y="798" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="20" fill="#eef3e7" fill-opacity="0.5">cost is paid in attention, not only in time</text>
+</svg>

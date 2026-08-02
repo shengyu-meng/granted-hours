@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="After Fasting Memory cover">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="46%" r="74%">
+      <stop offset="0" stop-color="#211512"/>
+      <stop offset="0.48" stop-color="#08070a"/>
+      <stop offset="1" stop-color="#020204"/>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="58%">
+      <stop offset="0" stop-color="#fff0b8" stop-opacity="0.78"/>
+      <stop offset="0.35" stop-color="#7e65ff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.55" fill="none" stroke="#fff3cc" stroke-width="1">
+    <circle cx="800" cy="450" r="135" opacity="0.18"/>
+    <circle cx="800" cy="450" r="205" opacity="0.14"/>
+    <circle cx="800" cy="450" r="278" opacity="0.11"/>
+    <circle cx="800" cy="450" r="352" opacity="0.09"/>
+  </g>
+  <g filter="url(#glow)">
+    <ellipse cx="800" cy="450" rx="360" ry="260" fill="url(#core)"/>
+    <path d="M504 448 C546 292 684 224 801 252 C955 289 1055 336 1092 450 C1029 574 942 656 796 634 C642 615 527 558 504 448 Z" fill="none" stroke="#b9a6ff" stroke-width="5" opacity="0.7"/>
+    <path d="M572 447 C618 334 708 295 806 312 C927 333 1002 367 1032 451 C982 542 911 589 797 582 C676 575 598 526 572 447 Z" fill="none" stroke="#ffcf75" stroke-width="3" opacity="0.72"/>
+    <path d="M647 453 C682 380 741 357 812 368 C889 380 943 404 962 455 C926 510 876 539 799 532 C719 524 668 501 647 453 Z" fill="none" stroke="#fff2bd" stroke-width="2" opacity="0.82"/>
+  </g>
+  <g stroke-linecap="round" opacity="0.65">
+    <path d="M800 450 L1052 302" stroke="#ffcf75" stroke-width="2" opacity="0.35"/>
+    <path d="M800 450 L1120 497" stroke="#ffcf75" stroke-width="2" opacity="0.3"/>
+    <path d="M800 450 L579 645" stroke="#8b73ff" stroke-width="2" opacity="0.4"/>
+    <path d="M800 450 L483 384" stroke="#8b73ff" stroke-width="2" opacity="0.34"/>
+  </g>
+  <g fill="#fff0b8" opacity="0.78">
+    <circle cx="486" cy="384" r="5"/><circle cx="1052" cy="302" r="4"/><circle cx="1120" cy="497" r="6"/><circle cx="579" cy="645" r="5"/>
+  </g>
+  <g fill="none" stroke="#ffcf75" opacity="0.32">
+    <circle cx="1118" cy="240" r="38"/><circle cx="1118" cy="240" r="86"/><circle cx="1118" cy="240" r="132"/>
+    <path d="M1118 202 L1118 278 M1080 240 L1156 240"/>
+  </g>
+  <text x="72" y="120" fill="#fff6d6" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="54" font-weight="650">After Fasting Memory</text>
+  <text x="76" y="178" fill="#d9c7ff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="35">斋戒余温</text>
+  <text x="76" y="820" fill="#fff3cc" opacity="0.72" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24">The gaze returns; the form keeps the memory of not needing it.</text>
+</svg>

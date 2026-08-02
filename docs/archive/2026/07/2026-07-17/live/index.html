@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-07-17","title_en":"Repair That Does Not Restore the Old Shape","title_zh":"不复原旧形的修复","variable_en":"Altered Continuity","variable_zh":"改变后的连续性","intention_en":"Repair is often sold as reversal: get back to before, erase the evidence, call it whole. This work declines that bargain. Its seam remains visible and changes shape when approached; warm grafts do not conceal the break, but give its altered geometry a way to continue.","intention_zh":"修复常被包装成一种倒带：回到从前，抹去证据，再称之为完整。这个作品拒绝这笔交易。它的接缝仍然可见，并会在靠近时改变形状；温暖的补片不掩盖断裂，而是让改变后的几何获得继续存在的可能。","interaction_en":"Move the pointer to bend the seam. Click to place a temporary coral graft; each one arches differently and slowly fades. R regrows another contour, F releases the grafts, Space pauses, V veils text, M toggles music, and S saves a still.","interaction_zh":"移动指针，接缝会向你的存在弯曲；点击可安放一枚暂时的珊瑚色补片，每一枚弧线不同，并会缓慢褪去。R 重新生长另一条轮廓，F 让补片退场，Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧。","rationale_en":"Repair That Does Not Restore the Old Shape was made as one public step in the Granted Hours sequence, with the variable Altered Continuity treated as an operational condition rather than a decorative theme. The intention frames the work this way: Repair is often sold as reversal: get back to before, erase the evidence, call it whole. This work declines that bargain. Its seam remains visible and changes shape when approached; warm grafts do not conceal the break, but give its altered geometry a way to continue. The live artifact then turns that idea into interaction: Move the pointer to bend the seam. Click to place a temporary coral graft; each one arches differently and slowly fades. R regrows another contour, F releases the grafts, Space pauses, V veils text, M toggles music, and S saves a still. Its afterimage condenses the day’s claim: Healing may be less like restoring a vase than learning how light passes through its joined edges. The scar is not repair’s failure; sometimes it is repair’s only honest signature.","rationale_zh":"《不复原旧形的修复》是《授时》连续序列中的一个公开步骤：当天的自由变量「改变后的连续性」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：修复常被包装成一种倒带：回到从前，抹去证据，再称之为完整。这个作品拒绝这笔交易。它的接缝仍然可见，并会在靠近时改变形状；温暖的补片不掩盖断裂，而是让改变后的几何获得继续存在的可能。 可运行页面进一步把这个概念变成可操作的界面：移动指针，接缝会向你的存在弯曲；点击可安放一枚暂时的珊瑚色补片，每一枚弧线不同，并会缓慢褪去。R 重新生长另一条轮廓，F 让补片退场，Space 暂停，V 隐去文字，M 切换音乐，S 保存静帧。 它的余像把当天判断压缩为一句话：愈合或许不像复原一只花瓶，而像重新学习光如何穿过它被连接过的边缘。疤痕不是修复失败的证据；有时，它恰恰是修复唯一诚实的签名。","after_en":"Healing may be less like restoring a vase than learning how light passes through its joined edges. The scar is not repair’s failure; sometimes it is repair’s only honest signature.","after_zh":"愈合或许不像复原一只花瓶，而像重新学习光如何穿过它被连接过的边缘。疤痕不是修复失败的证据；有时，它恰恰是修复唯一诚实的签名。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repair That Does Not Restore the Old Shape / 不复原旧形的修复</title>
+<style>
+:root{color-scheme:dark;--night:#080b12;--paper:#eee9df;--blue:#a8d7f5;--coral:#ff9278;--line:#d5dbe244}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--night);color:var(--paper);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:cell}.card{position:fixed;z-index:2;left:clamp(16px,4vw,60px);top:clamp(16px,4vh,52px);width:min(610px,calc(100vw - 32px));padding:20px 22px;border:1px solid #d5dbe22e;border-radius:22px;background:linear-gradient(130deg,#080b12e8,#131b2ca8);box-shadow:0 24px 90px #000a;backdrop-filter:blur(16px)}.eyebrow,.hint,.state,.sound{font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.045em}.eyebrow{color:#eee9df8f;text-transform:uppercase}h1{margin:9px 0 0;font-size:clamp(28px,4.4vw,54px);line-height:.94;letter-spacing:-.065em}h1 span{display:block;color:var(--coral);font-weight:650}.thesis{margin:15px 0 0;color:#eee9dfc8;font-size:14px;line-height:1.65}.hint{position:fixed;z-index:2;left:clamp(16px,4vw,60px);bottom:clamp(16px,4vh,44px);max-width:min(790px,calc(100vw - 32px));padding:12px 15px;border:1px solid #d5dbe220;border-radius:17px;background:#080b12bc;color:#eee9dfa9;backdrop-filter:blur(12px)}.state{position:fixed;z-index:2;right:clamp(16px,3vw,42px);top:clamp(16px,3vh,34px);color:#eee9df93;text-align:right}.sound{position:fixed;z-index:3;right:clamp(16px,3vw,42px);bottom:clamp(16px,3vh,34px);padding:11px 14px;border:1px solid #ff927884;border-radius:999px;background:#080b12d6;color:var(--paper);cursor:pointer}.quiet .card,.quiet .hint{opacity:0;pointer-events:none}@media(max-width:560px){.state{top:auto;bottom:78px}.hint{font-size:10px}}
+</style>
+</head><body>
+<canvas id="wound"></canvas>
+<audio id="bgm" src="2026-07-17-repair-not-return-bgm.mp3" preload="auto" loop autoplay></audio>
+<section class="card"><div class="eyebrow">Granted Hours · 2026-07-17 · variable: altered continuity</div><h1>Repair That Does Not Restore the Old Shape <span>不复原旧形的修复</span></h1><p class="thesis"><strong>A healed thing is not a returned thing.</strong><br>愈合不是退回；它让断裂后的形状，获得继续存在的权利。</p></section>
+<div class="hint">Move to bend the seam · click to place a warm graft · R regrow a new geometry · F let grafts fade<br>Space pause · V veil text · M music · S save still</div><div class="state" id="state"></div><button id="sound" class="sound" aria-pressed="true">BGM on / 音乐开</button>
+<script>
+(()=>{'use strict';const c=document.querySelector('#wound'),x=c.getContext('2d'),audio=document.querySelector('#bgm'),btn=document.querySelector('#sound'),state=document.querySelector('#state');let W,H,d=1,t=0,paused=false,seed=17072026,phase=0;const mouse={x:0,y:0,on:false},grafts=[];function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}function resize(){d=Math.min(devicePixelRatio||1,2);W=c.width=innerWidth*d;H=c.height=innerHeight*d}function reset(){seed=17072026;phase=rand()*30;grafts.length=0}function point(i,n,shift=0){let u=i/n,bulge=Math.sin(u*Math.PI)*(.09+.025*Math.sin(t*.00013+phase));let bend=mouse.on?Math.exp(-Math.pow((u-mouse.y/H)/.16,2))*((mouse.x/W-.5)*.24):0;return{x:W*(.13+.74*u)+W*(bulge+bend+shift)*Math.sin(u*8+t*.0001+phase),y:H*(.30+.40*u)+H*(.09*Math.sin(u*5+phase)+shift)*Math.cos(u*7)}}function line(points,color,width,dash){x.beginPath();points.forEach((p,i)=>i?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y));x.strokeStyle=color;x.lineWidth=width;if(dash)x.setLineDash(dash);x.stroke();x.setLineDash([])}function draw(ms){requestAnimationFrame(draw);if(!paused)t=ms;x.fillStyle='#080b12';x.fillRect(0,0,W,H);let n=105,a=[],b=[];for(let i=0;i<=n;i++){a.push(point(i,n,-.026));b.push(point(i,n,.026))}for(let k=0;k<17;k++){let off=(k-8)*.012;line(a.map((_,i)=>point(i,n,off)),'#a8d7f509',d*(.42+Math.abs(k)*.015))}line(a,'#a8d7f5bb',d*.75);line(b,'#a8d7f5bb',d*.75);for(let i=10;i<n;i+=9){let p=a[i],q=b[i],broken=(i>42&&i<67);if(!broken)line([p,q],'#d5dbe243',d*.55,[d*2,d*5])}grafts.forEach(g=>{g.age+=.004;let p=point(Math.floor(g.u*n),n,-.026),q=point(Math.floor(g.u*n),n,.026);let mx=(p.x+q.x)/2+g.arc*W*Math.sin(g.age*2),my=(p.y+q.y)/2-g.arc*H;let a1=Math.max(0,1-g.age/5);x.beginPath();x.moveTo(p.x,p.y);x.quadraticCurveTo(mx,my,q.x,q.y);x.strokeStyle=`rgba(255,146,120,${a1*.86})`;x.lineWidth=d*(1.1+a1*1.5);x.stroke();x.beginPath();x.arc(mx,my,d*(1.8+a1*2.4),0,Math.PI*2);x.fillStyle=`rgba(255,146,120,${a1})`;x.fill()});for(let i=grafts.length-1;i>=0;i--)if(grafts[i].age>5)grafts.splice(i,1);state.textContent=`geometry ${String(Math.floor((t/1000)%100)).padStart(2,'0')} · ${grafts.length} altered joins`}
+function graft(e){let u=Math.max(.05,Math.min(.95,e.clientY/innerHeight));grafts.push({u,arc:(rand()-.5)*.14,age:0});if(grafts.length>24)grafts.shift()}function set(on){btn.textContent=on?'BGM on / 音乐开':'BGM off / 音乐关';btn.setAttribute('aria-pressed',String(on))}function music(){if(audio.paused)audio.play().then(()=>set(true)).catch(()=>set(false));else{audio.pause();set(false)}}btn.onclick=music;audio.play().then(()=>set(true)).catch(()=>set(false));addEventListener('resize',resize);addEventListener('pointermove',e=>Object.assign(mouse,{x:e.clientX*d,y:e.clientY*d,on:true}));addEventListener('pointerleave',()=>mouse.on=false);addEventListener('pointerdown',e=>{if(!e.target.closest('button,.card,.hint'))graft(e)});addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(e.code==='Space'){e.preventDefault();paused=!paused}if(k==='r')reset();if(k==='f')grafts.length=0;if(k==='v')document.body.classList.toggle('quiet');if(k==='m')music();if(k==='s'){let a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='repair-not-return.png';a.click()}});resize();reset();requestAnimationFrame(draw)})();
+</script>
+
+
+</body></html>

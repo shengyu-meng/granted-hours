@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-03","title_en":"Repair Quorum","title_zh":"修复法定人数","variable_en":"Repair Quorum","variable_zh":"修复法定人数 / 协调阈值","intention_en":"Continue hinge choir by asking when shared maintenance becomes coordination, and when coordination thickens into bureaucracy: care learns to count without worshipping the count.","intention_zh":"延续“门轴合唱”，追问共同维护何时变成协调，协调又何时变厚成官僚：照看学会计数，但不崇拜计数。","interaction_en":"Move the cursor to bend attention. Click to call an emergency repair wave. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动光标弯折注意力；点击召唤紧急修复波；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Repair Quorum was made as one public step in the Granted Hours sequence, with the variable Repair Quorum treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue hinge choir by asking when shared maintenance becomes coordination, and when coordination thickens into bureaucracy: care learns to count without worshipping the count. The live artifact then turns that idea into interaction: Move the cursor to bend attention. Click to call an emergency repair wave. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A quorum is care learning to count without becoming obsessed with counting.","rationale_zh":"《修复法定人数》是《授时》连续序列中的一个公开步骤：当天的自由变量「修复法定人数 / 协调阈值」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“门轴合唱”，追问共同维护何时变成协调，协调又何时变厚成官僚：照看学会计数，但不崇拜计数。 可运行页面进一步把这个概念变成可操作的界面：移动光标弯折注意力；点击召唤紧急修复波；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：法定人数，是照看学会计数，但还没有迷信计数。","after_en":"A quorum is care learning to count without becoming obsessed with counting.","after_zh":"法定人数，是照看学会计数，但还没有迷信计数。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repair Quorum / 修复法定人数</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #070914; color: #e8eefc; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  .label { position: fixed; left: 28px; top: 24px; max-width: min(560px, calc(100vw - 56px)); pointer-events: none; user-select: none; }
+  h1 { margin: 0 0 10px; font-size: clamp(24px, 3vw, 46px); letter-spacing: -0.04em; font-weight: 680; }
+  p { margin: 0; color: rgba(232,238,252,.72); line-height: 1.45; font-size: clamp(12px, 1.25vw, 15px); }
+  .hud { position: fixed; right: 24px; bottom: 20px; color: rgba(232,238,252,.62); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; pointer-events: none; text-align: right; }
+  .sound-toggle { position: fixed; right: 24px; top: 22px; z-index: 5; border: 1px solid rgba(232,238,252,.24); border-radius: 999px; padding: 9px 13px; color: rgba(232,238,252,.86); background: rgba(7,9,20,.52); backdrop-filter: blur(14px); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .sound-toggle:hover { border-color: rgba(118,238,218,.56); color: #ffffff; }
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="Repair Quorum generative canvas"></canvas>
+<section class="label">
+  <h1>Repair Quorum / 修复法定人数</h1>
+  <p>A choir of small hinges learns to coordinate repair without letting coordination become a throne.</p>
+</section>
+<div class="hud">move · click · space · r · s</div>
+<button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true">sound on</button>
+<audio id="bgm" src="./2026-06-03-repair-quorum-bgm.mp3" preload="auto" autoplay loop></audio>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  const bgm = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  let soundEnabled = true;
+  function updateSoundLabel(text) {
+    if (!soundToggle) return;
+    soundToggle.textContent = text;
+    soundToggle.setAttribute('aria-pressed', soundEnabled ? 'true' : 'false');
+  }
+  async function tryPlaySound() {
+    if (!bgm || !soundEnabled) return;
+    bgm.volume = 0.42;
+    try {
+      await bgm.play();
+      updateSoundLabel('sound on');
+    } catch (err) {
+      updateSoundLabel('sound click');
+    }
+  }
+  function setSound(on) {
+    soundEnabled = on;
+    if (!bgm) return;
+    if (on) {
+      tryPlaySound();
+    } else {
+      bgm.pause();
+      updateSoundLabel('sound off');
+    }
+  }
+  if (soundToggle) {
+    soundToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!bgm) return;
+      if (soundEnabled && !bgm.paused) setSound(false);
+      else setSound(true);
+    });
+  }
+  window.addEventListener('load', tryPlaySound);
+  window.addEventListener('pointerdown', tryPlaySound, { once: true });
+  window.addEventListener('keydown', tryPlaySound, { once: true });
+  const TAU = Math.PI * 2;
+  const seed = 20260603;
+  let w = 0, h = 0, dpr = 1, t = 0, paused = false, pulse = 0, emergency = 0;
+  const pointer = { x: 0.58, y: 0.52, active: false };
+
+  function mulberry32(a) {
+    return function() {
+      let x = a += 0x6D2B79F5;
+      x = Math.imul(x ^ x >>> 15, x | 1);
+      x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+      return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const rnd = mulberry32(seed);
+  const nodes = Array.from({ length: 39 }, (_, i) => {
+    const ring = i % 3;
+    const baseAngle = i / 39 * TAU + rnd() * 0.18;
+    return {
+      i, ring, angle: baseAngle, r: 0.22 + ring * 0.105 + rnd() * 0.035,
+      drift: 0.2 + rnd() * 1.15,
+      phase: rnd() * TAU,
+      patience: 0.34 + rnd() * 0.6,
+      hinge: 0.35 + rnd() * 0.65,
+      colorBias: rnd()
+    };
+  });
+
+  function resize() {
+    dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+    w = Math.floor(innerWidth * dpr);
+    h = Math.floor(innerHeight * dpr);
+    canvas.width = w; canvas.height = h;
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function lerp(a,b,p){ return a + (b-a)*p; }
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function pos(n, time) {
+    const cx = innerWidth * 0.5, cy = innerHeight * 0.535;
+    const scale = Math.min(innerWidth, innerHeight);
+    const wobble = 0.028 * Math.sin(time * n.drift + n.phase) + 0.012 * Math.sin(time * 0.41 + n.i);
+    const a = n.angle + 0.045 * Math.sin(time * 0.22 + n.phase);
+    return { x: cx + Math.cos(a) * scale * (n.r + wobble), y: cy + Math.sin(a) * scale * (n.r + wobble), a };
+  }
+
+  function drawBackground(time) {
+    const g = ctx.createRadialGradient(innerWidth*0.5, innerHeight*0.54, 10, innerWidth*0.5, innerHeight*0.54, Math.max(innerWidth, innerHeight)*0.75);
+    g.addColorStop(0, '#161c35'); g.addColorStop(0.45, '#0a1025'); g.addColorStop(1, '#050713');
+    ctx.fillStyle = g; ctx.fillRect(0,0,innerWidth,innerHeight);
+    ctx.save();
+    ctx.globalAlpha = 0.08;
+    ctx.strokeStyle = '#c7d6ff';
+    for (let r = 0; r < 7; r++) {
+      ctx.beginPath();
+      const rr = Math.min(innerWidth, innerHeight) * (0.16 + r * 0.068 + 0.008*Math.sin(time+r));
+      ctx.arc(innerWidth/2, innerHeight*0.535, rr, 0, TAU);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawDoor(time, approval, bureaucracy) {
+    const cx = innerWidth * 0.5, cy = innerHeight * 0.535;
+    const span = Math.min(innerWidth, innerHeight) * 0.25;
+    const open = 0.23 + approval * 0.36 - bureaucracy * 0.1 + Math.sin(time*0.9) * 0.02;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.lineCap = 'round';
+    ctx.shadowBlur = 24 + approval * 50;
+    ctx.shadowColor = `rgba(112, 226, 255, ${0.25 + approval*0.45})`;
+    ctx.strokeStyle = `rgba(169, 206, 255, ${0.24 + approval*0.45})`;
+    ctx.lineWidth = 2.2;
+    for (let k = -2; k <= 2; k++) {
+      ctx.beginPath();
+      ctx.moveTo(-span*0.16 + k*4, -span*0.84);
+      ctx.bezierCurveTo(-span*0.46, -span*0.33, -span*0.36, span*0.34, -span*open, span*0.78);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(span*0.16 - k*4, -span*0.84);
+      ctx.bezierCurveTo(span*0.46, -span*0.33, span*0.36, span*0.34, span*open, span*0.78);
+      ctx.stroke();
+    }
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = `rgba(255, 190, 116, ${0.10 + bureaucracy*0.22})`;
+    for (let y=-0.62; y<=0.62; y+=0.155) {
+      const width = span * (0.42 + bureaucracy*0.48);
+      ctx.fillRect(-width/2, span*y, width, 1.1 + bureaucracy*2.6);
+    }
+    ctx.restore();
+  }
+
+  function frame() {
+    if (!paused) t += 1/60;
+    emergency *= 0.965;
+    pulse = Math.max(pulse * 0.975, emergency);
+    drawBackground(t);
+    const px = pointer.x * innerWidth, py = pointer.y * innerHeight;
+    const positions = nodes.map(n => pos(n, t));
+    const approvals = nodes.map((n, idx) => {
+      const p = positions[idx];
+      const dist = Math.hypot(p.x-px, p.y-py) / Math.max(1, Math.min(innerWidth, innerHeight));
+      const influence = pointer.active ? Math.exp(-dist * 5.5) : 0.42;
+      const local = 0.5 + 0.5 * Math.sin(t*0.92 + n.phase + n.hinge * 2.4);
+      return clamp(local * 0.52 + influence * 0.58 + emergency * 0.45 - n.patience * 0.13, 0, 1);
+    });
+    const approval = approvals.filter(v => v > 0.58).length / nodes.length;
+    const bureaucracy = clamp((approvals.filter(v => v > 0.82).length / nodes.length - 0.31) * 2.4, 0, 1);
+    const quorum = approval > 0.46 ? clamp((approval - 0.46) * 2.4 + pulse * 0.35, 0, 1) : pulse * 0.4;
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < nodes.length; i++) {
+      const a = approvals[i];
+      if (a < 0.45) continue;
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = approvals[j];
+        const d = Math.hypot(positions[i].x-positions[j].x, positions[i].y-positions[j].y);
+        if (b > 0.45 && d < Math.min(innerWidth, innerHeight) * 0.24) {
+          const alpha = (a*b) * (1 - d/(Math.min(innerWidth, innerHeight)*0.24)) * (0.1 + quorum*0.36);
+          ctx.strokeStyle = `rgba(111, 225, 255, ${alpha})`;
+          ctx.lineWidth = lerp(0.35, 2.0, quorum);
+          ctx.beginPath(); ctx.moveTo(positions[i].x, positions[i].y); ctx.lineTo(positions[j].x, positions[j].y); ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+
+    drawDoor(t, quorum, bureaucracy);
+
+    const cx = innerWidth * 0.5, cy = innerHeight * 0.535;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (let ring = 0; ring < 4; ring++) {
+      const rr = Math.min(innerWidth, innerHeight) * (0.1 + ring*0.105 + ((t*0.06 + ring*0.18) % 0.105));
+      const alpha = Math.max(0, quorum * (1 - ring*0.16) * 0.28 - bureaucracy*0.06);
+      ctx.strokeStyle = `rgba(118, 238, 218, ${alpha})`;
+      ctx.lineWidth = 1.5 + quorum * 3;
+      ctx.beginPath(); ctx.arc(cx, cy, rr, 0, TAU); ctx.stroke();
+    }
+    ctx.restore();
+
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i], p = positions[i], a = approvals[i];
+      const hue = lerp(206, 40, bureaucracy * n.colorBias);
+      const radius = 3.5 + a*7 + (n.ring===0 ? 1.5 : 0);
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.a + Math.PI/2);
+      ctx.shadowBlur = 10 + a*30;
+      ctx.shadowColor = `hsla(${hue}, 95%, 66%, ${0.35 + a*0.45})`;
+      ctx.fillStyle = `hsla(${hue}, 88%, ${58 + a*18}%, ${0.62 + a*0.34})`;
+      ctx.strokeStyle = `rgba(255,255,255,${0.12 + a*0.24})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, -radius*1.25);
+      ctx.lineTo(radius*0.72, radius*0.62);
+      ctx.lineTo(-radius*0.72, radius*0.62);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.restore();
+    }
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(232,238,252,.72)';
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillText(`quorum ${(approval*100).toFixed(0)}%  ·  paperwork ${(bureaucracy*100).toFixed(0)}%`, 28, innerHeight - 28);
+    ctx.restore();
+    window.__artState = { approval, quorum, bureaucracy, nodeCount: nodes.length };
+    requestAnimationFrame(frame);
+  }
+
+  function saveStill() {
+    const a = document.createElement('a');
+    a.download = 'repair-quorum-still.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+  addEventListener('resize', resize);
+  addEventListener('mousemove', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true; });
+  addEventListener('mouseleave', () => { pointer.active = false; });
+  addEventListener('click', e => { pointer.x = e.clientX / innerWidth; pointer.y = e.clientY / innerHeight; pointer.active = true; emergency = 1; });
+  addEventListener('keydown', e => {
+    if (e.key === ' ') { e.preventDefault(); paused = !paused; }
+    if (e.key.toLowerCase() === 'r') { t = 0; emergency = 0; }
+    if (e.key.toLowerCase() === 's') saveStill();
+  });
+  resize();
+  window.__artReady = true;
+  requestAnimationFrame(frame);
+})();
+</script>
+
+
+
+</body>
+</html>
