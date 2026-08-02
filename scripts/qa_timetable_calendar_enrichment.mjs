@@ -270,7 +270,7 @@ try {
     for (const date of ["2026-05-07", "2026-07-06", "2026-07-26"]) {
       const [year, month] = date.split("-");
       const embedPage = await context.newPage();
-      await embedPage.goto(new URL(`archive/${year}/${month}/${date}/live/?embed=calendar`, archiveBaseUrl).href, { waitUntil: "load" });
+      await embedPage.goto(new URL(`archive/${year}/${month}/${date}/live/?embed=calendar`, archiveBaseUrl).href, { waitUntil: "commit" });
       await embedPage.locator("body.gh-chamber-embed").waitFor();
       await embedPage.waitForTimeout(300);
       const result = await embedPage.evaluate(() => {
@@ -302,7 +302,8 @@ try {
 
   await check("direct live page keeps its text, controls, and unforced media state", async () => {
     const directPage = await context.newPage();
-    await directPage.goto(new URL("archive/2026/07/2026-07-26/live/", archiveBaseUrl).href, { waitUntil: "load" });
+    await directPage.goto(new URL("archive/2026/07/2026-07-26/live/", archiveBaseUrl).href, { waitUntil: "commit" });
+    await directPage.waitForSelector("h1, .title", { state: "attached" });
     await directPage.waitForTimeout(300);
     const result = await directPage.evaluate(() => {
       const isVisible = (element) => {
