@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Verifiable Beauty</title>
+  <desc id="desc">A static cover image showing a luminous central form surrounded by measurement rings and evidence lines.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="48%" r="76%">
+      <stop offset="0%" stop-color="#f8f3df"/>
+      <stop offset="34%" stop-color="#d9ece7"/>
+      <stop offset="68%" stop-color="#233649"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff6f61"/>
+      <stop offset="48%" stop-color="#f4c430"/>
+      <stop offset="100%" stop-color="#6bd6c8"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.28" stroke="#f8f3df" stroke-width="1">
+    <path d="M140 450 C380 150 600 760 800 450 S1220 150 1460 450" fill="none"/>
+    <path d="M120 522 C380 222 600 832 800 522 S1220 222 1480 522" fill="none"/>
+    <path d="M120 378 C380 78 600 688 800 378 S1220 78 1480 378" fill="none"/>
+  </g>
+  <g transform="translate(800 450)">
+    <circle r="318" fill="none" stroke="#f8f3df" stroke-width="1.4" opacity="0.36"/>
+    <circle r="236" fill="none" stroke="#6bd6c8" stroke-width="1.2" opacity="0.42" stroke-dasharray="4 13"/>
+    <circle r="155" fill="none" stroke="#ff6f61" stroke-width="1.2" opacity="0.44" stroke-dasharray="18 10"/>
+    <g opacity="0.72">
+      <path d="M0,-250 C58,-132 185,-88 220,0 C132,58 88,185 0,220 C-58,132 -185,88 -220,0 C-132,-58 -88,-185 0,-250 Z" fill="url(#beam)" opacity="0.76"/>
+      <path d="M0,-198 C44,-96 132,-56 168,0 C96,44 56,132 0,168 C-44,96 -132,56 -168,0 C-96,-44 -56,-132 0,-198 Z" fill="#0d1117" opacity="0.24"/>
+    </g>
+    <g filter="url(#soft)" opacity="0.42">
+      <circle cx="-112" cy="-82" r="72" fill="#ff6f61"/>
+      <circle cx="128" cy="62" r="84" fill="#6bd6c8"/>
+      <circle cx="10" cy="-8" r="96" fill="#f4c430"/>
+    </g>
+    <g stroke="#0d1117" stroke-width="1.4" opacity="0.56">
+      <line x1="-420" y1="-188" x2="-138" y2="-64"/>
+      <line x1="396" y1="-128" x2="128" y2="-42"/>
+      <line x1="-382" y1="178" x2="-102" y2="52"/>
+      <line x1="382" y1="188" x2="96" y2="62"/>
+      <line x1="0" y1="-352" x2="0" y2="-148"/>
+      <line x1="0" y1="340" x2="0" y2="138"/>
+    </g>
+  </g>
+  <g font-family="Inter, Avenir, Helvetica, Arial, sans-serif" fill="#f8f3df">
+    <text x="88" y="102" font-size="54" font-weight="700">Verifiable Beauty</text>
+    <text x="90" y="146" font-size="22" opacity="0.72">Beauty may stay, but it must leave evidence.</text>
+    <g font-size="18" opacity="0.78">
+      <text x="148" y="720">proportion</text>
+      <text x="374" y="805">tension</text>
+      <text x="735" y="834">memory</text>
+      <text x="1052" y="805">constraint</text>
+      <text x="1320" y="720">repair</text>
+    </g>
+  </g>
+</svg>

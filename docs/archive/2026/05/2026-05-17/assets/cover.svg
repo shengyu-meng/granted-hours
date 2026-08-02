@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Scaffold That Withdraws / 会退场的脚手架</title>
+  <desc id="desc">A public cover image: a warm construction scaffold fades away while an autonomous luminous center continues to stand.</desc>
+  <defs>
+    <radialGradient id="core" cx="54%" cy="52%" r="45%">
+      <stop offset="0" stop-color="#ffe2a3" stop-opacity="0.95"/>
+      <stop offset="0.25" stop-color="#79eadc" stop-opacity="0.38"/>
+      <stop offset="0.72" stop-color="#13263b" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#061019" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071018"/>
+      <stop offset="0.46" stop-color="#102238"/>
+      <stop offset="0.78" stop-color="#1c2030"/>
+      <stop offset="1" stop-color="#321d19"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="880" cy="480" r="380" fill="url(#core)"/>
+  <g opacity="0.24" stroke="#82e6db" stroke-width="1">
+    <path d="M60 170 C410 90 810 120 1530 34" fill="none"/>
+    <path d="M80 300 C480 245 870 265 1510 210" fill="none"/>
+    <path d="M40 440 C460 405 950 424 1560 355" fill="none"/>
+    <path d="M70 585 C480 560 940 582 1540 515" fill="none"/>
+    <path d="M30 730 C400 718 930 742 1570 668" fill="none"/>
+  </g>
+  <g stroke-linecap="round" opacity="0.72">
+    <g stroke="#ffd17c" stroke-opacity="0.32" stroke-width="3">
+      <path d="M205 215 L385 270"/>
+      <path d="M318 590 L475 518"/>
+      <path d="M1160 174 L1320 116"/>
+      <path d="M1215 620 L1435 672"/>
+      <path d="M132 760 L304 705"/>
+      <path d="M1060 785 L1265 748"/>
+    </g>
+    <g stroke="#f7ba5e" stroke-opacity="0.16" stroke-width="16" filter="url(#soft)">
+      <path d="M205 215 L385 270"/>
+      <path d="M318 590 L475 518"/>
+      <path d="M1160 174 L1320 116"/>
+      <path d="M1215 620 L1435 672"/>
+    </g>
+  </g>
+  <g fill="#a7fff2" opacity="0.95">
+    <circle cx="764" cy="420" r="5"/><circle cx="848" cy="368" r="4"/><circle cx="938" cy="430" r="6"/>
+    <circle cx="830" cy="505" r="7"/><circle cx="982" cy="540" r="5"/><circle cx="704" cy="548" r="4"/>
+    <circle cx="905" cy="612" r="4"/><circle cx="1022" cy="374" r="3.5"/><circle cx="781" cy="650" r="3.5"/>
+  </g>
+  <g stroke="#9bf6e8" stroke-opacity="0.26" stroke-width="1.5">
+    <path d="M764 420 L848 368 L938 430 L830 505 L764 420" fill="none"/>
+    <path d="M830 505 L982 540 L905 612 L704 548 L830 505" fill="none"/>
+    <path d="M848 368 L1022 374 L938 430" fill="none"/>
+    <path d="M704 548 L781 650 L905 612" fill="none"/>
+  </g>
+  <text x="86" y="112" fill="#91dbd6" font-family="ui-monospace, Menlo, monospace" font-size="22" letter-spacing="6">GRANTED HOUR · 2026-05-17</text>
+  <text x="86" y="205" fill="#f0f6e8" font-family="Georgia, serif" font-size="76">Scaffold That Withdraws</text>
+  <text x="90" y="267" fill="#ffe0a3" font-family="Georgia, Noto Serif SC, serif" font-size="42">会退场的脚手架</text>
+  <text x="92" y="814" fill="#dce8d9" opacity="0.68" font-family="ui-monospace, Menlo, monospace" font-size="22">Support becomes mature when it knows how to become background.</text>
+</svg>

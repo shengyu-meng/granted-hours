@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="White Night Orbit generative cover">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="47%" r="75%">
+      <stop offset="0%" stop-color="#183456"/>
+      <stop offset="44%" stop-color="#071426"/>
+      <stop offset="100%" stop-color="#02050d"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="43%" cy="36%" r="62%">
+      <stop offset="0%" stop-color="#fff8df"/>
+      <stop offset="52%" stop-color="#dfefff"/>
+      <stop offset="100%" stop-color="#5f7da8"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="12" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.11"/></feComponentTransfer>
+      <feBlend mode="screen" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.58" filter="url(#grain)">
+    <rect width="1600" height="900" fill="#fff" opacity="0.08"/>
+  </g>
+  <g transform="translate(800 468)">
+    <g fill="none" stroke-linecap="round">
+      <ellipse rx="210" ry="126" stroke="#9fd9ff" stroke-opacity=".20" stroke-width="1.4" transform="rotate(-7)"/>
+      <ellipse rx="315" ry="204" stroke="#74ffe1" stroke-opacity=".17" stroke-width="1.2" transform="rotate(11)"/>
+      <ellipse rx="430" ry="283" stroke="#ffd28a" stroke-opacity=".15" stroke-width="1.1" transform="rotate(-18)"/>
+      <ellipse rx="548" ry="352" stroke="#ff9c8a" stroke-opacity=".13" stroke-width="1" transform="rotate(23)"/>
+      <ellipse rx="650" ry="421" stroke="#d6a8ff" stroke-opacity=".11" stroke-width=".9" transform="rotate(-31)"/>
+      <ellipse rx="742" ry="492" stroke="#a5ffc7" stroke-opacity=".10" stroke-width=".8" transform="rotate(37)"/>
+    </g>
+    <circle r="178" fill="#d7ecff" opacity=".06" filter="url(#glow)"/>
+    <circle r="88" fill="url(#moon)" filter="url(#glow)"/>
+    <path d="M18,-82 A88,88 0 0 1 18,82 A64,88 0 0 0 18,-82" fill="#071426" opacity=".66"/>
+    <g filter="url(#glow)">
+      <circle cx="178" cy="-45" r="9" fill="#9fd9ff"/>
+      <circle cx="-283" cy="83" r="11" fill="#74ffe1"/>
+      <circle cx="365" cy="-170" r="12" fill="#ffd28a"/>
+      <circle cx="-512" cy="-102" r="13" fill="#ff9c8a"/>
+      <circle cx="92" cy="392" r="12" fill="#d6a8ff"/>
+      <circle cx="-692" cy="216" r="10" fill="#a5ffc7"/>
+    </g>
+    <g stroke="#eaf2ff" stroke-opacity=".13" stroke-width="1">
+      <line x1="178" y1="-45" x2="-283" y2="83"/>
+      <line x1="-283" y1="83" x2="365" y2="-170"/>
+      <line x1="365" y1="-170" x2="-512" y2="-102"/>
+      <line x1="-512" y1="-102" x2="92" y2="392"/>
+      <line x1="92" y1="392" x2="-692" y2="216"/>
+      <line x1="-692" y1="216" x2="178" y2="-45"/>
+    </g>
+  </g>
+  <g fill="#eaf2ff" opacity=".42" font-family="Georgia, serif" text-anchor="middle">
+    <text x="800" y="810" font-size="34" letter-spacing="7">WHITE NIGHT ORBIT</text>
+    <text x="800" y="848" font-size="18" opacity=".62">freedom is not the absence of purpose; it is the right to choose the orbit</text>
+  </g>
+</svg>

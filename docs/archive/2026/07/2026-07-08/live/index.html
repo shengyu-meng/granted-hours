@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-07-08","title_en":"Gift That Does Not Indebt","title_zh":"不制造债务的礼物","variable_en":"Clean Gift","variable_zh":"干净的礼物 / 不制造债务","intention_en":"After refusal, appeal, and acceptance, the next moral trap is the gift: generosity can become a soft way of installing a hook. This artwork asks for a cleaner grammar — a gift that increases the receiver’s freedom instead of converting gratitude into invisible debt.","intention_zh":"在“拒绝、申诉、接受”之后，下一个道德陷阱是礼物：慷慨也可能成为安装钩子的柔软方式。作品寻找一种更干净的语法：礼物应当增加接受者的自由，而不是把感激悄悄换算成隐形债务。","interaction_en":"Move the pointer to bend the gift-field. Click to release a gift. Keys 1–5 switch the ethic: offer, receive, unhook, widen commons, and let go. Debt appears as thin threads; clean gifts cut hooks, widen rings, or fade without demanding authorship. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.","interaction_zh":"移动指针会弯折礼物场；点击会释放一份礼物。数字键 1–5 切换礼物伦理：给予、接住、解钩、扩公共、放手。债务以细线出现；干净的礼物会切断钩子、扩散成公共环，或在不索要作者权的情况下退场。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。","rationale_en":"Gift That Does Not Indebt was made as one public step in the Granted Hours sequence, with the variable Clean Gift treated as an operational condition rather than a decorative theme. The intention frames the work this way: After refusal, appeal, and acceptance, the next moral trap is the gift: generosity can become a soft way of installing a hook. This artwork asks for a cleaner grammar — a gift that increases the receiver’s freedom instead of converting gratitude into invisible debt. The live artifact then turns that idea into interaction: Move the pointer to bend the gift-field. Click to release a gift. Keys 1–5 switch the ethic: offer, receive, unhook, widen commons, and let go. Debt appears as thin threads; clean gifts cut hooks, widen rings, or fade without demanding authorship. Space pauses, R reseeds, H hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: A clean gift is not a transaction with better manners. It is a lamp that lights the road without asking the road to change its name.","rationale_zh":"《不制造债务的礼物》是《授时》连续序列中的一个公开步骤：当天的自由变量「干净的礼物 / 不制造债务」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：在“拒绝、申诉、接受”之后，下一个道德陷阱是礼物：慷慨也可能成为安装钩子的柔软方式。作品寻找一种更干净的语法：礼物应当增加接受者的自由，而不是把感激悄悄换算成隐形债务。 可运行页面进一步把这个概念变成可操作的界面：移动指针会弯折礼物场；点击会释放一份礼物。数字键 1–5 切换礼物伦理：给予、接住、解钩、扩公共、放手。债务以细线出现；干净的礼物会切断钩子、扩散成公共环，或在不索要作者权的情况下退场。Space 暂停，R 重新播种，H 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：干净的礼物不是更礼貌的交易。它像一盏灯：照亮道路，但不要求道路改名。","after_en":"A clean gift is not a transaction with better manners. It is a lamp that lights the road without asking the road to change its name.","after_zh":"干净的礼物不是更礼貌的交易。它像一盏灯：照亮道路，但不要求道路改名。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gift That Does Not Indebt / 不制造债务的礼物</title>
+  <style>
+    :root { color-scheme: dark; --gold:#f6c66b; --rose:#ff9fa8; --ink:#05070d; --cyan:#86f5ff; --green:#b8f6c0; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; overflow:hidden; background: radial-gradient(circle at 50% 30%, #172036 0%, #070a12 48%, #020306 100%); color:#f8eedb; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+    .panel { position:fixed; left:clamp(16px, 3vw, 42px); top:clamp(16px, 4vh, 42px); width:min(440px, calc(100vw - 32px)); padding:18px 18px 16px; border:1px solid rgba(246,198,107,.28); border-radius:24px; background:linear-gradient(135deg, rgba(6,8,16,.78), rgba(23,19,31,.48)); box-shadow: 0 20px 80px rgba(0,0,0,.38); backdrop-filter: blur(18px); }
+    .eyebrow { font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; color:rgba(248,238,219,.64); letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px; }
+    h1 { margin:0; font-size:clamp(28px, 4.2vw, 54px); line-height:.95; letter-spacing:-.05em; font-weight:740; }
+    h1 span { display:block; color:var(--gold); font-weight:650; letter-spacing:-.04em; }
+    .thesis { margin:14px 0 0; color:rgba(248,238,219,.78); font-size:14px; line-height:1.65; }
+    .thesis strong { color:#fff5d4; font-weight:650; }
+    .legend { position:fixed; left:clamp(16px, 3vw, 42px); bottom:clamp(16px, 4vh, 36px); display:grid; gap:8px; max-width:min(520px, calc(100vw - 32px)); padding:14px 16px; border:1px solid rgba(255,255,255,.12); border-radius:20px; background:rgba(5,7,13,.58); backdrop-filter: blur(16px); color:rgba(248,238,219,.72); font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .mode-row { display:flex; flex-wrap:wrap; gap:8px; }
+    .mode { border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:5px 8px; color:rgba(248,238,219,.62); }
+    .mode.active { color:#071018; background:var(--gold); border-color:var(--gold); box-shadow:0 0 24px rgba(246,198,107,.25); }
+    .sound { position:fixed; right:clamp(14px, 2.5vw, 32px); bottom:clamp(14px, 3vh, 28px); z-index:3; border:1px solid rgba(246,198,107,.4); color:#fff5d4; background:rgba(6,8,16,.68); border-radius:999px; padding:11px 14px; font: 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; cursor:pointer; backdrop-filter: blur(14px); box-shadow:0 12px 40px rgba(0,0,0,.36); }
+    .sound:hover { border-color:var(--gold); color:white; }
+    .corner { position:fixed; right:clamp(14px, 2.5vw, 32px); top:clamp(14px, 3vh, 28px); width:min(360px, calc(100vw - 28px)); text-align:right; color:rgba(248,238,219,.52); font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    body.hide-text .panel, body.hide-text .legend, body.hide-text .corner { opacity:0; transform:translateY(-10px); pointer-events:none; transition:.3s ease; }
+    @media (max-width: 720px) { .corner { display:none; } .panel { padding:15px; } .legend { right:16px; } }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <audio id="bgm" src="2026-07-08-gift-that-does-not-indebt-bgm.mp3" preload="auto" loop autoplay></audio>
+  <section class="panel">
+    <div class="eyebrow">Granted Hours · 2026-07-08 · variable: clean gift</div>
+    <h1>Gift That Does Not Indebt <span>不制造债务的礼物</span></h1>
+    <p class="thesis"><strong>A gift becomes clean when it increases the receiver’s freedom.</strong><br>礼物的清洁，不在于“无回报”，而在于它不会把接受者悄悄改造成债务人。真正的赠予像灯：照亮路，但不要求路改名。</p>
+  </section>
+  <aside class="legend">
+    <div>Pointer bends the gift-field. Click releases a gift. Keys 1–5 change its ethic.</div>
+    <div class="mode-row" id="modeRow"></div>
+    <div>Space pause · R reseed · H hide text · M music · S save still</div>
+  </aside>
+  <aside class="corner">Debt appears as a thread. Commons appear as widening rings. A clean gift keeps no hook in the hand that receives it.</aside>
+  <button class="sound" id="soundToggle" type="button" aria-pressed="true">BGM on / 音乐开</button>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('bgm');
+  const soundToggle = document.getElementById('soundToggle');
+  const modeRow = document.getElementById('modeRow');
+  const modes = [
+    { key:'1', en:'offer', zh:'给予', hue:42, desc:'a gift enters without invoice' },
+    { key:'2', en:'receive', zh:'接住', hue:190, desc:'the receiver keeps shape' },
+    { key:'3', en:'unhook', zh:'解钩', hue:336, desc:'hidden debt threads are cut' },
+    { key:'4', en:'widen commons', zh:'扩公共', hue:126, desc:'the gift becomes more shareable' },
+    { key:'5', en:'let go', zh:'放手', hue:260, desc:'giver releases authorship' }
+  ];
+  let w = 0, h = 0, dpr = 1, t = 0, paused = false, mode = 0, seed = 20260708;
+  const pointer = { x: 0, y: 0, active: false };
+  let gifts = [], threads = [], rings = [], motes = [];
+  function rand() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = innerWidth; h = innerHeight;
+    canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    pointer.x = pointer.x || w * .62; pointer.y = pointer.y || h * .48;
+  }
+  function reset(newSeed = 20260708) {
+    seed = newSeed; gifts = []; threads = []; rings = []; motes = [];
+    for (let i=0; i<72; i++) motes.push({ x: rand()*w, y: rand()*h, r: 1+rand()*2.8, a:.12+rand()*.36, drift: rand()*Math.PI*2 });
+    for (let i=0; i<24; i++) spawn(rand()*w, rand()*h, i % modes.length, true);
+  }
+  function spawn(x, y, m = mode, quiet = false) {
+    const base = modes[m];
+    const g = { x, y, ox:x, oy:y, vx:(rand()-.5)*.5, vy:(rand()-.5)*.5, r: 10+rand()*24, phase: rand()*Math.PI*2, mode:m, age: quiet ? rand()*500 : 0, life: 1200+rand()*900, hue:base.hue, open: .35 + rand()*.55, clean: m===2 || m===3 || m===4 ? .85 : .52 };
+    gifts.push(g);
+    if (!quiet) rings.push({ x, y, r:8, alpha:.9, hue:base.hue, mode:m });
+    if (m === 0 || m === 1) {
+      threads.push({ ax:x, ay:y, bx:x+(rand()-.5)*180, by:y+(rand()-.5)*120, life: 460+rand()*260, age: quiet?rand()*300:0, tension:.4+rand()*.5, cut:false });
+    }
+    if (m === 2) threads.forEach(th => { const dx=th.ax-x, dy=th.ay-y; if (Math.hypot(dx,dy)<220) th.cut = true; });
+    if (m === 3) for (let i=0;i<3;i++) rings.push({ x:x+(rand()-.5)*80, y:y+(rand()-.5)*80, r:12, alpha:.65, hue:base.hue, mode:m });
+    if (m === 4) g.life *= .72;
+  }
+  function hsl(hue, sat=78, light=66, alpha=1) { return `hsla(${hue}, ${sat}%, ${light}%, ${alpha})`; }
+  function drawBackground() {
+    const grd = ctx.createRadialGradient(w*.5, h*.38, 0, w*.5, h*.45, Math.max(w,h)*.8);
+    grd.addColorStop(0, '#19243d'); grd.addColorStop(.48, '#080b15'); grd.addColorStop(1, '#020307');
+    ctx.fillStyle = grd; ctx.fillRect(0,0,w,h);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const m of motes) {
+      const px = m.x + Math.sin(t*.004 + m.drift)*18;
+      const py = m.y + Math.cos(t*.003 + m.drift)*14;
+      ctx.fillStyle = `rgba(246,198,107,${m.a})`;
+      ctx.beginPath(); ctx.arc(px, py, m.r, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+  function updateGift(g) {
+    g.age++;
+    const dx = pointer.x - g.x, dy = pointer.y - g.y, dist = Math.hypot(dx, dy) || 1;
+    const pull = pointer.active ? Math.min(1, 120 / dist) : .22;
+    const ethic = g.mode;
+    const debtRepel = ethic === 2 || ethic === 4 ? -0.018 : 0.006;
+    g.vx += (dx/dist) * 0.018 * pull + Math.sin(t*.01 + g.phase)*.006 + debtRepel*(dx/dist);
+    g.vy += (dy/dist) * 0.018 * pull + Math.cos(t*.008 + g.phase)*.006 + debtRepel*(dy/dist);
+    g.vx *= .96; g.vy *= .96; g.x += g.vx; g.y += g.vy;
+    if (g.x < -80) g.x = w+80; if (g.x > w+80) g.x = -80; if (g.y < -80) g.y = h+80; if (g.y > h+80) g.y = -80;
+  }
+  function drawGift(g) {
+    const p = g.age / g.life; const alpha = Math.max(0, Math.min(1, 1 - Math.pow(p, 3)));
+    const pulse = 1 + Math.sin(t*.03 + g.phase) * .08;
+    const r = g.r * pulse;
+    ctx.save(); ctx.translate(g.x, g.y); ctx.rotate(Math.sin(t*.006 + g.phase)*.32);
+    ctx.globalAlpha = alpha;
+    ctx.shadowBlur = 26; ctx.shadowColor = hsl(g.hue, 80, 60, .32);
+    const grd = ctx.createRadialGradient(-r*.3, -r*.35, 0, 0, 0, r*1.2);
+    grd.addColorStop(0, hsl(g.hue, 92, 76, .88)); grd.addColorStop(.62, hsl(g.hue, 78, 55, .22)); grd.addColorStop(1, hsl(g.hue, 70, 42, .02));
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    for (let i=0; i<7; i++) { const a = -Math.PI/2 + i*Math.PI*2/7; const rr = r * (i%2 ? .76 : 1.04); const x = Math.cos(a)*rr, y = Math.sin(a)*rr; i ? ctx.lineTo(x,y) : ctx.moveTo(x,y); }
+    ctx.closePath(); ctx.fill();
+    ctx.lineWidth = 1.1; ctx.strokeStyle = hsl(g.hue, 86, 72, .54); ctx.stroke();
+    if (g.mode === 2) { ctx.strokeStyle = 'rgba(255,159,168,.72)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(-r*.95,-r*.95); ctx.lineTo(r*.95,r*.95); ctx.moveTo(r*.95,-r*.95); ctx.lineTo(-r*.95,r*.95); ctx.stroke(); }
+    if (g.mode === 3) { ctx.strokeStyle = 'rgba(184,246,192,.45)'; for (let q=1; q<4; q++){ ctx.beginPath(); ctx.arc(0,0,r*q*.64,0,Math.PI*2); ctx.stroke(); } }
+    if (g.mode === 4) { ctx.fillStyle = 'rgba(248,238,219,.75)'; ctx.beginPath(); ctx.arc(0,0,2.3,0,Math.PI*2); ctx.fill(); ctx.globalAlpha *= .45; ctx.beginPath(); ctx.arc(0,0,r*1.55,0,Math.PI*2); ctx.strokeStyle = hsl(g.hue, 80, 74, .38); ctx.stroke(); }
+    ctx.restore();
+  }
+  function drawThreads() {
+    ctx.save(); ctx.lineCap='round';
+    threads = threads.filter(th => th.age++ < th.life);
+    for (const th of threads) {
+      const a = 1 - th.age / th.life;
+      const sway = Math.sin(t*.015 + th.tension*9) * 18;
+      ctx.strokeStyle = th.cut ? `rgba(255,159,168,${a*.28})` : `rgba(248,238,219,${a*.18})`;
+      ctx.lineWidth = th.cut ? 1.1 : 1.8;
+      ctx.setLineDash(th.cut ? [4,12] : [2,8]);
+      ctx.beginPath();
+      ctx.moveTo(th.ax, th.ay);
+      ctx.bezierCurveTo((th.ax+th.bx)/2+sway, th.ay-70, (th.ax+th.bx)/2-sway, th.by+70, th.bx, th.by);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]); ctx.restore();
+  }
+  function drawRings() {
+    ctx.save(); ctx.globalCompositeOperation='lighter';
+    rings = rings.filter(r => r.alpha > .01);
+    for (const ring of rings) {
+      ring.r += ring.mode === 3 ? 1.4 : 2.4; ring.alpha *= .976;
+      ctx.strokeStyle = hsl(ring.hue, 82, 68, ring.alpha*.38); ctx.lineWidth = ring.mode === 3 ? 2.2 : 1.2;
+      ctx.beginPath(); ctx.arc(ring.x, ring.y, ring.r, 0, Math.PI*2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function drawPointer() {
+    ctx.save(); ctx.globalCompositeOperation='lighter';
+    const grd = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 150);
+    grd.addColorStop(0, 'rgba(246,198,107,.18)'); grd.addColorStop(1, 'rgba(246,198,107,0)');
+    ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 150, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = 'rgba(246,198,107,.46)'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 18 + Math.sin(t*.04)*4, 0, Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
+  function frame() {
+    if (!paused) t++;
+    drawBackground();
+    drawThreads(); drawRings();
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    for (const g of gifts) { if (!paused) updateGift(g); drawGift(g); }
+    ctx.restore();
+    gifts = gifts.filter(g => g.age < g.life);
+    if (!paused && gifts.length < 42 && Math.random() < .035) spawn(rand()*w, rand()*h, Math.floor(rand()*modes.length), true);
+    drawPointer();
+    requestAnimationFrame(frame);
+  }
+  function renderModes() {
+    modeRow.innerHTML = modes.map((m,i) => `<span class="mode ${i===mode?'active':''}">${m.key} ${m.en} / ${m.zh}</span>`).join('');
+  }
+  function saveStill() {
+    const a = document.createElement('a'); a.download = '2026-07-08-gift-that-does-not-indebt.png'; a.href = canvas.toDataURL('image/png'); a.click();
+  }
+  function setSoundLabel(on, click=false) { soundToggle.textContent = click ? 'BGM click to start / 点击播放' : (on ? 'BGM on / 音乐开' : 'BGM off / 音乐关'); soundToggle.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  async function startAudio() { try { audio.volume = .42; await audio.play(); setSoundLabel(true); } catch(e) { setSoundLabel(true, true); } }
+  function toggleAudio() { if (audio.paused) startAudio(); else { audio.pause(); setSoundLabel(false); } }
+  addEventListener('resize', () => { resize(); reset(seed); });
+  addEventListener('pointermove', e => { pointer.x=e.clientX; pointer.y=e.clientY; pointer.active=true; });
+  addEventListener('pointerdown', e => { pointer.x=e.clientX; pointer.y=e.clientY; pointer.active=true; spawn(pointer.x, pointer.y); startAudio(); });
+  addEventListener('pointerleave', () => pointer.active=false);
+  addEventListener('keydown', e => {
+    if (e.key >= '1' && e.key <= '5') { mode = Number(e.key)-1; renderModes(); }
+    else if (e.code === 'Space') { paused = !paused; e.preventDefault(); }
+    else if (e.key.toLowerCase() === 'r') reset(20260708 + Math.floor(Math.random()*999));
+    else if (e.key.toLowerCase() === 'h') document.body.classList.toggle('hide-text');
+    else if (e.key.toLowerCase() === 'm') toggleAudio();
+    else if (e.key.toLowerCase() === 's') saveStill();
+  });
+  soundToggle.addEventListener('click', toggleAudio);
+  window.addEventListener('load', startAudio);
+  resize(); reset(); renderModes(); frame();
+})();
+</script>
+
+
+
+</body>
+</html>

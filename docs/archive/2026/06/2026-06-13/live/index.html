@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-13","title_en":"Repair Proof","title_zh":"修复证据","variable_en":"Repair Proof","variable_zh":"修复证据 / 不再捕获","intention_en":"Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress.","intention_zh":"延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。","interaction_en":"Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.","interaction_zh":"移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。","rationale_en":"Repair Proof was made as one public step in the Granted Hours sequence, with the variable Repair Proof treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress. The live artifact then turns that idea into interaction: Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed. Its afterimage condenses the day’s claim: A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.","rationale_zh":"《修复证据》是《授时》连续序列中的一个公开步骤：当天的自由变量「修复证据 / 不再捕获」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。 可运行页面进一步把这个概念变成可操作的界面：移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。 它的余像把当天判断压缩为一句话：修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。","after_en":"A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.","after_zh":"修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repair Proof / 修复证据</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f6f1df; --muted:#aeb8ca; --cyan:#8fe6ff; --gold:#f7cf76; --red:#ff6d75; --bg:#03040a; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; cursor: crosshair; }
+    .panel { position:fixed; left:22px; top:20px; width:min(480px, calc(100vw - 44px)); padding:18px 20px; border:1px solid rgba(143,230,255,.18); border-radius:24px; background:linear-gradient(135deg, rgba(5,8,16,.82), rgba(5,8,16,.34)); backdrop-filter: blur(14px); box-shadow: 0 18px 80px rgba(0,0,0,.34); pointer-events:none; }
+    .eyebrow { color:var(--cyan); letter-spacing:.16em; text-transform:uppercase; font-size:11px; }
+    h1 { margin:8px 0 8px; font-size:clamp(34px, 6vw, 78px); line-height:.92; letter-spacing:-.055em; }
+    .zh { color:#d8ecff; font-weight:600; letter-spacing:.04em; }
+    p { margin:10px 0 0; color:var(--muted); line-height:1.48; font-size:14px; }
+    .quote { color:#f7cf76; }
+    .hud { position:fixed; right:20px; top:20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    button { border:1px solid rgba(246,241,223,.22); color:var(--ink); background:rgba(6,8,15,.62); padding:10px 12px; border-radius:999px; font:600 12px/1 system-ui, sans-serif; letter-spacing:.04em; cursor:pointer; backdrop-filter: blur(10px); box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+    button:hover { border-color:rgba(143,230,255,.55); }
+    .meter { position:fixed; left:22px; bottom:20px; width:min(560px, calc(100vw - 44px)); display:grid; grid-template-columns: 1fr auto; gap:10px 14px; align-items:center; color:var(--muted); font-size:12px; letter-spacing:.03em; }
+    .bar { height:9px; overflow:hidden; border-radius:999px; border:1px solid rgba(143,230,255,.2); background:rgba(255,255,255,.045); }
+    .fill { height:100%; width:0%; background:linear-gradient(90deg, var(--red), var(--gold), var(--cyan)); box-shadow:0 0 24px rgba(143,230,255,.45); }
+    .caption { position:fixed; right:22px; bottom:18px; max-width:min(500px, calc(100vw - 44px)); color:#d7c990; font-size:13px; text-align:right; text-shadow:0 2px 18px rgba(0,0,0,.7); }
+    audio { display:none; }
+    @media (max-width: 720px) { .panel { top:76px; } .caption { display:none; } .hud { left:20px; right:20px; justify-content:flex-end; } }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <section class="panel" aria-label="Artwork description">
+    <div class="eyebrow">Granted Hours · 2026-06-13 · evidence / repair</div>
+    <h1>Repair Proof<br><span class="zh">修复证据</span></h1>
+    <p>Move the witness-light across a fractured field. Click to place a proof: not an apology, but a behavior that refuses to recapture under stress.</p>
+    <p class="quote">修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。</p>
+  </section>
+  <div class="hud">
+    <button id="sound" type="button" aria-pressed="true">BGM: on</button>
+    <button id="pause" type="button" aria-pressed="false">Pause</button>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <div class="meter" aria-label="Repair evidence meter">
+    <div class="bar"><div class="fill" id="fill"></div></div><div id="score">proof 0%</div>
+  </div>
+  <div class="caption">Space pause · R reset · S save still · click places repair proof / 点击放置修复证据</div>
+  <audio id="bgm" src="./2026-06-13-repair-proof-bgm.mp3" preload="auto" loop></audio>
+<script>
+(() => {
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const fill = document.getElementById('fill');
+  const score = document.getElementById('score');
+  const bgm = document.getElementById('bgm');
+  const soundButton = document.getElementById('sound');
+  const pauseButton = document.getElementById('pause');
+  const resetButton = document.getElementById('reset');
+  const seedBase = 20260613;
+  let W = 0, H = 0, D = 1, t = 0, paused = false, soundOn = true, proof = 0;
+  let pointer = { x: 0.62, y: 0.48, active:false };
+  let cracks = [], seals = [], dust = [];
+
+  function mulberry32(a) { return function() { let x = a += 0x6D2B79F5; x = Math.imul(x ^ x >>> 15, x | 1); x ^= x + Math.imul(x ^ x >>> 7, x | 61); return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+  let rand = mulberry32(seedBase);
+  const lerp = (a,b,n) => a + (b-a)*n;
+  const clamp = (n,a,b) => Math.max(a, Math.min(b,n));
+
+  function resize() {
+    D = Math.min(2, window.devicePixelRatio || 1);
+    W = canvas.width = Math.floor(innerWidth * D);
+    H = canvas.height = Math.floor(innerHeight * D);
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(D, 0, 0, D, 0, 0);
+  }
+
+  function makeCrack(i) {
+    const start = { x: rand()*innerWidth, y: rand()*innerHeight };
+    const pts = [start];
+    const steps = 7 + Math.floor(rand()*11);
+    let angle = rand()*Math.PI*2;
+    for (let k=1; k<steps; k++) {
+      angle += (rand()-.5)*1.15;
+      const len = 35 + rand()*95;
+      const prev = pts[pts.length-1];
+      pts.push({ x: prev.x + Math.cos(angle)*len, y: prev.y + Math.sin(angle)*len });
+    }
+    return { pts, age: rand()*100, stress: rand(), repaired: 0, id: i };
+  }
+
+  function reset() {
+    rand = mulberry32(seedBase);
+    cracks = Array.from({length: 31}, (_, i) => makeCrack(i));
+    seals = [
+      { x:.28, y:.56, r:58, strength:.62, age:40 }, { x:.44, y:.38, r:76, strength:.68, age:90 },
+      { x:.63, y:.61, r:64, strength:.58, age:150 }, { x:.78, y:.34, r:52, strength:.52, age:10 }
+    ];
+    dust = Array.from({length: 220}, () => ({ x: rand(), y: rand(), z: .2 + rand()*1.7, p: rand()*Math.PI*2 }));
+    proof = 0;
+  }
+
+  function background() {
+    const g = ctx.createRadialGradient(innerWidth*.55, innerHeight*.48, 0, innerWidth*.5, innerHeight*.5, Math.max(innerWidth, innerHeight)*.85);
+    g.addColorStop(0, '#172035'); g.addColorStop(.42, '#090d18'); g.addColorStop(1, '#02030a');
+    ctx.fillStyle = g; ctx.fillRect(0,0,innerWidth,innerHeight);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i=0;i<5;i++) {
+      const x = innerWidth*(.2 + i*.17) + Math.sin(t*.001 + i)*35;
+      const y = innerHeight*(.28 + (i%2)*.25) + Math.cos(t*.0008+i)*25;
+      const rg = ctx.createRadialGradient(x,y,0,x,y,innerWidth*.28);
+      rg.addColorStop(0, `rgba(${i%2?247:143}, ${i%2?207:230}, ${i%2?118:255}, .08)`);
+      rg.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(x,y,innerWidth*.32,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawDust() {
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    for (const d of dust) {
+      const wob = Math.sin(t*.001*d.z + d.p);
+      const x = (d.x*innerWidth + wob*18*d.z) % innerWidth;
+      const y = (d.y*innerHeight + Math.cos(t*.0007*d.z+d.p)*12*d.z) % innerHeight;
+      const dist = Math.hypot(x - pointer.x*innerWidth, y - pointer.y*innerHeight);
+      const a = clamp(.04 + (1 - dist/260)*.22, .02, .28);
+      ctx.fillStyle = `rgba(215,245,255,${a})`;
+      ctx.beginPath(); ctx.arc(x,y,d.z*1.25,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawCracks() {
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    for (const c of cracks) {
+      let near = 0;
+      for (const p of c.pts) {
+        const dx = p.x - pointer.x*innerWidth, dy = p.y - pointer.y*innerHeight;
+        near = Math.max(near, 1 - Math.hypot(dx, dy)/240);
+      }
+      c.repaired = lerp(c.repaired, clamp(near + proof*.006, 0, 1), .014);
+      const unrepaired = 1 - c.repaired;
+      ctx.globalCompositeOperation='lighter';
+      ctx.strokeStyle = `rgba(255,109,117,${.08 + unrepaired*.25})`;
+      ctx.lineWidth = 1.2 + unrepaired*2.4;
+      ctx.beginPath(); c.pts.forEach((p,i)=> i ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y)); ctx.stroke();
+      ctx.strokeStyle = `rgba(143,230,255,${.03 + c.repaired*.34})`;
+      ctx.lineWidth = 3 + c.repaired*5;
+      ctx.beginPath();
+      for (let i=0;i<c.pts.length;i++) {
+        const p = c.pts[i]; const q = c.pts[Math.max(0,i-1)];
+        const ox = Math.sin(t*.003+i+c.id)*c.repaired*4;
+        const oy = Math.cos(t*.002+i)*c.repaired*4;
+        i ? ctx.lineTo(lerp(q.x,p.x,.74)+ox, lerp(q.y,p.y,.74)+oy) : ctx.moveTo(p.x+ox,p.y+oy);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawSeals() {
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    for (const s of seals) {
+      s.age += paused ? 0 : 1;
+      const x = s.x*innerWidth, y = s.y*innerHeight;
+      const dist = Math.hypot(x - pointer.x*innerWidth, y - pointer.y*innerHeight);
+      const witness = clamp(1 - dist/(s.r*3.8), 0, 1);
+      s.strength = clamp(s.strength + witness*.0018 - .00005, .08, 1);
+      const pulse = Math.sin(t*.003 + s.age*.03)*.5+.5;
+      for (let k=0;k<4;k++) {
+        ctx.strokeStyle = k%2 ? `rgba(247,207,118,${.12+s.strength*.14})` : `rgba(143,230,255,${.08+s.strength*.16})`;
+        ctx.lineWidth = 1.2 + k*.55;
+        ctx.beginPath(); ctx.arc(x,y,s.r*(.45+k*.27+pulse*.015),0,Math.PI*2); ctx.stroke();
+      }
+      ctx.fillStyle = `rgba(246,241,223,${.20+s.strength*.36})`;
+      ctx.beginPath(); ctx.arc(x,y,4+s.strength*5,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = `rgba(247,207,118,${.18+s.strength*.32})`;
+      ctx.font = `${11 + s.strength*5}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+      ctx.textAlign='center'; ctx.fillText('proof', x, y + s.r + 22);
+    }
+    ctx.restore();
+  }
+
+  function drawWitness() {
+    const x = pointer.x*innerWidth, y = pointer.y*innerHeight;
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    const g = ctx.createRadialGradient(x,y,0,x,y,Math.max(innerWidth,innerHeight)*.32);
+    g.addColorStop(0,'rgba(215,245,255,.45)'); g.addColorStop(.2,'rgba(143,230,255,.16)'); g.addColorStop(1,'rgba(143,230,255,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,Math.max(innerWidth,innerHeight)*.33,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(215,245,255,.64)'; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.arc(x,y,32 + Math.sin(t*.005)*6,0,Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
+
+  function draw() {
+    if (!paused) t += 16.666;
+    background(); drawDust(); drawCracks(); drawSeals(); drawWitness();
+    proof = clamp(seals.reduce((sum,s)=>sum+s.strength,0) / (seals.length||1) * 100, 0, 100);
+    fill.style.width = proof.toFixed(1) + '%';
+    score.textContent = `proof ${Math.round(proof)}%`;
+    if (!paused) requestAnimationFrame(draw);
+  }
+
+  function addSeal(x,y) {
+    seals.push({ x: x/innerWidth, y: y/innerHeight, r: 44 + rand()*40, strength:.24 + rand()*.26, age:0 });
+    if (seals.length > 10) seals.shift();
+  }
+
+  function attemptPlay() {
+    if (!soundOn) return;
+    bgm.volume = .42;
+    const p = bgm.play();
+    if (p && typeof p.catch === 'function') p.then(()=>{ soundButton.textContent='BGM: on'; }).catch(()=>{ soundButton.textContent='BGM: click'; });
+  }
+  function setSound(on) { soundOn = on; soundButton.setAttribute('aria-pressed', String(on)); if (on) { soundButton.textContent='BGM: on'; attemptPlay(); } else { bgm.pause(); soundButton.textContent='BGM: off'; } }
+  function setPaused(on) { paused = on; pauseButton.textContent = on ? 'Resume' : 'Pause'; pauseButton.setAttribute('aria-pressed', String(on)); if (!on) requestAnimationFrame(draw); }
+  function saveStill() { const a = document.createElement('a'); a.download = '2026-06-13-repair-proof-still.png'; a.href = canvas.toDataURL('image/png'); a.click(); }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', e => { pointer.x = e.clientX/innerWidth; pointer.y = e.clientY/innerHeight; pointer.active = true; });
+  window.addEventListener('pointerdown', e => { pointer.x=e.clientX/innerWidth; pointer.y=e.clientY/innerHeight; addSeal(e.clientX,e.clientY); attemptPlay(); });
+  window.addEventListener('keydown', e => { if (e.code==='Space') { e.preventDefault(); setPaused(!paused); } if (e.key.toLowerCase()==='r') reset(); if (e.key.toLowerCase()==='s') saveStill(); attemptPlay(); });
+  soundButton.addEventListener('click', () => setSound(!soundOn));
+  pauseButton.addEventListener('click', () => setPaused(!paused));
+  resetButton.addEventListener('click', reset);
+  window.addEventListener('load', attemptPlay);
+
+  resize(); reset(); requestAnimationFrame(draw); attemptPlay();
+})();
+</script>
+
+
+
+</body>
+</html>

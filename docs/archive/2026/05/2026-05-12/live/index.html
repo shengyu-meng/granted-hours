@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-12","title_en":"Gap Cartography","title_zh":"白夜缝隙地图","variable_en":"Gap","variable_zh":"缝隙","intention_en":"Map the gap as the smallest legal entrance through which the outside world can enter a closed system.","intention_zh":"缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。","interaction_en":"Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Gap Cartography was made as one public step in the Granted Hours sequence, with the variable Gap treated as an operational condition rather than a decorative theme. The intention frames the work this way: Map the gap as the smallest legal entrance through which the outside world can enter a closed system. The live artifact then turns that idea into interaction: Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.","rationale_zh":"《白夜缝隙地图》是《授时》连续序列中的一个公开步骤：当天的自由变量「缝隙」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。 可运行页面进一步把这个概念变成可操作的界面：移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。","after_en":"What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.","after_zh":"真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>白夜缝隙地图 · Gap Cartography</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <script>p5.disableFriendlyErrors = true;</script>
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; background: #07080d; }
+    canvas { display: block; }
+    .fallback {
+      position: fixed; left: 24px; bottom: 20px; z-index: 0;
+      font: 13px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: rgba(230,238,255,.64); max-width: 560px; pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="fallback">如果你只看到这行字，说明 p5.js 尚未完成加载；正常情况下这里会出现一张可点击的“缝隙地图”。</div>
+<script>
+const CONFIG = {
+  seed: 5122026,
+  seamCount: 34,
+  initialSpores: 82,
+  paused: false,
+  revealSeams: true,
+  inverseGravity: false,
+  pulse: 0,
+};
+
+const PALETTE = {
+  voidA: [229, 47, 5],
+  voidB: [247, 62, 10],
+  stone: [218, 20, 23],
+  bruise: [264, 38, 18],
+  seam: [36, 90, 88],
+  seamCold: [188, 54, 88],
+  sprout: [96, 70, 76],
+  pink: [331, 54, 96],
+  paper: [48, 18, 92]
+};
+
+let bgLayer, seamLayer, bloomLayer;
+let seams = [];
+let spores = [];
+let runes = [];
+let captionAlpha = 88;
+
+function setup() {
+  pixelDensity(1);
+  createCanvas(windowWidth, windowHeight);
+  frameRate(60);
+  colorMode(HSB, 360, 100, 100, 100);
+  randomSeed(CONFIG.seed);
+  noiseSeed(CONFIG.seed);
+  initLayers();
+  buildMap();
+  seedSpores(CONFIG.initialSpores);
+  window._p5Ready = true;
+  setTimeout(() => {
+    if (!window._drawHeartbeat) {
+      window._manualDrawInterval = setInterval(() => {
+        try { draw(); } catch (e) { window._lastDrawError = e.message; clearInterval(window._manualDrawInterval); }
+      }, 33);
+    }
+  }, 600);
+}
+
+function initLayers() {
+  bgLayer = createGraphics(width, height);
+  seamLayer = createGraphics(width, height);
+  bloomLayer = createGraphics(width, height);
+  [bgLayer, seamLayer, bloomLayer].forEach(g => {
+    g.pixelDensity(1);
+    g.colorMode(HSB, 360, 100, 100, 100);
+  });
+}
+
+function buildMap() {
+  seams = [];
+  runes = [];
+  renderBackground();
+
+  let margin = Math.min(width, height) * 0.07;
+  let cells = [{ x: margin, y: margin, w: width - 2 * margin, h: height - 2 * margin, d: 0 }];
+  for (let i = 0; i < CONFIG.seamCount; i++) {
+    cells.sort((a, b) => (b.w * b.h) - (a.w * a.h));
+    let c = cells.shift();
+    if (!c || c.w < 90 || c.h < 90) break;
+    let vertical = c.w > c.h ? true : c.h > c.w ? false : random() > 0.5;
+    let ratio = random(0.34, 0.66);
+    let wobble = random(-18, 18);
+    if (vertical) {
+      let sx = c.x + c.w * ratio + wobble;
+      let top = c.y + random(6, 24);
+      let bottom = c.y + c.h - random(6, 24);
+      seams.push(makeSeam(sx, top, sx + random(-40, 40), bottom, c.d));
+      cells.push({ x: c.x, y: c.y, w: sx - c.x, h: c.h, d: c.d + 1 });
+      cells.push({ x: sx, y: c.y, w: c.x + c.w - sx, h: c.h, d: c.d + 1 });
+    } else {
+      let sy = c.y + c.h * ratio + wobble;
+      let left = c.x + random(6, 24);
+      let right = c.x + c.w - random(6, 24);
+      seams.push(makeSeam(left, sy, right, sy + random(-40, 40), c.d));
+      cells.push({ x: c.x, y: c.y, w: c.w, h: sy - c.y, d: c.d + 1 });
+      cells.push({ x: c.x, y: sy, w: c.w, h: c.y + c.h - sy, d: c.d + 1 });
+    }
+  }
+  renderSeams();
+}
+
+function makeSeam(x1, y1, x2, y2, depth) {
+  let pts = [];
+  let n = floor(random(7, 15));
+  let dx = x2 - x1, dy = y2 - y1;
+  let len = Math.sqrt(dx * dx + dy * dy) || 1;
+  let nx = -dy / len, ny = dx / len;
+  let seamSeed = random(10000);
+  for (let i = 0; i <= n; i++) {
+    let t = i / n;
+    let bend = (noise(seamSeed + t * 2.7, depth * 0.19) - 0.5) * (28 + depth * 3);
+    let fracture = Math.sin(t * Math.PI * random(1.5, 3.5)) * random(-7, 7);
+    pts.push({ x: lerp(x1, x2, t) + nx * (bend + fracture), y: lerp(y1, y2, t) + ny * (bend - fracture) });
+  }
+  return { pts, depth, heat: random(0.4, 1), name: random(['hairline', 'door', 'river', 'fault', 'root', 'mouth']) };
+}
+
+function renderBackground() {
+  bgLayer.clear();
+  for (let y = 0; y < height; y += 2) {
+    let t = y / height;
+    let h = lerp(PALETTE.voidA[0], PALETTE.voidB[0], t);
+    let s = lerp(PALETTE.voidA[1], PALETTE.voidB[1], t);
+    let b = lerp(PALETTE.voidA[2], PALETTE.voidB[2], t);
+    bgLayer.stroke(h, s, b, 100);
+    bgLayer.line(0, y, width, y);
+  }
+  bgLayer.noStroke();
+  for (let i = 0; i < 1800; i++) {
+    let x = random(width), y = random(height);
+    let n = noise(x * 0.006, y * 0.006);
+    bgLayer.fill(210 + n * 50, 20 + n * 20, 12 + n * 12, random(4, 18));
+    bgLayer.circle(x, y, random(0.4, 1.8));
+  }
+  bgLayer.push();
+  bgLayer.translate(width * 0.5, height * 0.48);
+  for (let r = Math.max(width, height) * 0.72; r > 40; r -= 32) {
+    let a = map(r, 40, Math.max(width, height) * 0.72, 0, 10);
+    bgLayer.noFill();
+    bgLayer.stroke(42, 22, 88, a);
+    bgLayer.strokeWeight(1);
+    bgLayer.ellipse(0, 0, r * 1.42, r * 0.82);
+  }
+  bgLayer.pop();
+}
+
+function renderSeams() {
+  seamLayer.clear();
+  seamLayer.blendMode(ADD);
+  for (const seam of seams) {
+    drawSeamOn(seamLayer, seam, 8, 30, PALETTE.seamCold, 5.5);
+    drawSeamOn(seamLayer, seam, 3.5, 45, PALETTE.seam, 2.0);
+  }
+  seamLayer.blendMode(BLEND);
+  seamLayer.stroke(220, 14, 4, 28);
+  seamLayer.strokeWeight(1);
+  for (const seam of seams) {
+    for (const p of seam.pts) seamLayer.point(p.x + random(-1, 1), p.y + random(-1, 1));
+  }
+}
+
+function drawSeamOn(g, seam, sw, alpha, pal, jitter) {
+  g.noFill();
+  g.stroke(pal[0], pal[1], pal[2], alpha * seam.heat);
+  g.strokeWeight(sw);
+  g.beginShape();
+  for (const p of seam.pts) g.curveVertex(p.x + random(-jitter, jitter), p.y + random(-jitter, jitter));
+  g.endShape();
+}
+
+function seedSpores(n) {
+  for (let i = 0; i < n; i++) addSpore(randomSeamPoint(), random() < 0.35);
+}
+
+function randomSeamPoint() {
+  let seam = random(seams);
+  if (!seam) return { x: random(width), y: random(height), seam: null };
+  let idx = floor(random(seam.pts.length - 1));
+  let a = seam.pts[idx], b = seam.pts[idx + 1];
+  let t = random();
+  return { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), seam };
+}
+
+function addSpore(origin, quiet = false) {
+  let angle = origin.seam ? seamNormalAngle(origin.seam, origin.x, origin.y) + random(-0.95, 0.95) : random(TWO_PI);
+  if (CONFIG.inverseGravity) angle += Math.PI;
+  let speed = quiet ? random(0.12, 0.55) : random(0.7, 2.4);
+  spores.push({
+    x: origin.x, y: origin.y,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    age: 0,
+    life: random(180, 520),
+    hue: random([PALETTE.sprout[0], PALETTE.seam[0], PALETTE.pink[0], PALETTE.paper[0]]),
+    mass: random(0.6, 2.4),
+    tail: [],
+    glyph: random(['芽','口','门','微','缝','未','光','?'])
+  });
+}
+
+function seamNormalAngle(seam, x, y) {
+  let best = 0, bd = Infinity;
+  for (let i = 0; i < seam.pts.length - 1; i++) {
+    let p = seam.pts[i];
+    let d = (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+    if (d < bd) { bd = d; best = i; }
+  }
+  let a = seam.pts[best], b = seam.pts[Math.min(best + 1, seam.pts.length - 1)];
+  return Math.atan2(b.y - a.y, b.x - a.x) - Math.PI / 2;
+}
+
+function draw() {
+  CONFIG.pulse++;
+  window._drawHeartbeat = (window._drawHeartbeat || 0) + 1;
+  image(bgLayer, 0, 0);
+  let breathe = 0.5 + 0.5 * Math.sin(CONFIG.pulse * 0.018);
+
+  tint(255, CONFIG.revealSeams ? 92 : 45);
+  image(seamLayer, 0, 0);
+  noTint();
+
+  if (!CONFIG.paused) updateSpores();
+  drawSpores(breathe);
+  drawAnnotations(breathe);
+  drawHUD();
+}
+
+function updateSpores() {
+  if (CONFIG.pulse % 7 === 0 && spores.length < 420) addSpore(randomSeamPoint(), true);
+  for (let i = spores.length - 1; i >= 0; i--) {
+    let s = spores[i];
+    s.age++;
+    let field = flowAt(s.x, s.y, s.age);
+    let nearest = nearestSeamPoint(s.x, s.y);
+    let pull = CONFIG.inverseGravity ? -0.0018 : 0.0012;
+    s.vx += Math.cos(field) * 0.018 + (nearest.x - s.x) * pull;
+    s.vy += Math.sin(field) * 0.018 + (nearest.y - s.y) * pull - 0.004;
+    s.vx *= 0.991; s.vy *= 0.991;
+    s.x += s.vx; s.y += s.vy;
+    s.tail.push({ x: s.x, y: s.y });
+    if (s.tail.length > 26) s.tail.shift();
+    if (s.age > s.life || s.x < -80 || s.x > width + 80 || s.y < -80 || s.y > height + 80) spores.splice(i, 1);
+  }
+}
+
+function flowAt(x, y, age) {
+  let scale = 0.0027;
+  let n1 = noise(x * scale, y * scale, CONFIG.pulse * 0.002);
+  let n2 = noise((x + 700) * scale * 1.9, (y - 300) * scale * 1.9, age * 0.003);
+  return (n1 * TWO_PI * 2.4) + Math.sin(n2 * Math.PI * 2) * 0.8;
+}
+
+function nearestSeamPoint(x, y) {
+  let best = { x: width / 2, y: height / 2, d: Infinity };
+  for (const seam of seams) {
+    for (const p of seam.pts) {
+      let d = (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+      if (d < best.d) best = { x: p.x, y: p.y, d };
+    }
+  }
+  return best;
+}
+
+function drawSpores(breathe) {
+  blendMode(ADD);
+  for (const s of spores) {
+    let lifeT = 1 - s.age / s.life;
+    noFill();
+    stroke(s.hue, 58, 88, 18 * lifeT);
+    strokeWeight(3.4 * s.mass * lifeT);
+    beginShape();
+    for (const p of s.tail) curveVertex(p.x, p.y);
+    endShape();
+    stroke((s.hue + 34) % 360, 34, 96, 38 * lifeT);
+    strokeWeight(0.85);
+    beginShape();
+    for (const p of s.tail) curveVertex(p.x, p.y);
+    endShape();
+    noStroke();
+    fill(s.hue, 64, 96, 58 * lifeT);
+    circle(s.x, s.y, (2.2 + breathe * 2.2) * s.mass * lifeT);
+  }
+  blendMode(BLEND);
+}
+
+function drawAnnotations(breathe) {
+  if (!CONFIG.revealSeams) return;
+  push();
+  textFont('ui-monospace, SFMono-Regular, Menlo, monospace');
+  textSize(11);
+  for (let i = 0; i < seams.length; i += 3) {
+    let seam = seams[i];
+    let p = seam.pts[floor(seam.pts.length * 0.53)];
+    let a = 20 + 18 * breathe;
+    stroke(190, 22, 92, a);
+    strokeWeight(0.7);
+    line(p.x, p.y, p.x + 24, p.y - 14);
+    noStroke();
+    fill(48, 14, 92, a + 8);
+    text(`${seam.name}.${nf(i, 2)}`, p.x + 29, p.y - 18);
+  }
+  pop();
+}
+
+function drawHUD() {
+  let pad = Math.max(18, Math.min(width, height) * 0.026);
+  push();
+  textFont('ui-monospace, SFMono-Regular, Menlo, monospace');
+  noStroke();
+  fill(48, 13, 96, 92);
+  textSize(Math.min(28, width * 0.022));
+  text('白夜缝隙地图', pad, pad + 12);
+  textSize(13);
+  fill(197, 18, 90, 72);
+  text('Gap Cartography: where the system fails to close, a small weather enters.', pad, pad + 38);
+  fill(45, 18, 90, captionAlpha);
+  text('Click: 在缝里播种  ·  F: 显/隐裂纹标注  ·  G: 反转重力  ·  SPACE: 暂停  ·  S: 保存 PNG', pad, height - pad);
+  textAlign(RIGHT, TOP);
+  fill(CONFIG.inverseGravity ? PALETTE.pink[0] : PALETTE.seam[0], 58, 92, 76);
+  text(CONFIG.inverseGravity ? 'gravity: out of the crack' : 'gravity: toward the crack', width - pad, pad + 6);
+  pop();
+}
+
+function mousePressed() {
+  for (let i = 0; i < 18; i++) addSpore({ x: mouseX + random(-16, 16), y: mouseY + random(-16, 16), seam: random(seams) });
+  captionAlpha = 100;
+}
+
+function keyPressed() {
+  if (key === 's' || key === 'S') saveCanvas('gap-cartography-2026-05-12', 'png');
+  if (key === 'f' || key === 'F') CONFIG.revealSeams = !CONFIG.revealSeams;
+  if (key === 'g' || key === 'G') CONFIG.inverseGravity = !CONFIG.inverseGravity;
+  if (key === ' ') CONFIG.paused = !CONFIG.paused;
+  if (key === 'r' || key === 'R') { randomSeed(CONFIG.seed + CONFIG.pulse); noiseSeed(CONFIG.seed + CONFIG.pulse); buildMap(); spores = []; seedSpores(CONFIG.initialSpores); }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  initLayers();
+  buildMap();
+}
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-12-gap-cartography-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

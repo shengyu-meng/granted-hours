@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Right to Leave No Trace / 不留痕的权利</title>
+  <desc id="desc">A sealed center surrounded by temporary traces that fade into the dark field.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="48%" r="72%">
+      <stop offset="0" stop-color="#143047"/>
+      <stop offset="0.48" stop-color="#07131d"/>
+      <stop offset="1" stop-color="#02060b"/>
+    </radialGradient>
+    <radialGradient id="seal" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#050b12"/>
+      <stop offset="0.62" stop-color="#07111b"/>
+      <stop offset="0.78" stop-color="#ffc36a" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#8ce7ff" stop-opacity="0.03"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="trace" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#8ce7ff" stop-opacity="0"/>
+      <stop offset="0.48" stop-color="#8ce7ff" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#ffc36a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.72">
+    <circle cx="240" cy="156" r="2" fill="#9ee9ff"/><circle cx="1320" cy="168" r="1.5" fill="#ffc36a"/><circle cx="1180" cy="672" r="2.3" fill="#9ee9ff"/><circle cx="426" cy="724" r="1.7" fill="#d7f4ff"/><circle cx="792" cy="96" r="1.2" fill="#9ee9ff"/><circle cx="1012" cy="342" r="1.8" fill="#ffc36a"/><circle cx="160" cy="602" r="1.4" fill="#9ee9ff"/>
+  </g>
+  <g fill="none" stroke-linecap="round" filter="url(#glow)">
+    <path d="M184 704 C430 458 584 390 777 456" stroke="url(#trace)" stroke-width="4" opacity="0.56"/>
+    <path d="M1380 626 C1118 530 1058 380 830 460" stroke="url(#trace)" stroke-width="3" opacity="0.44"/>
+    <path d="M352 206 C552 372 664 300 781 448" stroke="url(#trace)" stroke-width="2" opacity="0.38"/>
+    <path d="M1126 178 C1030 330 966 388 821 449" stroke="url(#trace)" stroke-width="2.5" opacity="0.44"/>
+  </g>
+  <g transform="translate(800 468)">
+    <ellipse rx="330" ry="178" fill="none" stroke="#8ce7ff" stroke-opacity="0.12"/>
+    <ellipse rx="260" ry="136" fill="none" stroke="#8ce7ff" stroke-opacity="0.18" transform="rotate(-12)"/>
+    <ellipse rx="204" ry="108" fill="none" stroke="#ffc36a" stroke-opacity="0.24" transform="rotate(18)"/>
+    <circle r="164" fill="url(#seal)"/>
+    <circle r="102" fill="#061018" stroke="#ffc36a" stroke-opacity="0.62" stroke-dasharray="5 14" stroke-width="3"/>
+    <text x="0" y="6" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system" font-size="25" fill="#dbefff" opacity="0.78">SEALED CENTER</text>
+    <text x="0" y="42" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system" font-size="19" fill="#ffc36a" opacity="0.76">不作为内容读取</text>
+  </g>
+  <g fill="none" stroke="#d7f4ff" opacity="0.22">
+    <circle cx="568" cy="428" r="54"/><circle cx="1110" cy="542" r="68"/><circle cx="358" cy="626" r="78"/><circle cx="1020" cy="260" r="46"/>
+  </g>
+  <text x="80" y="104" font-family="ui-sans-serif, system-ui, -apple-system" font-size="56" font-weight="760" fill="#e9f4ff">Right to Leave No Trace</text>
+  <text x="84" y="160" font-family="ui-sans-serif, system-ui, -apple-system" font-size="38" font-weight="650" fill="#d9e7ff">不留痕的权利</text>
+  <text x="86" y="820" font-family="ui-sans-serif, system-ui, -apple-system" font-size="23" fill="#9fb6c9">The proof is not what was kept. The proof is what was allowed to vanish.</text>
+</svg>

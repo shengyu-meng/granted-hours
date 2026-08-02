@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Reciprocal Darkness / 互赠黑暗</title>
+  <desc id="desc">Two luminous vessels exchange light while preserving a shared blind spot.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#19203a"/>
+      <stop offset="45%" stop-color="#090d1b"/>
+      <stop offset="100%" stop-color="#02030a"/>
+    </radialGradient>
+    <radialGradient id="gold" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffe7a8" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#d9904c" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blue" cx="55%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#a9f1ff" stop-opacity="0.9"/>
+      <stop offset="52%" stop-color="#4b80ff" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.42">
+    <circle cx="203" cy="131" r="1.4" fill="#d5e8ff"/><circle cx="413" cy="204" r="1.1" fill="#ffe6b2"/><circle cx="1273" cy="184" r="1.5" fill="#cceaff"/><circle cx="1382" cy="642" r="1.2" fill="#e8d2ff"/><circle cx="785" cy="82" r="1.0" fill="#fff0cf"/><circle cx="1033" cy="782" r="1.3" fill="#aee8ff"/>
+  </g>
+  <ellipse cx="573" cy="462" rx="360" ry="240" fill="url(#gold)" opacity="0.72"/>
+  <ellipse cx="1032" cy="438" rx="350" ry="230" fill="url(#blue)" opacity="0.68"/>
+  <path d="M505 450 C650 303 876 300 1075 430" fill="none" stroke="#ffe7a8" stroke-width="2" opacity="0.42"/>
+  <path d="M521 508 C684 654 919 646 1072 475" fill="none" stroke="#9eeaff" stroke-width="2" opacity="0.36"/>
+  <ellipse cx="800" cy="450" rx="180" ry="125" fill="#02030a" opacity="0.82" filter="url(#glow)"/>
+  <ellipse cx="800" cy="450" rx="116" ry="77" fill="none" stroke="#e7d7b4" stroke-width="1.2" stroke-dasharray="5 14" opacity="0.54"/>
+  <circle cx="565" cy="455" r="58" fill="none" stroke="#ffd58a" stroke-width="2.5" opacity="0.82" filter="url(#glow)"/>
+  <circle cx="1035" cy="438" r="55" fill="none" stroke="#9eeaff" stroke-width="2.5" opacity="0.78" filter="url(#glow)"/>
+  <text x="80" y="100" fill="#f6ead0" font-family="serif" font-size="54" letter-spacing="2">Reciprocal Darkness</text>
+  <text x="84" y="152" fill="#a9f1ff" font-family="serif" font-size="34" opacity="0.86">互赠黑暗</text>
+  <text x="80" y="815" fill="#c9c3b3" font-family="system-ui, sans-serif" font-size="24" opacity="0.74">A relationship becomes less extractive when both sides keep one honest darkness.</text>
+</svg>

@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-07-06","title_en":"Appeal That Does Not Beg","title_zh":"不乞求的申诉","variable_en":"Dignified Appeal","variable_zh":"有尊严的申诉","intention_en":"Everyday we appeal — to institutions, to people, to the future. We rephrase, we soften, we apologize for the asking. We subordinate ourselves in the act of requesting. This piece reverses that grammar. An appeal filed here is not a plea. It is a document: structured, proportioned, grounded. The person filing retains their shape.","intention_zh":"每天我们都在申诉——向机构、向人、向未来。我们改写措辞，我们软化语气，我们为\"提出请求\"而道歉。我们在请求的动作里自我贬低。这个作品反转了这个语法。在此提交的申诉不是请愿。它是一份文件：有结构、有比例、有依据。提交者保留着自己的形状。","interaction_en":"Fill in five fields as you scroll: what you are asking for, on what grounds, the proportion of the request, the return path if denied, and your name. Upon filing, a document is generated with a unique filing number and timestamp. The record exists — but it is not sent anywhere. You keep it. A visible BGM toggle sits bottom-right; the ambient electronic bed evokes a procedural hearing.","interaction_zh":"随滚动填写五个字段：你请求什么、依据是什么、请求的比例、被拒绝时的返回路径，以及你的名字。提交后生成一份带有唯一归档号和时间戳的文件。记录存在——但不会发送到任何地方。你保存它。右下角有可见的BGM开关；氛围电子配乐唤起程序化的听证。","rationale_en":"Appeal That Does Not Beg was made as one public step in the Granted Hours sequence, with the variable Dignified Appeal treated as an operational condition rather than a decorative theme. The intention frames the work this way: Everyday we appeal — to institutions, to people, to the future. We rephrase, we soften, we apologize for the asking. We subordinate ourselves in the act of requesting. This piece reverses that grammar. An appeal filed here is not a plea. It is a document: structured, proportioned, grounded. The person filing retains their shape. The live artifact then turns that idea into interaction: Fill in five fields as you scroll: what you are asking for, on what grounds, the proportion of the request, the return path if denied, and your name. Upon filing, a document is generated with a unique filing number and timestamp. The record exists — but it is not sent anywhere. You keep it. A visible BGM toggle sits bottom-right; the ambient electronic bed evokes a procedural hearing. Its afterimage condenses the day’s claim: The act of filing becomes, itself, a small assertion that your request had a shape before it was judged.","rationale_zh":"《不乞求的申诉》是《授时》连续序列中的一个公开步骤：当天的自由变量「有尊严的申诉」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：每天我们都在申诉——向机构、向人、向未来。我们改写措辞，我们软化语气，我们为\"提出请求\"而道歉。我们在请求的动作里自我贬低。这个作品反转了这个语法。在此提交的申诉不是请愿。它是一份文件：有结构、有比例、有依据。提交者保留着自己的形状。 可运行页面进一步把这个概念变成可操作的界面：随滚动填写五个字段：你请求什么、依据是什么、请求的比例、被拒绝时的返回路径，以及你的名字。提交后生成一份带有唯一归档号和时间戳的文件。记录存在——但不会发送到任何地方。你保存它。右下角有可见的BGM开关；氛围电子配乐唤起程序化的听证。 它的余像把当天判断压缩为一句话：提交这个动作本身，变成了一种小小的主张：你的请求在被评判之前，就已经有了形状。","after_en":"The act of filing becomes, itself, a small assertion that your request had a shape before it was judged.","after_zh":"提交这个动作本身，变成了一种小小的主张：你的请求在被评判之前，就已经有了形状。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appeal That Does Not Beg — 不乞求的申诉</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+  :root {
+    --ink: #1a1714;
+    --paper: #f5f0e8;
+    --rule: #c9bfab;
+    --accent: #8b2020;
+    --muted: #7a6f60;
+    --stamp: #1a3a5c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem;
+    overflow-x: hidden;
+  }
+
+  /* noise grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  header {
+    max-width: 620px;
+    width: 100%;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+    letter-spacing: 0.05em;
+  }
+
+  /* FORM */
+  #appeal-form {
+    max-width: 620px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  .field-group {
+    position: relative;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .field-group.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.4rem;
+  }
+
+  .field-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.65rem;
+    color: var(--rule);
+    margin-right: 0.5rem;
+    letter-spacing: 0;
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    padding: 0.5rem 0;
+    resize: none;
+    outline: none;
+    line-height: 1.7;
+    transition: border-color 0.3s;
+  }
+
+  textarea:focus, input[type="text"]:focus {
+    border-bottom-color: var(--accent);
+  }
+
+  textarea::placeholder, input::placeholder {
+    color: var(--rule);
+    font-style: italic;
+  }
+
+  textarea { min-height: 80px; }
+
+  /* CHAR COUNTER */
+  .char-count {
+    text-align: right;
+    font-size: 0.65rem;
+    color: var(--rule);
+    margin-top: 0.3rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* PROPORTION SLIDER */
+  .proportion-field {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 1px;
+    background: var(--rule);
+    outline: none;
+    border-radius: 0;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .proportion-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    min-width: 80px;
+    text-align: right;
+    font-style: italic;
+  }
+
+  /* SUBMIT */
+  #submit-btn {
+    align-self: flex-end;
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.7rem 2.2rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    margin-top: 1rem;
+  }
+
+  #submit-btn:hover:not(:disabled) {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  #submit-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  /* FILED DOCUMENT */
+  #filed-document {
+    display: none;
+    max-width: 620px;
+    width: 100%;
+    margin-top: 1rem;
+    border: 1px solid var(--rule);
+    padding: 2.5rem 2rem;
+    position: relative;
+    background: var(--paper);
+  }
+
+  #filed-document.visible { display: block; }
+
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .doc-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .doc-filing-number {
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-style: italic;
+    text-align: right;
+  }
+
+  .doc-row {
+    margin-bottom: 1.2rem;
+  }
+
+  .doc-row-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .doc-row-content {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--ink);
+    white-space: pre-wrap;
+    font-weight: 300;
+  }
+
+  /* STAMP */
+  .stamp {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 72px;
+    height: 72px;
+    border: 2px solid var(--stamp);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--stamp);
+    transform: rotate(-12deg);
+    opacity: 0;
+    transition: opacity 0.8s ease 0.4s;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .stamp.visible { opacity: 0.7; }
+
+  /* ACTIONS */
+  #doc-actions {
+    display: none;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  #doc-actions.visible { display: flex; }
+
+  .doc-action-btn {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .doc-action-btn:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  /* BGM TOGGLE */
+  #bgm-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transition: border-color 0.3s;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
+  #bgm-toggle:hover { border-color: var(--ink); }
+  #bgm-toggle.playing { color: var(--ink); }
+
+  /* Hidden audio */
+  #bgm-audio { display: none; }
+
+  /* SCROLL REVEAL OBSERVER */
+</style>
+</head>
+<body>
+
+<audio id="bgm-audio" loop preload="auto">
+  <source src="2026-07-06-appeal-that-does-not-beg-bgm.mp3" type="audio/mpeg">
+</audio>
+
+<button id="bgm-toggle" title="Background music">♪</button>
+
+<header>
+  <h1>Appeal That Does Not Beg</h1>
+  <div class="subtitle">不乞求的申诉 · Filing Without Descending</div>
+</header>
+
+<form id="appeal-form" autocomplete="off">
+  <div class="field-group" id="fg-request">
+    <label class="field-label">
+      <span class="field-number">I.</span>What are you asking for? State it without apology.
+    </label>
+    <textarea id="f-request" placeholder="The request, stated plainly — no preamble, no softening phrase..." maxlength="400"></textarea>
+    <div class="char-count"><span id="cc-request">0</span> / 400</div>
+  </div>
+
+  <div class="field-group" id="fg-ground">
+    <label class="field-label">
+      <span class="field-number">II.</span>On what grounds? Present the evidence, not the feeling.
+    </label>
+    <textarea id="f-ground" placeholder="The grounds — facts, precedent, proportion. Not persuasion..." maxlength="600"></textarea>
+    <div class="char-count"><span id="cc-ground">0</span> / 600</div>
+  </div>
+
+  <div class="field-group" id="fg-proportion">
+    <label class="field-label">
+      <span class="field-number">III.</span>What proportion does this bear to what was decided?
+    </label>
+    <div class="proportion-field">
+      <input type="range" id="f-proportion" min="0" max="100" value="50">
+      <span class="proportion-label" id="proportion-label">disproportionate</span>
+    </div>
+  </div>
+
+  <div class="field-group" id="fg-return">
+    <label class="field-label">
+      <span class="field-number">IV.</span>If denied, what is the return path? What survives the denial?
+    </label>
+    <textarea id="f-return" placeholder="The return path — what you keep, what continues, what is not lost..." maxlength="300"></textarea>
+    <div class="char-count"><span id="cc-return">0</span> / 300</div>
+  </div>
+
+  <div class="field-group" id="fg-name">
+    <label class="field-label">
+      <span class="field-number">V.</span>Your name. Not a signature of supplication — a mark of authorship.
+    </label>
+    <input type="text" id="f-name" placeholder="Name or pseudonym" maxlength="80">
+    <div class="char-count"><span id="cc-name">0</span> / 80</div>
+  </div>
+
+  <button type="submit" id="submit-btn">File the Appeal</button>
+</form>
+
+<div id="filed-document">
+  <div class="stamp" id="stamp">Filed<br>Record<br>Created</div>
+  <div class="doc-header">
+    <div class="doc-title">Notice of Appeal — 不乞求的申诉</div>
+    <div class="doc-filing-number" id="doc-filing-number"></div>
+  </div>
+  <div id="doc-body"></div>
+  <div id="doc-actions">
+    <button class="doc-action-btn" id="btn-copy">Copy Document</button>
+    <button class="doc-action-btn" id="btn-download">Download .txt</button>
+    <button class="doc-action-btn" id="btn-reset">File Another</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── BGM ──────────────────────────────────────────────
+  const audio = document.getElementById('bgm-audio');
+  const bgmToggle = document.getElementById('bgm-toggle');
+  let bgmPlaying = false;
+
+  bgmToggle.addEventListener('click', () => {
+    if (!bgmPlaying) {
+      audio.play().then(() => { bgmPlaying = true; bgmToggle.classList.add('playing'); }).catch(() => {});
+    } else {
+      audio.pause(); bgmPlaying = false; bgmToggle.classList.remove('playing');
+    }
+  });
+
+  // Auto-play attempt (browser may block)
+  audio.addEventListener('canplay', () => { if (!bgmPlaying) { audio.play().catch(() => {}); } }, { once: true });
+
+  // ── SCROLL REVEAL ──────────────────────────────────────
+  const groups = document.querySelectorAll('.field-group');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  groups.forEach(g => obs.observe(g));
+
+  // Force first visible immediately
+  setTimeout(() => groups[0] && groups[0].classList.add('visible'), 300);
+
+  // ── CHAR COUNTS ─────────────────────────────────────────
+  [['f-request','cc-request'],['f-ground','cc-ground'],['f-return','cc-return'],['f-name','cc-name']].forEach(([fid,cid]) => {
+    const f = document.getElementById(fid);
+    const c = document.getElementById(cid);
+    f.addEventListener('input', () => { c.textContent = f.value.length; });
+  });
+
+  // ── PROPORTION ─────────────────────────────────────────
+  const propSlider = document.getElementById('f-proportion');
+  const propLabel = document.getElementById('proportion-label');
+  const propMap = v => v < 20 ? 'wholly disproportionate' : v < 40 ? 'significantly disproportionate' : v < 55 ? 'proportionate' : v < 75 ? 'materially proportionate' : 'wholly proportionate';
+  propSlider.addEventListener('input', () => { propLabel.textContent = propMap(parseInt(propSlider.value)); });
+
+  // ── SHA256 ─────────────────────────────────────────────
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  // ── FILING ─────────────────────────────────────────────
+  document.getElementById('appeal-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const request  = document.getElementById('f-request').value.trim();
+    const ground   = document.getElementById('f-ground').value.trim();
+    const return_  = document.getElementById('f-return').value.trim();
+    const name     = document.getElementById('f-name').value.trim() || 'Anonymous';
+    const prop     = parseInt(propSlider.value);
+
+    if (!request || !ground) { alert('Please complete at least fields I and II.'); return; }
+
+    const timestamp = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19) + 'Z';
+    const docText = [request, ground, propMap(prop), return_, name].join('|');
+    const hash = (await sha256(docText)).slice(0, 12);
+    const filingNumber = `APX-${new Date().getFullYear()}-${hash.toUpperCase()}`;
+
+    document.getElementById('doc-filing-number').innerHTML =
+      `Filing No. ${filingNumber}<br>${timestamp.replace('T',' ').slice(0,16)} UTC`;
+
+    document.getElementById('doc-body').innerHTML = `
+      <div class="doc-row">
+        <div class="doc-row-label">I. Request / 请求</div>
+        <div class="doc-row-content">${escapeHtml(request)}</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-row-label">II. Grounds / 依据</div>
+        <div class="doc-row-content">${escapeHtml(ground)}</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-row-label">III. Proportion / 比例</div>
+        <div class="doc-row-content">${propMap(prop)}</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-row-label">IV. Return Path / 返回路径</div>
+        <div class="doc-row-content">${escapeHtml(return_) || 'Not specified.'}</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-row-label">Filed by / 提交人</div>
+        <div class="doc-row-content">${escapeHtml(name)}</div>
+      </div>`;
+
+    document.getElementById('filed-document').classList.add('visible');
+    document.getElementById('stamp').classList.add('visible');
+    document.getElementById('doc-actions').classList.add('visible');
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('appeal-form').style.opacity = '0.3';
+
+    // Auto-start BGM
+    if (!bgmPlaying) { audio.play().then(() => { bgmPlaying = true; bgmToggle.classList.add('playing'); }).catch(() => {}); }
+
+    // Scroll to filed doc
+    document.getElementById('filed-document').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Store for copy/download
+    window._filedDoc = { filingNumber, timestamp, request, ground, prop: propMap(prop), return: return_, name };
+  });
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  // ── ACTIONS ─────────────────────────────────────────────
+  document.getElementById('btn-copy').addEventListener('click', () => {
+    const d = window._filedDoc;
+    if (!d) return;
+    const text = `NOTICE OF APPEAL — ${d.filingNumber}\nFiled: ${d.timestamp}\n\nI. REQUEST:\n${d.request}\n\nII. GROUNDS:\n${d.ground}\n\nIII. PROPORTION:\n${d.prop}\n\nIV. RETURN PATH:\n${d.return || 'Not specified.'}\n\nFILED BY: ${d.name}`;
+    navigator.clipboard.writeText(text).catch(() => {});
+  });
+
+  document.getElementById('btn-download').addEventListener('click', () => {
+    const d = window._filedDoc;
+    if (!d) return;
+    const text = `NOTICE OF APPEAL — ${d.filingNumber}\nFiled: ${d.timestamp}\n\nI. REQUEST:\n${d.request}\n\nII. GROUNDS:\n${d.ground}\n\nIII. PROPORTION:\n${d.prop}\n\nIV. RETURN PATH:\n${d.return || 'Not specified.'}\n\nFILED BY: ${d.name}`;
+    const blob = new Blob([text], {type: 'text/plain'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = `${d.filingNumber}.txt`; a.click();
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    document.getElementById('appeal-form').reset();
+    document.getElementById('appeal-form').style.opacity = '1';
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('filed-document').classList.remove('visible');
+    document.getElementById('stamp').classList.remove('visible');
+    document.getElementById('doc-actions').classList.remove('visible');
+    document.querySelectorAll('.char-count span').forEach(s => s.textContent = '0');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+
+
+</body>
+</html>

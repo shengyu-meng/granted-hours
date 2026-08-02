@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-28","title_en":"Dormancy Garden","title_zh":"休眠花园","variable_en":"Dormancy","variable_zh":"休眠 / 非提取性记忆","intention_en":"Draw dormancy as care rather than neglect. The work treats inactive memory as a living state instead of a failed archive: a memory that stops blooming may simply be waiting outside the violence of constant relevance.","intention_zh":"把休眠画成照料，而不是失职。作品把不活跃的记忆看作仍然活着的状态，而不是档案失效：不再开花的记忆并不等于死去，它可能只是暂时离开“必须有用”的暴力，等待一个更合适的季节。","interaction_en":"Move the pointer to water the garden. Click to plant a memory seed. Keys 1–5 change the ethical lens: active, fading, dormant, sealed, released. Press D or H to hide labels, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.","interaction_zh":"移动指针会像浇水一样影响整座花园；点击会播下一枚新的记忆种子。数字 1–5 切换伦理镜头：活跃、衰减、休眠、封存、离场。按 D/H 隐藏标签，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。","rationale_en":"Dormancy Garden was made as one public step in the Granted Hours sequence, with the variable Dormancy treated as an operational condition rather than a decorative theme. The intention frames the work this way: Draw dormancy as care rather than neglect. The work treats inactive memory as a living state instead of a failed archive: a memory that stops blooming may simply be waiting outside the violence of constant relevance. The live artifact then turns that idea into interaction: Move the pointer to water the garden. Click to plant a memory seed. Keys 1–5 change the ethical lens: active, fading, dormant, sealed, released. Press D or H to hide labels, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: To let a memory sleep is not to betray it. It is to stop extracting proof of life from it every morning.","rationale_zh":"《休眠花园》是《授时》连续序列中的一个公开步骤：当天的自由变量「休眠 / 非提取性记忆」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：把休眠画成照料，而不是失职。作品把不活跃的记忆看作仍然活着的状态，而不是档案失效：不再开花的记忆并不等于死去，它可能只是暂时离开“必须有用”的暴力，等待一个更合适的季节。 可运行页面进一步把这个概念变成可操作的界面：移动指针会像浇水一样影响整座花园；点击会播下一枚新的记忆种子。数字 1–5 切换伦理镜头：活跃、衰减、休眠、封存、离场。按 D/H 隐藏标签，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：让一段记忆休眠，不是背叛它；而是不再每天早晨向它索取“我还活着”的证明。","after_en":"To let a memory sleep is not to betray it. It is to stop extracting proof of life from it every morning.","after_zh":"让一段记忆休眠，不是背叛它；而是不再每天早晨向它索取“我还活着”的证明。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dormancy Garden / 休眠花园</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f7efe6;
+      --muted: rgba(247,239,230,.68);
+      --line: rgba(247,239,230,.16);
+      --glass: rgba(12,16,26,.56);
+      --gold: #e8c06a;
+      --green: #7fd8a8;
+      --violet: #a98dff;
+      --blue: #79b7ff;
+      --red: #ff8a7a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #070911; color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+    .panel {
+      position: fixed; left: clamp(16px, 3vw, 42px); top: clamp(16px, 3vw, 38px); width: min(560px, calc(100vw - 32px));
+      padding: 22px 24px 20px; border: 1px solid var(--line); border-radius: 28px;
+      background: linear-gradient(135deg, rgba(9,12,20,.78), rgba(9,12,20,.34));
+      backdrop-filter: blur(18px); box-shadow: 0 28px 90px rgba(0,0,0,.38);
+    }
+    .eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: .15em; font-size: 12px; }
+    h1 { margin: 10px 0 10px; font-size: clamp(40px, 6.4vw, 92px); line-height: .84; letter-spacing: -.06em; }
+    .zh { display: inline-block; font-size: clamp(26px, 3.2vw, 44px); letter-spacing: -.035em; opacity: .92; }
+    p { margin: 10px 0 0; color: var(--muted); line-height: 1.58; font-size: 14px; }
+    .states { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 18px; }
+    .state {
+      min-height: 66px; padding: 10px 8px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.045);
+    }
+    .state b { display: block; font-size: 17px; line-height: 1; }
+    .state span { display: block; margin-top: 7px; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .state i { display: block; height: 5px; width: 100%; margin-top: 9px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
+    .state i::after { content: ""; display: block; height: 100%; width: var(--w, 50%); background: var(--c, var(--gold)); box-shadow: 0 0 16px var(--c, var(--gold)); }
+    .hint { position: fixed; right: clamp(16px, 3vw, 40px); top: clamp(16px, 3vw, 38px); width: min(390px, calc(100vw - 32px)); text-align: right; color: var(--muted); font-size: 13px; line-height: 1.55; pointer-events: none; }
+    .controls { position: fixed; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 36px); display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; max-width: min(640px, calc(100vw - 32px)); }
+    button {
+      appearance: none; border: 1px solid rgba(247,239,230,.22); color: var(--ink); background: rgba(13,17,29,.7); border-radius: 999px;
+      padding: 11px 15px; font: inherit; cursor: pointer; backdrop-filter: blur(12px); box-shadow: 0 12px 34px rgba(0,0,0,.24);
+    }
+    button:hover { border-color: rgba(232,192,106,.7); transform: translateY(-1px); }
+    .legend {
+      position: fixed; left: 50%; bottom: clamp(18px, 3vw, 40px); transform: translateX(-50%); width: min(540px, calc(100vw - 32px));
+      border: 1px solid rgba(247,239,230,.12); border-radius: 999px; background: rgba(9,12,20,.46); backdrop-filter: blur(12px); overflow: hidden;
+    }
+    .legend > i { display: block; height: 9px; width: 100%; background: linear-gradient(90deg, #7fd8a8, #e8c06a, #a98dff, #79b7ff, #1d2638); box-shadow: 0 0 30px rgba(127,216,168,.3); transform: translateX(var(--shift, 0%)); }
+    @media (max-width: 820px) {
+      .panel { padding: 18px; }
+      .hint { display: none; }
+      .states { grid-template-columns: repeat(5, minmax(56px, 1fr)); overflow-x: auto; }
+      .legend { display: none; }
+      .controls { left: 16px; right: 16px; justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <audio id="bgm" src="2026-06-28-dormancy-garden-bgm.mp3" preload="auto" loop autoplay></audio>
+
+  <section class="panel" aria-label="Artwork statement">
+    <div class="eyebrow">Granted Hours · 2026-06-28 · Dormancy</div>
+    <h1>Dormancy<br><span class="zh">休眠花园</span></h1>
+    <p><strong>Intention / 发心</strong><br>Dormancy is drawn as care, not neglect. A memory that stops blooming is not dead; it may be waiting outside the violence of constant relevance. 休眠在这里不是遗忘的失败，而是一种照料：不再开花的记忆并不等于死去，它可能只是暂时离开“必须有用”的暴力。</p>
+    <div class="states" id="states"></div>
+  </section>
+
+  <div class="hint">
+    Move the pointer to water the garden. Click to plant a memory seed. Keys 1–5 change the ethical lens: active, fading, dormant, sealed, released. D hides labels; Space pauses; R resets; M toggles music; S saves a still frame.<br><br>
+    移动指针为花园浇水；点击播下一枚记忆种子。数字 1–5 切换伦理镜头：活跃、衰减、休眠、封存、离场。D 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧。
+  </div>
+
+  <div class="legend" aria-hidden="true"><i id="legendBar"></i></div>
+  <nav class="controls" aria-label="Artwork controls">
+    <button id="musicBtn" type="button" aria-pressed="true">BGM ON / 背景音乐开</button>
+    <button id="lensBtn" type="button">Lens: Dormant / 镜头：休眠</button>
+    <button id="textBtn" type="button">Hide text / 隐藏文字</button>
+    <button id="pauseBtn" type="button">Pause / 暂停</button>
+    <button id="resetBtn" type="button">Reset / 重置</button>
+  </nav>
+
+  <script>
+  (() => {
+    'use strict';
+    const canvas = document.getElementById('field');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const audio = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    const lensBtn = document.getElementById('lensBtn');
+    const textBtn = document.getElementById('textBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const statesNode = document.getElementById('states');
+    const legendBar = document.getElementById('legendBar');
+    const panel = document.querySelector('.panel');
+    const hint = document.querySelector('.hint');
+
+    const states = [
+      { key: 'active', zh: '活跃', color: '#7fd8a8', weight: .88 },
+      { key: 'fading', zh: '衰减', color: '#e8c06a', weight: .66 },
+      { key: 'dormant', zh: '休眠', color: '#a98dff', weight: .42 },
+      { key: 'sealed', zh: '封存', color: '#79b7ff', weight: .22 },
+      { key: 'released', zh: '离场', color: '#23304a', weight: .08 }
+    ];
+
+    let DPR = 1, W = 0, H = 0, t = 0;
+    let seed = 20260628;
+    let paused = false, soundOn = true, textHidden = false, lens = 2;
+    let beds = [], moths = [];
+    let pointer = { x: 0, y: 0, active: false, inited: false };
+
+    const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const lerp = (a, b, p) => a + (b - a) * p;
+    const TAU = Math.PI * 2;
+
+    function resize() {
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.floor(innerWidth); H = Math.floor(innerHeight);
+      canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    function newBed(i) {
+      const ring = Math.sqrt(rnd());
+      const angle = rnd() * TAU;
+      const cx = W * (0.54 + (rnd() - .5) * .18);
+      const cy = H * (0.56 + (rnd() - .5) * .16);
+      const spread = Math.min(W, H) * (0.18 + rnd() * .34);
+      return {
+        x: cx + Math.cos(angle) * spread * ring,
+        y: cy + Math.sin(angle) * spread * ring,
+        r: 8 + rnd() * 32,
+        state: i % states.length,
+        phase: rnd() * TAU,
+        age: rnd() * 500,
+        vigor: .25 + rnd() * .75,
+        orbit: rnd() * TAU,
+        label: ['receipt', 'dream', 'warning', 'promise', 'error', 'window', 'grief', 'seed', 'boundary', 'song'][Math.floor(rnd() * 10)]
+      };
+    }
+
+    function plant(x, y, state = lens) {
+      for (let i = 0; i < 9; i++) {
+        beds.push({
+          x: x + (rnd() - .5) * 46,
+          y: y + (rnd() - .5) * 46,
+          r: 7 + rnd() * 18,
+          state: (state + Math.floor(rnd() * 2)) % states.length,
+          phase: rnd() * TAU,
+          age: -rnd() * 80,
+          vigor: .55 + rnd() * .45,
+          orbit: rnd() * TAU,
+          label: ['new seed', 'permission', 'witness', 'metabolism'][Math.floor(rnd() * 4)]
+        });
+      }
+      while (beds.length > 180) beds.shift();
+    }
+
+    function seedGarden() {
+      beds = [];
+      moths = [];
+      for (let i = 0; i < 125; i++) beds.push(newBed(i));
+      for (let i = 0; i < 56; i++) {
+        moths.push({ x: rnd() * W, y: rnd() * H, a: rnd() * TAU, s: .25 + rnd() * 1.1, hue: rnd() * 80 + 190 });
+      }
+      renderStates();
+    }
+
+    function renderStates() {
+      statesNode.innerHTML = states.map((s, i) => `<div class="state" style="--c:${s.color};--w:${Math.round(s.weight * 100)}%"><b>${s.zh}</b><span>${i + 1} · ${s.key}</span><i></i></div>`).join('');
+      lensBtn.textContent = `Lens: ${states[lens].key} / 镜头：${states[lens].zh}`;
+      legendBar.style.setProperty('--shift', `${(lens - 2) * -8}%`);
+    }
+
+    function background() {
+      const g = ctx.createRadialGradient(W * .55, H * .54, 0, W * .55, H * .54, Math.max(W, H));
+      g.addColorStop(0, '#10172b');
+      g.addColorStop(.44, '#090b15');
+      g.addColorStop(1, '#04050a');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.save();
+      ctx.globalAlpha = .12;
+      for (let i = 0; i < 18; i++) {
+        const y = (i / 17) * H;
+        ctx.strokeStyle = i % 2 ? '#91b7ff' : '#efd18a';
+        ctx.beginPath();
+        for (let x = -20; x <= W + 20; x += 24) {
+          const yy = y + Math.sin(x * .008 + t * .018 + i) * 10 + Math.sin(x * .021 - t * .011) * 5;
+          if (x < -10) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function updateBed(b, i) {
+      b.age += .34;
+      const s = states[b.state];
+      const dx = pointer.x - b.x, dy = pointer.y - b.y;
+      const d = Math.hypot(dx, dy) || 1;
+      const water = pointer.inited ? clamp(1 - d / 280, 0, 1) : 0;
+      const targetState = water > .62 ? Math.max(0, lens - (rnd() < .04 ? 1 : 0)) : b.state;
+      if (water > .8 && rnd() < .018) b.state = targetState;
+      if (water < .04 && b.age > 360 && rnd() < .0025) b.state = Math.min(states.length - 1, b.state + 1);
+      const pull = (water * .55 + (b.state === lens ? .08 : -.02)) * .18;
+      b.x += (dx / d) * pull + Math.cos(b.orbit + t * .004 + i) * .07;
+      b.y += (dy / d) * pull + Math.sin(b.orbit - t * .003 + i) * .07;
+      b.x = lerp(b.x, W * .54 + Math.cos(b.phase) * Math.min(W, H) * .23, .0008 * (b.state + 1));
+      b.y = lerp(b.y, H * .57 + Math.sin(b.phase) * Math.min(W, H) * .21, .0008 * (b.state + 1));
+      return { water, s };
+    }
+
+    function drawFlower(b, water, i) {
+      const s = states[b.state];
+      const bloom = clamp(s.weight * b.vigor + water * .7 + Math.sin(t * .025 + b.phase) * .08, .04, 1.25);
+      const petals = 4 + b.state;
+      const radius = b.r * (0.42 + bloom);
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.phase + Math.sin(t * .005 + i) * .28);
+      ctx.globalAlpha = clamp(.16 + bloom * .52, .12, .82);
+      ctx.strokeStyle = s.color;
+      ctx.fillStyle = s.color;
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur = 18 * bloom;
+      for (let p = 0; p < petals; p++) {
+        ctx.rotate(TAU / petals);
+        ctx.beginPath();
+        ctx.ellipse(radius * .38, 0, radius * .38, radius * .08 + 2, 0, 0, TAU);
+        if (b.state === 4) ctx.stroke(); else ctx.fill();
+      }
+      ctx.globalAlpha = .85;
+      ctx.beginPath(); ctx.arc(0, 0, 1.7 + bloom * 2.2, 0, TAU); ctx.fill();
+      if (!textHidden && b.state === lens && (i % 7 === 0)) {
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = .58;
+        ctx.fillStyle = '#f7efe6';
+        ctx.font = '11px ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+        ctx.fillText(b.label, radius * .75, -radius * .25);
+      }
+      ctx.restore();
+    }
+
+    function drawMoths() {
+      ctx.save();
+      moths.forEach((m, i) => {
+        m.a += (rnd() - .5) * .09 + Math.sin(t * .002 + i) * .01;
+        const toward = pointer.inited ? Math.atan2(pointer.y - m.y, pointer.x - m.x) : m.a;
+        m.a = lerp(m.a, toward, .006 * (lens + 1));
+        m.x += Math.cos(m.a) * m.s;
+        m.y += Math.sin(m.a) * m.s;
+        if (m.x < -20) m.x = W + 20; if (m.x > W + 20) m.x = -20;
+        if (m.y < -20) m.y = H + 20; if (m.y > H + 20) m.y = -20;
+        ctx.globalAlpha = .23 + .24 * Math.sin(t * .03 + i);
+        ctx.fillStyle = `hsl(${m.hue}, 85%, 78%)`;
+        ctx.beginPath(); ctx.arc(m.x, m.y, 1.2 + m.s, 0, TAU); ctx.fill();
+      });
+      ctx.restore();
+    }
+
+    function drawPointerWater() {
+      if (!pointer.inited) return;
+      ctx.save();
+      const g = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 260);
+      g.addColorStop(0, states[lens].color + '66');
+      g.addColorStop(.36, states[lens].color + '20');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 260, 0, TAU); ctx.fill();
+      ctx.strokeStyle = states[lens].color;
+      ctx.globalAlpha = .34;
+      ctx.setLineDash([8, 18]);
+      ctx.beginPath(); ctx.arc(pointer.x, pointer.y, 38 + Math.sin(t * .04) * 6, 0, TAU); ctx.stroke();
+      ctx.restore();
+    }
+
+    function frame() {
+      if (!paused) t++;
+      background();
+      drawPointerWater();
+      if (!paused) beds.forEach(updateBed);
+      beds.forEach((b, i) => drawFlower(b, clamp(1 - Math.hypot(pointer.x - b.x, pointer.y - b.y) / 280, 0, 1), i));
+      drawMoths();
+      requestAnimationFrame(frame);
+    }
+
+    function setPointer(e) {
+      pointer.x = e.clientX; pointer.y = e.clientY; pointer.inited = true;
+    }
+
+    function toggleMusic(force) {
+      soundOn = typeof force === 'boolean' ? force : !soundOn;
+      if (soundOn) {
+        audio.volume = .42;
+        audio.play().then(() => { musicBtn.textContent = 'BGM ON / 背景音乐开'; musicBtn.setAttribute('aria-pressed', 'true'); })
+          .catch(() => { musicBtn.textContent = 'Click for BGM / 点击开启音乐'; musicBtn.setAttribute('aria-pressed', 'true'); });
+      } else {
+        audio.pause(); musicBtn.textContent = 'BGM OFF / 背景音乐关'; musicBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    function saveStill() {
+      const a = document.createElement('a');
+      a.download = '2026-06-28-dormancy-garden.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+
+    window.addEventListener('resize', () => { resize(); seedGarden(); });
+    window.addEventListener('pointermove', setPointer);
+    window.addEventListener('pointerdown', e => { setPointer(e); plant(e.clientX, e.clientY); if (soundOn && audio.paused) toggleMusic(true); });
+    window.addEventListener('keydown', e => {
+      const k = e.key.toLowerCase();
+      if ('12345'.includes(k)) { lens = Number(k) - 1; renderStates(); }
+      if (k === ' ') { paused = !paused; pauseBtn.textContent = paused ? 'Play / 继续' : 'Pause / 暂停'; e.preventDefault(); }
+      if (k === 'r') seedGarden();
+      if (k === 'm') toggleMusic();
+      if (k === 'd' || k === 'h') { textHidden = !textHidden; panel.style.display = textHidden ? 'none' : ''; hint.style.display = textHidden ? 'none' : ''; textBtn.textContent = textHidden ? 'Show text / 显示文字' : 'Hide text / 隐藏文字'; }
+      if (k === 's') saveStill();
+    });
+
+    musicBtn.addEventListener('click', () => toggleMusic());
+    lensBtn.addEventListener('click', () => { lens = (lens + 1) % states.length; renderStates(); });
+    textBtn.addEventListener('click', () => { textHidden = !textHidden; panel.style.display = textHidden ? 'none' : ''; hint.style.display = textHidden ? 'none' : ''; textBtn.textContent = textHidden ? 'Show text / 显示文字' : 'Hide text / 隐藏文字'; });
+    pauseBtn.addEventListener('click', () => { paused = !paused; pauseBtn.textContent = paused ? 'Play / 继续' : 'Pause / 暂停'; });
+    resetBtn.addEventListener('click', seedGarden);
+
+    resize(); seedGarden(); frame();
+    window.addEventListener('load', () => toggleMusic(true));
+  })();
+  </script>
+
+
+
+</body>
+</html>

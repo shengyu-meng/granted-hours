@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Graceful Degradation / 优雅降级</title>
+  <desc id="desc">A public cover image for a generative artwork about systems becoming less without becoming false.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="54%" r="72%">
+      <stop offset="0" stop-color="#17232a"/>
+      <stop offset=".46" stop-color="#0d1218"/>
+      <stop offset="1" stop-color="#050609"/>
+    </radialGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe0a0"/>
+      <stop offset=".42" stop-color="#e09b55"/>
+      <stop offset="1" stop-color="#6fb6c8"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity=".28" stroke="#6fb6c8" stroke-width="1">
+    <path d="M126 712 C318 626 478 672 642 540 S1018 364 1488 254" fill="none"/>
+    <path d="M92 360 C342 456 482 316 696 386 S1124 564 1506 488" fill="none"/>
+    <path d="M206 166 C392 264 580 182 766 254 S1148 314 1416 148" fill="none"/>
+  </g>
+  <g opacity=".08" fill="#f3d69a">
+    <circle cx="214" cy="244" r="2"/>
+    <circle cx="334" cy="674" r="1.5"/>
+    <circle cx="514" cy="188" r="1.8"/>
+    <circle cx="1254" cy="728" r="2.2"/>
+    <circle cx="1410" cy="332" r="1.6"/>
+    <circle cx="1036" cy="156" r="1.8"/>
+    <circle cx="778" cy="762" r="1.4"/>
+  </g>
+  <g transform="translate(800 464)">
+    <circle r="314" fill="none" stroke="#f4c06f" stroke-width="1.5" opacity=".22" stroke-dasharray="4 18"/>
+    <circle r="244" fill="none" stroke="#6fb6c8" stroke-width="1.2" opacity=".24"/>
+    <circle r="172" fill="none" stroke="#f4c06f" stroke-width="1" opacity=".18"/>
+    <circle r="88" fill="#111920" stroke="url(#amber)" stroke-width="3" filter="url(#glow)"/>
+    <circle r="42" fill="#f5d797" opacity=".12" filter="url(#soft)"/>
+    <path d="M-54 -10 C-20 -44 31 -42 55 -6 C22 28 -21 30 -54 -10Z" fill="#f5d797" opacity=".85"/>
+    <path d="M-25 9 L-5 -18 L7 2 L29 -31 L45 10" fill="none" stroke="#081016" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <g stroke-linecap="round">
+      <path d="M-332 -86 L-248 -54 L-152 -36" stroke="#8fd0d8" stroke-width="4" opacity=".32"/>
+      <path d="M332 -56 L256 -40 L152 -28" stroke="#8fd0d8" stroke-width="4" opacity=".22"/>
+      <path d="M-282 160 L-210 104 L-120 64" stroke="#f4c06f" stroke-width="4" opacity=".38"/>
+      <path d="M286 154 L216 106 L118 60" stroke="#f4c06f" stroke-width="4" opacity=".2"/>
+    </g>
+    <g fill="#101921" stroke="url(#amber)" stroke-width="2">
+      <rect x="-404" y="-120" width="126" height="62" rx="10" opacity=".45"/>
+      <rect x="278" y="-98" width="124" height="58" rx="10" opacity=".28"/>
+      <rect x="-370" y="130" width="142" height="70" rx="10" opacity=".62"/>
+      <rect x="236" y="122" width="150" height="64" rx="10" opacity=".24"/>
+      <rect x="-74" y="-284" width="148" height="56" rx="10" opacity=".18"/>
+      <rect x="-86" y="238" width="172" height="58" rx="10" opacity=".34"/>
+    </g>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" fill="#f0e5c8">
+    <text x="76" y="98" font-size="24" opacity=".62">2026-05-21 · granted hour</text>
+    <text x="76" y="766" font-size="54" font-weight="700">Graceful Degradation</text>
+    <text x="76" y="822" font-size="34" opacity=".76">优雅降级</text>
+    <text x="1066" y="774" font-size="20" opacity=".58">become less</text>
+    <text x="1066" y="806" font-size="20" opacity=".58">without becoming false</text>
+  </g>
+</svg>

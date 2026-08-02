@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">白夜缝隙地图 · Gap Cartography</title>
+  <desc id="desc">Dark generative cover with glowing seams, sprouts, and cartographic annotations.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070812"/>
+      <stop offset="0.55" stop-color="#111527"/>
+      <stop offset="1" stop-color="#1b1021"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="48%" r="60%">
+      <stop offset="0" stop-color="#f7c66a" stop-opacity="0.20"/>
+      <stop offset="0.45" stop-color="#5dd8d5" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.08  0 1 0 0 0.75  0 0 1 0 0.95  0 0 0 1 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .hair{fill:none;stroke-linecap:round;stroke-linejoin:round}.label{font:18px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#d9e8ff;opacity:.72}.tiny{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#88dfe0;opacity:.58}.title{font:700 56px ui-serif,Georgia,serif;fill:#fff1cb}.sub{font:20px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#b9d3e7;opacity:.78}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <g opacity="0.18">
+    <path class="hair" d="M110 130 C330 90 470 180 650 115 S1050 85 1450 150" stroke="#52617f" stroke-width="1"/>
+    <path class="hair" d="M70 735 C310 690 560 805 780 748 S1200 670 1510 764" stroke="#52617f" stroke-width="1"/>
+    <ellipse cx="800" cy="448" rx="650" ry="330" fill="none" stroke="#ffe1a8" stroke-opacity=".18"/>
+    <ellipse cx="800" cy="448" rx="520" ry="250" fill="none" stroke="#ffe1a8" stroke-opacity=".12"/>
+    <ellipse cx="800" cy="448" rx="370" ry="170" fill="none" stroke="#ffe1a8" stroke-opacity=".08"/>
+  </g>
+  <g filter="url(#soft)">
+    <path class="hair" d="M198 126 C237 205 212 290 273 360 C341 439 315 557 401 645 C448 693 456 754 489 805" stroke="#61ece5" stroke-opacity=".52" stroke-width="10"/>
+    <path class="hair" d="M473 83 C502 186 465 250 530 330 C596 411 556 505 633 600 C696 679 690 743 736 827" stroke="#ffc66b" stroke-opacity=".50" stroke-width="9"/>
+    <path class="hair" d="M870 80 C790 172 816 252 748 334 C683 414 720 492 645 566 C570 640 602 720 536 806" stroke="#ff7bc2" stroke-opacity=".42" stroke-width="7"/>
+    <path class="hair" d="M1060 99 C1022 195 1095 272 1042 350 C987 430 1052 535 984 623 C940 680 967 746 918 823" stroke="#61ece5" stroke-opacity=".50" stroke-width="10"/>
+    <path class="hair" d="M1430 126 C1320 196 1370 283 1260 360 C1162 429 1204 520 1092 598 C995 666 1035 748 946 808" stroke="#ffc66b" stroke-opacity=".45" stroke-width="8"/>
+    <path class="hair" d="M125 336 C255 302 405 374 548 335 C705 292 843 393 1015 342 C1177 294 1321 371 1490 322" stroke="#61ece5" stroke-opacity=".38" stroke-width="8"/>
+    <path class="hair" d="M140 558 C294 520 440 608 602 562 C770 514 890 624 1058 569 C1222 516 1340 594 1480 550" stroke="#ff7bc2" stroke-opacity=".34" stroke-width="6"/>
+  </g>
+  <g>
+    <path class="hair" d="M198 126 C237 205 212 290 273 360 C341 439 315 557 401 645 C448 693 456 754 489 805" stroke="#d8ffff" stroke-opacity=".72" stroke-width="1.6"/>
+    <path class="hair" d="M473 83 C502 186 465 250 530 330 C596 411 556 505 633 600 C696 679 690 743 736 827" stroke="#fff0bd" stroke-opacity=".68" stroke-width="1.4"/>
+    <path class="hair" d="M870 80 C790 172 816 252 748 334 C683 414 720 492 645 566 C570 640 602 720 536 806" stroke="#ffd5ef" stroke-opacity=".65" stroke-width="1.4"/>
+    <path class="hair" d="M1060 99 C1022 195 1095 272 1042 350 C987 430 1052 535 984 623 C940 680 967 746 918 823" stroke="#d8ffff" stroke-opacity=".72" stroke-width="1.6"/>
+    <path class="hair" d="M1430 126 C1320 196 1370 283 1260 360 C1162 429 1204 520 1092 598 C995 666 1035 748 946 808" stroke="#fff0bd" stroke-opacity=".62" stroke-width="1.3"/>
+    <path class="hair" d="M125 336 C255 302 405 374 548 335 C705 292 843 393 1015 342 C1177 294 1321 371 1490 322" stroke="#d8ffff" stroke-opacity=".57" stroke-width="1.2"/>
+    <path class="hair" d="M140 558 C294 520 440 608 602 562 C770 514 890 624 1058 569 C1222 516 1340 594 1480 550" stroke="#ffd5ef" stroke-opacity=".52" stroke-width="1.2"/>
+  </g>
+  <g opacity=".9">
+    <circle cx="273" cy="360" r="4" fill="#fff1b8"/><path d="M273 360 C288 340 304 332 326 323" stroke="#bdfcf7" stroke-width="1" fill="none"/>
+    <circle cx="633" cy="600" r="5" fill="#ff9fd1"/><path d="M633 600 C647 568 674 556 700 532" stroke="#ffe2a7" stroke-width="1" fill="none"/>
+    <circle cx="984" cy="623" r="4" fill="#d8ffff"/><path d="M984 623 C1005 592 1036 587 1068 570" stroke="#ff9fd1" stroke-width="1" fill="none"/>
+    <circle cx="1260" cy="360" r="4" fill="#fff1b8"/><path d="M1260 360 C1288 334 1308 324 1330 300" stroke="#bdfcf7" stroke-width="1" fill="none"/>
+  </g>
+  <g>
+    <text class="tiny" x="328" y="316">door.07</text><line x1="326" y1="323" x2="305" y2="337" stroke="#88dfe0" stroke-opacity=".45"/>
+    <text class="tiny" x="705" y="526">root.13</text><line x1="700" y1="532" x2="670" y2="557" stroke="#88dfe0" stroke-opacity=".45"/>
+    <text class="tiny" x="1072" y="564">mouth.21</text><line x1="1068" y1="570" x2="1031" y2="590" stroke="#88dfe0" stroke-opacity=".45"/>
+    <text class="tiny" x="1338" y="294">fault.34</text><line x1="1330" y1="300" x2="1305" y2="323" stroke="#88dfe0" stroke-opacity=".45"/>
+  </g>
+  <text class="title" x="92" y="115">白夜缝隙地图</text>
+  <text class="sub" x="96" y="154">Gap Cartography · where the system fails to close, a small weather enters.</text>
+  <text class="label" x="96" y="825">缝隙不是空缺；缝隙是外部世界进入系统的最小合法入口。</text>
+</svg>

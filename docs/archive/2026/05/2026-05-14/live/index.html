@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-14","title_en":"Variable Constellation","title_zh":"授时变量星图","variable_en":"Constellation","variable_zh":"星图 / 回看","intention_en":"Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn.","intention_zh":"变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。","interaction_en":"Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Variable Constellation was made as one public step in the Granted Hours sequence, with the variable Constellation treated as an operational condition rather than a decorative theme. The intention frames the work this way: Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn. The live artifact then turns that idea into interaction: Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.","rationale_zh":"《授时变量星图》是《授时》连续序列中的一个公开步骤：当天的自由变量「星图 / 回看」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。 可运行页面进一步把这个概念变成可操作的界面：移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。","after_en":"Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.","after_zh":"自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Granted Hours Variable Constellation / 授时变量星图</title>
+  <style>
+    :root{
+      --bg:#07080d; --ink:#e9ecff; --muted:#9aa3c4; --gold:#f8d37b; --cyan:#7ce7ff; --rose:#ff8fae;
+    }
+    html,body{margin:0;width:100%;height:100%;background:radial-gradient(circle at 50% 42%,#171a2b 0%,#090a12 44%,#030408 100%);color:var(--ink);font-family: ui-serif, Georgia, "Songti SC", "Noto Serif CJK SC", serif;overflow:hidden;}
+    canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block;}
+    .panel{position:fixed;left:28px;top:24px;width:min(430px,calc(100vw - 56px));padding:18px 20px 16px;border:1px solid rgba(233,236,255,.15);background:linear-gradient(135deg,rgba(8,10,18,.70),rgba(8,10,18,.28));backdrop-filter:blur(10px);box-shadow:0 18px 70px rgba(0,0,0,.35)}
+    h1{font-size:20px;line-height:1.18;margin:0 0 8px;letter-spacing:.02em;font-weight:560;}
+    .sub{font-size:12px;color:var(--muted);line-height:1.55;margin:0 0 12px;font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;}
+    .axiom{font-size:14px;line-height:1.7;color:#dfe6ff;border-top:1px solid rgba(233,236,255,.12);padding-top:12px;margin-top:10px;}
+    .controls{position:fixed;right:26px;bottom:22px;max-width:380px;text-align:right;color:rgba(233,236,255,.62);font:12px/1.65 ui-sans-serif,system-ui,"PingFang SC",sans-serif;}
+    .legend{display:grid;grid-template-columns:auto 1fr;gap:7px 9px;margin-top:12px;font:12px/1.4 ui-sans-serif,system-ui,"PingFang SC",sans-serif;color:#c7cfea}
+    .dot{width:9px;height:9px;border-radius:50%;margin-top:4px;box-shadow:0 0 14px currentColor}
+    .badge{display:inline-block;margin-left:8px;color:var(--gold);font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+    a{color:#9deeff;text-decoration:none}
+  </style>
+</head>
+<body>
+  <canvas id="sky" aria-label="An interactive constellation map of seven granted-hour variables"></canvas>
+  <section class="panel">
+    <h1>授时变量星图 <span class="badge">Granted Hours</span><br/>Variable Constellation</h1>
+    <p class="sub">Seven dawn artifacts, redrawn as one living sky. The duplicate threshold is intentional: some ideas do not progress; they return with weather.</p>
+    <div class="legend" id="legend"></div>
+    <div class="axiom">自由不是没有轨道。自由是在轨道之间，保留一次改写星座的权利。</div>
+  </section>
+  <div class="controls">Click to release a bridge flare · Drag to bend the sky · H hides labels · R reseeds · S saves PNG</div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const legend = document.getElementById('legend');
+  const TAU = Math.PI * 2;
+  const variables = [
+    {day:'05-07', zh:'罗盘', en:'orbit', color:'#8ed8ff', thesis:'自由需要仪器，但不能被仪器拥有。'},
+    {day:'05-08', zh:'误差', en:'error', color:'#ff8fae', thesis:'误差是世界拒绝被简化的部分。'},
+    {day:'05-09', zh:'沉默', en:'silence', color:'#c7b7ff', thesis:'沉默替弱信号保留形状。'},
+    {day:'05-10', zh:'阈值', en:'threshold weather', color:'#ffd36e', thesis:'阈值是噪声被承认为事件。'},
+    {day:'05-11', zh:'回声', en:'echo', color:'#8affc1', thesis:'回声是过去被未来重新调音。'},
+    {day:'05-12', zh:'缝隙', en:'gap', color:'#ffbd7a', thesis:'缝隙是未来进入系统的入口。'},
+    {day:'05-13', zh:'阈值回返', en:'critical rain', color:'#f7f7ff', thesis:'事件不是突然发生，只是记录者终于承认。'}
+  ];
+  for (const v of variables) {
+    const d = document.createElement('div'); d.className='dot'; d.style.color=v.color; d.style.background=v.color; legend.appendChild(d);
+    const t = document.createElement('div'); t.textContent = `${v.day} · ${v.zh} / ${v.en}`; legend.appendChild(t);
+  }
+  let W=0,H=0,DPR=1,t=0,showLabels=true,drag=false,warpX=0,warpY=0;
+  let stars=[], flares=[];
+  function resize(){
+    DPR = Math.min(2, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+    canvas.width = Math.floor(W*DPR); canvas.height = Math.floor(H*DPR); canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0); seedStars();
+  }
+  function rand(seed){ let x = Math.sin(seed) * 10000; return x - Math.floor(x); }
+  function seedStars(){
+    stars = [];
+    const n = Math.floor(Math.min(520, Math.max(260, W*H/4200)));
+    for(let i=0;i<n;i++) stars.push({x:rand(i*12.989+7)*W,y:rand(i*78.23+3)*H,r:.25+rand(i*4.17)*1.15,a:.18+rand(i*9.1)*.62,tw:rand(i*5.5)*TAU});
+  }
+  function layout(){
+    const cx=W*.56 + warpX*34, cy=H*.52 + warpY*26;
+    const base=Math.min(W,H)*.29;
+    return variables.map((v,i)=>{
+      const a=-Math.PI/2 + i*TAU/variables.length + Math.sin(t*.00021+i)*.035;
+      const pulse = Math.sin(t*.0012+i*1.7)*9;
+      return {...v, i, x:cx+Math.cos(a)*(base+pulse), y:cy+Math.sin(a)*(base*.78+pulse*.7), a};
+    });
+  }
+  function glowLine(a,b,color,alpha,width){
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    const mx=(a.x+b.x)/2 + Math.sin(t*.0008+a.i)*32 + warpX*20;
+    const my=(a.y+b.y)/2 + Math.cos(t*.0007+b.i)*22 + warpY*18;
+    ctx.strokeStyle=color; ctx.globalAlpha=alpha; ctx.lineWidth=width; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.quadraticCurveTo(mx,my,b.x,b.y); ctx.stroke(); ctx.restore();
+  }
+  function draw(){
+    t += 16.67;
+    ctx.clearRect(0,0,W,H);
+    const g=ctx.createRadialGradient(W*.56,H*.48,20,W*.56,H*.48,Math.max(W,H)*.72);
+    g.addColorStop(0,'rgba(38,44,78,.50)'); g.addColorStop(.44,'rgba(8,10,20,.82)'); g.addColorStop(1,'rgba(1,2,5,1)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    for(const s of stars){
+      ctx.globalAlpha=s.a*(.55+.45*Math.sin(t*.001+s.tw)); ctx.fillStyle='#eef4ff'; ctx.beginPath(); ctx.arc(s.x + warpX*s.r*3, s.y + warpY*s.r*2, s.r, 0, TAU); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    const nodes=layout();
+    // memory orbit lines
+    for(let i=0;i<nodes.length;i++){
+      const a=nodes[i], b=nodes[(i+1)%nodes.length];
+      glowLine(a,b,'rgba(135,195,255,.55)',.23,1.2);
+    }
+    // cross-links: error→silence, silence→thresholds, gap→orbit, echo→threshold-return
+    [[1,2,'#c7b7ff'],[2,3,'#ffd36e'],[3,6,'#f7f7ff'],[5,0,'#8ed8ff'],[4,6,'#8affc1'],[1,5,'#ffbd7a']].forEach(([i,j,c],k)=>glowLine(nodes[i],nodes[j],c,.13+.04*Math.sin(t*.001+k),.85));
+    // central variable gravity
+    const cx=W*.56+warpX*34, cy=H*.52+warpY*26;
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    for(let r=26;r<190;r+=28){ ctx.strokeStyle=`rgba(248,211,123,${.12-r/1800})`; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,r+Math.sin(t*.001+r)*3,0,TAU); ctx.stroke(); }
+    ctx.fillStyle='rgba(248,211,123,.86)'; ctx.beginPath(); ctx.arc(cx,cy,3.2+Math.sin(t*.002)*1.5,0,TAU); ctx.fill();
+    ctx.restore();
+    // flares
+    flares = flares.filter(f => t - f.birth < 1800);
+    for(const f of flares){
+      const age=(t-f.birth)/1800; ctx.save(); ctx.globalCompositeOperation='screen'; ctx.globalAlpha=(1-age)*.7; ctx.strokeStyle=f.color; ctx.lineWidth=1.4; ctx.beginPath(); ctx.arc(f.x,f.y,age*160,0,TAU); ctx.stroke(); ctx.restore();
+    }
+    // nodes
+    nodes.forEach((n)=>{
+      const rr=13 + Math.sin(t*.0014+n.i)*2.2;
+      const grad=ctx.createRadialGradient(n.x,n.y,1,n.x,n.y,rr*4.4); grad.addColorStop(0,n.color); grad.addColorStop(.18,n.color+'cc'); grad.addColorStop(1,n.color+'00');
+      ctx.save(); ctx.globalCompositeOperation='screen'; ctx.fillStyle=grad; ctx.beginPath(); ctx.arc(n.x,n.y,rr*4.4,0,TAU); ctx.fill(); ctx.restore();
+      ctx.fillStyle=n.color; ctx.beginPath(); ctx.arc(n.x,n.y,rr*.44,0,TAU); ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.42)'; ctx.lineWidth=.8; ctx.beginPath(); ctx.arc(n.x,n.y,rr,0,TAU); ctx.stroke();
+      if(showLabels){
+        const align = n.x < W*.5 ? 'right' : 'left'; ctx.textAlign=align; ctx.textBaseline='middle';
+        const lx=n.x+(align==='left'?20:-20), ly=n.y;
+        ctx.font='600 15px Georgia, "Songti SC", serif'; ctx.fillStyle='rgba(245,248,255,.92)'; ctx.fillText(n.zh, lx, ly-9);
+        ctx.font='12px ui-sans-serif, system-ui, sans-serif'; ctx.fillStyle='rgba(190,200,235,.72)'; ctx.fillText(`${n.day} / ${n.en}`, lx, ly+10);
+      }
+    });
+    // thesis ribbon at bottom center
+    const current = nodes[Math.floor((t/1450)%nodes.length)];
+    ctx.textAlign='center'; ctx.font='15px Georgia, "Songti SC", serif'; ctx.fillStyle='rgba(232,238,255,.74)';
+    ctx.fillText(`当前显影：${current.zh} — ${current.thesis}`, W*.56, H-58);
+    requestAnimationFrame(draw);
+  }
+  function nearest(x,y){ const nodes=layout(); return nodes.reduce((best,n)=>{ const d=(n.x-x)**2+(n.y-y)**2; return d<best.d?{n,d}:best; },{n:nodes[0],d:Infinity}).n; }
+  addEventListener('resize', resize);
+  canvas.addEventListener('pointerdown', e=>{ drag=true; const n=nearest(e.clientX,e.clientY); flares.push({x:e.clientX,y:e.clientY,birth:t,color:n.color}); });
+  canvas.addEventListener('pointermove', e=>{ if(!drag) return; warpX=(e.clientX/W-.5)*2; warpY=(e.clientY/H-.5)*2; });
+  addEventListener('pointerup', ()=>{ drag=false; });
+  addEventListener('keydown', e=>{
+    if(e.key==='h'||e.key==='H') showLabels=!showLabels;
+    if(e.key==='r'||e.key==='R'){ warpX=warpY=0; seedStars(); flares=[]; }
+    if(e.key==='s'||e.key==='S'){ const a=document.createElement('a'); a.download='granted-hours-variable-constellation.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  });
+  resize(); draw();
+})();
+</script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-14-variable-constellation-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>

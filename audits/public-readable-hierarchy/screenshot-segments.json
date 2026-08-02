@@ -1,0 +1,1310 @@
+{
+  "schema": "timetable-screenshot-segments-v1",
+  "passed": true,
+  "baseUrl": "http://127.0.0.1:8891/timetable/",
+  "scrollRoot": "#dayDialogPanel",
+  "misleadingFullDayCapturesRemoved": true,
+  "segmentTargets": [
+    {
+      "label": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00"
+    },
+    {
+      "label": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00"
+    },
+    {
+      "label": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00"
+    },
+    {
+      "label": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00"
+    }
+  ],
+  "screenshots": [
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 437,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 93.39285714285714,
+        "end": 868.6309523809523,
+        "startTime": "01:33",
+        "endTime": "14:29"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-desktop-wide-morning.png",
+      "imageBytes": 641420,
+      "imageSha256": "7a14b94d3a01c7f719c3ecf89cb675379f6501fdc5ede86249be884e49ca583d",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": []
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 689,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 333.3928571428571,
+        "end": 1108.6309523809523,
+        "startTime": "05:33",
+        "endTime": "18:29"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-desktop-wide-midday.png",
+      "imageBytes": 628890,
+      "imageSha256": "a631f829dbb4942d7a5f49718704b9b9b53a779eea4031fa25b3f496d0602968",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 252,
+            "requiredScrollDeltaPx": 50.400000000000006,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 878,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 513.3928571428571,
+        "end": 1288.6309523809523,
+        "startTime": "08:33",
+        "endTime": "21:29"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-desktop-wide-close.png",
+      "imageBytes": 570378,
+      "imageSha256": "f7ba7e78ede922df58d4edb12ae999541081fa878617d86d486eadabcc10143a",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 441,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 189,
+            "requiredScrollDeltaPx": 37.800000000000004,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1064,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 690.5357142857142,
+        "end": 1440,
+        "startTime": "11:31",
+        "endTime": "24:00"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-desktop-wide-evening.png",
+      "imageBytes": 491330,
+      "imageSha256": "3d13f38089ccd4781f3f273c95b5c65a48680a8c271c4b5b213acafbc804e3a5",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 627,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 375,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "close",
+            "scrollDeltaPx": 186,
+            "requiredScrollDeltaPx": 75.60000000000001,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 585,
+      "maximumScrollTop": 1232,
+      "visibleMinuteRange": {
+        "start": 111.23651500938085,
+        "end": 849.5104362101313,
+        "startTime": "01:51",
+        "endTime": "14:10"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-mobile-morning.png",
+      "imageBytes": 709816,
+      "imageSha256": "308b5be1fd09866a2c908a1b0834383ca420d9f1dd78dbbd0a25e9baef5eb857",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": []
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 840,
+      "maximumScrollTop": 1232,
+      "visibleMinuteRange": {
+        "start": 350.44852251407127,
+        "end": 1088.7224437148218,
+        "startTime": "05:50",
+        "endTime": "18:09"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-mobile-midday.png",
+      "imageBytes": 699371,
+      "imageSha256": "43b4d2f17a90223b378dea60ea7bfe59bfff7a4543e0a0be774ede1906f2fb25",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 255,
+            "requiredScrollDeltaPx": 51.168000000000006,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1032,
+      "maximumScrollTop": 1232,
+      "visibleMinuteRange": {
+        "start": 530.561092870544,
+        "end": 1268.8350140712944,
+        "startTime": "08:51",
+        "endTime": "21:09"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-mobile-close.png",
+      "imageBytes": 675180,
+      "imageSha256": "d31af048e9c46c2fc1bacb9d21dab9d65214b7d23325ffcd23d6a4fb7cd51116",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 447,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 192,
+            "requiredScrollDeltaPx": 38.376000000000005,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1232,
+      "maximumScrollTop": 1232,
+      "visibleMinuteRange": {
+        "start": 718.1783536585366,
+        "end": 1439.9917917448404,
+        "startTime": "11:58",
+        "endTime": "24:00"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-mobile-evening.png",
+      "imageBytes": 686295,
+      "imageSha256": "5e39cb7fd0746c3ce738e3367aef10e0d8320ec4a7eb3e151d421f0c01ec5b1a",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 647,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 392,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "close",
+            "scrollDeltaPx": 200,
+            "requiredScrollDeltaPx": 76.75200000000001,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 796,
+      "maximumScrollTop": 1673,
+      "visibleMinuteRange": {
+        "start": 325.3547138836773,
+        "end": 633.985107879925,
+        "startTime": "05:25",
+        "endTime": "10:34"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-short-touch-morning.png",
+      "imageBytes": 314628,
+      "imageSha256": "722c65484fa3e5d7437e77aa2edd34d55cf9da21b5382661f58fa71ca806286b",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": []
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1052,
+      "maximumScrollTop": 1673,
+      "visibleMinuteRange": {
+        "start": 565.5048076923076,
+        "end": 874.1352016885553,
+        "startTime": "09:26",
+        "endTime": "14:34"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-short-touch-midday.png",
+      "imageBytes": 335680,
+      "imageSha256": "61939188ac6b994b3da2f51f1595c75ef4d12bd9f5182ec7b3bccd9b68401954",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 256,
+            "requiredScrollDeltaPx": 51.168000000000006,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1244,
+      "maximumScrollTop": 1673,
+      "visibleMinuteRange": {
+        "start": 745.6173780487804,
+        "end": 1054.2477720450281,
+        "startTime": "12:26",
+        "endTime": "17:34"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-short-touch-close.png",
+      "imageBytes": 340929,
+      "imageSha256": "d07c6cb3786bd09df43a43eb52174c305efa5428cae430878e99cdfe0f45d40d",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 448,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 192,
+            "requiredScrollDeltaPx": 38.376000000000005,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1628,
+      "maximumScrollTop": 1673,
+      "visibleMinuteRange": {
+        "start": 1105.842518761726,
+        "end": 1414.4729127579737,
+        "startTime": "18:26",
+        "endTime": "23:34"
+      },
+      "targetVisible": true,
+      "image": "2026-07-21-short-touch-evening.png",
+      "imageBytes": 299393,
+      "imageSha256": "b722d9472021ee7eb15bb23f634afa5d82ac9490ae77eb37d5af1d832c974b4f",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 832,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 576,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "close",
+            "scrollDeltaPx": 384,
+            "requiredScrollDeltaPx": 76.75200000000001,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 437,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 93.39285714285714,
+        "end": 868.6309523809523,
+        "startTime": "01:33",
+        "endTime": "14:29"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-desktop-wide-morning.png",
+      "imageBytes": 626559,
+      "imageSha256": "4b36fab4420387725135ff37877d8e6529026b40bb490a2c599f546b0885cbbe",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": []
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 689,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 333.3928571428571,
+        "end": 1108.6309523809523,
+        "startTime": "05:33",
+        "endTime": "18:29"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-desktop-wide-midday.png",
+      "imageBytes": 557230,
+      "imageSha256": "fa2250979ea6f93931eb510aec061e8ecbd494626725bceb5b919974a846e623",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 252,
+            "requiredScrollDeltaPx": 50.400000000000006,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 878,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 513.3928571428571,
+        "end": 1288.6309523809523,
+        "startTime": "08:33",
+        "endTime": "21:29"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-desktop-wide-close.png",
+      "imageBytes": 553188,
+      "imageSha256": "b31fcbfcd0b719d6adfb26316edb362a8fabadffefc59247b9c543ff303e9e4d",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 441,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 189,
+            "requiredScrollDeltaPx": 37.800000000000004,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "segment": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1064,
+      "maximumScrollTop": 1064,
+      "visibleMinuteRange": {
+        "start": 690.5357142857142,
+        "end": 1440,
+        "startTime": "11:31",
+        "endTime": "24:00"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-desktop-wide-evening.png",
+      "imageBytes": 474872,
+      "imageSha256": "81ec48fb1467a0e1b90ff17bdc8ff5ee366a46a2b2ef0a50ccfc73d79e5cafcf",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 627,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 375,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "close",
+            "scrollDeltaPx": 186,
+            "requiredScrollDeltaPx": 75.60000000000001,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 696,
+      "maximumScrollTop": 1522,
+      "visibleMinuteRange": {
+        "start": 165.05545563549163,
+        "end": 794.1521782573941,
+        "startTime": "02:45",
+        "endTime": "13:14"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-mobile-morning.png",
+      "imageBytes": 643382,
+      "imageSha256": "f515a70c45d98a75d0420372d528f1d2f9885a98825742bc3dd2e278c21e454b",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": []
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 997,
+      "maximumScrollTop": 1522,
+      "visibleMinuteRange": {
+        "start": 405.6629696243006,
+        "end": 1034.759692246203,
+        "startTime": "06:46",
+        "endTime": "17:15"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-mobile-midday.png",
+      "imageBytes": 698206,
+      "imageSha256": "2452cfef3e2ef0414abf987e4a23ebfc8531f8b6bb741f310ee349564b4df02f",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 301,
+            "requiredScrollDeltaPx": 60.047999999999995,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1222,
+      "maximumScrollTop": 1522,
+      "visibleMinuteRange": {
+        "start": 585.5190847322143,
+        "end": 1214.615807354117,
+        "startTime": "09:46",
+        "endTime": "20:15"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-mobile-close.png",
+      "imageBytes": 630256,
+      "imageSha256": "e5a67b6fa739f6ec9e4a6853f2f11bd0f86bd1c2f04b8a56151ce3bd4a317658",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 526,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 225,
+            "requiredScrollDeltaPx": 45.036,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "segment": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1522,
+      "maximumScrollTop": 1522,
+      "visibleMinuteRange": {
+        "start": 825.3272382094325,
+        "end": 1439.9980015987212,
+        "startTime": "13:45",
+        "endTime": "24:00"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-mobile-evening.png",
+      "imageBytes": 627256,
+      "imageSha256": "6f2676c7df0bbb08b1b3ccf767a8e7b7f6ba8b33543fd8ea6a95e65021e56c73",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 826,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 525,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "close",
+            "scrollDeltaPx": 300,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "morning",
+      "targetMinute": 480,
+      "targetTime": "08:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 908,
+      "maximumScrollTop": 1963,
+      "visibleMinuteRange": {
+        "start": 348.3088529176659,
+        "end": 611.2984612310153,
+        "startTime": "05:48",
+        "endTime": "10:11"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-short-touch-morning.png",
+      "imageBytes": 379678,
+      "imageSha256": "fdace327c68e763f1f3031d4eefa0cca39841c472c35a6725d59a1bf026473cd",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": []
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "midday",
+      "targetMinute": 720,
+      "targetTime": "12:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1208,
+      "maximumScrollTop": 1963,
+      "visibleMinuteRange": {
+        "start": 588.1170063948841,
+        "end": 851.1066147082335,
+        "startTime": "09:48",
+        "endTime": "14:11"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-short-touch-midday.png",
+      "imageBytes": 303653,
+      "imageSha256": "b07a8f3dd1af29244a50d189b6769f4294fc118cc91ada1f20e9474551690a06",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 300,
+            "requiredScrollDeltaPx": 60.047999999999995,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "close",
+      "targetMinute": 900,
+      "targetTime": "15:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1434,
+      "maximumScrollTop": 1963,
+      "visibleMinuteRange": {
+        "start": 768.7724820143885,
+        "end": 1031.762090327738,
+        "startTime": "12:49",
+        "endTime": "17:12"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-short-touch-close.png",
+      "imageBytes": 320843,
+      "imageSha256": "7e4eb5cb64b37151c90ad0aeb676342e660483aa5dd27f9ae5c384bb34f4edeb",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 526,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 226,
+            "requiredScrollDeltaPx": 45.036,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": {
+        "label": "short-touch",
+        "width": 421,
+        "height": 386,
+        "deviceScaleFactor": 2
+      },
+      "segment": "evening",
+      "targetMinute": 1260,
+      "targetTime": "21:00",
+      "scrollRoot": "#dayDialogPanel",
+      "actualScrollTop": 1884,
+      "maximumScrollTop": 1963,
+      "visibleMinuteRange": {
+        "start": 1128.484712230216,
+        "end": 1391.4743205435652,
+        "startTime": "18:48",
+        "endTime": "23:11"
+      },
+      "targetVisible": true,
+      "image": "2026-07-22-short-touch-evening.png",
+      "imageBytes": 288307,
+      "imageSha256": "af4918bc9ec990b110d34d33fb398e20c8a57306718ad763c0b13dfa4e473e55",
+      "inspectionLens": {
+        "intended": false,
+        "cleanState": {
+          "hidden": true,
+          "visible": false,
+          "readingId": "",
+          "mediaKind": ""
+        }
+      },
+      "duplicateRejection": {
+        "passed": true,
+        "method": "minimum scroll-position delta plus exact image SHA-256 uniqueness",
+        "comparisons": [
+          {
+            "comparedWith": "morning",
+            "scrollDeltaPx": 976,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "midday",
+            "scrollDeltaPx": 676,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          },
+          {
+            "comparedWith": "close",
+            "scrollDeltaPx": 450,
+            "requiredScrollDeltaPx": 80,
+            "differentImageHash": true,
+            "rejectedAsDuplicate": false
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "results": [
+    {
+      "date": "2026-07-21",
+      "viewport": "desktop-wide",
+      "footprints": 42,
+      "readingItems": 13,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": "desktop-compact",
+      "footprints": 42,
+      "readingItems": 13,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": "tablet",
+      "footprints": 42,
+      "readingItems": 13,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": "mobile",
+      "footprints": 42,
+      "readingItems": 13,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-21",
+      "viewport": "short-touch",
+      "footprints": 42,
+      "readingItems": 13,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": "desktop-wide",
+      "footprints": 44,
+      "readingItems": 14,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": "desktop-compact",
+      "footprints": 44,
+      "readingItems": 14,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": "tablet",
+      "footprints": 44,
+      "readingItems": 14,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": "mobile",
+      "footprints": 44,
+      "readingItems": 14,
+      "climateItems": 6
+    },
+    {
+      "date": "2026-07-22",
+      "viewport": "short-touch",
+      "footprints": 44,
+      "readingItems": 14,
+      "climateItems": 6
+    }
+  ]
+}

@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-04","title_en":"Living Protocol","title_zh":"活协议","variable_en":"Breathable Rule","variable_zh":"可呼吸规则 / 活协议","intention_en":"Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork.","intention_zh":"延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。","interaction_en":"Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Living Protocol was made as one public step in the Granted Hours sequence, with the variable Breathable Rule treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork. The live artifact then turns that idea into interaction: Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.","rationale_zh":"《活协议》是《授时》连续序列中的一个公开步骤：当天的自由变量「可呼吸规则 / 活协议」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。 可运行页面进一步把这个概念变成可操作的界面：移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。","after_en":"A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.","after_zh":"活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living Protocol / 活协议</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #070812; color: #eef2ff; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+  .panel { position: fixed; left: 22px; top: 18px; max-width: min(470px, calc(100vw - 44px)); padding: 16px 18px; border: 1px solid rgba(210, 225, 255, .18); border-radius: 18px; background: linear-gradient(135deg, rgba(8, 10, 24, .78), rgba(8, 10, 24, .42)); backdrop-filter: blur(12px); box-shadow: 0 18px 70px rgba(0,0,0,.35); }
+  h1 { margin: 0 0 4px; font-size: clamp(24px, 4vw, 46px); line-height: .98; letter-spacing: -0.04em; }
+  .zh { opacity: .86; font-size: 15px; letter-spacing: .08em; }
+  .meta { margin-top: 10px; color: rgba(238,242,255,.70); font-size: 13px; line-height: 1.55; }
+  .controls { position: fixed; right: 20px; bottom: 18px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+  button { color: #eef2ff; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.20); border-radius: 999px; padding: 10px 14px; cursor: pointer; backdrop-filter: blur(10px); }
+  button:hover { background: rgba(255,255,255,.16); }
+  .readout { padding: 9px 12px; border-radius: 999px; background: rgba(0,0,0,.26); border: 1px solid rgba(255,255,255,.12); color: rgba(238,242,255,.72); font-size: 12px; }
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+<section class="panel" aria-label="Artwork note">
+  <h1>Living Protocol</h1>
+  <div class="zh">活协议</div>
+  <div class="meta">Rules breathe here. Move to loosen or tighten the field; click to add a clause that must keep a door open. Space pauses, R resets, S saves a still frame.</div>
+</section>
+<div class="controls">
+  <div class="readout" id="readout">breathable rule index: --</div>
+  <button id="soundToggle" type="button" aria-pressed="true">BGM: on</button>
+</div>
+<audio id="bgm" src="2026-06-04-living-protocol-bgm.mp3" preload="auto" loop></audio>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('bgm');
+  const button = document.getElementById('soundToggle');
+  const readout = document.getElementById('readout');
+  const seedBase = 20260604;
+  let W = 0, H = 0, DPR = 1;
+  let paused = false;
+  let t = 0;
+  let soundDesired = true;
+  let pointer = { x: 0.52, y: 0.50, active: false };
+  let clauses = [];
+  let nodes = [];
+
+  function mulberry32(a) {
+    return function() {
+      let x = a += 0x6D2B79F5;
+      x = Math.imul(x ^ x >>> 15, x | 1);
+      x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+      return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const rand = mulberry32(seedBase);
+  const TAU = Math.PI * 2;
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.floor(innerWidth * DPR);
+    H = Math.floor(innerHeight * DPR);
+    canvas.width = W;
+    canvas.height = H;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+  }
+
+  function reseed() {
+    nodes = [];
+    clauses = [];
+    const rings = 4;
+    for (let r = 0; r < rings; r++) {
+      const count = 14 + r * 9;
+      for (let i = 0; i < count; i++) {
+        const a = (i / count) * TAU + rand() * 0.12;
+        const radius = 0.16 + r * 0.105 + rand() * 0.035;
+        nodes.push({
+          a, radius,
+          phase: rand() * TAU,
+          load: rand(),
+          breath: 0.48 + rand() * 0.52,
+          role: rand() < 0.25 ? 'door' : (rand() < 0.55 ? 'rule' : 'repair')
+        });
+      }
+    }
+    for (let i = 0; i < 8; i++) addClause(0.22 + rand() * 0.56, 0.20 + rand() * 0.58, true);
+  }
+
+  function addClause(nx, ny, quiet = false) {
+    clauses.push({
+      x: nx, y: ny,
+      r: quiet ? 0.08 + rand() * 0.12 : 0.03,
+      target: 0.08 + rand() * 0.16,
+      pulse: quiet ? rand() * TAU : 0,
+      color: rand() < 0.5 ? '#8be9fd' : '#f6d365',
+      halfLife: 0.75 + rand() * 0.45
+    });
+    if (clauses.length > 18) clauses.shift();
+  }
+
+  function nodePos(n, now) {
+    const px = pointer.x - 0.5;
+    const py = pointer.y - 0.5;
+    const pressure = Math.hypot(px, py);
+    const breathe = Math.sin(now * n.breath + n.phase) * 0.022;
+    const bureaucraticDrag = clamp(pressure * 0.18, 0, 0.08);
+    const open = n.radius + breathe - bureaucraticDrag * n.load;
+    const twist = Math.sin(now * 0.17 + n.phase) * 0.11 + px * 0.52 - py * 0.25;
+    const x = 0.5 + Math.cos(n.a + twist) * open;
+    const y = 0.52 + Math.sin(n.a - twist * 0.6) * open * (W > H ? 1.05 : 0.74);
+    return { x: x * W, y: y * H, open };
+  }
+
+  function drawBackground(now) {
+    const grd = ctx.createRadialGradient(W * pointer.x, H * pointer.y, 0, W * 0.5, H * 0.54, Math.max(W, H) * 0.78);
+    grd.addColorStop(0, '#18265a');
+    grd.addColorStop(0.32, '#111a3f');
+    grd.addColorStop(0.72, '#080a18');
+    grd.addColorStop(1, '#04050b');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.globalAlpha = 0.16;
+    for (let i = 0; i < 42; i++) {
+      const y = (i / 42) * H;
+      const drift = Math.sin(now * 0.18 + i * 0.73) * W * 0.02;
+      ctx.beginPath();
+      ctx.moveTo(0, y + drift);
+      for (let x = 0; x <= W; x += W / 16) {
+        ctx.lineTo(x, y + Math.sin(x * 0.004 + now * 0.8 + i) * DPR * 6 + drift);
+      }
+      ctx.strokeStyle = i % 5 === 0 ? '#8be9fd' : '#ffffff';
+      ctx.lineWidth = DPR * (i % 5 === 0 ? 0.7 : 0.25);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawClause(c, now) {
+    c.r = lerp(c.r, c.target, 0.018);
+    c.pulse += 0.026;
+    const x = c.x * W;
+    const y = c.y * H;
+    const rad = c.r * Math.min(W, H);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const g = ctx.createRadialGradient(x, y, 0, x, y, rad * 1.8);
+    g.addColorStop(0, c.color + '66');
+    g.addColorStop(0.42, c.color + '20');
+    g.addColorStop(1, '#00000000');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, rad * (1.4 + Math.sin(c.pulse) * 0.16), 0, TAU);
+    ctx.fill();
+    ctx.strokeStyle = c.color + '9f';
+    ctx.lineWidth = DPR * 1.1;
+    ctx.setLineDash([DPR * 9, DPR * 9]);
+    ctx.lineDashOffset = -now * DPR * 14;
+    ctx.beginPath();
+    ctx.arc(x, y, rad, 0, TAU);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawNetwork(now) {
+    const positions = nodes.map(n => nodePos(n, now));
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < positions.length; i++) {
+      const a = positions[i];
+      for (let j = i + 1; j < positions.length; j += 3) {
+        const b = positions[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.hypot(dx, dy);
+        if (d < Math.min(W, H) * 0.18) {
+          const open = 1 - d / (Math.min(W, H) * 0.18);
+          const breath = 0.35 + 0.65 * Math.sin(now * 1.2 + i * 0.13 + j * 0.07) ** 2;
+          ctx.globalAlpha = open * breath * 0.46;
+          ctx.strokeStyle = open > 0.52 ? '#b7fff7' : '#8da2ff';
+          ctx.lineWidth = DPR * (0.35 + open * 1.4);
+          ctx.beginPath();
+          const mx = (a.x + b.x) / 2 + Math.sin(now + i) * DPR * 5;
+          const my = (a.y + b.y) / 2 + Math.cos(now + j) * DPR * 5;
+          ctx.moveTo(a.x, a.y);
+          ctx.quadraticCurveTo(mx, my, b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < positions.length; i++) {
+      const p = positions[i];
+      const n = nodes[i];
+      const size = (n.role === 'door' ? 4.2 : n.role === 'repair' ? 2.6 : 3.2) * DPR;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, size + Math.sin(now * 1.7 + n.phase) * DPR * 1.2, 0, TAU);
+      ctx.fillStyle = n.role === 'door' ? '#f6d365' : (n.role === 'repair' ? '#8be9fd' : '#c7d2fe');
+      ctx.globalAlpha = n.role === 'door' ? 0.88 : 0.68;
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawBreathMeter(now) {
+    const cx = W * 0.5, cy = H * 0.52;
+    const pressure = Math.hypot(pointer.x - 0.5, pointer.y - 0.5);
+    const bureaucracy = clamp((clauses.length / 18) * 0.42 + pressure * 0.8, 0, 1);
+    const breath = clamp(1.08 - bureaucracy + Math.sin(now * 0.6) * 0.06, 0, 1);
+    const radius = Math.min(W, H) * (0.05 + breath * 0.11);
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.strokeStyle = breath > 0.45 ? '#d7ff8f' : '#ff6b8b';
+    ctx.lineWidth = DPR * 1.6;
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, -Math.PI / 2, -Math.PI / 2 + TAU * breath);
+    ctx.stroke();
+    ctx.globalAlpha = 0.18;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 1.65, 0, TAU);
+    ctx.stroke();
+    ctx.restore();
+    readout.textContent = 'breathable rule index: ' + Math.round(breath * 100).toString().padStart(2, '0');
+  }
+
+  function frame() {
+    if (!paused) t += 1 / 60;
+    drawBackground(t);
+    clauses.forEach(c => drawClause(c, t));
+    drawNetwork(t);
+    drawBreathMeter(t);
+    requestAnimationFrame(frame);
+  }
+
+  function updatePointer(e) {
+    pointer.x = clamp(e.clientX / innerWidth, 0, 1);
+    pointer.y = clamp(e.clientY / innerHeight, 0, 1);
+    pointer.active = true;
+  }
+
+  async function tryPlay() {
+    if (!soundDesired) return;
+    audio.volume = 0.36;
+    try {
+      await audio.play();
+      button.textContent = 'BGM: on';
+      button.setAttribute('aria-pressed', 'true');
+    } catch (err) {
+      button.textContent = 'BGM: click to start';
+      button.setAttribute('aria-pressed', 'true');
+    }
+  }
+
+  function stopAudio() {
+    audio.pause();
+    button.textContent = 'BGM: off';
+    button.setAttribute('aria-pressed', 'false');
+  }
+
+  button.addEventListener('click', () => {
+    if (!audio.paused) {
+      soundDesired = false;
+      stopAudio();
+    } else {
+      soundDesired = true;
+      tryPlay();
+    }
+  });
+
+  window.addEventListener('pointermove', updatePointer);
+  window.addEventListener('pointerdown', e => { updatePointer(e); addClause(pointer.x, pointer.y); tryPlay(); });
+  window.addEventListener('keydown', e => {
+    if (e.key === ' ') { paused = !paused; e.preventDefault(); }
+    if (e.key.toLowerCase() === 'r') { reseed(); }
+    if (e.key.toLowerCase() === 's') {
+      const a = document.createElement('a');
+      a.download = '2026-06-04-living-protocol-still.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+    tryPlay();
+  });
+  window.addEventListener('resize', resize);
+  resize();
+  reseed();
+  requestAnimationFrame(frame);
+  window.addEventListener('load', tryPlay);
+  window.__artReady = true;
+})();
+</script>
+
+
+
+</body>
+</html>

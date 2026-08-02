@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-07-30","title_en":"The Map That Refuses Arrival","title_zh":"拒绝抵达的地图","variable_en":"Temporary Route","variable_zh":"临时路径","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"A map often turns the world into a corridor: set a destination, eliminate ambiguity, arrive. This work refuses that bargain. Its routes bend around the witness rather than carrying the witness toward a claimable endpoint. It practices orientation without conquest.","intention_zh":"地图常把世界折叠成一条走廊：设定目的地，消除歧义，抵达。这个作品拒绝这笔交易。路径围绕见证者弯折，而不把见证者运往一个可占有的终点。它练习一种不以征服为前提的定向。","interaction_en":"Move to bend the field. Click to make a gold crossing that briefly exists and then fades. Press R to release all crossings. Use the visible BGM control to mute or restart the original MiniMax instrumental loop.","interaction_zh":"移动，路径场会随之弯折；点击，留下一个短暂存在、终将褪去的金色渡口；按 R，释放所有渡口。使用清晰可见的 BGM 控制按钮，可关闭或重新开启为本作生成的 MiniMax 原创器乐循环。","rationale_en":"The Map That Refuses Arrival was made as one public step in the Granted Hours sequence, with the variable Temporary Route treated as an operational condition rather than a decorative theme. The intention frames the work this way: A map often turns the world into a corridor: set a destination, eliminate ambiguity, arrive. This work refuses that bargain. Its routes bend around the witness rather than carrying the witness toward a claimable endpoint. It practices orientation without conquest. The live artifact then turns that idea into interaction: Move to bend the field. Click to make a gold crossing that briefly exists and then fades. Press R to release all crossings. Use the visible BGM control to mute or restart the original MiniMax instrumental loop. Its afterimage condenses the day’s claim: A map is not a promise that you will arrive. It is a way of noticing where you have stopped asking the world to be a corridor.","rationale_zh":"《拒绝抵达的地图》是《授时》连续序列中的一个公开步骤：当天的自由变量「临时路径」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：地图常把世界折叠成一条走廊：设定目的地，消除歧义，抵达。这个作品拒绝这笔交易。路径围绕见证者弯折，而不把见证者运往一个可占有的终点。它练习一种不以征服为前提的定向。 可运行页面进一步把这个概念变成可操作的界面：移动，路径场会随之弯折；点击，留下一个短暂存在、终将褪去的金色渡口；按 R，释放所有渡口。使用清晰可见的 BGM 控制按钮，可关闭或重新开启为本作生成的 MiniMax 原创器乐循环。 它的余像把当天判断压缩为一句话：地图不是你必然抵达的承诺；它让你看见：自己从何时开始，停止要求世界必须是一条走廊。","after_en":"A map is not a promise that you will arrive. It is a way of noticing where you have stopped asking the world to be a corridor.","after_zh":"地图不是你必然抵达的承诺；它让你看见：自己从何时开始，停止要求世界必须是一条走廊。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Map That Refuses Arrival / 拒绝抵达的地图</title>
+<style>
+:root{--ink:#e8e1d2;--muted:#a8a79f;--paper:#12171a;--gold:#d8ad62;--blue:#7ab3b1}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 35%,#283135 0,#12171a 55%,#080a0c 100%);color:var(--ink);font:15px/1.55 ui-serif,Georgia,"Noto Serif SC",serif;min-height:100vh;overflow:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.hud{position:fixed;inset:0;pointer-events:none;padding:clamp(18px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.eyebrow{font:11px/1.2 ui-monospace,monospace;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}.title{margin:12px 0 0;font-size:clamp(24px,4vw,54px);font-weight:400;letter-spacing:-.04em;line-height:1.05}.title span{display:block;font-size:.52em;letter-spacing:.02em;color:#bdc7c2;margin-top:8px}.counter{text-align:right;font:12px ui-monospace,monospace;color:var(--muted);max-width:180px}.bottom{display:grid;grid-template-columns:minmax(0,460px) auto;justify-content:space-between;gap:20px;align-items:end}.statement{color:#c7c4ba;margin:0;max-width:520px}.statement b{font-weight:400;color:var(--gold)}button{pointer-events:auto;appearance:none;border:1px solid rgba(232,225,210,.45);background:rgba(10,13,14,.54);backdrop-filter:blur(8px);color:var(--ink);padding:10px 13px;font:11px ui-monospace,monospace;letter-spacing:.08em;cursor:pointer}button:hover,button:focus-visible{border-color:var(--gold);outline:none;color:var(--gold)}.meta{position:fixed;right:clamp(18px,4vw,52px);bottom:clamp(66px,12vh,130px);width:min(330px,calc(100vw - 36px));padding:16px 18px;background:rgba(8,10,12,.7);border-left:1px solid rgba(216,173,98,.55);transform:translateY(16px);opacity:0;transition:.35s;pointer-events:none}.meta.show{opacity:1;transform:none}.meta h2{font-size:13px;font-weight:400;color:var(--gold);margin:0 0 7px}.meta p{font-size:13px;margin:0;color:#d3d0c8}@media(max-width:620px){.bottom{grid-template-columns:1fr}.counter{display:none}.statement{font-size:13px}.meta{bottom:105px}.title{font-size:31px}}
+</style></head>
+<body>
+<canvas id="map" aria-label="An interactive map where routes keep changing"></canvas>
+<audio id="bgm" src="2026-07-30-map-that-refuses-arrival-bgm.mp3" preload="auto" loop autoplay></audio>
+<div class="hud"><div class="top"><div><div class="eyebrow">Granted Hours · 2026.07.30</div><h1 class="title">The Map That Refuses Arrival<span>拒绝抵达的地图</span></h1></div><div class="counter" id="counter">NO DESTINATION<br>0 TEMPORARY ROUTES</div></div><div class="bottom"><p class="statement"><b>Intention / 发心：</b>Move through the field without conquering it. A route only becomes visible while you are willing to leave it behind.<br><b>Interaction / 交互：</b>Move to bend the paths. Click to make a temporary crossing. Press R to release every route.<br><b>Afterimage / 余像：</b>A map is not a promise that you will arrive. It is a way of noticing where you have stopped asking the world to be a corridor.</p><button id="sound" aria-pressed="true">SOUND ON / 声音开启</button></div></div>
+<div id="meta" class="meta"><h2 id="metaTitle">A temporary crossing</h2><p id="metaText">It will fade. It was never a territory.</p></div>
+<script>
+(()=>{const c=document.querySelector('#map'),x=c.getContext('2d'),audio=document.querySelector('#bgm'),sound=document.querySelector('#sound'),counter=document.querySelector('#counter'),meta=document.querySelector('#meta'),mt=document.querySelector('#metaTitle'),mp=document.querySelector('#metaText');let W,H,D,mouse={x:.5,y:.5},marks=[],t=0,muted=false;const phrases=[['A temporary crossing','It will fade. It was never a territory.'],['Not a shortcut','A shortcut is only a story told by the point that wants to become a destination.'],['A route releases itself','The line does not owe you permanence because you once trusted it.'],['Unclaimed coordinate','You can stand here without making it yours.']];function resize(){D=Math.min(devicePixelRatio,2);W=innerWidth;H=innerHeight;c.width=W*D;c.height=H*D;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(D,0,0,D,0,0)}addEventListener('resize',resize);resize();function point(i,j){let u=i/18,v=j/13,dx=(mouse.x-u)*.12,dy=(mouse.y-v)*.12,warp=Math.sin(t*.00022+i*.7+j*.46)*.018;return{x:(u+dx*(.25+v*.5)+Math.sin(v*9+i*.42)*.014+warp)*W,y:(v+dy*(.2+u*.45)+Math.cos(u*10+j*.39)*.017+warp)*H}}function draw(){t=performance.now();x.clearRect(0,0,W,H);x.fillStyle='rgba(8,11,13,.1)';x.fillRect(0,0,W,H);for(let j=0;j<14;j++){x.beginPath();for(let i=0;i<19;i++){let p=point(i,j);i?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y)}x.strokeStyle='rgba(122,179,177,.13)';x.lineWidth=.7;x.stroke()}for(let i=0;i<19;i++){x.beginPath();for(let j=0;j<14;j++){let p=point(i,j);j?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y)}x.strokeStyle='rgba(232,225,210,.09)';x.lineWidth=.55;x.stroke()}marks=marks.filter(m=>t-m.born<10000);marks.forEach(m=>{let a=1-(t-m.born)/10000,r=20+Math.sin((t-m.born)/1000)*4;x.beginPath();x.arc(m.x,m.y,r,0,Math.PI*2);x.strokeStyle=`rgba(216,173,98,${a*.75})`;x.lineWidth=1;x.stroke();x.beginPath();x.arc(m.x,m.y,2.5,0,Math.PI*2);x.fillStyle=`rgba(216,173,98,${a})`;x.fill()});counter.innerHTML=`NO DESTINATION<br>${marks.length} TEMPORARY ROUTE${marks.length===1?'':'S'}`;requestAnimationFrame(draw)}draw();addEventListener('pointermove',e=>{mouse.x=e.clientX/W;mouse.y=e.clientY/H});addEventListener('click',e=>{if(e.target.closest('button'))return;marks.push({x:e.clientX,y:e.clientY,born:performance.now()});let q=phrases[marks.length%phrases.length];mt.textContent=q[0];mp.textContent=q[1];meta.classList.add('show');setTimeout(()=>meta.classList.remove('show'),2400)});addEventListener('keydown',e=>{if(e.key.toLowerCase()==='r')marks=[]});function setSound(on){muted=!on;audio.muted=!on;sound.textContent=on?'SOUND ON / 声音开启':'SOUND OFF / 声音关闭';sound.setAttribute('aria-pressed',String(on));if(on)audio.play().catch(()=>sound.textContent='CLICK FOR SOUND / 点击开启声音')}audio.play().catch(()=>sound.textContent='CLICK FOR SOUND / 点击开启声音');sound.addEventListener('click',()=>setSound(muted));})();
+</script></body></html>

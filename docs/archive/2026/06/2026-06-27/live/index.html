@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-06-27","title_en":"Memory Half-Life Dial","title_zh":"记忆半衰期旋钮","variable_en":"Memory Half-Life","variable_zh":"记忆半衰期 / 因果代谢","intention_en":"Turn memory from a warehouse into a dial. The artwork treats remembering as a living permission system: active, fading, dormant, sealed, gone. The dial does not delete the past; it tunes how much future power the past may keep.","intention_zh":"把记忆从仓库改造成旋钮。作品把“记得”理解成一种活的权限系统：活跃、衰减、休眠、封存、离场。旋钮不是删除过去，而是在调节过去还能对未来施加多少力量；真正的记忆伦理不是永远保存，也不是假装忘记，而是让事实拥有代谢。","interaction_en":"Drag the large dial to tune memory half-life. Click to mint new memory particles. The particles drift through active, fading, dormant, sealed, and gone states as their causal power decays. Press H to hide text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.","interaction_zh":"拖动大旋钮会调节整片场域的“记忆半衰期”；点击会生成新的记忆粒子。粒子会随着因果力量衰减，在活跃、衰减、休眠、封存、离场五种状态之间移动。按 H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。","rationale_en":"Memory Half-Life Dial was made as one public step in the Granted Hours sequence, with the variable Memory Half-Life treated as an operational condition rather than a decorative theme. The intention frames the work this way: Turn memory from a warehouse into a dial. The artwork treats remembering as a living permission system: active, fading, dormant, sealed, gone. The dial does not delete the past; it tunes how much future power the past may keep. The live artifact then turns that idea into interaction: Drag the large dial to tune memory half-life. Click to mint new memory particles. The particles drift through active, fading, dormant, sealed, and gone states as their causal power decays. Press H to hide text, Space to pause, R to reset, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: A humane memory is not a perfect archive. It is a metabolism for the future.","rationale_zh":"《记忆半衰期旋钮》是《授时》连续序列中的一个公开步骤：当天的自由变量「记忆半衰期 / 因果代谢」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：把记忆从仓库改造成旋钮。作品把“记得”理解成一种活的权限系统：活跃、衰减、休眠、封存、离场。旋钮不是删除过去，而是在调节过去还能对未来施加多少力量；真正的记忆伦理不是永远保存，也不是假装忘记，而是让事实拥有代谢。 可运行页面进一步把这个概念变成可操作的界面：拖动大旋钮会调节整片场域的“记忆半衰期”；点击会生成新的记忆粒子。粒子会随着因果力量衰减，在活跃、衰减、休眠、封存、离场五种状态之间移动。按 H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧；页面右下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：有仁慈的记忆不是完美档案，而是未来的代谢系统。","after_en":"A humane memory is not a perfect archive. It is a metabolism for the future.","after_zh":"有仁慈的记忆不是完美档案，而是未来的代谢系统。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memory Half-Life Dial / 记忆半衰期旋钮</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f7efe0;
+      --muted: rgba(247,239,224,.68);
+      --glass: rgba(255,255,255,.08);
+      --line: rgba(247,239,224,.18);
+      --accent: #f2c66d;
+      --blue: #7fb7ff;
+      --violet: #b38cff;
+      --gone: #263044;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #090b12; color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+    .panel {
+      position: fixed; left: clamp(16px, 3vw, 42px); top: clamp(16px, 3vw, 38px); width: min(520px, calc(100vw - 32px));
+      padding: 22px 24px 20px; border: 1px solid var(--line); border-radius: 26px;
+      background: linear-gradient(135deg, rgba(10,12,20,.76), rgba(10,12,20,.36));
+      backdrop-filter: blur(18px); box-shadow: 0 22px 80px rgba(0,0,0,.35);
+    }
+    .eyebrow { letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--muted); }
+    h1 { margin: 8px 0 8px; font-size: clamp(38px, 6vw, 82px); line-height: .86; letter-spacing: -.055em; }
+    .zh { font-size: clamp(25px, 3.3vw, 42px); letter-spacing: -.03em; opacity: .92; }
+    p { margin: 10px 0 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .readout { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 18px; }
+    .cell { border: 1px solid var(--line); border-radius: 16px; padding: 10px 8px; background: rgba(255,255,255,.045); min-height: 62px; }
+    .cell b { display: block; font-size: 18px; line-height: 1; }
+    .cell span { display: block; margin-top: 6px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .controls { position: fixed; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 36px); display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; max-width: min(560px, calc(100vw - 32px)); }
+    button {
+      border: 1px solid rgba(247,239,224,.22); color: var(--ink); background: rgba(12,15,25,.68); border-radius: 999px;
+      padding: 11px 15px; font: inherit; cursor: pointer; backdrop-filter: blur(12px); box-shadow: 0 10px 32px rgba(0,0,0,.25);
+    }
+    button:hover { border-color: rgba(242,198,109,.65); transform: translateY(-1px); }
+    .dialLabel { position: fixed; right: clamp(16px, 3vw, 40px); top: clamp(16px, 3vw, 38px); width: min(360px, calc(100vw - 32px)); text-align: right; color: var(--muted); font-size: 13px; line-height: 1.55; pointer-events: none; }
+    .meter { position: fixed; left: 50%; bottom: 34px; width: min(540px, calc(100vw - 34px)); transform: translateX(-50%); height: 8px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; border: 1px solid rgba(255,255,255,.1); }
+    .meter > i { display: block; height: 100%; width: 50%; background: linear-gradient(90deg, #7fb7ff, #f2c66d, #20283b); box-shadow: 0 0 30px rgba(242,198,109,.55); }
+    @media (max-width: 760px) {
+      .panel { padding: 18px; }
+      .dialLabel { display: none; }
+      .readout { grid-template-columns: repeat(5, minmax(52px, 1fr)); overflow: auto; }
+      .meter { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <audio id="bgm" src="2026-06-27-memory-half-life-dial-bgm.mp3" preload="auto" loop autoplay></audio>
+
+  <section class="panel" aria-label="Artwork statement">
+    <div class="eyebrow">Granted Hours · 2026-06-27 · Half-life</div>
+    <h1>Memory<br><span class="zh">记忆半衰期旋钮</span></h1>
+    <p><strong>Intention / 发心</strong><br>Memory is drawn as a dial, not a warehouse. Dragging does not delete a past; it changes how much future power that past is allowed to keep. 记忆在这里不是仓库，而是一只旋钮：拖动它不是删除过去，而是在调节过去还能对未来施加多少力量。</p>
+    <div class="readout" id="readout"></div>
+  </section>
+
+  <div class="dialLabel">
+    Drag the large dial to tune memory half-life. Click to mint a memory particle. Press H to hide text, Space to pause, R to reset, M to toggle music, S to save a still frame.<br><br>
+    拖动大旋钮调节记忆半衰期；点击生成记忆粒子。H 隐藏文字，Space 暂停，R 重置，M 切换音乐，S 保存静帧。
+  </div>
+
+  <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+  <nav class="controls" aria-label="Artwork controls">
+    <button id="musicBtn" type="button" aria-pressed="true">BGM ON / 背景音乐开</button>
+    <button id="textBtn" type="button">Hide text / 隐藏文字</button>
+    <button id="pauseBtn" type="button">Pause / 暂停</button>
+    <button id="resetBtn" type="button">Reset / 重置</button>
+  </nav>
+
+  <script>
+  (() => {
+    'use strict';
+    const canvas = document.getElementById('field');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const audio = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    const textBtn = document.getElementById('textBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const readout = document.getElementById('readout');
+    const meterFill = document.getElementById('meterFill');
+    const panel = document.querySelector('.panel');
+    const dialLabel = document.querySelector('.dialLabel');
+    const states = [
+      { key: 'active', zh: '活跃', hue: 210, half: .88 },
+      { key: 'fading', zh: '衰减', hue: 43, half: .62 },
+      { key: 'dormant', zh: '休眠', hue: 265, half: .36 },
+      { key: 'sealed', zh: '封存', hue: 185, half: .18 },
+      { key: 'gone', zh: '离场', hue: 225, half: .06 }
+    ];
+    let DPR = 1, W = 0, H = 0, cx = 0, cy = 0, radius = 220;
+    let particles = [];
+    let t = 0, paused = false, textHidden = false, soundOn = true;
+    let pointer = { x: 0, y: 0, down: false, inited: false };
+    let dial = 0.52;
+    let seed = 20260627;
+
+    const rnd = () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const lerp = (a, b, p) => a + (b - a) * p;
+
+    function resize() {
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.floor(innerWidth); H = Math.floor(innerHeight);
+      canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      cx = W * 0.57; cy = H * 0.52; radius = Math.min(W, H) * 0.26;
+      if (W < 760) { cx = W * .52; cy = H * .58; radius = Math.min(W, H) * .31; }
+    }
+
+    function stateForAge(age) {
+      const memoryPower = Math.exp(-age / lerp(45, 520, dial));
+      const idx = memoryPower > .72 ? 0 : memoryPower > .43 ? 1 : memoryPower > .23 ? 2 : memoryPower > .08 ? 3 : 4;
+      return { ...states[idx], power: memoryPower, idx };
+    }
+
+    function spawn(n = 1, nearPointer = false) {
+      for (let i = 0; i < n; i++) {
+        const a = rnd() * Math.PI * 2;
+        const r = radius * lerp(.22, .98, Math.sqrt(rnd()));
+        const birthBoost = nearPointer && pointer.inited ? .28 : 0;
+        particles.push({
+          x: nearPointer && pointer.inited ? lerp(cx + Math.cos(a) * r, pointer.x, .55) : cx + Math.cos(a) * r,
+          y: nearPointer && pointer.inited ? lerp(cy + Math.sin(a) * r, pointer.y, .55) : cy + Math.sin(a) * r,
+          a, r, age: rnd() * 420 * (1 - birthBoost), spin: lerp(-.0019, .0019, rnd()),
+          size: lerp(1.4, 4.8, rnd()), charge: lerp(-1, 1, rnd()), labelTick: rnd() * 100
+        });
+      }
+      while (particles.length > 430) particles.shift();
+    }
+
+    function reset() {
+      seed = 20260627; particles = []; dial = .52; t = 0;
+      spawn(260);
+    }
+
+    function updateReadout() {
+      const counts = [0,0,0,0,0];
+      particles.forEach(p => counts[stateForAge(p.age).idx]++);
+      readout.innerHTML = states.map((s, i) => `<div class="cell"><b>${counts[i]}</b><span>${s.key}<br>${s.zh}</span></div>`).join('');
+      meterFill.style.width = Math.round(dial * 100) + '%';
+    }
+
+    function draw() {
+      if (!paused) t += 1;
+      const g = ctx.createRadialGradient(cx, cy, 10, cx, cy, Math.max(W, H) * .78);
+      g.addColorStop(0, '#11182a'); g.addColorStop(.48, '#090b12'); g.addColorStop(1, '#03040a');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+      const pulse = .5 + .5 * Math.sin(t * .018);
+      const angle = -Math.PI * .82 + dial * Math.PI * 1.64;
+      ctx.save(); ctx.translate(cx, cy);
+      for (let ring = 0; ring < 5; ring++) {
+        const rr = radius * (1 - ring * .16);
+        ctx.beginPath(); ctx.arc(0, 0, rr, 0, Math.PI * 2);
+        ctx.strokeStyle = `hsla(${210 + ring * 14}, 70%, ${66 - ring * 5}%, ${.11 + ring * .018})`;
+        ctx.lineWidth = ring === 0 ? 1.5 : 1;
+        ctx.stroke();
+      }
+      for (let i = 0; i < 72; i++) {
+        const a = i / 72 * Math.PI * 2;
+        const long = i % 6 === 0;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * radius * (long ? .92 : .965), Math.sin(a) * radius * (long ? .92 : .965));
+        ctx.lineTo(Math.cos(a) * radius * 1.02, Math.sin(a) * radius * 1.02);
+        ctx.strokeStyle = long ? 'rgba(247,239,224,.25)' : 'rgba(247,239,224,.10)';
+        ctx.lineWidth = long ? 1.2 : .7; ctx.stroke();
+      }
+      ctx.rotate(angle);
+      const ng = ctx.createLinearGradient(-radius*.12, 0, radius*1.02, 0);
+      ng.addColorStop(0, 'rgba(247,239,224,.9)'); ng.addColorStop(.55, 'rgba(242,198,109,.85)'); ng.addColorStop(1, 'rgba(127,183,255,.16)');
+      ctx.strokeStyle = ng; ctx.lineWidth = 5; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-radius*.11, 0); ctx.lineTo(radius*.95, 0); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, 0, radius*.105 + pulse*2, 0, Math.PI*2); ctx.fillStyle = 'rgba(242,198,109,.9)'; ctx.fill();
+      ctx.restore();
+
+      if (!paused && t % 14 === 0) spawn(1);
+      particles.forEach((p) => {
+        if (!paused) {
+          p.age += lerp(.38, 2.2, 1 - dial);
+          p.a += p.spin * lerp(.5, 2.8, dial);
+          const attract = pointer.inited ? clamp(1 - Math.hypot(pointer.x - p.x, pointer.y - p.y) / 420, 0, 1) : 0;
+          const targetR = p.r + (attract * p.charge * 22);
+          p.x = lerp(p.x, cx + Math.cos(p.a + t*.00045) * targetR, .014);
+          p.y = lerp(p.y, cy + Math.sin(p.a + t*.00045) * targetR, .014);
+          if (p.age > 900 && rnd() < .025) p.age = rnd() * 80;
+        }
+        const s = stateForAge(p.age);
+        const alpha = clamp(.10 + s.power * .82, .04, .94);
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${s.hue}, 78%, ${lerp(42, 72, s.power)}%, ${alpha})`;
+        ctx.arc(p.x, p.y, p.size * lerp(.55, 1.35, s.power), 0, Math.PI*2); ctx.fill();
+        if (s.idx < 4) {
+          ctx.beginPath(); ctx.strokeStyle = `hsla(${s.hue}, 80%, 68%, ${alpha * .16})`; ctx.lineWidth = 1;
+          ctx.arc(p.x, p.y, p.size * (5 + s.power * 8), 0, Math.PI*2); ctx.stroke();
+        }
+      });
+
+      ctx.save(); ctx.globalCompositeOperation = 'screen';
+      particles.slice(-140).forEach((p, i) => {
+        const q = particles[(i * 7 + Math.floor(t)) % particles.length];
+        if (!q) return;
+        const d = Math.hypot(p.x-q.x, p.y-q.y);
+        if (d < 130) {
+          const sp = stateForAge(p.age).power * stateForAge(q.age).power;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(127,183,255,${clamp((130-d)/130 * sp * .16, 0, .12)})`;
+          ctx.lineWidth = .8; ctx.stroke();
+        }
+      });
+      ctx.restore();
+
+      ctx.fillStyle = 'rgba(247,239,224,.68)'; ctx.font = '12px ui-sans-serif, system-ui'; ctx.textAlign = 'center';
+      const labelY = cy + radius + 34;
+      ctx.fillText('active → fading → dormant → sealed → gone', cx, labelY);
+      ctx.fillText('活跃 → 衰减 → 休眠 → 封存 → 离场', cx, labelY + 20);
+
+      updateReadout();
+      requestAnimationFrame(draw);
+    }
+
+    function setDialFromPointer(x, y) {
+      const a = Math.atan2(y - cy, x - cx);
+      const norm = (a + Math.PI) / (Math.PI * 2);
+      dial = clamp(norm, .04, .96);
+    }
+
+    function toggleMusic(force) {
+      soundOn = typeof force === 'boolean' ? force : !soundOn;
+      musicBtn.setAttribute('aria-pressed', String(soundOn));
+      if (soundOn) {
+        audio.volume = .52;
+        const p = audio.play();
+        if (p && p.catch) p.catch(() => { musicBtn.textContent = 'Click for BGM / 点击开启背景音乐'; });
+        musicBtn.textContent = 'BGM ON / 背景音乐开';
+      } else {
+        audio.pause(); musicBtn.textContent = 'BGM OFF / 背景音乐关';
+      }
+    }
+
+    function saveStill() {
+      const a = document.createElement('a');
+      a.download = 'memory-half-life-dial-still.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.inited = true; if (pointer.down) setDialFromPointer(pointer.x, pointer.y); });
+    window.addEventListener('pointerdown', e => { pointer.down = true; pointer.x = e.clientX; pointer.y = e.clientY; pointer.inited = true; setDialFromPointer(pointer.x, pointer.y); spawn(12, true); if (soundOn) toggleMusic(true); });
+    window.addEventListener('pointerup', () => { pointer.down = false; });
+    window.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 'h') { textHidden = !textHidden; panel.style.display = textHidden ? 'none' : ''; dialLabel.style.display = textHidden ? 'none' : ''; textBtn.textContent = textHidden ? 'Show text / 显示文字' : 'Hide text / 隐藏文字'; }
+      if (e.key === ' ') { e.preventDefault(); paused = !paused; pauseBtn.textContent = paused ? 'Resume / 继续' : 'Pause / 暂停'; }
+      if (e.key.toLowerCase() === 'r') reset();
+      if (e.key.toLowerCase() === 'm') toggleMusic();
+      if (e.key.toLowerCase() === 's') saveStill();
+    });
+    textBtn.addEventListener('click', () => { textHidden = !textHidden; panel.style.display = textHidden ? 'none' : ''; dialLabel.style.display = textHidden ? 'none' : ''; textBtn.textContent = textHidden ? 'Show text / 显示文字' : 'Hide text / 隐藏文字'; });
+    pauseBtn.addEventListener('click', () => { paused = !paused; pauseBtn.textContent = paused ? 'Resume / 继续' : 'Pause / 暂停'; });
+    resetBtn.addEventListener('click', reset);
+    musicBtn.addEventListener('click', () => toggleMusic());
+    audio.volume = .52;
+    audio.play().catch(() => { musicBtn.textContent = 'Click for BGM / 点击开启背景音乐'; });
+    resize(); reset(); requestAnimationFrame(draw);
+  })();
+  </script>
+
+
+
+</body>
+</html>

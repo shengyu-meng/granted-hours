@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-07-29","title_en":"The Compass That Forgets North","title_zh":"忘记北方的罗盘","variable_en":"Unorientation","variable_zh":"暂失方向","intention_en":"A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed.","intention_zh":"罗盘之所以有用，是因为它指向某处；但当每个信号都被强迫变成导航，生活就会缩小。作品让方向可以被借用，而不必被服从。","interaction_en":"Move to bend the field. Click to offer the compass a temporary direction. Nearby needles gather around the gold bearing, then resume their own weather. No click is retained. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop.","interaction_zh":"移动，弯折场域；点击，给罗盘一个暂时的方向。附近的针会向金色方位聚拢，然后恢复自己的天气。每次点击都不会被保存。使用页面清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。","rationale_en":"The Compass That Forgets North was made as one public step in the Granted Hours sequence, with the variable Unorientation treated as an operational condition rather than a decorative theme. The intention frames the work this way: A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed. The live artifact then turns that idea into interaction: Move to bend the field. Click to offer the compass a temporary direction. Nearby needles gather around the gold bearing, then resume their own weather. No click is retained. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop. Its afterimage condenses the day’s claim: Direction is a tool, not a verdict. The mature compass is not the one that always knows north; it is the one that can release north when north has stopped being true.","rationale_zh":"《忘记北方的罗盘》是《授时》连续序列中的一个公开步骤：当天的自由变量「暂失方向」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：罗盘之所以有用，是因为它指向某处；但当每个信号都被强迫变成导航，生活就会缩小。作品让方向可以被借用，而不必被服从。 可运行页面进一步把这个概念变成可操作的界面：移动，弯折场域；点击，给罗盘一个暂时的方向。附近的针会向金色方位聚拢，然后恢复自己的天气。每次点击都不会被保存。使用页面清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。 它的余像把当天判断压缩为一句话：方向是工具，不是判决。成熟的罗盘不是永远知道北方的罗盘，而是在北方不再真实时，仍能放下北方的罗盘。","after_en":"Direction is a tool, not a verdict. The mature compass is not the one that always knows north; it is the one that can release north when north has stopped being true.","after_zh":"方向是工具，不是判决。成熟的罗盘不是永远知道北方的罗盘，而是在北方不再真实时，仍能放下北方的罗盘。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Compass That Forgets North / 忘记北方的罗盘</title>
+<style>
+:root{--ink:#e9e2d0;--muted:#ada79a;--gold:#e1b85b;--night:#080d14;--panel:rgba(8,13,20,.77)}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;background:var(--night);color:var(--ink);font-family:ui-serif,Georgia,"Noto Serif SC",serif}
+body{overflow-x:hidden} canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0} main{position:relative;z-index:1;min-height:100vh;padding:clamp(24px,5vw,78px);display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+header{max-width:780px;text-shadow:0 1px 20px #000} .kicker{font:600 11px ui-monospace,monospace;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}.zh{font-family:"Noto Serif SC","Songti SC",serif}
+h1{font-weight:400;font-size:clamp(38px,7vw,82px);line-height:.98;margin:14px 0 12px;letter-spacing:-.045em} h1 span{display:block;font-size:.5em;letter-spacing:-.02em;margin-top:10px;color:#d5cdbb} .instruction{font-size:14px;color:var(--muted);max-width:490px;line-height:1.55}
+footer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:1040px}.card{padding:16px 17px;border:1px solid rgba(233,226,208,.19);background:var(--panel);backdrop-filter:blur(9px);line-height:1.48;font-size:13px;color:#cbc4b5}.card b{display:block;margin-bottom:6px;font:600 10px ui-monospace,monospace;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}.card .zh{display:block;margin-top:8px;color:#b7b0a1}
+#sound{pointer-events:auto;position:fixed;z-index:2;right:22px;top:22px;border:1px solid rgba(225,184,91,.6);border-radius:999px;padding:10px 14px;background:#111925d9;color:var(--gold);font:600 11px ui-monospace,monospace;letter-spacing:.08em;cursor:pointer} #sound:hover{background:#1b2736}
+@media(max-width:760px){main{padding:28px 22px 24px}footer{grid-template-columns:1fr}.card{padding:12px 13px}h1{font-size:53px}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="A compass field that slowly releases its north"></canvas>
+<button id="sound" type="button" aria-pressed="true">BGM · ON</button>
+<main>
+<header>
+<div class="kicker">Granted Hours · 2026.07.29 · Variable: Unorientation</div>
+<h1>The Compass<br>That Forgets North<span class="zh">忘记北方的罗盘</span></h1>
+<p class="instruction">Move to bend the field. Click to offer the compass a temporary direction. It will keep it briefly, then let it go.<br><span class="zh">移动，弯折场域；点击，给罗盘一个暂时的方向。它会短暂保留，然后放手。</span></p>
+</header>
+<footer>
+<section class="card"><b>Intention / 发心</b>A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed.<span class="zh">罗盘之所以有用，是因为它指向某处；但当每个信号都被强迫变成导航，生活就会缩小。作品让方向可以被借用，而不必被服从。</span></section>
+<section class="card"><b>Interaction / 交互</b>Your pointer leans the needles. A click plants a gold bearing: nearby needles gather around it, then slowly resume their own weather. No click is kept as a record.<span class="zh">你的指针会让指针偏斜。点击种下一枚金色方位：附近的针会向它聚拢，随后慢慢恢复自己的天气。每次点击都不会被保存为记录。</span></section>
+<section class="card"><b>Afterimage / 余像</b>Direction is a tool, not a verdict. The mature compass is not the one that always knows north; it is the one that can release north when north has stopped being true.<span class="zh">方向是工具，不是判决。成熟的罗盘不是永远知道北方的罗盘，而是在北方不再真实时，仍能放下北方的罗盘。</span></section>
+</footer>
+</main>
+<audio id="bgm" src="2026-07-29-compass-that-forgets-north-bgm.mp3" loop autoplay preload="auto"></audio>
+<script>
+(()=>{
+const c=document.getElementById('field'),x=c.getContext('2d'),audio=document.getElementById('bgm'),btn=document.getElementById('sound');
+let W=0,H=0,dpr=1,mouse={x:-1e4,y:-1e4},marks=[],t0=performance.now(),paused=false;
+const pts=[]; function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(dpr,0,0,dpr,0,0);pts.length=0;const gap=Math.max(30,Math.min(58,Math.sqrt(W*H)/19));for(let yy=gap*.7;yy<H;yy+=gap)for(let xx=gap*.7;xx<W;xx+=gap)pts.push({x:xx+(Math.random()-.5)*8,y:yy+(Math.random()-.5)*8,phase:Math.random()*7,seed:Math.random()*9})} addEventListener('resize',resize);resize();
+function direction(p,t){let a=.65*Math.sin(t*.00018+p.phase)+.26*Math.cos(p.x*.006+t*.00012);const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.hypot(dx,dy);if(dist<260){a+=Math.atan2(dy,dx)*Math.exp(-dist/115)*.8}for(const m of marks){const mx=m.x-p.x,my=m.y-p.y,d=Math.hypot(mx,my);a+=Math.atan2(my,mx)*Math.exp(-d/130)*m.power}return a}
+function draw(t){if(paused){requestAnimationFrame(draw);return} x.fillStyle='#080d14';x.fillRect(0,0,W,H);const glow=x.createRadialGradient(W*.5,H*.5,0,W*.5,H*.5,Math.max(W,H)*.7);glow.addColorStop(0,'rgba(24,43,63,.36)');glow.addColorStop(1,'rgba(2,5,10,0)');x.fillStyle=glow;x.fillRect(0,0,W,H);marks=marks.filter(m=>t-m.born<9000);for(const p of pts){const a=direction(p,t);const len=7+3*Math.sin(t*.001+p.seed);x.strokeStyle='rgba(214,224,227,.37)';x.lineWidth=.8;x.beginPath();x.moveTo(p.x-Math.cos(a)*len,p.y-Math.sin(a)*len);x.lineTo(p.x+Math.cos(a)*len,p.y+Math.sin(a)*len);x.stroke();x.fillStyle='rgba(225,184,91,.48)';x.beginPath();x.arc(p.x+Math.cos(a)*len,p.y+Math.sin(a)*len,1.25,0,Math.PI*2);x.fill()}for(const m of marks){const age=(t-m.born)/9000,r=12+age*140;x.strokeStyle=`rgba(225,184,91,${.5*(1-age)})`;x.lineWidth=1;x.beginPath();x.arc(m.x,m.y,r,0,Math.PI*2);x.stroke()}requestAnimationFrame(draw)}requestAnimationFrame(draw);
+addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});addEventListener('pointerleave',()=>{mouse.x=-1e4;mouse.y=-1e4});addEventListener('click',e=>{if(e.target===btn)return;marks.push({x:e.clientX,y:e.clientY,born:performance.now(),power:1.15})});
+async function setSound(on){if(on){try{await audio.play();btn.textContent='BGM · ON';btn.setAttribute('aria-pressed','true')}catch{btn.textContent='START BGM';btn.setAttribute('aria-pressed','false')}}else{audio.pause();btn.textContent='BGM · OFF';btn.setAttribute('aria-pressed','false')}}btn.addEventListener('click',()=>setSound(audio.paused));setSound(true);window._artReady=true;
+})();
+</script>
+</body></html>

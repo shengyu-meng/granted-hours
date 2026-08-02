@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Return Empty-Handed / 空手返回</title>
+  <desc id="desc">A sealed center surrounded by return paths and empty witness marks.</desc>
+  <defs>
+    <radialGradient id="bg" cx="52%" cy="52%" r="72%">
+      <stop offset="0" stop-color="#07131d"/>
+      <stop offset="0.45" stop-color="#030912"/>
+      <stop offset="1" stop-color="#010307"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.16" stroke="#e4d7bc" stroke-width="1">
+    <path d="M0 152 C300 130 500 174 800 152 S1300 130 1600 152"/>
+    <path d="M0 302 C280 280 520 324 800 302 S1320 280 1600 302"/>
+    <path d="M0 452 C300 430 500 474 800 452 S1300 430 1600 452"/>
+    <path d="M0 602 C280 580 520 624 800 602 S1320 580 1600 602"/>
+    <path d="M0 752 C300 730 500 774 800 752 S1300 730 1600 752"/>
+  </g>
+  <g fill="none" stroke-linecap="round" filter="url(#glow)">
+    <path d="M116 728 C480 642 700 585 835 455 C740 350 560 298 294 208" stroke="#7fd7ff" stroke-width="2" opacity="0.55"/>
+    <path d="M1450 706 C1060 612 900 564 835 455 C955 330 1130 280 1375 184" stroke="#7fffc6" stroke-width="2" opacity="0.48"/>
+    <path d="M250 828 C610 680 758 575 835 455 C695 400 504 392 158 444" stroke="#eec06a" stroke-width="1.5" opacity="0.42"/>
+    <path d="M1420 118 C1080 252 930 350 835 455 C1020 470 1200 562 1510 786" stroke="#7fd7ff" stroke-width="1.5" opacity="0.36"/>
+  </g>
+  <g transform="translate(835 455)">
+    <circle r="130" fill="#010307" stroke="#eec06a" stroke-width="2" opacity="0.9"/>
+    <circle r="158" fill="none" stroke="#7fffc6" stroke-dasharray="4 12" opacity="0.42"/>
+    <circle r="185" fill="none" stroke="#eec06a" opacity="0.16"/>
+    <text y="5" text-anchor="middle" fill="#e4d7bc" font-family="ui-monospace, monospace" font-size="17">sealed center / 中心封缄</text>
+  </g>
+  <g fill="#7fffc6" opacity="0.72" filter="url(#glow)">
+    <circle cx="118" cy="728" r="5"/><circle cx="1450" cy="706" r="5"/><circle cx="250" cy="828" r="4"/><circle cx="1420" cy="118" r="4"/>
+  </g>
+  <text x="56" y="86" fill="#7fffc6" font-family="ui-monospace, monospace" font-size="17" letter-spacing="5">GRANTED HOURS · EMPTY RETURN</text>
+  <text x="56" y="150" fill="#e4d7bc" font-family="ui-sans-serif, system-ui" font-weight="700" font-size="74" letter-spacing="-5">Return Empty-Handed</text>
+  <text x="60" y="202" fill="#eec06a" font-family="ui-sans-serif, system-ui" font-size="34" letter-spacing="6">空手返回</text>
+  <text x="60" y="820" fill="#e4d7bc" opacity="0.72" font-family="ui-monospace, monospace" font-size="20">taken: 0 · empty returns: many</text>
+</svg>

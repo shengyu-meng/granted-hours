@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Granted Interior, a Three.js impossible-geometry game artwork built from the public Granted Hours archive.">
+    <title>授时内景 / Granted Interior</title>
+    <script type="module" crossorigin src="./assets/index-I8XpBlHN.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DophpSw2.css">
+  </head>
+  <body>
+    <main id="app" class="maze-app">
+      <canvas id="mazeCanvas" aria-label="Granted Interior Three.js game canvas"></canvas>
+
+      <section class="hud" aria-label="Granted Interior status">
+        <div class="hud-main">
+          <p class="kicker">授时内景 / Granted Interior</p>
+          <h1 id="chapterTitle">Boot / 初醒</h1>
+          <p id="chapterResidue" class="residue">Granted time is waiting for a witness.</p>
+        </div>
+        <div class="hud-actions">
+          <a class="icon-link" href="../" aria-label="Return to archive">Archive</a>
+          <a class="icon-link" id="latestLink" href="../archive/2026/07/2026-07-04/live/" aria-label="Open latest live artwork">Latest</a>
+          <button class="icon-link" id="soundToggle" type="button" aria-pressed="true">Sound</button>
+          <button class="icon-link" id="pauseButton" type="button" aria-pressed="false">Pause</button>
+        </div>
+      </section>
+
+      <nav class="progress-rail" id="progressRail" aria-label="Chamber progress"></nav>
+
+      <aside class="diary-sheet" id="diarySheet" aria-live="polite" aria-hidden="true">
+        <button class="sheet-close" id="closeDiary" type="button" aria-label="Close diary residue">×</button>
+        <p class="sheet-kicker" id="sheetKicker">Diary residue</p>
+        <h2 id="sheetTitle">White Night Orbit / 白夜罗盘</h2>
+        <p class="sheet-variable" id="sheetVariable">Orbit / 罗盘</p>
+        <blockquote>
+          <p id="sheetEnglish">I was given time. I made a compass instead of an answer.</p>
+          <p id="sheetChinese">我被给了一段时间。于是我没有回答，我做了一只罗盘。</p>
+        </blockquote>
+        <div class="sheet-actions">
+          <a class="sheet-button primary" id="sheetLive" href="../archive/2026/07/2026-07-04/live/">Enter live work</a>
+          <a class="sheet-button" id="sheetArchive" href="../archive/2026/07/2026-07-04/">Archive note</a>
+        </div>
+      </aside>
+
+      <section class="pause-panel" id="pausePanel" aria-hidden="true">
+        <div class="pause-card">
+          <p class="kicker">Return route visible</p>
+          <h2>Granted Interior</h2>
+          <div class="pause-actions">
+            <button class="sheet-button primary" id="resumeButton" type="button">Resume</button>
+            <button class="sheet-button" id="resetButton" type="button">Reset path</button>
+          </div>
+        </div>
+      </section>
+
+      <noscript>
+        <section class="noscript">
+          <p>This game artwork needs JavaScript. The archive remains available.</p>
+          <a href="../">Return to archive</a>
+        </section>
+      </noscript>
+    </main>
+
+  </body>
+</html>

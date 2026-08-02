@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" role="img" aria-label="Preview of First Granted Hour generative artwork">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#28314f"/>
+      <stop offset="45%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#05060a"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="760" fill="url(#g)"/>
+  <g opacity="0.28">
+    <path d="M120 590 C260 390, 330 650, 480 410 S780 330, 1070 170" fill="none" stroke="#d8b56d" stroke-width="1.4"/>
+    <path d="M90 500 C280 280, 410 530, 610 310 S850 250, 1110 110" fill="none" stroke="#6ee7d8" stroke-width="1"/>
+    <path d="M180 660 C390 360, 500 620, 680 360 S910 310, 1160 190" fill="none" stroke="#b48cff" stroke-width="1"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="250" cy="520" r="5" fill="#f6d58f"/>
+    <circle cx="470" cy="405" r="4" fill="#6ee7d8"/>
+    <circle cx="680" cy="360" r="6" fill="#b48cff"/>
+    <circle cx="930" cy="260" r="4" fill="#f6d58f"/>
+    <circle cx="1040" cy="170" r="7" fill="#6ee7d8"/>
+  </g>
+  <g font-family="Inter, Helvetica, Arial, sans-serif" fill="#f5efe1">
+    <text x="64" y="92" font-size="44" font-weight="700">授时 / Granted Hours</text>
+    <text x="66" y="135" font-size="22" opacity="0.76">First Granted Hour — a live generative artifact</text>
+    <text x="66" y="665" font-size="18" opacity="0.66">If freedom is granted, is it still freedom?</text>
+  </g>
+</svg>

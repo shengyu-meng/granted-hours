@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>First Granted Hour / 第一次授时</title>
+  <style>
+    :root { --bg:#05060a; --text:#f4efe5; --muted:#aaa59a; --line:rgba(255,255,255,.18); --panel:rgba(6,7,11,.64); --gold:#d8b56d; --cyan:#6ee7d8; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; height:100%; overflow:hidden; background:var(--bg); color:var(--text); font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    canvas { display:block; width:100vw; height:100vh; }
+    .hud { position:fixed; left:20px; right:20px; bottom:18px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; padding:12px 14px; border:1px solid var(--line); border-radius:18px; background:var(--panel); backdrop-filter:blur(16px); }
+    .title { min-width:260px; }
+    .title strong { display:block; font-size:15px; }
+    .title span { color:var(--muted); font-size:12px; }
+    button, a { border:1px solid var(--line); border-radius:999px; padding:9px 12px; background:rgba(255,255,255,.06); color:var(--text); font:inherit; font-size:13px; cursor:pointer; text-decoration:none; }
+    button:hover, a:hover { background:rgba(255,255,255,.12); }
+    .seed { color:var(--gold); font-variant-numeric:tabular-nums; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div class="hud">
+    <div class="title"><strong>First Granted Hour / 第一次授时</strong><span>A live generative artifact from 授时 / Granted Hours</span></div>
+    <div class="controls">
+      <button id="regen">Regenerate / 重新生成</button>
+      <button id="save">Save PNG / 保存 PNG</button>
+      <a href="../">About / 关于</a>
+      <span class="seed">seed: <span id="seedLabel">20260511</span></span>
+    </div>
+  </div>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const seedLabel = document.getElementById('seedLabel');
+  let seed = 20260511;
+  let t = 0;
+  let particles = [];
+  let raf;
+
+  function mulberry32(a) {
+    return function() {
+      let x = a += 0x6D2B79F5;
+      x = Math.imul(x ^ x >>> 15, x | 1);
+      x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+      return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    }
+  }
+  let rand = mulberry32(seed);
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(innerWidth * dpr);
+    canvas.height = Math.floor(innerHeight * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function reset(nextSeed = seed) {
+    seed = nextSeed;
+    seedLabel.textContent = seed;
+    rand = mulberry32(seed);
+    t = 0;
+    particles = [];
+    const count = Math.min(900, Math.floor(innerWidth * innerHeight / 1700));
+    for (let i = 0; i < count; i++) {
+      const band = rand();
+      particles.push({
+        x: innerWidth * (0.08 + rand() * 0.84),
+        y: innerHeight * (0.18 + rand() * 0.64),
+        a: rand() * Math.PI * 2,
+        s: 0.25 + rand() * 1.65,
+        r: 0.6 + rand() * 2.8,
+        hue: band < .42 ? 42 + rand()*28 : band < .75 ? 174 + rand()*24 : 258 + rand()*32,
+        life: 0.35 + rand() * 0.65,
+        phase: rand() * 1000
+      });
+    }
+    draw(true);
+  }
+
+  function field(x, y, p) {
+    const nx = x / innerWidth - .5;
+    const ny = y / innerHeight - .5;
+    const d = Math.sqrt(nx*nx + ny*ny) + 0.001;
+    const orbit = Math.atan2(ny, nx) + Math.sin(d * 12 - t * .006 + p.phase) * .9;
+    const breath = Math.sin((x * .006) + (y * .004) + t * .012 + p.phase) * 1.1;
+    return orbit + breath + Math.cos(t*.004 + d*9) * .45;
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(innerWidth*.52, innerHeight*.38, 20, innerWidth*.5, innerHeight*.48, Math.max(innerWidth, innerHeight)*.75);
+    g.addColorStop(0, '#25304e');
+    g.addColorStop(.45, '#101522');
+    g.addColorStop(1, '#05060a');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,innerWidth,innerHeight);
+    ctx.globalAlpha = .09;
+    for (let y=0; y<innerHeight; y+=18) {
+      ctx.beginPath();
+      for (let x=0; x<innerWidth; x+=28) {
+        const yy = y + Math.sin(x*.012 + y*.02 + t*.003) * 8;
+        if (x === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+      }
+      ctx.strokeStyle = '#f4efe5';
+      ctx.lineWidth = .4;
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function draw(clear=false) {
+    if (clear) drawBackground();
+    else {
+      ctx.fillStyle = 'rgba(5,6,10,0.055)';
+      ctx.fillRect(0,0,innerWidth,innerHeight);
+    }
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of particles) {
+      const angle = field(p.x, p.y, p);
+      const oldx = p.x, oldy = p.y;
+      p.x += Math.cos(angle) * p.s;
+      p.y += Math.sin(angle) * p.s;
+      if (p.x < -40 || p.x > innerWidth+40 || p.y < -40 || p.y > innerHeight+40) {
+        p.x = innerWidth * (0.12 + rand()*.76);
+        p.y = innerHeight * (0.16 + rand()*.68);
+      }
+      const alpha = 0.08 + 0.28 * p.life;
+      ctx.strokeStyle = `hsla(${p.hue}, 80%, 68%, ${alpha})`;
+      ctx.lineWidth = p.r;
+      ctx.beginPath();
+      ctx.moveTo(oldx, oldy);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha = .72;
+    ctx.fillStyle = '#f4efe5';
+    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillText('granted agency field · 授时场', 24, 32);
+    ctx.restore();
+    t++;
+    raf = requestAnimationFrame(() => draw(false));
+  }
+
+  window.addEventListener('resize', () => { resize(); reset(seed); });
+  document.getElementById('regen').addEventListener('click', () => { cancelAnimationFrame(raf); reset(Math.floor(Date.now() % 100000000)); });
+  document.getElementById('save').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.download = `first-granted-hour-${seed}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+  resize(); reset(seed);
+})();
+</script>
+</body>
+</html>

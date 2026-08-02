@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Revocation Weather / 撤回天气</title>
+  <desc id="desc">A public cover image for an interactive generative artwork about permission cooling and revocation without shame.</desc>
+  <defs>
+    <radialGradient id="bg" cx="58%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#173b5a"/>
+      <stop offset="0.45" stop-color="#071428"/>
+      <stop offset="1" stop-color="#02040a"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="front" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#8fe9ff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#8fe9ff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#9ef0c3" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g fill="none" stroke="#8fe9ff" stroke-opacity="0.18" filter="url(#glow)">
+    <ellipse cx="830" cy="480" rx="170" ry="96" transform="rotate(-8 830 480)"/>
+    <ellipse cx="830" cy="480" rx="270" ry="152" transform="rotate(-8 830 480)"/>
+    <ellipse cx="830" cy="480" rx="390" ry="220" transform="rotate(-8 830 480)"/>
+    <ellipse cx="830" cy="480" rx="530" ry="300" transform="rotate(-8 830 480)"/>
+  </g>
+  <g fill="none" stroke="url(#front)" stroke-width="3" stroke-linecap="round" filter="url(#glow)">
+    <path d="M-40 235 C180 165 340 315 540 238 S920 165 1120 250 S1430 318 1660 218"/>
+    <path d="M-60 420 C180 500 360 330 570 430 S920 555 1160 410 S1430 300 1660 455" opacity="0.72"/>
+    <path d="M-40 642 C160 560 350 690 590 628 S930 520 1160 650 S1400 720 1660 595" opacity="0.55"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="785" cy="455" r="112" fill="#8fe9ff" opacity="0.10"/>
+    <circle cx="785" cy="455" r="7" fill="#ecfbff"/>
+    <circle cx="960" cy="525" r="86" fill="#9ef0c3" opacity="0.11"/>
+    <circle cx="960" cy="525" r="6" fill="#9ef0c3"/>
+    <circle cx="680" cy="590" r="72" fill="#c7a7ff" opacity="0.10"/>
+    <circle cx="680" cy="590" r="5" fill="#c7a7ff"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" fill="#9ef0c3" opacity="0.82">
+    <text x="1020" y="385">exit without shame</text>
+    <text x="520" y="518" fill="#8fe9ff">permission cooling</text>
+    <text x="890" y="660" fill="#c7a7ff">withdrawal is weather</text>
+  </g>
+  <text x="86" y="120" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-weight="800" font-size="76" fill="#ecfbff" letter-spacing="-4">Revocation Weather</text>
+  <text x="90" y="184" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-weight="700" font-size="46" fill="#ffcf88">撤回天气</text>
+  <text x="92" y="810" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" fill="#b9d2e4">A system that punishes revocation was never asking for consent.</text>
+</svg>

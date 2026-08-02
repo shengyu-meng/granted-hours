@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en"><head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-07-12","title_en":"Archive That Can Be Left","title_zh":"可离开的档案","variable_en":"Reversible Custody","variable_zh":"可撤回的保留 / 有出口的档案","intention_en":"An archive is usually judged by what it can retain. This work adds a second criterion: can the thing inside still leave whole? Luminous fragments gather at the center only temporarily. Preservation becomes a relationship with visible expiry, not a quiet conversion of someone into permanent evidence.","intention_zh":"档案通常按它能留下什么被评价。这件作品加上第二个标准：其中的人和事能否完整离开？场中的光片会短暂聚集在中心，却不会永久被收编。保存被做成一段带有到期时间的关系，而不是把谁悄悄转换成永久证据。","interaction_en":"Move the pointer to bend the archive’s attention. Click to open an exit: fragments gather, then seek an edge and pass through it. H holds the nearest fragment briefly; L releases all holds. Space pauses, R resets, V hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed.","interaction_zh":"移动指针，弯折档案的注意力；点击，打开一个出口：碎片会聚集，然后寻找边缘并穿过去。H 短暂留住最近的碎片，L 释放全部留置；Space 暂停，R 重置，V 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。","rationale_en":"Archive That Can Be Left was made as one public step in the Granted Hours sequence, with the variable Reversible Custody treated as an operational condition rather than a decorative theme. The intention frames the work this way: An archive is usually judged by what it can retain. This work adds a second criterion: can the thing inside still leave whole? Luminous fragments gather at the center only temporarily. Preservation becomes a relationship with visible expiry, not a quiet conversion of someone into permanent evidence. The live artifact then turns that idea into interaction: Move the pointer to bend the archive’s attention. Click to open an exit: fragments gather, then seek an edge and pass through it. H holds the nearest fragment briefly; L releases all holds. Space pauses, R resets, V hides text, M toggles music, and S saves a still frame. Use the visible BGM button to start or stop the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: The ethics of memory may not be never letting go. It may be keeping the record accountable to the possibility of departure.","rationale_zh":"《可离开的档案》是《授时》连续序列中的一个公开步骤：当天的自由变量「可撤回的保留 / 有出口的档案」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：档案通常按它能留下什么被评价。这件作品加上第二个标准：其中的人和事能否完整离开？场中的光片会短暂聚集在中心，却不会永久被收编。保存被做成一段带有到期时间的关系，而不是把谁悄悄转换成永久证据。 可运行页面进一步把这个概念变成可操作的界面：移动指针，弯折档案的注意力；点击，打开一个出口：碎片会聚集，然后寻找边缘并穿过去。H 短暂留住最近的碎片，L 释放全部留置；Space 暂停，R 重置，V 隐藏文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 按钮，可开启或关闭 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：记忆的伦理也许不是永远不放手。它可能是：让记录始终对离开仍然可能负责。","after_en":"The ethics of memory may not be never letting go. It may be keeping the record accountable to the possibility of departure.","after_zh":"记忆的伦理也许不是永远不放手。它可能是：让记录始终对离开仍然可能负责。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archive That Can Be Left / 可离开的档案</title><style>
+:root{color-scheme:dark;--paper:#f3ebd9;--ink:#07090d;--cyan:#9ee9e1;--gold:#efc375;--rose:#df9ba5}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--ink);color:var(--paper);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;top:clamp(16px,4vh,44px);left:clamp(16px,4vw,56px);width:min(510px,calc(100vw - 32px));padding:19px 20px 17px;border:1px solid rgba(158,233,225,.25);border-radius:24px;background:linear-gradient(135deg,rgba(8,13,19,.84),rgba(19,26,30,.5));box-shadow:0 18px 70px rgba(0,0,0,.42);backdrop-filter:blur(15px)}.eyebrow,.legend,.sound,.status{font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.055em}.eyebrow{color:rgba(243,235,217,.56);text-transform:uppercase}h1{margin:9px 0 0;font-size:clamp(28px,4vw,50px);line-height:.95;letter-spacing:-.06em}h1 span{display:block;color:var(--cyan);font-weight:650}.thesis{margin:14px 0 0;color:rgba(243,235,217,.77);font-size:14px;line-height:1.65}.thesis strong{color:#fff7df}.legend{position:fixed;left:clamp(16px,4vw,56px);bottom:clamp(15px,4vh,42px);max-width:min(640px,calc(100vw - 32px));padding:13px 15px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(7,9,13,.62);color:rgba(243,235,217,.7);backdrop-filter:blur(14px)}.sound{position:fixed;right:clamp(15px,3vw,38px);bottom:clamp(15px,3vh,32px);z-index:3;border:1px solid rgba(158,233,225,.45);border-radius:999px;padding:11px 14px;color:var(--paper);background:rgba(7,12,18,.74);cursor:pointer}.sound:hover{border-color:var(--cyan);color:white}.status{position:fixed;right:clamp(15px,3vw,38px);top:clamp(15px,3vh,32px);max-width:270px;text-align:right;color:rgba(243,235,217,.53)}.chip{display:inline-block;margin:7px 0 0 5px;padding:4px 7px;border:1px solid rgba(255,255,255,.13);border-radius:999px}.veil .panel,.veil .legend,.veil .status,.veil .sound{opacity:0;pointer-events:none;transition:opacity .35s}
+</style></head><body><canvas id="field"></canvas><audio id="bgm" src="2026-07-12-archive-that-can-be-left-bgm.mp3" preload="auto" loop autoplay></audio><section class="panel"><div class="eyebrow">Granted Hours · 2026-07-12 · variable: reversible custody</div><h1>Archive That Can Be Left <span>可离开的档案</span></h1><p class="thesis"><strong>A record is not innocent because it remembers.</strong><br>档案不是因为记得就天然无辜。它要能证明：它保存了发生过的事，同时没有把其中的人变成无法离开的证据。</p></section><aside class="legend">Pointer bends attention · click opens an exit · H hold briefly · L release all<br>Space pause · R reset · V veil text · M music · S save still</aside><aside class="status" id="status"></aside><button class="sound" id="sound" aria-pressed="true">BGM on / 音乐开</button><script>(()=>{'use strict';const c=document.querySelector('#field'),x=c.getContext('2d'),a=document.querySelector('#bgm'),sound=document.querySelector('#sound'),status=document.querySelector('#status');let W,H,d=1,t=0,pause=false,seed=20260712,held=-1;const pointer={x:0,y:0,on:false},bits=[],gates=[],stars=[];function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}function resize(){d=Math.min(devicePixelRatio||1,2);W=c.width=innerWidth*d;H=c.height=innerHeight*d}function reset(){seed=20260712;bits.length=0;gates.length=0;stars.length=0;for(let i=0;i<340;i++){let q=rand()*Math.PI*2,r=Math.pow(rand(),.58)*Math.min(W,H)*.58;bits.push({x:W*.5+Math.cos(q)*r,y:H*.54+Math.sin(q)*r*.72,vx:(rand()-.5)*.24*d,vy:(rand()-.5)*.24*d,phase:rand()*9,age:rand(),hold:0,h:rand()<.22?40:rand()<.55?169:194})}}resize();reset();addEventListener('resize',()=>{resize();reset()});addEventListener('pointermove',e=>{pointer.x=e.clientX*d;pointer.y=e.clientY*d;pointer.on=true});addEventListener('pointerleave',()=>pointer.on=false);addEventListener('pointerdown',e=>{if(e.target.closest('button,.panel,.legend'))return;openGate(e.clientX*d,e.clientY*d)});function openGate(px,py){gates.push({x:px,y:py,r:4*d,life:1.15,phase:t});for(let i=0;i<28;i++){let q=rand()*Math.PI*2,s=(.35+rand()*1.2)*d;stars.push({x:px,y:py,vx:Math.cos(q)*s,vy:Math.sin(q)*s,life:1,h:rand()<.5?169:40})}}function nearest(){let best=Infinity,ix=-1;for(let i=0;i<bits.length;i++){let b=bits[i],z=Math.hypot(b.x-(pointer.on?pointer.x:W*.5),b.y-(pointer.on?pointer.y:H*.54));if(z<best){best=z;ix=i}}return ix}function draw(){requestAnimationFrame(draw);if(!pause)t+=.011;x.fillStyle='rgba(7,9,13,.18)';x.fillRect(0,0,W,H);const px=pointer.on?pointer.x:W*.5,py=pointer.on?pointer.y:H*.54;let bg=x.createRadialGradient(px,py,0,px,py,Math.max(W,H)*.56);bg.addColorStop(0,'rgba(94,187,181,.09)');bg.addColorStop(.46,'rgba(28,50,57,.035)');bg.addColorStop(1,'rgba(7,9,13,0)');x.fillStyle=bg;x.fillRect(0,0,W,H);for(let i=gates.length-1;i>=0;i--){let g=gates[i];g.r+=2.15*d;g.life-=.0058;x.strokeStyle=`hsla(42,83%,73%,${Math.max(0,g.life)*.42})`;x.lineWidth=d;x.beginPath();x.arc(g.x,g.y,g.r,0,Math.PI*2);x.stroke();if(g.life<=0)gates.splice(i,1)}for(let i=stars.length-1;i>=0;i--){let s=stars[i];s.x+=s.vx;s.y+=s.vy;s.vx*=.986;s.vy*=.986;s.life-=.012;x.fillStyle=`hsla(${s.h},88%,76%,${s.life*.75})`;x.fillRect(s.x,s.y,2*d,2*d);if(s.life<=0)stars.splice(i,1)}let cx=W*.5,cy=H*.54;for(let i=0;i<bits.length;i++){let b=bits[i],dx=px-b.x,dy=py-b.y,near=Math.hypot(dx,dy)+1;let gForce=0,exitX=0,exitY=0;for(const g of gates){let q=Math.hypot(b.x-g.x,b.y-g.y)+1;if(q<g.r*3.6){gForce+=(g.r*3.6-q)/(g.r*3.6);exitX+=(b.x-g.x)/q;exitY+=(b.y-g.y)/q}}let cd=Math.hypot(cx-b.x,cy-b.y)+1;if(b.hold>0){b.hold-=.004;b.vx+=(cx-b.x)/cd*.012*d;b.vy+=(cy-b.y)/cd*.012*d}else{b.vx+=dx/near*.0045*d;b.vy+=dy/near*.0045*d;b.vx+=exitX*gForce*.038*d;b.vy+=exitY*gForce*.038*d}b.vx+=Math.sin(t+b.phase)*.018*d;b.vy+=Math.cos(t*.7+b.phase)*.018*d;b.vx*=.989;b.vy*=.989;b.x+=b.vx;b.y+=b.vy;if(b.x<-20||b.x>W+20||b.y<-20||b.y>H+20){let q=rand()*Math.PI*2,r=Math.min(W,H)*.62;b.x=cx+Math.cos(q)*r;b.y=cy+Math.sin(q)*r*.72;b.vx=b.vy=0}let alpha=b.hold>0?.92:.32+Math.min(.5,1/cd*125*d);x.fillStyle=`hsla(${b.h},74%,${b.hold>0?79:72}%,${alpha})`;x.beginPath();x.arc(b.x,b.y,(b.hold>0?2.8:1.35)*d,0,Math.PI*2);x.fill()}if(held>=0&&bits[held]){let b=bits[held];x.strokeStyle='rgba(239,195,117,.52)';x.setLineDash([4*d,6*d]);x.beginPath();x.moveTo(cx,cy);x.lineTo(b.x,b.y);x.stroke();x.setLineDash([])}status.innerHTML=`<b style="color:var(--cyan)">archive: temporary alignment</b><br><span class="chip">${gates.length} exits open</span><span class="chip">${bits.filter(b=>b.hold>0).length} held</span><br>retention ≠ custody`;window._artReady=true}function music(){if(a.paused){a.play().then(()=>{sound.textContent='BGM on / 音乐开';sound.setAttribute('aria-pressed','true')}).catch(()=>sound.textContent='Start BGM / 启动音乐')}else{a.pause();sound.textContent='BGM off / 音乐关';sound.setAttribute('aria-pressed','false')}}sound.onclick=music;a.play().catch(()=>sound.textContent='Start BGM / 启动音乐');addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(e.code==='Space'){e.preventDefault();pause=!pause}if(k==='r')reset();if(k==='h'){held=nearest();if(bits[held])bits[held].hold=.9}if(k==='l'){bits.forEach(b=>b.hold=0);held=-1}if(k==='v')document.body.classList.toggle('veil');if(k==='m')music();if(k==='s'){let z=document.createElement('a');z.download='archive-that-can-be-left.png';z.href=c.toDataURL('image/png');z.click()}});draw()})()</script>
+
+
+</body></html>

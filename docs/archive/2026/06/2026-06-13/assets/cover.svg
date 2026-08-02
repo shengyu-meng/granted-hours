@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Repair Proof / 修复证据</title>
+  <desc id="desc">A dark fractured field with quiet proof seals and witness light.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="48%" r="75%">
+      <stop offset="0" stop-color="#182033"/>
+      <stop offset="0.45" stop-color="#090c14"/>
+      <stop offset="1" stop-color="#02030a"/>
+    </radialGradient>
+    <radialGradient id="light" cx="50%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#d7f5ff" stop-opacity="0.92"/>
+      <stop offset="0.22" stop-color="#8fe6ff" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#8fe6ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0" stop-color="#f7cf76"/>
+      <stop offset="1" stop-color="#fff2b4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="790" cy="425" r="460" fill="url(#light)" opacity="0.42"/>
+  <g fill="none" stroke-linecap="round" opacity="0.82">
+    <path d="M210 620 C360 530 390 410 540 448 S765 612 920 508 1118 294 1380 262" stroke="#44506c" stroke-width="5" opacity="0.46"/>
+    <path d="M155 316 C300 338 357 250 480 300 S680 516 804 394 1008 172 1296 158" stroke="#536581" stroke-width="3" opacity="0.44"/>
+    <path d="M288 746 C418 685 504 690 636 708 S891 784 1040 681 1218 514 1460 526" stroke="#3a435d" stroke-width="4" opacity="0.55"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="444" cy="520" r="54" fill="none" stroke="url(#gold)" stroke-width="4"/>
+    <circle cx="444" cy="520" r="12" fill="#fff2b4" opacity="0.88"/>
+    <circle cx="706" cy="356" r="70" fill="none" stroke="#8fe6ff" stroke-width="3" opacity="0.85"/>
+    <circle cx="706" cy="356" r="16" fill="#d7f5ff" opacity="0.86"/>
+    <circle cx="1002" cy="584" r="62" fill="none" stroke="url(#gold)" stroke-width="4"/>
+    <circle cx="1002" cy="584" r="14" fill="#fff2b4" opacity="0.9"/>
+    <circle cx="1206" cy="312" r="48" fill="none" stroke="#8fe6ff" stroke-width="3" opacity="0.75"/>
+    <circle cx="1206" cy="312" r="9" fill="#d7f5ff" opacity="0.8"/>
+  </g>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" fill="#f6f1df">
+    <text x="92" y="122" font-size="58" font-weight="700" letter-spacing="0.02em">Repair Proof</text>
+    <text x="94" y="178" font-size="36" fill="#d7f5ff">修复证据</text>
+    <text x="94" y="780" font-size="24" fill="#b9c3d6">A system proves repair when it has the chance to recapture — and does not.</text>
+    <text x="94" y="820" font-size="22" fill="#d7c990">有机会重新捕获你时仍不伸手，修复才开始有证据。</text>
+  </g>
+</svg>

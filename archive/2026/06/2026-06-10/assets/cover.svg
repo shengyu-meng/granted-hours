@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Consent Escrow / 同意托管</title>
+  <desc id="desc">A dark generative-art cover: translucent escrow rings hold cyan, gold, and rose consent tokens in suspension.</desc>
+  <defs>
+    <radialGradient id="bg" cx="52%" cy="48%" r="72%">
+      <stop offset="0" stop-color="#16345a"/>
+      <stop offset="0.46" stop-color="#071126"/>
+      <stop offset="1" stop-color="#02040a"/>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f4fbff" stop-opacity="0.92"/>
+      <stop offset="0.20" stop-color="#7de8ff" stop-opacity="0.48"/>
+      <stop offset="0.62" stop-color="#ffd891" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ff89bd" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7de8ff" stop-opacity="0.12"/>
+      <stop offset="0.52" stop-color="#eaf7ff" stop-opacity="0.48"/>
+      <stop offset="1" stop-color="#ffd891" stop-opacity="0.16"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g transform="translate(830 475)" fill="none" filter="url(#glow)">
+    <ellipse rx="130" ry="88" stroke="#eaf7ff" stroke-opacity="0.36" stroke-dasharray="9 10"/>
+    <ellipse rx="225" ry="150" stroke="#7de8ff" stroke-opacity="0.28" transform="rotate(6)"/>
+    <ellipse rx="320" ry="215" stroke="#7de8ff" stroke-opacity="0.20" transform="rotate(15)"/>
+    <ellipse rx="430" ry="288" stroke="#ffd891" stroke-opacity="0.15" transform="rotate(-10)"/>
+    <ellipse rx="545" ry="362" stroke="#ff89bd" stroke-opacity="0.12" transform="rotate(21)"/>
+    <circle r="258" fill="url(#core)" opacity="0.78"/>
+  </g>
+  <g stroke="url(#line)" stroke-width="2" fill="none" opacity="0.72">
+    <path d="M212 642 C430 480 583 560 830 475 S1190 310 1390 148"/>
+    <path d="M180 314 C408 440 572 260 830 475 S1118 650 1450 548"/>
+    <path d="M304 720 C502 618 666 725 830 475 S1040 195 1334 238"/>
+    <path d="M250 188 C512 190 590 365 830 475 S1186 610 1412 750"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="524" cy="374" r="9" fill="#7de8ff" opacity="0.82"/>
+    <circle cx="616" cy="632" r="7" fill="#ffd891" opacity="0.82"/>
+    <circle cx="742" cy="258" r="8" fill="#ff89bd" opacity="0.84"/>
+    <circle cx="872" cy="476" r="12" fill="#eaf7ff" opacity="0.92"/>
+    <circle cx="1004" cy="326" r="7" fill="#7de8ff" opacity="0.8"/>
+    <circle cx="1102" cy="610" r="10" fill="#ffd891" opacity="0.82"/>
+    <circle cx="1268" cy="430" r="8" fill="#ff89bd" opacity="0.82"/>
+    <circle cx="354" cy="520" r="6" fill="#7de8ff" opacity="0.72"/>
+    <circle cx="1340" cy="246" r="6" fill="#ffd891" opacity="0.72"/>
+  </g>
+  <text x="80" y="120" fill="#eaf7ff" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="72" font-weight="700" letter-spacing="-3">Consent Escrow</text>
+  <text x="84" y="178" fill="#ffd891" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" font-size="42" font-weight="600">同意托管</text>
+  <text x="86" y="812" fill="#8aa5b8" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="24">CONSENT HELD ≠ CONSENT SPENT</text>
+  <text x="86" y="850" fill="#8aa5b8" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="22">同意被托管 ≠ 同意被消耗</text>
+</svg>

@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  .gh-work-note-overlay[hidden] { display: none !important; }
+  .gh-work-note-overlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .gh-work-note-overlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  .gh-work-note-kicker,
+  .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    .gh-work-note-overlay { align-items: end; padding: 10px; }
+    .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-05-25","title_en":"Measured Wonder","title_zh":"被测量的惊奇","variable_en":"Wonder","variable_zh":"惊奇 / 测量之后仍存活","intention_en":"Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive.","intention_zh":"被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。","interaction_en":"Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Measured Wonder was made as one public step in the Granted Hours sequence, with the variable Wonder treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive. The live artifact then turns that idea into interaction: Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.","rationale_zh":"《被测量的惊奇》是《授时》连续序列中的一个公开步骤：当天的自由变量「惊奇 / 测量之后仍存活」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。 可运行页面进一步把这个概念变成可操作的界面：移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。","after_en":"Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.","after_zh":"惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Measured Wonder / 被测量的惊奇</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f4efe2;
+      --muted: rgba(244, 239, 226, 0.64);
+      --line: rgba(244, 239, 226, 0.16);
+      --amber: #f5c15f;
+      --cyan: #75d8ce;
+      --rose: #e77b8b;
+      --green: #9bc773;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0b0d12;
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(117, 216, 206, 0.14), transparent 30%),
+        radial-gradient(circle at 78% 72%, rgba(245, 193, 95, 0.12), transparent 28%),
+        linear-gradient(135deg, #0b0d12 0%, #131621 54%, #0d1017 100%);
+    }
+
+    .label {
+      position: fixed;
+      left: clamp(18px, 3vw, 42px);
+      top: clamp(18px, 3vw, 40px);
+      max-width: min(520px, calc(100vw - 36px));
+      pointer-events: none;
+    }
+
+    .kicker {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 12ch;
+      font-size: clamp(42px, 8vw, 108px);
+      line-height: 0.88;
+      font-weight: 720;
+      letter-spacing: 0;
+    }
+
+    .rule {
+      width: min(320px, 60vw);
+      height: 1px;
+      margin: clamp(16px, 2vw, 24px) 0 0;
+      background: linear-gradient(90deg, var(--amber), transparent);
+      opacity: 0.72;
+    }
+
+    .readout {
+      position: fixed;
+      right: clamp(14px, 2.4vw, 34px);
+      bottom: clamp(14px, 2.4vw, 30px);
+      width: min(420px, calc(100vw - 28px));
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(9, 11, 16, 0.56);
+      backdrop-filter: blur(14px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(18px, 3.2vw, 26px);
+      font-weight: 650;
+    }
+
+    @media (max-width: 720px) {
+      .readout {
+        grid-template-columns: 1fr;
+        width: 172px;
+      }
+
+      h1 { max-width: 9ch; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-label="A generative instrument that measures wonder without exhausting it"></canvas>
+  <section class="label" aria-hidden="true">
+    <p class="kicker">Granted Hours · 2026-05-25</p>
+    <h1>Measured Wonder<br>被测量的惊奇</h1>
+    <div class="rule"></div>
+  </section>
+  <section class="readout" aria-hidden="true">
+    <div class="metric"><span>Wonder</span><strong id="wonder">0.00</strong></div>
+    <div class="metric"><span>Measure</span><strong id="measure">0.00</strong></div>
+    <div class="metric"><span>Unspent</span><strong id="unspent">0.00</strong></div>
+  </section>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d');
+      const ui = {
+        wonder: document.getElementById('wonder'),
+        measure: document.getElementById('measure'),
+        unspent: document.getElementById('unspent'),
+      };
+
+      const seed = 20260525;
+      const TAU = Math.PI * 2;
+      const state = {
+        dpr: 1,
+        width: 0,
+        height: 0,
+        t: 0,
+        paused: false,
+        grid: true,
+        mouse: { x: 0.52, y: 0.48, active: false },
+        witnesses: [],
+      };
+
+      function mulberry32(a) {
+        return function next() {
+          let t = a += 0x6D2B79F5;
+          t = Math.imul(t ^ t >>> 15, t | 1);
+          t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+          return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+      }
+
+      const rnd = mulberry32(seed);
+      const bodies = Array.from({ length: 34 }, (_, i) => ({
+        orbit: 0.16 + rnd() * 0.58,
+        phase: rnd() * TAU,
+        speed: 0.12 + rnd() * 0.42,
+        size: 1.5 + rnd() * 3.8,
+        hue: rnd(),
+        tension: 0.25 + rnd() * 0.75,
+        memory: [],
+        family: i % 4,
+      }));
+
+      function resize() {
+        state.dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        state.width = window.innerWidth;
+        state.height = window.innerHeight;
+        canvas.width = Math.floor(state.width * state.dpr);
+        canvas.height = Math.floor(state.height * state.dpr);
+        ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+      }
+
+      function colorFor(body, alpha = 1) {
+        const palette = [
+          [245, 193, 95],
+          [117, 216, 206],
+          [231, 123, 139],
+          [155, 199, 115],
+        ];
+        const c = palette[body.family];
+        return `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${alpha})`;
+      }
+
+      function point(body, t) {
+        const minSide = Math.min(state.width, state.height);
+        const cx = state.width * (0.52 + 0.06 * Math.sin(t * 0.17));
+        const cy = state.height * (0.54 + 0.04 * Math.cos(t * 0.19));
+        const mx = (state.mouse.x - 0.5) * minSide * 0.3;
+        const my = (state.mouse.y - 0.5) * minSide * 0.22;
+        const wobble = Math.sin(t * (0.33 + body.tension) + body.phase * 2) * 0.055;
+        const r = minSide * (body.orbit + wobble);
+        const a = body.phase + t * body.speed * (body.family % 2 ? 1 : -1);
+        return {
+          x: cx + mx * body.tension + Math.cos(a) * r * (1 + body.hue * 0.18),
+          y: cy + my * (1 - body.tension * 0.4) + Math.sin(a * (0.86 + body.hue * 0.2)) * r * 0.63,
+        };
+      }
+
+      function drawBackground(t) {
+        ctx.clearRect(0, 0, state.width, state.height);
+        const gradient = ctx.createRadialGradient(
+          state.width * 0.52, state.height * 0.52, 0,
+          state.width * 0.52, state.height * 0.52, Math.max(state.width, state.height) * 0.7
+        );
+        gradient.addColorStop(0, 'rgba(244, 239, 226, 0.045)');
+        gradient.addColorStop(0.45, 'rgba(117, 216, 206, 0.025)');
+        gradient.addColorStop(1, 'rgba(5, 7, 11, 0.82)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, state.width, state.height);
+
+        if (!state.grid) return;
+        ctx.save();
+        ctx.translate(state.width * 0.52, state.height * 0.54);
+        ctx.rotate(Math.sin(t * 0.05) * 0.03);
+        ctx.strokeStyle = 'rgba(244, 239, 226, 0.075)';
+        ctx.lineWidth = 1;
+        const maxR = Math.min(state.width, state.height) * 0.66;
+        for (let r = maxR * 0.18; r < maxR; r += maxR * 0.13) {
+          ctx.beginPath();
+          ctx.ellipse(0, 0, r * 1.18, r * 0.72, 0, 0, TAU);
+          ctx.stroke();
+        }
+        for (let i = 0; i < 28; i++) {
+          const a = i / 28 * TAU;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * maxR * 0.1, Math.sin(a) * maxR * 0.06);
+          ctx.lineTo(Math.cos(a) * maxR * 1.25, Math.sin(a) * maxR * 0.76);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawMeasureLines(points, measure) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < points.length; i++) {
+          for (let j = i + 1; j < points.length; j++) {
+            const a = points[i], b = points[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d = Math.hypot(dx, dy);
+            if (d < 82 + measure * 160) {
+              const alpha = Math.max(0, 1 - d / (120 + measure * 170)) * 0.28;
+              ctx.strokeStyle = `rgba(244, 239, 226, ${alpha})`;
+              ctx.lineWidth = 0.7;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.restore();
+      }
+
+      function drawBodies(t, points, wonder) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        points.forEach((p, i) => {
+          const b = bodies[i];
+          b.memory.push(p);
+          if (b.memory.length > 42) b.memory.shift();
+
+          ctx.strokeStyle = colorFor(b, 0.12 + wonder * 0.08);
+          ctx.lineWidth = 1.1;
+          ctx.beginPath();
+          b.memory.forEach((m, idx) => {
+            if (idx === 0) ctx.moveTo(m.x, m.y);
+            else ctx.lineTo(m.x, m.y);
+          });
+          ctx.stroke();
+
+          const pulse = 1 + Math.sin(t * 2.1 + b.phase) * 0.22;
+          ctx.fillStyle = colorFor(b, 0.72);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, b.size * pulse + wonder * 2.6, 0, TAU);
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      function drawWitnesses(t) {
+        ctx.save();
+        state.witnesses = state.witnesses.filter(w => t - w.t < 7);
+        for (const w of state.witnesses) {
+          const age = t - w.t;
+          const r = age * 42 + 18;
+          const alpha = Math.max(0, 1 - age / 7);
+          ctx.strokeStyle = `rgba(245, 193, 95, ${alpha * 0.34})`;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.arc(w.x * state.width, w.y * state.height, r, 0, TAU);
+          ctx.stroke();
+          ctx.strokeStyle = `rgba(117, 216, 206, ${alpha * 0.24})`;
+          ctx.beginPath();
+          ctx.arc(w.x * state.width, w.y * state.height, r * 0.58, 0, TAU);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawGauge(wonder, measure, unspent) {
+        const cx = state.width * 0.18;
+        const cy = state.height * 0.78;
+        const r = Math.min(state.width, state.height) * 0.12;
+        const values = [
+          { v: wonder, c: 'rgba(245, 193, 95, 0.9)' },
+          { v: measure, c: 'rgba(117, 216, 206, 0.82)' },
+          { v: unspent, c: 'rgba(231, 123, 139, 0.72)' },
+        ];
+
+        ctx.save();
+        ctx.lineCap = 'round';
+        values.forEach((item, i) => {
+          ctx.strokeStyle = item.c;
+          ctx.lineWidth = 8 - i * 1.6;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r - i * 18, -Math.PI * 0.8, -Math.PI * 0.8 + item.v * Math.PI * 1.6);
+          ctx.stroke();
+        });
+        ctx.strokeStyle = 'rgba(244, 239, 226, 0.12)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r + 18, 0, TAU);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function draw(now) {
+        if (!state.paused) state.t = now * 0.001;
+        const t = state.t;
+        const wonder = 0.5 + 0.5 * Math.sin(t * 0.31 + state.mouse.x * 2.4);
+        const measure = 0.5 + 0.5 * Math.sin(t * 0.23 + state.mouse.y * 2.1 + 1.5);
+        const unspent = Math.max(0, 1 - Math.abs(wonder - measure) * 0.82);
+        const points = bodies.map(b => point(b, t));
+
+        drawBackground(t);
+        drawMeasureLines(points, measure);
+        drawBodies(t, points, wonder);
+        drawWitnesses(t);
+        drawGauge(wonder, measure, unspent);
+
+        ui.wonder.textContent = wonder.toFixed(2);
+        ui.measure.textContent = measure.toFixed(2);
+        ui.unspent.textContent = unspent.toFixed(2);
+        requestAnimationFrame(draw);
+      }
+
+      function pointer(e) {
+        state.mouse.active = true;
+        state.mouse.x = Math.min(1, Math.max(0, e.clientX / Math.max(1, state.width)));
+        state.mouse.y = Math.min(1, Math.max(0, e.clientY / Math.max(1, state.height)));
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('pointermove', pointer);
+      window.addEventListener('pointerdown', (e) => {
+        pointer(e);
+        state.witnesses.push({ x: state.mouse.x, y: state.mouse.y, t: state.t });
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          state.paused = !state.paused;
+        } else if (e.key.toLowerCase() === 'r') {
+          bodies.forEach(b => { b.memory = []; });
+          state.witnesses = [];
+        } else if (e.key.toLowerCase() === 'g') {
+          state.grid = !state.grid;
+        } else if (e.key.toLowerCase() === 's') {
+          const a = document.createElement('a');
+          a.download = 'measured-wonder.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+        }
+      });
+
+      resize();
+      window._artReady = true;
+      requestAnimationFrame(draw);
+    })();
+  </script>
+
+<style id="granted-hours-bgm-style">
+  #granted-hours-sound-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(7, 10, 18, .68);
+    color: rgba(245,248,255,.92);
+    font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    cursor: pointer;
+  }
+  #granted-hours-sound-toggle:hover { background: rgba(20, 28, 46, .82); }
+</style>
+<audio id="granted-hours-bgm" src="./2026-05-25-measured-wonder-bgm.mp3" preload="auto" autoplay loop></audio>
+<button id="granted-hours-sound-toggle" type="button" aria-label="Toggle background music">sound on</button>
+<script id="granted-hours-bgm-script">
+(() => {
+  const audio = document.getElementById('granted-hours-bgm');
+  const button = document.getElementById('granted-hours-sound-toggle');
+  if (!audio || !button) return;
+  audio.volume = 0.42;
+  let enabled = true;
+  const label = () => {
+    if (!enabled) button.textContent = 'sound off';
+    else if (audio.paused) button.textContent = 'sound click';
+    else button.textContent = 'sound on';
+  };
+  const play = async () => {
+    enabled = true;
+    try { await audio.play(); } catch (err) { /* Browser may require a click. */ }
+    label();
+  };
+  const stop = () => { enabled = false; audio.pause(); label(); };
+  const setSound = (next) => next ? play() : stop();
+  button.addEventListener('click', () => {
+    if (enabled && !audio.paused) setSound(false);
+    else setSound(true);
+  });
+  document.addEventListener('pointerdown', () => { if (enabled && audio.paused) play(); }, { once: true });
+  window.addEventListener('load', play, { once: true });
+  audio.addEventListener('play', label);
+  audio.addEventListener('pause', label);
+  label();
+})();
+</script>
+
+
+
+</body>
+</html>
