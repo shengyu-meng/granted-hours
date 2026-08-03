@@ -157,20 +157,11 @@ def sanitize_history(
                     stats["identity_masks"] += int(masked_zh != original_zh) + int(
                         masked_en != original_en
                     )
-                    tags = tuple(
-                        dict.fromkeys(
-                            (*projection_tags(masked_zh), *projection_tags(masked_en))
-                        )
+                    sanitized_zh, _zh_tags = abstract_sensitive_public_text(masked_zh)
+                    sanitized_en, _en_tags = abstract_sensitive_public_text(masked_en)
+                    stats["abstracted"] += int(masked_zh != sanitized_zh) + int(
+                        masked_en != sanitized_en
                     )
-                    if tags:
-                        sanitized_zh = abstract_for_tags(tags, "zh")
-                        sanitized_en = abstract_for_tags(tags, "en")
-                        stats["abstracted"] += int(masked_zh != sanitized_zh) + int(
-                            masked_en != sanitized_en
-                        )
-                    else:
-                        sanitized_zh = masked_zh
-                        sanitized_en = masked_en
                     sanitized_zh = polish_public_excerpt(sanitized_zh)
                     sanitized_en = polish_public_excerpt(sanitized_en)
                     if not sanitized_zh or not sanitized_en:

@@ -3,9 +3,10 @@
 
 The public calendar may preserve useful meaning, but it must not serialize
 intimate family narratives, health details, unpublished commercial briefs, or
-named infrastructure status.  The policy therefore prefers a bounded abstract
-statement, then entity masking, and only drops content when no safe meaning
-remains.
+named infrastructure status.  The policy therefore masks identifying spans
+first and keeps the sentence's readable contour, then replaces only a whole
+sentence that is still sensitive after masking with a bounded abstraction, and
+only drops content when no safe meaning remains.
 """
 from __future__ import annotations
 
@@ -152,6 +153,36 @@ ROUTINE_ONLY_REMINDER_TAGS = {
     "personal_finance_or_trading",
     "public_history_privacy_cleanup",
 }
+MASK = "████"
+MASK_SCOPE_SKIP_TAGS = {
+    "health_or_emotional_state",
+    "personal_finance_or_trading",
+}
+_SCOPE_BRIDGE_RE = re.compile(r"(?:名|名称|题目|标题|简称|缩写|[:：])*\s*")
+
+
+def _match_is_masked_scope(text: str, match: re.Match) -> bool:
+    """True when a semantic trigger names a masked entity (disease name,
+    holding name, …) rather than disclosing a private fact itself."""
+    tail = text[match.end():]
+    if tail.startswith(MASK):
+        return True
+    bridge = _SCOPE_BRIDGE_RE.match(tail)
+    if bridge and text[match.end() + bridge.end():].startswith(MASK):
+        return True
+    head = text[max(0, match.start() - 8):match.start()].rstrip()
+    return head.endswith(MASK)
+
+
+def _rule_matches(text: str, rule: SemanticRule) -> bool:
+    if rule.tag in MASK_SCOPE_SKIP_TAGS:
+        return any(
+            not _match_is_masked_scope(text, match)
+            for match in rule.pattern.finditer(text)
+        )
+    return rule.pattern.search(text) is not None
+
+
 ROUTINE_ONLY_REMINDER_RE = re.compile(
     r"(?ix)国美|学院|学校|课程|课件|讲义|教师|学生|"
     r"\b(?:lecture|course|school|college|university|faculty|CAA)\b|"
@@ -320,7 +351,11 @@ def semantic_risk_tags(text: str) -> tuple[str, ...]:
     remainder, _ = modernize_abstract_copy(text)
     for marker in _ABSTRACT_MARKERS:
         remainder = remainder.replace(marker, "")
-    return tuple(rule.tag for rule in RULES if rule.pattern.search(remainder))
+    return tuple(
+        rule.tag
+        for rule in RULES
+        if _rule_matches(remainder, rule)
+    )
 
 
 def projection_tags(text: str) -> tuple[str, ...]:
@@ -330,7 +365,7 @@ def projection_tags(text: str) -> tuple[str, ...]:
     tags.extend(legacy_tags)
     for rule in RULES:
         if (
-            rule.pattern.search(text)
+            _rule_matches(text, rule)
             or rule.abstract_zh in text
             or rule.abstract_en in text
         ) and rule.tag not in tags:
@@ -376,7 +411,7 @@ def abstract_sensitive_public_text(text: str) -> tuple[str, tuple[str, ...]]:
         if part.strip() in _ABSTRACT_MARKERS:
             output.append(part)
             continue
-        matches = [rule for rule in RULES if rule.pattern.search(part)]
+        matches = [rule for rule in RULES if _rule_matches(part, rule)]
         if not matches:
             output.append(part)
             continue

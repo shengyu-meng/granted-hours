@@ -10,6 +10,38 @@ from semantic_public_policy import semantic_risk_tags
 
 ROOT = Path(__file__).resolve().parents[1]
 IDENTITY_DENYLIST = ROOT / '.private' / 'identity-denylist.json'
+LEGACY_COLLABORATION_TEMPLATES = (
+    "要求澄清一个工作判断，比较可行路径，并保留后续复核所需的边界。",
+    "Requested clarification of a working judgment, comparison of viable paths, and explicit boundaries for later review.",
+    "要求调整视觉表达，使构图、层级与生成方法更清楚、更可复核。",
+    "Requested a clearer and more reviewable visual treatment across composition, hierarchy, and generation method.",
+    "完成了视觉结构调整与结果核验，使主要判断、构图和迭代路径可以逐项检查。",
+    "Completed the visual restructuring and result check, making the main judgment, composition, and iteration path reviewable.",
+    "要求整理分散的研究线索，核对证据，并把事实、推断与待验证问题分开。",
+    "Requested a synthesis of dispersed research threads, with evidence checked and facts, inferences, and open questions kept separate.",
+    "要求独立分析一组材料，提炼核心主张、证据强弱、争议点与仍需验证的问题。",
+    "Requested an independent analysis of source material, covering its main claims, evidential strength, disputes, and open questions.",
+    "要求整理现有材料，改善结构与措辞，并形成可以继续审阅的版本。",
+    "Requested that the available material be organized, structurally refined, and turned into a reviewable draft.",
+    "要求实现并验证一项开发修改，同时保留可以检查的测试结果。",
+    "Requested an implementation and validation pass, with testable evidence retained.",
+    "要求整理公开内容的结构、节奏与归档方式。",
+    "Requested a clearer structure, cadence, and archive path for public content.",
+    "要求修复一项运行或维护问题，并让状态与失败信息更容易阅读。",
+    "Requested a repair to an operational or maintenance issue, with status and failure evidence made easier to read.",
+    "完成了资料归纳与证据对照，保留可复核结论，并把不确定部分列为后续问题。",
+    "Completed a synthesis and evidence comparison, retained reviewable conclusions, and left uncertain points as follow-up questions.",
+    "完成了材料整理、结构修订与可读性检查，形成了可继续审阅的版本。",
+    "Completed the material consolidation, structural revision, and readability check, producing a reviewable version.",
+    "完成了实现、聚焦测试与结果核验，并保留了后续维护所需的边界。",
+    "Completed the implementation, focused tests, and result verification, while preserving boundaries needed for maintenance.",
+    "完成了公开内容的整理与归档核对，保留了可继续执行的发布节奏。",
+    "Completed the public-content organization and archive check, preserving an executable release cadence.",
+    "完成了相关维护、试运行与状态核验，并保留了可操作的失败证据。",
+    "Completed the relevant maintenance, dry run, and status verification, retaining actionable failure evidence.",
+    "完成了判断框架的整理，明确了当前结论、保留意见与下一次复核条件。",
+    "Completed a structured judgment, separating the current conclusion, reservations, and conditions for the next review.",
+)
 ALLOWED_TOKENS = {
     'shengyu-meng',
     'https://shengyu-meng.github.io/granted-hours/',
@@ -139,6 +171,12 @@ def main(root: Path) -> int:
             rel.startswith('docs/timetable/')
             and path.suffix.lower() in {'.html', '.js', '.json'}
         ):
+            if rel == "metadata/timetable-history.json":
+                for template in LEGACY_COLLABORATION_TEMPLATES:
+                    if template in text:
+                        findings.append(
+                            (rel, 0, 'legacy_collaboration_template', '[value withheld]')
+                        )
             semantic_tags = semantic_risk_tags(text)
             for tag in semantic_tags:
                 findings.append((rel, 0, f'semantic_private_context:{tag}', '[value withheld]'))

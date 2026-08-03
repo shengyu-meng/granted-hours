@@ -40,16 +40,31 @@ class CollaborationEventImporterTests(unittest.TestCase):
             "start": "10:00",
             "end": "10:10",
             "time_provenance": "observed_message_envelope",
-            "_request_zh": "要求实现并验证一项开发修改，同时保留可以检查的测试结果。",
-            "_request_en": "Requested an implementation and validation pass, with testable evidence retained.",
+            "_request_zh": "实现并验证一项开发修改，同时保留可以检查的测试结果。",
+            "_request_en": "Implement and validate a development change, retaining checkable test results.",
+            "_outcome_zh": "完成实现、聚焦测试与结果核验，并保留后续维护所需的边界。",
+            "_outcome_en": "Completed the implementation, focused tests, and result verification, preserving maintenance boundaries.",
+            "_contour_signature": "fixture-contour-1",
             "_request_topics": (),
             "_has_safe_assistant_outcome": True,
+        }
+        contour = {
+            "date": "2026-08-02",
+            "category": "code_development",
+            "request_zh": collaboration["_request_zh"],
+            "request_en": collaboration["_request_en"],
+            "outcome_zh": collaboration["_outcome_zh"],
+            "outcome_en": collaboration["_outcome_en"],
+            "completion_status": "completed",
+            "pair_provenance": "assistant_result_summary",
         }
         merged = importer.merge_history(
             history,
             {"2026-08-02": [collaboration]},
             {},
             ["2026-08-02"],
+            {"fixture-contour-1": contour},
+            [],
         )
         self.assertEqual(len(merged["days"]), 1)
         self.assertEqual(merged["days"][0]["date"], "2026-08-02")
@@ -57,8 +72,8 @@ class CollaborationEventImporterTests(unittest.TestCase):
         residue = merged["days"][0]["assigned_residues"][0]
         self.assertEqual(residue["completion_status"], "completed")
         self.assertEqual(residue["pair_provenance"], "assistant_result_summary")
-        self.assertIn("要求", residue["request_zh"])
-        self.assertIn("Requested", residue["request_en"])
+        self.assertIn("实现", residue["request_zh"])
+        self.assertIn("Implement", residue["request_en"])
         self.assertIn("完成", residue["outcome_zh"])
         self.assertIn("Completed", residue["outcome_en"])
 
@@ -81,6 +96,7 @@ class CollaborationEventImporterTests(unittest.TestCase):
         self.holdings = self.root / "holdings.json"
         self.self_media = self.root / "self-media.json"
         self.identities = self.root / "identities.json"
+        self.contours = self.root / "contours.json"
         self.days.write_text(json.dumps([{"date": "2026-07-01"}]), encoding="utf-8")
         self.history.write_text(
             json.dumps(
@@ -106,6 +122,15 @@ class CollaborationEventImporterTests(unittest.TestCase):
         )
         self.identities.write_text(
             json.dumps({"terms": ["陈墨川"]}), encoding="utf-8"
+        )
+        self.contours.write_text(
+            json.dumps(
+                {
+                    "schema": importer.COLLABORATION_CONTOURS_SCHEMA,
+                    "contours": {},
+                }
+            ),
+            encoding="utf-8",
         )
         self.detector.write_text(
             """#!/usr/bin/env python3
@@ -316,6 +341,43 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         connection.close()
 
     def run_import(self, *, dry_run: bool) -> dict:
+        collaborations, _audit = importer.collect(
+            self.db,
+            [item["date"] for item in json.loads(self.days.read_text())],
+            self.detector,
+            (self.holdings, self.self_media, self.identities),
+        )
+        contours = {}
+        for day, events in collaborations.items():
+            for event in events:
+                contours[event["_contour_signature"]] = {
+                    "date": day,
+                    "category": event["category"],
+                    "request_zh": event["_request_zh"],
+                    "request_en": f"Requested: {event['_request_zh']}",
+                    "outcome_zh": event["_outcome_zh"],
+                    "outcome_en": f"Outcome: {event['_outcome_zh']}",
+                    "completion_status": (
+                        "completed"
+                        if event["_has_safe_assistant_outcome"]
+                        else "unverified"
+                    ),
+                    "pair_provenance": (
+                        "assistant_result_summary"
+                        if event["_has_safe_assistant_outcome"]
+                        else "no_public_result_evidence"
+                    ),
+                }
+        self.contours.write_text(
+            json.dumps(
+                {
+                    "schema": importer.COLLABORATION_CONTOURS_SCHEMA,
+                    "contours": contours,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
         return importer.import_events(
             self.db,
             self.days,
@@ -323,6 +385,7 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
             self.detector,
             (self.holdings, self.self_media, self.identities),
             dry_run,
+            self.contours,
         )
 
     def test_owner_dialogue_legacy_sessions_and_child_lineage_are_covered(self) -> None:
@@ -400,22 +463,78 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
             "start": "10:00",
             "end": "10:10",
             "time_provenance": "observed_message_envelope",
-            "_request_zh": importer.CATEGORY_REQUEST_PAIRS["document_processing"][0],
-            "_request_en": importer.CATEGORY_REQUEST_PAIRS["document_processing"][1],
+            "_request_zh": "整理现有材料，改善结构与措辞，并形成可继续审阅的版本。",
+            "_request_en": "Organize the available material, improve structure and wording, and produce a reviewable version.",
+            "_outcome_zh": "当天没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+            "_outcome_en": "No public-safe completion record was found that reliably matches this request group.",
+            "_contour_signature": "fixture-contour-2",
             "_request_topics": (),
             "_has_safe_assistant_outcome": False,
+        }
+        contour = {
+            "date": "2026-08-02",
+            "category": "document_processing",
+            "request_zh": collaboration["_request_zh"],
+            "request_en": collaboration["_request_en"],
+            "outcome_zh": importer.UNVERIFIED_OUTCOME_PAIR[0],
+            "outcome_en": importer.UNVERIFIED_OUTCOME_PAIR[1],
+            "completion_status": "unverified",
+            "pair_provenance": "no_public_result_evidence",
         }
         merged = importer.merge_history(
             {"schema": importer.HISTORY_SCHEMA, "days": []},
             {"2026-08-02": [collaboration]},
             {},
             ["2026-08-02"],
+            {"fixture-contour-2": contour},
+            [],
         )
         residue = merged["days"][0]["assigned_residues"][0]
         self.assertEqual(residue["completion_status"], "unverified")
         self.assertEqual(residue["pair_provenance"], "no_public_result_evidence")
         self.assertIn("不把计划或推断写成已完成", residue["outcome_zh"])
         self.assertIn("not presented as completed work", residue["outcome_en"])
+
+    def test_request_uses_masked_owner_contour_not_category_template(self) -> None:
+        result = self.run_import(dry_run=True)
+        collaborations = [
+            residue
+            for day in result["history"]["days"]
+            for residue in day["assigned_residues"]
+            if residue["source_kind"] == "collaboration_session"
+        ]
+        self.assertTrue(collaborations)
+        forbidden_templates = {
+            "要求澄清一个工作判断，比较可行路径，并保留后续复核所需的边界。",
+            "要求调整视觉表达，使构图、层级与生成方法更清楚、更可复核。",
+            "完成了视觉结构调整与结果核验，使主要判断、构图和迭代路径可以逐项检查。",
+            "要求实现并验证一项开发修改，同时保留可以检查的测试结果。",
+            "要求整理现有材料，改善结构与措辞，并形成可以继续审阅的版本。",
+        }
+        for residue in collaborations:
+            self.assertNotIn(residue["request_zh"], forbidden_templates)
+            self.assertNotIn(residue["outcome_zh"], forbidden_templates)
+
+    def test_missing_contour_fails_closed(self) -> None:
+        self.contours.write_text(
+            json.dumps(
+                {
+                    "schema": importer.COLLABORATION_CONTOURS_SCHEMA,
+                    "contours": {},
+                }
+            ),
+            encoding="utf-8",
+        )
+        with self.assertRaises(ValueError):
+            importer.import_events(
+                self.db,
+                self.days,
+                self.history,
+                self.detector,
+                (self.holdings, self.self_media, self.identities),
+                True,
+                self.contours,
+            )
 
     def test_import_is_idempotent(self) -> None:
         first = self.run_import(dry_run=False)
