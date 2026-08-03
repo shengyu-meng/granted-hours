@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-14","title_en":"Variable Constellation","title_zh":"授时变量星图","variable_en":"Constellation","variable_zh":"星图 / 回看","intention_en":"Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn.","intention_zh":"变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。","interaction_en":"Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Variable Constellation was made as one public step in the Granted Hours sequence, with the variable Constellation treated as an operational condition rather than a decorative theme. The intention frames the work this way: Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn. The live artifact then turns that idea into interaction: Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.","rationale_zh":"《授时变量星图》是《授时》连续序列中的一个公开步骤：当天的自由变量「星图 / 回看」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。 可运行页面进一步把这个概念变成可操作的界面：移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。","after_en":"Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.","after_zh":"自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。"};
+  const WORK_NOTE = {"date":"2026-05-14","title_en":"Variable Constellation","title_zh":"授时变量星图","variable_en":"Constellation","variable_zh":"星图 / 回看","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn.","intention_zh":"变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。","interaction_en":"Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Variable Constellation was made as one public step in the Granted Hours sequence, with the variable Constellation treated as an operational condition rather than a decorative theme. The intention frames the work this way: Fold the first seven granted-hour variables into one living sky, showing that a sequence is not a ladder but a constellation that can be redrawn. The live artifact then turns that idea into interaction: Move the pointer to redraw relations between variables. Click to pulse a constellation node. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.","rationale_zh":"《授时变量星图》是《授时》连续序列中的一个公开步骤：当天的自由变量「星图 / 回看」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：变量星图把前七天的变量折叠到同一片天空里。序列不是阶梯，而是星座：轨道之间的关系可以被重新连线，回看本身也成为新的自由变量。 可运行页面进一步把这个概念变成可操作的界面：移动指针，重画变量之间的关系；点击，让一个星座节点脉冲；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。","after_en":"Freedom is not the absence of orbit. Freedom is the right to redraw the constellation between orbits.","after_zh":"自由不是没有轨道；自由是在轨道之间，保留一次改写星座的权利。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,8 +430,7 @@
 })();
 </script>
 
-
-<meta charset="utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Granted Hours Variable Constellation / 授时变量星图</title>
   <style>
@@ -616,8 +622,5 @@
   label();
 })();
 </script>
-
-
-
 </body>
 </html>

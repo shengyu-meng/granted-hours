@@ -89,9 +89,12 @@ class TimetableBuilderTests(unittest.TestCase):
                             "session_count",
                             "delegated_agent_count",
                             "returned_agent_count",
-                            "public_excerpts",
-                            "excerpt_redaction_count",
-                            "excerpt_provenance",
+                            "request_zh",
+                            "request_en",
+                            "outcome_zh",
+                            "outcome_en",
+                            "completion_status",
+                            "pair_provenance",
                         }
                     )
                 self.assertEqual(
@@ -130,10 +133,16 @@ class TimetableBuilderTests(unittest.TestCase):
                     self.assertGreater(residue["redaction_count"], 0)
                     self.assertEqual(
                         residue["redaction_count"],
-                        residue["excerpt_redaction_count"],
+                        residue["request_zh"].count("████")
+                        + residue["outcome_zh"].count("████"),
                     )
-                    self.assertTrue(
-                        any("████" in excerpt for excerpt in residue["public_excerpts"])
+                    self.assertEqual(
+                        residue["request_zh"].count("████"),
+                        residue["request_en"].count("████"),
+                    )
+                    self.assertEqual(
+                        residue["outcome_zh"].count("████"),
+                        residue["outcome_en"].count("████"),
                     )
                 else:
                     self.assertGreater(residue["redaction_count"], 0)
@@ -158,6 +167,7 @@ class TimetableBuilderTests(unittest.TestCase):
     def test_historical_output_is_continuous_diverse_and_artwork_free(self) -> None:
         output = self.build()
         phrases = Counter()
+        completed_or_recorded_phrases = Counter()
         schedules = set()
         category_patterns = Counter()
         category_counts = Counter()
@@ -172,14 +182,32 @@ class TimetableBuilderTests(unittest.TestCase):
             )
             category_patterns[tuple(task["category"] for task in day["task_residues"])] += 1
             for task in day["task_residues"]:
-                phrases[(task["zh"], task["en"])] += 1
+                phrase = (
+                    (
+                        task["request_zh"],
+                        task["request_en"],
+                        task["outcome_zh"],
+                        task["outcome_en"],
+                    )
+                    if task["source_kind"] == "collaboration_session"
+                    else (task["zh"], task["en"])
+                )
+                phrases[phrase] += 1
+                if (
+                    task["source_kind"] != "collaboration_session"
+                    or task["completion_status"] == "completed"
+                ):
+                    completed_or_recorded_phrases[phrase] += 1
                 category_counts[task["category"]] += 1
                 self.assertNotIn(day["title_en"].lower(), task["en"].lower())
                 self.assertNotIn(day["title_zh"], task["zh"])
 
         self.assertGreaterEqual(len(phrases), 100)
         self.assertGreaterEqual(len(schedules), 40)
-        self.assertLessEqual(max(phrases.values()), 10)
+        # The intentionally uniform unverified state may repeat: repetition is
+        # preferable to fabricating variety. Evidence-backed and authored copy
+        # must still remain semantically diverse.
+        self.assertLessEqual(max(completed_or_recorded_phrases.values()), 10)
         # Maintenance records now live in observed routine blocks rather than
         # being duplicated as assigned work. Remaining category repetition is
         # therefore expected; phrase diversity is the truthfulness gate.
@@ -452,7 +480,7 @@ class TimetableBuilderTests(unittest.TestCase):
                             {"Background routine", "System routine", "Silent check"},
                         )
 
-    def test_explicit_routine_exception_is_promoted_from_climate(self) -> None:
+    def test_generic_support_alerts_stay_in_one_daily_climate_rollup(self) -> None:
         routine = {
             "origin": "background",
             "footprint_id": "background-001",
@@ -472,13 +500,20 @@ class TimetableBuilderTests(unittest.TestCase):
             "pulse_color": "blue",
         }
         classification = builder.classify_public_pulse(routine)
-        self.assertEqual(classification["outcome"], "promoted_routine_exception")
-        self.assertIn("public_alert", classification["evidence"])
+        self.assertEqual(classification["outcome"], "climate_aggregate")
+        self.assertIn("daily_support_rollup", classification["evidence"])
 
         quiet = copy.deepcopy(routine)
         quiet["summary_zh"] = "完成 1 次系统例行检查；1 次静默正常，0 次出现公开级别异常或新鲜度提示。"
         quiet["summary_en"] = "1 system checks completed; 1 were silently healthy and 0 exposed a public-level anomaly or freshness warning."
         self.assertEqual(builder.classify_public_pulse(quiet)["outcome"], "climate_aggregate")
+
+        background = copy.deepcopy(routine)
+        background["category"] = "background_routine"
+        self.assertEqual(
+            builder.classify_public_pulse(background)["outcome"],
+            "climate_aggregate",
+        )
 
         market_warning = copy.deepcopy(routine)
         market_warning["category"] = "ah_market_scan"
@@ -1059,7 +1094,7 @@ class TimetableBuilderTests(unittest.TestCase):
             for text in excluded
         ]
         source = {
-            "schema": "granted-hours-timetable-history-v3",
+            "schema": "granted-hours-timetable-history-v4",
             "days": [
                 {
                     "date": "2026-07-27",
@@ -1087,20 +1122,32 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertNotEqual((start, end), (self.config["autonomous_hour"]["end"], "24:00"))
 
     def test_current_history_has_no_known_spouse_owned_residues(self) -> None:
-        expected_counts = {
-            "2026-07-16": 2,
-            "2026-07-18": 1,
-            "2026-07-23": 1,
-            "2026-07-25": 2,
-            "2026-07-26": 3,
-        }
-        for day_date, expected in expected_counts.items():
-            non_agent_residues = [
-                residue
-                for residue in self.history[day_date]["assigned_residues"]
-                if residue.get("source_kind") not in builder.SESSION_SOURCE_KINDS
-            ]
-            self.assertEqual(len(non_agent_residues), expected, day_date)
+        audited_dates = (
+            "2026-07-16",
+            "2026-07-18",
+            "2026-07-23",
+            "2026-07-25",
+            "2026-07-26",
+        )
+        for day_date in audited_dates:
+            residues = self.history[day_date]["assigned_residues"]
+            self.assertTrue(residues, day_date)
+            for residue in residues:
+                public_copy = " ".join(
+                    str(residue.get(field, ""))
+                    for field in (
+                        "zh",
+                        "en",
+                        "request_zh",
+                        "request_en",
+                        "outcome_zh",
+                        "outcome_en",
+                    )
+                )
+                self.assertIsNone(
+                    builder.SPOUSE_ACTIVITY_RE.search(public_copy),
+                    day_date,
+                )
 
     def test_authored_and_inferred_name_semantics_are_table_driven(self) -> None:
         cases = [

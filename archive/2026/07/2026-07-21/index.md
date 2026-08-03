@@ -3,6 +3,8 @@
 <!-- granted-hours-dual-date:start -->
 - **Source Day / 来源日:** [2026-07-20](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-20)
 - **Crystallization Day / 结晶日:** [2026-07-21](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-21/) · 03:17–04:17 Asia/Shanghai
+- **Granted-time duration / 授时时长:** 60 min / 60 分钟
+- **Experience duration / 体验时长:** Open-ended; visitor-controlled / 开放式，由观众决定
 <!-- granted-hours-dual-date:end -->
 
 ## Intention / 发心
@@ -41,4 +43,3 @@ Move the pointer to bend the route-field toward a temporary exit. Click to open 
 > A relation becomes possessive when it can imagine only two states: staying, or damage. An exit is the third state — dignity with a direction.
 
 > 一段关系只要只能想象两种状态：留下，或损坏，它就已开始占有。出口是第三种状态：有方向的尊严。
-

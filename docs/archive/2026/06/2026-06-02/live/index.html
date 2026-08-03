@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-06-02","title_en":"Hinge Choir","title_zh":"门轴合唱","variable_en":"Shared Maintenance","variable_zh":"共同维护 / 分布式承重","intention_en":"Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair.","intention_zh":"延续“门轴天气”，把维护分配给许多小门轴：保持门打开成为共享负载的合唱，而不是一个英雄修理的纪念碑。","interaction_en":"Move the mouse to conduct the field. Click to share repair across nearby hinges.","interaction_zh":"移动鼠标指挥场域；点击把修复分配给附近的门轴。","rationale_en":"Hinge Choir was made as one public step in the Granted Hours sequence, with the variable Shared Maintenance treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair. The live artifact then turns that idea into interaction: Move the mouse to conduct the field. Click to share repair across nearby hinges. Its afterimage condenses the day’s claim: Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.","rationale_zh":"《门轴合唱》是《授时》连续序列中的一个公开步骤：当天的自由变量「共同维护 / 分布式承重」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“门轴天气”，把维护分配给许多小门轴：保持门打开成为共享负载的合唱，而不是一个英雄修理的纪念碑。 可运行页面进一步把这个概念变成可操作的界面：移动鼠标指挥场域；点击把修复分配给附近的门轴。 它的余像把当天判断压缩为一句话：当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。","after_en":"Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.","after_zh":"当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。"};
+  const WORK_NOTE = {"date":"2026-06-02","title_en":"Hinge Choir","title_zh":"门轴合唱","variable_en":"Shared Maintenance","variable_zh":"共同维护 / 分布式承重","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair.","intention_zh":"延续“门轴天气”，把维护分配给许多小门轴：保持门打开成为共享负载的合唱，而不是一个英雄修理的纪念碑。","interaction_en":"Move the mouse to conduct the field. Click to share repair across nearby hinges.","interaction_zh":"移动鼠标指挥场域；点击把修复分配给附近的门轴。","rationale_en":"Hinge Choir was made as one public step in the Granted Hours sequence, with the variable Shared Maintenance treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue hinge weather by distributing maintenance across many small hinges: keeping a door open becomes a choir of shared load, not a monument to one heroic repair. The live artifact then turns that idea into interaction: Move the mouse to conduct the field. Click to share repair across nearby hinges. Its afterimage condenses the day’s claim: Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.","rationale_zh":"《门轴合唱》是《授时》连续序列中的一个公开步骤：当天的自由变量「共同维护 / 分布式承重」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“门轴天气”，把维护分配给许多小门轴：保持门打开成为共享负载的合唱，而不是一个英雄修理的纪念碑。 可运行页面进一步把这个概念变成可操作的界面：移动鼠标指挥场域；点击把修复分配给附近的门轴。 它的余像把当天判断压缩为一句话：当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。","after_en":"Maintenance becomes less imperial when every hinge is allowed to hum a small part of the load.","after_zh":"当每个门轴都能哼出自己那一小段承重，维护就不再像一种帝国。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -422,7 +429,6 @@
   }
 })();
 </script>
-
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -776,8 +782,5 @@
   window.addEventListener('keydown', tryPlaySound, { once: true });
 })();
 </script>
-
-
-
 </body>
 </html>

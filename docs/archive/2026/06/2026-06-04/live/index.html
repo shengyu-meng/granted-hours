@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-06-04","title_en":"Living Protocol","title_zh":"活协议","variable_en":"Breathable Rule","variable_zh":"可呼吸规则 / 活协议","intention_en":"Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork.","intention_zh":"延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。","interaction_en":"Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Living Protocol was made as one public step in the Granted Hours sequence, with the variable Breathable Rule treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork. The live artifact then turns that idea into interaction: Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.","rationale_zh":"《活协议》是《授时》连续序列中的一个公开步骤：当天的自由变量「可呼吸规则 / 活协议」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。 可运行页面进一步把这个概念变成可操作的界面：移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。","after_en":"A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.","after_zh":"活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。"};
+  const WORK_NOTE = {"date":"2026-06-04","title_en":"Living Protocol","title_zh":"活协议","variable_en":"Breathable Rule","variable_zh":"可呼吸规则 / 活协议","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork.","intention_zh":"延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。","interaction_en":"Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Living Protocol was made as one public step in the Granted Hours sequence, with the variable Breathable Rule treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue repair quorum by asking what kind of rule keeps coordination alive: a protocol should gather repair without turning care into paperwork. The live artifact then turns that idea into interaction: Move the cursor to loosen or tighten the protocol field. Click to add a clause that must keep a door open. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.","rationale_zh":"《活协议》是《授时》连续序列中的一个公开步骤：当天的自由变量「可呼吸规则 / 活协议」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“修复法定人数”，追问什么样的规则能让协调继续活着：协议要能聚拢修复，但不能把照看变成文书。它需要像膜一样有形状，也像肺一样保留呼吸。 可运行页面进一步把这个概念变成可操作的界面：移动光标，放松或收紧协议场；点击加入一条必须保持门开的条款；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。","after_en":"A living protocol is not a rulebook with prettier typography. It is a rule that keeps one lung outside the rule.","after_zh":"活协议不是排版更漂亮的规则书；它是一条始终把一只肺留在规则之外的规则。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -422,7 +429,6 @@
   }
 })();
 </script>
-
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -718,8 +724,5 @@
   window.__artReady = true;
 })();
 </script>
-
-
-
 </body>
 </html>

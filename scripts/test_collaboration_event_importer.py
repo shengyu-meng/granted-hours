@@ -26,8 +26,8 @@ class CollaborationEventImporterTests(unittest.TestCase):
         }
         collaboration = {
             "category": "code_development",
-            "en": "A complete public result.",
-            "zh": "一条完整的公开结果。",
+            "en": "Development and validation",
+            "zh": "开发与验证",
             "redaction_status": "none",
             "redaction_count": 0,
             "source_kind": "collaboration_session",
@@ -36,13 +36,14 @@ class CollaborationEventImporterTests(unittest.TestCase):
             "session_count": 1,
             "delegated_agent_count": 0,
             "returned_agent_count": 0,
-            "public_excerpts": ["一条完整的公开结果。"],
-            "excerpt_redaction_count": 0,
-            "excerpt_provenance": "audited_collaboration_dialogue",
             "agent_labels": ["Hermes"],
             "start": "10:00",
             "end": "10:10",
             "time_provenance": "observed_message_envelope",
+            "_request_zh": "要求实现并验证一项开发修改，同时保留可以检查的测试结果。",
+            "_request_en": "Requested an implementation and validation pass, with testable evidence retained.",
+            "_request_topics": (),
+            "_has_safe_assistant_outcome": True,
         }
         merged = importer.merge_history(
             history,
@@ -53,7 +54,13 @@ class CollaborationEventImporterTests(unittest.TestCase):
         self.assertEqual(len(merged["days"]), 1)
         self.assertEqual(merged["days"][0]["date"], "2026-08-02")
         self.assertEqual(merged["days"][0]["provenance"], "dialogue_based")
-        self.assertEqual(merged["days"][0]["assigned_residues"], [collaboration])
+        residue = merged["days"][0]["assigned_residues"][0]
+        self.assertEqual(residue["completion_status"], "completed")
+        self.assertEqual(residue["pair_provenance"], "assistant_result_summary")
+        self.assertIn("要求", residue["request_zh"])
+        self.assertIn("Requested", residue["request_en"])
+        self.assertIn("完成", residue["outcome_zh"])
+        self.assertIn("Completed", residue["outcome_en"])
 
     def test_new_public_date_without_foreground_keeps_builder_fallback(self) -> None:
         history = {
@@ -337,7 +344,7 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         self.assertEqual(research["returned_agent_count"], 1)
         self.assertIn("subagent", research["agent_labels"])
 
-    def test_public_excerpts_mask_named_scopes_and_exclude_other_users(self) -> None:
+    def test_bilingual_pairs_mask_named_scopes_and_exclude_other_users(self) -> None:
         result = self.run_import(dry_run=True)
         serialized = json.dumps(result["history"], ensure_ascii=False)
         for forbidden in (
@@ -351,7 +358,6 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
             "其他用户的私密项目",
         ):
             self.assertNotIn(forbidden, serialized)
-        self.assertTrue(importer.MASK in serialized or "个人节奏与恢复安排" in serialized)
         self.assertGreater(result["audit"]["public_excerpt_count"], 0)
         research = next(
             residue
@@ -362,16 +368,54 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         self.assertNotIn("你主动与", research["zh"])
         self.assertNotIn("Hermes", research["zh"])
         self.assertNotIn("you initiated", research["en"].lower())
-        self.assertTrue(
-            any(excerpt.startswith("核验完成") for excerpt in research["public_excerpts"])
+        self.assertTrue(research["request_zh"])
+        self.assertTrue(research["request_en"])
+        self.assertTrue(research["outcome_zh"])
+        self.assertTrue(research["outcome_en"])
+        self.assertEqual(research["completion_status"], "completed")
+        self.assertIn(
+            research["pair_provenance"],
+            {"assistant_result_summary", "matched_public_result_record"},
         )
-        self.assertEqual(
-            research["excerpt_provenance"], "audited_collaboration_dialogue"
-        )
+        self.assertNotIn("public_excerpts", research)
         self.assertGreaterEqual(result["audit"]["rejected_outcome_candidate_count"], 2)
         self.assertNotIn("Cloudflare", serialized)
         self.assertNotIn("API Token", serialized)
         self.assertNotIn("具体药物", serialized)
+
+    def test_missing_result_is_labeled_unverified_in_both_languages(self) -> None:
+        collaboration = {
+            "category": "document_processing",
+            "en": "Writing and document refinement",
+            "zh": "写作与文档打磨",
+            "redaction_status": "none",
+            "redaction_count": 0,
+            "source_kind": "collaboration_session",
+            "faithfulness": "faithful_summary",
+            "evidence_count": 1,
+            "session_count": 1,
+            "delegated_agent_count": 0,
+            "returned_agent_count": 0,
+            "agent_labels": ["Hermes"],
+            "start": "10:00",
+            "end": "10:10",
+            "time_provenance": "observed_message_envelope",
+            "_request_zh": importer.CATEGORY_REQUEST_PAIRS["document_processing"][0],
+            "_request_en": importer.CATEGORY_REQUEST_PAIRS["document_processing"][1],
+            "_request_topics": (),
+            "_has_safe_assistant_outcome": False,
+        }
+        merged = importer.merge_history(
+            {"schema": importer.HISTORY_SCHEMA, "days": []},
+            {"2026-08-02": [collaboration]},
+            {},
+            ["2026-08-02"],
+        )
+        residue = merged["days"][0]["assigned_residues"][0]
+        self.assertEqual(residue["completion_status"], "unverified")
+        self.assertEqual(residue["pair_provenance"], "no_public_result_evidence")
+        self.assertIn("不把计划或推断写成已完成", residue["outcome_zh"])
+        self.assertIn("not presented as completed work", residue["outcome_en"])
 
     def test_import_is_idempotent(self) -> None:
         first = self.run_import(dry_run=False)

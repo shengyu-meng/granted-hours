@@ -9,9 +9,26 @@ import { fileURLToPath } from "node:url";
 import { timetableData } from "../src/timetable/timetable-data.js";
 
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
+const args = process.argv.slice(2);
+const dateIndex = args.indexOf("--date");
+const dateFilter = dateIndex >= 0 ? args[dateIndex + 1] : null;
+if (dateIndex >= 0 && !/^\d{4}-\d{2}-\d{2}$/.test(dateFilter || "")) {
+  throw new Error("--date must be YYYY-MM-DD");
+}
+const selectedDays = dateFilter
+  ? timetableData.days.filter((day) => day.date === dateFilter)
+  : timetableData.days;
+if (!selectedDays.length) throw new Error(`No timetable day found for ${dateFilter}`);
 const MAX_BYTES = 700 * 1024;
 const MAX_CORPUS_BYTES_PER_TREE = 35 * 1024 * 1024;
 const MIN_MOTION_YAVG = 0.04;
+const LANDSCAPE_CONTRACT_START = "2026-08-01";
+const CURRENT_PREVIEW_SPECS = Object.freeze({
+  "preview.png": { width: 1600, height: 900 },
+  "preview.gif": { width: 720, height: 405 },
+  "visual-preview.gif": { width: 400, height: 225 },
+  "visual-preview.webp": { width: 960, height: 540 },
+});
 const inventory = [];
 const temporary = mkdtempSync(path.join(os.tmpdir(), "granted-hours-gif-qa-"));
 
@@ -39,6 +56,46 @@ function probeGif(filePath) {
     duration: Number(result.format?.duration || result.streams?.[0]?.duration),
     bytes: Number(result.format?.size),
   };
+}
+
+function probeVisual(filePath) {
+  const output = run("ffprobe", [
+    "-v", "error", "-select_streams", "v:0",
+    "-show_entries", "stream=width,height",
+    "-of", "json", filePath,
+  ]);
+  const stream = JSON.parse(output).streams?.[0] || {};
+  return { width: Number(stream.width), height: Number(stream.height) };
+}
+
+function requireCurrentLandscapeContract(day) {
+  if (day.date < LANDSCAPE_CONTRACT_START) return;
+  const [year, month] = day.date.split("-");
+  const relativeAssets = `archive/${year}/${month}/${day.date}/assets`;
+  const results = {};
+  for (const [assetName, expected] of Object.entries(CURRENT_PREVIEW_SPECS)) {
+    const archivePath = path.join(ROOT, relativeAssets, assetName);
+    const docsPath = path.join(ROOT, "docs", relativeAssets, assetName);
+    assert.equal(hash(archivePath), hash(docsPath), `${day.date} ${assetName} mirrors differ`);
+    const actual = probeVisual(archivePath);
+    assert.deepEqual(actual, expected, `${day.date} ${assetName} must be a canonical landscape asset`);
+    results[assetName] = actual;
+  }
+  assert.notEqual(
+    hash(path.join(ROOT, relativeAssets, "preview.gif")),
+    hash(path.join(ROOT, relativeAssets, "visual-preview.gif")),
+    `${day.date} archive GIF and timetable GIF must remain distinct`,
+  );
+  const fullWorkGif = path.join(ROOT, relativeAssets, "preview.gif");
+  const fullWorkBytes = readFileSync(fullWorkGif);
+  assert.ok(fullWorkBytes.includes(Buffer.from("NETSCAPE2.0")), `${day.date} full-work GIF must loop`);
+  const fullWorkProbe = probeGif(fullWorkGif);
+  assert.equal(fullWorkProbe.frames, 48, `${day.date} full-work GIF must have 48 frames`);
+  assert.ok(
+    fullWorkProbe.duration >= 3.9 && fullWorkProbe.duration <= 4.1,
+    `${day.date} full-work GIF duration ${fullWorkProbe.duration}`,
+  );
+  return results;
 }
 
 function inspectMotion(filePath) {
@@ -69,7 +126,8 @@ function representativeContactSheet(entry) {
 }
 
 try {
-  for (const day of timetableData.days) {
+  for (const day of selectedDays) {
+    requireCurrentLandscapeContract(day);
     const [year, month] = day.date.split("-");
     const relative = `archive/${year}/${month}/${day.date}/assets/visual-preview.gif`;
     const archivePath = `${ROOT}${relative}`;
@@ -85,7 +143,8 @@ try {
 
     const probe = probeGif(archivePath);
     assert.ok(
-      (probe.width === 400 && probe.height === 225) || (probe.width === 360 && probe.height === 203),
+      (probe.width === 400 && probe.height === 225)
+        || (day.date < LANDSCAPE_CONTRACT_START && probe.width === 360 && probe.height === 203),
       `${day.date} dimensions ${probe.width}x${probe.height}`,
     );
     assert.ok(probe.frames >= 12, `${day.date} must have at least 12 frames`);
@@ -105,8 +164,8 @@ try {
   }
 
   assert.ok(inventory.length > 0, "public GIF corpus must not be empty");
-  assert.equal(inventory.length, timetableData.days.length);
-  assert.equal(new Set(inventory.map((entry) => entry.date)).size, timetableData.days.length);
+  assert.equal(inventory.length, selectedDays.length);
+  assert.equal(new Set(inventory.map((entry) => entry.date)).size, selectedDays.length);
 
   let ocrFindingCount = 0;
   for (const entry of inventory) {

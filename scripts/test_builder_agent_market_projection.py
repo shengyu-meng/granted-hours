@@ -32,8 +32,8 @@ class BuilderAgentMarketProjectionTests(unittest.TestCase):
     def collaboration_residue() -> dict:
         return {
             "category": "research_synthesis",
-            "en": "Research and thematic inquiry · 3 message(s) · 2 session(s)",
-            "zh": "调研与题材研究｜3 条内容 · 2 个会话",
+            "en": "Research threads and validation",
+            "zh": "研究线索与验证",
             "redaction_status": "partial",
             "redaction_count": 1,
             "source_kind": "collaboration_session",
@@ -42,9 +42,12 @@ class BuilderAgentMarketProjectionTests(unittest.TestCase):
             "session_count": 2,
             "delegated_agent_count": 1,
             "returned_agent_count": 1,
-            "public_excerpts": ["请比较 ████ 的证据，并解释为什么结论仍需保留条件。"],
-            "excerpt_redaction_count": 1,
-            "excerpt_provenance": "audited_collaboration_dialogue",
+            "request_zh": "要求比较 ████ 的证据，并说明为什么结论仍需保留条件。",
+            "request_en": "Requested an evidence comparison for ████ and an explanation of why the conclusion remains conditional.",
+            "outcome_zh": "完成了证据分层，保留了可复核结论与待验证问题。",
+            "outcome_en": "Completed the evidence ranking, retaining reviewable conclusions and open questions.",
+            "completion_status": "completed",
+            "pair_provenance": "assistant_result_summary",
             "agent_labels": ["Hermes", "GPT", "subagent"],
             "start": "02:30",
             "end": "23:10",
@@ -56,7 +59,7 @@ class BuilderAgentMarketProjectionTests(unittest.TestCase):
         path.write_text(
             json.dumps(
                 {
-                    "schema": "granted-hours-timetable-history-v3",
+                    "schema": "granted-hours-timetable-history-v4",
                     "days": [
                         {
                             "date": "2026-07-01",
@@ -105,11 +108,13 @@ class BuilderAgentMarketProjectionTests(unittest.TestCase):
                 with self.assertRaises(SystemExit):
                     builder.load_history(self.write_history(residue))
 
-    def test_builder_accepts_collaboration_envelopes_and_sanitized_excerpts(self) -> None:
+    def test_builder_accepts_collaboration_envelopes_and_bilingual_pairs(self) -> None:
         loaded = builder.load_history(self.write_history(self.collaboration_residue()))
         residue = loaded["2026-07-01"]["assigned_residues"][0]
         self.assertEqual(residue["source_kind"], "collaboration_session")
         self.assertEqual(residue["session_count"], 2)
+        self.assertEqual(residue["completion_status"], "completed")
+        self.assertIn("Requested", residue["request_en"])
         self.assertEqual(
             builder.task_ranges(
                 "2026-07-01",
@@ -184,6 +189,47 @@ class BuilderAgentMarketProjectionTests(unittest.TestCase):
                 )
         groups = {builder.climate_family_and_window(pulse) for pulse in pulses}
         self.assertEqual(groups, {("ah_market", "daily"), ("us_market", "daily")})
+
+    def test_support_checks_merge_to_one_readable_daily_card(self) -> None:
+        pulses = [
+            {
+                "footprint_id": "background-001",
+                "category": "background_routine",
+                "start": "00:30",
+                "count": 2,
+                "public_alert": True,
+            },
+            {
+                "footprint_id": "background-002",
+                "category": "system_routine",
+                "start": "12:30",
+                "count": 3,
+            },
+            {
+                "footprint_id": "background-003",
+                "category": "background_routine",
+                "start": "21:30",
+                "count": 2,
+            },
+        ]
+        groups = {builder.climate_family_and_window(pulse) for pulse in pulses}
+        self.assertEqual(groups, {("support_checks", "daily")})
+        self.assertTrue(
+            all(
+                builder.classify_public_pulse(pulse)["outcome"] == "climate_aggregate"
+                for pulse in pulses
+            )
+        )
+        self.assertEqual(
+            builder.climate_group_label("support_checks", "daily"),
+            ("后台例行运行 · 当日合并", "Background routine activity · daily rollup"),
+        )
+        summary_zh, summary_en = builder.climate_group_summary(pulses)
+        self.assertIn("全天 3 个精确窗口共完成 7 次后台例行运行", summary_zh)
+        self.assertIn("1 个窗口记录到通用状态变化", summary_zh)
+        self.assertIn("2 个窗口无须单独提示", summary_zh)
+        self.assertIn("7 background routine run(s)", summary_en)
+        self.assertIn("1 window(s) recorded a general status change", summary_en)
 
     def test_month_cell_sources_distinguish_three_source_types(self) -> None:
         tasks = [

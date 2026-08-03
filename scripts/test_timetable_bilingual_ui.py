@@ -40,11 +40,29 @@ class TestBilingualReminderData(unittest.TestCase):
 
 
 class TestBilingualReminderUiSource(unittest.TestCase):
+    def test_selected_day_date_includes_bilingual_weekday(self) -> None:
+        source = MAIN_JS.read_text(encoding="utf-8")
+        self.assertIn('["Monday", "星期一"]', source)
+        self.assertIn("new Date(Date.UTC(year, month - 1, day)).getUTCDay()", source)
+        self.assertIn("${value} · ${weekday[0]}", source)
+        self.assertIn("${weekday[1]}", source)
+
     def test_reminder_projection_carries_english(self) -> None:
         source = MAIN_JS.read_text(encoding="utf-8")
         self.assertIn("summary_en: primary.summary_en", source)
         self.assertIn("excerpt_en: primary.excerpt_en", source)
         self.assertIn("translation_provenance: primary.translation_provenance", source)
+
+    def test_background_routine_rollup_copy_is_bilingual_and_readable(self) -> None:
+        source = MAIN_JS.read_text(encoding="utf-8")
+        self.assertIn(
+            'support_checks: ["后台例行运行", "Background routine activity"]',
+            source,
+        )
+        self.assertIn("const alertWindowCount = sources.filter", source)
+        self.assertIn("个窗口记录到通用状态变化", source)
+        self.assertIn("window(s) recorded a general status change", source)
+        self.assertIn("background routine run(s) completed across", source)
 
     def test_card_and_inspection_show_english_and_original(self) -> None:
         source = MAIN_JS.read_text(encoding="utf-8")

@@ -3,6 +3,8 @@
 <!-- granted-hours-dual-date:start -->
 - **Source Day / 来源日:** [2026-07-26](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-26)
 - **Crystallization Day / 结晶日:** [2026-07-27](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-27/) · 03:17–04:17 Asia/Shanghai
+- **Granted-time duration / 授时时长:** 60 min / 60 分钟
+- **Experience duration / 体验时长:** Open-ended; visitor-controlled / 开放式，由观众决定
 <!-- granted-hours-dual-date:end -->
 
 ## Intention / 发心

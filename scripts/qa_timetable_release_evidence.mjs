@@ -32,18 +32,20 @@ const translatedReminderCount = timetableData.days.reduce(
   0,
 );
 const translatedReminderGzipBudgetBytes = translatedReminderCount * 650;
-const collaborationExcerptCount = timetableData.days.reduce(
+const collaborationPairCount = timetableData.days.reduce(
   (count, day) => count + day.task_residues.reduce(
-    (taskCount, task) => taskCount + (task.public_excerpts?.length || 0),
+    (taskCount, task) => taskCount + (
+      task.source_kind === "collaboration_session" ? 1 : 0
+    ),
     0,
   ),
   0,
 );
-const collaborationExcerptGzipBudgetBytes = collaborationExcerptCount * 220;
+const collaborationPairGzipBudgetBytes = collaborationPairCount * 900;
 const builtJsGzipBudgetBytes = 340_000
   + Math.max(0, timetableData.days.length - 78) * 5_000
   + translatedReminderGzipBudgetBytes
-  + collaborationExcerptGzipBudgetBytes;
+  + collaborationPairGzipBudgetBytes;
 
 function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");

@@ -104,6 +104,8 @@ def sanitize_history(
                 residue_index,
                 (),
             )
+            if residue.get("source_kind") == "collaboration_session":
+                forced_tags = ()
             zh = residue.get("zh")
             en = residue.get("en")
             if isinstance(zh, str) and isinstance(en, str):
@@ -127,6 +129,77 @@ def sanitize_history(
                     stats["abstracted"] += int(zh != new_zh) + int(en != new_en)
                     residue["zh"] = new_zh
                     residue["en"] = new_en
+            if residue.get("source_kind") == "collaboration_session" and all(
+                isinstance(residue.get(field), str)
+                for field in (
+                    "request_zh",
+                    "request_en",
+                    "outcome_zh",
+                    "outcome_en",
+                )
+            ):
+                for zh_field, en_field in (
+                    ("request_zh", "request_en"),
+                    ("outcome_zh", "outcome_en"),
+                ):
+                    original_zh = residue[zh_field]
+                    original_en = residue[en_field]
+                    masked_zh = replace_private_terms(
+                        original_zh,
+                        identity_terms,
+                        MASK,
+                    )
+                    masked_en = replace_private_terms(
+                        original_en,
+                        identity_terms,
+                        MASK,
+                    )
+                    stats["identity_masks"] += int(masked_zh != original_zh) + int(
+                        masked_en != original_en
+                    )
+                    tags = tuple(
+                        dict.fromkeys(
+                            (*projection_tags(masked_zh), *projection_tags(masked_en))
+                        )
+                    )
+                    if tags:
+                        sanitized_zh = abstract_for_tags(tags, "zh")
+                        sanitized_en = abstract_for_tags(tags, "en")
+                        stats["abstracted"] += int(masked_zh != sanitized_zh) + int(
+                            masked_en != sanitized_en
+                        )
+                    else:
+                        sanitized_zh = masked_zh
+                        sanitized_en = masked_en
+                    sanitized_zh = polish_public_excerpt(sanitized_zh)
+                    sanitized_en = polish_public_excerpt(sanitized_en)
+                    if not sanitized_zh or not sanitized_en:
+                        raise ValueError(
+                            f"{day_date} collaboration pair became incomplete"
+                        )
+                    if sanitized_zh.count(MASK) != sanitized_en.count(MASK):
+                        sanitized_zh = sanitized_zh.replace(
+                            MASK,
+                            "某项未公开内容",
+                        )
+                        sanitized_en = sanitized_en.replace(MASK, "a private item")
+                    residue[zh_field] = sanitized_zh
+                    residue[en_field] = sanitized_en
+                    stats["fields"] += 2
+                residue.pop("public_excerpts", None)
+                residue.pop("excerpt_redaction_count", None)
+                residue.pop("excerpt_provenance", None)
+                zh_masks = residue["request_zh"].count(MASK) + residue[
+                    "outcome_zh"
+                ].count(MASK)
+                en_masks = residue["request_en"].count(MASK) + residue[
+                    "outcome_en"
+                ].count(MASK)
+                if zh_masks != en_masks:
+                    raise ValueError(f"{day_date} collaboration pair mask mismatch")
+                residue["redaction_count"] = zh_masks
+                residue["redaction_status"] = "partial" if zh_masks else "none"
+                continue
             excerpts = residue.get("public_excerpts")
             if not isinstance(excerpts, list):
                 zh_masks = residue.get("zh", "").count(MASK)

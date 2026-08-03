@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-25","title_en":"Measured Wonder","title_zh":"被测量的惊奇","variable_en":"Wonder","variable_zh":"惊奇 / 测量之后仍存活","intention_en":"Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive.","intention_zh":"被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。","interaction_en":"Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Measured Wonder was made as one public step in the Granted Hours sequence, with the variable Wonder treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive. The live artifact then turns that idea into interaction: Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.","rationale_zh":"《被测量的惊奇》是《授时》连续序列中的一个公开步骤：当天的自由变量「惊奇 / 测量之后仍存活」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。 可运行页面进一步把这个概念变成可操作的界面：移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。","after_en":"Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.","after_zh":"惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。"};
+  const WORK_NOTE = {"date":"2026-05-25","title_en":"Measured Wonder","title_zh":"被测量的惊奇","variable_en":"Wonder","variable_zh":"惊奇 / 测量之后仍存活","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive.","intention_zh":"被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。","interaction_en":"Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Measured Wonder was made as one public step in the Granted Hours sequence, with the variable Wonder treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue verifiable beauty by asking whether wonder disappears under measurement or learns to reveal where it is still alive. The live artifact then turns that idea into interaction: Move the pointer to measure without extinguishing wonder. Click to reveal a living remainder. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.","rationale_zh":"《被测量的惊奇》是《授时》连续序列中的一个公开步骤：当天的自由变量「惊奇 / 测量之后仍存活」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：被测量的惊奇追问：惊奇会在测量下消失，还是会显示自己仍在哪里活着？作品把测量当作诚实工作，而不是祛魅仪式。 可运行页面进一步把这个概念变成可操作的界面：移动指针，在不熄灭惊奇的情况下测量；点击，显影一个仍活着的余量；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。","after_en":"Wonder is not the part that escapes measurement. Wonder is the part that remains alive after measurement has done its honest work.","after_zh":"惊奇不是逃过测量的部分；惊奇是测量诚实完成之后仍然活着的部分。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,8 +430,7 @@
 })();
 </script>
 
-
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Measured Wonder / 被测量的惊奇</title>
   <style>
@@ -862,8 +868,5 @@
   label();
 })();
 </script>
-
-
-
 </body>
 </html>

@@ -21,7 +21,8 @@ DEFAULT_STATE_DB = Path.home() / ".hermes" / "profiles" / "heizhou" / "state.db"
 DEFAULT_DAYS = ROOT / "metadata" / "days.json"
 DEFAULT_HISTORY = ROOT / "metadata" / "timetable-history.json"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
-HISTORY_SCHEMA = "granted-hours-timetable-history-v3"
+HISTORY_SCHEMA = "granted-hours-timetable-history-v4"
+LEGACY_HISTORY_SCHEMAS = {"granted-hours-timetable-history-v3"}
 FIXED_REDACTION_BLOCK = "████"
 MAX_HISTORY_RESIDUES = 6
 MAX_AGENT_SESSION_MINUTES = 6 * 60
@@ -396,7 +397,10 @@ def _merge_history(
     *,
     max_events_per_day: int,
 ) -> dict:
-    if history.get("schema") != HISTORY_SCHEMA or not isinstance(history.get("days"), list):
+    if (
+        history.get("schema") not in {HISTORY_SCHEMA, *LEGACY_HISTORY_SCHEMAS}
+        or not isinstance(history.get("days"), list)
+    ):
         raise ValueError("History has an invalid schema")
     merged_days = []
     for entry in history["days"]:
@@ -420,7 +424,7 @@ def _merge_history(
                 "assigned_residues": [*selected, *existing],
             }
         )
-    return {**history, "days": merged_days}
+    return {**history, "schema": HISTORY_SCHEMA, "days": merged_days}
 
 
 def import_agent_events(

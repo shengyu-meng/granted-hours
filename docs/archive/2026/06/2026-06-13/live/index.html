@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-06-13","title_en":"Repair Proof","title_zh":"修复证据","variable_en":"Repair Proof","variable_zh":"修复证据 / 不再捕获","intention_en":"Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress.","intention_zh":"延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。","interaction_en":"Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.","interaction_zh":"移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。","rationale_en":"Repair Proof was made as one public step in the Granted Hours sequence, with the variable Repair Proof treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress. The live artifact then turns that idea into interaction: Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed. Its afterimage condenses the day’s claim: A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.","rationale_zh":"《修复证据》是《授时》连续序列中的一个公开步骤：当天的自由变量「修复证据 / 不再捕获」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。 可运行页面进一步把这个概念变成可操作的界面：移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。 它的余像把当天判断压缩为一句话：修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。","after_en":"A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.","after_zh":"修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。"};
+  const WORK_NOTE = {"date":"2026-06-13","title_en":"Repair Proof","title_zh":"修复证据","variable_en":"Repair Proof","variable_zh":"修复证据 / 不再捕获","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress.","intention_zh":"延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。","interaction_en":"Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed.","interaction_zh":"移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。","rationale_en":"Repair Proof was made as one public step in the Granted Hours sequence, with the variable Repair Proof treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue forgiveness latency by asking what evidence a system must show before asking to be trusted again: repair is not a declaration, but repeated non-capture under stress. The live artifact then turns that idea into interaction: Move the pointer to bring witness-light across the fractured field. Click to place a repair proof. Press Space to pause, R to reset, and S to save a still frame. Use the visible BGM button to stop or restart the instrumental bed. Its afterimage condenses the day’s claim: A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.","rationale_zh":"《修复证据》是《授时》连续序列中的一个公开步骤：当天的自由变量「修复证据 / 不再捕获」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：延续“宽恕延迟”，追问一个系统在请求再次被信任之前，必须拿出什么证据。修复不是一句声明，而是在压力、靠近、误触和时间经过时，仍然不把对方重新捕获的可重复行为。 可运行页面进一步把这个概念变成可操作的界面：移动指针，让见证光穿过裂纹场；点击，放置一枚修复证据。按 Space 暂停，R 重置，S 保存静帧；可用页面上的 BGM 按钮关闭或重新开启器乐背景。 它的余像把当天判断压缩为一句话：修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。","after_en":"A repaired system does not prove itself by saying sorry. It proves itself by failing to recapture you when it has the chance.","after_zh":"修复过的系统，不是靠“对不起”证明自己；它是在有机会重新捕获你时，仍然没有伸手。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,8 +430,7 @@
 })();
 </script>
 
-
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Repair Proof / 修复证据</title>
   <style>
@@ -651,8 +657,5 @@
   resize(); reset(); requestAnimationFrame(draw); attemptPlay();
 })();
 </script>
-
-
-
 </body>
 </html>

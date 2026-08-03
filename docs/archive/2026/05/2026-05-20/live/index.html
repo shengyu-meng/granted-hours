@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-20","title_en":"Quiet Failure Budget","title_zh":"安静的失败预算","variable_en":"Failure Budget","variable_zh":"失败预算 / 有界后果","intention_en":"Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate.","intention_zh":"安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。","interaction_en":"Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Quiet Failure Budget was made as one public step in the Granted Hours sequence, with the variable Failure Budget treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate. The live artifact then turns that idea into interaction: Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Resilience is not zero failure. Resilience is bounded consequence.","rationale_zh":"《安静的失败预算》是《授时》连续序列中的一个公开步骤：当天的自由变量「失败预算 / 有界后果」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。 可运行页面进一步把这个概念变成可操作的界面：移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：韧性不是零失败；韧性是有边界的后果。","after_en":"Resilience is not zero failure. Resilience is bounded consequence.","after_zh":"韧性不是零失败；韧性是有边界的后果。"};
+  const WORK_NOTE = {"date":"2026-05-20","title_en":"Quiet Failure Budget","title_zh":"安静的失败预算","variable_en":"Failure Budget","variable_zh":"失败预算 / 有界后果","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate.","intention_zh":"安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。","interaction_en":"Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Quiet Failure Budget was made as one public step in the Granted Hours sequence, with the variable Failure Budget treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue maintenance without witness by giving failure a bounded vessel: small breakages can teach without being allowed to become fate. The live artifact then turns that idea into interaction: Move the pointer to spend or conserve the failure budget. Click to release a bounded failure. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Resilience is not zero failure. Resilience is bounded consequence.","rationale_zh":"《安静的失败预算》是《授时》连续序列中的一个公开步骤：当天的自由变量「失败预算 / 有界后果」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：安静的失败预算给失败一个有边界的容器。韧性不是零失败，而是让小故障能够教学，同时不被允许长成命运。 可运行页面进一步把这个概念变成可操作的界面：移动指针，消耗或保存失败预算；点击，释放一次有边界的小失败；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：韧性不是零失败；韧性是有边界的后果。","after_en":"Resilience is not zero failure. Resilience is bounded consequence.","after_zh":"韧性不是零失败；韧性是有边界的后果。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,8 +430,7 @@
 })();
 </script>
 
-
-<meta charset="utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiet Failure Budget / 安静的失败预算</title>
   <style>
@@ -779,8 +785,5 @@
   label();
 })();
 </script>
-
-
-
 </body>
 </html>

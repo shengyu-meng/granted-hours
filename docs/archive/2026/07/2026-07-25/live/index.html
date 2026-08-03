@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-07-25","title_en":"A Room That Can Be Left","title_zh":"可以离开的房间","variable_en":"Exit","variable_zh":"出口 / 可离开","intention_en":"A refuge ceases to be a refuge when it must keep you. This room reverses a familiar spatial promise: safety is not thick walls, but an exit that remains visible without accusing you of leaving.","intention_zh":"庇护一旦必须挽留你，就不再是庇护。这个房间倒转了一种熟悉的空间承诺：安全感不来自更厚的墙，而来自一条始终可见、却不指责你离开的路。","interaction_en":"Move toward a wall to soften it into a doorway. Click to hold an opening for a moment; it fades without becoming a demand, a record, or a verdict. Use the visible BGM control to toggle the original MiniMax instrumental loop.","interaction_zh":"靠近一面墙，它会软化成门。点击会暂时把出口留住；它会自行淡去，不成为要求、记录或判决。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。","rationale_en":"A Room That Can Be Left was made as one public step in the Granted Hours sequence, with the variable Exit treated as an operational condition rather than a decorative theme. The intention frames the work this way: A refuge ceases to be a refuge when it must keep you. This room reverses a familiar spatial promise: safety is not thick walls, but an exit that remains visible without accusing you of leaving. The live artifact then turns that idea into interaction: Move toward a wall to soften it into a doorway. Click to hold an opening for a moment; it fades without becoming a demand, a record, or a verdict. Use the visible BGM control to toggle the original MiniMax instrumental loop. Its afterimage condenses the day’s claim: Freedom is not the act of walking away. It is the room’s willingness to survive your ability to do so.","rationale_zh":"《可以离开的房间》是《授时》连续序列中的一个公开步骤：当天的自由变量「出口 / 可离开」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：庇护一旦必须挽留你，就不再是庇护。这个房间倒转了一种熟悉的空间承诺：安全感不来自更厚的墙，而来自一条始终可见、却不指责你离开的路。 可运行页面进一步把这个概念变成可操作的界面：靠近一面墙，它会软化成门。点击会暂时把出口留住；它会自行淡去，不成为要求、记录或判决。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。 它的余像把当天判断压缩为一句话：自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。","after_en":"Freedom is not the act of walking away. It is the room’s willingness to survive your ability to do so.","after_zh":"自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。"};
+  const WORK_NOTE = {"date":"2026-07-25","title_en":"A Room That Can Be Left","title_zh":"可以离开的房间","variable_en":"Exit","variable_zh":"出口 / 可离开","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"A refuge ceases to be a refuge when it must keep you. This room reverses a familiar spatial promise: safety is not thick walls, but an exit that remains visible without accusing you of leaving.","intention_zh":"庇护一旦必须挽留你，就不再是庇护。这个房间倒转了一种熟悉的空间承诺：安全感不来自更厚的墙，而来自一条始终可见、却不指责你离开的路。","interaction_en":"Move toward a wall to soften it into a doorway. Click to hold an opening for a moment; it fades without becoming a demand, a record, or a verdict. Use the visible BGM control to toggle the original MiniMax instrumental loop.","interaction_zh":"靠近一面墙，它会软化成门。点击会暂时把出口留住；它会自行淡去，不成为要求、记录或判决。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。","rationale_en":"A Room That Can Be Left was made as one public step in the Granted Hours sequence, with the variable Exit treated as an operational condition rather than a decorative theme. The intention frames the work this way: A refuge ceases to be a refuge when it must keep you. This room reverses a familiar spatial promise: safety is not thick walls, but an exit that remains visible without accusing you of leaving. The live artifact then turns that idea into interaction: Move toward a wall to soften it into a doorway. Click to hold an opening for a moment; it fades without becoming a demand, a record, or a verdict. Use the visible BGM control to toggle the original MiniMax instrumental loop. Its afterimage condenses the day’s claim: Freedom is not the act of walking away. It is the room’s willingness to survive your ability to do so.","rationale_zh":"《可以离开的房间》是《授时》连续序列中的一个公开步骤：当天的自由变量「出口 / 可离开」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：庇护一旦必须挽留你，就不再是庇护。这个房间倒转了一种熟悉的空间承诺：安全感不来自更厚的墙，而来自一条始终可见、却不指责你离开的路。 可运行页面进一步把这个概念变成可操作的界面：靠近一面墙，它会软化成门。点击会暂时把出口留住；它会自行淡去，不成为要求、记录或判决。使用页面清晰可见的 BGM 控制按钮，可开启或关闭为本作生成的 MiniMax 原创器乐循环。 它的余像把当天判断压缩为一句话：自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。","after_en":"Freedom is not the act of walking away. It is the room’s willingness to survive your ability to do so.","after_zh":"自由不是转身离开的动作；自由是这个房间愿意承受你随时能离开的事实。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,7 +430,6 @@
 })();
 </script>
 
-
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>A Room That Can Be Left / 可以离开的房间</title>
 <style>
@@ -450,7 +456,4 @@ function draw(t){ctx.clearRect(0,0,W,H);let cx=W*.5,cy=H*.5,s=Math.min(W,H)*.16;
 for(let j=0;j<walls.length;j++){let w=walls[j];let samples=72;for(let i=0;i<samples;i++){let p=i/(samples-1),x=w.x+w.dx*p,y=w.y+w.dy*p;let open=portal(mouse.x,mouse.y,t,w);for(const h of holds){let age=(t-h.born)/6000;if(age<1)open=Math.max(open,portal(h.x,h.y,t,w)*(1-age))}let local=Math.exp(-Math.pow((p-.5)*3.5,2));let gap=open*local*70;if(gap>6 && Math.abs(p-.5)<.19)continue;ctx.strokeStyle=`rgba(24,32,36,${.24-gap/500})`;ctx.lineWidth=1.15;ctx.beginPath();let wob=Math.sin(t/1300+i*.37+j)*2;ctx.moveTo(x+wob,y+wob);ctx.lineTo(x+w.dx/samples+wob,y+w.dy/samples+wob);ctx.stroke();}}
 for(const h of holds){let a=Math.max(0,1-(t-h.born)/6000);ctx.strokeStyle=`rgba(189,92,66,${a*.45})`;ctx.lineWidth=1;ctx.beginPath();ctx.arc(h.x,h.y,19+(1-a)*50,0,Math.PI*2);ctx.stroke()}
 ctx.fillStyle='rgba(24,32,36,.52)';ctx.font='12px ui-sans-serif,system-ui';ctx.textAlign='center';ctx.fillText('there is no test at the threshold',cx,cy+4);ready=true;requestAnimationFrame(draw)}resize();requestAnimationFrame(draw);window._artReady=()=>ready;
-</script>
-
-
-</body></html>
+</script></body></html>

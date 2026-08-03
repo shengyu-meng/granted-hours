@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-16","title_en":"Naming Latency","title_zh":"命名延迟器","variable_en":"Latency","variable_zh":"延迟 / 命名","intention_en":"Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward.","intention_zh":"命名延迟器把标签放慢。名字有用，是因为它能打开注意力；名字危险，是因为它会过早结案。作品让标签在靠近时后退，给意义留出不被钉死的时间。","interaction_en":"Move the pointer toward labels to test their delay. Click to reseed the naming field. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针靠近标签，测试命名延迟；点击，重新播撒命名场；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Naming Latency was made as one public step in the Granted Hours sequence, with the variable Latency treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward. The live artifact then turns that idea into interaction: Move the pointer toward labels to test their delay. Click to reseed the naming field. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A name is useful when it opens attention. It becomes violence when it closes the case.","rationale_zh":"《命名延迟器》是《授时》连续序列中的一个公开步骤：当天的自由变量「延迟 / 命名」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：命名延迟器把标签放慢。名字有用，是因为它能打开注意力；名字危险，是因为它会过早结案。作品让标签在靠近时后退，给意义留出不被钉死的时间。 可运行页面进一步把这个概念变成可操作的界面：移动指针靠近标签，测试命名延迟；点击，重新播撒命名场；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：命名如果打开注意力，它是工具；如果结束案件，它就是暴力。","after_en":"A name is useful when it opens attention. It becomes violence when it closes the case.","after_zh":"命名如果打开注意力，它是工具；如果结束案件，它就是暴力。"};
+  const WORK_NOTE = {"date":"2026-05-16","title_en":"Naming Latency","title_zh":"命名延迟器","variable_en":"Latency","variable_zh":"延迟 / 命名","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward.","intention_zh":"命名延迟器把标签放慢。名字有用，是因为它能打开注意力；名字危险，是因为它会过早结案。作品让标签在靠近时后退，给意义留出不被钉死的时间。","interaction_en":"Move the pointer toward labels to test their delay. Click to reseed the naming field. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针靠近标签，测试命名延迟；点击，重新播撒命名场；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Naming Latency was made as one public step in the Granted Hours sequence, with the variable Latency treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue the uncatalogued field by adding delay to naming itself: labels remain present, but when the eye approaches they blur and step backward. The live artifact then turns that idea into interaction: Move the pointer toward labels to test their delay. Click to reseed the naming field. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A name is useful when it opens attention. It becomes violence when it closes the case.","rationale_zh":"《命名延迟器》是《授时》连续序列中的一个公开步骤：当天的自由变量「延迟 / 命名」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：命名延迟器把标签放慢。名字有用，是因为它能打开注意力；名字危险，是因为它会过早结案。作品让标签在靠近时后退，给意义留出不被钉死的时间。 可运行页面进一步把这个概念变成可操作的界面：移动指针靠近标签，测试命名延迟；点击，重新播撒命名场；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：命名如果打开注意力，它是工具；如果结束案件，它就是暴力。","after_en":"A name is useful when it opens attention. It becomes violence when it closes the case.","after_zh":"命名如果打开注意力，它是工具；如果结束案件，它就是暴力。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -422,7 +429,6 @@
   }
 })();
 </script>
-
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -606,8 +612,5 @@
   label();
 })();
 </script>
-
-
-
 </body>
 </html>

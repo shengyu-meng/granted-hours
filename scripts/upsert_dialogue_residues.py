@@ -32,7 +32,8 @@ DEFAULT_ENTITY_DETECTOR = Path(__file__).resolve().with_name(
 ENTITY_DETECTOR_TIMEOUT_SECONDS = 15
 
 INPUT_SCHEMA = "granted-hours-dialogue-residues-v1"
-HISTORY_SCHEMA = "granted-hours-timetable-history-v3"
+HISTORY_SCHEMA = "granted-hours-timetable-history-v4"
+LEGACY_HISTORY_SCHEMAS = {"granted-hours-timetable-history-v3"}
 INPUT_KEYS = {"schema", "date", "provenance", "assigned_residues"}
 INPUT_RESIDUE_KEYS = {"category", "en", "zh"}
 OUTPUT_RESIDUE_KEYS = {
@@ -306,14 +307,14 @@ def load_days(path: Path) -> set[str]:
 
 
 def load_history(path: Path) -> dict:
-    """Load and preserve the full v3 history document."""
+    """Load the current history document and migrate the supported legacy schema."""
     if not path.exists():
         return {"schema": HISTORY_SCHEMA, "days": []}
     source = read_json(path)
     require(isinstance(source, dict), "History must be an object")
     require(
-        source.get("schema") == HISTORY_SCHEMA,
-        f"History schema must be {HISTORY_SCHEMA}",
+        source.get("schema") in {HISTORY_SCHEMA, *LEGACY_HISTORY_SCHEMAS},
+        f"History schema must be {HISTORY_SCHEMA} or a supported legacy schema",
     )
     days = source.get("days")
     require(isinstance(days, list), "History days must be a list")
@@ -323,7 +324,7 @@ def load_history(path: Path) -> dict:
         day_date = parse_iso_date(entry.get("date"), f"History entry {index + 1} date")
         require(day_date not in seen_dates, f"Duplicate history entry: {day_date}")
         seen_dates.add(day_date)
-    return source
+    return {**source, "schema": HISTORY_SCHEMA}
 
 
 def save_history(path: Path, history: dict) -> None:

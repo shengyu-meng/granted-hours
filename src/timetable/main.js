@@ -46,6 +46,15 @@ const WEEKDAYS = [
   ["Sat", "六"],
   ["Sun", "日"],
 ];
+const LONG_WEEKDAYS = [
+  ["Sunday", "星期日"],
+  ["Monday", "星期一"],
+  ["Tuesday", "星期二"],
+  ["Wednesday", "星期三"],
+  ["Thursday", "星期四"],
+  ["Friday", "星期五"],
+  ["Saturday", "星期六"],
+];
 
 const dayByDate = new Map(timetableData.days.map((day) => [day.date, day]));
 const daysAscending = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
@@ -1377,17 +1386,25 @@ function hydratePublicReadingItems(day) {
       };
     }
     if (projection.classification === "foreground_event") {
-      const excerpt = primary.source_kind === "collaboration_session"
-        ? primary.public_excerpts?.[0]
-        : "";
+      const isCollaboration = primary.source_kind === "collaboration_session";
+      const completionLabelZh = primary.completion_status === "completed"
+        ? "完成"
+        : "完成情况";
+      const completionLabelEn = primary.completion_status === "completed"
+        ? "Completed"
+        : "Completion status";
       return {
         ...shared,
         label_zh: primary.task_name_zh,
         label_en: primary.task_name_en,
         category_label_zh: primary.label_zh,
         category_label_en: primary.label_en,
-        summary_zh: excerpt || primary.zh,
-        summary_en: primary.en,
+        summary_zh: isCollaboration
+          ? `要求：${primary.request_zh}\n${completionLabelZh}：${primary.outcome_zh}`
+          : primary.zh,
+        summary_en: isCollaboration
+          ? `Request: ${primary.request_en}\n${completionLabelEn}: ${primary.outcome_en}`
+          : primary.en,
         constituents: [],
       };
     }
@@ -1441,7 +1458,7 @@ function climateGroupLabel(family, window) {
     ah_market: ["A/H 市场例行任务", "A/H market routine"],
     us_market: ["美股市场例行任务", "U.S. market routine"],
     ai_brief: ["AI 日报采集", "AI brief collection"],
-    support_checks: ["服务健康与后台运行记录", "Service health & background run records"],
+    support_checks: ["后台例行运行", "Background routine activity"],
   };
   const windows = {
     premarket: ["盘前", "premarket"],
@@ -1550,9 +1567,17 @@ function climateGroupSummary(sources) {
       `${runCount} AI-brief runs / ${windowCount} exact windows; no public-level alert retained.`,
     ];
   }
+  const alertWindowCount = sources.filter((source) => source.public_alert === true).length;
+  const quietWindowCount = windowCount - alertWindowCount;
+  const statusZh = alertWindowCount > 0
+    ? `${alertWindowCount} 个窗口记录到通用状态变化，${quietWindowCount} 个窗口无须单独提示`
+    : `${windowCount} 个窗口均无须单独提示`;
+  const statusEn = alertWindowCount > 0
+    ? `${alertWindowCount} window(s) recorded a general status change; ${quietWindowCount} required no separate notice`
+    : `all ${windowCount} windows required no separate notice`;
   return [
-    `${windowCount} 窗 / ${runCount} 次服务健康检查或其他后台运行；未保留公开级别提示。`,
-    `${runCount} service-health checks or other background runs / ${windowCount} exact windows; no public-level alert retained.`,
+    `全天 ${windowCount} 个精确窗口共完成 ${runCount} 次后台例行运行；运行状态：${statusZh}。`,
+    `${runCount} background routine run(s) completed across ${windowCount} exact windows during the day; status: ${statusEn}.`,
   ];
 }
 
@@ -1836,9 +1861,7 @@ function buildAssignedTimelineEvent(task) {
   const isCollaboration = task.source_kind === "collaboration_session";
   const readingTitleZh = isCollaboration ? task.task_name_zh : task.label_zh;
   const readingTitleEn = isCollaboration ? task.task_name_en : task.label_en;
-  const collaborationCopy = isCollaboration && task.summary_zh
-    ? `<span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(task.summary_zh)}</span></span>`
-    : `<span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(task.summary_zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.summary_en)}</span></span>`;
+  const collaborationCopy = `<span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(task.summary_zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(task.summary_en)}</span></span>`;
   const secondaryCopy = isCollaboration
     ? `<span class="record-provenance">人机主动协作 / ACTIVE HUMAN–AI COLLABORATION</span>`
     : `<span class="assigned-category">${escapeHtml(task.task_type_zh)} / ${escapeHtml(task.task_type_en)}</span><span class="record-provenance">真实记录摘要 / FAITHFUL RECORD SUMMARY</span>`;
@@ -2468,15 +2491,16 @@ function openTaskDetail(task, trigger) {
     els.taskDetailType.textContent = task.source_kind === "collaboration_session"
       ? "人机主动协作 / Active human–AI collaboration"
       : `${task.task_type_zh} / ${task.task_type_en} · ${task.label_zh} / ${task.label_en}`;
-    const collaborationExcerpts = task.source_kind === "collaboration_session"
-      ? task.public_excerpts || []
-      : [];
-    if (collaborationExcerpts.length) {
-      els.taskDetailSummaryLabel.textContent = "内容 / Content";
-      const bullets = collaborationExcerpts.map((excerpt) => `• ${excerpt}`).join("\n");
-      els.taskDetailZh.textContent = bullets;
-      els.taskDetailEn.hidden = true;
-      els.taskDetailSummaryDivider.hidden = true;
+    if (task.source_kind === "collaboration_session") {
+      const completionLabelZh = task.completion_status === "completed"
+        ? "完成"
+        : "完成情况";
+      const completionLabelEn = task.completion_status === "completed"
+        ? "Completed"
+        : "Completion status";
+      els.taskDetailSummaryLabel.textContent = "要求与完成 / Request and outcome";
+      els.taskDetailZh.textContent = `要求：${task.request_zh}\n\n${completionLabelZh}：${task.outcome_zh}`;
+      els.taskDetailEn.textContent = `Request: ${task.request_en}\n\n${completionLabelEn}: ${task.outcome_en}`;
     } else {
       els.taskDetailZh.textContent = task.zh;
       els.taskDetailEn.textContent = task.en;
@@ -2487,6 +2511,8 @@ function openTaskDetail(task, trigger) {
         `sessions: ${task.session_count}`,
         `delegated: ${task.delegated_agent_count}`,
         `completed returns: ${task.returned_agent_count}`,
+        `completion: ${task.completion_status}`,
+        `result evidence: ${task.pair_provenance}`,
         `actors: ${(task.agent_labels || []).join("/")}`,
       ]
       : [];
@@ -2704,7 +2730,10 @@ function formatMonthTitle(year, month) {
 
 function formatLongDate(value) {
   const [year, month, day] = value.split("-").map(Number);
-  return `${value} / ${year}年${month}月${day}日`;
+  const weekday = LONG_WEEKDAYS[
+    new Date(Date.UTC(year, month - 1, day)).getUTCDay()
+  ];
+  return `${value} · ${weekday[0]} / ${year}年${month}月${day}日 · ${weekday[1]}`;
 }
 
 function formatMonthDay(value) {

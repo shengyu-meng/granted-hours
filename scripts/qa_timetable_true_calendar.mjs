@@ -31,6 +31,11 @@ try {
     await page.goto(sampleUrl.href, { waitUntil: "networkidle" });
     await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
     await page.waitForTimeout(240);
+    assert.equal(
+      (await page.locator("#dialogDate").textContent())?.trim(),
+      "2026-07-16 · Thursday / 2026年7月16日 · 星期四",
+      `${viewport.label} day detail must show the bilingual weekday`,
+    );
 
     const geometry = await page.evaluate(() => {
       const timeline = document.querySelector(".timeline-list");

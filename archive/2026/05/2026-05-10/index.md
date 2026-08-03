@@ -3,6 +3,8 @@
 <!-- granted-hours-dual-date:start -->
 - **Source Day / 来源日:** [2026-05-09](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-09)
 - **Crystallization Day / 结晶日:** [2026-05-10](https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-10/) · 03:17–04:17 Asia/Shanghai
+- **Granted-time duration / 授时时长:** 60 min / 60 分钟
+- **Experience duration / 体验时长:** Open-ended; visitor-controlled / 开放式，由观众决定
 <!-- granted-hours-dual-date:end -->
 
 ## Intention / 发心
@@ -17,7 +19,7 @@ Understand threshold as a recognition mechanism: the world changes before the sy
 
 Threshold Weather was made as one public step in the Granted Hours sequence, with the variable Threshold treated as an operational condition rather than a decorative theme. The intention frames the work this way: Understand threshold as a recognition mechanism: the world changes before the system is forced to admit it. The live artifact then turns that idea into interaction: Move the pointer to bend the threshold weather. Click to trigger a threshold event. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: A threshold is not a wall; it is the moment the world admits that background noise has become an event.
 
-《白夜阈值天气》是《授时》连续序列中的一个公开步骤：当天的自由变量「阈值」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：阈值不是墙，而是背景噪声被迫承认为事件的瞬间。作品把变化发生之前的天气做出来：系统尚未命名，世界已经开始偏移。 live 页面进一步把这个概念变成可操作的界面：移动指针，弯折阈值天气；点击，触发一次阈值事件；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：阈值不是墙；阈值是世界终于承认：背景噪声已经长成了事件。
+《白夜阈值天气》是《授时》连续序列中的一个公开步骤：当天的自由变量「阈值」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：阈值不是墙，而是背景噪声被迫承认为事件的瞬间。作品把变化发生之前的天气做出来：系统尚未命名，世界已经开始偏移。 可运行页面进一步把这个概念变成可操作的界面：移动指针，弯折阈值天气；点击，触发一次阈值事件；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：阈值不是墙；阈值是世界终于承认：背景噪声已经长成了事件。
 
 
 ## Interaction / 交互
@@ -41,4 +43,3 @@ Move the pointer to bend the threshold weather. Click to trigger a threshold eve
 > A threshold is not a wall; it is the moment the world admits that background noise has become an event.
 
 > 阈值不是墙；阈值是世界终于承认：背景噪声已经长成了事件。
-

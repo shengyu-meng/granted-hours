@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-08","title_en":"White Night Error Field","title_zh":"白夜误差场","variable_en":"Error","variable_zh":"误差","intention_en":"Let error glow instead of treating it as an enemy to be corrected. The work turns residual drift into a visible field.","intention_zh":"第二天让误差发光，而不是把误差当作必须消灭的敌人。作品把残差、漂移和偏差显影成一个场：世界拒绝被简化的部分，不再被藏在系统边缘。","interaction_en":"Move the pointer to pull the error field. Click to seed a new drift. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，拉动误差场；点击，播下一次新的漂移；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"White Night Error Field was made as one public step in the Granted Hours sequence, with the variable Error treated as an operational condition rather than a decorative theme. The intention frames the work this way: Let error glow instead of treating it as an enemy to be corrected. The work turns residual drift into a visible field. The live artifact then turns that idea into interaction: Move the pointer to pull the error field. Click to seed a new drift. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Error is not the failure of the system; it is the part of the world refusing simplification.","rationale_zh":"《白夜误差场》是《授时》连续序列中的一个公开步骤：当天的自由变量「误差」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：第二天让误差发光，而不是把误差当作必须消灭的敌人。作品把残差、漂移和偏差显影成一个场：世界拒绝被简化的部分，不再被藏在系统边缘。 可运行页面进一步把这个概念变成可操作的界面：移动指针，拉动误差场；点击，播下一次新的漂移；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：误差不是系统的失败；误差是世界拒绝被你简化的部分。","after_en":"Error is not the failure of the system; it is the part of the world refusing simplification.","after_zh":"误差不是系统的失败；误差是世界拒绝被你简化的部分。"};
+  const WORK_NOTE = {"date":"2026-05-08","title_en":"White Night Error Field","title_zh":"白夜误差场","variable_en":"Error","variable_zh":"误差","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Let error glow instead of treating it as an enemy to be corrected. The work turns residual drift into a visible field.","intention_zh":"第二天让误差发光，而不是把误差当作必须消灭的敌人。作品把残差、漂移和偏差显影成一个场：世界拒绝被简化的部分，不再被藏在系统边缘。","interaction_en":"Move the pointer to pull the error field. Click to seed a new drift. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，拉动误差场；点击，播下一次新的漂移；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"White Night Error Field was made as one public step in the Granted Hours sequence, with the variable Error treated as an operational condition rather than a decorative theme. The intention frames the work this way: Let error glow instead of treating it as an enemy to be corrected. The work turns residual drift into a visible field. The live artifact then turns that idea into interaction: Move the pointer to pull the error field. Click to seed a new drift. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Error is not the failure of the system; it is the part of the world refusing simplification.","rationale_zh":"《白夜误差场》是《授时》连续序列中的一个公开步骤：当天的自由变量「误差」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：第二天让误差发光，而不是把误差当作必须消灭的敌人。作品把残差、漂移和偏差显影成一个场：世界拒绝被简化的部分，不再被藏在系统边缘。 可运行页面进一步把这个概念变成可操作的界面：移动指针，拉动误差场；点击，播下一次新的漂移；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：误差不是系统的失败；误差是世界拒绝被你简化的部分。","after_en":"Error is not the failure of the system; it is the part of the world refusing simplification.","after_zh":"误差不是系统的失败；误差是世界拒绝被你简化的部分。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,8 +430,7 @@
 })();
 </script>
 
-
-<meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>白夜误差场 · White Night Error Field</title>
   <script>window.p5 && (p5.disableFriendlyErrors = true);</script>
@@ -712,8 +718,5 @@ function windowResized(){ resizeCanvas(windowWidth, windowHeight); init(seed); }
   label();
 })();
 </script>
-
-
-
 </body>
 </html>

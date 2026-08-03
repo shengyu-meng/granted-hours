@@ -104,10 +104,18 @@ try {
   await trigger.click();
   await page.waitForSelector("#taskDialog.is-open");
   assert.equal(await page.evaluate(() => document.activeElement?.id), "closeTaskDetail");
-  if (selectedTask.source_kind === "collaboration_session" && selectedTask.public_excerpts.length) {
-    const expectedContent = selectedTask.public_excerpts.map((excerpt) => `• ${excerpt}`).join("\n");
-    assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), expectedContent);
-    assert.equal(await page.locator("#taskDetailEn").isHidden(), true);
+  if (selectedTask.source_kind === "collaboration_session") {
+    const completionLabelZh = selectedTask.completion_status === "completed"
+      ? "完成"
+      : "完成情况";
+    const completionLabelEn = selectedTask.completion_status === "completed"
+      ? "Completed"
+      : "Completion status";
+    const expectedZh = `要求：${selectedTask.request_zh}\n\n${completionLabelZh}：${selectedTask.outcome_zh}`;
+    const expectedEn = `Request: ${selectedTask.request_en}\n\n${completionLabelEn}: ${selectedTask.outcome_en}`;
+    assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), expectedZh);
+    assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), expectedEn);
+    assert.equal(await page.locator("#taskDetailEn").isHidden(), false);
   } else {
     assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), selectedTask.zh);
     assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), selectedTask.en);
@@ -133,9 +141,48 @@ try {
   mayEndUrl.searchParams.set("date", "2026-05-31");
   await page.goto(mayEndUrl.href, { waitUntil: "networkidle" });
   await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-05-31"]');
+  assert.equal(
+    (await page.locator("#dialogDate").textContent())?.trim(),
+    "2026-05-31 · Sunday / 2026年5月31日 · 星期日",
+  );
   await page.click("#nextDay");
   assert.equal(await page.locator("#dayDialog").getAttribute("data-selected-date"), "2026-06-01");
+  assert.equal(
+    (await page.locator("#dialogDate").textContent())?.trim(),
+    "2026-06-01 · Monday / 2026年6月1日 · 星期一",
+  );
   assert.match((await page.locator("#todayButton").textContent()) || "", /June|6月/);
+  await page.keyboard.press("Escape");
+  const mayEleven = days.find((day) => day.date === "2026-05-11");
+  assert.ok(mayEleven, "2026-05-11 missing from timetable data");
+  const mayElevenSupportGroups = mayEleven.reading_items.filter(
+    (item) => item.classification === "climate_aggregate" && item.family === "support_checks",
+  );
+  assert.equal(mayElevenSupportGroups.length, 1, "2026-05-11 support routines must be one daily card");
+  assert.equal(mayElevenSupportGroups[0].source_refs.length, 52);
+  assert.equal(
+    mayEleven.reading_items.filter((item) => (
+      item.classification === "promoted_routine_exception"
+      && item.source_refs.some((sourceRef) => {
+        const pulse = mayEleven.background_pulses.find((entry) => entry.footprint_id === sourceRef);
+        return pulse && ["system_routine", "background_routine"].includes(pulse.category);
+      })
+    )).length,
+    0,
+    "generic support alerts must not become separate cards",
+  );
+  const mayElevenUrl = new URL(baseUrl);
+  mayElevenUrl.searchParams.set("date", "2026-05-11");
+  await page.goto(mayElevenUrl.href, { waitUntil: "networkidle" });
+  await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-05-11"]');
+  const supportCard = page.locator(
+    `.routine-reading-card[data-reading-id="${mayElevenSupportGroups[0].reading_id}"]`,
+  );
+  assert.equal(await supportCard.count(), 1);
+  const supportCopy = (await supportCard.textContent()) || "";
+  assert.match(supportCopy, /后台例行运行/);
+  assert.match(supportCopy, /Background routine activity/);
+  assert.doesNotMatch(supportCopy, /其他后台运行记录提示|Other background run record alert/);
   await page.keyboard.press("Escape");
   const firstDayUrl = new URL(baseUrl);
   firstDayUrl.searchParams.set("date", "2026-05-07");
@@ -180,6 +227,24 @@ try {
     assert.equal(await mobile.evaluate(() => document.activeElement?.classList.contains("assigned-item")), true);
     await mobile.keyboard.press("Escape");
     assert.equal(await mobile.locator("#dayDialog").getAttribute("hidden"), "");
+    const mobileMayElevenUrl = new URL(baseUrl);
+    mobileMayElevenUrl.searchParams.set("date", "2026-05-11");
+    await mobile.goto(mobileMayElevenUrl.href, { waitUntil: "networkidle" });
+    await mobile.waitForSelector('#dayDialog.is-open[data-selected-date="2026-05-11"]');
+    const mobileSupportCard = mobile.locator(
+      `.routine-reading-card[data-reading-id="${mayElevenSupportGroups[0].reading_id}"]`,
+    );
+    assert.equal(await mobileSupportCard.count(), 1, `${viewport.label}: support rollup count`);
+    const mobileSupportCopy = (await mobileSupportCard.textContent()) || "";
+    assert.match(mobileSupportCopy, /后台例行运行/);
+    assert.doesNotMatch(
+      mobileSupportCopy,
+      /其他后台运行记录提示|Other background run record alert/,
+    );
+    assert.ok(
+      await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth <= 1),
+      `${viewport.label}: 2026-05-11 horizontal overflow`,
+    );
     await context.close();
   }
 } finally {

@@ -33,7 +33,8 @@ DEFAULT_HOLDINGS_DENYLIST = ROOT / ".private" / "holdings-denylist.json"
 DEFAULT_SELF_MEDIA_DENYLIST = ROOT / ".private" / "self-media-denylist.json"
 DEFAULT_IDENTITY_DENYLIST = ROOT / ".private" / "identity-denylist.json"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
-HISTORY_SCHEMA = "granted-hours-timetable-history-v3"
+HISTORY_SCHEMA = "granted-hours-timetable-history-v4"
+LEGACY_HISTORY_SCHEMAS = {"granted-hours-timetable-history-v3"}
 MASK = "████"
 MAX_HISTORY_RESIDUES = 6
 MAX_COLLABORATIONS_PER_DAY = 4
@@ -136,6 +137,258 @@ EXISTING_PRIORITY = {
 }
 AGENT_ORDER = ("Hermes", "Codex", "GPT", "Claude", "subagent")
 ENTITY_ALLOWLIST = {"Hermes", "Codex", "GPT", "Claude", "AI"}
+
+CATEGORY_PAIR_TITLES = {
+    "research_synthesis": ("研究线索与验证", "Research threads and validation"),
+    "visual_production": ("视觉创作与修改", "Visual creation and revision"),
+    "document_processing": ("写作与文档打磨", "Writing and document refinement"),
+    "code_development": ("开发与验证", "Development and validation"),
+    "social_media_organization": ("内容组织与发布", "Content organization and publishing"),
+    "system_maintenance": ("系统维护与可读性", "System maintenance and readability"),
+    "redacted_private": ("讨论、判断与推进", "Discussion, judgment, and advancement"),
+}
+
+CATEGORY_REQUEST_PAIRS = {
+    "research_synthesis": (
+        "要求整理分散的研究线索，核对证据，并把事实、推断与待验证问题分开。",
+        "Requested a synthesis of dispersed research threads, with evidence checked and facts, inferences, and open questions kept separate.",
+    ),
+    "visual_production": (
+        "要求调整视觉表达，使构图、层级与生成方法更清楚、更可复核。",
+        "Requested a clearer and more reviewable visual treatment across composition, hierarchy, and generation method.",
+    ),
+    "document_processing": (
+        "要求整理现有材料，改善结构与措辞，并形成可以继续审阅的版本。",
+        "Requested that the available material be organized, structurally refined, and turned into a reviewable draft.",
+    ),
+    "code_development": (
+        "要求实现并验证一项开发修改，同时保留可以检查的测试结果。",
+        "Requested an implementation and validation pass, with testable evidence retained.",
+    ),
+    "social_media_organization": (
+        "要求整理公开内容的结构、节奏与归档方式。",
+        "Requested a clearer structure, cadence, and archive path for public content.",
+    ),
+    "system_maintenance": (
+        "要求修复一项运行或维护问题，并让状态与失败信息更容易阅读。",
+        "Requested a repair to an operational or maintenance issue, with status and failure evidence made easier to read.",
+    ),
+    "redacted_private": (
+        "要求澄清一个工作判断，比较可行路径，并保留后续复核所需的边界。",
+        "Requested clarification of a working judgment, comparison of viable paths, and explicit boundaries for later review.",
+    ),
+}
+
+CATEGORY_OUTCOME_PAIRS = {
+    "research_synthesis": (
+        "完成了资料归纳与证据对照，保留可复核结论，并把不确定部分列为后续问题。",
+        "Completed a synthesis and evidence comparison, retained reviewable conclusions, and left uncertain points as follow-up questions.",
+    ),
+    "visual_production": (
+        "完成了视觉结构调整与结果核验，使主要判断、构图和迭代路径可以逐项检查。",
+        "Completed the visual restructuring and result check, making the main judgment, composition, and iteration path reviewable.",
+    ),
+    "document_processing": (
+        "完成了材料整理、结构修订与可读性检查，形成了可继续审阅的版本。",
+        "Completed the material consolidation, structural revision, and readability check, producing a reviewable version.",
+    ),
+    "code_development": (
+        "完成了实现、聚焦测试与结果核验，并保留了后续维护所需的边界。",
+        "Completed the implementation, focused tests, and result verification, while preserving boundaries needed for maintenance.",
+    ),
+    "social_media_organization": (
+        "完成了公开内容的整理与归档核对，保留了可继续执行的发布节奏。",
+        "Completed the public-content organization and archive check, preserving an executable release cadence.",
+    ),
+    "system_maintenance": (
+        "完成了相关维护、试运行与状态核验，并保留了可操作的失败证据。",
+        "Completed the relevant maintenance, dry run, and status verification, retaining actionable failure evidence.",
+    ),
+    "redacted_private": (
+        "完成了判断框架的整理，明确了当前结论、保留意见与下一次复核条件。",
+        "Completed a structured judgment, separating the current conclusion, reservations, and conditions for the next review.",
+    ),
+}
+
+UNVERIFIED_OUTCOME_PAIR = (
+    "当天记录没有留下能够安全公开、并与这组要求可靠对应的完成证据；这里不把计划或推断写成已完成。",
+    "The day’s record contains no public-safe completion evidence that can be reliably matched to this request group; plans and inferences are not presented as completed work.",
+)
+
+TOPIC_PAIR_RULES = (
+    (
+        "periodic_review",
+        re.compile(r"每周|每7天|周期|回看|复盘|错题|非共识|weekly|periodic|review", re.I),
+        (
+            "要求把分散研究纳入周期复盘，交叉连接线索，并区分已验证发现与待验证假设。",
+            "Requested a periodic review that connects dispersed research threads and separates verified findings from hypotheses still needing tests.",
+        ),
+        (
+            "完成了周期复盘框架，把研究线索、验证状态、偏差来源和后续问题放进同一条检查路径。",
+            "Completed a periodic-review framework that places research threads, validation status, sources of error, and follow-up questions in one inspection path.",
+        ),
+    ),
+    (
+        "source_analysis",
+        re.compile(r"文章|论文|PDF|材料|信源|来源|paper|article|source|evidence", re.I),
+        (
+            "要求独立分析一组材料，提炼核心主张、证据强弱、争议点与仍需验证的问题。",
+            "Requested an independent analysis of source material, covering its main claims, evidential strength, disputes, and open questions.",
+        ),
+        (
+            "完成了材料拆解与证据分层，形成了核心主张、可靠事实、有限推断和待核问题的清单。",
+            "Completed a structured reading and evidence ranking, producing a list of core claims, reliable facts, bounded inferences, and open checks.",
+        ),
+    ),
+    (
+        "research_screening",
+        re.compile(r"筛选|扫描|观察|机会|标的|公司|股票|行业|screen|scan|candidate|market", re.I),
+        (
+            "要求快速筛选近期研究线索，说明判断依据、风险边界和继续观察的优先顺序。",
+            "Requested a rapid screening of recent research leads, with reasons, risk boundaries, and priorities for continued observation.",
+        ),
+        (
+            "完成了只读筛选与证据复核，把可继续观察的线索、暂不支持的判断和补证顺序分开。",
+            "Completed a read-only screening and evidence review, separating leads worth watching, unsupported judgments, and the order of further checks.",
+        ),
+    ),
+    (
+        "multi_agent",
+        re.compile(r"多\s*Agent|Agent|并行|委派|协作|multi.?agent|delegate|parallel", re.I),
+        (
+            "要求比较并行协作与单点决策的效率差异，并明确委派、回传和最终判断的边界。",
+            "Requested a comparison between parallel collaboration and single-point decision making, with clear delegation, return, and final-judgment boundaries.",
+        ),
+        (
+            "完成了协作流程原型，明确角色分工、任务分级、结果回传与最终决策收敛。",
+            "Completed a collaboration-flow prototype with explicit roles, task levels, result returns, and final decision convergence.",
+        ),
+    ),
+    (
+        "data_connector",
+        re.compile(r"数据|行情|价格|接口|连接器|开放网页|API|connector|data|quote", re.I),
+        (
+            "要求寻找一个只读数据入口，核对可获得字段，并说明如何接入现有判断流程。",
+            "Requested a read-only data source, an audit of available fields, and a clear path into the existing judgment workflow.",
+        ),
+        (
+            "完成了只读数据连接、字段契约与接入验证，并在数据不可用时保留不行动边界。",
+            "Completed the read-only data connection, field contract, and integration check, while preserving a no-action boundary when data is unavailable.",
+        ),
+    ),
+    (
+        "readability_layer",
+        re.compile(r"JSON|Markdown|Obsidian|可读|阅读层|文档层|readable|reading layer", re.I),
+        (
+            "要求把机器可读记录转换成独立的人类阅读层，同时保持来源单一、同步可控。",
+            "Requested a human-readable layer generated from machine-readable records, while preserving a single source of truth and controlled synchronization.",
+        ),
+        (
+            "完成了由机器记录单向生成的阅读层，并接入既有同步流程完成验证。",
+            "Completed a reading layer generated one-way from machine records and verified its integration with the existing sync flow.",
+        ),
+    ),
+    (
+        "health_and_backup",
+        re.compile(r"健康检查|备份|失败|守门|监控|恢复|health|backup|watchdog|recovery", re.I),
+        (
+            "要求修复一项健康检查或备份故障，并在失败时留下清楚、可行动的报告。",
+            "Requested a repair to a health-check or backup failure, with clear and actionable reporting when the process fails.",
+        ),
+        (
+            "完成了轻量守门与试运行验证，保持仅观察，并保留清楚的失败与暂停状态。",
+            "Completed a lightweight watchdog and dry-run verification, kept it observe-only, and retained clear failure and pause states.",
+        ),
+    ),
+    (
+        "visual_control",
+        re.compile(r"视觉生成|随机抽卡|可解释|可复现|构图|层级|版式|留白|visual|layout|composition", re.I),
+        (
+            "要求把视觉生成从随机结果改成可解释、可复现、可迭代的控制流程，并调整构图与信息层级。",
+            "Requested that visual generation move from random outcomes to an explainable, reproducible, iterative control flow, with clearer composition and hierarchy.",
+        ),
+        (
+            "完成了视觉控制流程与层级调整，使关键变量、构图选择和迭代差异可以被逐项复核。",
+            "Completed the visual-control flow and hierarchy revision, making key variables, composition choices, and iteration differences reviewable.",
+        ),
+    ),
+    (
+        "video_prototype",
+        re.compile(r"视频|分镜|关键帧|镜头|角色连续|video|storyboard|keyframe|shot", re.I),
+        (
+            "要求梳理从脚本、分镜和关键帧到镜头衔接的生成流程，并形成一个短时长原型。",
+            "Requested a generation flow from script, storyboard, and keyframes through shot continuity, ending in a short prototype.",
+        ),
+        (
+            "完成了短视频原型流程，把脚本、分镜、关键帧、连续性和镜头衔接纳入同一轮迭代。",
+            "Completed a short-video prototype flow that brings script, storyboard, keyframes, continuity, and shot transitions into one iteration cycle.",
+        ),
+    ),
+    (
+        "package_and_test",
+        re.compile(r"打包|附件|测试版|回归|可运行产物|依赖|package|attachment|regression|test\s+suite|focused\s+test", re.I),
+        (
+            "要求整理可运行产物及其依赖，提供可检查版本，并完成聚焦测试。",
+            "Requested a runnable package with its dependencies, a reviewable build, and focused tests.",
+        ),
+        (
+            "完成了可运行产物整理、聚焦测试与交付前核验，保留了可复查的结果。",
+            "Completed the runnable-package assembly, focused tests, and pre-delivery verification, retaining reviewable results.",
+        ),
+    ),
+    (
+        "copy_and_structure",
+        re.compile(r"文案|措辞|结构|精简|双语|翻译|归档|wiki|copy|wording|structure|translate|archive", re.I),
+        (
+            "要求整理文字结构与表达，压缩冗余，并形成可归档、可继续修订的版本。",
+            "Requested a clearer textual structure, reduced redundancy, and a version that can be archived and revised further.",
+        ),
+        (
+            "完成了结构重写、措辞收束与归档核对，形成了可继续审阅的双语工作版本。",
+            "Completed the structural rewrite, wording refinement, and archive check, producing a bilingual working version for further review.",
+        ),
+    ),
+)
+
+CATEGORY_TOPIC_PRIORITY = {
+    "research_synthesis": (
+        "periodic_review",
+        "source_analysis",
+        "research_screening",
+        "multi_agent",
+    ),
+    "visual_production": (
+        "visual_control",
+        "video_prototype",
+        "package_and_test",
+    ),
+    "document_processing": (
+        "copy_and_structure",
+        "source_analysis",
+        "package_and_test",
+    ),
+    "code_development": (
+        "package_and_test",
+        "data_connector",
+        "multi_agent",
+        "readability_layer",
+        "visual_control",
+        "video_prototype",
+    ),
+    "social_media_organization": ("copy_and_structure", "package_and_test"),
+    "system_maintenance": (
+        "health_and_backup",
+        "readability_layer",
+        "data_connector",
+        "package_and_test",
+    ),
+    "redacted_private": (
+        "multi_agent",
+        "periodic_review",
+        "copy_and_structure",
+        "source_analysis",
+    ),
+}
 
 QUOTED_RE = re.compile(
     r"(?s)```.*?```|`[^`\n]*`|\[[^\]\n]+\]\([^\)\n]+\)|《[^》\n]*》|"
@@ -466,6 +719,149 @@ def outcome_information_score(value: str) -> tuple[int, int, str]:
     return specificity, len(value.replace(MASK, "")), value
 
 
+def topic_keys(text: str) -> tuple[str, ...]:
+    return tuple(
+        key
+        for key, pattern, _request, _outcome in TOPIC_PAIR_RULES
+        if pattern.search(text)
+    )
+
+
+def request_pair(category: str, excerpts: list[str]) -> tuple[str, str, tuple[str, ...]]:
+    combined = "\n".join(excerpts)
+    detected_topics = topic_keys(combined)
+    priority = CATEGORY_TOPIC_PRIORITY[category]
+    topics = tuple(topic for topic in priority if topic in detected_topics)
+    if topics:
+        selected = next(rule for rule in TOPIC_PAIR_RULES if rule[0] == topics[0])
+        zh, en = selected[2]
+    else:
+        zh, en = CATEGORY_REQUEST_PAIRS[category]
+    return zh, en, topics
+
+
+def summarized_outcome_pair(
+    category: str,
+    topics: tuple[str, ...],
+) -> tuple[str, str]:
+    if topics:
+        selected = next(rule for rule in TOPIC_PAIR_RULES if rule[0] == topics[0])
+        return selected[3]
+    return CATEGORY_OUTCOME_PAIRS[category]
+
+
+def result_match_score(
+    collaboration: dict,
+    result: dict,
+) -> int:
+    result_topics = set(
+        topic_keys(f"{result.get('zh', '')}\n{result.get('en', '')}")
+    )
+    request_topics = tuple(collaboration.get("_request_topics", ()))
+    primary_topic = request_topics[0] if request_topics else None
+    if primary_topic is None or primary_topic not in result_topics:
+        return -1
+    score = 20
+    if result.get("source_kind") == "collaboration_session":
+        return score + int(collaboration.get("category") == result.get("category"))
+    if collaboration.get("category") == result.get("category"):
+        return score + 3
+    compatible = {
+        ("system_maintenance", "document_processing"),
+        ("document_processing", "system_maintenance"),
+        ("code_development", "system_maintenance"),
+        ("system_maintenance", "code_development"),
+        ("visual_production", "document_processing"),
+        ("document_processing", "visual_production"),
+        ("redacted_private", "code_development"),
+    }
+    if (collaboration.get("category"), result.get("category")) in compatible:
+        return score + 2
+    return -1
+
+
+def finalize_collaboration_pair(
+    collaboration: dict,
+    result_candidates: list[tuple[int, dict]],
+    used_result_indexes: set[int],
+) -> dict:
+    output = {
+        key: value
+        for key, value in collaboration.items()
+        if not key.startswith("_")
+    }
+    matched_index = None
+    matched_result = None
+    ranked = sorted(
+        (
+            (result_match_score(collaboration, result), index, result)
+            for index, result in result_candidates
+            if index not in used_result_indexes
+        ),
+        reverse=True,
+        key=lambda item: (item[0], -item[1]),
+    )
+    if ranked and ranked[0][0] >= 10:
+        _score, matched_index, matched_result = ranked[0]
+
+    if matched_result is not None:
+        outcome_zh = polish_public_excerpt(str(matched_result["zh"]), MAX_EXCERPT_CHARS)
+        outcome_en = polish_public_excerpt(str(matched_result["en"]), MAX_EXCERPT_CHARS)
+        if not outcome_zh or not outcome_en:
+            matched_result = None
+            matched_index = None
+
+    if (
+        matched_result is not None
+        and matched_result.get("source_kind") == "collaboration_session"
+    ):
+        used_result_indexes.add(matched_index)
+        completion_status = str(matched_result["completion_status"])
+        pair_provenance = str(matched_result["pair_provenance"])
+    elif matched_result is not None:
+        used_result_indexes.add(matched_index)
+        completion_status = "completed"
+        pair_provenance = "matched_public_result_record"
+    elif collaboration.get("_has_safe_assistant_outcome"):
+        outcome_zh, outcome_en = summarized_outcome_pair(
+            str(collaboration["category"]),
+            tuple(collaboration.get("_request_topics", ())),
+        )
+        completion_status = "completed"
+        pair_provenance = "assistant_result_summary"
+    else:
+        outcome_zh, outcome_en = UNVERIFIED_OUTCOME_PAIR
+        completion_status = "unverified"
+        pair_provenance = "no_public_result_evidence"
+
+    request_zh = str(collaboration["_request_zh"])
+    request_en = str(collaboration["_request_en"])
+    title_zh, title_en = CATEGORY_PAIR_TITLES[str(collaboration["category"])]
+    mask_count_zh = request_zh.count(MASK) + outcome_zh.count(MASK)
+    mask_count_en = request_en.count(MASK) + outcome_en.count(MASK)
+    if mask_count_zh != mask_count_en:
+        outcome_zh = outcome_zh.replace(MASK, "某项未公开内容")
+        outcome_en = outcome_en.replace(MASK, "a private item")
+        request_zh = request_zh.replace(MASK, "某项未公开内容")
+        request_en = request_en.replace(MASK, "a private item")
+        mask_count_zh = mask_count_en = 0
+    output.update(
+        {
+            "zh": title_zh,
+            "en": title_en,
+            "request_zh": request_zh,
+            "request_en": request_en,
+            "outcome_zh": outcome_zh,
+            "outcome_en": outcome_en,
+            "completion_status": completion_status,
+            "pair_provenance": pair_provenance,
+            "redaction_count": mask_count_zh,
+            "redaction_status": "partial" if mask_count_zh else "none",
+        }
+    )
+    return output
+
+
 def clock_window(first: float, last: float) -> tuple[str, str]:
     a, b = datetime.fromtimestamp(first, TIMEZONE), datetime.fromtimestamp(last, TIMEZONE)
     if a.date() != b.date(): raise ValueError("Cross-day collaboration")
@@ -617,16 +1013,22 @@ def collect(state_db: Path, dates: list[str], detector: Path, denylist_paths: tu
             outcome_excerpts = sorted(group["outcomes"], key=outcome_information_score, reverse=True)[:MAX_OUTCOME_EXCERPTS_PER_CARD]
             excerpts = [*owner_excerpts, *outcome_excerpts]; excerpt_count += len(excerpts)
             en, zh = summary(category, day, len(timestamps), len(group["sessions"]), group["delegated"], group["returned"])
-            excerpt_masks = sum(value.count(MASK) for value in excerpts)
+            pair_request_zh, pair_request_en, request_topics = request_pair(
+                category,
+                owner_excerpts,
+            )
             events_by_date[day].append({
                 "category": category, "en": en, "zh": zh,
-                "redaction_status": "partial" if excerpt_masks else "none",
-                "redaction_count": excerpt_masks,
+                "redaction_status": "none",
+                "redaction_count": 0,
                 "source_kind": "collaboration_session", "faithfulness": "faithful_summary", "evidence_count": len(timestamps),
                 "session_count": len(group["sessions"]), "delegated_agent_count": group["delegated"], "returned_agent_count": group["returned"],
-                "public_excerpts": excerpts, "excerpt_redaction_count": excerpt_masks,
-                "excerpt_provenance": "audited_collaboration_dialogue", "agent_labels": [label for label in AGENT_ORDER if label in group["agents"]],
+                "agent_labels": [label for label in AGENT_ORDER if label in group["agents"]],
                 "start": start, "end": end, "time_provenance": "observed_message_envelope",
+                "_request_zh": pair_request_zh,
+                "_request_en": pair_request_en,
+                "_request_topics": request_topics,
+                "_has_safe_assistant_outcome": bool(outcome_excerpts),
             })
         selected = {}
         for day, events in events_by_date.items():
@@ -643,13 +1045,18 @@ def merge_history(
     agents: dict[str, list[dict]],
     public_dates: list[str] | None = None,
 ) -> dict:
-    if history.get("schema") != HISTORY_SCHEMA or not isinstance(history.get("days"), list): raise ValueError("Invalid history")
+    if (
+        history.get("schema") not in {HISTORY_SCHEMA, *LEGACY_HISTORY_SCHEMAS}
+        or not isinstance(history.get("days"), list)
+    ):
+        raise ValueError("Invalid history")
     history_by_date = {str(entry["date"]): entry for entry in history["days"]}
     ordered_dates = sorted(set(history_by_date) | set(public_dates or ()))
     output = []
     for day in ordered_dates:
         entry = history_by_date.get(day)
-        foreground = [*collaborations.get(day, []), *agents.get(day, [])[:1]]
+        raw_collaborations = collaborations.get(day, [])
+        foreground = [*raw_collaborations, *agents.get(day, [])[:1]]
         if entry is None:
             # A newly imported artwork can precede its first dialogue sync. Admit
             # only evidence-backed foreground here; dates with no evidence keep
@@ -661,7 +1068,57 @@ def merge_history(
                 "provenance": "dialogue_based" if collaborations.get(day) else "record_based",
                 "assigned_residues": [],
             }
+        previous_collaborations = [
+            item
+            for item in entry["assigned_residues"]
+            if item.get("source_kind") == "collaboration_session"
+            and isinstance(item.get("request_zh"), str)
+            and isinstance(item.get("outcome_zh"), str)
+            and isinstance(item.get("outcome_en"), str)
+        ]
         existing = [item for item in entry["assigned_residues"] if item.get("source_kind") not in GENERATED_KINDS]
+        result_candidates = [
+            (index, item)
+            for index, item in enumerate(existing)
+            if item.get("source_kind")
+            in {
+                "daily_record",
+                "maintenance_record",
+                "task_card",
+                "public_post_archive",
+            }
+            and isinstance(item.get("zh"), str)
+            and isinstance(item.get("en"), str)
+        ]
+        result_candidates.extend(
+            (
+                -(index + 1),
+                {
+                    "source_kind": "collaboration_session",
+                    "category": item.get("category"),
+                    "request_zh": item.get("request_zh"),
+                    "zh": item.get("outcome_zh"),
+                    "en": item.get("outcome_en"),
+                    "completion_status": item.get("completion_status"),
+                    "pair_provenance": item.get("pair_provenance"),
+                },
+            )
+            for index, item in enumerate(previous_collaborations)
+        )
+        used_result_indexes: set[int] = set()
+        finalized_collaborations = [
+            finalize_collaboration_pair(
+                collaboration,
+                result_candidates,
+                used_result_indexes,
+            )
+            for collaboration in raw_collaborations
+        ]
+        foreground = [*finalized_collaborations, *agents.get(day, [])[:1]]
+        existing = [
+            item for index, item in enumerate(existing)
+            if index not in used_result_indexes
+        ]
         existing = [item for _, item in sorted(enumerate(existing), key=lambda pair: (EXISTING_PRIORITY.get(pair[1].get("source_kind"), 99), pair[0]))]
         residues = [*foreground, *existing[:max(0, MAX_HISTORY_RESIDUES - len(foreground))]]
         if not residues: raise ValueError(f"{day} empty")
@@ -673,7 +1130,7 @@ def merge_history(
             else entry["provenance"]
         )
         output.append({**entry, "provenance": provenance, "assigned_residues": residues})
-    return {**history, "days": output}
+    return {**history, "schema": HISTORY_SCHEMA, "days": output}
 
 
 def import_events(state_db: Path, days_path: Path, history_path: Path, detector: Path, denylists: tuple[Path, ...], dry_run: bool) -> dict:
@@ -702,8 +1159,15 @@ def main() -> int:
         result = import_events(args.state_db, args.days, args.history, args.entity_detector, (args.holdings_denylist, args.self_media_denylist, args.identity_denylist), args.dry_run)
     except (OSError, ValueError, TypeError, OverflowError, sqlite3.Error, json.JSONDecodeError, subprocess.SubprocessError) as error:
         print(f"Collaboration event import failed: {type(error).__name__}", file=sys.stderr); return 1
-    audit = result["audit"]; mode = "would write" if args.dry_run else "wrote" if result["changed"] else "already current"
-    print(f"Collaboration events {mode}; events={result['event_count']}; dates={len(result['event_dates'])}; meaningful_messages={audit['meaningful_message_count']}; public_excerpts={audit['public_excerpt_count']}; safe_outcomes={audit['safe_outcome_candidate_count']}; rejected_outcomes={audit['rejected_outcome_candidate_count']}; delegated_agents={audit['delegated_agent_count']}; categories={result['category_counts']}.")
+    audit = result["audit"]
+    mode = (
+        "would write"
+        if args.dry_run and result["changed"]
+        else "wrote"
+        if not args.dry_run and result["changed"]
+        else "already current"
+    )
+    print(f"Collaboration events {mode}; events={result['event_count']}; dates={len(result['event_dates'])}; meaningful_messages={audit['meaningful_message_count']}; public_pair_sources={audit['public_excerpt_count']}; safe_outcomes={audit['safe_outcome_candidate_count']}; rejected_outcomes={audit['rejected_outcome_candidate_count']}; delegated_agents={audit['delegated_agent_count']}; categories={result['category_counts']}.")
     return 0
 
 

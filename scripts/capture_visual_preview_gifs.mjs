@@ -32,8 +32,10 @@ const WIDTH = 400;
 const HEIGHT = 225;
 const FALLBACK_FPS = 5;
 const FALLBACK_FRAME_COUNT = 12;
-const FALLBACK_WIDTH = 360;
-const FALLBACK_HEIGHT = 203;
+// New fallbacks keep the same 16:9 timetable-thumbnail contract as canvas captures.
+// The older 360x203 fallback remains accepted only as historical corpus data.
+const FALLBACK_WIDTH = WIDTH;
+const FALLBACK_HEIGHT = HEIGHT;
 const MAX_BYTES = 700 * 1024;
 const MIN_MOTION_YAVG = 0.04;
 const SCREENSHOT_TIMEOUT_MS = 2500;

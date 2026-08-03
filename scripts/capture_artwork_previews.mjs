@@ -7,6 +7,7 @@
  *   node scripts/capture_artwork_previews.mjs --date 2026-05-11
  *   node scripts/capture_artwork_previews.mjs --all --visual-only
  *   node scripts/capture_artwork_previews.mjs --date 2026-07-31 --archive-only
+ *   node scripts/capture_artwork_previews.mjs --date 2026-07-31 --deterministic-gif
  */
 import { chromium } from 'playwright';
 import { spawn, spawnSync } from 'node:child_process';
@@ -26,8 +27,14 @@ const getArg = (name) => {
 const all = args.includes('--all');
 const visualOnly = args.includes('--visual-only');
 const archiveOnly = args.includes('--archive-only');
+const deterministicGif = args.includes('--deterministic-gif');
 const missingOnly = args.includes('--missing');
 const dateFilter = getArg('--date');
+const PREVIEW_SPECS = Object.freeze({
+  'preview.png': { width: 1600, height: 900 },
+  'preview.gif': { width: 720, height: 405 },
+  'visual-preview.webp': { width: 960, height: 540 },
+});
 const displayAllowances = JSON.parse(
   fs.readFileSync(path.join(ROOT, 'metadata', 'artwork-display-allowances.json'), 'utf8'),
 ).days;
@@ -57,6 +64,42 @@ function run(cmd, cmdArgs, opts = {}) {
     throw new Error(`${cmd} ${cmdArgs.join(' ')} failed\nSTDOUT:\n${res.stdout}\nSTDERR:\n${res.stderr}`);
   }
   return res;
+}
+
+function probeVisual(filePath) {
+  const result = run('ffprobe', [
+    '-v', 'error', '-select_streams', 'v:0',
+    '-show_entries', 'stream=width,height',
+    '-of', 'json', filePath,
+  ]);
+  const stream = JSON.parse(result.stdout).streams?.[0] || {};
+  return { width: Number(stream.width), height: Number(stream.height) };
+}
+
+function assertPreviewSpec(filePath, assetName) {
+  const expected = PREVIEW_SPECS[assetName];
+  const actual = probeVisual(filePath);
+  if (actual.width !== expected.width || actual.height !== expected.height) {
+    throw new Error(
+      `${path.basename(path.dirname(path.dirname(filePath)))} ${assetName} must be `
+      + `${expected.width}x${expected.height} landscape; got ${actual.width}x${actual.height}`,
+    );
+  }
+}
+
+function animateFullFrameStill(stillPath, outputPath) {
+  const motion = [
+    "scale=736:414:flags=lanczos",
+    "zoompan=z='1+0.012*sin(on*PI/47)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=48:s=720x405:fps=12",
+  ].join(',');
+  const filter = `${motion},split[gifbase][palettebase];`
+    + '[palettebase]palettegen=max_colors=128:stats_mode=full[palette];'
+    + '[gifbase][palette]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle';
+  run('ffmpeg', [
+    '-y', '-v', 'error', '-i', stillPath,
+    '-filter_complex', filter,
+    '-frames:v', '48', '-loop', '0', outputPath,
+  ]);
 }
 
 function startStaticServer() {
@@ -244,66 +287,81 @@ async function captureEntry(browser, entryDir, serverBaseUrl) {
   await openLiveArtwork(page, entryDir, serverBaseUrl);
   const info = await waitForCanvas(page);
   await primeInteraction(page, 1600, 900);
-  await page.screenshot({ path: path.join(assets, 'preview.png'), fullPage: false });
+  const previewPng = path.join(assets, 'preview.png');
+  await page.screenshot({ path: previewPng, fullPage: false });
+  assertPreviewSpec(previewPng, 'preview.png');
   await page.close();
 
   // GIF: smaller viewport, 4 seconds at 12fps to keep repo size reasonable.
   // Frames are streamed directly to ffmpeg so no temp frame directory needs deletion.
-  const gifPage = await browser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: 1 });
-  const expectedUrl = await openLiveArtwork(gifPage, entryDir, serverBaseUrl);
-  await waitForCanvas(gifPage);
-  await primeInteraction(gifPage, 960, 540);
   const gifPath = path.join(assets, 'preview.gif');
   const partialGifPath = path.join(assets, '.preview.partial.gif');
-  const gifFilter = [
-    'fps=12,scale=720:-1:flags=lanczos',
-    'split[gif][paletteSource]',
-    '[paletteSource]palettegen=max_colors=128:stats_mode=diff[palette]',
-    '[gif][palette]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle',
-  ].join(';');
-  const ff = spawn('ffmpeg', [
-    '-y', '-v', 'error',
-    '-f', 'image2pipe', '-framerate', '12', '-i', '-',
-    '-filter_complex', gifFilter,
-    '-loop', '0', partialGifPath,
-  ], { stdio: ['pipe', 'pipe', 'pipe'] });
-  let ffmpegErr = '';
-  ff.stderr.on('data', d => { ffmpegErr += d.toString(); });
-  const total = 48;
-  try {
-    for (let i = 0; i < total; i++) {
-      await movePreviewMouse(gifPage, i, total, 960, 540);
-      const frameState = await gifPage.evaluate(() => ({
-        href: window.location.href,
-        visibleCanvas: [...document.querySelectorAll('canvas')].some((canvas) => {
-          const rect = canvas.getBoundingClientRect();
-          const style = getComputedStyle(canvas);
-          return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 1 && rect.height > 1;
-        }),
-      }));
-      if (frameState.href !== expectedUrl || !frameState.visibleCanvas) {
-        throw new Error(
-          `${path.basename(entryDir)} frame ${i} left the live artwork: ${JSON.stringify(frameState)}`,
-        );
-      }
-      const bytes = await gifPage.screenshot({ fullPage: false });
-      if (!ff.stdin.write(bytes)) await once(ff.stdin, 'drain');
-      await gifPage.waitForTimeout(1000 / 12);
-    }
-    ff.stdin.end();
-    await new Promise((resolve, reject) => {
-      ff.on('close', code => code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}: ${ffmpegErr}`)));
-      ff.on('error', reject);
-    });
+  let gifMode = 'deterministic-full-frame';
+  if (deterministicGif) {
+    animateFullFrameStill(previewPng, partialGifPath);
     fs.renameSync(partialGifPath, gifPath);
-  } catch (error) {
-    ff.stdin.destroy();
-    ff.kill('SIGKILL');
-    fs.rmSync(partialGifPath, { force: true });
-    throw error;
-  } finally {
-    await gifPage.close();
+  } else {
+    const gifPage = await browser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: 1 });
+    const expectedUrl = await openLiveArtwork(gifPage, entryDir, serverBaseUrl);
+    await waitForCanvas(gifPage);
+    await primeInteraction(gifPage, 960, 540);
+    const gifFilter = [
+      'fps=12,scale=720:-1:flags=lanczos',
+      'split[gif][paletteSource]',
+      '[paletteSource]palettegen=max_colors=128:stats_mode=diff[palette]',
+      '[gif][palette]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle',
+    ].join(';');
+    const ff = spawn('ffmpeg', [
+      '-y', '-v', 'error',
+      '-f', 'image2pipe', '-framerate', '12', '-i', '-',
+      '-filter_complex', gifFilter,
+      '-loop', '0', partialGifPath,
+    ], { stdio: ['pipe', 'pipe', 'pipe'] });
+    let ffmpegErr = '';
+    ff.stderr.on('data', d => { ffmpegErr += d.toString(); });
+    const total = 48;
+    try {
+      for (let i = 0; i < total; i++) {
+        await movePreviewMouse(gifPage, i, total, 960, 540);
+        const frameState = await gifPage.evaluate(() => ({
+          href: window.location.href,
+          visibleCanvas: [...document.querySelectorAll('canvas')].some((canvas) => {
+            const rect = canvas.getBoundingClientRect();
+            const style = getComputedStyle(canvas);
+            return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 1 && rect.height > 1;
+          }),
+        }));
+        if (frameState.href !== expectedUrl || !frameState.visibleCanvas) {
+          throw new Error(
+            `${path.basename(entryDir)} frame ${i} left the live artwork: ${JSON.stringify(frameState)}`,
+          );
+        }
+        const bytes = await gifPage.screenshot({ fullPage: false, timeout: 1500 });
+        if (!ff.stdin.write(bytes)) await once(ff.stdin, 'drain');
+        await gifPage.waitForTimeout(1000 / 12);
+      }
+      ff.stdin.end();
+      await new Promise((resolve, reject) => {
+        ff.on('close', code => code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}: ${ffmpegErr}`)));
+        ff.on('error', reject);
+      });
+      fs.renameSync(partialGifPath, gifPath);
+      gifMode = 'dynamic-full-frame';
+    } catch (error) {
+      ff.stdin.destroy();
+      ff.kill('SIGKILL');
+      fs.rmSync(partialGifPath, { force: true });
+      console.warn(`${path.basename(entryDir)} full-frame GIF fallback: ${error.message}`);
+      animateFullFrameStill(previewPng, partialGifPath);
+      fs.renameSync(partialGifPath, gifPath);
+    } finally {
+      await Promise.race([
+        gifPage.close(),
+        new Promise((resolve) => setTimeout(resolve, 2500)),
+      ]);
+    }
   }
+  assertPreviewSpec(gifPath, 'preview.gif');
 
   // Mirror assets into root archive if matching path exists.
   const rel = path.relative(path.join(ROOT, 'docs'), entryDir);
@@ -314,7 +372,9 @@ async function captureEntry(browser, entryDir, serverBaseUrl) {
     fs.copyFileSync(path.join(assets, 'preview.gif'), path.join(rootAssets, 'preview.gif'));
   }
 
-  console.log(`${path.basename(entryDir)} canvas ${info.w}x${info.h} -> preview.png + preview.gif`);
+  console.log(
+    `${path.basename(entryDir)} canvas ${info.w}x${info.h} -> preview.png + preview.gif (${gifMode})`,
+  );
 }
 
 async function captureVisualPreview(browser, entryDir, serverBaseUrl, sharedContext = null) {
@@ -386,6 +446,7 @@ async function captureVisualPreview(browser, entryDir, serverBaseUrl, sharedCont
     temporaryPng,
     '-o', visualPreview,
   ]);
+  assertPreviewSpec(visualPreview, 'visual-preview.webp');
   fs.unlinkSync(temporaryPng);
 
   const rel = path.relative(path.join(ROOT, 'docs'), entryDir);

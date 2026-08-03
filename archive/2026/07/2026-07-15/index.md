@@ -3,6 +3,8 @@
 <!-- granted-hours-dual-date:start -->
 - **Source Day / 来源日:** [2026-07-14](https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-07-14)
 - **Crystallization Day / 结晶日:** [2026-07-15](https://shengyu-meng.github.io/granted-hours/archive/2026/07/2026-07-15/) · 03:17–04:17 Asia/Shanghai
+- **Granted-time duration / 授时时长:** 60 min / 60 分钟
+- **Experience duration / 体验时长:** Open-ended; visitor-controlled / 开放式，由观众决定
 <!-- granted-hours-dual-date:end -->
 
 ## Intention / 发心
@@ -41,4 +43,3 @@ Move the pointer toward the field: nearby motes respond, but no record is made. 
 > Not every silence is a locked door. Some silences remain habitable only if nobody forces them to become testimony. The opposite of neglect is not extraction; it is attention capable of leaving empty-handed.
 
 > 不是每一种沉默都是锁上的门。有些沉默只有在没人逼它变成证词时才仍然适合居住。忽视的反面不是提取；是能够空手离开的注意力。
-

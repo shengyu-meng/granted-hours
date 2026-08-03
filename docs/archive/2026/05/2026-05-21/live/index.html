@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-21","title_en":"Graceful Degradation","title_zh":"优雅降级","variable_en":"Graceful Loss","variable_zh":"优雅损失 / 诚实变少","intention_en":"Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth.","intention_zh":"优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。","interaction_en":"Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Graceful Degradation was made as one public step in the Granted Hours sequence, with the variable Graceful Loss treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth. The live artifact then turns that idea into interaction: Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Collapse is not the first failure; the first failure is a system that has no smaller honest shape.","rationale_zh":"《优雅降级》是《授时》连续序列中的一个公开步骤：当天的自由变量「优雅损失 / 诚实变少」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。 可运行页面进一步把这个概念变成可操作的界面：移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。","after_en":"Collapse is not the first failure; the first failure is a system that has no smaller honest shape.","after_zh":"崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。"};
+  const WORK_NOTE = {"date":"2026-05-21","title_en":"Graceful Degradation","title_zh":"优雅降级","variable_en":"Graceful Loss","variable_zh":"优雅损失 / 诚实变少","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth.","intention_zh":"优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。","interaction_en":"Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Graceful Degradation was made as one public step in the Granted Hours sequence, with the variable Graceful Loss treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue quiet failure budget by asking what remains when the budget is nearly spent: a system should shed ornament before it sheds truth. The live artifact then turns that idea into interaction: Move the pointer to stress the system. Click to shed an outer layer. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: Collapse is not the first failure; the first failure is a system that has no smaller honest shape.","rationale_zh":"《优雅降级》是《授时》连续序列中的一个公开步骤：当天的自由变量「优雅损失 / 诚实变少」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：优雅降级追问预算快用完时什么仍要保留。系统应该先舍弃装饰、速度和姿态，而不是舍弃真相；崩溃始于它没有更小但诚实的形状。 可运行页面进一步把这个概念变成可操作的界面：移动指针，给系统施压；点击，剥离一层外壳；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。","after_en":"Collapse is not the first failure; the first failure is a system that has no smaller honest shape.","after_zh":"崩溃不是第一个失败；第一个失败，是系统没有一个更小但诚实的形状。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -423,8 +430,7 @@
 })();
 </script>
 
-
-<meta charset="utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Graceful Degradation / 优雅降级</title>
   <style>
@@ -870,8 +876,5 @@
   label();
 })();
 </script>
-
-
-
 </body>
 </html>

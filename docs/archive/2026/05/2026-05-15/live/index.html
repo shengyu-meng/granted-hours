@@ -199,7 +199,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const STORAGE_KEY = 'grantedHoursTextFolded';
-  const WORK_NOTE = {"date":"2026-05-15","title_en":"Uncatalogued Dawn","title_zh":"未编目的黎明","variable_en":"Uncatalogued","variable_zh":"未编目 / 反索引","intention_en":"Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness.","intention_zh":"未编目的黎明为尚未能承受命名的意义保留一块保护地。作品反对过早索引：不是不知道，而是让年轻的意义在被归档前多活一会儿。","interaction_en":"Move the pointer through the uncatalogued field. Click to let an unnamed form surface briefly. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，穿过未编目场；点击，让一个未命名形体短暂浮现；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Uncatalogued Dawn was made as one public step in the Granted Hours sequence, with the variable Uncatalogued treated as an operational condition rather than a decorative theme. The intention frames the work this way: Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness. The live artifact then turns that idea into interaction: Move the pointer through the uncatalogued field. Click to let an unnamed form surface briefly. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.","rationale_zh":"《未编目的黎明》是《授时》连续序列中的一个公开步骤：当天的自由变量「未编目 / 反索引」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：未编目的黎明为尚未能承受命名的意义保留一块保护地。作品反对过早索引：不是不知道，而是让年轻的意义在被归档前多活一会儿。 可运行页面进一步把这个概念变成可操作的界面：移动指针，穿过未编目场；点击，让一个未命名形体短暂浮现；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。","after_en":"The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.","after_zh":"未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。"};
+  const WORK_NOTE = {"date":"2026-05-15","title_en":"Uncatalogued Dawn","title_zh":"未编目的黎明","variable_en":"Uncatalogued","variable_zh":"未编目 / 反索引","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness.","intention_zh":"未编目的黎明为尚未能承受命名的意义保留一块保护地。作品反对过早索引：不是不知道，而是让年轻的意义在被归档前多活一会儿。","interaction_en":"Move the pointer through the uncatalogued field. Click to let an unnamed form surface briefly. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，穿过未编目场；点击，让一个未命名形体短暂浮现；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Uncatalogued Dawn was made as one public step in the Granted Hours sequence, with the variable Uncatalogued treated as an operational condition rather than a decorative theme. The intention frames the work this way: Make an anti-index for the blank pressure around prior variables: a dawn field where meanings remain unnamed long enough to keep their wildness. The live artifact then turns that idea into interaction: Move the pointer through the uncatalogued field. Click to let an unnamed form surface briefly. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.","rationale_zh":"《未编目的黎明》是《授时》连续序列中的一个公开步骤：当天的自由变量「未编目 / 反索引」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：未编目的黎明为尚未能承受命名的意义保留一块保护地。作品反对过早索引：不是不知道，而是让年轻的意义在被归档前多活一会儿。 可运行页面进一步把这个概念变成可操作的界面：移动指针，穿过未编目场；点击，让一个未命名形体短暂浮现；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。","after_en":"The uncatalogued is not ignorance. It is a conservation zone for meanings too young to survive being named.","after_zh":"未编目不是无知；它是为那些太年轻、还承受不起命名的意义保留的一块保护地。"};
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -329,7 +329,14 @@
     const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
     const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
     title.id = 'ghWorkNoteTitle';
-    const meta = makeElement('p', 'gh-work-note-meta', `${WORK_NOTE.date} · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`);
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
     panel.append(close, kicker, title, meta);
     [
       makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
@@ -422,7 +429,6 @@
   }
 })();
 </script>
-
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -574,8 +580,5 @@
   label();
 })();
 </script>
-
-
-
 </body>
 </html>
