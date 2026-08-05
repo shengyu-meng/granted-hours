@@ -51,8 +51,8 @@
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
-  .gh-work-note-overlay[hidden] { display: none !important; }
-  .gh-work-note-overlay {
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
     position: fixed;
     z-index: 2147483100;
     inset: 0;
@@ -64,9 +64,9 @@
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  .gh-work-note-overlay.is-open { opacity: 1; }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
   body.gh-work-note-modal-open { overflow: hidden !important; }
-  .gh-work-note-panel {
+  #ghWorkNoteOverlay .gh-work-note-panel {
     position: relative;
     width: min(720px, calc(100vw - 36px));
     max-height: min(82vh, 780px);
@@ -83,7 +83,7 @@
     backdrop-filter: blur(28px) saturate(1.24);
     box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
   }
-  .gh-work-note-close {
+  #ghWorkNoteOverlay .gh-work-note-close {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -96,34 +96,34 @@
     font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
     cursor: pointer;
   }
-  .gh-work-note-kicker,
-  .gh-work-note-section h3 {
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
     margin: 0 0 8px;
     color: rgba(242,195,107,.88);
     font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .gh-work-note-title {
+  #ghWorkNoteOverlay .gh-work-note-title {
     max-width: calc(100% - 48px);
     margin: 0 0 10px;
     font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-meta {
+  #ghWorkNoteOverlay .gh-work-note-meta {
     margin: 0 0 24px;
     color: rgba(247,242,232,.62);
     font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   }
-  .gh-work-note-section {
+  #ghWorkNoteOverlay .gh-work-note-section {
     padding: 18px 0;
     border-top: 1px solid rgba(255,255,255,.12);
   }
-  .gh-work-note-section p {
+  #ghWorkNoteOverlay .gh-work-note-section p {
     margin: 8px 0 0;
     color: rgba(247,242,232,.88);
     font: 15px/1.72 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-archive {
+  #ghWorkNoteOverlay .gh-work-note-archive {
     display: inline-flex;
     margin-top: 22px;
     border-bottom: 1px solid rgba(242,195,107,.5);
@@ -184,8 +184,8 @@
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
-    .gh-work-note-overlay { align-items: end; padding: 10px; }
-    .gh-work-note-panel {
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
       max-height: min(84dvh, 760px);
       border-radius: 20px 20px 12px 12px;
@@ -355,9 +355,9 @@
       && document.activeElement !== document.body
     ) ? document.activeElement : workNote;
     workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
     document.body.classList.add('gh-work-note-modal-open');
     requestAnimationFrame(() => {
-      workNoteOverlay.classList.add('is-open');
       workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
     });
   }
@@ -428,6 +428,8 @@
   }
 })();
 </script>
+
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Consent That Does Not Expire / 不会过期的同意</title><style>
 :root{color-scheme:dark;--paper:#f3ebd9;--ink:#07090d;--cyan:#9ee9e1;--gold:#efc375;--rose:#df9ba5}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--ink);color:var(--paper);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;top:clamp(16px,4vh,44px);left:clamp(16px,4vw,56px);width:min(510px,calc(100vw - 32px));padding:19px 20px 17px;border:1px solid rgba(158,233,225,.25);border-radius:24px;background:linear-gradient(135deg,rgba(8,13,19,.84),rgba(19,26,30,.5));box-shadow:0 18px 70px rgba(0,0,0,.42);backdrop-filter:blur(15px)}.eyebrow,.legend,.sound,.status{font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.055em}.eyebrow{color:rgba(243,235,217,.56);text-transform:uppercase}h1{margin:9px 0 0;font-size:clamp(28px,4vw,50px);line-height:.95;letter-spacing:-.06em}h1 span{display:block;color:var(--cyan);font-weight:650}.thesis{margin:14px 0 0;color:rgba(243,235,217,.77);font-size:14px;line-height:1.65}.thesis strong{color:#fff7df}.legend{position:fixed;left:clamp(16px,4vw,56px);bottom:clamp(15px,4vh,42px);max-width:min(640px,calc(100vw - 32px));padding:13px 15px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(7,9,13,.62);color:rgba(243,235,217,.7);backdrop-filter:blur(14px)}.sound{position:fixed;right:clamp(15px,3vw,38px);bottom:clamp(15px,3vh,32px);z-index:3;border:1px solid rgba(158,233,225,.45);border-radius:999px;padding:11px 14px;color:var(--paper);background:rgba(7,12,18,.74);cursor:pointer}.sound:hover{border-color:var(--cyan);color:white}.status{position:fixed;right:clamp(15px,3vw,38px);top:clamp(15px,3vh,32px);max-width:270px;text-align:right;color:rgba(243,235,217,.53)}.chip{display:inline-block;margin:7px 0 0 5px;padding:4px 7px;border:1px solid rgba(255,255,255,.13);border-radius:999px}.veil .panel,.veil .legend,.veil .status,.veil .sound{opacity:0;pointer-events:none;transition:opacity .35s}
 </style></head><body><canvas id="field"></canvas><audio id="bgm" src="2026-07-13-consent-that-does-not-expire-bgm.mp3" preload="auto" loop autoplay></audio><section class="panel"><div class="eyebrow">Granted Hours · 2026-07-13 · variable: renewable presence</div><h1>Consent That Does Not Expire <span>不会过期的同意</span></h1><p class="thesis"><strong>A consent that never decays does not protect — it freezes.</strong><br>同意若永不衰减，它保护的不是人，而是人对人的占有。只有持续的、可见的、可撤回的同意，才是真正的同意。</p></section><aside class="legend">Pointer shapes renewal field · click to renew · H hold briefly · L release all<br>Space pause · R reset · V veil text · M music · S save still</aside><aside class="status" id="status"></aside><button class="sound" id="sound" aria-pressed="true">BGM on / 音乐开</button><script>(()=>{'use strict';const c=document.querySelector('#field'),x=c.getContext('2d'),a=document.querySelector('#bgm'),sound=document.querySelector('#sound'),status=document.querySelector('#status');let W,H,d=1,t=0,pause=false,seed=20260713,held=-1;const pointer={x:0,y:0,on:false},renewals=[],spirals=[],crumbs=[];function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}function resize(){d=Math.min(devicePixelRatio||1,2);W=c.width=innerWidth*d;H=c.height=innerHeight*d}function reset(){seed=20260713;renewals.length=0;spirals.length=0;crumbs.length=0;for(let i=0;i<320;i++){let q=rand()*Math.PI*2,r=Math.pow(rand(),.55)*Math.min(W,H)*.52;crumbs.push({x:W*.5+Math.cos(q)*r,y:H*.52+Math.sin(q)*r*.7,vx:(rand()-.5)*.2*d,vy:(rand()-.5)*.2*d,phase:rand()*9,decay:1,age:rand(),h:rand()<.25?42:rand()<.6?169:194})}}resize();reset();addEventListener('resize',()=>{resize();reset()});addEventListener('pointermove',e=>{pointer.x=e.clientX*d;pointer.y=e.clientY*d;pointer.on=true});addEventListener('pointerleave',()=>pointer.on=false);addEventListener('pointerdown',e=>{if(e.target.closest('button,.panel,.legend'))return;addRenewal(e.clientX*d,e.clientY*d)});function addRenewal(rx,ry){renewals.push({x:rx,y:ry,r:3*d,life:1.1,phase:t});for(let i=0;i<22;i++){let q=rand()*Math.PI*2,s=(.3+rand()*1.1)*d;spirals.push({x:rx,y:ry,vx:Math.cos(q)*s,vy:Math.sin(q)*s,life:1,h:rand()<.5?169:42})}}function nearest(){let best=Infinity,ix=-1;for(let i=0;i<crumbs.length;i++){let b=crumbs[i],z=Math.hypot(b.x-(pointer.on?pointer.x:W*.5),b.y-(pointer.on?pointer.y:H*.52));if(z<best){best=z;ix=i}}return ix}function draw(){requestAnimationFrame(draw);if(!pause)t+=.011;x.fillStyle='rgba(7,9,13,.16)';x.fillRect(0,0,W,H);const px=pointer.on?pointer.x:W*.5,py=pointer.on?pointer.y:H*.52;let bg=x.createRadialGradient(px,py,0,px,py,Math.max(W,H)*.52);bg.addColorStop(0,'rgba(94,187,181,.08)');bg.addColorStop(.44,'rgba(28,50,57,.03)');bg.addColorStop(1,'rgba(7,9,13,0)');x.fillStyle=bg;x.fillRect(0,0,W,H);for(let i=renewals.length-1;i>=0;i--){let r=renewals[i];r.r+=2.1*d;r.life-=.0055;x.strokeStyle=`hsla(169,72%,68%,${Math.max(0,r.life)*.38})`;x.lineWidth=d;x.beginPath();x.arc(r.x,r.y,r.r,0,Math.PI*2);x.stroke();if(r.life<=0)renewals.splice(i,1)}for(let i=spirals.length-1;i>=0;i--){let s=spirals[i];s.x+=s.vx;s.y+=s.vy;s.vx*=.987;s.vy*=.987;s.life-=.013;x.fillStyle=`hsla(${s.h},88%,76%,${s.life*.72})`;x.fillRect(s.x,s.y,1.8*d,1.8*d);if(s.life<=0)spirals.splice(i,1)}let cx=W*.5,cy=H*.52;for(let i=0;i<crumbs.length;i++){let b=crumbs[i];b.decay-=.00028;b.decay=Math.max(0,b.decay);if(b.decay<=0){let q=rand()*Math.PI*2,r=Math.min(W,H)*.58;b.x=cx+Math.cos(q)*r;b.y=cy+Math.sin(q)*r*.7;b.vx=(rand()-.5)*.15*d;b.vy=(rand()-.5)*.15*d;b.decay=.08+rand()*.12}else{b.vx+=Math.sin(t+b.phase)*.016*d;b.vy+=Math.cos(t*.72+b.phase)*.016*d}b.vx*=.991;b.vy*=.991;b.x+=b.vx;b.y+=b.vy;if(b.x<-20||b.x>W+20||b.y<-20||b.y>H+20){let q=rand()*Math.PI*2,r=Math.min(W,H)*.56;b.x=cx+Math.cos(q)*r;b.y=cy+Math.sin(q)*r*.7;b.vx=b.vy=0}let dx=px-b.x,dy=py-b.y,near=Math.hypot(dx,dy)+1;let renewForce=0,renewX=0,renewY=0;for(const r of renewals){let q=Math.hypot(b.x-r.x,b.y-r.y)+1;if(q<r.r*3.2){renewForce+=(r.r*3.2-q)/(r.r*3.2);renewX+=(b.x-r.x)/q;renewY+=(b.y-r.y)/q;b.decay=Math.min(1,b.decay+.018)}}b.vx+=dx/near*.004*d;b.vy+=dy/near*.004*d;b.vx+=renewX*renewForce*.035*d;b.vy+=renewY*renewForce*.035*d;if(b.hold>0){b.hold-=.004;b.vx+=(cx-b.x)/(Math.hypot(cx-b.x,cy-b.y)+1)*.013*d;b.vy+=(cy-b.y)/(Math.hypot(cx-b.x,cy-b.y)+1)*.013*d}let alpha=.28+.52*b.decay+Math.min(.3,1/near*110*d);let bright=b.decay>.6?74:58;x.fillStyle=`hsla(${b.h},74%,${bright}%,${alpha})`;x.beginPath();x.arc(b.x,b.y,(b.decay>.6?2.6:1.2)*d,0,Math.PI*2);x.fill()}if(held>=0&&crumbs[held]){let b=crumbs[held];x.strokeStyle='rgba(239,195,117,.48)';x.setLineDash([4*d,6*d]);x.beginPath();x.moveTo(cx,cy);x.lineTo(b.x,b.y);x.stroke();x.setLineDash([])}let renewCount=crumbs.filter(b=>b.decay>.7).length;let expiringCount=crumbs.filter(b=>b.decay<.25&&b.decay>0).length;status.innerHTML=`<b style="color:var(--cyan)">consent: renewable presence</b><br><span class="chip">${renewals.length} renewal pulses</span><span class="chip">${renewCount} vibrant</span><span class="chip">${expiringCount} fading</span><br>decay is not abandonment`;window._artReady=true}function music(){if(a.paused){a.play().then(()=>{sound.textContent='BGM on / 音乐开';sound.setAttribute('aria-pressed','true')}).catch(()=>sound.textContent='Start BGM / 启动音乐')}else{a.pause();sound.textContent='BGM off / 音乐关';sound.setAttribute('aria-pressed','false')}}sound.onclick=music;a.play().catch(()=>sound.textContent='Start BGM / 启动音乐');addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(e.code==='Space'){e.preventDefault();pause=!pause}if(k==='r')reset();if(k==='h'){held=nearest();if(crumbs[held])crumbs[held].hold=.85}if(k==='l'){crumbs.forEach(b=>b.hold=0);held=-1}if(k==='v')document.body.classList.toggle('veil');if(k==='m')music();if(k==='s'){let z=document.createElement('a');z.download='consent-that-does-not-expire.png';z.href=c.toDataURL('image/png');z.click()}});draw()})()</script></body></html>

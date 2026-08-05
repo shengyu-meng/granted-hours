@@ -210,8 +210,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "当天以附件或图片形式提交的文档处理需求未留下可公开文本。",
           "request_en": "The document-processing request that day arrived as attachments or images with no public-safe text record.",
-          "outcome_zh": "附件与图片形式的文档需求当天未留下可公开文本；公开线仅保留这一工作轮廓。",
-          "outcome_en": "The document request arrived as attachments or images with no public-safe text; the public line keeps only this work contour.",
+          "outcome_zh": "当天两段对话只留下提问与讨论，没有留下可公开核对、可安全发布的完成结果。",
+          "outcome_en": "The day's two conversations left questions and discussion only; no completion result safe to publish and verifiable was recorded.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         }
@@ -6532,7 +6532,7 @@
           "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
-          "evidence_count": 1,
+          "evidence_count": 2,
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
@@ -6540,14 +6540,14 @@
             "Hermes"
           ],
           "start": "11:10",
-          "end": "11:11",
+          "end": "13:46",
           "time_provenance": "observed_message_envelope",
-          "request_zh": "补发最近三天缺失的日历、交互作品与仓库内容，修复并脱敏后完成公开发布；日历事件应尽量保留可读轮廓，只遮蔽能够识别具体对象的信息。",
-          "request_en": "Republish the three missing days across the calendar, interactive works, and repository after repair and privacy review; keep calendar events readable while masking information that could identify specific subjects.",
+          "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复并脱敏后公开发布；日历保留事件轮廓，只遮蔽可识别信息。",
+          "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair and redact them, then publish; keep event contours and mask identifying details.",
           "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线。",
           "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5, completed privacy review, and deployed.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence"
+          "completion_status": "completed",
+          "pair_provenance": "matched_public_result_record"
         },
         {
           "category": "redacted_private",
@@ -6564,15 +6564,46 @@
           "agent_labels": [
             "Hermes"
           ],
-          "start": "10:44",
-          "end": "10:45",
+          "start": "13:59",
+          "end": "14:00",
           "time_provenance": "observed_message_envelope",
-          "request_zh": "检查为什么交互作品与日历都在 8 月 2 日之后停止公开更新。",
-          "request_en": "Investigate why both the interactive works and the public calendar stopped updating after August 2.",
-          "outcome_zh": "核实本地创作并未停止；公开链因一次门禁失败留下未完成改动，后续预检又把这些事务内改动视为脏状态，形成发布死锁。",
-          "outcome_en": "Confirmed that local creation continued; a release gate left an unfinished transaction, and later preflight checks treated those transaction-owned changes as unrelated dirt, deadlocking publication.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary"
+          "request_zh": "当天对话中的具体指令未通过公开审查，未保留可公开细节。",
+          "request_en": "That day's specific instruction did not pass public review; no public detail was retained.",
+          "outcome_zh": "该指令涉及未公开语境，公开线未保留可核对完成记录。",
+          "outcome_en": "The instruction concerns an undisclosed context; no verifiable completion was retained on the public line.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-06",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "01:12",
+          "end": "01:13",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "明确一项持续性的私人监测流程应保持静默，直到出现需要报告的清晰信号。",
+          "request_en": "Clarify that a continuing private monitoring workflow should remain silent until a clear reportable signal appears.",
+          "outcome_zh": "当天没有找到可以安全公开、并与这项静默监测要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "No public-safe completion record reliably matched this silent-monitoring request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
         }
       ]
     }

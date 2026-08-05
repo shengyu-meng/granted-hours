@@ -356,9 +356,9 @@
       && document.activeElement !== document.body
     ) ? document.activeElement : workNote;
     workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
     document.body.classList.add('gh-work-note-modal-open');
     requestAnimationFrame(() => {
-      workNoteOverlay.classList.add('is-open');
       workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
     });
   }
@@ -429,6 +429,7 @@
   }
 })();
 </script>
+
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">

@@ -639,12 +639,35 @@ def result_match_score(
     return -1
 
 
+def evidence_matches(collaboration: dict, preserved: dict) -> bool:
+    """True when a freshly collected collaboration is the same evidence as an
+    already-committed residue (same day, category, observed window, counts, and
+    agents). Identical evidence must reuse the committed public pair so a
+    re-import preserves semantic-public-policy transformations instead of
+    restoring sensitive contour/source text."""
+    return all(
+        collaboration.get(field) == preserved.get(field)
+        for field in (
+            "category",
+            "evidence_count",
+            "session_count",
+            "delegated_agent_count",
+            "returned_agent_count",
+            "start",
+            "end",
+        )
+    ) and list(collaboration.get("agent_labels", ())) == list(
+        preserved.get("agent_labels", ())
+    )
+
+
 def finalize_collaboration_pair(
     collaboration: dict,
     result_candidates: list[tuple[int, dict]],
     used_result_indexes: set[int],
     contours: dict[str, dict],
     missing_contours: list[str],
+    preserved: dict | None = None,
 ) -> dict:
     output = {
         key: value
@@ -724,6 +747,30 @@ def finalize_collaboration_pair(
             pair_provenance = "no_public_result_evidence"
         request_zh = str(collaboration["_request_zh"])
         request_en = ""
+    if (
+        preserved is not None
+        and evidence_matches(collaboration, preserved)
+        and all(
+            isinstance(preserved.get(field), str)
+            for field in ("request_zh", "request_en", "outcome_zh", "outcome_en")
+        )
+    ):
+        # The committed residue already carries the semantic-public-policy
+        # transformed pair for this exact evidence. Reuse that copy instead of
+        # restoring the freshly generated contour/source text, so
+        # import -> semantic policy -> import -> semantic policy reaches a
+        # zero-change fixed point and sensitive source text is never
+        # republished on a re-import.
+        request_zh = str(preserved["request_zh"])
+        request_en = str(preserved["request_en"])
+        outcome_zh = str(preserved["outcome_zh"])
+        outcome_en = str(preserved["outcome_en"])
+        completion_status = str(
+            preserved.get("completion_status", completion_status)
+        )
+        pair_provenance = str(
+            preserved.get("pair_provenance", pair_provenance)
+        )
     title_zh, title_en = CATEGORY_PAIR_TITLES[str(collaboration["category"])]
     mask_count_zh = request_zh.count(MASK) + outcome_zh.count(MASK)
     mask_count_en = request_en.count(MASK) + outcome_en.count(MASK)
@@ -978,6 +1025,9 @@ def merge_history(
             and isinstance(item.get("outcome_zh"), str)
             and isinstance(item.get("outcome_en"), str)
         ]
+        preserved_by_category: dict[str, dict] = {}
+        for item in previous_collaborations:
+            preserved_by_category.setdefault(str(item["category"]), item)
         existing = [item for item in entry["assigned_residues"] if item.get("source_kind") not in GENERATED_KINDS]
         result_candidates = [
             (index, item)
@@ -1015,6 +1065,7 @@ def merge_history(
                 used_result_indexes,
                 contours or {},
                 missing_contours if missing_contours is not None else [],
+                preserved_by_category.get(str(collaboration.get("category", ""))),
             )
             for collaboration in raw_collaborations
         ]

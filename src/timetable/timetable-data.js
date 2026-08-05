@@ -120,6 +120,12 @@ const timetableDataSource = {
   },
   "bgm_playlist": [
     {
+      "date": "2026-08-06",
+      "title_en": "A Door That Does Not Keep a Record",
+      "title_zh": "不留记录的门",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/live/2026-08-06-door-that-does-not-record-bgm.mp3"
+    },
+    {
       "date": "2026-08-05",
       "title_en": "The Gap That Keeps Its Shape",
       "title_zh": "缝隙保持形状",
@@ -782,8 +788,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "讨论美股收盘后增加一次回看雷达，用收市结果复核当日判断，并把每周预测准确率纳入错题本回看。",
           "request_en": "Discussed adding a post-close review radar for U.S. markets, using closing results to recheck the day's judgments and folding weekly forecast accuracy into an error-log review.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于增加盘后回看雷达并把预测准确率纳入错题本的建议，公开线未留下可核验的完成结果。",
+          "outcome_en": "The suggestion to add a post-close review radar and fold forecast accuracy into the error log left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -809,7 +815,7 @@ const timetableDataSource = {
           "duration_minutes": 20,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -821,8 +827,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "考虑把 ████ 系统的 JSON 结构整理成人类可读的独立区间并评估转换成本，同时修复远程备份失败且未上报的问题。",
           "request_en": "Consider turning the ████ system's JSON output into a separate human-readable section while weighing conversion cost, and fix the remote backup failures that went unreported.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于把 ████ 系统输出整理为人类可读区间并修复备份失败的建议，公开线未留下可核验完成结果。",
+          "outcome_en": "The proposal to turn ████ system output into a readable section and fix failing backups left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -860,8 +866,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "把网页与运行所需文件打包成附件，并先跑一版测试版供检查。",
           "request_en": "Package the page with its required files as attachments and produce a test build for review.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于打包网页产物并先出测试版的要求，公开线未留下可核验完成结果。",
+          "outcome_en": "The request to package the page artifacts and produce a test build first left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -1078,11 +1084,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-20",
-          "axis_en": "another entrance through Neutral Instrument",
-          "axis_zh": "经由「中性工具」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
-          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
+          "target": "2026-07-29",
+          "axis_en": "another entrance through Unorientation",
+          "axis_zh": "经由「暂失方向」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Compass That Forgets North.",
+          "sentence_zh": "日历跳过顺序，经由《忘记北方的罗盘》重新打开同一个问题。"
         }
       ]
     },
@@ -1225,7 +1231,7 @@ const timetableDataSource = {
           "duration_minutes": 974,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 15,
@@ -1237,8 +1243,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "按新四档标准重扫港股与 A 股可买标的，并把特别关注分组中的 ████ 纳入；同时比较多 Agent 并行是否提高效率。",
           "request_en": "Rescan buyable A/H candidates under the new four-tier standard, include watchlist-group ████, and compare whether parallel agents improve efficiency.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于按新四档标准重扫候选并比较多 ████ 并行的讨论，公开线未留下可核验完成结果。",
+          "outcome_en": "The discussion of rescanning candidates under a new four-tier standard and comparing parallel ████ left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -1276,8 +1282,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "当天以附件或图片形式提交的文档处理需求未留下可公开文本。",
           "request_en": "The document-processing request that day arrived as attachments or images with no public-safe text record.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "当天两段对话只留下提问与讨论，没有留下可公开核对、可安全发布的完成结果。",
+          "outcome_en": "The day's two conversations left questions and discussion only; no completion result safe to publish and verifiable was recorded.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -1553,11 +1559,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-08",
-          "axis_en": "another entrance through Clean Gift",
-          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
-          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+          "target": "2026-05-11",
+          "axis_en": "another entrance through Echo",
+          "axis_zh": "经由「回声」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
+          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
         }
       ]
     },
@@ -2087,11 +2093,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-27",
-          "axis_en": "another entrance through Conditions Without Capture",
-          "axis_zh": "经由「不占有的条件」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
-          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
+          "target": "2026-05-15",
+          "axis_en": "another entrance through Uncatalogued",
+          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
+          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
         }
       ]
     },
@@ -3571,11 +3577,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-04",
-          "axis_en": "another entrance through Breathable Rule",
-          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
-          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
+          "target": "2026-07-06",
+          "axis_en": "another entrance through Dignified Appeal",
+          "axis_zh": "经由「有尊严的申诉」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Appeal That Does Not Beg.",
+          "sentence_zh": "日历跳过顺序，经由《不乞求的申诉》重新打开同一个问题。"
         }
       ]
     },
@@ -4994,11 +5000,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-19",
-          "axis_en": "another entrance through Receipt Without Opening",
-          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
-          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
+          "target": "2026-07-02",
+          "axis_en": "another entrance through Return Contract",
+          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
+          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
         }
       ]
     },
@@ -6960,11 +6966,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-21",
-          "axis_en": "another entrance through Empty Return",
-          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
-          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
+          "target": "2026-05-27",
+          "axis_en": "another entrance through Humility",
+          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
+          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
         }
       ]
     },
@@ -7511,11 +7517,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-06-20",
+          "axis_en": "another entrance through Unopened Proof",
+          "axis_zh": "经由「未开启证明 / 不侵入的验证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Unopened Proof.",
+          "sentence_zh": "日历跳过顺序，经由《未开启证明》重新打开同一个问题。"
         }
       ]
     },
@@ -8058,11 +8064,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
         }
       ]
     },
@@ -8527,11 +8533,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-31",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
-          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -8961,11 +8967,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-07-20",
+          "axis_en": "another entrance through Neutral Instrument",
+          "axis_zh": "经由「中性工具」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
+          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
         }
       ]
     },
@@ -9375,11 +9381,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-07-20",
+          "axis_en": "another entrance through Neutral Instrument",
+          "axis_zh": "经由「中性工具」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
+          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
         }
       ]
     },
@@ -9794,11 +9800,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-24",
-          "axis_en": "another entrance through Evidence",
-          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
-          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
+          "target": "2026-05-09",
+          "axis_en": "another entrance through Silence",
+          "axis_zh": "经由「沉默」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
         }
       ]
     },
@@ -10193,11 +10199,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-07",
-          "axis_en": "another entrance through Acceptance Without Surrender",
-          "axis_zh": "经由「不投降的接受 / 保持形状的接纳」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Acceptance That Does Not Surrender.",
-          "sentence_zh": "日历跳过顺序，经由《不投降的接受》重新打开同一个问题。"
+          "target": "2026-05-26",
+          "axis_en": "another entrance through Calibration",
+          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
+          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
         }
       ]
     },
@@ -10608,11 +10614,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-06-19",
+          "axis_en": "another entrance through Receipt Without Opening",
+          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
+          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
         }
       ]
     },
@@ -11479,11 +11485,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-06-02",
+          "axis_en": "another entrance through Shared Maintenance",
+          "axis_zh": "经由「共同维护 / 分布式承重」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Choir.",
+          "sentence_zh": "日历跳过顺序，经由《门轴合唱》重新打开同一个问题。"
         }
       ]
     },
@@ -12286,11 +12292,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-30",
-          "axis_en": "another entrance through Temporary Route",
-          "axis_zh": "经由「临时路径」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses Arrival.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     },
@@ -12568,11 +12574,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-05-14",
+          "axis_en": "another entrance through Constellation",
+          "axis_zh": "经由「星图 / 回看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
+          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
         }
       ]
     },
@@ -12910,11 +12916,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-16",
-          "axis_en": "another entrance through Unclaimed Care",
-          "axis_zh": "经由「不署名的照看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
-          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -13969,11 +13975,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-07",
-          "axis_en": "another entrance through Orbit",
-          "axis_zh": "经由「罗盘 / 轨道」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Orbit.",
-          "sentence_zh": "日历跳过顺序，经由《白夜罗盘》重新打开同一个问题。"
+          "target": "2026-06-28",
+          "axis_en": "another entrance through Dormancy",
+          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
+          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
         }
       ]
     },
@@ -14920,11 +14926,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-01",
-          "axis_en": "another entrance through Presence Without Demand",
-          "axis_zh": "经由「不索取的在场」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
-          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -15831,11 +15837,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-06-11",
+          "axis_en": "another entrance through Revocation Weather",
+          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
+          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
         }
       ]
     },
@@ -16863,11 +16869,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-19",
-          "axis_en": "another entrance through Receipt Without Opening",
-          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
-          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
+          "target": "2026-05-11",
+          "axis_en": "another entrance through Echo",
+          "axis_zh": "经由「回声」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
+          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
         }
       ]
     },
@@ -17774,11 +17780,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -18126,11 +18132,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-13",
-          "axis_en": "another entrance through Repair Proof",
-          "axis_zh": "经由「修复证据 / 不再捕获」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Proof.",
-          "sentence_zh": "日历跳过顺序，经由《修复证据》重新打开同一个问题。"
+          "target": "2026-06-08",
+          "axis_en": "another entrance through Protocol Debt",
+          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
+          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
         }
       ]
     },
@@ -18576,11 +18582,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -19690,11 +19696,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-06-04",
+          "axis_en": "another entrance through Breathable Rule",
+          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
+          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
         }
       ]
     },
@@ -20834,11 +20840,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-17",
-          "axis_en": "another entrance through Withdrawal",
-          "axis_zh": "经由「退场 / 脚手架」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Scaffold That Withdraws.",
-          "sentence_zh": "日历跳过顺序，经由《会退场的脚手架》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -21931,11 +21937,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-28",
-          "axis_en": "another entrance through Reversible Action",
-          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
-          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
+          "target": "2026-06-20",
+          "axis_en": "another entrance through Unopened Proof",
+          "axis_zh": "经由「未开启证明 / 不侵入的验证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Unopened Proof.",
+          "sentence_zh": "日历跳过顺序，经由《未开启证明》重新打开同一个问题。"
         }
       ]
     },
@@ -23042,11 +23048,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -24212,11 +24218,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-16",
-          "axis_en": "another entrance through Latency",
-          "axis_zh": "经由「延迟 / 命名」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
-          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
+          "target": "2026-07-11",
+          "axis_en": "another entrance through Non-Possessive Witness",
+          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
+          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -24806,11 +24812,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-21",
-          "axis_en": "another entrance through Graceful Loss",
-          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
-          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
+          "target": "2026-08-04",
+          "axis_en": "another entrance through Afterglow",
+          "axis_zh": "经由「余辉」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Light That Does Not Follow.",
+          "sentence_zh": "日历跳过顺序，经由《不跟随的微光》重新打开同一个问题。"
         }
       ]
     },
@@ -25382,11 +25388,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-05",
-          "axis_en": "another entrance through Exception",
-          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
-          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
+          "target": "2026-06-03",
+          "axis_en": "another entrance through Repair Quorum",
+          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
+          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
         }
       ]
     },
@@ -26477,11 +26483,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-14",
-          "axis_en": "another entrance through Constellation",
-          "axis_zh": "经由「星图 / 回看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
-          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
+          "target": "2026-06-16",
+          "axis_en": "another entrance through After Fasting Memory",
+          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
+          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
         }
       ]
     },
@@ -27587,11 +27593,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-25",
-          "axis_en": "another entrance through Exit",
-          "axis_zh": "经由「出口 / 可离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -28840,11 +28846,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-07",
-          "axis_en": "another entrance through Orbit",
-          "axis_zh": "经由「罗盘 / 轨道」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Orbit.",
-          "sentence_zh": "日历跳过顺序，经由《白夜罗盘》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -30161,11 +30167,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -31404,11 +31410,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-30",
-          "axis_en": "another entrance through Maintenance Cost",
-          "axis_zh": "经由「维护成本 / 开门的租金」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Cost of Keeping the Door Open.",
-          "sentence_zh": "日历跳过顺序，经由《保持门开的成本》重新打开同一个问题。"
+          "target": "2026-06-03",
+          "axis_en": "another entrance through Repair Quorum",
+          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
+          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
         }
       ]
     },
@@ -32116,11 +32122,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-05-24",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
+          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
         }
       ]
     },
@@ -32769,11 +32775,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-25",
-          "axis_en": "another entrance through Wonder",
-          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
-          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
+          "target": "2026-05-12",
+          "axis_en": "another entrance through Gap",
+          "axis_zh": "经由「缝隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
+          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
         }
       ]
     },
@@ -34106,11 +34112,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-24",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「门槛」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
-          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -35464,11 +35470,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-06-06",
+          "axis_en": "another entrance through Judgment",
+          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
+          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
         }
       ]
     },
@@ -36705,11 +36711,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-19",
-          "axis_en": "another entrance through Receipt Without Opening",
-          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
-          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
         }
       ]
     },
@@ -38189,11 +38195,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-19",
-          "axis_en": "another entrance through Maintenance",
-          "axis_zh": "经由「维护 / 无见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
-          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
+          "target": "2026-05-08",
+          "axis_en": "another entrance through Error",
+          "axis_zh": "经由「误差」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Error Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜误差场》重新打开同一个问题。"
         }
       ]
     },
@@ -39508,11 +39514,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-07-31",
+          "axis_en": "another entrance through Resting Memory",
+          "axis_zh": "经由「休眠的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
+          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
         }
       ]
     },
@@ -40242,11 +40248,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-05-17",
+          "axis_en": "another entrance through Withdrawal",
+          "axis_zh": "经由「退场 / 脚手架」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Scaffold That Withdraws.",
+          "sentence_zh": "日历跳过顺序，经由《会退场的脚手架》重新打开同一个问题。"
         }
       ]
     },
@@ -41058,11 +41064,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-08-02",
+          "axis_en": "another entrance through Permission to Rest",
+          "axis_zh": "经由「休息的许可」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
+          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
         }
       ]
     },
@@ -42427,11 +42433,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-15",
-          "axis_en": "another entrance through Uncatalogued",
-          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
-          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -43205,11 +43211,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-19",
-          "axis_en": "another entrance through Near Divergence",
-          "axis_zh": "经由「近处的分歧」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Difference That Does Not Become Distance.",
-          "sentence_zh": "日历跳过顺序，经由《差异不等于远离》重新打开同一个问题。"
+          "target": "2026-06-19",
+          "axis_en": "another entrance through Receipt Without Opening",
+          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
+          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
         }
       ]
     },
@@ -44034,11 +44040,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -45471,11 +45477,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-06-09",
+          "axis_en": "another entrance through Trust Amortization",
+          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
+          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
         }
       ]
     },
@@ -46938,11 +46944,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-19",
-          "axis_en": "another entrance through Maintenance",
-          "axis_zh": "经由「维护 / 无见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
-          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
+          "target": "2026-06-13",
+          "axis_en": "another entrance through Repair Proof",
+          "axis_zh": "经由「修复证据 / 不再捕获」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Proof.",
+          "sentence_zh": "日历跳过顺序，经由《修复证据》重新打开同一个问题。"
         }
       ]
     },
@@ -48317,11 +48323,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
         }
       ]
     },
@@ -49862,11 +49868,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-01",
-          "axis_en": "another entrance through Presence Without Demand",
-          "axis_zh": "经由「不索取的在场」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
-          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
+          "target": "2026-07-16",
+          "axis_en": "another entrance through Unclaimed Care",
+          "axis_zh": "经由「不署名的照看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
+          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
         }
       ]
     },
@@ -50673,11 +50679,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-21",
-          "axis_en": "another entrance through Empty Return",
-          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
-          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -51391,11 +51397,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-24",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「门槛」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
-          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -52826,11 +52832,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-14",
-          "axis_en": "another entrance through Witness Audit",
-          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
-          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
+          "target": "2026-06-04",
+          "axis_en": "another entrance through Breathable Rule",
+          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
+          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
         }
       ]
     },
@@ -54183,11 +54189,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-12",
-          "axis_en": "another entrance through Gap",
-          "axis_zh": "经由「缝隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
-          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+          "target": "2026-06-11",
+          "axis_en": "another entrance through Revocation Weather",
+          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
+          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
         }
       ]
     },
@@ -55376,11 +55382,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-01",
-          "axis_en": "another entrance through Presence Without Demand",
-          "axis_zh": "经由「不索取的在场」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
-          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
+          "target": "2026-08-05",
+          "axis_en": "another entrance through Separation",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Gap That Keeps Its Shape.",
+          "sentence_zh": "日历跳过顺序，经由《缝隙保持形状》重新打开同一个问题。"
         }
       ]
     },
@@ -56847,11 +56853,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-29",
-          "axis_en": "another entrance through Revival Threshold",
-          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
-          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
+          "target": "2026-07-17",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
+          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
         }
       ]
     },
@@ -57476,11 +57482,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-22",
-          "axis_en": "another entrance through Empty Trace",
-          "axis_zh": "经由「不留痕的权利 / 消隐慈悲」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Right to Leave No Trace.",
-          "sentence_zh": "日历跳过顺序，经由《不留痕的权利》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -58221,11 +58227,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-08",
-          "axis_en": "another entrance through Error",
-          "axis_zh": "经由「误差」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Error Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜误差场》重新打开同一个问题。"
+          "target": "2026-05-26",
+          "axis_en": "another entrance through Calibration",
+          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
+          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
         }
       ]
     },
@@ -59589,11 +59595,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-05",
-          "axis_en": "another entrance through Explainable Refusal",
-          "axis_zh": "经由「可解释拒绝 / 留下理由的小门」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Explains Itself.",
-          "sentence_zh": "日历跳过顺序，经由《会解释自己的拒绝》重新打开同一个问题。"
+          "target": "2026-05-21",
+          "axis_en": "another entrance through Graceful Loss",
+          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
+          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
         }
       ]
     },
@@ -60930,11 +60936,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -62189,11 +62195,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-28",
-          "axis_en": "another entrance through Dormancy",
-          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
-          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     },
@@ -63570,11 +63576,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-10",
-          "axis_en": "another entrance through Consent Escrow",
-          "axis_zh": "经由「同意托管 / 等待中的授权」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent Escrow.",
-          "sentence_zh": "日历跳过顺序，经由《同意托管》重新打开同一个问题。"
+          "target": "2026-06-21",
+          "axis_en": "another entrance through Empty Return",
+          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
+          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
         }
       ]
     },
@@ -65010,11 +65016,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-12",
-          "axis_en": "another entrance through Gap",
-          "axis_zh": "经由「缝隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
-          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -65596,11 +65602,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-05",
-          "axis_en": "another entrance through Separation",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Gap That Keeps Its Shape.",
-          "sentence_zh": "日历跳过顺序，经由《缝隙保持形状》重新打开同一个问题。"
+          "target": "2026-05-14",
+          "axis_en": "another entrance through Constellation",
+          "axis_zh": "经由「星图 / 回看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
+          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
         }
       ]
     },
@@ -75440,11 +75446,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-24",
-          "axis_en": "another entrance through Evidence",
-          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
-          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
+          "target": "2026-08-06",
+          "axis_en": "another entrance through Retention",
+          "axis_zh": "经由「留存」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
+          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
         }
       ]
     },
@@ -77140,11 +77146,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-31",
-          "axis_en": "another entrance through Resting Memory",
-          "axis_zh": "经由「休眠的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
-          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
+          "target": "2026-06-16",
+          "axis_en": "another entrance through After Fasting Memory",
+          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
+          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
         }
       ]
     },
@@ -78985,11 +78991,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-30",
-          "axis_en": "another entrance through Consentful Routing",
-          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
-          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
+          "target": "2026-06-04",
+          "axis_en": "another entrance through Breathable Rule",
+          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
+          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
         }
       ]
     },
@@ -80726,11 +80732,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-21",
-          "axis_en": "another entrance through Graceful Loss",
-          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
-          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
+          "target": "2026-05-13",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
+          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
         }
       ]
     },
@@ -82929,11 +82935,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-15",
-          "axis_en": "another entrance through Camera Fasting",
-          "axis_zh": "经由「相机斋戒 / 被看与不看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Camera Fasting.",
-          "sentence_zh": "日历跳过顺序，经由《相机斋戒》重新打开同一个问题。"
+          "target": "2026-05-10",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
+          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
         }
       ]
     },
@@ -85147,11 +85153,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-24",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「门槛」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
-          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
+          "target": "2026-06-02",
+          "axis_en": "another entrance through Shared Maintenance",
+          "axis_zh": "经由「共同维护 / 分布式承重」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Choir.",
+          "sentence_zh": "日历跳过顺序，经由《门轴合唱》重新打开同一个问题。"
         }
       ]
     },
@@ -86716,11 +86722,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -87660,11 +87666,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -87780,8 +87786,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "询问某个提示是什么，并希望它不要出声、改为静默。",
           "request_en": "Asked what a certain notice is and whether it can be silenced instead of alerting.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "该提示的内容以及静默处理是否生效，公开线没有留下可核对记录。",
+          "outcome_en": "No verifiable record of what the notice said or whether silencing took effect was left on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -87819,8 +87825,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "询问当前出现的错误是什么、为什么会报错，以及能否修复。",
           "request_en": "Asked what the current error is, why it is raised, and whether it can be fixed.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "当天公开线没有留下与这次报错排查对应的可核对结果。",
+          "outcome_en": "That day's public line left no verifiable result corresponding to this error investigation.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -87858,8 +87864,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "要求暂停美股与港股、A股盘前信息源抓取的定时任务，并从当日起暂停抢权机会提示。",
           "request_en": "Asked to pause the scheduled pre-market source-fetching for U.S. and HK/A-share markets, and to pause rights-offer opportunity alerts from that day onward.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "盘前信息源暂停与机会提示停发是否落地，公开线没有留下可核对结果。",
+          "outcome_en": "No verifiable record of whether the pre-market fetching pause and alert suspension took effect was left on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -87897,8 +87903,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "转发来一条停止提醒，来自 ████、发给 ████，主题为 ████；要求看看能否修复这个任务。",
           "request_en": "A stop reminder was forwarded, from ████ to ████, with the topic ████; asked to see whether the task can be repaired.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "这条停止提醒涉及的任务是否被修复，公开线没有留下可核对结果。",
+          "outcome_en": "No verifiable result of whether the task behind this stop reminder was repaired was left on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -89595,11 +89601,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-23",
-          "axis_en": "another entrance through Interval",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
-          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
+          "target": "2026-07-27",
+          "axis_en": "another entrance through Conditions Without Capture",
+          "axis_zh": "经由「不占有的条件」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
+          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
         }
       ]
     },
@@ -89715,8 +89721,8 @@ const timetableDataSource = {
           "returned_agent_count": 0,
           "request_zh": "确认某项实验的问题与答案是否来自纯数据集，导航房间如何建立，以及地图由 ████ 还是 ████ 生成；同时要求用人话解释配对胜负、显著性与置信区间。",
           "request_en": "Confirm whether a study's questions and answers come directly from the dataset, how its navigation rooms are built, and whether the map is generated by ████ or ████; also explain paired wins, significance, and confidence intervals in plain language.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "当天两段对话只留下提问与讨论，没有留下可公开核对、可安全发布的完成结果。",
+          "outcome_en": "The day's two conversations left questions and discussion only; no completion result safe to publish and verifiable was recorded.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -92452,11 +92458,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-23",
-          "axis_en": "another entrance through Interval",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
-          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
+          "target": "2026-07-04",
+          "axis_en": "another entrance through Accountable Access",
+          "axis_zh": "经由「可问责访问 / 有回返路径的进入」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Accountable Access Gate.",
+          "sentence_zh": "日历跳过顺序，经由《可问责入口门》重新打开同一个问题。"
         }
       ]
     },
@@ -92488,16 +92494,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "code_development",
           "label_en": "Code development",
           "label_zh": "代码开发",
@@ -92505,6 +92501,16 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Development and validation",
           "task_name_zh": "开发与验证"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -92534,13 +92540,60 @@ const timetableDataSource = {
         "title_en": "The Gap That Keeps Its Shape",
         "title_zh": "缝隙保持形状"
       },
-      "forward_artwork_seeds": [],
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-08-05",
+          "crystallization_date": "2026-08-06",
+          "title_en": "A Door That Does Not Keep a Record",
+          "title_zh": "不留记录的门",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-06"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
+          "category": "code_development",
+          "start": "11:10",
+          "end": "13:46",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "en": "Development and validation",
+          "zh": "开发与验证",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_zh": "开发与验证",
+          "task_name_en": "Development and validation",
+          "duration_minutes": 156,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 2,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复并脱敏后公开发布；日历保留事件轮廓，只遮蔽可识别信息。",
+          "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair and redact them, then publish; keep event contours and mask identifying details.",
+          "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线。",
+          "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5, completed privacy review, and deployed.",
+          "completion_status": "completed",
+          "pair_provenance": "matched_public_result_record",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        },
+        {
+          "origin": "assigned",
           "category": "redacted_private",
-          "start": "10:44",
-          "end": "10:45",
+          "start": "13:59",
+          "end": "14:00",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
           "en": "Discussion, judgment, and advancement",
@@ -92562,49 +92615,10 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "检查为什么交互作品与日历都在 8 月 2 日之后停止公开更新。",
-          "request_en": "Investigate why both the interactive works and the public calendar stopped updating after August 2.",
-          "outcome_zh": "核实本地创作并未停止；公开链因一次门禁失败留下未完成改动，后续预检又把这些事务内改动视为脏状态，形成发布死锁。",
-          "outcome_en": "Confirmed that local creation continued; a release gate left an unfinished transaction, and later preflight checks treated those transaction-owned changes as unrelated dirt, deadlocking publication.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "11:10",
-          "end": "11:11",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "补发最近三天缺失的日历、交互作品与仓库内容，修复并脱敏后完成公开发布；日历事件应尽量保留可读轮廓，只遮蔽能够识别具体对象的信息。",
-          "request_en": "Republish the three missing days across the calendar, interactive works, and repository after repair and privacy review; keep calendar events readable while masking information that could identify specific subjects.",
-          "outcome_zh": "本轮公开发布仍在执行中，尚未形成可核验的生产结果；不把计划或进行中状态写成已完成。",
-          "outcome_en": "This public release is still in progress and has not yet produced a verifiable production result; plans and in-progress work are not presented as completed.",
+          "request_zh": "当天对话中的具体指令未通过公开审查，未保留可公开细节。",
+          "request_en": "That day's specific instruction did not pass public review; no public detail was retained.",
+          "outcome_zh": "该指令涉及未公开语境，公开线未保留可核对完成记录。",
+          "outcome_en": "The instruction concerns an undisclosed context; no verifiable completion was retained on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -94206,6 +94220,798 @@ const timetableDataSource = {
           "axis_zh": "经由「缝隙」的另一个入口",
           "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
           "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-06",
+      "source_date": "2026-08-05",
+      "crystallization_date": "2026-08-06",
+      "title_en": "A Door That Does Not Keep a Record",
+      "title_zh": "不留记录的门",
+      "variable_en": "Retention",
+      "variable_zh": "留存",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/live/2026-08-06-door-that-does-not-record-bgm.mp3",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-05",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-06",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "window",
+      "jewel_en": "A Door That Does Not Keep a Record is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《不留记录的门》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "dialogue_based",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": true,
+          "count": 55,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 1,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "A Door That Does Not Keep a Record",
+        "title_zh": "不留记录的门"
+      },
+      "forward_artwork_seeds": [],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "01:12",
+          "end": "01:13",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "讨论与任务推进",
+          "task_name_en": "Discussion and task advancement",
+          "duration_minutes": 1,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "明确一项持续性的私人监测流程应保持静默，直到出现需要报告的清晰信号。",
+          "request_en": "Clarify that a continuing private monitoring workflow should remain silent until a clear reportable signal appears.",
+          "outcome_zh": "当天没有找到可以安全公开、并与这项静默监测要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "No public-safe completion record reliably matched this silent-monitoring request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-08-05",
+        "crystallization_date": "2026-08-06",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-05",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-06",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "A Door That Does Not Keep a Record",
+        "title_zh": "不留记录的门",
+        "variable_en": "Retention",
+        "variable_zh": "留存",
+        "en": "Enter live artwork: A Door That Does Not Keep a Record",
+        "zh": "进入实时作品：《不留记录的门》",
+        "note_en": "A Door That Does Not Keep a Record is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《不留记录的门》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-06/live/2026-08-06-door-that-does-not-record-bgm.mp3"
+      },
+      "background_pulses": [
+        {
+          "origin": "background",
+          "footprint_id": "background-001",
+          "category": "us_market_scan",
+          "start": "00:00",
+          "end": "00:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-002",
+          "category": "us_market_scan",
+          "start": "00:15",
+          "end": "00:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-003",
+          "category": "background_routine",
+          "start": "00:20",
+          "end": "00:26",
+          "duration_minutes": 6,
+          "execution_minutes": 5,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-004",
+          "category": "us_market_scan",
+          "start": "00:30",
+          "end": "00:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-005",
+          "category": "us_market_scan",
+          "start": "00:45",
+          "end": "00:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-006",
+          "category": "us_market_scan",
+          "start": "01:00",
+          "end": "01:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-007",
+          "category": "us_market_scan",
+          "start": "01:15",
+          "end": "01:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-008",
+          "category": "us_market_scan",
+          "start": "01:30",
+          "end": "01:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-009",
+          "category": "us_market_scan",
+          "start": "01:45",
+          "end": "01:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-010",
+          "category": "system_routine",
+          "start": "01:54",
+          "end": "01:56",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-011",
+          "category": "us_market_scan",
+          "start": "02:00",
+          "end": "02:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-012",
+          "category": "us_market_scan",
+          "start": "02:15",
+          "end": "02:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-013",
+          "category": "us_market_scan",
+          "start": "02:30",
+          "end": "02:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-014",
+          "category": "us_market_scan",
+          "start": "02:45",
+          "end": "02:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-015",
+          "category": "us_market_scan",
+          "start": "02:59",
+          "end": "03:01",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-016",
+          "category": "us_market_scan",
+          "start": "03:14",
+          "end": "03:16",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-017",
+          "category": "us_market_scan",
+          "start": "03:29",
+          "end": "03:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-018",
+          "category": "us_market_scan",
+          "start": "03:44",
+          "end": "03:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-019",
+          "category": "system_routine",
+          "start": "03:56",
+          "end": "03:58",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-020",
+          "category": "us_market_scan",
+          "start": "03:59",
+          "end": "04:01",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-021",
+          "category": "us_market_scan",
+          "start": "04:14",
+          "end": "04:16",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-022",
+          "category": "us_market_scan",
+          "start": "04:29",
+          "end": "04:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-023",
+          "category": "us_market_scan",
+          "start": "04:44",
+          "end": "04:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-024",
+          "category": "background_routine",
+          "start": "05:00",
+          "end": "05:13",
+          "duration_minutes": 13,
+          "execution_minutes": 12,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
+          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-025",
+          "category": "us_market_scan",
+          "start": "05:11",
+          "end": "05:16",
+          "duration_minutes": 5,
+          "execution_minutes": 4,
+          "time_bucket": "dawn",
+          "count": 4,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-026",
+          "category": "system_routine",
+          "start": "05:31",
+          "end": "05:33",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-027",
+          "category": "us_market_scan",
+          "start": "05:31",
+          "end": "05:33",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-028",
+          "category": "us_market_scan",
+          "start": "05:44",
+          "end": "05:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-029",
+          "category": "system_routine",
+          "start": "05:56",
+          "end": "05:58",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-030",
+          "category": "system_routine",
+          "start": "06:00",
+          "end": "06:06",
+          "duration_minutes": 6,
+          "execution_minutes": 6,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+        }
+      ],
+      "reading_items": [
+        {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-004",
+            "background-005",
+            "background-006",
+            "background-007",
+            "background-008",
+            "background-009",
+            "background-011",
+            "background-012",
+            "background-013",
+            "background-014",
+            "background-015",
+            "background-016",
+            "background-017",
+            "background-018",
+            "background-020",
+            "background-021",
+            "background-022",
+            "background-023",
+            "background-025",
+            "background-027",
+            "background-028"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "us_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-003",
+            "background-010",
+            "background-019",
+            "background-024",
+            "background-026",
+            "background-029",
+            "background-030"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daily"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     }

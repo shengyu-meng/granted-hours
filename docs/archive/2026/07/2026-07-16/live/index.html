@@ -51,8 +51,8 @@
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
-  .gh-work-note-overlay[hidden] { display: none !important; }
-  .gh-work-note-overlay {
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
     position: fixed;
     z-index: 2147483100;
     inset: 0;
@@ -64,9 +64,9 @@
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  .gh-work-note-overlay.is-open { opacity: 1; }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
   body.gh-work-note-modal-open { overflow: hidden !important; }
-  .gh-work-note-panel {
+  #ghWorkNoteOverlay .gh-work-note-panel {
     position: relative;
     width: min(720px, calc(100vw - 36px));
     max-height: min(82vh, 780px);
@@ -83,7 +83,7 @@
     backdrop-filter: blur(28px) saturate(1.24);
     box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
   }
-  .gh-work-note-close {
+  #ghWorkNoteOverlay .gh-work-note-close {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -96,34 +96,34 @@
     font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
     cursor: pointer;
   }
-  .gh-work-note-kicker,
-  .gh-work-note-section h3 {
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
     margin: 0 0 8px;
     color: rgba(242,195,107,.88);
     font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .gh-work-note-title {
+  #ghWorkNoteOverlay .gh-work-note-title {
     max-width: calc(100% - 48px);
     margin: 0 0 10px;
     font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-meta {
+  #ghWorkNoteOverlay .gh-work-note-meta {
     margin: 0 0 24px;
     color: rgba(247,242,232,.62);
     font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   }
-  .gh-work-note-section {
+  #ghWorkNoteOverlay .gh-work-note-section {
     padding: 18px 0;
     border-top: 1px solid rgba(255,255,255,.12);
   }
-  .gh-work-note-section p {
+  #ghWorkNoteOverlay .gh-work-note-section p {
     margin: 8px 0 0;
     color: rgba(247,242,232,.88);
     font: 15px/1.72 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-archive {
+  #ghWorkNoteOverlay .gh-work-note-archive {
     display: inline-flex;
     margin-top: 22px;
     border-bottom: 1px solid rgba(242,195,107,.5);
@@ -184,8 +184,8 @@
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
-    .gh-work-note-overlay { align-items: end; padding: 10px; }
-    .gh-work-note-panel {
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
       max-height: min(84dvh, 760px);
       border-radius: 20px 20px 12px 12px;
@@ -355,9 +355,9 @@
       && document.activeElement !== document.body
     ) ? document.activeElement : workNote;
     workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
     document.body.classList.add('gh-work-note-modal-open');
     requestAnimationFrame(() => {
-      workNoteOverlay.classList.add('is-open');
       workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
     });
   }
@@ -428,6 +428,8 @@
   }
 })();
 </script>
+
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Care That Does Not Take Credit / 不邀功的照看</title><style>
 :root{color-scheme:dark;--ink:#08101a;--paper:#f1eee5;--mint:#9ee8ce;--amber:#f3bc70;--violet:#b7a4f2}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;z-index:2;top:clamp(16px,4vh,48px);left:clamp(16px,4vw,60px);width:min(570px,calc(100vw - 32px));padding:20px;border:1px solid rgba(158,232,206,.25);border-radius:23px;background:linear-gradient(135deg,rgba(8,16,26,.9),rgba(30,42,59,.52));box-shadow:0 18px 80px #0007;backdrop-filter:blur(16px)}.eyebrow,.legend,.sound,.status{font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em}.eyebrow{color:#f1eee58c;text-transform:uppercase}h1{margin:9px 0 0;font-size:clamp(27px,4vw,50px);line-height:.96;letter-spacing:-.06em}h1 span{display:block;color:var(--mint);font-weight:650}.thesis{margin:14px 0 0;color:#f1eee5c7;font-size:14px;line-height:1.65}.thesis strong{color:#fff}.legend{position:fixed;z-index:2;bottom:clamp(15px,4vh,42px);left:clamp(16px,4vw,60px);max-width:min(760px,calc(100vw - 32px));padding:13px 15px;border:1px solid #ffffff1d;border-radius:18px;background:#08101aae;color:#f1eee5bc;backdrop-filter:blur(14px)}.sound{position:fixed;z-index:3;right:clamp(15px,3vw,38px);bottom:clamp(15px,3vh,32px);border:1px solid #9ee8ce80;border-radius:999px;padding:11px 14px;color:var(--paper);background:#08101acc;cursor:pointer}.status{position:fixed;z-index:2;right:clamp(15px,3vw,38px);top:clamp(15px,3vh,32px);max-width:280px;text-align:right;color:#f1eee594}.veil .panel,.veil .legend{opacity:0;pointer-events:none}
 </style></head><body><canvas id="field"></canvas><audio id="bgm" src="2026-07-16-care-without-credit-bgm.mp3" preload="auto" loop autoplay></audio><section class="panel"><div class="eyebrow">Granted Hours · 2026-07-16 · variable: unclaimed care</div><h1>Care That Does Not Take Credit <span>不邀功的照看</span></h1><p class="thesis"><strong>The repair is real even when it refuses to become a signature.</strong><br>修复即使拒绝成为签名，也依然真实。</p></section><aside class="legend">Pointer reveals pressure lines · click sends an unnamed stitch · C central care · F lets every stitch fade<br>Space pause · R reset · V veil text · M music · S save still</aside><aside class="status" id="status"></aside><button class="sound" id="sound" aria-pressed="true">BGM on / 音乐开</button><script>

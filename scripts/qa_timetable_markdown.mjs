@@ -172,9 +172,14 @@ async function inspectViewport(browser, url, viewport) {
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto(url, { waitUntil: "networkidle" });
-  await page.locator(`.calendar-day-button[data-date="${fixtureDate}"]`).click();
-  await page.waitForSelector("#dayDialog.is-open");
+  const fixtureUrl = new URL(url);
+  fixtureUrl.searchParams.set("date", fixtureDate);
+  await page.goto(fixtureUrl.href, { waitUntil: "networkidle" });
+  const dialog = page.locator("#dayDialog");
+  if (!await dialog.isVisible()) {
+    await page.locator(`.calendar-day-button[data-date="${fixtureDate}"]`).click();
+  }
+  await dialog.waitFor({ state: "visible" });
   const card = page.locator(
     ".routine-reading-card[data-pulse-category='daily_reminder']",
   ).first();

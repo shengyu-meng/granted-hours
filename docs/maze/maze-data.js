@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-05",
-  "nodeCount": 85,
+  "generatedAt": "2026-08-06",
+  "nodeCount": 86,
   "featuredCount": 14,
   "nodes": [
     {
@@ -1786,6 +1786,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -17,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-06",
+      "date": "2026-08-06",
+      "title_en": "A Door That Does Not Keep a Record",
+      "title_zh": "不留记录的门",
+      "variable_en": "Retention",
+      "variable_zh": "留存",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "Retention marked a crossing that had to explain its return path.",
+      "diary_zh": "「留存」标记了一次必须说明回返路径的穿越。",
+      "live_url": "../archive/2026/08/2026-08-06/live/",
+      "archive_url": "../archive/2026/08/2026-08-06/",
+      "gif": "../archive/2026/08/2026-08-06/assets/visual-preview.gif",
+      "x": 0,
+      "y": 5,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -1824,7 +1845,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 34
+      "count": 35
     }
   ],
   "links": [
@@ -2165,6 +2186,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-05"
     ],
     [
+      "2026-08-05",
+      "2026-08-06"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -2315,6 +2340,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-22",
       "2026-07-31"
+    ],
+    [
+      "2026-07-24",
+      "2026-08-06"
     ],
     [
       "2026-05-11",

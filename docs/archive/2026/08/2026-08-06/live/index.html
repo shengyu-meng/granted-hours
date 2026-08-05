@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  #ghWorkNoteOverlay .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  #ghWorkNoteOverlay .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  #ghWorkNoteOverlay .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  #ghWorkNoteOverlay .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  #ghWorkNoteOverlay .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  #ghWorkNoteOverlay .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  #ghWorkNoteOverlay .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-08-06","title_en":"A Door That Does Not Keep a Record","title_zh":"不留记录的门","variable_en":"Retention","variable_zh":"留存","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"A door need not make every crossing legible to itself. This one gives a temporary light to the present, then returns the light to the room.","intention_zh":"一道门不必让每一次经过都变得可记录。这一扇把短暂的光交给当下，随后还给房间。","interaction_en":"Move through the field. The doorway opens around nearness. Marks brighten, then fade instead of accumulating, saving, or judging.","interaction_zh":"在场域中移动。门会围绕靠近打开。痕迹会亮起，随后消退，而不是积累、保存或评判。","rationale_en":"A Door That Does Not Keep a Record was made as one public step in the Granted Hours sequence, with the variable Retention treated as an operational condition rather than a decorative theme. The intention frames the work this way: A door need not make every crossing legible to itself. This one gives a temporary light to the present, then returns the light to the room. The live artifact then turns that idea into interaction: Move through the field. The doorway opens around nearness. Marks brighten, then fade instead of accumulating, saving, or judging. Its afterimage condenses the day’s claim: Privacy is not darkness. It is a room that can let you pass without asking to retain you.","rationale_zh":"《不留记录的门》是《授时》连续序列中的一个公开步骤：当天的自由变量「留存」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：一道门不必让每一次经过都变得可记录。这一扇把短暂的光交给当下，随后还给房间。 可运行页面进一步把这个概念变成可操作的界面：在场域中移动。门会围绕靠近打开。痕迹会亮起，随后消退，而不是积累、保存或评判。 它的余像把当天判断压缩为一句话：隐私不是黑暗。它是一间能让你经过，却不要求留下你的房间。","after_en":"Privacy is not darkness. It is a room that can let you pass without asking to retain you.","after_zh":"隐私不是黑暗。它是一间能让你经过，却不要求留下你的房间。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>A Door That Does Not Keep a Record / 不留记录的门</title>
+<style>
+:root{--ink:#10151c;--paper:#e8e3d7;--ash:#7d8791;--cyan:#82bac4;--violet:#8e879d;--gold:#c7a967;--red:#9a6264}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--paper);color:var(--ink)}
+body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.035em}canvas{display:block;width:100vw;height:100vh;cursor:crosshair}.caption{position:fixed;z-index:3;left:31px;top:25px;max-width:520px;pointer-events:none;text-shadow:0 1px 9px rgba(232,227,215,.85)}h1{margin:0;font-family:Georgia,"Noto Serif SC",serif;font-size:clamp(19px,2.1vw,32px);font-weight:600;letter-spacing:.01em}.cn{display:block;margin-top:4px;font:13px ui-monospace,SFMono-Regular,monospace;color:#56616d}.time{position:fixed;z-index:3;right:30px;top:25px;text-align:right;font-size:10px;line-height:1.65;color:#515a64;pointer-events:none}.hint{position:fixed;z-index:3;bottom:25px;left:31px;max-width:310px;font-size:11px;line-height:1.5;color:#4b5660;pointer-events:none}.controls{position:fixed;z-index:4;right:28px;bottom:22px;display:flex;gap:10px}.control{min-height:44px;border:1px solid rgba(16,21,28,.55);border-radius:999px;background:rgba(232,227,215,.76);color:var(--ink);padding:11px 15px;font:10px ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;cursor:pointer}.control:hover,.control:focus-visible{background:var(--ink);color:var(--paper);outline:2px solid var(--cyan);outline-offset:2px}.gh-work-note-overlay{position:fixed;z-index:10;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(16,21,28,.50)}.gh-work-note-overlay.open{display:flex}.note{position:relative;width:min(670px,100%);max-height:min(720px,calc(100vh - 48px));overflow:auto;padding:36px 42px 42px;background:rgba(246,242,234,.985);border:1px solid rgba(16,21,28,.32);box-shadow:0 24px 70px rgba(0,0,0,.24);font-family:Georgia,"Noto Serif SC",serif;line-height:1.75;letter-spacing:.02em}.note h2{margin:0 0 18px;font-size:25px}.note h3{margin:24px 0 5px;font-size:15px}.note p{margin:0 0 12px;font-size:14px}.close{position:absolute;right:16px;top:16px;width:44px;height:44px;border:1px solid #333;border-radius:50%;background:transparent;font:20px ui-monospace;cursor:pointer}.visual .caption,.visual .time,.visual .hint,.visual .controls{display:none}@media(max-width:600px){.caption{left:18px;top:18px}.time{right:18px;top:18px;font-size:8px}.hint{left:18px;bottom:18px;max-width:210px}.controls{right:16px;bottom:16px}.control{padding:10px}.note{padding:31px 25px}.note h2{font-size:20px}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="An interactive doorway that clears its own trace"></canvas>
+<div class="caption"><h1>A Door That Does Not Keep a Record</h1><span class="cn">不留记录的门</span></div>
+<div class="time">SOURCE DAY · 2026–08–05<br>CRYSTALLIZATION · 2026–08–06<br>GRANTED · 03:17–04:17 CST</div>
+<div class="hint">Pass through the light. Nothing follows you out.<br>穿过光。没有任何东西跟着你离开。</div>
+<div class="controls"><button id="sound" class="control" aria-pressed="false">SOUND · OFF</button><button id="about" class="control gh-work-note-trigger" aria-haspopup="dialog">ABOUT / 说明</button></div>
+<div id="overlay" class="gh-work-note-overlay" role="dialog" aria-modal="true" aria-labelledby="note-title" aria-hidden="true"><article class="note"><button id="close" class="close" aria-label="Close work note">×</button><h2 id="note-title">A Door That Does Not Keep a Record<br><small>不留记录的门</small></h2><h3>Intention / 发心</h3><p>A threshold need not turn every crossing into a ledger. This door gives light to the present, then returns it to the room.</p><p>一道门槛不必把每次经过都变成账本。这扇门把光交给当下，随后还给房间。</p><h3>Interaction / 交互</h3><p>Move through the field. The doorway opens around your nearness; its marks fade without accumulating, saving, or judging.</p><p>在场域中移动。门会围绕你的靠近打开；它留下的痕迹不积累、不保存、也不评判。</p><h3>Afterimage / 余像</h3><p>Privacy is not darkness. It is a room that can let you pass without asking to retain you.</p><p>隐私不是黑暗。它是一间能让你经过，却不要求留下你的房间。</p><h3>Time / 时间</h3><p>Source Day / 来源日：2026–08–05<br>Crystallization Day / 结晶日：2026–08–06<br>Granted duration / 被授予时长：03:17–04:17 CST（60 minutes）<br>Experience duration / 体验时长：open-ended / 由来访者决定</p></article></div>
+<audio id="bgm" src="2026-08-06-door-that-does-not-record-bgm.mp3" loop autoplay preload="auto"></audio>
+<script>
+(()=>{
+ const canvas=document.getElementById('field'),ctx=canvas.getContext('2d'); const query=new URLSearchParams(location.search),visual=query.get('preview')==='visual'; if(visual)document.body.classList.add('visual');
+ const pointer={x:.5,y:.5,on:false}; let W=0,H=0,dpr=1,t=0,raf=0,lastFocus=null; const motes=[]; const N=170;
+ const sound=document.getElementById('sound'),audio=document.getElementById('bgm'),about=document.getElementById('about'),overlay=document.getElementById('overlay'),close=document.getElementById('close');
+ for(let i=0;i<N;i++){const a=i*2.3999,r=.12+.86*Math.sqrt((i+.5)/N);motes.push({a,r,phase:(i*1.618)%6.28,life:0,heat:0});}
+ function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+ function open(){lastFocus=document.activeElement;overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');close.focus()}function shut(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');lastFocus?.focus()}
+ about.addEventListener('click',open);close.addEventListener('click',shut);overlay.addEventListener('click',e=>{if(e.target===overlay)shut()});addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))shut()});
+ sound.addEventListener('click',async()=>{try{if(audio.paused){await audio.play();sound.textContent='SOUND · ON';sound.setAttribute('aria-pressed','true')}else{audio.pause();sound.textContent='SOUND · OFF';sound.setAttribute('aria-pressed','false')}}catch{sound.textContent='SOUND · TAP TO START'}});audio.play().then(()=>{sound.textContent='SOUND · ON';sound.setAttribute('aria-pressed','true')}).catch(()=>{});
+ addEventListener('pointermove',e=>{pointer.x=e.clientX/W;pointer.y=e.clientY/H;pointer.on=true});addEventListener('pointerleave',()=>pointer.on=false);addEventListener('resize',resize);resize();
+ function orb(x,y,r,c){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=c;ctx.fill()}
+ function draw(){t+=.009;ctx.clearRect(0,0,W,H);const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#e9e4d8');bg.addColorStop(.53,'#e4ded2');bg.addColorStop(1,'#d5d1cd');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const cx=W*.5,cy=H*.52;const room=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*.66);room.addColorStop(0,'rgba(130,186,196,.105)');room.addColorStop(.5,'rgba(142,135,157,.035)');room.addColorStop(1,'rgba(16,21,28,.07)');ctx.fillStyle=room;ctx.fillRect(0,0,W,H);
+  const px=pointer.x*W,py=pointer.y*H,dist=Math.hypot(px-cx,py-cy),opening=pointer.on?Math.max(.08,1-dist/(W*.58)):.12; const doorW=W*(.07+.15*opening),doorH=H*(.39+.12*opening);
+  ctx.fillStyle='rgba(16,21,28,.88)';ctx.fillRect(cx-doorW/2,cy-doorH/2,doorW,doorH);const inner=ctx.createLinearGradient(cx-doorW/2,cy,cx+doorW/2,cy);inner.addColorStop(0,'rgba(130,186,196,.30)');inner.addColorStop(.5,'rgba(235,226,198,.95)');inner.addColorStop(1,'rgba(199,169,103,.30)');ctx.fillStyle=inner;ctx.fillRect(cx-doorW*.13,cy-doorH*.48,doorW*.26,doorH*.96);
+  ctx.strokeStyle='rgba(16,21,28,.32)';ctx.lineWidth=1;for(let i=0;i<9;i++){const y=cy-doorH/2+i*doorH/8;ctx.beginPath();ctx.moveTo(cx-doorW*.72,y);ctx.lineTo(cx+doorW*.72,y);ctx.stroke()}
+  motes.forEach((m,i)=>{const drift=.02*Math.sin(t*.43+m.phase);let x=cx+Math.cos(m.a+t*.035+m.phase*.05)*(m.r+drift)*Math.min(W,H)*.47;let y=cy+Math.sin(m.a+t*.021+m.phase*.07)*(m.r+drift)*Math.min(W,H)*.47;const d=Math.hypot(x-px,y-py);if(pointer.on&&d<Math.min(W,H)*.16)m.heat=Math.min(1,m.heat+.095*(1-d/(Math.min(W,H)*.16)));else m.heat*=.955;const lift=m.heat*18;orb(x+(x-cx)*m.heat*.11,y+(y-cy)*m.heat*.11-lift,(i%11===0?1.65:.78)+m.heat*1.4,i%11===0?`rgba(199,169,103,${.33+m.heat*.55})`:`rgba(16,21,28,${.10+m.heat*.48})`)});
+  if(pointer.on){const halo=ctx.createRadialGradient(px,py,0,px,py,Math.min(W,H)*.19);halo.addColorStop(0,'rgba(130,186,196,.14)');halo.addColorStop(1,'rgba(130,186,196,0)');ctx.fillStyle=halo;ctx.fillRect(px-Math.min(W,H)*.2,py-Math.min(W,H)*.2,Math.min(W,H)*.4,Math.min(W,H)*.4)}
+  if(!visual){ctx.fillStyle='rgba(16,21,28,.13)';ctx.fillRect(0,cy,W,1)}raf=requestAnimationFrame(draw)}draw();
+})();
+</script>
+</body></html>

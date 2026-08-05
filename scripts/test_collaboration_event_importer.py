@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import apply_semantic_public_policy as policy
 import import_collaboration_events as importer
 
 
@@ -281,6 +282,19 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         self.temporary_directory.cleanup()
 
     @staticmethod
+    def serialized(value: object) -> str:
+        return json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+
+    @staticmethod
+    def collaboration_residue(history: dict) -> dict:
+        return next(
+            residue
+            for day in history["days"]
+            for residue in day["assigned_residues"]
+            if residue["source_kind"] == "collaboration_session"
+        )
+
+    @staticmethod
     def existing_residue() -> dict:
         return {
             "category": "system_maintenance",
@@ -541,6 +555,114 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         second = self.run_import(dry_run=False)
         self.assertTrue(first["changed"])
         self.assertFalse(second["changed"])
+
+    def test_import_then_semantic_import_semantic_reaches_fixed_point(self) -> None:
+        # A manually authored contour whose bilingual copy the semantic public
+        # policy abstracts. A re-import of identical evidence must preserve that
+        # transformation instead of restoring the sensitive contour/source text,
+        # so import -> semantic -> import -> semantic is a zero-change fixed
+        # point while new evidence still regenerates (evidence pairing).
+        day = "2026-08-02"
+        collaboration = {
+            "category": "social_media_organization",
+            "en": "Content organization and publishing",
+            "zh": "内容组织与发布",
+            "redaction_status": "none",
+            "redaction_count": 0,
+            "source_kind": "collaboration_session",
+            "faithfulness": "faithful_summary",
+            "evidence_count": 1,
+            "session_count": 1,
+            "delegated_agent_count": 0,
+            "returned_agent_count": 0,
+            "agent_labels": ["Hermes"],
+            "start": "10:00",
+            "end": "10:10",
+            "time_provenance": "observed_message_envelope",
+            "_request_zh": "把剩余三条微博定时发出（配额已恢复）。",
+            "_outcome_zh": "完成公开内容排期与核验。",
+            "_contour_signature": "fixture-publishing-contour",
+            "_request_topics": (),
+            "_has_safe_assistant_outcome": True,
+        }
+        contour = {
+            "date": day,
+            "category": collaboration["category"],
+            "request_zh": collaboration["_request_zh"],
+            "request_en": (
+                "Schedule the remaining three weibo posts now that quota is "
+                "restored."
+            ),
+            "outcome_zh": collaboration["_outcome_zh"],
+            "outcome_en": (
+                "Completed public-content scheduling and verification."
+            ),
+            "completion_status": "completed",
+            "pair_provenance": "assistant_result_summary",
+        }
+        contours = {"fixture-publishing-contour": contour}
+        collaborations = {day: [collaboration]}
+        empty = {"schema": importer.HISTORY_SCHEMA, "days": []}
+
+        first = importer.merge_history(empty, collaborations, {}, [day], contours, [])
+        self.assertNotEqual(self.serialized(first), self.serialized(empty))
+
+        semantic_first = json.loads(self.serialized(first))
+        policy.sanitize_history(semantic_first, identity_terms=())
+        self.assertNotEqual(
+            self.serialized(semantic_first),
+            self.serialized(first),
+        )
+        preserved_residue = self.collaboration_residue(semantic_first)
+        self.assertNotIn("配额", preserved_residue["request_zh"])
+        self.assertNotIn("微博定时发出", preserved_residue["request_zh"])
+        self.assertIn("排期与归档", preserved_residue["request_zh"])
+
+        second = importer.merge_history(
+            json.loads(self.serialized(semantic_first)),
+            collaborations,
+            {},
+            [day],
+            contours,
+            [],
+        )
+        self.assertEqual(self.serialized(second), self.serialized(semantic_first))
+
+        semantic_second = json.loads(self.serialized(second))
+        policy.sanitize_history(semantic_second, identity_terms=())
+        self.assertEqual(
+            self.serialized(semantic_second),
+            self.serialized(second),
+        )
+
+        third = importer.merge_history(
+            json.loads(self.serialized(semantic_second)),
+            collaborations,
+            {},
+            [day],
+            contours,
+            [],
+        )
+        self.assertEqual(self.serialized(third), self.serialized(semantic_second))
+
+        # New evidence still regenerates from the contour (evidence pairing).
+        changed = dict(collaboration)
+        changed["evidence_count"] = 2
+        refreshed = importer.merge_history(
+            json.loads(self.serialized(semantic_second)),
+            {day: [changed]},
+            {},
+            [day],
+            contours,
+            [],
+        )
+        self.assertNotEqual(
+            self.serialized(refreshed),
+            self.serialized(semantic_second),
+        )
+        refreshed_residue = self.collaboration_residue(refreshed)
+        self.assertEqual(refreshed_residue["request_zh"], contour["request_zh"])
+        self.assertEqual(refreshed_residue["evidence_count"], 2)
 
     def test_outcome_gate_rejects_private_domains_and_masks_unknown_names(self) -> None:
         self.assertTrue(

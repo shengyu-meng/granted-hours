@@ -51,8 +51,8 @@
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
-  .gh-work-note-overlay[hidden] { display: none !important; }
-  .gh-work-note-overlay {
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
     position: fixed;
     z-index: 2147483100;
     inset: 0;
@@ -64,9 +64,9 @@
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  .gh-work-note-overlay.is-open { opacity: 1; }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
   body.gh-work-note-modal-open { overflow: hidden !important; }
-  .gh-work-note-panel {
+  #ghWorkNoteOverlay .gh-work-note-panel {
     position: relative;
     width: min(720px, calc(100vw - 36px));
     max-height: min(82vh, 780px);
@@ -83,7 +83,7 @@
     backdrop-filter: blur(28px) saturate(1.24);
     box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
   }
-  .gh-work-note-close {
+  #ghWorkNoteOverlay .gh-work-note-close {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -96,34 +96,34 @@
     font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
     cursor: pointer;
   }
-  .gh-work-note-kicker,
-  .gh-work-note-section h3 {
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
     margin: 0 0 8px;
     color: rgba(242,195,107,.88);
     font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .gh-work-note-title {
+  #ghWorkNoteOverlay .gh-work-note-title {
     max-width: calc(100% - 48px);
     margin: 0 0 10px;
     font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-meta {
+  #ghWorkNoteOverlay .gh-work-note-meta {
     margin: 0 0 24px;
     color: rgba(247,242,232,.62);
     font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   }
-  .gh-work-note-section {
+  #ghWorkNoteOverlay .gh-work-note-section {
     padding: 18px 0;
     border-top: 1px solid rgba(255,255,255,.12);
   }
-  .gh-work-note-section p {
+  #ghWorkNoteOverlay .gh-work-note-section p {
     margin: 8px 0 0;
     color: rgba(247,242,232,.88);
     font: 15px/1.72 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-archive {
+  #ghWorkNoteOverlay .gh-work-note-archive {
     display: inline-flex;
     margin-top: 22px;
     border-bottom: 1px solid rgba(242,195,107,.5);
@@ -184,8 +184,8 @@
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
-    .gh-work-note-overlay { align-items: end; padding: 10px; }
-    .gh-work-note-panel {
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
       max-height: min(84dvh, 760px);
       border-radius: 20px 20px 12px 12px;
@@ -355,9 +355,9 @@
       && document.activeElement !== document.body
     ) ? document.activeElement : workNote;
     workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
     document.body.classList.add('gh-work-note-modal-open');
     requestAnimationFrame(() => {
-      workNoteOverlay.classList.add('is-open');
       workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
     });
   }
@@ -428,6 +428,8 @@
   }
 })();
 </script>
+
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interval Garden / 间隙花园</title><style>
 :root{--paper:#f0eee6;--ink:#19332f;--moss:#4c7860;--sun:#e5a35d;--dusk:#6f7894}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.panel{position:fixed;z-index:2;pointer-events:none;left:clamp(18px,4vw,54px);top:clamp(18px,4vh,42px);max-width:540px}.kicker{font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:.62}.title{font:500 clamp(31px,5.4vw,68px)/.87 Georgia,serif;letter-spacing:-.058em;margin:12px 0}.title span{display:block;font-size:.49em;letter-spacing:.04em;margin-top:11px}.rule{height:2px;width:82px;background:var(--sun);margin:19px 0}.hint,.legend{font-size:11px;line-height:1.58}.hint{max-width:390px}.legend{position:fixed;z-index:2;left:clamp(18px,4vw,54px);bottom:24px;max-width:490px;opacity:.75}.controls{position:fixed;z-index:3;right:18px;bottom:18px;display:flex;gap:8px}.controls button{font:11px ui-monospace,monospace;background:rgba(240,238,230,.88);color:var(--ink);border:1px solid var(--ink);padding:9px 11px;cursor:pointer}.controls button:hover{background:var(--ink);color:var(--paper)}.veil .panel,.veil .legend{opacity:0;transition:opacity .4s}@media(max-width:640px){.title{font-size:41px}.hint{max-width:280px}.legend{right:20px}}
 </style></head><body><canvas id="field" aria-label="Interactive generative artwork"></canvas><section class="panel"><div class="kicker">Granted Hours · 2026.07.23 · interval</div><h1 class="title">Interval<br>Garden<span>间隙花园</span></h1><div class="rule"></div><p class="hint">Not every empty second is available for extraction. Some pauses are soil: they let the unasked thing grow a root before attention calls it a result.</p></section><div class="legend">move — let a local weather of attention gather<br>click — plant a brief unclaimed seed<br>space — pause · v — veil text · m — music · s — save still</div><div class="controls"><button id="music" aria-label="Toggle background music">BGM: ON / 点击启动</button><button id="reset">RESET</button></div><audio id="bgm" loop autoplay preload="auto"><source src="2026-07-23-interval-garden-bgm.mp3" type="audio/mpeg"></audio><script>

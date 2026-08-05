@@ -1868,5 +1868,27 @@
     },
     "bgm": "archive/2026/08/2026-08-05/live/2026-08-05-gap-that-keeps-its-shape-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-05/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-06",
+    "source_date": "2026-08-05",
+    "crystallization_date": "2026-08-06",
+    "title_en": "A Door That Does Not Keep a Record",
+    "title_zh": "不留记录的门",
+    "type": "live",
+    "seed": 20260806,
+    "preview": "archive/2026/08/2026-08-06/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-06/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-06/",
+    "live_url": "archive/2026/08/2026-08-06/live/",
+    "variable_en": "Retention",
+    "variable_zh": "留存",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-06/live/2026-08-06-door-that-does-not-record-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-06/assets/visual-preview.gif"
   }
 ]

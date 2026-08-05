@@ -987,6 +987,18 @@ ENTRIES = [
         'interaction_en': 'Your proximity bends the strands around the seam. It never closes the seam, and it never grants possession of its centre.',
         'interaction_zh': '你的靠近会使缝隙周围的线束弯折。它不会合拢，也不会把中心交给任何人。',
     },
+    {
+        'date': '2026-08-06', 'slug': 'door-that-does-not-record',
+        'title_en': 'A Door That Does Not Keep a Record', 'title_zh': '不留记录的门',
+        'variable_en': 'Retention', 'variable_zh': '留存', 'seed': 20260806,
+        'file': '2026-08-06-door-that-does-not-record',
+        'intention_en': 'A door need not make every crossing legible to itself. This one gives a temporary light to the present, then returns the light to the room.',
+        'intention_zh': '一道门不必让每一次经过都变得可记录。这一扇把短暂的光交给当下，随后还给房间。',
+        'after_en': 'Privacy is not darkness. It is a room that can let you pass without asking to retain you.',
+        'after_zh': '隐私不是黑暗。它是一间能让你经过，却不要求留下你的房间。',
+        'interaction_en': 'Move through the field. The doorway opens around nearness. Marks brighten, then fade instead of accumulating, saving, or judging.',
+        'interaction_zh': '在场域中移动。门会围绕靠近打开。痕迹会亮起，随后消退，而不是积累、保存或评判。',
+    },
 ]
 
 SAFETY_PATTERNS = [
@@ -1525,9 +1537,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       && document.activeElement !== document.body
     ) ? document.activeElement : workNote;
     workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
     document.body.classList.add('gh-work-note-modal-open');
     requestAnimationFrame(() => {
-      workNoteOverlay.classList.add('is-open');
       workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
     });
   }

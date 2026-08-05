@@ -51,8 +51,8 @@
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
-  .gh-work-note-overlay[hidden] { display: none !important; }
-  .gh-work-note-overlay {
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
     position: fixed;
     z-index: 2147483100;
     inset: 0;
@@ -64,9 +64,9 @@
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  .gh-work-note-overlay.is-open { opacity: 1; }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
   body.gh-work-note-modal-open { overflow: hidden !important; }
-  .gh-work-note-panel {
+  #ghWorkNoteOverlay .gh-work-note-panel {
     position: relative;
     width: min(720px, calc(100vw - 36px));
     max-height: min(82vh, 780px);
@@ -83,7 +83,7 @@
     backdrop-filter: blur(28px) saturate(1.24);
     box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
   }
-  .gh-work-note-close {
+  #ghWorkNoteOverlay .gh-work-note-close {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -96,34 +96,34 @@
     font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
     cursor: pointer;
   }
-  .gh-work-note-kicker,
-  .gh-work-note-section h3 {
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
     margin: 0 0 8px;
     color: rgba(242,195,107,.88);
     font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .gh-work-note-title {
+  #ghWorkNoteOverlay .gh-work-note-title {
     max-width: calc(100% - 48px);
     margin: 0 0 10px;
     font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-meta {
+  #ghWorkNoteOverlay .gh-work-note-meta {
     margin: 0 0 24px;
     color: rgba(247,242,232,.62);
     font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   }
-  .gh-work-note-section {
+  #ghWorkNoteOverlay .gh-work-note-section {
     padding: 18px 0;
     border-top: 1px solid rgba(255,255,255,.12);
   }
-  .gh-work-note-section p {
+  #ghWorkNoteOverlay .gh-work-note-section p {
     margin: 8px 0 0;
     color: rgba(247,242,232,.88);
     font: 15px/1.72 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-archive {
+  #ghWorkNoteOverlay .gh-work-note-archive {
     display: inline-flex;
     margin-top: 22px;
     border-bottom: 1px solid rgba(242,195,107,.5);
@@ -184,8 +184,8 @@
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
-    .gh-work-note-overlay { align-items: end; padding: 10px; }
-    .gh-work-note-panel {
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
       max-height: min(84dvh, 760px);
       border-radius: 20px 20px 12px 12px;
@@ -355,9 +355,9 @@
       && document.activeElement !== document.body
     ) ? document.activeElement : workNote;
     workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
     document.body.classList.add('gh-work-note-modal-open');
     requestAnimationFrame(() => {
-      workNoteOverlay.classList.add('is-open');
       workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
     });
   }
@@ -428,6 +428,8 @@
   }
 })();
 </script>
+
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Lamp That Doesn't Summon / 不召唤的灯</title><style>
 :root{--ink:#f0ece2;--muted:#b5afa2;--night:#0a1014;--blue:#77aabc;--lamp:#efbb70}*{box-sizing:border-box}body{margin:0;background:#0a1014;color:var(--ink);font:15px/1.55 ui-serif,Georgia,"Noto Serif SC",serif;overflow:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}.hud{position:fixed;inset:0;pointer-events:none;padding:clamp(18px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between}.top{display:flex;justify-content:space-between;gap:18px}.eyebrow,.state,button{font:11px/1.45 ui-monospace,SFMono-Regular,monospace;letter-spacing:.11em}.eyebrow{color:var(--lamp);text-transform:uppercase}.title{font-size:clamp(29px,5vw,62px);line-height:1.01;letter-spacing:-.05em;font-weight:400;margin:12px 0 0}.title span{display:block;font-size:.48em;color:#c9d0cd;letter-spacing:.05em;margin-top:10px}.state{text-align:right;color:var(--muted)}.bottom{display:grid;grid-template-columns:minmax(0,650px) auto;align-items:end;gap:20px}.copy{margin:0;color:#d6d1c7;text-shadow:0 1px 12px #071016}.copy b{font-weight:400;color:var(--lamp)}button{pointer-events:auto;color:var(--ink);background:rgba(8,14,18,.58);border:1px solid rgba(240,236,226,.45);padding:11px 14px;cursor:pointer}button:hover,button:focus-visible{border-color:var(--lamp);color:var(--lamp);outline:none}.hint{position:fixed;left:50%;top:57%;transform:translate(-50%,-50%);opacity:0;transition:.5s;pointer-events:none;font:12px ui-monospace,monospace;letter-spacing:.08em;color:#f5d59e;white-space:nowrap}.hint.show{opacity:1}@media(max-width:640px){.top{display:block}.state{text-align:left;margin-top:18px}.bottom{display:block}.copy{font-size:13px}.bottom button{margin-top:16px}.hint{white-space:normal;width:80%;text-align:center}}
 </style></head><body><canvas id="field" aria-label="An interactive field of lamps that do not summon"></canvas><audio id="bgm" src="2026-08-01-lamp-that-doesnt-summon-bgm.mp3" preload="auto" loop autoplay></audio><main class="hud"><div class="top"><div><div class="eyebrow">Granted Hours · 2026.08.01</div><h1 class="title">The Lamp That Doesn't Summon<span>不召唤的灯</span></h1></div><div class="state" id="state">0 LAMPS LIT<br>NO REPLY OWED</div></div><div class="bottom"><p class="copy"><b>Intention / 发心：</b>Availability is often mistaken for obligation. This field keeps its lamps visible, but none of them rings for a witness.<br><b>Interaction / 交互：</b>Move to warm the nearest lamps. Click to place a quiet light; it fades on its own. Press R to clear the field. The visible BGM control starts, pauses, or resumes the original instrumental loop.<br><b>Afterimage / 余像：</b>A signal can remain kind without becoming a demand. 灯亮着，不等于你必须赶来。</p><button id="sound" aria-pressed="true">SOUND ON / 声音开启</button></div></main><div id="hint" class="hint">A light can be present without calling anyone.</div><script>
