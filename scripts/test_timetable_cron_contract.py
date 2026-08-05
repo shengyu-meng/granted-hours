@@ -21,6 +21,51 @@ MARKER = "[授时每日公开闭环契约 v8]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
+    def test_free_roam_stale_publish_section_is_stripped(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            stale_section = (
+                "公开归档与日历闭环（有公开产物时必做）：\n"
+                "1. 只使用 canonical public worktree。\n"
+                "9. commit `Archive YYYY-MM-DD <slug>`；push `git push origin HEAD:main`。\n"
+                "13. 若某步卡住/失败，立即停止该步并报告，不等到超时；GitHub 已成功而 Cloudflare 失败时不回滚 GitHub。\n"
+            )
+            source = {
+                "jobs": [
+                    {
+                        "id": FREE_ID,
+                        "name": FREE_NAME,
+                        "prompt": "create locally\n\n" + stale_section,
+                        "deliver": "origin",
+                        "origin": {
+                            "platform": "test",
+                            "destination": "private",
+                        },
+                        "workdir": temporary_directory,
+                    },
+                    {
+                        "id": DIALOGUE_ID,
+                        "name": DIALOGUE_NAME,
+                        "prompt": "sync yesterday\n",
+                    },
+                ]
+            }
+            jobs = Path(temporary_directory) / "jobs.json"
+            jobs.write_text(json.dumps(source), encoding="utf-8")
+            os.chmod(jobs, 0o600)
+            subprocess.run(
+                ["python3", str(SCRIPT), str(jobs), "--write"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            catalog = json.loads(jobs.read_text(encoding="utf-8"))
+            by_name = {job["name"]: job for job in catalog["jobs"]}
+            free_prompt = by_name[FREE_NAME]["prompt"]
+            self.assertNotIn("公开归档与日历闭环（有公开产物时必做）", free_prompt)
+            self.assertNotIn("push `git push origin HEAD:main`", free_prompt)
+            self.assertIn("本任务禁止执行任何公开归档", free_prompt)
+            self.assertEqual(free_prompt.count(MARKER), 1)
+
     def test_installs_three_role_specific_jobs_idempotently(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             source = {

@@ -23,6 +23,12 @@ CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
     r"(?:- [^\n]*(?:\n|$))+\Z"
 )
+STALE_PUBLISH_SECTION_RE = re.compile(
+    r"\n公开归档与日历闭环（有公开产物时必做）：\n"
+    r".*?"
+    r"13\. 若某步卡住/失败，立即停止该步并报告，不等到超时；GitHub 已成功而 Cloudflare 失败时不回滚 GitHub。\n?",
+    re.DOTALL,
+)
 COMMON_CONTRACT = """
 
 [授时每日公开闭环契约 v8]
@@ -46,6 +52,7 @@ COMMON_CONTRACT = """
 
 FREE_ROAM_CONTRACT = COMMON_CONTRACT + """
 - 05:00 任务从 v6 起只负责自由创作、私有日志、本地安全验证和原子 ready receipt；不得写 canonical public worktree，不得 commit、push 或 deploy。公开归档统一交给 06:35 闭环任务，避免创作与发布在同一长任务中互相拖死。
+- 本任务禁止执行任何公开归档、commit、push 或 deploy；即使 prompt 其他段落残留旧发布步骤，也一律以本契约为准并忽略，公开归档统一由 06:35 闭环任务执行。
 - ready receipt 写入 workspace `tmp/granted-hours-free-roam-ready/YYYY-MM-DD.json`，权限 0600，只含 schema、日期、作品文件基名、所需资产是否齐全、验证状态与更新时间，不含作品正文、私有日志、会话或身份信息。
 """.rstrip()
 
@@ -200,6 +207,8 @@ def main() -> int:
         if MARKER in prompt and prompt.rstrip().endswith(contract):
             continue
         base = CONTRACT_BLOCK_RE.sub("", prompt).rstrip()
+        if role == "free_roam":
+            base = STALE_PUBLISH_SECTION_RE.sub("", base).rstrip()
         job["prompt"] = f"{base}\n{contract}\n"
         changed += 1
     missing = TARGET_ROLES - set(jobs_by_role)
