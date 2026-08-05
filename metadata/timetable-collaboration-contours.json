@@ -16,8 +16,8 @@
       "category": "redacted_private",
       "request_zh": "讨论美股收盘后增加一次回看雷达，用收市结果复核当日判断，并把每周预测准确率纳入错题本回看。",
       "request_en": "Discussed adding a post-close review radar for U.S. markets, using closing results to recheck the day's judgments and folding weekly forecast accuracy into an error-log review.",
-      "outcome_zh": "当天公开线没有留下与这次报错排查对应的可核对结果。",
-      "outcome_en": "That day's public line left no verifiable result corresponding to this error investigation.",
+      "outcome_zh": "关于增加盘后回看雷达并把预测准确率纳入错题本的建议，公开线未留下可核验的完成结果。",
+      "outcome_en": "The suggestion to add a post-close review radar and fold forecast accuracy into the error log left no verifiable result on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -26,8 +26,8 @@
       "category": "system_maintenance",
       "request_zh": "考虑把 ████ 系统的 JSON 结构整理成人类可读的独立区间并评估转换成本，同时修复远程备份失败且未上报的问题。",
       "request_en": "Consider turning the ████ system's JSON output into a separate human-readable section while weighing conversion cost, and fix the remote backup failures that went unreported.",
-      "outcome_zh": "该提示的内容以及静默处理是否生效，公开线没有留下可核对记录。",
-      "outcome_en": "No verifiable record of what the notice said or whether silencing took effect was left on the public line.",
+      "outcome_zh": "关于把 ████ 系统输出整理为人类可读区间并修复备份失败的建议，公开线未留下可核验完成结果。",
+      "outcome_en": "The proposal to turn ████ system output into a readable section and fix failing backups left no verifiable result on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -36,8 +36,8 @@
       "category": "code_development",
       "request_zh": "把网页与运行所需文件打包成附件，并先跑一版测试版供检查。",
       "request_en": "Package the page with its required files as attachments and produce a test build for review.",
-      "outcome_zh": "这条停止提醒涉及的任务是否被修复，公开线没有留下可核对结果。",
-      "outcome_en": "No verifiable result of whether the task behind this stop reminder was repaired was left on the public line.",
+      "outcome_zh": "关于打包网页产物并先出测试版的要求，公开线未留下可核验完成结果。",
+      "outcome_en": "The request to package the page artifacts and produce a test build first left no verifiable result on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -56,8 +56,8 @@
       "category": "redacted_private",
       "request_zh": "按新四档标准重扫港股与 A 股可买标的，并把特别关注分组中的 ████ 纳入；同时比较多 Agent 并行是否提高效率。",
       "request_en": "Rescan buyable A/H candidates under the new four-tier standard, include watchlist-group ████, and compare whether parallel agents improve efficiency.",
-      "outcome_zh": "盘前信息源暂停与机会提示停发是否落地，公开线没有留下可核对结果。",
-      "outcome_en": "No verifiable record of whether the pre-market fetching pause and alert suspension took effect was left on the public line.",
+      "outcome_zh": "关于按新四档标准重扫候选并比较多 ████ 并行的讨论，公开线未留下可核验完成结果。",
+      "outcome_en": "The discussion of rescanning candidates under a new four-tier standard and comparing parallel ████ left no verifiable result on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -1826,8 +1826,8 @@
       "category": "code_development",
       "request_zh": "询问当前出现的错误是什么、为什么会报错，以及能否修复。",
       "request_en": "Asked what the current error is, why it is raised, and whether it can be fixed.",
-      "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-      "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+      "outcome_zh": "当天公开线没有留下与这次报错排查对应的可核对结果。",
+      "outcome_en": "That day's public line left no verifiable result corresponding to this error investigation.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -1836,8 +1836,8 @@
       "category": "research_synthesis",
       "request_zh": "询问某个提示是什么，并希望它不要出声、改为静默。",
       "request_en": "Asked what a certain notice is and whether it can be silenced instead of alerting.",
-      "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-      "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+      "outcome_zh": "该提示的内容以及静默处理是否生效，公开线没有留下可核对记录。",
+      "outcome_en": "No verifiable record of what the notice said or whether silencing took effect was left on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -1846,8 +1846,8 @@
       "category": "system_maintenance",
       "request_zh": "转发来一条停止提醒，来自 ████、发给 ████，主题为 ████；要求看看能否修复这个任务。",
       "request_en": "A stop reminder was forwarded, from ████ to ████, with the topic ████; asked to see whether the task can be repaired.",
-      "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-      "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+      "outcome_zh": "这条停止提醒涉及的任务是否被修复，公开线没有留下可核对结果。",
+      "outcome_en": "No verifiable result of whether the task behind this stop reminder was repaired was left on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -1856,8 +1856,8 @@
       "category": "redacted_private",
       "request_zh": "要求暂停美股与港股、A股盘前信息源抓取的定时任务，并从当日起暂停抢权机会提示。",
       "request_en": "Asked to pause the scheduled pre-market source-fetching for U.S. and HK/A-share markets, and to pause rights-offer opportunity alerts from that day onward.",
-      "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-      "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+      "outcome_zh": "盘前信息源暂停与机会提示停发是否落地，公开线没有留下可核对结果。",
+      "outcome_en": "No verifiable record of whether the pre-market fetching pause and alert suspension took effect was left on the public line.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -1866,8 +1866,8 @@
       "category": "redacted_private",
       "request_zh": "确认某项实验的问题与答案是否来自纯数据集，导航房间如何建立，以及地图由 ████ 还是 ████ 生成；同时要求用人话解释配对胜负、显著性与置信区间。",
       "request_en": "Confirm whether a study's questions and answers come directly from the dataset, how its navigation rooms are built, and whether the map is generated by ████ or ████; also explain paired wins, significance, and confidence intervals in plain language.",
-      "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-      "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+      "outcome_zh": "当天两段对话只留下提问与讨论，没有留下可公开核对、可安全发布的完成结果。",
+      "outcome_en": "The day's two conversations left questions and discussion only; no completion result safe to publish and verifiable was recorded.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
     },
@@ -1886,10 +1886,10 @@
       "category": "code_development",
       "request_zh": "补发最近三天缺失的日历、交互作品与仓库内容，修复并脱敏后完成公开发布；日历事件应尽量保留可读轮廓，只遮蔽能够识别具体对象的信息。",
       "request_en": "Republish the three missing days across the calendar, interactive works, and repository after repair and privacy review; keep calendar events readable while masking information that could identify specific subjects.",
-      "outcome_zh": "本轮公开发布仍在执行中，尚未形成可核验的生产结果；不把计划或进行中状态写成已完成。",
-      "outcome_en": "This public release is still in progress and has not yet produced a verifiable production result; plans and in-progress work are not presented as completed.",
-      "completion_status": "unverified",
-      "pair_provenance": "no_public_result_evidence"
+      "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线；日历保留事件轮廓，只遮蔽可识别信息。",
+      "outcome_en": "Backfilled artworks, calendar, and repository content for August 3–5, completed privacy review, and deployed; calendar keeps event contours while masking identifying details.",
+      "completion_status": "completed",
+      "pair_provenance": "matched_public_result_record"
     },
     "45f7874686fdcc70595559c38182fa38b6a476cac51c8ce972131fb710cdad84": {
       "date": "2026-08-05",
@@ -1900,6 +1900,206 @@
       "outcome_en": "Confirmed that local creation continued; a release gate left an unfinished transaction, and later preflight checks treated those transaction-owned changes as unrelated dirt, deadlocking publication.",
       "completion_status": "completed",
       "pair_provenance": "assistant_result_summary"
+    },
+    "0b1edb5518c658f0f832de2b900b3af40f44b4ea38e35cc408e2eca2d7487d3a": {
+      "date": "2026-05-08",
+      "category": "redacted_private",
+      "request_zh": "追问多 ████ 并行是降低还是提高效率；另外要求为 ████ 学术会议投稿设置提醒，并过一两周提醒构思。",
+      "request_en": "Asked whether running more ████ in parallel lowers or raises efficiency; also asked to set a reminder for a ████ academic conference submission and a later nudge to draft the idea.",
+      "outcome_zh": "公开线未留下与这次效率讨论和投稿提醒对应的可核对完成记录。",
+      "outcome_en": "No verifiable completion corresponding to this efficiency discussion or submission reminder was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "4e9d09c3a9f2f3d4e969024d90612ecc5abfd7fb7e27c87e48bdb06528630025": {
+      "date": "2026-05-09",
+      "category": "research_synthesis",
+      "request_zh": "询问 ████ 是否做过深研、为何在唱衰 AI 替代的背景下仍大跌，是否是被低估的软件股机会，并追问一篇 ████ 论文的分析。",
+      "request_en": "Asked whether ████ had deep research, why it fell sharply amid AI-replacement doom, whether the dip was an underpriced software opportunity, and about analysis of a ████ paper.",
+      "outcome_zh": "到 2025 年 10-11 月，████ 的 ████ 代码库据称 100% 由模型生成。",
+      "outcome_en": "By late 2025, ████'s ████ codebase was reportedly 100% generated by a model.",
+      "completion_status": "completed",
+      "pair_provenance": "assistant_result_summary"
+    },
+    "ba3a6c0701f25a9d0d16588070122209cfb53eede824de8280f0338782793c4c": {
+      "date": "2026-05-10",
+      "category": "research_synthesis",
+      "request_zh": "要求补做知识星球 ████ 栏目 5 月以来的标的快速筛选，给出哪些见解值得重视、哪些可入观察仓，并分析一篇文章：████。",
+      "request_en": "Asked to backfill a quick screen of ████ column picks since early May, flag which views matter and which belong in the watchlist, and analyze an article: ████.",
+      "outcome_zh": "如果要找 ████，它比大银行更像赔率票，但证据链还不够，要等订单 ████。",
+      "outcome_en": "If hunting for ████, it reads more like an odds ticket than a big bank, but the evidence chain is thin; wait for orders ████.",
+      "completion_status": "completed",
+      "pair_provenance": "assistant_result_summary"
+    },
+    "d44fa9815499946b05da95fb9285e2cb6c6b675305be4974c074d354e91eeb7d": {
+      "date": "2026-05-10",
+      "category": "redacted_private",
+      "request_zh": "讲述了一段梦境，并要求结尾带有出离心。",
+      "request_en": "Told a dream and asked the ending to carry a sense of detachment.",
+      "outcome_zh": "梦境内容属于私人经验，仅保留做梦与讨论这一协作轮廓；公开线不展示具体情节。",
+      "outcome_en": "Dream content stays private; only the fact of dreaming and discussing it is kept, without plot details.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "d86cd6dfd073e894385371ef7cc1f140843b05d40397669dd5ab34d17aae416d": {
+      "date": "2026-05-14",
+      "category": "research_synthesis",
+      "request_zh": "建议监测到观察池外的新标的时先加入并补快速调研；同时核对盘前抓取的信源列表是否过窄。",
+      "request_en": "Suggested auto-adding new tickers outside the watchlist with a quick screen, and asked to verify the pre-market source list is not too narrow.",
+      "outcome_zh": "公开线未留下与观察池规则和信源核对对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for the watchlist rule or source audit was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "8393777788e8720b1ed57d2f7d6ca914aaff1a554fdbc839b01f9f38305c4991": {
+      "date": "2026-05-15",
+      "category": "research_synthesis",
+      "request_zh": "询问为何不少股票在主升浪前会深跌两三天，是否真有资金刻意洗盘。",
+      "request_en": "Asked why many stocks dip hard for two or three days before their main rally, and whether funds deliberately shake out holders.",
+      "outcome_zh": "状态：知识库高优先级；AI 收入可验证性弱于 ████，不追高。",
+      "outcome_en": "Status: high priority in the knowledge base; AI revenue is harder to verify than ████; do not chase highs.",
+      "completion_status": "completed",
+      "pair_provenance": "assistant_result_summary"
+    },
+    "5e1e9f1aa217a77906c5bac628364c1ebae1dd62f0fbae291bbdd46d8e0f03fd": {
+      "date": "2026-05-16",
+      "category": "system_maintenance",
+      "request_zh": "提醒身份命名从 ████ 统一为当前 ████，并建议本地全盘备份排除浏览器缓存等大文件以避免失败。",
+      "request_en": "Reminded to unify identity naming from ████ to the current ████, and suggested excluding browser caches from full backups to avoid failures.",
+      "outcome_zh": "公开线未留下与命名统一或备份策略对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for the naming or backup policy change was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "ba9a2cc3fa5a3415b3fbc5cbee6635efb5bf2a9db4764fc2f683cf3392fbdf6e": {
+      "date": "2026-05-22",
+      "category": "social_media_organization",
+      "request_zh": "核对外部服务权限、部署与数据链路可用性，并确认公开内容的排期与归档。",
+      "request_en": "Checked external service permissions, deployment and data-chain availability, and confirmed scheduling and archiving of public content.",
+      "outcome_zh": "该日以权限与发布链路核对为主，公开线未留下可核验的完成结果。",
+      "outcome_en": "The day centred on permission and publishing-chain checks; no verifiable result was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "d4b8947a6af8e07ce3f0d6b0cc8a0992fa8061ce967b8fdd209d3fc81e361c53": {
+      "date": "2026-06-01",
+      "category": "research_synthesis",
+      "request_zh": "分析某项政策对个人投资者、尤其中国大陆投资者买美股的影响；并确认是否已安排到知识星球和微博。",
+      "request_en": "Asked for analysis of a policy's impact on individual investors, especially mainland-Chinese buyers of U.S. stocks, and whether the post was scheduled to the two public channels.",
+      "outcome_zh": "公开线未留下与影响分析及发布安排对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for the impact analysis or publishing schedule was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "9b52e1bdfd342863176c21785fab9fadf10f093303fab85cf30723e2d6f33a9b": {
+      "date": "2026-06-01",
+      "category": "redacted_private",
+      "request_zh": "询问美国消费类资产与 QDII 的溢价和可选项，并要求日报中的标的统一使用中文名称。",
+      "request_en": "Asked about premiums and options for U.S. consumer assets and QDII funds, and asked for Chinese names for tickers in the daily report.",
+      "outcome_zh": "公开线未留下与溢价对比或命名规范对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for the premium comparison or naming rule was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "9e350dceed68d82ca4e83105da88ce0b43247f615d2f6e75924e750d5984e695": {
+      "date": "2026-06-02",
+      "category": "research_synthesis",
+      "request_zh": "分析玻璃基板相关 ████，判断是否单独建仓，并快速复核 ████ 当日是否买点。",
+      "request_en": "Asked to analyze ████ glass-substrate plays, decide whether to open a separate position, and quickly check whether ████ was a buy that day.",
+      "outcome_zh": "公开线未留下与建仓判断或当日买点对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for the position call or that day's entry check was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "727c282549ed40aa56f9921c46e660d757e760b36b594c8d235e73a1455abec2": {
+      "date": "2026-06-04",
+      "category": "visual_production",
+      "request_zh": "希望把作品发布到社交平台，请设计视觉、吸引力和作品意义，产出文案与 9 张竖屏图。",
+      "request_en": "Wanted to publish the work on a social channel, asking for a visual and copy plan plus 9 vertical images that keep the work's meaning.",
+      "outcome_zh": "建议这组打 AI 艺术 / 数字艺术 / 当代艺术 / 独立项目：████，不要打成效率工具；效率是这件作品故意拒绝的东西。",
+      "outcome_en": "Suggested tagging it as AI/digital/contemporary art and independent project: ████, not as an efficiency tool; efficiency is what the work deliberately refuses.",
+      "completion_status": "completed",
+      "pair_provenance": "assistant_result_summary"
+    },
+    "81a7f31aa711e5dbd12b345ddd1e61b5ee53bb765c34741731661a8a693161f3": {
+      "date": "2026-06-06",
+      "category": "research_synthesis",
+      "request_zh": "研究 AI 梦核概念（梦核审美被 AI 图像工具放大变异后形成的新流行图像类型），做分类、代表作品与拼贴，并追问该领域 ████ 的机会。",
+      "request_en": "Research the AI dreamcore concept (a popular image type formed as AI tools amplify and mutate the dreamcore aesthetic), classify it, list representative works, make a collage, and ask about ████ opportunities in the field.",
+      "outcome_zh": "████ = 梦核 / ████ 这套审美，被 AI 图像生成工具放大、变异、批量生产之后形成的新流行图像类型。",
+      "outcome_en": "████ = dreamcore / the ████ aesthetic, amplified, mutated, and mass-produced by AI image tools into a new popular image type.",
+      "completion_status": "completed",
+      "pair_provenance": "assistant_result_summary"
+    },
+    "2006dd53cb019929f202a8f47b1155c91146db13e2a8f0d284a7b2dcce6b87a9": {
+      "date": "2026-06-15",
+      "category": "document_processing",
+      "request_zh": "感觉对中国半导体的理解不够，请根据文章 ████ 梳理受益标的 ████。",
+      "request_en": "Feeling the semiconductor understanding was thin, asked to derive beneficiaries ████ from the article ████.",
+      "outcome_zh": "公开线未留下与这篇文章解析对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for the article analysis was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "1fb491fa8f77b70e1b00e8a4be62c14555ff408f0dd9ea2e4683b1d6156b156f": {
+      "date": "2026-06-18",
+      "category": "document_processing",
+      "request_zh": "介绍一位老师的极简线稿漫画风 skill：把长文观点压成 ████ 个单判断插画与 HTML 幻灯片，并分析文章 ████。",
+      "request_en": "Introduced a teacher's minimalist line-art skill that compresses long-form ideas into ████ single-claim illustrations and an HTML deck, and asked to analyze the article ████.",
+      "outcome_zh": "公开线未留下与这套插画 skill 复现或文章分析对应的可核验完成记录。",
+      "outcome_en": "No verifiable completion for reproducing the skill or analyzing the article was left on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "4f4a9b7352cf279c910d8334e3019d9d727848c303a7a7c7944e19b459b839b8": {
+      "date": "2026-07-02",
+      "category": "visual_production",
+      "request_zh": "讨论一套获 ████ 设计大奖的骑手装备：人体工学剪裁、高可视反光、防风防雨，头盔接入 AI 助手 ████ 做配送与安全辅助。",
+      "request_en": "Discussed a ████-awarded rider gear set—ergonomic cut, high-visibility reflective fabric, wind and rain protection, with a helmet AI assistant ████ for delivery and safety support.",
+      "outcome_zh": "公开线未留下与这套产品 Brief 对应的可核验完成记录；品牌主体与活动细节不公开。",
+      "outcome_en": "No verifiable completion for this product brief was left on the public line; the brand and campaign details are not disclosed.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "16a5fcc72d9d38524c9d7fe48d0033ac5f02e7dd2debc1a3566dfff9f51ac6e2": {
+      "date": "2026-07-06",
+      "category": "redacted_private",
+      "request_zh": "和合作者 ████ 的共同作品 ████ 拟在 ████ 重新展出（约 5×7 米、高 5 米），希望调研艺术史策展案例并提出新的策展形式；并在该群组立下讨论规矩。",
+      "request_en": "With collaborator ████, the shared work ████ may be re-exhibited at ████ (about 5×7 m, 5 m high); asked to research curatorial precedents and propose a new exhibition form, and set group discussion rules.",
+      "outcome_zh": "公开线未留下与策展方案对应的可核验完成记录；合作者、作品与场馆名称不公开。",
+      "outcome_en": "No verifiable completion for the curatorial proposal was left on the public line; collaborator, work, and venue names are not disclosed.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "4af4b3f9f6c938c33da23f47b24b50d56b5ff09df6b497389c0b0ff0a7500e74": {
+      "date": "2026-07-31",
+      "category": "document_processing",
+      "request_zh": "当天对话中的具体指令未通过公开审查，未保留可公开细节。",
+      "request_en": "That day's specific instruction did not pass public review; no public detail was retained.",
+      "outcome_zh": "该指令属未公开合作语境，公开线未保留具体内容。",
+      "outcome_en": "The instruction belongs to an undisclosed collaboration context; no concrete content is retained on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "40dac4a461510b326e9a65e0d49c7ce7cd28520edb578a7fb0f2c2e69cb43848": {
+      "date": "2026-08-05",
+      "category": "code_development",
+      "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复并脱敏后公开发布；日历保留事件轮廓，只遮蔽可识别信息。",
+      "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair and redact them, then publish; keep event contours and mask identifying details.",
+      "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线。",
+      "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5, completed privacy review, and deployed.",
+      "completion_status": "completed",
+      "pair_provenance": "matched_public_result_record"
+    },
+    "1cd7c544c3347144f78fe25b0141e0eff4b7de88630e62772a8107bac4a33e2a": {
+      "date": "2026-08-05",
+      "category": "redacted_private",
+      "request_zh": "当天对话中的具体指令未通过公开审查，未保留可公开细节。",
+      "request_en": "That day's specific instruction did not pass public review; no public detail was retained.",
+      "outcome_zh": "该指令涉及未公开语境，公开线未保留可核对完成记录。",
+      "outcome_en": "The instruction concerns an undisclosed context; no verifiable completion was retained on the public line.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

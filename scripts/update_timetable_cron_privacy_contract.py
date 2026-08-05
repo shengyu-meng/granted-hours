@@ -18,14 +18,14 @@ FREE_ROAM_JOB_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_JOB_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_JOB_NAME = "授时：每日自由创作与日历闭环"
 TARGET_ROLES = {"free_roam", "dialogue", "closure"}
-MARKER = "[授时每日公开闭环契约 v7]"
+MARKER = "[授时每日公开闭环契约 v8]"
 CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
     r"(?:- [^\n]*(?:\n|$))+\Z"
 )
 COMMON_CONTRACT = """
 
-[授时每日公开闭环契约 v7]
+[授时每日公开闭环契约 v8]
 - 公开文本的处理优先级固定为：先对识别实体打码（████）并保留句子本身的轮廓；整句打码后仍然敏感时，才把该句替换为有界的隐喻或抽象；只有连隐喻都会泄露私人事实时才整条删除。不得把“删除整条”当作默认方案，也不得用类别或主题模板句充当卡片正文。
 - 家庭梦境、亲密关系、照护与父母子女角色，只能保留为“私人经验中的关系/责任/照护平衡”等抽象协作主题；不得公开具体人物、情节、冲突或家庭结构。
 - 身体、药物、疾病、症状、低能量和情绪状态，只能保留为“个人恢复安排”等抽象主题；不得公开具体名称、表现或时间线。
@@ -67,6 +67,7 @@ CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - 后续运行遇到 dirty worktree 时，只有同时满足以下条件才允许恢复：事务清单存在且状态为 `in_progress/blocked`；`HEAD == base_head == origin/main == remote main`；积压仍含事务日期；当前 dirty 路径集合与 `owned_paths` **完全相等**；每个路径都位于记录的 `allowed_path_roots`。任一条件不满足都视为无关改动并 fail closed。恢复只能从记录阶段继续，不能把新路径静默并入旧事务。
 - 提交、推送、部署及公网验收全部成功且工作树恢复干净后，事务状态改为 `completed` 并清空 `owned_paths`；GitHub 已成功但 Cloudflare 失败时保留同一事务为 `partial`，后续只补部署，不能因 dirty 状态重复导入或重做提交。
 - 只有测试与公开安全门禁全部通过才能显式暂存、提交、推送和 Cloudflare 部署；GitHub 成功而 Cloudflare 失败时状态为 `partial` 且后续继续补部署，不回滚已发布提交。
+- 事务已 `completed/partial` 且 `origin/main` 已包含该事务提交后，若 canonical 仍落后于 `origin/main`，只允许在 dirty 路径集合为空、或与事务 `allowed_path_roots` 内的残留路径完全一致时先对齐：`git fetch origin && git checkout -B main origin/main`，随后必须 `git status` 干净才能开始当日任务；对齐不产生新提交，也不把残留改动并入任何提交。
 """.rstrip()
 
 CONTRACT_BY_ROLE = {

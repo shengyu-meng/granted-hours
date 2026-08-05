@@ -364,8 +364,8 @@ try {
     gzipBudgetBytes: builtJsGzipBudgetBytes,
     translatedReminderCount,
     translatedReminderGzipBudgetBytes,
-    collaborationExcerptCount,
-    collaborationExcerptGzipBudgetBytes,
+    collaborationPairCount,
+    collaborationPairGzipBudgetBytes,
   };
   const cssTotals = {
     bytes: css.reduce((total, entry) => total + entry.bytes, 0),

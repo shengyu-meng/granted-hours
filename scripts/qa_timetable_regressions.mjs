@@ -22,7 +22,7 @@ for (const day of timetableData.days) {
     day.date,
   );
   for (const task of day.task_residues) {
-    const phrase = `${task.zh}|${task.en}`;
+    const phrase = `${task.request_zh || task.zh}|${task.outcome_zh || task.en}`;
     phraseCounts.set(phrase, (phraseCounts.get(phrase) || 0) + 1);
     if (task.en.toLowerCase().includes(day.title_en.toLowerCase()) || task.zh.includes(day.title_zh)) {
       artworkTitleLeaks.push({ date: day.date, phrase });

@@ -54,8 +54,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "讨论美股收盘后增加一次回看雷达，用收市结果复核当日判断，并把每周预测准确率纳入错题本回看。",
           "request_en": "Discussed adding a post-close review radar for U.S. markets, using closing results to recheck the day's judgments and folding weekly forecast accuracy into an error-log review.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于增加盘后回看雷达并把预测准确率纳入错题本的建议，公开线未留下可核验的完成结果。",
+          "outcome_en": "The suggestion to add a post-close review radar and fold forecast accuracy into the error log left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -64,7 +64,7 @@
           "en": "System maintenance and readability",
           "zh": "系统维护与可读性",
           "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 3,
@@ -79,8 +79,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "考虑把 ████ 系统的 JSON 结构整理成人类可读的独立区间并评估转换成本，同时修复远程备份失败且未上报的问题。",
           "request_en": "Consider turning the ████ system's JSON output into a separate human-readable section while weighing conversion cost, and fix the remote backup failures that went unreported.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于把 ████ 系统输出整理为人类可读区间并修复备份失败的建议，公开线未留下可核验完成结果。",
+          "outcome_en": "The proposal to turn ████ system output into a readable section and fix failing backups left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -104,8 +104,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "把网页与运行所需文件打包成附件，并先跑一版测试版供检查。",
           "request_en": "Package the page with its required files as attachments and produce a test build for review.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于打包网页产物并先出测试版的要求，公开线未留下可核验完成结果。",
+          "outcome_en": "The request to package the page artifacts and produce a test build first left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         }
@@ -145,7 +145,7 @@
           "en": "Discussion, judgment, and advancement",
           "zh": "讨论、判断与推进",
           "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 15,
@@ -160,8 +160,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "按新四档标准重扫港股与 A 股可买标的，并把特别关注分组中的 ████ 纳入；同时比较多 Agent 并行是否提高效率。",
           "request_en": "Rescan buyable A/H candidates under the new four-tier standard, include watchlist-group ████, and compare whether parallel agents improve efficiency.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "关于按新四档标准重扫候选并比较多 ████ 并行的讨论，公开线未留下可核验完成结果。",
+          "outcome_en": "The discussion of rescanning candidates under a new four-tier standard and comparing parallel ████ left no verifiable result on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -210,8 +210,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "当天以附件或图片形式提交的文档处理需求未留下可公开文本。",
           "request_en": "The document-processing request that day arrived as attachments or images with no public-safe text record.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "附件与图片形式的文档需求当天未留下可公开文本；公开线仅保留这一工作轮廓。",
+          "outcome_en": "The document request arrived as attachments or images with no public-safe text; the public line keeps only this work contour.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         }
@@ -6382,8 +6382,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "询问某个提示是什么，并希望它不要出声、改为静默。",
           "request_en": "Asked what a certain notice is and whether it can be silenced instead of alerting.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "该提示的内容以及静默处理是否生效，公开线没有留下可核对记录。",
+          "outcome_en": "No verifiable record of what the notice said or whether silencing took effect was left on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -6407,8 +6407,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "要求暂停美股与港股、A股盘前信息源抓取的定时任务，并从当日起暂停抢权机会提示。",
           "request_en": "Asked to pause the scheduled pre-market source-fetching for U.S. and HK/A-share markets, and to pause rights-offer opportunity alerts from that day onward.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "盘前信息源暂停与机会提示停发是否落地，公开线没有留下可核对结果。",
+          "outcome_en": "No verifiable record of whether the pre-market fetching pause and alert suspension took effect was left on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -6432,8 +6432,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "转发来一条停止提醒，来自 ████、发给 ████，主题为 ████；要求看看能否修复这个任务。",
           "request_en": "A stop reminder was forwarded, from ████ to ████, with the topic ████; asked to see whether the task can be repaired.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "这条停止提醒涉及的任务是否被修复，公开线没有留下可核对结果。",
+          "outcome_en": "No verifiable result of whether the task behind this stop reminder was repaired was left on the public line.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -6457,8 +6457,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "询问当前出现的错误是什么、为什么会报错，以及能否修复。",
           "request_en": "Asked what the current error is, why it is raised, and whether it can be fixed.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "当天公开线没有留下与这次报错排查对应的可核对结果。",
+          "outcome_en": "That day's public line left no verifiable result corresponding to this error investigation.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         }
@@ -6488,8 +6488,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "确认某项实验的问题与答案是否来自纯数据集，导航房间如何建立，以及地图由 ████ 还是 ████ 生成；同时要求用人话解释配对胜负、显著性与置信区间。",
           "request_en": "Confirm whether a study's questions and answers come directly from the dataset, how its navigation rooms are built, and whether the map is generated by ████ or ████; also explain paired wins, significance, and confidence intervals in plain language.",
-          "outcome_zh": "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
-          "outcome_en": "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
+          "outcome_zh": "当天两段对话只留下提问与讨论，没有留下可公开核对、可安全发布的完成结果。",
+          "outcome_en": "The day's two conversations left questions and discussion only; no completion result safe to publish and verifiable was recorded.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },
@@ -6544,8 +6544,8 @@
           "time_provenance": "observed_message_envelope",
           "request_zh": "补发最近三天缺失的日历、交互作品与仓库内容，修复并脱敏后完成公开发布；日历事件应尽量保留可读轮廓，只遮蔽能够识别具体对象的信息。",
           "request_en": "Republish the three missing days across the calendar, interactive works, and repository after repair and privacy review; keep calendar events readable while masking information that could identify specific subjects.",
-          "outcome_zh": "本轮公开发布仍在执行中，尚未形成可核验的生产结果；不把计划或进行中状态写成已完成。",
-          "outcome_en": "This public release is still in progress and has not yet produced a verifiable production result; plans and in-progress work are not presented as completed.",
+          "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线。",
+          "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5, completed privacy review, and deployed.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
         },

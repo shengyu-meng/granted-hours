@@ -17,7 +17,7 @@ DIALOGUE_ID = "dialogue-test-id"
 FREE_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_NAME = "授时：每日自由创作与日历闭环"
-MARKER = "[授时每日公开闭环契约 v7]"
+MARKER = "[授时每日公开闭环契约 v8]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
