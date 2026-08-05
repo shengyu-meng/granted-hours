@@ -208,8 +208,16 @@ function assertNoUnexpectedDiagnostics(record) {
 }
 
 async function openDay(page, date) {
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
-  await page.locator(`.calendar-day-button[data-date="${date}"]`).click();
+  const url = new URL(baseUrl);
+  url.searchParams.set("date", date);
+  await page.goto(url.href, { waitUntil: "networkidle" });
+  const dialog = page.locator("#dayDialog");
+  if (
+    !(await dialog.isVisible())
+    || await dialog.getAttribute("data-selected-date") !== date
+  ) {
+    await page.locator(`.calendar-day-button[data-date="${date}"]`).click();
+  }
   await page.waitForSelector("#dayDialog.is-open");
   await page.waitForFunction(
     () => document.querySelector(".timeline-reading-layer.is-placed")
@@ -645,9 +653,10 @@ async function assertRoundedAndSemantic(page, label) {
     "us-market-scan",
     "ai-brief",
     "service-support",
-    "warning-exception",
     "autonomous-artwork",
   ];
+  // Alert-bearing support windows are rolled into the daily background card;
+  // a warning-exception card is therefore optional rather than required.
   if (representatives.has("daily-reminder")) {
     requiredCategories.push("daily-reminder");
   }
@@ -1214,8 +1223,8 @@ try {
   );
 
   const hybridPenCard = hybridPage.locator(
-    '.event-reading-card[data-category="service-support"]',
-  ).nth(2);
+    '.event-reading-card[data-category="assigned-work"]',
+  ).first();
   await hybridPenCard.scrollIntoViewIfNeeded();
   const penSession = await hybridContext.newCDPSession(hybridPage);
   await dispatchPenActivation(penSession, hybridPenCard, async () => {

@@ -18,14 +18,14 @@ FREE_ROAM_JOB_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_JOB_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_JOB_NAME = "授时：每日自由创作与日历闭环"
 TARGET_ROLES = {"free_roam", "dialogue", "closure"}
-MARKER = "[授时每日公开闭环契约 v6]"
+MARKER = "[授时每日公开闭环契约 v7]"
 CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
     r"(?:- [^\n]*(?:\n|$))+\Z"
 )
 COMMON_CONTRACT = """
 
-[授时每日公开闭环契约 v6]
+[授时每日公开闭环契约 v7]
 - 公开文本的处理优先级固定为：先对识别实体打码（████）并保留句子本身的轮廓；整句打码后仍然敏感时，才把该句替换为有界的隐喻或抽象；只有连隐喻都会泄露私人事实时才整条删除。不得把“删除整条”当作默认方案，也不得用类别或主题模板句充当卡片正文。
 - 家庭梦境、亲密关系、照护与父母子女角色，只能保留为“私人经验中的关系/责任/照护平衡”等抽象协作主题；不得公开具体人物、情节、冲突或家庭结构。
 - 身体、药物、疾病、症状、低能量和情绪状态，只能保留为“个人恢复安排”等抽象主题；不得公开具体名称、表现或时间线。
@@ -58,10 +58,14 @@ DIALOGUE_CONTRACT = COMMON_CONTRACT + """
 CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - 这是 06:35 的每日自由创作与日历闭环，必须在 05:00 创作任务结束后运行；发现创作仍在运行时只记录 `blocked_upstream_running` 并留待下一次，不并发修改公开仓库。
 - 先从 ready receipt 与 `artifacts/free-roam` 交叉验证完整产物，再把所有“已有完整产物但未进入日历”的日期按从旧到新处理；一次可连续补齐多日，不得只处理今天。缺少声明、预览或翻译时修复该日期，不能跳过后清空待办。
+- 日期导入只能使用显式 `--date YYYY-MM-DD`。遇到“日期未声明”时，先在 importer 注册该日期并重新运行同一日期；禁止退回无 `--date` 的全语料导入，也禁止把一个日期的错误扩大为全仓库改写。
 - 每个新日期进入 `metadata/days.json` 后，依次运行严格对话补录（适用于已结束日期）、`python3 scripts/import_collaboration_events.py`、真实 Cron pulse 导入、语义清洗、完整句与安全门禁、全量测试和确定性构建。
 - 预览必须同时存在 PNG、GIF 与 WebP；三者都要表现作品本身，禁止目录、错误页、加载壳或可被 OCR 读出的界面/路径文字。GIF/WebP 必须有可见运动、固定帧数和有界时长，archive 与 docs 镜像哈希必须一致。
 - 动态捕获只允许一次有界尝试，90 秒仍未完成就终止整棵捕获进程，改用已验证 PNG 的无文字视觉区域生成确定性固定帧动画并同步导出 GIF/WebP；不得把无限等待、静态单帧、缺任一格式或旧 WebP 继续沿用当作成功。
-- 只允许 canonical worktree；开始和发布后均验证 `HEAD == origin/main == git ls-remote origin refs/heads/main`。工作树不干净或三方失配时 fail closed、保留积压，不 merge/rebase/reset，也不吸收无关改动。
+- 只允许 canonical worktree；开始和发布后均验证 `HEAD == origin/main == git ls-remote origin refs/heads/main`。无事务清单时，工作树不干净或三方失配必须 fail closed、保留积压，不 merge/rebase/reset，也不吸收无关改动。
+- 第一次写 canonical worktree **之前**，必须把恢复事务原子写入 public state：`transaction_schema=granted-hours-closure-transaction-v1`、`status=in_progress`、`base_head`、`dates`、`stage`、`allowed_path_roots` 与空的 `owned_paths`。每个会改文件的命令前先扩充有界 `allowed_path_roots`，命令后立刻用 `git status --porcelain -z` 更新精确 `owned_paths`；出现门禁失败时先写 `status=blocked`、失败阶段与当前精确路径集，再退出。
+- 后续运行遇到 dirty worktree 时，只有同时满足以下条件才允许恢复：事务清单存在且状态为 `in_progress/blocked`；`HEAD == base_head == origin/main == remote main`；积压仍含事务日期；当前 dirty 路径集合与 `owned_paths` **完全相等**；每个路径都位于记录的 `allowed_path_roots`。任一条件不满足都视为无关改动并 fail closed。恢复只能从记录阶段继续，不能把新路径静默并入旧事务。
+- 提交、推送、部署及公网验收全部成功且工作树恢复干净后，事务状态改为 `completed` 并清空 `owned_paths`；GitHub 已成功但 Cloudflare 失败时保留同一事务为 `partial`，后续只补部署，不能因 dirty 状态重复导入或重做提交。
 - 只有测试与公开安全门禁全部通过才能显式暂存、提交、推送和 Cloudflare 部署；GitHub 成功而 Cloudflare 失败时状态为 `partial` 且后续继续补部署，不回滚已发布提交。
 """.rstrip()
 

@@ -1802,5 +1802,71 @@
     },
     "bgm": "archive/2026/08/2026-08-02/live/2026-08-02-permission-to-dim-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-02/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-03",
+    "source_date": "2026-08-02",
+    "crystallization_date": "2026-08-03",
+    "title_en": "The Room That Exhales",
+    "title_zh": "房间学会呼气",
+    "type": "live",
+    "seed": 20260803,
+    "preview": "archive/2026/08/2026-08-03/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-03/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-03/",
+    "live_url": "archive/2026/08/2026-08-03/live/",
+    "variable_en": "Release Without Performance",
+    "variable_zh": "不表演的松开",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-03/live/2026-08-03-room-that-exhales-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-03/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-04",
+    "source_date": "2026-08-03",
+    "crystallization_date": "2026-08-04",
+    "title_en": "The Light That Does Not Follow",
+    "title_zh": "不跟随的微光",
+    "type": "live",
+    "seed": 20260804,
+    "preview": "archive/2026/08/2026-08-04/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-04/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-04/",
+    "live_url": "archive/2026/08/2026-08-04/live/",
+    "variable_en": "Afterglow",
+    "variable_zh": "余辉",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-04/live/2026-08-04-light-that-stays-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-04/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-05",
+    "source_date": "2026-08-04",
+    "crystallization_date": "2026-08-05",
+    "title_en": "The Gap That Keeps Its Shape",
+    "title_zh": "缝隙保持形状",
+    "type": "live",
+    "seed": 20260805,
+    "preview": "archive/2026/08/2026-08-05/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-05/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-05/",
+    "live_url": "archive/2026/08/2026-08-05/live/",
+    "variable_en": "Separation",
+    "variable_zh": "间隙",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-05/live/2026-08-05-gap-that-keeps-its-shape-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-05/assets/visual-preview.gif"
   }
 ]

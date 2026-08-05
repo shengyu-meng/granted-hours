@@ -41,6 +41,24 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-05 — The Gap That Keeps Its Shape / 缝隙保持形状**<br>
+  Variable / 自由变量：Separation / 间隙<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-05/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-05/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-05/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-05/live/)
+- **2026-08-04 — The Light That Does Not Follow / 不跟随的微光**<br>
+  Variable / 自由变量：Afterglow / 余辉<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-04/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-04/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-04/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-04/live/)
+- **2026-08-03 — The Room That Exhales / 房间学会呼气**<br>
+  Variable / 自由变量：Release Without Performance / 不表演的松开<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-03/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-03/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-03/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-03/live/)
 - **2026-08-02 — Permission to Dim / 允许暗下来**<br>
   Variable / 自由变量：Permission to Rest / 休息的许可<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

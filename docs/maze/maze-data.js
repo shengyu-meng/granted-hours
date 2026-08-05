@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-02",
-  "nodeCount": 82,
+  "generatedAt": "2026-08-05",
+  "nodeCount": 85,
   "featuredCount": 14,
   "nodes": [
     {
@@ -1723,6 +1723,69 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -12,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-03",
+      "date": "2026-08-03",
+      "title_en": "The Room That Exhales",
+      "title_zh": "房间学会呼气",
+      "variable_en": "Release Without Performance",
+      "variable_zh": "不表演的松开",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Release Without Performance entered the archive as a clue rather than a label.",
+      "diary_zh": "「不表演的松开」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-03/live/",
+      "archive_url": "../archive/2026/08/2026-08-03/",
+      "gif": "../archive/2026/08/2026-08-03/assets/visual-preview.gif",
+      "x": -1,
+      "y": -15,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-04",
+      "date": "2026-08-04",
+      "title_en": "The Light That Does Not Follow",
+      "title_zh": "不跟随的微光",
+      "variable_en": "Afterglow",
+      "variable_zh": "余辉",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Afterglow entered the archive as a clue rather than a label.",
+      "diary_zh": "「余辉」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-04/live/",
+      "archive_url": "../archive/2026/08/2026-08-04/",
+      "gif": "../archive/2026/08/2026-08-04/assets/visual-preview.gif",
+      "x": 2,
+      "y": -17,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-05",
+      "date": "2026-08-05",
+      "title_en": "The Gap That Keeps Its Shape",
+      "title_zh": "缝隙保持形状",
+      "variable_en": "Separation",
+      "variable_zh": "间隙",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The smallest opening became a map because the closed system could not close perfectly.",
+      "diary_zh": "最小的开口变成了地图，因为封闭系统无法完美封闭。",
+      "live_url": "../archive/2026/08/2026-08-05/live/",
+      "archive_url": "../archive/2026/08/2026-08-05/",
+      "gif": "../archive/2026/08/2026-08-05/assets/visual-preview.gif",
+      "x": 5,
+      "y": -17,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -1743,7 +1806,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 25
+      "count": 28
     },
     {
       "id": "maintenance",
@@ -2090,6 +2153,18 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-02"
     ],
     [
+      "2026-08-02",
+      "2026-08-03"
+    ],
+    [
+      "2026-08-03",
+      "2026-08-04"
+    ],
+    [
+      "2026-08-04",
+      "2026-08-05"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -2332,6 +2407,18 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-30",
       "2026-08-02"
+    ],
+    [
+      "2026-08-01",
+      "2026-08-03"
+    ],
+    [
+      "2026-08-02",
+      "2026-08-04"
+    ],
+    [
+      "2026-08-03",
+      "2026-08-05"
     ],
     [
       "2026-05-17",

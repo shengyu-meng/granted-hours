@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-fold-toggle {
+    position: fixed;
+    z-index: 2147483647;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    min-height: 38px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: #f6efe3;
+    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    min-height: 38px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  #ghWorkNoteOverlay .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  #ghWorkNoteOverlay .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  #ghWorkNoteOverlay .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  #ghWorkNoteOverlay .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  #ghWorkNoteOverlay .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  #ghWorkNoteOverlay .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  #ghWorkNoteOverlay .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-text-folded .gh-fold-toggle {
+    background: rgba(3,7,13,.82);
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-fold-toggle,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
+    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const STORAGE_KEY = 'grantedHoursTextFolded';
+  const WORK_NOTE = {"date":"2026-08-05","title_en":"The Gap That Keeps Its Shape","title_zh":"缝隙保持形状","variable_en":"Separation","variable_zh":"间隙","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Not every opening is an invitation to pass through. Some spaces remain open so that neither side has to become the other.","intention_zh":"不是每一道开口都在邀请通过。有些空隙保持敞开，是为了让两侧都不必变成彼此。","interaction_en":"Your proximity bends the strands around the seam. It never closes the seam, and it never grants possession of its centre.","interaction_zh":"你的靠近会使缝隙周围的线束弯折。它不会合拢，也不会把中心交给任何人。","rationale_en":"The Gap That Keeps Its Shape was made as one public step in the Granted Hours sequence, with the variable Separation treated as an operational condition rather than a decorative theme. The intention frames the work this way: Not every opening is an invitation to pass through. Some spaces remain open so that neither side has to become the other. The live artifact then turns that idea into interaction: Your proximity bends the strands around the seam. It never closes the seam, and it never grants possession of its centre. Its afterimage condenses the day’s claim: A boundary can be hospitable without being absorbent.","rationale_zh":"《缝隙保持形状》是《授时》连续序列中的一个公开步骤：当天的自由变量「间隙」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：不是每一道开口都在邀请通过。有些空隙保持敞开，是为了让两侧都不必变成彼此。 可运行页面进一步把这个概念变成可操作的界面：你的靠近会使缝隙周围的线束弯折。它不会合拢，也不会把中心交给任何人。 它的余像把当天判断压缩为一句话：边界可以好客，而不必吸收。","after_en":"A boundary can be hospitable without being absorbent.","after_zh":"边界可以好客，而不必吸收。"};
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'gh-fold-toggle';
+  btn.setAttribute('aria-controls', 'textPanel legend');
+  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(btn)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, btn, workNoteOverlay);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+    setFolded(stored === null ? mobileDefault : stored === '1', false);
+    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.classList.add('is-open');
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function setFolded(folded, persist) {
+    document.body.classList.toggle('gh-text-folded', folded);
+    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
+    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
+    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Gap That Keeps Its Shape / 缝隙保持形状</title>
+<style>
+  :root{--ink:#11151d;--bone:#e9e3d6;--ash:#9ba4ad;--cyan:#79b8c7;--violet:#9a91ad;--gold:#c5ab6a;}
+  *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bone);color:var(--ink)}
+  body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.035em}
+  canvas{display:block;width:100vw;height:100vh;cursor:crosshair}
+  .caption{position:fixed;z-index:3;left:30px;top:24px;max-width:460px;pointer-events:none;text-shadow:0 1px 8px rgba(233,227,214,.7)}
+  h1{margin:0;font-family:Georgia,"Noto Serif SC",serif;font-size:clamp(19px,2vw,31px);letter-spacing:.01em;font-weight:600}
+  .cn{display:block;margin-top:4px;font-size:13px;color:#56616d}.time{position:fixed;z-index:3;right:30px;top:25px;text-align:right;font-size:10px;line-height:1.65;color:#515b66;pointer-events:none}
+  .hint{position:fixed;z-index:3;bottom:24px;left:30px;font-size:11px;line-height:1.5;color:#4a5560;pointer-events:none}
+  .controls{position:fixed;z-index:4;right:28px;bottom:22px;display:flex;gap:10px}.control{border:1px solid rgba(17,21,29,.55);border-radius:999px;background:rgba(233,227,214,.7);color:var(--ink);padding:11px 15px;min-height:44px;font:10px ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;cursor:pointer}.control:hover,.control:focus-visible{background:#11151d;color:#e9e3d6;outline:2px solid var(--cyan);outline-offset:2px}
+  .gh-work-note-overlay{position:fixed;z-index:10;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(17,21,29,.48)}
+  .gh-work-note-overlay.open{display:flex}.note{position:relative;width:min(660px,100%);max-height:min(720px,calc(100vh - 48px));overflow:auto;background:rgba(245,241,232,.98);border:1px solid rgba(17,21,29,.3);box-shadow:0 24px 70px rgba(0,0,0,.24);padding:36px 42px 42px;font-family:Georgia,"Noto Serif SC",serif;line-height:1.75;letter-spacing:.02em}.note h2{margin:0 0 18px;font-size:25px}.note h3{font-size:15px;margin:24px 0 5px}.note p{margin:0 0 12px;font-size:14px}.close{position:absolute;right:16px;top:16px;width:44px;height:44px;border-radius:50%;border:1px solid #333;background:transparent;cursor:pointer;font:20px ui-monospace}
+  .visual .caption,.visual .time,.visual .hint,.visual .controls{display:none}
+  @media(max-width:600px){.caption{left:18px;top:18px}.time{right:18px;top:18px;font-size:8px}.hint{left:18px;bottom:18px;max-width:200px}.controls{right:16px;bottom:16px}.control{padding:10px}.note{padding:31px 25px}.note h2{font-size:20px}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="Interactive field of an open gap"></canvas>
+<div class="caption"><h1>The Gap That Keeps Its Shape</h1><span class="cn">缝隙保持形状</span></div>
+<div class="time">SOURCE DAY · 2026–08–04<br>CRYSTALLIZATION · 2026–08–05<br>GRANTED · 03:17–04:17 CST</div>
+<div class="hint">Move near the seam, then leave it.<br>靠近缝隙，再把它留在那里。</div>
+<div class="controls"><button id="sound" class="control" aria-pressed="false">SOUND · OFF</button><button id="about" class="control gh-work-note-trigger" aria-haspopup="dialog">ABOUT / 说明</button></div>
+<div id="overlay" class="gh-work-note-overlay" role="dialog" aria-modal="true" aria-labelledby="note-title" aria-hidden="true"><article class="note"><button id="close" class="close" aria-label="Close work note">×</button><h2 id="note-title">The Gap That Keeps Its Shape<br><small>缝隙保持形状</small></h2><h3>Intention / 发心</h3><p>Not every opening is an invitation to pass through. Some spaces remain open so that neither side has to become the other.</p><p>不是每一道开口都在邀请通过。有些空隙保持敞开，是为了让两侧都不必变成彼此。</p><h3>Interaction / 交互</h3><p>Your proximity bends the strands around the seam. It never closes the seam, and it never grants possession of its centre.</p><p>你的靠近会使缝隙周围的线束弯折。它不会合拢，也不会把中心交给任何人。</p><h3>Afterimage / 余像</h3><p>A boundary can be hospitable without being absorbent.</p><p>边界可以好客，而不必吸收。</p><h3>Time / 时间</h3><p>Source Day / 来源日：2026–08–04<br>Crystallization Day / 结晶日：2026–08–05<br>Granted duration / 被授予时长：03:17–04:17 CST（60 minutes）<br>Experience duration / 体验时长：open-ended / 由来访者决定</p></article></div>
+<audio id="bgm" src="2026-08-05-gap-that-keeps-its-shape-bgm.mp3" loop preload="auto"></audio>
+<script>
+(() => {
+  const canvas=document.getElementById('field'), ctx=canvas.getContext('2d');
+  const query=new URLSearchParams(location.search), visual=query.get('preview')==='visual';
+  if(visual) document.body.classList.add('visual');
+  const mouse={x:.5,y:.52,active:false}, seam=.5; let W=0,H=0,dpr=1,t=0,raf=0,lastFocus=null;
+  const sound=document.getElementById('sound'), audio=document.getElementById('bgm'), about=document.getElementById('about'), overlay=document.getElementById('overlay'), close=document.getElementById('close');
+  const strands=Array.from({length:88},(_,i)=>({seed:i*2.399,side:i%2?1:-1,base:(i+.5)/88,drift:0.3+(i%7)*.075}));
+  function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+  function open(){lastFocus=document.activeElement;overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');close.focus()}
+  function shut(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');if(lastFocus)lastFocus.focus()}
+  about.addEventListener('click',open);close.addEventListener('click',shut);overlay.addEventListener('click',e=>{if(e.target===overlay)shut()});addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))shut()});
+  sound.addEventListener('click',async()=>{try{if(audio.paused){await audio.play();sound.textContent='SOUND · ON';sound.setAttribute('aria-pressed','true')}else{audio.pause();sound.textContent='SOUND · OFF';sound.setAttribute('aria-pressed','false')}}catch{sound.textContent='SOUND · TAP TO START'}});
+  audio.play().then(()=>{sound.textContent='SOUND · ON';sound.setAttribute('aria-pressed','true')}).catch(()=>{});
+  addEventListener('pointermove',e=>{mouse.x=e.clientX/W;mouse.y=e.clientY/H;mouse.active=true});addEventListener('pointerleave',()=>mouse.active=false);addEventListener('resize',resize);resize();
+  function curve(x0,y0,x1,y1,cx,cy){ctx.beginPath();ctx.moveTo(x0,y0);ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);ctx.stroke()}
+  function draw(){t+=.008;ctx.clearRect(0,0,W,H);const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#e9e3d6');bg.addColorStop(.55,'#e4ded1');bg.addColorStop(1,'#d7d3cd');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+    const grain=ctx.createRadialGradient(W*.5,H*.48,10,W*.5,H*.48,Math.max(W,H)*.6);grain.addColorStop(0,'rgba(121,184,199,.10)');grain.addColorStop(.6,'rgba(154,145,173,.025)');grain.addColorStop(1,'rgba(17,21,29,.06)');ctx.fillStyle=grain;ctx.fillRect(0,0,W,H);
+    const mx=mouse.x, my=mouse.y, dist=Math.abs(mx-seam);const pull=mouse.active?Math.max(0,1-dist/.32):0;
+    strands.forEach((s,i)=>{const yy=(s.base+.045*Math.sin(t*s.drift+s.seed)) * H;const joinY=H*.5+Math.sin(t*.7+s.seed)*H*.12;const edge=s.side<0?0:W;const near=seam*W+s.side*W*(.045+Math.abs(yy-H*.5)/H*.14);const dy=(my*H-yy), dx=(mx-seam)*W;const influence=pull*Math.exp(-Math.abs(dy)/(H*.24))*Math.exp(-Math.abs(dx)/(W*.21));const bow=s.side*(-W*(.018+.055*influence));
+      ctx.lineWidth=i%9===0?1.2:.45;ctx.strokeStyle=i%9===0?'rgba(17,21,29,.50)':(i%5===0?'rgba(121,184,199,.46)':'rgba(17,21,29,.21)');curve(edge,yy,near,joinY,near+bow,yy);});
+    ctx.save();ctx.translate(W*.5,H*.5);ctx.rotate(Math.sin(t*.3)*.007);const gap=32+Math.sin(t*.6)*5;ctx.fillStyle='rgba(17,21,29,.91)';ctx.fillRect(-gap/2,-H*.36,gap,H*.72);ctx.fillStyle='rgba(197,171,106,.8)';ctx.fillRect(-1.2,-H*.36,2.4,H*.72);ctx.restore();
+    for(let i=0;i<48;i++){const a=i*2.4+t*.13,r=H*(.18+(i%9)*.038);const x=W*.5+Math.cos(a)*r*1.18,y=H*.5+Math.sin(a)*r;ctx.fillStyle=`rgba(154,145,173,${.07+(i%4)*.018})`;ctx.fillRect(x,y,1.2,1.2)}
+    if(!visual){ctx.fillStyle='rgba(17,21,29,.13)';ctx.fillRect(0,H*.5,W,1)} raf=requestAnimationFrame(draw)}draw();
+})();
+</script>
+</body>
+</html>

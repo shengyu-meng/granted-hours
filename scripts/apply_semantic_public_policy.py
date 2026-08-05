@@ -398,6 +398,34 @@ def translation_catalog_from_pulses(pulses: dict) -> dict:
     }
 
 
+def merge_translation_catalog(pulses: dict, existing: dict) -> dict:
+    """Keep dormant valid translations needed by future date-scoped rebuilds.
+
+    A date-scoped pulse refresh reconstructs source evidence for every public
+    day before merging only the requested dates. Therefore the sidecar is an
+    input catalog, not merely a projection of translations referenced by the
+    current merged snapshot. Pruning dormant records here makes the next run
+    fail closed before it can reach the date merge.
+    """
+    if (
+        not isinstance(existing, dict)
+        or existing.get("schema") != REMINDER_TRANSLATION_SCHEMA
+        or existing.get("translation_provenance")
+        != REMINDER_TRANSLATION_PROVENANCE
+        or not isinstance(existing.get("translations"), dict)
+    ):
+        raise ValueError("Invalid reminder translation catalog")
+    merged = dict(existing["translations"])
+    referenced = translation_catalog_from_pulses(pulses)["translations"]
+    # The already-sanitized pulse is canonical when the same source is active.
+    merged.update(referenced)
+    return {
+        "schema": REMINDER_TRANSLATION_SCHEMA,
+        "translation_provenance": REMINDER_TRANSLATION_PROVENANCE,
+        "translations": {key: merged[key] for key in sorted(merged)},
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY)
@@ -423,7 +451,7 @@ def main() -> int:
         read_json(args.pulses),
         identity_terms=identity_terms,
     )
-    translations = translation_catalog_from_pulses(pulses)
+    translations = merge_translation_catalog(pulses, read_json(args.translations))
     changed = {"history": False, "pulses": False, "translations": False}
     if args.write:
         changed["history"] = atomic_write_json(args.history, history)

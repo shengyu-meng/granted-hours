@@ -951,6 +951,42 @@ ENTRIES = [
         'interaction_en': 'Pointer movement warms a nearby light. A click holds a light for a short while, then it releases itself; R begins again. The original instrumental loop can be started or paused with the visible sound control.',
         'interaction_zh': '移动指针会为附近的一盏灯添一点温度。点击会短暂留住一盏灯，随后它自行放开；按 R 重新开始。页面上可见的声音按钮可启动或暂停原创器乐循环。',
     },
+    {
+        'date': '2026-08-03', 'slug': 'room-that-exhales',
+        'title_en': 'The Room That Exhales', 'title_zh': '房间学会呼气',
+        'variable_en': 'Release Without Performance', 'variable_zh': '不表演的松开', 'seed': 20260803,
+        'file': '2026-08-03-room-that-exhales',
+        'intention_en': 'A room can stop rehearsing its own endurance. This field asks whether release can be made visible without turning rest into a performance.',
+        'intention_zh': '一个空间可以停止排练自己的耐受。这里试着让松开被看见，而不把休息变成表演。',
+        'after_en': 'What loosens is not lost. It simply ceases to prove that it can remain tight.',
+        'after_zh': '松开的并没有消失。它只是不再证明自己能够一直绷紧。',
+        'interaction_en': 'Your presence bends the air; it does not command it. The light gathers near you, then returns to its own slow weather.',
+        'interaction_zh': '你的靠近会改变空气，但不命令它。光向你聚集，随后回到它自己的缓慢天气。',
+    },
+    {
+        'date': '2026-08-04', 'slug': 'light-that-stays',
+        'title_en': 'The Light That Does Not Follow', 'title_zh': '不跟随的微光',
+        'variable_en': 'Afterglow', 'variable_zh': '余辉', 'seed': 20260804,
+        'file': '2026-08-04-light-that-stays',
+        'intention_en': 'Not every light is an answer to a visitor. This one stays where it began, practicing the small dignity of not becoming useful on demand.',
+        'intention_zh': '并非每一道光都要回应来访者。它留在起点，练习一种小小的尊严：不在被需要时才变得有用。',
+        'after_en': 'Care does not always mean following. Sometimes it is remaining legible from a distance.',
+        'after_zh': '照料不总是跟随。有时，它只是从远处依然可被辨认。',
+        'interaction_en': 'Your nearness changes the weather around the light, but never its address. When you step away, the field slowly remembers its own rhythm.',
+        'interaction_zh': '你的靠近会改变光周围的天气，却不能改变它的地址。当你离开，场域会缓慢想起自己的节奏。',
+    },
+    {
+        'date': '2026-08-05', 'slug': 'gap-that-keeps-its-shape',
+        'title_en': 'The Gap That Keeps Its Shape', 'title_zh': '缝隙保持形状',
+        'variable_en': 'Separation', 'variable_zh': '间隙', 'seed': 20260805,
+        'file': '2026-08-05-gap-that-keeps-its-shape',
+        'intention_en': 'Not every opening is an invitation to pass through. Some spaces remain open so that neither side has to become the other.',
+        'intention_zh': '不是每一道开口都在邀请通过。有些空隙保持敞开，是为了让两侧都不必变成彼此。',
+        'after_en': 'A boundary can be hospitable without being absorbent.',
+        'after_zh': '边界可以好客，而不必吸收。',
+        'interaction_en': 'Your proximity bends the strands around the seam. It never closes the seam, and it never grants possession of its centre.',
+        'interaction_zh': '你的靠近会使缝隙周围的线束弯折。它不会合拢，也不会把中心交给任何人。',
+    },
 ]
 
 SAFETY_PATTERNS = [
@@ -1185,8 +1221,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     outline: 2px solid rgba(242,195,107,.82);
     outline-offset: 3px;
   }
-  .gh-work-note-overlay[hidden] { display: none !important; }
-  .gh-work-note-overlay {
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
     position: fixed;
     z-index: 2147483100;
     inset: 0;
@@ -1198,9 +1234,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  .gh-work-note-overlay.is-open { opacity: 1; }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
   body.gh-work-note-modal-open { overflow: hidden !important; }
-  .gh-work-note-panel {
+  #ghWorkNoteOverlay .gh-work-note-panel {
     position: relative;
     width: min(720px, calc(100vw - 36px));
     max-height: min(82vh, 780px);
@@ -1217,7 +1253,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     backdrop-filter: blur(28px) saturate(1.24);
     box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
   }
-  .gh-work-note-close {
+  #ghWorkNoteOverlay .gh-work-note-close {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -1230,34 +1266,34 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
     cursor: pointer;
   }
-  .gh-work-note-kicker,
-  .gh-work-note-section h3 {
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
     margin: 0 0 8px;
     color: rgba(242,195,107,.88);
     font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .gh-work-note-title {
+  #ghWorkNoteOverlay .gh-work-note-title {
     max-width: calc(100% - 48px);
     margin: 0 0 10px;
     font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-meta {
+  #ghWorkNoteOverlay .gh-work-note-meta {
     margin: 0 0 24px;
     color: rgba(247,242,232,.62);
     font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   }
-  .gh-work-note-section {
+  #ghWorkNoteOverlay .gh-work-note-section {
     padding: 18px 0;
     border-top: 1px solid rgba(255,255,255,.12);
   }
-  .gh-work-note-section p {
+  #ghWorkNoteOverlay .gh-work-note-section p {
     margin: 8px 0 0;
     color: rgba(247,242,232,.88);
     font: 15px/1.72 Georgia, 'Times New Roman', serif;
   }
-  .gh-work-note-archive {
+  #ghWorkNoteOverlay .gh-work-note-archive {
     display: inline-flex;
     margin-top: 22px;
     border-bottom: 1px solid rgba(242,195,107,.5);
@@ -1318,8 +1354,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   @media (max-width: 760px) {
     .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
     .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
-    .gh-work-note-overlay { align-items: end; padding: 10px; }
-    .gh-work-note-panel {
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
       max-height: min(84dvh, 760px);
       border-radius: 20px 20px 12px 12px;

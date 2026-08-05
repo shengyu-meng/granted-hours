@@ -47,12 +47,16 @@ class TimetableReminderTranslationTests(unittest.TestCase):
         )
         self.assertEqual(len(source_hashes), len(self.reminders))
         self.assertGreaterEqual(len(set(source_hashes)), 100)
-        self.assertEqual(len(self.catalog), len(set(source_hashes)))
+        source_hash_set = set(source_hashes)
+        self.assertTrue(source_hash_set.issubset(self.catalog))
+        # Dormant records are intentional inputs for future date-scoped rebuilds;
+        # keep the sidecar bounded without requiring it to mirror only the
+        # currently merged snapshot.
+        self.assertLessEqual(len(self.catalog), len(source_hash_set) + 64)
         matching_lookup_count = sum(
             source_sha256 in self.catalog for source_sha256 in source_hashes
         )
-        self.assertGreater(matching_lookup_count, 0)
-        self.assertLessEqual(matching_lookup_count, len(self.reminders))
+        self.assertEqual(matching_lookup_count, len(self.reminders))
 
     def test_catalog_records_are_hash_bound_mask_safe_english(self) -> None:
         for source_sha256, record in self.catalog.items():
