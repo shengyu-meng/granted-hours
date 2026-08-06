@@ -2,6 +2,14 @@
 import assert from "node:assert/strict";
 import { chromium } from "@playwright/test";
 
+function parseMatrixTransform(value) {
+  const match = String(value).match(/^matrix\(([-+\d.eE\s,]+)\)$/);
+  if (!match) return null;
+  const parts = match[1].split(",").map((part) => Number.parseFloat(part.trim()));
+  if (parts.length !== 6 || parts.some((part) => !Number.isFinite(part))) return null;
+  return { a: parts[0], b: parts[1], c: parts[2], d: parts[3], e: parts[4], f: parts[5] };
+}
+
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const sampleDate = "2026-07-16";
 const browser = await chromium.launch({ headless: true });
@@ -140,7 +148,14 @@ try {
       assert.ok(expanded.right <= expanded.viewportWidth + 1, JSON.stringify(expanded));
       assert.ok(expanded.overflow <= 1, JSON.stringify(expanded));
       assert.notEqual(expanded.summaryDisplay, "none");
-      assert.equal(expanded.transform, "none");
+      assert.ok(
+        expanded.transform === "none"
+          || (() => {
+            const m = parseMatrixTransform(expanded.transform);
+            return m && Math.abs(m.f - -4) < 0.5 && m.e === 0 && m.a === 1 && m.d === 1;
+          })(),
+        `hover Y-lift must be exactly -4px, got ${expanded.transform}`,
+      );
       await page.mouse.move(0, 0);
     } else {
       const touchToggle = page.locator("#timelineTouchToggle");

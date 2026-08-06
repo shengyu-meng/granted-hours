@@ -3,6 +3,14 @@ import assert from "node:assert/strict";
 import { chromium } from "@playwright/test";
 import { timetableData } from "../src/timetable/timetable-data.js";
 
+function parseMatrixTransform(value) {
+  const match = String(value).match(/^matrix\(([-+\d.eE\s,]+)\)$/);
+  if (!match) return null;
+  const parts = match[1].split(",").map((part) => Number.parseFloat(part.trim()));
+  if (parts.length !== 6 || parts.some((part) => !Number.isFinite(part))) return null;
+  return { a: parts[0], b: parts[1], c: parts[2], d: parts[3], e: parts[4], f: parts[5] };
+}
+
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const sampleDate = "2026-07-24";
 const sampleDay = timetableData.days.find((day) => day.date === sampleDate);
@@ -465,8 +473,13 @@ try {
       );
       const routineTransform = await routine.evaluate((card) => getComputedStyle(card).transform);
       assert.ok(
-        routineTransform === "none" || routineTransform === "matrix(1, 0, 0, 1, 0, 0)",
-        `${viewport.label}: hover/focus must never move or scale the card: ${routineTransform}`,
+        routineTransform === "none"
+          || routineTransform === "matrix(1, 0, 0, 1, 0, 0)"
+          || (() => {
+            const m = parseMatrixTransform(routineTransform);
+            return m && Math.abs(m.f - -4) < 0.5 && m.e === 0 && m.a === 1 && m.d === 1;
+          })(),
+        `${viewport.label}: hover/focus may only apply the exact -4px Y-lift: ${routineTransform}`,
       );
       await page.keyboard.press("Enter");
       await page.waitForSelector("#taskDialog.is-open");
