@@ -31,6 +31,12 @@
     border-color: rgba(242,195,107,.58);
     color: #fff3cf;
   }
+  .gh-work-note-trigger--busy {
+    background: rgba(3,7,13,.97) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    backdrop-filter: blur(18px) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
+  }
   .gh-work-note-trigger:focus-visible,
   .gh-work-note-close:focus-visible,
   .gh-work-note-archive:focus-visible {
@@ -178,6 +184,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const WORK_NOTE = {"date":"2026-07-04","title_en":"Accountable Access Gate","title_zh":"可问责入口门","variable_en":"Accountable Access","variable_zh":"可问责访问 / 有回返路径的进入","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue the Accountable Access Lexicon into a living threshold field: a door is not merely an opening, but a claim that crossing has a form. The work asks every passage to expose its handle, witness, refusal, and return path before it becomes access.","intention_zh":"延续昨天的“可问责入口词典”，把它变成一道活的阈值场：门不是单纯的洞，而是一种声明——进入有形式。作品要求每一次通行在成为访问之前，先显露自己的把手、见证、拒绝与回返路径。","interaction_en":"Move the pointer near a gate to wake its clause: handle, witness, refusal, return path, or threshold. Click to request passage. Keys 1–5 choose the kind of force — pull, knock, ask, refuse, or return. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible BGM button to stop or restart the MiniMax-generated instrumental bed.","interaction_zh":"移动指针靠近一扇门，会唤醒它的条款：把手、见证、拒绝、回返路径或阈值。点击会发出一次通行请求。数字键 1–5 选择用力方式：拉、敲门、询问、拒绝或回返。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面左下角有清晰可见的背景音乐按钮，可关闭或重新开启 MiniMax 生成的器乐背景。","rationale_en":"This work grows out of a public-facing question inside Granted Hours: if access is not just permission but a relation, what must an entrance reveal before it becomes ethical? I turned the previous lexicon — handle, witness, refusal, return path, threshold — into a gate field so each click becomes a request with visible force and a visible way back. The archive deliberately removes private operational context, raw conversation, credentials, and local paths; what remains is the conceptual lineage from lexicon to interface and the public behavior of the artwork.","rationale_zh":"这件作品来自《授时》内部一个可公开的问题：如果访问不只是“被允许进入”，而是一种关系，那么入口在变得合乎伦理之前，必须先显露什么？我把前一天的词典——把手、见证、拒绝、回返路径、阈值——转成一个入口场，让每一次点击都不只是“打开”，而是一次带有可见用力方式和回返路径的请求。档案刻意移除私人操作背景、原始对话、凭证和本地路径，只保留从词典到界面的概念谱系，以及作品本身可公开验证的行为。","after_en":"Access becomes accountable when it can explain not only how it entered, but how it would leave.","after_zh":"当访问不仅能解释自己如何进入，也能解释自己如何离开，它才开始可问责。"};
+  const GH_WORK_NOTE_GAP = 10;
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = params.get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -274,6 +281,8 @@
     alignWorkNote();
     window.addEventListener('resize', alignWorkNote);
     window.addEventListener('orientationchange', alignWorkNote);
+    window.addEventListener('load', alignWorkNote);
+    [1200, 3000, 6000].forEach((ms) => window.setTimeout(alignWorkNote, ms));
     watchSoundControl();
   }
   function makeElement(tag, className, text = '') {
@@ -402,35 +411,122 @@
     'line-height', 'letter-spacing', 'min-height', 'box-shadow',
     '-webkit-backdrop-filter', 'backdrop-filter',
   ];
-  function alignWorkNote() {
+  function findVisibleTextBlocks() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const maxArea = vw * vh * 0.55;
     const sound = findSoundControl();
-    if (!sound) {
-      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
-      workNote.style.top = 'auto';
-      workNote.style.left = 'auto';
-      workNote.style.right = '';
-      workNote.style.bottom = '';
-      return;
+    const blocks = [];
+    const candidates = document.querySelectorAll(
+      'h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,button',
+    );
+    for (const el of candidates) {
+      if (!(el instanceof HTMLElement)) continue;
+      if (el === workNote || el.closest('#ghWorkNoteOverlay')) continue;
+      if (sound && (el === sound || sound.contains(el))) continue;
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width <= 1 || rect.height <= 1) continue;
+      if (rect.right < 0 || rect.bottom < 0 || rect.left > vw || rect.top > vh) continue;
+      const text = (el.innerText || '').trim();
+      if (!text) continue;
+      if (rect.width * rect.height > maxArea) continue;
+      let insideLargerBlock = false;
+      for (const block of blocks) {
+        if (
+          block.rect.left <= rect.left
+          && block.rect.top <= rect.top
+          && block.rect.right >= rect.right
+          && block.rect.bottom >= rect.bottom
+        ) {
+          insideLargerBlock = true;
+          break;
+        }
+      }
+      if (insideLargerBlock) continue;
+      blocks.push({ el, rect });
+      if (blocks.length >= 250) break;
     }
-    const soundStyle = getComputedStyle(sound);
-    SOUND_STYLE_PROPS.forEach((prop) => {
-      const value = soundStyle.getPropertyValue(prop);
-      if (value) workNote.style.setProperty(prop, value);
-    });
-    const soundRect = sound.getBoundingClientRect();
-    const gap = 10;
-    const right = Math.max(12, window.innerWidth - soundRect.left + gap);
-    const bottom = Math.max(12, window.innerHeight - soundRect.bottom);
+    return blocks;
+  }
+  function avoidOverlap(baseRight, baseBottom) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const noteWidth = workNote.offsetWidth || 148;
+    const noteHeight = workNote.offsetHeight || 44;
+    const blocks = findVisibleTextBlocks();
+    const maxLift = Math.max(120, Math.round(vh * 0.38));
+    const maxLeft = Math.max(24, Math.round(vw * 0.18));
+    let best = null;
+    const evaluate = (right, bottom, dx, dy) => {
+      const x2 = vw - right;
+      const x1 = x2 - noteWidth;
+      const y2 = vh - bottom;
+      const y1 = y2 - noteHeight;
+      if (x1 < 0 || y1 < 0) return;
+      let score = 0;
+      for (const block of blocks) {
+        const r = block.rect;
+        const iw = Math.min(x2, r.right) - Math.max(x1, r.left);
+        const ih = Math.min(y2, r.bottom) - Math.max(y1, r.top);
+        if (iw > 0 && ih > 0) score += iw * ih;
+      }
+      const dist = dx + dy;
+      if (!best || score < best.score || (score === best.score && dist < best.dist)) {
+        best = { score, right: Math.max(12, right), bottom: Math.max(12, bottom), dist };
+      }
+    };
+    for (let dy = 0; dy <= maxLift; dy += 4) {
+      if (best && best.score === 0 && dy > best.dist) break;
+      for (let dx = 0; dx <= maxLeft; dx += 4) {
+        evaluate(baseRight + dx, baseBottom + dy, dx, dy);
+      }
+      if (best && best.score === 0 && best.dist === 0) break;
+    }
+    return best || { score: Infinity, right: baseRight, bottom: baseBottom };
+  }
+  function alignWorkNote() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const sound = findSoundControl();
+    let baseRight = 12;
+    let baseBottom = 12;
+    if (sound) {
+      const soundStyle = getComputedStyle(sound);
+      SOUND_STYLE_PROPS.forEach((prop) => {
+        const value = soundStyle.getPropertyValue(prop);
+        if (value) workNote.style.setProperty(prop, value);
+      });
+      const soundRect = sound.getBoundingClientRect();
+      const compact = soundRect.width <= vw * 0.45;
+      const nearBottom = soundRect.bottom > vh * 0.45;
+      const nearRight = soundRect.left > vw * 0.25;
+      if (compact && nearBottom && nearRight) {
+        baseRight = Math.max(12, vw - soundRect.left + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.bottom);
+      } else if (compact) {
+        baseRight = 12;
+        baseBottom = 12;
+      } else {
+        baseRight = Math.max(12, vw - soundRect.right + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP);
+      }
+    } else {
+      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
+    }
     workNote.style.top = 'auto';
     workNote.style.left = 'auto';
-    workNote.style.right = `${right}px`;
-    workNote.style.bottom = `${bottom}px`;
+    const placed = avoidOverlap(baseRight, baseBottom);
+    workNote.style.right = `${placed.right}px`;
+    workNote.style.bottom = `${placed.bottom}px`;
+    workNote.classList.toggle('gh-work-note-trigger--busy', placed.score > 0);
     const noteRect = workNote.getBoundingClientRect();
-    if (noteRect.left < 12 && noteRect.right > 0) {
-      workNote.style.right = `${Math.max(12, window.innerWidth - noteRect.right + (noteRect.left - 12))}px`;
+    if (noteRect.left < 0) {
+      workNote.style.right = `${Math.max(12, vw - noteRect.right - 12)}px`;
     }
-    if (noteRect.bottom > window.innerHeight - 12 && noteRect.height > 0) {
-      workNote.style.bottom = `${Math.max(12, window.innerHeight - noteRect.top - 12)}px`;
+    if (noteRect.bottom > vh) {
+      workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
     }
   }
   let soundObserver = null;

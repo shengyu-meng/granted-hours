@@ -201,6 +201,32 @@ try {
       const overlapHeight = soundRect
         ? Math.max(0, Math.min(triggerRect.bottom, soundRect.bottom) - Math.max(triggerRect.top, soundRect.top))
         : 0;
+      const viewportArea = innerWidth * innerHeight;
+      const textBlocks = [...document.querySelectorAll(
+        'h1,h2,h3,h4,h5,h6,p,span,div,label,legend,figcaption,li,a,button',
+      )].filter((el) => isVisible(el)
+        && (el.innerText || "").trim().length > 0
+        && !el.closest("#ghWorkNoteOverlay")
+        && el !== trigger
+        && !(sound && (el === sound || sound.contains(el)))
+        && el.getBoundingClientRect().width * el.getBoundingClientRect().height <= viewportArea * 0.55);
+      let textOverlapCount = 0;
+      let worstTextOverlap = 0;
+      for (const el of textBlocks) {
+        const rect = el.getBoundingClientRect();
+        const iw = Math.max(0, Math.min(triggerRect.right, rect.right) - Math.max(triggerRect.left, rect.left));
+        const ih = Math.max(0, Math.min(triggerRect.bottom, rect.bottom) - Math.max(triggerRect.top, rect.top));
+        if (iw > 0 && ih > 0) {
+          textOverlapCount += 1;
+          worstTextOverlap = Math.max(worstTextOverlap, iw * ih);
+        }
+      }
+      const soundBottomRight = Boolean(
+        soundRect
+        && soundRect.left > innerWidth * 0.25
+        && soundRect.width <= innerWidth * 0.45
+        && soundRect.bottom > innerHeight * 0.45,
+      );
       return {
         viewport: { width: innerWidth, height: innerHeight },
         horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -209,6 +235,10 @@ try {
         triggerLeftOfSound: Boolean(soundRect && triggerRect.right <= soundRect.left + 1),
         bottomAlignedWithSound: Boolean(soundRect && Math.abs(triggerRect.bottom - soundRect.bottom) <= 2),
         overlapArea: overlapWidth * overlapHeight,
+        liftedAboveSound: Boolean(soundRect && triggerRect.bottom < soundRect.top),
+        soundBottomRight,
+        textOverlapCount,
+        worstTextOverlap,
       };
     });
     assert.ok(geometry.horizontalOverflow <= 1, `${spec.label} horizontal overflow`);
@@ -216,9 +246,15 @@ try {
     assert.ok(geometry.trigger.left >= 0 && geometry.trigger.top >= 0, `${spec.label} trigger offscreen`);
     assert.ok(geometry.trigger.right <= geometry.viewport.width && geometry.trigger.bottom <= geometry.viewport.height, `${spec.label} trigger offscreen`);
     assert.ok(geometry.sound, `${spec.label} sound control not visible`);
-    assert.ok(geometry.triggerLeftOfSound, `${spec.label} trigger is not left of sound control`);
-    assert.ok(geometry.bottomAlignedWithSound, `${spec.label} trigger is not bottom-aligned with sound control`);
+    if (geometry.soundBottomRight) {
+      assert.ok(geometry.triggerLeftOfSound, `${spec.label} trigger is not left of the bottom-right sound control`);
+      assert.ok(
+        geometry.bottomAlignedWithSound || geometry.liftedAboveSound,
+        `${spec.label} trigger is neither aligned with nor lifted above the sound control`,
+      );
+    }
     assert.equal(geometry.overlapArea, 0, `${spec.label} controls overlap`);
+    assert.equal(geometry.textOverlapCount, 0, `${spec.label} trigger overlaps ${geometry.textOverlapCount} visible text blocks (worst ${geometry.worstTextOverlap}px²)`);
     if (spec.touch) await trigger.tap();
     else await trigger.click();
     const overlay = page.locator("#ghWorkNoteOverlay");

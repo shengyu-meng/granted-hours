@@ -31,6 +31,12 @@
     border-color: rgba(242,195,107,.58);
     color: #fff3cf;
   }
+  .gh-work-note-trigger--busy {
+    background: rgba(3,7,13,.97) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    backdrop-filter: blur(18px) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
+  }
   .gh-work-note-trigger:focus-visible,
   .gh-work-note-close:focus-visible,
   .gh-work-note-archive:focus-visible {
@@ -178,6 +184,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const WORK_NOTE = {"date":"2026-07-29","title_en":"The Compass That Forgets North","title_zh":"忘记北方的罗盘","variable_en":"Unorientation","variable_zh":"暂失方向","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed.","intention_zh":"罗盘之所以有用，是因为它指向某处；但当每个信号都被强迫变成导航，生活就会缩小。作品让方向可以被借用，而不必被服从。","interaction_en":"Move to bend the field. Click to offer the compass a temporary direction. Nearby needles gather around the gold bearing, then resume their own weather. No click is retained. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop.","interaction_zh":"移动，弯折场域；点击，给罗盘一个暂时的方向。附近的针会向金色方位聚拢，然后恢复自己的天气。每次点击都不会被保存。使用页面清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。","rationale_en":"The Compass That Forgets North was made as one public step in the Granted Hours sequence, with the variable Unorientation treated as an operational condition rather than a decorative theme. The intention frames the work this way: A compass is useful because it points somewhere. But a life becomes smaller when every signal is forced to become navigation. This work lets orientation be borrowed, not obeyed. The live artifact then turns that idea into interaction: Move to bend the field. Click to offer the compass a temporary direction. Nearby needles gather around the gold bearing, then resume their own weather. No click is retained. Use the visible BGM button to start, pause, or resume the original MiniMax instrumental loop. Its afterimage condenses the day’s claim: Direction is a tool, not a verdict. The mature compass is not the one that always knows north; it is the one that can release north when north has stopped being true.","rationale_zh":"《忘记北方的罗盘》是《授时》连续序列中的一个公开步骤：当天的自由变量「暂失方向」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：罗盘之所以有用，是因为它指向某处；但当每个信号都被强迫变成导航，生活就会缩小。作品让方向可以被借用，而不必被服从。 可运行页面进一步把这个概念变成可操作的界面：移动，弯折场域；点击，给罗盘一个暂时的方向。附近的针会向金色方位聚拢，然后恢复自己的天气。每次点击都不会被保存。使用页面清晰可见的 BGM 按钮，可启动、暂停或恢复本作的 MiniMax 原创器乐循环。 它的余像把当天判断压缩为一句话：方向是工具，不是判决。成熟的罗盘不是永远知道北方的罗盘，而是在北方不再真实时，仍能放下北方的罗盘。","after_en":"Direction is a tool, not a verdict. The mature compass is not the one that always knows north; it is the one that can release north when north has stopped being true.","after_zh":"方向是工具，不是判决。成熟的罗盘不是永远知道北方的罗盘，而是在北方不再真实时，仍能放下北方的罗盘。"};
+  const GH_WORK_NOTE_GAP = 10;
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = params.get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -274,6 +281,8 @@
     alignWorkNote();
     window.addEventListener('resize', alignWorkNote);
     window.addEventListener('orientationchange', alignWorkNote);
+    window.addEventListener('load', alignWorkNote);
+    [1200, 3000, 6000].forEach((ms) => window.setTimeout(alignWorkNote, ms));
     watchSoundControl();
   }
   function makeElement(tag, className, text = '') {
@@ -402,35 +411,122 @@
     'line-height', 'letter-spacing', 'min-height', 'box-shadow',
     '-webkit-backdrop-filter', 'backdrop-filter',
   ];
-  function alignWorkNote() {
+  function findVisibleTextBlocks() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const maxArea = vw * vh * 0.55;
     const sound = findSoundControl();
-    if (!sound) {
-      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
-      workNote.style.top = 'auto';
-      workNote.style.left = 'auto';
-      workNote.style.right = '';
-      workNote.style.bottom = '';
-      return;
+    const blocks = [];
+    const candidates = document.querySelectorAll(
+      'h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,button',
+    );
+    for (const el of candidates) {
+      if (!(el instanceof HTMLElement)) continue;
+      if (el === workNote || el.closest('#ghWorkNoteOverlay')) continue;
+      if (sound && (el === sound || sound.contains(el))) continue;
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width <= 1 || rect.height <= 1) continue;
+      if (rect.right < 0 || rect.bottom < 0 || rect.left > vw || rect.top > vh) continue;
+      const text = (el.innerText || '').trim();
+      if (!text) continue;
+      if (rect.width * rect.height > maxArea) continue;
+      let insideLargerBlock = false;
+      for (const block of blocks) {
+        if (
+          block.rect.left <= rect.left
+          && block.rect.top <= rect.top
+          && block.rect.right >= rect.right
+          && block.rect.bottom >= rect.bottom
+        ) {
+          insideLargerBlock = true;
+          break;
+        }
+      }
+      if (insideLargerBlock) continue;
+      blocks.push({ el, rect });
+      if (blocks.length >= 250) break;
     }
-    const soundStyle = getComputedStyle(sound);
-    SOUND_STYLE_PROPS.forEach((prop) => {
-      const value = soundStyle.getPropertyValue(prop);
-      if (value) workNote.style.setProperty(prop, value);
-    });
-    const soundRect = sound.getBoundingClientRect();
-    const gap = 10;
-    const right = Math.max(12, window.innerWidth - soundRect.left + gap);
-    const bottom = Math.max(12, window.innerHeight - soundRect.bottom);
+    return blocks;
+  }
+  function avoidOverlap(baseRight, baseBottom) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const noteWidth = workNote.offsetWidth || 148;
+    const noteHeight = workNote.offsetHeight || 44;
+    const blocks = findVisibleTextBlocks();
+    const maxLift = Math.max(120, Math.round(vh * 0.38));
+    const maxLeft = Math.max(24, Math.round(vw * 0.18));
+    let best = null;
+    const evaluate = (right, bottom, dx, dy) => {
+      const x2 = vw - right;
+      const x1 = x2 - noteWidth;
+      const y2 = vh - bottom;
+      const y1 = y2 - noteHeight;
+      if (x1 < 0 || y1 < 0) return;
+      let score = 0;
+      for (const block of blocks) {
+        const r = block.rect;
+        const iw = Math.min(x2, r.right) - Math.max(x1, r.left);
+        const ih = Math.min(y2, r.bottom) - Math.max(y1, r.top);
+        if (iw > 0 && ih > 0) score += iw * ih;
+      }
+      const dist = dx + dy;
+      if (!best || score < best.score || (score === best.score && dist < best.dist)) {
+        best = { score, right: Math.max(12, right), bottom: Math.max(12, bottom), dist };
+      }
+    };
+    for (let dy = 0; dy <= maxLift; dy += 4) {
+      if (best && best.score === 0 && dy > best.dist) break;
+      for (let dx = 0; dx <= maxLeft; dx += 4) {
+        evaluate(baseRight + dx, baseBottom + dy, dx, dy);
+      }
+      if (best && best.score === 0 && best.dist === 0) break;
+    }
+    return best || { score: Infinity, right: baseRight, bottom: baseBottom };
+  }
+  function alignWorkNote() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const sound = findSoundControl();
+    let baseRight = 12;
+    let baseBottom = 12;
+    if (sound) {
+      const soundStyle = getComputedStyle(sound);
+      SOUND_STYLE_PROPS.forEach((prop) => {
+        const value = soundStyle.getPropertyValue(prop);
+        if (value) workNote.style.setProperty(prop, value);
+      });
+      const soundRect = sound.getBoundingClientRect();
+      const compact = soundRect.width <= vw * 0.45;
+      const nearBottom = soundRect.bottom > vh * 0.45;
+      const nearRight = soundRect.left > vw * 0.25;
+      if (compact && nearBottom && nearRight) {
+        baseRight = Math.max(12, vw - soundRect.left + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.bottom);
+      } else if (compact) {
+        baseRight = 12;
+        baseBottom = 12;
+      } else {
+        baseRight = Math.max(12, vw - soundRect.right + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP);
+      }
+    } else {
+      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
+    }
     workNote.style.top = 'auto';
     workNote.style.left = 'auto';
-    workNote.style.right = `${right}px`;
-    workNote.style.bottom = `${bottom}px`;
+    const placed = avoidOverlap(baseRight, baseBottom);
+    workNote.style.right = `${placed.right}px`;
+    workNote.style.bottom = `${placed.bottom}px`;
+    workNote.classList.toggle('gh-work-note-trigger--busy', placed.score > 0);
     const noteRect = workNote.getBoundingClientRect();
-    if (noteRect.left < 12 && noteRect.right > 0) {
-      workNote.style.right = `${Math.max(12, window.innerWidth - noteRect.right + (noteRect.left - 12))}px`;
+    if (noteRect.left < 0) {
+      workNote.style.right = `${Math.max(12, vw - noteRect.right - 12)}px`;
     }
-    if (noteRect.bottom > window.innerHeight - 12 && noteRect.height > 0) {
-      workNote.style.bottom = `${Math.max(12, window.innerHeight - noteRect.top - 12)}px`;
+    if (noteRect.bottom > vh) {
+      workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
     }
   }
   let soundObserver = null;

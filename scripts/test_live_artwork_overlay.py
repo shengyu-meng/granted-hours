@@ -92,6 +92,10 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn("workNote.id = 'ghWorkNoteTrigger';", snippet)
         self.assertIn("function alignWorkNote()", snippet)
         self.assertIn("function findSoundControl()", snippet)
+        self.assertIn("function findVisibleTextBlocks()", snippet)
+        self.assertIn("function avoidOverlap(", snippet)
+        self.assertIn("gh-work-note-trigger--busy", snippet)
+        self.assertIn("const GH_WORK_NOTE_GAP = 10;", snippet)
         self.assertNotIn("IS_TIMETABLE_FULL_VIEW", snippet)
         self.assertIn("workNoteLastFocus.focus", snippet)
 

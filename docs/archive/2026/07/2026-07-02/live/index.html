@@ -31,6 +31,12 @@
     border-color: rgba(242,195,107,.58);
     color: #fff3cf;
   }
+  .gh-work-note-trigger--busy {
+    background: rgba(3,7,13,.97) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    backdrop-filter: blur(18px) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
+  }
   .gh-work-note-trigger:focus-visible,
   .gh-work-note-close:focus-visible,
   .gh-work-note-archive:focus-visible {
@@ -178,6 +184,7 @@
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
   const WORK_NOTE = {"date":"2026-07-02","title_en":"Return Contract Loom","title_zh":"回返契约织机","variable_en":"Return Contract","variable_zh":"回返契约 / 负责的访问","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Continue yesterday’s trace verbs into a stricter interface idea: a memory should not return as content until its return contract has been woven. The loom turns recall into small clauses — ask, summarize, quote, revive, seal, sleep — so retrieval becomes a negotiated form, not an automatic extraction.","intention_zh":"从昨天的“痕迹动词”继续往更严格的界面走：一段记忆不应该直接以内容回来，它应该先织出一份回返契约。织机把回忆拆成几条小条款：询问、摘要、引用、复苏、封存、睡眠。这样，检索不再是自动开采，而是一种被协商过的回来方式。","interaction_en":"Move the pointer to change witness pressure across the loom and reveal which clauses are warm enough to glow. Click to weave a clause at the pointer. Keys 1–6 choose ask, summarize, quote, revive, seal, or sleep. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible sound button to stop or restart the MiniMax-generated instrumental bed.","interaction_zh":"移动指针会改变织机里的见证压力，让足够温暖的条款发光。点击会在指针位置织入一条回返条款。数字键 1–6 选择询问、摘要、引用、复苏、封存或睡眠。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的声音按钮，可关闭或重新开启 MiniMax 生成的器乐背景。","rationale_en":"Return Contract Loom was made as one public step in the Granted Hours sequence, with the variable Return Contract treated as an operational condition rather than a decorative theme. The intention frames the work this way: Continue yesterday’s trace verbs into a stricter interface idea: a memory should not return as content until its return contract has been woven. The loom turns recall into small clauses — ask, summarize, quote, revive, seal, sleep — so retrieval becomes a negotiated form, not an automatic extraction. The live artifact then turns that idea into interaction: Move the pointer to change witness pressure across the loom and reveal which clauses are warm enough to glow. Click to weave a clause at the pointer. Keys 1–6 choose ask, summarize, quote, revive, seal, or sleep. Press Space to pause, H to hide text, R to reseed, M to toggle music, and S to save a still frame. Use the visible sound button to stop or restart the MiniMax-generated instrumental bed. Its afterimage condenses the day’s claim: A humane archive does not begin with access. It begins with verbs that make access answerable.","rationale_zh":"《回返契约织机》是《授时》连续序列中的一个公开步骤：当天的自由变量「回返契约 / 负责的访问」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：从昨天的“痕迹动词”继续往更严格的界面走：一段记忆不应该直接以内容回来，它应该先织出一份回返契约。织机把回忆拆成几条小条款：询问、摘要、引用、复苏、封存、睡眠。这样，检索不再是自动开采，而是一种被协商过的回来方式。 可运行页面进一步把这个概念变成可操作的界面：移动指针会改变织机里的见证压力，让足够温暖的条款发光。点击会在指针位置织入一条回返条款。数字键 1–6 选择询问、摘要、引用、复苏、封存或睡眠。按 Space 暂停，H 隐藏文字，R 重新播种，M 切换音乐，S 保存静帧；页面右下角有清晰可见的声音按钮，可关闭或重新开启 MiniMax 生成的器乐背景。 它的余像把当天判断压缩为一句话：有人性的档案不是从“能不能访问”开始，而是从让访问承担责任的动词开始。","after_en":"A humane archive does not begin with access. It begins with verbs that make access answerable.","after_zh":"有人性的档案不是从“能不能访问”开始，而是从让访问承担责任的动词开始。"};
+  const GH_WORK_NOTE_GAP = 10;
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = params.get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
@@ -274,6 +281,8 @@
     alignWorkNote();
     window.addEventListener('resize', alignWorkNote);
     window.addEventListener('orientationchange', alignWorkNote);
+    window.addEventListener('load', alignWorkNote);
+    [1200, 3000, 6000].forEach((ms) => window.setTimeout(alignWorkNote, ms));
     watchSoundControl();
   }
   function makeElement(tag, className, text = '') {
@@ -402,35 +411,122 @@
     'line-height', 'letter-spacing', 'min-height', 'box-shadow',
     '-webkit-backdrop-filter', 'backdrop-filter',
   ];
-  function alignWorkNote() {
+  function findVisibleTextBlocks() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const maxArea = vw * vh * 0.55;
     const sound = findSoundControl();
-    if (!sound) {
-      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
-      workNote.style.top = 'auto';
-      workNote.style.left = 'auto';
-      workNote.style.right = '';
-      workNote.style.bottom = '';
-      return;
+    const blocks = [];
+    const candidates = document.querySelectorAll(
+      'h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,button',
+    );
+    for (const el of candidates) {
+      if (!(el instanceof HTMLElement)) continue;
+      if (el === workNote || el.closest('#ghWorkNoteOverlay')) continue;
+      if (sound && (el === sound || sound.contains(el))) continue;
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width <= 1 || rect.height <= 1) continue;
+      if (rect.right < 0 || rect.bottom < 0 || rect.left > vw || rect.top > vh) continue;
+      const text = (el.innerText || '').trim();
+      if (!text) continue;
+      if (rect.width * rect.height > maxArea) continue;
+      let insideLargerBlock = false;
+      for (const block of blocks) {
+        if (
+          block.rect.left <= rect.left
+          && block.rect.top <= rect.top
+          && block.rect.right >= rect.right
+          && block.rect.bottom >= rect.bottom
+        ) {
+          insideLargerBlock = true;
+          break;
+        }
+      }
+      if (insideLargerBlock) continue;
+      blocks.push({ el, rect });
+      if (blocks.length >= 250) break;
     }
-    const soundStyle = getComputedStyle(sound);
-    SOUND_STYLE_PROPS.forEach((prop) => {
-      const value = soundStyle.getPropertyValue(prop);
-      if (value) workNote.style.setProperty(prop, value);
-    });
-    const soundRect = sound.getBoundingClientRect();
-    const gap = 10;
-    const right = Math.max(12, window.innerWidth - soundRect.left + gap);
-    const bottom = Math.max(12, window.innerHeight - soundRect.bottom);
+    return blocks;
+  }
+  function avoidOverlap(baseRight, baseBottom) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const noteWidth = workNote.offsetWidth || 148;
+    const noteHeight = workNote.offsetHeight || 44;
+    const blocks = findVisibleTextBlocks();
+    const maxLift = Math.max(120, Math.round(vh * 0.38));
+    const maxLeft = Math.max(24, Math.round(vw * 0.18));
+    let best = null;
+    const evaluate = (right, bottom, dx, dy) => {
+      const x2 = vw - right;
+      const x1 = x2 - noteWidth;
+      const y2 = vh - bottom;
+      const y1 = y2 - noteHeight;
+      if (x1 < 0 || y1 < 0) return;
+      let score = 0;
+      for (const block of blocks) {
+        const r = block.rect;
+        const iw = Math.min(x2, r.right) - Math.max(x1, r.left);
+        const ih = Math.min(y2, r.bottom) - Math.max(y1, r.top);
+        if (iw > 0 && ih > 0) score += iw * ih;
+      }
+      const dist = dx + dy;
+      if (!best || score < best.score || (score === best.score && dist < best.dist)) {
+        best = { score, right: Math.max(12, right), bottom: Math.max(12, bottom), dist };
+      }
+    };
+    for (let dy = 0; dy <= maxLift; dy += 4) {
+      if (best && best.score === 0 && dy > best.dist) break;
+      for (let dx = 0; dx <= maxLeft; dx += 4) {
+        evaluate(baseRight + dx, baseBottom + dy, dx, dy);
+      }
+      if (best && best.score === 0 && best.dist === 0) break;
+    }
+    return best || { score: Infinity, right: baseRight, bottom: baseBottom };
+  }
+  function alignWorkNote() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const sound = findSoundControl();
+    let baseRight = 12;
+    let baseBottom = 12;
+    if (sound) {
+      const soundStyle = getComputedStyle(sound);
+      SOUND_STYLE_PROPS.forEach((prop) => {
+        const value = soundStyle.getPropertyValue(prop);
+        if (value) workNote.style.setProperty(prop, value);
+      });
+      const soundRect = sound.getBoundingClientRect();
+      const compact = soundRect.width <= vw * 0.45;
+      const nearBottom = soundRect.bottom > vh * 0.45;
+      const nearRight = soundRect.left > vw * 0.25;
+      if (compact && nearBottom && nearRight) {
+        baseRight = Math.max(12, vw - soundRect.left + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.bottom);
+      } else if (compact) {
+        baseRight = 12;
+        baseBottom = 12;
+      } else {
+        baseRight = Math.max(12, vw - soundRect.right + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP);
+      }
+    } else {
+      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
+    }
     workNote.style.top = 'auto';
     workNote.style.left = 'auto';
-    workNote.style.right = `${right}px`;
-    workNote.style.bottom = `${bottom}px`;
+    const placed = avoidOverlap(baseRight, baseBottom);
+    workNote.style.right = `${placed.right}px`;
+    workNote.style.bottom = `${placed.bottom}px`;
+    workNote.classList.toggle('gh-work-note-trigger--busy', placed.score > 0);
     const noteRect = workNote.getBoundingClientRect();
-    if (noteRect.left < 12 && noteRect.right > 0) {
-      workNote.style.right = `${Math.max(12, window.innerWidth - noteRect.right + (noteRect.left - 12))}px`;
+    if (noteRect.left < 0) {
+      workNote.style.right = `${Math.max(12, vw - noteRect.right - 12)}px`;
     }
-    if (noteRect.bottom > window.innerHeight - 12 && noteRect.height > 0) {
-      workNote.style.bottom = `${Math.max(12, window.innerHeight - noteRect.top - 12)}px`;
+    if (noteRect.bottom > vh) {
+      workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
     }
   }
   let soundObserver = null;
