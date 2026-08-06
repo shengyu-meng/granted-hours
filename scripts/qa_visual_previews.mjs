@@ -17,7 +17,7 @@ if (dateIndex >= 0 && !/^\d{4}-\d{2}-\d{2}$/.test(dateFilter || "")) {
 }
 const selectedDays = dateFilter
   ? timetableData.days.filter((day) => day.date === dateFilter)
-  : timetableData.days;
+  : timetableData.days.filter((day) => day.autonomous_work?.origin !== "absence");
 if (!selectedDays.length) throw new Error(`No timetable day found for ${dateFilter}`);
 const MAX_BYTES = 700 * 1024;
 const MAX_CORPUS_BYTES_PER_TREE = 35 * 1024 * 1024;

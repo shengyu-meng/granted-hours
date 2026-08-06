@@ -14,7 +14,7 @@ for (const day of timetableData.days) {
   scheduleSignatures.add(day.task_residues.map((task) => `${task.start}-${task.end}:${task.zh}|${task.en}`).join("||"));
   const categoryPattern = day.task_residues.map((task) => task.category).join("|");
   categoryPatternCounts.set(categoryPattern, (categoryPatternCounts.get(categoryPattern) || 0) + 1);
-  assert.equal(day.timeline_events.filter((event) => event.origin === "self").length, 1, day.date);
+  assert.equal(day.timeline_events.filter((event) => event.origin === "self" || event.origin === "absence").length, 1, day.date);
   assert.ok(day.timeline_events.some((event) => event.origin === "background"), day.date);
   assert.deepEqual(
     day.timeline_events.map((event) => event.start),

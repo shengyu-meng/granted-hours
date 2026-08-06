@@ -501,10 +501,13 @@ async function inspectPanelColor(page) {
 async function inspectCategoryColors(page) {
   const panelColor = await inspectPanelColor(page);
   const samples = [];
-  const categories = [...representativeCategories];
-  if (await page.locator('.event-reading-card[data-category="daily-reminder"]').count()) {
-    categories.push("daily-reminder");
+  const categories = [];
+  for (const category of [...representativeCategories, "daily-reminder"]) {
+    if (await page.locator(`.event-reading-card[data-category="${category}"]`).count()) {
+      categories.push(category);
+    }
   }
+  assert.ok(categories.length >= 3, `too few representative categories present: ${categories.join(",")}`);
   for (const category of categories) {
     const card = page.locator(`.event-reading-card[data-category="${category}"]`).first();
     assert.equal(await card.count(), 1, `missing representative category: ${category}`);
@@ -950,6 +953,8 @@ try {
     });
     page.on("requestfailed", (request) => diagnostics.requestFailures.push(request.url()));
     await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.click("#prevMonth");
+    await page.waitForSelector(`.calendar-day-button[data-date="${sampleDate}"]`);
     assert.equal(await page.locator("html").getAttribute("data-theme"), configuration.theme);
 
     const result = {

@@ -11,10 +11,14 @@ const previousDay = days.at(-2);
 let daysWithAssignedWork = 0;
 for (const day of days) {
   assert.ok(day.background_pulses.length > 0, `${day.date} has no real background pulses`);
-  assert.equal(day.timeline_events.filter((event) => event.origin === "self").length, 1);
+  assert.equal(day.timeline_events.filter((event) => event.origin === "self" || event.origin === "absence").length, 1);
   if (day.timeline_events.some((event) => event.origin === "assigned")) daysWithAssignedWork += 1;
   assert.ok(day.timeline_events.some((event) => event.origin === "background"));
-  assert.match(day.autonomous_work.visual_preview_url, /visual-preview\.gif$/);
+  if (day.autonomous_work.origin === "absence") {
+    assert.equal(day.autonomous_work.visual_preview_url, "");
+  } else {
+    assert.match(day.autonomous_work.visual_preview_url, /visual-preview\.gif$/);
+  }
 }
 assert.ok(daysWithAssignedWork >= 40, `only ${daysWithAssignedWork} days expose assigned work`);
 

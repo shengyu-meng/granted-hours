@@ -117,6 +117,7 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
   await page.screenshot({ path: calendarPath, fullPage: false });
   screenshotPaths.push(calendarPath);
 
+  await page.click("#prevMonth");
   if (mobile) {
     await page.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   } else {
@@ -228,6 +229,7 @@ try {
   });
   const reducedPage = await reducedContext.newPage();
   await reducedPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await reducedPage.click("#prevMonth");
   await reducedPage.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await reducedPage.waitForSelector("#dayDialog.is-open");
   assert.match(await reducedPage.locator("#selfPreview").getAttribute("src"), /visual-preview\.webp$/);
@@ -250,6 +252,7 @@ try {
   await fallbackContext.route("**/visual-preview.gif", (route) => route.abort());
   const fallbackPage = await fallbackContext.newPage();
   await fallbackPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await fallbackPage.click("#prevMonth");
   await fallbackPage.click(`.calendar-day-button[data-date="${sampleDate}"]`);
   await fallbackPage.waitForFunction(() => {
     const image = document.querySelector("#selfPreview");

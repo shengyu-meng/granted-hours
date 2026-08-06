@@ -175,6 +175,15 @@ async function inspectLinkedState(page) {
   }));
 }
 
+function normalizedLinkedState(state) {
+  return {
+    cards: [...state.cards].sort(),
+    events: [...state.events].sort(),
+    footprints: [...state.footprints].sort(),
+    connectors: [...state.connectors].sort(),
+  };
+}
+
 async function expectedLinkedState(card) {
   const readingId = await card.getAttribute("data-reading-id");
   const memberIds = ((await card.getAttribute("data-member-footprint-ids")) || "")
@@ -204,6 +213,7 @@ try {
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
     await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.click("#prevMonth");
     await page.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
     await page.waitForSelector("#dayDialog.is-open");
     await page.waitForFunction(
@@ -382,8 +392,8 @@ try {
       assert.match(await routine.getAttribute("aria-label"), /tap again to open/);
       const routineLinkedState = await expectedLinkedState(routine);
       assert.deepEqual(
-        await inspectLinkedState(page),
-        routineLinkedState,
+        normalizedLinkedState(await inspectLinkedState(page)),
+        normalizedLinkedState(routineLinkedState),
         `${viewport.label}: first tap must link every matching footprint and one connector`,
       );
       await page.locator("#timelineTitle").tap();
@@ -420,23 +430,23 @@ try {
       const routineLinkedState = await expectedLinkedState(routine);
       await routine.hover();
       assert.deepEqual(
-        await inspectLinkedState(page),
-        routineLinkedState,
+        normalizedLinkedState(await inspectLinkedState(page)),
+        normalizedLinkedState(routineLinkedState),
         `${viewport.label}: hover must link matching footprint group and connector`,
       );
       const secondRoutine = page.locator(".routine-reading-card").nth(1);
       const secondRoutineLinkedState = await expectedLinkedState(secondRoutine);
       await secondRoutine.focus();
       assert.deepEqual(
-        await inspectLinkedState(page),
-        secondRoutineLinkedState,
+        normalizedLinkedState(await inspectLinkedState(page)),
+        normalizedLinkedState(secondRoutineLinkedState),
         `${viewport.label}: keyboard focus must override a mouse left hovering another card`,
       );
       await page.locator("#timelineTitle").hover();
       await routine.hover();
       assert.deepEqual(
-        await inspectLinkedState(page),
-        secondRoutineLinkedState,
+        normalizedLinkedState(await inspectLinkedState(page)),
+        normalizedLinkedState(secondRoutineLinkedState),
         `${viewport.label}: a new mouse hover must not override an already focused card`,
       );
       await page.locator("#closeDetail").focus();
@@ -449,8 +459,8 @@ try {
       await routine.focus();
       assert.equal(await page.evaluate(() => document.activeElement?.classList.contains("routine-reading-card")), true);
       assert.deepEqual(
-        await inspectLinkedState(page),
-        routineLinkedState,
+        normalizedLinkedState(await inspectLinkedState(page)),
+        normalizedLinkedState(routineLinkedState),
         `${viewport.label}: focus must link matching footprint group and connector`,
       );
       assert.notEqual(await routine.evaluate((card) => getComputedStyle(card).transform), "none");
@@ -476,6 +486,7 @@ try {
   });
   const hybridPage = await hybridContext.newPage();
   await hybridPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await hybridPage.click("#prevMonth");
   assert.equal(
     await hybridPage.evaluate(() => matchMedia("(any-pointer: coarse)").matches),
     true,
@@ -503,6 +514,7 @@ try {
   });
   const reducedPage = await reducedContext.newPage();
   await reducedPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await reducedPage.click("#prevMonth");
   await reducedPage.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
   await reducedPage.waitForSelector("#dayDialog.is-open");
   const reducedCard = reducedPage.locator(".autonomous-reading-card");

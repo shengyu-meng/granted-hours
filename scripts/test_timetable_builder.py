@@ -271,17 +271,16 @@ class TimetableBuilderTests(unittest.TestCase):
                     self.config["autonomous_hour"]["end"],
                 ),
             )
-            self.assertEqual(
+            autonomous_window = (
+                self.config["autonomous_hour"]["start"],
+                self.config["autonomous_hour"]["end"],
+            )
+            self.assertIn(
+                autonomous_window,
                 [
                     (event["start"], event["end"])
                     for event in day["timeline_events"]
-                    if event["origin"] == "self"
-                ],
-                [
-                    (
-                        self.config["autonomous_hour"]["start"],
-                        self.config["autonomous_hour"]["end"],
-                    )
+                    if event["origin"] in {"self", "absence"}
                 ],
             )
 
@@ -383,7 +382,7 @@ class TimetableBuilderTests(unittest.TestCase):
                 ),
             )
             self.assertEqual(
-                sum(event["origin"] == "self" for event in timeline),
+                sum(event["origin"] in {"self", "absence"} for event in timeline),
                 1,
             )
 
@@ -760,10 +759,14 @@ class TimetableBuilderTests(unittest.TestCase):
 
     def test_autonomous_media_and_main_bgm_playlist_are_complete_and_latest_first(self) -> None:
         output = self.build()
-        self.assertEqual(len(output["bgm_playlist"]), len(output["days"]))
+        artwork_days = [
+            day for day in output["days"]
+            if day["autonomous_work"].get("origin") != "absence"
+        ]
+        self.assertEqual(len(output["bgm_playlist"]), len(artwork_days))
         self.assertEqual(
             [item["date"] for item in output["bgm_playlist"]],
-            sorted((day["date"] for day in output["days"]), reverse=True),
+            sorted((day["date"] for day in artwork_days), reverse=True),
         )
         for item in output["bgm_playlist"]:
             self.assertRegex(item["bgm_url"], r"^https://.+\.mp3$")
@@ -771,6 +774,14 @@ class TimetableBuilderTests(unittest.TestCase):
             self.assertTrue(item["title_zh"].strip())
         for day in output["days"]:
             autonomous = day["autonomous_work"]
+            if autonomous.get("origin") == "absence":
+                self.assertEqual(autonomous["duration_minutes"], 60)
+                self.assertEqual(autonomous["preview_url"], "")
+                self.assertEqual(autonomous["gif_url"], "")
+                self.assertEqual(autonomous["bgm_url"], "")
+                self.assertTrue(autonomous["title_en"].strip())
+                self.assertTrue(autonomous["title_zh"].strip())
+                continue
             archive_root = f"{output['canonical_base_url']}archive/{day['date'][:4]}/{day['date'][5:7]}/{day['date']}/"
             self.assertEqual(day["archive_url"], archive_root)
             self.assertEqual(day["live_url"], f"{archive_root}live/")

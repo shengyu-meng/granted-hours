@@ -59,6 +59,11 @@ await check("every day has a semantic motif and every live page has controllable
   for (const day of timetableData.days) {
     assert.ok(allowedMotifs.has(day.theme_motif), `${day.date} has invalid theme_motif: ${day.theme_motif}`);
     const [year, month] = day.date.split("-");
+    if (day.autonomous_work?.origin === "absence") {
+      assert.equal(day.autonomous_work.live_url, "", `${day.date} absence day must not expose a live URL`);
+      assert.equal(day.autonomous_work.bgm_url, "", `${day.date} absence day must not expose BGM`);
+      continue;
+    }
     const livePath = fileURLToPath(
       new URL(`../docs/archive/${year}/${month}/${day.date}/live/index.html`, import.meta.url),
     );

@@ -61,6 +61,9 @@ function archivePaths(day) {
 
 for (const day of days) {
   const paths = archivePaths(day);
+  if (day.type === "calendar") {
+    continue;
+  }
   assert.ok(existsSync(paths.explanationFile), `${day.date} explanation page is missing`);
   assert.ok(existsSync(paths.liveFile), `${day.date} live page is missing`);
   const liveHtml = readFileSync(paths.liveFile, "utf8");

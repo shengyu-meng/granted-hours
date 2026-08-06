@@ -248,6 +248,8 @@ def rel_from_maze(url: str) -> str:
 def validate_source(days: list[dict]) -> None:
     seen = set()
     for entry in days:
+        if entry.get("type") == "calendar":
+            continue
         missing = sorted(field for field in REQUIRED_FIELDS if not entry.get(field))
         if missing:
             raise SystemExit(f"{entry.get('date', '<unknown>')} missing fields: {', '.join(missing)}")

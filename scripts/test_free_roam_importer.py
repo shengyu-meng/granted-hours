@@ -165,6 +165,8 @@ class FreeRoamImporterTests(unittest.TestCase):
             (root / "metadata" / "days.json").read_text(encoding="utf-8")
         )
         for day in public_days:
+            if day.get("type") == "calendar":
+                continue
             with self.subTest(day=day["date"]):
                 year, month, _ = day["date"].split("-")
                 archive_page = (

@@ -1418,6 +1418,24 @@ function hydratePublicReadingItems(day) {
         constituents: [],
       };
     }
+    if (projection.classification === "settings_change") {
+      return {
+        ...shared,
+        label_zh: "当日设置变更",
+        label_en: "Day's settings changes",
+        task_name_zh: "当日设置变更",
+        task_name_en: "Day's settings changes",
+        summary_zh: sources
+          .map((source) => source.summary_zh || source.zh || "")
+          .filter(Boolean)
+          .join("；"),
+        summary_en: sources
+          .map((source) => source.summary_en || source.en || "")
+          .filter(Boolean)
+          .join("; "),
+        constituents: sources,
+      };
+    }
     if (projection.classification === "promoted_routine_exception") {
       return {
         ...shared,
@@ -1848,7 +1866,7 @@ function buildExactTimelineEvent(event) {
 }
 
 function buildPublicReadingCard(day, item) {
-  if (item.classification === "foreground_event") {
+  if (item.classification === "foreground_event" || item.classification === "settings_change") {
     return buildAssignedTimelineEvent(item).card;
   }
   if (item.classification === "beacon") {
@@ -1877,11 +1895,18 @@ function buildAssignedTimelineEvent(task) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "assigned-item event-reading-card assigned-reading-card event-layer-reading-card";
+  if (task.classification === "settings_change") {
+    button.classList.add("is-settings-change");
+  }
   button.dataset.durationMinutes = String(task.duration_minutes);
   button.dataset.timeProvenance = task.time_provenance;
   button.dataset.taskType = task.task_type;
   button.dataset.taskColor = task.task_color;
   button.dataset.redactionStatus = task.redaction_status;
+  if (task.completion_status === "completed") {
+    button.dataset.completionStatus = "completed";
+    button.classList.add("is-verified-completed");
+  }
   button.style.setProperty("--duration-minutes", String(task.duration_minutes));
   button.style.setProperty("--task-accent", taskAccent(task.task_color));
   button.setAttribute(
@@ -1896,6 +1921,7 @@ function buildAssignedTimelineEvent(task) {
       <span class="assigned-type">
         <span class="assigned-type-icon"></span>
         <strong class="assigned-work-type reading-title">${escapeHtml(readingTitleZh)} / ${escapeHtml(readingTitleEn)}</strong>
+        ${task.completion_status === "completed" ? `<span class="verified-mark" aria-hidden="true"></span>` : ""}
       </span>
       <span class="assigned-secondary">
         ${secondaryCopy}
@@ -1957,6 +1983,27 @@ function buildAutonomousTimelineEvent(day, self) {
   const sourceDayCopy = self.source_day_url
     ? `<a class="autonomous-source-day-link" href="${escapeHtml(publicAssetUrl(self.source_day_url))}">来源 ${escapeHtml(self.source_date)} / Source</a>`
     : `<span>来源 ${escapeHtml(self.source_date)} / Source</span>`;
+  if (self.origin === "absence") {
+    card.classList.add("absence-reading-card");
+    card.setAttribute(
+      "aria-label",
+      `${autonomousAccessibleName(self)}. Absent creation window / 缺席的创作窗口.`,
+    );
+    card.innerHTML = `
+      <div class="autonomous-time">
+        <span>${self.start}-${self.end}</span>
+        <small>granted ${duration} min / 授时 ${duration} 分钟 · no live work / 无实时作品</small>
+      </div>
+      <div class="autonomous-copy">
+        <p class="autonomous-kicker">${escapeHtml(self.label_zh)} / ${escapeHtml(self.label_en)}</p>
+        <h4 class="reading-title">${escapeHtml(self.title_en)} / ${escapeHtml(self.title_zh)}</h4>
+        <p class="autonomous-date-relation">${sourceDayCopy}<span> → 结晶 ${escapeHtml(self.crystallization_date)} / Crystallized</span></p>
+        <p class="reading-summary">${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
+      </div>
+    `;
+    setupReadingCardActivation(card, null, { passive: true });
+    return { footprint: item, card };
+  }
   card.innerHTML = `
     <div class="autonomous-time">
       <span>${self.start}-${self.end}</span>

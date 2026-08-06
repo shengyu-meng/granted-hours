@@ -37,7 +37,10 @@ try {
   await page.goto(sampleUrl.href, { waitUntil: "networkidle" });
 
   const latest = [...timetableData.days].sort((a, b) => b.date.localeCompare(a.date))[0];
-  assert.equal(timetableData.bgm_playlist.length, timetableData.days.length);
+  assert.equal(
+    timetableData.bgm_playlist.length,
+    timetableData.days.filter((day) => day.autonomous_work?.origin !== "absence").length,
+  );
   assert.equal(timetableData.bgm_playlist[0].date, latest.date);
   assert.equal(await page.locator("#calendarBgm").getAttribute("data-date"), latest.date);
 

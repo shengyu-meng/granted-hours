@@ -41,6 +41,12 @@ LEGACY_COLLABORATION_TEMPLATES = (
     "Completed the relevant maintenance, dry run, and status verification, retaining actionable failure evidence.",
     "完成了判断框架的整理，明确了当前结论、保留意见与下一次复核条件。",
     "Completed a structured judgment, separating the current conclusion, reservations, and conditions for the next review.",
+    "当天没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+    "当天记录未留下与这组要求可靠对应、可安全公开的完成结果；不把计划或推断写成已完成。",
+    "公开线未留下可核验的完成结果。",
+    "公开线未留下可核验完成结果。",
+    "No public-safe completion record was found that reliably matches this request group; plans and inferences are not presented as completed work.",
+    "No public-safe completion result reliably matched this request group; plans and inferences are not presented as completed work.",
 )
 ALLOWED_TOKENS = {
     'shengyu-meng',
@@ -101,7 +107,7 @@ TEXT_SUFFIXES = {
     '.svg', '.toml', '.txt', '.xml', '.yaml', '.yml',
 }
 TEXT_FILENAMES = {'LICENSE', 'README', 'CNAME'}
-SKIP_PREFIXES = {'audits/', 'docs/plans/', 'scripts/test_'}
+SKIP_PREFIXES = {'audits/', 'scripts/test_'}
 SKIP_FILES = {
     'scripts/check_public_safety.py',
     'scripts/import_agent_events.py',

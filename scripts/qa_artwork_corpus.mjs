@@ -27,6 +27,7 @@ function visible(element) {
 }
 
 const browser = await chromium.launch({ headless: true });
+const artworkDays = timetableData.days.filter((day) => day.autonomous_work?.origin !== "absence");
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 
@@ -131,8 +132,8 @@ try {
   }
 
   const concurrency = 5;
-  for (let index = 0; index < timetableData.days.length; index += concurrency) {
-    const batch = timetableData.days.slice(index, index + concurrency);
+  for (let index = 0; index < artworkDays.length; index += concurrency) {
+    const batch = artworkDays.slice(index, index + concurrency);
     const settled = await Promise.allSettled(batch.map(inspect));
     settled.forEach((result, batchIndex) => {
       if (result.status === "fulfilled") results.push(result.value);
@@ -147,7 +148,7 @@ try {
 if (failures.length) {
   throw new Error(`Artwork corpus smoke failures (${failures.length}):\n- ${failures.join("\n- ")}`);
 }
-assert.equal(results.length, timetableData.days.length);
+assert.equal(results.length, artworkDays.length);
 assert.deepEqual(
   Object.keys(allowedDays).sort(),
   results.filter((result) => result.allowance).map((result) => result.date).sort(),
