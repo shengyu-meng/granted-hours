@@ -596,7 +596,7 @@ async function assertRoundedAndSemantic(page, label) {
 
   assert.ok(result.cards.length > 0, `${label}: no reading cards`);
   assert.ok(
-    result.cards.every((card) => card.radius >= 10 && card.radius <= 14),
+    result.cards.every((card) => card.radius >= 16 && card.radius <= 20),
     `${label}: reading-card radius ${JSON.stringify(result.cards)}`,
   );
   assert.ok(
@@ -621,10 +621,18 @@ async function assertRoundedAndSemantic(page, label) {
     };
   }));
   assert.ok(roleContrast.length > 0, `${label}: no descendant text roles sampled`);
+  const climateContrastSamples = roleContrast.filter((sample) => sample.layer === "climate");
+  const foregroundContrastSamples = roleContrast.filter((sample) => sample.layer !== "climate");
   assert.ok(
-    roleContrast.every((sample) => sample.ratio >= 4.5),
+    foregroundContrastSamples.every((sample) => sample.ratio >= 4.5),
     `${label}: descendant role contrast ${JSON.stringify(
-      roleContrast.filter((sample) => sample.ratio < 4.5),
+      foregroundContrastSamples.filter((sample) => sample.ratio < 4.5),
+    )}`,
+  );
+  assert.ok(
+    climateContrastSamples.every((sample) => sample.ratio >= 3.0),
+    `${label}: frosted climate role contrast ${JSON.stringify(
+      climateContrastSamples.filter((sample) => sample.ratio < 3.0),
     )}`,
   );
   for (const layer of ["event", "climate", "beacon"]) {
@@ -651,10 +659,14 @@ async function assertRoundedAndSemantic(page, label) {
     "assigned-work",
     "ah-market-scan",
     "us-market-scan",
-    "ai-brief",
     "service-support",
     "autonomous-artwork",
   ];
+  // The daily AI brief folds into the background rollup family (2026-08-06
+  // standard), so an ai-brief card is optional rather than required.
+  if (representatives.has("ai-brief")) {
+    requiredCategories.push("ai-brief");
+  }
   // Alert-bearing support windows are rolled into the daily background card;
   // a warning-exception card is therefore optional rather than required.
   if (representatives.has("daily-reminder")) {
@@ -671,8 +683,8 @@ async function assertRoundedAndSemantic(page, label) {
   const climate = result.cards.filter((card) => card.layer === "climate");
   const foreground = result.cards.filter((card) => ["event", "beacon"].includes(card.layer));
   assert.ok(
-    climate.every((card) => card.opacity >= 0.999),
-    `${label}: climate text is weakened by parent opacity`,
+    climate.every((card) => card.opacity >= 0.45 && card.opacity <= 0.75),
+    `${label}: climate cards must stay semi-transparent frosted glass`,
   );
   assert.ok(
     Math.max(...climate.map((card) => card.zIndex))

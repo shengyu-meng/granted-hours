@@ -474,8 +474,8 @@ try {
       const foregroundCards = state.cards.filter((card) => ["event", "absence", "beacon"].includes(card.layer));
       assert.ok(climateCards.length > 0 && foregroundCards.length > 0);
       assert.ok(
-        climateCards.every((card) => card.opacity >= 0.999),
-        `${date}/${viewport.label}: climate text is weakened by parent opacity`,
+        climateCards.every((card) => card.opacity >= 0.45 && card.opacity <= 0.75),
+        `${date}/${viewport.label}: climate cards must stay semi-transparent frosted glass`,
       );
       assert.ok(
         Math.max(...climateCards.map((card) => card.zIndex))

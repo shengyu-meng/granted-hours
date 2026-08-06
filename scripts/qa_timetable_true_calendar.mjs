@@ -140,7 +140,7 @@ try {
       assert.ok(expanded.right <= expanded.viewportWidth + 1, JSON.stringify(expanded));
       assert.ok(expanded.overflow <= 1, JSON.stringify(expanded));
       assert.notEqual(expanded.summaryDisplay, "none");
-      assert.notEqual(expanded.transform, "none");
+      assert.equal(expanded.transform, "none");
       await page.mouse.move(0, 0);
     } else {
       const touchToggle = page.locator("#timelineTouchToggle");

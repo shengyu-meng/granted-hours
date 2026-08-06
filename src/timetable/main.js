@@ -35,6 +35,27 @@ const TIMEZONE = timetableData.timezone;
 const THEME_STORAGE_KEY = "granted-hours-theme";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
+const PIANO_STORAGE_KEY = "granted-hours-piano-sounds";
+const PIANO_CHROMATIC_STEPS = ["C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"];
+const PIANO_NOTES = [];
+for (let pianoOctave = 3; pianoOctave <= 5; pianoOctave += 1) {
+  for (const pianoStep of PIANO_CHROMATIC_STEPS) {
+    PIANO_NOTES.push(`${pianoStep}${pianoOctave}`);
+  }
+}
+const PIANO_CATEGORY_BASE = {
+  "service-support": 0,
+  "ah-market-scan": 0,
+  "us-market-scan": 0,
+  "ai-brief": 0,
+  "daily-reminder": 4,
+  "warning-exception": 5,
+  "assigned-work": 12,
+  "autonomous-artwork": 24,
+};
+const PIANO_MIN_GAP_MS = 90;
+const PIANO_SAME_NOTE_GAP_MS = 260;
+const PIANO_VOLUME = 0.09;
 const INSPECTION_HIDE_DELAY_MS = 110;
 const INSPECTION_FADE_MS = 150;
 const WEEKDAYS = [
@@ -190,6 +211,14 @@ const state = {
   calendarBgmPlaying: false,
   calendarBgmUserActivated: false,
   calendarBgmDesiredPlaying: false,
+  pianoEnabled: false,
+  pianoReady: false,
+  pianoAudioContext: null,
+  pianoBuffers: null,
+  pianoLoadPromise: null,
+  pianoLastTriggerAt: 0,
+  pianoLastNoteIndex: -1,
+  pianoActiveSources: new Set(),
   clockDate: "",
   theme: document.documentElement.dataset.theme === "light" ? "light" : "dark",
   reducedMotion: window.matchMedia(REDUCED_MOTION_QUERY).matches,
@@ -241,6 +270,7 @@ function init() {
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
   setupCalendarBgm();
+  setupPianoSound();
   els.artworkDialog.addEventListener("click", (event) => {
     if (event.target === els.artworkDialog) closeArtworkDetail();
   });
@@ -271,6 +301,7 @@ function cacheElements() {
   [
     "calendarBgm",
     "calendarBgmToggle",
+    "calendarPianoToggle",
     "clockTime",
     "artworkArchiveLink",
     "artworkBgm",
@@ -1001,6 +1032,189 @@ function updateCalendarBgmControl(override = "") {
       "header-control-icon header-control-icon-state",
     ),
   );
+}
+
+
+function restorePianoPreference() {
+  let saved = "";
+  try {
+    saved = localStorage.getItem(PIANO_STORAGE_KEY) || "";
+  } catch {}
+  state.pianoEnabled = saved === "on";
+  updatePianoControl();
+}
+
+function pianoSampleUrl(note) {
+  return new URL(`./piano/${note}.mp3`, window.location.href).href;
+}
+
+function ensurePianoAudioContext() {
+  if (state.pianoAudioContext) {
+    if (state.pianoAudioContext.state === "suspended") {
+      state.pianoAudioContext.resume();
+    }
+    return state.pianoAudioContext;
+  }
+  const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextCtor) return null;
+  const context = new AudioContextCtor({ latencyHint: "interactive" });
+  state.pianoAudioContext = context;
+  if (context.state === "suspended") context.resume();
+  return context;
+}
+
+function preloadPianoBuffers() {
+  if (state.pianoLoadPromise) return state.pianoLoadPromise;
+  if (state.pianoReady) return Promise.resolve(true);
+  const context = ensurePianoAudioContext();
+  if (!context) return Promise.resolve(false);
+  state.pianoLoadPromise = Promise.all(
+    PIANO_NOTES.map((note) => fetch(pianoSampleUrl(note))
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.arrayBuffer();
+      })
+      .then((bytes) => context.decodeAudioData(bytes))
+      .catch(() => null)),
+  ).then((buffers) => {
+    state.pianoBuffers = buffers;
+    state.pianoReady = buffers.some(Boolean);
+    state.pianoLoadPromise = null;
+    return state.pianoReady;
+  });
+  return state.pianoLoadPromise;
+}
+
+function stopPianoSources() {
+  for (const source of state.pianoActiveSources) {
+    try {
+      source.stop();
+    } catch {}
+    try {
+      source.disconnect();
+    } catch {}
+  }
+  state.pianoActiveSources.clear();
+}
+
+function pianoDurationMinutesFromElement(element) {
+  const explicit = Number(element?.dataset?.durationMinutes);
+  if (Number.isFinite(explicit) && explicit > 0) return explicit;
+  const start = element?.dataset?.start;
+  const end = element?.dataset?.end;
+  if (start && end) {
+    const computed = timeToMinutes(end) - timeToMinutes(start);
+    if (Number.isFinite(computed) && computed > 0) return computed;
+  }
+  return 1;
+}
+
+function pianoDurationOffset(minutes) {
+  const value = Number.isFinite(minutes) ? Math.max(1, Math.round(minutes)) : 1;
+  return Math.min(11, Math.round(Math.log2(value)));
+}
+
+function pianoNoteIndexForElement(element) {
+  const category = element?.dataset?.category || "";
+  const isAbsence = element?.classList?.contains("absence-reading-card")
+    || element?.dataset?.origin === "absence";
+  const base = isAbsence
+    ? 0
+    : PIANO_CATEGORY_BASE[category] ?? 0;
+  const index = base + pianoDurationOffset(pianoDurationMinutesFromElement(element));
+  return Math.min(PIANO_NOTES.length - 1, Math.max(0, index));
+}
+
+function playPianoNote(element) {
+  if (!state.pianoEnabled || !element?.isConnected) return;
+  const context = ensurePianoAudioContext();
+  if (!context || context.state !== "running") return;
+  if (!state.pianoReady) {
+    preloadPianoBuffers().then((ready) => {
+      if (ready && state.pianoEnabled) playPianoNote(element);
+    });
+    return;
+  }
+  const noteIndex = pianoNoteIndexForElement(element);
+  const buffer = state.pianoBuffers?.[noteIndex];
+  if (!buffer) return;
+  const now = performance.now();
+  if (now - state.pianoLastTriggerAt < PIANO_MIN_GAP_MS) return;
+  if (noteIndex === state.pianoLastNoteIndex && now - state.pianoLastTriggerAt < PIANO_SAME_NOTE_GAP_MS) return;
+  state.pianoLastTriggerAt = now;
+  state.pianoLastNoteIndex = noteIndex;
+  const source = context.createBufferSource();
+  source.buffer = buffer;
+  const gain = context.createGain();
+  const startAt = context.currentTime + 0.003;
+  gain.gain.setValueAtTime(0.0001, startAt);
+  gain.gain.exponentialRampToValueAtTime(PIANO_VOLUME, startAt + 0.012);
+  gain.gain.setValueAtTime(PIANO_VOLUME, startAt + 0.18);
+  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.95);
+  source.connect(gain);
+  gain.connect(context.destination);
+  source.addEventListener("ended", () => {
+    state.pianoActiveSources.delete(source);
+    try {
+      gain.disconnect();
+    } catch {}
+  });
+  state.pianoActiveSources.add(source);
+  source.start(startAt);
+  source.stop(startAt + 1.05);
+}
+
+function togglePianoSounds() {
+  state.pianoEnabled = !state.pianoEnabled;
+  try {
+    localStorage.setItem(PIANO_STORAGE_KEY, state.pianoEnabled ? "on" : "off");
+  } catch {}
+  updatePianoControl();
+  if (state.pianoEnabled) {
+    const context = ensurePianoAudioContext();
+    if (context) {
+      context.resume?.();
+      preloadPianoBuffers().catch(() => {});
+    }
+  } else {
+    stopPianoSources();
+  }
+}
+
+function buildPianoIcon() {
+  const wrapper = document.createElement("span");
+  wrapper.className = "header-control-icon header-control-icon-piano";
+  wrapper.setAttribute("aria-hidden", "true");
+  wrapper.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><rect x="3" y="6.5" width="18" height="13" rx="2"/><path d="M3 11.5h18"/><path d="M8 6.5v5M12 6.5v5M16 6.5v5"/><rect x="7.1" y="6.5" width="2.3" height="4.2" rx="0.7" fill="currentColor" stroke="none"/><rect x="11.2" y="6.5" width="2.3" height="4.2" rx="0.7" fill="currentColor" stroke="none"/><rect x="15.3" y="6.5" width="2.3" height="4.2" rx="0.7" fill="currentColor" stroke="none"/></svg>';
+  return wrapper;
+}
+
+function updatePianoControl() {
+  els.calendarPianoToggle.setAttribute("aria-pressed", state.pianoEnabled ? "true" : "false");
+  const actionLabel = state.pianoEnabled
+    ? "Piano-key hover sounds on / 钢琴键悬停音效已开启"
+    : "Piano-key hover sounds off / 钢琴键悬停音效已关闭";
+  els.calendarPianoToggle.setAttribute("aria-label", actionLabel);
+  els.calendarPianoToggle.title = "Piano-key hover sounds / 钢琴键悬停音效";
+  els.calendarPianoToggle.replaceChildren(buildPianoIcon());
+}
+
+function setupPianoTimelineEvents() {
+  els.timelineList.addEventListener("pointerover", (event) => {
+    if (!state.pianoEnabled || event.pointerType !== "mouse") return;
+    if (!window.matchMedia(FINE_POINTER_QUERY).matches) return;
+    const block = event.target instanceof Element
+      ? event.target.closest(".timeline-event")
+      : null;
+    if (!block || !block.isConnected) return;
+    playPianoNote(block);
+  });
+}
+
+function setupPianoSound() {
+  restorePianoPreference();
+  els.calendarPianoToggle.addEventListener("click", togglePianoSounds);
+  setupPianoTimelineEvents();
 }
 
 function setInitialMonth() {
@@ -1850,6 +2064,14 @@ function buildExactTimelineEvent(event) {
   item.className = `timeline-event ${originClass}`;
   item.setAttribute("aria-hidden", "true");
   item.dataset.start = event.start;
+  item.dataset.end = event.end;
+  item.dataset.origin = event.origin;
+  const eventMinutes = Number.isFinite(event.duration_minutes)
+    ? event.duration_minutes
+    : timeToMinutes(event.end) - timeToMinutes(event.start);
+  if (Number.isFinite(eventMinutes) && eventMinutes > 0) {
+    item.dataset.durationMinutes = String(eventMinutes);
+  }
   applySemanticCategory(item, event);
   if (event.origin === "assigned") {
     item.style.setProperty("--task-accent", taskAccent(event.task_color));
@@ -2153,6 +2375,8 @@ function buildPulseTimelineEvent(pulse) {
   item.className = "timeline-event pulse-event";
   item.setAttribute("aria-hidden", "true");
   item.dataset.start = pulse.start;
+  item.dataset.end = pulse.end;
+  item.dataset.origin = pulse.origin || "background";
   item.dataset.pulseCategory = pulse.category;
   item.style.setProperty("--pulse-accent", taskAccent(pulse.pulse_color));
   item.append(buildEventFootprint(
@@ -2249,6 +2473,7 @@ function setupReadingCardActivation(card, activate, options = {}) {
     state.hoveredReadingCard = card;
     syncLinkedReadingCard();
     showInspectionLens(card);
+    playPianoNote(card);
   });
   card.addEventListener("pointermove", (event) => {
     if (
@@ -2281,6 +2506,7 @@ function setupReadingCardActivation(card, activate, options = {}) {
       return;
     }
     showInspectionLens(card);
+    playPianoNote(card);
   });
   card.addEventListener("blur", () => {
     requestAnimationFrame(syncLinkedReadingCard);
@@ -2347,6 +2573,7 @@ function selectReadingCard(card) {
     ? "Autonomous work selected; activate again to open artwork details. / 自主作品已选中；再次激活将打开作品详情。"
     : "Reading card selected; activate again to open details. / 可读卡片已选中；再次激活将打开详情。";
   setLinkedReadingCard(card);
+  playPianoNote(card);
 }
 
 function setLinkedReadingCard(card) {

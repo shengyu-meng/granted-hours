@@ -54,7 +54,7 @@ export default defineConfig({
   root: "src/timetable",
   base: "./",
   plugins: [docsDevAssets()],
-  publicDir: false,
+  publicDir: "public",
   build: {
     outDir: "../../docs/timetable",
     emptyOutDir: true,

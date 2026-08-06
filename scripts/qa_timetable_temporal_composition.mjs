@@ -463,7 +463,11 @@ try {
         normalizedLinkedState(routineLinkedState),
         `${viewport.label}: focus must link matching footprint group and connector`,
       );
-      assert.notEqual(await routine.evaluate((card) => getComputedStyle(card).transform), "none");
+      const routineTransform = await routine.evaluate((card) => getComputedStyle(card).transform);
+      assert.ok(
+        routineTransform === "none" || routineTransform === "matrix(1, 0, 0, 1, 0, 0)",
+        `${viewport.label}: hover/focus must never move or scale the card: ${routineTransform}`,
+      );
       await page.keyboard.press("Enter");
       await page.waitForSelector("#taskDialog.is-open");
       await page.keyboard.press("Escape");

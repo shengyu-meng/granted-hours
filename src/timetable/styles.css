@@ -195,6 +195,28 @@ h3 {
   white-space: nowrap;
 }
 
+.calendar-piano-control {
+  display: grid;
+  max-width: min(34vw, 360px);
+  gap: 2px;
+  justify-items: end;
+}
+
+.calendar-piano-toggle {
+  min-height: 28px;
+  border: 1px solid rgba(120, 217, 230, 0.28);
+  background: rgba(3, 7, 11, 0.72);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.calendar-piano-toggle[aria-pressed="true"] {
+  border-color: rgba(236, 213, 148, 0.72);
+  color: var(--gold-pale);
+}
+
 .calendar-shell {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto;
@@ -1138,11 +1160,13 @@ h1 {
     display: none;
   }
 
-  .calendar-bgm-control {
+  .calendar-bgm-control,
+  .calendar-piano-control {
     max-width: 112px;
   }
 
-  .calendar-bgm-toggle {
+  .calendar-bgm-toggle,
+  .calendar-piano-toggle {
     max-width: 112px;
     min-height: 30px;
     padding: 2px 5px;
@@ -3185,6 +3209,7 @@ iframe:focus-visible {
 
 .theme-toggle,
 .calendar-bgm-toggle,
+.calendar-piano-toggle,
 .month-button,
 .today-button,
 .dialog-day-nav,
@@ -3218,6 +3243,7 @@ iframe:focus-visible {
 
 .theme-toggle:hover,
 .calendar-bgm-toggle:hover,
+.calendar-piano-toggle:hover,
 .month-button:hover,
 .today-button:hover,
 .dialog-day-nav:hover:not(:disabled),
@@ -3230,6 +3256,18 @@ iframe:focus-visible {
 }
 
 .calendar-bgm-toggle {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  background-color: transparent;
+  color: var(--ink);
+}
+
+.calendar-piano-toggle {
   display: inline-flex;
   min-width: 44px;
   min-height: 34px;
@@ -3258,6 +3296,11 @@ iframe:focus-visible {
 }
 
 .calendar-bgm-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--gold-trace) 62%, transparent);
+  color: var(--gold-pale);
+}
+
+.calendar-piano-toggle[aria-pressed="true"] {
   border-color: color-mix(in srgb, var(--gold-trace) 62%, transparent);
   color: var(--gold-pale);
 }
@@ -3825,7 +3868,7 @@ h1,
     grid-column: 1 / -1;
     grid-row: 2;
     display: grid;
-    grid-template-columns: minmax(112px, 0.72fr) minmax(0, 1.28fr);
+    grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr);
     gap: 7px;
   }
 
@@ -3834,11 +3877,13 @@ h1,
     min-width: 0;
   }
 
-  .calendar-bgm-control {
-    max-width: 56px;
+  .calendar-bgm-control,
+  .calendar-piano-control {
+    max-width: none;
   }
 
-  .calendar-bgm-toggle {
+  .calendar-bgm-toggle,
+  .calendar-piano-toggle {
     width: 100%;
     max-width: none;
     min-height: 44px;
@@ -4448,7 +4493,7 @@ html.inspection-lens-capable .inspection-lens:not([hidden]) {
   --semantic-warning-surface: color-mix(in srgb, var(--semantic-warning-accent) 7%, var(--pane-solid));
   --semantic-autonomous-surface: color-mix(in srgb, var(--semantic-autonomous-accent) 7%, var(--pane-solid));
   --semantic-work-text: color-mix(in srgb, var(--semantic-work-accent) 62%, var(--ink));
-  --semantic-ah-text: color-mix(in srgb, var(--semantic-ah-accent) 66%, var(--ink));
+  --semantic-ah-text: color-mix(in srgb, var(--semantic-ah-accent) 60%, var(--ink));
   --semantic-us-text: color-mix(in srgb, var(--semantic-us-accent) 66%, var(--ink));
   --semantic-ai-text: color-mix(in srgb, var(--semantic-ai-accent) 66%, var(--ink));
   --semantic-support-text: color-mix(in srgb, var(--semantic-support-accent) 64%, var(--ink));
@@ -4483,6 +4528,7 @@ h1 {
 
 .clock-label,
 .calendar-bgm-toggle,
+.calendar-piano-toggle,
 .theme-toggle,
 .state-sentence,
 .public-note,
@@ -4846,7 +4892,8 @@ h1 {
     font-size: var(--type-display-day);
   }
 
-  .calendar-bgm-toggle {
+  .calendar-bgm-toggle,
+  .calendar-piano-toggle {
     font-size: 9.5px;
   }
 
@@ -5687,4 +5734,65 @@ h1 {
 .assigned-item .reading-summary,
 .event-reading-card .reading-summary {
   color: rgba(247, 241, 229, 0.98) !important;
+}
+
+/* Light-theme frosted equivalents (2026-08-06): light glass + dark ink,
+   so translucent cards keep WCAG-readable text in light mode. */
+:root[data-theme="light"] .event-reading-card[data-layer="event"],
+:root[data-theme="light"] .pulse-item.event-reading-card[data-layer="event"],
+:root[data-theme="light"] .assigned-item.event-reading-card,
+:root[data-theme="light"] .event-reading-card[data-layer="event"]:hover,
+:root[data-theme="light"] .event-reading-card[data-layer="event"]:focus-visible,
+:root[data-theme="light"] .event-reading-card[data-layer="event"].is-selected {
+  background:
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 13%, transparent), transparent 47%),
+    rgba(242, 242, 235, 0.66) !important;
+  color: var(--semantic-card-ink) !important;
+}
+
+:root[data-theme="light"] .event-reading-card[data-layer="absence"],
+:root[data-theme="light"] .pulse-item.event-reading-card[data-layer="absence"],
+:root[data-theme="light"] .event-reading-card[data-layer="absence"]:hover,
+:root[data-theme="light"] .event-reading-card[data-layer="absence"]:focus-visible,
+:root[data-theme="light"] .event-reading-card[data-layer="absence"].is-selected {
+  background:
+    linear-gradient(90deg, transparent 0 13%, color-mix(in srgb, var(--ash) 9%, transparent) 13% 14%, transparent 14%),
+    rgba(238, 239, 234, 0.68) !important;
+  color: var(--semantic-card-ink) !important;
+}
+
+:root[data-theme="light"] .event-reading-card[data-layer="beacon"],
+:root[data-theme="light"] .event-reading-card[data-layer="beacon"]:hover,
+:root[data-theme="light"] .event-reading-card[data-layer="beacon"]:focus-visible,
+:root[data-theme="light"] .event-reading-card[data-layer="beacon"].is-selected {
+  background:
+    linear-gradient(112deg, color-mix(in srgb, var(--cyan-trace) 13%, transparent), transparent 48%),
+    rgba(244, 243, 235, 0.74) !important;
+  color: var(--semantic-card-ink) !important;
+}
+
+:root[data-theme="light"] .event-reading-card[data-layer="climate"],
+:root[data-theme="light"] .event-reading-card[data-layer="climate"]:hover,
+:root[data-theme="light"] .event-reading-card[data-layer="climate"]:focus-visible,
+:root[data-theme="light"] .event-reading-card[data-layer="climate"].is-selected {
+  opacity: 0.72 !important;
+  background:
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 10%, transparent), transparent 48%),
+    rgba(240, 240, 233, 0.58) !important;
+  color: var(--semantic-card-ink) !important;
+}
+
+:root[data-theme="light"] .assigned-item .assigned-work-type,
+:root[data-theme="light"] .assigned-item .reading-title,
+:root[data-theme="light"] .event-reading-card .reading-title,
+:root[data-theme="light"] .event-reading-card .assigned-work-type,
+:root[data-theme="light"] .assigned-item .reading-summary,
+:root[data-theme="light"] .event-reading-card .reading-summary {
+  color: var(--semantic-card-ink) !important;
+}
+
+:root[data-theme="light"] .pulse-item .pulse-time,
+:root[data-theme="light"] .pulse-item .pulse-count,
+:root[data-theme="light"] .pulse-item .pulse-duration {
+  color: var(--category-text) !important;
 }
