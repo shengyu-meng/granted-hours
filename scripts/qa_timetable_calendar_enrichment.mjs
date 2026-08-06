@@ -67,9 +67,10 @@ await check("every day has a semantic motif and every live page has controllable
     assert.ok(html.indexOf("id=\"granted-hours-fold-script\"") < html.indexOf("</head>"), `${day.date} embed guard must load in head`);
     assert.match(html, /body\.gh-chamber-embed h1/);
     assert.match(html, /body\.gh-chamber-embed button/);
-    assert.match(html, /new URLSearchParams\(window\.location\.search\)\.get\('embed'\) === 'calendar'/);
+    assert.match(html, /params\.get\('embed'\) === 'calendar'/);
     assert.doesNotMatch(html, /IS_TIMETABLE_FULL_VIEW/);
-    assert.match(html, /setFolded\(stored === null \? mobileDefault : stored === '1', false\)/);
+    assert.match(html, /function alignWorkNote\(\)/);
+    assert.doesNotMatch(html, /gh-fold-toggle/);
     assert.match(html, /className = 'gh-work-note-trigger'/);
     assert.match(html, /makeElement\('section', 'gh-work-note-overlay'\)/);
     assert.ok(html.includes("archive.href = '../';"), `${day.date} archive link`);
@@ -96,9 +97,7 @@ try {
     new RegExp(`^https://shengyu-meng\\.github\\.io/granted-hours/archive/${sampleYear}/${sampleMonth}/${sampleDate}/live/(?:\\?.*)?$`),
     (route) => route.fulfill({ path: sampleLivePath, contentType: "text/html" }),
   );
-  await context.addInitScript(() => {
-    localStorage.setItem("grantedHoursTextFolded", "0");
-  });
+  await context.addInitScript(() => {});
   const page = await context.newPage();
   const initialUrl = new URL(baseUrl);
   initialUrl.searchParams.set("date", sampleDate);
@@ -321,14 +320,16 @@ try {
       return {
         classes: [...document.body.classList],
         titleVisible: isVisible(document.querySelector("h1, .title")),
-        toggleVisible: isVisible(document.querySelector(".gh-fold-toggle")),
-        artworkControlVisible: isVisible(document.querySelector("button:not(.gh-fold-toggle)")),
+        workNoteVisible: isVisible(document.querySelector("#ghWorkNoteTrigger")),
+        foldControlAbsent: !document.querySelector(".gh-fold-toggle"),
+        artworkControlVisible: isVisible(document.querySelector("button:not(.gh-work-note-trigger)")),
         media: [...document.querySelectorAll("audio, video")].map((media) => ({ muted: media.muted })),
       };
     });
     assert.ok(!result.classes.includes("gh-chamber-embed"), JSON.stringify(result));
     assert.ok(result.titleVisible, JSON.stringify(result));
-    assert.ok(result.toggleVisible, JSON.stringify(result));
+    assert.ok(result.workNoteVisible, JSON.stringify(result));
+    assert.equal(result.foldControlAbsent, true, JSON.stringify(result));
     assert.ok(result.artworkControlVisible, JSON.stringify(result));
     assert.ok(result.media.length > 0, JSON.stringify(result));
     assert.ok(result.media.every((media) => media.muted === false), JSON.stringify(result));

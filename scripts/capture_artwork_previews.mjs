@@ -412,7 +412,7 @@ async function captureVisualPreview(browser, entryDir, serverBaseUrl, sharedCont
           opacity: 1 !important;
           transform: none !important;
         }
-        .gh-fold-toggle, audio { display: none !important; }
+        audio { display: none !important; }
       `;
       document.head.append(isolation);
       return { count: 0, w: innerWidth, h: innerHeight, cssWidth: innerWidth, cssHeight: innerHeight };

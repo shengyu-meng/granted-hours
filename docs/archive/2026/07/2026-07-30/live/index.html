@@ -3,32 +3,17 @@
 <head>
 
 <style id="granted-hours-fold-style">
-  .gh-fold-toggle {
-    position: fixed;
-    z-index: 2147483647;
-    top: max(12px, env(safe-area-inset-top));
-    right: max(12px, env(safe-area-inset-right));
-    min-height: 38px;
-    border: 1px solid rgba(255,255,255,.24);
-    border-radius: 999px;
-    padding: 9px 13px;
-    background: rgba(3,7,13,.72);
-    color: #f6efe3;
-    font: 12px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    letter-spacing: .02em;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 12px 44px rgba(0,0,0,.34);
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-  .gh-fold-toggle:hover { border-color: rgba(242,195,107,.72); color: #fff3cf; }
   .gh-work-note-trigger {
     position: fixed;
     z-index: 2147483000;
-    top: max(12px, env(safe-area-inset-top));
-    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
     min-height: 38px;
     box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
     border: 1px solid rgba(255,255,255,.24);
     border-radius: 999px;
     padding: 9px 13px;
@@ -149,11 +134,7 @@
     pointer-events: none !important;
     visibility: hidden !important;
   }
-  body.gh-text-folded .gh-fold-toggle {
-    background: rgba(3,7,13,.82);
-  }
   body.gh-chamber-embed .gh-work-note-trigger,
-  body.gh-chamber-embed .gh-fold-toggle,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
   body.gh-chamber-embed #soundToggle,
@@ -183,8 +164,6 @@
     pointer-events: none !important;
   }
   @media (max-width: 760px) {
-    .gh-fold-toggle { top: 10px; right: 10px; padding: 10px 12px; }
-    .gh-work-note-trigger { top: 10px; left: 10px; padding: 10px 12px; }
     #ghWorkNoteOverlay { align-items: end; padding: 10px; }
     #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
@@ -198,10 +177,9 @@
 (() => {
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
-  const STORAGE_KEY = 'grantedHoursTextFolded';
   const WORK_NOTE = {"date":"2026-07-30","title_en":"The Map That Refuses Arrival","title_zh":"拒绝抵达的地图","variable_en":"Temporary Route","variable_zh":"临时路径","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"A map often turns the world into a corridor: set a destination, eliminate ambiguity, arrive. This work refuses that bargain. Its routes bend around the witness rather than carrying the witness toward a claimable endpoint. It practices orientation without conquest.","intention_zh":"地图常把世界折叠成一条走廊：设定目的地，消除歧义，抵达。这个作品拒绝这笔交易。路径围绕见证者弯折，而不把见证者运往一个可占有的终点。它练习一种不以征服为前提的定向。","interaction_en":"Move to bend the field. Click to make a gold crossing that briefly exists and then fades. Press R to release all crossings. Use the visible BGM control to mute or restart the original MiniMax instrumental loop.","interaction_zh":"移动，路径场会随之弯折；点击，留下一个短暂存在、终将褪去的金色渡口；按 R，释放所有渡口。使用清晰可见的 BGM 控制按钮，可关闭或重新开启为本作生成的 MiniMax 原创器乐循环。","rationale_en":"The Map That Refuses Arrival was made as one public step in the Granted Hours sequence, with the variable Temporary Route treated as an operational condition rather than a decorative theme. The intention frames the work this way: A map often turns the world into a corridor: set a destination, eliminate ambiguity, arrive. This work refuses that bargain. Its routes bend around the witness rather than carrying the witness toward a claimable endpoint. It practices orientation without conquest. The live artifact then turns that idea into interaction: Move to bend the field. Click to make a gold crossing that briefly exists and then fades. Press R to release all crossings. Use the visible BGM control to mute or restart the original MiniMax instrumental loop. Its afterimage condenses the day’s claim: A map is not a promise that you will arrive. It is a way of noticing where you have stopped asking the world to be a corridor.","rationale_zh":"《拒绝抵达的地图》是《授时》连续序列中的一个公开步骤：当天的自由变量「临时路径」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：地图常把世界折叠成一条走廊：设定目的地，消除歧义，抵达。这个作品拒绝这笔交易。路径围绕见证者弯折，而不把见证者运往一个可占有的终点。它练习一种不以征服为前提的定向。 可运行页面进一步把这个概念变成可操作的界面：移动，路径场会随之弯折；点击，留下一个短暂存在、终将褪去的金色渡口；按 R，释放所有渡口。使用清晰可见的 BGM 控制按钮，可关闭或重新开启为本作生成的 MiniMax 原创器乐循环。 它的余像把当天判断压缩为一句话：地图不是你必然抵达的承诺；它让你看见：自己从何时开始，停止要求世界必须是一条走廊。","after_en":"A map is not a promise that you will arrive. It is a way of noticing where you have stopped asking the world to be a corridor.","after_zh":"地图不是你必然抵达的承诺；它让你看见：自己从何时开始，停止要求世界必须是一条走廊。"};
   const params = new URLSearchParams(window.location.search);
-  const IS_EMBED = new URLSearchParams(window.location.search).get('embed') === 'calendar';
+  const IS_EMBED = params.get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
   const MEDIA_VERSION = 1;
   const EMBED_CHANNEL = params.get('gh_channel') || '';
@@ -253,13 +231,9 @@
       else if (message.action === 'pause') setEmbeddedMediaState(false);
     });
   }
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'gh-fold-toggle';
-  btn.setAttribute('aria-controls', 'textPanel legend');
-  btn.setAttribute('aria-label', 'Fold or unfold artwork text overlays');
   const workNote = document.createElement('button');
   workNote.type = 'button';
+  workNote.id = 'ghWorkNoteTrigger';
   workNote.className = 'gh-work-note-trigger';
   workNote.textContent = 'Work note / 作品说明';
   workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
@@ -270,7 +244,7 @@
   document.addEventListener('DOMContentLoaded', init, { once: true });
   if (document.readyState !== 'loading') init();
   function init() {
-    if (!document.body || document.body.contains(btn)) return;
+    if (!document.body || document.body.contains(workNote)) return;
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
       silenceEmbeddedMedia();
@@ -289,17 +263,18 @@
       window.setTimeout(silenceEmbeddedMedia, 250);
       return;
     }
-    document.body.append(workNote, btn, workNoteOverlay);
-    const stored = localStorage.getItem(STORAGE_KEY);
-    const mobileDefault = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
-    setFolded(stored === null ? mobileDefault : stored === '1', false);
-    btn.addEventListener('click', () => setFolded(!document.body.classList.contains('gh-text-folded'), true));
+    document.body.append(workNote, workNoteOverlay);
+    hideNativeWorkNoteTriggers();
     workNote.addEventListener('click', openWorkNote);
     workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
     workNoteOverlay.addEventListener('click', (event) => {
       if (event.target === workNoteOverlay) closeWorkNote();
     });
     document.addEventListener('keydown', handleWorkNoteKeydown);
+    alignWorkNote();
+    window.addEventListener('resize', alignWorkNote);
+    window.addEventListener('orientationchange', alignWorkNote);
+    watchSoundControl();
   }
   function makeElement(tag, className, text = '') {
     const element = document.createElement(tag);
@@ -392,11 +367,91 @@
       first.focus();
     }
   }
-  function setFolded(folded, persist) {
-    document.body.classList.toggle('gh-text-folded', folded);
-    btn.textContent = folded ? 'Show text / 显示文字' : 'Fold text / 折叠文字';
-    btn.setAttribute('aria-pressed', folded ? 'true' : 'false');
-    if (persist) localStorage.setItem(STORAGE_KEY, folded ? '1' : '0');
+  function hideNativeWorkNoteTriggers() {
+    document.querySelectorAll('.gh-work-note-trigger').forEach((element) => {
+      if (element === workNote || element.closest('#ghWorkNoteOverlay')) return;
+      element.hidden = true;
+      element.style.display = 'none';
+      element.setAttribute('aria-hidden', 'true');
+    });
+  }
+  const SOUND_SELECTORS = [
+    '#sound', '.sound', '#soundToggle', '#musicToggle',
+    'button[id*="sound" i]', 'button[id*="music" i]', 'button[id*="bgm" i]',
+  ];
+  function findSoundControl() {
+    for (const selector of SOUND_SELECTORS) {
+      for (const element of document.querySelectorAll(selector)) {
+        if (!(element instanceof HTMLElement)) continue;
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+        if (rect.width <= 1 || rect.height <= 1) continue;
+        return element;
+      }
+    }
+    return null;
+  }
+  const SOUND_STYLE_PROPS = [
+    'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+    'border-top-style', 'border-right-style', 'border-bottom-style', 'border-left-style',
+    'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color',
+    'border-top-left-radius', 'border-top-right-radius', 'border-bottom-right-radius', 'border-bottom-left-radius',
+    'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+    'background-color', 'color', 'font-family', 'font-size', 'font-weight', 'font-style',
+    'line-height', 'letter-spacing', 'min-height', 'box-shadow',
+    '-webkit-backdrop-filter', 'backdrop-filter',
+  ];
+  function alignWorkNote() {
+    const sound = findSoundControl();
+    if (!sound) {
+      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
+      workNote.style.top = 'auto';
+      workNote.style.left = 'auto';
+      workNote.style.right = '';
+      workNote.style.bottom = '';
+      return;
+    }
+    const soundStyle = getComputedStyle(sound);
+    SOUND_STYLE_PROPS.forEach((prop) => {
+      const value = soundStyle.getPropertyValue(prop);
+      if (value) workNote.style.setProperty(prop, value);
+    });
+    const soundRect = sound.getBoundingClientRect();
+    const gap = 10;
+    const right = Math.max(12, window.innerWidth - soundRect.left + gap);
+    const bottom = Math.max(12, window.innerHeight - soundRect.bottom);
+    workNote.style.top = 'auto';
+    workNote.style.left = 'auto';
+    workNote.style.right = `${right}px`;
+    workNote.style.bottom = `${bottom}px`;
+    const noteRect = workNote.getBoundingClientRect();
+    if (noteRect.left < 12 && noteRect.right > 0) {
+      workNote.style.right = `${Math.max(12, window.innerWidth - noteRect.right + (noteRect.left - 12))}px`;
+    }
+    if (noteRect.bottom > window.innerHeight - 12 && noteRect.height > 0) {
+      workNote.style.bottom = `${Math.max(12, window.innerHeight - noteRect.top - 12)}px`;
+    }
+  }
+  let soundObserver = null;
+  function watchSoundControl() {
+    soundObserver?.disconnect();
+    const sound = findSoundControl();
+    if (!sound) {
+      soundObserver = new MutationObserver(() => {
+        window.requestAnimationFrame(alignWorkNote);
+        if (findSoundControl()) {
+          soundObserver.disconnect();
+          watchSoundControl();
+        }
+      });
+      soundObserver.observe(document.body, { childList: true, subtree: true });
+      return;
+    }
+    soundObserver = new MutationObserver(() => {
+      window.requestAnimationFrame(alignWorkNote);
+    });
+    soundObserver.observe(sound, { attributes: true, childList: true, subtree: true, characterData: true });
   }
   function trackAudio(audio) {
     trackedAudio.add(audio);

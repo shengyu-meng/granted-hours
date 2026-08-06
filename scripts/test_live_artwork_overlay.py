@@ -87,7 +87,11 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn("event.target === workNoteOverlay", snippet)
         self.assertIn("max-height: min(84dvh, 760px)", snippet)
         self.assertIn("env(safe-area-inset-bottom)", snippet)
-        self.assertIn("setFolded(stored === null ? mobileDefault : stored === '1', false)", snippet)
+        self.assertNotIn("setFolded", snippet)
+        self.assertNotIn("gh-fold-toggle", snippet)
+        self.assertIn("workNote.id = 'ghWorkNoteTrigger';", snippet)
+        self.assertIn("function alignWorkNote()", snippet)
+        self.assertIn("function findSoundControl()", snippet)
         self.assertNotIn("IS_TIMETABLE_FULL_VIEW", snippet)
         self.assertIn("workNoteLastFocus.focus", snippet)
 

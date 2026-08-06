@@ -65,12 +65,14 @@ try {
         const visibleTextRoots = [
           ...document.querySelectorAll("h1,h2,.title,.panel,.card,.label,#label,.hud,.statement,.instructions,header"),
         ].filter(isVisible);
-        const fold = document.querySelector(".gh-fold-toggle");
+        const foldControl = document.querySelector(".gh-fold-toggle");
+        const workNote = document.querySelector("#ghWorkNoteTrigger");
         return {
           embed: document.body.classList.contains("gh-chamber-embed"),
           folded: document.body.classList.contains("gh-text-folded"),
           bodyTextLength: document.body.innerText.trim().length,
-          foldVisible: isVisible(fold),
+          foldControlAbsent: !foldControl,
+          workNoteVisible: isVisible(workNote),
           visibleTextRootCount: visibleTextRoots.length,
           visual: visualRect
             ? {
@@ -88,7 +90,8 @@ try {
       assert.equal(state.embed, false, `${day.date} timetable full view became embed mode`);
       assert.equal(state.folded, false, `${day.date} timetable full view hid required copy`);
       assert.ok(state.bodyTextLength > 8, `${day.date} body is blank`);
-      assert.ok(state.foldVisible, `${day.date} fold control is not visible`);
+      assert.equal(state.foldControlAbsent, true, `${day.date} fold control still exists`);
+      assert.ok(state.workNoteVisible, `${day.date} work-note control is not visible`);
       if (allowance?.copy_mode !== "canvas_native") {
         assert.ok(state.visibleTextRootCount > 0, `${day.date} title/explanation is not visible`);
       }

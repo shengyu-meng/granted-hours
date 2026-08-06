@@ -179,32 +179,45 @@ try {
     const url = new URL(latestPaths.liveUrl);
     url.searchParams.set("qa", spec.label);
     await page.goto(url.href, { waitUntil: "domcontentloaded" });
-    const trigger = page.locator('.gh-work-note-trigger[aria-controls="ghWorkNoteOverlay"]');
-    const fold = page.locator(".gh-fold-toggle");
+    const trigger = page.locator("#ghWorkNoteTrigger");
     await trigger.waitFor({ state: "visible" });
-    await fold.waitFor({ state: "visible" });
+    assert.equal(await page.locator(".gh-fold-toggle").count(), 0, `${spec.label} fold control still exists`);
     const geometry = await page.evaluate(() => {
-      const trigger = document.querySelector(".gh-work-note-trigger");
-      const fold = document.querySelector(".gh-fold-toggle");
+      const isVisible = (element) => {
+        if (!element) return false;
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0.01 && rect.width > 1 && rect.height > 1;
+      };
+      const trigger = document.querySelector("#ghWorkNoteTrigger");
+      const sound = [...document.querySelectorAll(
+        '#sound, .sound, #soundToggle, #musicToggle, button[id*="sound" i], button[id*="music" i], button[id*="bgm" i]',
+      )].find(isVisible);
       const triggerRect = trigger.getBoundingClientRect();
-      const foldRect = fold.getBoundingClientRect();
-      const overlapWidth = Math.max(0, Math.min(triggerRect.right, foldRect.right) - Math.max(triggerRect.left, foldRect.left));
-      const overlapHeight = Math.max(0, Math.min(triggerRect.bottom, foldRect.bottom) - Math.max(triggerRect.top, foldRect.top));
+      const soundRect = sound?.getBoundingClientRect();
+      const overlapWidth = soundRect
+        ? Math.max(0, Math.min(triggerRect.right, soundRect.right) - Math.max(triggerRect.left, soundRect.left))
+        : 0;
+      const overlapHeight = soundRect
+        ? Math.max(0, Math.min(triggerRect.bottom, soundRect.bottom) - Math.max(triggerRect.top, soundRect.top))
+        : 0;
       return {
         viewport: { width: innerWidth, height: innerHeight },
         horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         trigger: triggerRect.toJSON(),
-        fold: foldRect.toJSON(),
+        sound: soundRect ? soundRect.toJSON() : null,
+        triggerLeftOfSound: Boolean(soundRect && triggerRect.right <= soundRect.left + 1),
+        bottomAlignedWithSound: Boolean(soundRect && Math.abs(triggerRect.bottom - soundRect.bottom) <= 2),
         overlapArea: overlapWidth * overlapHeight,
       };
     });
     assert.ok(geometry.horizontalOverflow <= 1, `${spec.label} horizontal overflow`);
     assert.ok(geometry.trigger.height >= 38, `${spec.label} trigger touch target`);
-    assert.ok(geometry.fold.height >= 38, `${spec.label} fold touch target`);
-    for (const rect of [geometry.trigger, geometry.fold]) {
-      assert.ok(rect.left >= 0 && rect.top >= 0);
-      assert.ok(rect.right <= geometry.viewport.width && rect.bottom <= geometry.viewport.height);
-    }
+    assert.ok(geometry.trigger.left >= 0 && geometry.trigger.top >= 0, `${spec.label} trigger offscreen`);
+    assert.ok(geometry.trigger.right <= geometry.viewport.width && geometry.trigger.bottom <= geometry.viewport.height, `${spec.label} trigger offscreen`);
+    assert.ok(geometry.sound, `${spec.label} sound control not visible`);
+    assert.ok(geometry.triggerLeftOfSound, `${spec.label} trigger is not left of sound control`);
+    assert.ok(geometry.bottomAlignedWithSound, `${spec.label} trigger is not bottom-aligned with sound control`);
     assert.equal(geometry.overlapArea, 0, `${spec.label} controls overlap`);
     if (spec.touch) await trigger.tap();
     else await trigger.click();
