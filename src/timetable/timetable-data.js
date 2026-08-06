@@ -23,11 +23,11 @@ const timetableDataSource = {
     }
   },
   "public_data_note": {
-    "en": "Reminders retain original wording; identifying entities appear as ████.",
-    "zh": "提醒尽量保留原句；可识别实体以 ████ 遮挡。"
+    "en": "",
+    "zh": ""
   },
-  "note_en": "Reminders retain original wording; identifying entities appear as ████.",
-  "note_zh": "提醒尽量保留原句；可识别实体以 ████ 遮挡。",
+  "note_en": "",
+  "note_zh": "",
   "taxonomy": {
     "social_media_organization": {
       "label_en": "Social-media organization",
@@ -48219,8 +48219,8 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "把三段产品推荐文案延长 50%、补充旧设备不足点，并用 ████ 重写多版本文案。",
-          "request_en": "Extend three product-recommendation passages by 50%, note the old device's limits, and have ████ rewrite multiple versions.",
+          "request_zh": "把三段面向家庭学习场景的产品推荐文案延长 50%、补充旧设备不足点，并用 ████ 重写多版本文案；公开记录未见最终交付。",
+          "request_en": "Asked to extend three family-learning product-recommendation passages by 50%, note the old device's limits, and have ████ rewrite multiple versions; no final delivery was recorded publicly.",
           "outcome_zh": "公开记录未见最终交付结果。",
           "outcome_en": "No final delivery was recorded publicly.",
           "completion_status": "unverified",
@@ -49158,8 +49158,8 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "调整名称使用规则：产品代号全称出现一次即可，后续可用缩写。",
-          "request_en": "Adjust the naming rule so the full product code appears once and the abbreviation follows.",
+          "request_zh": "调整产品推荐文案中的名称使用规则：产品代号全称出现一次即可，后续可用缩写；已按“全称一次、缩写沿用”完成修改。",
+          "request_en": "Adjusted the naming rule in product-recommendation copy: the full product code appears once and the abbreviation follows; the change was applied accordingly.",
           "outcome_zh": "已按“全称一次、缩写沿用”完成修改。",
           "outcome_en": "The change was applied accordingly: full name once, abbreviation thereafter.",
           "completion_status": "completed",
@@ -61549,10 +61549,10 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "整理产品发布材料：话题词、发布时间与内容方向；具体产品、主体与能力细节不公开。",
-          "request_en": "Asked to organize product-launch material: hashtags, publish time, and content direction; the product, client, and capability details remain undisclosed.",
-          "outcome_zh": "当日讨论停留在发布材料的整理范围；公开记录未保留产品细节。",
-          "outcome_en": "The day's discussion stayed on the scope of the launch material; no product detail was retained publicly.",
+          "request_zh": "整理产品发布材料：话题词、发布时间与内容方向（聚焦生产力场景与教育科普类表达）；具体产品、主体与能力细节不公开。",
+          "request_en": "Asked to organize product-launch material: hashtags, publish time, and content direction focused on productivity scenes and educational science content; the product, client, and capability details remain undisclosed.",
+          "outcome_zh": "当日讨论停留在发布材料的整理范围与内容方向；公开记录未保留产品细节。",
+          "outcome_en": "The day's discussion stayed on the scope and direction of the launch material; no product detail was retained publicly.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -68154,7 +68154,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 87,
+          "count": 85,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -68295,37 +68295,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:33",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "Already verified in the previous turn: valid JSON, 19 history entries confirmed. No further action needed — this is a duplicate system alert with nothing new to check.",
-          "excerpt_original": "Already verified in the previous turn: valid JSON, 19 history entries confirmed. No further action needed — this is a duplicate system alert with nothing new to check.",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Already verified in the previous turn: valid JSON, 19 history entries confirmed. No further action needed — this is a duplicate system alert with nothing new to check.",
-          "excerpt_en": "Already verified in the previous turn: valid JSON, 19 history entries confirmed. No further action needed — this is a duplicate system alert with nothing new to check.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-006",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "09:02",
@@ -68345,7 +68314,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-006",
           "category": "us_market_scan",
           "start": "09:01",
           "end": "09:05",
@@ -68364,7 +68333,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "ah_market_scan",
           "start": "09:04",
           "end": "09:31",
@@ -68383,7 +68352,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "09:19",
           "end": "09:22",
@@ -68402,7 +68371,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "us_market_scan",
           "start": "09:21",
           "end": "09:23",
@@ -68421,7 +68390,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "daily_reminder",
           "start": "09:26",
           "end": "09:28",
@@ -68452,7 +68421,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -68471,26 +68440,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
-          "category": "us_market_scan",
-          "start": "09:40",
-          "end": "09:42",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "U.S. premarket scan",
-          "label_zh": "美股 盘前扫描",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "09:45",
           "end": "09:47",
@@ -68509,7 +68459,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "09:52",
           "end": "10:03",
@@ -68528,7 +68478,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-014",
           "category": "background_routine",
           "start": "10:01",
           "end": "10:03",
@@ -68547,7 +68497,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "10:52",
           "end": "11:03",
@@ -68566,7 +68516,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-016",
           "category": "background_routine",
           "start": "11:01",
           "end": "11:03",
@@ -68585,7 +68535,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:13",
@@ -68604,7 +68554,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-018",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -68623,7 +68573,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-019",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -68642,7 +68592,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -68661,7 +68611,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "13:31",
           "end": "13:33",
@@ -68680,7 +68630,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-022",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -68699,7 +68649,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:26",
@@ -68718,7 +68668,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-024",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:33",
@@ -68737,7 +68687,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-025",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:33",
@@ -68756,7 +68706,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-026",
           "category": "ah_market_scan",
           "start": "14:33",
           "end": "14:35",
@@ -68775,7 +68725,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-027",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -68794,7 +68744,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -68813,7 +68763,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-029",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:13",
@@ -68832,7 +68782,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-030",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -68851,7 +68801,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-031",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -68870,7 +68820,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -68889,7 +68839,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-033",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:50",
@@ -68908,7 +68858,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -68927,7 +68877,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
           "start": "16:20",
           "end": "16:22",
@@ -68946,7 +68896,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "16:29",
           "end": "16:31",
@@ -68965,7 +68915,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-037",
           "category": "background_routine",
           "start": "17:30",
           "end": "17:33",
@@ -68984,7 +68934,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-038",
           "category": "system_routine",
           "start": "20:02",
           "end": "20:04",
@@ -69003,7 +68953,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-039",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -69022,7 +68972,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-040",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -69041,7 +68991,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-041",
           "category": "background_routine",
           "start": "21:05",
           "end": "21:07",
@@ -69060,7 +69010,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-042",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:07",
@@ -69079,7 +69029,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-043",
           "category": "ah_market_scan",
           "start": "21:06",
           "end": "21:13",
@@ -69098,7 +69048,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-044",
           "category": "us_market_scan",
           "start": "21:12",
           "end": "21:26",
@@ -69117,7 +69067,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-045",
           "category": "ah_market_scan",
           "start": "21:31",
           "end": "21:33",
@@ -69136,7 +69086,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-046",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -69155,7 +69105,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-047",
           "category": "ah_market_scan",
           "start": "22:05",
           "end": "22:07",
@@ -69174,7 +69124,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:14",
@@ -69193,7 +69143,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-049",
           "category": "us_market_scan",
           "start": "22:26",
           "end": "22:28",
@@ -69212,7 +69162,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "22:31",
           "end": "22:33",
@@ -69231,7 +69181,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-051",
           "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
@@ -69265,22 +69215,22 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-009",
+            "background-008",
+            "background-014",
             "background-016",
             "background-018",
-            "background-020",
+            "background-022",
             "background-024",
-            "background-026",
-            "background-027",
+            "background-025",
+            "background-029",
+            "background-030",
             "background-031",
-            "background-032",
-            "background-033",
+            "background-037",
+            "background-038",
             "background-039",
             "background-040",
             "background-041",
-            "background-042",
-            "background-043",
-            "background-053"
+            "background-051"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -69293,17 +69243,16 @@ const timetableDataSource = {
           "source_refs": [
             "background-003",
             "background-004",
-            "background-007",
-            "background-010",
-            "background-013",
-            "background-021",
-            "background-029",
+            "background-006",
+            "background-009",
+            "background-019",
+            "background-027",
+            "background-042",
             "background-044",
             "background-046",
             "background-048",
-            "background-050",
-            "background-051",
-            "background-052"
+            "background-049",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -69317,40 +69266,31 @@ const timetableDataSource = {
             "background-005"
           ],
           "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-008",
+            "background-007",
+            "background-011",
             "background-012",
-            "background-014",
+            "background-013",
             "background-015",
             "background-017",
-            "background-019",
-            "background-022",
+            "background-020",
+            "background-021",
             "background-023",
-            "background-025",
+            "background-026",
             "background-028",
-            "background-030",
+            "background-032",
+            "background-033",
             "background-034",
             "background-035",
             "background-036",
-            "background-037",
-            "background-038",
+            "background-043",
             "background-045",
-            "background-047",
-            "background-049"
+            "background-047"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -69358,10 +69298,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-011",
+          "reading_id": "event-background-010",
           "source": "pulses",
           "source_refs": [
-            "background-011"
+            "background-010"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -72845,7 +72785,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 18,
+          "count": 17,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -73079,37 +73019,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-003",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:33",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "任务已完成。上一次 `python3 -c \"import json...\"` 的输出已经是真实执行结果：valid json, 26 条记录。无需重复验证。",
-          "excerpt_original": "任务已完成。上一次 `python3 -c \"import json...\"` 的输出已经是真实执行结果：valid json, 26 条记录。无需重复验证。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "The task is complete. The output from the previous `python3 -c \"import json...\"` command was an actual execution result: valid JSON, 26 records. There is no need to verify it again.",
-          "excerpt_en": "The task is complete. The output from the previous `python3 -c \"import json...\"` command was an actual execution result: valid JSON, 26 records. There is no need to verify it again.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-004",
           "category": "ai_daily_brief",
           "start": "08:31",
           "end": "08:37",
@@ -73129,7 +73038,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-005",
+          "footprint_id": "background-004",
           "category": "daily_reminder",
           "start": "09:15",
           "end": "09:17",
@@ -73146,21 +73055,21 @@ const timetableDataSource = {
           "owner_scope": "self",
           "ownership_provenance": "explicit_import_authorization",
           "projection_kind": "verbatim_redacted",
-          "redaction_count": 1,
+          "redaction_count": 4,
           "semantic_abstraction_count": 0,
-          "summary_original": "早安，████。09:15 了。\n\n今天上午给源泉留一个优先时段，至少 45 分钟。\n\n不一定要兴奋，也不一定要出活——先在就行。…",
-          "excerpt_original": "早安，████。09:15 了。\n\n今天上午给源泉留一个优先时段，至少 45 分钟。\n\n不一定要兴奋，也不一定要出活——先在就行。…",
+          "summary_original": "早安，████。09:15 了。\n\n今天上午给源泉留一个优先时段，至少 45 分钟。\n\n不一定要兴奋，也不一定要出活——先在就行。████、████、████，三条线里挑一条推进，哪怕只是打开文件也算到。\n\n生活机器可以挂自动挡，但真正发电的地方需要你亲自到场。\n别只维护，去供电。",
+          "excerpt_original": "早安，████。09:15 了。\n\n今天上午给源泉留一个优先时段，至少 45 分钟。\n\n不一定要兴奋，也不一定要出活——先在就行。████、████、████，三条线里挑一条推进，哪怕只是打开文件也算到。\n\n生活机器可以挂自动挡，但真正发电的地方需要你亲自到场。\n别只维护，去供电。",
           "original_language": "mixed",
           "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
           "disclosure_authorization": "explicit_user_authorization_2026-07-29",
           "projection_provenance": "semantic_public_projection",
-          "summary_en": "Good morning, ████. It is 09:15.\n\nGive the wellspring a priority slot this morning—at least 45 minutes.\n\nYou do not have to feel excited or produce anything. Just be there first. Choose one of the three threads—…",
-          "excerpt_en": "Good morning, ████. It is 09:15.\n\nGive the wellspring a priority slot this morning—at least 45 minutes.\n\nYou do not have to feel excited or produce anything. Just be there first. Choose one of the three threads—…",
+          "summary_en": "Good morning, ████. It is 09:15.\n\nGive the wellspring at least 45 morning minutes.\n\nNo need for excitement or output—just be there. Choose one of ████, ████, or ████ and move it forward; even opening the file counts.\n\nThe life machine can run on autopilot, but the generator needs you in person. Do not only maintain; supply power.",
+          "excerpt_en": "Good morning, ████. It is 09:15.\n\nGive the wellspring at least 45 morning minutes.\n\nNo need for excitement or output—just be there. Choose one of ████, ████, or ████ and move it forward; even opening the file counts.…",
           "translation_provenance": "public_mask_preserving_translation_v1"
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
+          "footprint_id": "background-005",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -73179,7 +73088,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-006",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:32",
@@ -73198,7 +73107,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "ah_market_scan",
           "start": "16:20",
           "end": "16:22",
@@ -73217,7 +73126,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "17:30",
           "end": "17:32",
@@ -73236,7 +73145,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "ah_market_scan",
           "start": "19:30",
           "end": "19:32",
@@ -73255,7 +73164,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "20:02",
           "end": "20:08",
@@ -73274,7 +73183,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "system_routine",
           "start": "20:02",
           "end": "20:04",
@@ -73293,7 +73202,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -73312,7 +73221,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -73331,7 +73240,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "21:00",
           "end": "21:03",
@@ -73350,7 +73259,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "background_routine",
           "start": "21:04",
           "end": "21:06",
@@ -73369,7 +73278,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
           "start": "21:30",
           "end": "21:35",
@@ -73388,7 +73297,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
@@ -73431,14 +73340,14 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
+            "background-005",
             "background-006",
-            "background-007",
-            "background-009",
+            "background-008",
+            "background-011",
             "background-012",
             "background-013",
-            "background-014",
-            "background-016",
-            "background-018"
+            "background-015",
+            "background-017"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -73452,22 +73361,13 @@ const timetableDataSource = {
             "background-003"
           ],
           "layer": "event",
-          "classification": "readable_reminder"
+          "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "event-background-004",
           "source": "pulses",
           "source_refs": [
             "background-004"
-          ],
-          "layer": "event",
-          "classification": "promoted_routine_exception"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -73494,11 +73394,11 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-008",
+            "background-007",
+            "background-009",
             "background-010",
-            "background-011",
-            "background-015",
-            "background-017"
+            "background-014",
+            "background-016"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -73591,7 +73491,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 85,
+          "count": 84,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -73832,37 +73732,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-004",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:32",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "验证已于上一轮完成（`python3 -c \"import json...\"`），JSON 合法，条目已追加。任务结束，无需重复验证。",
-          "excerpt_original": "验证已于上一轮完成（`python3 -c \"import json...\"`），JSON 合法，条目已追加。任务结束，无需重复验证。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Verification was completed in the previous turn with `python3 -c \"import json...\"`. The JSON is valid and the record was appended. The task is complete; there is no need to verify it again.",
-          "excerpt_en": "Verification was completed in the previous turn with `python3 -c \"import json...\"`. The JSON is valid and the record was appended. The task is complete; there is no need to verify it again.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-005",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "08:43",
@@ -73882,7 +73751,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
+          "footprint_id": "background-005",
           "category": "us_market_scan",
           "start": "08:41",
           "end": "08:44",
@@ -73901,7 +73770,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-006",
           "category": "ah_market_scan",
           "start": "08:44",
           "end": "08:53",
@@ -73920,7 +73789,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "background_routine",
           "start": "08:51",
           "end": "08:53",
@@ -73939,7 +73808,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "08:59",
           "end": "09:01",
@@ -73958,7 +73827,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "ah_market_scan",
           "start": "09:05",
           "end": "09:12",
@@ -73977,7 +73846,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "us_market_scan",
           "start": "09:06",
           "end": "09:08",
@@ -73996,7 +73865,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:22",
@@ -74015,7 +73884,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "daily_reminder",
           "start": "09:21",
           "end": "09:23",
@@ -74046,7 +73915,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "09:25",
           "end": "09:30",
@@ -74065,7 +73934,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -74084,7 +73953,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "us_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -74103,7 +73972,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
           "start": "09:45",
           "end": "09:47",
@@ -74122,7 +73991,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "09:52",
           "end": "10:00",
@@ -74141,7 +74010,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-018",
           "category": "ah_market_scan",
           "start": "10:02",
           "end": "10:04",
@@ -74160,7 +74029,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-019",
           "category": "background_routine",
           "start": "10:02",
           "end": "10:04",
@@ -74179,7 +74048,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "10:53",
           "end": "11:03",
@@ -74198,7 +74067,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-021",
           "category": "background_routine",
           "start": "11:02",
           "end": "11:04",
@@ -74217,7 +74086,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:13",
@@ -74236,7 +74105,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-023",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -74255,7 +74124,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -74274,7 +74143,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -74293,7 +74162,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "ah_market_scan",
           "start": "13:32",
           "end": "13:34",
@@ -74312,7 +74181,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -74331,7 +74200,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:26",
@@ -74350,7 +74219,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:32",
@@ -74369,7 +74238,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:35",
@@ -74388,7 +74257,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "background_routine",
           "start": "14:33",
           "end": "14:35",
@@ -74407,7 +74276,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "14:35",
           "end": "14:37",
@@ -74426,7 +74295,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -74445,7 +74314,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -74464,7 +74333,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -74483,7 +74352,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -74502,7 +74371,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -74521,7 +74390,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -74540,7 +74409,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-039",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:47",
@@ -74559,7 +74428,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-040",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -74578,7 +74447,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-041",
           "category": "ah_market_scan",
           "start": "16:21",
           "end": "16:23",
@@ -74597,7 +74466,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-042",
           "category": "ah_market_scan",
           "start": "16:29",
           "end": "16:31",
@@ -74616,7 +74485,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-043",
           "category": "background_routine",
           "start": "17:30",
           "end": "17:34",
@@ -74635,7 +74504,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-044",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -74654,7 +74523,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-045",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -74673,7 +74542,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-046",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -74692,7 +74561,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-047",
           "category": "background_routine",
           "start": "21:05",
           "end": "21:07",
@@ -74711,7 +74580,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:07",
@@ -74730,7 +74599,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-049",
           "category": "ah_market_scan",
           "start": "21:06",
           "end": "21:14",
@@ -74749,7 +74618,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "21:13",
           "end": "21:30",
@@ -74768,7 +74637,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-051",
           "category": "ah_market_scan",
           "start": "21:31",
           "end": "21:33",
@@ -74787,7 +74656,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-052",
           "category": "ai_daily_brief",
           "start": "21:48",
           "end": "22:11",
@@ -74806,7 +74675,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-054",
+          "footprint_id": "background-053",
           "category": "us_market_scan",
           "start": "22:09",
           "end": "22:15",
@@ -74825,7 +74694,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-055",
+          "footprint_id": "background-054",
           "category": "us_market_scan",
           "start": "22:24",
           "end": "22:26",
@@ -74844,7 +74713,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-056",
+          "footprint_id": "background-055",
           "category": "us_market_scan",
           "start": "22:32",
           "end": "22:34",
@@ -74863,7 +74732,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-057",
+          "footprint_id": "background-056",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -74910,24 +74779,24 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
+            "background-007",
             "background-008",
-            "background-009",
-            "background-020",
-            "background-022",
-            "background-024",
-            "background-028",
+            "background-019",
+            "background-021",
+            "background-023",
+            "background-027",
+            "background-029",
             "background-030",
             "background-031",
-            "background-032",
+            "background-035",
             "background-036",
             "background-037",
-            "background-038",
+            "background-043",
             "background-044",
             "background-045",
             "background-046",
             "background-047",
-            "background-048",
-            "background-053"
+            "background-052"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -74941,31 +74810,22 @@ const timetableDataSource = {
             "background-004"
           ],
           "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
           "classification": "promoted_routine_exception"
         },
         {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-006",
-            "background-011",
-            "background-016",
-            "background-025",
-            "background-034",
-            "background-049",
-            "background-051",
+            "background-005",
+            "background-010",
+            "background-015",
+            "background-024",
+            "background-033",
+            "background-048",
+            "background-050",
+            "background-053",
             "background-054",
-            "background-055",
-            "background-056"
+            "background-055"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -74985,28 +74845,28 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-007",
-            "background-010",
-            "background-012",
+            "background-006",
+            "background-009",
+            "background-011",
+            "background-013",
             "background-014",
-            "background-015",
+            "background-016",
             "background-017",
             "background-018",
-            "background-019",
-            "background-021",
-            "background-023",
+            "background-020",
+            "background-022",
+            "background-025",
             "background-026",
-            "background-027",
-            "background-029",
-            "background-033",
-            "background-035",
+            "background-028",
+            "background-032",
+            "background-034",
+            "background-038",
             "background-039",
             "background-040",
             "background-041",
             "background-042",
-            "background-043",
-            "background-050",
-            "background-052"
+            "background-049",
+            "background-051"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -75014,10 +74874,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-013",
+          "reading_id": "event-background-012",
           "source": "pulses",
           "source_refs": [
-            "background-013"
+            "background-012"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -75041,10 +74901,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-057",
+          "reading_id": "event-background-056",
           "source": "pulses",
           "source_refs": [
-            "background-057"
+            "background-056"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -77931,7 +77791,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 85,
+          "count": 84,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -78190,37 +78050,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-005",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:35",
-          "duration_minutes": 5,
-          "execution_minutes": 4,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "验证完成。JSON 结构完整，新增条目字段齐全，内容正确。交付物已在上一轮输出，无遗留问题。",
-          "excerpt_original": "验证完成。JSON 结构完整，新增条目字段齐全，内容正确。交付物已在上一轮输出，无遗留问题。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Verification is complete. The JSON structure is intact, the new record contains every required field, and its content is correct. The deliverable was produced in the previous turn. Nothing remains unresolved.",
-          "excerpt_en": "Verification is complete. The JSON structure is intact, the new record contains every required field, and its content is correct. The deliverable was produced in the previous turn. Nothing remains unresolved.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-006",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "08:45",
@@ -78239,7 +78068,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
+          "footprint_id": "background-006",
           "category": "us_market_scan",
           "start": "08:43",
           "end": "08:45",
@@ -78258,7 +78087,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "ah_market_scan",
           "start": "08:45",
           "end": "08:51",
@@ -78277,7 +78106,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "08:49",
           "end": "08:51",
@@ -78296,7 +78125,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "background_routine",
           "start": "08:59",
           "end": "09:01",
@@ -78315,7 +78144,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "09:05",
           "end": "09:12",
@@ -78334,7 +78163,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "us_market_scan",
           "start": "09:06",
           "end": "09:08",
@@ -78353,7 +78182,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:29",
@@ -78372,7 +78201,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "daily_reminder",
           "start": "09:24",
           "end": "09:26",
@@ -78403,7 +78232,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -78422,7 +78251,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "us_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -78441,7 +78270,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "ah_market_scan",
           "start": "09:45",
           "end": "09:47",
@@ -78460,7 +78289,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "09:53",
           "end": "10:02",
@@ -78479,7 +78308,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-018",
           "category": "background_routine",
           "start": "10:00",
           "end": "10:02",
@@ -78498,7 +78327,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-019",
           "category": "ah_market_scan",
           "start": "10:52",
           "end": "11:02",
@@ -78517,7 +78346,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-020",
           "category": "background_routine",
           "start": "11:00",
           "end": "11:02",
@@ -78536,7 +78365,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-021",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:12",
@@ -78555,7 +78384,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-022",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -78574,7 +78403,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-023",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -78593,7 +78422,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -78612,7 +78441,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "13:32",
           "end": "13:34",
@@ -78631,7 +78460,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -78650,7 +78479,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:26",
@@ -78669,7 +78498,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:33",
@@ -78688,7 +78517,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:33",
@@ -78707,7 +78536,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "ah_market_scan",
           "start": "14:33",
           "end": "14:35",
@@ -78726,7 +78555,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -78745,7 +78574,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -78764,7 +78593,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -78783,7 +78612,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -78802,7 +78631,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -78821,7 +78650,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -78840,7 +78669,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:43",
@@ -78859,7 +78688,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -78878,7 +78707,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-039",
           "category": "ah_market_scan",
           "start": "16:25",
           "end": "16:27",
@@ -78897,7 +78726,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-040",
           "category": "ah_market_scan",
           "start": "16:29",
           "end": "16:31",
@@ -78916,7 +78745,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-041",
           "category": "background_routine",
           "start": "17:30",
           "end": "17:32",
@@ -78935,7 +78764,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-042",
           "category": "system_routine",
           "start": "20:02",
           "end": "20:04",
@@ -78955,7 +78784,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-043",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -78974,7 +78803,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-044",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -78993,7 +78822,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-045",
           "category": "background_routine",
           "start": "21:05",
           "end": "21:07",
@@ -79012,7 +78841,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-046",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:07",
@@ -79031,7 +78860,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-047",
           "category": "ah_market_scan",
           "start": "21:06",
           "end": "21:12",
@@ -79050,7 +78879,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "21:11",
           "end": "21:27",
@@ -79069,7 +78898,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-049",
           "category": "ah_market_scan",
           "start": "21:31",
           "end": "21:33",
@@ -79088,7 +78917,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -79107,7 +78936,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-051",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:15",
@@ -79126,7 +78955,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-052",
           "category": "us_market_scan",
           "start": "22:27",
           "end": "22:29",
@@ -79145,7 +78974,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-054",
+          "footprint_id": "background-053",
           "category": "us_market_scan",
           "start": "22:32",
           "end": "22:34",
@@ -79164,7 +78993,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-055",
+          "footprint_id": "background-054",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -79210,23 +79039,23 @@ const timetableDataSource = {
           "source_refs": [
             "background-001",
             "background-002",
-            "background-006",
+            "background-005",
+            "background-008",
             "background-009",
-            "background-010",
-            "background-019",
-            "background-021",
-            "background-023",
-            "background-027",
+            "background-018",
+            "background-020",
+            "background-022",
+            "background-026",
+            "background-028",
             "background-029",
-            "background-030",
+            "background-033",
             "background-034",
             "background-035",
-            "background-036",
+            "background-041",
             "background-042",
             "background-043",
             "background-044",
-            "background-045",
-            "background-046"
+            "background-045"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -79239,17 +79068,17 @@ const timetableDataSource = {
           "source_refs": [
             "background-003",
             "background-004",
-            "background-007",
-            "background-012",
-            "background-016",
-            "background-024",
-            "background-032",
-            "background-047",
-            "background-049",
+            "background-006",
+            "background-011",
+            "background-015",
+            "background-023",
+            "background-031",
+            "background-046",
+            "background-048",
+            "background-050",
             "background-051",
             "background-052",
-            "background-053",
-            "background-054"
+            "background-053"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -79257,38 +79086,29 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-005",
-          "source": "pulses",
-          "source_refs": [
-            "background-005"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-008",
-            "background-011",
-            "background-013",
-            "background-015",
+            "background-007",
+            "background-010",
+            "background-012",
+            "background-014",
+            "background-016",
             "background-017",
-            "background-018",
-            "background-020",
-            "background-022",
+            "background-019",
+            "background-021",
+            "background-024",
             "background-025",
-            "background-026",
-            "background-028",
-            "background-031",
-            "background-033",
+            "background-027",
+            "background-030",
+            "background-032",
+            "background-036",
             "background-037",
             "background-038",
             "background-039",
             "background-040",
-            "background-041",
-            "background-048",
-            "background-050"
+            "background-047",
+            "background-049"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -79296,10 +79116,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-014",
+          "reading_id": "event-background-013",
           "source": "pulses",
           "source_refs": [
-            "background-014"
+            "background-013"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -79316,10 +79136,10 @@ const timetableDataSource = {
           "classification": "settings_change"
         },
         {
-          "reading_id": "event-background-055",
+          "reading_id": "event-background-054",
           "source": "pulses",
           "source_refs": [
-            "background-055"
+            "background-054"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -79401,7 +79221,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 85,
+          "count": 84,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -79718,37 +79538,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-006",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:34",
-          "duration_minutes": 4,
-          "execution_minutes": 3,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "已处理完毕。JSON 校验通过，新增建议条目已正确写入状态文件。当次 cron dispatch 已作为最终回复交付，无需进一步操作。",
-          "excerpt_original": "已处理完毕。JSON 校验通过，新增建议条目已正确写入状态文件。当次 cron dispatch 已作为最终回复交付，无需进一步操作。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "Done. The JSON passed validation, and the new recommendation was written correctly to the state file. The cron dispatch for this run has already been delivered as the final response. No further action is needed.",
-          "excerpt_en": "Done. The JSON passed validation, and the new recommendation was written correctly to the state file. The cron dispatch for this run has already been delivered as the final response. No further action is needed.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "08:48",
@@ -79767,7 +79556,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-007",
           "category": "us_market_scan",
           "start": "08:46",
           "end": "08:49",
@@ -79786,7 +79575,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
+          "footprint_id": "background-008",
           "category": "ah_market_scan",
           "start": "08:48",
           "end": "08:59",
@@ -79805,7 +79594,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-009",
           "category": "background_routine",
           "start": "08:57",
           "end": "09:01",
@@ -79824,7 +79613,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "09:05",
           "end": "09:07",
@@ -79843,7 +79632,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-011",
           "category": "us_market_scan",
           "start": "09:06",
           "end": "09:08",
@@ -79862,7 +79651,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "09:08",
           "end": "09:12",
@@ -79881,7 +79670,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:23",
@@ -79900,7 +79689,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:25",
           "end": "09:30",
@@ -79919,7 +79708,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -79938,7 +79727,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-016",
           "category": "us_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -79957,7 +79746,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "09:45",
           "end": "09:47",
@@ -79976,7 +79765,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-018",
           "category": "ah_market_scan",
           "start": "09:53",
           "end": "10:03",
@@ -79995,7 +79784,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-019",
           "category": "background_routine",
           "start": "10:01",
           "end": "10:03",
@@ -80014,7 +79803,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-020",
           "category": "ah_market_scan",
           "start": "10:52",
           "end": "11:02",
@@ -80033,7 +79822,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-021",
           "category": "background_routine",
           "start": "11:00",
           "end": "11:02",
@@ -80052,7 +79841,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "12:10",
           "end": "12:13",
@@ -80071,7 +79860,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-023",
           "category": "background_routine",
           "start": "12:19",
           "end": "12:21",
@@ -80090,7 +79879,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
+          "footprint_id": "background-024",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -80109,7 +79898,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "13:24",
           "end": "13:26",
@@ -80128,7 +79917,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-026",
           "category": "ah_market_scan",
           "start": "13:31",
           "end": "13:33",
@@ -80147,7 +79936,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-027",
           "category": "system_routine",
           "start": "13:40",
           "end": "13:42",
@@ -80167,7 +79956,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:26",
@@ -80186,7 +79975,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-029",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:32",
@@ -80205,7 +79994,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-030",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:36",
@@ -80224,7 +80013,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-031",
           "category": "background_routine",
           "start": "14:34",
           "end": "14:36",
@@ -80243,7 +80032,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-032",
           "category": "ah_market_scan",
           "start": "14:36",
           "end": "14:38",
@@ -80262,7 +80051,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-033",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -80281,7 +80070,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "15:05",
           "end": "15:07",
@@ -80300,7 +80089,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-035",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -80319,7 +80108,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-036",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -80338,7 +80127,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
+          "footprint_id": "background-037",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -80357,7 +80146,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
@@ -80376,7 +80165,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-039",
           "category": "ah_market_scan",
           "start": "15:35",
           "end": "15:46",
@@ -80395,7 +80184,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
+          "footprint_id": "background-040",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -80414,7 +80203,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-042",
+          "footprint_id": "background-041",
           "category": "ah_market_scan",
           "start": "16:23",
           "end": "16:25",
@@ -80433,7 +80222,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-042",
           "category": "ah_market_scan",
           "start": "16:29",
           "end": "16:31",
@@ -80452,7 +80241,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-043",
           "category": "background_routine",
           "start": "17:30",
           "end": "17:34",
@@ -80471,7 +80260,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-044",
           "category": "system_routine",
           "start": "20:01",
           "end": "20:03",
@@ -80491,7 +80280,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-045",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -80510,7 +80299,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-046",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -80529,7 +80318,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-047",
           "category": "background_routine",
           "start": "21:06",
           "end": "21:08",
@@ -80548,7 +80337,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "21:06",
           "end": "21:08",
@@ -80567,7 +80356,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
+          "footprint_id": "background-049",
           "category": "ah_market_scan",
           "start": "21:07",
           "end": "21:13",
@@ -80586,7 +80375,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "21:12",
           "end": "21:30",
@@ -80605,7 +80394,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
+          "footprint_id": "background-051",
           "category": "ah_market_scan",
           "start": "21:31",
           "end": "21:33",
@@ -80624,7 +80413,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-052",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -80643,7 +80432,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-054",
+          "footprint_id": "background-053",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:14",
@@ -80662,7 +80451,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-055",
+          "footprint_id": "background-054",
           "category": "us_market_scan",
           "start": "22:26",
           "end": "22:28",
@@ -80681,7 +80470,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-056",
+          "footprint_id": "background-055",
           "category": "us_market_scan",
           "start": "22:33",
           "end": "22:35",
@@ -80700,7 +80489,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-057",
+          "footprint_id": "background-056",
           "category": "daily_reminder",
           "start": "23:30",
           "end": "23:32",
@@ -80747,23 +80536,23 @@ const timetableDataSource = {
             "background-001",
             "background-002",
             "background-003",
-            "background-007",
-            "background-010",
-            "background-020",
-            "background-022",
-            "background-024",
-            "background-028",
+            "background-006",
+            "background-009",
+            "background-019",
+            "background-021",
+            "background-023",
+            "background-027",
+            "background-029",
             "background-030",
             "background-031",
-            "background-032",
+            "background-035",
             "background-036",
             "background-037",
-            "background-038",
+            "background-043",
             "background-044",
             "background-045",
             "background-046",
-            "background-047",
-            "background-048"
+            "background-047"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -80776,17 +80565,17 @@ const timetableDataSource = {
           "source_refs": [
             "background-004",
             "background-005",
-            "background-008",
-            "background-012",
-            "background-017",
-            "background-025",
-            "background-034",
-            "background-049",
-            "background-051",
+            "background-007",
+            "background-011",
+            "background-016",
+            "background-024",
+            "background-033",
+            "background-048",
+            "background-050",
+            "background-052",
             "background-053",
             "background-054",
-            "background-055",
-            "background-056"
+            "background-055"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -80794,40 +80583,31 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-006",
-          "source": "pulses",
-          "source_refs": [
-            "background-006"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
-            "background-009",
-            "background-011",
+            "background-008",
+            "background-010",
+            "background-012",
             "background-013",
             "background-014",
             "background-015",
-            "background-016",
+            "background-017",
             "background-018",
-            "background-019",
-            "background-021",
-            "background-023",
+            "background-020",
+            "background-022",
+            "background-025",
             "background-026",
-            "background-027",
-            "background-029",
-            "background-033",
-            "background-035",
+            "background-028",
+            "background-032",
+            "background-034",
+            "background-038",
             "background-039",
             "background-040",
             "background-041",
             "background-042",
-            "background-043",
-            "background-050",
-            "background-052"
+            "background-049",
+            "background-051"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -80880,10 +80660,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-057",
+          "reading_id": "event-background-056",
           "source": "pulses",
           "source_refs": [
-            "background-057"
+            "background-056"
           ],
           "layer": "event",
           "classification": "readable_reminder"
@@ -81696,7 +81476,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 29,
+          "count": 16,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -81920,44 +81700,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "system_routine",
-          "start": "01:31",
-          "end": "01:33",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "overnight",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-002",
-          "category": "system_routine",
-          "start": "03:32",
-          "end": "03:34",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "overnight",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-003",
           "category": "background_routine",
           "start": "05:00",
           "end": "05:17",
@@ -81976,26 +81718,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-004",
+          "footprint_id": "background-002",
           "category": "system_routine",
           "start": "05:39",
-          "end": "05:42",
-          "duration_minutes": 3,
-          "execution_minutes": 2,
+          "end": "05:41",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "dawn",
-          "count": 2,
-          "time_provenance": "mixed_observed_and_receipt",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
           "summary_provenance": "derived_public_safe",
           "label_en": "Service health & freshness check",
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-005",
+          "footprint_id": "background-003",
           "category": "system_routine",
           "start": "06:00",
           "end": "06:04",
@@ -82014,57 +81756,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:34",
-          "duration_minutes": 4,
-          "execution_minutes": 3,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "The reminder is noted, but this edit was a JSON data file, not code with logic. The JSON validity and entry integrity were already verified in the same turn above — valid parse, correct append, no duplicates. No further test script needed.",
-          "excerpt_original": "The reminder is noted, but this edit was a JSON data file, not code with logic. The JSON validity and entry integrity were already verified in the same turn above — valid parse, correct append, no duplicates. No further test script needed.",
-          "original_language": "en",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "The reminder is noted, but this edit was a JSON data file, not code with logic. The JSON validity and entry integrity were already verified in the same turn above — valid parse, correct append, no duplicates. No further test script needed.",
-          "excerpt_en": "The reminder is noted, but this edit was a JSON data file, not code with logic. The JSON validity and entry integrity were already verified in the same turn above — valid parse, correct append, no duplicates. No further test script needed.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-007",
-          "category": "system_routine",
-          "start": "07:41",
-          "end": "07:43",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-004",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "08:44",
@@ -82084,64 +81776,26 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
-          "category": "system_routine",
-          "start": "09:42",
-          "end": "09:44",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-010",
-          "category": "system_routine",
-          "start": "11:43",
-          "end": "11:45",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-005",
           "category": "system_routine",
           "start": "13:40",
-          "end": "13:53",
-          "duration_minutes": 13,
-          "execution_minutes": 12,
+          "end": "13:51",
+          "duration_minutes": 11,
+          "execution_minutes": 11,
           "time_bucket": "midday",
-          "count": 2,
+          "count": 1,
           "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "Service health & freshness check",
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-006",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:32",
@@ -82160,26 +81814,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
-          "category": "system_routine",
-          "start": "15:53",
-          "end": "15:55",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-014",
+          "footprint_id": "background-007",
           "category": "background_routine",
           "start": "17:36",
           "end": "17:44",
@@ -82198,26 +81833,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-015",
-          "category": "system_routine",
-          "start": "17:55",
-          "end": "17:57",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-008",
           "category": "ah_market_scan",
           "start": "19:30",
           "end": "19:34",
@@ -82236,26 +81852,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
-          "category": "system_routine",
-          "start": "19:56",
-          "end": "19:58",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-009",
           "category": "system_routine",
           "start": "20:00",
           "end": "20:02",
@@ -82274,7 +81871,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "20:01",
           "end": "20:06",
@@ -82293,7 +81890,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-011",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -82312,7 +81909,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-012",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -82331,7 +81928,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-013",
           "category": "ah_market_scan",
           "start": "21:00",
           "end": "21:04",
@@ -82350,7 +81947,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-014",
           "category": "background_routine",
           "start": "21:04",
           "end": "21:06",
@@ -82369,7 +81966,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "21:30",
           "end": "21:36",
@@ -82388,26 +81985,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
-          "category": "system_routine",
-          "start": "21:56",
-          "end": "21:58",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-016",
           "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
@@ -82423,25 +82001,6 @@ const timetableDataSource = {
           "redaction_policy": "not_applicable",
           "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
           "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-027",
-          "category": "system_routine",
-          "start": "23:57",
-          "end": "23:59",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
         }
       ],
       "reading_items": [
@@ -82455,37 +82014,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "climate-01",
-          "source": "pulses",
-          "source_refs": [
-            "background-001",
-            "background-002",
-            "background-003",
-            "background-004",
-            "background-005",
-            "background-007",
-            "background-009",
-            "background-010",
-            "background-011",
-            "background-012",
-            "background-013",
-            "background-014",
-            "background-015",
-            "background-017",
-            "background-018",
-            "background-020",
-            "background-021",
-            "background-023",
-            "background-025",
-            "background-026",
-            "background-027"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "daily"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -82495,19 +82023,31 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-background-006",
+          "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
-            "background-006"
+            "background-001",
+            "background-002",
+            "background-003",
+            "background-005",
+            "background-006",
+            "background-007",
+            "background-009",
+            "background-011",
+            "background-012",
+            "background-014",
+            "background-016"
           ],
-          "layer": "event",
-          "classification": "readable_reminder"
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daily"
         },
         {
-          "reading_id": "event-background-008",
+          "reading_id": "event-background-004",
           "source": "pulses",
           "source_refs": [
-            "background-008"
+            "background-004"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -82543,10 +82083,10 @@ const timetableDataSource = {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
-            "background-016",
-            "background-019",
-            "background-022",
-            "background-024"
+            "background-008",
+            "background-010",
+            "background-013",
+            "background-015"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -86170,7 +85710,7 @@ const timetableDataSource = {
         },
         "routine": {
           "present": true,
-          "count": 102,
+          "count": 85,
           "label_zh": "例行任务",
           "label_en": "Routine"
         },
@@ -86409,63 +85949,6 @@ const timetableDataSource = {
         {
           "origin": "background",
           "footprint_id": "background-001",
-          "category": "system_routine",
-          "start": "00:47",
-          "end": "00:49",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "overnight",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-002",
-          "category": "system_routine",
-          "start": "02:47",
-          "end": "02:49",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "overnight",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-003",
-          "category": "system_routine",
-          "start": "04:48",
-          "end": "04:50",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "dawn",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-004",
           "category": "background_routine",
           "start": "05:00",
           "end": "05:15",
@@ -86484,7 +85967,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-005",
+          "footprint_id": "background-002",
           "category": "system_routine",
           "start": "06:00",
           "end": "06:03",
@@ -86503,7 +85986,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-006",
+          "footprint_id": "background-003",
           "category": "us_market_scan",
           "start": "06:46",
           "end": "06:48",
@@ -86522,26 +86005,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-007",
-          "category": "system_routine",
-          "start": "06:49",
-          "end": "06:51",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "dawn",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-008",
+          "footprint_id": "background-004",
           "category": "us_market_scan",
           "start": "07:20",
           "end": "07:27",
@@ -86560,38 +86024,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-009",
-          "category": "daily_reminder",
-          "start": "07:30",
-          "end": "07:33",
-          "duration_minutes": 3,
-          "execution_minutes": 3,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "semantic_public_projection",
-          "label_en": "Morning reminder",
-          "label_zh": "晨间提醒",
-          "pulse_color": "amber",
-          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
-          "owner_scope": "self",
-          "ownership_provenance": "explicit_import_authorization",
-          "projection_kind": "verbatim",
-          "redaction_count": 0,
-          "semantic_abstraction_count": 0,
-          "summary_original": "JSON 结构验证通过：43 条记录，最后一条 `2026-07-29 morning` 已正确写入。无需进一步验证。",
-          "excerpt_original": "JSON 结构验证通过：43 条记录，最后一条 `2026-07-29 morning` 已正确写入。无需进一步验证。",
-          "original_language": "mixed",
-          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
-          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
-          "projection_provenance": "semantic_public_projection",
-          "summary_en": "The JSON structure passed validation: 43 records, with the final `2026-07-29 morning` record written correctly. No further verification is needed.",
-          "excerpt_en": "The JSON structure passed validation: 43 records, with the final `2026-07-29 morning` record written correctly. No further verification is needed.",
-          "translation_provenance": "public_mask_preserving_translation_v1"
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-010",
+          "footprint_id": "background-005",
           "category": "ai_daily_brief",
           "start": "08:30",
           "end": "09:00",
@@ -86611,7 +86044,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-011",
+          "footprint_id": "background-006",
           "category": "us_market_scan",
           "start": "08:58",
           "end": "09:01",
@@ -86630,7 +86063,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-012",
+          "footprint_id": "background-007",
           "category": "ah_market_scan",
           "start": "09:01",
           "end": "09:14",
@@ -86649,7 +86082,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-013",
+          "footprint_id": "background-008",
           "category": "background_routine",
           "start": "09:09",
           "end": "09:12",
@@ -86668,26 +86101,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-014",
-          "category": "system_routine",
-          "start": "09:10",
-          "end": "09:12",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "morning",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-015",
+          "footprint_id": "background-009",
           "category": "us_market_scan",
           "start": "09:11",
           "end": "09:13",
@@ -86706,7 +86120,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-016",
+          "footprint_id": "background-010",
           "category": "ah_market_scan",
           "start": "09:15",
           "end": "09:23",
@@ -86725,7 +86139,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-017",
+          "footprint_id": "background-011",
           "category": "ah_market_scan",
           "start": "09:25",
           "end": "09:29",
@@ -86744,7 +86158,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-018",
+          "footprint_id": "background-012",
           "category": "ah_market_scan",
           "start": "09:35",
           "end": "09:42",
@@ -86763,7 +86177,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-019",
+          "footprint_id": "background-013",
           "category": "us_market_scan",
           "start": "09:40",
           "end": "09:42",
@@ -86782,7 +86196,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-020",
+          "footprint_id": "background-014",
           "category": "ah_market_scan",
           "start": "09:44",
           "end": "09:46",
@@ -86801,7 +86215,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-021",
+          "footprint_id": "background-015",
           "category": "ah_market_scan",
           "start": "09:52",
           "end": "10:02",
@@ -86820,7 +86234,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-022",
+          "footprint_id": "background-016",
           "category": "background_routine",
           "start": "10:01",
           "end": "10:03",
@@ -86839,7 +86253,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-023",
+          "footprint_id": "background-017",
           "category": "ah_market_scan",
           "start": "10:52",
           "end": "11:03",
@@ -86858,7 +86272,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-024",
+          "footprint_id": "background-018",
           "category": "background_routine",
           "start": "11:01",
           "end": "11:03",
@@ -86877,26 +86291,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-025",
-          "category": "system_routine",
-          "start": "11:10",
-          "end": "11:12",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-026",
+          "footprint_id": "background-019",
           "category": "ah_market_scan",
           "start": "12:11",
           "end": "12:13",
@@ -86915,7 +86310,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-027",
+          "footprint_id": "background-020",
           "category": "background_routine",
           "start": "12:20",
           "end": "12:22",
@@ -86934,7 +86329,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-028",
+          "footprint_id": "background-021",
           "category": "us_market_scan",
           "start": "12:40",
           "end": "12:42",
@@ -86953,26 +86348,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-029",
-          "category": "system_routine",
-          "start": "13:10",
-          "end": "13:12",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "midday",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-030",
+          "footprint_id": "background-022",
           "category": "ah_market_scan",
           "start": "13:25",
           "end": "13:27",
@@ -86991,7 +86367,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-031",
+          "footprint_id": "background-023",
           "category": "ah_market_scan",
           "start": "13:33",
           "end": "13:35",
@@ -87010,7 +86386,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-032",
+          "footprint_id": "background-024",
           "category": "system_routine",
           "start": "13:41",
           "end": "13:43",
@@ -87030,7 +86406,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-033",
+          "footprint_id": "background-025",
           "category": "ah_market_scan",
           "start": "14:12",
           "end": "14:26",
@@ -87049,7 +86425,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-034",
+          "footprint_id": "background-026",
           "category": "background_routine",
           "start": "14:30",
           "end": "14:34",
@@ -87068,7 +86444,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-035",
+          "footprint_id": "background-027",
           "category": "system_routine",
           "start": "14:30",
           "end": "14:33",
@@ -87087,7 +86463,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-036",
+          "footprint_id": "background-028",
           "category": "ah_market_scan",
           "start": "14:34",
           "end": "14:36",
@@ -87106,7 +86482,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-037",
+          "footprint_id": "background-029",
           "category": "us_market_scan",
           "start": "14:40",
           "end": "14:42",
@@ -87125,26 +86501,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-038",
-          "category": "ah_market_scan",
-          "start": "14:59",
-          "end": "15:01",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H intraday report",
-          "label_zh": "A/H 盘中报告",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-039",
+          "footprint_id": "background-030",
           "category": "ah_market_scan",
           "start": "15:04",
           "end": "15:06",
@@ -87163,7 +86520,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-040",
+          "footprint_id": "background-031",
           "category": "background_routine",
           "start": "15:10",
           "end": "15:12",
@@ -87182,45 +86539,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-041",
-          "category": "system_routine",
-          "start": "15:11",
-          "end": "15:13",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-042",
-          "category": "ah_market_scan",
-          "start": "15:15",
-          "end": "15:17",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "A/H close review",
-          "label_zh": "A/H 盘后复核",
-          "pulse_color": "green",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-043",
+          "footprint_id": "background-032",
           "category": "background_routine",
           "start": "15:19",
           "end": "15:21",
@@ -87239,7 +86558,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-044",
+          "footprint_id": "background-033",
           "category": "system_routine",
           "start": "15:25",
           "end": "15:27",
@@ -87258,45 +86577,45 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-045",
+          "footprint_id": "background-034",
           "category": "ah_market_scan",
           "start": "15:30",
           "end": "15:32",
           "duration_minutes": 2,
-          "execution_minutes": 2,
+          "execution_minutes": 1,
           "time_bucket": "afternoon",
-          "count": 2,
-          "time_provenance": "mixed_observed_and_receipt",
+          "count": 1,
+          "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H close review",
           "label_zh": "A/H 盘后复核",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
         },
         {
           "origin": "background",
-          "footprint_id": "background-046",
+          "footprint_id": "background-035",
           "category": "ah_market_scan",
           "start": "15:35",
-          "end": "15:47",
-          "duration_minutes": 12,
-          "execution_minutes": 10,
+          "end": "15:45",
+          "duration_minutes": 10,
+          "execution_minutes": 9,
           "time_bucket": "afternoon",
-          "count": 2,
-          "time_provenance": "mixed_observed_and_receipt",
+          "count": 1,
+          "time_provenance": "observed_session_window",
           "summary_provenance": "derived_public_safe",
           "label_en": "A/H close review",
           "label_zh": "A/H 盘后复核",
           "pulse_color": "green",
           "redaction_policy": "not_applicable",
-          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
         },
         {
           "origin": "background",
-          "footprint_id": "background-047",
+          "footprint_id": "background-036",
           "category": "ah_market_scan",
           "start": "16:15",
           "end": "16:17",
@@ -87315,7 +86634,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-048",
+          "footprint_id": "background-037",
           "category": "ah_market_scan",
           "start": "16:21",
           "end": "16:23",
@@ -87334,7 +86653,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-049",
+          "footprint_id": "background-038",
           "category": "ah_market_scan",
           "start": "16:30",
           "end": "16:32",
@@ -87353,27 +86672,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-050",
-          "category": "system_routine",
-          "start": "17:11",
-          "end": "17:13",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "afternoon",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
-          "public_alert": true
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-051",
+          "footprint_id": "background-039",
           "category": "background_routine",
           "start": "17:30",
           "end": "17:35",
@@ -87392,26 +86691,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-052",
-          "category": "system_routine",
-          "start": "19:12",
-          "end": "19:14",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-053",
+          "footprint_id": "background-040",
           "category": "system_routine",
           "start": "20:02",
           "end": "20:04",
@@ -87430,7 +86710,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-054",
+          "footprint_id": "background-041",
           "category": "background_routine",
           "start": "20:29",
           "end": "20:31",
@@ -87449,7 +86729,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-055",
+          "footprint_id": "background-042",
           "category": "background_routine",
           "start": "20:44",
           "end": "20:46",
@@ -87468,7 +86748,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-056",
+          "footprint_id": "background-043",
           "category": "background_routine",
           "start": "21:05",
           "end": "21:07",
@@ -87487,7 +86767,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-057",
+          "footprint_id": "background-044",
           "category": "us_market_scan",
           "start": "21:05",
           "end": "21:26",
@@ -87506,26 +86786,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-058",
-          "category": "system_routine",
-          "start": "21:15",
-          "end": "21:17",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-059",
+          "footprint_id": "background-045",
           "category": "ah_market_scan",
           "start": "21:31",
           "end": "21:33",
@@ -87544,7 +86805,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-060",
+          "footprint_id": "background-046",
           "category": "us_market_scan",
           "start": "21:49",
           "end": "21:51",
@@ -87563,7 +86824,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-061",
+          "footprint_id": "background-047",
           "category": "ah_market_scan",
           "start": "22:05",
           "end": "22:07",
@@ -87582,7 +86843,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-062",
+          "footprint_id": "background-048",
           "category": "us_market_scan",
           "start": "22:10",
           "end": "22:14",
@@ -87601,7 +86862,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-063",
+          "footprint_id": "background-049",
           "category": "us_market_scan",
           "start": "22:26",
           "end": "22:28",
@@ -87620,7 +86881,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-064",
+          "footprint_id": "background-050",
           "category": "us_market_scan",
           "start": "22:32",
           "end": "22:34",
@@ -87639,26 +86900,7 @@ const timetableDataSource = {
         },
         {
           "origin": "background",
-          "footprint_id": "background-065",
-          "category": "system_routine",
-          "start": "23:15",
-          "end": "23:17",
-          "duration_minutes": 2,
-          "execution_minutes": 1,
-          "time_bucket": "evening",
-          "count": 1,
-          "time_provenance": "observed_session_window",
-          "summary_provenance": "derived_public_safe",
-          "label_en": "Service health & freshness check",
-          "label_zh": "服务健康与时效检查",
-          "pulse_color": "blue",
-          "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
-        },
-        {
-          "origin": "background",
-          "footprint_id": "background-066",
+          "footprint_id": "background-051",
           "category": "background_routine",
           "start": "23:30",
           "end": "23:32",
@@ -87678,46 +86920,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "climate-01",
-          "source": "pulses",
-          "source_refs": [
-            "background-001",
-            "background-002",
-            "background-003",
-            "background-004",
-            "background-005",
-            "background-007",
-            "background-013",
-            "background-014",
-            "background-022",
-            "background-024",
-            "background-025",
-            "background-027",
-            "background-029",
-            "background-032",
-            "background-034",
-            "background-035",
-            "background-040",
-            "background-041",
-            "background-043",
-            "background-044",
-            "background-050",
-            "background-051",
-            "background-052",
-            "background-053",
-            "background-054",
-            "background-055",
-            "background-056",
-            "background-058",
-            "background-065",
-            "background-066"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "support_checks",
-          "window": "daily"
-        },
-        {
           "reading_id": "settings-change-001",
           "source": "tasks",
           "source_refs": [
@@ -87736,21 +86938,49 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-008",
+            "background-016",
+            "background-018",
+            "background-020",
+            "background-024",
+            "background-026",
+            "background-027",
+            "background-031",
+            "background-032",
+            "background-033",
+            "background-039",
+            "background-040",
+            "background-041",
+            "background-042",
+            "background-043",
+            "background-051"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daily"
+        },
+        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
+            "background-003",
+            "background-004",
             "background-006",
-            "background-008",
-            "background-011",
-            "background-015",
-            "background-019",
-            "background-028",
-            "background-037",
-            "background-057",
-            "background-060",
-            "background-062",
-            "background-063",
-            "background-064"
+            "background-009",
+            "background-013",
+            "background-021",
+            "background-029",
+            "background-044",
+            "background-046",
+            "background-048",
+            "background-049",
+            "background-050"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",
@@ -87758,19 +86988,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-background-009",
+          "reading_id": "event-background-005",
           "source": "pulses",
           "source_refs": [
-            "background-009"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-background-010",
-          "source": "pulses",
-          "source_refs": [
-            "background-010"
+            "background-005"
           ],
           "layer": "event",
           "classification": "promoted_routine_exception"
@@ -87779,28 +87000,26 @@ const timetableDataSource = {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
+            "background-007",
+            "background-010",
+            "background-011",
             "background-012",
-            "background-016",
+            "background-014",
+            "background-015",
             "background-017",
-            "background-018",
-            "background-020",
-            "background-021",
+            "background-019",
+            "background-022",
             "background-023",
-            "background-026",
+            "background-025",
+            "background-028",
             "background-030",
-            "background-031",
-            "background-033",
+            "background-034",
+            "background-035",
             "background-036",
+            "background-037",
             "background-038",
-            "background-039",
-            "background-042",
             "background-045",
-            "background-046",
-            "background-047",
-            "background-048",
-            "background-049",
-            "background-059",
-            "background-061"
+            "background-047"
           ],
           "layer": "climate",
           "classification": "climate_aggregate",

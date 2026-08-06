@@ -901,7 +901,7 @@ function applyTheme(theme, options = {}) {
 }
 
 function setStaticCopy() {
-  els.publicNote.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
+  els.publicNote.textContent = [timetableData.note_en, timetableData.note_zh].filter(Boolean).join(" / ");
 }
 
 function setupCalendarBgm() {
@@ -1210,7 +1210,7 @@ function renderDayDetail(day) {
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
   renderForwardCrystallizationLink(day);
-  els.dialogBoundary.textContent = `${timetableData.note_en} / ${timetableData.note_zh}`;
+  els.dialogBoundary.textContent = [timetableData.note_en, timetableData.note_zh].filter(Boolean).join(" / ");
   els.dayDialog.dataset.selectedDate = day.date;
   updateAdjacentDayControls(day.date);
 
@@ -2370,6 +2370,7 @@ function setLinkedReadingCard(card) {
     footprintEvent?.querySelector(".event-footprint")?.classList.add("is-linked-active");
   }
   connector?.classList.add("is-linked-active");
+  applyLinkedLift(card, timeline, memberIds);
 }
 
 function clearLinkedReadingCard() {
@@ -2377,7 +2378,37 @@ function clearLinkedReadingCard() {
   for (const linked of els.timelineList?.querySelectorAll(".is-linked-active") || []) {
     linked.classList.remove("is-linked-active");
   }
+  clearLinkedLift(els.timelineList);
   state.linkedReadingCard = null;
+}
+
+function applyLinkedLift(card, timeline, memberIds) {
+  const cardTop = Number.parseFloat(getComputedStyle(card).top);
+  if (Number.isFinite(cardTop)) {
+    card.dataset.liftBaseTop = String(cardTop);
+    card.style.top = `${cardTop - 14}px`;
+    card.style.zIndex = "58";
+  }
+  for (const footprintId of memberIds || []) {
+    const event = timeline.querySelector(
+      `.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`,
+    );
+    if (!event) continue;
+    const top = Number.parseFloat(getComputedStyle(event).top);
+    if (!Number.isFinite(top)) continue;
+    event.dataset.liftBaseTop = String(top);
+    event.style.top = `${top - 16}px`;
+    event.style.zIndex = "64";
+  }
+}
+
+function clearLinkedLift(scope) {
+  const root = scope instanceof Element ? scope : document;
+  for (const element of root.querySelectorAll("[data-lift-base-top]")) {
+    element.style.top = element.dataset.liftBaseTop;
+    element.style.zIndex = "";
+    delete element.dataset.liftBaseTop;
+  }
 }
 
 function syncLinkedReadingCard() {

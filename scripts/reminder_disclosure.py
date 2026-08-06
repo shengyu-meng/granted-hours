@@ -172,9 +172,37 @@ def join_reminder_responses(responses: Iterable[str]) -> str:
         section = str(response or "").strip()
         if not section or section == "[SILENT]" or section in seen:
             continue
+        if is_delivery_report(section):
+            continue
         seen.add(section)
         sections.append(section)
     return "\n\n".join(sections)
+
+
+def is_delivery_report(text: str) -> bool:
+    """True when a response is a JSON/delivery confirmation without reminder content."""
+    if not text or len(text) > 800:
+        return False
+    report_pattern = re.compile(
+        r"(?is)"
+        r"验证完成[。.!]?\s*(?:json)?\s*结构完整|"
+        r"json\s*结构完整|json\s*投递|投递完毕|投递完成|"
+        r"交付物已在上一轮输出|无遗留问题|"
+        r"json\s*(?:校验|结构)\s*(?:通过|验证通过)|已处理完毕|"
+        r"无需(?:进一步验证|进一步操作|重复验证)|valid\s+json|"
+        r"reminder\s+is\s+noted|this\s+edit\s+was\s+a\s+json|"
+        r"(?:verification|delivery)\s+is\s+complete|"
+        r"json\s+structure\s+is\s+(?:intact|complete)|"
+        r"deliver(?:ed|y)\s+(?:of\s+)?(?:the\s+)?(?:reminder|message)\s+(?:successfully|complete)|"
+        r"已投递|已发送完毕|新增条目字段齐全"
+    )
+    if not report_pattern.search(text):
+        return False
+    reminder_marker = re.compile(
+        r"(?is)源泉|早安|早上好|晚安|晨间|提醒|日记|reflection|"
+        r"wellspring|good\s+morning|good\s+night|remember|priority|计划|优先级"
+    )
+    return not reminder_marker.search(text)
 
 
 def detect_original_language(text: str) -> str:

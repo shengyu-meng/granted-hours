@@ -1124,8 +1124,8 @@
   "bf17125c0d0a2bea6daec6c3ae2b07b59e79a7285bf86ca5bad649cd4b837d1b": {
    "date": "2026-06-28",
    "category": "redacted_private",
-   "request_zh": "把三段产品推荐文案延长 50%、补充旧设备不足点，并用 ████ 重写多版本文案。",
-   "request_en": "Extend three product-recommendation passages by 50%, note the old device's limits, and have ████ rewrite multiple versions.",
+   "request_zh": "把三段面向家庭学习场景的产品推荐文案延长 50%、补充旧设备不足点，并用 ████ 重写多版本文案；公开记录未见最终交付。",
+   "request_en": "Asked to extend three family-learning product-recommendation passages by 50%, note the old device's limits, and have ████ rewrite multiple versions; no final delivery was recorded publicly.",
    "outcome_zh": "公开记录未见最终交付结果。",
    "outcome_en": "No final delivery was recorded publicly.",
    "completion_status": "unverified",
@@ -1154,8 +1154,8 @@
   "43a81ad48f3917fa094b26730b7a3f72552f5f9b21a27ee0e76d39de4b24cd53": {
    "date": "2026-06-29",
    "category": "redacted_private",
-   "request_zh": "调整名称使用规则：产品代号全称出现一次即可，后续可用缩写。",
-   "request_en": "Adjust the naming rule so the full product code appears once and the abbreviation follows.",
+   "request_zh": "调整产品推荐文案中的名称使用规则：产品代号全称出现一次即可，后续可用缩写；已按“全称一次、缩写沿用”完成修改。",
+   "request_en": "Adjusted the naming rule in product-recommendation copy: the full product code appears once and the abbreviation follows; the change was applied accordingly.",
    "outcome_zh": "已按“全称一次、缩写沿用”完成修改。",
    "outcome_en": "The change was applied accordingly: full name once, abbreviation thereafter.",
    "completion_status": "completed",
@@ -1784,10 +1784,10 @@
   "e9ec4fb245d8673580d8857539810002e74120a94ca98609ebc587317d646a02": {
    "date": "2026-07-31",
    "category": "document_processing",
-   "request_zh": "整理产品发布材料：话题词、排期与内容方向；具体产品、主体与能力细节不公开。",
-   "request_en": "Asked to organize product-launch material: hashtags, schedule, and content direction; the product, client, and capability details remain undisclosed.",
-   "outcome_zh": "当日讨论停留在发布材料整理范围与排期；公开记录未保留产品与能力细节。",
-   "outcome_en": "The day's discussion stayed at the scope and schedule of launch material; no product or capability detail was retained publicly.",
+   "request_zh": "整理产品发布材料：话题词、排期与内容方向（聚焦生产力场景、宣传片与教育科普类表达）；具体产品、主体与能力细节不公开。",
+   "request_en": "Asked to organize product-launch material: hashtags, schedule, and content direction focused on productivity scenes, promo videos, and educational science content; the product, client, and capability details remain undisclosed.",
+   "outcome_zh": "当日讨论停留在发布材料的话题词与内容方向；公开记录未保留产品与能力细节。",
+   "outcome_en": "The day's discussion stayed on hashtags and content direction for the launch material; no product or capability detail was retained publicly.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   },
@@ -2074,10 +2074,10 @@
   "4af4b3f9f6c938c33da23f47b24b50d56b5ff09df6b497389c0b0ff0a7500e74": {
    "date": "2026-07-31",
    "category": "document_processing",
-   "request_zh": "当天对话中的具体指令未通过公开审查，未保留可公开细节。",
-   "request_en": "That day's specific instruction did not pass public review; no public detail was retained.",
-   "outcome_zh": "该指令属未公开合作语境，公开线未保留具体内容。",
-   "outcome_en": "The instruction belongs to an undisclosed collaboration context; no concrete content is retained on the public line.",
+   "request_zh": "整理产品发布材料：话题词、排期与内容方向（聚焦生产力场景、宣传片与教育科普类表达）；具体产品、主体与能力细节不公开。",
+   "request_en": "Asked to organize product-launch material: hashtags, schedule, and content direction focused on productivity scenes, promo videos, and educational science content; the product, client, and capability details remain undisclosed.",
+   "outcome_zh": "当日讨论停留在发布材料的话题词与内容方向；公开记录未保留产品与能力细节。",
+   "outcome_en": "The day's discussion stayed on hashtags and content direction for the launch material; no product or capability detail was retained publicly.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   },
@@ -2224,10 +2224,10 @@
   "bf9c549462d680cc610a471b5b99cab840d5e800a605828c5973100674279939": {
    "date": "2026-07-09",
    "category": "document_processing",
-   "request_zh": "整理产品发布材料：话题词、发布时间与内容方向；具体产品、主体与能力细节不公开。",
-   "request_en": "Asked to organize product-launch material: hashtags, publish time, and content direction; the product, client, and capability details remain undisclosed.",
-   "outcome_zh": "当日讨论停留在发布材料的整理范围；公开记录未保留产品细节。",
-   "outcome_en": "The day's discussion stayed on the scope of the launch material; no product detail was retained publicly.",
+   "request_zh": "整理产品发布材料：话题词、发布时间与内容方向（聚焦生产力场景与教育科普类表达）；具体产品、主体与能力细节不公开。",
+   "request_en": "Asked to organize product-launch material: hashtags, publish time, and content direction focused on productivity scenes and educational science content; the product, client, and capability details remain undisclosed.",
+   "outcome_zh": "当日讨论停留在发布材料的整理范围与内容方向；公开记录未保留产品细节。",
+   "outcome_en": "The day's discussion stayed on the scope and direction of the launch material; no product detail was retained publicly.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   }

@@ -456,7 +456,6 @@ try {
     "granted-hours-timetable-v2",
     "2026-07-21",
     "2026-07-22",
-    "Reminders retain original wording; identifying entities appear as ████.",
     "public_mask_preserving_translation_v1",
     "translated-reminder-copy",
   ]) {

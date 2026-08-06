@@ -26,12 +26,7 @@ const browser = await chromium.launch({ headless: true });
 const results = [];
 
 function assertPublicContract(text, label) {
-  assert.match(text, /提醒尽量保留原句；可识别实体以 ████ 遮挡。/, label);
-  assert.match(
-    text,
-    /Reminders retain original wording; identifying entities appear as ████\./,
-    label,
-  );
+  assert.doesNotMatch(text, /提醒尽量保留原句|Reminders retain original wording/, label);
   assert.doesNotMatch(
     text,
     /audited templates|fixed templates|Masked residue|Reminder residue|Inner weather|absence layer|public layer retains|This day reveals only|经审计|固定模板|遮挡残影|提醒残影|内在天气|缺席层|公开层留下|这一天只显出一处/i,

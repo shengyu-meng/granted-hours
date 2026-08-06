@@ -945,8 +945,8 @@ def validate_config(config: dict) -> None:
         require(str(autonomous.get(field, "")).strip(), f"autonomous_hour missing {field}")
 
     note = config.get("public_data_note", {})
-    require(str(note.get("en", "")).strip(), "public_data_note.en is required")
-    require(str(note.get("zh", "")).strip(), "public_data_note.zh is required")
+    require(isinstance(note, dict) and {"en", "zh"}.issubset(note), "public_data_note must be an en/zh pair")
+    require(all(isinstance(note.get(field), str) for field in ("en", "zh")), "public_data_note fields must be strings")
 
     taxonomy = config.get("taxonomy", {})
     require(REQUIRED_TAXONOMY.issubset(taxonomy), "Config taxonomy is missing required categories")

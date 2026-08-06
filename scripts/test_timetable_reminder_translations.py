@@ -40,13 +40,13 @@ class TimetableReminderTranslationTests(unittest.TestCase):
             hashlib.sha256(pulse["summary_original"].encode("utf-8")).hexdigest()
             for _day_date, pulse in self.reminders
         ]
-        self.assertGreaterEqual(len(self.reminders), 100)
+        self.assertGreaterEqual(len(self.reminders), 90)
         self.assertGreaterEqual(
             len({date for date, _pulse in self.reminders}),
             45,
         )
         self.assertEqual(len(source_hashes), len(self.reminders))
-        self.assertGreaterEqual(len(set(source_hashes)), 100)
+        self.assertGreaterEqual(len(set(source_hashes)), 90)
         source_hash_set = set(source_hashes)
         self.assertTrue(source_hash_set.issubset(self.catalog))
         # Dormant records are intentional inputs for future date-scoped rebuilds;

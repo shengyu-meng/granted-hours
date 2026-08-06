@@ -230,16 +230,7 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertEqual(note, self.config["public_data_note"])
         self.assertEqual(output["note_en"], note["en"])
         self.assertEqual(output["note_zh"], note["zh"])
-        self.assertEqual(
-            note,
-            {
-                "zh": "提醒尽量保留原句；可识别实体以 ████ 遮挡。",
-                "en": (
-                    "Reminders retain original wording; identifying entities "
-                    "appear as ████."
-                ),
-            },
-        )
+        self.assertEqual(note, {"zh": "", "en": ""})
 
     def test_every_artwork_has_explicit_dual_dates_and_one_truthful_beacon(self) -> None:
         output = self.build()
