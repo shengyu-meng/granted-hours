@@ -1844,7 +1844,7 @@ function buildExactTimelineEvent(event) {
   const item = document.createElement("article");
   const originClass = event.origin === "assigned"
     ? "assigned-event"
-    : event.origin === "self"
+    : event.origin === "self" || event.origin === "absence"
       ? "autonomous-event"
       : "pulse-event";
   item.className = `timeline-event ${originClass}`;
@@ -1869,7 +1869,7 @@ function buildPublicReadingCard(day, item) {
   if (item.classification === "foreground_event" || item.classification === "settings_change") {
     return buildAssignedTimelineEvent(item).card;
   }
-  if (item.classification === "beacon") {
+  if (item.classification === "beacon" || item.classification === "absence") {
     return buildAutonomousTimelineEvent(day, item).card;
   }
   return buildPulseTimelineEvent(item).card;
