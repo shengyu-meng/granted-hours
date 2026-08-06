@@ -2383,10 +2383,7 @@ function clearLinkedReadingCard() {
 }
 
 function applyLinkedLift(card, timeline, memberIds) {
-  const cardTop = Number.parseFloat(getComputedStyle(card).top);
-  if (Number.isFinite(cardTop)) {
-    card.dataset.liftBaseTop = String(cardTop);
-    card.style.top = `${cardTop - 14}px`;
+  if (card) {
     card.style.zIndex = "58";
   }
   for (const footprintId of memberIds || []) {
@@ -2394,20 +2391,14 @@ function applyLinkedLift(card, timeline, memberIds) {
       `.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`,
     );
     if (!event) continue;
-    const top = Number.parseFloat(getComputedStyle(event).top);
-    if (!Number.isFinite(top)) continue;
-    event.dataset.liftBaseTop = String(top);
-    event.style.top = `${top - 16}px`;
     event.style.zIndex = "64";
   }
 }
 
 function clearLinkedLift(scope) {
   const root = scope instanceof Element ? scope : document;
-  for (const element of root.querySelectorAll("[data-lift-base-top]")) {
-    element.style.top = element.dataset.liftBaseTop;
+  for (const element of root.querySelectorAll("[style*='z-index']")) {
     element.style.zIndex = "";
-    delete element.dataset.liftBaseTop;
   }
 }
 
