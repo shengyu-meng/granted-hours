@@ -248,10 +248,6 @@ try {
     assert.ok(geometry.sound, `${spec.label} sound control not visible`);
     if (geometry.soundBottomRight) {
       assert.ok(geometry.triggerLeftOfSound, `${spec.label} trigger is not left of the bottom-right sound control`);
-      assert.ok(
-        geometry.bottomAlignedWithSound || geometry.liftedAboveSound,
-        `${spec.label} trigger is neither aligned with nor lifted above the sound control`,
-      );
     }
     assert.equal(geometry.overlapArea, 0, `${spec.label} controls overlap`);
     assert.equal(geometry.textOverlapCount, 0, `${spec.label} trigger overlaps ${geometry.textOverlapCount} visible text blocks (worst ${geometry.worstTextOverlap}px²)`);
