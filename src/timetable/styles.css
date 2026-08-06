@@ -4041,7 +4041,7 @@ h1,
   --semantic-private-text: #7a298f;
   --semantic-warning-text: #a90010;
   --semantic-autonomous-text: #675000;
-  --semantic-card-ink: #172126;
+  --semantic-card-ink: #0b1316;
 }
 
 :is(.event-reading-card, .timeline-event, .inspection-lens)[data-category="assigned-work"] {
@@ -4494,12 +4494,12 @@ html.inspection-lens-capable .inspection-lens:not([hidden]) {
   --semantic-autonomous-surface: color-mix(in srgb, var(--semantic-autonomous-accent) 7%, var(--pane-solid));
   --semantic-work-text: color-mix(in srgb, var(--semantic-work-accent) 62%, var(--ink));
   --semantic-ah-text: color-mix(in srgb, var(--semantic-ah-accent) 60%, var(--ink));
-  --semantic-us-text: color-mix(in srgb, var(--semantic-us-accent) 66%, var(--ink));
-  --semantic-ai-text: color-mix(in srgb, var(--semantic-ai-accent) 66%, var(--ink));
-  --semantic-support-text: color-mix(in srgb, var(--semantic-support-accent) 64%, var(--ink));
-  --semantic-private-text: color-mix(in srgb, var(--semantic-private-accent) 62%, var(--ink));
-  --semantic-warning-text: color-mix(in srgb, var(--semantic-warning-accent) 66%, var(--ink));
-  --semantic-autonomous-text: color-mix(in srgb, var(--semantic-autonomous-accent) 66%, var(--ink));
+  --semantic-us-text: color-mix(in srgb, var(--semantic-us-accent) 60%, var(--ink));
+  --semantic-ai-text: color-mix(in srgb, var(--semantic-ai-accent) 60%, var(--ink));
+  --semantic-support-text: color-mix(in srgb, var(--semantic-support-accent) 58%, var(--ink));
+  --semantic-private-text: color-mix(in srgb, var(--semantic-private-accent) 58%, var(--ink));
+  --semantic-warning-text: color-mix(in srgb, var(--semantic-warning-accent) 60%, var(--ink));
+  --semantic-autonomous-text: color-mix(in srgb, var(--semantic-autonomous-accent) 60%, var(--ink));
   --semantic-card-ink: var(--ink);
 }
 
@@ -5614,8 +5614,8 @@ h1 {
 .event-reading-card {
   border-radius: 18px !important;
   background:
-    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 15%, transparent), transparent 47%),
-    rgba(10, 14, 20, 0.32) !important;
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 16%, transparent), transparent 47%),
+    rgba(10, 14, 20, 0.40) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.14),
     inset 0 -1px 0 rgba(0, 0, 0, 0.18),
@@ -5625,8 +5625,8 @@ h1 {
 .event-reading-card[data-layer="climate"] {
   opacity: 0.6 !important;
   background:
-    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 10%, transparent), transparent 48%),
-    rgba(10, 14, 20, 0.26) !important;
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 11%, transparent), transparent 48%),
+    rgba(10, 14, 20, 0.36) !important;
 }
 
 .event-reading-card[data-layer="event"] {
@@ -5644,8 +5644,8 @@ h1 {
 .assigned-item {
   border-radius: 18px !important;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--task-accent) 10%, transparent), transparent 26%),
-    rgba(10, 14, 20, 0.28) !important;
+    linear-gradient(90deg, color-mix(in srgb, var(--task-accent) 11%, transparent), transparent 26%),
+    rgba(10, 14, 20, 0.36) !important;
   border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
@@ -5656,8 +5656,8 @@ h1 {
 .pulse-event {
   border-radius: 12px !important;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--pulse-accent) 9%, transparent), transparent 30%),
-    rgba(10, 14, 20, 0.34) !important;
+    linear-gradient(90deg, color-mix(in srgb, var(--pulse-accent) 10%, transparent), transparent 30%),
+    rgba(10, 14, 20, 0.40) !important;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.10),
@@ -5670,9 +5670,87 @@ h1 {
   z-index: 58 !important;
   transform: none !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.20),
-    0 24px 46px rgba(0, 0, 0, 0.42) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22),
+    0 30px 58px rgba(0, 0, 0, 0.48) !important;
+}
+
+/* Static text-lift on hover: a soft accent glow + dark separation shadow makes
+   the text read as floating forward without transforms/transitions, so the
+   compositor never re-rasterizes and the page cannot shift or flicker. */
+:root[data-theme="dark"] .event-reading-card:hover .reading-title,
+:root[data-theme="dark"] .event-reading-card:focus-visible .reading-title,
+:root[data-theme="dark"] .event-reading-card.is-selected .reading-title,
+:root[data-theme="dark"] .event-reading-card:hover .reading-summary,
+:root[data-theme="dark"] .event-reading-card:focus-visible .reading-summary,
+:root[data-theme="dark"] .event-reading-card.is-selected .reading-summary,
+:root[data-theme="dark"] .event-reading-card:hover .pulse-summary,
+:root[data-theme="dark"] .event-reading-card:focus-visible .pulse-summary,
+:root[data-theme="dark"] .event-reading-card.is-selected .pulse-summary,
+:root[data-theme="dark"] .event-reading-card:hover .assigned-copy,
+:root[data-theme="dark"] .event-reading-card:focus-visible .assigned-copy,
+:root[data-theme="dark"] .event-reading-card.is-selected .assigned-copy,
+:root[data-theme="dark"] .event-reading-card:hover .pulse-time,
+:root[data-theme="dark"] .event-reading-card:focus-visible .pulse-time,
+:root[data-theme="dark"] .event-reading-card.is-selected .pulse-time,
+:root[data-theme="dark"] .event-reading-card:hover .pulse-count,
+:root[data-theme="dark"] .event-reading-card:focus-visible .pulse-count,
+:root[data-theme="dark"] .event-reading-card.is-selected .pulse-count,
+:root[data-theme="dark"] .event-reading-card:hover .pulse-duration,
+:root[data-theme="dark"] .event-reading-card:focus-visible .pulse-duration,
+:root[data-theme="dark"] .event-reading-card.is-selected .pulse-duration,
+:root[data-theme="dark"] .event-reading-card:hover .assigned-time,
+:root[data-theme="dark"] .event-reading-card:focus-visible .assigned-time,
+:root[data-theme="dark"] .event-reading-card.is-selected .assigned-time,
+:root[data-theme="dark"] .event-reading-card:hover .assigned-category,
+:root[data-theme="dark"] .event-reading-card:focus-visible .assigned-category,
+:root[data-theme="dark"] .event-reading-card.is-selected .assigned-category,
+:root[data-theme="dark"] .event-reading-card:hover .autonomous-kicker,
+:root[data-theme="dark"] .event-reading-card:focus-visible .autonomous-kicker,
+:root[data-theme="dark"] .event-reading-card.is-selected .autonomous-kicker,
+:root[data-theme="dark"] .event-reading-card:hover .autonomous-time,
+:root[data-theme="dark"] .event-reading-card:focus-visible .autonomous-time,
+:root[data-theme="dark"] .event-reading-card.is-selected .autonomous-time,
+:root[data-theme="dark"] .event-reading-card:hover .autonomous-copy h4,
+:root[data-theme="dark"] .event-reading-card:focus-visible .autonomous-copy h4,
+:root[data-theme="dark"] .event-reading-card.is-selected .autonomous-copy h4 {
+  text-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.62),
+    0 0 6px color-mix(in srgb, var(--category-accent) 65%, transparent),
+    0 0 18px color-mix(in srgb, var(--category-accent) 72%, transparent);
+}
+
+:root[data-theme="dark"] .event-reading-card:hover .reading-title,
+:root[data-theme="dark"] .event-reading-card:focus-visible .reading-title,
+:root[data-theme="dark"] .event-reading-card.is-selected .reading-title {
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] .event-reading-card:hover,
+:root[data-theme="light"] .event-reading-card:focus-visible,
+:root[data-theme="light"] .event-reading-card.is-selected {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 252, 0.9),
+    inset 0 -1px 0 rgba(51, 74, 78, 0.12),
+    0 32px 62px rgba(52, 70, 75, 0.34) !important;
+}
+
+:root[data-theme="light"] .event-reading-card:hover .reading-title,
+:root[data-theme="light"] .event-reading-card:focus-visible .reading-title,
+:root[data-theme="light"] .event-reading-card.is-selected .reading-title,
+:root[data-theme="light"] .event-reading-card:hover .reading-summary,
+:root[data-theme="light"] .event-reading-card:focus-visible .reading-summary,
+:root[data-theme="light"] .event-reading-card.is-selected .reading-summary,
+:root[data-theme="light"] .event-reading-card:hover .pulse-summary,
+:root[data-theme="light"] .event-reading-card:focus-visible .pulse-summary,
+:root[data-theme="light"] .event-reading-card.is-selected .pulse-summary,
+:root[data-theme="light"] .event-reading-card:hover .assigned-copy,
+:root[data-theme="light"] .event-reading-card:focus-visible .assigned-copy,
+:root[data-theme="light"] .event-reading-card.is-selected .assigned-copy {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65),
+    0 0 8px rgba(255, 255, 255, 0.55),
+    0 0 20px rgba(255, 255, 255, 0.42);
 }
 
 .event-reading-card:hover {
@@ -5701,8 +5779,8 @@ h1 {
 .event-reading-card[data-layer="event"]:focus-visible,
 .event-reading-card[data-layer="event"].is-selected {
   background:
-    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 14%, transparent), transparent 47%),
-    rgba(10, 14, 20, 0.28) !important;
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 15%, transparent), transparent 47%),
+    rgba(10, 14, 20, 0.36) !important;
   color: var(--semantic-card-ink) !important;
 }
 
@@ -5712,8 +5790,8 @@ h1 {
 .event-reading-card[data-layer="absence"]:focus-visible,
 .event-reading-card[data-layer="absence"].is-selected {
   background:
-    linear-gradient(90deg, transparent 0 13%, color-mix(in srgb, var(--ash) 10%, transparent) 13% 14%, transparent 14%),
-    rgba(10, 14, 20, 0.30) !important;
+    linear-gradient(90deg, transparent 0 13%, color-mix(in srgb, var(--ash) 11%, transparent) 13% 14%, transparent 14%),
+    rgba(10, 14, 20, 0.38) !important;
   color: var(--semantic-card-ink) !important;
 }
 
@@ -5722,8 +5800,8 @@ h1 {
 .event-reading-card[data-layer="beacon"]:focus-visible,
 .event-reading-card[data-layer="beacon"].is-selected {
   background:
-    linear-gradient(112deg, color-mix(in srgb, var(--cyan-trace) 14%, transparent), transparent 48%),
-    rgba(10, 14, 20, 0.40) !important;
+    linear-gradient(112deg, color-mix(in srgb, var(--cyan-trace) 15%, transparent), transparent 48%),
+    rgba(10, 14, 20, 0.48) !important;
   color: var(--semantic-card-ink) !important;
 }
 
@@ -5733,7 +5811,22 @@ h1 {
 .event-reading-card .assigned-work-type,
 .assigned-item .reading-summary,
 .event-reading-card .reading-summary {
-  color: rgba(247, 241, 229, 0.98) !important;
+  color: #f7f4ec !important;
+}
+
+:root[data-theme="dark"] .event-reading-card .reading-title,
+:root[data-theme="dark"] .event-reading-card .reading-summary,
+:root[data-theme="dark"] .pulse-item .pulse-summary,
+:root[data-theme="dark"] .assigned-item .assigned-copy,
+:root[data-theme="dark"] .pulse-item .pulse-time,
+:root[data-theme="dark"] .pulse-item .pulse-count,
+:root[data-theme="dark"] .pulse-item .pulse-duration,
+:root[data-theme="dark"] .assigned-item .assigned-time,
+:root[data-theme="dark"] .assigned-item .assigned-category,
+:root[data-theme="dark"] .autonomous-reading-card .autonomous-kicker,
+:root[data-theme="dark"] .autonomous-reading-card .autonomous-time,
+:root[data-theme="dark"] .autonomous-reading-card .autonomous-copy h4 {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
 }
 
 /* Light-theme frosted equivalents (2026-08-06): light glass + dark ink,
@@ -5745,8 +5838,8 @@ h1 {
 :root[data-theme="light"] .event-reading-card[data-layer="event"]:focus-visible,
 :root[data-theme="light"] .event-reading-card[data-layer="event"].is-selected {
   background:
-    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 13%, transparent), transparent 47%),
-    rgba(242, 242, 235, 0.66) !important;
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 8%, transparent), transparent 47%),
+    rgba(247, 246, 241, 0.78) !important;
   color: var(--semantic-card-ink) !important;
 }
 
@@ -5757,7 +5850,7 @@ h1 {
 :root[data-theme="light"] .event-reading-card[data-layer="absence"].is-selected {
   background:
     linear-gradient(90deg, transparent 0 13%, color-mix(in srgb, var(--ash) 9%, transparent) 13% 14%, transparent 14%),
-    rgba(238, 239, 234, 0.68) !important;
+    rgba(242, 242, 237, 0.80) !important;
   color: var(--semantic-card-ink) !important;
 }
 
@@ -5767,7 +5860,7 @@ h1 {
 :root[data-theme="light"] .event-reading-card[data-layer="beacon"].is-selected {
   background:
     linear-gradient(112deg, color-mix(in srgb, var(--cyan-trace) 13%, transparent), transparent 48%),
-    rgba(244, 243, 235, 0.74) !important;
+    rgba(247, 246, 241, 0.84) !important;
   color: var(--semantic-card-ink) !important;
 }
 
@@ -5777,8 +5870,8 @@ h1 {
 :root[data-theme="light"] .event-reading-card[data-layer="climate"].is-selected {
   opacity: 0.72 !important;
   background:
-    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 10%, transparent), transparent 48%),
-    rgba(240, 240, 233, 0.58) !important;
+    linear-gradient(112deg, color-mix(in srgb, var(--category-accent) 7%, transparent), transparent 48%),
+    rgba(244, 244, 238, 0.74) !important;
   color: var(--semantic-card-ink) !important;
 }
 
