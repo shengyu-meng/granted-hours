@@ -2370,7 +2370,6 @@ function setLinkedReadingCard(card) {
     footprintEvent?.querySelector(".event-footprint")?.classList.add("is-linked-active");
   }
   connector?.classList.add("is-linked-active");
-  applyLinkedLift(card, timeline, memberIds);
 }
 
 function clearLinkedReadingCard() {
@@ -2378,28 +2377,7 @@ function clearLinkedReadingCard() {
   for (const linked of els.timelineList?.querySelectorAll(".is-linked-active") || []) {
     linked.classList.remove("is-linked-active");
   }
-  clearLinkedLift(els.timelineList);
   state.linkedReadingCard = null;
-}
-
-function applyLinkedLift(card, timeline, memberIds) {
-  if (card) {
-    card.style.zIndex = "58";
-  }
-  for (const footprintId of memberIds || []) {
-    const event = timeline.querySelector(
-      `.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`,
-    );
-    if (!event) continue;
-    event.style.zIndex = "64";
-  }
-}
-
-function clearLinkedLift(scope) {
-  const root = scope instanceof Element ? scope : document;
-  for (const element of root.querySelectorAll("[style*='z-index']")) {
-    element.style.zIndex = "";
-  }
 }
 
 function syncLinkedReadingCard() {

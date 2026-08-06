@@ -1934,7 +1934,7 @@ h1 {
   pointer-events: auto;
   transform: translateZ(0) scale(1);
   transform-origin: 50% 50%;
-  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  transition: none;
 }
 
 .timeline-reading-layer.is-placed .event-reading-card {
@@ -1950,7 +1950,7 @@ h1 {
   box-shadow:
     8px 9px 0 color-mix(in srgb, var(--page-bg) 78%, transparent),
     0 0 0 1px color-mix(in srgb, var(--cyan-trace) 52%, transparent);
-  transform: translateZ(0) scale(1.025);
+  transform: none;
 }
 
 .assigned-item.event-reading-card {
@@ -5559,13 +5559,9 @@ h1 {
 }
 
 /* ===== Raised frosted-glass blocks + hover lift (2026-08-06 standard) ===== */
-.event-reading-card,
-.timeline-event,
-.assigned-item,
-.pulse-event {
+.event-reading-card {
   -webkit-backdrop-filter: blur(14px) saturate(1.12);
   backdrop-filter: blur(14px) saturate(1.12);
-  transition: transform 190ms ease, box-shadow 190ms ease, background 190ms ease, opacity 190ms ease;
 }
 
 .event-reading-card {
@@ -5625,7 +5621,7 @@ h1 {
 .event-reading-card:focus-visible,
 .event-reading-card.is-selected {
   z-index: 58 !important;
-  transform: translateZ(0) scale(1.01) !important;
+  transform: none !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     inset 0 -1px 0 rgba(0, 0, 0, 0.20),
@@ -5643,7 +5639,7 @@ h1 {
 
 .timeline-event.is-linked-active {
   z-index: 64 !important;
-  transform: translateZ(0) scale(1.01) !important;
+  transform: none !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     inset 0 -1px 0 rgba(0, 0, 0, 0.20),
