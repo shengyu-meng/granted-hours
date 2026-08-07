@@ -785,12 +785,12 @@ def public_summary(
         theme_en = ", ".join(item[1] for item in themes) if themes else "see the retained public instruments and events"
         evidence = "；".join(facts)
         if not evidence:
-            evidence = "本窗口仅保留经隐私闸门核验的市场判断与运行结果"
+            evidence = "未保留公开事实"
         evidence = evidence[:210].rstrip("，,；; ")
         action_zh = f"{max(silent_count, no_action_count)} 次未形成公开动作信号" if max(silent_count, no_action_count) else "存在公开报告输出"
         action_en = f"{max(silent_count, no_action_count)} run(s) produced no public action signal" if max(silent_count, no_action_count) else "public report output was produced"
-        warning_zh = "；存在数据或链路新鲜度警告" if warning_count else "；未检测到公开级别链路警告"
-        warning_en = "; data or pipeline-freshness warnings were present" if warning_count else "; no public-level pipeline warning was detected"
+        warning_zh = "；存在数据或链路新鲜度警告" if warning_count else "；未检测到链路警告"
+        warning_en = "; data or pipeline-freshness warnings were present" if warning_count else "; no pipeline warning was detected"
         summary_zh = (
             f"本窗口完成 {count} 次{label_zh}；状态：{state_zh}；"
             f"主题：{theme_zh}；公开事实：{evidence}。{action_zh}{warning_zh}。"

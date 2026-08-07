@@ -723,7 +723,7 @@ TASK_NAME_EXACT.update({
 def derive_authored_task_name(category: str, description_en: str, description_zh: str) -> tuple[str, str]:
     """Name authored history from evidence; never infer a stronger specialty."""
     if category == "redacted_private":
-        return "████（记录未公开）", "████ (record withheld)"
+        return "████", "████"
     exact = TASK_NAME_EXACT.get((category, description_en.strip()))
     if exact:
         return exact
@@ -752,7 +752,7 @@ def derive_task_name(category: str, description_en: str, description_zh: str) ->
         "research_synthesis": ("专题研究与综合", "Topic research and synthesis"),
         "system_maintenance": ("系统维护工作", "System maintenance work"),
         "visual_production": ("视觉内容制作", "Visual content production"),
-        "redacted_private": ("████（记录未公开）", "████ (record withheld)"),
+        "redacted_private": ("████", "████"),
     }
     return fallback_names.get(category, ("工作整理", "Work organization"))
 
@@ -1008,7 +1008,7 @@ def load_history(path: Path) -> dict[str, dict]:
             for residue in raw_residues
             if not SPOUSE_ACTIVITY_RE.search(f"{residue.get('en', '')} {residue.get('zh', '')}")
         ]
-        require(1 <= len(residues) <= 6, f"{day_date} history needs 1-6 owner-assigned residues")
+        require(1 <= len(residues) <= 10, f"{day_date} history needs 1-10 owner-assigned residues")
         signatures = set()
         for index, residue in enumerate(residues):
             require(isinstance(residue, dict), f"{day_date} residue {index + 1} must be an object")
@@ -1993,33 +1993,33 @@ def public_occurrence_summary(pulse: dict, *, alert: bool = False) -> tuple[str,
         return (
             (
                 f"完成 {pulse['count']} 次 AI 日报采集；"
-                + ("出现公开级别采集提示。" if alert else "未保留公开级别采集提示。")
+                + ("出现公开提示。" if alert else "未保留公开提示。")
             ),
             (
                 f"{pulse['count']} AI-brief collection run(s) completed; "
-                + ("a public-level collection alert was retained." if alert else "no public-level collection alert was retained.")
+                + ("a public notice was retained." if alert else "no public notice was retained.")
             ),
         )
     if category == "system_routine":
         return (
             (
                 f"完成 {pulse['count']} 次服务健康与时效检查；"
-                + ("出现公开级别异常或新鲜度提示。" if alert else "未保留公开级别异常或新鲜度提示。")
+                + ("出现公开提示。" if alert else "未保留公开提示。")
             ),
             (
                 f"{pulse['count']} service-health and freshness check(s) completed; "
-                + ("a public-level anomaly or freshness alert was retained." if alert else "no public-level anomaly or freshness alert was retained.")
+                + ("a public notice was retained." if alert else "no public notice was retained.")
             ),
         )
     if category == "background_routine":
         return (
             (
                 f"完成 {pulse['count']} 次其他后台运行；"
-                + ("出现公开级别运行提示。" if alert else "未保留公开级别运行提示。")
+                + ("出现公开提示。" if alert else "未保留公开提示。")
             ),
             (
                 f"{pulse['count']} other background run(s) completed; "
-                + ("a public-level run alert was retained." if alert else "no public-level run alert was retained.")
+                + ("a public notice was retained." if alert else "no public notice was retained.")
             ),
         )
     return pulse["summary_zh"], pulse["summary_en"]
@@ -2052,22 +2052,24 @@ def climate_group_summary(pulses: list[dict]) -> tuple[str, str]:
         states, themes = market_public_outcomes(pulses)
         state_zh = "、".join(state[0] for state in states) if states else "多源扫描未收敛为单一状态标签"
         state_en = ", ".join(state[1] for state in states) if states else "multi-source scans did not converge on one regime label"
-        theme_zh = "、".join(theme[0] for theme in themes) if themes else "见保留的公开标的与事件"
-        theme_en = ", ".join(theme[1] for theme in themes) if themes else "see retained public instruments and events"
+        theme_zh = "、".join(theme[0] for theme in themes) if themes else ""
+        theme_en = ", ".join(theme[1] for theme in themes) if themes else ""
         facts_zh = "；".join(market_public_evidence(pulses, "zh"))[:260].rstrip("；; ")
         facts_en = "; ".join(market_public_evidence(pulses, "en"))[:340].rstrip("；; ")
         if not facts_zh:
-            facts_zh = "本组仅保留经隐私闸门核验的市场判断与运行结果"
+            facts_zh = "未保留公开事实"
         if not facts_en:
-            facts_en = "only privacy-gated market judgment and run results were retained"
+            facts_en = "no public facts were retained"
+        theme_clause_zh = f"；主题：{theme_zh}" if theme_zh else ""
+        theme_clause_en = f"; themes: {theme_en}" if theme_en else ""
         return (
-            f"{window_count} 个精确窗口（{window_zh}）共完成 {run_count} 次扫描；状态：{state_zh}；主题：{theme_zh}；公开事实：{facts_zh}。",
-            f"{run_count} scans completed across {window_count} exact windows ({window_en}); regime: {state_en}; themes: {theme_en}; retained public evidence: {facts_en}.",
+            f"{window_count} 个精确窗口（{window_zh}）共完成 {run_count} 次扫描；状态：{state_zh}{theme_clause_zh}；公开事实：{facts_zh}。",
+            f"{run_count} scans completed across {window_count} exact windows ({window_en}); regime: {state_en}{theme_clause_en}; retained public evidence: {facts_en}.",
         )
     if category == "ai_daily_brief":
         return (
-            f"{window_count} 个精确窗口共完成 {run_count} 次 AI 日报采集；未保留公开级别采集提示。",
-            f"{run_count} AI-brief collection run(s) completed across {window_count} exact window(s); no public-level collection alert was retained.",
+            f"{window_count} 个精确窗口共完成 {run_count} 次 AI 日报采集；未保留公开提示。",
+            f"{run_count} AI-brief collection run(s) completed across {window_count} exact window(s); no public notice was retained.",
         )
     alert_window_count = sum(pulse.get("public_alert") is True for pulse in pulses)
     quiet_window_count = window_count - alert_window_count

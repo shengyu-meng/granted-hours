@@ -64,7 +64,7 @@
   "ccfac3faf81fbb1a58b2183f5645b6880be5136f46ac00fd3571fe16b8c6540c": {
    "date": "2026-05-08",
    "category": "visual_production",
-   "request_zh": "围绕 AI 艺术创作学习内容的结构展开讨论：从案例、对话工作流、极致视觉控制到视频全管线与虚拟空间。",
+   "request_zh": "讨论 AI 艺术创作学习内容的结构：从案例、对话工作流、极致视觉控制到视频全管线与虚拟空间。",
    "request_en": "Discussed the structure of AI-art creation learning material, from cases and dialogue workflows to precise visual control, full video pipelines, and virtual spaces.",
    "outcome_zh": "把视觉生成从随机抽卡变成可解释、可复现、可迭代的控制系统，并明确要避免沦为 ████。",
    "outcome_en": "Turned visual generation from random draws into an explainable, reproducible, iterative control system, making clear it must not degrade into ████.",
@@ -1104,10 +1104,10 @@
   "f43cd2826bde38dbbd501900569f5eb0513a6f819e3a86ca5334996679d56699": {
    "date": "2026-06-27",
    "category": "social_media_organization",
-   "request_zh": "以艺术 AI 知识博主的内容调性选材，并参考其微博历史发帖风格。",
-   "request_en": "Curate as an art-AI knowledge blogger, referencing the account's historical posting style.",
-   "outcome_zh": "以艺术 AI 知识博主的内容调性选材，并参考其微博历史发帖风格；公开记录未见落地。",
-   "outcome_en": "Asked to curate in the tone of an art-AI knowledge blogger, referencing the account's historical posting style; no landing was recorded publicly.",
+   "request_zh": "参考同类创作者的公开发帖调性选材，并参考其历史发帖风格。",
+   "request_en": "Curate by the tone of comparable creators' public posts, referencing their historical posting style.",
+   "outcome_zh": "参考同类创作者的公开发帖调性选材，并参考其历史发帖风格；公开记录未见落地。",
+   "outcome_en": "Asked to curate by the tone of comparable creators' public posts, referencing their historical posting style; no landing was recorded publicly.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   },
@@ -1681,16 +1681,6 @@
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   },
-  "6287ac485d24f58a92589226e9348159271abb6511a3d569368fdd85b3b744fc": {
-   "date": "2026-07-28",
-   "category": "visual_production",
-   "request_zh": "收到一组 JSON 格式的图片与资源数据用于视觉处理。",
-   "request_en": "Received JSON-encoded image and resource data for visual processing.",
-   "outcome_zh": "收到一组 JSON 格式的图片与资源数据用于视觉处理；公开记录未见处理结果。",
-   "outcome_en": "Received image and resource data in JSON form for visual processing; no processing result was recorded publicly.",
-   "completion_status": "unverified",
-   "pair_provenance": "no_public_result_evidence"
-  },
   "70573d9a89e39a45c042687fc60c0bf0f1375ced36c6d7138c11d2fdfa2f6f82": {
    "date": "2026-07-28",
    "category": "redacted_private",
@@ -1704,8 +1694,8 @@
   "61c93a5889b3f91e103f6510a675e4069c4afd4c8e8218754ce90ee5e69c111d": {
    "date": "2026-07-28",
    "category": "code_development",
-   "request_zh": "收到一条关于提醒主题的停止指令（内部格式）。",
-   "request_en": "Received a stop-reminder instruction in an internal format.",
+   "request_zh": "要求核验自主创作页面的线上 GIF 是否真实播放。",
+   "request_en": "Asked to verify that the online GIF on the autonomous artwork page truly plays.",
    "outcome_zh": "验证线上 GIF 真实播放：AI 自主创作优先显示现有公开 GIF，两个时间点画面哈希不同，动画确认在播放。",
    "outcome_en": "Verified the online GIF is truly playing: autonomous creation prefers existing public GIFs, and two timestamps have different frame hashes, confirming live animation.",
    "completion_status": "completed",
@@ -1795,9 +1785,9 @@
    "date": "2026-08-01",
    "category": "research_synthesis",
    "request_zh": "收到一组后台并行子任务完成回传；要求整合并验收结果。",
-   "request_en": "Received consolidated results from background parallel subagents; integrate and accept them, task details private.",
-   "outcome_zh": "要求整合并验收回传结果，并同步放宽日历披露口径（打码可识别信息即可）；公开记录未见结论。",
-   "outcome_en": "Asked to integrate and accept the returned results and relax the calendar disclosure rule to mask identifiable details; no conclusion was recorded publicly.",
+   "request_en": "Received a batch of background parallel subtask results to integrate and accept.",
+   "outcome_zh": "已整合并验收回传的后台并行结果；公开记录未见最终结论。",
+   "outcome_en": "Integrated and accepted the returned background results; no final conclusion was recorded publicly.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   },
@@ -1884,10 +1874,10 @@
   "ec672a736220aee718e79ca0d28ebf1795d56cbc0db959302a840cd5f0f49e96": {
    "date": "2026-08-05",
    "category": "code_development",
-   "request_zh": "补发最近三天缺失的日历、交互作品与仓库内容，修复并脱敏后完成公开发布；日历事件应尽量保留可读轮廓，只遮蔽能够识别具体对象的信息。",
-   "request_en": "Republish the three missing days across the calendar, interactive works, and repository after repair and privacy review; keep calendar events readable while masking information that could identify specific subjects.",
-   "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线；日历保留事件轮廓，只遮蔽可识别信息。",
-   "outcome_en": "Backfilled artworks, calendar, and repository content for August 3–5, completed privacy review, and deployed; calendar keeps event contours while masking identifying details.",
+   "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复后公开发布。",
+   "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair them, and publish.",
+   "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，并部署上线。",
+   "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5 and deployed.",
    "completion_status": "completed",
    "pair_provenance": "matched_public_result_record"
   },
@@ -2084,10 +2074,10 @@
   "40dac4a461510b326e9a65e0d49c7ce7cd28520edb578a7fb0f2c2e69cb43848": {
    "date": "2026-08-05",
    "category": "code_development",
-   "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复并脱敏后公开发布；日历保留事件轮廓，只遮蔽可识别信息。",
-   "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair and redact them, then publish; keep event contours and mask identifying details.",
-   "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线。",
-   "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5, completed privacy review, and deployed.",
+   "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复后公开发布。",
+   "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair them, and publish.",
+   "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，并部署上线。",
+   "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5 and deployed.",
    "completion_status": "completed",
    "pair_provenance": "matched_public_result_record"
   },
@@ -2104,10 +2094,10 @@
   "a396a29155d63556c59d0134ef53ef01747d46ac85c52f6997b4211df57d2fa7": {
    "date": "2026-08-06",
    "category": "redacted_private",
-   "request_zh": "明确一项持续性的私人监测流程应保持静默，直到出现需要报告的清晰信号。",
-   "request_en": "Clarify that a continuing private monitoring workflow should remain silent until a clear reportable signal appears.",
-   "outcome_zh": "明确一项持续性的私人监测流程应保持静默，直到出现需要报告的清晰信号；公开记录未保留该流程细节。",
-   "outcome_en": "Clarified that a continuing private monitoring workflow stays silent until a clear reportable signal appears; the workflow's details remain private.",
+   "request_zh": "把观察池的移入移出改为静默维护，仅在出现值得报告的清晰信号时提示。",
+   "request_en": "Keep watch-pool moves silent unless a clear reportable signal appears.",
+   "outcome_zh": "已明确观察池的移入移出按静默维护处理，只在出现值得报告的清晰信号时提示；公开记录未保留流程细节。",
+   "outcome_en": "Clarified that watch-pool moves are maintained silently, surfacing only when a clear reportable signal appears; workflow details remain private.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   },
@@ -2228,6 +2218,76 @@
    "request_en": "Asked to organize product-launch material: hashtags, publish time, and content direction focused on productivity scenes and educational science content; the product, client, and capability details remain undisclosed.",
    "outcome_zh": "当日讨论停留在发布材料的整理范围与内容方向；公开记录未保留产品细节。",
    "outcome_en": "The day's discussion stayed on the scope and direction of the launch material; no product detail was retained publicly.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "c293940944df9ad7beebada6bfe058efa7258ba65595a53045db79e2b0cf521a": {
+   "date": "2026-07-28",
+   "category": "code_development",
+   "request_zh": "要求给时间线里的后台例行任务设定最小可见高度，并始终显示任务标题与简要内容。",
+   "request_en": "Give routine background tasks a minimum visible height in the timeline and always show their title and brief content.",
+   "outcome_zh": "公开记录未见该请求的当日完成结论。",
+   "outcome_en": "No same-day conclusion for this request was recorded publicly.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "6eebdef54a549c44f39e1f3cefe7173deb7db5dacc6ea17248e34e27daf47a2b": {
+   "date": "2026-07-28",
+   "category": "research_synthesis",
+   "request_zh": "要求把群内至今的讨论、实验过程与结果总结进 Wiki 与 Workspace，并推送到远程仓库。",
+   "request_en": "Summarize the group's discussion, experiments, and results into the Wiki and Workspace, then push to the remote repository.",
+   "outcome_zh": "公开记录未保留当日完成结论。",
+   "outcome_en": "No same-day completion was recorded publicly.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "d7c16b2752bc1583e86236531e7f9ca474ed62ee5a8690b1b9ba2c6b9c5dfc85": {
+   "date": "2026-07-28",
+   "category": "research_synthesis",
+   "request_zh": "解释 ████ 记忆方法的实现，并对比其与现行空间路径研究的关系。",
+   "request_en": "Explain how the ████ memory method works and compare it with the current spatial-path research.",
+   "outcome_zh": "已用人话解释该方法实现，并对比其与空间路径研究的关联与差异。",
+   "outcome_en": "Explained the method in plain terms and compared its connection and differences with spatial-path research.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "2c432efecda232d2fd7f69005b3a2caeb560596b829747d907663beaa04bbe6e": {
+   "date": "2026-07-28",
+   "category": "code_development",
+   "request_zh": "对双层时间几何与阅读卡实现做只读风险审查，重点覆盖碰撞算法、触控、键盘与回归测试建议。",
+   "request_en": "Read-only risk review of the dual-layer temporal geometry and reading-card implementation, focusing on collision, touch, keyboard, and regression-test advice.",
+   "outcome_zh": "已出具只读审查意见，覆盖碰撞算法、触控、键盘与回归测试建议。",
+   "outcome_en": "Provided read-only review findings covering collision handling, touch, keyboard, and regression-test recommendations.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "f26b67d0212f4eccfb11ec5a5ada618c73667d16e829f3f9a607bed3019b72fe": {
+   "date": "2026-07-28",
+   "category": "visual_production",
+   "request_zh": "从平面构成与交互艺术角度审查时间构成方案，并提出可执行的视觉与交互改进。",
+   "request_en": "Review the temporal composition plan from a planar-composition and interactive-art perspective, proposing actionable visual and interaction improvements.",
+   "outcome_zh": "已从平面构成与交互艺术角度给出可执行的视觉与交互改进建议。",
+   "outcome_en": "Delivered actionable visual and interaction improvement suggestions from planar-composition and interactive-art perspectives.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "fdf1886b58ab71698abf6a06f51d8385c06bbfe080c2bb3c0082123c26eab44d": {
+   "date": "2026-08-04",
+   "category": "system_maintenance",
+   "request_zh": "把定时任务默认模型改到新的高性能配置，主动会话保持原模型。",
+   "request_en": "Switch scheduled tasks to the new high-performance default model while keeping interactive sessions on the existing model.",
+   "outcome_zh": "已将定时任务默认模型更新为新的高性能配置，主动会话模型保持不变。",
+   "outcome_en": "Updated the scheduled-task default model to the new high-performance configuration; interactive sessions keep their model.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "c8bad6de590f33e275e2ef6b4eb6b2e8853187b019b36c395bd8da09fca16a94": {
+   "date": "2026-08-06",
+   "category": "research_synthesis",
+   "request_zh": "研究公开仓库 penguin-harness 的实现机制。",
+   "request_en": "Study the implementation mechanism of the public repository penguin-harness.",
+   "outcome_zh": "公开记录未保留当日讨论结论。",
+   "outcome_en": "No same-day conclusion from the discussion was recorded publicly.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   }

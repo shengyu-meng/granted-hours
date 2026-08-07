@@ -38,8 +38,8 @@ class TimetableIconControlTests(unittest.TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(button.group(1).strip(), "")
         self.assertNotIn('class="calendar-bgm-status"', self.html)
-        for icon in ("music", "play", "pause"):
-            self.assertIn(f'icons/{icon}.mjs', self.javascript)
+        self.assertIn('icons/music.mjs', self.javascript)
+        self.assertNotIn('icons/pause.mjs', self.javascript)
         self.assertNotIn("calendarBgmToggle.textContent", self.javascript)
 
     def test_assigned_timing_labels_follow_public_provenance(self) -> None:

@@ -166,8 +166,8 @@ const MARKET_SUMMARY_GLOSSARY = {
     },
   ],
   defaultThemes: {
-    zh: "见保留的公开标的与事件",
-    en: "see retained public instruments and events",
+    zh: "",
+    en: "",
   },
   freshness: {
     alert: {
@@ -177,12 +177,12 @@ const MARKET_SUMMARY_GLOSSARY = {
         "a public-level pipeline or freshness alert was retained",
         "data or pipeline-freshness warnings were present",
       ],
-      zh: "出现公开级别链路或新鲜度提示。",
-      en: "a public-level pipeline or freshness alert was retained.",
+      zh: "出现链路或新鲜度提示。",
+      en: "a pipeline or freshness alert was retained.",
     },
     clear: {
-      zh: "未保留公开级别链路提示。",
-      en: "no public-level pipeline alert was retained.",
+      zh: "未保留链路提示。",
+      en: "no pipeline alert was retained.",
     },
   },
 };
@@ -1813,15 +1813,17 @@ function climateGroupSummary(sources) {
       || MARKET_SUMMARY_GLOSSARY.defaultThemes.zh;
     const themeEn = themes.map(({ en }) => en).join(", ")
       || MARKET_SUMMARY_GLOSSARY.defaultThemes.en;
+    const themeClauseZh = themeZh ? `；公开主题：${themeZh}` : "";
+    const themeClauseEn = themeEn ? `; themes: ${themeEn}` : "";
     return [
-      `${windowCount} 个精确窗口（${windowZh}）共完成 ${runCount} 次扫描；状态：${stateZh}；公开主题：${themeZh}；${freshness.zh}`,
-      `${runCount} scan(s) across ${windowCount} exact windows (${windowEn}); regime: ${stateEn}; themes: ${themeEn}; ${freshness.en}`,
+      `${windowCount} 个精确窗口（${windowZh}）共完成 ${runCount} 次扫描；状态：${stateZh}${themeClauseZh}；${freshness.zh}`,
+      `${runCount} scan(s) across ${windowCount} exact windows (${windowEn}); regime: ${stateEn}${themeClauseEn}; ${freshness.en}`,
     ];
   }
   if (category === "ai_daily_brief") {
     return [
-      `${windowCount} 窗 / ${runCount} 次 AI 日报采集；未保留公开级别提示。`,
-      `${runCount} AI-brief runs / ${windowCount} exact windows; no public-level alert retained.`,
+      `${windowCount} 窗 / ${runCount} 次 AI 日报采集；未保留公开提示。`,
+      `${runCount} AI-brief runs / ${windowCount} exact windows; no public notice retained.`,
     ];
   }
   const alertWindowCount = sources.filter((source) => source.public_alert === true).length;
@@ -2174,9 +2176,6 @@ function buildAssignedTimelineEvent(task) {
         ${secondaryCopy}
       </span>
       ${collaborationCopy}
-      ${!isCollaboration && task.redaction_status !== "none"
-        ? `<span class="redaction-badge">${task.redaction_status === "withheld" ? "记录未公开 / RECORD WITHHELD" : `部分打码 ${task.redaction_count} / ${task.redaction_count} REDACTION${task.redaction_count === 1 ? "" : "S"}`}</span>`
-        : ""}
   `;
   const iconSlot = button.querySelector(".assigned-type-icon");
   iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));

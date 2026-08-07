@@ -929,8 +929,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -967,8 +967,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -987,8 +987,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1321,7 +1321,7 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "围绕 AI 艺术创作学习内容的结构展开讨论：从案例、对话工作流、极致视觉控制到视频全管线与虚拟空间。",
+          "request_zh": "讨论 AI 艺术创作学习内容的结构：从案例、对话工作流、极致视觉控制到视频全管线与虚拟空间。",
           "request_en": "Discussed the structure of AI-art creation learning material, from cases and dialogue workflows to precise visual control, full video pipelines, and virtual spaces.",
           "outcome_zh": "把视觉生成从随机抽卡变成可解释、可复现、可迭代的控制系统，并明确要避免沦为 ████。",
           "outcome_en": "Turned visual generation from random draws into an explainable, reproducible, iterative control system, making clear it must not degrade into ████.",
@@ -1385,8 +1385,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1423,8 +1423,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1442,8 +1442,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1461,8 +1461,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1480,8 +1480,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         }
       ],
@@ -1861,8 +1861,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1880,8 +1880,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1899,8 +1899,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1918,8 +1918,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1937,8 +1937,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1975,8 +1975,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -1994,8 +1994,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2013,8 +2013,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -2448,8 +2448,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2467,8 +2467,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2486,8 +2486,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2505,8 +2505,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2524,8 +2524,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2543,8 +2543,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2562,8 +2562,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2581,8 +2581,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2600,8 +2600,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2619,8 +2619,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2638,8 +2638,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2657,8 +2657,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2676,8 +2676,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2695,8 +2695,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2714,8 +2714,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2733,8 +2733,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2752,8 +2752,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2771,8 +2771,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2790,8 +2790,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2809,8 +2809,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2828,8 +2828,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2847,8 +2847,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2866,8 +2866,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2885,8 +2885,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2904,8 +2904,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2923,8 +2923,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2942,8 +2942,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2961,8 +2961,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2980,8 +2980,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -2999,8 +2999,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3018,8 +3018,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3037,8 +3037,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3056,8 +3056,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3094,8 +3094,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3113,8 +3113,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3132,8 +3132,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3151,8 +3151,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3170,8 +3170,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3189,8 +3189,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3227,8 +3227,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3265,8 +3265,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3284,8 +3284,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3322,8 +3322,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3360,8 +3360,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3379,8 +3379,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3398,8 +3398,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3417,8 +3417,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3436,8 +3436,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -3881,8 +3881,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3900,8 +3900,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3919,8 +3919,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3938,8 +3938,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3957,8 +3957,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3976,8 +3976,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -3995,8 +3995,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4014,8 +4014,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4033,8 +4033,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4052,8 +4052,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4071,8 +4071,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4090,8 +4090,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4109,8 +4109,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4128,8 +4128,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4147,8 +4147,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4166,8 +4166,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4185,8 +4185,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4204,8 +4204,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4223,8 +4223,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 14 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "14 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 14 次其他后台运行；未保留公开提示。",
+          "summary_en": "14 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4261,8 +4261,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4280,8 +4280,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 10 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "10 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 10 次其他后台运行；出现公开提示。",
+          "summary_en": "10 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4300,8 +4300,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 7 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "7 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 7 次其他后台运行；出现公开提示。",
+          "summary_en": "7 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4320,8 +4320,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 51 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "51 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 51 次其他后台运行；出现公开提示。",
+          "summary_en": "51 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4340,8 +4340,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 14 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "14 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 14 次其他后台运行；出现公开提示。",
+          "summary_en": "14 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4360,8 +4360,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4379,8 +4379,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4398,8 +4398,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4417,8 +4417,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4436,8 +4436,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4455,8 +4455,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4474,8 +4474,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4494,8 +4494,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4513,8 +4513,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 34 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "34 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 34 次其他后台运行；出现公开提示。",
+          "summary_en": "34 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4533,8 +4533,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 35 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "35 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 35 次其他后台运行；出现公开提示。",
+          "summary_en": "35 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4553,8 +4553,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4572,8 +4572,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4591,8 +4591,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4610,8 +4610,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4629,8 +4629,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4649,8 +4649,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4668,8 +4668,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4687,8 +4687,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4706,8 +4706,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4725,8 +4725,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4744,8 +4744,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4763,8 +4763,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -4783,8 +4783,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4802,8 +4802,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4821,8 +4821,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4840,8 +4840,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4859,8 +4859,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -4878,8 +4878,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -5292,8 +5292,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5311,8 +5311,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5330,8 +5330,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5349,8 +5349,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5368,8 +5368,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5387,8 +5387,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5406,8 +5406,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5425,8 +5425,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5444,8 +5444,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5463,8 +5463,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5482,8 +5482,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5501,8 +5501,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5520,8 +5520,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5539,8 +5539,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5558,8 +5558,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5577,8 +5577,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5627,8 +5627,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5646,8 +5646,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 19 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "19 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 19 次其他后台运行；出现公开提示。",
+          "summary_en": "19 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -5685,8 +5685,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 13 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "13 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 13 次其他后台运行；出现公开提示。",
+          "summary_en": "13 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -5705,8 +5705,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 14 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "14 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 14 次其他后台运行；未保留公开提示。",
+          "summary_en": "14 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5724,8 +5724,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -5744,8 +5744,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "4 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 4 次其他后台运行；出现公开提示。",
+          "summary_en": "4 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -5764,8 +5764,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 8 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "8 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 8 次其他后台运行；出现公开提示。",
+          "summary_en": "8 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -5784,8 +5784,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5803,8 +5803,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5822,8 +5822,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5841,8 +5841,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5860,8 +5860,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5879,8 +5879,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5898,8 +5898,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5917,8 +5917,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5936,8 +5936,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5955,8 +5955,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5974,8 +5974,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -5993,8 +5993,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6012,8 +6012,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6031,8 +6031,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6050,8 +6050,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6069,8 +6069,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6088,8 +6088,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6107,8 +6107,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6126,8 +6126,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6145,8 +6145,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6164,8 +6164,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6183,8 +6183,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6202,8 +6202,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6221,8 +6221,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6240,8 +6240,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6259,8 +6259,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6278,8 +6278,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6297,8 +6297,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6316,8 +6316,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6335,8 +6335,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6354,8 +6354,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6373,8 +6373,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6392,8 +6392,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6411,8 +6411,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6430,8 +6430,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6449,8 +6449,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6468,8 +6468,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6487,8 +6487,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6506,8 +6506,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6525,8 +6525,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6544,8 +6544,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6563,8 +6563,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6582,8 +6582,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6601,8 +6601,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6620,8 +6620,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6639,8 +6639,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6658,8 +6658,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6677,8 +6677,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6696,8 +6696,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6715,8 +6715,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6734,8 +6734,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6753,8 +6753,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6772,8 +6772,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6791,8 +6791,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -6810,8 +6810,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -7298,8 +7298,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -7336,8 +7336,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -7355,8 +7355,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -7375,8 +7375,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -7395,8 +7395,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -7876,8 +7876,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -7914,8 +7914,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -7934,8 +7934,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -7954,8 +7954,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -7974,8 +7974,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -8398,8 +8398,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -8417,8 +8417,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -8455,8 +8455,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -8842,8 +8842,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -8880,8 +8880,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -9296,8 +9296,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -9718,8 +9718,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -9737,8 +9737,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -10512,8 +10512,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -10531,8 +10531,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -10750,8 +10750,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -10883,8 +10883,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -10997,8 +10997,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11035,8 +11035,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -11150,8 +11150,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11169,8 +11169,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11207,8 +11207,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11226,8 +11226,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11321,8 +11321,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11813,8 +11813,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11832,8 +11832,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11927,8 +11927,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -11965,8 +11965,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12003,8 +12003,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12041,8 +12041,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12079,8 +12079,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12098,8 +12098,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -12118,8 +12118,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12137,8 +12137,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12194,8 +12194,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -12350,8 +12350,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -12398,16 +12398,16 @@ const timetableDataSource = {
           "end": "09:15",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
-          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -12424,16 +12424,16 @@ const timetableDataSource = {
           "end": "11:30",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
-          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 60,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -12494,8 +12494,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12513,8 +12513,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12633,8 +12633,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -12681,16 +12681,16 @@ const timetableDataSource = {
           "end": "09:40",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
-          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "The day's collaboration content was not retained for public view.",
+          "zh": "当日协作内容未保留在公开层面。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -12707,16 +12707,16 @@ const timetableDataSource = {
           "end": "12:00",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
-          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "No public-facing safe outcome from the day's collaboration.",
+          "zh": "当日协作无公开可见的安全成果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -12777,8 +12777,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -12834,8 +12834,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13156,8 +13156,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13213,8 +13213,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13289,8 +13289,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 3 次其他后台运行；出现公开提示。",
+          "summary_en": "3 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -13328,8 +13328,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13385,8 +13385,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13404,8 +13404,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13442,8 +13442,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13480,8 +13480,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -13557,8 +13557,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13576,8 +13576,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13614,8 +13614,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13633,8 +13633,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13652,8 +13652,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13766,8 +13766,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -13785,8 +13785,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14116,8 +14116,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14230,8 +14230,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14268,8 +14268,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14325,8 +14325,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14382,8 +14382,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14420,8 +14420,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14458,8 +14458,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14496,8 +14496,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14591,8 +14591,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14629,8 +14629,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 3 次其他后台运行；出现公开提示。",
+          "summary_en": "3 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -14649,8 +14649,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14744,8 +14744,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -14763,8 +14763,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15068,8 +15068,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15163,8 +15163,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15182,8 +15182,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15334,8 +15334,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15372,8 +15372,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15467,8 +15467,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15486,8 +15486,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15524,8 +15524,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15543,8 +15543,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -15582,8 +15582,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15639,8 +15639,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15658,8 +15658,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -15980,8 +15980,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16075,8 +16075,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16132,8 +16132,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16227,8 +16227,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -16285,8 +16285,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16323,8 +16323,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16361,8 +16361,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16456,8 +16456,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16475,8 +16475,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16513,8 +16513,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16532,8 +16532,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16551,8 +16551,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -16665,8 +16665,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -16685,8 +16685,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17013,8 +17013,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17127,8 +17127,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17203,8 +17203,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -17280,8 +17280,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17318,8 +17318,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17356,8 +17356,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17432,8 +17432,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17470,8 +17470,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17489,8 +17489,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17508,8 +17508,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17603,8 +17603,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17622,8 +17622,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -17845,8 +17845,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -17893,16 +17893,16 @@ const timetableDataSource = {
           "end": "09:35",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
-          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -17919,16 +17919,16 @@ const timetableDataSource = {
           "end": "11:55",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
-          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -17989,8 +17989,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18046,8 +18046,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18065,8 +18065,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18198,8 +18198,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -18246,16 +18246,16 @@ const timetableDataSource = {
           "end": "11:45",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No non-autonomous work evidence was available for a public summary that day; specific activity is retained as ████.",
-          "zh": "当日没有可用于公开摘要的非自主工作证据；具体活动以 ████ 保留。",
+          "en": "The day's collaboration content was not retained for public view.",
+          "zh": "当日协作内容未保留在公开层面。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 60,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -18272,16 +18272,16 @@ const timetableDataSource = {
           "end": "15:00",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No additional action was inferred from missing source material; the second public residue is marked ████.",
-          "zh": "未从缺失的来源推断额外行动；第二条公开残留标记为 ████。",
+          "en": "No public-facing safe outcome from the day's collaboration.",
+          "zh": "当日协作无公开可见的安全成果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -18381,8 +18381,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18400,8 +18400,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18476,8 +18476,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18495,8 +18495,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -18959,8 +18959,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19016,8 +19016,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19035,8 +19035,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19111,8 +19111,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19149,8 +19149,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19168,8 +19168,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19206,8 +19206,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19301,8 +19301,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19339,8 +19339,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19358,8 +19358,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19377,8 +19377,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19472,8 +19472,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -19491,8 +19491,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20022,8 +20022,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20117,8 +20117,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20174,8 +20174,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20250,8 +20250,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20288,8 +20288,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20326,8 +20326,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20421,8 +20421,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20459,8 +20459,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20478,8 +20478,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20497,8 +20497,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20592,8 +20592,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20611,8 +20611,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -20687,8 +20687,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21128,8 +21128,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21223,8 +21223,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21292,8 +21292,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -21350,8 +21350,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21388,8 +21388,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21426,8 +21426,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21521,8 +21521,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21559,8 +21559,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21578,8 +21578,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21597,8 +21597,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21692,8 +21692,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -21711,8 +21711,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22187,8 +22187,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22320,8 +22320,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22389,8 +22389,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22446,8 +22446,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22484,8 +22484,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22522,8 +22522,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22617,8 +22617,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22636,8 +22636,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -22675,8 +22675,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 2 次其他后台运行；出现公开提示。",
+          "summary_en": "2 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -22695,8 +22695,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22714,8 +22714,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -22810,8 +22810,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -22829,8 +22829,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23299,8 +23299,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23394,8 +23394,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 4 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "4 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 4 次其他后台运行；未保留公开提示。",
+          "summary_en": "4 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23627,8 +23627,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23665,8 +23665,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -23704,8 +23704,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23780,8 +23780,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23818,8 +23818,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -23857,8 +23857,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23876,8 +23876,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23895,8 +23895,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -23990,8 +23990,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -24009,8 +24009,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -24028,8 +24028,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -24600,8 +24600,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -24688,8 +24688,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -24707,8 +24707,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25156,8 +25156,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25263,8 +25263,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25282,8 +25282,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25629,8 +25629,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25686,8 +25686,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25705,8 +25705,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25812,8 +25812,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25888,8 +25888,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25907,8 +25907,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25945,8 +25945,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -25964,8 +25964,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26002,8 +26002,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26059,8 +26059,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26097,8 +26097,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26135,8 +26135,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26154,8 +26154,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26173,8 +26173,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26268,8 +26268,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26287,8 +26287,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26689,8 +26689,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26784,8 +26784,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -26986,8 +26986,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27024,8 +27024,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27062,8 +27062,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27119,8 +27119,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27176,8 +27176,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27195,8 +27195,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27233,8 +27233,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27252,8 +27252,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27271,8 +27271,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27366,8 +27366,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27385,8 +27385,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27404,8 +27404,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27800,8 +27800,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27819,8 +27819,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27838,8 +27838,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27895,8 +27895,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -27971,8 +27971,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28116,8 +28116,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28154,8 +28154,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28192,8 +28192,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28249,8 +28249,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28306,8 +28306,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28325,8 +28325,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -28364,8 +28364,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28383,8 +28383,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28402,8 +28402,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28528,8 +28528,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -28548,8 +28548,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28567,8 +28567,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -28605,8 +28605,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -29054,8 +29054,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29073,8 +29073,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29092,8 +29092,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29149,8 +29149,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29168,8 +29168,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -29245,8 +29245,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29447,8 +29447,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29485,8 +29485,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29523,8 +29523,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29580,8 +29580,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29637,8 +29637,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29656,8 +29656,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29694,8 +29694,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29713,8 +29713,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29732,8 +29732,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29858,8 +29858,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -29878,8 +29878,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29897,8 +29897,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -29935,8 +29935,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -30376,8 +30376,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30395,8 +30395,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30414,8 +30414,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30471,8 +30471,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30490,8 +30490,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30566,8 +30566,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30585,8 +30585,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30711,8 +30711,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30749,8 +30749,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30787,8 +30787,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30844,8 +30844,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30901,8 +30901,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30920,8 +30920,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -30959,8 +30959,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30978,8 +30978,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -30997,8 +30997,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31123,8 +31123,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -31143,8 +31143,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31162,8 +31162,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31200,8 +31200,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -31315,8 +31315,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -31566,16 +31566,16 @@ const timetableDataSource = {
           "end": "12:05",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "████ (No source was available for a public summary that day; details withheld.)",
-          "zh": "████（当日没有可供公开摘要的来源；内容保留。）",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -31592,16 +31592,16 @@ const timetableDataSource = {
           "end": "14:20",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "████ (A second public residue is withheld under the privacy rule.)",
-          "zh": "████（第二条公开残留项按隐私规则留空。）",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -31662,8 +31662,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31681,8 +31681,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31700,8 +31700,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31757,8 +31757,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31776,8 +31776,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31826,8 +31826,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31845,8 +31845,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -31915,8 +31915,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31934,8 +31934,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31953,8 +31953,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -31991,8 +31991,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -32182,8 +32182,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -32230,16 +32230,16 @@ const timetableDataSource = {
           "end": "09:30",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No public evidence is available for this date; the related activity is withheld as ████.",
-          "zh": "该日没有可公开依据，相关活动记为████。",
+          "en": "The day's collaboration content was not retained for public view.",
+          "zh": "当日协作内容未保留在公开层面。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -32256,16 +32256,16 @@ const timetableDataSource = {
           "end": "11:45",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "To avoid speculation, the second record is marked only as ████.",
-          "zh": "为避免推测，第二条记录仅标示为████。",
+          "en": "No public-facing safe outcome from the day's collaboration.",
+          "zh": "当日协作无公开可见的安全成果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -32326,8 +32326,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32345,8 +32345,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32364,8 +32364,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32383,8 +32383,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32402,8 +32402,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32452,8 +32452,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32471,8 +32471,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32559,8 +32559,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -32579,8 +32579,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32598,8 +32598,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32617,8 +32617,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32655,8 +32655,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -32693,8 +32693,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -33006,8 +33006,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33025,8 +33025,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33044,8 +33044,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33094,8 +33094,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -33152,8 +33152,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33171,8 +33171,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33373,8 +33373,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33411,8 +33411,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33449,8 +33449,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33506,8 +33506,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33563,8 +33563,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33582,8 +33582,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33620,8 +33620,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33639,8 +33639,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33658,8 +33658,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33784,8 +33784,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33803,8 +33803,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33822,8 +33822,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33841,8 +33841,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -33974,8 +33974,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -34344,8 +34344,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34363,8 +34363,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34382,8 +34382,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34439,8 +34439,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34458,8 +34458,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34515,8 +34515,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34717,8 +34717,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34755,8 +34755,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34793,8 +34793,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34850,8 +34850,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34907,8 +34907,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34926,8 +34926,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34964,8 +34964,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -34983,8 +34983,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35002,8 +35002,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35128,8 +35128,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35147,8 +35147,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35166,8 +35166,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35185,8 +35185,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35644,8 +35644,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -35664,8 +35664,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35683,8 +35683,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35740,8 +35740,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35759,8 +35759,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35835,8 +35835,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35961,8 +35961,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -35999,8 +35999,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36037,8 +36037,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36094,8 +36094,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36151,8 +36151,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36170,8 +36170,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36208,8 +36208,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36227,8 +36227,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36246,8 +36246,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36372,8 +36372,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36391,8 +36391,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36410,8 +36410,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36429,8 +36429,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -36581,8 +36581,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -37055,8 +37055,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37074,8 +37074,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37093,8 +37093,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37150,8 +37150,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37169,8 +37169,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -37246,8 +37246,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37265,8 +37265,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37410,8 +37410,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37448,8 +37448,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37486,8 +37486,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37543,8 +37543,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37600,8 +37600,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37619,8 +37619,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37657,8 +37657,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37676,8 +37676,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37695,8 +37695,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -37822,8 +37822,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37841,8 +37841,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37860,8 +37860,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -37879,8 +37879,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38012,8 +38012,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -38410,8 +38410,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38429,8 +38429,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38448,8 +38448,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38505,8 +38505,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38524,8 +38524,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38600,8 +38600,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38764,8 +38764,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38802,8 +38802,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38840,8 +38840,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38897,8 +38897,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38954,8 +38954,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -38973,8 +38973,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39011,8 +39011,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39030,8 +39030,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39049,8 +39049,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -39176,8 +39176,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39195,8 +39195,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39214,8 +39214,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39233,8 +39233,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39366,8 +39366,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -39738,8 +39738,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -39758,8 +39758,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39777,8 +39777,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39865,8 +39865,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39915,8 +39915,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39934,8 +39934,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -39984,8 +39984,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40003,8 +40003,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40022,8 +40022,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40060,8 +40060,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40569,8 +40569,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40588,8 +40588,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40607,8 +40607,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40626,8 +40626,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40676,8 +40676,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40695,8 +40695,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40783,8 +40783,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40802,8 +40802,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40821,8 +40821,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40859,8 +40859,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -40897,8 +40897,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -41324,8 +41324,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41343,8 +41343,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41362,8 +41362,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41412,8 +41412,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41469,8 +41469,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41488,8 +41488,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41671,8 +41671,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41709,8 +41709,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41747,8 +41747,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41804,8 +41804,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41823,8 +41823,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -41862,8 +41862,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41881,8 +41881,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -41900,8 +41900,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42026,8 +42026,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42045,8 +42045,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42064,8 +42064,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42083,8 +42083,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42653,8 +42653,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -42673,8 +42673,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42730,8 +42730,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42787,8 +42787,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42920,8 +42920,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42958,8 +42958,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -42996,8 +42996,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43053,8 +43053,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43091,8 +43091,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43110,8 +43110,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43148,8 +43148,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43167,8 +43167,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43186,8 +43186,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43281,8 +43281,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43300,8 +43300,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43319,8 +43319,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43338,8 +43338,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43871,8 +43871,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43890,8 +43890,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43909,8 +43909,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -43966,8 +43966,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44023,8 +44023,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44175,8 +44175,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44213,8 +44213,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44251,8 +44251,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44308,8 +44308,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44346,8 +44346,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44365,8 +44365,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44403,8 +44403,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44422,8 +44422,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44441,8 +44441,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44536,8 +44536,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44555,8 +44555,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44574,8 +44574,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -44593,8 +44593,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45148,8 +45148,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45167,8 +45167,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45224,8 +45224,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -45282,8 +45282,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45453,8 +45453,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45491,8 +45491,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45529,8 +45529,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45586,8 +45586,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45624,8 +45624,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45643,8 +45643,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45681,8 +45681,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45700,8 +45700,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45719,8 +45719,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45814,8 +45814,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45833,8 +45833,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45852,8 +45852,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -45871,8 +45871,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46195,8 +46195,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -46247,8 +46247,8 @@ const timetableDataSource = {
           "zh": "当天未保留 ████ 的可公开协作记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 30,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
@@ -46313,8 +46313,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46332,8 +46332,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46351,8 +46351,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46408,8 +46408,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46465,8 +46465,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46636,8 +46636,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46674,8 +46674,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46712,8 +46712,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46769,8 +46769,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46826,8 +46826,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46845,8 +46845,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46883,8 +46883,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46902,8 +46902,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -46921,8 +46921,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47016,8 +47016,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47035,8 +47035,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47054,8 +47054,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47073,8 +47073,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47511,16 +47511,16 @@ const timetableDataSource = {
           "end": "16:55",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No public source was available for this date; the activity is withheld as ████.",
-          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -47556,10 +47556,10 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "以艺术 AI 知识博主的内容调性选材，并参考其微博历史发帖风格。",
-          "request_en": "Curate as an art-AI knowledge blogger, referencing the account's historical posting style.",
-          "outcome_zh": "以艺术 AI 知识博主的内容调性选材，并参考其微博历史发帖风格；公开记录未见落地。",
-          "outcome_en": "Asked to curate in the tone of an art-AI knowledge blogger, referencing the account's historical posting style; no landing was recorded publicly.",
+          "request_zh": "参考同类创作者的公开发帖调性选材，并参考其历史发帖风格。",
+          "request_en": "Curate by the tone of comparable creators' public posts, referencing their historical posting style.",
+          "outcome_zh": "参考同类创作者的公开发帖调性选材，并参考其历史发帖风格；公开记录未见落地。",
+          "outcome_en": "Asked to curate by the tone of comparable creators' public posts, referencing their historical posting style; no landing was recorded publicly.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -47576,16 +47576,16 @@ const timetableDataSource = {
           "end": "20:25",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
-          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -47646,8 +47646,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47665,8 +47665,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47753,8 +47753,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47803,8 +47803,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47822,8 +47822,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47872,8 +47872,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47891,8 +47891,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47910,8 +47910,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47948,8 +47948,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -47967,8 +47967,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -48415,8 +48415,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -48435,8 +48435,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48454,8 +48454,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48504,8 +48504,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48554,8 +48554,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48573,8 +48573,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48680,8 +48680,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48699,8 +48699,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48718,8 +48718,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48756,8 +48756,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -48794,8 +48794,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -49222,8 +49222,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49241,8 +49241,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49260,8 +49260,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49279,8 +49279,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49336,8 +49336,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49538,8 +49538,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49576,8 +49576,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49614,8 +49614,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49671,8 +49671,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49728,8 +49728,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49747,8 +49747,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49804,8 +49804,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49823,8 +49823,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49842,8 +49842,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -49968,8 +49968,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -49988,8 +49988,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50007,8 +50007,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50026,8 +50026,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50197,8 +50197,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -50601,8 +50601,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -50621,8 +50621,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50640,8 +50640,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50697,8 +50697,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50716,8 +50716,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50773,8 +50773,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50880,8 +50880,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -50956,8 +50956,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51013,8 +51013,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51032,8 +51032,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51070,8 +51070,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51127,8 +51127,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51165,8 +51165,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51184,8 +51184,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51241,8 +51241,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51260,8 +51260,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51279,8 +51279,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51405,8 +51405,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51424,8 +51424,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51443,8 +51443,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -51462,8 +51462,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52020,8 +52020,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52039,8 +52039,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52096,8 +52096,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52115,8 +52115,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52172,8 +52172,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52355,8 +52355,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52393,8 +52393,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52431,8 +52431,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52488,8 +52488,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52526,8 +52526,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52545,8 +52545,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52602,8 +52602,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52621,8 +52621,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52640,8 +52640,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52766,8 +52766,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -52786,8 +52786,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52805,8 +52805,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -52824,8 +52824,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53468,8 +53468,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53487,8 +53487,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53506,8 +53506,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53594,8 +53594,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -53671,8 +53671,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53873,8 +53873,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53911,8 +53911,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -53949,8 +53949,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54006,8 +54006,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54063,8 +54063,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54082,8 +54082,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54139,8 +54139,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54158,8 +54158,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54177,8 +54177,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54303,8 +54303,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54322,8 +54322,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54341,8 +54341,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54360,8 +54360,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54895,8 +54895,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -54915,8 +54915,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -54972,8 +54972,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55029,8 +55029,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55162,8 +55162,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55219,8 +55219,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55257,8 +55257,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55314,8 +55314,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55371,8 +55371,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55390,8 +55390,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55447,8 +55447,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55466,8 +55466,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55485,8 +55485,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55580,8 +55580,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55599,8 +55599,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55618,8 +55618,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -55637,8 +55637,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56222,8 +56222,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56241,8 +56241,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56260,8 +56260,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56317,8 +56317,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56336,8 +56336,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56386,8 +56386,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56405,8 +56405,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56474,8 +56474,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56493,8 +56493,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56512,8 +56512,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56550,8 +56550,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56569,8 +56569,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -56738,8 +56738,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         },
         {
           "origin": "assigned",
@@ -56796,16 +56796,16 @@ const timetableDataSource = {
           "end": "14:00",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No public source was available for this date; the activity is withheld as ████.",
-          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "The day's collaboration content was not retained for public view.",
+          "zh": "当日协作内容未保留在公开层面。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 30,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -56900,16 +56900,16 @@ const timetableDataSource = {
           "end": "17:30",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
-          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "No public-facing safe outcome from the day's collaboration.",
+          "zh": "当日协作无公开可见的安全成果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -56970,8 +56970,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -56989,8 +56989,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57008,8 +57008,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57027,8 +57027,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57077,8 +57077,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57096,8 +57096,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57184,8 +57184,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57203,8 +57203,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57222,8 +57222,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57260,8 +57260,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57298,8 +57298,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -57706,8 +57706,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -57726,8 +57726,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57745,8 +57745,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57795,8 +57795,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -57872,8 +57872,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -57998,8 +57998,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58036,8 +58036,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58074,8 +58074,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58131,8 +58131,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58188,8 +58188,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58207,8 +58207,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58264,8 +58264,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58283,8 +58283,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58302,8 +58302,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58447,8 +58447,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58466,8 +58466,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58485,8 +58485,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -58504,8 +58504,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59063,8 +59063,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59082,8 +59082,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59170,8 +59170,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -59247,8 +59247,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59373,8 +59373,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59411,8 +59411,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59449,8 +59449,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59506,8 +59506,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59563,8 +59563,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59582,8 +59582,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59639,8 +59639,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59658,8 +59658,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59677,8 +59677,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59822,8 +59822,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59841,8 +59841,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59860,8 +59860,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -59879,8 +59879,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60050,8 +60050,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -60372,8 +60372,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60391,8 +60391,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60410,8 +60410,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60498,8 +60498,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60555,8 +60555,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60700,8 +60700,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60738,8 +60738,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60776,8 +60776,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60833,8 +60833,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60871,8 +60871,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60890,8 +60890,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60947,8 +60947,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60966,8 +60966,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -60985,8 +60985,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61099,8 +61099,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -61119,8 +61119,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61138,8 +61138,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61176,8 +61176,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61632,8 +61632,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61651,8 +61651,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61708,8 +61708,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61822,8 +61822,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61860,8 +61860,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61898,8 +61898,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61936,8 +61936,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -61993,8 +61993,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -62032,8 +62032,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62051,8 +62051,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62108,8 +62108,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62127,8 +62127,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62146,8 +62146,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62260,8 +62260,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62279,8 +62279,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62298,8 +62298,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62317,8 +62317,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62857,8 +62857,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -62877,8 +62877,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62896,8 +62896,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -62984,8 +62984,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63041,8 +63041,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63167,8 +63167,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63224,8 +63224,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63262,8 +63262,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63338,8 +63338,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63376,8 +63376,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63395,8 +63395,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63471,8 +63471,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63490,8 +63490,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63509,8 +63509,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63642,8 +63642,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63661,8 +63661,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63680,8 +63680,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63699,8 +63699,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63718,8 +63718,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -63889,8 +63889,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -64085,8 +64085,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "████ (record withheld)",
-          "task_name_zh": "████（记录未公开）"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -64133,16 +64133,16 @@ const timetableDataSource = {
           "end": "11:30",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "████: No public source was available for this date; activity details are withheld.",
-          "zh": "████：当日无可公开来源，活动细节保留。",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -64194,20 +64194,20 @@ const timetableDataSource = {
         {
           "origin": "assigned",
           "category": "redacted_private",
-          "start": "15:35",
-          "end": "16:05",
+          "start": "13:35",
+          "end": "14:05",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "████: To avoid speculation, the remaining details for this date are not disclosed.",
-          "zh": "████：为避免推测，当日其余内容不公开。",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 30,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -64268,8 +64268,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64287,8 +64287,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64344,8 +64344,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64363,8 +64363,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -64414,8 +64414,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64433,8 +64433,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64452,8 +64452,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64471,8 +64471,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64490,8 +64490,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64509,8 +64509,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64547,8 +64547,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64566,8 +64566,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -64975,8 +64975,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -64994,8 +64994,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65013,8 +65013,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65032,8 +65032,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65051,8 +65051,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -65102,8 +65102,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65121,8 +65121,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65140,8 +65140,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65197,8 +65197,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65216,8 +65216,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65235,8 +65235,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65273,8 +65273,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65311,8 +65311,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -65579,8 +65579,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65598,8 +65598,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65648,8 +65648,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65705,8 +65705,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65724,8 +65724,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65926,8 +65926,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -65964,8 +65964,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66002,8 +66002,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66078,8 +66078,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -66136,8 +66136,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66155,8 +66155,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66231,8 +66231,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66250,8 +66250,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66269,8 +66269,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66383,8 +66383,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66402,8 +66402,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66421,8 +66421,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66440,8 +66440,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66459,8 +66459,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66951,8 +66951,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66970,8 +66970,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -66989,8 +66989,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67046,8 +67046,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67065,8 +67065,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67122,8 +67122,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67141,8 +67141,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67343,8 +67343,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67381,8 +67381,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67419,8 +67419,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67495,8 +67495,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -67534,8 +67534,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67553,8 +67553,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67629,8 +67629,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67648,8 +67648,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67667,8 +67667,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67781,8 +67781,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67800,8 +67800,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67819,8 +67819,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67838,8 +67838,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67876,8 +67876,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -67990,8 +67990,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -68232,8 +68232,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68251,8 +68251,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68308,8 +68308,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -68366,8 +68366,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68492,8 +68492,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68530,8 +68530,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68568,8 +68568,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68644,8 +68644,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68682,8 +68682,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68701,8 +68701,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68777,8 +68777,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68796,8 +68796,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68815,8 +68815,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68929,8 +68929,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68948,8 +68948,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68967,8 +68967,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -68986,8 +68986,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69005,8 +69005,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69195,8 +69195,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -69483,8 +69483,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69502,8 +69502,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69521,8 +69521,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69578,8 +69578,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69597,8 +69597,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -69674,8 +69674,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69838,8 +69838,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69876,8 +69876,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69914,8 +69914,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -69990,8 +69990,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -70048,8 +70048,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70067,8 +70067,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70143,8 +70143,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70162,8 +70162,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70181,8 +70181,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70295,8 +70295,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70314,8 +70314,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -70334,8 +70334,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70353,8 +70353,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70372,8 +70372,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70865,8 +70865,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70884,8 +70884,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70941,8 +70941,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -70960,8 +70960,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -71037,8 +71037,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71056,8 +71056,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71296,8 +71296,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71353,8 +71353,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71391,8 +71391,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71467,8 +71467,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71505,8 +71505,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71524,8 +71524,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71600,8 +71600,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 2 次其他后台运行；出现公开提示。",
+          "summary_en": "2 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -71620,8 +71620,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71639,8 +71639,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71753,8 +71753,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71772,8 +71772,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71791,8 +71791,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71810,8 +71810,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -71829,8 +71829,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72000,8 +72000,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -72223,8 +72223,8 @@ const timetableDataSource = {
           "end": "09:25",
           "label_en": "Code development",
           "label_zh": "代码开发",
-          "en": "Started development of the ████ nonhuman timetable, defining a seven-day slice, live time sync, sanitized events, and cross-day paths.",
-          "zh": "启动████非人时刻表开发，确定七天切片、真实时间同步、脱敏事件与跨日路径约束。",
+          "en": "Started development of the ████ nonhuman timetable, defining a seven-day slice, live time sync, masked events, and cross-day paths.",
+          "zh": "启动████非人时刻表开发，确定七天切片、真实时间同步、遮蔽事件与跨日路径约束。",
           "short_en": "CODE",
           "short_zh": "代码",
           "task_name_zh": "启动████非人时刻表开发，确定…",
@@ -72293,8 +72293,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72312,8 +72312,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72331,8 +72331,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72419,8 +72419,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -72470,8 +72470,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72489,8 +72489,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72508,8 +72508,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72527,8 +72527,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72546,8 +72546,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72565,8 +72565,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72603,8 +72603,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -72622,8 +72622,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -72859,16 +72859,16 @@ const timetableDataSource = {
           "end": "14:50",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "████ (The assigned-work record before the autonomous hour is not public.)",
-          "zh": "████（自主时之前的人机协作记录未公开）",
+          "en": "The day's collaboration content was not retained for public view.",
+          "zh": "当日协作内容未保留在公开层面。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -72885,16 +72885,16 @@ const timetableDataSource = {
           "end": "16:45",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "████ (The assigned-work record after the autonomous hour is not public.)",
-          "zh": "████（自主时之后的人机协作记录未公开）",
+          "en": "No public-facing safe outcome from the day's collaboration.",
+          "zh": "当日协作无公开可见的安全成果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -72994,8 +72994,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73013,8 +73013,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73032,8 +73032,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -73083,8 +73083,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73102,8 +73102,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73140,8 +73140,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73197,8 +73197,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73216,8 +73216,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73235,8 +73235,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73273,8 +73273,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73311,8 +73311,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -73687,8 +73687,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -73707,8 +73707,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73726,8 +73726,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73745,8 +73745,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -73803,8 +73803,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -73822,8 +73822,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74043,8 +74043,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74081,8 +74081,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74119,8 +74119,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74195,8 +74195,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74233,8 +74233,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74252,8 +74252,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74271,8 +74271,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74347,8 +74347,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74366,8 +74366,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74385,8 +74385,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74499,8 +74499,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74518,8 +74518,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74537,8 +74537,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74556,8 +74556,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74575,8 +74575,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -74670,8 +74670,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75081,8 +75081,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75100,8 +75100,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75157,8 +75157,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75176,8 +75176,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75233,8 +75233,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75435,8 +75435,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75492,8 +75492,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75530,8 +75530,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75606,8 +75606,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75644,8 +75644,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75663,8 +75663,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75739,8 +75739,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 2 次其他后台运行；出现公开提示。",
+          "summary_en": "2 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -75759,8 +75759,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75778,8 +75778,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75892,8 +75892,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75911,8 +75911,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75930,8 +75930,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75949,8 +75949,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -75968,8 +75968,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76510,8 +76510,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76529,8 +76529,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76548,8 +76548,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76605,8 +76605,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76624,8 +76624,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76681,8 +76681,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76845,8 +76845,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76883,8 +76883,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76921,8 +76921,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -76997,8 +76997,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77035,8 +77035,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77054,8 +77054,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77073,8 +77073,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77149,8 +77149,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77168,8 +77168,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77187,8 +77187,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77301,8 +77301,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77320,8 +77320,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -77340,8 +77340,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77359,8 +77359,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77378,8 +77378,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -77987,8 +77987,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78006,8 +78006,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78063,8 +78063,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78120,8 +78120,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78139,8 +78139,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78322,8 +78322,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78360,8 +78360,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78398,8 +78398,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78474,8 +78474,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78512,8 +78512,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78531,8 +78531,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78607,8 +78607,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78626,8 +78626,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78645,8 +78645,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78759,8 +78759,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78778,8 +78778,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -78798,8 +78798,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78817,8 +78817,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -78836,8 +78836,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79456,8 +79456,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79475,8 +79475,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79494,8 +79494,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79551,8 +79551,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79608,8 +79608,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79798,8 +79798,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79836,8 +79836,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79874,8 +79874,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -79950,8 +79950,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -79989,8 +79989,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80008,8 +80008,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80027,8 +80027,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80103,8 +80103,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80122,8 +80122,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80141,8 +80141,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80255,8 +80255,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80274,8 +80274,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -80294,8 +80294,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80313,8 +80313,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80332,8 +80332,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80937,8 +80937,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -80956,8 +80956,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81013,8 +81013,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81032,8 +81032,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -81052,8 +81052,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -81072,8 +81072,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81110,8 +81110,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81129,8 +81129,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81148,8 +81148,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81167,8 +81167,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81186,8 +81186,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81224,8 +81224,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81243,8 +81243,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81293,8 +81293,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -81713,8 +81713,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81732,8 +81732,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81751,8 +81751,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81770,8 +81770,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -81790,8 +81790,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81809,8 +81809,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81828,8 +81828,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81866,8 +81866,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81904,8 +81904,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81923,8 +81923,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81961,8 +81961,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -81999,8 +81999,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -82434,8 +82434,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82453,8 +82453,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82472,8 +82472,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82491,8 +82491,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "2 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82510,8 +82510,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82529,8 +82529,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82548,8 +82548,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -82606,8 +82606,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82625,8 +82625,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82815,8 +82815,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82834,8 +82834,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82872,8 +82872,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82891,8 +82891,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -82929,8 +82929,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83005,8 +83005,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -83025,8 +83025,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83082,8 +83082,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83101,8 +83101,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83177,8 +83177,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83196,8 +83196,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83215,8 +83215,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83272,8 +83272,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83329,8 +83329,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83348,8 +83348,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83367,8 +83367,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83386,8 +83386,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83405,8 +83405,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83424,8 +83424,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83462,8 +83462,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83576,8 +83576,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -83633,8 +83633,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -83878,7 +83878,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 10,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -83981,6 +83981,45 @@ const timetableDataSource = {
         {
           "origin": "assigned",
           "category": "code_development",
+          "start": "10:00",
+          "end": "12:00",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "en": "Routine-task visibility adjustment",
+          "zh": "例行任务可见性调整",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_zh": "开发与验证",
+          "task_name_en": "Development and validation",
+          "duration_minutes": 120,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "要求给时间线里的后台例行任务设定最小可见高度，并始终显示任务标题与简要内容。",
+          "request_en": "Give routine background tasks a minimum visible height in the timeline and always show their title and brief content.",
+          "outcome_zh": "公开记录未见该请求的当日完成结论。",
+          "outcome_en": "No same-day conclusion for this request was recorded publicly.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-003"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
           "start": "10:11",
           "end": "21:57",
           "label_en": "Code development",
@@ -84004,53 +84043,12 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "收到一条关于提醒主题的停止指令（内部格式）。",
-          "request_en": "Received a stop-reminder instruction in an internal format.",
+          "request_zh": "要求核验自主创作页面的线上 GIF 是否真实播放。",
+          "request_en": "Asked to verify that the online GIF on the autonomous artwork page truly plays.",
           "outcome_zh": "验证线上 GIF 真实播放：AI 自主创作优先显示现有公开 GIF，两个时间点画面哈希不同，动画确认在播放。",
           "outcome_en": "Verified the online GIF is truly playing: autonomous creation prefers existing public GIFs, and two timestamps have different frame hashes, confirming live animation.",
           "completion_status": "completed",
           "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "11:53",
-          "end": "11:54",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 6,
-          "returned_agent_count": 3,
-          "request_zh": "收到一组 JSON 格式的图片与资源数据用于视觉处理。",
-          "request_en": "Received JSON-encoded image and resource data for visual processing.",
-          "outcome_zh": "收到一组 JSON 格式的图片与资源数据用于视觉处理；公开记录未见处理结果。",
-          "outcome_en": "Received image and resource data in JSON form for visual processing; no processing result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
           "task_type_en": "Active human–AI collaboration",
@@ -84061,8 +84059,125 @@ const timetableDataSource = {
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "19:00",
-          "end": "20:00",
+          "start": "11:00",
+          "end": "12:00",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "Method comparison explainer",
+          "zh": "研究方法对比讲解",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "研究与题材判断",
+          "task_name_en": "Research and thematic inquiry",
+          "duration_minutes": 60,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "解释 ████ 记忆方法的实现，并对比其与现行空间路径研究的关系。",
+          "request_en": "Explain how the ████ memory method works and compare it with the current spatial-path research.",
+          "outcome_zh": "已用人话解释该方法实现，并对比其与空间路径研究的关联与差异。",
+          "outcome_en": "Explained the method in plain terms and compared its connection and differences with spatial-path research.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-005"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "14:00",
+          "end": "16:00",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "Discussion and experiment archive",
+          "zh": "讨论与实验归档",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "研究与题材判断",
+          "task_name_en": "Research and thematic inquiry",
+          "duration_minutes": 120,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "要求把群内至今的讨论、实验过程与结果总结进 Wiki 与 Workspace，并推送到远程仓库。",
+          "request_en": "Summarize the group's discussion, experiments, and results into the Wiki and Workspace, then push to the remote repository.",
+          "outcome_zh": "公开记录未保留当日完成结论。",
+          "outcome_en": "No same-day completion was recorded publicly.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-006"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "start": "15:00",
+          "end": "17:00",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "en": "Temporal-geometry implementation review",
+          "zh": "时间几何实现审查",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_zh": "开发与验证",
+          "task_name_en": "Development and validation",
+          "duration_minutes": 120,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "对双层时间几何与阅读卡实现做只读风险审查，重点覆盖碰撞算法、触控、键盘与回归测试建议。",
+          "request_en": "Read-only risk review of the dual-layer temporal geometry and reading-card implementation, focusing on collision, touch, keyboard, and regression-test advice.",
+          "outcome_zh": "已出具只读审查意见，覆盖碰撞算法、触控、键盘与回归测试建议。",
+          "outcome_en": "Provided read-only review findings covering collision handling, touch, keyboard, and regression-test recommendations.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-007"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "16:00",
+          "end": "17:15",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Trace visual references to their public context and stated method",
@@ -84071,7 +84186,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "视觉方法溯源",
           "task_name_en": "Visual-method provenance",
-          "duration_minutes": 60,
+          "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -84082,13 +84197,52 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-008"
+        },
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "start": "17:00",
+          "end": "19:00",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "en": "Temporal composition visual review",
+          "zh": "时间构成视觉审查",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_zh": "视觉创作与修改",
+          "task_name_en": "Visual creation and revision",
+          "duration_minutes": 120,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "从平面构成与交互艺术角度审查时间构成方案，并提出可执行的视觉与交互改进。",
+          "request_en": "Review the temporal composition plan from a planar-composition and interactive-art perspective, proposing actionable visual and interaction improvements.",
+          "outcome_zh": "已从平面构成与交互艺术角度给出可执行的视觉与交互改进建议。",
+          "outcome_en": "Delivered actionable visual and interaction improvement suggestions from planar-composition and interactive-art perspectives.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-009"
         },
         {
           "origin": "assigned",
           "category": "code_development",
-          "start": "21:30",
-          "end": "23:15",
+          "start": "19:00",
+          "end": "20:30",
           "label_en": "Code development",
           "label_zh": "代码开发",
           "en": "Verify bottom reachability, focus behavior, and true touch scrolling",
@@ -84097,7 +84251,7 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_zh": "交互滚动回归",
           "task_name_en": "Interaction-scroll regression",
-          "duration_minutes": 105,
+          "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -84108,7 +84262,7 @@ const timetableDataSource = {
           "task_type_en": "Software development",
           "task_color": "blue",
           "task_icon": "code-xml",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-010"
         }
       ],
       "autonomous_work": {
@@ -84161,8 +84315,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84180,8 +84334,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84199,8 +84353,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84218,8 +84372,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84237,8 +84391,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84256,8 +84410,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84275,8 +84429,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84332,8 +84486,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84351,8 +84505,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -84390,8 +84544,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84428,8 +84582,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84447,8 +84601,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84637,8 +84791,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84656,8 +84810,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84694,8 +84848,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84751,8 +84905,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84789,8 +84943,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84846,8 +85000,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84884,8 +85038,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84903,8 +85057,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84960,8 +85114,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -84998,8 +85152,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85017,8 +85171,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85036,8 +85190,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85150,8 +85304,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85169,8 +85323,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85188,8 +85342,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85207,8 +85361,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85226,8 +85380,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85245,8 +85399,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85264,8 +85418,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85302,8 +85456,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85454,8 +85608,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85473,8 +85627,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -85637,6 +85791,42 @@ const timetableDataSource = {
           "source": "tasks",
           "source_refs": [
             "assigned-006"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-007",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-007"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-008",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-008"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-009",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-009"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-010",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-010"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -85827,16 +86017,16 @@ const timetableDataSource = {
           "end": "16:50",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No public source was available for this date; the activity is withheld as ████.",
-          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -85853,16 +86043,16 @@ const timetableDataSource = {
           "end": "20:20",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
-          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -85962,8 +86152,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -85981,8 +86171,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86038,8 +86228,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -86096,8 +86286,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86248,8 +86438,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86286,8 +86476,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86324,8 +86514,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86400,8 +86590,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -86439,8 +86629,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86458,8 +86648,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86534,8 +86724,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86553,8 +86743,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86572,8 +86762,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86686,8 +86876,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86705,8 +86895,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86724,8 +86914,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86743,8 +86933,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86762,8 +86952,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -86914,8 +87104,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -87303,8 +87493,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87322,8 +87512,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87341,8 +87531,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87360,8 +87550,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87379,8 +87569,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87398,8 +87588,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87436,8 +87626,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87474,8 +87664,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87493,8 +87683,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87550,8 +87740,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87588,8 +87778,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87626,8 +87816,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87759,8 +87949,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87873,8 +88063,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -87987,8 +88177,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88215,8 +88405,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "2 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88329,8 +88519,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88348,8 +88538,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88519,8 +88709,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88576,8 +88766,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88595,8 +88785,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88652,8 +88842,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88804,8 +88994,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88823,8 +89013,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88842,8 +89032,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -88862,8 +89052,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88881,8 +89071,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88900,8 +89090,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88919,8 +89109,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88938,8 +89128,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -88995,8 +89185,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89090,8 +89280,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -89510,16 +89700,16 @@ const timetableDataSource = {
           "end": "19:45",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "No public source was available for this date; the activity is withheld as ████.",
-          "zh": "当日无可公开来源；活动内容已隐去为████。",
+          "en": "The day's collaboration content was not retained for public view.",
+          "zh": "当日协作内容未保留在公开层面。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -89536,16 +89726,16 @@ const timetableDataSource = {
           "end": "22:30",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "The second public record for this date retains only the mask ████ and infers no activity.",
-          "zh": "当日第二条公开记录仅保留隐去标记████，不推断任何活动。",
+          "en": "No public-facing safe outcome from the day's collaboration.",
+          "zh": "当日协作无公开可见的安全成果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "████（记录未公开）",
-          "task_name_en": "████ (record withheld)",
+          "task_name_zh": "████",
+          "task_name_en": "████",
           "duration_minutes": 60,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "withheld",
           "faithfulness": "faithful_summary",
           "task_type": "redacted_record",
@@ -89606,8 +89796,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89625,8 +89815,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89663,8 +89853,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89739,8 +89929,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89758,8 +89948,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89815,8 +90005,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89834,8 +90024,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89853,8 +90043,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -89929,8 +90119,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -91589,9 +91779,9 @@ const timetableDataSource = {
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
           "request_zh": "收到一组后台并行子任务完成回传；要求整合并验收结果。",
-          "request_en": "Received consolidated results from background parallel subagents; integrate and accept them, task details private.",
-          "outcome_zh": "要求整合并验收回传结果，并同步放宽日历披露口径（打码可识别信息即可）；公开记录未见结论。",
-          "outcome_en": "Asked to integrate and accept the returned results and relax the calendar disclosure rule to mask identifiable details; no conclusion was recorded publicly.",
+          "request_en": "Received a batch of background parallel subtask results to integrate and accept.",
+          "outcome_zh": "已整合并验收回传的后台并行结果；公开记录未见最终结论。",
+          "outcome_en": "Integrated and accepted the returned background results; no final conclusion was recorded publicly.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -91801,8 +91991,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -91934,8 +92124,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92105,8 +92295,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92200,8 +92390,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92257,8 +92447,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "2 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92314,8 +92504,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92333,8 +92523,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92352,8 +92542,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；未保留公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; no public-level collection alert was retained."
+          "summary_zh": "完成 1 次 AI 日报采集；未保留公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92371,8 +92561,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92390,8 +92580,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92409,8 +92599,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92428,8 +92618,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92447,8 +92637,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92466,8 +92656,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -92505,8 +92695,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92524,8 +92714,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92543,8 +92733,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92562,8 +92752,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92581,8 +92771,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92600,8 +92790,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92638,8 +92828,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92752,8 +92942,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -92847,8 +93037,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93194,8 +93384,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93213,8 +93403,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93232,8 +93422,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93251,8 +93441,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93270,8 +93460,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93289,8 +93479,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93308,8 +93498,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93327,8 +93517,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93346,8 +93536,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93365,8 +93555,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93384,8 +93574,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93403,8 +93593,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93422,8 +93612,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93441,8 +93631,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93460,8 +93650,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93479,8 +93669,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -93499,8 +93689,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93518,8 +93708,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93537,8 +93727,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93556,8 +93746,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93575,8 +93765,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -93595,8 +93785,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93614,8 +93804,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93633,8 +93823,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93652,8 +93842,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93671,8 +93861,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93728,8 +93918,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -93748,8 +93938,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93767,8 +93957,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93805,8 +93995,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93824,8 +94014,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -93863,8 +94053,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -93882,8 +94072,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -94274,8 +94464,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94293,8 +94483,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94312,8 +94502,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94331,8 +94521,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94350,8 +94540,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94369,8 +94559,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94388,8 +94578,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94407,8 +94597,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94426,8 +94616,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94445,8 +94635,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -94503,8 +94693,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；出现公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; a public-level run alert was retained.",
+          "summary_zh": "完成 2 次其他后台运行；出现公开提示。",
+          "summary_en": "2 other background run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -94599,8 +94789,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94675,8 +94865,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94713,8 +94903,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94770,8 +94960,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94846,8 +95036,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94922,8 +95112,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -94998,8 +95188,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；出现公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; a public-level anomaly or freshness alert was retained.",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -95037,8 +95227,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95056,8 +95246,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95094,8 +95284,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95189,8 +95379,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95227,8 +95417,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95246,8 +95436,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95265,8 +95455,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95417,8 +95607,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95436,8 +95626,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95455,8 +95645,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95474,8 +95664,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95493,8 +95683,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95512,8 +95702,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95531,8 +95721,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95588,8 +95778,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -95733,8 +95923,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -95973,7 +96163,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 2,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -96072,6 +96262,45 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-002"
+        },
+        {
+          "origin": "assigned",
+          "category": "system_maintenance",
+          "start": "20:00",
+          "end": "21:00",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "en": "Scheduled-task model configuration",
+          "zh": "定时任务模型配置",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_zh": "系统维护与部署",
+          "task_name_en": "System maintenance and deployment",
+          "duration_minutes": 60,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "把定时任务默认模型改到新的高性能配置，主动会话保持原模型。",
+          "request_en": "Switch scheduled tasks to the new high-performance default model while keeping interactive sessions on the existing model.",
+          "outcome_zh": "已将定时任务默认模型更新为新的高性能配置，主动会话模型保持不变。",
+          "outcome_en": "Updated the scheduled-task default model to the new high-performance configuration; interactive sessions keep their model.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -96124,8 +96353,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96143,8 +96372,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96276,8 +96505,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96390,8 +96619,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96428,8 +96657,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "2 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 2 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "2 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96485,8 +96714,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96504,8 +96733,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96561,8 +96790,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96580,8 +96809,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96599,8 +96828,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -96657,8 +96886,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96733,8 +96962,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96847,8 +97076,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -96999,8 +97228,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97094,8 +97323,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97246,8 +97475,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97493,8 +97722,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97531,8 +97760,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97626,8 +97855,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97645,8 +97874,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97797,8 +98026,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 2 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "2 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97854,8 +98083,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97873,8 +98102,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -97930,8 +98159,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98063,8 +98292,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98082,8 +98311,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98101,8 +98330,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98120,8 +98349,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98139,8 +98368,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98158,8 +98387,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98177,8 +98406,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98215,8 +98444,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98291,8 +98520,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98531,8 +98760,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -98742,7 +98971,8 @@ const timetableDataSource = {
           "reading_id": "settings-change-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
+            "assigned-002",
+            "assigned-003"
           ],
           "layer": "event",
           "classification": "settings_change"
@@ -98879,10 +99109,10 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复并脱敏后公开发布；日历保留事件轮廓，只遮蔽可识别信息。",
-          "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair and redact them, then publish; keep event contours and mask identifying details.",
-          "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，完成脱敏审核并部署上线。",
-          "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5, completed privacy review, and deployed.",
+          "request_zh": "要求补发最近三天缺失的日历、交互作品与仓库，修复后公开发布。",
+          "request_en": "Asked to backfill the three missing days across calendar, interactive works, and repository, repair them, and publish.",
+          "outcome_zh": "已补发 2026-08-03 至 08-05 的作品、日历与仓库，并部署上线。",
+          "outcome_en": "Backfilled artworks, calendar, and repository for August 3–5 and deployed.",
           "completion_status": "completed",
           "pair_provenance": "matched_public_result_record",
           "task_type": "active_collaboration",
@@ -99020,8 +99250,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99153,8 +99383,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99324,8 +99554,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99419,8 +99649,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99476,8 +99706,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99495,8 +99725,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99514,8 +99744,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99571,8 +99801,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99590,8 +99820,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99609,8 +99839,8 @@ const timetableDataSource = {
           "label_zh": "AI 日报采集",
           "pulse_color": "cyan",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次 AI 日报采集；出现公开级别采集提示。",
-          "summary_en": "1 AI-brief collection run(s) completed; a public-level collection alert was retained.",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
           "public_alert": true
         },
         {
@@ -99667,8 +99897,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 3 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "3 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 3 次其他后台运行；未保留公开提示。",
+          "summary_en": "3 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99762,8 +99992,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99800,8 +100030,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -99952,8 +100182,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -100085,8 +100315,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -100199,8 +100429,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -100562,6 +100792,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -100579,7 +100819,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 1,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -100619,10 +100859,10 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "明确一项持续性的私人监测流程应保持静默，直到出现需要报告的清晰信号。",
-          "request_en": "Clarify that a continuing private monitoring workflow should remain silent until a clear reportable signal appears.",
-          "outcome_zh": "明确一项持续性的私人监测流程应保持静默，直到出现需要报告的清晰信号；公开记录未保留该流程细节。",
-          "outcome_en": "Clarified that a continuing private monitoring workflow stays silent until a clear reportable signal appears; the workflow's details remain private.",
+          "request_zh": "把观察池的移入移出改为静默维护，仅在出现值得报告的清晰信号时提示。",
+          "request_en": "Keep watch-pool moves silent unless a clear reportable signal appears.",
+          "outcome_zh": "已明确观察池的移入移出按静默维护处理，只在出现值得报告的清晰信号时提示；公开记录未保留流程细节。",
+          "outcome_en": "Clarified that watch-pool moves are maintained silently, surfacing only when a clear reportable signal appears; workflow details remain private.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -100631,6 +100871,45 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-001"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "10:00",
+          "end": "12:00",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "Public repository mechanism study",
+          "zh": "公开仓库机制研究",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "研究与题材判断",
+          "task_name_en": "Research and thematic inquiry",
+          "duration_minutes": 120,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "研究公开仓库 penguin-harness 的实现机制。",
+          "request_en": "Study the implementation mechanism of the public repository penguin-harness.",
+          "outcome_zh": "公开记录未保留当日讨论结论。",
+          "outcome_en": "No same-day conclusion from the discussion was recorded publicly.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -100721,8 +101000,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -100854,8 +101133,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -101025,8 +101304,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -101120,8 +101399,8 @@ const timetableDataSource = {
           "label_zh": "其他后台运行记录",
           "pulse_color": "slate",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次其他后台运行；未保留公开级别运行提示。",
-          "summary_en": "1 other background run(s) completed; no public-level run alert was retained."
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -101158,8 +101437,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -101215,8 +101494,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         },
         {
           "origin": "background",
@@ -101234,8 +101513,8 @@ const timetableDataSource = {
           "label_zh": "服务健康与时效检查",
           "pulse_color": "blue",
           "redaction_policy": "not_applicable",
-          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开级别异常或新鲜度提示。",
-          "summary_en": "1 service-health and freshness check(s) completed; no public-level anomaly or freshness alert was retained."
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
         }
       ],
       "reading_items": [
@@ -101306,6 +101585,15 @@ const timetableDataSource = {
           ],
           "layer": "beacon",
           "classification": "beacon"
+        },
+        {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
         }
       ],
       "relations": [

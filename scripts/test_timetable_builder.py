@@ -61,7 +61,7 @@ class TimetableBuilderTests(unittest.TestCase):
                 f"{day_date} must not retain focus/medium/workflow generation fields",
             )
             self.assertGreaterEqual(len(entry["assigned_residues"]), 1)
-            self.assertLessEqual(len(entry["assigned_residues"]), 6)
+            self.assertLessEqual(len(entry["assigned_residues"]), 10)
             signatures = set()
             for residue in entry["assigned_residues"]:
                 expected_fields = {
@@ -172,7 +172,7 @@ class TimetableBuilderTests(unittest.TestCase):
         category_patterns = Counter()
         category_counts = Counter()
         for day in output["days"]:
-            self.assertLessEqual(len(day["task_residues"]), 6)
+            self.assertLessEqual(len(day["task_residues"]), 10)
             builder.validate_tasks(day["date"], day["task_residues"], self.config["autonomous_hour"])
             schedules.add(
                 tuple(
