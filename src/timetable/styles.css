@@ -438,10 +438,22 @@ h1 {
   cursor: pointer;
 }
 
-.calendar-day-button:hover {
+.calendar-day-button:hover,
+.calendar-day-button:focus-visible {
+  z-index: 5;
+  transform: translateY(-2px);
   background:
     linear-gradient(180deg, rgba(140, 64, 55, 0.07), transparent 54%),
-    rgba(238, 231, 215, 0.018);
+    rgba(10, 14, 20, 0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 0 1px color-mix(in srgb, var(--cyan-trace) 38%, transparent),
+    0 8px 18px rgba(0, 0, 0, 0.30);
+}
+
+.calendar-day-button:focus-visible {
+  outline: 1px solid var(--gold-pale);
+  outline-offset: -1px;
 }
 
 .calendar-day-button.is-muted {
@@ -2435,6 +2447,8 @@ h1 {
   .event-reading-card:hover,
   .event-reading-card:focus-visible,
   .event-reading-card.is-selected,
+  .calendar-day-button:hover,
+  .calendar-day-button:focus-visible,
   .autonomous-reading-card .self-preview,
   .autonomous-reading-card:hover .self-preview,
   .autonomous-reading-card:focus-within .self-preview,
@@ -3233,7 +3247,7 @@ iframe:focus-visible {
   min-height: 44px;
   place-items: center;
   align-items: center;
-  padding: 8px;
+  padding: 6px;
   font-family: var(--font-mono);
   font-size: 9px;
   line-height: 1.25;
@@ -3257,24 +3271,26 @@ iframe:focus-visible {
 
 .calendar-bgm-toggle {
   display: inline-flex;
+  width: 44px;
   min-width: 44px;
-  min-height: 34px;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 6px 8px;
+  padding: 6px;
   background-color: transparent;
   color: var(--ink);
 }
 
 .calendar-piano-toggle {
   display: inline-flex;
+  width: 44px;
   min-width: 44px;
-  min-height: 34px;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 6px 8px;
+  padding: 6px;
   background-color: transparent;
   color: var(--ink);
 }
@@ -3422,10 +3438,22 @@ h1,
   color: var(--ink);
 }
 
-.calendar-day-button:hover {
+.calendar-day-button:hover,
+.calendar-day-button:focus-visible {
+  transform: translateY(-2px);
   background:
-    linear-gradient(142deg, color-mix(in srgb, var(--edge-light) 14%, transparent), transparent 32%),
-    color-mix(in srgb, var(--cyan-trace) 5%, transparent);
+    linear-gradient(142deg, color-mix(in srgb, var(--edge-light) 18%, transparent), transparent 32%),
+    rgba(247, 246, 241, 0.70);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 252, 1),
+    0 0 0 1px color-mix(in srgb, var(--cyan-trace) 55%, transparent),
+    0 0 14px color-mix(in srgb, var(--cyan-trace) 30%, transparent),
+    0 10px 20px rgba(52, 70, 75, 0.28);
+}
+
+.calendar-day-button:focus-visible {
+  outline: 1px solid var(--gold-pale);
+  outline-offset: -1px;
 }
 
 .cell-date-number {

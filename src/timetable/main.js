@@ -10,7 +10,6 @@ import MessagesSquare from "lucide/dist/esm/icons/messages-square.mjs";
 import Moon from "lucide/dist/esm/icons/moon.mjs";
 import Music from "lucide/dist/esm/icons/music.mjs";
 import Palette from "lucide/dist/esm/icons/palette.mjs";
-import Pause from "lucide/dist/esm/icons/pause.mjs";
 import Play from "lucide/dist/esm/icons/play.mjs";
 import Presentation from "lucide/dist/esm/icons/presentation.mjs";
 import Search from "lucide/dist/esm/icons/search.mjs";
@@ -55,7 +54,7 @@ const PIANO_CATEGORY_BASE = {
 };
 const PIANO_MIN_GAP_MS = 90;
 const PIANO_SAME_NOTE_GAP_MS = 260;
-const PIANO_VOLUME = 0.09;
+const PIANO_VOLUME = 0.045;
 const INSPECTION_HIDE_DELAY_MS = 110;
 const INSPECTION_FADE_MS = 150;
 const WEEKDAYS = [
@@ -1026,11 +1025,6 @@ function updateCalendarBgmControl(override = "") {
   els.calendarBgmToggle.title = actionLabel;
   els.calendarBgmToggle.replaceChildren(
     buildIcon(Music, "music", "header-control-icon header-control-icon-music"),
-    buildIcon(
-      state.calendarBgmPlaying ? Pause : Play,
-      state.calendarBgmPlaying ? "pause" : "play",
-      "header-control-icon header-control-icon-state",
-    ),
   );
 }
 
@@ -1126,16 +1120,34 @@ function pianoNoteIndexForElement(element) {
 }
 
 function playPianoNote(element) {
-  if (!state.pianoEnabled || !element?.isConnected) return;
+  if (!element?.isConnected) return;
+  playPianoNoteIndex(pianoNoteIndexForElement(element));
+}
+
+function pianoNoteIndexForDay(day) {
+  const sources = Object.entries(day.cell_sources || {}).filter(([, source]) => source.present);
+  const hasFreeCreation = sources.some(([key]) => key === "free_creation");
+  const hasCollaboration = sources.some(([key]) => key === "collaboration");
+  const base = hasFreeCreation ? 24 : hasCollaboration ? 12 : 0;
+  const density = sources.length + (day.cell_assigned?.length || 0);
+  const offset = Math.min(11, Math.round(Math.log2(Math.max(1, density))));
+  return Math.min(PIANO_NOTES.length - 1, Math.max(0, base + offset));
+}
+
+function playPianoNoteForDay(day) {
+  playPianoNoteIndex(pianoNoteIndexForDay(day));
+}
+
+function playPianoNoteIndex(noteIndex) {
+  if (!state.pianoEnabled) return;
   const context = ensurePianoAudioContext();
   if (!context || context.state !== "running") return;
   if (!state.pianoReady) {
     preloadPianoBuffers().then((ready) => {
-      if (ready && state.pianoEnabled) playPianoNote(element);
+      if (ready && state.pianoEnabled) playPianoNoteIndex(noteIndex);
     });
     return;
   }
-  const noteIndex = pianoNoteIndexForElement(element);
   const buffer = state.pianoBuffers?.[noteIndex];
   if (!buffer) return;
   const now = performance.now();
@@ -1146,11 +1158,11 @@ function playPianoNote(element) {
   const source = context.createBufferSource();
   source.buffer = buffer;
   const gain = context.createGain();
-  const startAt = context.currentTime + 0.003;
+  const startAt = context.currentTime + 0.004;
   gain.gain.setValueAtTime(0.0001, startAt);
-  gain.gain.exponentialRampToValueAtTime(PIANO_VOLUME, startAt + 0.012);
-  gain.gain.setValueAtTime(PIANO_VOLUME, startAt + 0.18);
-  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.95);
+  gain.gain.exponentialRampToValueAtTime(PIANO_VOLUME, startAt + 0.03);
+  gain.gain.setValueAtTime(PIANO_VOLUME, startAt + 0.24);
+  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 1.55);
   source.connect(gain);
   gain.connect(context.destination);
   source.addEventListener("ended", () => {
@@ -1161,7 +1173,7 @@ function playPianoNote(element) {
   });
   state.pianoActiveSources.add(source);
   source.start(startAt);
-  source.stop(startAt + 1.05);
+  source.stop(startAt + 1.7);
 }
 
 function togglePianoSounds() {
@@ -1351,6 +1363,11 @@ function buildDayButton(day, isToday, isMuted) {
     </span>
   `;
   button.addEventListener("click", () => openDayDetail(day.date));
+  button.addEventListener("pointerenter", (event) => {
+    if (event.pointerType !== "mouse" || !window.matchMedia(FINE_POINTER_QUERY).matches) return;
+    playPianoNoteForDay(day);
+  });
+  button.addEventListener("focus", () => playPianoNoteForDay(day));
   return button;
 }
 
