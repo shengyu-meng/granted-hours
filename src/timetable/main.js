@@ -265,6 +265,7 @@ function init() {
   els.nextDay.addEventListener("click", () => navigatePublicDay(1));
   els.timelineTouchToggle.addEventListener("click", toggleTimelineTouchGroups);
   els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
+  els.calendarBgmToggleDialog.addEventListener("click", toggleCalendarBgm);
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
@@ -300,7 +301,9 @@ function cacheElements() {
   [
     "calendarBgm",
     "calendarBgmToggle",
+    "calendarBgmToggleDialog",
     "calendarPianoToggle",
+    "calendarPianoToggleDialog",
     "clockTime",
     "artworkArchiveLink",
     "artworkBgm",
@@ -1015,17 +1018,19 @@ function setCalendarBgmPlaying(playing) {
 
 function updateCalendarBgmControl(override = "") {
   const track = timetableData.bgm_playlist?.[state.calendarBgmIndex];
-  els.calendarBgmToggle.setAttribute("aria-pressed", state.calendarBgmPlaying ? "true" : "false");
   const actionLabel = state.calendarBgmPlaying
     ? "Pause timeline BGM / 暂停月历音乐"
     : "Play timeline BGM / 播放月历音乐";
   const trackLabel = track ? `${track.date} · ${track.title_en} / ${track.title_zh}` : "";
   const accessibleLabel = override || [actionLabel, trackLabel].filter(Boolean).join(". ");
-  els.calendarBgmToggle.setAttribute("aria-label", accessibleLabel);
-  els.calendarBgmToggle.title = actionLabel;
-  els.calendarBgmToggle.replaceChildren(
-    buildIcon(Music, "music", "header-control-icon header-control-icon-music"),
-  );
+  for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog]) {
+    button.setAttribute("aria-pressed", state.calendarBgmPlaying ? "true" : "false");
+    button.setAttribute("aria-label", accessibleLabel);
+    button.title = actionLabel;
+    button.replaceChildren(
+      buildIcon(Music, "music", "header-control-icon header-control-icon-music"),
+    );
+  }
 }
 
 
@@ -1202,13 +1207,15 @@ function buildPianoIcon() {
 }
 
 function updatePianoControl() {
-  els.calendarPianoToggle.setAttribute("aria-pressed", state.pianoEnabled ? "true" : "false");
   const actionLabel = state.pianoEnabled
     ? "Piano-key hover sounds on / 钢琴键悬停音效已开启"
     : "Piano-key hover sounds off / 钢琴键悬停音效已关闭";
-  els.calendarPianoToggle.setAttribute("aria-label", actionLabel);
-  els.calendarPianoToggle.title = "Piano-key hover sounds / 钢琴键悬停音效";
-  els.calendarPianoToggle.replaceChildren(buildPianoIcon());
+  for (const button of [els.calendarPianoToggle, els.calendarPianoToggleDialog]) {
+    button.setAttribute("aria-pressed", state.pianoEnabled ? "true" : "false");
+    button.setAttribute("aria-label", actionLabel);
+    button.title = "Piano-key hover sounds / 钢琴键悬停音效";
+    button.replaceChildren(buildPianoIcon());
+  }
 }
 
 function setupPianoTimelineEvents() {
@@ -1226,6 +1233,7 @@ function setupPianoTimelineEvents() {
 function setupPianoSound() {
   restorePianoPreference();
   els.calendarPianoToggle.addEventListener("click", togglePianoSounds);
+  els.calendarPianoToggleDialog.addEventListener("click", togglePianoSounds);
   setupPianoTimelineEvents();
 }
 
