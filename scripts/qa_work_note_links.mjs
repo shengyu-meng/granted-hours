@@ -173,6 +173,16 @@ try {
       },
       touch: true,
     },
+    {
+      label: "tablet-touch-820x1180",
+      context: {
+        viewport: { width: 820, height: 1180 },
+        deviceScaleFactor: 2,
+        isMobile: true,
+        hasTouch: true,
+      },
+      touch: true,
+    },
   ];
   const viewportResults = [];
   for (const spec of viewportSpecs) {
@@ -188,9 +198,13 @@ try {
     const geometry = await page.evaluate(() => {
       const isVisible = (element) => {
         if (!element) return false;
-        const style = getComputedStyle(element);
+        for (let current = element; current instanceof HTMLElement; current = current.parentElement) {
+          const style = getComputedStyle(current);
+          if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity) <= 0.01) return false;
+          if (current === document.body) break;
+        }
         const rect = element.getBoundingClientRect();
-        return style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0.01 && rect.width > 1 && rect.height > 1;
+        return rect.width > 1 && rect.height > 1;
       };
       const trigger = document.querySelector("#ghWorkNoteTrigger");
       const brief = document.querySelector("#ghLiveBrief[data-gh-live-brief='bilingual']");
@@ -208,7 +222,7 @@ try {
         : 0;
       const viewportArea = innerWidth * innerHeight;
       const textBlocks = [...document.querySelectorAll(
-        'h1,h2,h3,h4,h5,h6,p,span,div,label,legend,figcaption,li,a,button',
+        'h1,h2,h3,h4,h5,h6,p,span,div,label,legend,figcaption,li,a,button,aside,section',
       )].filter((el) => isVisible(el)
         && (el.innerText || "").trim().length > 0
         && !el.closest("#ghWorkNoteOverlay")
@@ -240,6 +254,12 @@ try {
       const briefOverlapHeight = briefRect
         ? Math.max(0, Math.min(triggerRect.bottom, briefRect.bottom) - Math.max(triggerRect.top, briefRect.top))
         : 0;
+      const briefSoundOverlapWidth = briefRect && soundRect
+        ? Math.max(0, Math.min(soundRect.right, briefRect.right) - Math.max(soundRect.left, briefRect.left))
+        : 0;
+      const briefSoundOverlapHeight = briefRect && soundRect
+        ? Math.max(0, Math.min(soundRect.bottom, briefRect.bottom) - Math.max(soundRect.top, briefRect.top))
+        : 0;
       return {
         viewport: { width: innerWidth, height: innerHeight },
         horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -251,12 +271,17 @@ try {
         briefInstructionsZh: (brief?.querySelector("[data-gh-brief-section='instructions'] [lang='zh-CN']")?.textContent || "").trim(),
         briefInstructionsEn: (brief?.querySelector("[data-gh-brief-section='instructions'] [lang='en']")?.textContent || "").trim(),
         briefTriggerOverlapArea: briefOverlapWidth * briefOverlapHeight,
+        briefSoundOverlapArea: briefSoundOverlapWidth * briefSoundOverlapHeight,
         sound: soundRect ? soundRect.toJSON() : null,
         triggerLeftOfSound: Boolean(soundRect && triggerRect.right <= soundRect.left + 1),
         bottomAlignedWithSound: Boolean(soundRect && Math.abs(triggerRect.bottom - soundRect.bottom) <= 2),
         overlapArea: overlapWidth * overlapHeight,
         liftedAboveSound: Boolean(soundRect && triggerRect.bottom < soundRect.top),
         soundBottomRight,
+        soundDocked: sound?.dataset.ghSoundMobileDocked === "true",
+        noteLayout: trigger.dataset.ghControlLayout || "",
+        noteContrastSafe: trigger.classList.contains("gh-work-note-trigger--contrast-safe"),
+        compactConcealedCount: document.querySelectorAll('[data-gh-brief-covered="true"]').length,
         textOverlapCount,
         worstTextOverlap,
       };
@@ -270,18 +295,33 @@ try {
     assert.ok(geometry.brief.left >= 0 && geometry.brief.top >= 0, `${spec.label} bilingual brief offscreen`);
     assert.ok(geometry.brief.right <= geometry.viewport.width && geometry.brief.bottom <= geometry.viewport.height, `${spec.label} bilingual brief offscreen`);
     assert.equal(geometry.briefTriggerOverlapArea, 0, `${spec.label} bilingual brief overlaps work-note trigger`);
+    assert.equal(geometry.briefSoundOverlapArea, 0, `${spec.label} bilingual brief overlaps sound control`);
     assert.ok(geometry.trigger.left >= 0 && geometry.trigger.top >= 0, `${spec.label} trigger offscreen`);
     assert.ok(geometry.trigger.right <= geometry.viewport.width && geometry.trigger.bottom <= geometry.viewport.height, `${spec.label} trigger offscreen`);
     assert.ok(geometry.sound, `${spec.label} sound control not visible`);
+    assert.ok(geometry.sound.left >= 0 && geometry.sound.top >= 0, `${spec.label} sound control offscreen`);
+    assert.ok(geometry.sound.right <= geometry.viewport.width && geometry.sound.bottom <= geometry.viewport.height, `${spec.label} sound control offscreen`);
+    if (spec.touch) {
+      assert.ok(geometry.trigger.width >= 43.5 && geometry.trigger.height >= 43.5, `${spec.label} work-note touch target`);
+      assert.ok(geometry.sound.width >= 43.5 && geometry.sound.height >= 43.5, `${spec.label} sound touch target`);
+    }
     if (geometry.soundBottomRight) {
       assert.ok(geometry.triggerLeftOfSound, `${spec.label} trigger is not left of the bottom-right sound control`);
     }
     assert.equal(geometry.overlapArea, 0, `${spec.label} controls overlap`);
     assert.equal(geometry.textOverlapCount, 0, `${spec.label} trigger overlaps ${geometry.textOverlapCount} visible text blocks (worst ${geometry.worstTextOverlap}px²)`);
     const briefToggle = page.locator("#ghLiveBrief .gh-live-brief-toggle");
+    if (spec.label === "short-touch-421x386") {
+      assert.ok(geometry.compactConcealedCount > 0, `${spec.label} did not simplify redundant native chrome`);
+    }
     if (spec.touch) await briefToggle.tap();
     else await briefToggle.click();
     assert.equal(await briefToggle.getAttribute("aria-expanded"), "false", `${spec.label} bilingual brief did not collapse`);
+    assert.equal(
+      await page.locator('[data-gh-brief-covered="true"]').count(),
+      0,
+      `${spec.label} native chrome was not restored after collapsing the bilingual brief`,
+    );
     if (spec.touch) await briefToggle.tap();
     else await briefToggle.click();
     assert.equal(await briefToggle.getAttribute("aria-expanded"), "true", `${spec.label} bilingual brief did not expand`);
@@ -298,6 +338,62 @@ try {
     await context.close();
   }
 
+  const touchDockDay = days.find((day) => day.date === "2026-07-11");
+  assert.ok(touchDockDay, "Expected the dense shortcut artwork to remain declared");
+  const touchDockPaths = archivePaths(touchDockDay);
+  const touchDockResults = [];
+  for (const spec of viewportSpecs.filter(({ label }) => label.includes("short-touch") || label.includes("tablet-touch"))) {
+    const context = await browser.newContext(spec.context);
+    const page = await context.newPage();
+    const url = new URL(touchDockPaths.liveUrl);
+    url.searchParams.set("embed", "calendar");
+    url.searchParams.set("gh_channel", "touch_dock_audit_2026_x");
+    await page.goto(url.href, { waitUntil: "domcontentloaded" });
+    const dock = page.locator("#ghTouchKeyDock");
+    await dock.waitFor({ state: "visible" });
+    const geometry = await dock.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      const keys = [...element.querySelectorAll(".gh-touch-key")].map((button) => {
+        const keyRect = button.getBoundingClientRect();
+        return { label: button.dataset.ghKeyLabel, width: keyRect.width, height: keyRect.height };
+      });
+      const row = element.querySelector(".gh-touch-keys");
+      return {
+        viewport: { width: innerWidth, height: innerHeight },
+        rect: rect.toJSON(),
+        keys,
+        flexWrap: getComputedStyle(row).flexWrap,
+        scrollWidth: row.scrollWidth,
+        clientWidth: row.clientWidth,
+        horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      };
+    });
+    assert.equal(geometry.keys.length, 9, `${spec.label} dense touch dock key count`);
+    geometry.keys.forEach((key) => {
+      assert.ok(key.width >= 43.5 && key.height >= 43.5, `${spec.label} dock key ${key.label} is undersized`);
+    });
+    assert.ok(geometry.rect.left >= 0 && geometry.rect.top >= 0, `${spec.label} touch dock offscreen`);
+    assert.ok(geometry.rect.right <= geometry.viewport.width && geometry.rect.bottom <= geometry.viewport.height, `${spec.label} touch dock offscreen`);
+    assert.ok(geometry.horizontalOverflow <= 1, `${spec.label} embed horizontal overflow`);
+    if (spec.label.includes("short-touch")) {
+      assert.equal(geometry.flexWrap, "nowrap", `${spec.label} touch dock did not become one row`);
+      assert.ok(geometry.scrollWidth > geometry.clientWidth, `${spec.label} dense touch dock is not horizontally scrollable`);
+    }
+    await page.evaluate(() => {
+      window.__ghDockAudit = [];
+      addEventListener("keydown", (event) => window.__ghDockAudit.push([event.type, event.key, event.code]), true);
+      addEventListener("keyup", (event) => window.__ghDockAudit.push([event.type, event.key, event.code]), true);
+    });
+    await dock.locator(".gh-touch-key").first().tap();
+    assert.deepEqual(
+      await page.evaluate(() => window.__ghDockAudit),
+      [["keydown", "1", "Digit1"], ["keyup", "1", "Digit1"]],
+      `${spec.label} dock touch did not dispatch the original shortcut pair`,
+    );
+    touchDockResults.push({ label: spec.label, ...geometry });
+    await context.close();
+  }
+
   console.log(JSON.stringify({
     passed: true,
     declaredExplanationPages: days.length,
@@ -305,6 +401,7 @@ try {
     latestOverlayDate: latest.date,
     embedHidden: true,
     viewportResults,
+    touchDockResults,
     pageErrors: 0,
     sameOriginHttpFailures: 0,
   }, null, 2));

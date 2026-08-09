@@ -48,6 +48,10 @@
     backdrop-filter: blur(18px) saturate(1.16);
   }
   .gh-live-brief-header {
+    position: relative;
+    z-index: 2;
+    inset: auto !important;
+    pointer-events: auto !important;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px;
@@ -77,6 +81,9 @@
     white-space: nowrap;
   }
   .gh-live-brief-toggle {
+    position: relative;
+    z-index: 3;
+    pointer-events: auto !important;
     width: 28px;
     height: 28px;
     border: 1px solid rgba(255,255,255,.18);
@@ -192,14 +199,44 @@
     backdrop-filter: blur(18px) !important;
     box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
   }
+  .gh-work-note-trigger--contrast-safe {
+    border-color: rgba(242,195,107,.45) !important;
+    background: rgba(3,7,13,.92) !important;
+    color: #fff3cf !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,.72) !important;
+  }
   [data-gh-control-offset="true"] {
     translate: 0 var(--gh-control-offset-y, 0px) !important;
+  }
+  [data-gh-control-concealed="true"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
   [data-gh-sound-geometry="compact"] {
     height: auto !important;
     min-height: 38px !important;
     max-height: 52px !important;
     align-self: flex-start !important;
+  }
+  [data-gh-sound-touch-target="true"] {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    box-sizing: border-box !important;
+    touch-action: manipulation !important;
+  }
+  [data-gh-sound-mobile-docked="true"] {
+    position: fixed !important;
+    z-index: 2147483000 !important;
+    inset: auto max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) auto !important;
+    width: auto !important;
+    max-width: min(46vw, 184px) !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    translate: none !important;
+    transform: none !important;
   }
   .gh-work-note-trigger:focus-visible,
   .gh-live-brief-toggle:focus-visible,
@@ -354,6 +391,10 @@
     pointer-events: auto !important;
   }
   @media (max-width: 760px) {
+    .gh-work-note-trigger {
+      min-height: 44px !important;
+      max-width: calc(100vw - 24px);
+    }
     .gh-live-brief {
       max-height: min(42dvh, 340px);
       border-radius: 14px;
@@ -365,6 +406,40 @@
       max-height: min(84dvh, 760px);
       border-radius: 20px 20px 12px 12px;
       padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+    #ghWorkNoteOverlay .gh-work-note-close {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
+  @media (pointer: coarse) {
+    .gh-work-note-trigger,
+    #ghWorkNoteOverlay .gh-work-note-close {
+      min-width: 44px;
+      min-height: 44px !important;
+    }
+  }
+  @media (min-width: 761px) and (max-width: 1024px) {
+    body.gh-chamber-embed .gh-touch-key-dock {
+      width: min(520px, calc(100vw - 24px));
+    }
+  }
+  @media (max-height: 520px) {
+    body.gh-chamber-embed .gh-touch-key-dock {
+      max-height: calc(100dvh - 24px);
+      padding: 7px 9px 9px;
+    }
+    body.gh-chamber-embed .gh-touch-key-dock .gh-touch-keys {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      padding: 0 2px 5px;
+      scrollbar-color: rgba(242,195,107,.42) transparent;
+      scrollbar-width: thin;
+    }
+    body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key {
+      flex: 0 0 auto;
     }
   }
 </style>
@@ -473,6 +548,9 @@
     });
     document.addEventListener('keydown', handleWorkNoteKeydown);
     refreshFloatingChrome();
+    scheduleFloatingChromeRefresh();
+    document.addEventListener('click', scheduleFloatingChromeRefresh);
+    document.addEventListener('keyup', scheduleFloatingChromeRefresh);
     window.addEventListener('resize', refreshFloatingChrome);
     window.addEventListener('orientationchange', refreshFloatingChrome);
     window.addEventListener('load', refreshFloatingChrome);
@@ -655,12 +733,29 @@
       if (!(element.innerText || '').trim()) continue;
       element.dataset.ghBriefCovered = 'true';
     }
+    if (isTouchLayout() && window.innerHeight <= 520) {
+      const compactCandidates = document.querySelectorAll(
+        'header,.panel,.card,.legend,.hint,.instructions,.statement,.copy,.text,.meta,.caption,'
+        + '.status,.readout,.label,.mode,.metric,aside,aside section,aside p,aside h1,aside h2,aside h3',
+      );
+      for (const element of compactCandidates) {
+        if (!(element instanceof HTMLElement)) continue;
+        if (element.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghTouchKeyDock')) continue;
+        if (element.matches('button,input,[role="button"]') || element.querySelector('button,input,[role="button"]')) continue;
+        if (!(element.innerText || element.textContent || '').trim()) continue;
+        element.dataset.ghBriefCovered = 'true';
+      }
+    }
   }
   function refreshFloatingChrome() {
     restoreNativeControlOffsets();
     maskNativeBriefCollisions();
     alignWorkNote();
     offsetNativeControlText();
+  }
+  function scheduleFloatingChromeRefresh() {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(refreshFloatingChrome));
+    window.setTimeout(refreshFloatingChrome, 420);
   }
   function createWorkNoteOverlay() {
     const overlay = makeElement('section', 'gh-work-note-overlay');
@@ -810,6 +905,68 @@
     'line-height', 'letter-spacing', 'min-height', 'box-shadow',
     '-webkit-backdrop-filter', 'backdrop-filter',
   ];
+  function isTouchLayout() {
+    return window.innerWidth <= 760 || window.matchMedia('(pointer: coarse)').matches;
+  }
+  function normalizeSoundForTouch(sound) {
+    if (!(sound instanceof HTMLElement)) return;
+    const touchLayout = isTouchLayout();
+    if (!touchLayout) {
+      sound.removeAttribute('data-gh-sound-touch-target');
+      sound.removeAttribute('data-gh-sound-mobile-docked');
+    } else if (sound.dataset.ghSoundTouchTarget !== 'true') {
+      sound.dataset.ghSoundTouchTarget = 'true';
+    }
+    if (touchLayout && sound.dataset.ghSoundMobileDocked === 'true') return;
+    const rect = sound.getBoundingClientRect();
+    const briefRect = liveBrief.getBoundingClientRect();
+    const offscreen = rect.left < 0 || rect.top < 0 || rect.right > innerWidth || rect.bottom > innerHeight;
+    if (offscreen || rectsIntersect(rect, briefRect)) {
+      sound.dataset.ghSoundMobileDocked = 'true';
+    }
+  }
+  function parsedColor(value) {
+    const match = String(value).match(/rgba?\(([^)]+)\)/i);
+    if (!match) return null;
+    const channels = match[1].split(/[\s,\/]+/).filter(Boolean).map(Number);
+    if (channels.length < 3 || channels.slice(0, 3).some((channel) => !Number.isFinite(channel))) return null;
+    return { r: channels[0], g: channels[1], b: channels[2], a: Number.isFinite(channels[3]) ? channels[3] : 1 };
+  }
+  function relativeLuminance(color) {
+    const linear = [color.r, color.g, color.b].map((channel) => {
+      const normalized = channel / 255;
+      return normalized <= .04045 ? normalized / 12.92 : ((normalized + .055) / 1.055) ** 2.4;
+    });
+    return .2126 * linear[0] + .7152 * linear[1] + .0722 * linear[2];
+  }
+  function ensureWorkNoteContrast() {
+    workNote.classList.remove('gh-work-note-trigger--contrast-safe');
+    const style = getComputedStyle(workNote);
+    const foreground = parsedColor(style.color);
+    const background = parsedColor(style.backgroundColor);
+    if (!foreground || !background || background.a < .18) {
+      workNote.classList.add('gh-work-note-trigger--contrast-safe');
+      return;
+    }
+    const light = Math.max(relativeLuminance(foreground), relativeLuminance(background));
+    const dark = Math.min(relativeLuminance(foreground), relativeLuminance(background));
+    if ((light + .05) / (dark + .05) < 3) {
+      workNote.classList.add('gh-work-note-trigger--contrast-safe');
+    }
+  }
+  function touchSoundAnchorRect(sound) {
+    if (!isTouchLayout()) return null;
+    const soundRect = sound.getBoundingClientRect();
+    const parent = sound.parentElement;
+    if (!parent || parent === document.body || parent === document.documentElement) return soundRect;
+    const parentRect = parent.getBoundingClientRect();
+    const style = getComputedStyle(parent);
+    const usableGroup = style.display !== 'none'
+      && style.visibility !== 'hidden'
+      && parentRect.width <= innerWidth * .78
+      && parentRect.height <= Math.max(76, soundRect.height * 2);
+    return usableGroup ? parentRect : null;
+  }
   function alignWorkNote() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
@@ -817,6 +974,7 @@
     let baseRight = 12;
     let baseBottom = 12;
     if (sound) {
+      normalizeSoundForTouch(sound);
       const soundStyle = getComputedStyle(sound);
       SOUND_STYLE_PROPS.forEach((prop) => {
         const value = soundStyle.getPropertyValue(prop);
@@ -827,16 +985,36 @@
       const nearBottom = soundRect.bottom > vh * 0.45;
       const nearRight = soundRect.left > vw * 0.25;
       if (compact && nearBottom && nearRight) {
-        baseRight = Math.max(12, vw - soundRect.left + GH_WORK_NOTE_GAP);
-        baseBottom = Math.max(12, vh - soundRect.bottom);
+        const noteWidth = workNote.getBoundingClientRect().width;
+        const pairFits = noteWidth + soundRect.width + GH_WORK_NOTE_GAP <= vw - 24;
+        if (pairFits) {
+          workNote.dataset.ghControlLayout = 'inline';
+          baseRight = Math.max(12, vw - soundRect.left + GH_WORK_NOTE_GAP);
+          baseBottom = Math.max(12, vh - soundRect.bottom);
+        } else {
+          workNote.dataset.ghControlLayout = 'stacked';
+          baseRight = Math.max(12, vw - soundRect.right);
+          baseBottom = Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP);
+        }
       } else if (compact) {
-        baseRight = 12;
-        baseBottom = 12;
+        const anchorRect = touchSoundAnchorRect(sound);
+        const noteWidth = workNote.getBoundingClientRect().width;
+        if (anchorRect && anchorRect.right + GH_WORK_NOTE_GAP + noteWidth <= vw - 12) {
+          workNote.dataset.ghControlLayout = 'alongside';
+          baseRight = Math.max(12, vw - anchorRect.right - GH_WORK_NOTE_GAP - noteWidth);
+          baseBottom = Math.max(12, vh - anchorRect.bottom);
+        } else {
+          workNote.dataset.ghControlLayout = 'separate';
+          baseRight = 12;
+          baseBottom = 12;
+        }
       } else {
+        workNote.dataset.ghControlLayout = 'stacked';
         baseRight = Math.max(12, vw - soundRect.right + GH_WORK_NOTE_GAP);
         baseBottom = Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP);
       }
     } else {
+      workNote.dataset.ghControlLayout = 'solo';
       SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
     }
     workNote.style.top = 'auto';
@@ -844,17 +1022,32 @@
     workNote.style.right = `${baseRight}px`;
     workNote.style.bottom = `${baseBottom}px`;
     workNote.classList.remove('gh-work-note-trigger--busy');
-    const noteRect = workNote.getBoundingClientRect();
+    let noteRect = workNote.getBoundingClientRect();
+    if (sound) {
+      const soundRect = sound.getBoundingClientRect();
+      const invalidInlinePlacement = rectsIntersect(noteRect, soundRect)
+        || noteRect.left < 12
+        || noteRect.right > vw - 12;
+      if (invalidInlinePlacement) {
+        workNote.dataset.ghControlLayout = 'stacked';
+        workNote.style.right = `${Math.max(12, vw - soundRect.right)}px`;
+        workNote.style.bottom = `${Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP)}px`;
+        noteRect = workNote.getBoundingClientRect();
+      }
+    }
     if (noteRect.left < 0) {
-      workNote.style.right = `${Math.max(12, vw - noteRect.right - 12)}px`;
+      workNote.style.right = `${Math.max(12, vw - noteRect.width - 12)}px`;
+      noteRect = workNote.getBoundingClientRect();
     }
     if (noteRect.bottom > vh) {
       workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
     }
+    ensureWorkNoteContrast();
   }
   function restoreNativeControlOffsets() {
-    document.querySelectorAll('[data-gh-control-offset="true"]').forEach((element) => {
+    document.querySelectorAll('[data-gh-control-offset="true"], [data-gh-control-concealed="true"]').forEach((element) => {
       element.removeAttribute('data-gh-control-offset');
+      element.removeAttribute('data-gh-control-concealed');
       element.style.removeProperty('--gh-control-offset-y');
     });
   }
@@ -862,23 +1055,34 @@
     return Math.min(a.right, b.right) > Math.max(a.left, b.left)
       && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top);
   }
+  function isVisiblyRendered(element) {
+    if (!(element instanceof HTMLElement)) return false;
+    for (let current = element; current instanceof HTMLElement; current = current.parentElement) {
+      const style = getComputedStyle(current);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= .01) return false;
+      if (current === document.body) break;
+    }
+    const rect = element.getBoundingClientRect();
+    return rect.width > 1 && rect.height > 1;
+  }
   function nativeControlTextCandidates(controls) {
     const maxArea = innerWidth * innerHeight * .35;
-    return [...document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div')]
+    return [...document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,aside,section')]
       .filter((element) => {
         if (!(element instanceof HTMLElement)) return false;
         if (element.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghTouchKeyDock')) return false;
-        if (controls.some((control) => element === control || control.contains(element))) return false;
-        const style = getComputedStyle(element);
+        if (controls.some((control) => element === control || control.contains(element) || element.contains(control))) return false;
         const rect = element.getBoundingClientRect();
-        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= .01) return false;
+        if (!isVisiblyRendered(element)) return false;
         if (rect.width <= 1 || rect.height <= 1 || rect.width * rect.height > maxArea) return false;
         if (rect.right < innerWidth * .48 || rect.bottom < innerHeight * .48) return false;
         if (!(element.innerText || element.textContent || '').trim()) return false;
         const directText = [...element.childNodes].some(
           (node) => node.nodeType === Node.TEXT_NODE && (node.textContent || '').trim(),
         );
-        if (!directText && !/^(H[1-6]|P|LABEL|LEGEND|FIGCAPTION|LI|A|SPAN)$/.test(element.tagName)) return false;
+        const semanticContainer = /hint|legend|keys|caption|meta|ledger|stamp|fallback|panel|controls|status|readout|copy|brief/i
+          .test(`${element.id} ${element.className}`);
+        if (!directText && !semanticContainer && !/^(H[1-6]|P|LABEL|LEGEND|FIGCAPTION|LI|A|SPAN)$/.test(element.tagName)) return false;
         return controls.some((control) => rectsIntersect(rect, control.getBoundingClientRect()));
       });
   }
@@ -933,7 +1137,12 @@
           break;
         }
       }
-      if (lift <= 0) continue;
+      if (lift <= 0) {
+        if (isTouchLayout() && innerHeight <= 520) {
+          target.dataset.ghControlConcealed = 'true';
+        }
+        continue;
+      }
       target.dataset.ghControlOffset = 'true';
       target.style.setProperty('--gh-control-offset-y', `${-Math.ceil(lift)}px`);
     }

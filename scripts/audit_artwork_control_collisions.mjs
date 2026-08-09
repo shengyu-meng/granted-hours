@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { chromium } from "@playwright/test";
 import { timetableData } from "../src/timetable/timetable-data.js";
 
@@ -8,9 +9,13 @@ const siteUrl = new URL(process.env.ARTWORK_SITE_URL || "http://127.0.0.1:8891/"
 if (!siteUrl.pathname.endsWith("/")) siteUrl.pathname += "/";
 const siteOrigin = siteUrl.origin;
 const liveArtworkMode = process.env.LIVE_ARTWORK === "1";
+const screenshotDir = process.env.ARTWORK_SCREENSHOT_DIR || "";
+if (screenshotDir) mkdirSync(screenshotDir, { recursive: true });
 const viewports = [
   { name: "desktop", width: 1280, height: 720 },
   { name: "mobile", width: 390, height: 844, isMobile: true, hasTouch: true },
+  { name: "short-touch", width: 421, height: 386, isMobile: true, hasTouch: true },
+  { name: "tablet-touch", width: 820, height: 1180, isMobile: true, hasTouch: true },
 ];
 const requestedDates = new Set((process.env.ARTWORK_DATES || "").split(",").filter(Boolean));
 const artworkDays = timetableData.days.filter(
@@ -60,13 +65,15 @@ try {
         const result = await page.evaluate(() => {
         const visible = (element) => {
           if (!(element instanceof HTMLElement)) return false;
-          const style = getComputedStyle(element);
+          for (let current = element; current instanceof HTMLElement; current = current.parentElement) {
+            const style = getComputedStyle(current);
+            if (style.display === "none"
+              || style.visibility === "hidden"
+              || Number(style.opacity) <= 0.01) return false;
+            if (current === document.body) break;
+          }
           const rect = element.getBoundingClientRect();
-          return style.display !== "none"
-            && style.visibility !== "hidden"
-            && Number(style.opacity) > 0.01
-            && rect.width > 1
-            && rect.height > 1;
+          return rect.width > 1 && rect.height > 1;
         };
         const intersect = (a, b) => (
           Math.min(a.right, b.right) > Math.max(a.left, b.left)
@@ -101,11 +108,11 @@ try {
           className: typeof element.className === "string" ? element.className : "",
           rect: element.getBoundingClientRect().toJSON(),
         }));
-        const collisions = [...document.querySelectorAll("h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div")]
+        const collisions = [...document.querySelectorAll("h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,aside,section")]
           .filter((element) => {
             if (!visible(element)) return false;
             if (element.closest("#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghTouchKeyDock")) return false;
-            if (controls.some((control) => element === control || control.contains(element))) return false;
+            if (controls.some((control) => element === control || control.contains(element) || element.contains(control))) return false;
             const text = (element.innerText || element.textContent || "").trim();
             if (!text) return false;
             const rect = element.getBoundingClientRect();
@@ -114,7 +121,9 @@ try {
             const directText = [...element.childNodes].some(
               (node) => node.nodeType === Node.TEXT_NODE && (node.textContent || "").trim(),
             );
-            if (!directText && !/^(H[1-6]|P|LABEL|LEGEND|FIGCAPTION|LI|A|SPAN)$/.test(element.tagName)) return false;
+            const semanticContainer = /hint|legend|keys|caption|meta|ledger|stamp|fallback|panel|controls|status|readout|copy|brief/i
+              .test(`${element.id} ${element.className}`);
+            if (!directText && !semanticContainer && !/^(H[1-6]|P|LABEL|LEGEND|FIGCAPTION|LI|A|SPAN)$/.test(element.tagName)) return false;
             return controlRects.some(({ rect: controlRect }) => intersect(rect, controlRect));
           })
           .map((element) => ({
@@ -125,21 +134,58 @@ try {
             rect: element.getBoundingClientRect().toJSON(),
             adjusted: element.dataset.ghControlOffset === "true",
           }));
-        const offsets = [...document.querySelectorAll('[data-gh-control-offset="true"]')].map((element) => ({
+        const offsets = [...document.querySelectorAll('[data-gh-control-offset="true"], [data-gh-control-concealed="true"]')].map((element) => ({
           tag: element.tagName,
           id: element.id || "",
           className: typeof element.className === "string" ? element.className : "",
           text: (element.innerText || element.textContent || "").trim().replace(/\s+/g, " ").slice(0, 180),
           offset: getComputedStyle(element).getPropertyValue("--gh-control-offset-y").trim(),
+          concealed: element.dataset.ghControlConcealed === "true",
           rect: element.getBoundingClientRect().toJSON(),
         }));
-        return { controlRects, collisions, offsets };
+        const brief = document.querySelector("#ghLiveBrief");
+        const briefRect = visible(brief) ? brief.getBoundingClientRect() : null;
+        const noteRect = note.getBoundingClientRect();
+        const soundRect = sound ? sound.getBoundingClientRect() : null;
+        const touchLayout = matchMedia("(pointer: coarse)").matches || innerWidth <= 760;
+        const offscreenControls = controlRects.filter(({ rect }) => (
+          rect.left < -1 || rect.top < -1 || rect.right > innerWidth + 1 || rect.bottom > innerHeight + 1
+        ));
+        const controlOverlap = soundRect && intersect(noteRect, soundRect);
+        const briefSoundOverlap = briefRect && soundRect && intersect(briefRect, soundRect);
+        const undersizedTouchControls = touchLayout
+          ? controlRects.filter(({ rect }) => rect.width < 43.5 || rect.height < 43.5)
+          : [];
+        return {
+          controlRects,
+          collisions,
+          offsets,
+          offscreenControls,
+          controlOverlap,
+          briefSoundOverlap,
+          undersizedTouchControls,
+          noteLayout: note.dataset.ghControlLayout || "",
+          soundDocked: sound?.dataset.ghSoundMobileDocked === "true",
+          noteContrastSafe: note.classList.contains("gh-work-note-trigger--contrast-safe"),
+        };
         });
-        if (result.collisions.length) {
+        if (
+          result.collisions.length
+          || result.offscreenControls.length
+          || result.controlOverlap
+          || result.briefSoundOverlap
+          || result.undersizedTouchControls.length
+        ) {
           findings.push({ date: day.date, viewport: viewport.name, ...result });
         }
         if (result.offsets.length) {
           adjustments.push({ date: day.date, viewport: viewport.name, targets: result.offsets });
+        }
+        if (screenshotDir && liveArtworkMode) {
+          await page.screenshot({
+            path: join(screenshotDir, `${day.date}-${viewport.name}.png`),
+            animations: "disabled",
+          });
         }
       } finally {
         await page.close();
