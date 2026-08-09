@@ -343,13 +343,15 @@ h1 {
 .legend-line.self { background: linear-gradient(90deg, var(--cyan), var(--gold)); }
 
 .month-grid {
+  --month-header-height: 24px;
+  --month-row-height: clamp(92px, calc(20vh - 61.2px), 130.8px);
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: 24px;
-  grid-auto-rows: minmax(92px, 1fr);
+  grid-template-rows: var(--month-header-height);
+  grid-auto-rows: var(--month-row-height);
   gap: 0;
   min-height: 0;
-  height: min(680px, calc(100vh - 280px));
+  height: auto;
   border-top: 1px solid var(--line-strong);
   border-left: 1px solid var(--line);
   background:
@@ -1254,9 +1256,9 @@ h1 {
   }
 
   .month-grid {
-    grid-template-rows: 20px;
-    grid-auto-rows: minmax(55px, 1fr);
-    height: min(520px, calc(100vh - 210px));
+    --month-header-height: 20px;
+    --month-row-height: clamp(55px, calc(20vh - 61.2px), 99.6px);
+    height: auto;
   }
 
   .weekday-cell {
@@ -1519,7 +1521,8 @@ h1 {
 
 @media (max-width: 430px) {
   .month-grid {
-    height: min(490px, calc(100vh - 205px));
+    --month-row-height: clamp(55px, calc(20vh - 59.6px), 91.6px);
+    height: auto;
   }
 
   .weekday-cell {
@@ -3959,8 +3962,33 @@ h1,
     grid-template-columns: 44px minmax(0, 1fr) 44px;
   }
 
+  .calendar-head,
+  .month-heading,
+  .month-controls,
+  .calendar-legend,
   .month-grid {
-    height: min(520px, calc(100vh - 284px));
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .calendar-head {
+    overflow: hidden;
+  }
+
+  .today-button {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .calendar-legend {
+    flex-wrap: wrap;
+  }
+
+  .month-grid {
+    height: auto;
     border-radius: 11px;
   }
 
@@ -4030,7 +4058,7 @@ h1,
   }
 
   .month-grid {
-    height: min(480px, calc(100vh - 276px));
+    height: auto;
   }
 }
 
@@ -6111,15 +6139,14 @@ h1 {
 .calendar-bgm-toggle[aria-pressed="true"],
 .calendar-piano-toggle[aria-pressed="true"],
 .dialog-sound-toggle[aria-pressed="true"] {
-  border-color: color-mix(in srgb, var(--gold-pale) 80%, var(--cyan-trace));
+  border-color: color-mix(in srgb, var(--gold-trace) 30%, var(--hairline-strong));
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 44%, transparent), transparent 40%),
-    linear-gradient(135deg, color-mix(in srgb, var(--gold-trace) 76%, var(--cyan-trace)), color-mix(in srgb, var(--gold-pale) 58%, var(--pane-solid)));
-  color: color-mix(in srgb, var(--page-bg) 86%, black);
+    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 24%, transparent), transparent 42%),
+    color-mix(in srgb, var(--pane-strong) 92%, var(--gold-trace) 8%);
+  color: color-mix(in srgb, var(--ink) 88%, var(--gold-pale) 12%);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, white 64%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--gold-pale) 18%, transparent),
-    0 6px 16px color-mix(in srgb, var(--gold-trace) 30%, transparent);
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 42%, transparent),
+    0 3px 8px color-mix(in srgb, var(--page-bg) 18%, transparent);
   opacity: 1;
   filter: none;
 }
@@ -6127,10 +6154,10 @@ h1 {
 .calendar-bgm-toggle[aria-pressed="true"][data-suspended="true"],
 .dialog-sound-toggle[aria-pressed="true"][data-suspended="true"] {
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 34%, transparent), transparent 40%),
-    color-mix(in srgb, var(--cyan-trace) 34%, var(--pane-strong));
-  color: var(--gold-pale);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--edge-light) 44%, transparent);
+    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 22%, transparent), transparent 42%),
+    color-mix(in srgb, var(--pane-strong) 92%, var(--cyan-trace) 8%);
+  color: color-mix(in srgb, var(--ink) 90%, var(--cyan-trace) 10%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--edge-light) 38%, transparent);
 }
 
 .calendar-bgm-toggle[aria-pressed="true"] .header-control-icon-music,

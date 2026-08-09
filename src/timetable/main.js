@@ -33,6 +33,8 @@ const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
 const THEME_STORAGE_KEY = "granted-hours-theme";
 const BGM_STORAGE_KEY = "granted-hours-calendar-bgm";
+const AUDIO_DEFAULTS_STORAGE_KEY = "granted-hours-audio-defaults-version";
+const AUDIO_DEFAULTS_VERSION = "2026-08-10-default-on-v2";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
 const PIANO_STORAGE_KEY = "granted-hours-piano-sounds";
@@ -302,6 +304,7 @@ function init() {
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
+  migrateDefaultAudioPreferences();
   setupCalendarBgm();
   setupPianoSound();
   setupTimelineReverseLinking();
@@ -331,6 +334,15 @@ function init() {
     if (document.hidden) hideInspectionLens({ immediate: true });
   });
   window.setInterval(renderTimeState, 1000);
+}
+
+function migrateDefaultAudioPreferences() {
+  try {
+    if (localStorage.getItem(AUDIO_DEFAULTS_STORAGE_KEY) === AUDIO_DEFAULTS_VERSION) return;
+    localStorage.setItem(BGM_STORAGE_KEY, "on");
+    localStorage.setItem(PIANO_STORAGE_KEY, "on");
+    localStorage.setItem(AUDIO_DEFAULTS_STORAGE_KEY, AUDIO_DEFAULTS_VERSION);
+  } catch {}
 }
 
 function cacheElements() {
@@ -1391,6 +1403,7 @@ function renderMonth(options = {}) {
   const leading = mondayLeadingCount(state.visibleYear, state.visibleMonth);
   const daysInMonth = daysInUtcMonth(state.visibleYear, state.visibleMonth);
   const cellCount = Math.ceil((leading + daysInMonth) / 7) * 7;
+  els.monthGrid.dataset.weekCount = String(cellCount / 7);
   const gridStart = addDays(firstDate, -leading);
 
   for (let index = 0; index < cellCount; index += 1) {

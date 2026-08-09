@@ -9,7 +9,12 @@ const failures = [];
 async function unobstructedTarget(page, expected = null) {
   return page.evaluate((match) => {
     const events = [...document.querySelectorAll(".timeline-event[data-reading-id]")]
-      .filter((event) => !match || event.dataset.footprintId === match.footprintId);
+      .filter((event) => !match || event.dataset.footprintId === match.footprintId)
+      .sort((first, second) => {
+        const firstRect = first.getBoundingClientRect();
+        const secondRect = second.getBoundingClientRect();
+        return (secondRect.width * secondRect.height) - (firstRect.width * firstRect.height);
+      });
     for (const event of events) {
       const rect = event.getBoundingClientRect();
       for (let yStep = 1; yStep <= 4; yStep += 1) {
