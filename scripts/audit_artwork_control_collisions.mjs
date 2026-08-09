@@ -4,8 +4,9 @@ import { readFileSync } from "node:fs";
 import { chromium } from "@playwright/test";
 import { timetableData } from "../src/timetable/timetable-data.js";
 
-const siteUrl = process.env.ARTWORK_SITE_URL || "http://127.0.0.1:8891/";
-const siteOrigin = new URL(siteUrl).origin;
+const siteUrl = new URL(process.env.ARTWORK_SITE_URL || "http://127.0.0.1:8891/");
+if (!siteUrl.pathname.endsWith("/")) siteUrl.pathname += "/";
+const siteOrigin = siteUrl.origin;
 const liveArtworkMode = process.env.LIVE_ARTWORK === "1";
 const viewports = [
   { name: "desktop", width: 1280, height: 720 },
@@ -33,7 +34,10 @@ try {
     const inspect = async (day) => {
       const [year, month] = day.date.split("-");
       const page = await context.newPage();
-      const url = `${siteOrigin}/archive/${year}/${month}/${day.date}/live/?from=collision-audit`;
+      const url = new URL(
+        `archive/${year}/${month}/${day.date}/live/?from=collision-audit`,
+        siteUrl,
+      ).href;
       try {
         if (liveArtworkMode) {
           const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
