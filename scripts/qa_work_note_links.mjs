@@ -193,10 +193,12 @@ try {
         return style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0.01 && rect.width > 1 && rect.height > 1;
       };
       const trigger = document.querySelector("#ghWorkNoteTrigger");
+      const brief = document.querySelector("#ghLiveBrief[data-gh-live-brief='bilingual']");
       const sound = [...document.querySelectorAll(
         '#sound, .sound, #soundToggle, #musicToggle, button[id*="sound" i], button[id*="music" i], button[id*="bgm" i]',
       )].find(isVisible);
       const triggerRect = trigger.getBoundingClientRect();
+      const briefRect = brief?.getBoundingClientRect();
       const soundRect = sound?.getBoundingClientRect();
       const overlapWidth = soundRect
         ? Math.max(0, Math.min(triggerRect.right, soundRect.right) - Math.max(triggerRect.left, soundRect.left))
@@ -210,6 +212,7 @@ try {
       )].filter((el) => isVisible(el)
         && (el.innerText || "").trim().length > 0
         && !el.closest("#ghWorkNoteOverlay")
+        && !el.closest("#ghLiveBrief")
         && el !== trigger
         && !(sound && (el === sound || sound.contains(el)))
         && el.getBoundingClientRect().width * el.getBoundingClientRect().height <= viewportArea * 0.55);
@@ -230,10 +233,23 @@ try {
         && soundRect.width <= innerWidth * 0.45
         && soundRect.bottom > innerHeight * 0.45,
       );
+      const briefOverlapWidth = briefRect
+        ? Math.max(0, Math.min(triggerRect.right, briefRect.right) - Math.max(triggerRect.left, briefRect.left))
+        : 0;
+      const briefOverlapHeight = briefRect
+        ? Math.max(0, Math.min(triggerRect.bottom, briefRect.bottom) - Math.max(triggerRect.top, briefRect.top))
+        : 0;
       return {
         viewport: { width: innerWidth, height: innerHeight },
         horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         trigger: triggerRect.toJSON(),
+        brief: briefRect ? briefRect.toJSON() : null,
+        briefExpanded: brief?.querySelector(".gh-live-brief-toggle")?.getAttribute("aria-expanded"),
+        briefSummaryZh: (brief?.querySelector("[data-gh-brief-section='summary'] [lang='zh-CN']")?.textContent || "").trim(),
+        briefSummaryEn: (brief?.querySelector("[data-gh-brief-section='summary'] [lang='en']")?.textContent || "").trim(),
+        briefInstructionsZh: (brief?.querySelector("[data-gh-brief-section='instructions'] [lang='zh-CN']")?.textContent || "").trim(),
+        briefInstructionsEn: (brief?.querySelector("[data-gh-brief-section='instructions'] [lang='en']")?.textContent || "").trim(),
+        briefTriggerOverlapArea: briefOverlapWidth * briefOverlapHeight,
         sound: soundRect ? soundRect.toJSON() : null,
         triggerLeftOfSound: Boolean(soundRect && triggerRect.right <= soundRect.left + 1),
         bottomAlignedWithSound: Boolean(soundRect && Math.abs(triggerRect.bottom - soundRect.bottom) <= 2),
@@ -246,6 +262,13 @@ try {
     });
     assert.ok(geometry.horizontalOverflow <= 1, `${spec.label} horizontal overflow`);
     assert.ok(geometry.trigger.height >= 37.5, `${spec.label} trigger touch target`);
+    assert.ok(geometry.brief, `${spec.label} bilingual brief missing`);
+    assert.equal(geometry.briefExpanded, "true", `${spec.label} bilingual brief not expanded by default`);
+    assert.ok(geometry.briefSummaryZh && geometry.briefSummaryEn, `${spec.label} bilingual summary missing`);
+    assert.ok(geometry.briefInstructionsZh && geometry.briefInstructionsEn, `${spec.label} bilingual instructions missing`);
+    assert.ok(geometry.brief.left >= 0 && geometry.brief.top >= 0, `${spec.label} bilingual brief offscreen`);
+    assert.ok(geometry.brief.right <= geometry.viewport.width && geometry.brief.bottom <= geometry.viewport.height, `${spec.label} bilingual brief offscreen`);
+    assert.equal(geometry.briefTriggerOverlapArea, 0, `${spec.label} bilingual brief overlaps work-note trigger`);
     assert.ok(geometry.trigger.left >= 0 && geometry.trigger.top >= 0, `${spec.label} trigger offscreen`);
     assert.ok(geometry.trigger.right <= geometry.viewport.width && geometry.trigger.bottom <= geometry.viewport.height, `${spec.label} trigger offscreen`);
     assert.ok(geometry.sound, `${spec.label} sound control not visible`);
@@ -254,6 +277,13 @@ try {
     }
     assert.equal(geometry.overlapArea, 0, `${spec.label} controls overlap`);
     assert.equal(geometry.textOverlapCount, 0, `${spec.label} trigger overlaps ${geometry.textOverlapCount} visible text blocks (worst ${geometry.worstTextOverlap}px²)`);
+    const briefToggle = page.locator("#ghLiveBrief .gh-live-brief-toggle");
+    if (spec.touch) await briefToggle.tap();
+    else await briefToggle.click();
+    assert.equal(await briefToggle.getAttribute("aria-expanded"), "false", `${spec.label} bilingual brief did not collapse`);
+    if (spec.touch) await briefToggle.tap();
+    else await briefToggle.click();
+    assert.equal(await briefToggle.getAttribute("aria-expanded"), "true", `${spec.label} bilingual brief did not expand`);
     if (spec.touch) await trigger.tap();
     else await trigger.click();
     const overlay = page.locator("#ghWorkNoteOverlay");

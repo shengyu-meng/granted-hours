@@ -31,6 +31,95 @@
     border-color: rgba(242,195,107,.58);
     color: #fff3cf;
   }
+  .gh-live-brief {
+    position: fixed;
+    z-index: 2147482900;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    width: min(352px, calc(100vw - 24px));
+    max-height: min(46vh, 390px);
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.19);
+    border-radius: 16px;
+    background: rgba(3,7,13,.92);
+    color: rgba(250,246,237,.94);
+    box-shadow: 0 16px 50px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.16);
+    backdrop-filter: blur(18px) saturate(1.16);
+  }
+  .gh-live-brief-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: start;
+    border-bottom: 1px solid rgba(255,255,255,.11);
+    padding: 11px 11px 10px 14px;
+  }
+  .gh-live-brief-kicker,
+  .gh-live-brief-title,
+  .gh-live-brief-label,
+  .gh-live-brief-copy {
+    margin: 0;
+  }
+  .gh-live-brief-kicker,
+  .gh-live-brief-label {
+    color: rgba(242,195,107,.88);
+    font: 10px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .075em;
+    text-transform: uppercase;
+  }
+  .gh-live-brief-title {
+    margin-top: 3px;
+    overflow: hidden;
+    color: #fff8ea;
+    font: 500 14px/1.3 Georgia, 'Times New Roman', serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .gh-live-brief-toggle {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px;
+    padding: 0;
+    background: rgba(255,255,255,.055);
+    color: rgba(250,246,237,.88);
+    font: 15px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    cursor: pointer;
+  }
+  .gh-live-brief-body {
+    max-height: min(calc(46vh - 62px), 328px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 2px 14px 13px;
+    scrollbar-color: rgba(242,195,107,.42) transparent;
+    scrollbar-width: thin;
+  }
+  .gh-live-brief-body::-webkit-scrollbar { width: 6px; }
+  .gh-live-brief-body::-webkit-scrollbar-track { background: transparent; }
+  .gh-live-brief-body::-webkit-scrollbar-thumb {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: rgba(242,195,107,.42);
+    background-clip: padding-box;
+  }
+  .gh-live-brief-section { padding-top: 10px; }
+  .gh-live-brief-copy {
+    margin-top: 5px;
+    color: rgba(250,246,237,.92);
+    font: 12px/1.48 Georgia, 'Times New Roman', serif;
+  }
+  .gh-live-brief-copy[lang="en"] { color: rgba(250,246,237,.7); }
+  .gh-live-brief.is-collapsed { width: min(284px, calc(100vw - 24px)); }
+  .gh-live-brief.is-collapsed .gh-live-brief-header { border-bottom: 0; }
+  .gh-live-brief.is-collapsed .gh-live-brief-body { display: none; }
+  [data-gh-brief-covered="true"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
   .gh-work-note-trigger--busy {
     background: rgba(3,7,13,.97) !important;
     -webkit-backdrop-filter: blur(18px) !important;
@@ -38,6 +127,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
   }
   .gh-work-note-trigger:focus-visible,
+  .gh-live-brief-toggle:focus-visible,
   .gh-work-note-close:focus-visible,
   .gh-work-note-archive:focus-visible {
     outline: 2px solid rgba(242,195,107,.82);
@@ -141,6 +231,7 @@
     visibility: hidden !important;
   }
   body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-live-brief,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
   body.gh-chamber-embed #soundToggle,
@@ -170,6 +261,11 @@
     pointer-events: none !important;
   }
   @media (max-width: 760px) {
+    .gh-live-brief {
+      max-height: min(42dvh, 340px);
+      border-radius: 14px;
+    }
+    .gh-live-brief-body { max-height: min(calc(42dvh - 62px), 278px); }
     #ghWorkNoteOverlay { align-items: end; padding: 10px; }
     #ghWorkNoteOverlay .gh-work-note-panel {
       width: 100%;
@@ -246,6 +342,7 @@
   workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
   workNote.setAttribute('aria-haspopup', 'dialog');
   workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const liveBrief = createLiveBrief();
   const workNoteOverlay = createWorkNoteOverlay();
   let workNoteLastFocus = null;
   document.addEventListener('DOMContentLoaded', init, { once: true });
@@ -270,8 +367,10 @@
       window.setTimeout(silenceEmbeddedMedia, 250);
       return;
     }
-    document.body.append(workNote, workNoteOverlay);
+    document.body.append(liveBrief, workNote, workNoteOverlay);
     hideNativeWorkNoteTriggers();
+    maskNativeBriefCollisions();
+    liveBrief.querySelector('.gh-live-brief-toggle').addEventListener('click', toggleLiveBrief);
     workNote.addEventListener('click', openWorkNote);
     workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
     workNoteOverlay.addEventListener('click', (event) => {
@@ -279,10 +378,10 @@
     });
     document.addEventListener('keydown', handleWorkNoteKeydown);
     alignWorkNote();
-    window.addEventListener('resize', alignWorkNote);
-    window.addEventListener('orientationchange', alignWorkNote);
-    window.addEventListener('load', alignWorkNote);
-    [1200, 3000, 6000].forEach((ms) => window.setTimeout(alignWorkNote, ms));
+    window.addEventListener('resize', refreshFloatingChrome);
+    window.addEventListener('orientationchange', refreshFloatingChrome);
+    window.addEventListener('load', refreshFloatingChrome);
+    [1200, 3000, 6000].forEach((ms) => window.setTimeout(refreshFloatingChrome, ms));
     watchSoundControl();
   }
   function makeElement(tag, className, text = '') {
@@ -298,6 +397,88 @@
     if (en) section.append(makeElement('p', 'gh-work-note-en', en));
     if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
     return section;
+  }
+  function makeLiveBriefSection(label, en, zh, kind) {
+    const section = makeElement('section', `gh-live-brief-section gh-live-brief-${kind}`);
+    section.dataset.ghBriefSection = kind;
+    section.append(makeElement('h3', 'gh-live-brief-label', label));
+    const zhCopy = makeElement('p', 'gh-live-brief-copy gh-live-brief-zh', zh);
+    zhCopy.lang = 'zh-CN';
+    const enCopy = makeElement('p', 'gh-live-brief-copy gh-live-brief-en', en);
+    enCopy.lang = 'en';
+    section.append(zhCopy, enCopy);
+    return section;
+  }
+  function createLiveBrief() {
+    const brief = makeElement('aside', 'gh-live-brief');
+    brief.id = 'ghLiveBrief';
+    brief.dataset.ghLiveBrief = 'bilingual';
+    brief.setAttribute('role', 'region');
+    brief.setAttribute('aria-label', 'Bilingual artwork brief and instructions / 作品双语简述与操作说明');
+    const header = makeElement('header', 'gh-live-brief-header');
+    const heading = makeElement('div', 'gh-live-brief-heading');
+    heading.append(
+      makeElement('p', 'gh-live-brief-kicker', 'BRIEF / 略说'),
+      makeElement('h2', 'gh-live-brief-title', `${WORK_NOTE.title_zh} / ${WORK_NOTE.title_en}`),
+    );
+    const toggle = makeElement('button', 'gh-live-brief-toggle', '−');
+    toggle.type = 'button';
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-controls', 'ghLiveBriefBody');
+    toggle.setAttribute('aria-label', 'Collapse bilingual brief / 收起双语简述');
+    header.append(heading, toggle);
+    const body = makeElement('div', 'gh-live-brief-body');
+    body.id = 'ghLiveBriefBody';
+    body.append(
+      makeLiveBriefSection('Brief / 作品简述', WORK_NOTE.intention_en, WORK_NOTE.intention_zh, 'summary'),
+      makeLiveBriefSection('How to interact / 操作说明', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh, 'instructions'),
+    );
+    brief.append(header, body);
+    return brief;
+  }
+  function toggleLiveBrief() {
+    const collapsed = liveBrief.classList.toggle('is-collapsed');
+    const toggle = liveBrief.querySelector('.gh-live-brief-toggle');
+    toggle.textContent = collapsed ? '+' : '−';
+    toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    toggle.setAttribute(
+      'aria-label',
+      collapsed ? 'Expand bilingual brief / 展开双语简述' : 'Collapse bilingual brief / 收起双语简述',
+    );
+    if (collapsed) restoreNativeBriefCollisions();
+    else window.requestAnimationFrame(maskNativeBriefCollisions);
+    window.requestAnimationFrame(alignWorkNote);
+  }
+  function restoreNativeBriefCollisions() {
+    document.querySelectorAll('[data-gh-brief-covered="true"]').forEach((element) => {
+      element.removeAttribute('data-gh-brief-covered');
+    });
+  }
+  function maskNativeBriefCollisions() {
+    restoreNativeBriefCollisions();
+    if (liveBrief.classList.contains('is-collapsed')) return;
+    const briefRect = liveBrief.getBoundingClientRect();
+    const maxArea = window.innerWidth * window.innerHeight * 0.55;
+    const candidates = document.querySelectorAll(
+      'h1,h2,h3,h4,p,.title,.subtitle,.brief,.statement,.instructions,.intro,.description,.copy,.text',
+    );
+    for (const element of candidates) {
+      if (!(element instanceof HTMLElement)) continue;
+      if (element.closest('#ghLiveBrief') || element.closest('#ghWorkNoteOverlay')) continue;
+      const style = getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+      const rect = element.getBoundingClientRect();
+      if (rect.width <= 1 || rect.height <= 1 || rect.width * rect.height > maxArea) continue;
+      const overlapWidth = Math.min(briefRect.right, rect.right) - Math.max(briefRect.left, rect.left);
+      const overlapHeight = Math.min(briefRect.bottom, rect.bottom) - Math.max(briefRect.top, rect.top);
+      if (overlapWidth <= 0 || overlapHeight <= 0) continue;
+      if (!(element.innerText || '').trim()) continue;
+      element.dataset.ghBriefCovered = 'true';
+    }
+  }
+  function refreshFloatingChrome() {
+    maskNativeBriefCollisions();
+    alignWorkNote();
   }
   function createWorkNoteOverlay() {
     const overlay = makeElement('section', 'gh-work-note-overlay');
@@ -422,7 +603,7 @@
     );
     for (const el of candidates) {
       if (!(el instanceof HTMLElement)) continue;
-      if (el === workNote || el.closest('#ghWorkNoteOverlay')) continue;
+      if (el === workNote || el.closest('#ghWorkNoteOverlay') || el.closest('#ghLiveBrief')) continue;
       if (sound && (el === sound || sound.contains(el))) continue;
       const style = getComputedStyle(el);
       if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
@@ -580,6 +761,7 @@
   }
 })();
 </script>
+
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />

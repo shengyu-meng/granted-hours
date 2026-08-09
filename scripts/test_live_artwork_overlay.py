@@ -48,6 +48,9 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn(entry["title_en"], snippet)
         self.assertIn(entry["title_zh"], snippet)
         self.assertIn("gh-work-note-overlay", snippet)
+        self.assertIn("dataset.ghLiveBrief = 'bilingual'", snippet)
+        self.assertIn("Brief / 作品简述", snippet)
+        self.assertIn("How to interact / 操作说明", snippet)
         self.assertIn("aria-modal", snippet)
         self.assertIn("backdrop-filter: blur(28px)", snippet)
         self.assertIn("Close work note / 关闭作品说明", snippet)
@@ -68,6 +71,11 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
                 self.assertIn("gh-work-note-trigger", text)
                 self.assertIn("gh-work-note-overlay", text)
                 self.assertIn("gh-work-note-close", text)
+                self.assertIn("gh-live-brief", text)
+                self.assertIn("dataset.ghBriefSection = kind", text)
+                self.assertIn("Brief / 作品简述", text)
+                self.assertIn("How to interact / 操作说明", text)
+                self.assertIn("Bilingual artwork brief and instructions / 作品双语简述与操作说明", text)
                 self.assertIn("aria-modal", text)
                 match = re.search(r"const WORK_NOTE = (\{.*?\});\n", text)
                 if match is None:
@@ -101,6 +109,18 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn("const GH_WORK_NOTE_GAP = 10;", snippet)
         self.assertNotIn("IS_TIMETABLE_FULL_VIEW", snippet)
         self.assertIn("workNoteLastFocus.focus", snippet)
+
+    def test_bilingual_live_brief_is_open_by_default_and_collapsible(self) -> None:
+        snippet = importer.render_live_text_fold_snippet(importer.ENTRIES[-1])
+        self.assertIn("const liveBrief = createLiveBrief();", snippet)
+        self.assertIn("document.body.append(liveBrief, workNote, workNoteOverlay);", snippet)
+        self.assertIn("toggle.setAttribute('aria-expanded', 'true');", snippet)
+        self.assertIn("function toggleLiveBrief()", snippet)
+        self.assertIn("function maskNativeBriefCollisions()", snippet)
+        self.assertIn("function restoreNativeBriefCollisions()", snippet)
+        self.assertIn('data-gh-brief-covered="true"', snippet)
+        self.assertIn("scrollbar-color: rgba(242,195,107,.42) transparent", snippet)
+        self.assertIn('body.gh-chamber-embed .gh-live-brief', snippet)
 
 
 if __name__ == "__main__":

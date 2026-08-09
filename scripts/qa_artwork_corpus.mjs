@@ -30,6 +30,12 @@ const browser = await chromium.launch({ headless: true });
 const artworkDays = timetableData.days.filter((day) => day.autonomous_work?.origin !== "absence");
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+  // Audio integrity is checked from disk below. Aborting media here keeps the
+  // 89-page visual/DOM audit from waiting on every BGM file to finish loading.
+  await context.route("**/*", async (route) => {
+    if (route.request().resourceType() === "media") await route.abort();
+    else await route.continue();
+  });
 
   async function inspect(day) {
     const [year, month] = day.date.split("-");
@@ -44,7 +50,7 @@ try {
     });
     const url = `${siteOrigin}/archive/${year}/${month}/${day.date}/live/?from=timetable`;
     try {
-      const response = await page.goto(url, { waitUntil: "load", timeout: 45000 });
+      const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
       assert.equal(response?.status(), 200, `${day.date} HTTP ${response?.status()}`);
       await page.waitForTimeout(350);
       const allowance = allowedDays[day.date];
@@ -65,15 +71,29 @@ try {
         const visualRect = visibleCanvas?.getBoundingClientRect();
         const visibleTextRoots = [
           ...document.querySelectorAll("h1,h2,.title,.panel,.card,.label,#label,.hud,.statement,.instructions,header"),
-        ].filter(isVisible);
+        ].filter((element) => isVisible(element) && !element.closest("#ghLiveBrief"));
         const foldControl = document.querySelector(".gh-fold-toggle");
         const workNote = document.querySelector("#ghWorkNoteTrigger");
+        const liveBrief = document.querySelector("#ghLiveBrief[data-gh-live-brief='bilingual']");
+        const briefRect = liveBrief?.getBoundingClientRect();
+        const briefText = (selector, lang) => (
+          liveBrief?.querySelector(`${selector} .gh-live-brief-copy[lang='${lang}']`)?.textContent || ""
+        ).trim();
         return {
           embed: document.body.classList.contains("gh-chamber-embed"),
           folded: document.body.classList.contains("gh-text-folded"),
           bodyTextLength: document.body.innerText.trim().length,
           foldControlAbsent: !foldControl,
           workNoteVisible: isVisible(workNote),
+          liveBrief: {
+            visible: isVisible(liveBrief),
+            summaryZh: briefText("[data-gh-brief-section='summary']", "zh-CN"),
+            summaryEn: briefText("[data-gh-brief-section='summary']", "en"),
+            instructionsZh: briefText("[data-gh-brief-section='instructions']", "zh-CN"),
+            instructionsEn: briefText("[data-gh-brief-section='instructions']", "en"),
+            expanded: liveBrief?.querySelector(".gh-live-brief-toggle")?.getAttribute("aria-expanded"),
+            rect: briefRect?.toJSON() || null,
+          },
           visibleTextRootCount: visibleTextRoots.length,
           visual: visualRect
             ? {
@@ -93,8 +113,22 @@ try {
       assert.ok(state.bodyTextLength > 8, `${day.date} body is blank`);
       assert.equal(state.foldControlAbsent, true, `${day.date} fold control still exists`);
       assert.ok(state.workNoteVisible, `${day.date} work-note control is not visible`);
+      assert.ok(state.liveBrief.visible, `${day.date} bilingual top-left brief is not visible`);
+      assert.ok(state.liveBrief.summaryZh, `${day.date} Chinese brief is empty`);
+      assert.ok(state.liveBrief.summaryEn, `${day.date} English brief is empty`);
+      assert.ok(state.liveBrief.instructionsZh, `${day.date} Chinese instructions are empty`);
+      assert.ok(state.liveBrief.instructionsEn, `${day.date} English instructions are empty`);
+      assert.equal(state.liveBrief.expanded, "true", `${day.date} bilingual brief is not expanded by default`);
+      assert.ok(state.liveBrief.rect, `${day.date} bilingual brief has no geometry`);
+      assert.ok(state.liveBrief.rect.left >= 0 && state.liveBrief.rect.left <= 24, `${day.date} brief is not left-aligned`);
+      assert.ok(state.liveBrief.rect.top >= 0 && state.liveBrief.rect.top <= 24, `${day.date} brief is not top-aligned`);
+      assert.ok(state.liveBrief.rect.right <= 1280, `${day.date} brief exceeds viewport width`);
+      assert.ok(state.liveBrief.rect.bottom <= 720, `${day.date} brief exceeds viewport height`);
       if (allowance?.copy_mode !== "canvas_native") {
-        assert.ok(state.visibleTextRootCount > 0, `${day.date} title/explanation is not visible`);
+        assert.ok(
+          state.visibleTextRootCount > 0 || state.liveBrief.visible,
+          `${day.date} title/explanation is not visible`,
+        );
       }
       assert.ok(
         state.visual || (state.bodyWidth > 1 && state.bodyHeight > 1),
@@ -125,6 +159,7 @@ try {
         allowance: Boolean(allowance),
         canvas: Boolean(state.visual),
         textRoots: state.visibleTextRootCount,
+        bilingualBrief: true,
       };
     } finally {
       await page.close();
@@ -157,6 +192,7 @@ console.log(JSON.stringify({
   passed: true,
   pages: results.length,
   canvasPages: results.filter((result) => result.canvas).length,
+  bilingualBriefPages: results.filter((result) => result.bilingualBrief).length,
   explicitAllowances: results.filter((result) => result.allowance),
   pageErrors: 0,
   localHttpFailures: 0,
