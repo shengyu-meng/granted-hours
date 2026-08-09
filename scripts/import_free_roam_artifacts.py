@@ -1445,6 +1445,15 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     backdrop-filter: blur(18px) !important;
     box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
   }
+  [data-gh-control-offset="true"] {
+    translate: 0 var(--gh-control-offset-y, 0px) !important;
+  }
+  [data-gh-sound-geometry="compact"] {
+    height: auto !important;
+    min-height: 38px !important;
+    max-height: 52px !important;
+    align-self: flex-start !important;
+  }
   .gh-work-note-trigger:focus-visible,
   .gh-live-brief-toggle:focus-visible,
   .gh-work-note-close:focus-visible,
@@ -1716,7 +1725,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       if (event.target === workNoteOverlay) closeWorkNote();
     });
     document.addEventListener('keydown', handleWorkNoteKeydown);
-    alignWorkNote();
+    refreshFloatingChrome();
     window.addEventListener('resize', refreshFloatingChrome);
     window.addEventListener('orientationchange', refreshFloatingChrome);
     window.addEventListener('load', refreshFloatingChrome);
@@ -1871,7 +1880,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     );
     if (collapsed) restoreNativeBriefCollisions();
     else window.requestAnimationFrame(maskNativeBriefCollisions);
-    window.requestAnimationFrame(alignWorkNote);
+    window.requestAnimationFrame(refreshFloatingChrome);
   }
   function restoreNativeBriefCollisions() {
     document.querySelectorAll('[data-gh-brief-covered="true"]').forEach((element) => {
@@ -1901,8 +1910,10 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     }
   }
   function refreshFloatingChrome() {
+    restoreNativeControlOffsets();
     maskNativeBriefCollisions();
     alignWorkNote();
+    offsetNativeControlText();
   }
   function createWorkNoteOverlay() {
     const overlay = makeElement('section', 'gh-work-note-overlay');
@@ -1988,8 +1999,12 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     }
   }
   function hideNativeWorkNoteTriggers() {
-    document.querySelectorAll('.gh-work-note-trigger').forEach((element) => {
+    document.querySelectorAll(
+      '.gh-work-note-trigger, #noteBtn, #noteToggle, button[id*="note" i], button[aria-controls*="note" i]',
+    ).forEach((element) => {
       if (element === workNote || element.closest('#ghWorkNoteOverlay')) return;
+      const label = `${element.id} ${element.textContent || ''} ${element.getAttribute('aria-label') || ''}`;
+      if (!/note|作品说明|说明|explanation/i.test(label)) return;
       element.hidden = true;
       element.style.display = 'none';
       element.setAttribute('aria-hidden', 'true');
@@ -2000,17 +2015,43 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     'button[id*="sound" i]', 'button[id*="music" i]', 'button[id*="bgm" i]',
   ];
   function findSoundControl() {
+    const visible = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return style.display !== 'none'
+        && style.visibility !== 'hidden'
+        && Number(style.opacity) > 0.01
+        && rect.width > 1
+        && rect.height > 1;
+    };
+    const found = [];
     for (const selector of SOUND_SELECTORS) {
-      for (const element of document.querySelectorAll(selector)) {
-        if (!(element instanceof HTMLElement)) continue;
-        const style = getComputedStyle(element);
-        const rect = element.getBoundingClientRect();
-        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
-        if (rect.width <= 1 || rect.height <= 1) continue;
-        return element;
+      for (const matched of document.querySelectorAll(selector)) {
+        const element = matched.matches('button,input,[role="button"]')
+          ? matched
+          : matched.querySelector('button,input,[role="button"]') || matched;
+        if (visible(element) && !found.includes(element)) found.push(element);
       }
     }
-    return null;
+    found.sort((a, b) => {
+      const score = (element) => {
+        const rect = element.getBoundingClientRect();
+        const interactive = element.matches('button,input,[role="button"]') ? 1000 : 0;
+        const named = /sound|music|bgm/i.test(`${element.id} ${element.className}`) ? 120 : 0;
+        const compact = rect.height <= Math.max(72, innerHeight * .16) ? 60 : -300;
+        return interactive + named + compact - Math.min(rect.width * rect.height / 1000, 100);
+      };
+      return score(b) - score(a);
+    });
+    const sound = found[0] || null;
+    if (sound?.matches('button,input,[role="button"]')) {
+      const rect = sound.getBoundingClientRect();
+      if (rect.height > Math.max(72, innerHeight * .16)) {
+        sound.dataset.ghSoundGeometry = 'compact';
+      }
+    }
+    return sound;
   }
   const SOUND_STYLE_PROPS = [
     'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
@@ -2022,81 +2063,6 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     'line-height', 'letter-spacing', 'min-height', 'box-shadow',
     '-webkit-backdrop-filter', 'backdrop-filter',
   ];
-  function findVisibleTextBlocks() {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const maxArea = vw * vh * 0.55;
-    const sound = findSoundControl();
-    const blocks = [];
-    const candidates = document.querySelectorAll(
-      'h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,button',
-    );
-    for (const el of candidates) {
-      if (!(el instanceof HTMLElement)) continue;
-      if (el === workNote || el.closest('#ghWorkNoteOverlay') || el.closest('#ghLiveBrief')) continue;
-      if (sound && (el === sound || sound.contains(el))) continue;
-      const style = getComputedStyle(el);
-      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
-      const rect = el.getBoundingClientRect();
-      if (rect.width <= 1 || rect.height <= 1) continue;
-      if (rect.right < 0 || rect.bottom < 0 || rect.left > vw || rect.top > vh) continue;
-      const text = (el.innerText || '').trim();
-      if (!text) continue;
-      if (rect.width * rect.height > maxArea) continue;
-      let insideLargerBlock = false;
-      for (const block of blocks) {
-        if (
-          block.rect.left <= rect.left
-          && block.rect.top <= rect.top
-          && block.rect.right >= rect.right
-          && block.rect.bottom >= rect.bottom
-        ) {
-          insideLargerBlock = true;
-          break;
-        }
-      }
-      if (insideLargerBlock) continue;
-      blocks.push({ el, rect });
-      if (blocks.length >= 250) break;
-    }
-    return blocks;
-  }
-  function avoidOverlap(baseRight, baseBottom) {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const noteWidth = workNote.offsetWidth || 148;
-    const noteHeight = workNote.offsetHeight || 44;
-    const blocks = findVisibleTextBlocks();
-    const maxLift = Math.max(120, Math.round(vh * 0.38));
-    const maxLeft = Math.max(24, Math.round(vw * 0.18));
-    let best = null;
-    const evaluate = (right, bottom, dx, dy) => {
-      const x2 = vw - right;
-      const x1 = x2 - noteWidth;
-      const y2 = vh - bottom;
-      const y1 = y2 - noteHeight;
-      if (x1 < 0 || y1 < 0) return;
-      let score = 0;
-      for (const block of blocks) {
-        const r = block.rect;
-        const iw = Math.min(x2, r.right) - Math.max(x1, r.left);
-        const ih = Math.min(y2, r.bottom) - Math.max(y1, r.top);
-        if (iw > 0 && ih > 0) score += iw * ih;
-      }
-      const dist = dx + dy;
-      if (!best || score < best.score || (score === best.score && dist < best.dist)) {
-        best = { score, right: Math.max(12, right), bottom: Math.max(12, bottom), dist };
-      }
-    };
-    for (let dy = 0; dy <= maxLift; dy += 4) {
-      if (best && best.score === 0 && dy > best.dist) break;
-      for (let dx = 0; dx <= maxLeft; dx += 4) {
-        evaluate(baseRight + dx, baseBottom + dy, dx, dy);
-      }
-      if (best && best.score === 0 && best.dist === 0) break;
-    }
-    return best || { score: Infinity, right: baseRight, bottom: baseBottom };
-  }
   function alignWorkNote() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
@@ -2128,10 +2094,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     }
     workNote.style.top = 'auto';
     workNote.style.left = 'auto';
-    const placed = avoidOverlap(baseRight, baseBottom);
-    workNote.style.right = `${placed.right}px`;
-    workNote.style.bottom = `${placed.bottom}px`;
-    workNote.classList.toggle('gh-work-note-trigger--busy', placed.score > 0);
+    workNote.style.right = `${baseRight}px`;
+    workNote.style.bottom = `${baseBottom}px`;
+    workNote.classList.remove('gh-work-note-trigger--busy');
     const noteRect = workNote.getBoundingClientRect();
     if (noteRect.left < 0) {
       workNote.style.right = `${Math.max(12, vw - noteRect.right - 12)}px`;
@@ -2140,13 +2105,99 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
     }
   }
+  function restoreNativeControlOffsets() {
+    document.querySelectorAll('[data-gh-control-offset="true"]').forEach((element) => {
+      element.removeAttribute('data-gh-control-offset');
+      element.style.removeProperty('--gh-control-offset-y');
+    });
+  }
+  function rectsIntersect(a, b) {
+    return Math.min(a.right, b.right) > Math.max(a.left, b.left)
+      && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top);
+  }
+  function nativeControlTextCandidates(controls) {
+    const maxArea = innerWidth * innerHeight * .35;
+    return [...document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div')]
+      .filter((element) => {
+        if (!(element instanceof HTMLElement)) return false;
+        if (element.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghTouchKeyDock')) return false;
+        if (controls.some((control) => element === control || control.contains(element))) return false;
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= .01) return false;
+        if (rect.width <= 1 || rect.height <= 1 || rect.width * rect.height > maxArea) return false;
+        if (rect.right < innerWidth * .48 || rect.bottom < innerHeight * .48) return false;
+        if (!(element.innerText || element.textContent || '').trim()) return false;
+        const directText = [...element.childNodes].some(
+          (node) => node.nodeType === Node.TEXT_NODE && (node.textContent || '').trim(),
+        );
+        if (!directText && !/^(H[1-6]|P|LABEL|LEGEND|FIGCAPTION|LI|A|SPAN)$/.test(element.tagName)) return false;
+        return controls.some((control) => rectsIntersect(rect, control.getBoundingClientRect()));
+      });
+  }
+  function nativeControlOffsetTarget(element, controls) {
+    const semanticBlock = /hint|legend|keys|caption|meta|ledger|stamp|fallback|panel|controls|status|readout|copy|brief/i;
+    const maxArea = innerWidth * innerHeight * .35;
+    let target = element;
+    for (let parent = element.parentElement; parent && parent !== document.body; parent = parent.parentElement) {
+      if (parent.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghTouchKeyDock')) break;
+      if (controls.some((control) => parent === control || parent.contains(control))) break;
+      const rect = parent.getBoundingClientRect();
+      if (rect.width <= 1 || rect.height <= 1 || rect.width * rect.height > maxArea) break;
+      const style = getComputedStyle(parent);
+      const named = semanticBlock.test(`${parent.id} ${parent.className}`);
+      const positioned = ['fixed', 'absolute', 'sticky'].includes(style.position);
+      if (named || positioned) target = parent;
+    }
+    return target;
+  }
+  function offsetNativeControlText() {
+    if (IS_EMBED) return;
+    const sound = findSoundControl();
+    const controls = [workNote, sound].filter((element) => element instanceof HTMLElement);
+    const targets = [...new Set(nativeControlTextCandidates(controls).map(
+      (element) => nativeControlOffsetTarget(element, controls),
+    ))];
+    for (const target of targets) {
+      const rect = target.getBoundingClientRect();
+      const horizontallyRelevant = controls
+        .map((control) => control.getBoundingClientRect())
+        .filter((controlRect) => (
+          Math.min(rect.right, controlRect.right) > Math.max(rect.left, controlRect.left)
+        ));
+      if (!horizontallyRelevant.some((controlRect) => rectsIntersect(rect, controlRect))) continue;
+      const maxLift = Math.ceil(Math.max(48, innerHeight * .32));
+      let lift = 0;
+      for (let candidate = 1; candidate <= maxLift; candidate += 1) {
+        const shifted = {
+          left: rect.left,
+          right: rect.right,
+          top: rect.top - candidate,
+          bottom: rect.bottom - candidate,
+        };
+        const clear = horizontallyRelevant.every((controlRect) => !rectsIntersect(shifted, {
+          left: controlRect.left,
+          right: controlRect.right,
+          top: controlRect.top - GH_WORK_NOTE_GAP,
+          bottom: controlRect.bottom + GH_WORK_NOTE_GAP,
+        }));
+        if (clear) {
+          lift = candidate;
+          break;
+        }
+      }
+      if (lift <= 0) continue;
+      target.dataset.ghControlOffset = 'true';
+      target.style.setProperty('--gh-control-offset-y', `${-Math.ceil(lift)}px`);
+    }
+  }
   let soundObserver = null;
   function watchSoundControl() {
     soundObserver?.disconnect();
     const sound = findSoundControl();
     if (!sound) {
       soundObserver = new MutationObserver(() => {
-        window.requestAnimationFrame(alignWorkNote);
+        window.requestAnimationFrame(refreshFloatingChrome);
         if (findSoundControl()) {
           soundObserver.disconnect();
           watchSoundControl();
@@ -2156,7 +2207,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       return;
     }
     soundObserver = new MutationObserver(() => {
-      window.requestAnimationFrame(alignWorkNote);
+      window.requestAnimationFrame(refreshFloatingChrome);
     });
     soundObserver.observe(sound, { attributes: true, childList: true, subtree: true, characterData: true });
   }

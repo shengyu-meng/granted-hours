@@ -214,7 +214,8 @@ try {
         && !el.closest("#ghWorkNoteOverlay")
         && !el.closest("#ghLiveBrief")
         && el !== trigger
-        && !(sound && (el === sound || sound.contains(el)))
+        && !el.contains(trigger)
+        && !(sound && (el === sound || sound.contains(el) || el.contains(sound)))
         && el.getBoundingClientRect().width * el.getBoundingClientRect().height <= viewportArea * 0.55);
       let textOverlapCount = 0;
       let worstTextOverlap = 0;
