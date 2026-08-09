@@ -107,7 +107,7 @@ try {
   const initialUrl = new URL(baseUrl);
   initialUrl.searchParams.set("date", sampleDate);
   initialUrl.searchParams.set("regression", "calendar-enrichment");
-  await page.goto(initialUrl.href, { waitUntil: "networkidle" });
+  await page.goto(initialUrl.href, { waitUntil: "domcontentloaded" });
   await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
   await page.keyboard.press("Escape");
 
@@ -224,11 +224,11 @@ try {
     }
   });
 
-  await check("calendar exposes canonical work and sanitized source-day links without an iframe chamber", async () => {
+  await check("calendar opens autonomous work in one interactive in-page chamber", async () => {
     const linkedDateUrl = new URL(baseUrl);
     linkedDateUrl.searchParams.set("date", "2026-07-17");
     linkedDateUrl.searchParams.set("regression", "calendar-enrichment");
-    await page.goto(linkedDateUrl.href, { waitUntil: "networkidle" });
+    await page.goto(linkedDateUrl.href, { waitUntil: "domcontentloaded" });
     await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-07-17"]');
     const result = await page.locator("#enterAutonomous").evaluate((card) => {
       const previewLink = card.querySelector(".autonomous-preview-frame");
@@ -241,17 +241,13 @@ try {
         cardHref: card.getAttribute("href"),
         cardTarget: card.getAttribute("target"),
         previewTag: previewLink?.tagName || "",
-        previewHref: previewLink?.href || "",
-        previewTarget: previewLink?.target || "",
-        previewRel: previewLink?.rel || "",
+        previewPopup: previewLink?.getAttribute("aria-haspopup") || "",
         previewName: previewLink?.getAttribute("aria-label") || "",
         liveTag: liveLink?.tagName || "",
-        href: liveLink?.href || "",
-        target: liveLink?.target || "",
-        rel: liveLink?.rel || "",
+        livePopup: liveLink?.getAttribute("aria-haspopup") || "",
         sourceTag: sourceDayLink?.tagName || "",
         sourceHref: sourceDayLink?.href || "",
-        chamberCount: document.querySelectorAll("#crystalChamber,#liveFrame").length,
+        chamberCount: document.querySelectorAll("#artworkDialog,#artworkLiveFrame").length,
       };
     });
     assert.equal(result.tag, "ARTICLE", JSON.stringify(result));
@@ -259,20 +255,33 @@ try {
     assert.equal(result.tabindex, null, JSON.stringify(result));
     assert.equal(result.cardHref, null, JSON.stringify(result));
     assert.equal(result.cardTarget, null, JSON.stringify(result));
-    assert.equal(result.previewTag, "A", JSON.stringify(result));
-    assert.equal(result.liveTag, "A", JSON.stringify(result));
+    assert.equal(result.previewTag, "BUTTON", JSON.stringify(result));
+    assert.equal(result.liveTag, "BUTTON", JSON.stringify(result));
     assert.equal(result.sourceTag, "A", JSON.stringify(result));
     assert.match(result.sourceHref, /[?&]date=\d{4}-\d{2}-\d{2}(?:&|$)/);
-    assert.equal(result.previewTarget, "_blank", JSON.stringify(result));
-    assert.equal(result.target, "_blank", JSON.stringify(result));
-    assert.match(result.previewRel, /noopener/);
-    assert.match(result.rel, /noopener/);
-    assert.match(result.previewName, /Open complete live work/);
-    assert.equal(result.previewHref, result.href);
-    assert.match(result.href, /\/live\//);
-    assert.doesNotMatch(result.href, /[?&]embed=calendar/);
-    assert.match(result.href, /[?&]from=timetable(?:&|$)/);
-    assert.equal(result.chamberCount, 0, JSON.stringify(result));
+    assert.equal(result.previewPopup, "dialog", JSON.stringify(result));
+    assert.equal(result.livePopup, "dialog", JSON.stringify(result));
+    assert.match(result.previewName, /Open interactive artwork in the calendar/);
+    assert.equal(result.chamberCount, 2, JSON.stringify(result));
+
+    const pageCountBefore = context.pages().length;
+    await page.locator(".autonomous-preview-frame").click();
+    await page.waitForSelector("#artworkDialog.is-open");
+    const chamber = await page.evaluate(() => ({
+      dialogOpen: !document.querySelector("#artworkDialog").hidden,
+      iframeSrc: document.querySelector("#artworkLiveFrame").src,
+      calendarPaused: document.querySelector("#calendarBgm").paused,
+      suspended: document.querySelector("#calendarBgmToggle").dataset.suspended,
+    }));
+    assert.equal(context.pages().length, pageCountBefore, JSON.stringify(chamber));
+    assert.equal(chamber.dialogOpen, true, JSON.stringify(chamber));
+    assert.equal(chamber.calendarPaused, true, JSON.stringify(chamber));
+    assert.equal(chamber.suspended, "true", JSON.stringify(chamber));
+    assert.match(chamber.iframeSrc, /\/live\//);
+    assert.match(chamber.iframeSrc, /[?&]embed=calendar(?:&|$)/);
+    assert.match(chamber.iframeSrc, /[?&]gh_channel=[a-f0-9]{32}(?:&|$)/);
+    await page.locator("#closeArtworkDetail").click();
+    await page.waitForSelector("#artworkDialog", { state: "hidden" });
   });
 
   await check("representative embed variants hide chrome and begin with media safely paused", async () => {

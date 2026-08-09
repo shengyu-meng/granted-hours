@@ -20,8 +20,8 @@
       })();
     </script>
     <title>Granted Hours / 授时</title>
-    <script type="module" crossorigin src="./assets/index-ByEuPoOS.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BqFnYLA5.css">
+    <script type="module" crossorigin src="./assets/index-BMM__FJ2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B1rhKbNd.css">
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
@@ -126,16 +126,24 @@
 
     <section class="artwork-dialog" id="artworkDialog" role="dialog" aria-modal="true" aria-labelledby="artworkDetailTitle" aria-describedby="artworkDetailMeta" hidden>
       <div class="artwork-dialog-panel" id="artworkDialogPanel" role="document">
-        <button class="artwork-dialog-close" id="closeArtworkDetail" type="button" aria-label="Close artwork detail / 关闭作品详情">
-          <span aria-hidden="true">×</span>
-        </button>
+        <div class="artwork-dialog-actions">
+          <button class="artwork-dialog-fullscreen" id="artworkFullscreen" type="button" aria-pressed="false">Fullscreen / 全屏</button>
+          <button class="artwork-dialog-close" id="closeArtworkDetail" type="button" aria-label="Close artwork detail / 关闭作品详情">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
         <p class="artwork-detail-kicker">Autonomous artwork / AI 自主作品</p>
         <h2 id="artworkDetailTitle"></h2>
         <p class="artwork-detail-meta" id="artworkDetailMeta"></p>
         <div class="artwork-detail-layout">
-          <figure class="artwork-detail-preview-frame">
-            <img id="artworkDetailPreview" alt="" loading="eager">
-          </figure>
+          <div class="artwork-live-stage">
+            <iframe
+              id="artworkLiveFrame"
+              title="Interactive autonomous artwork / AI 自主互动作品"
+              allow="autoplay; fullscreen; gamepad; clipboard-write"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
           <div class="artwork-detail-copy">
             <section class="artwork-summary-card" aria-labelledby="artworkSummaryLabel">
               <h3 id="artworkSummaryLabel">Summary / 摘要</h3>
@@ -143,13 +151,10 @@
               <div class="bilingual-summary-divider" aria-hidden="true"></div>
               <p class="artwork-summary-en" id="artworkDetailEn" lang="en"></p>
             </section>
-            <div class="artwork-bgm-control">
-              <p id="artworkBgmLabel">Artwork BGM / 作品音乐</p>
-              <audio id="artworkBgm" controls preload="metadata" aria-labelledby="artworkBgmLabel"></audio>
-            </div>
             <a class="artwork-archive-link" id="artworkArchiveLink" target="_blank" rel="noopener">View full archive page / 查看完整档案页 ↗</a>
           </div>
         </div>
+        <button class="artwork-return-calendar" id="artworkReturnCalendar" type="button" hidden>Return to calendar / 返回日历</button>
       </div>
     </section>
 

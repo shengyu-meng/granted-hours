@@ -48,7 +48,7 @@ try {
     const directUrl = new URL(baseUrl);
     directUrl.searchParams.set("date", sourceDay.date);
     directUrl.searchParams.set("qa", "dual-date");
-    await page.goto(directUrl.href, { waitUntil: "networkidle" });
+    await page.goto(directUrl.href, { waitUntil: "domcontentloaded" });
     await page.waitForSelector(
       `#dayDialog.is-open[data-selected-date="${sourceDay.date}"]`,
     );
@@ -163,14 +163,10 @@ try {
         sourceHref: sourceLink?.href,
         sourceName: sourceLink?.textContent?.trim() || "",
         previewTag: previewLink?.tagName,
-        previewHref: previewLink?.href,
-        previewTarget: previewLink?.target,
-        previewRel: previewLink?.rel,
+        previewPopup: previewLink?.getAttribute("aria-haspopup"),
         previewName: previewLink?.getAttribute("aria-label") || "",
         actionTag: actionLink?.tagName,
-        actionHref: actionLink?.href,
-        actionTarget: actionLink?.target,
-        actionRel: actionLink?.rel,
+        actionPopup: actionLink?.getAttribute("aria-haspopup"),
         collisions,
         panelScrollable: panel.scrollHeight > panel.clientHeight + 4,
         horizontalOverflow:
@@ -193,14 +189,11 @@ try {
     assert.equal(crystalState.sourceTag, "A");
     assert.match(crystalState.sourceHref, new RegExp(`[?&]date=${sourceDay.date}(?:&|$)`));
     assert.match(crystalState.sourceName, /Source|来源/);
-    assert.equal(crystalState.previewTag, "A");
-    assert.equal(crystalState.actionTag, "A");
-    assert.equal(crystalState.previewHref, crystalState.actionHref);
-    assert.equal(crystalState.previewTarget, "_blank");
-    assert.equal(crystalState.actionTarget, "_blank");
-    assert.match(crystalState.previewRel, /noopener/);
-    assert.match(crystalState.actionRel, /noopener/);
-    assert.match(crystalState.previewName, /Open complete live work/);
+    assert.equal(crystalState.previewTag, "BUTTON");
+    assert.equal(crystalState.actionTag, "BUTTON");
+    assert.equal(crystalState.previewPopup, "dialog");
+    assert.equal(crystalState.actionPopup, "dialog");
+    assert.match(crystalState.previewName, /Open interactive artwork in the calendar/);
     assert.deepEqual(crystalState.collisions, []);
     assert.equal(crystalState.panelScrollable, true);
     assert.ok(crystalState.horizontalOverflow <= 1);

@@ -19,17 +19,6 @@ const cases = [
   { date: regressionDate, width: 1440, height: 900, label: "2026-07-17-desktop-wide", compact: false, touch: false },
 ];
 
-function expectedLiveHref(date) {
-  const day = timetableData.days.find((candidate) => candidate.date === date);
-  assert.ok(day, `missing timetable day ${date}`);
-  const autonomous = day.timeline_events.find((event) => event.origin === "self");
-  assert.ok(autonomous, `missing autonomous event ${date}`);
-  const href = new URL(autonomous.live_url || day.live_url);
-  href.searchParams.set("from", "timetable");
-  href.searchParams.set("date", date);
-  return href.href;
-}
-
 function expectedVisualSource(date) {
   const day = timetableData.days.find((candidate) => candidate.date === date);
   assert.ok(day, `missing timetable day ${date}`);
@@ -171,14 +160,10 @@ async function inspect(page) {
       cardHref: card.getAttribute("href"),
       cardTarget: card.getAttribute("target"),
       previewTag: previewLink.tagName,
-      previewHref: previewLink.href,
-      previewTarget: previewLink.target,
-      previewRel: previewLink.rel,
+      previewPopup: previewLink.getAttribute("aria-haspopup"),
       previewName: previewLink.getAttribute("aria-label") || "",
       actionTag: hint.tagName,
-      actionHref: hint.href,
-      actionTarget: hint.target,
-      actionRel: hint.rel,
+      actionPopup: hint.getAttribute("aria-haspopup"),
       actionName: hint.textContent.trim(),
       className: card.className,
       compactClass: card.classList.contains("is-compact-reading-card"),
@@ -274,7 +259,7 @@ try {
     page.on("pageerror", (error) => pageErrors.push(error.message));
     const caseUrl = new URL(baseUrl);
     caseUrl.searchParams.set("date", testCase.date);
-    await page.goto(caseUrl.href, { waitUntil: "networkidle" });
+    await page.goto(caseUrl.href, { waitUntil: "domcontentloaded" });
     await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${testCase.date}"]`);
     await page.waitForFunction(
       () => document.querySelector(".timeline-reading-layer.is-placed")
@@ -320,15 +305,11 @@ try {
     check(result.cardRole === null, `${testCase.label}: article has a misleading explicit role`, failures);
     check(result.cardTabindex === null, `${testCase.label}: article remains focusable`, failures);
     check(result.cardHref === null && result.cardTarget === null, `${testCase.label}: article carries pseudo-link properties`, failures);
-    check(result.previewTag === "A", `${testCase.label}: preview is not a native link`, failures);
-    check(result.actionTag === "A", `${testCase.label}: visible action is not a native link`, failures);
-    check(result.previewHref === expectedLiveHref(testCase.date), `${testCase.label}: preview launch href changed`, failures);
-    check(result.actionHref === result.previewHref, `${testCase.label}: native launch links disagree`, failures);
-    check(result.previewTarget === "_blank" && result.actionTarget === "_blank", `${testCase.label}: direct launch target changed`, failures);
-    check(result.previewRel.split(/\s+/).includes("noopener"), `${testCase.label}: preview missing noopener`, failures);
-    check(result.actionRel.split(/\s+/).includes("noopener"), `${testCase.label}: action missing noopener`, failures);
-    check(/Open complete live work/.test(result.previewName), `${testCase.label}: preview link name is unclear`, failures);
-    check(/Open complete live work/.test(result.actionName), `${testCase.label}: action link name is unclear`, failures);
+    check(result.previewTag === "BUTTON", `${testCase.label}: preview is not an in-page dialog button`, failures);
+    check(result.actionTag === "BUTTON", `${testCase.label}: visible action is not an in-page dialog button`, failures);
+    check(result.previewPopup === "dialog" && result.actionPopup === "dialog", `${testCase.label}: artwork dialog semantics missing`, failures);
+    check(/Open interactive artwork in the calendar/.test(result.previewName), `${testCase.label}: preview button name is unclear`, failures);
+    check(/Open interactive artwork/.test(result.actionName), `${testCase.label}: action button name is unclear`, failures);
     check(
       result.previewAnimatedSource === expectedVisualSource(testCase.date)
         && archivePath(result.previewCurrentSrc) === archivePath(result.previewAnimatedSource),
@@ -379,7 +360,7 @@ try {
       check(result.fullWidthDelta <= 1, `${testCase.label}: compact card is not full reading width`, failures);
       check(Math.abs(result.leftInset) <= 0.5, `${testCase.label}: unexpected left inset`, failures);
       check(Math.abs(result.rightInset) <= 0.5, `${testCase.label}: unexpected right inset`, failures);
-      check(result.card.height >= 340 && result.card.height <= 385, `${testCase.label}: compact height ${result.card.height}`, failures);
+      check(result.card.height >= 400 && result.card.height <= 421, `${testCase.label}: compact height ${result.card.height}`, failures);
       if (testCase.width === 390) {
         check(result.card.width >= 300, `${testCase.label}: card width ${result.card.width}`, failures);
       }
@@ -436,7 +417,7 @@ try {
       const contentExtendsBelowFrame = result.hint.bottom > result.card.bottom - 4;
       check(!result.compactClass, `${testCase.label}: desktop incorrectly compact`, failures);
       check(result.readingColumnSpan === 2, `${testCase.label}: desktop span changed`, failures);
-      check(result.card.height >= 180 && result.card.height <= 230, `${testCase.label}: desktop height changed`, failures);
+      check(result.card.height >= 260 && result.card.height <= 275, `${testCase.label}: desktop height changed`, failures);
       check(result.fullWidthDelta >= result.readingLayer.width * 0.35, `${testCase.label}: desktop card became full-width`, failures);
       check(result.preview.left >= result.copy.right - 1, `${testCase.label}: desktop is no longer side-by-side`, failures);
       check(

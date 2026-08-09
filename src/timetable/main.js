@@ -32,6 +32,7 @@ import {
 const MINUTES_PER_DAY = 24 * 60;
 const TIMEZONE = timetableData.timezone;
 const THEME_STORAGE_KEY = "granted-hours-theme";
+const BGM_STORAGE_KEY = "granted-hours-calendar-bgm";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
 const PIANO_STORAGE_KEY = "granted-hours-piano-sounds";
@@ -198,6 +199,8 @@ const state = {
   artworkDetailOpen: false,
   artworkDetailLastFocus: null,
   artworkDetailScrollTop: 0,
+  artworkMediaChannel: "",
+  artworkMediaOrigin: "",
   taskDetailOpen: false,
   taskDetailLastFocus: null,
   taskDetailScrollTop: 0,
@@ -258,6 +261,11 @@ function init() {
   els.todayButton.addEventListener("click", goToCurrentMonth);
   els.closeDetail.addEventListener("click", closeDayDetail);
   els.closeArtworkDetail.addEventListener("click", closeArtworkDetail);
+  els.artworkFullscreen.addEventListener("click", enterArtworkFullscreen);
+  els.artworkReturnCalendar.addEventListener("click", closeArtworkDetail);
+  els.artworkLiveFrame.addEventListener("load", () => {
+    if (state.artworkDetailOpen) sendArtworkMediaCommand("play");
+  });
   els.closeTaskDetail.addEventListener("click", closeTaskDetail);
   els.closeTaskDetail.addEventListener("pointerdown", (event) => {
     if (isCoarsePointerType(event.pointerType)) {
@@ -277,6 +285,7 @@ function init() {
   els.artworkDialog.addEventListener("click", (event) => {
     if (event.target === els.artworkDialog) closeArtworkDetail();
   });
+  document.addEventListener("fullscreenchange", syncArtworkFullscreenState);
 
   document.addEventListener("keydown", handleDocumentKeydown);
   document.addEventListener("pointerdown", handleDocumentPointerdown);
@@ -310,14 +319,15 @@ function cacheElements() {
     "calendarPianoToggleDialog",
     "clockTime",
     "artworkArchiveLink",
-    "artworkBgm",
     "artworkDetailEn",
     "artworkDetailMeta",
-    "artworkDetailPreview",
     "artworkDetailTitle",
     "artworkDetailZh",
     "artworkDialog",
     "artworkDialogPanel",
+    "artworkFullscreen",
+    "artworkLiveFrame",
+    "artworkReturnCalendar",
     "closeArtworkDetail",
     "closeDetail",
     "closeTaskDetail",
@@ -943,14 +953,25 @@ function setStaticCopy() {
 
 function setupCalendarBgm() {
   if (!timetableData.bgm_playlist?.length) {
-    els.calendarBgmToggle.disabled = true;
+    for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog]) {
+      button.disabled = true;
+    }
     updateCalendarBgmControl("No archived BGM / 暂无归档音乐");
     return;
   }
+  let saved = "";
+  try {
+    saved = localStorage.getItem(BGM_STORAGE_KEY) || "";
+  } catch {}
+  state.calendarBgmDesiredPlaying = saved !== "off";
   els.calendarBgm.volume = 0.34;
   setCalendarBgmTrack(0);
   setCalendarBgmPlaying(false);
-  updateCalendarBgmControl("Latest track ready · click to play / 最新作品音乐已就绪");
+  updateCalendarBgmControl(
+    state.calendarBgmDesiredPlaying
+      ? "Timeline BGM enabled · interact once to start / 月历音乐已开启 · 互动一次后播放"
+      : "Timeline BGM off · press to turn on / 月历音乐已关闭 · 点击开启",
+  );
 }
 
 function setCalendarBgmTrack(index) {
@@ -973,41 +994,54 @@ function ensureCalendarBgmSource() {
 
 function toggleCalendarBgm() {
   if (!timetableData.bgm_playlist?.length) return;
-  if (!els.calendarBgm.paused && !els.calendarBgm.ended) {
+  if (state.calendarBgmDesiredPlaying) {
     state.calendarBgmDesiredPlaying = false;
+    try {
+      localStorage.setItem(BGM_STORAGE_KEY, "off");
+    } catch {}
     setCalendarBgmPlaying(false);
     els.calendarBgm.pause();
     return;
   }
   state.calendarBgmUserActivated = true;
   state.calendarBgmDesiredPlaying = true;
+  try {
+    localStorage.setItem(BGM_STORAGE_KEY, "on");
+  } catch {}
+  attemptCalendarBgmPlayback({ userActivated: true });
+}
+
+function attemptCalendarBgmPlayback(options = {}) {
+  if (
+    !timetableData.bgm_playlist?.length
+    || !state.calendarBgmDesiredPlaying
+    || state.artworkDetailOpen
+  ) {
+    updateCalendarBgmControl();
+    return;
+  }
+  if (options.userActivated) state.calendarBgmUserActivated = true;
   ensureCalendarBgmSource();
   const playback = els.calendarBgm.play();
   if (playback && typeof playback.catch === "function") {
     playback.catch(() => {
-      state.calendarBgmDesiredPlaying = false;
       setCalendarBgmPlaying(false);
-      updateCalendarBgmControl("Playback blocked · tap again / 浏览器阻止播放，请再次点击");
+      updateCalendarBgmControl(
+        "Timeline BGM enabled · interact once to start / 月历音乐已开启 · 互动一次后播放",
+      );
     });
   }
 }
 
 function advanceCalendarBgm() {
-  const shouldContinue = state.calendarBgmUserActivated && state.calendarBgmDesiredPlaying;
+  const shouldContinue = state.calendarBgmDesiredPlaying && !state.artworkDetailOpen;
   setCalendarBgmTrack(state.calendarBgmIndex + 1);
   if (!shouldContinue) return;
-  ensureCalendarBgmSource();
-  const playback = els.calendarBgm.play();
-  if (playback && typeof playback.catch === "function") {
-    playback.catch(() => {
-      state.calendarBgmDesiredPlaying = false;
-      setCalendarBgmPlaying(false);
-    });
-  }
+  attemptCalendarBgmPlayback();
 }
 
 function handleCalendarBgmPlay() {
-  if (!state.calendarBgmDesiredPlaying) {
+  if (!state.calendarBgmDesiredPlaying || state.artworkDetailOpen) {
     els.calendarBgm.pause();
     setCalendarBgmPlaying(false);
     return;
@@ -1022,13 +1056,20 @@ function setCalendarBgmPlaying(playing) {
 
 function updateCalendarBgmControl(override = "") {
   const track = timetableData.bgm_playlist?.[state.calendarBgmIndex];
-  const actionLabel = state.calendarBgmPlaying
-    ? "Pause timeline BGM / 暂停月历音乐"
-    : "Play timeline BGM / 播放月历音乐";
+  const actionLabel = state.calendarBgmDesiredPlaying
+    ? "Timeline BGM on · press to turn off / 月历音乐已开启 · 点击关闭"
+    : "Timeline BGM off · press to turn on / 月历音乐已关闭 · 点击开启";
+  const playbackLabel = state.artworkDetailOpen && state.calendarBgmDesiredPlaying
+    ? "Paused while the artwork is active / 作品激活期间已暂时静音"
+    : state.calendarBgmPlaying
+      ? "Now playing / 正在播放"
+      : "Waiting for browser playback permission / 等待浏览器播放许可";
   const trackLabel = track ? `${track.date} · ${track.title_en} / ${track.title_zh}` : "";
-  const accessibleLabel = override || [actionLabel, trackLabel].filter(Boolean).join(". ");
+  const accessibleLabel = override || [actionLabel, playbackLabel, trackLabel].filter(Boolean).join(". ");
   for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog]) {
-    button.setAttribute("aria-pressed", state.calendarBgmPlaying ? "true" : "false");
+    button.setAttribute("aria-pressed", state.calendarBgmDesiredPlaying ? "true" : "false");
+    button.dataset.playing = state.calendarBgmPlaying ? "true" : "false";
+    button.dataset.suspended = state.artworkDetailOpen && state.calendarBgmDesiredPlaying ? "true" : "false";
     button.setAttribute("aria-label", accessibleLabel);
     button.title = actionLabel;
     button.replaceChildren(
@@ -1043,7 +1084,7 @@ function restorePianoPreference() {
   try {
     saved = localStorage.getItem(PIANO_STORAGE_KEY) || "";
   } catch {}
-  state.pianoEnabled = saved === "on";
+  state.pianoEnabled = saved !== "off";
   updatePianoControl();
 }
 
@@ -1219,6 +1260,23 @@ function updatePianoControl() {
     button.setAttribute("aria-label", actionLabel);
     button.title = "Piano-key hover sounds / 钢琴键悬停音效";
     button.replaceChildren(buildPianoIcon());
+  }
+}
+
+function activateDefaultAudioFromGesture(target) {
+  const control = target instanceof Element
+    ? target.closest(
+      "#calendarBgmToggle,#calendarBgmToggleDialog,#calendarPianoToggle,#calendarPianoToggleDialog,.autonomous-preview-frame,.autonomous-open-copy,.autonomous-touch-control",
+    )
+    : null;
+  if (control) return;
+  if (state.calendarBgmDesiredPlaying && !state.calendarBgmPlaying) {
+    attemptCalendarBgmPlayback({ userActivated: true });
+  }
+  if (state.pianoEnabled) {
+    const context = ensurePianoAudioContext();
+    context?.resume?.();
+    preloadPianoBuffers().catch(() => {});
   }
 }
 
@@ -1916,7 +1974,7 @@ function compositionHash(value) {
 
 function readingCardHeight(card, minuteHeight, isCompactReadingCanvas) {
   if (card.dataset.layer === "beacon") {
-    return isCompactReadingCanvas ? 380 : Math.max(224, minuteHeight * 60 + 60);
+    return isCompactReadingCanvas ? 416 : Math.max(268, minuteHeight * 60 + 92);
   }
   if (card.dataset.layer === "event") return card.dataset.origin === "assigned" ? 168 : 144;
   if (card.dataset.layer === "absence") return 126;
@@ -2080,7 +2138,7 @@ function buildTimelineTouchControl(day, event) {
     button.className = "timeline-touch-control autonomous-touch-control";
     button.textContent = `${event.start}-${event.end} · granted ${duration} min / 授时 ${duration} 分钟 · open-ended experience / 开放式体验 · ${event.title_en} / ${event.title_zh}`;
     button.setAttribute("aria-label", `${autonomousAccessibleName(event)}. Open interactive artwork / 打开交互作品。`);
-    button.addEventListener("click", () => openLiveArtwork(day, event));
+    button.addEventListener("click", () => openArtworkDetail(day, event, button));
     return button;
   }
   const button = document.createElement("button");
@@ -2246,7 +2304,6 @@ function buildAutonomousTimelineEvent(day, self) {
   item.setAttribute("aria-hidden", "true");
   item.dataset.start = self.start;
   item.append(buildEventFootprint("self", autonomousAccessibleName(self)));
-  const liveUrl = autonomousLiveUrl(day, self);
   const card = document.createElement("article");
   card.className = "autonomous-work-link event-reading-card autonomous-reading-card beacon-reading-card";
   card.id = "enterAutonomous";
@@ -2256,8 +2313,8 @@ function buildAutonomousTimelineEvent(day, self) {
     `${autonomousAccessibleName(self)}. ${autonomousDateRelation(self)}.`,
   );
   const liveLinkName = (
-    `Open complete live work: ${self.title_en}`
-    + ` / 打开完整实时作品：《${self.title_zh}》`
+    `Open interactive artwork in the calendar: ${self.title_en}`
+    + ` / 在日历中打开互动作品：《${self.title_zh}》`
   );
   const sourceDayCopy = self.source_day_url
     ? `<a class="autonomous-source-day-link" href="${escapeHtml(publicAssetUrl(self.source_day_url))}">来源 ${escapeHtml(self.source_date)} / Source</a>`
@@ -2294,12 +2351,16 @@ function buildAutonomousTimelineEvent(day, self) {
       <p class="autonomous-date-relation">${sourceDayCopy}<span> → 结晶 ${escapeHtml(self.crystallization_date)} / Crystallized</span></p>
       <p class="reading-summary">${escapeHtml(self.note_en)} / ${escapeHtml(self.note_zh)}</p>
     </div>
-    <a class="autonomous-preview-frame" href="${escapeHtml(liveUrl)}" target="_blank" rel="noopener" aria-label="${escapeHtml(liveLinkName)}">
+    <button class="autonomous-preview-frame" type="button" aria-haspopup="dialog" aria-label="${escapeHtml(liveLinkName)}">
       <img class="self-preview" id="selfPreview" src="${escapeHtml(publicAssetUrl(preferredVisualPreviewUrl(self.visual_preview_url)))}" data-animated-preview-url="${escapeHtml(self.visual_preview_url)}" data-static-preview-url="${escapeHtml(staticVisualPreviewUrl(self.visual_preview_url))}" alt="Text-free visual preview of ${escapeHtml(self.title_en)} / 《${escapeHtml(self.title_zh)}》无文字视觉预览" loading="eager">
-    </a>
-    <a class="autonomous-open-copy" href="${escapeHtml(liveUrl)}" target="_blank" rel="noopener">Open complete live work / 打开完整实时作品</a>
+    </button>
+    <button class="autonomous-open-copy" type="button" aria-haspopup="dialog">Open interactive artwork / 打开互动作品</button>
   `;
   applyVisualPreviewSource(card.querySelector("#selfPreview"));
+  const previewButton = card.querySelector(".autonomous-preview-frame");
+  const openButton = card.querySelector(".autonomous-open-copy");
+  previewButton.addEventListener("click", () => openArtworkDetail(day, self, previewButton));
+  openButton.addEventListener("click", () => openArtworkDetail(day, self, openButton));
   const sourceDayLink = card.querySelector(".autonomous-source-day-link");
   sourceDayLink?.addEventListener("click", (event) => {
     event.preventDefault();
@@ -2349,16 +2410,50 @@ function autonomousLiveUrl(day, self) {
   }
 }
 
-function openLiveArtwork(day, self) {
-  hideInspectionLens({ immediate: true });
-  window.open(autonomousLiveUrl(day, self), "_blank", "noopener");
+function createArtworkMediaChannel() {
+  const bytes = new Uint32Array(4);
+  crypto.getRandomValues(bytes);
+  return [...bytes].map((value) => value.toString(16).padStart(8, "0")).join("");
+}
+
+function autonomousArtworkEmbedUrl(day, self, channel) {
+  const url = new URL(autonomousLiveUrl(day, self), window.location.href);
+  url.searchParams.set("embed", "calendar");
+  url.searchParams.set("gh_channel", channel);
+  return url;
+}
+
+function sendArtworkMediaCommand(action) {
+  if (
+    !state.artworkMediaChannel
+    || !state.artworkMediaOrigin
+    || !els.artworkLiveFrame.contentWindow
+  ) return;
+  els.artworkLiveFrame.contentWindow.postMessage(
+    {
+      type: "granted-hours:media",
+      version: 1,
+      channel: state.artworkMediaChannel,
+      action,
+    },
+    state.artworkMediaOrigin,
+  );
+}
+
+function suspendCalendarAudioForArtwork() {
+  if (!els.calendarBgm.paused) els.calendarBgm.pause();
+  setCalendarBgmPlaying(false);
+  stopPianoSources();
+  updateCalendarBgmControl();
 }
 
 function openArtworkDetail(day, self, trigger) {
   hideInspectionLens({ immediate: true });
+  if (state.artworkDetailOpen) sendArtworkMediaCommand("pause");
   state.artworkDetailOpen = true;
   state.artworkDetailLastFocus = trigger;
   state.artworkDetailScrollTop = els.dayDialogPanel.scrollTop;
+  suspendCalendarAudioForArtwork();
 
   const taxonomy = timetableData.taxonomy?.[self.category];
   const taxonomyLabel = taxonomy
@@ -2376,29 +2471,12 @@ function openArtworkDetail(day, self, trigger) {
   els.artworkDetailZh.textContent = self.note_zh;
   els.artworkDetailEn.textContent = self.note_en;
   els.artworkArchiveLink.href = autonomousArchiveUrl(day, self);
-
-  const animatedUrl = auditedPublicMediaUrl(
-    self.animated_preview_url || self.visual_preview_url || self.gif_url,
-    [".gif", ".webp"],
-  );
-  const staticUrl = auditedPublicMediaUrl(
-    self.static_preview_url || self.preview_url || self.preview || staticVisualPreviewUrl(animatedUrl),
-    [".png", ".jpg", ".jpeg", ".webp"],
-  );
-  els.artworkDetailPreview.dataset.animatedPreviewUrl = animatedUrl;
-  els.artworkDetailPreview.dataset.staticPreviewUrl = staticUrl;
-  els.artworkDetailPreview.alt = (
-    `Visual preview of ${self.title_en}`
-    + ` / 《${self.title_zh}》视觉预览`
-  );
-  applyVisualPreviewSource(els.artworkDetailPreview);
-
-  const bgmUrl = auditedPublicMediaUrl(
-    self.bgm_url,
-    [".mp3", ".m4a", ".ogg", ".wav"],
-  );
-  els.artworkBgm.src = bgmUrl;
-  els.artworkBgm.load();
+  const channel = createArtworkMediaChannel();
+  const embedUrl = autonomousArtworkEmbedUrl(day, self, channel);
+  state.artworkMediaChannel = channel;
+  state.artworkMediaOrigin = embedUrl.origin;
+  els.artworkLiveFrame.title = `Interactive artwork: ${self.title_en} / 互动作品：《${self.title_zh}》`;
+  els.artworkLiveFrame.src = embedUrl.href;
 
   els.dayDialogPanel.setAttribute("inert", "");
   els.artworkDialog.hidden = false;
@@ -2410,13 +2488,34 @@ function openArtworkDetail(day, self, trigger) {
 
 function closeArtworkDetail(options = {}) {
   if (!state.artworkDetailOpen) return;
+  sendArtworkMediaCommand("pause");
   state.artworkDetailOpen = false;
-  els.artworkBgm.pause();
+  const wasFullscreen = document.fullscreenElement === els.artworkDialogPanel;
+  const fullscreenExit = wasFullscreen
+    ? document.exitFullscreen().catch(() => {})
+    : null;
+  els.artworkLiveFrame.src = "about:blank";
+  state.artworkMediaChannel = "";
+  state.artworkMediaOrigin = "";
   els.artworkDialog.classList.remove("is-open");
   els.artworkDialog.hidden = true;
   els.dayDialogPanel.removeAttribute("inert");
   els.dayDialogPanel.scrollTop = state.artworkDetailScrollTop;
+  syncArtworkFullscreenState();
+  if (state.calendarBgmDesiredPlaying) {
+    attemptCalendarBgmPlayback({ userActivated: true });
+  } else {
+    updateCalendarBgmControl();
+  }
   if (options.restoreFocus === false) return;
+  if (fullscreenExit) {
+    fullscreenExit.finally(restoreArtworkTriggerFocus);
+    return;
+  }
+  restoreArtworkTriggerFocus();
+}
+
+function restoreArtworkTriggerFocus() {
   if (
     state.artworkDetailLastFocus
     && typeof state.artworkDetailLastFocus.focus === "function"
@@ -2425,6 +2524,24 @@ function closeArtworkDetail(options = {}) {
     state.artworkDetailLastFocus.focus({ preventScroll: true });
     els.dayDialogPanel.scrollTop = state.artworkDetailScrollTop;
   }
+}
+
+function enterArtworkFullscreen() {
+  if (!state.artworkDetailOpen || !els.artworkDialogPanel.requestFullscreen) return;
+  els.artworkDialogPanel.requestFullscreen({ navigationUI: "hide" }).catch(() => {
+    els.artworkFullscreen.setAttribute(
+      "aria-label",
+      "Fullscreen is unavailable in this browser / 此浏览器无法进入全屏",
+    );
+  });
+}
+
+function syncArtworkFullscreenState() {
+  const active = document.fullscreenElement === els.artworkDialogPanel;
+  els.artworkDialogPanel.classList.toggle("is-artwork-fullscreen", active);
+  els.artworkFullscreen.setAttribute("aria-pressed", active ? "true" : "false");
+  els.artworkFullscreen.hidden = active;
+  els.artworkReturnCalendar.hidden = !active;
 }
 
 function buildPulseTimelineEvent(pulse) {
@@ -2700,6 +2817,7 @@ function clearSelectedReadingCard({ clearLinked = false } = {}) {
 }
 
 function handleDocumentPointerdown(event) {
+  activateDefaultAudioFromGesture(event.target);
   if (!state.selectedReadingCard) return;
   if (event.target instanceof Element && event.target.closest(".event-reading-card")) return;
   state.hoveredReadingCard = null;
@@ -2919,6 +3037,9 @@ function closeTaskDetail(options = {}) {
 }
 
 function handleDocumentKeydown(event) {
+  if (!event.metaKey && !event.ctrlKey && !event.altKey) {
+    activateDefaultAudioFromGesture(event.target);
+  }
   if (event.key === "Tab") {
     trackKeyboardFocusInput();
   }

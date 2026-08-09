@@ -5968,6 +5968,239 @@ h1 {
   }
 }
 
+/* ===== Sound state + interactive artwork chamber (2026-08-09) ===== */
+.calendar-bgm-toggle[aria-pressed="false"],
+.calendar-piano-toggle[aria-pressed="false"],
+.dialog-sound-toggle[aria-pressed="false"] {
+  border-color: color-mix(in srgb, var(--hairline-strong) 72%, transparent);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 7%, transparent), transparent 44%),
+    color-mix(in srgb, var(--pane-quiet) 86%, var(--page-bg));
+  color: color-mix(in srgb, var(--ink-muted) 70%, var(--page-bg));
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--page-bg) 54%, transparent);
+  opacity: 0.68;
+  filter: saturate(0.58);
+}
+
+.calendar-bgm-toggle[aria-pressed="true"],
+.calendar-piano-toggle[aria-pressed="true"],
+.dialog-sound-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--gold-pale) 80%, var(--cyan-trace));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 44%, transparent), transparent 40%),
+    linear-gradient(135deg, color-mix(in srgb, var(--gold-trace) 76%, var(--cyan-trace)), color-mix(in srgb, var(--gold-pale) 58%, var(--pane-solid)));
+  color: color-mix(in srgb, var(--page-bg) 86%, black);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 64%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--gold-pale) 18%, transparent),
+    0 6px 16px color-mix(in srgb, var(--gold-trace) 30%, transparent);
+  opacity: 1;
+  filter: none;
+}
+
+.calendar-bgm-toggle[aria-pressed="true"][data-suspended="true"],
+.dialog-sound-toggle[aria-pressed="true"][data-suspended="true"] {
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--edge-light) 34%, transparent), transparent 40%),
+    color-mix(in srgb, var(--cyan-trace) 34%, var(--pane-strong));
+  color: var(--gold-pale);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--edge-light) 44%, transparent);
+}
+
+.calendar-bgm-toggle[aria-pressed="true"] .header-control-icon-music,
+.calendar-piano-toggle[aria-pressed="true"] .header-control-icon,
+.dialog-sound-toggle[aria-pressed="true"] .header-control-icon {
+  opacity: 1;
+}
+
+.autonomous-work-link.event-reading-card > button.autonomous-preview-frame,
+.autonomous-work-link.event-reading-card > button.autonomous-open-copy {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.autonomous-work-link.event-reading-card > button.autonomous-preview-frame {
+  color: inherit;
+}
+
+.autonomous-work-link.event-reading-card > button.autonomous-open-copy {
+  background: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 42%, transparent);
+  text-underline-offset: 0.22em;
+}
+
+.artwork-dialog-panel {
+  width: min(100%, 1180px);
+  max-height: min(94dvh, 920px);
+}
+
+.artwork-dialog-actions {
+  position: absolute;
+  top: clamp(14px, 2vw, 22px);
+  right: clamp(14px, 2vw, 22px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.artwork-dialog-close {
+  position: static;
+  float: none;
+  width: 40px;
+  height: 40px;
+}
+
+.artwork-dialog-fullscreen,
+.artwork-return-calendar {
+  min-height: 40px;
+  padding: 8px 13px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--edge-light) 20%, transparent), transparent 40%),
+    color-mix(in srgb, var(--pane-solid) 88%, transparent);
+  color: var(--cyan-trace);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--edge-light) 42%, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--type-dialog-meta);
+  cursor: pointer;
+}
+
+.artwork-dialog-fullscreen:hover,
+.artwork-return-calendar:hover {
+  border-color: color-mix(in srgb, var(--gold-pale) 68%, var(--cyan-trace));
+  color: var(--gold-pale);
+  transform: translateY(-1px);
+}
+
+.artwork-detail-layout {
+  grid-template-columns: minmax(0, 3.15fr) minmax(220px, 0.85fr);
+}
+
+.artwork-live-stage {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--cyan-trace) 42%, var(--hairline));
+  border-radius: 16px 12px 19px 14px;
+  background: #020407;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 30%, transparent),
+    0 18px 38px rgba(0, 0, 0, 0.28);
+  isolation: isolate;
+}
+
+.artwork-live-stage::after {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--edge-light) 32%, transparent);
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+}
+
+.artwork-live-stage iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #020407;
+}
+
+.artwork-return-calendar[hidden] {
+  display: none;
+}
+
+.artwork-dialog-panel:fullscreen {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #020407;
+}
+
+.artwork-dialog-panel:fullscreen > :is(.artwork-detail-kicker, h2, .artwork-detail-meta) {
+  display: none;
+}
+
+.artwork-dialog-panel:fullscreen .artwork-dialog-actions {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+}
+
+.artwork-dialog-panel:fullscreen .artwork-detail-layout {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.artwork-dialog-panel:fullscreen .artwork-live-stage {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+}
+
+.artwork-dialog-panel:fullscreen .artwork-detail-copy {
+  display: none;
+}
+
+.artwork-dialog-panel:fullscreen .artwork-return-calendar {
+  position: fixed;
+  left: 50%;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  z-index: 6;
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 18px;
+  border-color: color-mix(in srgb, var(--gold-pale) 54%, var(--cyan-trace));
+  background: color-mix(in srgb, var(--pane-solid) 76%, transparent);
+  color: var(--gold-pale);
+  box-shadow: var(--glass-inner), 0 12px 30px rgba(0, 0, 0, 0.34);
+  transform: translateX(-50%);
+  -webkit-backdrop-filter: blur(16px) saturate(132%);
+  backdrop-filter: blur(16px) saturate(132%);
+}
+
+@media (max-width: 720px), (max-height: 430px) {
+  .artwork-dialog-panel {
+    padding-top: 66px;
+  }
+
+  .artwork-dialog-panel > h2 {
+    max-width: 100%;
+  }
+
+  .artwork-detail-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .artwork-live-stage {
+    min-height: min(58dvh, 520px);
+    aspect-ratio: auto;
+  }
+
+  .artwork-dialog-panel:fullscreen {
+    padding: 0;
+  }
+}
+
 /* ===== In-place overflow previews (2026-08-09) =====
    Month cells and day-detail reading cards keep their compact geometry, but
    reveal the complete authored preview with a wheel/touch scroll whenever the

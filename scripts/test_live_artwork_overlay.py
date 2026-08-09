@@ -24,12 +24,15 @@ class TestTimetableLiveArtworkNavigation(unittest.TestCase):
     def test_all_autonomous_activation_paths_use_live_url(self) -> None:
         source = MAIN_JS.read_text(encoding="utf-8")
         self.assertIn("autonomousLiveUrl(day, self)", source)
-        self.assertIn('window.open(autonomousLiveUrl(', source)
+        self.assertIn("autonomousArtworkEmbedUrl(day, self, channel)", source)
         self.assertIn('url.searchParams.set("from", "timetable")', source)
         self.assertIn('url.searchParams.set("date", self.crystallization_date || day.date)', source)
-        self.assertIn("() => openLiveArtwork(day, event)", source)
-        self.assertNotIn("() => openArtworkDetail(day, self, card)", source)
-        self.assertNotIn("() => openArtworkDetail(day, event, button)", source)
+        self.assertIn('url.searchParams.set("embed", "calendar")', source)
+        self.assertIn('url.searchParams.set("gh_channel", channel)', source)
+        self.assertIn("() => openArtworkDetail(day, event, button)", source)
+        self.assertIn("() => openArtworkDetail(day, self, previewButton)", source)
+        self.assertIn("() => openArtworkDetail(day, self, openButton)", source)
+        self.assertNotIn("window.open(autonomousLiveUrl(", source)
 
     def test_live_url_keeps_timetable_provenance(self) -> None:
         source = MAIN_JS.read_text(encoding="utf-8")

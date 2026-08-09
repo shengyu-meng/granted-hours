@@ -34,7 +34,7 @@ try {
   const page = await context.newPage();
   const sampleUrl = new URL(baseUrl);
   sampleUrl.searchParams.set("date", sampleDate);
-  await page.goto(sampleUrl.href, { waitUntil: "networkidle" });
+  await page.goto(sampleUrl.href, { waitUntil: "domcontentloaded" });
 
   const latest = [...timetableData.days].sort((a, b) => b.date.localeCompare(a.date))[0];
   assert.equal(
@@ -83,14 +83,10 @@ try {
       cardTabindex: card?.getAttribute("tabindex"),
       cardHref: card?.getAttribute("href"),
       previewTag: previewLink?.tagName,
-      previewHref: previewLink?.href,
-      previewTarget: previewLink?.target,
-      previewRel: previewLink?.rel,
+      previewPopup: previewLink?.getAttribute("aria-haspopup"),
       previewName: previewLink?.getAttribute("aria-label"),
       launchTag: launch?.tagName,
-      launchHref: launch?.href,
-      launchTarget: launch?.target,
-      launchRel: launch?.rel,
+      launchPopup: launch?.getAttribute("aria-haspopup"),
       launchName: launch?.textContent?.trim(),
     };
   });
@@ -100,16 +96,12 @@ try {
   assert.equal(preview.cardRole, null);
   assert.equal(preview.cardTabindex, null);
   assert.equal(preview.cardHref, null);
-  assert.equal(preview.previewTag, "A");
-  assert.equal(preview.previewTarget, "_blank");
-  assert.match(preview.previewRel, /noopener/);
-  assert.match(preview.previewName, /Open complete live work/);
-  assert.equal(preview.launchTag, "A");
-  assert.equal(preview.launchTarget, "_blank");
-  assert.match(preview.launchRel, /noopener/);
-  assert.match(preview.launchName, /Open complete live work/);
-  assert.equal(preview.previewHref, preview.launchHref);
-  assert.match(preview.launchHref, /[?&]from=timetable(?:&|$)/);
+  assert.equal(preview.previewTag, "BUTTON");
+  assert.equal(preview.previewPopup, "dialog");
+  assert.match(preview.previewName, /Open interactive artwork in the calendar/);
+  assert.equal(preview.launchTag, "BUTTON");
+  assert.equal(preview.launchPopup, "dialog");
+  assert.match(preview.launchName, /Open interactive artwork/);
   const outerActivationCount = await page.locator("#enterAutonomous").evaluate((card) => {
     const originalOpen = window.open;
     let opens = 0;
@@ -135,6 +127,51 @@ try {
     return opens;
   });
   assert.equal(outerActivationCount, 0);
+
+  const artworkPage = await context.newPage();
+  await artworkPage.route("https://shengyu-meng.github.io/granted-hours/archive/**/live/**", async (route) => {
+    await route.fulfill({
+      contentType: "text/html",
+      body: `<!doctype html><body class="gh-chamber-embed"><script>
+        const channel = new URL(location.href).searchParams.get("gh_channel");
+        addEventListener("message", (event) => {
+          const data = event.data;
+          if (data?.type !== "granted-hours:media" || data?.version !== 1 || data?.channel !== channel) return;
+          document.body.dataset.ghAudioEnabled = data.action === "play" ? "1" : "0";
+        });
+      <\/script></body>`,
+    });
+  });
+  const artworkUrl = new URL(baseUrl);
+  artworkUrl.searchParams.set("date", latest.date);
+  await artworkPage.goto(artworkUrl.href, { waitUntil: "domcontentloaded" });
+  await artworkPage.waitForSelector(`#dayDialog.is-open[data-selected-date="${latest.date}"]`);
+  assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
+  assert.equal(await artworkPage.locator("#calendarPianoToggle").getAttribute("aria-pressed"), "true");
+  const pageCountBeforeArtwork = context.pages().length;
+  await artworkPage.locator(".autonomous-preview-frame").click();
+  await artworkPage.waitForSelector("#artworkDialog.is-open");
+  assert.equal(context.pages().length, pageCountBeforeArtwork);
+  assert.equal(await artworkPage.locator("#calendarBgm").evaluate((audio) => audio.paused), true);
+  assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("data-suspended"), "true");
+  const artworkFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
+  assert.match(artworkFrameSrc, /[?&]embed=calendar(?:&|$)/);
+  assert.match(artworkFrameSrc, /[?&]gh_channel=[a-f0-9]{32}(?:&|$)/);
+  const artworkFrame = artworkPage.frames().find((frame) => frame.url().includes("embed=calendar"));
+  assert.ok(artworkFrame);
+  await artworkFrame.locator("body.gh-chamber-embed").waitFor({ state: "attached" });
+  await artworkFrame.waitForFunction(() => document.body.dataset.ghAudioEnabled === "1");
+  await artworkPage.locator("#artworkFullscreen").click();
+  await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
+  assert.equal(await artworkPage.locator("#artworkReturnCalendar").isVisible(), true);
+  await artworkPage.evaluate(() => document.querySelector("#artworkReturnCalendar").click());
+  await artworkPage.waitForFunction(() => document.fullscreenElement === null);
+  await artworkPage.waitForSelector("#artworkDialog", { state: "hidden" });
+  assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), "about:blank");
+  assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
+  assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("data-suspended"), "false");
+  await artworkPage.waitForFunction(() => document.activeElement?.classList.contains("autonomous-preview-frame"));
+  await artworkPage.close();
 
   const rows = await page.locator(".assigned-item").evaluateAll((items) => items.map((item) => ({
     status: item.dataset.redactionStatus || "",
@@ -165,7 +202,7 @@ try {
     deviceScaleFactor: 2.75,
   });
   const mobilePage = await mobile.newPage();
-  await mobilePage.goto(sampleUrl.href, { waitUntil: "networkidle" });
+  await mobilePage.goto(sampleUrl.href, { waitUntil: "domcontentloaded" });
   await mobilePage.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
   const mobileRoots = await scrollTopology(mobilePage);
   assert.deepEqual(

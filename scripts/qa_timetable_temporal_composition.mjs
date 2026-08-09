@@ -220,7 +220,7 @@ try {
     const page = await context.newPage();
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
-    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
     await page.click("#prevMonth");
     await page.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
     await page.waitForSelector("#dayDialog.is-open");
@@ -428,14 +428,17 @@ try {
       await autonomousTouch.scrollIntoViewIfNeeded();
       assert.equal(await autonomousTouch.getAttribute("tabindex"), null);
       assert.equal(await autonomousTouch.getAttribute("role"), null);
-      assert.equal(await previewLink.evaluate((link) => link.tagName), "A");
-      assert.equal(await actionLink.evaluate((link) => link.tagName), "A");
-      assert.equal(await previewLink.getAttribute("href"), await actionLink.getAttribute("href"));
-      const popupPromise = page.waitForEvent("popup");
+      assert.equal(await previewLink.evaluate((link) => link.tagName), "BUTTON");
+      assert.equal(await actionLink.evaluate((link) => link.tagName), "BUTTON");
+      assert.equal(await previewLink.getAttribute("aria-haspopup"), "dialog");
+      assert.equal(await actionLink.getAttribute("aria-haspopup"), "dialog");
+      const pageCountBeforeArtwork = page.context().pages().length;
       await previewLink.tap();
-      const popup = await popupPromise;
-      assert.match(popup.url(), /[?&]from=timetable(?:&|$)/);
-      await popup.close();
+      await page.waitForSelector("#artworkDialog.is-open");
+      assert.equal(page.context().pages().length, pageCountBeforeArtwork);
+      assert.match(await page.locator("#artworkLiveFrame").getAttribute("src"), /[?&]embed=calendar(?:&|$)/);
+      await page.locator("#closeArtworkDetail").tap();
+      await page.waitForSelector("#artworkDialog", { state: "hidden" });
     } else {
       const routine = page.locator(".routine-reading-card").first();
       await routine.scrollIntoViewIfNeeded();
@@ -506,7 +509,7 @@ try {
     hasTouch: true,
   });
   const hybridPage = await hybridContext.newPage();
-  await hybridPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await hybridPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await hybridPage.click("#prevMonth");
   assert.equal(
     await hybridPage.evaluate(() => matchMedia("(any-pointer: coarse)").matches),
@@ -534,7 +537,7 @@ try {
     reducedMotion: "reduce",
   });
   const reducedPage = await reducedContext.newPage();
-  await reducedPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await reducedPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await reducedPage.click("#prevMonth");
   await reducedPage.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
   await reducedPage.waitForSelector("#dayDialog.is-open");

@@ -36,7 +36,7 @@ try {
     page.on("pageerror", (error) => pageErrors.push(error.message));
     const sampleUrl = new URL(baseUrl);
     sampleUrl.searchParams.set("date", sampleDate);
-    await page.goto(sampleUrl.href, { waitUntil: "networkidle" });
+    await page.goto(sampleUrl.href, { waitUntil: "domcontentloaded" });
     await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
     await page.waitForTimeout(240);
     assert.equal(
@@ -95,9 +95,9 @@ try {
         cardTabindex: card?.getAttribute("tabindex"),
         previewTag: previewLink?.tagName,
         previewName: previewLink?.getAttribute("aria-label"),
-        previewHref: previewLink?.href,
+        previewPopup: previewLink?.getAttribute("aria-haspopup"),
         actionTag: actionLink?.tagName,
-        actionHref: actionLink?.href,
+        actionPopup: actionLink?.getAttribute("aria-haspopup"),
       };
     });
     assert.equal(autonomousAccessibility.footprintHidden, "true");
@@ -106,10 +106,11 @@ try {
     assert.equal(autonomousAccessibility.cardRole, null);
     assert.equal(autonomousAccessibility.cardTabindex, null);
     assert.match(autonomousAccessibility.cardName || "", /03:17-04:17, 60-minute autonomous event/);
-    assert.equal(autonomousAccessibility.previewTag, "A");
-    assert.match(autonomousAccessibility.previewName || "", /Open complete live work/);
-    assert.equal(autonomousAccessibility.actionTag, "A");
-    assert.equal(autonomousAccessibility.previewHref, autonomousAccessibility.actionHref);
+    assert.equal(autonomousAccessibility.previewTag, "BUTTON");
+    assert.equal(autonomousAccessibility.previewPopup, "dialog");
+    assert.match(autonomousAccessibility.previewName || "", /Open interactive artwork in the calendar/);
+    assert.equal(autonomousAccessibility.actionTag, "BUTTON");
+    assert.equal(autonomousAccessibility.actionPopup, "dialog");
 
     for (const event of geometry.events) {
       const expectedTop = minutes(event.start) * geometry.minuteHeight;
