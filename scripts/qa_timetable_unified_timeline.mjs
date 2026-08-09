@@ -79,26 +79,27 @@ try {
   assert.equal(await page.locator("#dayDialog").getAttribute("hidden"), null);
 
   const rows = page.locator(".assigned-item");
-  let clampedIndex = -1;
   for (let index = 0; index < await rows.count(); index += 1) {
-    const state = await rows.nth(index).locator(".assigned-copy").evaluate((copy) => {
+    const state = await rows.nth(index).evaluate((card) => {
+      const copy = card.querySelector(".assigned-copy");
       const style = getComputedStyle(copy);
       return {
         clamp: style.webkitLineClamp,
         overflow: style.overflow,
         clamped: copy.classList.contains("is-clamped"),
         ellipsis: getComputedStyle(copy, "::after").content,
+        cardOverflow: getComputedStyle(card).overflowY,
+        cardScrollable: card.scrollHeight > card.clientHeight + 1,
       };
     });
-    assert.equal(state.clamp, "4", JSON.stringify(state));
-    assert.equal(state.overflow, "hidden");
-    if (state.clamped) {
-      assert.ok(state.ellipsis.includes("…"), `clamped summary lacks visible continuation ${JSON.stringify(state)}`);
-      clampedIndex = index;
-    }
+    assert.equal(state.clamp, "none", JSON.stringify(state));
+    assert.equal(state.overflow, "visible");
+    assert.equal(state.clamped, false);
+    assert.equal(state.ellipsis, "none");
+    assert.equal(state.cardOverflow, "auto");
   }
 
-  const triggerIndex = clampedIndex >= 0 ? clampedIndex : 0;
+  const triggerIndex = 0;
   const trigger = rows.nth(triggerIndex);
   const selectedTask = latestDay.task_residues[triggerIndex];
   await trigger.scrollIntoViewIfNeeded();

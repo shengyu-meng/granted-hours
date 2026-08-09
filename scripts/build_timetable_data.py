@@ -1674,11 +1674,7 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
 
 def build_cell_assigned(tasks: list[dict]) -> list[dict]:
     markers = []
-    seen = set()
     for task in tasks:
-        if task["category"] in seen:
-            continue
-        seen.add(task["category"])
         markers.append(
             {
                 "origin": "assigned",
@@ -1691,8 +1687,6 @@ def build_cell_assigned(tasks: list[dict]) -> list[dict]:
                 "task_name_zh": task.get("task_name_zh", task["label_zh"]),
             }
         )
-        if len(markers) == 2:
-            break
     return markers
 
 

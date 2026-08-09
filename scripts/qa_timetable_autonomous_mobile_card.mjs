@@ -187,6 +187,14 @@ async function inspect(page) {
       readingColumn: Number(card.dataset.readingColumn),
       readingColumnSpan: Number(card.dataset.readingColumnSpan),
       card: cardRect,
+      cardScroll: {
+        clientHeight: card.clientHeight,
+        scrollHeight: card.scrollHeight,
+        overflowY: getComputedStyle(card).overflowY,
+        canScroll: card.scrollHeight > card.clientHeight + 1
+          && ["auto", "scroll"].includes(getComputedStyle(card).overflowY),
+        contentBottom: cardRect.top + card.scrollHeight,
+      },
       readingLayer: layerRect,
       fullWidthDelta: layerRect.width - cardRect.width,
       leftInset: cardRect.left - layerRect.left,
@@ -425,6 +433,7 @@ try {
         );
       }
     } else {
+      const contentExtendsBelowFrame = result.hint.bottom > result.card.bottom - 4;
       check(!result.compactClass, `${testCase.label}: desktop incorrectly compact`, failures);
       check(result.readingColumnSpan === 2, `${testCase.label}: desktop span changed`, failures);
       check(result.card.height >= 180 && result.card.height <= 230, `${testCase.label}: desktop height changed`, failures);
@@ -436,7 +445,8 @@ try {
           && result.dateRelation.bottom <= result.summary.top + 1
           && result.summary.bottom <= result.copy.bottom + 1
           && result.copy.bottom <= result.hint.top + 1
-          && result.hint.bottom <= result.card.bottom - 4,
+          && result.hint.bottom <= result.cardScroll.contentBottom + 1
+          && (!contentExtendsBelowFrame || result.cardScroll.canScroll),
         `${testCase.label}: autonomous copy regions overlap or escape their column `
           + JSON.stringify({
             kicker: result.kicker,

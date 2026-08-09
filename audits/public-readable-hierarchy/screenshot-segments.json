@@ -1,7 +1,7 @@
 {
   "schema": "timetable-screenshot-segments-v1",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8891/timetable/",
+  "baseUrl": "http://127.0.0.1:8896/timetable/",
   "scrollRoot": "#dayDialogPanel",
   "misleadingFullDayCapturesRemoved": true,
   "segmentTargets": [
@@ -49,8 +49,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-morning.png",
-      "imageBytes": 661264,
-      "imageSha256": "37552d6944c9ff1824e51208ef3cea5a76dc2b9245dc80d379b8d365fa9762f8",
+      "imageBytes": 679155,
+      "imageSha256": "555564f9f7c23d8a1b4009d49fa7d636a853a062cae0c490dba873ac15c0e429",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -88,8 +88,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-midday.png",
-      "imageBytes": 602020,
-      "imageSha256": "c60e03d783633f79affdfe9227368315545b6827ed759104e70f5fdb797ded95",
+      "imageBytes": 618843,
+      "imageSha256": "8a97cb360e004836babbc2cb24bc4b1b06af20227e49dbb9de4db14d58eccbf2",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -135,8 +135,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-close.png",
-      "imageBytes": 478142,
-      "imageSha256": "fb86e650661df315cfac7ce5516d7ed65029ce978d4ac74f07e27f095fb8ca60",
+      "imageBytes": 481096,
+      "imageSha256": "7a6c1a08af5fdedc7dc6c1a8e6dc9272fe73d1d9b93d003b451a459f5bbde972",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -189,8 +189,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-evening.png",
-      "imageBytes": 413897,
-      "imageSha256": "c64d7134fa0c6f3f3ac5422874d50899abac24bd1e550b8ca420536c9fc98469",
+      "imageBytes": 422925,
+      "imageSha256": "abde222479e28e1708388fbc2ebf01284b04b2720e446e12b93fd3fa14a0bc55",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -250,8 +250,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-morning.png",
-      "imageBytes": 778664,
-      "imageSha256": "2350cbcdc5adf4eebb57f960074302a7fdc6d0df494dc7d4fbd76384383fedee",
+      "imageBytes": 780702,
+      "imageSha256": "89da77123e82d6e7307f5b5f10e0f2a13a786323418fbf5722523e3b66815d6c",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -289,8 +289,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-midday.png",
-      "imageBytes": 873516,
-      "imageSha256": "3a24f1593d72ffd26070a39ccfbf593025f7ad69b80fa124a1a313f892eb0b44",
+      "imageBytes": 888286,
+      "imageSha256": "779418eb5f83c457a340ebad1258cfe991f3e424a53fe131d3696144a6c33908",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -336,8 +336,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-close.png",
-      "imageBytes": 813569,
-      "imageSha256": "81ce825d90dd3c82caba3d61ad92ce5067d379b2ace37fbd5eadb026a2edd3d2",
+      "imageBytes": 831359,
+      "imageSha256": "f85d7fca2ad345f1f2a18b5554b95430ec1b432e3dffbfb5f3ae6a99d476c426",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -390,8 +390,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-evening.png",
-      "imageBytes": 791996,
-      "imageSha256": "3ef6da4cec3ce5a170b53a1ffa2080bcc4897c3ed9e487f90e8b2b72e409d032",
+      "imageBytes": 806273,
+      "imageSha256": "56e8c76f66f09f903ac64a625486434a796f277c9b2f819e327122c5ef5a3e98",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -451,8 +451,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-morning.png",
-      "imageBytes": 421419,
-      "imageSha256": "e1d0f634f547af2cf3bcbb0b2b7310e3fa9c33f93b7e7df2a3bf4537e56f5537",
+      "imageBytes": 425574,
+      "imageSha256": "db2287421dd2e02463d7dc6cee80b7ba104da96c5ba3d6765965ecac8bbfb37e",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -490,8 +490,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-midday.png",
-      "imageBytes": 447237,
-      "imageSha256": "c21d3aaadbe623dad8953f17fee43dfbcdb4620e33ef78fb08558ae0bb55f4c6",
+      "imageBytes": 443636,
+      "imageSha256": "76836e5dacee958acc7b44cffe54cc2183f4119e2efb110107d49fa0c08e08d0",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -537,8 +537,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-close.png",
-      "imageBytes": 410780,
-      "imageSha256": "921800735bf028083ee02d9dc393c46185473127db54f8adfdff0aa577ff1349",
+      "imageBytes": 417621,
+      "imageSha256": "dc3acee1a4232855c847726a4cf3fe67a5c2512d567363cc0d8add82b7e37c18",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -591,8 +591,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-evening.png",
-      "imageBytes": 309464,
-      "imageSha256": "8d6abb7b29cb40566310de14449b03c4dbdf0a1b3cf1515df76dbcb96e2b8e11",
+      "imageBytes": 311029,
+      "imageSha256": "12580d8f7a89692278ef35e0d6552a3637bab185024d41c0ffd967d6129581a9",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -652,8 +652,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-morning.png",
-      "imageBytes": 729376,
-      "imageSha256": "1a1f3866d94125866c744b3a89b83c5be7e102d89230e4401c2c95971bf97d0b",
+      "imageBytes": 744032,
+      "imageSha256": "b9b191a60d3908610c10e6aeadc2307ceecfe5d445fac5987aba1cc4312daf79",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -691,8 +691,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-midday.png",
-      "imageBytes": 574865,
-      "imageSha256": "fb13ca50639e3766b344326365b7c7ea0b442f14bc43c5be5c3bb615736d23fc",
+      "imageBytes": 587310,
+      "imageSha256": "5df5abf1d3f94ccdd4a02b571e718431ab4c9e0aaecef089bba36a9d11843209",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -738,8 +738,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-close.png",
-      "imageBytes": 451774,
-      "imageSha256": "f49c59b8eeb956a44d4d31a1ca5b853a861050c0a45a209b1c3217209ca51ae5",
+      "imageBytes": 453120,
+      "imageSha256": "00ec0645bb4c509fe8e8bbb4d0fd2ff4e960636fb6dcb92e016f8681046cb4d3",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -792,8 +792,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-evening.png",
-      "imageBytes": 390042,
-      "imageSha256": "f731638b47fbbb72dcb4c6d99a68cebeea903dc9c219fcc9ef89016063d09532",
+      "imageBytes": 395600,
+      "imageSha256": "1f7b58449a1ac853e46ec56bb0411d492b7d45897e1e667bb73c4f39e3516bc0",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -853,8 +853,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-morning.png",
-      "imageBytes": 802276,
-      "imageSha256": "fb572e9b8e1bd3c109246028dec373aab05bad26d3e326a7e1563dd04aea2626",
+      "imageBytes": 856781,
+      "imageSha256": "d8288ad0bca48def6e03d7dd2a55052c274f5f4aa31be14305fba9bfce02fb35",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -892,8 +892,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-midday.png",
-      "imageBytes": 901898,
-      "imageSha256": "70cff751a035b92af25f3d7575343cd2ab8edd1591a056958e4fb05a2413bf49",
+      "imageBytes": 934959,
+      "imageSha256": "d8f729a3c8567eda14b5a24e51de6836ca51f7d11f1eea25be48cc417477b4b9",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -939,8 +939,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-close.png",
-      "imageBytes": 908920,
-      "imageSha256": "aca62fa9473860814c2a8c6650df98889e622e0a1c1bd46d83a155786c357e6e",
+      "imageBytes": 912958,
+      "imageSha256": "02b089d7d98e20a5cc53866fa130717cc7cd38cc1a46388781322a30feb64cdd",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -993,8 +993,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-evening.png",
-      "imageBytes": 874113,
-      "imageSha256": "7b607da7e753cb58241ed2f7c713ca3e66078ebedf0e9ffadcc5329135bd12d1",
+      "imageBytes": 876205,
+      "imageSha256": "7dfe2d88a7f43e307253efa7785b1a7eedc029eb2bc33ee5ec88e5bda5a834fb",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1054,8 +1054,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-morning.png",
-      "imageBytes": 420092,
-      "imageSha256": "12ccbd903a2dc8a45d839ee89713b07855d4be0a86dfbf2a693280e1605e7c2b",
+      "imageBytes": 451515,
+      "imageSha256": "f59e97da76a0c7ea3773a9e0c2d77015020270ee2966041a89639bb0c4d0c409",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1093,8 +1093,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-midday.png",
-      "imageBytes": 425371,
-      "imageSha256": "8190520ccba003621fdf8d94951f40c7e4c5fb3ed0925d0acd0affe8dc045a58",
+      "imageBytes": 428019,
+      "imageSha256": "47f047becb369ae460c5966601a944f6e62c0963d38753472b4740a0558f8fce",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1140,8 +1140,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-close.png",
-      "imageBytes": 442671,
-      "imageSha256": "b70150be43c5c3f031763ad8711d19bd92ce95474835ccac77c9590fbdbb8f98",
+      "imageBytes": 437728,
+      "imageSha256": "5eae7cbe5d6f300c45765d00b256264b70945c121661d83ecf62160ad7dce700",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1194,8 +1194,8 @@
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-evening.png",
-      "imageBytes": 344699,
-      "imageSha256": "b41c433b5e5fe207f7d9f03471d7abe2674cfb8ffcb99892bb19f7428765c62a",
+      "imageBytes": 345377,
+      "imageSha256": "a5a1cdf3f739549d688109ef1daca20b58370452ef62bd904b5af8c717c27ce0",
       "inspectionLens": {
         "intended": false,
         "cleanState": {

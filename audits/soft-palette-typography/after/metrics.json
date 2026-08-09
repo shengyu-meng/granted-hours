@@ -2,58 +2,58 @@
   "schema": "timetable-visual-balance-evidence-v1",
   "phase": "after",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8891/timetable/",
+  "baseUrl": "http://127.0.0.1:8896/timetable/",
   "sampleDate": "2026-07-21",
   "screenshots": [
     {
       "label": "desktop-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-calendar-resting.png",
-      "bytes": 531705
+      "bytes": 551599
     },
     {
       "label": "desktop-dark-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-day-resting.png",
-      "bytes": 580568
+      "bytes": 598732
     },
     {
       "label": "desktop-dark-task-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-task-resting.png",
-      "bytes": 455752
+      "bytes": 461638
     },
     {
       "label": "desktop-dark-intentional-lens",
       "path": "audits/soft-palette-typography/after/desktop-dark-intentional-lens.png",
-      "bytes": 795632
+      "bytes": 821210
     },
     {
       "label": "desktop-light-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-calendar-resting.png",
-      "bytes": 568722
+      "bytes": 587414
     },
     {
       "label": "desktop-light-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-day-resting.png",
-      "bytes": 523077
+      "bytes": 537981
     },
     {
       "label": "390x844-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-calendar-resting.png",
-      "bytes": 537042
+      "bytes": 590705
     },
     {
       "label": "390x844-dark-day-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-day-resting.png",
-      "bytes": 482077
+      "bytes": 481646
     },
     {
       "label": "390x844-dark-task-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-task-resting.png",
-      "bytes": 484757
+      "bytes": 483864
     },
     {
       "label": "421x386-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-calendar-resting.png",
-      "bytes": 278576
+      "bytes": 276628
     },
     {
       "label": "421x386-dark-day-resting",
@@ -288,7 +288,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 240.75,
-            "height": 78.5
+            "height": 93.3125
           }
         },
         "climateTime": {
@@ -340,7 +340,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 208.484375,
-            "height": 15.71875
+            "height": 94.3125
           }
         },
         "beaconTime": {
@@ -726,7 +726,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -738,7 +738,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -746,23 +746,23 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 78,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "outsideVertically": true,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -774,7 +774,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -786,7 +786,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -798,7 +798,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -807,10 +807,10 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "outsideVertically": true,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -855,7 +855,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -902,8 +902,8 @@
               "readingId": "event-assigned-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -951,7 +951,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -966,7 +966,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -978,7 +978,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -990,7 +990,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -998,11 +998,11 @@
               "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 61,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -1014,7 +1014,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -1026,7 +1026,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -1038,7 +1038,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -1046,11 +1046,11 @@
               "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 76,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             }
           ],
@@ -1237,7 +1237,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.05
+                "contrast": 17.036
               },
               {
                 "className": "assigned-copy reading-summary",
@@ -1249,7 +1249,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.05
+                "contrast": 17.036
               },
               {
                 "className": "assigned-time",
@@ -1261,7 +1261,7 @@
                   184.8,
                   245.88
                 ],
-                "contrast": 8.956
+                "contrast": 8.948
               },
               {
                 "className": "assigned-category",
@@ -1273,7 +1273,7 @@
                   184.8,
                   245.88
                 ],
-                "contrast": 8.956
+                "contrast": 8.948
               }
             ],
             "panelColor": [
@@ -1284,7 +1284,7 @@
             "surfaceColor": [
               9,
               19,
-              27
+              28
             ],
             "accentColor": [
               10,
@@ -1296,9 +1296,9 @@
               95.092,
               144.463
             ],
-            "surfaceDistance": 5.916,
+            "surfaceDistance": 6.782,
             "borderDistance": 149.568,
-            "salience": 69.126
+            "salience": 69.576
           },
           {
             "category": "ah-market-scan",
@@ -1319,7 +1319,7 @@
                   244,
                   236
                 ],
-                "contrast": 16.64
+                "contrast": 16.621
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1331,7 +1331,7 @@
                   244,
                   236
                 ],
-                "contrast": 16.64
+                "contrast": 16.621
               },
               {
                 "className": "pulse-time",
@@ -1343,7 +1343,7 @@
                   226.16,
                   164.96
                 ],
-                "contrast": 11.902
+                "contrast": 11.889
               },
               {
                 "className": "pulse-duration",
@@ -1355,7 +1355,7 @@
                   226.16,
                   164.96
                 ],
-                "contrast": 11.902
+                "contrast": 11.889
               }
             ],
             "panelColor": [
@@ -1364,7 +1364,7 @@
               22
             ],
             "surfaceColor": [
-              9,
+              10,
               23,
               25
             ],
@@ -1378,9 +1378,9 @@
               105.238,
               79.422
             ],
-            "surfaceDistance": 7.681,
+            "surfaceDistance": 7.874,
             "borderDistance": 117.16,
-            "salience": 37.736
+            "salience": 37.837
           },
           {
             "category": "us-market-scan",
@@ -1483,7 +1483,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.146
+                "contrast": 17.159
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1495,7 +1495,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.146
+                "contrast": 17.159
               },
               {
                 "className": "pulse-time",
@@ -1507,7 +1507,7 @@
                   184.4,
                   245.12
                 ],
-                "contrast": 10.077
+                "contrast": 10.085
               },
               {
                 "className": "pulse-duration",
@@ -1519,7 +1519,7 @@
                   184.4,
                   245.12
                 ],
-                "contrast": 10.077
+                "contrast": 10.085
               }
             ],
             "panelColor": [
@@ -1530,7 +1530,7 @@
             "surfaceColor": [
               10,
               18,
-              26
+              25
             ],
             "accentColor": [
               125,
@@ -1542,9 +1542,9 @@
               84.358,
               119.502
             ],
-            "surfaceDistance": 4.899,
+            "surfaceDistance": 4.123,
             "borderDistance": 137.194,
-            "salience": 42.059
+            "salience": 41.656
           },
           {
             "category": "autonomous-artwork",
@@ -1565,7 +1565,7 @@
                   244,
                   236
                 ],
-                "contrast": 15.112
+                "contrast": 15.136
               },
               {
                 "className": "reading-summary",
@@ -1577,7 +1577,7 @@
                   244,
                   236
                 ],
-                "contrast": 15.112
+                "contrast": 15.136
               },
               {
                 "className": "autonomous-time",
@@ -1589,7 +1589,7 @@
                   227.44,
                   118.48
                 ],
-                "contrast": 12.838
+                "contrast": 12.859
               },
               {
                 "className": "autonomous-kicker",
@@ -1601,7 +1601,7 @@
                   227.44,
                   118.48
                 ],
-                "contrast": 12.838
+                "contrast": 12.859
               }
             ],
             "panelColor": [
@@ -1610,7 +1610,7 @@
               22
             ],
             "surfaceColor": [
-              20,
+              19,
               32,
               38
             ],
@@ -1624,9 +1624,9 @@
               126.252,
               51.363
             ],
-            "surfaceDistance": 25.612,
+            "surfaceDistance": 25.159,
             "borderDistance": 170.38,
-            "salience": 93.465
+            "salience": 93.23
           },
           {
             "category": "daily-reminder",
@@ -1711,7 +1711,7 @@
             "salience": 76.361
           }
         ],
-        "minimumContrast": 8.956,
+        "minimumContrast": 8.948,
         "minimumAccentDistance": {
           "value": 74.492,
           "pair": [
@@ -1726,11 +1726,11 @@
             "service-support"
           ]
         },
-        "meanSurfaceDistance": 10.275,
+        "meanSurfaceDistance": 10.246,
         "layerSalience": {
-          "event": 72.744,
-          "climate": 42.959,
-          "beacon": 93.465
+          "event": 72.969,
+          "climate": 42.858,
+          "beacon": 93.23
         },
         "contrasts": [
           {
@@ -1738,56 +1738,56 @@
             "layer": "event",
             "className": "assigned-work-type reading-title",
             "fontSize": 14,
-            "contrast": 17.05
+            "contrast": 17.036
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-copy reading-summary",
             "fontSize": 11.232,
-            "contrast": 17.05
+            "contrast": 17.036
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-time",
             "fontSize": 10,
-            "contrast": 8.956
+            "contrast": 8.948
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-category",
             "fontSize": 9.5,
-            "contrast": 8.956
+            "contrast": 8.948
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 16.64
+            "contrast": 16.621
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 16.64
+            "contrast": 16.621
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 11.902
+            "contrast": 11.889
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 11.902
+            "contrast": 11.889
           },
           {
             "category": "us-market-scan",
@@ -1822,56 +1822,56 @@
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 17.146
+            "contrast": 17.159
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 17.146
+            "contrast": 17.159
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 10.077
+            "contrast": 10.085
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 10.077
+            "contrast": 10.085
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 15.112
+            "contrast": 15.136
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 15.112
+            "contrast": 15.136
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 12.838
+            "contrast": 12.859
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 12.838
+            "contrast": 12.859
           },
           {
             "category": "daily-reminder",
@@ -2833,7 +2833,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 240.75,
-            "height": 78.5
+            "height": 93.3125
           }
         },
         "climateTime": {
@@ -2885,7 +2885,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 208.484375,
-            "height": 15.71875
+            "height": 94.3125
           }
         },
         "beaconTime": {
@@ -3098,7 +3098,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3110,7 +3110,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3118,23 +3118,23 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 78,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "outsideVertically": true,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3146,7 +3146,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3158,7 +3158,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3170,7 +3170,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3179,10 +3179,10 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "outsideVertically": true,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3227,7 +3227,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -3274,8 +3274,8 @@
               "readingId": "event-assigned-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -3323,7 +3323,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -3338,7 +3338,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3350,7 +3350,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3362,7 +3362,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3370,11 +3370,11 @@
               "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 61,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3386,7 +3386,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3398,7 +3398,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3410,7 +3410,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -3418,11 +3418,11 @@
               "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 76,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             }
           ],
@@ -3879,7 +3879,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.622
+                "contrast": 12.732
               },
               {
                 "className": "reading-summary",
@@ -3891,7 +3891,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.622
+                "contrast": 12.732
               },
               {
                 "className": "autonomous-time",
@@ -3903,7 +3903,7 @@
                   74.2,
                   15.2
                 ],
-                "contrast": 6.672
+                "contrast": 6.73
               },
               {
                 "className": "autonomous-kicker",
@@ -3915,7 +3915,7 @@
                   74.2,
                   15.2
                 ],
-                "contrast": 6.672
+                "contrast": 6.73
               }
             ],
             "panelColor": [
@@ -3924,8 +3924,8 @@
               220
             ],
             "surfaceColor": [
-              224,
-              228,
+              225,
+              229,
               225
             ],
             "accentColor": [
@@ -3938,9 +3938,9 @@
               150.957,
               111.036
             ],
-            "surfaceDistance": 5.745,
+            "surfaceDistance": 5.916,
             "borderDistance": 147.354,
-            "salience": 72.302
+            "salience": 72.391
           },
           {
             "category": "daily-reminder",
@@ -4040,11 +4040,11 @@
             "service-support"
           ]
         },
-        "meanSurfaceDistance": 11.487,
+        "meanSurfaceDistance": 11.516,
         "layerSalience": {
           "event": 54.248,
           "climate": 49.204,
-          "beacon": 72.302
+          "beacon": 72.391
         },
         "contrasts": [
           {
@@ -4164,28 +4164,28 @@
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 12.622
+            "contrast": 12.732
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.622
+            "contrast": 12.732
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 6.672
+            "contrast": 6.73
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 6.672
+            "contrast": 6.73
           },
           {
             "category": "daily-reminder",
@@ -4398,7 +4398,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 195.65625,
-            "height": 56.75
+            "height": 85.125
           }
         },
         "assignedTime": {
@@ -4450,7 +4450,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 89.328125,
-            "height": 62.671875
+            "height": 67.375
           }
         },
         "climateTime": {
@@ -4735,8 +4735,8 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -4751,7 +4751,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4763,7 +4763,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4775,7 +4775,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4784,10 +4784,10 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4832,7 +4832,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -4866,9 +4866,9 @@
               "selector": ".assigned-copy.reading-summary.is-clamped",
               "readingId": "event-assigned-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 28,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -4916,7 +4916,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -4931,7 +4931,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4943,7 +4943,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4955,7 +4955,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4963,11 +4963,11 @@
               "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 79,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4979,7 +4979,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -4991,7 +4991,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5003,7 +5003,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5011,11 +5011,11 @@
               "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 92,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             }
           ],
@@ -5209,7 +5209,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 397,
-            "height": 17.25
+            "height": 17.25000762939453
           }
         },
         "dayVariable": {
@@ -5300,7 +5300,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 216.328125,
-            "height": 56.75
+            "height": 85.125
           }
         },
         "assignedTime": {
@@ -5637,8 +5637,8 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5686,7 +5686,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5734,7 +5734,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5768,9 +5768,9 @@
               "selector": ".assigned-copy.reading-summary.is-clamped",
               "readingId": "event-assigned-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 28,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5818,7 +5818,7 @@
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": true,
-              "overflowY": "hidden",
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5833,7 +5833,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5845,7 +5845,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5857,7 +5857,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5865,11 +5865,11 @@
               "readingId": "event-background-013",
               "horizontalOverflow": 0,
               "verticalOverflow": 79,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5881,7 +5881,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5893,7 +5893,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5905,7 +5905,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             },
             {
@@ -5913,11 +5913,11 @@
               "readingId": "event-background-056",
               "horizontalOverflow": 0,
               "verticalOverflow": 92,
-              "intentionalClamp": true,
-              "overflowY": "hidden",
+              "intentionalClamp": false,
+              "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": false,
+              "containerScrollsVertically": true,
               "outsideContainer": false
             }
           ],
@@ -6317,10 +6317,10 @@
       "desktop-dark": {
         "surfaceDistance": {
           "before": 33.356,
-          "after": 10.275,
-          "reduction": 0.655
+          "after": 10.246,
+          "reduction": 0.656
         },
-        "minimumContrast": 8.956,
+        "minimumContrast": 8.948,
         "minimumAccentDistance": {
           "value": 74.492,
           "pair": [
@@ -6336,20 +6336,20 @@
           ]
         },
         "layerSalience": {
-          "event": 72.744,
-          "climate": 42.959,
-          "beacon": 93.465
+          "event": 72.969,
+          "climate": 42.858,
+          "beacon": 93.23
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 33.853,
-            "after": 5.916,
-            "reduction": 0.825
+            "after": 6.782,
+            "reduction": 0.8
           },
           "ah-market-scan": {
             "before": 17.378,
-            "after": 7.681,
-            "reduction": 0.558
+            "after": 7.874,
+            "reduction": 0.547
           },
           "us-market-scan": {
             "before": 24.86,
@@ -6358,13 +6358,13 @@
           },
           "service-support": {
             "before": 21.749,
-            "after": 4.899,
-            "reduction": 0.775
+            "after": 4.123,
+            "reduction": 0.81
           },
           "autonomous-artwork": {
             "before": 68.022,
-            "after": 25.612,
-            "reduction": 0.623
+            "after": 25.159,
+            "reduction": 0.63
           },
           "daily-reminder": {
             "before": null,
@@ -6375,15 +6375,15 @@
         },
         "maximumClimateSalience": 49.082,
         "activeSalience": {
-          "assigned-work": 69.126,
-          "autonomous-artwork": 93.465
+          "assigned-work": 69.576,
+          "autonomous-artwork": 93.23
         }
       },
       "desktop-light": {
         "surfaceDistance": {
           "before": 27.376,
-          "after": 11.487,
-          "reduction": 0.536
+          "after": 11.516,
+          "reduction": 0.535
         },
         "minimumContrast": 5.223,
         "minimumAccentDistance": {
@@ -6403,7 +6403,7 @@
         "layerSalience": {
           "event": 54.248,
           "climate": 49.204,
-          "beacon": 72.302
+          "beacon": 72.391
         },
         "perCategorySurface": {
           "assigned-work": {
@@ -6428,8 +6428,8 @@
           },
           "autonomous-artwork": {
             "before": 35.114,
-            "after": 5.745,
-            "reduction": 0.836
+            "after": 5.916,
+            "reduction": 0.832
           },
           "daily-reminder": {
             "before": null,
@@ -6441,7 +6441,7 @@
         "maximumClimateSalience": 52.1,
         "activeSalience": {
           "assigned-work": 61.635,
-          "autonomous-artwork": 72.302
+          "autonomous-artwork": 72.391
         }
       }
     },

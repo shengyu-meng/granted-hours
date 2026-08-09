@@ -701,6 +701,26 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "system_maintenance",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_en": "System maintenance and deployment",
+          "task_name_zh": "系统维护与部署"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Development and validation",
+          "task_name_zh": "开发与验证"
         }
       ],
       "cell_sources": {
@@ -1157,6 +1177,26 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
+        },
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -2014,6 +2054,46 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Research and thematic inquiry",
           "task_name_zh": "研究与题材判断"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Synthesized a discussion with ████ about…",
+          "task_name_zh": "整理与████关于本然心、觉察、…"
+        },
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "The overlap of relationships, disappointment, and…",
+          "task_name_zh": "关系、失望与宽容的交叠"
+        },
+        {
+          "origin": "assigned",
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
         }
       ],
       "cell_sources": {
@@ -7048,6 +7128,26 @@ const timetableDataSource = {
           "short_zh": "文档",
           "task_name_en": "Writing and document refinement",
           "task_name_zh": "写作与文档打磨"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Used existing research, watchlists, and market…",
+          "task_name_zh": "利用████的既有研究、观察池和…"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Completed deep research on ████ and…",
+          "task_name_zh": "为████与████补齐个股深研…"
         }
       ],
       "cell_sources": {
@@ -10150,6 +10250,36 @@ const timetableDataSource = {
           "short_zh": "系统",
           "task_name_en": "System maintenance and deployment",
           "task_name_zh": "系统维护与部署"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Prepared and published a commentary on…",
+          "task_name_zh": "整理并发布关于AI交易Agent…"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Prepared an introduction to a NotebookLM…",
+          "task_name_zh": "整理NotebookLMPyth…"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Content organization and publishing",
+          "task_name_zh": "内容组织与发布"
         }
       ],
       "cell_sources": {
@@ -10948,6 +11078,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "████",
           "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -11222,6 +11362,16 @@ const timetableDataSource = {
       "jewel_zh": "《可验证的美》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
       "history_provenance": "withheld",
       "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -11584,6 +11734,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Completed a capability-stack summary of A…",
           "task_name_zh": "完成《AI简史》能力栈总结，从T…"
+        },
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Produced and published a public post…",
+          "task_name_zh": "制作并发布了一篇介绍寓言概念写作…"
         }
       ],
       "cell_sources": {
@@ -16443,6 +16603,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "████",
           "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -16796,6 +16966,26 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "████",
           "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -17257,6 +17447,16 @@ const timetableDataSource = {
           "short_zh": "社媒",
           "task_name_en": "Processed ten social-media items serially in…",
           "task_name_zh": "按████群组中的既定顺序，串行…"
+        },
+        {
+          "origin": "assigned",
+          "category": "system_maintenance",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_en": "Aligned the compression model in the…",
+          "task_name_zh": "将████配置中的压缩模型与主模…"
         }
       ],
       "cell_sources": {
@@ -22552,6 +22752,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Communication structure, collaboration flow, and release…",
           "task_name_zh": "传播文案结构、协作流程与发布节奏"
+        },
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Collected real AI-generated images from public…",
+          "task_name_zh": "从WikimediaCommon…"
         }
       ],
       "cell_sources": {
@@ -23003,6 +23213,36 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Development and validation",
           "task_name_zh": "开发与验证"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Handled the Code2LoRA and HyperFrames materials…",
+          "task_name_zh": "按先进先出顺序处理Code2Lo…"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
+        },
+        {
+          "origin": "assigned",
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Generated copy for ████'s cross-platform publication,…",
+          "task_name_zh": "为████的跨平台发布生成文案、…"
         }
       ],
       "cell_sources": {
@@ -29587,6 +29827,26 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -30281,6 +30541,16 @@ const timetableDataSource = {
       "jewel_zh": "《见证审计》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
       "history_provenance": "withheld",
       "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -34805,6 +35075,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Checked 12 reposted items across two…",
+          "task_name_zh": "核查12条双平台补发内容，补回█…"
         }
       ],
       "cell_sources": {
@@ -37448,6 +37728,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Located the original sources for four…",
           "task_name_zh": "定位四份公开AI文本的原始来源，…"
+        },
+        {
+          "origin": "assigned",
+          "category": "system_maintenance",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_en": "System maintenance and deployment",
+          "task_name_zh": "系统维护与部署"
         }
       ],
       "cell_sources": {
@@ -38166,6 +38456,16 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Organized “The Beauty of Nature Can…",
+          "task_name_zh": "将████提供的《大自然的美会是…"
+        },
+        {
+          "origin": "assigned",
           "category": "visual_production",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
@@ -38834,6 +39134,16 @@ const timetableDataSource = {
           "short_zh": "文档",
           "task_name_en": "Writing and document refinement",
           "task_name_zh": "写作与文档打磨"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -40152,6 +40462,16 @@ const timetableDataSource = {
           "short_zh": "文档",
           "task_name_en": "Writing and document refinement",
           "task_name_zh": "写作与文档打磨"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -44874,6 +45194,16 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
           "category": "visual_production",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
@@ -45552,6 +45882,16 @@ const timetableDataSource = {
           "short_zh": "社媒",
           "task_name_en": "For ████, organized and scheduled an…",
           "task_name_zh": "为████整理并定时安排Agen…"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "For ████, organized and scheduled an…",
+          "task_name_zh": "为████整理并定时安排Adra…"
         }
       ],
       "cell_sources": {
@@ -53547,6 +53887,16 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
           "category": "visual_production",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
@@ -53554,6 +53904,16 @@ const timetableDataSource = {
           "short_zh": "视觉",
           "task_name_en": "Visual creation and revision",
           "task_name_zh": "视觉创作与修改"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -59343,6 +59703,26 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Using discussions with ████, reframed research…",
           "task_name_zh": "基于████的讨论，重构空间句法…"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Completed cross-domain literature verification, system and…",
+          "task_name_zh": "完成交叉领域文献核验、系统与算法…"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -60795,6 +61175,26 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "████",
           "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -61435,6 +61835,16 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Development and validation",
           "task_name_zh": "开发与验证"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -69425,6 +69835,26 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
           "category": "code_development",
           "label_en": "Code development",
           "label_zh": "代码开发",
@@ -75715,6 +76145,16 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Public-content scheduling and archiving",
+          "task_name_zh": "公开内容的排期与归档"
+        },
+        {
+          "origin": "assigned",
           "category": "redacted_private",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
@@ -75722,6 +76162,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Summarized the income and assignment-risk boundaries…",
+          "task_name_zh": "整理现金担保卖Put的收益与接货…"
         }
       ],
       "cell_sources": {
@@ -77198,6 +77648,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Development and validation",
+          "task_name_zh": "开发与验证"
         }
       ],
       "cell_sources": {
@@ -77922,6 +78382,36 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Planned month titles, task taxonomy, stable…",
+          "task_name_zh": "为████艺术月历规划月份标题、…"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Fixed mobile artwork-detail overlap in the…",
+          "task_name_zh": "修复████月历的移动端作品详情…"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Started revising the ████ day-detail dialog…",
+          "task_name_zh": "启动████日详情对话框修订，约…"
+        },
+        {
+          "origin": "assigned",
           "category": "redacted_private",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
@@ -78624,6 +79114,36 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Generated-state reconciliation",
           "task_name_zh": "生成状态对账"
+        },
+        {
+          "origin": "assigned",
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Bilingual public summary",
+          "task_name_zh": "双语公开摘要"
+        },
+        {
+          "origin": "assigned",
+          "category": "system_maintenance",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_en": "Pre-release safety check",
+          "task_name_zh": "发布前安全检查"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -80275,6 +80795,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Visual-method provenance",
           "task_name_zh": "视觉方法溯源"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Interaction-scroll regression",
+          "task_name_zh": "交互滚动回归"
         }
       ],
       "cell_sources": {
@@ -81975,6 +82505,36 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Development and validation",
           "task_name_zh": "开发与验证"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Content organization and publishing",
+          "task_name_zh": "内容组织与发布"
         }
       ],
       "cell_sources": {
@@ -83396,6 +83956,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Reviewed a small comparison that showed…",
           "task_name_zh": "复核一项小规模比较：结果呈现实质…"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -85590,6 +86160,46 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Research and thematic inquiry",
           "task_name_zh": "研究与题材判断"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "On 2026-07-31, Codex/GPT completed evidence-backed research…",
+          "task_name_zh": "2026-07-31，Codex…"
+        },
+        {
+          "origin": "assigned",
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
         }
       ],
       "cell_sources": {
@@ -87799,6 +88409,26 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Development and validation",
           "task_name_zh": "开发与验证"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "On 2026-08-01, Codex/GPT completed evidence-backed review…",
+          "task_name_zh": "2026-08-01，Codex…"
         }
       ],
       "cell_sources": {

@@ -234,6 +234,9 @@ const state = {
   initiatingPointerType: "",
 };
 let timelinePlacementFrame = 0;
+const overflowPreviewObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) syncOverflowPreviewState(entry.target);
+});
 
 function init() {
   cacheElements();
@@ -288,6 +291,7 @@ function init() {
   }, { passive: true });
   window.addEventListener("resize", () => {
     hideInspectionLens({ immediate: true });
+    document.querySelectorAll(".overflow-scroll-preview").forEach(syncOverflowPreviewState);
     scheduleTimelineReadingPlacement();
   });
   window.addEventListener("popstate", handleDateSelectionPopstate);
@@ -1345,7 +1349,7 @@ function buildDayButton(day, isToday, isMuted) {
     button.setAttribute("aria-current", "date");
   }
 
-  const assigned = day.cell_assigned.slice(0, 2).map((marker) => {
+  const assigned = day.cell_assigned.map((marker) => {
     const taskNameZh = marker.task_name_zh || marker.short_zh;
     const taskNameEn = marker.task_name_en || marker.short_en;
     return `
@@ -1363,20 +1367,68 @@ function buildDayButton(day, isToday, isMuted) {
     <span class="cell-date-number">${formatMonthDay(day.date)}</span>
     <span class="cell-source-bars" aria-hidden="true">${sourceBars}</span>
     <span class="cell-material">
-      <span class="assigned-marks">${assigned}</span>
       <span class="cell-mark self-mark">
         <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(day.cell_self.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(day.cell_self.short_en)}</span></span>
         <strong><span class="title-zh">${escapeHtml(day.title_zh)}</span><span class="title-divider"> / </span><span class="title-en">${escapeHtml(compactEnglishTitle(day.title_en))}</span></strong>
       </span>
+      <span class="assigned-marks">${assigned}</span>
     </span>
   `;
   button.addEventListener("click", () => openDayDetail(day.date));
+  setupMonthCellScrollPreview(button);
   button.addEventListener("pointerenter", (event) => {
     if (event.pointerType !== "mouse" || !window.matchMedia(FINE_POINTER_QUERY).matches) return;
     playPianoNoteForDay(day);
   });
   button.addEventListener("focus", () => playPianoNoteForDay(day));
   return button;
+}
+
+function syncOverflowPreviewState(element) {
+  // Measure from the top so content that would overflow above a bottom-aligned
+  // month cell is included in scrollHeight. Restore the quiet bottom alignment
+  // only after proving that the whole preview fits.
+  element.classList.remove("is-fitted");
+  const hasOverflow = element.scrollHeight > element.clientHeight + 1;
+  element.classList.toggle("is-scrollable", hasOverflow);
+  element.classList.toggle("is-fitted", !hasOverflow);
+  element.dataset.overflowPreview = hasOverflow ? "true" : "false";
+  if (!hasOverflow && element.scrollTop !== 0) element.scrollTop = 0;
+}
+
+function registerOverflowPreview(element) {
+  element.classList.add("overflow-scroll-preview");
+  overflowPreviewObserver.observe(element);
+  requestAnimationFrame(() => syncOverflowPreviewState(element));
+}
+
+function setupMonthCellScrollPreview(button) {
+  const scrollRoot = button.querySelector(".cell-material");
+  if (!scrollRoot) return;
+  registerOverflowPreview(scrollRoot);
+  button.addEventListener("wheel", (event) => {
+    routeWheelIntoOverflowPreview(event, scrollRoot);
+  }, { passive: false });
+}
+
+function routeWheelIntoOverflowPreview(event, scrollRoot) {
+  if (event.ctrlKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+  const maximumScrollTop = scrollRoot.scrollHeight - scrollRoot.clientHeight;
+  if (maximumScrollTop <= 1) return;
+  const delta = event.deltaMode === WheelEvent.DOM_DELTA_LINE
+    ? event.deltaY * 16
+    : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+      ? event.deltaY * scrollRoot.clientHeight
+      : event.deltaY;
+  const canConsume = delta < 0
+    ? scrollRoot.scrollTop > 0
+    : scrollRoot.scrollTop < maximumScrollTop - 0.5;
+  if (!canConsume) return;
+  event.preventDefault();
+  scrollRoot.scrollTop = Math.max(
+    0,
+    Math.min(maximumScrollTop, scrollRoot.scrollTop + delta),
+  );
 }
 
 function openDayDetail(date, options = {}) {
@@ -1522,6 +1574,10 @@ function renderDayDetail(day) {
     connector.dataset.anchorFootprintId = anchorLayout.event.footprint_id;
     connectorLayer.append(connector);
     readingLayer.append(card);
+    registerOverflowPreview(card);
+    card.addEventListener("wheel", (event) => {
+      routeWheelIntoOverflowPreview(event, card);
+    }, { passive: false });
   });
   scheduleTimelineReadingPlacement();
 }
@@ -2180,29 +2236,6 @@ function buildAssignedTimelineEvent(task) {
   const iconSlot = button.querySelector(".assigned-type-icon");
   iconSlot.replaceWith(buildIcon(taskIcon(task.task_icon), task.task_icon, "assigned-type-icon"));
   setupReadingCardActivation(button, () => openTaskDetail(task, button));
-  requestAnimationFrame(() => {
-    const copy = button.querySelector(".assigned-copy");
-    const measurement = copy.cloneNode(true);
-    Object.assign(measurement.style, {
-      position: "fixed",
-      left: "-10000px",
-      top: "0",
-      width: `${copy.clientWidth}px`,
-      maxWidth: "none",
-      maxHeight: "none",
-      height: "auto",
-      display: "block",
-      overflow: "visible",
-      visibility: "hidden",
-      webkitLineClamp: "unset",
-      webkitBoxOrient: "initial",
-    });
-    document.body.append(measurement);
-    const lineHeight = Number.parseFloat(getComputedStyle(copy).lineHeight);
-    const isClamped = measurement.getBoundingClientRect().height > lineHeight * 4 + 1;
-    measurement.remove();
-    copy.classList.toggle("is-clamped", isClamped);
-  });
   return { footprint: item, card: button };
 }
 

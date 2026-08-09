@@ -471,10 +471,13 @@ h1 {
 
 .cell-material {
   display: grid;
-  align-content: end;
+  align-content: start;
   gap: 4px;
   min-height: 0;
   padding-top: 6px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .assigned-marks {
@@ -5962,6 +5965,94 @@ h1 {
   .dialog-close {
     height: calc(44px * 2 / 3);
     min-height: calc(44px * 2 / 3);
+  }
+}
+
+/* ===== In-place overflow previews (2026-08-09) =====
+   Month cells and day-detail reading cards keep their compact geometry, but
+   reveal the complete authored preview with a wheel/touch scroll whenever the
+   content is taller than its frame. Native overflow means the rail does not
+   exist for content that already fits. The translucent thumb stays inside the
+   rounded glass edge and the card's one-shot hover lift remains unchanged. */
+.overflow-scroll-preview {
+  scrollbar-width: thin;
+  scrollbar-color:
+    color-mix(in srgb, var(--cyan-trace) 44%, transparent)
+    transparent;
+}
+
+.overflow-scroll-preview::-webkit-scrollbar {
+  width: 5px;
+  height: 0;
+}
+
+.overflow-scroll-preview::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-scroll-preview::-webkit-scrollbar-thumb {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    color-mix(in srgb, var(--cyan-trace) 42%, transparent)
+    padding-box;
+}
+
+.overflow-scroll-preview:hover::-webkit-scrollbar-thumb,
+.overflow-scroll-preview:focus-visible::-webkit-scrollbar-thumb,
+.event-reading-card:hover::-webkit-scrollbar-thumb,
+.event-reading-card:focus-visible::-webkit-scrollbar-thumb {
+  background:
+    color-mix(in srgb, var(--gold-pale) 52%, var(--cyan-trace) 48%)
+    padding-box;
+}
+
+.cell-material.is-scrollable {
+  align-content: start;
+  padding-right: 2px;
+}
+
+.cell-material.is-fitted {
+  align-content: end;
+}
+
+.cell-material .cell-mark,
+.cell-material .cell-mark-line,
+.cell-material .self-mark strong {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.event-reading-card.overflow-scroll-preview {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.event-reading-card.overflow-scroll-preview .assigned-copy,
+.event-reading-card.overflow-scroll-preview .pulse-summary,
+.event-reading-card.overflow-scroll-preview .autonomous-copy,
+.event-reading-card.overflow-scroll-preview .autonomous-copy h4,
+.event-reading-card.overflow-scroll-preview .autonomous-copy > p:last-child {
+  display: block;
+  max-height: none;
+  overflow: visible;
+  text-overflow: clip;
+  -webkit-box-orient: initial;
+  -webkit-line-clamp: unset;
+}
+
+.autonomous-work-link.event-reading-card.overflow-scroll-preview {
+  grid-template-rows: auto max-content auto;
+  align-content: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overflow-scroll-preview {
+    scroll-behavior: auto;
   }
 }
 

@@ -286,6 +286,7 @@ async function inspect(page) {
             scrollHeight: summary.scrollHeight,
             top: summaryRect.top,
             bottom: summaryRect.bottom,
+            contentBottom: summaryRect.top + summary.scrollHeight,
             lineHeight: Number.parseFloat(summaryStyle.lineHeight),
             clamp: summaryStyle.webkitLineClamp,
             overflow: summaryStyle.overflow,
@@ -295,6 +296,8 @@ async function inspect(page) {
         cardBottom: rect.bottom,
         cardClientHeight: card.clientHeight,
         cardScrollHeight: card.scrollHeight,
+        cardOverflowY: style.overflowY,
+        cardContentBottom: rect.top + card.scrollHeight,
       };
     });
     const documentMarkup = document.documentElement.outerHTML;
@@ -436,7 +439,8 @@ try {
           );
           assert.ok(card.summaryMetrics, `${date}/${viewport.label}: missing summary metrics`);
           const summaryIsClamped = card.summaryMetrics.scrollHeight
-            > card.summaryMetrics.clientHeight + 1;
+            > card.summaryMetrics.clientHeight + 1
+            && ["hidden", "clip"].includes(card.summaryMetrics.overflow);
           if (summaryIsClamped) {
             assert.ok(
               card.summaryMetrics.clientHeight
@@ -451,9 +455,16 @@ try {
           }
           assert.ok(
             card.titleMetrics.top >= card.cardTop - 1
-              && card.titleMetrics.bottom <= card.cardBottom + 1
+              && card.titleMetrics.bottom <= card.cardContentBottom + 4
               && card.summaryMetrics.top >= card.cardTop - 1
-              && card.summaryMetrics.bottom <= card.cardBottom + 1,
+              && card.summaryMetrics.contentBottom <= card.cardContentBottom + 4
+              && (
+                card.summaryMetrics.contentBottom <= card.cardBottom + 1
+                || (
+                  card.cardScrollHeight > card.cardClientHeight + 1
+                  && ["auto", "scroll"].includes(card.cardOverflowY)
+                )
+              ),
             `${date}/${viewport.label}: title or brief escapes card ${JSON.stringify(card)}`,
           );
         }

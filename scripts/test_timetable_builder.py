@@ -51,6 +51,19 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertEqual(public_dates, set(self.history))
         self.assertEqual(len(public_dates), len(self.public_days))
 
+    def test_month_cell_preserves_every_public_task_for_scroll_preview(self) -> None:
+        output = self.build()
+        for day in output["days"]:
+            self.assertEqual(
+                len(day["cell_assigned"]),
+                len(day["task_residues"]),
+                f"{day['date']} month preview must not discard later events",
+            )
+            self.assertEqual(
+                [marker["task_name_en"] for marker in day["cell_assigned"]],
+                [task["task_name_en"] for task in day["task_residues"]],
+            )
+
     def test_history_uses_faithful_summaries_with_explicit_redaction(self) -> None:
         provenance = Counter()
         for day_date, entry in self.history.items():

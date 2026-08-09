@@ -1,49 +1,49 @@
 {
   "schema": "rounded-hover-preview-evidence-v1",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8891/timetable/",
+  "baseUrl": "http://127.0.0.1:8896/timetable/",
   "screenshots": [
     {
       "path": "audits/rounded-hover-preview/2026-07-21-desktop-dark-assigned-lens.png",
       "type": "intentional-hover",
-      "bytes": 804440,
-      "sha256": "45f8169f649f8779fb52de5044599dc74dc3a0ed972f913179aeaba43b09e8ab"
+      "bytes": 826280,
+      "sha256": "de0d4a753e60bb46807444f5330a1e7f2c49d374d7c1dd40cc8f43b0fafa4d18"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-a.png",
       "type": "intentional-hover-gif-frame",
-      "bytes": 85630,
-      "sha256": "c99a9a310fa44be1752e387852475f6fde49fbb88270eff8fc738ed1c8790fc3"
+      "bytes": 84237,
+      "sha256": "a6a2629518273cf2c4f2594401fe8a1281e11c7a2fd71cd40f863d28949e6167"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-b.png",
       "type": "intentional-hover-gif-frame",
-      "bytes": 81709,
-      "sha256": "ebd57ae02638680f14df53b83573ecbbe10dc8e89ddf4d5b22f2543ee3ed0d4c"
+      "bytes": 82302,
+      "sha256": "015d29962eeccb5b201a0ed742a2f272a852f04d6fc6652814df58e282531a7d"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-desktop-dark-autonomous-motion-lens.png",
       "type": "intentional-hover",
-      "bytes": 816453,
-      "sha256": "982226cb72182269af6e2a48a762724acaec5d41690f53a995416c0b9e1b60d2"
+      "bytes": 844261,
+      "sha256": "c034181c6465043e9d8272719179750fb6613ee39a98af7b6468627ff08029ba"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-22-desktop-light-market-support-lens.png",
       "type": "intentional-hover",
-      "bytes": 682528,
-      "sha256": "525bf56a2336b4fdd2f45c073b1806434479f254252c72aea41226f98937b930"
+      "bytes": 686797,
+      "sha256": "0d9d7345c139ceeb6b3b19a8b7058b726ab5dfdb95a265a1715c413de0f68656"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-390x844-no-hover-resting.png",
       "type": "non-hover",
-      "bytes": 300061,
-      "sha256": "e466d1f21e18d73d6ed3e6d2133f02c02e7966229d0e53c7969ad6b90ecdd647"
+      "bytes": 306470,
+      "sha256": "76c93506620ca6cff8de7d25974d33acd51cb4beb98d7c576fd6c87dcc484801"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-421x386-no-hover-resting.png",
       "type": "non-hover",
-      "bytes": 155062,
-      "sha256": "42aefb650b4e910b2e7b981d6a28219432f869f2968ae5b9226a1605d8ddede3"
+      "bytes": 149054,
+      "sha256": "ca98cc80fe0d5ebe4bd17011788c24461e04f83c5844b89970e3867a49d97e6a"
     }
   ],
   "lenses": {
@@ -123,7 +123,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
         "complete": true,
         "naturalWidth": 400,
         "naturalHeight": 225,
@@ -174,7 +174,7 @@
   "mediaFallbacks": {
     "loadFailure": {
       "hidden": false,
-      "visible": true,
+      "visible": false,
       "readingId": "beacon-beacon-001",
       "category": "autonomous-artwork",
       "mediaKind": "static-image",
@@ -190,12 +190,12 @@
       "display": "block",
       "transitionDuration": "0.14s, 0.16s",
       "rect": {
-        "left": 54,
-        "top": 466,
-        "right": 474,
-        "bottom": 890.703125,
-        "width": 420,
-        "height": 424.703125
+        "left": 57.149993896484375,
+        "top": 474.1852722167969,
+        "right": 470.8500061035156,
+        "bottom": 892.517822265625,
+        "width": 413.70001220703125,
+        "height": 418.3325500488281
       },
       "triggerRect": {
         "left": 481.75,
@@ -210,7 +210,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
         "complete": true,
         "naturalWidth": 960,
         "naturalHeight": 540,
@@ -221,7 +221,7 @@
     },
     "allLoadFailure": {
       "hidden": false,
-      "visible": true,
+      "visible": false,
       "readingId": "beacon-beacon-001",
       "category": "autonomous-artwork",
       "mediaKind": "typographic",
@@ -237,12 +237,12 @@
       "display": "block",
       "transitionDuration": "0.14s, 0.16s",
       "rect": {
-        "left": 54,
-        "top": 573,
-        "right": 474,
-        "bottom": 828,
-        "width": 420,
-        "height": 255
+        "left": 57.149993896484375,
+        "top": 579.9124755859375,
+        "right": 470.8500061035156,
+        "bottom": 831.0874633789062,
+        "width": 413.70001220703125,
+        "height": 251.17498779296875
       },
       "triggerRect": {
         "left": 481.75,
@@ -295,7 +295,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
         "complete": true,
         "naturalWidth": 960,
         "naturalHeight": 540,
@@ -381,7 +381,7 @@
         "overflow": 0,
         "media": {
           "tag": "IMG",
-          "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "complete": true,
           "naturalWidth": 400,
           "naturalHeight": 225,
@@ -434,7 +434,7 @@
   "gifFrameProgression": {
     "method": "two timed rendered lens-media PNG crops with SHA-256",
     "source": {
-      "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+      "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
       "sameOrigin": true,
       "complete": true,
       "naturalWidth": 400,
@@ -443,7 +443,7 @@
       "localQa": true,
       "exactCanonicalMetadataMatch": true,
       "network": {
-        "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+        "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
         "status": 200,
         "ok": true,
         "contentType": "image/gif"
@@ -451,13 +451,13 @@
     },
     "first": {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-a.png",
-      "elapsedMs": 10177.899999976158,
-      "sha256": "c99a9a310fa44be1752e387852475f6fde49fbb88270eff8fc738ed1c8790fc3"
+      "elapsedMs": 50114.89999997616,
+      "sha256": "a6a2629518273cf2c4f2594401fe8a1281e11c7a2fd71cd40f863d28949e6167"
     },
     "second": {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-b.png",
-      "elapsedMs": 12822.399999976158,
-      "sha256": "ebd57ae02638680f14df53b83573ecbbe10dc8e89ddf4d5b22f2543ee3ed0d4c"
+      "elapsedMs": 59587.800000071526,
+      "sha256": "015d29962eeccb5b201a0ed742a2f272a852f04d6fc6652814df58e282531a7d"
     },
     "changed": true
   },
@@ -501,7 +501,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
         "complete": true,
         "naturalWidth": 960,
         "naturalHeight": 540,
@@ -1541,11 +1541,11 @@
       "pageErrors": [],
       "requestFailures": [
         {
-          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         }
       ]
@@ -1573,19 +1573,19 @@
       "pageErrors": [],
       "requestFailures": [
         {
-          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
           "expected": true
         }
       ]
