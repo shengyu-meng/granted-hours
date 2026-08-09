@@ -15,6 +15,10 @@ function captureErrors(page) {
   });
   page.on("pageerror", (error) => errors.push(`page: ${error.message}`));
   page.on("requestfailed", (request) => {
+    if (
+      new URL(request.url()).pathname === "/cdn-cgi/rum"
+      && request.failure()?.errorText === "net::ERR_ABORTED"
+    ) return;
     errors.push(`request: ${request.url()} (${request.failure()?.errorText || "failed"})`);
   });
 }
