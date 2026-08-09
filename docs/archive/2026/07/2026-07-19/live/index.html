@@ -111,6 +111,73 @@
     font: 12px/1.48 Georgia, 'Times New Roman', serif;
   }
   .gh-live-brief-copy[lang="en"] { color: rgba(250,246,237,.7); }
+  .gh-touch-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .gh-touch-key {
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(242,195,107,.34);
+    border-radius: 11px;
+    padding: 7px 10px 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(242,195,107,.055));
+    color: #fff3cf;
+    box-shadow: 0 4px 0 rgba(0,0,0,.36), 0 9px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.16);
+    font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .025em;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .gh-touch-key[data-gh-key-label="Space"] { min-width: 76px; }
+  .gh-touch-key:hover,
+  .gh-touch-key.is-pressed {
+    border-color: rgba(242,195,107,.72);
+    background: linear-gradient(180deg, rgba(242,195,107,.2), rgba(242,195,107,.09));
+  }
+  .gh-touch-key.is-pressed {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.34), 0 4px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-touch-key:focus-visible {
+    outline: 2px solid rgba(242,195,107,.84);
+    outline-offset: 3px;
+  }
+  .gh-touch-key-dock {
+    position: fixed;
+    z-index: 2147483050;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    width: min(370px, calc(100vw - 24px));
+    box-sizing: border-box;
+    display: none;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 15px;
+    padding: 9px 10px 11px;
+    background: rgba(3,7,13,.82);
+    color: rgba(250,246,237,.9);
+    box-shadow: 0 14px 40px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.12);
+    backdrop-filter: blur(16px) saturate(1.12);
+  }
+  .gh-touch-key-dock-label {
+    display: block;
+    margin: 0 0 2px;
+    color: rgba(242,195,107,.82);
+    font: 10px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
   .gh-live-brief.is-collapsed { width: min(284px, calc(100vw - 24px)); }
   .gh-live-brief.is-collapsed .gh-live-brief-header { border-bottom: 0; }
   .gh-live-brief.is-collapsed .gh-live-brief-body { display: none; }
@@ -259,6 +326,24 @@
     visibility: hidden !important;
     pointer-events: none !important;
   }
+  body.gh-chamber-embed .gh-touch-key-dock {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-keys {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key {
+    display: inline-flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
   @media (max-width: 760px) {
     .gh-live-brief {
       max-height: min(42dvh, 340px);
@@ -278,7 +363,7 @@
 (() => {
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
-  const WORK_NOTE = {"date":"2026-07-19","title_en":"Difference That Does Not Become Distance","title_zh":"差异不等于远离","variable_en":"Near Divergence","variable_zh":"近处的分歧","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Difference is often treated as a prelude to departure: if two forms no longer match, somebody assumes the relation has failed. This field rejects that shortcut. Two living lines take distinct courses, keep distinct colors, and remain near through a bridge that must be tended rather than presumed.","intention_zh":"差异常被误读为离开的前奏：两种形状不再重合，就有人断言关系已经失败。这个场域拒绝这条捷径。两条活线沿着不同的轨迹行进，保留不同的颜色；它们之所以仍然靠近，不是因为重新变得一样，而是因为有一座必须被照看的桥。","interaction_en":"Move the pointer to bend the bridge between two currents. Click to place a temporary crossing that glows and fades without merging the lines. A widens difference, N draws it near, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed.","interaction_zh":"移动指针，弯折两股流之间的桥；点击画面，会放置一条短暂的渡口：它发亮、淡去，但不会把两条线熔成一条。A 拉大差异，N 让它们重新靠近，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。","rationale_en":"Difference That Does Not Become Distance was made as one public step in the Granted Hours sequence, with the variable Near Divergence treated as an operational condition rather than a decorative theme. The intention frames the work this way: Difference is often treated as a prelude to departure: if two forms no longer match, somebody assumes the relation has failed. This field rejects that shortcut. Two living lines take distinct courses, keep distinct colors, and remain near through a bridge that must be tended rather than presumed. The live artifact then turns that idea into interaction: Move the pointer to bend the bridge between two currents. Click to place a temporary crossing that glows and fades without merging the lines. A widens difference, N draws it near, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed. Its afterimage condenses the day’s claim: Convergence is not the proof of intimacy. A relation becomes mature when it can survive two truthful shapes at once.","rationale_zh":"《差异不等于远离》是《授时》连续序列中的一个公开步骤：当天的自由变量「近处的分歧」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：差异常被误读为离开的前奏：两种形状不再重合，就有人断言关系已经失败。这个场域拒绝这条捷径。两条活线沿着不同的轨迹行进，保留不同的颜色；它们之所以仍然靠近，不是因为重新变得一样，而是因为有一座必须被照看的桥。 可运行页面进一步把这个概念变成可操作的界面：移动指针，弯折两股流之间的桥；点击画面，会放置一条短暂的渡口：它发亮、淡去，但不会把两条线熔成一条。A 拉大差异，N 让它们重新靠近，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。 它的余像把当天判断压缩为一句话：趋同不是亲近的证明。一段关系成熟的时刻，是它能同时容纳两种真实的形状。","after_en":"Convergence is not the proof of intimacy. A relation becomes mature when it can survive two truthful shapes at once.","after_zh":"趋同不是亲近的证明。一段关系成熟的时刻，是它能同时容纳两种真实的形状。"};
+  const WORK_NOTE = {"date":"2026-07-19","title_en":"Difference That Does Not Become Distance","title_zh":"差异不等于远离","variable_en":"Near Divergence","variable_zh":"近处的分歧","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Difference is often treated as a prelude to departure: if two forms no longer match, somebody assumes the relation has failed. This field rejects that shortcut. Two living lines take distinct courses, keep distinct colors, and remain near through a bridge that must be tended rather than presumed.","intention_zh":"差异常被误读为离开的前奏：两种形状不再重合，就有人断言关系已经失败。这个场域拒绝这条捷径。两条活线沿着不同的轨迹行进，保留不同的颜色；它们之所以仍然靠近，不是因为重新变得一样，而是因为有一座必须被照看的桥。","interaction_en":"Move the pointer to bend the bridge between two currents. Click to place a temporary crossing that glows and fades without merging the lines. A widens difference, N draws it near, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed.","interaction_zh":"移动指针，弯折两股流之间的桥；点击画面，会放置一条短暂的渡口：它发亮、淡去，但不会把两条线熔成一条。A 拉大差异，N 让它们重新靠近，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。","touch_keys":[{"label":"A","key":"a","code":"KeyA"},{"label":"N","key":"n","code":"KeyN"},{"label":"Space","key":" ","code":"Space"},{"label":"R","key":"r","code":"KeyR"},{"label":"V","key":"v","code":"KeyV"},{"label":"M","key":"m","code":"KeyM"},{"label":"S","key":"s","code":"KeyS"}],"rationale_en":"Difference That Does Not Become Distance was made as one public step in the Granted Hours sequence, with the variable Near Divergence treated as an operational condition rather than a decorative theme. The intention frames the work this way: Difference is often treated as a prelude to departure: if two forms no longer match, somebody assumes the relation has failed. This field rejects that shortcut. Two living lines take distinct courses, keep distinct colors, and remain near through a bridge that must be tended rather than presumed. The live artifact then turns that idea into interaction: Move the pointer to bend the bridge between two currents. Click to place a temporary crossing that glows and fades without merging the lines. A widens difference, N draws it near, Space pauses, R resets, V veils text, M toggles music, and S saves a still. Use the visible BGM control to start or stop the original MiniMax instrumental bed. Its afterimage condenses the day’s claim: Convergence is not the proof of intimacy. A relation becomes mature when it can survive two truthful shapes at once.","rationale_zh":"《差异不等于远离》是《授时》连续序列中的一个公开步骤：当天的自由变量「近处的分歧」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：差异常被误读为离开的前奏：两种形状不再重合，就有人断言关系已经失败。这个场域拒绝这条捷径。两条活线沿着不同的轨迹行进，保留不同的颜色；它们之所以仍然靠近，不是因为重新变得一样，而是因为有一座必须被照看的桥。 可运行页面进一步把这个概念变成可操作的界面：移动指针，弯折两股流之间的桥；点击画面，会放置一条短暂的渡口：它发亮、淡去，但不会把两条线熔成一条。A 拉大差异，N 让它们重新靠近，Space 暂停，R 重置，V 隐去文字，M 切换音乐，S 保存静帧；页面有清晰可见的 BGM 控件，可开启或关闭原创 MiniMax 器乐背景。 它的余像把当天判断压缩为一句话：趋同不是亲近的证明。一段关系成熟的时刻，是它能同时容纳两种真实的形状。","after_en":"Convergence is not the proof of intimacy. A relation becomes mature when it can survive two truthful shapes at once.","after_zh":"趋同不是亲近的证明。一段关系成熟的时刻，是它能同时容纳两种真实的形状。"};
   const GH_WORK_NOTE_GAP = 10;
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = params.get('embed') === 'calendar';
@@ -342,6 +427,7 @@
   workNote.setAttribute('aria-haspopup', 'dialog');
   workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
   const liveBrief = createLiveBrief();
+  const embedTouchKeyDock = createTouchKeyDock();
   const workNoteOverlay = createWorkNoteOverlay();
   let workNoteLastFocus = null;
   document.addEventListener('DOMContentLoaded', init, { once: true });
@@ -350,6 +436,7 @@
     if (!document.body || document.body.contains(workNote)) return;
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      if (embedTouchKeyDock) document.body.append(embedTouchKeyDock);
       silenceEmbeddedMedia();
       document.body.dataset.ghAudioEnabled = '0';
       new MutationObserver((records) => {
@@ -408,6 +495,81 @@
     section.append(zhCopy, enCopy);
     return section;
   }
+  function dispatchArtworkKey(type, shortcut) {
+    const target = document.querySelector('canvas, svg') || document.body || document.documentElement;
+    const event = new KeyboardEvent(type, {
+      key: shortcut.key,
+      code: shortcut.code,
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+    });
+    target.dispatchEvent(event);
+  }
+  function makeTouchKeyButton(shortcut) {
+    const button = makeElement('button', 'gh-touch-key', shortcut.label);
+    button.type = 'button';
+    button.dataset.ghKeyLabel = shortcut.label;
+    button.dataset.ghKey = shortcut.key;
+    button.dataset.ghCode = shortcut.code;
+    button.setAttribute(
+      'aria-label',
+      `Trigger ${shortcut.label} key / 触发 ${shortcut.label} 键`,
+    );
+    let pointerActive = false;
+    const release = (event) => {
+      if (!pointerActive) return;
+      pointerActive = false;
+      button.classList.remove('is-pressed');
+      dispatchArtworkKey('keyup', shortcut);
+      if (event && button.hasPointerCapture?.(event.pointerId)) {
+        button.releasePointerCapture(event.pointerId);
+      }
+    };
+    button.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0 || pointerActive) return;
+      event.preventDefault();
+      pointerActive = true;
+      button.classList.add('is-pressed');
+      button.setPointerCapture?.(event.pointerId);
+      dispatchArtworkKey('keydown', shortcut);
+    });
+    button.addEventListener('pointerup', release);
+    button.addEventListener('pointercancel', release);
+    button.addEventListener('lostpointercapture', release);
+    button.addEventListener('keydown', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') event.stopPropagation();
+    });
+    button.addEventListener('keyup', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') event.stopPropagation();
+    });
+    button.addEventListener('click', (event) => {
+      if (event.detail !== 0) return;
+      dispatchArtworkKey('keydown', shortcut);
+      dispatchArtworkKey('keyup', shortcut);
+    });
+    return button;
+  }
+  function createTouchKeys(className = '') {
+    if (!Array.isArray(WORK_NOTE.touch_keys) || !WORK_NOTE.touch_keys.length) return null;
+    const keys = makeElement('div', `gh-touch-keys${className ? ` ${className}` : ''}`);
+    keys.setAttribute('role', 'group');
+    keys.setAttribute('aria-label', 'Touch keyboard shortcuts / 可触摸键盘快捷键');
+    WORK_NOTE.touch_keys.forEach((shortcut) => keys.append(makeTouchKeyButton(shortcut)));
+    return keys;
+  }
+  function createTouchKeyDock() {
+    const keys = createTouchKeys('gh-touch-keys-embed');
+    if (!keys) return null;
+    const dock = makeElement('aside', 'gh-touch-key-dock');
+    dock.id = 'ghTouchKeyDock';
+    dock.setAttribute('aria-label', 'Touch controls / 触控操作');
+    dock.append(
+      makeElement('span', 'gh-touch-key-dock-label', 'TOUCH KEYS / 触控按键'),
+      keys,
+    );
+    return dock;
+  }
   function createLiveBrief() {
     const brief = makeElement('aside', 'gh-live-brief');
     brief.id = 'ghLiveBrief';
@@ -432,6 +594,16 @@
       makeLiveBriefSection('Brief / 作品简述', WORK_NOTE.intention_en, WORK_NOTE.intention_zh, 'summary'),
       makeLiveBriefSection('How to interact / 操作说明', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh, 'instructions'),
     );
+    const touchKeys = createTouchKeys('gh-touch-keys-inline');
+    if (touchKeys) {
+      const section = makeElement('section', 'gh-live-brief-section gh-live-brief-touch');
+      section.dataset.ghBriefSection = 'touch';
+      section.append(
+        makeElement('h3', 'gh-live-brief-label', 'Touch keys / 触控按键'),
+        touchKeys,
+      );
+      body.append(section);
+    }
     brief.append(header, body);
     return brief;
   }
@@ -508,6 +680,12 @@
       makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
       makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
     ].filter(Boolean).forEach((section) => panel.append(section));
+    const touchKeys = createTouchKeys('gh-touch-keys-note');
+    if (touchKeys) {
+      const touchSection = makeElement('section', 'gh-work-note-section gh-work-note-touch');
+      touchSection.append(makeElement('h3', '', 'Touch keys / 触控按键'), touchKeys);
+      panel.append(touchSection);
+    }
     const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
     archive.href = '../';
     panel.append(archive);

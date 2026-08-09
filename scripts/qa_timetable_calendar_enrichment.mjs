@@ -301,15 +301,18 @@ try {
               const rect = element.getBoundingClientRect();
               return style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0.01 && rect.width > 1 && rect.height > 1;
             })
+            .filter((element) => !element.closest("#ghTouchKeyDock"))
             .map(() => selector),
         );
         return {
           visible,
+          touchKeys: document.querySelectorAll("#ghTouchKeyDock .gh-touch-key").length,
           audio: [...document.querySelectorAll("audio")].map((audio) => ({ paused: audio.paused, muted: audio.muted })),
           video: [...document.querySelectorAll("video")].map((video) => ({ muted: video.muted })),
         };
       });
       assert.deepEqual(result.visible, [], `${date}: ${JSON.stringify(result)}`);
+      assert.equal(result.touchKeys, date === "2026-05-07" ? 3 : 0, `${date}: ${JSON.stringify(result)}`);
       assert.ok(result.audio.every((audio) => audio.paused && audio.muted), `${date}: ${JSON.stringify(result.audio)}`);
       assert.ok(result.video.every((video) => video.muted), `${date}: ${JSON.stringify(result.video)}`);
       audioElementCount += result.audio.length;
@@ -334,6 +337,8 @@ try {
       return {
         classes: [...document.body.classList],
         titleVisible: isVisible(document.querySelector("h1, .title")),
+        liveBriefVisible: isVisible(document.querySelector("#ghLiveBrief")),
+        liveBriefTitle: document.querySelector("#ghLiveBrief .gh-live-brief-title")?.textContent || "",
         workNoteVisible: isVisible(document.querySelector("#ghWorkNoteTrigger")),
         foldControlAbsent: !document.querySelector(".gh-fold-toggle"),
         artworkControlVisible: isVisible(document.querySelector("button:not(.gh-work-note-trigger)")),
@@ -341,7 +346,8 @@ try {
       };
     });
     assert.ok(!result.classes.includes("gh-chamber-embed"), JSON.stringify(result));
-    assert.ok(result.titleVisible, JSON.stringify(result));
+    assert.ok(result.titleVisible || result.liveBriefVisible, JSON.stringify(result));
+    assert.match(result.liveBriefTitle, /\S+\s*\/\s*\S+/, JSON.stringify(result));
     assert.ok(result.workNoteVisible, JSON.stringify(result));
     assert.equal(result.foldControlAbsent, true, JSON.stringify(result));
     assert.ok(result.artworkControlVisible, JSON.stringify(result));

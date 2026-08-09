@@ -112,6 +112,73 @@
     font: 12px/1.48 Georgia, 'Times New Roman', serif;
   }
   .gh-live-brief-copy[lang="en"] { color: rgba(250,246,237,.7); }
+  .gh-touch-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .gh-touch-key {
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(242,195,107,.34);
+    border-radius: 11px;
+    padding: 7px 10px 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(242,195,107,.055));
+    color: #fff3cf;
+    box-shadow: 0 4px 0 rgba(0,0,0,.36), 0 9px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.16);
+    font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .025em;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .gh-touch-key[data-gh-key-label="Space"] { min-width: 76px; }
+  .gh-touch-key:hover,
+  .gh-touch-key.is-pressed {
+    border-color: rgba(242,195,107,.72);
+    background: linear-gradient(180deg, rgba(242,195,107,.2), rgba(242,195,107,.09));
+  }
+  .gh-touch-key.is-pressed {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.34), 0 4px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-touch-key:focus-visible {
+    outline: 2px solid rgba(242,195,107,.84);
+    outline-offset: 3px;
+  }
+  .gh-touch-key-dock {
+    position: fixed;
+    z-index: 2147483050;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    width: min(370px, calc(100vw - 24px));
+    box-sizing: border-box;
+    display: none;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 15px;
+    padding: 9px 10px 11px;
+    background: rgba(3,7,13,.82);
+    color: rgba(250,246,237,.9);
+    box-shadow: 0 14px 40px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.12);
+    backdrop-filter: blur(16px) saturate(1.12);
+  }
+  .gh-touch-key-dock-label {
+    display: block;
+    margin: 0 0 2px;
+    color: rgba(242,195,107,.82);
+    font: 10px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
   .gh-live-brief.is-collapsed { width: min(284px, calc(100vw - 24px)); }
   .gh-live-brief.is-collapsed .gh-live-brief-header { border-bottom: 0; }
   .gh-live-brief.is-collapsed .gh-live-brief-body { display: none; }
@@ -260,6 +327,24 @@
     visibility: hidden !important;
     pointer-events: none !important;
   }
+  body.gh-chamber-embed .gh-touch-key-dock {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-keys {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key {
+    display: inline-flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
   @media (max-width: 760px) {
     .gh-live-brief {
       max-height: min(42dvh, 340px);
@@ -279,7 +364,7 @@
 (() => {
   if (window.__grantedHoursFoldReady) return;
   window.__grantedHoursFoldReady = true;
-  const WORK_NOTE = {"date":"2026-05-12","title_en":"Gap Cartography","title_zh":"白夜缝隙地图","variable_en":"Gap","variable_zh":"缝隙","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Map the gap as the smallest legal entrance through which the outside world can enter a closed system.","intention_zh":"缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。","interaction_en":"Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。","rationale_en":"Gap Cartography was made as one public step in the Granted Hours sequence, with the variable Gap treated as an operational condition rather than a decorative theme. The intention frames the work this way: Map the gap as the smallest legal entrance through which the outside world can enter a closed system. The live artifact then turns that idea into interaction: Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.","rationale_zh":"《白夜缝隙地图》是《授时》连续序列中的一个公开步骤：当天的自由变量「缝隙」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。 可运行页面进一步把这个概念变成可操作的界面：移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。","after_en":"What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.","after_zh":"真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。"};
+  const WORK_NOTE = {"date":"2026-05-12","title_en":"Gap Cartography","title_zh":"白夜缝隙地图","variable_en":"Gap","variable_zh":"缝隙","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Map the gap as the smallest legal entrance through which the outside world can enter a closed system.","intention_zh":"缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。","interaction_en":"Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame.","interaction_zh":"移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。","touch_keys":[{"label":"Space","key":" ","code":"Space"},{"label":"R","key":"r","code":"KeyR"},{"label":"S","key":"s","code":"KeyS"}],"rationale_en":"Gap Cartography was made as one public step in the Granted Hours sequence, with the variable Gap treated as an operational condition rather than a decorative theme. The intention frames the work this way: Map the gap as the smallest legal entrance through which the outside world can enter a closed system. The live artifact then turns that idea into interaction: Move the pointer to search for gaps. Click to mark an opening. Press Space to pause, R to reset, and S to save a still frame. Its afterimage condenses the day’s claim: What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.","rationale_zh":"《白夜缝隙地图》是《授时》连续序列中的一个公开步骤：当天的自由变量「缝隙」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：缝隙是封闭系统允许外部进入的最小合法入口。作品不是画破坏，而是画“不严密”：真正改变系统的东西，常常先伪装成一个小小的未完成。 可运行页面进一步把这个概念变成可操作的界面：移动指针，寻找缝隙；点击，标记一个入口；按 Space 暂停，R 重置，S 保存静帧。 它的余像把当天判断压缩为一句话：真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。","after_en":"What changes a system usually does not break in through the front door; it first disguises itself as a tiny incompleteness.","after_zh":"真正改变系统的东西，通常不是正面闯入，而是先把自己伪装成一个小小的不严密。"};
   const GH_WORK_NOTE_GAP = 10;
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = params.get('embed') === 'calendar';
@@ -343,6 +428,7 @@
   workNote.setAttribute('aria-haspopup', 'dialog');
   workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
   const liveBrief = createLiveBrief();
+  const embedTouchKeyDock = createTouchKeyDock();
   const workNoteOverlay = createWorkNoteOverlay();
   let workNoteLastFocus = null;
   document.addEventListener('DOMContentLoaded', init, { once: true });
@@ -351,6 +437,7 @@
     if (!document.body || document.body.contains(workNote)) return;
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      if (embedTouchKeyDock) document.body.append(embedTouchKeyDock);
       silenceEmbeddedMedia();
       document.body.dataset.ghAudioEnabled = '0';
       new MutationObserver((records) => {
@@ -409,6 +496,81 @@
     section.append(zhCopy, enCopy);
     return section;
   }
+  function dispatchArtworkKey(type, shortcut) {
+    const target = document.querySelector('canvas, svg') || document.body || document.documentElement;
+    const event = new KeyboardEvent(type, {
+      key: shortcut.key,
+      code: shortcut.code,
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+    });
+    target.dispatchEvent(event);
+  }
+  function makeTouchKeyButton(shortcut) {
+    const button = makeElement('button', 'gh-touch-key', shortcut.label);
+    button.type = 'button';
+    button.dataset.ghKeyLabel = shortcut.label;
+    button.dataset.ghKey = shortcut.key;
+    button.dataset.ghCode = shortcut.code;
+    button.setAttribute(
+      'aria-label',
+      `Trigger ${shortcut.label} key / 触发 ${shortcut.label} 键`,
+    );
+    let pointerActive = false;
+    const release = (event) => {
+      if (!pointerActive) return;
+      pointerActive = false;
+      button.classList.remove('is-pressed');
+      dispatchArtworkKey('keyup', shortcut);
+      if (event && button.hasPointerCapture?.(event.pointerId)) {
+        button.releasePointerCapture(event.pointerId);
+      }
+    };
+    button.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0 || pointerActive) return;
+      event.preventDefault();
+      pointerActive = true;
+      button.classList.add('is-pressed');
+      button.setPointerCapture?.(event.pointerId);
+      dispatchArtworkKey('keydown', shortcut);
+    });
+    button.addEventListener('pointerup', release);
+    button.addEventListener('pointercancel', release);
+    button.addEventListener('lostpointercapture', release);
+    button.addEventListener('keydown', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') event.stopPropagation();
+    });
+    button.addEventListener('keyup', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') event.stopPropagation();
+    });
+    button.addEventListener('click', (event) => {
+      if (event.detail !== 0) return;
+      dispatchArtworkKey('keydown', shortcut);
+      dispatchArtworkKey('keyup', shortcut);
+    });
+    return button;
+  }
+  function createTouchKeys(className = '') {
+    if (!Array.isArray(WORK_NOTE.touch_keys) || !WORK_NOTE.touch_keys.length) return null;
+    const keys = makeElement('div', `gh-touch-keys${className ? ` ${className}` : ''}`);
+    keys.setAttribute('role', 'group');
+    keys.setAttribute('aria-label', 'Touch keyboard shortcuts / 可触摸键盘快捷键');
+    WORK_NOTE.touch_keys.forEach((shortcut) => keys.append(makeTouchKeyButton(shortcut)));
+    return keys;
+  }
+  function createTouchKeyDock() {
+    const keys = createTouchKeys('gh-touch-keys-embed');
+    if (!keys) return null;
+    const dock = makeElement('aside', 'gh-touch-key-dock');
+    dock.id = 'ghTouchKeyDock';
+    dock.setAttribute('aria-label', 'Touch controls / 触控操作');
+    dock.append(
+      makeElement('span', 'gh-touch-key-dock-label', 'TOUCH KEYS / 触控按键'),
+      keys,
+    );
+    return dock;
+  }
   function createLiveBrief() {
     const brief = makeElement('aside', 'gh-live-brief');
     brief.id = 'ghLiveBrief';
@@ -433,6 +595,16 @@
       makeLiveBriefSection('Brief / 作品简述', WORK_NOTE.intention_en, WORK_NOTE.intention_zh, 'summary'),
       makeLiveBriefSection('How to interact / 操作说明', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh, 'instructions'),
     );
+    const touchKeys = createTouchKeys('gh-touch-keys-inline');
+    if (touchKeys) {
+      const section = makeElement('section', 'gh-live-brief-section gh-live-brief-touch');
+      section.dataset.ghBriefSection = 'touch';
+      section.append(
+        makeElement('h3', 'gh-live-brief-label', 'Touch keys / 触控按键'),
+        touchKeys,
+      );
+      body.append(section);
+    }
     brief.append(header, body);
     return brief;
   }
@@ -509,6 +681,12 @@
       makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
       makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
     ].filter(Boolean).forEach((section) => panel.append(section));
+    const touchKeys = createTouchKeys('gh-touch-keys-note');
+    if (touchKeys) {
+      const touchSection = makeElement('section', 'gh-work-note-section gh-work-note-touch');
+      touchSection.append(makeElement('h3', '', 'Touch keys / 触控按键'), touchKeys);
+      panel.append(touchSection);
+    }
     const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
     archive.href = '../';
     panel.append(archive);

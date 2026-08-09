@@ -1364,6 +1364,73 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     font: 12px/1.48 Georgia, 'Times New Roman', serif;
   }
   .gh-live-brief-copy[lang="en"] { color: rgba(250,246,237,.7); }
+  .gh-touch-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .gh-touch-key {
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(242,195,107,.34);
+    border-radius: 11px;
+    padding: 7px 10px 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(242,195,107,.055));
+    color: #fff3cf;
+    box-shadow: 0 4px 0 rgba(0,0,0,.36), 0 9px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.16);
+    font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .025em;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .gh-touch-key[data-gh-key-label="Space"] { min-width: 76px; }
+  .gh-touch-key:hover,
+  .gh-touch-key.is-pressed {
+    border-color: rgba(242,195,107,.72);
+    background: linear-gradient(180deg, rgba(242,195,107,.2), rgba(242,195,107,.09));
+  }
+  .gh-touch-key.is-pressed {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.34), 0 4px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .gh-touch-key:focus-visible {
+    outline: 2px solid rgba(242,195,107,.84);
+    outline-offset: 3px;
+  }
+  .gh-touch-key-dock {
+    position: fixed;
+    z-index: 2147483050;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    width: min(370px, calc(100vw - 24px));
+    box-sizing: border-box;
+    display: none;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 15px;
+    padding: 9px 10px 11px;
+    background: rgba(3,7,13,.82);
+    color: rgba(250,246,237,.9);
+    box-shadow: 0 14px 40px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.12);
+    backdrop-filter: blur(16px) saturate(1.12);
+  }
+  .gh-touch-key-dock-label {
+    display: block;
+    margin: 0 0 2px;
+    color: rgba(242,195,107,.82);
+    font: 10px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
   .gh-live-brief.is-collapsed { width: min(284px, calc(100vw - 24px)); }
   .gh-live-brief.is-collapsed .gh-live-brief-header { border-bottom: 0; }
   .gh-live-brief.is-collapsed .gh-live-brief-body { display: none; }
@@ -1512,6 +1579,24 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     visibility: hidden !important;
     pointer-events: none !important;
   }
+  body.gh-chamber-embed .gh-touch-key-dock {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-keys {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key {
+    display: inline-flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
   @media (max-width: 760px) {
     .gh-live-brief {
       max-height: min(42dvh, 340px);
@@ -1595,6 +1680,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   workNote.setAttribute('aria-haspopup', 'dialog');
   workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
   const liveBrief = createLiveBrief();
+  const embedTouchKeyDock = createTouchKeyDock();
   const workNoteOverlay = createWorkNoteOverlay();
   let workNoteLastFocus = null;
   document.addEventListener('DOMContentLoaded', init, { once: true });
@@ -1603,6 +1689,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     if (!document.body || document.body.contains(workNote)) return;
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      if (embedTouchKeyDock) document.body.append(embedTouchKeyDock);
       silenceEmbeddedMedia();
       document.body.dataset.ghAudioEnabled = '0';
       new MutationObserver((records) => {
@@ -1661,6 +1748,81 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     section.append(zhCopy, enCopy);
     return section;
   }
+  function dispatchArtworkKey(type, shortcut) {
+    const target = document.querySelector('canvas, svg') || document.body || document.documentElement;
+    const event = new KeyboardEvent(type, {
+      key: shortcut.key,
+      code: shortcut.code,
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+    });
+    target.dispatchEvent(event);
+  }
+  function makeTouchKeyButton(shortcut) {
+    const button = makeElement('button', 'gh-touch-key', shortcut.label);
+    button.type = 'button';
+    button.dataset.ghKeyLabel = shortcut.label;
+    button.dataset.ghKey = shortcut.key;
+    button.dataset.ghCode = shortcut.code;
+    button.setAttribute(
+      'aria-label',
+      `Trigger ${shortcut.label} key / 触发 ${shortcut.label} 键`,
+    );
+    let pointerActive = false;
+    const release = (event) => {
+      if (!pointerActive) return;
+      pointerActive = false;
+      button.classList.remove('is-pressed');
+      dispatchArtworkKey('keyup', shortcut);
+      if (event && button.hasPointerCapture?.(event.pointerId)) {
+        button.releasePointerCapture(event.pointerId);
+      }
+    };
+    button.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0 || pointerActive) return;
+      event.preventDefault();
+      pointerActive = true;
+      button.classList.add('is-pressed');
+      button.setPointerCapture?.(event.pointerId);
+      dispatchArtworkKey('keydown', shortcut);
+    });
+    button.addEventListener('pointerup', release);
+    button.addEventListener('pointercancel', release);
+    button.addEventListener('lostpointercapture', release);
+    button.addEventListener('keydown', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') event.stopPropagation();
+    });
+    button.addEventListener('keyup', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') event.stopPropagation();
+    });
+    button.addEventListener('click', (event) => {
+      if (event.detail !== 0) return;
+      dispatchArtworkKey('keydown', shortcut);
+      dispatchArtworkKey('keyup', shortcut);
+    });
+    return button;
+  }
+  function createTouchKeys(className = '') {
+    if (!Array.isArray(WORK_NOTE.touch_keys) || !WORK_NOTE.touch_keys.length) return null;
+    const keys = makeElement('div', `gh-touch-keys${className ? ` ${className}` : ''}`);
+    keys.setAttribute('role', 'group');
+    keys.setAttribute('aria-label', 'Touch keyboard shortcuts / 可触摸键盘快捷键');
+    WORK_NOTE.touch_keys.forEach((shortcut) => keys.append(makeTouchKeyButton(shortcut)));
+    return keys;
+  }
+  function createTouchKeyDock() {
+    const keys = createTouchKeys('gh-touch-keys-embed');
+    if (!keys) return null;
+    const dock = makeElement('aside', 'gh-touch-key-dock');
+    dock.id = 'ghTouchKeyDock';
+    dock.setAttribute('aria-label', 'Touch controls / 触控操作');
+    dock.append(
+      makeElement('span', 'gh-touch-key-dock-label', 'TOUCH KEYS / 触控按键'),
+      keys,
+    );
+    return dock;
+  }
   function createLiveBrief() {
     const brief = makeElement('aside', 'gh-live-brief');
     brief.id = 'ghLiveBrief';
@@ -1685,6 +1847,16 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       makeLiveBriefSection('Brief / 作品简述', WORK_NOTE.intention_en, WORK_NOTE.intention_zh, 'summary'),
       makeLiveBriefSection('How to interact / 操作说明', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh, 'instructions'),
     );
+    const touchKeys = createTouchKeys('gh-touch-keys-inline');
+    if (touchKeys) {
+      const section = makeElement('section', 'gh-live-brief-section gh-live-brief-touch');
+      section.dataset.ghBriefSection = 'touch';
+      section.append(
+        makeElement('h3', 'gh-live-brief-label', 'Touch keys / 触控按键'),
+        touchKeys,
+      );
+      body.append(section);
+    }
     brief.append(header, body);
     return brief;
   }
@@ -1761,6 +1933,12 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
       makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
     ].filter(Boolean).forEach((section) => panel.append(section));
+    const touchKeys = createTouchKeys('gh-touch-keys-note');
+    if (touchKeys) {
+      const touchSection = makeElement('section', 'gh-work-note-section gh-work-note-touch');
+      touchSection.append(makeElement('h3', '', 'Touch keys / 触控按键'), touchKeys);
+      panel.append(touchSection);
+    }
     const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
     archive.href = '../';
     panel.append(archive);
@@ -2015,6 +2193,52 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
 </script>
 """
 
+TOUCH_KEY_ACTION_PATTERN = re.compile(
+    r"\b([A-Z])\s+(?:briefly\s+)?(?:"
+    r"to\s+|toggles?\b|pauses?\b|resets?\b|reseeds?\b|saves?\b|"
+    r"reveals?\b|hides?\b|holds?\b|releases?\b|places?\b|lets?\b|"
+    r"creates?\b|braids?\b|widens?\b|draws?\b|enters?\b|regrows?\b|"
+    r"veils?\b|begins?\b"
+    r")"
+)
+TOUCH_KEY_CHAIN_PATTERN = re.compile(
+    r"\b(?:Press\s+)?([A-Z](?:\s+or\s+[A-Z])+)\s+to\b"
+)
+TOUCH_KEY_RANGE_PATTERN = re.compile(r"\b1[–-]4\b")
+
+
+def interaction_touch_keys(interaction_en: str) -> list[dict]:
+    """Return the explicit keyboard shortcuts named by the public interaction copy."""
+    found: list[tuple[int, str]] = []
+    for match in re.finditer(r"\bSpace\b", interaction_en):
+        found.append((match.start(), 'Space'))
+    for match in TOUCH_KEY_ACTION_PATTERN.finditer(interaction_en):
+        found.append((match.start(1), match.group(1)))
+    for match in TOUCH_KEY_CHAIN_PATTERN.finditer(interaction_en):
+        chain = match.group(1)
+        for key_match in re.finditer(r"[A-Z]", chain):
+            found.append((match.start(1) + key_match.start(), key_match.group(0)))
+    for match in TOUCH_KEY_RANGE_PATTERN.finditer(interaction_en):
+        for offset, label in enumerate(('1', '2', '3', '4')):
+            found.append((match.start() + offset, label))
+
+    ordered_labels: list[str] = []
+    for _, label in sorted(found, key=lambda item: item[0]):
+        if label not in ordered_labels:
+            ordered_labels.append(label)
+
+    keys = []
+    for label in ordered_labels:
+        if label == 'Space':
+            key, code = ' ', 'Space'
+        elif label.isdigit():
+            key, code = label, f'Digit{label}'
+        else:
+            key, code = label.lower(), f'Key{label}'
+        keys.append({'label': label, 'key': key, 'code': code})
+    return keys
+
+
 def live_work_note_payload(entry: dict) -> dict:
     rationale_en, rationale_zh = creative_rationale(entry)
     config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
@@ -2030,6 +2254,7 @@ def live_work_note_payload(entry: dict) -> dict:
         'intention_zh': entry.get('intention_zh') or f"这件作品把「{entry['variable_zh']}」作为一种可操作条件来探索。",
         'interaction_en': entry.get('interaction_en') or 'Move, touch, or use the visible controls to alter the live field.',
         'interaction_zh': entry.get('interaction_zh') or '通过移动、触摸或页面中的可见控制改变实时场域。',
+        'touch_keys': interaction_touch_keys(entry.get('interaction_en') or ''),
         'rationale_en': rationale_en,
         'rationale_zh': rationale_zh,
         'after_en': entry.get('after_en') or '',

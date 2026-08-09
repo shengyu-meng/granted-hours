@@ -75,6 +75,7 @@ try {
         const foldControl = document.querySelector(".gh-fold-toggle");
         const workNote = document.querySelector("#ghWorkNoteTrigger");
         const liveBrief = document.querySelector("#ghLiveBrief[data-gh-live-brief='bilingual']");
+        const touchKeys = [...document.querySelectorAll(".gh-touch-keys-inline .gh-touch-key")];
         const briefRect = liveBrief?.getBoundingClientRect();
         const briefText = (selector, lang) => (
           liveBrief?.querySelector(`${selector} .gh-live-brief-copy[lang='${lang}']`)?.textContent || ""
@@ -94,6 +95,17 @@ try {
             expanded: liveBrief?.querySelector(".gh-live-brief-toggle")?.getAttribute("aria-expanded"),
             rect: briefRect?.toJSON() || null,
           },
+          touchKeys: touchKeys.map((button) => {
+            const rect = button.getBoundingClientRect();
+            return {
+              label: button.dataset.ghKeyLabel,
+              key: button.dataset.ghKey,
+              code: button.dataset.ghCode,
+              visible: isVisible(button),
+              width: rect.width,
+              height: rect.height,
+            };
+          }),
           visibleTextRootCount: visibleTextRoots.length,
           visual: visualRect
             ? {
@@ -124,6 +136,43 @@ try {
       assert.ok(state.liveBrief.rect.top >= 0 && state.liveBrief.rect.top <= 24, `${day.date} brief is not top-aligned`);
       assert.ok(state.liveBrief.rect.right <= 1280, `${day.date} brief exceeds viewport width`);
       assert.ok(state.liveBrief.rect.bottom <= 720, `${day.date} brief exceeds viewport height`);
+      state.touchKeys.forEach((key) => {
+        assert.ok(key.visible, `${day.date} touch key ${key.label} is hidden`);
+        assert.ok(key.width >= 44, `${day.date} touch key ${key.label} is narrower than 44px`);
+        assert.ok(key.height >= 44, `${day.date} touch key ${key.label} is shorter than 44px`);
+        assert.ok(key.key, `${day.date} touch key ${key.label} lacks key mapping`);
+        assert.ok(key.code, `${day.date} touch key ${key.label} lacks code mapping`);
+      });
+      if (state.touchKeys.length) {
+        await page.evaluate(() => {
+          window.__ghTouchAudit = [];
+          const record = (event) => window.__ghTouchAudit.push({
+            type: event.type,
+            key: event.key,
+            code: event.code,
+            target: event.target?.tagName || "",
+          });
+          window.addEventListener("keydown", record, true);
+          window.addEventListener("keyup", record, true);
+        });
+        const auditKeyState = state.touchKeys.find(({ label }) => label === "Space") || state.touchKeys[0];
+        await page.evaluate((label) => {
+          document.querySelector(`.gh-touch-keys-inline .gh-touch-key[data-gh-key-label='${label}']`)?.click();
+        }, auditKeyState.label);
+        const touchAudit = await page.evaluate(() => window.__ghTouchAudit);
+        assert.deepEqual(
+          touchAudit.map(({ type, key, code }) => ({ type, key, code })),
+          [
+            { type: "keydown", key: auditKeyState.key, code: auditKeyState.code },
+            { type: "keyup", key: auditKeyState.key, code: auditKeyState.code },
+          ],
+          `${day.date} touch key did not dispatch one matching keydown/keyup pair`,
+        );
+        assert.ok(
+          ["CANVAS", "SVG", "BODY"].includes(touchAudit[0]?.target),
+          `${day.date} touch key dispatched from an unsafe target ${touchAudit[0]?.target}`,
+        );
+      }
       if (allowance?.copy_mode !== "canvas_native") {
         assert.ok(
           state.visibleTextRootCount > 0 || state.liveBrief.visible,
@@ -148,6 +197,30 @@ try {
       assert.deepEqual(pageErrors, [], `${day.date} page errors: ${pageErrors.join("; ")}`);
       assert.deepEqual(responseErrors, [], `${day.date} local response errors: ${responseErrors.join("; ")}`);
 
+      if (state.touchKeys.length) {
+        const embedUrl = `${siteOrigin}/archive/${year}/${month}/${day.date}/live/?embed=calendar&gh_channel=touch_audit_2026_x`;
+        const embedResponse = await page.goto(embedUrl, { waitUntil: "domcontentloaded", timeout: 45000 });
+        assert.equal(embedResponse?.status(), 200, `${day.date} embed HTTP ${embedResponse?.status()}`);
+        const embedKeys = await page.locator("#ghTouchKeyDock .gh-touch-key").evaluateAll((buttons) => buttons.map((button) => {
+          const rect = button.getBoundingClientRect();
+          return {
+            label: button.dataset.ghKeyLabel,
+            visible: getComputedStyle(button).display !== "none" && getComputedStyle(button).visibility !== "hidden",
+            width: rect.width,
+            height: rect.height,
+          };
+        }));
+        assert.deepEqual(
+          embedKeys.map(({ label }) => label),
+          state.touchKeys.map(({ label }) => label),
+          `${day.date} embed touch keys differ from the direct-page keys`,
+        );
+        embedKeys.forEach((key) => {
+          assert.ok(key.visible, `${day.date} embed touch key ${key.label} is hidden`);
+          assert.ok(key.width >= 44 && key.height >= 44, `${day.date} embed touch key ${key.label} is below 44px`);
+        });
+      }
+
       const bgmPath = fileURLToPath(
         new URL(`../docs/archive/${year}/${month}/${day.date}/live/${decodeURIComponent(new URL(day.bgm).pathname.split("/").at(-1))}`, import.meta.url),
       );
@@ -160,6 +233,7 @@ try {
         canvas: Boolean(state.visual),
         textRoots: state.visibleTextRootCount,
         bilingualBrief: true,
+        touchKeys: state.touchKeys.length,
       };
     } finally {
       await page.close();
@@ -193,6 +267,8 @@ console.log(JSON.stringify({
   pages: results.length,
   canvasPages: results.filter((result) => result.canvas).length,
   bilingualBriefPages: results.filter((result) => result.bilingualBrief).length,
+  touchShortcutPages: results.filter((result) => result.touchKeys > 0).length,
+  touchShortcutButtons: results.reduce((total, result) => total + result.touchKeys, 0),
   explicitAllowances: results.filter((result) => result.allowance),
   pageErrors: 0,
   localHttpFailures: 0,

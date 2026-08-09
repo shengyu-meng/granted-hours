@@ -55,6 +55,9 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn("backdrop-filter: blur(28px)", snippet)
         self.assertIn("Close work note / 关闭作品说明", snippet)
         self.assertIn("View full archive record / 查看完整档案", snippet)
+        self.assertIn("Touch keys / 触控按键", snippet)
+        self.assertIn("dispatchArtworkKey('keydown', shortcut)", snippet)
+        self.assertIn("dispatchArtworkKey('keyup', shortcut)", snippet)
 
     def test_all_live_pages_have_exactly_one_overlay_and_matching_payload(self) -> None:
         pages = sorted((ROOT / "docs" / "archive").glob("**/live/index.html"))
@@ -90,6 +93,10 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
                     "rationale_en", "rationale_zh",
                 ):
                     self.assertTrue(payload[key].strip(), f"{date} missing {key}")
+                self.assertEqual(
+                    payload["touch_keys"],
+                    importer.interaction_touch_keys(entry["interaction_en"]),
+                )
 
     def test_overlay_is_closed_by_default_and_mobile_safe(self) -> None:
         snippet = importer.render_live_text_fold_snippet(importer.ENTRIES[-1])
@@ -121,6 +128,37 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn('data-gh-brief-covered="true"', snippet)
         self.assertIn("scrollbar-color: rgba(242,195,107,.42) transparent", snippet)
         self.assertIn('body.gh-chamber-embed .gh-live-brief', snippet)
+
+    def test_explicit_keyboard_shortcuts_have_touch_equivalents(self) -> None:
+        first = importer.interaction_touch_keys(importer.ENTRIES[0]["interaction_en"])
+        self.assertEqual(
+            first,
+            [
+                {"label": "Space", "key": " ", "code": "Space"},
+                {"label": "R", "key": "r", "code": "KeyR"},
+                {"label": "S", "key": "s", "code": "KeyS"},
+            ],
+        )
+        range_entry = next(entry for entry in importer.ENTRIES if entry["date"] == "2026-07-11")
+        self.assertEqual(
+            [key["label"] for key in importer.interaction_touch_keys(range_entry["interaction_en"])],
+            ["1", "2", "3", "4", "Space", "R", "V", "M", "S"],
+        )
+        article_entry = next(entry for entry in importer.ENTRIES if entry["date"] == "2026-08-02")
+        self.assertEqual(
+            [key["label"] for key in importer.interaction_touch_keys(article_entry["interaction_en"])],
+            ["R"],
+        )
+
+    def test_touch_controls_are_visible_in_calendar_embed_mode(self) -> None:
+        snippet = importer.render_live_text_fold_snippet(importer.ENTRIES[0])
+        self.assertIn("const embedTouchKeyDock = createTouchKeyDock();", snippet)
+        self.assertIn("if (embedTouchKeyDock) document.body.append(embedTouchKeyDock);", snippet)
+        self.assertIn("body.gh-chamber-embed .gh-touch-key-dock", snippet)
+        self.assertIn("min-width: 44px", snippet)
+        self.assertIn("min-height: 44px", snippet)
+        self.assertIn("Touch keyboard shortcuts / 可触摸键盘快捷键", snippet)
+        self.assertIn("target.dispatchEvent(event);", snippet)
 
 
 if __name__ == "__main__":
