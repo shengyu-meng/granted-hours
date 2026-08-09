@@ -5968,6 +5968,132 @@ h1 {
   }
 }
 
+/* ===== Reversible chromatic register + reverse time linking (2026-08-09) =====
+   `data-palette="chromatic"` is the only switch. Removing it returns the prior
+   mineral palette because every earlier rule remains intact beneath this layer.
+   The hues borrow the separation of Pantone/Apple systems but are deliberately
+   grayed before they reach the glass, keeping the timetable editorial rather
+   than dashboard-like. */
+:root[data-palette="chromatic"],
+:root[data-palette="chromatic"][data-theme="dark"] {
+  --semantic-work-accent: #7899b6;
+  --semantic-ah-accent: #7fa187;
+  --semantic-us-accent: #6fa6a4;
+  --semantic-ai-accent: #b98e64;
+  --semantic-support-accent: #9187b0;
+  --semantic-private-accent: #ae829a;
+  --semantic-warning-accent: #b77d73;
+  --semantic-autonomous-accent: #b79b68;
+}
+
+:root[data-palette="chromatic"][data-theme="light"] {
+  --semantic-work-accent: #557b9d;
+  --semantic-ah-accent: #5f846b;
+  --semantic-us-accent: #4f8588;
+  --semantic-ai-accent: #98704d;
+  --semantic-support-accent: #70689a;
+  --semantic-private-accent: #8e617e;
+  --semantic-warning-accent: #985b58;
+  --semantic-autonomous-accent: #8e743f;
+}
+
+:root[data-palette="chromatic"] .assigned-mark {
+  border-left-color: var(--month-mark-accent, var(--semantic-work-accent));
+  color: color-mix(in srgb, var(--month-mark-accent, var(--semantic-work-accent)) 62%, var(--ink));
+}
+
+:root[data-palette="chromatic"] .event-reading-card {
+  border-color: color-mix(in srgb, var(--category-accent) 48%, var(--hairline-strong)) !important;
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 27%, transparent), transparent 56%),
+    linear-gradient(138deg, color-mix(in srgb, var(--edge-light) 10%, transparent), transparent 34%),
+    color-mix(in srgb, var(--category-accent) 13%, rgba(10, 14, 20, 0.47)) !important;
+}
+
+:root[data-palette="chromatic"] .event-reading-card[data-layer="climate"] {
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 19%, transparent), transparent 57%),
+    color-mix(in srgb, var(--category-accent) 10%, rgba(10, 14, 20, 0.43)) !important;
+}
+
+:root[data-palette="chromatic"] .event-reading-card[data-layer="event"],
+:root[data-palette="chromatic"] .assigned-item.event-reading-card {
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 29%, transparent), transparent 58%),
+    linear-gradient(138deg, color-mix(in srgb, var(--edge-light) 10%, transparent), transparent 34%),
+    color-mix(in srgb, var(--category-accent) 15%, rgba(10, 14, 20, 0.45)) !important;
+}
+
+:root[data-palette="chromatic"] .event-reading-card[data-layer="beacon"] {
+  background:
+    radial-gradient(circle at 84% 26%, color-mix(in srgb, var(--cyan-trace) 17%, transparent), transparent 43%),
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 27%, transparent), transparent 58%),
+    color-mix(in srgb, var(--category-accent) 14%, rgba(10, 14, 20, 0.53)) !important;
+}
+
+:root[data-palette="chromatic"] .event-reading-card:hover,
+:root[data-palette="chromatic"] .event-reading-card:focus-visible,
+:root[data-palette="chromatic"] .event-reading-card.is-selected,
+:root[data-palette="chromatic"] .event-reading-card.is-linked-active {
+  z-index: 58 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 72%, var(--hairline-strong)) !important;
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 37%, transparent), transparent 61%),
+    linear-gradient(138deg, color-mix(in srgb, var(--edge-light) 16%, transparent), transparent 35%),
+    color-mix(in srgb, var(--category-accent) 20%, rgba(10, 14, 20, 0.52)) !important;
+  transform: translateY(-4px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22),
+    0 26px 52px color-mix(in srgb, var(--category-accent) 12%, rgba(0, 0, 0, 0.5)) !important;
+}
+
+:root[data-palette="chromatic"] .timeline-event[data-reading-id] {
+  cursor: pointer;
+}
+
+:root[data-palette="chromatic"] .timeline-event .event-footprint {
+  border-color: color-mix(in srgb, var(--category-accent) 64%, var(--hairline-strong));
+  background: color-mix(in srgb, var(--category-accent) 27%, transparent);
+}
+
+:root[data-palette="chromatic"] .timeline-event.is-linked-active .event-footprint,
+:root[data-palette="chromatic"] .event-footprint.is-linked-active {
+  border-color: color-mix(in srgb, var(--category-accent) 88%, var(--ink));
+  background: color-mix(in srgb, var(--category-accent) 42%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--page-bg) 64%, transparent),
+    0 0 12px color-mix(in srgb, var(--category-accent) 32%, transparent);
+  opacity: 1;
+}
+
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card,
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card[data-layer="climate"],
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card[data-layer="event"],
+:root[data-palette="chromatic"][data-theme="light"] .assigned-item.event-reading-card,
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card[data-layer="beacon"] {
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 24%, transparent), transparent 59%),
+    linear-gradient(138deg, rgba(255, 255, 255, 0.5), transparent 35%),
+    color-mix(in srgb, var(--category-accent) 14%, rgba(247, 246, 241, 0.84)) !important;
+}
+
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card:hover,
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card:focus-visible,
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card.is-selected,
+:root[data-palette="chromatic"][data-theme="light"] .event-reading-card.is-linked-active {
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 31%, transparent), transparent 61%),
+    linear-gradient(138deg, rgba(255, 255, 255, 0.62), transparent 37%),
+    color-mix(in srgb, var(--category-accent) 19%, rgba(247, 246, 241, 0.9)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-palette="chromatic"] .event-reading-card.is-linked-active {
+    transform: none !important;
+  }
+}
+
 /* ===== Sound state + interactive artwork chamber (2026-08-09) ===== */
 .calendar-bgm-toggle[aria-pressed="false"],
 .calendar-piano-toggle[aria-pressed="false"],

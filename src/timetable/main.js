@@ -107,6 +107,27 @@ const TASK_ACCENTS = {
   pink: "#ff98c8",
   slate: "#bdc5d2",
 };
+const CHROMATIC_TASK_ACCENTS = {
+  amber: "#b79b68",
+  cyan: "#6fa6a4",
+  green: "#7fa187",
+  blue: "#7899b6",
+  violet: "#9187b0",
+  coral: "#b77d73",
+  lime: "#98a778",
+  sand: "#b5a17e",
+  pink: "#ae829a",
+  slate: "#8997a6",
+};
+const MONTH_MARKER_ACCENTS = {
+  social_media_organization: "pink",
+  document_processing: "sand",
+  code_development: "cyan",
+  research_synthesis: "violet",
+  system_maintenance: "slate",
+  visual_production: "coral",
+  redacted_private: "slate",
+};
 const SEMANTIC_CATEGORY_LABELS = {
   "assigned-work": "Assigned work / 人机协作",
   "ah-market-scan": "A/H scan / A/H 市场扫描",
@@ -208,6 +229,7 @@ const state = {
   selectedReadingCard: null,
   linkedReadingCard: null,
   hoveredReadingCard: null,
+  hoveredTimelineReadingCard: null,
   linkedFocusSuppressedCard: null,
   calendarBgmIndex: 0,
   calendarBgmPlaying: false,
@@ -282,6 +304,7 @@ function init() {
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
   setupCalendarBgm();
   setupPianoSound();
+  setupTimelineReverseLinking();
   els.artworkDialog.addEventListener("click", (event) => {
     if (event.target === els.artworkDialog) closeArtworkDetail();
   });
@@ -511,6 +534,9 @@ function semanticCategory(item) {
 function applySemanticCategory(element, item) {
   const category = semanticCategory(item);
   element.dataset.category = category;
+  if (category === "assigned-work" && item.task_color) {
+    element.style.setProperty("--category-accent", taskAccent(item.task_color));
+  }
   return category;
 }
 
@@ -1410,8 +1436,9 @@ function buildDayButton(day, isToday, isMuted) {
   const assigned = day.cell_assigned.map((marker) => {
     const taskNameZh = marker.task_name_zh || marker.short_zh;
     const taskNameEn = marker.task_name_en || marker.short_en;
+    const markerAccent = taskAccent(MONTH_MARKER_ACCENTS[marker.category] || "blue");
     return `
-    <span class="cell-mark assigned-mark">
+    <span class="cell-mark assigned-mark" style="--month-mark-accent:${markerAccent}">
       <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(taskNameZh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(taskNameEn)}</span></span>
     </span>
   `}).join("");
@@ -1555,6 +1582,7 @@ function closeDayDetail(options = {}) {
 function renderDayDetail(day) {
   hideInspectionLens({ immediate: true });
   clearSelectedReadingCard({ clearLinked: true });
+  state.hoveredTimelineReadingCard = null;
   els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
@@ -1624,7 +1652,10 @@ function renderDayDetail(day) {
       const footprintEvent = eventsLayer.querySelector(
         `.timeline-event[data-footprint-id="${CSS.escape(footprintId)}"]`,
       );
-      if (footprintEvent) footprintEvent.dataset.category = category;
+      if (footprintEvent) {
+        footprintEvent.dataset.category = category;
+        footprintEvent.dataset.readingId = item.reading_id;
+      }
     }
     const connector = document.createElement("span");
     connector.className = "event-connector";
@@ -2726,6 +2757,47 @@ function setupReadingCardActivation(card, activate, options = {}) {
   });
 }
 
+function timelineReadingCard(eventTarget) {
+  const timelineEvent = eventTarget instanceof Element
+    ? eventTarget.closest(".timeline-event[data-reading-id]")
+    : null;
+  if (!timelineEvent || !els.timelineList.contains(timelineEvent)) return null;
+  const readingId = timelineEvent.dataset.readingId;
+  if (!readingId) return null;
+  return els.timelineList.querySelector(
+    `.event-reading-card[data-reading-id="${CSS.escape(readingId)}"]`,
+  );
+}
+
+function setupTimelineReverseLinking() {
+  els.timelineList.addEventListener("pointerover", (event) => {
+    if (event.pointerType !== "mouse" || !window.matchMedia(FINE_POINTER_QUERY).matches) return;
+    const card = timelineReadingCard(event.target);
+    if (!card) return;
+    const relatedCard = timelineReadingCard(event.relatedTarget);
+    if (relatedCard === card) return;
+    state.linkedFocusSuppressedCard = null;
+    state.hoveredTimelineReadingCard = card;
+    syncLinkedReadingCard();
+  });
+  els.timelineList.addEventListener("pointerout", (event) => {
+    if (event.pointerType !== "mouse" || !window.matchMedia(FINE_POINTER_QUERY).matches) return;
+    const card = timelineReadingCard(event.target);
+    if (!card || state.hoveredTimelineReadingCard !== card) return;
+    const relatedCard = timelineReadingCard(event.relatedTarget);
+    if (relatedCard === card) return;
+    state.hoveredTimelineReadingCard = null;
+    syncLinkedReadingCard();
+  });
+  els.timelineList.addEventListener("click", (event) => {
+    const card = timelineReadingCard(event.target);
+    if (!card) return;
+    event.preventDefault();
+    event.stopPropagation();
+    selectReadingCard(card);
+  });
+}
+
 function selectReadingCard(card) {
   if (state.selectedReadingCard === card) return;
   clearSelectedReadingCard({ clearLinked: true });
@@ -2790,6 +2862,8 @@ function syncLinkedReadingCard() {
     ? focusedCard
     : state.hoveredReadingCard?.isConnected
       ? state.hoveredReadingCard
+      : state.hoveredTimelineReadingCard?.isConnected
+        ? state.hoveredTimelineReadingCard
       : state.selectedReadingCard?.isConnected
         ? state.selectedReadingCard
         : null;
@@ -3219,7 +3293,10 @@ function taskIcon(iconName) {
 }
 
 function taskAccent(colorName) {
-  const accent = TASK_ACCENTS[colorName];
+  const palette = document.documentElement.dataset.palette === "chromatic"
+    ? CHROMATIC_TASK_ACCENTS
+    : TASK_ACCENTS;
+  const accent = palette[colorName];
   if (!accent) throw new Error(`Unknown task color: ${colorName}`);
   return accent;
 }
