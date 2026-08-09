@@ -88,7 +88,15 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
   assert.equal(state.theme, theme);
   assert.equal(state.colorScheme, theme);
   assert.match(state.toggleLabel || "", /Switch to/);
-  assert.ok(state.toggleHeight >= 44 && state.toggleWidth >= 44, JSON.stringify(state));
+  if (mobile) {
+    assert.ok(state.toggleHeight >= 44 && state.toggleWidth >= 44, JSON.stringify(state));
+  } else {
+    assert.ok(
+      state.toggleHeight >= 36 && state.toggleHeight <= 38
+        && state.toggleWidth >= 36 && state.toggleWidth <= 38,
+      JSON.stringify(state),
+    );
+  }
   assert.ok(state.overflow <= 1, `${label} ${theme} horizontal overflow: ${state.overflow}`);
   assert.notEqual(state.bodyBackground, "none");
   assert.notEqual(state.bodyColor, "rgba(0, 0, 0, 0)");

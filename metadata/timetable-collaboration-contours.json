@@ -1,6 +1,36 @@
 {
  "schema": "granted-hours-collaboration-contours-v1",
  "contours": {
+  "1a4366bbdda04009e4d7cc8547bdbb4a49944317008cc6653f1d66d816a53bfe": {
+   "date": "2026-05-09",
+   "category": "document_processing",
+   "request_zh": "评估一项定制材料与静态、动态呈现流程，梳理从需求输入到文档导出的协作步骤。",
+   "request_en": "Evaluate a tailored-material workflow across still and moving presentation, mapping the collaboration from request input to document export.",
+   "outcome_zh": "明确了从需求输入、预览修改到文档导出的工作流。",
+   "outcome_en": "Defined a workflow from request input through preview revision to document export.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "b9b4679861fe53aff736fe655bcbb903d28a2c6aeae53909a58636d568d29f8a": {
+   "date": "2026-06-22",
+   "category": "visual_production",
+   "request_zh": "从持续每日创作的作品中提炼可检验的变化规律，并判断视觉品质的提升来自模型还是创作协议。",
+   "request_en": "Extract testable change patterns from a sustained daily creative practice, and ask whether visual improvement comes from the model or from the creative protocol.",
+   "outcome_zh": "形成一个可检验的问题：持续日常创作中，作品的视觉特质如何变化？",
+   "outcome_en": "Formulated a testable question: how do the visual qualities of artworks change across a sustained daily creative practice?",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "35b7f92105e948767e6c74d472065eb701920b9a630605f283326e14486c3882": {
+   "date": "2026-05-16",
+   "category": "visual_production",
+   "request_zh": "调整现有内容结构，并明确凌晨自由创作的署名：作品归于黑昼，授时来自 ████ 提供的空间而非任务委派。",
+   "request_en": "Rework the current content structure and correct the attribution of the dawn free-roam works: they belong to Black Day, while ████ grants a space rather than assigning a task.",
+   "outcome_zh": "更正凌晨创作的署名与授权关系：作品归于黑昼，████ 授予空间而非任务。",
+   "outcome_en": "Corrected the attribution and grant relationship for the dawn works: they belong to Black Day, and ████ grants a space rather than assigning a task.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
   "3c5568d85f28345618a2cf64e05ee70b175cf8523d7a237f7d4244f55130b60d": {
    "date": "2026-05-07",
    "category": "research_synthesis",
@@ -2288,6 +2318,16 @@
    "request_en": "Study the implementation mechanism of the public repository penguin-harness.",
    "outcome_zh": "公开记录未保留当日讨论结论。",
    "outcome_en": "No same-day conclusion from the discussion was recorded publicly.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "5a871fce34158fbe9d9fecf5cfb1133220b4ec1ced04e6e6fc57bb3ffbab3251": {
+   "date": "2026-08-07",
+   "category": "research_synthesis",
+   "request_zh": "让观察池的清理或晋级规则自行执行，不再请求人工复核；查明这项约定为什么反复失效并修正。",
+   "request_en": "Make watch-pool cleanup and promotion rules execute autonomously without requesting manual review, and find and fix why this agreement repeatedly fails to take effect.",
+   "outcome_zh": "当天没有找到与此要求可靠对应的公开安全完成记录，因此保持未核验。",
+   "outcome_en": "No public-safe completion record could be reliably matched to this request that day, so it remains unverified.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
   }

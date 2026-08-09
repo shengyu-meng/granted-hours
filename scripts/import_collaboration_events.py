@@ -852,8 +852,18 @@ def collect(
         sessions = {}
         for row in connection.execute("SELECT id,source,user_id,model,chat_type,chat_id,session_key,origin_json,started_at,ended_at FROM sessions WHERE source='telegram'"):
             if valid_current_session(row, owner) or valid_legacy_session(row, owner): sessions[str(row["id"])] = dict(row)
+        session_ids = tuple(sessions)
+        if not session_ids:
+            raise ValueError("No verified owner sessions")
+        session_placeholders = ",".join("?" for _ in session_ids)
+        message_query = (
+            "SELECT id,session_id,content,timestamp FROM messages "
+            "WHERE session_id IN (" + session_placeholders + ") "
+            "AND role=? AND COALESCE(active,1)=1 AND timestamp>=? AND timestamp<? "
+            "ORDER BY timestamp,id"
+        )
         records, seen = [], defaultdict(set)
-        for row in connection.execute("SELECT id,session_id,content,timestamp FROM messages WHERE role='user' AND COALESCE(active,1)=1 AND timestamp>=? AND timestamp<? ORDER BY timestamp,id", (first, last)):
+        for row in connection.execute(message_query, (*session_ids, "user", first, last)):
             session_id = str(row["session_id"])
             if session_id not in sessions: continue
             text = meaningful(row["content"])
@@ -876,7 +886,7 @@ def collect(
         outcome_candidate_groups = defaultdict(list)
         semantic_outcome_rejections = 0
         policy_outcome_rejections = 0
-        for row in connection.execute("SELECT id,session_id,content,timestamp FROM messages WHERE role='assistant' AND COALESCE(active,1)=1 AND timestamp>=? AND timestamp<? ORDER BY timestamp,id", (first, last)):
+        for row in connection.execute(message_query, (*session_ids, "assistant", first, last)):
             session_id = str(row["session_id"])
             parent_messages = by_session.get(session_id, [])
             if not parent_messages:
@@ -951,10 +961,35 @@ def collect(
             timestamps = sorted(group["timestamps"]); start, end = clock_window(timestamps[0], timestamps[-1])
             owner_excerpts = sorted(group["excerpts"], key=information_score, reverse=True)[:MAX_OWNER_EXCERPTS_PER_CARD]
             outcome_excerpts = sorted(group["outcomes"], key=outcome_information_score, reverse=True)[:MAX_OUTCOME_EXCERPTS_PER_CARD]
+            request_text = "\n".join(owner_excerpts)
+            private_operational_request = (
+                category == "code_development"
+                and re.search(r"路径|沙箱|兼容|stdout|delivery", request_text, re.I) is not None
+            )
+            malformed_attachment_request = re.search(
+                r"(?:\x00|data:image/|base64|(?:^|\s)json:\s*[\[{])",
+                request_text,
+                re.I,
+            ) is not None
+            if (
+                (category in {"code_development", "social_media_organization", "system_maintenance"} and not outcome_excerpts)
+                or OUTCOME_PRIVATE_DOMAIN_RE.search(request_text)
+                or private_operational_request
+                or malformed_attachment_request
+            ):
+                # Do not promote private operational requests without a
+                # independently publishable result, or attachment wrappers,
+                # into an unverified card.
+                continue
             excerpts = [*owner_excerpts, *outcome_excerpts]; excerpt_count += len(excerpts)
             en, zh = summary(category, day, len(timestamps), len(group["sessions"]), group["delegated"], group["returned"])
             pair_request_zh, request_topics = build_request_pair(owner_excerpts)
             pair_outcome_zh = build_outcome_pair(outcome_excerpts)
+            if pair_request_zh == NO_SAFE_REQUEST_PAIR[0]:
+                # A public card needs a readable masked contour. When none
+                # survives the disclosure review, omit the event rather than
+                # publish a generic redaction/template sentence.
+                continue
             pair_signature = contour_signature(
                 day,
                 category,
@@ -1017,9 +1052,13 @@ def merge_history(
                 "provenance": "dialogue_based" if collaborations.get(day) else "record_based",
                 "assigned_residues": [],
             }
+        previous_generated = [
+            item for item in entry["assigned_residues"]
+            if item.get("source_kind") in GENERATED_KINDS
+        ]
         previous_collaborations = [
             item
-            for item in entry["assigned_residues"]
+            for item in previous_generated
             if item.get("source_kind") == "collaboration_session"
             and isinstance(item.get("request_zh"), str)
             and isinstance(item.get("outcome_zh"), str)
@@ -1058,18 +1097,28 @@ def merge_history(
             for index, item in enumerate(previous_collaborations)
         )
         used_result_indexes: set[int] = set()
-        finalized_collaborations = [
-            finalize_collaboration_pair(
-                collaboration,
-                result_candidates,
-                used_result_indexes,
-                contours or {},
-                missing_contours if missing_contours is not None else [],
-                preserved_by_category.get(str(collaboration.get("category", ""))),
-            )
-            for collaboration in raw_collaborations
-        ]
-        foreground = [*finalized_collaborations, *agents.get(day, [])[:1]]
+        if raw_collaborations:
+            finalized_collaborations = [
+                finalize_collaboration_pair(
+                    collaboration,
+                    result_candidates,
+                    used_result_indexes,
+                    contours or {},
+                    missing_contours if missing_contours is not None else [],
+                    preserved_by_category.get(str(collaboration.get("category", ""))),
+                )
+                for collaboration in raw_collaborations
+            ]
+        else:
+            # A date can retain previously validated collaboration cards even
+            # when the current bounded source scan has no fresh records for it.
+            # Do not turn that absence into an empty history day or erase the
+            # prior evidence-backed projection.
+            finalized_collaborations = previous_collaborations
+        fresh_agents = agents.get(day, [])[:1]
+        foreground = [*finalized_collaborations, *fresh_agents]
+        if not raw_collaborations and not fresh_agents:
+            foreground = previous_generated
         existing = [
             item for index, item in enumerate(existing)
             if index not in used_result_indexes

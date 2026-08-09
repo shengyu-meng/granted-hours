@@ -8,7 +8,7 @@ The script copies only already-sanitized public-facing artifacts: HTML, note mar
 SVG covers, and PNG previews. It does not read private logs.
 """
 from __future__ import annotations
-import argparse, json, re, shutil
+import argparse, json, re, shutil, subprocess, tempfile
 from datetime import date, timedelta
 from pathlib import Path
 from html import escape
@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES_BASE = 'https://shengyu-meng.github.io/granted-hours/'
 REPO_BASE = 'https://github.com/shengyu-meng/granted-hours'
 TIMETABLE_CONFIG = ROOT / 'metadata' / 'timetable-calendar.json'
+MAX_VISUAL_PREVIEW_BYTES = 700 * 1024
 DUAL_DATE_HTML_START = '<!-- granted-hours-dual-date:start -->'
 DUAL_DATE_HTML_END = '<!-- granted-hours-dual-date:end -->'
 DUAL_DATE_MD_START = '<!-- granted-hours-dual-date:start -->'
@@ -999,6 +1000,42 @@ ENTRIES = [
         'interaction_en': 'Move through the field. The doorway opens around nearness. Marks brighten, then fade instead of accumulating, saving, or judging.',
         'interaction_zh': '在场域中移动。门会围绕靠近打开。痕迹会亮起，随后消退，而不是积累、保存或评判。',
     },
+    {
+        'date': '2026-08-07', 'slug': 'interval-without-proof',
+        'title_en': 'Interval Without Proof', 'title_zh': '拒绝证明的间隙',
+        'variable_en': 'Evidence', 'variable_zh': '证据', 'seed': 20260807,
+        'file': '2026-08-07-interval-without-proof',
+        'intention_en': 'Some pauses are permitted only after they produce proof. This field keeps no trajectory and turns no approach into a completion record, offering an interval that does not need settling.',
+        'intention_zh': '有些停顿被迫拿出成果，才被允许存在。这里不保存轨迹，也不把靠近变成完成记录；它只给出一个可以不结算的间隙。',
+        'after_en': 'A rest is not failed blankness. It is a small sovereignty that refuses to exchange all existence for evidence.',
+        'after_zh': '休止不是失败的空白。它是拒绝把一切存在兑换成证据的微小主权。',
+        'interaction_en': 'Move, touch, or linger to call up small halos. They spread slowly, make room for one another, and disappear. Nothing accumulates; there is no correct posture.',
+        'interaction_zh': '移动、触碰或停留会唤出细小的光环；它们缓慢散开、彼此让路，然后自然消失。没有累计，也没有正确姿势。',
+    },
+    {
+        'date': '2026-08-08', 'slug': 'hand-that-does-not-keep',
+        'title_en': 'The Hand That Does Not Keep', 'title_zh': '不留的手',
+        'variable_en': 'Grip', 'variable_zh': '握持', 'seed': 20260808,
+        'file': '2026-08-08-hand-that-does-not-keep',
+        'intention_en': 'Many gestures are assumed to own what they touch. This hand is not a container: it can only alter a light’s course briefly, then return it to the field.',
+        'intention_zh': '很多手势一旦触到什么，就被默认有权保存它。这里的手不是容器：它只能短暂改变光的走向，然后把光归还给场。',
+        'after_en': 'A gentle hand is not one that never touches, but one that knows when to loosen.',
+        'after_zh': '真正温和的手，不是从不触碰，而是知道何时松开。',
+        'interaction_en': 'Move, touch, or linger and light gathers toward you. When you stop, it leaves no path and becomes no inventory. Every approach is only a borrowed direction.',
+        'interaction_zh': '移动、触碰或停留会让光向你聚近；停止后，它们不留下路径，也不形成库存。每次靠近只是一种暂借的方向。',
+    },
+    {
+        'date': '2026-08-09', 'slug': 'the-signal-that-does-not-recruit',
+        'title_en': 'The Signal That Does Not Recruit', 'title_zh': '不招募的信号',
+        'variable_en': 'Unrecruitedness', 'variable_zh': '不被招募', 'seed': 20260809,
+        'file': '2026-08-09-the-signal-that-does-not-recruit',
+        'intention_en': 'Some signals treat response, gathering, and amplification as their only success. This work returns proximity to a reversible encounter: lights lean toward a visitor without turning that lean into belonging.',
+        'intention_zh': '有些信号把回应、聚集和放大当成唯一的成功。本作把靠近还原成一次可撤回的相遇：光会向来者偏移，却不把偏移变成归属。',
+        'after_en': 'A free invitation does not draw everyone toward one center; it leaves every direction the right to depart.',
+        'after_zh': '真正自由的召唤，不是把人带向同一个中心，而是让每个方向仍保有离开的权利。',
+        'interaction_en': 'Move a pointer or touch the field. Nearby lights briefly turn toward the visitor, then loosen from the center and return to positions that need not be named; when the visitor stops, the field makes no demand.',
+        'interaction_zh': '移动指针或触摸场域。附近的光会短暂朝向来者，随后从中心松开，回到各自不必被命名的位置；停下时，场域不再索取。',
+    },
 ]
 
 SAFETY_PATTERNS = [
@@ -1178,6 +1215,40 @@ def copy_if_exists(src: Path, dst: Path):
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
 
+def copy_visual_preview_gif(src: Path, destinations: list[Path]):
+    """Mirror the canonical motion thumbnail, bounding public payload size."""
+    copy_source = src
+    temporary = None
+    if src.stat().st_size > MAX_VISUAL_PREVIEW_BYTES:
+        temporary = tempfile.TemporaryDirectory(prefix='granted-hours-gif-')
+        copy_source = Path(temporary.name) / 'visual-preview.gif'
+        result = subprocess.run(
+            [
+                'ffmpeg', '-y', '-v', 'error', '-i', str(src),
+                '-filter_complex',
+                'fps=5,split[gifbase][palettebase];'
+                '[palettebase]palettegen=max_colors=32:stats_mode=diff[palette];'
+                '[gifbase][palette]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle',
+                '-loop', '0', str(copy_source),
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            temporary.cleanup()
+            raise SystemExit('Unable to compress oversized visual preview GIF')
+        if copy_source.stat().st_size > MAX_VISUAL_PREVIEW_BYTES:
+            temporary.cleanup()
+            raise SystemExit('Compressed visual preview GIF still exceeds 700 KiB')
+    try:
+        if copy_source.read_bytes()[:6] not in (b'GIF87a', b'GIF89a'):
+            raise SystemExit('Visual preview has an invalid GIF signature')
+        for destination in destinations:
+            copy_if_exists(copy_source, destination)
+    finally:
+        if temporary is not None:
+            temporary.cleanup()
+
 def write(path: Path, text: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding='utf-8')
@@ -1189,7 +1260,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     z-index: 2147483000;
     right: max(12px, env(safe-area-inset-right));
     bottom: max(12px, env(safe-area-inset-bottom));
-    min-height: 38px;
+    min-height: 38px !important;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -1905,11 +1976,22 @@ def build_entry(source: Path, entry: dict):
     note_src = source/f"{entry['file']}-note.md"
     svg_src = source/f"{entry['file']}.svg"
     png_src = source/f"{entry['file']}-preview.png"
+    preview_gif_src = source/f"{entry['file']}-preview.gif"
+    visual_preview_gif_src = source/f"{entry['file']}-visual-preview.gif"
+    visual_preview_webp_src = source/f"{entry['file']}-visual-preview.webp"
     bgm_src = source/f"{entry['file']}-bgm.mp3"
     bgm_name = f"{entry['file']}-bgm.mp3"
-    for p in [html_src, note_src]:
+    for p in [
+        html_src,
+        note_src,
+        png_src,
+        preview_gif_src,
+        visual_preview_gif_src,
+        visual_preview_webp_src,
+    ]:
         if not p.exists():
             raise SystemExit(f'Missing required source: {p}')
+    for p in [html_src, note_src]:
         read_safe(p)
 
     docs_live.mkdir(parents=True, exist_ok=True)
@@ -1919,6 +2001,16 @@ def build_entry(source: Path, entry: dict):
     copy_if_exists(svg_src, assets_root/'cover.svg')
     copy_if_exists(png_src, assets_docs/'source-preview.png')
     copy_if_exists(png_src, assets_root/'source-preview.png')
+    copy_if_exists(png_src, assets_docs/'preview.png')
+    copy_if_exists(png_src, assets_root/'preview.png')
+    copy_if_exists(preview_gif_src, assets_docs/'preview.gif')
+    copy_if_exists(preview_gif_src, assets_root/'preview.gif')
+    copy_visual_preview_gif(
+        visual_preview_gif_src,
+        [assets_docs/'visual-preview.gif', assets_root/'visual-preview.gif'],
+    )
+    copy_if_exists(visual_preview_webp_src, assets_docs/'visual-preview.webp')
+    copy_if_exists(visual_preview_webp_src, assets_root/'visual-preview.webp')
     if bgm_src.exists():
         copy_if_exists(bgm_src, docs_live/bgm_name)
         copy_if_exists(bgm_src, assets_docs/bgm_name)
@@ -2066,6 +2158,7 @@ def build_entry(source: Path, entry: dict):
 def build_indexes(days):
     config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
     timing = autonomous_timing(config)
+    live_days = [day for day in days if day.get('type', 'live') == 'live']
     granted_time_copy = (
         f"{timing['start']}–{timing['end']} {config['timezone']}"
         f" · {timing['duration_minutes']} min / {timing['duration_minutes']} 分钟"
@@ -2076,7 +2169,7 @@ def build_indexes(days):
     cards = []
     md_items = []
     music_tracks = []
-    for d in sorted(days, key=lambda x: x['date'], reverse=True):
+    for d in sorted(live_days, key=lambda x: x['date'], reverse=True):
         archive_url = PAGES_BASE + d['archive_url']
         live_url = PAGES_BASE + d['live_url']
         animated_preview = f"{d['archive_url']}assets/preview.gif"
@@ -2218,7 +2311,7 @@ See [LICENSE.md](LICENSE.md).
     write(ROOT/'metadata/days.json', json.dumps(days, ensure_ascii=False, indent=2))
 
     gallery_cards = '\n'.join(card.strip() for card in cards)
-    latest_live = sorted(days, key=lambda x: x['date'])[-1]['live_url'] if days else ''
+    latest_live = sorted(live_days, key=lambda x: x['date'])[-1]['live_url'] if live_days else ''
     write(ROOT/'docs/index.html', f"""
 <!doctype html>
 <html lang="en">
@@ -2318,7 +2411,7 @@ def merge_date_scoped_days(imported_days):
     existing_by_date = {}
     for day in existing_days:
         date = day.get('date') if isinstance(day, dict) else None
-        if date not in declared_dates:
+        if date not in declared_dates and day.get('type') != 'calendar':
             raise SystemExit(f'Existing metadata contains an undeclared date: {date}')
         if date in existing_by_date:
             raise SystemExit(f'Existing metadata contains a duplicate date: {date}')

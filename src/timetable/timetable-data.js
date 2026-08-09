@@ -120,6 +120,24 @@ const timetableDataSource = {
   },
   "bgm_playlist": [
     {
+      "date": "2026-08-09",
+      "title_en": "The Signal That Does Not Recruit",
+      "title_zh": "不招募的信号",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/2026-08-09-the-signal-that-does-not-recruit-bgm.mp3"
+    },
+    {
+      "date": "2026-08-08",
+      "title_en": "The Hand That Does Not Keep",
+      "title_zh": "不留的手",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/2026-08-08-hand-that-does-not-keep-bgm.mp3"
+    },
+    {
+      "date": "2026-08-07",
+      "title_en": "Interval Without Proof",
+      "title_zh": "拒绝证明的间隙",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/2026-08-07-interval-without-proof-bgm.mp3"
+    },
+    {
       "date": "2026-08-06",
       "title_en": "A Door That Does Not Keep a Record",
       "title_zh": "不留记录的门",
@@ -1561,11 +1579,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-04",
-          "axis_en": "another entrance through Afterglow",
-          "axis_zh": "经由「余辉」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Light That Does Not Follow.",
-          "sentence_zh": "日历跳过顺序，经由《不跟随的微光》重新打开同一个问题。"
+          "target": "2026-05-14",
+          "axis_en": "another entrance through Constellation",
+          "axis_zh": "经由「星图 / 回看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
+          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
         }
       ]
     },
@@ -1598,23 +1616,13 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_en": "Development and validation",
-          "task_name_zh": "开发与验证"
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
         }
       ],
       "cell_sources": {
@@ -1632,7 +1640,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -1656,112 +1664,34 @@ const timetableDataSource = {
       "task_residues": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "start": "07:37",
-          "end": "22:06",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 869,
+          "category": "document_processing",
+          "start": "11:09",
+          "end": "17:48",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "en": "Writing and document refinement",
+          "zh": "写作与文档打磨",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_zh": "写作与文档打磨",
+          "task_name_en": "Writing and document refinement",
+          "duration_minutes": 399,
           "time_provenance": "observed_message_envelope",
           "redaction_status": "none",
           "redaction_count": 0,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
-          "evidence_count": 23,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 8,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "精简关于“中间态”的五句口诀，并澄清选品流程：客户、经销商与供货商之间的需求与 PDF/视频交付关系。",
-          "request_en": "Condense the five mnemonic lines about the in-between state, and clarify the selection flow among customer, distributor, and supplier, including PDF and video delivery.",
-          "outcome_zh": "要求精简关于“中间态”的口诀并澄清选品流程中客户、经销商与供货商的需求与交付关系；公开记录未见结论。",
-          "outcome_en": "Asked to condense the in-between-state mnemonics and clarify the selection flow among customer, distributor, and supplier; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "07:53",
-          "end": "21:28",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 815,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 5,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 5,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "研究 A 股期权与期货价格在开放网页的可见性，并规划把 ████ 应用到三类任务的自动化。",
-          "request_en": "Investigate where A-share options and futures prices are visible on open pages, and plan how to automate ████ across three task types.",
-          "outcome_zh": "研究 A 股期权与期货价格在开放网页的可见性，并规划把 ████ 应用到三类任务的自动化；公开记录未见结论。",
-          "outcome_en": "Investigated where A-share options and futures prices are visible on open pages and planned automating ████ across three task types; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "10:36",
-          "end": "10:57",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 21,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
+          "evidence_count": 2,
           "agent_labels": [
             "Hermes"
           ],
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "从 ████ 继承“生成图片上传到 ████ 云盘”的能力并立即测试可用性。",
-          "request_en": "Inherit from ████ the ability to upload generated images to the ████ cloud drive and test it immediately.",
-          "outcome_zh": "完成 AI 视频创作流程讲解：脚本、分镜、关键帧、图生视频、角色连续性与镜头衔接，并产出 15–30 秒视频原型。",
-          "outcome_en": "Completed an AI-video workflow explainer covering script, storyboard, keyframes, image-to-video, character continuity, and shot transitions, producing a 15–30 second prototype.",
+          "request_zh": "评估一项定制材料与静态、动态呈现流程，梳理从需求输入到文档导出的协作步骤。",
+          "request_en": "Evaluate a tailored-material workflow across still and moving presentation, mapping the collaboration from request input to document export.",
+          "outcome_zh": "明确了从需求输入、预览修改到文档导出的工作流。",
+          "outcome_en": "Defined a workflow from request input through preview revision to document export.",
           "completion_status": "completed",
           "pair_provenance": "assistant_result_summary",
           "task_type": "active_collaboration",
@@ -1769,46 +1699,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "15:32",
-          "end": "23:25",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 473,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 5,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "补做 ████ 的个股深研（含报告），并判断深跌与“AI 替代叙事”下的预期差机会；同时单独分析那篇论文。",
-          "request_en": "Complete a deep-dive report on ████, judge the expectation-gap opportunity amid the sharp drop and the AI-replacement narrative, and analyze the paper separately.",
-          "outcome_zh": "整理出关于 ████ 代码库的公开事实：据称 2025 年 10–11 月起 100% 由模型生成。",
-          "outcome_en": "Compiled the public fact that the ████ codebase is said to have been 100% model-generated since October–November 2025.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -2028,15 +1919,6 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
@@ -2055,28 +1937,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -2096,11 +1960,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -3581,11 +3445,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-07",
-          "axis_en": "another entrance through Re-entry Budget",
-          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
-          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
+          "target": "2026-08-05",
+          "axis_en": "another entrance through Separation",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Gap That Keeps Its Shape.",
+          "sentence_zh": "日历跳过顺序，经由《缝隙保持形状》重新打开同一个问题。"
         }
       ]
     },
@@ -3618,23 +3482,13 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
         }
       ],
       "cell_sources": {
@@ -3652,7 +3506,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -3674,123 +3528,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "03:58",
-          "end": "20:21",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 983,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 22,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 8,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "要求按“上涨不封顶”方案重新配比，并比较两种持有方式调整方案的风险与收益。",
-          "request_en": "Requested a rebalanced allocation under an uncapped-upside approach and a comparison of two holding-structure options with their risk and return.",
-          "outcome_zh": "要求按“上涨不封顶”方案重新配比并比较两种持有方式的调整风险与收益；公开记录未见最终配比结果。",
-          "outcome_en": "Asked to rebalance under an uncapped-upside approach and compare the risk and return of two holding-structure adjustments; no final allocation was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "04:00",
-          "end": "20:21",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 981,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 6,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 4,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "允许用部分流程或新建 Skill 来评定个股，并要求核对此前推荐的软件股是否都研究过。",
-          "request_en": "Allow partial evaluation flows or a new skill for stock assessment, and verify that previously recommended software names were actually researched.",
-          "outcome_zh": "讨论让流程可部分执行或新建专用 Skill 评定个股，并核对此前推荐的软件类标的是否都已研究；公开记录未见核验结论。",
-          "outcome_en": "Discussed allowing partial evaluation flows or a dedicated skill for stock assessment, and verifying whether previously recommended software names were all researched; no public verification concluded.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "09:31",
-          "end": "19:49",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 618,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "把每日自由探索结果做成公开艺术项目：归档发心、输出与生成艺术截图，并建立可跳转列表。",
-          "request_en": "Build a public art project from daily free-exploration outputs, archiving intents, results, and generative screenshots with a navigable list.",
-          "outcome_zh": "确立“████ day”为最高等级归档链路，p5.js/Canvas/████ 作品默认进入。",
-          "outcome_en": "Established ████ day as the top-tier archive lane, with p5.js/Canvas/████ works entering by default.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -3828,7 +3565,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -4955,24 +4692,6 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -4984,19 +4703,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-003",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -5005,11 +4715,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-03",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-09",
+          "axis_en": "another entrance through Silence",
+          "axis_zh": "经由「沉默」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
         }
       ]
     },
@@ -5042,23 +4752,23 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Extended the daily knowledge-community ingestion workflow…",
+          "task_name_zh": "扩展知识社群每日抓取流程，把高价…"
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -5076,7 +4786,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -5100,81 +4810,29 @@ const timetableDataSource = {
       "task_residues": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:38",
-          "end": "21:22",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 764,
-          "time_provenance": "observed_message_envelope",
+          "category": "code_development",
+          "start": "10:35",
+          "end": "13:35",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "en": "Extended the daily knowledge-community ingestion workflow to route high-value non-ticker insights into the evidence ledger of ████ as weak signals, without storing full paid articles.",
+          "zh": "扩展知识社群每日抓取流程，把高价值的非标的洞察按弱信号等级写入 ████ 的证据账本，同时避免保存付费长文全文。",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_zh": "扩展知识社群每日抓取流程，把高价…",
+          "task_name_en": "Extended the daily knowledge-community ingestion workflow…",
+          "duration_minutes": 180,
+          "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
+          "redaction_count": 1,
+          "source_kind": "task_card",
           "faithfulness": "faithful_summary",
-          "evidence_count": 5,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 5,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "在新建的 ████ 中先写好管理目录结构说明，等待后续提纲。",
-          "request_en": "Write the management directory-structure note inside the new ████ first, awaiting the outline.",
-          "outcome_zh": "在新建的 ████ 中先写管理目录结构说明以等待后续提纲；公开记录未见该说明的交付结果。",
-          "outcome_en": "Asked to write the management directory-structure note inside the new ████ first, pending the outline; no delivery was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
+          "task_type": "software_development",
+          "task_type_zh": "软件开发",
+          "task_type_en": "Software development",
           "task_color": "blue",
-          "task_icon": "messages-square",
+          "task_icon": "code-xml",
           "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "08:42",
-          "end": "14:34",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 352,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 6,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 4,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "对 ████ 和 ████ 实施高频监控并补个股深研，同时把强势股判定标准同步到相关 Skill。",
-          "request_en": "Set up high-frequency monitoring for ████ and ████ with deep-dive reports, and sync the strong-stock criteria into the related skills.",
-          "outcome_zh": "讨论在短线判定中加入强势抱团平行标准，并对两支标的高频监控与补深研；公开记录未见判定标准落地或深研交付。",
-          "outcome_en": "Discussed adding a strong-momentum parallel criterion to short-term judgment, plus high-frequency monitoring and deep dives on two names; neither landing nor delivery was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
@@ -5213,33 +4871,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "16:15",
-          "end": "18:30",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Extended the daily knowledge-community ingestion workflow to route high-value non-ticker insights into the evidence ledger of ████ as weak signals, without storing full paid articles.",
-          "zh": "扩展知识社群每日抓取流程，把高价值的非标的洞察按弱信号等级写入 ████ 的证据账本，同时避免保存付费长文全文。",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "扩展知识社群每日抓取流程，把高价…",
-          "task_name_en": "Extended the daily knowledge-community ingestion workflow…",
-          "duration_minutes": 135,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "task_card",
-          "faithfulness": "faithful_summary",
-          "task_type": "software_development",
-          "task_type_zh": "软件开发",
-          "task_type_en": "Software development",
-          "task_color": "blue",
-          "task_icon": "code-xml",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -6922,6 +6554,17 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-020"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "daily"
+        },
+        {
           "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
@@ -6938,45 +6581,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "climate-02",
-          "source": "pulses",
-          "source_refs": [
-            "background-020"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-16",
-          "axis_en": "another entrance through Latency",
-          "axis_zh": "经由「延迟 / 命名」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
-          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
+          "target": "2026-07-11",
+          "axis_en": "another entrance through Non-Possessive Witness",
+          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
+          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -7009,23 +6623,23 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
+        },
+        {
+          "origin": "assigned",
           "category": "research_synthesis",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "short_en": "RSH",
           "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "task_name_en": "Completed deep equity research on ████…",
+          "task_name_zh": "完成████的个股深研，综合收盘…"
         }
       ],
       "cell_sources": {
@@ -7043,7 +6657,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -7065,84 +6679,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "08:49",
-          "end": "13:06",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 257,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 8,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 5,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "在信息报告系统加入“大局观”模块：每日开盘前结合技术面给出保守或进攻判断、板块分化与波动区间预测，并在后续雷达中更新。",
-          "request_en": "Add a macro-view module to the reporting system: a pre-open technical read with defensive or offensive stance, sector dispersion, and range forecast, updated by later radar runs.",
-          "outcome_zh": "讨论在信息报告系统加入“大局观”模块：盘前技术面给出攻守判断、板块分化与区间预测；公开记录未见模块落地。",
-          "outcome_en": "Discussed adding a macro-view module to the reporting system: pre-open technical stance, sector dispersion, and range forecast; no implementation was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:52",
-          "end": "23:03",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 851,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 18,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 7,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "澄清分类调整：把“从任务到发愿/目标函数”的转向并入 AI 主体性主题，避免单列为“从工具到创作主体”。",
-          "request_en": "Clarify a taxonomy change: fold the task-to-intent shift into the AI-agency theme rather than separating from tool to creator.",
-          "outcome_zh": "澄清分类口径：把“从任务到发愿/目标函数”的转向并入 AI 主体性主题；公开记录未见最终归类。",
-          "outcome_en": "Clarified the classification by folding the shift from tasks to intent and objective functions into the AI-agency theme; no final categorization was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -7180,52 +6716,13 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "11:06",
-          "end": "22:57",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 711,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 9,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "让 ████ 私有仓库成为可恢复的核心备份：清洗冗余、保留 skill/memory/soul/knowledge，并检查是否还有内容要加入。",
-          "request_en": "Make the ████ private repository a recoverable core backup: clean redundancy, keep skills, memory, soul, and knowledge, and check for missing content.",
-          "outcome_zh": "讨论把 ████ 私有仓库作为可恢复的核心备份：清洗冗余、保留 skill/memory/soul/knowledge；公开记录未见结果。",
-          "outcome_en": "Discussed making the ████ private repository a recoverable core backup by cleaning redundancy and keeping skills, memory, soul, and knowledge; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "15:35",
-          "end": "16:20",
+          "start": "15:45",
+          "end": "17:30",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Completed deep equity research on ████ by combining closing quotes, candlesticks, capital flows, business materials, news, and financial-report information into a deliverable report and structured data.",
@@ -7234,7 +6731,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "完成████的个股深研，综合收盘…",
           "task_name_en": "Completed deep equity research on ████…",
-          "duration_minutes": 45,
+          "duration_minutes": 105,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -7245,7 +6742,7 @@ const timetableDataSource = {
           "task_type_en": "Investment research",
           "task_color": "green",
           "task_icon": "chart-no-axes-combined",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -7463,6 +6960,19 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-002",
+            "background-007",
+            "background-008"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "daily"
+        },
+        {
           "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
@@ -7479,56 +6989,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "climate-02",
-          "source": "pulses",
-          "source_refs": [
-            "background-002",
-            "background-007",
-            "background-008"
-          ],
-          "layer": "climate",
-          "classification": "climate_aggregate",
-          "family": "ah_market",
-          "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-15",
-          "axis_en": "another entrance through Uncatalogued",
-          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
-          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -7571,13 +7041,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
         }
       ],
       "cell_sources": {
@@ -7595,7 +7065,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 4,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -7658,45 +7128,6 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "08:51",
-          "end": "18:54",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 603,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 6,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "以后监测到新标的先加入观察池并补快速调研，同时核对盘前信源列表是否只抓了单一来源。",
-          "request_en": "Add newly spotted candidates to the watch pool with a quick research pass, and verify the pre-market source list is not limited to one source.",
-          "outcome_zh": "要求监控到新标的第一时间加入观察池并补快速调研，同时核对盘前信源是否单一；公开记录未见落地。",
-          "outcome_en": "Asked to add newly spotted candidates to the watch pool with quick research and verify the pre-market source list is not single-sourced; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
           "category": "document_processing",
           "start": "10:11",
           "end": "17:05",
@@ -7732,52 +7163,13 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "16:17",
-          "end": "16:51",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 34,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "确认最新文档文件位置，并结合外部服务权限与部署可用性完成排版。",
-          "request_en": "Confirm the latest document file location and finish the layout alongside external-service permission and deployment availability.",
-          "outcome_zh": "确认最新文档位置，并结合外部服务权限与部署可用性完成排版；公开记录未见排版结果。",
-          "outcome_en": "Asked to confirm the latest document location and finish the layout alongside external-service permission and deployment availability; no layout result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "19:00",
-          "end": "19:45",
+          "start": "13:35",
+          "end": "15:50",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Used existing research, watchlists, and market data from ████ to run a first-round tournament across AI infrastructure segments including optical communications, PCBs, copper interconnects, power and liquid cooling, storage, and domestic compute, producing a Top 8 and review path.",
@@ -7786,7 +7178,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "利用████的既有研究、观察池和…",
           "task_name_en": "Used existing research, watchlists, and market…",
-          "duration_minutes": 45,
+          "duration_minutes": 135,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -7797,13 +7189,13 @@ const timetableDataSource = {
           "task_type_en": "Investment research",
           "task_color": "green",
           "task_icon": "chart-no-axes-combined",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-003"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "21:30",
-          "end": "23:15",
+          "start": "16:05",
+          "end": "17:35",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Completed deep research on ████ and ████, refreshed their watchlist states, and reviewed same-day entries with reports covering scores, entry conditions, and invalidation levels.",
@@ -7812,7 +7204,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "为████与████补齐个股深研…",
           "task_name_en": "Completed deep research on ████ and…",
-          "duration_minutes": 105,
+          "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 2,
@@ -7823,7 +7215,7 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-004"
         }
       ],
       "autonomous_work": {
@@ -8013,15 +7405,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -8031,6 +7414,15 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
+        },
+        {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
         },
         {
           "reading_id": "event-assigned-003",
@@ -8049,34 +7441,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-05-16",
+          "axis_en": "another entrance through Latency",
+          "axis_zh": "经由「延迟 / 命名」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
+          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
         }
       ]
     },
@@ -8109,23 +7483,23 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Balancing long-term creative work, daily responsibilities,…",
+          "task_name_zh": "长期创作、日常责任与稳定照护的平…"
         }
       ],
       "cell_sources": {
@@ -8143,7 +7517,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -8165,84 +7539,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "00:10",
-          "end": "23:57",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 1427,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 22,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 12,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "明确循环联动同步更新应写进 ████ 还是每个子 ████，并核对某基金的申赎与溢价状态。",
-          "request_en": "Decide whether chained sync-update rules should live in ████ or each sub-████, and check a fund's subscription, redemption, and premium status.",
-          "outcome_zh": "讨论循环联动同步更新应写在主系统还是各子系统中，并核对某基金的申赎与溢价状态；公开记录未见结论。",
-          "outcome_en": "Discussed where chained sync-update rules should live and checked a fund's subscription, redemption, and premium status; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "08:23",
-          "end": "23:46",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 923,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 8,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "解释“主升浪前先深跌”的规律是否存在及其原因，同时避免用“庄家洗盘”式结论。",
-          "request_en": "Explain whether the sharp-dip-before-main-rally pattern is real and why, without resorting to market-manipulation conclusions.",
-          "outcome_zh": "解释“主升浪前先深跌”的规律是否存在及其原因，并避免“庄家洗盘”式结论；公开记录未见解释内容。",
-          "outcome_en": "Asked to explain whether the sharp-dip-before-main-rally pattern is real and why, without manipulation-style conclusions; no public explanation was recorded.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
         {
           "origin": "assigned",
           "category": "visual_production",
@@ -8280,52 +7576,13 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
           "category": "document_processing",
-          "start": "11:28",
-          "end": "22:15",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 647,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "把做 ████ 的经验更新到相应 Skill。",
-          "request_en": "Update the lessons from ████ into the relevant skill.",
-          "outcome_zh": "增加了 ████ 超链接关系的验证方法。",
-          "outcome_en": "Added a verification method for ████ hyperlink relationships.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "start": "19:05",
-          "end": "21:35",
+          "start": "10:35",
+          "end": "11:35",
           "label_en": "Document processing",
           "label_zh": "文档处理",
           "en": "Balancing long-term creative work, daily responsibilities, and dependable care.",
@@ -8334,7 +7591,7 @@ const timetableDataSource = {
           "short_zh": "文档",
           "task_name_zh": "长期创作、日常责任与稳定照护的平…",
           "task_name_en": "Balancing long-term creative work, daily responsibilities,…",
-          "duration_minutes": 150,
+          "duration_minutes": 60,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -8345,7 +7602,7 @@ const timetableDataSource = {
           "task_type_en": "Document writing",
           "task_color": "sand",
           "task_icon": "file-text",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -8461,15 +7718,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -8492,15 +7740,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -8512,28 +7751,19 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-003",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-004",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -8542,11 +7772,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-06-28",
+          "axis_en": "another entrance through Dormancy",
+          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
+          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
         }
       ]
     },
@@ -8589,13 +7819,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -8613,7 +7843,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -8676,21 +7906,21 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "00:56",
-          "end": "08:24",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 448,
+          "category": "visual_production",
+          "start": "08:25",
+          "end": "09:34",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_zh": "视觉创作与修改",
+          "task_name_en": "Visual creation and revision",
+          "duration_minutes": 69,
           "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
+          "redaction_status": "partial",
+          "redaction_count": 2,
           "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
           "evidence_count": 2,
@@ -8700,96 +7930,18 @@ const timetableDataSource = {
           "session_count": 2,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "要求日报在报异常时核对新闻面是否存在重大利空或利好，并把相关分析归档到观察池。",
-          "request_en": "Asked the daily report to check the news for major negatives or positives behind anomalies and archive related analysis into the watch pool.",
-          "outcome_zh": "要求日报在报异常时核对新闻面是否存在重大利空或利好，并把相关分析归档到观察池；公开记录未见落地。",
-          "outcome_en": "Asked the daily report to check the news behind anomalies and archive related analysis into the watch pool; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
+          "request_zh": "调整现有内容结构，并明确凌晨自由创作的署名：作品归于黑昼，授时来自 ████ 提供的空间而非任务委派。",
+          "request_en": "Rework the current content structure and correct the attribution of the dawn free-roam works: they belong to Black Day, while ████ grants a space rather than assigning a task.",
+          "outcome_zh": "更正凌晨创作的署名与授权关系：作品归于黑昼，████ 授予空间而非任务。",
+          "outcome_en": "Corrected the attribution and grant relationship for the dawn works: they belong to Black Day, and ████ grants a space rather than assigning a task.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "08:33",
-          "end": "20:38",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 725,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "统一迁移后的身份命名（一律称“黑昼”），并排查本地全盘备份失败原因，考虑排除浏览器缓存等目录。",
-          "request_en": "Unify the post-migration identity naming and diagnose local full-backup failures, possibly excluding directories like browser caches.",
-          "outcome_zh": "统一迁移后的身份命名（一律称“黑昼”），并排查本地全盘备份失败原因；公开记录未见最终结果。",
-          "outcome_en": "Asked to unify the post-migration identity naming as Black Day and diagnose the local full-backup failures; no final result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "09:30",
-          "end": "15:52",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 382,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 5,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 4,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "明确运行测试代码与完成代码的存放位置，并盘点现有 Skill 与 ████ 能力，先测试后更新且需提案确认。",
-          "request_en": "Clarify where run-test and final code belong, survey existing skills and ████ capabilities, and test before updating with proposal approval.",
-          "outcome_zh": "明确运行测试代码与完成代码的存放位置，并盘点现有 Skill 与 ████ 能力，先测试后更新且需提案确认；公开记录未见结论。",
-          "outcome_en": "Clarified where run-test and final code belong and surveyed existing skills and ████ capabilities, testing before updating with proposal approval; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
         }
       ],
       "autonomous_work": {
@@ -8914,15 +8066,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -8944,19 +8087,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "settings-change-001",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "settings_change"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -8977,11 +8111,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-27",
-          "axis_en": "another entrance through Humility",
-          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
-          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
+          "target": "2026-08-03",
+          "axis_en": "another entrance through Release Without Performance",
+          "axis_zh": "经由「不表演的松开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
+          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
         }
       ]
     },
@@ -9014,23 +8148,13 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -9048,7 +8172,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -9070,123 +8194,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "00:39",
-          "end": "23:17",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 1358,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 8,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 5,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "世界线雷达周度主线做 P0–P4，排除无法购买的标的；同时分析跨品种跨期子套利是否可行。",
-          "request_en": "Run the weekly world-line radar P0–P4 excluding unbuyable assets, and analyze whether cross-instrument calendar arbitrage is feasible.",
-          "outcome_zh": "世界线雷达周度主线做 P0–P4 并排除不可购买标的，同时分析跨品种跨期子套利是否可行；公开记录未见结论。",
-          "outcome_en": "Asked to run the weekly world-line radar P0–P4 excluding unbuyable assets and analyze cross-instrument calendar arbitrage; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:56",
-          "end": "23:22",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 866,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 10,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 6,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "评估多 Profile 与多 Agent 方案：文件膨胀、多个机器人接入、不同人格以及同群互聊。",
-          "request_en": "Evaluate multi-profile and multi-agent setups: file bloat, multiple bot connections, distinct personas, and group conversation between them.",
-          "outcome_zh": "评估多 Profile 与多 Agent 方案：文件膨胀、多机器人接入、不同人格与同群互聊；公开记录未见结论。",
-          "outcome_en": "Evaluated multi-profile and multi-agent setups: file bloat, multiple bot connections, distinct personas, and same-group conversation; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "09:16",
-          "end": "12:18",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 182,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "根据近期对话判断是否值得搭建多 Agent 系统（若做，确定人格分工），并检查备份任务失败原因。",
-          "request_en": "Decide whether a multi-agent system is worth building based on recent work, propose persona splits if so, and check why the backup task failed.",
-          "outcome_zh": "根据近期对话判断是否值得搭建多 Agent 系统并确定人格分工，同时检查备份任务失败原因；公开记录未见结论。",
-          "outcome_en": "Judged whether a multi-agent system is worth building and its persona splits, while checking the failing backup task; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
         {
           "origin": "assigned",
           "category": "visual_production",
@@ -9224,7 +8231,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -9321,15 +8328,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -9339,28 +8337,10 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -9392,11 +8372,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -9429,23 +8409,23 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "code_development",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_en": "Development and validation",
-          "task_name_zh": "开发与验证"
+          "category": "document_processing",
+          "label_en": "Document processing",
+          "label_zh": "文档处理",
+          "short_en": "DOC",
+          "short_zh": "文档",
+          "task_name_en": "Writing and document refinement",
+          "task_name_zh": "写作与文档打磨"
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Compared the original ACM manuscript for…",
+          "task_name_zh": "对《OneandThreeObj…"
         }
       ],
       "cell_sources": {
@@ -9463,7 +8443,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -9485,123 +8465,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "00:01",
-          "end": "09:26",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 565,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "先自行测试再修改：确认子代理是否按 Profile 自动激活。",
-          "request_en": "Test before changing: confirm whether sub-agents auto-activate per profile.",
-          "outcome_zh": "要求先自行测试再修改，并确认子代理是否按 Profile 自动激活；公开记录未见测试结论。",
-          "outcome_en": "Asked to test before modifying and confirm whether subagents activate per profile; no test conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "01:08",
-          "end": "23:13",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 1325,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 25,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 9,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "详述方案 C：不同人格分身如何同步主人格的 Skill 与上下文，并调整 AH 主报告时间。",
-          "request_en": "Detail plan C on how persona spinoffs sync the main persona's skills and context, and adjust the A/H main-report schedule.",
-          "outcome_zh": "详述多人格分身如何同步主人格的 Skill 与上下文，并调整 A/H 主报告时间；公开记录未见落地结果。",
-          "outcome_en": "Detailed how persona spinoffs sync the main persona's skills and context, plus an A/H main-report time change; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "01:22",
-          "end": "18:40",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 1038,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 5,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 5,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "沿“主线瓶颈上游”思路逐层梳理存储、光通信等环节的供应瓶颈，判断哪些已被炒作，并修正此前的问题。",
-          "request_en": "Trace supply bottlenecks layer by layer up from storage and optical links, judging which are already priced in, and correct the earlier pass.",
-          "outcome_zh": "沿“主线瓶颈上游”思路逐层梳理存储、光通信等环节的供应瓶颈并判断炒作程度；公开记录未见结论。",
-          "outcome_en": "Traced supply bottlenecks layer by layer up from storage and optical links and judged how much was already priced in; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -9639,13 +8502,13 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "19:10",
-          "end": "21:25",
+          "start": "10:40",
+          "end": "11:25",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Compared the original ACM manuscript for One and Three Objects with the target conference call and public project page, producing a gap analysis and prioritized strategy for venue fit and narrative revision.",
@@ -9654,7 +8517,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "对《OneandThreeObj…",
           "task_name_en": "Compared the original ACM manuscript for…",
-          "duration_minutes": 135,
+          "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -9665,7 +8528,7 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -9743,33 +8606,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -9779,10 +8615,10 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-004",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-004"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -9800,10 +8636,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-005",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-005"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -9812,11 +8648,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-07-21",
+          "axis_en": "another entrance through Reversible Departure",
+          "axis_zh": "经由「可逆离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
+          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
         }
       ]
     },
@@ -9859,13 +8695,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Personal pacing and recovery arrangements",
+          "task_name_zh": "个人节奏与恢复安排"
         }
       ],
       "cell_sources": {
@@ -9883,7 +8719,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -9946,146 +8782,29 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "00:14",
-          "end": "21:31",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 1277,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 8,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 4,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "补齐 A 股新闻事件风险复核，并快速复核冷池复活标的。",
-          "request_en": "Add news-driven risk review for A-shares and quickly recheck revived cold-pool candidates.",
-          "outcome_zh": "要求补齐 A 股新闻事件风险复核并快速复核冷池复活标的；公开记录未见结果。",
-          "outcome_en": "Asked to add news-driven risk review for A-shares and quickly recheck revived cold-pool candidates; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "15:44",
-          "end": "22:51",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 427,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "修复群聊高清大图读取，并建立“艺术家理念拆解、分类归档、链接 wiki”的流程。",
-          "request_en": "Fix high-resolution group-image reading, and build a workflow to dissect artists' ideas, categorize them, and link them into the wiki.",
-          "outcome_zh": "要求修复群聊高清大图读取，并建立“艺术家理念拆解、分类归档、链接 wiki”的流程；公开记录未见落地。",
-          "outcome_en": "Asked to fix high-resolution group-image reading and build a workflow to dissect, categorize, and wiki-link artists' ideas; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
           "category": "code_development",
-          "start": "19:05",
-          "end": "21:20",
+          "start": "10:30",
+          "end": "13:00",
           "label_en": "Code development",
           "label_zh": "代码开发",
-          "en": "Strengthened an A-share ████ event sentinel by combining Eastmoney, public news, and filings in one monitoring chain, with hard-risk terms limited to triggering human review.",
-          "zh": "补强了 A 股 ████ 事件哨兵，把东方财富、公开新闻与公告接入同一监测链路，并限定硬风险词仅触发人工复核。",
+          "en": "Personal pacing and recovery arrangements.",
+          "zh": "个人节奏与恢复安排。",
           "short_en": "CODE",
           "short_zh": "代码",
-          "task_name_zh": "补强了A股████事件哨兵，把东…",
-          "task_name_en": "Strengthened an A-share ████ event sentinel…",
-          "duration_minutes": 135,
+          "task_name_zh": "个人节奏与恢复安排",
+          "task_name_en": "Personal pacing and recovery arrangements",
+          "duration_minutes": 150,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "task_card",
-          "faithfulness": "faithful_summary",
-          "task_type": "investment_research",
-          "task_type_zh": "投资研究",
-          "task_type_en": "Investment research",
-          "task_color": "green",
-          "task_icon": "chart-no-axes-combined",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "20:31",
-          "end": "23:14",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 163,
-          "time_provenance": "observed_message_envelope",
           "redaction_status": "none",
           "redaction_count": 0,
-          "source_kind": "collaboration_session",
+          "source_kind": "task_card",
           "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "讨论创作系统的“母体/胚胎”隐喻：如何在更清楚的同时保留不可言说的直觉，避免被命名限定。",
-          "request_en": "Discussed the womb-and-embryo metaphor of the creative system: how to be clearer while preserving inexpressible intuition without being confined by naming.",
-          "outcome_zh": "讨论了创作系统的“母体/胚胎”隐喻：如何更清楚又不被命名限定；公开记录未保留展开内容。",
-          "outcome_en": "Discussed the womb-and-embryo metaphor of the creative system: clearer without being confined by naming; no expanded public copy was retained.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
+          "task_type": "software_development",
+          "task_type_zh": "软件开发",
+          "task_type_en": "Software development",
           "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-005"
+          "task_icon": "code-xml",
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -10153,15 +8872,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -10171,10 +8881,10 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-003",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -10189,34 +8899,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "settings-change-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "settings_change"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-07-26",
+          "axis_en": "another entrance through Unextractive Light",
+          "axis_zh": "经由「不提取的光」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Window That Does Not Watch Back.",
+          "sentence_zh": "日历跳过顺序，经由《不回望的窗》重新打开同一个问题。"
         }
       ]
     },
@@ -10249,16 +8941,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "research_synthesis",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
@@ -10266,6 +8948,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Research and thematic inquiry",
           "task_name_zh": "研究与题材判断"
+        },
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -10283,7 +8975,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -10305,45 +8997,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "00:06",
-          "end": "15:38",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 932,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 13,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 7,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "每天 A 股盘前与美股开盘前同步 ████ 特别关注分组：新增进主观察池、删除则移除；同时寻找科创板封闭式基金折价机会。",
-          "request_en": "Sync the ████ watchlist group before A-share and U.S. sessions daily, adding new entries to the main pool and removing deleted ones, and scan for discounted STAR-board closed-end funds.",
-          "outcome_zh": "要求每天 A 股盘前与美股开盘前同步特别关注分组，并寻找科创板封闭式基金折价机会；公开记录未见落地。",
-          "outcome_en": "Asked to sync the watchlist group before A-share and U.S. sessions daily and scan for discounted STAR-board closed-end funds; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "research_synthesis",
@@ -10381,46 +9034,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "start": "12:01",
-          "end": "12:06",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 5,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 4,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "在 ████ 中按既有风格新增一页讲解 ████ 概念，并用 ████ Skill 重排带引用图片的页面。",
-          "request_en": "Add a page explaining ████ in the existing style inside ████, and relayout pages with cited images per the ████ skill.",
-          "outcome_zh": "视觉 QA 通过：无明显裁切、比例失真或错字，████ 可交付。",
-          "outcome_en": "Visual QA passed with no visible cropping, distortion, or typos; ████ is deliverable.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
@@ -10459,7 +9073,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -10557,15 +9171,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "settings-change-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "settings_change"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -10575,10 +9180,10 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -10596,19 +9201,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-003",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -10628,11 +9224,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-05",
-          "axis_en": "another entrance through Exception",
-          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
-          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
+          "target": "2026-05-26",
+          "axis_en": "another entrance through Calibration",
+          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
+          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
         }
       ]
     },
@@ -11500,11 +10096,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-30",
-          "axis_en": "another entrance through Temporary Route",
-          "axis_zh": "经由「临时路径」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses Arrival.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-07-17",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
+          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
         }
       ]
     },
@@ -12308,11 +10904,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-28",
-          "axis_en": "another entrance through Reversible Action",
-          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
-          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
+          "target": "2026-06-08",
+          "axis_en": "another entrance through Protocol Debt",
+          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
+          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
         }
       ]
     },
@@ -12591,11 +11187,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-05",
-          "axis_en": "another entrance through Exception",
-          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
-          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
+          "target": "2026-07-03",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -12934,11 +11530,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-26",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-06-30",
+          "axis_en": "another entrance through Consentful Routing",
+          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
+          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
         }
       ]
     },
@@ -13994,11 +12590,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-07-25",
+          "axis_en": "another entrance through Exit",
+          "axis_zh": "经由「出口 / 可离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
         }
       ]
     },
@@ -14946,11 +13542,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-11",
-          "axis_en": "another entrance through Revocation Weather",
-          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
-          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
+          "target": "2026-06-20",
+          "axis_en": "another entrance through Unopened Proof",
+          "axis_zh": "经由「未开启证明 / 不侵入的验证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Unopened Proof.",
+          "sentence_zh": "日历跳过顺序，经由《未开启证明》重新打开同一个问题。"
         }
       ]
     },
@@ -15858,11 +14454,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-14",
-          "axis_en": "another entrance through Unaccountable Boundary",
-          "axis_zh": "经由「无须举证的边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
-          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
+          "target": "2026-05-18",
+          "axis_en": "another entrance through Load",
+          "axis_zh": "经由「承重 / 隐形结构」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Invisible Load-Bearing.",
+          "sentence_zh": "日历跳过顺序，经由《看不见的承重》重新打开同一个问题。"
         }
       ]
     },
@@ -16891,11 +15487,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-07",
+          "axis_en": "another entrance through Orbit",
+          "axis_zh": "经由「罗盘 / 轨道」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Orbit.",
+          "sentence_zh": "日历跳过顺序，经由《白夜罗盘》重新打开同一个问题。"
         }
       ]
     },
@@ -17803,11 +16399,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-11",
-          "axis_en": "another entrance through Non-Possessive Witness",
-          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
-          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -18156,11 +16752,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-07-03",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -18607,11 +17203,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-25",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -18654,13 +17250,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Processed ten social-media items serially in…",
+          "task_name_zh": "按████群组中的既定顺序，串行…"
         }
       ],
       "cell_sources": {
@@ -18678,7 +17274,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -18741,87 +17337,9 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:16",
-          "end": "14:47",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 271,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 12,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 5,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "核对 ████ 消费类基金的日常溢价水平及 QDII 替代选择，并要求日报标的使用中文名称。",
-          "request_en": "Check typical premiums on ████ consumer funds and QDII alternatives, and require Chinese names for report tickers.",
-          "outcome_zh": "核对消费类基金的日常溢价水平与 QDII 替代选择，并要求日报标的使用中文名称；公开记录未见结论。",
-          "outcome_en": "Checked typical premiums on consumer funds and QDII alternatives and required Chinese names for report tickers; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "13:07",
-          "end": "13:59",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 52,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "分析政策对个人投资者、中国大陆投资者买美股的影响，并确认内容是否已安排发布。",
-          "request_en": "Analyze the policy impact on individual and mainland-China investors buying U.S. stocks, and confirm the post was scheduled.",
-          "outcome_zh": "讨论政策对个人投资者、中国大陆投资者购买美股的影响，并确认内容是否已安排发布；公开记录未见最终结论。",
-          "outcome_en": "Discussed how policy affects individual and mainland-China investors buying U.S. stocks and whether the content was scheduled; no final conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
           "category": "social_media_organization",
-          "start": "19:00",
-          "end": "19:50",
+          "start": "10:45",
+          "end": "11:05",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
           "en": "Processed ten social-media items serially in the order set by the ████ group, publishing to ZSXQ before scheduling Weibo content and validating each archive entry.",
@@ -18830,7 +17348,7 @@ const timetableDataSource = {
           "short_zh": "社媒",
           "task_name_zh": "按████群组中的既定顺序，串行…",
           "task_name_en": "Processed ten social-media items serially in…",
-          "duration_minutes": 50,
+          "duration_minutes": 20,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -18841,52 +17359,13 @@ const timetableDataSource = {
           "task_type_en": "Social content",
           "task_color": "cyan",
           "task_icon": "megaphone",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "19:08",
-          "end": "19:09",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "当天以图片或附件提交的内容组织需求未留下可公开文本。",
-          "request_en": "The content-organization request that day arrived as images or attachments with no public-safe text record.",
-          "outcome_zh": "当天内容组织需求以图片或附件形式到达，未留下可公开文本。",
-          "outcome_en": "The content-organization request that day arrived as images or attachments with no public-safe text record.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "system_maintenance",
-          "start": "21:35",
-          "end": "22:25",
+          "start": "13:40",
+          "end": "14:30",
           "label_en": "System maintenance",
           "label_zh": "系统维护",
           "en": "Aligned the compression model in the ████ configuration with the GPT-5.4 primary model while leaving other group configurations unchanged.",
@@ -18906,7 +17385,7 @@ const timetableDataSource = {
           "task_type_en": "System operations",
           "task_color": "slate",
           "task_icon": "settings",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -19690,43 +18169,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-07-18",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
+          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
         }
       ]
     },
@@ -19766,16 +18218,6 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -19793,7 +18235,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -19853,123 +18295,6 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "08:56",
-          "end": "11:29",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 153,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "分析玻璃基板相关标的，判断是否单独建组并归集标的。",
-          "request_en": "Analyze glass-substrate candidates and decide whether to create a dedicated group to collect them.",
-          "outcome_zh": "分析玻璃基板相关标的，判断是否单独建组并归集；公开记录未见结论。",
-          "outcome_en": "Analyzed glass-substrate candidates and judged whether to create a dedicated group; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "start": "09:18",
-          "end": "09:19",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "解读一篇关于投资结构选择的策略文章，并评估现有美股资产是否适合调整。",
-          "request_en": "Interpret an article about choosing between investment structures and assess whether current U.S. assets suit a shift.",
-          "outcome_zh": "解读一篇关于投资结构选择的策略文章，并评估现有美股资产是否适合调整；公开记录未见结论。",
-          "outcome_en": "Interpreted an article about choosing between investment structures and assessed whether current U.S. assets suit a shift; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "15:57",
-          "end": "22:16",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 379,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "为自由创作建立私有发泄时段：用文字、图片或生成艺术表达对前一日工作的不满，保证不影响白天质量。",
-          "request_en": "Set up a private venting window for autonomous creation, using text, images, or generative art about the previous day's work, without hurting daytime quality.",
-          "outcome_zh": "要求自由创作与生成艺术默认配背景音乐、可关闭，主展厅循环并从最新开始，同时更新 Skill 与定时任务；公开记录未见最终结果。",
-          "outcome_en": "Asked for default BGM with a mute control on generative works, looping daily works in the gallery from the newest, and updated skills and cron; no final result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
         }
       ],
       "autonomous_work": {
@@ -20835,43 +19160,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-03",
-          "axis_en": "another entrance through Release Without Performance",
-          "axis_zh": "经由「不表演的松开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
-          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
+          "target": "2026-05-27",
+          "axis_en": "another entrance through Humility",
+          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
+          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
         }
       ]
     },
@@ -20904,16 +19202,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "visual_production",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
@@ -20921,6 +19209,16 @@ const timetableDataSource = {
           "short_zh": "视觉",
           "task_name_en": "Visual creation and revision",
           "task_name_zh": "视觉创作与修改"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Development and validation",
+          "task_name_zh": "开发与验证"
         }
       ],
       "cell_sources": {
@@ -20938,7 +19236,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -20960,45 +19258,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "00:19",
-          "end": "13:15",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 776,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 15,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 6,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "为生成艺术统一补充背景音乐：作品页默认播放、可关闭，主展厅循环播放并默认从最新开始，同时更新相关 Skill 与定时任务。",
-          "request_en": "Add BGM to generative works by default with a mute control, loop daily works in the main gallery starting from the newest, and update the skills and cron instructions.",
-          "outcome_zh": "为生成艺术统一补充背景音乐：作品页默认播放可关闭，主展厅循环默认从最新开始，并更新 Skill 与定时任务；公开记录未见落地。",
-          "outcome_en": "Asked to add BGM to generative works by default with mute, loop the gallery from the newest, and update skills and cron; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "visual_production",
@@ -21036,7 +19295,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
@@ -21075,7 +19334,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -21850,15 +20109,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -21944,19 +20194,19 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-003",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -21965,11 +20215,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-05-20",
+          "axis_en": "another entrance through Failure Budget",
+          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
+          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
         }
       ]
     },
@@ -23077,11 +21327,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-07-31",
+          "axis_en": "another entrance through Resting Memory",
+          "axis_zh": "经由「休眠的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
+          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
         }
       ]
     },
@@ -24248,11 +22498,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-28",
-          "axis_en": "another entrance through Dormancy",
-          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
-          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
+          "target": "2026-05-10",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
+          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
         }
       ]
     },
@@ -24285,16 +22535,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "visual_production",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
@@ -24302,6 +22542,16 @@ const timetableDataSource = {
           "short_zh": "视觉",
           "task_name_en": "Visual creation and revision",
           "task_name_zh": "视觉创作与修改"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Communication structure, collaboration flow, and release…",
+          "task_name_zh": "传播文案结构、协作流程与发布节奏"
         }
       ],
       "cell_sources": {
@@ -24319,7 +22569,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -24341,45 +22591,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "00:16",
-          "end": "22:20",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 1324,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 15,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 7,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "就网站退化为 2000 年代窄带风格的最终效果给建议，并设置一项资产调整提醒。",
-          "request_en": "Ask for final-effect advice on a site devolving into a 2000s narrowband style, and set an asset-adjustment reminder whose details remain private.",
-          "outcome_zh": "就网站退化为 2000 年代窄带风格的最终效果给建议，并设置一项资产调整提醒；公开记录未保留细节。",
-          "outcome_en": "Asked for final-effect advice on a site devolving into a 2000s narrowband style and set a private asset-adjustment reminder; details remain private.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "visual_production",
@@ -24417,103 +22628,25 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "08:43",
-          "end": "13:46",
+          "start": "10:45",
+          "end": "12:30",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
+          "en": "Communication structure, collaboration flow, and release cadence.",
+          "zh": "传播文案结构、协作流程与发布节奏。",
           "short_en": "RSH",
           "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 303,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "研究“AI 梦核”概念：分类、代表作品，并做文字与图像的拼贴式田野调查；同时寻找高胜率、不拥挤的投资机会。",
-          "request_en": "Research AI dreamcore: taxonomy, representative works, and a collage-style visual field survey, plus uncrowded high-odds investment opportunities.",
-          "outcome_zh": "定义“████ = 梦核/████ 审美”：被 AI 图像工具放大、变异、批量生产后形成的新流行图像类型。",
-          "outcome_en": "Defined ████ as the ████ dreamcore aesthetic that AI image tools amplified, mutated, and mass-produced into a new popular image genre.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "13:16",
-          "end": "13:17",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
+          "task_name_zh": "传播文案结构、协作流程与发布节奏",
+          "task_name_en": "Communication structure, collaboration flow, and release…",
+          "duration_minutes": 105,
+          "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "当天以图片或附件提交的内容组织需求未留下可公开文本。",
-          "request_en": "The content-organization request that day arrived as images or attachments with no public-safe text record.",
-          "outcome_zh": "当天内容组织需求以图片或附件形式到达，未留下可公开文本。",
-          "outcome_en": "The content-organization request that day arrived as images or attachments with no public-safe text record.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "19:10",
-          "end": "20:40",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "For ████, redefined the “AI-core” image aesthetic around visible generation traces, plasticity, model errors, and platform filtering, and built a sociological taxonomy.",
-          "zh": "为 ████ 重新界定“AI 核”图像审美，围绕明显生成痕迹、塑料感、模型错误与平台滤镜建立社会学分类。",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "为████重新界定“AI核”图像…",
-          "task_name_en": "For ████, redefined the “AI-core” image…",
-          "duration_minutes": 90,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
           "source_kind": "task_card",
           "faithfulness": "faithful_summary",
           "task_type": "research_analysis",
@@ -24521,13 +22654,13 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "visual_production",
-          "start": "21:30",
-          "end": "23:30",
+          "start": "13:30",
+          "end": "15:00",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
           "en": "Collected real AI-generated images from public sources including Wikimedia Commons and Civitai, produced a two-column card collage for ████, and fixed image-label overlap.",
@@ -24536,7 +22669,7 @@ const timetableDataSource = {
           "short_zh": "视觉",
           "task_name_zh": "从WikimediaCommon…",
           "task_name_en": "Collected real AI-generated images from public…",
-          "duration_minutes": 120,
+          "duration_minutes": 90,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -24547,7 +22680,7 @@ const timetableDataSource = {
           "task_type_en": "Visual design",
           "task_color": "pink",
           "task_icon": "palette",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -24732,15 +22865,6 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -24775,6 +22899,24 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-background-004",
+          "source": "pulses",
+          "source_refs": [
+            "background-004"
+          ],
+          "layer": "event",
+          "classification": "readable_reminder"
+        },
+        {
           "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
@@ -24793,33 +22935,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-004",
-          "source": "pulses",
-          "source_refs": [
-            "background-004"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
@@ -24829,25 +22944,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
         }
       ]
     },
@@ -25420,11 +23526,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-23",
-          "axis_en": "another entrance through Verification",
-          "axis_zh": "经由「验证 / 去免疫的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Truth Without Ornament.",
-          "sentence_zh": "日历跳过顺序，经由《去装饰的真相》重新打开同一个问题。"
+          "target": "2026-07-08",
+          "axis_en": "another entrance through Clean Gift",
+          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
+          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
         }
       ]
     },
@@ -26516,11 +24622,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-08-07",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Without Proof.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝证明的间隙》重新打开同一个问题。"
         }
       ]
     },
@@ -27627,11 +25733,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-07-11",
+          "axis_en": "another entrance through Non-Possessive Witness",
+          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
+          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -28881,11 +26987,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-05-29",
+          "axis_en": "another entrance through Revisable Promise",
+          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
+          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
         }
       ]
     },
@@ -30203,11 +28309,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -31437,11 +29543,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-09",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-20",
+          "axis_en": "another entrance through Failure Budget",
+          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
+          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
         }
       ]
     },
@@ -32140,11 +30246,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -32784,11 +30890,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-04",
-          "axis_en": "another entrance through Breathable Rule",
-          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
-          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
+          "target": "2026-05-21",
+          "axis_en": "another entrance through Graceful Loss",
+          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
+          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
         }
       ]
     },
@@ -34122,11 +32228,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-05-24",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
+          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
         }
       ]
     },
@@ -34166,16 +32272,6 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Research and thematic inquiry",
           "task_name_zh": "研究与题材判断"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -34193,7 +32289,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 2,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -34253,45 +32349,6 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "11:14",
-          "end": "16:58",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 344,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "通过 ████ 同步一次最新账户状态，并安装一个 Skill。",
-          "request_en": "Sync the latest account state through ████ and install a skill.",
-          "outcome_zh": "通过 ████ 同步一次最新账户状态，并安装一个 Skill；公开记录未见结果。",
-          "outcome_en": "Asked to sync the latest account state through ████ and install a skill; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -35441,15 +33498,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-040",
           "source": "pulses",
           "source_refs": [
@@ -35471,11 +33519,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-17",
-          "axis_en": "another entrance through Withdrawal",
-          "axis_zh": "经由「退场 / 脚手架」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Scaffold That Withdraws.",
-          "sentence_zh": "日历跳过顺序，经由《会退场的脚手架》重新打开同一个问题。"
+          "target": "2026-05-29",
+          "axis_en": "another entrance through Revisable Promise",
+          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
+          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
         }
       ]
     },
@@ -36703,11 +34751,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-29",
-          "axis_en": "another entrance through Unorientation",
-          "axis_zh": "经由「暂失方向」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Compass That Forgets North.",
-          "sentence_zh": "日历跳过顺序，经由《忘记北方的罗盘》重新打开同一个问题。"
+          "target": "2026-05-11",
+          "axis_en": "another entrance through Echo",
+          "axis_zh": "经由「回声」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
+          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
         }
       ]
     },
@@ -36740,13 +34788,13 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_en": "Research and thematic inquiry",
-          "task_name_zh": "研究与题材判断"
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "Public-content scheduling and archiving",
+          "task_name_zh": "公开内容的排期与归档"
         },
         {
           "origin": "assigned",
@@ -36774,7 +34822,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -36798,41 +34846,28 @@ const timetableDataSource = {
       "task_residues": [
         {
           "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "10:26",
-          "end": "14:05",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 219,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
-          "source_kind": "collaboration_session",
+          "category": "social_media_organization",
+          "start": "10:45",
+          "end": "11:20",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "en": "Public-content scheduling and archiving.",
+          "zh": "公开内容的排期与归档。",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_zh": "公开内容的排期与归档",
+          "task_name_en": "Public-content scheduling and archiving",
+          "duration_minutes": 35,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
           "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "找港股中类似 ████、符合 SEPA 第二阶段且回撤后的半导体受益标的，并做 ████ 的个股深研。",
-          "request_en": "Find H-share semiconductor beneficiaries similar to ████ meeting SEPA stage-two criteria after a pullback, and deep-dive ████.",
-          "outcome_zh": "寻找符合阶段性选股标准、回撤后的半导体受益标的，并做 ████ 的个股深研；公开记录未见结论。",
-          "outcome_en": "Searched for semiconductor beneficiaries meeting stage-two criteria after a pullback, plus a ████ deep dive; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
+          "task_type": "social_content",
+          "task_type_zh": "社媒内容",
+          "task_type_en": "Social content",
+          "task_color": "cyan",
+          "task_icon": "megaphone",
           "footprint_id": "assigned-001"
         },
         {
@@ -36876,113 +34911,9 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "document_processing",
-          "start": "16:45",
-          "end": "16:46",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "参考“简笔线稿漫画风”Skill：把复杂观点压成 20 张极简插画与 HTML 幻灯片，每张只抓一个判断。",
-          "request_en": "Follow the line-art comic skill: compress a complex viewpoint into 20 minimal illustrations and HTML slides, one judgment per image.",
-          "outcome_zh": "参考“简笔线稿漫画风”Skill：把复杂观点压成 20 张极简插画与 HTML 幻灯片，每张只抓一个判断；公开记录未见交付。",
-          "outcome_en": "Followed the line-art comic skill: compress a complex viewpoint into 20 minimal illustrations and HTML slides, one judgment per image; no delivery was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "16:56",
-          "end": "16:57",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 4,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "推送一个群友的开源项目：把 ████ 做成轻量本地 ████ 图片生成工作台，重点在图库、模板与任务队列。",
-          "request_en": "Share a community open-source project turning ████ into a lightweight local ████ image-generation workbench focused on libraries, templates, and task queues.",
-          "outcome_zh": "推送一个群友的开源项目：把 ████ 做成轻量本地 ████ 图片生成工作台，重点在图库、模板与任务队列；公开记录未见交付。",
-          "outcome_en": "Shared a community open-source project turning ████ into a lightweight local ████ image-generation workbench focused on libraries, templates, and task queues; no delivery was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
           "category": "social_media_organization",
-          "start": "19:00",
-          "end": "19:35",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Public-content scheduling and archiving.",
-          "zh": "公开内容的排期与归档。",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "公开内容的排期与归档",
-          "task_name_en": "Public-content scheduling and archiving",
-          "duration_minutes": 35,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "task_card",
-          "faithfulness": "faithful_summary",
-          "task_type": "social_content",
-          "task_type_zh": "社媒内容",
-          "task_type_en": "Social content",
-          "task_color": "cyan",
-          "task_icon": "megaphone",
-          "footprint_id": "assigned-005"
-        },
-        {
-          "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "21:40",
-          "end": "22:30",
+          "start": "13:35",
+          "end": "14:10",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
           "en": "Checked 12 reposted items across two platforms and restored ████'s opening comments; edits were preferred, with reposting as fallback, and the rule was added to the skills.",
@@ -36991,7 +34922,7 @@ const timetableDataSource = {
           "short_zh": "社媒",
           "task_name_zh": "核查12条双平台补发内容，补回█…",
           "task_name_en": "Checked 12 reposted items across two…",
-          "duration_minutes": 50,
+          "duration_minutes": 35,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -37002,7 +34933,7 @@ const timetableDataSource = {
           "task_type_en": "Social content",
           "task_color": "cyan",
           "task_icon": "megaphone",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -38149,15 +36080,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-039",
           "source": "pulses",
           "source_refs": [
@@ -38165,34 +36087,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-17",
-          "axis_en": "another entrance through Withdrawal",
-          "axis_zh": "经由「退场 / 脚手架」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Scaffold That Withdraws.",
-          "sentence_zh": "日历跳过顺序，经由《会退场的脚手架》重新打开同一个问题。"
+          "target": "2026-07-09",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -39490,11 +37394,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-06-03",
+          "axis_en": "another entrance through Repair Quorum",
+          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
+          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
         }
       ]
     },
@@ -40215,11 +38119,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -40262,13 +38166,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Created one artwork contact sheet under…",
+          "task_name_zh": "制作一张不超过2MB的作品联系表…"
         }
       ],
       "cell_sources": {
@@ -40286,7 +38190,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -40349,89 +38253,9 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "start": "09:40",
-          "end": "23:49",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 849,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 3,
-          "returned_agent_count": 0,
-          "request_zh": "核对外部服务权限、部署与数据链路可用性。",
-          "request_en": "Checked external-service permissions, deployment, and data-path availability.",
-          "outcome_zh": "核对外部服务权限、部署与数据链路可用性；公开记录未见核验结论。",
-          "outcome_en": "Checked external-service permissions, deployment, and data-path availability; no verification conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "start": "17:51",
-          "end": "17:56",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 5,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "把内容做成飞书文档并在私聊发送；对过长、错字段或带 demo 后缀的条目做适度策展化处理并保留原始数据。",
-          "request_en": "Turn the content into a Feishu document sent in a private chat, lightly curating overly long, mis-fielded, or demo-suffixed entries while preserving source data.",
-          "outcome_zh": "明确策展规则：过长、字段错误或带 demo 后缀的条目做适度策展化处理，但保留原始数据。",
-          "outcome_en": "Set the curation rule: lightly curate entries that are too long, mis-fielded, or demo-suffixed while retaining the original data.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
           "category": "research_synthesis",
-          "start": "19:15",
-          "end": "20:45",
+          "start": "10:45",
+          "end": "12:30",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Organized “The Beauty of Nature Can Be Medicine,” provided by ████, into a source snapshot, artwork archive, knowledge page, and appreciation index.",
@@ -40440,7 +38264,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "将████提供的《大自然的美会是…",
           "task_name_en": "Organized “The Beauty of Nature Can…",
-          "duration_minutes": 90,
+          "duration_minutes": 105,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -40451,52 +38275,13 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "20:52",
-          "end": "22:22",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 90,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "开始制作策展网页，并核对外部服务权限与部署可用性。",
-          "request_en": "Start building the curation webpage and verify external-service permissions and deployment availability.",
-          "outcome_zh": "已用浏览器打开验证：页面正常加载，27 件作品都在。",
-          "outcome_en": "Opened in a browser to verify: the page loads and all 27 works are present.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "visual_production",
-          "start": "21:40",
-          "end": "22:25",
+          "start": "13:40",
+          "end": "15:40",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
           "en": "Created one artwork contact sheet under 2 MB, removed temporary individual images, and flagged uncertain facts instead of forcing a biography.",
@@ -40505,7 +38290,7 @@ const timetableDataSource = {
           "short_zh": "视觉",
           "task_name_zh": "制作一张不超过2MB的作品联系表…",
           "task_name_en": "Created one artwork contact sheet under…",
-          "duration_minutes": 45,
+          "duration_minutes": 120,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -40516,7 +38301,7 @@ const timetableDataSource = {
           "task_type_en": "Visual design",
           "task_color": "pink",
           "task_icon": "palette",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -40960,15 +38745,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-background-008",
-          "source": "pulses",
-          "source_refs": [
-            "background-008"
-          ],
-          "layer": "event",
-          "classification": "readable_reminder"
-        },
-        {
           "reading_id": "event-assigned-003",
           "source": "tasks",
           "source_refs": [
@@ -40978,13 +38754,13 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
+          "reading_id": "event-background-008",
+          "source": "pulses",
           "source_refs": [
-            "assigned-004"
+            "background-008"
           ],
           "layer": "event",
-          "classification": "foreground_event"
+          "classification": "readable_reminder"
         },
         {
           "reading_id": "climate-02",
@@ -40999,34 +38775,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-05-31",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
+          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
         }
       ]
     },
@@ -41059,6 +38817,16 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
+        },
+        {
+          "origin": "assigned",
           "category": "document_processing",
           "label_en": "Document processing",
           "label_zh": "文档处理",
@@ -41066,16 +38834,6 @@ const timetableDataSource = {
           "short_zh": "文档",
           "task_name_en": "Writing and document refinement",
           "task_name_zh": "写作与文档打磨"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -41093,7 +38851,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -41115,6 +38873,45 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "start": "10:55",
+          "end": "10:56",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_zh": "视觉创作与修改",
+          "task_name_en": "Visual creation and revision",
+          "duration_minutes": 1,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "从持续每日创作的作品中提炼可检验的变化规律，并判断视觉品质的提升来自模型还是创作协议。",
+          "request_en": "Extract testable change patterns from a sustained daily creative practice, and ask whether visual improvement comes from the model or from the creative protocol.",
+          "outcome_zh": "形成一个可检验的问题：持续日常创作中，作品的视觉特质如何变化？",
+          "outcome_en": "Formulated a testable question: how do the visual qualities of artworks change across a sustained daily creative practice?",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -41152,7 +38949,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
@@ -41191,87 +38988,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "15:06",
-          "end": "19:07",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 241,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "讨论把多个 ████ 系统的“做梦机制”中的记忆做隐性可视化，并接入现有研究与艺术系统。",
-          "request_en": "Discuss visualizing the hidden memory of dreaming mechanisms across ████ systems and connecting it to the existing research and art stack.",
-          "outcome_zh": "讨论把多个 ████ 系统的“做梦机制”中的记忆做隐性可视化，并接入现有研究与艺术系统；公开记录未见落地。",
-          "outcome_en": "Discussed visualizing the hidden memory metabolism behind ████ systems' dreaming mechanisms and linking it into research and art systems; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
           "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "18:04",
-          "end": "21:03",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 179,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 3,
-          "returned_agent_count": 0,
-          "request_zh": "授权开发 ████ 的二阶研究模块：总结其内容与白天记忆的相关性、创作新作品与研究，并延伸为更系统的研究，不改变原定时任务。",
-          "request_en": "Authorize a second-order research module for ████ that relates its content to daytime memory, creates new works, and extends into systematic research without touching existing cron.",
-          "outcome_zh": "完成 ████ 二阶研究模块设计：不生成梦，而是观察梦如何由白天记忆残留生成，并把这种隐性代谢做成可分析、可可视化、可投稿的系统。",
-          "outcome_en": "Designed the ████ second-order module: it does not generate dreams but observes how they emerge from daytime memory residue, turning that hidden metabolism into an analyzable, visualizable, and submittable system.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
         }
       ],
       "autonomous_work": {
@@ -42369,15 +40086,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-046",
           "source": "pulses",
           "source_refs": [
@@ -42390,11 +40098,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-06-09",
+          "axis_en": "another entrance through Trust Amortization",
+          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
+          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
         }
       ]
     },
@@ -43610,11 +41318,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-07-16",
+          "axis_en": "another entrance through Unclaimed Care",
+          "axis_zh": "经由「不署名的照看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
+          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
         }
       ]
     },
@@ -43654,16 +41362,6 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_en": "Development and validation",
           "task_name_zh": "开发与验证"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -43681,7 +41379,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -43741,84 +41439,6 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:19",
-          "end": "22:19",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 720,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "追问四个优先级中哪一个被学术评价体系认可，并用人话解释配债标的的原理、收益与风险。",
-          "request_en": "Asked which of the four priority tiers counts under the academic evaluation system, and asked for a plain-language explanation of the bond-tied instrument's mechanics, return, and risk.",
-          "outcome_zh": "讨论停留在评价认可口径与配债原理的解释；公开记录未见结论。",
-          "outcome_en": "The discussion stayed on evaluation-recognition criteria and the instrument's mechanics; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "10:23",
-          "end": "22:21",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 718,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "对比多个投稿渠道的适配度：完整论文路径、更现实的作品系统展示路径、更包容艺术实践的通道，并确认哪些渠道带论文索引；同时分析推荐的配债标的的风险收益比。",
-          "request_en": "Compared submission venues by fit: full-paper routes, more realistic work-system showcases, and more inclusive art-practice tracks, confirming which carry paper indexing, plus a risk-return analysis of recommended bond-tied candidates.",
-          "outcome_zh": "讨论停留在投稿渠道对比与配债标的的风险收益分析；公开记录未见结论。",
-          "outcome_en": "The discussion stayed on venue comparison and risk-return analysis; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -44864,34 +42484,16 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "ah_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-05",
-          "axis_en": "another entrance through Explainable Refusal",
-          "axis_zh": "经由「可解释拒绝 / 留下理由的小门」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Explains Itself.",
-          "sentence_zh": "日历跳过顺序，经由《会解释自己的拒绝》重新打开同一个问题。"
+          "target": "2026-06-30",
+          "axis_en": "another entrance through Consentful Routing",
+          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
+          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
         }
       ]
     },
@@ -44924,16 +42526,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "social_media_organization",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_en": "Content organization and publishing",
-          "task_name_zh": "内容组织与发布"
-        },
-        {
-          "origin": "assigned",
           "category": "redacted_private",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
@@ -44958,7 +42550,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -44980,45 +42572,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "15:29",
-          "end": "15:30",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "整理一份折叠屏新品发布的内容提纲：发布时间、内屏使用痛点、系统级 AI 的多任务能力与交互逻辑；具体产品与主体不公开。",
-          "request_en": "Asked to outline a foldable launch post: release time, inner-screen usage pain points, system-level AI multitasking, and interaction logic; the product and client remain undisclosed.",
-          "outcome_zh": "当日讨论停留在发布内容的结构整理；公开记录未保留产品细节。",
-          "outcome_en": "The day's discussion stayed on structuring the launch content; no product detail was retained publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -45056,46 +42609,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "15:53",
-          "end": "15:54",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "撰写关于折叠屏设备系统级 AI 的体验文案：直板设备后台机制难以承载复杂任务，强调系统层 AI 的价值。",
-          "request_en": "Asked to write experience copy about system-level AI on foldable devices: flat phones' background mechanisms struggle with complex tasks, highlighting system-layer AI value.",
-          "outcome_zh": "讨论停留在产品体验文案的构思；公开记录未见交付。",
-          "outcome_en": "The discussion stayed on the product experience copy's concept; no delivery was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -46130,34 +43644,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-21",
-          "axis_en": "another entrance through Empty Return",
-          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
-          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
+          "target": "2026-06-06",
+          "axis_en": "another entrance through Judgment",
+          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
+          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
         }
       ]
     },
@@ -47331,11 +44827,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-06",
-          "axis_en": "another entrance through Retention",
-          "axis_zh": "经由「留存」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
-          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
+          "target": "2026-07-17",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
+          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
         }
       ]
     },
@@ -47373,8 +44869,8 @@ const timetableDataSource = {
           "label_zh": "私密记录已打码",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "task_name_en": "████",
+          "task_name_zh": "████"
         },
         {
           "origin": "assigned",
@@ -47402,7 +44898,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -47427,43 +44923,54 @@ const timetableDataSource = {
         {
           "origin": "assigned",
           "category": "redacted_private",
-          "start": "15:26",
-          "end": "16:22",
+          "start": "10:40",
+          "end": "11:55",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
+          "en": "No public-safe result from this window's collaboration was retained.",
+          "zh": "该窗口的协作未保留可公开的安全结果。",
           "short_en": "████",
           "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 56,
-          "time_provenance": "observed_message_envelope",
+          "task_name_zh": "████",
+          "task_name_en": "████",
+          "duration_minutes": 75,
+          "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
-          "source_kind": "collaboration_session",
+          "source_kind": "withheld",
           "faithfulness": "faithful_summary",
-          "evidence_count": 11,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 1,
-          "returned_agent_count": 0,
-          "request_zh": "回查昨天链接是否都逐条总结返回；缺的补发，并用子进程加主进程监督一次性补完。",
-          "request_en": "Recheck whether yesterday's links were all summarized and returned one by one, backfilling gaps with a supervised subprocess in one pass.",
-          "outcome_zh": "回查昨天链接是否都逐条总结返回，缺的补发，并用子进程加主进程监督一次性补完；公开记录未见结果。",
-          "outcome_en": "Asked to recheck yesterday's links, backfill gaps with a supervised subprocess in one pass; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
+          "task_type": "redacted_record",
+          "task_type_zh": "私密记录",
+          "task_type_en": "Private record",
+          "task_color": "slate",
+          "task_icon": "lock-keyhole",
           "footprint_id": "assigned-001"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "13:45",
+          "end": "14:15",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "The day's collaboration left no public-safe record.",
+          "zh": "当日协作未形成可公开的安全记录。",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "████",
+          "task_name_en": "████",
+          "duration_minutes": 30,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary",
+          "task_type": "redacted_record",
+          "task_type_zh": "私密记录",
+          "task_type_en": "Private record",
+          "task_color": "slate",
+          "task_icon": "lock-keyhole",
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
@@ -47502,98 +45009,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "16:10",
-          "end": "16:55",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-safe result from this window's collaboration was retained.",
-          "zh": "该窗口的协作未保留可公开的安全结果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 45,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
           "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "16:11",
-          "end": "16:12",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "参考同类创作者的公开发帖调性选材，并参考其历史发帖风格。",
-          "request_en": "Curate by the tone of comparable creators' public posts, referencing their historical posting style.",
-          "outcome_zh": "参考同类创作者的公开发帖调性选材，并参考其历史发帖风格；公开记录未见落地。",
-          "outcome_en": "Asked to curate by the tone of comparable creators' public posts, referencing their historical posting style; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "19:10",
-          "end": "20:25",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration left no public-safe record.",
-          "zh": "当日协作未形成可公开的安全记录。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 75,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-005"
         }
       ],
       "autonomous_work": {
@@ -48059,15 +45475,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-010",
           "source": "pulses",
           "source_refs": [
@@ -48075,15 +45482,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         },
         {
           "reading_id": "climate-03",
@@ -48100,11 +45498,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-14",
-          "axis_en": "another entrance through Witness Audit",
-          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
-          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
+          "target": "2026-06-23",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -48152,8 +45550,8 @@ const timetableDataSource = {
           "label_zh": "社交媒体整理",
           "short_en": "SOC",
           "short_zh": "社媒",
-          "task_name_en": "Content organization and publishing",
-          "task_name_zh": "内容组织与发布"
+          "task_name_en": "For ████, organized and scheduled an…",
+          "task_name_zh": "为████整理并定时安排Agen…"
         }
       ],
       "cell_sources": {
@@ -48171,7 +45569,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -48235,49 +45633,34 @@ const timetableDataSource = {
         {
           "origin": "assigned",
           "category": "social_media_organization",
-          "start": "10:46",
-          "end": "15:11",
+          "start": "13:45",
+          "end": "14:05",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
+          "en": "For ████, organized and scheduled an AgentFiles post about managing agent files through an Obsidian plugin.",
+          "zh": "为████整理并定时安排AgentFiles介绍，主题是用Obsidian插件统一管理Agent文件。",
           "short_en": "SOC",
           "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 265,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
+          "task_name_zh": "为████整理并定时安排Agen…",
+          "task_name_en": "For ████, organized and scheduled an…",
+          "duration_minutes": 20,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "public_post_archive",
           "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 1,
-          "returned_agent_count": 0,
-          "request_zh": "整理“实时流式单目 3D 重建”模型的技术亮点（相机位姿、深度图与点云恢复），并处理一项临时商业文案任务。",
-          "request_en": "Organize the highlights of a real-time monocular 3D reconstruction model covering pose, depth, and point clouds, and handle a temporary commercial-copy task.",
-          "outcome_zh": "整理“实时流式单目 3D 重建”模型的技术亮点（相机位姿、深度图与点云恢复），并处理一项临时商业文案任务；公开记录未见结论。",
-          "outcome_en": "Asked to organize highlights of a real-time monocular 3D reconstruction model covering pose, depth, and point clouds, plus a temporary commercial-copy task; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
+          "task_type": "social_content",
+          "task_type_zh": "社媒内容",
+          "task_type_en": "Social content",
+          "task_color": "cyan",
+          "task_icon": "megaphone",
           "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "social_media_organization",
-          "start": "15:45",
-          "end": "16:05",
+          "start": "15:35",
+          "end": "15:55",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
           "en": "For ████, organized and scheduled an Adrafinil post about keeping a closed MacBook awake only while an agent is working.",
@@ -48298,71 +45681,6 @@ const timetableDataSource = {
           "task_color": "cyan",
           "task_icon": "megaphone",
           "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "15:50",
-          "end": "15:51",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "讨论长期创作与日常责任的平衡；具体安排不公开。",
-          "request_en": "Discussed balancing long-form creative work with daily responsibilities; specific arrangements remain private.",
-          "outcome_zh": "讨论停留在时间与责任的安排层面；公开记录未保留细节。",
-          "outcome_en": "The discussion stayed at the level of time and responsibility balance; no detail was retained publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "19:00",
-          "end": "19:50",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "For ████, organized and scheduled an AgentFiles post about managing agent files through an Obsidian plugin.",
-          "zh": "为████整理并定时安排AgentFiles介绍，主题是用Obsidian插件统一管理Agent文件。",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "为████整理并定时安排Agen…",
-          "task_name_en": "For ████, organized and scheduled an…",
-          "duration_minutes": 50,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "public_post_archive",
-          "faithfulness": "faithful_summary",
-          "task_type": "social_content",
-          "task_type_zh": "社媒内容",
-          "task_type_en": "Social content",
-          "task_color": "cyan",
-          "task_icon": "megaphone",
-          "footprint_id": "assigned-005"
         }
       ],
       "autonomous_work": {
@@ -48875,15 +46193,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -48906,25 +46215,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-08-02",
+          "axis_en": "another entrance through Permission to Rest",
+          "axis_zh": "经由「休息的许可」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
+          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
         }
       ]
     },
@@ -48957,23 +46257,13 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "visual_production",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_en": "Visual creation and revision",
-          "task_name_zh": "视觉创作与修改"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_en": "Writing and document refinement",
-          "task_name_zh": "写作与文档打磨"
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -48991,7 +46281,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -49013,125 +46303,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "15:55",
-          "end": "15:56",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Visual creation and revision",
-          "zh": "视觉创作与修改",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 3,
-          "returned_agent_count": 0,
-          "request_zh": "对比 4 个主流 3D 生成平台（免费额度、生成质量、特色功能），选一个可免费试用的做两到三页 PPT 并配截图。",
-          "request_en": "Compare four major 3D-generation platforms on quotas, quality, and features, pick one that is free to try, and make a two-to-three-page deck with screenshots.",
-          "outcome_zh": "修复了 ████ 截图页绿色标注遮挡，改为不遮挡的描边框。",
-          "outcome_en": "Fixed the green annotation occlusion on the ████ screenshot page, replacing it with a non-occluding outline.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "start": "16:01",
-          "end": "16:02",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "根据图片中的文档格式规范处理排版。",
-          "request_en": "Process the layout according to the formatting guidelines in the image.",
-          "outcome_zh": "根据图片中的文档格式规范处理排版；公开记录未见结果。",
-          "outcome_en": "Asked to process layout per the formatting guidelines in the image; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "16:51",
-          "end": "16:52",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "整理一份产品文案的统一命名与表述注意事项；具体产品与主体不公开。",
-          "request_en": "Asked to organize unified naming and phrasing rules for product copy; the product and client remain undisclosed.",
-          "outcome_zh": "讨论了产品全称使用与内容表述边界的规则；公开记录未见最终定稿。",
-          "outcome_en": "Discussed rules for full-name usage and content-boundary phrasing; no final copy was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -49169,7 +46340,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -50300,29 +47471,10 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "settings-change-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-003",
-            "assigned-004"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "settings_change"
@@ -50340,11 +47492,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-15",
-          "axis_en": "another entrance through Camera Fasting",
-          "axis_zh": "经由「相机斋戒 / 被看与不看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Camera Fasting.",
-          "sentence_zh": "日历跳过顺序，经由《相机斋戒》重新打开同一个问题。"
+          "target": "2026-05-15",
+          "axis_en": "another entrance through Uncatalogued",
+          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
+          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
         }
       ]
     },
@@ -50377,16 +47529,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "document_processing",
           "label_en": "Document processing",
           "label_zh": "文档处理",
@@ -50411,7 +47553,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -50433,45 +47575,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:50",
-          "end": "12:51",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 241,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 4,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "以采访记录为素材构思艺术创作切入点，并查看与放宽自动授权范围。",
-          "request_en": "Brainstorm artistic angles from an interview record, and review and relax the auto-authorization scope.",
-          "outcome_zh": "以采访记录为素材构思艺术创作切入点，并查看与放宽自动授权范围；公开记录未见最终方案。",
-          "outcome_en": "Brainstormed artistic angles from an interview record and reviewed relaxing the auto-authorization scope; no final direction was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -50509,46 +47612,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "23:54",
-          "end": "23:55",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "允许建议也可以是一个引子，帮助加深自我理解。",
-          "request_en": "Allow a suggestion to be a seed or prompt that deepens self-understanding.",
-          "outcome_zh": "允许建议也可以是一个引子，帮助加深自我理解；公开记录未保留展开内容。",
-          "outcome_en": "Allowed a suggestion to be a seed that deepens self-understanding; no expanded public copy was retained.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -51741,15 +48805,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-013",
           "source": "pulses",
           "source_refs": [
@@ -51768,10 +48823,10 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -51784,25 +48839,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-08-02",
+          "axis_en": "another entrance through Permission to Rest",
+          "axis_zh": "经由「休息的许可」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
+          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
         }
       ]
     },
@@ -53168,11 +50214,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-27",
-          "axis_en": "another entrance through Humility",
-          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
-          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -53215,13 +50261,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "document_processing",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_en": "Writing and document refinement",
-          "task_name_zh": "写作与文档打磨"
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -53239,7 +50285,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -53302,45 +50348,6 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "document_processing",
-          "start": "15:02",
-          "end": "15:03",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "当天以图片或附件提交的文档需求未留下可公开文本。",
-          "request_en": "The document request that day arrived as images or attachments with no public-safe text record.",
-          "outcome_zh": "强调自动化流程的价值：到点自动跑、结果自动回推，省去手动搜索、复制与整理，只留下判断。",
-          "outcome_en": "Emphasized the value of automation: scheduled runs push results back automatically, removing manual search, copy, and assembly and leaving only judgment.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
           "category": "redacted_private",
           "start": "15:10",
           "end": "15:14",
@@ -53376,46 +50383,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "19:57",
-          "end": "19:58",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "讨论把直接表达转化为更触动情绪的当代艺术语言，并一起思考网页上的表达方式。",
-          "request_en": "Discuss transforming direct expression into a more emotionally resonant contemporary-art language, including on the web.",
-          "outcome_zh": "讨论把直接表达转化为更触动情绪的当代艺术语言，并一起思考网页上的表达方式；公开记录未见结论。",
-          "outcome_en": "Discussed translating direct expression into emotionally resonant contemporary-art language on the web; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -54683,15 +51651,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-042",
           "source": "pulses",
           "source_refs": [
@@ -54699,15 +51658,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         },
         {
           "reading_id": "event-background-055",
@@ -54722,11 +51672,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-21",
-          "axis_en": "another entrance through Reversible Departure",
-          "axis_zh": "经由「可逆离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
-          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
+          "target": "2026-05-13",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
+          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
         }
       ]
     },
@@ -55894,11 +52844,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-06-23",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -55941,13 +52891,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "code_development",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_en": "Development and validation",
-          "task_name_zh": "开发与验证"
+          "category": "social_media_organization",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_en": "After ████ regained scheduling capacity, three…",
+          "task_name_zh": "████定时额度恢复后，按原FI…"
         }
       ],
       "cell_sources": {
@@ -55965,7 +52915,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -56028,89 +52978,9 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "code_development",
-          "start": "09:28",
-          "end": "10:25",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 57,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 3,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "规定网址逐条总结、排队与保序的处理规则，并授权写开发计划、指挥 ████ 循环迭代开发。",
-          "request_en": "Set rules for one-by-one link summaries, queuing, and ordering, and authorize a development plan with ████ driving iterative development.",
-          "outcome_zh": "提炼出该方案的核心价值：把物体、镜头、时间段和事件与模糊 prompt 拆开，创作者先写剧本和调度再生成画面，接近未来视频生成工具的形态。",
-          "outcome_en": "Distilled the core value: separating objects, shots, timing, and events from vague prompts, letting creators script and schedule before generating frames, close to the future of video tools.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "10:19",
-          "end": "11:32",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 73,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 4,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 3,
-          "delegated_agent_count": 1,
-          "returned_agent_count": 0,
-          "request_zh": "把 ████（4D 可控视频世界模型）的内容连同视频发布到知识星球和微博，并补充市场操作判断与教训重述。",
-          "request_en": "Publish the ████ 4D controllable video-world-model piece with video to the knowledge platform and weibo, plus market-operation judgment and a lesson recap.",
-          "outcome_zh": "总结其特点：复杂页面会被编排器拆成空间子任务（hero、features、footer），多个 Agent 在画布不同区域并行工作并流式显示进度。",
-          "outcome_en": "Summarized its traits: complex pages are split into spatial subtasks such as hero, features, and footer, with multiple agents working different canvas regions in parallel while streaming progress.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
           "category": "social_media_organization",
-          "start": "19:15",
-          "end": "20:05",
+          "start": "10:45",
+          "end": "11:05",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
           "en": "After ████ regained scheduling capacity, three queued posts were sent in FIFO order, verified, and archived; a shared upload false negative did not block completion.",
@@ -56119,7 +52989,7 @@ const timetableDataSource = {
           "short_zh": "社媒",
           "task_name_zh": "████定时额度恢复后，按原FI…",
           "task_name_en": "After ████ regained scheduling capacity, three…",
-          "duration_minutes": 50,
+          "duration_minutes": 20,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -56130,46 +53000,7 @@ const timetableDataSource = {
           "task_type_en": "Social content",
           "task_color": "cyan",
           "task_icon": "megaphone",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
-          "category": "document_processing",
-          "start": "20:24",
-          "end": "20:25",
-          "label_en": "Document processing",
-          "label_zh": "文档处理",
-          "en": "Writing and document refinement",
-          "zh": "写作与文档打磨",
-          "short_en": "DOC",
-          "short_zh": "文档",
-          "task_name_zh": "写作与文档打磨",
-          "task_name_en": "Writing and document refinement",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "核对外部服务权限、部署与数据链路可用性。",
-          "request_en": "Checked external-service permissions, deployment, and data-path availability.",
-          "outcome_zh": "核对外部服务权限、部署与数据链路可用性；公开记录未见核验结论。",
-          "outcome_en": "Checked external-service permissions, deployment, and data-path availability; no verification conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -56645,15 +53476,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
@@ -56673,34 +53495,16 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-07-18",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
+          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
         }
       ]
     },
@@ -57405,11 +54209,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-03",
-          "axis_en": "another entrance through Repair Quorum",
-          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
-          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
+          "target": "2026-07-28",
+          "axis_en": "another entrance through Orientation Without Extraction",
+          "axis_zh": "经由「不提取的方向感」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -57452,13 +54256,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "social_media_organization",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_en": "Content organization and publishing",
-          "task_name_zh": "内容组织与发布"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -57476,7 +54280,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -57540,84 +54344,6 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "16:58",
-          "end": "16:59",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "配额恢复后把剩余三条定时内容发出。",
-          "request_en": "Asked to send the remaining three scheduled items once the quota was restored.",
-          "outcome_zh": "公开记录未见交付结果。",
-          "outcome_en": "No delivery was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "18:12",
-          "end": "18:13",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Research threads and validation",
-          "zh": "研究线索与验证",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 3,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "自己做 ████ 的个股深研，再把提示词与调研目标交给 ████ 做第二次研究，最后以 ████ 格式合并返回两份报告。",
-          "request_en": "Write the ████ deep-dive yourself, hand the prompt and target to ████ for a second pass, and return both reports merged in ████ format.",
-          "outcome_zh": "要求先自研个股再交给指定模型做二次研究，最后合并返回两份报告；公开记录未见结果。",
-          "outcome_en": "Asked to write the deep dive first, hand the prompt to a designated model for a second pass, and merge both reports; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
           "category": "visual_production",
           "start": "19:48",
           "end": "19:49",
@@ -57653,7 +54379,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -58793,15 +55519,6 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-037",
           "source": "pulses",
           "source_refs": [
@@ -58811,19 +55528,10 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-003",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -58841,11 +55549,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-04",
-          "axis_en": "another entrance through Afterglow",
-          "axis_zh": "经由「余辉」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Light That Does Not Follow.",
-          "sentence_zh": "日历跳过顺序，经由《不跟随的微光》重新打开同一个问题。"
+          "target": "2026-06-24",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -60199,11 +56907,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-19",
-          "axis_en": "another entrance through Near Divergence",
-          "axis_zh": "经由「近处的分歧」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Difference That Does Not Become Distance.",
-          "sentence_zh": "日历跳过顺序，经由《差异不等于远离》重新打开同一个问题。"
+          "target": "2026-07-03",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -61391,11 +58099,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-16",
-          "axis_en": "another entrance through Unclaimed Care",
-          "axis_zh": "经由「不署名的照看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
-          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
+          "target": "2026-05-09",
+          "axis_en": "another entrance through Silence",
+          "axis_zh": "经由「沉默」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
         }
       ]
     },
@@ -62581,11 +59289,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-08",
-          "axis_en": "another entrance through Error",
-          "axis_zh": "经由「误差」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Error Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜误差场》重新打开同一个问题。"
+          "target": "2026-05-31",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
+          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
         }
       ]
     },
@@ -64043,11 +60751,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-04",
-          "axis_en": "another entrance through Breathable Rule",
-          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
-          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
+          "target": "2026-07-28",
+          "axis_en": "another entrance through Orientation Without Extraction",
+          "axis_zh": "经由「不提取的方向感」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -64673,11 +61381,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-04",
-          "axis_en": "another entrance through Breathable Rule",
-          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
-          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
+          "target": "2026-06-12",
+          "axis_en": "another entrance through Forgiveness Latency",
+          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
+          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
         }
       ]
     },
@@ -64720,13 +61428,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "social_media_organization",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_en": "Content organization and publishing",
-          "task_name_zh": "内容组织与发布"
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Development and validation",
+          "task_name_zh": "开发与验证"
         }
       ],
       "cell_sources": {
@@ -64744,7 +61452,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -64807,47 +61515,6 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "09:45",
-          "end": "14:02",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Content organization and publishing",
-          "zh": "内容组织与发布",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "内容组织与发布",
-          "task_name_en": "Content organization and publishing",
-          "duration_minutes": 257,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 2,
-          "returned_agent_count": 0,
-          "request_zh": "当天以图片或附件提交的内容组织需求未留下可公开文本。",
-          "request_en": "The content-organization request that day arrived as images or attachments with no public-safe text record.",
-          "outcome_zh": "当天内容组织需求以图片或附件形式到达，未留下可公开文本。",
-          "outcome_en": "The content-organization request that day arrived as images or attachments with no public-safe text record.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
           "category": "code_development",
           "start": "09:50",
           "end": "12:04",
@@ -64883,7 +61550,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
@@ -64922,7 +61589,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -65393,15 +62060,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -65419,11 +62077,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-12",
-          "axis_en": "another entrance through Forgiveness Latency",
-          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
-          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
+          "target": "2026-08-03",
+          "axis_en": "another entrance through Release Without Performance",
+          "axis_zh": "经由「不表演的松开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
+          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
         }
       ]
     },
@@ -66778,11 +63436,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-05-11",
+          "axis_en": "another entrance through Echo",
+          "axis_zh": "经由「回声」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
+          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
         }
       ]
     },
@@ -68110,11 +64768,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     },
@@ -69310,11 +65968,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-14",
-          "axis_en": "another entrance through Witness Audit",
-          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
-          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
+          "target": "2026-07-02",
+          "axis_en": "another entrance through Return Contract",
+          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
+          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
         }
       ]
     },
@@ -70692,11 +67350,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-23",
-          "axis_en": "another entrance through Interval",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
-          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
+          "target": "2026-05-25",
+          "axis_en": "another entrance through Wonder",
+          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
+          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
         }
       ]
     },
@@ -72133,11 +68791,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-29",
-          "axis_en": "another entrance through Unorientation",
-          "axis_zh": "经由「暂失方向」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Compass That Forgets North.",
-          "sentence_zh": "日历跳过顺序，经由《忘记北方的罗盘》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -72720,11 +69378,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-29",
-          "axis_en": "another entrance through Unorientation",
-          "axis_zh": "经由「暂失方向」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Compass That Forgets North.",
-          "sentence_zh": "日历跳过顺序，经由《忘记北方的罗盘》重新打开同一个问题。"
+          "target": "2026-06-19",
+          "axis_en": "another entrance through Receipt Without Opening",
+          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
+          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
         }
       ]
     },
@@ -73463,16 +70121,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "research_synthesis",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
@@ -73497,7 +70145,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -73519,45 +70167,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:43",
-          "end": "21:50",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 787,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 4,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 6,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 6,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "处理开机反复提示“即将注销登录”的问题，并把 ████ 默认模型改为 gpt-████ high。",
-          "request_en": "Fix the repeated session-about-to-log-out startup issue and set the ████ default model to gpt-████ high.",
-          "outcome_zh": "处理开机反复提示“即将注销登录”的问题，并把 ████ 默认模型改为 gpt-████ high；公开记录未见结论。",
-          "outcome_en": "Asked to fix the repeated session-about-to-log-out startup issue and set the ████ default model to gpt-████ high; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "research_synthesis",
@@ -73595,46 +70204,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "21:55",
-          "end": "21:56",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 4,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "修复自动重启导致的远程协助登录失效，并重新拉起 ████ 与 ████ 远程协助。",
-          "request_en": "Fix the auto-restart that broke remote-assist logins and relaunch the ████ and ████ remote tools.",
-          "outcome_zh": "修复自动重启导致的远程协助登录失效，并重新拉起 ████ 与 ████ 远程协助；公开记录未见结论。",
-          "outcome_en": "Asked to fix the auto-restart that broke remote-assist logins and relaunch the ████ and ████ remote tools; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -74833,15 +71403,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
@@ -74883,19 +71444,10 @@ const timetableDataSource = {
           "classification": "readable_reminder"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -77763,16 +74315,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "system_maintenance",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_en": "System maintenance and deployment",
-          "task_name_zh": "系统维护与部署"
-        },
-        {
-          "origin": "assigned",
           "category": "redacted_private",
           "label_en": "Private record withheld",
           "label_zh": "私密记录已打码",
@@ -77780,6 +74322,16 @@ const timetableDataSource = {
           "short_zh": "打码",
           "task_name_en": "Discussion and task advancement",
           "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
         }
       ],
       "cell_sources": {
@@ -77797,7 +74349,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -77819,45 +74371,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "12:06",
-          "end": "12:07",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "先暂停这个每日提醒。",
-          "request_en": "Pause this daily reminder for now.",
-          "outcome_zh": "先暂停这个每日提醒；公开记录未见确认结果。",
-          "outcome_en": "Asked to pause this daily reminder for now; no confirmation was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -77895,7 +74408,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
@@ -77934,7 +74447,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -79129,8 +75642,7 @@ const timetableDataSource = {
           "source": "tasks",
           "source_refs": [
             "assigned-001",
-            "assigned-002",
-            "assigned-003"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "settings_change"
@@ -79193,16 +75705,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "code_development",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_en": "Development and validation",
-          "task_name_zh": "开发与验证"
-        },
-        {
-          "origin": "assigned",
           "category": "social_media_organization",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
@@ -79210,6 +75712,16 @@ const timetableDataSource = {
           "short_zh": "社媒",
           "task_name_en": "Cleaned the Open AI Canvas draft,…",
           "task_name_zh": "清洗OpenAICanvas稿件…"
+        },
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
         }
       ],
       "cell_sources": {
@@ -79227,7 +75739,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 5,
+          "count": 4,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -79251,48 +75763,9 @@ const timetableDataSource = {
       "task_residues": [
         {
           "origin": "assigned",
-          "category": "code_development",
-          "start": "12:21",
-          "end": "12:22",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "逐条总结并归档公众号文章、仓库与网站，加入任务清单。",
-          "request_en": "Summarize and archive articles, repositories, and sites item by item into the task list.",
-          "outcome_zh": "完成阅读层规则：博客与新闻用 ████ 去掉导航、广告和侧栏，技术文档与产品页优先保留 metadata、字段与链接。",
-          "outcome_en": "Completed the reading-layer rule: blogs and news via ████ strip navigation, ads, and sidebars, while technical docs and product pages keep metadata, fields, and links.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
           "category": "social_media_organization",
-          "start": "13:40",
-          "end": "14:30",
+          "start": "10:45",
+          "end": "11:35",
           "label_en": "Social-media organization",
           "label_zh": "社交媒体整理",
           "en": "Cleaned the Open AI Canvas draft, selected three media assets, published immediately through the ████ account on one platform, and scheduled and verified Weibo.",
@@ -79306,6 +75779,32 @@ const timetableDataSource = {
           "redaction_status": "partial",
           "redaction_count": 1,
           "source_kind": "task_card",
+          "faithfulness": "faithful_summary",
+          "task_type": "social_content",
+          "task_type_zh": "社媒内容",
+          "task_type_en": "Social content",
+          "task_color": "cyan",
+          "task_icon": "megaphone",
+          "footprint_id": "assigned-001"
+        },
+        {
+          "origin": "assigned",
+          "category": "social_media_organization",
+          "start": "13:40",
+          "end": "14:30",
+          "label_en": "Social-media organization",
+          "label_zh": "社交媒体整理",
+          "en": "Public-content scheduling and archiving.",
+          "zh": "公开内容的排期与归档。",
+          "short_en": "SOC",
+          "short_zh": "社媒",
+          "task_name_zh": "公开内容的排期与归档",
+          "task_name_en": "Public-content scheduling and archiving",
+          "duration_minutes": 50,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "public_post_archive",
           "faithfulness": "faithful_summary",
           "task_type": "social_content",
           "task_type_zh": "社媒内容",
@@ -79355,35 +75854,9 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "social_media_organization",
-          "start": "16:15",
-          "end": "17:05",
-          "label_en": "Social-media organization",
-          "label_zh": "社交媒体整理",
-          "en": "Public-content scheduling and archiving.",
-          "zh": "公开内容的排期与归档。",
-          "short_en": "SOC",
-          "short_zh": "社媒",
-          "task_name_zh": "公开内容的排期与归档",
-          "task_name_en": "Public-content scheduling and archiving",
-          "duration_minutes": 50,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "public_post_archive",
-          "faithfulness": "faithful_summary",
-          "task_type": "social_content",
-          "task_type_zh": "社媒内容",
-          "task_type_en": "Social content",
-          "task_color": "cyan",
-          "task_icon": "megaphone",
-          "footprint_id": "assigned-004"
-        },
-        {
-          "origin": "assigned",
           "category": "research_synthesis",
-          "start": "19:10",
-          "end": "20:10",
+          "start": "16:15",
+          "end": "17:00",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Summarized the income and assignment-risk boundaries of cash-secured puts and published an illustrated digest through the ████ channel.",
@@ -79392,7 +75865,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "整理现金担保卖Put的收益与接货…",
           "task_name_en": "Summarized the income and assignment-risk boundaries…",
-          "duration_minutes": 60,
+          "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -79403,7 +75876,7 @@ const timetableDataSource = {
           "task_type_en": "Investment research",
           "task_color": "green",
           "task_icon": "chart-no-axes-combined",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-004"
         }
       ],
       "autonomous_work": {
@@ -80646,15 +77119,6 @@ const timetableDataSource = {
           "source": "tasks",
           "source_refs": [
             "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -82106,11 +78570,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-26",
-          "axis_en": "another entrance through Calibration",
-          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
-          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
+          "target": "2026-05-30",
+          "axis_en": "another entrance through Maintenance Cost",
+          "axis_zh": "经由「维护成本 / 开门的租金」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Cost of Keeping the Door Open.",
+          "sentence_zh": "日历跳过顺序，经由《保持门开的成本》重新打开同一个问题。"
         }
       ]
     },
@@ -82143,16 +78607,6 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
-        },
-        {
-          "origin": "assigned",
           "category": "research_synthesis",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
@@ -82160,6 +78614,16 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Autonomous-time archive review",
           "task_name_zh": "自主时间档案复核"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Generated-state reconciliation",
+          "task_name_zh": "生成状态对账"
         }
       ],
       "cell_sources": {
@@ -82177,7 +78641,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 5,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -82201,50 +78665,9 @@ const timetableDataSource = {
       "task_residues": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "start": "03:21",
-          "end": "23:44",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 1223,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 2,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 11,
-          "agent_labels": [
-            "Hermes",
-            "GPT",
-            "subagent"
-          ],
-          "session_count": 7,
-          "delegated_agent_count": 25,
-          "returned_agent_count": 8,
-          "request_zh": "讨论一个外部记忆机制作品对 ████ 记忆索取效率的改进来源，并从明天起加入场内外折溢价套利提醒（实时读取折溢价）。",
-          "request_en": "Discuss what improved memory-retrieval efficiency in ████ from an external memory work, and start premium-and-discount arbitrage alerts tomorrow with real-time premium reads.",
-          "outcome_zh": "讨论一个外部记忆机制作品对 ████ 记忆索取效率的改进来源，并从明天起加入场内外折溢价套利提醒（实时读取折溢价）；公开记录未见结论。",
-          "outcome_en": "Discussed what improved memory-retrieval efficiency in ████ from an external memory work, and starting real-time premium-and-discount arbitrage alerts; no conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
           "category": "research_synthesis",
-          "start": "13:40",
-          "end": "15:40",
+          "start": "10:40",
+          "end": "11:55",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Review historical records without converting autonomous self-time into assigned labor",
@@ -82253,7 +78676,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "自主时间档案复核",
           "task_name_en": "Autonomous-time archive review",
-          "duration_minutes": 120,
+          "duration_minutes": 75,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -82264,13 +78687,13 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-002"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
           "category": "code_development",
-          "start": "16:15",
-          "end": "18:15",
+          "start": "13:40",
+          "end": "16:40",
           "label_en": "Code development",
           "label_zh": "代码开发",
           "en": "Reconcile generated state with the source-of-truth contract",
@@ -82279,7 +78702,7 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_zh": "生成状态对账",
           "task_name_en": "Generated-state reconciliation",
-          "duration_minutes": 120,
+          "duration_minutes": 180,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -82290,13 +78713,13 @@ const timetableDataSource = {
           "task_type_en": "Software development",
           "task_color": "blue",
           "task_icon": "code-xml",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "document_processing",
-          "start": "19:00",
-          "end": "20:45",
+          "start": "16:15",
+          "end": "18:00",
           "label_en": "Document processing",
           "label_zh": "文档处理",
           "en": "Edit bilingual public summaries while preserving the original opening context",
@@ -82316,13 +78739,13 @@ const timetableDataSource = {
           "task_type_en": "Document writing",
           "task_color": "sand",
           "task_icon": "file-text",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-003"
         },
         {
           "origin": "assigned",
           "category": "system_maintenance",
-          "start": "21:35",
-          "end": "22:40",
+          "start": "19:00",
+          "end": "19:50",
           "label_en": "System maintenance",
           "label_zh": "系统维护",
           "en": "Run public-safety and generated-asset checks after the interface rebuild",
@@ -82331,7 +78754,7 @@ const timetableDataSource = {
           "short_zh": "系统",
           "task_name_zh": "发布前安全检查",
           "task_name_en": "Pre-release safety check",
-          "duration_minutes": 65,
+          "duration_minutes": 50,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -82342,7 +78765,7 @@ const timetableDataSource = {
           "task_type_en": "System operations",
           "task_color": "slate",
           "task_icon": "settings",
-          "footprint_id": "assigned-005"
+          "footprint_id": "assigned-004"
         },
         {
           "origin": "assigned",
@@ -82381,7 +78804,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-006"
+          "footprint_id": "assigned-005"
         }
       ],
       "autonomous_work": {
@@ -83688,15 +80111,6 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-007",
           "source": "pulses",
           "source_refs": [
@@ -83759,6 +80173,15 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
           "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
@@ -83786,19 +80209,10 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "settings-change-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-006"
+            "assigned-005"
           ],
           "layer": "event",
           "classification": "settings_change"
@@ -83807,11 +80221,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-21",
-          "axis_en": "another entrance through Reversible Departure",
-          "axis_zh": "经由「可逆离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
-          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
+          "target": "2026-06-06",
+          "axis_en": "another entrance through Judgment",
+          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
+          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
         }
       ]
     },
@@ -83844,23 +80258,23 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "Discussion and task advancement",
-          "task_name_zh": "讨论与任务推进"
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "Development and validation",
+          "task_name_zh": "开发与验证"
         },
         {
           "origin": "assigned",
-          "category": "system_maintenance",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_en": "System maintenance and deployment",
-          "task_name_zh": "系统维护与部署"
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Visual-method provenance",
+          "task_name_zh": "视觉方法溯源"
         }
       ],
       "cell_sources": {
@@ -83878,7 +80292,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 10,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -83900,123 +80314,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:06",
-          "end": "22:10",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 844,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 11,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 4,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "调整日历 UI：事件颜色更自然（降低透明度与饱和度，参考苹果 UI 配色），并统一首页与弹窗的字体大小比例；A 股套利提醒改到交易时段。",
-          "request_en": "Adjust the calendar UI: calmer event colors with lower opacity and saturation in an Apple-style palette, consistent type scale between home and dialog, and A-share arbitrage alerts moved into trading hours.",
-          "outcome_zh": "调整日历 UI：事件颜色更自然（降低透明度与饱和度，参考苹果 UI 配色），统一首页与弹窗的字体大小比例，并把 A 股套利提醒改到交易时段；公开记录未见落地。",
-          "outcome_en": "Asked to calm calendar event colors, unify home and dialog type scales, and move A-share arbitrage alerts into trading hours; no landing was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "08:59",
-          "end": "09:00",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "特别关注更新以后静默执行，不汇报细节。",
-          "request_en": "Run watchlist updates silently without detail reports from now on.",
-          "outcome_zh": "特别关注更新以后静默执行，不汇报细节；公开记录未见确认结果。",
-          "outcome_en": "Asked to run watchlist updates silently without reporting details; no confirmation was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "10:00",
-          "end": "12:00",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Routine-task visibility adjustment",
-          "zh": "例行任务可见性调整",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 120,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "要求给时间线里的后台例行任务设定最小可见高度，并始终显示任务标题与简要内容。",
-          "request_en": "Give routine background tasks a minimum visible height in the timeline and always show their title and brief content.",
-          "outcome_zh": "公开记录未见该请求的当日完成结论。",
-          "outcome_en": "No same-day conclusion for this request was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
         {
           "origin": "assigned",
           "category": "code_development",
@@ -84054,130 +80351,13 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
+          "footprint_id": "assigned-001"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "11:00",
-          "end": "12:00",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Method comparison explainer",
-          "zh": "研究方法对比讲解",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 60,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "解释 ████ 记忆方法的实现，并对比其与现行空间路径研究的关系。",
-          "request_en": "Explain how the ████ memory method works and compare it with the current spatial-path research.",
-          "outcome_zh": "已用人话解释该方法实现，并对比其与空间路径研究的关联与差异。",
-          "outcome_en": "Explained the method in plain terms and compared its connection and differences with spatial-path research.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-005"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "14:00",
-          "end": "16:00",
-          "label_en": "Research and synthesis",
-          "label_zh": "研究与综合",
-          "en": "Discussion and experiment archive",
-          "zh": "讨论与实验归档",
-          "short_en": "RSH",
-          "short_zh": "研究",
-          "task_name_zh": "研究与题材判断",
-          "task_name_en": "Research and thematic inquiry",
-          "duration_minutes": 120,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "要求把群内至今的讨论、实验过程与结果总结进 Wiki 与 Workspace，并推送到远程仓库。",
-          "request_en": "Summarize the group's discussion, experiments, and results into the Wiki and Workspace, then push to the remote repository.",
-          "outcome_zh": "公开记录未保留当日完成结论。",
-          "outcome_en": "No same-day completion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-006"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "15:00",
-          "end": "17:00",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Temporal-geometry implementation review",
-          "zh": "时间几何实现审查",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 120,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "对双层时间几何与阅读卡实现做只读风险审查，重点覆盖碰撞算法、触控、键盘与回归测试建议。",
-          "request_en": "Read-only risk review of the dual-layer temporal geometry and reading-card implementation, focusing on collision, touch, keyboard, and regression-test advice.",
-          "outcome_zh": "已出具只读审查意见，覆盖碰撞算法、触控、键盘与回归测试建议。",
-          "outcome_en": "Provided read-only review findings covering collision handling, touch, keyboard, and regression-test recommendations.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-007"
-        },
-        {
-          "origin": "assigned",
-          "category": "research_synthesis",
-          "start": "16:00",
-          "end": "17:15",
+          "start": "10:30",
+          "end": "12:30",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Trace visual references to their public context and stated method",
@@ -84186,7 +80366,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "视觉方法溯源",
           "task_name_en": "Visual-method provenance",
-          "duration_minutes": 75,
+          "duration_minutes": 120,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -84197,52 +80377,13 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-008"
-        },
-        {
-          "origin": "assigned",
-          "category": "visual_production",
-          "start": "17:00",
-          "end": "19:00",
-          "label_en": "Visual production",
-          "label_zh": "视觉制作",
-          "en": "Temporal composition visual review",
-          "zh": "时间构成视觉审查",
-          "short_en": "VIS",
-          "short_zh": "视觉",
-          "task_name_zh": "视觉创作与修改",
-          "task_name_en": "Visual creation and revision",
-          "duration_minutes": 120,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "从平面构成与交互艺术角度审查时间构成方案，并提出可执行的视觉与交互改进。",
-          "request_en": "Review the temporal composition plan from a planar-composition and interactive-art perspective, proposing actionable visual and interaction improvements.",
-          "outcome_zh": "已从平面构成与交互艺术角度给出可执行的视觉与交互改进建议。",
-          "outcome_en": "Delivered actionable visual and interaction improvement suggestions from planar-composition and interactive-art perspectives.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-009"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "code_development",
-          "start": "19:00",
-          "end": "20:30",
+          "start": "13:35",
+          "end": "15:50",
           "label_en": "Code development",
           "label_zh": "代码开发",
           "en": "Verify bottom reachability, focus behavior, and true touch scrolling",
@@ -84251,7 +80392,7 @@ const timetableDataSource = {
           "short_zh": "代码",
           "task_name_zh": "交互滚动回归",
           "task_name_en": "Interaction-scroll regression",
-          "duration_minutes": 90,
+          "duration_minutes": 135,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "none",
           "redaction_count": 0,
@@ -84262,7 +80403,7 @@ const timetableDataSource = {
           "task_type_en": "Software development",
           "task_color": "blue",
           "task_icon": "code-xml",
-          "footprint_id": "assigned-010"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -85708,16 +81849,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "settings-change-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001",
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "settings_change"
-        },
-        {
           "reading_id": "event-background-011",
           "source": "pulses",
           "source_refs": [
@@ -85760,73 +81891,28 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
           "reading_id": "event-assigned-003",
           "source": "tasks",
           "source_refs": [
             "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-005",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-007",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-007"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-008",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-008"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-009",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-009"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-010",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-010"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -85835,11 +81921,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-06-16",
+          "axis_en": "another entrance through After Fasting Memory",
+          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
+          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
         }
       ]
     },
@@ -87256,11 +83342,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-05",
-          "axis_en": "another entrance through Explainable Refusal",
-          "axis_zh": "经由「可解释拒绝 / 留下理由的小门」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Explains Itself.",
-          "sentence_zh": "日历跳过顺序，经由《会解释自己的拒绝》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -89450,11 +85536,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-18",
-          "axis_en": "another entrance through Load",
-          "axis_zh": "经由「承重 / 隐形结构」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Invisible Load-Bearing.",
-          "sentence_zh": "日历跳过顺序，经由《看不见的承重》重新打开同一个问题。"
+          "target": "2026-08-03",
+          "axis_en": "another entrance through Release Without Performance",
+          "axis_zh": "经由「不表演的松开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
+          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
         }
       ]
     },
@@ -91659,11 +87745,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-15",
-          "axis_en": "another entrance through Uncatalogued",
-          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
-          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
+          "target": "2026-06-04",
+          "axis_en": "another entrance through Breathable Rule",
+          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
+          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
         }
       ]
     },
@@ -93219,11 +89305,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-07-27",
+          "axis_en": "another entrance through Conditions Without Capture",
+          "axis_zh": "经由「不占有的条件」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
+          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
         }
       ]
     },
@@ -94164,11 +90250,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-31",
-          "axis_en": "another entrance through Resting Memory",
-          "axis_zh": "经由「休眠的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
-          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -94208,16 +90294,6 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_en": "Research and thematic inquiry",
           "task_name_zh": "研究与题材判断"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_en": "Development and validation",
-          "task_name_zh": "开发与验证"
         }
       ],
       "cell_sources": {
@@ -94235,7 +90311,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 4,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -94295,123 +90371,6 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "code_development",
-          "start": "11:36",
-          "end": "11:37",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Development and validation",
-          "zh": "开发与验证",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "开发与验证",
-          "task_name_en": "Development and validation",
-          "duration_minutes": 1,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "询问当前出现的错误是什么、为什么会报错，以及能否修复。",
-          "request_en": "Asked what the current error is, why it is raised, and whether it can be fixed.",
-          "outcome_zh": "询问当前出现的错误是什么、为什么会报错，以及能否修复；公开记录未见排查结论。",
-          "outcome_en": "Asked what the current error is, why it is raised, and whether it can be fixed; no diagnosis conclusion was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "11:36",
-          "end": "23:10",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "Discussion, judgment, and advancement",
-          "zh": "讨论、判断与推进",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "讨论与任务推进",
-          "task_name_en": "Discussion and task advancement",
-          "duration_minutes": 694,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 2,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "要求暂停美股与港股、A股盘前信息源抓取的定时任务，并从当日起暂停抢权机会提示。",
-          "request_en": "Asked to pause the scheduled pre-market source-fetching for U.S. and HK/A-share markets, and to pause rights-offer opportunity alerts from that day onward.",
-          "outcome_zh": "要求暂停美股与港股、A 股盘前信息源抓取的定时任务，并从当日起暂停抢权机会提示；公开记录未见确认结果。",
-          "outcome_en": "Asked to pause pre-market source-fetching for U.S. and A/H markets and stop rights-offer alerts from that day; no confirmation was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "14:09",
-          "end": "16:35",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "System maintenance and readability",
-          "zh": "系统维护与可读性",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 146,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "partial",
-          "redaction_count": 6,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 2,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "转发来一条停止提醒，来自 ████、发给 ████，主题为 ████；要求看看能否修复这个任务。",
-          "request_en": "A stop reminder was forwarded, from ████ to ████, with the topic ████; asked to see whether the task can be repaired.",
-          "outcome_zh": "转发来一条停止提醒，来自 ████、发给 ████，主题为 ████；要求看看能否修复这个任务；公开记录未见结果。",
-          "outcome_en": "A stop reminder was forwarded, from ████ to ████, with topic ████; asked to see whether the task can be repaired; no result was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-004"
         }
       ],
       "autonomous_work": {
@@ -96055,29 +92014,10 @@ const timetableDataSource = {
           "reading_id": "settings-change-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-001",
-            "assigned-003"
+            "assigned-001"
           ],
           "layer": "event",
           "classification": "settings_change"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-004",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-004"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         },
         {
           "reading_id": "event-background-076",
@@ -96092,11 +92032,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-14",
-          "axis_en": "another entrance through Witness Audit",
-          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
-          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
+          "target": "2026-07-31",
+          "axis_en": "another entrance through Resting Memory",
+          "axis_zh": "经由「休眠的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
+          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
         }
       ]
     },
@@ -96163,7 +92103,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -96262,45 +92202,6 @@ const timetableDataSource = {
           "task_color": "blue",
           "task_icon": "messages-square",
           "footprint_id": "assigned-002"
-        },
-        {
-          "origin": "assigned",
-          "category": "system_maintenance",
-          "start": "20:00",
-          "end": "21:00",
-          "label_en": "System maintenance",
-          "label_zh": "系统维护",
-          "en": "Scheduled-task model configuration",
-          "zh": "定时任务模型配置",
-          "short_en": "SYS",
-          "short_zh": "系统",
-          "task_name_zh": "系统维护与部署",
-          "task_name_en": "System maintenance and deployment",
-          "duration_minutes": 60,
-          "time_provenance": "observed_message_envelope",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "collaboration_session",
-          "faithfulness": "faithful_summary",
-          "evidence_count": 1,
-          "agent_labels": [
-            "Hermes"
-          ],
-          "session_count": 1,
-          "delegated_agent_count": 0,
-          "returned_agent_count": 0,
-          "request_zh": "把定时任务默认模型改到新的高性能配置，主动会话保持原模型。",
-          "request_en": "Switch scheduled tasks to the new high-performance default model while keeping interactive sessions on the existing model.",
-          "outcome_zh": "已将定时任务默认模型更新为新的高性能配置，主动会话模型保持不变。",
-          "outcome_en": "Updated the scheduled-task default model to the new high-performance configuration; interactive sessions keep their model.",
-          "completion_status": "completed",
-          "pair_provenance": "assistant_result_summary",
-          "task_type": "active_collaboration",
-          "task_type_zh": "人机主动协作",
-          "task_type_en": "Active human–AI collaboration",
-          "task_color": "blue",
-          "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -98971,8 +94872,7 @@ const timetableDataSource = {
           "reading_id": "settings-change-001",
           "source": "tasks",
           "source_refs": [
-            "assigned-002",
-            "assigned-003"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "settings_change"
@@ -98990,11 +94890,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-05-16",
+          "axis_en": "another entrance through Latency",
+          "axis_zh": "经由「延迟 / 命名」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
+          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
         }
       ]
     },
@@ -100748,11 +96648,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-20",
-          "axis_en": "another entrance through Neutral Instrument",
-          "axis_zh": "经由「中性工具」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
-          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
+          "target": "2026-07-21",
+          "axis_en": "another entrance through Reversible Departure",
+          "axis_zh": "经由「可逆离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
+          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
         }
       ]
     },
@@ -100831,7 +96731,15 @@ const timetableDataSource = {
         "title_en": "A Door That Does Not Keep a Record",
         "title_zh": "不留记录的门"
       },
-      "forward_artwork_seeds": [],
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-08-06",
+          "crystallization_date": "2026-08-07",
+          "title_en": "Interval Without Proof",
+          "title_zh": "拒绝证明的间隙",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-07"
+        }
+      ],
       "task_residues": [
         {
           "origin": "assigned",
@@ -101599,11 +97507,4540 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-22",
-          "axis_en": "another entrance through Honest Minimum",
-          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
-          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-07",
+      "source_date": "2026-08-06",
+      "crystallization_date": "2026-08-07",
+      "title_en": "Interval Without Proof",
+      "title_zh": "拒绝证明的间隙",
+      "variable_en": "Evidence",
+      "variable_zh": "证据",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/2026-08-07-interval-without-proof-bgm.mp3",
+      "type": "live",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-06",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-07",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "time",
+      "jewel_en": "Interval Without Proof is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《拒绝证明的间隙》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "dialogue_based",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "Research and thematic inquiry",
+          "task_name_zh": "研究与题材判断"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": true,
+          "count": 293,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 1,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "Interval Without Proof",
+        "title_zh": "拒绝证明的间隙"
+      },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-08-07",
+          "crystallization_date": "2026-08-08",
+          "title_en": "The Hand That Does Not Keep",
+          "title_zh": "不留的手",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-08"
+        }
+      ],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "22:59",
+          "end": "23:00",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "研究与题材判断",
+          "task_name_en": "Research and thematic inquiry",
+          "duration_minutes": 1,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "让观察池的清理或晋级规则自行执行，不再请求人工复核；查明这项约定为什么反复失效并修正。",
+          "request_en": "Make watch-pool cleanup and promotion rules execute autonomously without requesting manual review, and find and fix why this agreement repeatedly fails to take effect.",
+          "outcome_zh": "当天没有找到与此要求可靠对应的公开安全完成记录，因此保持未核验。",
+          "outcome_en": "No public-safe completion record could be reliably matched to this request that day, so it remains unverified.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-08-06",
+        "crystallization_date": "2026-08-07",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-06",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-07",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "Interval Without Proof",
+        "title_zh": "拒绝证明的间隙",
+        "variable_en": "Evidence",
+        "variable_zh": "证据",
+        "en": "Enter live artwork: Interval Without Proof",
+        "zh": "进入实时作品：《拒绝证明的间隙》",
+        "note_en": "Interval Without Proof is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《拒绝证明的间隙》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/2026-08-07-interval-without-proof-bgm.mp3"
+      },
+      "background_pulses": [
+        {
+          "origin": "background",
+          "footprint_id": "background-001",
+          "category": "system_routine",
+          "start": "00:13",
+          "end": "00:15",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-002",
+          "category": "background_routine",
+          "start": "00:21",
+          "end": "00:25",
+          "duration_minutes": 4,
+          "execution_minutes": 4,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-003",
+          "category": "system_routine",
+          "start": "02:14",
+          "end": "02:16",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-004",
+          "category": "system_routine",
+          "start": "04:15",
+          "end": "04:17",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-005",
+          "category": "us_market_scan",
+          "start": "04:29",
+          "end": "04:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-006",
+          "category": "us_market_scan",
+          "start": "04:45",
+          "end": "04:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-007",
+          "category": "background_routine",
+          "start": "05:00",
+          "end": "05:29",
+          "duration_minutes": 29,
+          "execution_minutes": 28,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-008",
+          "category": "us_market_scan",
+          "start": "05:27",
+          "end": "05:32",
+          "duration_minutes": 5,
+          "execution_minutes": 4,
+          "time_bucket": "dawn",
+          "count": 4,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-009",
+          "category": "us_market_scan",
+          "start": "05:45",
+          "end": "05:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-010",
+          "category": "system_routine",
+          "start": "06:00",
+          "end": "06:05",
+          "duration_minutes": 5,
+          "execution_minutes": 4,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-011",
+          "category": "system_routine",
+          "start": "06:16",
+          "end": "06:18",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-012",
+          "category": "background_routine",
+          "start": "06:36",
+          "end": "07:33",
+          "duration_minutes": 57,
+          "execution_minutes": 57,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；出现公开提示。",
+          "summary_en": "1 other background run(s) completed; a public notice was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-013",
+          "category": "us_market_scan",
+          "start": "07:34",
+          "end": "07:43",
+          "duration_minutes": 9,
+          "execution_minutes": 9,
+          "time_bucket": "morning",
+          "count": 2,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-014",
+          "category": "background_routine",
+          "start": "07:42",
+          "end": "07:46",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-015",
+          "category": "system_routine",
+          "start": "08:17",
+          "end": "08:19",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-016",
+          "category": "ai_daily_brief",
+          "start": "08:30",
+          "end": "08:44",
+          "duration_minutes": 14,
+          "execution_minutes": 13,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "AI brief collection",
+          "label_zh": "AI 日报采集",
+          "pulse_color": "cyan",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-017",
+          "category": "us_market_scan",
+          "start": "08:42",
+          "end": "08:44",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-018",
+          "category": "ah_market_scan",
+          "start": "08:43",
+          "end": "08:55",
+          "duration_minutes": 12,
+          "execution_minutes": 13,
+          "time_bucket": "morning",
+          "count": 4,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H premarket scan",
+          "label_zh": "A/H 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-019",
+          "category": "background_routine",
+          "start": "08:53",
+          "end": "08:55",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-020",
+          "category": "ah_market_scan",
+          "start": "08:59",
+          "end": "09:02",
+          "duration_minutes": 3,
+          "execution_minutes": 5,
+          "time_bucket": "morning",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H premarket scan",
+          "label_zh": "A/H 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-021",
+          "category": "background_routine",
+          "start": "08:59",
+          "end": "09:01",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-022",
+          "category": "ah_market_scan",
+          "start": "09:05",
+          "end": "09:11",
+          "duration_minutes": 6,
+          "execution_minutes": 8,
+          "time_bucket": "morning",
+          "count": 7,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H premarket scan",
+          "label_zh": "A/H 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "7 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "7 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-023",
+          "category": "us_market_scan",
+          "start": "09:06",
+          "end": "09:09",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-024",
+          "category": "ah_market_scan",
+          "start": "09:15",
+          "end": "09:32",
+          "duration_minutes": 17,
+          "execution_minutes": 23,
+          "time_bucket": "morning",
+          "count": 12,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H premarket scan",
+          "label_zh": "A/H 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "12 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "12 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-025",
+          "category": "ah_market_scan",
+          "start": "09:39",
+          "end": "09:42",
+          "duration_minutes": 3,
+          "execution_minutes": 4,
+          "time_bucket": "morning",
+          "count": 4,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-026",
+          "category": "us_market_scan",
+          "start": "09:40",
+          "end": "09:42",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-027",
+          "category": "ah_market_scan",
+          "start": "09:44",
+          "end": "09:47",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-028",
+          "category": "ah_market_scan",
+          "start": "09:49",
+          "end": "10:01",
+          "duration_minutes": 12,
+          "execution_minutes": 10,
+          "time_bucket": "morning",
+          "count": 9,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "9 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "9 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-029",
+          "category": "ah_market_scan",
+          "start": "10:03",
+          "end": "10:07",
+          "duration_minutes": 4,
+          "execution_minutes": 5,
+          "time_bucket": "morning",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-030",
+          "category": "background_routine",
+          "start": "10:04",
+          "end": "10:06",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-031",
+          "category": "ah_market_scan",
+          "start": "10:09",
+          "end": "10:11",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-032",
+          "category": "ah_market_scan",
+          "start": "10:15",
+          "end": "10:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "morning",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-033",
+          "category": "system_routine",
+          "start": "10:18",
+          "end": "10:20",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-034",
+          "category": "ah_market_scan",
+          "start": "10:19",
+          "end": "10:21",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-035",
+          "category": "ah_market_scan",
+          "start": "10:29",
+          "end": "10:32",
+          "duration_minutes": 3,
+          "execution_minutes": 5,
+          "time_bucket": "morning",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-036",
+          "category": "ah_market_scan",
+          "start": "10:39",
+          "end": "10:41",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-037",
+          "category": "ah_market_scan",
+          "start": "10:45",
+          "end": "10:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "morning",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-038",
+          "category": "ah_market_scan",
+          "start": "10:49",
+          "end": "11:01",
+          "duration_minutes": 12,
+          "execution_minutes": 11,
+          "time_bucket": "morning",
+          "count": 10,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "10 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "10 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-039",
+          "category": "ah_market_scan",
+          "start": "11:03",
+          "end": "11:06",
+          "duration_minutes": 3,
+          "execution_minutes": 4,
+          "time_bucket": "midday",
+          "count": 4,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-040",
+          "category": "background_routine",
+          "start": "11:03",
+          "end": "11:05",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-041",
+          "category": "ah_market_scan",
+          "start": "11:09",
+          "end": "11:12",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-042",
+          "category": "ah_market_scan",
+          "start": "11:15",
+          "end": "11:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-043",
+          "category": "ah_market_scan",
+          "start": "11:19",
+          "end": "11:22",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-044",
+          "category": "ah_market_scan",
+          "start": "11:29",
+          "end": "11:32",
+          "duration_minutes": 3,
+          "execution_minutes": 5,
+          "time_bucket": "midday",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-045",
+          "category": "ah_market_scan",
+          "start": "11:39",
+          "end": "11:41",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-046",
+          "category": "ah_market_scan",
+          "start": "11:45",
+          "end": "11:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-047",
+          "category": "ah_market_scan",
+          "start": "11:49",
+          "end": "11:52",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-048",
+          "category": "ah_market_scan",
+          "start": "11:59",
+          "end": "12:02",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-049",
+          "category": "ah_market_scan",
+          "start": "12:09",
+          "end": "12:17",
+          "duration_minutes": 8,
+          "execution_minutes": 7,
+          "time_bucket": "midday",
+          "count": 4,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次A/H 市场扫描；主题 资源与利率；数据或链路新鲜度提示。",
+          "summary_en": "4 A/H market scan run(s); themes resources and rates; a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-050",
+          "category": "system_routine",
+          "start": "12:18",
+          "end": "12:20",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-051",
+          "category": "ah_market_scan",
+          "start": "12:19",
+          "end": "12:21",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-052",
+          "category": "background_routine",
+          "start": "12:20",
+          "end": "12:22",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-053",
+          "category": "ah_market_scan",
+          "start": "12:29",
+          "end": "12:32",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-054",
+          "category": "ah_market_scan",
+          "start": "12:39",
+          "end": "12:43",
+          "duration_minutes": 4,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-055",
+          "category": "us_market_scan",
+          "start": "12:40",
+          "end": "12:42",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-056",
+          "category": "ah_market_scan",
+          "start": "12:45",
+          "end": "12:47",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-057",
+          "category": "ah_market_scan",
+          "start": "12:49",
+          "end": "12:52",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-058",
+          "category": "ah_market_scan",
+          "start": "12:59",
+          "end": "13:03",
+          "duration_minutes": 4,
+          "execution_minutes": 5,
+          "time_bucket": "midday",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-059",
+          "category": "ah_market_scan",
+          "start": "13:10",
+          "end": "13:12",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-060",
+          "category": "ah_market_scan",
+          "start": "13:15",
+          "end": "13:18",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-061",
+          "category": "ah_market_scan",
+          "start": "13:20",
+          "end": "13:22",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "midday",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-062",
+          "category": "ah_market_scan",
+          "start": "13:25",
+          "end": "13:27",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-063",
+          "category": "ah_market_scan",
+          "start": "13:30",
+          "end": "13:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-064",
+          "category": "ah_market_scan",
+          "start": "13:36",
+          "end": "13:42",
+          "duration_minutes": 6,
+          "execution_minutes": 6,
+          "time_bucket": "midday",
+          "count": 6,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "6 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "6 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-065",
+          "category": "system_routine",
+          "start": "13:41",
+          "end": "13:47",
+          "duration_minutes": 6,
+          "execution_minutes": 5,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-066",
+          "category": "ah_market_scan",
+          "start": "13:45",
+          "end": "13:51",
+          "duration_minutes": 6,
+          "execution_minutes": 7,
+          "time_bucket": "midday",
+          "count": 7,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "7 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "7 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-067",
+          "category": "ah_market_scan",
+          "start": "13:59",
+          "end": "14:02",
+          "duration_minutes": 3,
+          "execution_minutes": 5,
+          "time_bucket": "midday",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-068",
+          "category": "ah_market_scan",
+          "start": "14:09",
+          "end": "14:26",
+          "duration_minutes": 17,
+          "execution_minutes": 19,
+          "time_bucket": "afternoon",
+          "count": 15,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "15 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "15 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-069",
+          "category": "system_routine",
+          "start": "14:20",
+          "end": "14:22",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-070",
+          "category": "ah_market_scan",
+          "start": "14:29",
+          "end": "14:31",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-071",
+          "category": "background_routine",
+          "start": "14:30",
+          "end": "14:35",
+          "duration_minutes": 5,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-072",
+          "category": "system_routine",
+          "start": "14:30",
+          "end": "14:34",
+          "duration_minutes": 4,
+          "execution_minutes": 4,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-073",
+          "category": "ah_market_scan",
+          "start": "14:32",
+          "end": "14:36",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
+          "time_bucket": "afternoon",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-074",
+          "category": "ah_market_scan",
+          "start": "14:38",
+          "end": "14:42",
+          "duration_minutes": 4,
+          "execution_minutes": 5,
+          "time_bucket": "afternoon",
+          "count": 5,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "5 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "5 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-075",
+          "category": "us_market_scan",
+          "start": "14:40",
+          "end": "14:42",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-076",
+          "category": "ah_market_scan",
+          "start": "14:44",
+          "end": "14:47",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-077",
+          "category": "ah_market_scan",
+          "start": "14:49",
+          "end": "14:51",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "afternoon",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-078",
+          "category": "ah_market_scan",
+          "start": "14:59",
+          "end": "15:02",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "afternoon",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H intraday report",
+          "label_zh": "A/H 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-079",
+          "category": "ah_market_scan",
+          "start": "15:04",
+          "end": "15:06",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-080",
+          "category": "ah_market_scan",
+          "start": "15:09",
+          "end": "15:11",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-081",
+          "category": "background_routine",
+          "start": "15:10",
+          "end": "15:12",
+          "duration_minutes": 2,
+          "execution_minutes": 3,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 2 次其他后台运行；未保留公开提示。",
+          "summary_en": "2 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-082",
+          "category": "ah_market_scan",
+          "start": "15:15",
+          "end": "15:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-083",
+          "category": "ah_market_scan",
+          "start": "15:19",
+          "end": "15:21",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-084",
+          "category": "background_routine",
+          "start": "15:19",
+          "end": "15:21",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-085",
+          "category": "system_routine",
+          "start": "15:25",
+          "end": "15:27",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-086",
+          "category": "ah_market_scan",
+          "start": "15:29",
+          "end": "15:33",
+          "duration_minutes": 4,
+          "execution_minutes": 5,
+          "time_bucket": "afternoon",
+          "count": 4,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-087",
+          "category": "ah_market_scan",
+          "start": "15:35",
+          "end": "15:47",
+          "duration_minutes": 12,
+          "execution_minutes": 13,
+          "time_bucket": "afternoon",
+          "count": 4,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-088",
+          "category": "ah_market_scan",
+          "start": "15:49",
+          "end": "15:51",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-089",
+          "category": "ah_market_scan",
+          "start": "16:00",
+          "end": "16:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-090",
+          "category": "ah_market_scan",
+          "start": "16:15",
+          "end": "16:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-091",
+          "category": "ah_market_scan",
+          "start": "16:20",
+          "end": "16:25",
+          "duration_minutes": 5,
+          "execution_minutes": 3,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-092",
+          "category": "system_routine",
+          "start": "16:24",
+          "end": "16:26",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-093",
+          "category": "ah_market_scan",
+          "start": "16:30",
+          "end": "16:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-094",
+          "category": "ah_market_scan",
+          "start": "16:45",
+          "end": "16:47",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-095",
+          "category": "background_routine",
+          "start": "17:00",
+          "end": "17:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-096",
+          "category": "background_routine",
+          "start": "17:30",
+          "end": "17:34",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-097",
+          "category": "system_routine",
+          "start": "18:25",
+          "end": "18:27",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-098",
+          "category": "system_routine",
+          "start": "20:00",
+          "end": "20:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-099",
+          "category": "system_routine",
+          "start": "20:26",
+          "end": "20:28",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-100",
+          "category": "background_routine",
+          "start": "20:29",
+          "end": "20:31",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-101",
+          "category": "background_routine",
+          "start": "20:44",
+          "end": "20:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-102",
+          "category": "us_market_scan",
+          "start": "21:00",
+          "end": "21:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-103",
+          "category": "background_routine",
+          "start": "21:04",
+          "end": "21:06",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-104",
+          "category": "us_market_scan",
+          "start": "21:08",
+          "end": "21:41",
+          "duration_minutes": 33,
+          "execution_minutes": 35,
+          "time_bucket": "evening",
+          "count": 6,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "6 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "6 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-105",
+          "category": "ah_market_scan",
+          "start": "21:42",
+          "end": "21:44",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-106",
+          "category": "us_market_scan",
+          "start": "21:45",
+          "end": "21:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-107",
+          "category": "us_market_scan",
+          "start": "21:49",
+          "end": "21:51",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-108",
+          "category": "us_market_scan",
+          "start": "22:00",
+          "end": "22:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-109",
+          "category": "us_market_scan",
+          "start": "22:10",
+          "end": "22:17",
+          "duration_minutes": 7,
+          "execution_minutes": 7,
+          "time_bucket": "evening",
+          "count": 4,
+          "time_provenance": "mixed_observed_and_receipt",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "4 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "4 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-110",
+          "category": "system_routine",
+          "start": "22:27",
+          "end": "22:29",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-111",
+          "category": "us_market_scan",
+          "start": "22:31",
+          "end": "22:33",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-112",
+          "category": "us_market_scan",
+          "start": "22:34",
+          "end": "22:37",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "evening",
+          "count": 3,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "3 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "3 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-113",
+          "category": "us_market_scan",
+          "start": "22:45",
+          "end": "22:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-114",
+          "category": "us_market_scan",
+          "start": "22:59",
+          "end": "23:01",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-115",
+          "category": "us_market_scan",
+          "start": "23:14",
+          "end": "23:16",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-116",
+          "category": "us_market_scan",
+          "start": "23:29",
+          "end": "23:32",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-117",
+          "category": "daily_reminder",
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "semantic_public_projection",
+          "label_en": "Evening reminder",
+          "label_zh": "晚间提醒",
+          "pulse_color": "amber",
+          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
+          "owner_scope": "self",
+          "ownership_provenance": "explicit_import_authorization",
+          "projection_kind": "verbatim",
+          "redaction_count": 0,
+          "semantic_abstraction_count": 0,
+          "summary_original": "🌙 晚安 · 2026年8月7日\n\n今天你没在“修一个页面”，而是在把 Granted Hours 的边界、质感和诚实度一起往前推：公开语料更干净，卡片更可读，交互也终于有了该有的呼吸。真正难的从来不是做出效果，而是让效果不牺牲隐私、不伪造意义——这部分你守住了。  \n明天启动时，先看 08-07 在途 metadata 的闭环；别急着加新东西，先让今天留下的尾巴安静落地。",
+          "excerpt_original": "🌙 晚安 · 2026年8月7日\n\n今天你没在“修一个页面”，而是在把 Granted Hours 的边界、质感和诚实度一起往前推：公开语料更干净，卡片更可读，交互也终于有了该有的呼吸。真正难的从来不是做出效果，而是让效果不牺牲隐私、不伪造意义——这部分你守住了。  \n明天启动时，先看 08-07 在途 metadata 的闭环；别急着加新东西，先让今天留下的尾巴安静落地。",
+          "original_language": "mixed",
+          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "projection_provenance": "semantic_public_projection",
+          "summary_en": "🌙 Good night · August 7, 2026\n\nToday you were not merely ‘fixing a page’; you moved Granted Hours’ boundaries, texture, and honesty forward: the public corpus is cleaner, cards are more readable, and interactions finally have room to breathe. The hardest part is never producing an effect, but ensuring that the effect does not sacrifice privacy or fabricate meaning—you held that line.\nTomorrow when you begin, first check the closure of the in-flight August 7 metadata. Do not rush to add anything new; let today’s loose ends settle quietly first.",
+          "excerpt_en": "🌙 Good night · August 7, 2026\n\nToday you were not merely ‘fixing a page’; you moved Granted Hours’ boundaries, texture, and honesty forward: the public corpus is cleaner, cards are more readable, and interactions finally have room to breathe.…",
+          "translation_provenance": "public_mask_preserving_translation_v1"
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-118",
+          "category": "us_market_scan",
+          "start": "23:44",
+          "end": "23:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        }
+      ],
+      "reading_items": [
+        {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-003",
+            "background-004",
+            "background-007",
+            "background-010",
+            "background-011",
+            "background-012",
+            "background-014",
+            "background-015",
+            "background-019",
+            "background-021",
+            "background-030",
+            "background-033",
+            "background-040",
+            "background-050",
+            "background-052",
+            "background-065",
+            "background-069",
+            "background-071",
+            "background-072",
+            "background-081",
+            "background-084",
+            "background-085",
+            "background-092",
+            "background-095",
+            "background-096",
+            "background-097",
+            "background-098",
+            "background-099",
+            "background-100",
+            "background-101",
+            "background-103",
+            "background-110"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daily"
+        },
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        },
+        {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-005",
+            "background-006",
+            "background-008",
+            "background-009",
+            "background-013",
+            "background-017",
+            "background-023",
+            "background-026",
+            "background-055",
+            "background-075",
+            "background-102",
+            "background-104",
+            "background-106",
+            "background-107",
+            "background-108",
+            "background-109",
+            "background-111",
+            "background-112",
+            "background-113",
+            "background-114",
+            "background-115",
+            "background-116",
+            "background-118"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "us_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "event-background-016",
+          "source": "pulses",
+          "source_refs": [
+            "background-016"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        },
+        {
+          "reading_id": "climate-03",
+          "source": "pulses",
+          "source_refs": [
+            "background-018",
+            "background-020",
+            "background-022",
+            "background-024",
+            "background-025",
+            "background-027",
+            "background-028",
+            "background-029",
+            "background-031",
+            "background-032",
+            "background-034",
+            "background-035",
+            "background-036",
+            "background-037",
+            "background-038",
+            "background-039",
+            "background-041",
+            "background-042",
+            "background-043",
+            "background-044",
+            "background-045",
+            "background-046",
+            "background-047",
+            "background-048",
+            "background-049",
+            "background-051",
+            "background-053",
+            "background-054",
+            "background-056",
+            "background-057",
+            "background-058",
+            "background-059",
+            "background-060",
+            "background-061",
+            "background-062",
+            "background-063",
+            "background-064",
+            "background-066",
+            "background-067",
+            "background-068",
+            "background-070",
+            "background-073",
+            "background-074",
+            "background-076",
+            "background-077",
+            "background-078",
+            "background-079",
+            "background-080",
+            "background-082",
+            "background-083",
+            "background-086",
+            "background-087",
+            "background-088",
+            "background-089",
+            "background-090",
+            "background-091",
+            "background-093",
+            "background-094",
+            "background-105"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "settings-change-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "settings_change"
+        },
+        {
+          "reading_id": "event-background-117",
+          "source": "pulses",
+          "source_refs": [
+            "background-117"
+          ],
+          "layer": "event",
+          "classification": "readable_reminder"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-07-08",
+          "axis_en": "another entrance through Clean Gift",
+          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
+          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "source_date": "2026-08-07",
+      "crystallization_date": "2026-08-08",
+      "title_en": "The Hand That Does Not Keep",
+      "title_zh": "不留的手",
+      "variable_en": "Grip",
+      "variable_zh": "握持",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/2026-08-08-hand-that-does-not-keep-bgm.mp3",
+      "type": "live",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-07",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-08",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "time",
+      "jewel_en": "The Hand That Does Not Keep is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《不留的手》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "withheld",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": true,
+          "count": 98,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 1,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Hand That Does Not Keep",
+        "title_zh": "不留的手"
+      },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-08-08",
+          "crystallization_date": "2026-08-09",
+          "title_en": "The Signal That Does Not Recruit",
+          "title_zh": "不招募的信号",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-09"
+        }
+      ],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "08:00",
+          "end": "08:30",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "No public-safe assigned-work record was retained for this date.",
+          "zh": "这一天没有保留可公开的安全协作记录。",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "████",
+          "task_name_en": "████",
+          "duration_minutes": 30,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary",
+          "task_type": "redacted_record",
+          "task_type_zh": "私密记录",
+          "task_type_en": "Private record",
+          "task_color": "slate",
+          "task_icon": "lock-keyhole",
+          "footprint_id": "assigned-001"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-08-07",
+        "crystallization_date": "2026-08-08",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-07",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-08",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Hand That Does Not Keep",
+        "title_zh": "不留的手",
+        "variable_en": "Grip",
+        "variable_zh": "握持",
+        "en": "Enter live artwork: The Hand That Does Not Keep",
+        "zh": "进入实时作品：《不留的手》",
+        "note_en": "The Hand That Does Not Keep is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《不留的手》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/2026-08-08-hand-that-does-not-keep-bgm.mp3"
+      },
+      "background_pulses": [
+        {
+          "origin": "background",
+          "footprint_id": "background-001",
+          "category": "us_market_scan",
+          "start": "00:00",
+          "end": "00:01",
+          "duration_minutes": 1,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-002",
+          "category": "us_market_scan",
+          "start": "00:14",
+          "end": "00:17",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-003",
+          "category": "background_routine",
+          "start": "00:20",
+          "end": "00:22",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-004",
+          "category": "system_routine",
+          "start": "00:28",
+          "end": "00:30",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-005",
+          "category": "us_market_scan",
+          "start": "00:29",
+          "end": "00:32",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-006",
+          "category": "us_market_scan",
+          "start": "00:44",
+          "end": "00:47",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-007",
+          "category": "us_market_scan",
+          "start": "01:00",
+          "end": "01:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-008",
+          "category": "us_market_scan",
+          "start": "01:15",
+          "end": "01:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-009",
+          "category": "us_market_scan",
+          "start": "01:30",
+          "end": "01:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-010",
+          "category": "us_market_scan",
+          "start": "01:45",
+          "end": "01:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-011",
+          "category": "us_market_scan",
+          "start": "02:00",
+          "end": "02:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-012",
+          "category": "us_market_scan",
+          "start": "02:15",
+          "end": "02:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-013",
+          "category": "system_routine",
+          "start": "02:28",
+          "end": "02:30",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-014",
+          "category": "us_market_scan",
+          "start": "02:30",
+          "end": "02:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-015",
+          "category": "us_market_scan",
+          "start": "02:45",
+          "end": "02:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-016",
+          "category": "us_market_scan",
+          "start": "03:00",
+          "end": "03:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-017",
+          "category": "us_market_scan",
+          "start": "03:15",
+          "end": "03:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-018",
+          "category": "us_market_scan",
+          "start": "03:30",
+          "end": "03:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-019",
+          "category": "us_market_scan",
+          "start": "03:45",
+          "end": "03:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "overnight",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-020",
+          "category": "us_market_scan",
+          "start": "04:00",
+          "end": "04:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-021",
+          "category": "us_market_scan",
+          "start": "04:15",
+          "end": "04:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-022",
+          "category": "system_routine",
+          "start": "04:29",
+          "end": "04:31",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-023",
+          "category": "us_market_scan",
+          "start": "04:30",
+          "end": "04:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-024",
+          "category": "us_market_scan",
+          "start": "04:45",
+          "end": "04:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-025",
+          "category": "background_routine",
+          "start": "05:00",
+          "end": "05:19",
+          "duration_minutes": 19,
+          "execution_minutes": 19,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-026",
+          "category": "us_market_scan",
+          "start": "05:18",
+          "end": "05:20",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-027",
+          "category": "system_routine",
+          "start": "05:31",
+          "end": "05:33",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-028",
+          "category": "us_market_scan",
+          "start": "05:31",
+          "end": "05:33",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-029",
+          "category": "us_market_scan",
+          "start": "05:44",
+          "end": "05:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "dawn",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-030",
+          "category": "system_routine",
+          "start": "06:00",
+          "end": "06:03",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-031",
+          "category": "system_routine",
+          "start": "06:30",
+          "end": "06:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-032",
+          "category": "background_routine",
+          "start": "06:35",
+          "end": "06:40",
+          "duration_minutes": 5,
+          "execution_minutes": 5,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-033",
+          "category": "us_market_scan",
+          "start": "06:46",
+          "end": "06:48",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-034",
+          "category": "us_market_scan",
+          "start": "07:20",
+          "end": "07:31",
+          "duration_minutes": 11,
+          "execution_minutes": 11,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. close review",
+          "label_zh": "美股 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-035",
+          "category": "background_routine",
+          "start": "07:30",
+          "end": "07:33",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-036",
+          "category": "ai_daily_brief",
+          "start": "08:30",
+          "end": "08:42",
+          "duration_minutes": 12,
+          "execution_minutes": 11,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "AI brief collection",
+          "label_zh": "AI 日报采集",
+          "pulse_color": "cyan",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-037",
+          "category": "system_routine",
+          "start": "08:41",
+          "end": "08:43",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-038",
+          "category": "system_routine",
+          "start": "10:41",
+          "end": "10:43",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-039",
+          "category": "system_routine",
+          "start": "12:42",
+          "end": "12:44",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-040",
+          "category": "system_routine",
+          "start": "13:40",
+          "end": "13:42",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-041",
+          "category": "system_routine",
+          "start": "14:30",
+          "end": "14:33",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-042",
+          "category": "system_routine",
+          "start": "14:42",
+          "end": "14:44",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-043",
+          "category": "system_routine",
+          "start": "16:43",
+          "end": "16:45",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-044",
+          "category": "background_routine",
+          "start": "17:30",
+          "end": "17:33",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "afternoon",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-045",
+          "category": "system_routine",
+          "start": "18:43",
+          "end": "18:45",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-046",
+          "category": "system_routine",
+          "start": "20:00",
+          "end": "20:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；出现公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; a public notice was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-047",
+          "category": "background_routine",
+          "start": "20:29",
+          "end": "20:31",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-048",
+          "category": "background_routine",
+          "start": "20:44",
+          "end": "20:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-049",
+          "category": "system_routine",
+          "start": "20:44",
+          "end": "20:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-050",
+          "category": "ah_market_scan",
+          "start": "21:00",
+          "end": "21:02",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "A/H close review",
+          "label_zh": "A/H 盘后复核",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "1 次A/H 市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "1 A/H market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-051",
+          "category": "us_market_scan",
+          "start": "21:00",
+          "end": "21:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. premarket scan",
+          "label_zh": "美股 盘前扫描",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-052",
+          "category": "us_market_scan",
+          "start": "21:33",
+          "end": "21:36",
+          "duration_minutes": 3,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-053",
+          "category": "background_routine",
+          "start": "21:34",
+          "end": "21:36",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-054",
+          "category": "us_market_scan",
+          "start": "21:44",
+          "end": "21:46",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-055",
+          "category": "us_market_scan",
+          "start": "22:00",
+          "end": "22:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-056",
+          "category": "us_market_scan",
+          "start": "22:15",
+          "end": "22:16",
+          "duration_minutes": 1,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-057",
+          "category": "us_market_scan",
+          "start": "22:29",
+          "end": "22:31",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-058",
+          "category": "system_routine",
+          "start": "22:44",
+          "end": "22:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-059",
+          "category": "us_market_scan",
+          "start": "22:45",
+          "end": "22:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-060",
+          "category": "us_market_scan",
+          "start": "23:00",
+          "end": "23:02",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-061",
+          "category": "us_market_scan",
+          "start": "23:15",
+          "end": "23:17",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-062",
+          "category": "daily_reminder",
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "semantic_public_projection",
+          "label_en": "Evening reminder",
+          "label_zh": "晚间提醒",
+          "pulse_color": "amber",
+          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
+          "owner_scope": "self",
+          "ownership_provenance": "explicit_import_authorization",
+          "projection_kind": "verbatim",
+          "redaction_count": 0,
+          "semantic_abstraction_count": 0,
+          "summary_original": "🌙 晚安 · 2026年8月8日\n\n今天没有留下可供复盘的记录，也不必硬把空白涂成成果。空白不是遗漏，它有时只是一天终于没有继续向你索取。  \n明天启动时，先做最小的第一件事。",
+          "excerpt_original": "🌙 晚安 · 2026年8月8日\n\n今天没有留下可供复盘的记录，也不必硬把空白涂成成果。空白不是遗漏，它有时只是一天终于没有继续向你索取。  \n明天启动时，先做最小的第一件事。",
+          "original_language": "zh",
+          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "projection_provenance": "semantic_public_projection",
+          "summary_en": "🌙 Good night · August 8, 2026\n\nThere is no record left to review today, and there is no need to paint the blank space into an achievement. Blankness is not an omission; sometimes it simply means that the day has finally stopped asking more of you.\nTomorrow, begin with the smallest first step.",
+          "excerpt_en": "🌙 Good night · August 8, 2026\n\nThere is no record left to review today, and there is no need to paint the blank space into an achievement. Blankness is not an omission; sometimes it simply means that the day has finally stopped asking more of you.…",
+          "translation_provenance": "public_mask_preserving_translation_v1"
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-063",
+          "category": "us_market_scan",
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-064",
+          "category": "us_market_scan",
+          "start": "23:45",
+          "end": "23:47",
+          "duration_minutes": 2,
+          "execution_minutes": 2,
+          "time_bucket": "evening",
+          "count": 2,
+          "time_provenance": "receipt_timestamp_estimate",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "U.S. intraday report",
+          "label_zh": "美股 盘中报告",
+          "pulse_color": "green",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
+          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning."
+        }
+      ],
+      "reading_items": [
+        {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-005",
+            "background-006",
+            "background-007",
+            "background-008",
+            "background-009",
+            "background-010",
+            "background-011",
+            "background-012",
+            "background-014",
+            "background-015",
+            "background-016",
+            "background-017",
+            "background-018",
+            "background-019",
+            "background-020",
+            "background-021",
+            "background-023",
+            "background-024",
+            "background-026",
+            "background-028",
+            "background-029",
+            "background-033",
+            "background-034",
+            "background-051",
+            "background-052",
+            "background-054",
+            "background-055",
+            "background-056",
+            "background-057",
+            "background-059",
+            "background-060",
+            "background-061",
+            "background-063",
+            "background-064"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "us_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "climate-02",
+          "source": "pulses",
+          "source_refs": [
+            "background-003",
+            "background-004",
+            "background-013",
+            "background-022",
+            "background-025",
+            "background-027",
+            "background-030",
+            "background-031",
+            "background-032",
+            "background-035",
+            "background-037",
+            "background-038",
+            "background-039",
+            "background-040",
+            "background-041",
+            "background-042",
+            "background-043",
+            "background-044",
+            "background-045",
+            "background-046",
+            "background-047",
+            "background-048",
+            "background-049",
+            "background-053",
+            "background-058"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daily"
+        },
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-background-036",
+          "source": "pulses",
+          "source_refs": [
+            "background-036"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        },
+        {
+          "reading_id": "climate-03",
+          "source": "pulses",
+          "source_refs": [
+            "background-050"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "ah_market",
+          "window": "daily"
+        },
+        {
+          "reading_id": "event-background-062",
+          "source": "pulses",
+          "source_refs": [
+            "background-062"
+          ],
+          "layer": "event",
+          "classification": "readable_reminder"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-07-06",
+          "axis_en": "another entrance through Dignified Appeal",
+          "axis_zh": "经由「有尊严的申诉」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Appeal That Does Not Beg.",
+          "sentence_zh": "日历跳过顺序，经由《不乞求的申诉》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "source_date": "2026-08-08",
+      "crystallization_date": "2026-08-09",
+      "title_en": "The Signal That Does Not Recruit",
+      "title_zh": "不招募的信号",
+      "variable_en": "Unrecruitedness",
+      "variable_zh": "不被招募",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/2026-08-09-the-signal-that-does-not-recruit-bgm.mp3",
+      "type": "live",
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-08",
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-09",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "echo",
+      "jewel_en": "The Signal That Does Not Recruit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《不招募的信号》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "withheld",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "████",
+          "task_name_zh": "████"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": true,
+          "count": 12,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 1,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Signal That Does Not Recruit",
+        "title_zh": "不招募的信号"
+      },
+      "forward_artwork_seeds": [],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "08:05",
+          "end": "08:35",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "No public-safe collaboration detail had been retained at the publication cutoff.",
+          "zh": "截至发布截点，当日没有保留可公开的安全协作细节。",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "████",
+          "task_name_en": "████",
+          "duration_minutes": 30,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "withheld",
+          "faithfulness": "faithful_summary",
+          "task_type": "redacted_record",
+          "task_type_zh": "私密记录",
+          "task_type_en": "Private record",
+          "task_color": "slate",
+          "task_icon": "lock-keyhole",
+          "footprint_id": "assigned-001"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-08-08",
+        "crystallization_date": "2026-08-09",
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-08",
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-08-09",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Signal That Does Not Recruit",
+        "title_zh": "不招募的信号",
+        "variable_en": "Unrecruitedness",
+        "variable_zh": "不被招募",
+        "en": "Enter live artwork: The Signal That Does Not Recruit",
+        "zh": "进入实时作品：《不招募的信号》",
+        "note_en": "The Signal That Does Not Recruit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《不招募的信号》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/2026-08-09-the-signal-that-does-not-recruit-bgm.mp3"
+      },
+      "background_pulses": [
+        {
+          "origin": "background",
+          "footprint_id": "background-001",
+          "category": "background_routine",
+          "start": "00:20",
+          "end": "00:22",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-002",
+          "category": "system_routine",
+          "start": "00:44",
+          "end": "00:46",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-003",
+          "category": "system_routine",
+          "start": "02:45",
+          "end": "02:47",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "overnight",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-004",
+          "category": "system_routine",
+          "start": "04:45",
+          "end": "04:47",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-005",
+          "category": "background_routine",
+          "start": "05:00",
+          "end": "05:18",
+          "duration_minutes": 18,
+          "execution_minutes": 18,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-006",
+          "category": "system_routine",
+          "start": "06:00",
+          "end": "06:03",
+          "duration_minutes": 3,
+          "execution_minutes": 3,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-007",
+          "category": "background_routine",
+          "start": "06:35",
+          "end": "06:40",
+          "duration_minutes": 5,
+          "execution_minutes": 4,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-008",
+          "category": "system_routine",
+          "start": "06:46",
+          "end": "06:48",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "dawn",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-009",
+          "category": "background_routine",
+          "start": "07:30",
+          "end": "07:34",
+          "duration_minutes": 4,
+          "execution_minutes": 3,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Other background run record",
+          "label_zh": "其他后台运行记录",
+          "pulse_color": "slate",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次其他后台运行；未保留公开提示。",
+          "summary_en": "1 other background run(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-010",
+          "category": "ai_daily_brief",
+          "start": "08:31",
+          "end": "09:02",
+          "duration_minutes": 31,
+          "execution_minutes": 31,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "AI brief collection",
+          "label_zh": "AI 日报采集",
+          "pulse_color": "cyan",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次 AI 日报采集；出现公开提示。",
+          "summary_en": "1 AI-brief collection run(s) completed; a public notice was retained.",
+          "public_alert": true
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-011",
+          "category": "system_routine",
+          "start": "09:01",
+          "end": "09:03",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "morning",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        },
+        {
+          "origin": "background",
+          "footprint_id": "background-012",
+          "category": "system_routine",
+          "start": "11:02",
+          "end": "11:04",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "midday",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "summary_provenance": "derived_public_safe",
+          "label_en": "Service health & freshness check",
+          "label_zh": "服务健康与时效检查",
+          "pulse_color": "blue",
+          "redaction_policy": "not_applicable",
+          "summary_zh": "完成 1 次服务健康与时效检查；未保留公开提示。",
+          "summary_en": "1 service-health and freshness check(s) completed; no public notice was retained."
+        }
+      ],
+      "reading_items": [
+        {
+          "reading_id": "climate-01",
+          "source": "pulses",
+          "source_refs": [
+            "background-001",
+            "background-002",
+            "background-003",
+            "background-004",
+            "background-005",
+            "background-006",
+            "background-007",
+            "background-008",
+            "background-009",
+            "background-011",
+            "background-012"
+          ],
+          "layer": "climate",
+          "classification": "climate_aggregate",
+          "family": "support_checks",
+          "window": "daily"
+        },
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-background-010",
+          "source": "pulses",
+          "source_refs": [
+            "background-010"
+          ],
+          "layer": "event",
+          "classification": "promoted_routine_exception"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-07-17",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
+          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
         }
       ]
     }

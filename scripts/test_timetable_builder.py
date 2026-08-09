@@ -212,7 +212,10 @@ class TimetableBuilderTests(unittest.TestCase):
         # being duplicated as assigned work. Remaining category repetition is
         # therefore expected; phrase diversity is the truthfulness gate.
         self.assertLessEqual(max(category_patterns.values()), 35)
-        self.assertGreaterEqual(category_counts["social_media_organization"], 20)
+        # Privacy-hardening may remove attachment-only or outcome-free social
+        # cards. Keep a corpus-level diversity floor without rewarding the
+        # retention of low-information public records.
+        self.assertGreaterEqual(category_counts["social_media_organization"], 12)
         expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
         self.assertEqual(
             Counter(day["history_provenance"] for day in output["days"]),

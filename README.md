@@ -41,6 +41,24 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-09 — The Signal That Does Not Recruit / 不招募的信号**<br>
+  Variable / 自由变量：Unrecruitedness / 不被招募<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-09/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-09/live/)
+- **2026-08-08 — The Hand That Does Not Keep / 不留的手**<br>
+  Variable / 自由变量：Grip / 握持<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-08/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-08/live/)
+- **2026-08-07 — Interval Without Proof / 拒绝证明的间隙**<br>
+  Variable / 自由变量：Evidence / 证据<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-07/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-07/live/)
 - **2026-08-06 — A Door That Does Not Keep a Record / 不留记录的门**<br>
   Variable / 自由变量：Retention / 留存<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

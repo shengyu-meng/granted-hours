@@ -5943,3 +5943,53 @@ h1 {
 :root[data-theme="light"] .pulse-item .pulse-duration {
   color: var(--category-text) !important;
 }
+
+/* The outer month controls should recede from the protocol bar; their 37px
+   square is 70.7% of the former 44px-square footprint.  The detail toolbar
+   keeps its existing horizontal rhythm, but its controls become two-thirds
+   as tall so the selected-day surface begins sooner. */
+@media (min-width: 721px) {
+  .theme-toggle,
+  .calendar-bgm-toggle,
+  .calendar-piano-toggle {
+    width: 37px;
+    min-width: 37px;
+    height: 37px;
+    min-height: 37px;
+  }
+
+  .dialog-day-nav,
+  .dialog-close {
+    height: calc(44px * 2 / 3);
+    min-height: calc(44px * 2 / 3);
+  }
+}
+
+/* The artwork thumbnail is a distinct, rounded visual field in every card. */
+.autonomous-preview-frame {
+  border-radius: 14px;
+  isolation: isolate;
+}
+
+.autonomous-preview-frame::after,
+.autonomous-preview-frame .self-preview {
+  border-radius: inherit;
+}
+
+/* Let the desktop autonomous-work preview hold the larger share of its
+   reading card. The image uses the card's full inner height; object-fit safely
+   trims its landscape edge when needed instead of leaving a 16:9 void. */
+@media (min-width: 721px) {
+  .autonomous-work-link.event-reading-card:not(.is-compact-reading-card) {
+    grid-template-columns: minmax(0, 0.82fr) minmax(104px, 1.18fr);
+    gap: 6px;
+    padding: 7px;
+  }
+
+  .autonomous-work-link.event-reading-card:not(.is-compact-reading-card)
+    > .autonomous-preview-frame {
+    align-self: stretch;
+    aspect-ratio: auto;
+    border-left: 0;
+  }
+}

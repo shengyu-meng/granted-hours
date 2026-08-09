@@ -324,7 +324,8 @@ try {
     const preview = await autonomous.locator("#selfPreview").evaluate(async (image) => {
       await image.decode();
       const rect = image.getBoundingClientRect();
-      const frameRect = image.closest(".autonomous-preview-frame").getBoundingClientRect();
+      const frame = image.closest(".autonomous-preview-frame");
+      const frameRect = frame.getBoundingClientRect();
       return {
         width: image.naturalWidth,
         height: image.naturalHeight,
@@ -332,6 +333,8 @@ try {
         renderedHeight: rect.height,
         frameWidth: frameRect.width,
         frameHeight: frameRect.height,
+        objectFit: getComputedStyle(image).objectFit,
+        frameRadius: Number.parseFloat(getComputedStyle(frame).borderTopLeftRadius),
         visible: getComputedStyle(image).display !== "none"
           && getComputedStyle(image).visibility !== "hidden",
         src: image.currentSrc || image.src,
@@ -347,14 +350,15 @@ try {
         && preview.visible,
       `${viewport.label}: ${JSON.stringify(preview)}`,
     );
-    const naturalRatio = preview.width / preview.height;
     assert.ok(
-      Math.abs((preview.frameWidth / preview.frameHeight) - naturalRatio) <= 0.08,
-      `${viewport.label}: autonomous preview frame must preserve the artwork thumbnail aspect ratio ${JSON.stringify(preview)}`,
+      preview.objectFit === "cover"
+        && Math.abs(preview.renderedWidth - preview.frameWidth) <= 1
+        && Math.abs(preview.renderedHeight - preview.frameHeight) <= 1,
+      `${viewport.label}: autonomous preview must crop to fill its available card area ${JSON.stringify(preview)}`,
     );
     assert.ok(
-      Math.abs((preview.renderedWidth / preview.renderedHeight) - naturalRatio) <= 0.08,
-      `${viewport.label}: autonomous preview image must not be compressed inside its frame ${JSON.stringify(preview)}`,
+      preview.frameRadius >= 12,
+      `${viewport.label}: autonomous preview must retain its rounded crop ${JSON.stringify(preview)}`,
     );
     assert.match(preview.src, /visual-preview\.gif$/);
 

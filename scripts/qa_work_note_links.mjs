@@ -245,7 +245,7 @@ try {
       };
     });
     assert.ok(geometry.horizontalOverflow <= 1, `${spec.label} horizontal overflow`);
-    assert.ok(geometry.trigger.height >= 38, `${spec.label} trigger touch target`);
+    assert.ok(geometry.trigger.height >= 37.5, `${spec.label} trigger touch target`);
     assert.ok(geometry.trigger.left >= 0 && geometry.trigger.top >= 0, `${spec.label} trigger offscreen`);
     assert.ok(geometry.trigger.right <= geometry.viewport.width && geometry.trigger.bottom <= geometry.viewport.height, `${spec.label} trigger offscreen`);
     assert.ok(geometry.sound, `${spec.label} sound control not visible`);

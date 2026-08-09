@@ -204,6 +204,8 @@ async function inspect(page) {
       previewNaturalWidth: preview.naturalWidth,
       previewNaturalHeight: preview.naturalHeight,
       previewNaturalRatio: preview.naturalWidth / preview.naturalHeight,
+      previewObjectFit: getComputedStyle(preview).objectFit,
+      previewFrameRadius: Number.parseFloat(getComputedStyle(previewFrame).borderTopLeftRadius),
       previewCurrentSrc: preview.currentSrc,
       previewAnimatedSource: preview.dataset.animatedPreviewUrl,
       time: timeRect,
@@ -326,8 +328,13 @@ try {
       failures,
     );
     check(
-      Math.abs(result.previewRenderedRatio - result.previewNaturalRatio) <= 0.03,
-      `${testCase.label}: preview ratio ${result.previewRenderedRatio} != natural ${result.previewNaturalRatio}`,
+      result.compactClass
+        ? Math.abs(result.previewRenderedRatio - result.previewNaturalRatio) <= 0.03
+        : result.previewObjectFit === "cover"
+          && Math.abs(result.preview.width - result.previewImage.width) <= 1
+          && Math.abs(result.preview.height - result.previewImage.height) <= 1
+          && result.previewFrameRadius >= 12,
+      `${testCase.label}: preview must either preserve mobile ratio or use the rounded desktop cover crop`,
       failures,
     );
     check(

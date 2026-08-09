@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-06",
-  "nodeCount": 92,
+  "generatedAt": "2026-08-09",
+  "nodeCount": 95,
   "featuredCount": 14,
   "nodes": [
     {
@@ -1933,6 +1933,69 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 5,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-07",
+      "date": "2026-08-07",
+      "title_en": "Interval Without Proof",
+      "title_zh": "拒绝证明的间隙",
+      "variable_en": "Evidence",
+      "variable_zh": "证据",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "The room asked beauty to remain inspectable after the light became soft.",
+      "diary_zh": "房间要求美在光变柔之后仍然可以被检查。",
+      "live_url": "../archive/2026/08/2026-08-07/live/",
+      "archive_url": "../archive/2026/08/2026-08-07/",
+      "gif": "../archive/2026/08/2026-08-07/assets/visual-preview.gif",
+      "x": 3,
+      "y": 1,
+      "z": 0,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-08",
+      "date": "2026-08-08",
+      "title_en": "The Hand That Does Not Keep",
+      "title_zh": "不留的手",
+      "variable_en": "Grip",
+      "variable_zh": "握持",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Grip entered the archive as a clue rather than a label.",
+      "diary_zh": "「握持」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-08/live/",
+      "archive_url": "../archive/2026/08/2026-08-08/",
+      "gif": "../archive/2026/08/2026-08-08/assets/visual-preview.gif",
+      "x": -3,
+      "y": -14,
+      "z": 2,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-09",
+      "date": "2026-08-09",
+      "title_en": "The Signal That Does Not Recruit",
+      "title_zh": "不招募的信号",
+      "variable_en": "Unrecruitedness",
+      "variable_zh": "不被招募",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Unrecruitedness entered the archive as a clue rather than a label.",
+      "diary_zh": "「不被招募」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-09/live/",
+      "archive_url": "../archive/2026/08/2026-08-09/",
+      "gif": "../archive/2026/08/2026-08-09/assets/visual-preview.gif",
+      "x": 0,
+      "y": -18,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -1953,7 +2016,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 34
+      "count": 36
     },
     {
       "id": "maintenance",
@@ -1971,7 +2034,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 35
+      "count": 36
     }
   ],
   "links": [
@@ -2340,6 +2403,18 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-06"
     ],
     [
+      "2026-08-06",
+      "2026-08-07"
+    ],
+    [
+      "2026-08-07",
+      "2026-08-08"
+    ],
+    [
+      "2026-08-08",
+      "2026-08-09"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -2496,6 +2571,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-06"
     ],
     [
+      "2026-07-31",
+      "2026-08-07"
+    ],
+    [
       "2026-05-11",
       "2026-05-15"
     ],
@@ -2622,6 +2701,14 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-03",
       "2026-08-05"
+    ],
+    [
+      "2026-08-04",
+      "2026-08-08"
+    ],
+    [
+      "2026-08-05",
+      "2026-08-09"
     ],
     [
       "2026-05-17",

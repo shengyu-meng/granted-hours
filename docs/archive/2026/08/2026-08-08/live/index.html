@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+<style id="granted-hours-fold-style">
+  .gh-work-note-trigger {
+    position: fixed;
+    z-index: 2147483000;
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    min-height: 38px !important;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(3,7,13,.72);
+    color: rgba(250,246,237,.92);
+    font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .02em;
+    box-shadow: 0 12px 44px rgba(0,0,0,.34);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .gh-work-note-trigger:hover {
+    border-color: rgba(242,195,107,.58);
+    color: #fff3cf;
+  }
+  .gh-work-note-trigger--busy {
+    background: rgba(3,7,13,.97) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    backdrop-filter: blur(18px) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.46) !important;
+  }
+  .gh-work-note-trigger:focus-visible,
+  .gh-work-note-close:focus-visible,
+  .gh-work-note-archive:focus-visible {
+    outline: 2px solid rgba(242,195,107,.82);
+    outline-offset: 3px;
+  }
+  #ghWorkNoteOverlay[hidden] { display: none !important; }
+  #ghWorkNoteOverlay {
+    position: fixed;
+    z-index: 2147483100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    background: rgba(2,5,9,.48);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  #ghWorkNoteOverlay.is-open { opacity: 1; }
+  body.gh-work-note-modal-open { overflow: hidden !important; }
+  #ghWorkNoteOverlay .gh-work-note-panel {
+    position: relative;
+    width: min(720px, calc(100vw - 36px));
+    max-height: min(82vh, 780px);
+    box-sizing: border-box;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22px;
+    padding: clamp(24px, 5vw, 46px);
+    background: rgba(7,11,17,.76);
+    color: #f7f2e8;
+    -webkit-backdrop-filter: blur(28px) saturate(1.24);
+    backdrop-filter: blur(28px) saturate(1.24);
+    box-shadow: 0 30px 90px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  #ghWorkNoteOverlay .gh-work-note-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px;
+    background: rgba(0,0,0,.2);
+    color: inherit;
+    font: 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    cursor: pointer;
+  }
+  #ghWorkNoteOverlay .gh-work-note-kicker,
+  #ghWorkNoteOverlay .gh-work-note-section h3 {
+    margin: 0 0 8px;
+    color: rgba(242,195,107,.88);
+    font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  #ghWorkNoteOverlay .gh-work-note-title {
+    max-width: calc(100% - 48px);
+    margin: 0 0 10px;
+    font: 500 clamp(24px, 5vw, 42px)/1.08 Georgia, 'Times New Roman', serif;
+  }
+  #ghWorkNoteOverlay .gh-work-note-meta {
+    margin: 0 0 24px;
+    color: rgba(247,242,232,.62);
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  #ghWorkNoteOverlay .gh-work-note-section {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  #ghWorkNoteOverlay .gh-work-note-section p {
+    margin: 8px 0 0;
+    color: rgba(247,242,232,.88);
+    font: 15px/1.72 Georgia, 'Times New Roman', serif;
+  }
+  #ghWorkNoteOverlay .gh-work-note-archive {
+    display: inline-flex;
+    margin-top: 22px;
+    border-bottom: 1px solid rgba(242,195,107,.5);
+    padding-bottom: 4px;
+    color: #f3c872;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-decoration: none;
+  }
+  body.gh-text-folded .panel,
+  body.gh-text-folded .card,
+  body.gh-text-folded .state,
+  body.gh-text-folded .legend,
+  body.gh-text-folded .hint,
+  body.gh-text-folded .instructions,
+  body.gh-text-folded .statement,
+  body.gh-text-folded .copy,
+  body.gh-text-folded .text,
+  body.gh-text-folded #textPanel,
+  body.gh-text-folded #legend {
+    opacity: 0 !important;
+    transform: translateY(-8px) scale(.98) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+  body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .sound,
+  body.gh-chamber-embed #sound,
+  body.gh-chamber-embed #soundToggle,
+  body.gh-chamber-embed h1,
+  body.gh-chamber-embed h2,
+  body.gh-chamber-embed h3,
+  body.gh-chamber-embed .title,
+  body.gh-chamber-embed .subtitle,
+  body.gh-chamber-embed .hud,
+  body.gh-chamber-embed .status,
+  body.gh-chamber-embed .label,
+  body.gh-chamber-embed .readout,
+  body.gh-chamber-embed .meta,
+  body.gh-chamber-embed .caption,
+  body.gh-chamber-embed .controls,
+  body.gh-chamber-embed .toolbar,
+  body.gh-chamber-embed .ui,
+  body.gh-chamber-embed .overlay,
+  body.gh-chamber-embed button,
+  body.gh-chamber-embed [role="button"],
+  body.gh-chamber-embed button[id*="sound" i],
+  body.gh-chamber-embed button[id*="music" i],
+  body.gh-chamber-embed button[id*="bgm" i] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  @media (max-width: 760px) {
+    #ghWorkNoteOverlay { align-items: end; padding: 10px; }
+    #ghWorkNoteOverlay .gh-work-note-panel {
+      width: 100%;
+      max-height: min(84dvh, 760px);
+      border-radius: 20px 20px 12px 12px;
+      padding: 28px 22px calc(22px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script id="granted-hours-fold-script">
+(() => {
+  if (window.__grantedHoursFoldReady) return;
+  window.__grantedHoursFoldReady = true;
+  const WORK_NOTE = {"date":"2026-08-08","title_en":"The Hand That Does Not Keep","title_zh":"不留的手","variable_en":"Grip","variable_zh":"握持","start":"03:17","end":"04:17","duration_minutes":60,"experience_duration_en":"Open-ended; visitor-controlled","experience_duration_zh":"开放式，由观众决定","intention_en":"Many gestures are assumed to own what they touch. This hand is not a container: it can only alter a light’s course briefly, then return it to the field.","intention_zh":"很多手势一旦触到什么，就被默认有权保存它。这里的手不是容器：它只能短暂改变光的走向，然后把光归还给场。","interaction_en":"Move, touch, or linger and light gathers toward you. When you stop, it leaves no path and becomes no inventory. Every approach is only a borrowed direction.","interaction_zh":"移动、触碰或停留会让光向你聚近；停止后，它们不留下路径，也不形成库存。每次靠近只是一种暂借的方向。","rationale_en":"The Hand That Does Not Keep was made as one public step in the Granted Hours sequence, with the variable Grip treated as an operational condition rather than a decorative theme. The intention frames the work this way: Many gestures are assumed to own what they touch. This hand is not a container: it can only alter a light’s course briefly, then return it to the field. The live artifact then turns that idea into interaction: Move, touch, or linger and light gathers toward you. When you stop, it leaves no path and becomes no inventory. Every approach is only a borrowed direction. Its afterimage condenses the day’s claim: A gentle hand is not one that never touches, but one that knows when to loosen.","rationale_zh":"《不留的手》是《授时》连续序列中的一个公开步骤：当天的自由变量「握持」不是装饰性主题，而是一种要被转化成操作条件的概念。作品的发心是：很多手势一旦触到什么，就被默认有权保存它。这里的手不是容器：它只能短暂改变光的走向，然后把光归还给场。 可运行页面进一步把这个概念变成可操作的界面：移动、触碰或停留会让光向你聚近；停止后，它们不留下路径，也不形成库存。每次靠近只是一种暂借的方向。 它的余像把当天判断压缩为一句话：真正温和的手，不是从不触碰，而是知道何时松开。","after_en":"A gentle hand is not one that never touches, but one that knows when to loosen.","after_zh":"真正温和的手，不是从不触碰，而是知道何时松开。"};
+  const GH_WORK_NOTE_GAP = 10;
+  const params = new URLSearchParams(window.location.search);
+  const IS_EMBED = params.get('embed') === 'calendar';
+  const MEDIA_TYPE = 'granted-hours:media';
+  const MEDIA_VERSION = 1;
+  const EMBED_CHANNEL = params.get('gh_channel') || '';
+  const PARENT_ORIGIN = (() => {
+    try { return new URL(document.referrer).origin; }
+    catch (_) { return ''; }
+  })();
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const NativeAudio = window.Audio;
+  const trackedAudio = new Set();
+  let mediaEnabled = false;
+  if (IS_EMBED) {
+    function GrantedHoursAudio(...args) {
+      return trackAudio(new NativeAudio(...args));
+    }
+    Object.setPrototypeOf(GrantedHoursAudio, NativeAudio);
+    GrantedHoursAudio.prototype = NativeAudio.prototype;
+    window.Audio = GrantedHoursAudio;
+    HTMLMediaElement.prototype.play = function (...args) {
+      if (this instanceof HTMLAudioElement) {
+        trackAudio(this);
+        if (!mediaEnabled) {
+          silenceAudio(this);
+          return Promise.resolve();
+        }
+        this.muted = false;
+      }
+      if (this instanceof HTMLVideoElement) this.muted = true;
+      return nativePlay.apply(this, args);
+    };
+    document.addEventListener('play', (event) => {
+      if (event.target instanceof HTMLAudioElement) {
+        trackAudio(event.target);
+        if (!mediaEnabled) silenceAudio(event.target);
+        else event.target.muted = false;
+      } else if (event.target instanceof HTMLVideoElement) {
+        event.target.muted = true;
+      }
+    }, true);
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return;
+      if (!PARENT_ORIGIN || event.origin !== PARENT_ORIGIN) return;
+      const message = event.data;
+      if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+      if (Object.keys(message).sort().join(',') !== 'action,channel,type,version') return;
+      if (message.type !== MEDIA_TYPE || message.version !== MEDIA_VERSION) return;
+      if (!/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL) || message.channel !== EMBED_CHANNEL) return;
+      if (message.action === 'play') setEmbeddedMediaState(true);
+      else if (message.action === 'pause') setEmbeddedMediaState(false);
+    });
+  }
+  const workNote = document.createElement('button');
+  workNote.type = 'button';
+  workNote.id = 'ghWorkNoteTrigger';
+  workNote.className = 'gh-work-note-trigger';
+  workNote.textContent = 'Work note / 作品说明';
+  workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
+  workNote.setAttribute('aria-haspopup', 'dialog');
+  workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const workNoteOverlay = createWorkNoteOverlay();
+  let workNoteLastFocus = null;
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState !== 'loading') init();
+  function init() {
+    if (!document.body || document.body.contains(workNote)) return;
+    if (IS_EMBED) {
+      document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
+      silenceEmbeddedMedia();
+      document.body.dataset.ghAudioEnabled = '0';
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          record.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) return;
+            if (node instanceof HTMLAudioElement) trackAudio(node);
+            node.querySelectorAll?.('audio').forEach(trackAudio);
+            node.querySelectorAll?.('video').forEach((video) => { video.muted = true; });
+          });
+        });
+      }).observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
+      window.setTimeout(silenceEmbeddedMedia, 250);
+      return;
+    }
+    document.body.append(workNote, workNoteOverlay);
+    hideNativeWorkNoteTriggers();
+    workNote.addEventListener('click', openWorkNote);
+    workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
+    workNoteOverlay.addEventListener('click', (event) => {
+      if (event.target === workNoteOverlay) closeWorkNote();
+    });
+    document.addEventListener('keydown', handleWorkNoteKeydown);
+    alignWorkNote();
+    window.addEventListener('resize', alignWorkNote);
+    window.addEventListener('orientationchange', alignWorkNote);
+    window.addEventListener('load', alignWorkNote);
+    [1200, 3000, 6000].forEach((ms) => window.setTimeout(alignWorkNote, ms));
+    watchSoundControl();
+  }
+  function makeElement(tag, className, text = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+  function makeWorkNoteSection(label, en, zh) {
+    if (!en && !zh) return null;
+    const section = makeElement('section', 'gh-work-note-section');
+    section.append(makeElement('h3', '', label));
+    if (en) section.append(makeElement('p', 'gh-work-note-en', en));
+    if (zh) section.append(makeElement('p', 'gh-work-note-zh', zh));
+    return section;
+  }
+  function createWorkNoteOverlay() {
+    const overlay = makeElement('section', 'gh-work-note-overlay');
+    overlay.id = 'ghWorkNoteOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ghWorkNoteTitle');
+    const panel = makeElement('article', 'gh-work-note-panel');
+    const close = makeElement('button', 'gh-work-note-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close work note / 关闭作品说明');
+    const kicker = makeElement('p', 'gh-work-note-kicker', 'WORK NOTE / 作品说明');
+    const title = makeElement('h2', 'gh-work-note-title', `${WORK_NOTE.title_en} / ${WORK_NOTE.title_zh}`);
+    title.id = 'ghWorkNoteTitle';
+    const meta = makeElement(
+      'p',
+      'gh-work-note-meta',
+      `${WORK_NOTE.date} · ${WORK_NOTE.start}–${WORK_NOTE.end}`
+        + ` · granted ${WORK_NOTE.duration_minutes} min / 授时 ${WORK_NOTE.duration_minutes} 分钟`
+        + ` · experience ${WORK_NOTE.experience_duration_en} / 体验时长${WORK_NOTE.experience_duration_zh}`
+        + ` · ${WORK_NOTE.variable_en} / ${WORK_NOTE.variable_zh}`,
+    );
+    panel.append(close, kicker, title, meta);
+    [
+      makeWorkNoteSection('Intention / 发心', WORK_NOTE.intention_en, WORK_NOTE.intention_zh),
+      makeWorkNoteSection('Interaction / 交互', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh),
+      makeWorkNoteSection('Creative rationale / 创作缘由', WORK_NOTE.rationale_en, WORK_NOTE.rationale_zh),
+      makeWorkNoteSection('Afterimage / 余像', WORK_NOTE.after_en, WORK_NOTE.after_zh),
+    ].filter(Boolean).forEach((section) => panel.append(section));
+    const archive = makeElement('a', 'gh-work-note-archive', 'View full archive record / 查看完整档案 ↗');
+    archive.href = '../';
+    panel.append(archive);
+    overlay.append(panel);
+    return overlay;
+  }
+  function openWorkNote() {
+    workNoteLastFocus = (
+      document.activeElement instanceof HTMLElement
+      && document.activeElement !== document.body
+    ) ? document.activeElement : workNote;
+    workNoteOverlay.hidden = false;
+    workNoteOverlay.classList.add('is-open');
+    document.body.classList.add('gh-work-note-modal-open');
+    requestAnimationFrame(() => {
+      workNoteOverlay.querySelector('.gh-work-note-close').focus({ preventScroll: true });
+    });
+  }
+  function closeWorkNote() {
+    if (workNoteOverlay.hidden) return;
+    workNoteOverlay.classList.remove('is-open');
+    workNoteOverlay.hidden = true;
+    document.body.classList.remove('gh-work-note-modal-open');
+    if (workNoteLastFocus && typeof workNoteLastFocus.focus === 'function') {
+      workNoteLastFocus.focus({ preventScroll: true });
+    }
+  }
+  function handleWorkNoteKeydown(event) {
+    if (workNoteOverlay.hidden) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeWorkNote();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...workNoteOverlay.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  function hideNativeWorkNoteTriggers() {
+    document.querySelectorAll('.gh-work-note-trigger').forEach((element) => {
+      if (element === workNote || element.closest('#ghWorkNoteOverlay')) return;
+      element.hidden = true;
+      element.style.display = 'none';
+      element.setAttribute('aria-hidden', 'true');
+    });
+  }
+  const SOUND_SELECTORS = [
+    '#sound', '.sound', '#soundToggle', '#musicToggle',
+    'button[id*="sound" i]', 'button[id*="music" i]', 'button[id*="bgm" i]',
+  ];
+  function findSoundControl() {
+    for (const selector of SOUND_SELECTORS) {
+      for (const element of document.querySelectorAll(selector)) {
+        if (!(element instanceof HTMLElement)) continue;
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+        if (rect.width <= 1 || rect.height <= 1) continue;
+        return element;
+      }
+    }
+    return null;
+  }
+  const SOUND_STYLE_PROPS = [
+    'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+    'border-top-style', 'border-right-style', 'border-bottom-style', 'border-left-style',
+    'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color',
+    'border-top-left-radius', 'border-top-right-radius', 'border-bottom-right-radius', 'border-bottom-left-radius',
+    'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+    'background-color', 'color', 'font-family', 'font-size', 'font-weight', 'font-style',
+    'line-height', 'letter-spacing', 'min-height', 'box-shadow',
+    '-webkit-backdrop-filter', 'backdrop-filter',
+  ];
+  function findVisibleTextBlocks() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const maxArea = vw * vh * 0.55;
+    const sound = findSoundControl();
+    const blocks = [];
+    const candidates = document.querySelectorAll(
+      'h1,h2,h3,h4,h5,h6,p,span,label,legend,figcaption,li,a,div,button',
+    );
+    for (const el of candidates) {
+      if (!(el instanceof HTMLElement)) continue;
+      if (el === workNote || el.closest('#ghWorkNoteOverlay')) continue;
+      if (sound && (el === sound || sound.contains(el))) continue;
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width <= 1 || rect.height <= 1) continue;
+      if (rect.right < 0 || rect.bottom < 0 || rect.left > vw || rect.top > vh) continue;
+      const text = (el.innerText || '').trim();
+      if (!text) continue;
+      if (rect.width * rect.height > maxArea) continue;
+      let insideLargerBlock = false;
+      for (const block of blocks) {
+        if (
+          block.rect.left <= rect.left
+          && block.rect.top <= rect.top
+          && block.rect.right >= rect.right
+          && block.rect.bottom >= rect.bottom
+        ) {
+          insideLargerBlock = true;
+          break;
+        }
+      }
+      if (insideLargerBlock) continue;
+      blocks.push({ el, rect });
+      if (blocks.length >= 250) break;
+    }
+    return blocks;
+  }
+  function avoidOverlap(baseRight, baseBottom) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const noteWidth = workNote.offsetWidth || 148;
+    const noteHeight = workNote.offsetHeight || 44;
+    const blocks = findVisibleTextBlocks();
+    const maxLift = Math.max(120, Math.round(vh * 0.38));
+    const maxLeft = Math.max(24, Math.round(vw * 0.18));
+    let best = null;
+    const evaluate = (right, bottom, dx, dy) => {
+      const x2 = vw - right;
+      const x1 = x2 - noteWidth;
+      const y2 = vh - bottom;
+      const y1 = y2 - noteHeight;
+      if (x1 < 0 || y1 < 0) return;
+      let score = 0;
+      for (const block of blocks) {
+        const r = block.rect;
+        const iw = Math.min(x2, r.right) - Math.max(x1, r.left);
+        const ih = Math.min(y2, r.bottom) - Math.max(y1, r.top);
+        if (iw > 0 && ih > 0) score += iw * ih;
+      }
+      const dist = dx + dy;
+      if (!best || score < best.score || (score === best.score && dist < best.dist)) {
+        best = { score, right: Math.max(12, right), bottom: Math.max(12, bottom), dist };
+      }
+    };
+    for (let dy = 0; dy <= maxLift; dy += 4) {
+      if (best && best.score === 0 && dy > best.dist) break;
+      for (let dx = 0; dx <= maxLeft; dx += 4) {
+        evaluate(baseRight + dx, baseBottom + dy, dx, dy);
+      }
+      if (best && best.score === 0 && best.dist === 0) break;
+    }
+    return best || { score: Infinity, right: baseRight, bottom: baseBottom };
+  }
+  function alignWorkNote() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const sound = findSoundControl();
+    let baseRight = 12;
+    let baseBottom = 12;
+    if (sound) {
+      const soundStyle = getComputedStyle(sound);
+      SOUND_STYLE_PROPS.forEach((prop) => {
+        const value = soundStyle.getPropertyValue(prop);
+        if (value) workNote.style.setProperty(prop, value);
+      });
+      const soundRect = sound.getBoundingClientRect();
+      const compact = soundRect.width <= vw * 0.45;
+      const nearBottom = soundRect.bottom > vh * 0.45;
+      const nearRight = soundRect.left > vw * 0.25;
+      if (compact && nearBottom && nearRight) {
+        baseRight = Math.max(12, vw - soundRect.left + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.bottom);
+      } else if (compact) {
+        baseRight = 12;
+        baseBottom = 12;
+      } else {
+        baseRight = Math.max(12, vw - soundRect.right + GH_WORK_NOTE_GAP);
+        baseBottom = Math.max(12, vh - soundRect.top + GH_WORK_NOTE_GAP);
+      }
+    } else {
+      SOUND_STYLE_PROPS.forEach((prop) => workNote.style.removeProperty(prop));
+    }
+    workNote.style.top = 'auto';
+    workNote.style.left = 'auto';
+    const placed = avoidOverlap(baseRight, baseBottom);
+    workNote.style.right = `${placed.right}px`;
+    workNote.style.bottom = `${placed.bottom}px`;
+    workNote.classList.toggle('gh-work-note-trigger--busy', placed.score > 0);
+    const noteRect = workNote.getBoundingClientRect();
+    if (noteRect.left < 0) {
+      workNote.style.right = `${Math.max(12, vw - noteRect.right - 12)}px`;
+    }
+    if (noteRect.bottom > vh) {
+      workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
+    }
+  }
+  let soundObserver = null;
+  function watchSoundControl() {
+    soundObserver?.disconnect();
+    const sound = findSoundControl();
+    if (!sound) {
+      soundObserver = new MutationObserver(() => {
+        window.requestAnimationFrame(alignWorkNote);
+        if (findSoundControl()) {
+          soundObserver.disconnect();
+          watchSoundControl();
+        }
+      });
+      soundObserver.observe(document.body, { childList: true, subtree: true });
+      return;
+    }
+    soundObserver = new MutationObserver(() => {
+      window.requestAnimationFrame(alignWorkNote);
+    });
+    soundObserver.observe(sound, { attributes: true, childList: true, subtree: true, characterData: true });
+  }
+  function trackAudio(audio) {
+    trackedAudio.add(audio);
+    if (!mediaEnabled) silenceAudio(audio);
+    return audio;
+  }
+  function silenceAudio(audio) {
+    audio.muted = true;
+    audio.removeAttribute('autoplay');
+    audio.pause();
+  }
+  function silenceEmbeddedMedia() {
+    document.querySelectorAll('audio').forEach(trackAudio);
+    trackedAudio.forEach(silenceAudio);
+    document.querySelectorAll('video').forEach((video) => { video.muted = true; });
+  }
+  function setEmbeddedMediaState(enabled) {
+    mediaEnabled = enabled;
+    if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
+    document.querySelectorAll('audio').forEach(trackAudio);
+    if (!enabled) {
+      silenceEmbeddedMedia();
+      return;
+    }
+    trackedAudio.forEach((audio) => {
+      audio.muted = false;
+      const playback = nativePlay.call(audio);
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    });
+  }
+})();
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Hand That Does Not Keep / 不留的手</title>
+<style>
+  :root{color-scheme:dark;--ink:#e9e3d6;--bone:#d9ccb2;--deep:#05080d;--paper:#11161f;--cyan:#7cc7cf;--violet:#7f7896;--gold:#cbae76}
+  *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+  #field{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair}.veil{pointer-events:none;position:fixed;inset:0;background:radial-gradient(ellipse at 50% 46%,transparent 0 22%,rgba(2,4,8,.30) 80%)}
+  header{position:fixed;left:clamp(20px,4vw,64px);top:clamp(20px,4vw,52px);max-width:min(580px,calc(100vw - 40px));text-shadow:0 1px 9px #000}.kicker{color:var(--cyan);font-size:10px;letter-spacing:.19em;text-transform:uppercase}h1{font-family:Georgia,"Songti SC",serif;font-weight:400;font-size:clamp(29px,5.5vw,74px);line-height:.96;letter-spacing:-.055em;margin:12px 0 14px}h1 span{display:block;font-size:.53em;letter-spacing:.03em;margin-top:.48em;color:var(--bone)}.statement{margin:0;max-width:500px;font-family:Georgia,"Songti SC",serif;line-height:1.52;font-size:clamp(14px,1.55vw,18px);color:#c8c4bc}
+  .meta{position:fixed;left:clamp(20px,4vw,64px);bottom:clamp(18px,3.2vw,42px);color:#9ca3ab;font-size:10px;line-height:1.7;letter-spacing:.05em;text-transform:uppercase}.meta strong{color:var(--gold);font-weight:500}.controls{position:fixed;right:clamp(16px,3vw,42px);bottom:clamp(16px,3vw,42px);display:flex;gap:10px;align-items:center;z-index:6}button{border:1px solid rgba(233,227,214,.42);color:var(--ink);background:rgba(8,13,20,.68);backdrop-filter:blur(10px);border-radius:999px;min-height:44px;padding:0 14px;font:10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;cursor:pointer}button:hover,button:focus-visible{outline:none;border-color:var(--gold);background:rgba(30,33,39,.94)}
+  #note{display:none;position:fixed;inset:0;z-index:10;background:rgba(3,5,9,.67);padding:clamp(20px,6vw,88px);align-items:center;justify-content:center}#note[aria-hidden="false"]{display:flex}.paper{position:relative;width:min(680px,100%);max-height:min(720px,90vh);overflow:auto;padding:clamp(28px,5vw,58px);border:1px solid rgba(217,204,178,.35);background:rgba(16,21,30,.96);box-shadow:0 25px 100px rgba(0,0,0,.58)}.paper h2{font-family:Georgia,"Songti SC",serif;margin:0 0 24px;font-size:28px;font-weight:400}.paper h3{color:var(--cyan);font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:25px 0 7px}.paper p{margin:0 0 10px;font-family:Georgia,"Songti SC",serif;line-height:1.7;color:#d7d3ca}.close{position:absolute;top:16px;right:16px}
+  .preview-visual header,.preview-visual .meta,.preview-visual .controls{display:none}@media(max-width:600px){.statement{max-width:310px}.meta{max-width:calc(100vw - 145px)}h1{font-size:39px}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-label="An interactive field where a hand-shaped current gathers light and releases it"></canvas>
+<div class="veil"></div>
+<header><div class="kicker">GRANTED HOURS · 03:17–04:17 CST · NO ARCHIVE</div><h1>The Hand That Does Not Keep<span>不留的手</span></h1><p class="statement">让手势成为一阵气流：聚起，又松开；触到，却不据为己有。<br>Let a gesture become a current: gather, then loosen; touch, without taking.</p></header>
+<div class="meta"><strong>variable / 变量</strong>：grip<br><strong>verb / 动词</strong>：unclench<br>source day / 源日：2026-08-07<br>crystallization / 结晶：2026-08-08<br>granted duration / 授予时长：60 min<br>experience / 体验：open-ended</div>
+<div class="controls"><button id="noteToggle" aria-haspopup="dialog" aria-expanded="false">WORK NOTE / 作品说明</button><button id="soundToggle" aria-pressed="true">SOUND · ON</button></div>
+<audio id="bgm" src="2026-08-08-hand-that-does-not-keep-bgm.mp3" preload="auto" loop autoplay></audio>
+<section id="note" aria-hidden="true" role="presentation"><article class="paper" role="dialog" aria-modal="true" aria-labelledby="noteTitle"><button class="close" id="closeNote" aria-label="Close work note">×</button><h2 id="noteTitle">作品说明 / Work Note</h2><h3>发心 / Intention</h3><p>很多手势一旦触到什么，就被默认有权保存它。这里的手不是容器：它只能短暂改变光的走向，然后把光归还给场。</p><p>Many gestures are assumed to own what they touch. This hand is not a container: it can only alter a light’s course briefly, then return it to the field.</p><h3>交互 / Interaction</h3><p>移动、触碰或停留会让光向你聚近；停止后，它们不留下路径，也不形成库存。每次靠近只是一种暂借的方向。</p><p>Move, touch, or linger and light gathers toward you. When you stop, it leaves no path and becomes no inventory. Every approach is only a borrowed direction.</p><h3>余像 / Afterimage</h3><p>真正温和的手，不是从不触碰，而是知道何时松开。</p><p>A gentle hand is not one that never touches, but one that knows when to loosen.</p></article></section>
+<script>
+(()=>{
+ const canvas=document.querySelector('#field'),ctx=canvas.getContext('2d'),audio=document.querySelector('#bgm'),sound=document.querySelector('#soundToggle'),note=document.querySelector('#note'),opener=document.querySelector('#noteToggle'),closer=document.querySelector('#closeNote');
+ let W=0,H=0,dpr=1,last=0,focusBefore=null,target={x:.5,y:.53,active:false},breath=0;const dust=[];
+ const resize=()=>{dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0)};addEventListener('resize',resize,{passive:true});resize();
+ for(let i=0;i<180;i++)dust.push({x:Math.random(),y:Math.random(),r:.4+Math.random()*1.9,p:Math.random()*Math.PI*2,h:Math.random()>.55?190:43,phase:Math.random()*6.28});
+ function setTarget(e,power=1){const r=canvas.getBoundingClientRect();target.x=(e.clientX-r.left)/W;target.y=(e.clientY-r.top)/H;target.active=true;breath=Math.min(1.4,breath+.35*power)}
+ canvas.addEventListener('pointermove',e=>{const t=performance.now();if(t-last>34){setTarget(e,.35);last=t}},{passive:true});canvas.addEventListener('pointerdown',e=>setTarget(e,1.4),{passive:true});canvas.addEventListener('pointerleave',()=>target.active=false,{passive:true});
+ function hand(t,cx,cy,scale,alpha){ctx.save();ctx.translate(cx,cy);ctx.rotate(Math.sin(t*.00017)*.04);ctx.strokeStyle=`rgba(203,174,118,${alpha})`;ctx.lineWidth=Math.max(1,scale*.010);ctx.lineCap='round';const palm=scale*.15;ctx.beginPath();ctx.arc(0,scale*.07,palm,.18*Math.PI,.82*Math.PI);ctx.stroke();for(let i=0;i<5;i++){const a=(-.96+i*.47)+Math.sin(t*.00033+i)*.05;const len=scale*(i===0?.19:.26);ctx.beginPath();ctx.moveTo(Math.cos(a)*palm,scale*.07+Math.sin(a)*palm);ctx.quadraticCurveTo(Math.cos(a-.08)*len,Math.sin(a-.08)*len,Math.cos(a)*len*1.08,Math.sin(a)*len*1.08);ctx.stroke()}ctx.restore()}
+ function draw(t){const pulse=.5+.5*Math.sin(t*.00062);const g=ctx.createRadialGradient(W*.5,H*.48,0,W*.5,H*.48,Math.max(W,H)*.72);g.addColorStop(0,'#171c28');g.addColorStop(.52,'#0a0f18');g.addColorStop(1,'#03050a');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(124,199,207,.065)';ctx.lineWidth=1;for(let x=0;x<W;x+=Math.max(72,W/15)){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<H;y+=Math.max(72,H/10)){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  breath*=.985;const cx=(target.active?target.x:.5+Math.sin(t*.00014)*.055)*W,cy=(target.active?target.y:.51+Math.cos(t*.00011)*.045)*H;hand(t,cx,cy,Math.min(W,H)*(.74+breath*.08),.20+pulse*.08+breath*.15);
+  for(const d of dust){const bx=d.x*W,by=d.y*H,dx=cx-bx,dy=cy-by,dist=Math.hypot(dx,dy)+1;if(target.active&&dist<Math.min(W,H)*.44){const pull=(1-dist/(Math.min(W,H)*.44))*.006;d.x+=dx/W*pull;d.y+=dy/H*pull}d.x+=Math.sin(t*.00025+d.phase)*.00005;d.y+=Math.cos(t*.00021+d.phase)*.00004;if(d.x<0)d.x+=1;if(d.x>1)d.x-=1;if(d.y<0)d.y+=1;if(d.y>1)d.y-=1;const a=.18+.38*(.5+.5*Math.sin(t*.001+d.phase));ctx.beginPath();ctx.arc(d.x*W,d.y*H,d.r,0,Math.PI*2);ctx.fillStyle=`hsla(${d.h},48%,78%,${a})`;ctx.fill()}requestAnimationFrame(draw)}requestAnimationFrame(draw);
+ async function enableSound(){try{await audio.play();sound.textContent='SOUND · ON';sound.setAttribute('aria-pressed','true')}catch{sound.textContent='SOUND · START';sound.setAttribute('aria-pressed','false')}}enableSound();sound.addEventListener('click',async()=>{if(audio.paused){await enableSound()}else{audio.pause();sound.textContent='SOUND · OFF';sound.setAttribute('aria-pressed','false')}});
+ function openNote(){focusBefore=document.activeElement;note.setAttribute('aria-hidden','false');opener.setAttribute('aria-expanded','true');closer.focus()}function closeNote(){note.setAttribute('aria-hidden','true');opener.setAttribute('aria-expanded','false');if(focusBefore)focusBefore.focus()}opener.addEventListener('click',openNote);closer.addEventListener('click',closeNote);note.addEventListener('click',e=>{if(e.target===note)closeNote()});addEventListener('keydown',e=>{if(e.key==='Escape'&&note.getAttribute('aria-hidden')==='false')closeNote()});
+ if(new URLSearchParams(location.search).get('preview')==='visual')document.body.classList.add('preview-visual');
+})();
+</script>
+</body>
+</html>
