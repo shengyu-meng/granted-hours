@@ -8525,7 +8525,7 @@ const timetableDataSource = {
           "short_en": "RSH",
           "short_zh": "研究",
           "task_name_en": "Compared the original ACM manuscript for…",
-          "task_name_zh": "对《OneandThreeObj…"
+          "task_name_zh": "对《████》原ACM稿、目标会…"
         }
       ],
       "cell_sources": {
@@ -8611,16 +8611,16 @@ const timetableDataSource = {
           "end": "11:25",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
-          "en": "Compared the original ACM manuscript for One and Three Objects with the target conference call and public project page, producing a gap analysis and prioritized strategy for venue fit and narrative revision.",
-          "zh": "对《One and Three Objects》原 ACM 稿、目标会议征稿要求与公开项目页面做差距分析，给出会议匹配、叙事升级和分优先级的修改策略。",
+          "en": "Compared the original ACM manuscript for ████ with the target conference call and public project page, producing a gap analysis and prioritized strategy for venue fit and narrative revision.",
+          "zh": "对《████》原 ACM 稿、目标会议征稿要求与公开项目页面做差距分析，给出会议匹配、叙事升级和分优先级的修改策略。",
           "short_en": "RSH",
           "short_zh": "研究",
-          "task_name_zh": "对《OneandThreeObj…",
+          "task_name_zh": "对《████》原ACM稿、目标会…",
           "task_name_en": "Compared the original ACM manuscript for…",
           "duration_minutes": 45,
           "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
+          "redaction_status": "partial",
+          "redaction_count": 1,
           "source_kind": "task_card",
           "faithfulness": "faithful_summary",
           "task_type": "research_analysis",
