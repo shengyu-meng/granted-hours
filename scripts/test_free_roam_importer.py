@@ -60,6 +60,8 @@ class FreeRoamImporterTests(unittest.TestCase):
         self.assertIn("How to interact / 操作说明", refreshed)
         self.assertIn("Touch keys / 触控按键", refreshed)
         self.assertIn("const embedTouchKeyDock = createTouchKeyDock();", refreshed)
+        self.assertIn("function touchKeyInstructionExcerpt(value)", refreshed)
+        self.assertIn("gh-touch-key-dock-copy", refreshed)
         self.assertIn("dispatchArtworkKey('keydown', shortcut)", refreshed)
         self.assertIn("dispatchArtworkKey('keyup', shortcut)", refreshed)
         self.assertIn("function offsetNativeControlText()", refreshed)

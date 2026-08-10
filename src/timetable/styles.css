@@ -6236,6 +6236,17 @@ h1 {
   grid-template-columns: minmax(0, 3.15fr) minmax(220px, 0.85fr);
 }
 
+@media (min-width: 721px) and (min-height: 431px) {
+  .artwork-dialog-panel {
+    width: calc(100vw - 48px);
+    max-height: calc(100dvh - 48px);
+  }
+
+  .artwork-detail-layout {
+    grid-template-columns: minmax(0, 1fr) clamp(260px, 22vw, 420px);
+  }
+}
+
 .artwork-live-stage {
   position: relative;
   min-width: 0;

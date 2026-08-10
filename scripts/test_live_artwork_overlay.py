@@ -174,6 +174,12 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn("min-height: 44px", snippet)
         self.assertIn("Touch keyboard shortcuts / 可触摸键盘快捷键", snippet)
         self.assertIn("target.dispatchEvent(event);", snippet)
+        self.assertIn("function touchKeyInstructionExcerpt(value)", snippet)
+        self.assertIn("gh-touch-key-dock-copy", snippet)
+        self.assertIn("background: transparent !important", snippet)
+        self.assertIn("box-shadow: none !important", snippet)
+        self.assertIn("pointer-events: none !important", snippet)
+        self.assertIn("text-decoration: underline", snippet)
 
 
 if __name__ == "__main__":

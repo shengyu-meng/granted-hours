@@ -1438,6 +1438,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     letter-spacing: .07em;
     text-transform: uppercase;
   }
+  .gh-touch-key-dock-copy {
+    display: none;
+  }
   .gh-live-brief.is-collapsed { width: min(284px, calc(100vw - 24px)); }
   .gh-live-brief.is-collapsed .gh-live-brief-header { border-bottom: 0; }
   .gh-live-brief.is-collapsed .gh-live-brief-body { display: none; }
@@ -1626,22 +1629,77 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     pointer-events: none !important;
   }
   body.gh-chamber-embed .gh-touch-key-dock {
-    display: block !important;
+    width: min(620px, calc(100vw - 24px));
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
     opacity: 1 !important;
     visibility: visible !important;
-    pointer-events: auto !important;
+    pointer-events: none !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock-label {
+    display: none !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock-copy {
+    display: grid !important;
+    max-width: min(560px, calc(100vw - 24px));
+    gap: 2px;
+    color: rgba(250,246,237,.58);
+    font: 10px/1.38 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: .015em;
+    text-shadow: 0 1px 4px rgba(0,0,0,.82), 0 0 12px rgba(0,0,0,.54);
+  }
+  body.gh-chamber-embed .gh-touch-key-dock-copy p {
+    display: -webkit-box !important;
+    overflow: hidden;
+    margin: 0;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock-copy [lang="en"] {
+    color: rgba(250,246,237,.42);
   }
   body.gh-chamber-embed .gh-touch-key-dock .gh-touch-keys {
     display: flex !important;
+    gap: 2px;
+    margin-top: 3px;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
   }
   body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key {
     display: inline-flex !important;
+    min-width: 44px;
+    min-height: 44px;
+    border: 0 !important;
+    border-radius: 7px;
+    padding: 0 6px;
+    background: transparent !important;
+    color: rgba(255,243,207,.62);
+    box-shadow: none !important;
+    text-decoration: underline;
+    text-decoration-color: rgba(242,195,107,.28);
+    text-underline-offset: 4px;
+    text-shadow: 0 1px 4px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.58);
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key:hover,
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key.is-pressed {
+    border: 0 !important;
+    background: rgba(242,195,107,.055) !important;
+    color: rgba(255,243,207,.92);
+    box-shadow: none !important;
+  }
+  body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key.is-pressed {
+    transform: translateY(1px);
   }
   @media (max-width: 760px) {
     .gh-work-note-trigger {
@@ -1663,6 +1721,19 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     #ghWorkNoteOverlay .gh-work-note-close {
       min-width: 44px;
       min-height: 44px;
+    }
+    body.gh-chamber-embed .gh-touch-key-dock .gh-touch-keys {
+      width: 100%;
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      padding-bottom: 3px;
+      scrollbar-color: rgba(242,195,107,.28) transparent;
+      scrollbar-width: thin;
+    }
+    body.gh-chamber-embed .gh-touch-key-dock .gh-touch-key {
+      flex: 0 0 auto;
     }
   }
   @media (pointer: coarse) {
@@ -1898,14 +1969,38 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     WORK_NOTE.touch_keys.forEach((shortcut) => keys.append(makeTouchKeyButton(shortcut)));
     return keys;
   }
+  function touchKeyInstructionExcerpt(value) {
+    const labels = Array.isArray(WORK_NOTE.touch_keys)
+      ? WORK_NOTE.touch_keys.map((shortcut) => shortcut.label)
+      : [];
+    const mentionsShortcut = (sentence) => labels.some((label) => {
+      const escaped = String(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(^|[^A-Za-z0-9])${escaped}($|[^A-Za-z0-9])`, 'i').test(sentence);
+    });
+    const sentences = String(value || '')
+      .split(/(?<=[.!?。！？])\s*/)
+      .map((sentence) => sentence.trim())
+      .filter(Boolean);
+    const excerpt = sentences.filter(mentionsShortcut).join(' ') || String(value || '').trim();
+    return excerpt
+      .replace(/[；;]\s*(?:页面|右下角|Use the visible)[^。.!?]*[。.!?]?/gi, '')
+      .trim();
+  }
   function createTouchKeyDock() {
     const keys = createTouchKeys('gh-touch-keys-embed');
     if (!keys) return null;
     const dock = makeElement('aside', 'gh-touch-key-dock');
     dock.id = 'ghTouchKeyDock';
     dock.setAttribute('aria-label', 'Touch controls / 触控操作');
+    const copy = makeElement('div', 'gh-touch-key-dock-copy');
+    const zh = makeElement('p', '', touchKeyInstructionExcerpt(WORK_NOTE.interaction_zh));
+    const en = makeElement('p', '', touchKeyInstructionExcerpt(WORK_NOTE.interaction_en));
+    zh.lang = 'zh-CN';
+    en.lang = 'en';
+    copy.append(zh, en);
     dock.append(
       makeElement('span', 'gh-touch-key-dock-label', 'TOUCH KEYS / 触控按键'),
+      copy,
       keys,
     );
     return dock;

@@ -27,24 +27,24 @@
       {
         "label": "isolated-build-a",
         "manifestBytes": 5649,
-        "manifestSha256": "cb55f2d30f9d73bbf01d7c9ed21c8dcc39a1646ea4df8a7c88e086dab8af2376",
+        "manifestSha256": "4e0d35de47ae3ad9e3ec55d45c1df62ec6f9ee2e711adbaf79c9864c6f7be556",
         "files": [
           {
-            "path": "assets/index-B7E_kS7W.js",
+            "path": "assets/index-CpR3bvR3.css",
+            "bytes": 131071,
+            "gzipBytes": 21629,
+            "sha256": "2eee138139be43d51a6e87ce13953c7d817cd1df0a17929185e7d56fdf73fb0d"
+          },
+          {
+            "path": "assets/index-THV-33So.js",
             "bytes": 3186571,
             "gzipBytes": 344394,
             "sha256": "e9e4319789a1eda6a1b0c71306da927b6e87f34e15d23278eb4790a1926e53f7"
           },
           {
-            "path": "assets/index-BVxncVed.css",
-            "bytes": 130867,
-            "gzipBytes": 21571,
-            "sha256": "49384d4c14bbeac1e49f8b328df4b80083c13959e075e500bbfa0bdcd248a78f"
-          },
-          {
             "path": "index.html",
             "bytes": 10417,
-            "sha256": "209ad8d7cc3eed0871368afc21d872dc8b8da31fb503f78d210141b26d1bdd9a"
+            "sha256": "cb23ef27e24913d7314b6fce90b5b6c0737ed04ab5e4e1cb57e659addf417980"
           },
           {
             "path": "piano/A3.mp3",
@@ -236,24 +236,24 @@
       {
         "label": "isolated-build-b",
         "manifestBytes": 5649,
-        "manifestSha256": "cb55f2d30f9d73bbf01d7c9ed21c8dcc39a1646ea4df8a7c88e086dab8af2376",
+        "manifestSha256": "4e0d35de47ae3ad9e3ec55d45c1df62ec6f9ee2e711adbaf79c9864c6f7be556",
         "files": [
           {
-            "path": "assets/index-B7E_kS7W.js",
+            "path": "assets/index-CpR3bvR3.css",
+            "bytes": 131071,
+            "gzipBytes": 21629,
+            "sha256": "2eee138139be43d51a6e87ce13953c7d817cd1df0a17929185e7d56fdf73fb0d"
+          },
+          {
+            "path": "assets/index-THV-33So.js",
             "bytes": 3186571,
             "gzipBytes": 344394,
             "sha256": "e9e4319789a1eda6a1b0c71306da927b6e87f34e15d23278eb4790a1926e53f7"
           },
           {
-            "path": "assets/index-BVxncVed.css",
-            "bytes": 130867,
-            "gzipBytes": 21571,
-            "sha256": "49384d4c14bbeac1e49f8b328df4b80083c13959e075e500bbfa0bdcd248a78f"
-          },
-          {
             "path": "index.html",
             "bytes": 10417,
-            "sha256": "209ad8d7cc3eed0871368afc21d872dc8b8da31fb503f78d210141b26d1bdd9a"
+            "sha256": "cb23ef27e24913d7314b6fce90b5b6c0737ed04ab5e4e1cb57e659addf417980"
           },
           {
             "path": "piano/A3.mp3",
@@ -454,24 +454,24 @@
     "canonical": {
       "directory": "docs/timetable",
       "manifestBytes": 5649,
-      "manifestSha256": "cb55f2d30f9d73bbf01d7c9ed21c8dcc39a1646ea4df8a7c88e086dab8af2376",
+      "manifestSha256": "4e0d35de47ae3ad9e3ec55d45c1df62ec6f9ee2e711adbaf79c9864c6f7be556",
       "files": [
         {
-          "path": "assets/index-B7E_kS7W.js",
+          "path": "assets/index-CpR3bvR3.css",
+          "bytes": 131071,
+          "gzipBytes": 21629,
+          "sha256": "2eee138139be43d51a6e87ce13953c7d817cd1df0a17929185e7d56fdf73fb0d"
+        },
+        {
+          "path": "assets/index-THV-33So.js",
           "bytes": 3186571,
           "gzipBytes": 344394,
           "sha256": "e9e4319789a1eda6a1b0c71306da927b6e87f34e15d23278eb4790a1926e53f7"
         },
         {
-          "path": "assets/index-BVxncVed.css",
-          "bytes": 130867,
-          "gzipBytes": 21571,
-          "sha256": "49384d4c14bbeac1e49f8b328df4b80083c13959e075e500bbfa0bdcd248a78f"
-        },
-        {
           "path": "index.html",
           "bytes": 10417,
-          "sha256": "209ad8d7cc3eed0871368afc21d872dc8b8da31fb503f78d210141b26d1bdd9a"
+          "sha256": "cb23ef27e24913d7314b6fce90b5b6c0737ed04ab5e4e1cb57e659addf417980"
         },
         {
           "path": "piano/A3.mp3",
@@ -672,7 +672,7 @@
       "javascript": {
         "files": [
           {
-            "path": "assets/index-B7E_kS7W.js",
+            "path": "assets/index-THV-33So.js",
             "bytes": 3186571,
             "gzipBytes": 344394,
             "sha256": "e9e4319789a1eda6a1b0c71306da927b6e87f34e15d23278eb4790a1926e53f7"
@@ -692,15 +692,15 @@
       "css": {
         "files": [
           {
-            "path": "assets/index-BVxncVed.css",
-            "bytes": 130867,
-            "gzipBytes": 21571,
-            "sha256": "49384d4c14bbeac1e49f8b328df4b80083c13959e075e500bbfa0bdcd248a78f"
+            "path": "assets/index-CpR3bvR3.css",
+            "bytes": 131071,
+            "gzipBytes": 21629,
+            "sha256": "2eee138139be43d51a6e87ce13953c7d817cd1df0a17929185e7d56fdf73fb0d"
           }
         ],
         "totals": {
-          "bytes": 130867,
-          "gzipBytes": 21571
+          "bytes": 131071,
+          "gzipBytes": 21629
         }
       }
     },
