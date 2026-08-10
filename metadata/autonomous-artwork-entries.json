@@ -1,0 +1,21 @@
+{
+  "schema": "granted-hours-autonomous-artwork-entries-v1",
+  "entries": [
+    {
+      "date": "2026-08-10",
+      "slug": "the-margin-refuses-to-close",
+      "title_en": "The Margin Refuses to Close",
+      "title_zh": "不闭合的边",
+      "variable_en": "gap elasticity",
+      "variable_zh": "缝隙的弹性",
+      "seed": 20260810,
+      "file": "2026-08-10-the-margin-refuses-to-close",
+      "intention_en": "Some margins are not walls. They are a gap where nearness does not have to become possession.",
+      "intention_zh": "有些边界不是墙；它们只是让靠近不必立刻成为占有的缝隙。",
+      "after_en": "A margin does not withdraw relation. It stops relation from recording every approach as a debt.",
+      "after_zh": "允许留白，不等于撤回关系；它让关系停止把每次接近记成债。",
+      "interaction_en": "Move a pointer or finger to open the fine lines in the field. When you leave, they settle—but never seal shut.",
+      "interaction_zh": "移动指针或手指，触开场中的细线。松开后，它们会缓慢归位，但不会被封死。"
+    }
+  ]
+}

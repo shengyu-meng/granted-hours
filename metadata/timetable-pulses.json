@@ -1,9 +1,9 @@
 {
   "schema": "granted-hours-timetable-pulses-v6",
   "timezone": "Asia/Shanghai",
-  "source_file_count": 5052,
-  "deduplicated_run_count": 4933,
-  "observed_session_window_count": 2514,
+  "source_file_count": 5065,
+  "deduplicated_run_count": 4942,
+  "observed_session_window_count": 2521,
   "days": [
     {
       "date": "2026-05-07",
@@ -51017,6 +51017,34 @@
           "summary_zh": "完成 1 次系统例行检查；1 次静默正常，0 次出现公开级别异常或新鲜度提示。",
           "summary_en": "1 system checks completed; 1 were silently healthy and 0 exposed a public-level anomaly or freshness warning.",
           "summary_provenance": "derived_public_safe"
+        },
+        {
+          "start": "23:30",
+          "end": "23:32",
+          "duration_minutes": 2,
+          "execution_minutes": 1,
+          "time_bucket": "evening",
+          "category": "daily_reminder",
+          "count": 1,
+          "time_provenance": "observed_session_window",
+          "owner_scope": "self",
+          "ownership_provenance": "explicit_import_authorization",
+          "public_label_zh": "晚间提醒",
+          "public_label_en": "Evening reminder",
+          "summary_original": "🌙 晚安 · 2026年8月9日\n\n今天不替空白编故事。把它留成一块安静的底色：没有被记录，不等于没有经过。  \n明天启动时，先做一件最具体的小事。",
+          "excerpt_original": "🌙 晚安 · 2026年8月9日\n\n今天不替空白编故事。把它留成一块安静的底色：没有被记录，不等于没有经过。  \n明天启动时，先做一件最具体的小事。",
+          "original_language": "zh",
+          "projection_kind": "verbatim",
+          "redaction_policy": "semantic_abstraction_then_entity_mask_v3",
+          "redaction_count": 0,
+          "semantic_abstraction_count": 0,
+          "projection_provenance": "semantic_public_projection",
+          "disclosure_policy": "semantic_abstraction_entity_masked_reminder_v3",
+          "disclosure_authorization": "explicit_user_authorization_2026-07-29",
+          "summary_en": "🌙 Good night · August 9, 2026\n\nToday, do not invent stories to fill the blank. Leave it as a quiet ground: not being recorded does not mean it was not lived through.  \nWhen tomorrow begins, start with one small, concrete thing.",
+          "excerpt_en": "🌙 Good night · August 9, 2026\n\nToday, do not invent stories to fill the blank. Leave it as a quiet ground: not being recorded does not mean it was not lived through.  \nWhen tomorrow begins, start with one small, concrete thing.",
+          "translation_provenance": "public_mask_preserving_translation_v1",
+          "summary_provenance": "semantic_public_projection"
         }
       ]
     }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-09",
-  "nodeCount": 96,
+  "generatedAt": "2026-08-10",
+  "nodeCount": 97,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2017,6 +2017,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -16,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-10",
+      "date": "2026-08-10",
+      "title_en": "The Margin Refuses to Close",
+      "title_zh": "不闭合的边",
+      "variable_en": "gap elasticity",
+      "variable_zh": "缝隙的弹性",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The smallest opening became a map because the closed system could not close perfectly.",
+      "diary_zh": "最小的开口变成了地图，因为封闭系统无法完美封闭。",
+      "live_url": "../archive/2026/08/2026-08-10/live/",
+      "archive_url": "../archive/2026/08/2026-08-10/",
+      "gif": "../archive/2026/08/2026-08-10/assets/visual-preview.gif",
+      "x": 10,
+      "y": -17,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2037,7 +2058,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 37
+      "count": 38
     },
     {
       "id": "maintenance",
@@ -2440,6 +2461,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-09"
     ],
     [
+      "2026-08-09",
+      "2026-08-10"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2578,6 +2603,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-05",
       "2026-08-09"
+    ],
+    [
+      "2026-08-08",
+      "2026-08-10"
     ],
     [
       "2026-05-07",

@@ -1522,47 +1522,13 @@ def load_pulses(path: Path) -> dict[str, list[dict]]:
 
 
 def inferred_history(public_entry: dict) -> dict:
-    """Deterministic public-safe fallback for a synthetic future public day."""
+    """Represent a newly published artwork day awaiting real event evidence."""
     return {
         "date": public_entry["date"],
         "provenance": "inferred",
-        "assigned_residues": [
-            {
-                "category": "system_maintenance",
-                "en": "Run the routine service-health pass and preserve actionable failure evidence",
-                "zh": "执行例行服务健康检查并保留可操作的故障证据",
-            },
-            {
-                "category": "research_synthesis",
-                "en": "Verify public-source freshness and separate confirmed findings from open questions",
-                "zh": "核验公开来源的新鲜度并区分已确认发现与待解问题",
-            },
-            {
-                "category": "document_processing",
-                "en": "Consolidate working notes into a concise bilingual review brief",
-                "zh": "将工作笔记整理为简明的双语复核简报",
-            },
-            {
-                "category": "code_development",
-                "en": "Resolve a queued interface maintenance item and run focused regression checks",
-                "zh": "处理一项排队中的界面维护任务并执行聚焦回归检查",
-            },
-            {
-                "category": "social_media_organization",
-                "en": "Organize the public-content queue and reconcile pending publication evidence",
-                "zh": "整理公开内容队列并核对待处理的发布证据",
-            },
-            {
-                "category": "visual_production",
-                "en": "Prepare a reusable visual reference sheet and audit its composition",
-                "zh": "准备可复用的视觉参考表并审查其构图",
-            },
-            {
-                "category": "system_maintenance",
-                "en": "Validate backup and recovery state before closing the maintenance cycle",
-                "zh": "在结束维护周期前验证备份与恢复状态",
-            },
-        ],
+        # Do not invent work for the current civil day.  The next closure will
+        # replace this waiting state with evidence-backed prior-day events.
+        "assigned_residues": [],
     }
 
 

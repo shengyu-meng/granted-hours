@@ -193,6 +193,36 @@ class TimetablePulseImporterTests(unittest.TestCase):
             ],
         )
 
+    def test_date_scoped_merge_allows_new_artwork_day_without_pulses(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            snapshot_path = Path(temporary_directory) / "snapshot.json"
+            existing = {
+                "schema": importer.PULSE_SNAPSHOT_SCHEMA,
+                "timezone": "Asia/Shanghai",
+                "days": [
+                    {"date": "2026-08-09", "pulses": [{"sentinel": "old"}]},
+                ],
+            }
+            rebuilt = {
+                **existing,
+                "days": [
+                    {"date": "2026-08-09", "pulses": [{"sentinel": "new"}]},
+                    {"date": "2026-08-10", "pulses": []},
+                ],
+            }
+            snapshot_path.write_text(json.dumps(existing), encoding="utf-8")
+
+            merged = importer.merge_date_scoped_snapshot(
+                snapshot_path,
+                rebuilt,
+                {"2026-08-09"},
+            )
+
+        self.assertEqual(
+            merged["days"],
+            [{"date": "2026-08-09", "pulses": [{"sentinel": "new"}]}],
+        )
+
     def test_reminder_refresh_preserves_matching_public_footprints_only(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             snapshot_path = Path(temporary_directory) / "snapshot.json"

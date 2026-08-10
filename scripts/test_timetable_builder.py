@@ -46,9 +46,10 @@ class TimetableBuilderTests(unittest.TestCase):
             self.pulses,
         )
 
-    def test_authored_history_covers_every_current_public_date(self) -> None:
+    def test_only_newest_public_days_may_wait_for_authored_history(self) -> None:
         public_dates = {entry["date"] for entry in self.public_days}
-        self.assertEqual(public_dates, set(self.history))
+        missing = public_dates.difference(self.history)
+        self.assertEqual(missing, {value for value in public_dates if value > max(self.history)})
         self.assertEqual(len(public_dates), len(self.public_days))
 
     def test_month_cell_preserves_every_public_task_for_scroll_preview(self) -> None:
@@ -233,6 +234,9 @@ class TimetableBuilderTests(unittest.TestCase):
         # retention of low-information public records.
         self.assertGreaterEqual(category_counts["social_media_organization"], 12)
         expected_provenance = Counter(entry["provenance"] for entry in self.history.values())
+        expected_provenance["inferred"] += sum(
+            day["date"] not in self.history for day in output["days"]
+        )
         self.assertEqual(
             Counter(day["history_provenance"] for day in output["days"]),
             expected_provenance,
@@ -337,12 +341,17 @@ class TimetableBuilderTests(unittest.TestCase):
         output = self.build()
         allowed_categories = set(builder.PULSE_DEFINITIONS)
         calendar_dates = {day["date"] for day in output["days"] if day["type"] == "calendar"}
+        waiting_dates = {
+            day["date"]
+            for day in output["days"]
+            if day["date"] > max(self.pulses)
+        }
         self.assertEqual(
             {day["date"] for day in output["days"]},
-            set(self.pulses) | calendar_dates,
+            set(self.pulses) | calendar_dates | waiting_dates,
         )
         for day in output["days"]:
-            if day["type"] == "calendar" and day["date"] not in self.pulses:
+            if day["date"] not in self.pulses:
                 self.assertEqual(day["background_pulses"], [])
                 continue
             self.assertTrue(day["background_pulses"], f"{day['date']} needs real run evidence")
@@ -1267,19 +1276,15 @@ class TimetableBuilderTests(unittest.TestCase):
                 with self.assertRaisesRegex(SystemExit, "bgm must stay on the canonical live path"):
                     self.build(tampered)
 
-    def test_synthetic_future_day_uses_assigned_work_inferred_fallback(self) -> None:
+    def test_synthetic_future_day_waits_for_real_event_evidence(self) -> None:
         synthetic_days = self.synthetic_public_days()
         output = self.build(synthetic_days)
         future = output["days"][-1]
         self.assertEqual(future["date"], synthetic_days[-1]["date"])
         self.assertEqual(future["history_provenance"], "inferred")
-        self.assertGreaterEqual(len(future["task_residues"]), 5)
-        self.assertLessEqual(len(future["task_residues"]), 8)
+        self.assertEqual(future["task_residues"], [])
         builder.validate_tasks(future["date"], future["task_residues"], self.config["autonomous_hour"])
         self.assertNotIn(synthetic_days[-1]["date"], self.history)
-        for task in future["task_residues"]:
-            self.assertNotIn(future["title_en"].lower(), task["en"].lower())
-            self.assertNotIn(future["title_zh"], task["zh"])
 
         alternate = copy.deepcopy(synthetic_days[-1])
         alternate.update(
@@ -1293,7 +1298,7 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertEqual(
             builder.inferred_history(synthetic_days[-1])["assigned_residues"],
             builder.inferred_history(alternate)["assigned_residues"],
-            "future assigned work must not be templated from autonomous artwork metadata",
+            "the waiting state must not be templated from artwork metadata",
         )
 
     def test_synthetic_public_days_cli_output_is_deterministic(self) -> None:

@@ -2110,5 +2110,27 @@
     },
     "bgm": "archive/2026/08/2026-08-09/live/2026-08-09-the-signal-that-does-not-recruit-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-09/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-10",
+    "source_date": "2026-08-09",
+    "crystallization_date": "2026-08-10",
+    "title_en": "The Margin Refuses to Close",
+    "title_zh": "不闭合的边",
+    "type": "live",
+    "seed": 20260810,
+    "preview": "archive/2026/08/2026-08-10/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-10/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-10/",
+    "live_url": "archive/2026/08/2026-08-10/live/",
+    "variable_en": "gap elasticity",
+    "variable_zh": "缝隙的弹性",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-10/live/2026-08-10-the-margin-refuses-to-close-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-10/assets/visual-preview.gif"
   }
 ]

@@ -1226,10 +1226,61 @@ def merge_history(
     return {**history, "schema": HISTORY_SCHEMA, "days": output}
 
 
-def import_events(state_db: Path, days_path: Path, history_path: Path, detector: Path, denylists: tuple[Path, ...], dry_run: bool, contours_path: Path = DEFAULT_CONTOURS) -> dict:
+def merge_history_scoped(
+    history: dict,
+    collaborations: dict[str, list[dict]],
+    agents: dict[str, list[dict]],
+    public_dates: list[str],
+    contours: dict[str, dict],
+    missing_contours: list[str],
+    target_dates: tuple[str, ...] | None = None,
+) -> dict:
+    if not target_dates:
+        return merge_history(
+            history,
+            collaborations,
+            agents,
+            public_dates,
+            contours,
+            missing_contours,
+        )
+    target_set = set(target_dates)
+    scoped_history = {
+        **history,
+        "days": [entry for entry in history["days"] if entry.get("date") in target_set],
+    }
+    scoped = merge_history(
+        scoped_history,
+        collaborations,
+        agents,
+        sorted(target_set),
+        contours,
+        missing_contours,
+    )
+    replacements = {entry["date"]: entry for entry in scoped["days"]}
+    merged_days = [
+        replacements.pop(entry["date"], entry)
+        if entry.get("date") in target_set
+        else entry
+        for entry in history["days"]
+    ]
+    merged_days.extend(replacements.values())
+    merged_days.sort(key=lambda entry: entry["date"])
+    return {**history, "schema": HISTORY_SCHEMA, "days": merged_days}
+
+
+def import_events(state_db: Path, days_path: Path, history_path: Path, detector: Path, denylists: tuple[Path, ...], dry_run: bool, contours_path: Path = DEFAULT_CONTOURS, target_dates: tuple[str, ...] | None = None) -> dict:
     dates = public_dates(days_path); history = read_json(history_path)
+    if target_dates:
+        requested = set(target_dates)
+        unknown = requested.difference(dates)
+        if unknown:
+            raise ValueError(f"Requested collaboration dates are not public: {len(unknown)}")
+        scan_dates = sorted(requested)
+    else:
+        scan_dates = dates
     contours = load_collaboration_contours(contours_path)
-    collected_dates = [day for day in dates if day not in MANUALLY_CURATED_DATES]
+    collected_dates = [day for day in scan_dates if day not in MANUALLY_CURATED_DATES]
     collaborations, audit = collect(state_db, collected_dates, detector, denylists)
     agents = collect_agent_events(state_db, collected_dates, excluded_parent_sources={"telegram"})
     collaboration_categories = {
@@ -1244,23 +1295,25 @@ def import_events(state_db: Path, days_path: Path, history_path: Path, detector:
         for day, events in agents.items()
     }
     missing_contours: list[str] = []
-    merged = merge_history(
+    merged = merge_history_scoped(
         history,
         collaborations,
         agents,
-        dates,
+        scan_dates,
         contours,
         missing_contours,
+        target_dates,
     )
     if missing_contours:
         raise ValueError(
             f"Missing {len(missing_contours)} collaboration contours; author "
             f"bilingual contour entries in {contours_path} and rerun"
         )
-    inserted = [item for day in merged["days"] for item in day["assigned_residues"] if item.get("source_kind") == "collaboration_session"]
+    report_dates = set(target_dates or dates)
+    inserted = [item for day in merged["days"] if day["date"] in report_dates for item in day["assigned_residues"] if item.get("source_kind") == "collaboration_session"]
     changed = json.dumps(merged, ensure_ascii=False, indent=2) + "\n" != history_path.read_text(encoding="utf-8")
     if changed and not dry_run: write_json(history_path, merged)
-    return {"changed": changed, "event_count": len(inserted), "event_dates": sorted({day["date"] for day in merged["days"] if any(item.get("source_kind") == "collaboration_session" for item in day["assigned_residues"])}), "category_counts": dict(sorted(Counter(item["category"] for item in inserted).items())), "audit": audit, "history": merged}
+    return {"changed": changed, "event_count": len(inserted), "event_dates": sorted({day["date"] for day in merged["days"] if day["date"] in report_dates and any(item.get("source_kind") == "collaboration_session" for item in day["assigned_residues"])}), "category_counts": dict(sorted(Counter(item["category"] for item in inserted).items())), "audit": audit, "history": merged}
 
 
 def parse_args() -> argparse.Namespace:
@@ -1269,6 +1322,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY); parser.add_argument("--entity-detector", type=Path, default=DEFAULT_ENTITY_DETECTOR)
     parser.add_argument("--holdings-denylist", type=Path, default=DEFAULT_HOLDINGS_DENYLIST); parser.add_argument("--self-media-denylist", type=Path, default=DEFAULT_SELF_MEDIA_DENYLIST); parser.add_argument("--identity-denylist", type=Path, default=DEFAULT_IDENTITY_DENYLIST)
     parser.add_argument("--contours", type=Path, default=DEFAULT_CONTOURS)
+    parser.add_argument("--date", dest="dates", action="append", help="Import only this declared public YYYY-MM-DD date; repeat for multiple dates")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -1276,7 +1330,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     try:
-        result = import_events(args.state_db, args.days, args.history, args.entity_detector, (args.holdings_denylist, args.self_media_denylist, args.identity_denylist), args.dry_run, args.contours)
+        result = import_events(args.state_db, args.days, args.history, args.entity_detector, (args.holdings_denylist, args.self_media_denylist, args.identity_denylist), args.dry_run, args.contours, tuple(args.dates) if args.dates else None)
     except (OSError, ValueError, TypeError, OverflowError, sqlite3.Error, json.JSONDecodeError, subprocess.SubprocessError) as error:
         print(f"Collaboration event import failed: {type(error).__name__}", file=sys.stderr); return 1
     audit = result["audit"]

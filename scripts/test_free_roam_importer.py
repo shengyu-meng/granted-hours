@@ -14,6 +14,50 @@ import import_free_roam_artifacts as importer
 
 
 class FreeRoamImporterTests(unittest.TestCase):
+    def test_unknown_explicit_date_is_declared_from_sanitized_public_note(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            source = Path(temporary_directory) / "free-roam"
+            source.mkdir()
+            day = "2026-08-11"
+            file_base = f"{day}-self-maintaining-margin"
+            (source / f"{file_base}-note.md").write_text(
+                """# Self-Maintaining Margin / 自维护的边
+
+- **Free variable / 自由变量**: continuity / 连续性
+- **Interaction claim / 交互主张**: a field can resume without possession / 场可以在不占有的情况下恢复
+- **Intention / 发心**: 让作品在完成后安全地进入公开日历。
+  *Let the work enter the public calendar safely after completion.*
+- **Interaction / 交互**: 移动指针，让边缘缓慢打开。
+  *Move the pointer and let the margin open slowly.*
+- **Afterimage / 余像**: 自主不等于失去维护。
+  *Autonomy does not require abandoning maintenance.*
+- **Source Day / 源日**: 2026-08-10
+- **Crystallization Day / 结晶日**: 2026-08-11
+- **Granted duration / 授予时长**: 03:17–04:17 Asia/Shanghai
+- **Experience duration / 体验时长**: open-ended / 开放
+- **BGM**: original public-safe instrumental.
+""",
+                encoding="utf-8",
+            )
+            for suffix in (
+                ".html",
+                "-preview.png",
+                "-preview.gif",
+                "-visual-preview.gif",
+                "-visual-preview.webp",
+                "-bgm.mp3",
+            ):
+                (source / f"{file_base}{suffix}").write_bytes(b"fixture")
+
+            entry = importer.discover_entry_from_note(source, day)
+
+        self.assertEqual(entry["date"], day)
+        self.assertEqual(entry["slug"], "self-maintaining-margin")
+        self.assertEqual(entry["title_en"], "Self-Maintaining Margin")
+        self.assertEqual(entry["title_zh"], "自维护的边")
+        self.assertEqual(entry["seed"], 20260811)
+        self.assertEqual(entry["interaction_en"], "Move the pointer and let the margin open slowly.")
+
     def test_live_enhancement_adds_one_embed_aware_work_note_overlay(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             live_html = Path(temporary_directory) / "index.html"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused tests for the live timetable cron v6 installer."""
+"""Focused tests for the live timetable cron v9 installer."""
 from __future__ import annotations
 
 import json
@@ -17,7 +17,7 @@ DIALOGUE_ID = "dialogue-test-id"
 FREE_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_NAME = "授时：每日自由创作与日历闭环"
-MARKER = "[授时每日公开闭环契约 v8]"
+MARKER = "[授时每日公开闭环契约 v9]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
@@ -109,14 +109,20 @@ class TimetableCronContractTests(unittest.TestCase):
                 self.assertEqual(job["prompt"].count(MARKER), 1)
                 self.assertNotIn("[授时公开语义隐私契约 v5]", job["prompt"])
             self.assertIn("只负责自由创作", by_name[FREE_NAME]["prompt"])
-            self.assertIn("import_collaboration_events.py", by_name[DIALOGUE_NAME]["prompt"])
+            self.assertIn("标准双语 `*-note.md`", by_name[FREE_NAME]["prompt"])
+            self.assertIn("event_backlog_dates", by_name[DIALOGUE_NAME]["prompt"])
+            self.assertIn("不得写 canonical public worktree", by_name[DIALOGUE_NAME]["prompt"])
             self.assertIn("从旧到新", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("granted-hours-closure-transaction-v1", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("当前 dirty 路径集合与 `owned_paths` **完全相等**", by_name[CLOSURE_NAME]["prompt"])
-            self.assertIn("禁止退回无 `--date` 的全语料导入", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("自动写入公开声明注册表", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("import_collaboration_events.py --date YYYY-MM-DD", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("绝不在当天早晨提前导入当天", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("08:35 与 10:35", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("plan_daily_closure.py --current-date YYYY-MM-DD", by_name[CLOSURE_NAME]["prompt"])
             self.assertEqual(
                 by_name[CLOSURE_NAME]["schedule"]["expr"],
-                "35 6 * * *",
+                "35 6,8,10 * * *",
             )
             self.assertTrue(by_name[CLOSURE_NAME]["enabled"])
 

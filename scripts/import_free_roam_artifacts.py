@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES_BASE = 'https://shengyu-meng.github.io/granted-hours/'
 REPO_BASE = 'https://github.com/shengyu-meng/granted-hours'
 TIMETABLE_CONFIG = ROOT / 'metadata' / 'timetable-calendar.json'
+AUTO_ENTRIES_FILENAME = 'autonomous-artwork-entries.json'
 MAX_VISUAL_PREVIEW_BYTES = 700 * 1024
 DUAL_DATE_HTML_START = '<!-- granted-hours-dual-date:start -->'
 DUAL_DATE_HTML_END = '<!-- granted-hours-dual-date:end -->'
@@ -1209,6 +1210,200 @@ def read_safe(path: Path) -> str:
         if rx.search(text):
             raise SystemExit(f'Possible private/sensitive content in {path}: {rx.pattern}')
     return text
+
+
+ENTRY_FIELDS = (
+    'date', 'slug', 'title_en', 'title_zh', 'variable_en', 'variable_zh',
+    'seed', 'file', 'intention_en', 'intention_zh', 'after_en', 'after_zh',
+    'interaction_en', 'interaction_zh',
+)
+
+
+def auto_entries_path() -> Path:
+    return ROOT / 'metadata' / AUTO_ENTRIES_FILENAME
+
+
+def validate_entry(entry: dict, *, origin: str) -> dict:
+    if not isinstance(entry, dict):
+        raise SystemExit(f'Invalid autonomous artwork entry in {origin}')
+    missing = [field for field in ENTRY_FIELDS if field not in entry]
+    if missing:
+        raise SystemExit(f'Autonomous artwork entry in {origin} is missing {missing}')
+    try:
+        parsed_date = date.fromisoformat(str(entry['date']))
+    except ValueError as error:
+        raise SystemExit(f'Invalid autonomous artwork date in {origin}') from error
+    if parsed_date.isoformat() != entry['date']:
+        raise SystemExit(f'Non-canonical autonomous artwork date in {origin}')
+    if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', str(entry['slug'])):
+        raise SystemExit(f'Invalid autonomous artwork slug in {origin}')
+    expected_file = f"{entry['date']}-{entry['slug']}"
+    if entry['file'] != expected_file:
+        raise SystemExit(f'Autonomous artwork file/slug mismatch in {origin}')
+    if not isinstance(entry['seed'], int):
+        raise SystemExit(f'Invalid autonomous artwork seed in {origin}')
+    for field in ENTRY_FIELDS:
+        if field == 'seed':
+            continue
+        if not isinstance(entry[field], str) or not entry[field].strip():
+            raise SystemExit(f'Empty autonomous artwork {field} in {origin}')
+    return {field: entry[field] for field in ENTRY_FIELDS}
+
+
+def load_registered_entries() -> list[dict]:
+    path = auto_entries_path()
+    if not path.exists():
+        return []
+    source = json.loads(read_safe(path))
+    if not isinstance(source, dict) or source.get('schema') != 'granted-hours-autonomous-artwork-entries-v1':
+        raise SystemExit(f'Invalid autonomous artwork registry: {path}')
+    entries = [validate_entry(entry, origin=str(path)) for entry in source.get('entries', [])]
+    dates = [entry['date'] for entry in entries]
+    if dates != sorted(dates) or len(dates) != len(set(dates)):
+        raise SystemExit(f'Autonomous artwork registry dates are not unique and sorted: {path}')
+    legacy_dates = {entry['date'] for entry in ENTRIES}
+    duplicates = legacy_dates.intersection(dates)
+    if duplicates:
+        raise SystemExit(f'Autonomous artwork registry duplicates legacy dates: {sorted(duplicates)}')
+    return entries
+
+
+def note_field_blocks(note_text: str) -> dict[str, str]:
+    fields = {}
+    pattern = re.compile(
+        r'^- \*\*(?P<label>[^*]+)\*\*:\s*(?P<body>.*?)(?=^- \*\*|\Z)',
+        re.MULTILINE | re.DOTALL,
+    )
+    for match in pattern.finditer(note_text):
+        fields[match.group('label').strip()] = match.group('body').strip()
+    return fields
+
+
+def split_inline_pair(value: str, *, label: str) -> tuple[str, str]:
+    parts = [part.strip().strip('*_') for part in value.split(' / ', 1)]
+    if len(parts) != 2 or not all(parts):
+        raise SystemExit(f'Expected an English / Chinese pair for {label}')
+    return parts[0], parts[1]
+
+
+def split_note_bilingual(value: str, *, label: str) -> tuple[str, str]:
+    lines = [line.strip().rstrip('  ').strip('*_') for line in value.splitlines() if line.strip()]
+    if len(lines) != 2 or not all(lines):
+        raise SystemExit(f'Expected exactly one Chinese and one English line for {label}')
+    return lines[1], lines[0]
+
+
+def discover_entry_from_note(source: Path, requested_date: str) -> dict:
+    try:
+        date.fromisoformat(requested_date)
+    except ValueError as error:
+        raise SystemExit(f'Invalid requested date: {requested_date}') from error
+    matches = sorted(source.glob(f'{requested_date}-*-note.md'))
+    if len(matches) != 1:
+        raise SystemExit(
+            f'Expected exactly one sanitized public note for {requested_date}, found {len(matches)}'
+        )
+    note_path = matches[0]
+    note_text = read_safe(note_path)
+    heading = re.search(r'^#\s+(.+?)\s*$', note_text, re.MULTILINE)
+    if heading is None:
+        raise SystemExit(f'Missing bilingual title in {note_path}')
+    title_en, title_zh = split_inline_pair(heading.group(1), label='title')
+    fields = note_field_blocks(note_text)
+    required_labels = {
+        'Free variable / 自由变量',
+        'Intention / 发心',
+        'Interaction / 交互',
+        'Afterimage / 余像',
+        'Source Day / 源日',
+        'Crystallization Day / 结晶日',
+        'Granted duration / 授予时长',
+        'Experience duration / 体验时长',
+    }
+    missing_labels = sorted(required_labels.difference(fields))
+    if missing_labels:
+        raise SystemExit(f'Sanitized public note {note_path} is missing {missing_labels}')
+    variable_en, variable_zh = split_inline_pair(
+        fields['Free variable / 自由变量'], label='free variable'
+    )
+    intention_en, intention_zh = split_note_bilingual(
+        fields['Intention / 发心'], label='intention'
+    )
+    interaction_en, interaction_zh = split_note_bilingual(
+        fields['Interaction / 交互'], label='interaction'
+    )
+    after_en, after_zh = split_note_bilingual(
+        fields['Afterimage / 余像'], label='afterimage'
+    )
+    crystallization = fields['Crystallization Day / 结晶日'].strip('*_ ')
+    if crystallization != requested_date:
+        raise SystemExit(f'Crystallization date mismatch in {note_path}')
+    expected_source = (date.fromisoformat(requested_date) - timedelta(days=1)).isoformat()
+    source_day = fields['Source Day / 源日'].strip('*_ ')
+    if source_day != expected_source:
+        raise SystemExit(f'Source Day must be the previous civil date in {note_path}')
+    config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
+    timing = autonomous_timing(config)
+    granted = fields['Granted duration / 授予时长'].strip('*_ ')
+    expected_granted = f"{timing['start']}–{timing['end']} {config['timezone']}"
+    if granted != expected_granted:
+        raise SystemExit(f'Granted duration mismatch in {note_path}')
+    experience = fields['Experience duration / 体验时长'].strip('*_ ')
+    if experience.casefold() not in {'open-ended / 开放', '开放 / open-ended'}:
+        raise SystemExit(f'Experience duration must be open-ended in {note_path}')
+    file_base = note_path.name.removesuffix('-note.md')
+    prefix = f'{requested_date}-'
+    if not file_base.startswith(prefix):
+        raise SystemExit(f'Unexpected autonomous artwork filename: {note_path}')
+    slug = file_base[len(prefix):]
+    required_sources = [
+        source / f'{file_base}.html',
+        source / f'{file_base}-preview.png',
+        source / f'{file_base}-preview.gif',
+        source / f'{file_base}-visual-preview.gif',
+        source / f'{file_base}-visual-preview.webp',
+        source / f'{file_base}-bgm.mp3',
+    ]
+    missing_sources = [path.name for path in required_sources if not path.exists()]
+    if missing_sources:
+        raise SystemExit(f'Autonomous artwork {requested_date} is missing {missing_sources}')
+    entry = {
+        'date': requested_date,
+        'slug': slug,
+        'title_en': title_en,
+        'title_zh': title_zh,
+        'variable_en': variable_en,
+        'variable_zh': variable_zh,
+        'seed': int(requested_date.replace('-', '')),
+        'file': file_base,
+        'intention_en': intention_en,
+        'intention_zh': intention_zh,
+        'after_en': after_en,
+        'after_zh': after_zh,
+        'interaction_en': interaction_en,
+        'interaction_zh': interaction_zh,
+    }
+    return validate_entry(entry, origin=str(note_path))
+
+
+def persist_discovered_entries(discovered: list[dict]) -> None:
+    if not discovered:
+        return
+    path = auto_entries_path()
+    existing = load_registered_entries()
+    entries_by_date = {entry['date']: entry for entry in existing}
+    for entry in discovered:
+        if entry['date'] in entries_by_date and entries_by_date[entry['date']] != entry:
+            raise SystemExit(f'Autonomous artwork registry conflict for {entry["date"]}')
+        entries_by_date[entry['date']] = entry
+    payload = {
+        'schema': 'granted-hours-autonomous-artwork-entries-v1',
+        'entries': [entries_by_date[key] for key in sorted(entries_by_date)],
+    }
+    write(path, json.dumps(payload, ensure_ascii=False, indent=2) + '\n')
+
+
+ENTRIES.extend(load_registered_entries())
 
 def copy_if_exists(src: Path, dst: Path):
     if src.exists():
@@ -2724,7 +2919,7 @@ def preserve_inaugural():
             s = s.replace('# 2026-05-11 — First Granted Hour / 第一次授时', '# Inaugural Scaffold — First Granted Hour / 第一次授时')
             idx.write_text(s, encoding='utf-8')
 
-def build_entry(source: Path, entry: dict):
+def build_entry(source: Path, entry: dict, declared_entries: list[dict] | None = None):
     y, m, day = ymd_parts(entry['date'])
     rel = f'archive/{y}/{m}/{day}'
     docs_dir = ROOT/'docs'/rel
@@ -2794,7 +2989,7 @@ def build_entry(source: Path, entry: dict):
     config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
     dual_date = build_dual_date_metadata(
         entry['date'],
-        {candidate['date'] for candidate in ENTRIES},
+        {candidate['date'] for candidate in (declared_entries or ENTRIES)},
         config,
     )
     dual_date_markdown = render_archive_dual_date_markdown(dual_date)
@@ -3160,7 +3355,7 @@ def refresh_all_live_docs():
     print(f'Refreshed {refreshed} live pages in docs/archive/')
     return refreshed
 
-def merge_date_scoped_days(imported_days):
+def merge_date_scoped_days(imported_days, declared_entries: list[dict] | None = None):
     """Merge selected imports into canonical metadata without rewriting older days."""
     metadata_path = ROOT / 'metadata/days.json'
     if not metadata_path.exists():
@@ -3168,12 +3363,12 @@ def merge_date_scoped_days(imported_days):
     existing_days = json.loads(metadata_path.read_text(encoding='utf-8'))
     if not isinstance(existing_days, list):
         raise SystemExit('metadata/days.json must contain a list')
-    declared_dates = {entry['date'] for entry in ENTRIES}
+    declared_dates = {entry['date'] for entry in (declared_entries or ENTRIES)}
     existing_by_date = {}
     for day in existing_days:
         date = day.get('date') if isinstance(day, dict) else None
-        if date not in declared_dates and day.get('type') != 'calendar':
-            raise SystemExit(f'Existing metadata contains an undeclared date: {date}')
+        if not isinstance(date, str):
+            raise SystemExit('Existing metadata contains a day without a valid date')
         if date in existing_by_date:
             raise SystemExit(f'Existing metadata contains a duplicate date: {date}')
         existing_by_date[date] = day
@@ -3189,7 +3384,7 @@ def main():
     ap.add_argument('--source', help='Path to artifacts/free-roam')
     ap.add_argument('--refresh-live-docs', action='store_true', help='Refresh fold snippets in existing docs/archive/*/live/index.html files')
     ap.add_argument('--refresh-dual-dates', action='store_true', help='Refresh dual-date metadata in existing public archive pages and metadata')
-    ap.add_argument('--date', dest='dates', action='append', help='Import only this declared YYYY-MM-DD date; repeat for multiple dates')
+    ap.add_argument('--date', dest='dates', action='append', help='Import only this YYYY-MM-DD date; an unknown date is strictly declared from its sanitized public note')
     args = ap.parse_args()
     if args.refresh_dual_dates:
         if args.dates or args.refresh_live_docs or args.source:
@@ -3207,16 +3402,25 @@ def main():
     if not source.exists():
         raise SystemExit(f'Source does not exist: {source}')
     entries = ENTRIES
+    declared_entries = ENTRIES
+    discovered_entries = []
     if args.dates:
         requested_dates = set(args.dates)
         declared_dates = {entry['date'] for entry in ENTRIES}
         unknown_dates = requested_dates.difference(declared_dates)
-        if unknown_dates:
-            ap.error(f'Unknown declared dates: {sorted(unknown_dates)}')
-        entries = [entry for entry in ENTRIES if entry['date'] in requested_dates]
+        discovered_entries = [
+            discover_entry_from_note(source, requested_date)
+            for requested_date in sorted(unknown_dates)
+        ]
+        declared_entries = sorted(
+            [*ENTRIES, *discovered_entries], key=lambda entry: entry['date']
+        )
+        entries = [entry for entry in declared_entries if entry['date'] in requested_dates]
     preserve_inaugural()
-    imported_days = [build_entry(source, entry) for entry in entries]
-    days = merge_date_scoped_days(imported_days) if args.dates else imported_days
+    imported_days = [build_entry(source, entry, declared_entries) for entry in entries]
+    if discovered_entries:
+        persist_discovered_entries(discovered_entries)
+    days = merge_date_scoped_days(imported_days, declared_entries) if args.dates else imported_days
     build_indexes(days)
     build_maze_data()
     print(f'Imported {len(imported_days)} live entries; indexed {len(days)} public days from {source}')

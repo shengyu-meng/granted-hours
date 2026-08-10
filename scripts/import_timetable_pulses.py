@@ -1886,13 +1886,17 @@ def merge_date_scoped_snapshot(
     merged_by_date = dict(existing_by_date)
     for day_date in requested_dates:
         merged_by_date[day_date] = rebuilt_by_date[day_date]
-    missing_dates = set(rebuilt_by_date).difference(merged_by_date)
     extra_dates = set(merged_by_date).difference(rebuilt_by_date)
-    if missing_dates or extra_dates:
+    if extra_dates:
         fail(
-            "Date-scoped pulse merge does not match the public day set: "
-            f"missing={sorted(missing_dates)}, extra={sorted(extra_dates)}"
+            "Date-scoped pulse merge contains dates outside the public day set: "
+            f"extra={sorted(extra_dates)}"
         )
+    # A newly published artwork day is intentionally allowed to have no pulse
+    # entry yet.  The morning closure publishes the artwork first; that day's
+    # routine/collaboration evidence is imported by the next civil-day closure.
+    # Requiring every rebuilt public day here made a scoped update for yesterday
+    # fail as soon as today's artwork entered days.json.
     return {
         **rebuilt_snapshot,
         "days": [merged_by_date[day_date] for day_date in sorted(merged_by_date)],

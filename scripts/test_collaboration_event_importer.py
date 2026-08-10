@@ -20,6 +20,43 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 
 
 class CollaborationEventImporterTests(unittest.TestCase):
+    def test_scoped_merge_preserves_every_non_target_day_exactly(self) -> None:
+        untouched = {
+            "date": "2026-08-09",
+            "provenance": "dialogue_based",
+            "assigned_residues": [{"source_kind": "manual", "sentinel": "unchanged"}],
+        }
+        target = {
+            "date": "2026-08-10",
+            "provenance": "record_based",
+            "assigned_residues": [],
+        }
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "note": {"en": "note", "zh": "说明"},
+            "days": [untouched, target],
+        }
+        agent = {
+            "source_kind": "agent_session",
+            "category": "code_development",
+            "en": "Scoped completed result",
+            "zh": "限定日期的完成结果",
+        }
+
+        merged = importer.merge_history_scoped(
+            history,
+            {},
+            {"2026-08-10": [agent]},
+            ["2026-08-10"],
+            {},
+            [],
+            ("2026-08-10",),
+        )
+
+        self.assertEqual(merged["days"][0], untouched)
+        self.assertEqual(merged["days"][1]["date"], "2026-08-10")
+        self.assertEqual(merged["days"][1]["assigned_residues"], [agent])
+
     def test_new_public_date_with_foreground_is_added_without_placeholder(self) -> None:
         history = {
             "schema": importer.HISTORY_SCHEMA,
