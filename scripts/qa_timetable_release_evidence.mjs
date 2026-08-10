@@ -267,7 +267,11 @@ try {
   );
   assert.equal(timetableData.days.length, publicDays.length, "public-day/generated parity");
   assert.equal(timetableData.days.length, history.days.length, "history/generated parity");
-  assert.equal(timetableData.days.length, pulses.days.length, "pulse/generated parity");
+  assert.deepEqual(
+    new Set(pulses.days.map((day) => day.date)),
+    new Set(timetableData.days.filter((day) => day.background_pulses.length > 0).map((day) => day.date)),
+    "pulse/generated parity",
+  );
   const historyByDate = new Map(history.days.map((day) => [day.date, day]));
   const pulsesByDate = new Map(pulses.days.map((day) => [
     day.date,
@@ -286,7 +290,7 @@ try {
     );
     assert.equal(
       day.background_pulses.length,
-      pulsesByDate.get(day.date).length,
+      (pulsesByDate.get(day.date) || []).length,
       `${day.date}: pulse source/generated parity`,
     );
     assert.equal(

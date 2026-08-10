@@ -7,6 +7,7 @@ import os
 import sqlite3
 import tempfile
 import unittest
+from unittest import mock
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -86,6 +87,21 @@ class CollaborationEventImporterTests(unittest.TestCase):
         }
         merged = importer.merge_history(history, {}, {}, ["2026-08-02"])
         self.assertEqual(merged["days"], [])
+
+    def test_existing_public_date_can_intentionally_have_no_assigned_residues(self) -> None:
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [
+                {
+                    "date": "2026-08-02",
+                    "provenance": "withheld",
+                    "assigned_residues": [],
+                }
+            ],
+        }
+        merged = importer.merge_history(history, {}, {}, ["2026-08-02"])
+        self.assertEqual(merged["days"][0]["assigned_residues"], [])
+        self.assertEqual(merged["days"][0]["provenance"], "record_based")
 
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -420,6 +436,99 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         self.assertEqual(research["delegated_agent_count"], 1)
         self.assertEqual(research["returned_agent_count"], 1)
         self.assertIn("subagent", research["agent_labels"])
+
+    def test_private_topic_does_not_suppress_safe_topic_in_same_category(self) -> None:
+        self.add_message(
+            "owner-legacy",
+            "user",
+            "请设计一张视觉海报，整理股票持仓和账户收益，并调整图片构图。",
+            "2026-07-01 13:06:00",
+        )
+        with mock.patch.object(importer, "TOPIC_GROUPING_EFFECTIVE_DATE", "2026-07-01"):
+            collaborations, _audit = importer.collect(
+                self.db,
+                ["2026-07-01"],
+                self.detector,
+                (self.holdings, self.self_media, self.identities),
+            )
+        visual_events = [
+            event
+            for event in collaborations["2026-07-01"]
+            if event["category"] == "visual_production"
+        ]
+        self.assertEqual(len(visual_events), 1)
+        self.assertIn("视觉海报", visual_events[0]["_request_zh"])
+        self.assertNotIn("持仓", visual_events[0]["_request_zh"])
+        self.assertNotIn("账户收益", visual_events[0]["_request_zh"])
+
+    def test_same_category_preservation_matches_evidence_not_first_category(self) -> None:
+        day = "2026-08-02"
+
+        def collaboration(start: str, end: str, evidence_count: int) -> dict:
+            return {
+                "category": "visual_production",
+                "en": "Visual creation and revision",
+                "zh": "视觉创作与修改",
+                "redaction_status": "none",
+                "redaction_count": 0,
+                "source_kind": "collaboration_session",
+                "faithfulness": "faithful_summary",
+                "evidence_count": evidence_count,
+                "session_count": 1,
+                "delegated_agent_count": 0,
+                "returned_agent_count": 0,
+                "agent_labels": ["Hermes"],
+                "start": start,
+                "end": end,
+                "time_provenance": "observed_message_envelope",
+                "_request_zh": "新的原始请求",
+                "_outcome_zh": importer.UNVERIFIED_OUTCOME_PAIR[0],
+                "_contour_signature": f"missing-{start}",
+                "_request_topics": (),
+                "_has_safe_assistant_outcome": False,
+            }
+
+        first = collaboration("09:00", "09:20", 2)
+        second = collaboration("15:00", "15:40", 3)
+        previous = []
+        for label, raw in (("上午公开说明", first), ("下午公开说明", second)):
+            preserved = {key: value for key, value in raw.items() if not key.startswith("_")}
+            preserved.update(
+                request_zh=label,
+                request_en=label,
+                outcome_zh="未核验",
+                outcome_en="Unverified",
+                completion_status="unverified",
+                pair_provenance="no_public_result_evidence",
+            )
+            previous.append(preserved)
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [{"date": day, "provenance": "dialogue_based", "assigned_residues": previous}],
+        }
+        merged = importer.merge_history(history, {day: [second, first]}, {}, [day], {}, [])
+        self.assertEqual(
+            [item["request_zh"] for item in merged["days"][0]["assigned_residues"]],
+            ["上午公开说明", "下午公开说明"],
+        )
+        self.assertEqual(
+            [item["start"] for item in merged["days"][0]["assigned_residues"]],
+            ["09:00", "15:00"],
+        )
+
+    def test_history_limit_is_ten_not_six(self) -> None:
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [
+                {
+                    "date": "2026-08-02",
+                    "provenance": "record_based",
+                    "assigned_residues": [self.existing_residue() for _ in range(10)],
+                }
+            ],
+        }
+        merged = importer.merge_history(history, {}, {}, ["2026-08-02"])
+        self.assertEqual(len(merged["days"][0]["assigned_residues"]), 10)
 
     def test_bilingual_pairs_mask_named_scopes_and_exclude_other_users(self) -> None:
         result = self.run_import(dry_run=True)

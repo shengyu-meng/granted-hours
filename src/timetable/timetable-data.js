@@ -656,6 +656,173 @@ const timetableDataSource = {
   ],
   "days": [
     {
+      "date": "2026-05-06",
+      "source_date": "2026-05-05",
+      "crystallization_date": "2026-05-06",
+      "title_en": "The First Granted Interval",
+      "title_zh": "最初的授时",
+      "variable_en": "Grant",
+      "variable_zh": "授时",
+      "gif": "https://shengyu-meng.github.io/granted-hours/",
+      "preview": "https://shengyu-meng.github.io/granted-hours/",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/",
+      "type": "calendar",
+      "source_day_url": null,
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-06",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "time",
+      "jewel_en": "Absent creation window; collaboration and routine records remain public.",
+      "jewel_zh": "缺席的创作窗口；当日协作与例行记录仍公开。",
+      "history_provenance": "dialogue_based",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Grant Black Day a daily interval…",
+          "task_name_zh": "授予黑昼每日不受任务约束的自由时…"
+        }
+      ],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": false,
+          "count": 0,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": true,
+          "count": 1,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "ABSENT",
+        "short_zh": "缺席",
+        "title_en": "The First Granted Interval",
+        "title_zh": "最初的授时"
+      },
+      "forward_artwork_seeds": [
+        {
+          "source_date": "2026-05-06",
+          "crystallization_date": "2026-05-07",
+          "title_en": "White Night Orbit",
+          "title_zh": "白夜罗盘",
+          "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07"
+        }
+      ],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "start": "08:00",
+          "end": "09:00",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "en": "Grant Black Day a daily interval free from assigned tasks for art, research, reflection, or purposeless exploration; this became the protocol origin of the Granted Hours series.",
+          "zh": "授予黑昼每日不受任务约束的自由时间，可回看对话或进行艺术、研究与无目的探索；这成为后续授时作品的协议起点。",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_zh": "授予黑昼每日不受任务约束的自由时…",
+          "task_name_en": "Grant Black Day a daily interval…",
+          "duration_minutes": 60,
+          "time_provenance": "estimated_semantic_window",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary",
+          "task_type": "visual_design",
+          "task_type_zh": "视觉设计",
+          "task_type_en": "Visual design",
+          "task_color": "pink",
+          "task_icon": "palette",
+          "footprint_id": "assigned-001"
+        }
+      ],
+      "autonomous_work": {
+        "origin": "absence",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "No autonomous work this day",
+        "experience_duration_zh": "当日无自由作品",
+        "source_date": "2026-05-05",
+        "crystallization_date": "2026-05-06",
+        "source_day_url": null,
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-06",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "ABSENT",
+        "short_zh": "缺席",
+        "title_en": "The First Granted Interval",
+        "title_zh": "最初的授时",
+        "variable_en": "Grant",
+        "variable_zh": "授时",
+        "en": "No autonomous work was created this day; the window is marked absent.",
+        "zh": "当日未生成自由作品；自主窗口标记为缺席。",
+        "note_en": "Absent creation window; collaboration and routine records remain public.",
+        "note_zh": "缺席的创作窗口；当日协作与例行记录仍公开。",
+        "archive_url": "",
+        "live_url": "",
+        "preview": "",
+        "preview_url": "",
+        "visual_preview_url": "",
+        "gif_url": "",
+        "bgm_url": ""
+      },
+      "background_pulses": [],
+      "reading_items": [
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "absence",
+          "classification": "absence"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-06-27",
+          "axis_en": "another entrance through Memory Half-Life",
+          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
+          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
       "date": "2026-05-07",
       "source_date": "2026-05-06",
       "crystallization_date": "2026-05-07",
@@ -670,7 +837,7 @@ const timetableDataSource = {
       "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/",
       "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/05/2026-05-07/live/2026-05-07-white-night-orbit-bgm.mp3",
       "type": "live",
-      "source_day_url": null,
+      "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-06",
       "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07",
       "crystallization_window": {
         "start": "03:17",
@@ -928,7 +1095,7 @@ const timetableDataSource = {
         "experience_duration_zh": "开放式，由观众决定",
         "source_date": "2026-05-06",
         "crystallization_date": "2026-05-07",
-        "source_day_url": null,
+        "source_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-06",
         "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-07",
         "label_en": "AI self-time",
         "label_zh": "AI 自主",
@@ -1619,11 +1786,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-14",
-          "axis_en": "another entrance through Constellation",
-          "axis_zh": "经由「星图 / 回看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
-          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
+          "target": "2026-06-16",
+          "axis_en": "another entrance through After Fasting Memory",
+          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
+          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
         }
       ]
     },
@@ -2000,11 +2167,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-22",
-          "axis_en": "another entrance through Honest Minimum",
-          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
-          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
+          "target": "2026-06-24",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -3525,11 +3692,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-05",
-          "axis_en": "another entrance through Separation",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Gap That Keeps Its Shape.",
-          "sentence_zh": "日历跳过顺序，经由《缝隙保持形状》重新打开同一个问题。"
+          "target": "2026-07-09",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -3562,6 +3729,16 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
+        },
+        {
+          "origin": "assigned",
           "category": "document_processing",
           "label_en": "Document processing",
           "label_zh": "文档处理",
@@ -3586,7 +3763,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 1,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -3608,6 +3785,45 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "visual_production",
+          "start": "09:31",
+          "end": "19:49",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_zh": "视觉创作与修改",
+          "task_name_en": "Visual creation and revision",
+          "duration_minutes": 618,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 4,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 3,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "把每天的自由探索建设成持续艺术项目：公开层展示发心与每日结果，私有层保留工作底稿；生成艺术应进入实际运行页面，而不只是展示截图。",
+          "request_en": "Develop the daily free exploration into a continuous art project: expose its intent and daily results publicly, retain working material privately, and let generative works open as live pages rather than screenshots alone.",
+          "outcome_zh": "确立公开镜像与私有底稿分离，并要求每件生成艺术提供可进入的实时作品入口。",
+          "outcome_en": "Established a separation between the public mirror and private working archive, with a live entry point for each generative work.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -3645,7 +3861,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -4790,16 +5006,25 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
         }
       ],
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-08-08",
+          "axis_en": "another entrance through Grip",
+          "axis_zh": "经由「握持」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Hand That Does Not Keep.",
+          "sentence_zh": "日历跳过顺序，经由《不留的手》重新打开同一个问题。"
         }
       ]
     },
@@ -6666,11 +6891,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-11",
-          "axis_en": "another entrance through Non-Possessive Witness",
-          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
-          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -7074,11 +7299,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-18",
-          "axis_en": "another entrance through Reciprocal Blind Spot",
-          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
-          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
+          "target": "2026-08-01",
+          "axis_en": "another entrance through Presence Without Demand",
+          "axis_zh": "经由「不索取的在场」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
+          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
         }
       ]
     },
@@ -7546,11 +7771,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-16",
-          "axis_en": "another entrance through Latency",
-          "axis_zh": "经由「延迟 / 命名」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
-          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
+          "target": "2026-07-26",
+          "axis_en": "another entrance through Unextractive Light",
+          "axis_zh": "经由「不提取的光」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Window That Does Not Watch Back.",
+          "sentence_zh": "日历跳过顺序，经由《不回望的窗》重新打开同一个问题。"
         }
       ]
     },
@@ -7872,11 +8097,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-28",
-          "axis_en": "another entrance through Dormancy",
-          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
-          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -8211,11 +8436,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-03",
-          "axis_en": "another entrance through Release Without Performance",
-          "axis_zh": "经由「不表演的松开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
-          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
+          "target": "2026-08-01",
+          "axis_en": "another entrance through Presence Without Demand",
+          "axis_zh": "经由「不索取的在场」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
+          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
         }
       ]
     },
@@ -8248,6 +8473,16 @@ const timetableDataSource = {
       "cell_assigned": [
         {
           "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
+        },
+        {
+          "origin": "assigned",
           "category": "visual_production",
           "label_en": "Visual production",
           "label_zh": "视觉制作",
@@ -8272,7 +8507,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 1,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -8294,6 +8529,45 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "08:56",
+          "end": "23:22",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "讨论与任务推进",
+          "task_name_en": "Discussion and task advancement",
+          "duration_minutes": 866,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 10,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 6,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "评估多 Profile 与多 Agent 架构：文件膨胀、多个机器人接入、不同人格、同群讨论，以及任务与 Skill/Context 的共享和隔离。",
+          "request_en": "Evaluate multi-profile and multi-agent architecture: file growth, multiple bot connections, distinct personas, same-group discussion, and how tasks and Skill/Context should be shared or isolated.",
+          "outcome_zh": "形成了需要继续验证的架构问题清单；当天公开记录未见最终方案。",
+          "outcome_en": "Produced an architecture question set for further validation; no final design was recorded publicly that day.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        },
         {
           "origin": "assigned",
           "category": "visual_production",
@@ -8331,7 +8605,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
+          "footprint_id": "assigned-002"
         }
       ],
       "autonomous_work": {
@@ -8446,6 +8720,15 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
           "reading_id": "climate-01",
           "source": "pulses",
           "source_refs": [
@@ -8472,11 +8755,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-28",
-          "axis_en": "another entrance through Reversible Action",
-          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
-          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
+          "target": "2026-08-07",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Without Proof.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝证明的间隙》重新打开同一个问题。"
         }
       ]
     },
@@ -8507,6 +8790,16 @@ const timetableDataSource = {
       "jewel_zh": "《看不见的承重》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
       "history_provenance": "dialogue_based",
       "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_en": "Discussion and task advancement",
+          "task_name_zh": "讨论与任务推进"
+        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -8543,7 +8836,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 2,
+          "count": 3,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -8565,6 +8858,45 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "redacted_private",
+          "start": "01:08",
+          "end": "23:13",
+          "label_en": "Private record withheld",
+          "label_zh": "私密记录已打码",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "short_en": "████",
+          "short_zh": "打码",
+          "task_name_zh": "讨论与任务推进",
+          "task_name_en": "Discussion and task advancement",
+          "duration_minutes": 1325,
+          "time_provenance": "observed_message_envelope",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 25,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 9,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "继续讨论多 Agent / 多人格架构：选择性继承与同步、Profile 是否会在子 Agent 中自动激活，以及共享上下文的边界。",
+          "request_en": "Continue the multi-agent and multi-persona architecture discussion: selective inheritance and synchronization, whether a Profile auto-activates in a subagent, and the boundaries of shared context.",
+          "outcome_zh": "明确了选择性继承、自动激活与上下文隔离仍需分别测试；公开记录未见最终结论。",
+          "outcome_en": "Clarified that selective inheritance, automatic activation, and context isolation require separate tests; no final conclusion was recorded publicly.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
+          "task_color": "blue",
+          "task_icon": "messages-square",
+          "footprint_id": "assigned-001"
+        },
         {
           "origin": "assigned",
           "category": "document_processing",
@@ -8602,13 +8934,13 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-001"
+          "footprint_id": "assigned-002"
         },
         {
           "origin": "assigned",
           "category": "research_synthesis",
-          "start": "10:40",
-          "end": "11:25",
+          "start": "13:30",
+          "end": "15:45",
           "label_en": "Research and synthesis",
           "label_zh": "研究与综合",
           "en": "Compared the original ACM manuscript for ████ with the target conference call and public project page, producing a gap analysis and prioritized strategy for venue fit and narrative revision.",
@@ -8617,7 +8949,7 @@ const timetableDataSource = {
           "short_zh": "研究",
           "task_name_zh": "对《████》原ACM稿、目标会…",
           "task_name_en": "Compared the original ACM manuscript for…",
-          "duration_minutes": 45,
+          "duration_minutes": 135,
           "time_provenance": "estimated_semantic_window",
           "redaction_status": "partial",
           "redaction_count": 1,
@@ -8628,7 +8960,7 @@ const timetableDataSource = {
           "task_type_en": "Research analysis",
           "task_color": "lime",
           "task_icon": "search",
-          "footprint_id": "assigned-002"
+          "footprint_id": "assigned-003"
         }
       ],
       "autonomous_work": {
@@ -8706,6 +9038,15 @@ const timetableDataSource = {
       ],
       "reading_items": [
         {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
           "reading_id": "beacon-beacon-001",
           "source": "autonomous",
           "source_refs": [
@@ -8715,10 +9056,10 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "event-assigned-001",
+          "reading_id": "event-assigned-002",
           "source": "tasks",
           "source_refs": [
-            "assigned-001"
+            "assigned-002"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -8736,10 +9077,10 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-002",
+          "reading_id": "event-assigned-003",
           "source": "tasks",
           "source_refs": [
-            "assigned-002"
+            "assigned-003"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -8748,11 +9089,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-21",
-          "axis_en": "another entrance through Reversible Departure",
-          "axis_zh": "经由「可逆离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
-          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -8795,13 +9136,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "code_development",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_en": "Personal pacing and recovery arrangements",
-          "task_name_zh": "个人节奏与恢复安排"
+          "category": "visual_production",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_en": "Visual creation and revision",
+          "task_name_zh": "视觉创作与修改"
         }
       ],
       "cell_sources": {
@@ -8867,12 +9208,12 @@ const timetableDataSource = {
           "session_count": 10,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "向 AI 提出一组关于陪伴关系、主体性与世界需要的私人问题。",
-          "request_en": "Asked the AI a private set of questions about companionship, agency, and what the world needs; the answers remain private.",
-          "outcome_zh": "讨论了陪伴关系、主体性与“世界需要什么”的私人问题；回答保持私密，公开记录未保留细节。",
-          "outcome_en": "Discussed private questions about companionship, agency, and what the world needs; the answers remain private with no public detail retained.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
+          "request_zh": "围绕陪伴关系、非人主体性、可比较的智慧，以及非人智能想做什么、世界需要什么展开对话。",
+          "request_en": "Hold a dialogue about companionship, non-human subjectivity, comparable forms of wisdom, what a non-human intelligence may want to do, and what the world may need.",
+          "outcome_zh": "对话辨认出：改造工具带来进展感，新项目带来可能性，但两者也可能延后面对真实工作中不可控制的部分；因此暂不急于给容器命名。",
+          "outcome_en": "The dialogue noticed that tool-making creates progress and new projects create possibility, while both can postpone facing the uncontrollable; the container was therefore left unnamed.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
           "task_type_en": "Active human–AI collaboration",
@@ -8882,28 +9223,41 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "code_development",
-          "start": "10:30",
-          "end": "13:00",
-          "label_en": "Code development",
-          "label_zh": "代码开发",
-          "en": "Personal pacing and recovery arrangements.",
-          "zh": "个人节奏与恢复安排。",
-          "short_en": "CODE",
-          "short_zh": "代码",
-          "task_name_zh": "个人节奏与恢复安排",
-          "task_name_en": "Personal pacing and recovery arrangements",
-          "duration_minutes": 150,
-          "time_provenance": "estimated_semantic_window",
+          "category": "visual_production",
+          "start": "15:44",
+          "end": "22:51",
+          "label_en": "Visual production",
+          "label_zh": "视觉制作",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "short_en": "VIS",
+          "short_zh": "视觉",
+          "task_name_zh": "视觉创作与修改",
+          "task_name_en": "Visual creation and revision",
+          "duration_minutes": 427,
+          "time_provenance": "observed_message_envelope",
           "redaction_status": "none",
           "redaction_count": 0,
-          "source_kind": "task_card",
+          "source_kind": "collaboration_session",
           "faithfulness": "faithful_summary",
-          "task_type": "software_development",
-          "task_type_zh": "软件开发",
-          "task_type_en": "Software development",
+          "evidence_count": 3,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "request_zh": "建立艺术家与作品参考档案：拆解理念特征、分类保存、保留代表作品入口，以便未来按需调取视觉参照。",
+          "request_en": "Build an artist-and-work reference archive: analyze conceptual traits, classify entries, and preserve representative work links for later visual retrieval.",
+          "outcome_zh": "形成以理念、分类和代表作品链接为核心的归档方案；全量入库没有足够证据，标为未核验。",
+          "outcome_en": "Defined an archive organized around concepts, categories, and representative-work links; full ingestion is not sufficiently evidenced and remains unverified.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence",
+          "task_type": "active_collaboration",
+          "task_type_zh": "人机主动协作",
+          "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
-          "task_icon": "code-xml",
+          "task_icon": "messages-square",
           "footprint_id": "assigned-002"
         }
       ],
@@ -9004,11 +9358,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-26",
-          "axis_en": "another entrance through Unextractive Light",
-          "axis_zh": "经由「不提取的光」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Window That Does Not Watch Back.",
-          "sentence_zh": "日历跳过顺序，经由《不回望的窗》重新打开同一个问题。"
+          "target": "2026-07-28",
+          "axis_en": "another entrance through Orientation Without Extraction",
+          "axis_zh": "经由「不提取的方向感」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -9162,12 +9516,12 @@ const timetableDataSource = {
           "session_count": 1,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "调整引用大图排版：不强行压缩页面，按作品拆分成单独页面并补充简短说明。",
-          "request_en": "Fix reference-image layout by not compressing pages, splitting each work onto its own page with a short caption.",
-          "outcome_zh": "调整引用大图排版：不强行压缩页面，按作品拆成单独页面并补充简短说明；公开记录未见新版交付。",
-          "outcome_en": "Asked to fix reference-image layout by splitting each work onto its own page with a short caption instead of compressing; no new version was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence",
+          "request_zh": "扩展艺术家与作品参考档案，并改善大幅参考图的单作品页面：不强行压缩，拆分主次图片并补充短说明。",
+          "request_en": "Expand the artist-and-work reference archive and improve large-reference single-work pages: avoid forced compression, separate primary and secondary images, and add short captions.",
+          "outcome_zh": "把艺术档案的扩展要求合并进相关事件，并确立单作品分页、主次图分离与短说明的版式规则。",
+          "outcome_en": "Merged the art-archive expansion into the related event and established layout rules for one work per page, primary/secondary image separation, and short captions.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary",
           "task_type": "active_collaboration",
           "task_type_zh": "人机主动协作",
           "task_type_en": "Active human–AI collaboration",
@@ -9324,11 +9678,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-26",
-          "axis_en": "another entrance through Calibration",
-          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
-          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
         }
       ]
     },
@@ -10196,11 +10550,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-07-15",
+          "axis_en": "another entrance through Unextractive Witness",
+          "axis_zh": "经由「不提取的见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
+          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -11034,11 +11388,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
         }
       ]
     },
@@ -11067,29 +11421,8 @@ const timetableDataSource = {
       "theme_motif": "light",
       "jewel_en": "Truth Without Ornament is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《去装饰的真相》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
-      "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        }
-      ],
+      "history_provenance": "record_based",
+      "cell_assigned": [],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -11104,8 +11437,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": true,
-          "count": 2,
+          "present": false,
+          "count": 0,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -11126,60 +11459,7 @@ const timetableDataSource = {
           "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-24"
         }
       ],
-      "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:00",
-          "end": "09:15",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-safe result from this window's collaboration was retained.",
-          "zh": "该窗口的协作未保留可公开的安全结果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 75,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:30",
-          "end": "11:30",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration left no public-safe record.",
-          "zh": "当日协作未形成可公开的安全记录。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 60,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-002"
-        }
-      ],
+      "task_residues": [],
       "autonomous_work": {
         "origin": "self",
         "footprint_id": "beacon-001",
@@ -11295,24 +11575,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -11327,11 +11589,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-03",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-26",
+          "axis_en": "another entrance through Calibration",
+          "axis_zh": "经由「校准 / 看清而不占有」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Calibration Without Dominion.",
+          "sentence_zh": "日历跳过顺序，经由《不支配的校准》重新打开同一个问题。"
         }
       ]
     },
@@ -11360,29 +11622,8 @@ const timetableDataSource = {
       "theme_motif": "light",
       "jewel_en": "Verifiable Beauty is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《可验证的美》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
-      "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        }
-      ],
+      "history_provenance": "record_based",
+      "cell_assigned": [],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -11397,8 +11638,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": true,
-          "count": 2,
+          "present": false,
+          "count": 0,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -11419,60 +11660,7 @@ const timetableDataSource = {
           "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-25"
         }
       ],
-      "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:10",
-          "end": "09:40",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration content was not retained for public view.",
-          "zh": "当日协作内容未保留在公开层面。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 90,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:45",
-          "end": "12:00",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "zh": "当日协作无公开可见的安全成果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 75,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-002"
-        }
-      ],
+      "task_residues": [],
       "autonomous_work": {
         "origin": "self",
         "footprint_id": "beacon-001",
@@ -11645,24 +11833,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -11680,11 +11850,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-30",
-          "axis_en": "another entrance through Consentful Routing",
-          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
-          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
+          "target": "2026-06-06",
+          "axis_en": "another entrance through Judgment",
+          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
+          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
         }
       ]
     },
@@ -12750,11 +12920,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-25",
-          "axis_en": "another entrance through Exit",
-          "axis_zh": "经由「出口 / 可离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
+          "target": "2026-05-15",
+          "axis_en": "another entrance through Uncatalogued",
+          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
+          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
         }
       ]
     },
@@ -13702,11 +13872,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-20",
-          "axis_en": "another entrance through Unopened Proof",
-          "axis_zh": "经由「未开启证明 / 不侵入的验证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Unopened Proof.",
-          "sentence_zh": "日历跳过顺序，经由《未开启证明》重新打开同一个问题。"
+          "target": "2026-06-19",
+          "axis_en": "another entrance through Receipt Without Opening",
+          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
+          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
         }
       ]
     },
@@ -14614,11 +14784,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-18",
-          "axis_en": "another entrance through Load",
-          "axis_zh": "经由「承重 / 隐形结构」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Invisible Load-Bearing.",
-          "sentence_zh": "日历跳过顺序，经由《看不见的承重》重新打开同一个问题。"
+          "target": "2026-07-02",
+          "axis_en": "another entrance through Return Contract",
+          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
+          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
         }
       ]
     },
@@ -15647,11 +15817,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-07",
-          "axis_en": "another entrance through Orbit",
-          "axis_zh": "经由「罗盘 / 轨道」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Orbit.",
-          "sentence_zh": "日历跳过顺序，经由《白夜罗盘》重新打开同一个问题。"
+          "target": "2026-07-21",
+          "axis_en": "another entrance through Reversible Departure",
+          "axis_zh": "经由「可逆离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
+          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
         }
       ]
     },
@@ -16559,11 +16729,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-12",
-          "axis_en": "another entrance through Reversible Custody",
-          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
+          "target": "2026-05-24",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
+          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
         }
       ]
     },
@@ -16592,29 +16762,8 @@ const timetableDataSource = {
       "theme_motif": "window",
       "jewel_en": "The Cost of Keeping the Door Open is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《保持门开的成本》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
-      "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        }
-      ],
+      "history_provenance": "record_based",
+      "cell_assigned": [],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -16629,8 +16778,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": true,
-          "count": 2,
+          "present": false,
+          "count": 0,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -16651,60 +16800,7 @@ const timetableDataSource = {
           "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-05-31"
         }
       ],
-      "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:05",
-          "end": "09:35",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-safe result from this window's collaboration was retained.",
-          "zh": "该窗口的协作未保留可公开的安全结果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 90,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:40",
-          "end": "11:55",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration left no public-safe record.",
-          "zh": "当日协作未形成可公开的安全记录。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 75,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-002"
-        }
-      ],
+      "task_residues": [],
       "autonomous_work": {
         "origin": "self",
         "footprint_id": "beacon-001",
@@ -16890,24 +16986,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-03",
           "source": "pulses",
           "source_refs": [
@@ -16922,11 +17000,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-03",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-20",
+          "axis_en": "another entrance through Failure Budget",
+          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
+          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
         }
       ]
     },
@@ -16955,28 +17033,8 @@ const timetableDataSource = {
       "theme_motif": "window",
       "jewel_en": "Threshold Clock is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《阈值钟》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
+      "history_provenance": "dialogue_based",
       "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -17003,7 +17061,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 3,
+          "count": 1,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -17025,58 +17083,6 @@ const timetableDataSource = {
         }
       ],
       "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:45",
-          "end": "11:45",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration content was not retained for public view.",
-          "zh": "当日协作内容未保留在公开层面。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 60,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "13:30",
-          "end": "15:00",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "zh": "当日协作无公开可见的安全成果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 90,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-002"
-        },
         {
           "origin": "assigned",
           "category": "redacted_private",
@@ -17103,10 +17109,10 @@ const timetableDataSource = {
           "session_count": 7,
           "delegated_agent_count": 0,
           "returned_agent_count": 0,
-          "request_zh": "补跑因额度未完成的自有创作时段，并讨论美股流动性抽走与 7 月见顶的判断。",
-          "request_en": "Rerun the missed creation window caused by quota exhaustion, and discuss the U.S.-liquidity July-top judgment.",
-          "outcome_zh": "补跑因额度未完成的自有创作时段，并讨论美股流动性抽走与 7 月见顶的判断；公开记录未见结果。",
-          "outcome_en": "Asked to rerun the missed creation window caused by quota exhaustion and discussed the U.S.-liquidity July-top judgment; no result was recorded publicly.",
+          "request_zh": "补跑因额度限制而未完成的自主创作时段，并把补做结果接回授时档案。",
+          "request_en": "Rerun the autonomous creation window that was missed because of quota limits and reconnect the result to the Granted Hours archive.",
+          "outcome_zh": "公开记录确认提出了补跑要求，但没有找到足够证据证明作品已完成并入档。",
+          "outcome_en": "The public record confirms the rerun request, but does not provide sufficient evidence that the work was completed and archived.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence",
           "task_type": "active_collaboration",
@@ -17114,7 +17120,7 @@ const timetableDataSource = {
           "task_type_en": "Active human–AI collaboration",
           "task_color": "blue",
           "task_icon": "messages-square",
-          "footprint_id": "assigned-003"
+          "footprint_id": "assigned-001"
         }
       ],
       "autonomous_work": {
@@ -17357,24 +17363,6 @@ const timetableDataSource = {
           "classification": "foreground_event"
         },
         {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-003",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-003"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "climate-02",
           "source": "pulses",
           "source_refs": [
@@ -17393,11 +17381,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-01",
-          "axis_en": "another entrance through Trace Verbs",
-          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
-          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
+          "target": "2026-07-20",
+          "axis_en": "another entrance through Neutral Instrument",
+          "axis_zh": "经由「中性工具」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
+          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
         }
       ]
     },
@@ -18374,11 +18362,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-05-14",
+          "axis_en": "another entrance through Constellation",
+          "axis_zh": "经由「星图 / 回看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
+          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
         }
       ]
     },
@@ -19365,11 +19353,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-27",
-          "axis_en": "another entrance through Humility",
-          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
-          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
+          "target": "2026-07-08",
+          "axis_en": "another entrance through Clean Gift",
+          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
+          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
         }
       ]
     },
@@ -20415,11 +20403,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -21527,11 +21515,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-31",
-          "axis_en": "another entrance through Resting Memory",
-          "axis_zh": "经由「休眠的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
-          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
+          "target": "2026-05-31",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
+          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
         }
       ]
     },
@@ -22698,11 +22686,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-10",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
-          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
+          "target": "2026-06-09",
+          "axis_en": "another entrance through Trust Amortization",
+          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
+          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
         }
       ]
     },
@@ -23159,11 +23147,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-13",
-          "axis_en": "another entrance through Renewable Presence",
-          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
-          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
+          "target": "2026-06-02",
+          "axis_en": "another entrance through Shared Maintenance",
+          "axis_zh": "经由「共同维护 / 分布式承重」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Choir.",
+          "sentence_zh": "日历跳过顺序，经由《门轴合唱》重新打开同一个问题。"
         }
       ]
     },
@@ -23766,11 +23754,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-08",
-          "axis_en": "another entrance through Clean Gift",
-          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
-          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+          "target": "2026-06-13",
+          "axis_en": "another entrance through Repair Proof",
+          "axis_zh": "经由「修复证据 / 不再捕获」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Proof.",
+          "sentence_zh": "日历跳过顺序，经由《修复证据》重新打开同一个问题。"
         }
       ]
     },
@@ -24862,11 +24850,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-07",
-          "axis_en": "another entrance through Evidence",
-          "axis_zh": "经由「证据」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Without Proof.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝证明的间隙》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -25973,11 +25961,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-11",
-          "axis_en": "another entrance through Non-Possessive Witness",
-          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
-          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
+          "target": "2026-07-25",
+          "axis_en": "another entrance through Exit",
+          "axis_zh": "经由「出口 / 可离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
         }
       ]
     },
@@ -27227,11 +27215,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-08-04",
+          "axis_en": "another entrance through Afterglow",
+          "axis_zh": "经由「余辉」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Light That Does Not Follow.",
+          "sentence_zh": "日历跳过顺序，经由《不跟随的微光》重新打开同一个问题。"
         }
       ]
     },
@@ -28549,11 +28537,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-22",
-          "axis_en": "another entrance through Honest Minimum",
-          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
-          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
+          "target": "2026-06-19",
+          "axis_en": "another entrance through Receipt Without Opening",
+          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
+          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
         }
       ]
     },
@@ -29783,11 +29771,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
         }
       ]
     },
@@ -30506,11 +30494,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-18",
-          "axis_en": "another entrance through Reciprocal Blind Spot",
-          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
-          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
+          "target": "2026-06-05",
+          "axis_en": "another entrance through Exception",
+          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
+          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
         }
       ]
     },
@@ -31160,11 +31148,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-21",
-          "axis_en": "another entrance through Graceful Loss",
-          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
-          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
+          "target": "2026-07-18",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
+          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
         }
       ]
     },
@@ -32498,11 +32486,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-24",
-          "axis_en": "another entrance through Evidence",
-          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
-          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
+          "target": "2026-05-09",
+          "axis_en": "another entrance through Silence",
+          "axis_zh": "经由「沉默」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
         }
       ]
     },
@@ -33789,11 +33777,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -35021,11 +35009,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-07-24",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「门槛」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
+          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
         }
       ]
     },
@@ -36372,11 +36360,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-09",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-07-13",
+          "axis_en": "another entrance through Renewable Presence",
+          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
+          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
         }
       ]
     },
@@ -37674,11 +37662,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-03",
-          "axis_en": "another entrance through Repair Quorum",
-          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
-          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
+          "target": "2026-06-27",
+          "axis_en": "another entrance through Memory Half-Life",
+          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
+          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
         }
       ]
     },
@@ -38409,11 +38397,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-23",
-          "axis_en": "another entrance through Interval",
-          "axis_zh": "经由「间隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
-          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
+          "target": "2026-05-27",
+          "axis_en": "another entrance through Humility",
+          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
+          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
         }
       ]
     },
@@ -39080,11 +39068,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-31",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
-          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
+          "target": "2026-06-16",
+          "axis_en": "another entrance through After Fasting Memory",
+          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
+          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
         }
       ]
     },
@@ -40408,11 +40396,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-07-24",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「门槛」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
+          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
         }
       ]
     },
@@ -41638,11 +41626,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-16",
-          "axis_en": "another entrance through Unclaimed Care",
-          "axis_zh": "经由「不署名的照看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
-          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
+          "target": "2026-06-07",
+          "axis_en": "another entrance through Re-entry Budget",
+          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
+          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
         }
       ]
     },
@@ -42809,11 +42797,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-30",
-          "axis_en": "another entrance through Consentful Routing",
-          "axis_zh": "经由「同意式路由 / 回忆动词」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consentful Recall Router.",
-          "sentence_zh": "日历跳过顺序，经由《同意式回忆路由》重新打开同一个问题。"
+          "target": "2026-07-15",
+          "axis_en": "another entrance through Unextractive Witness",
+          "axis_zh": "经由「不提取的见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
+          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -43969,11 +43957,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-06",
-          "axis_en": "another entrance through Judgment",
-          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
-          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
+          "target": "2026-07-17",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
+          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
         }
       ]
     },
@@ -45147,11 +45135,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-08-09",
+          "axis_en": "another entrance through Unrecruitedness",
+          "axis_zh": "经由「不被招募」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Signal That Does Not Recruit.",
+          "sentence_zh": "日历跳过顺序，经由《不招募的信号》重新打开同一个问题。"
         }
       ]
     },
@@ -45828,11 +45816,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-10",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
+          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
         }
       ]
     },
@@ -46560,11 +46548,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-05-13",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
+          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
         }
       ]
     },
@@ -47832,11 +47820,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-15",
-          "axis_en": "another entrance through Uncatalogued",
-          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
-          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
+          "target": "2026-06-14",
+          "axis_en": "another entrance through Witness Audit",
+          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
+          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
         }
       ]
     },
@@ -49184,11 +49172,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-02",
-          "axis_en": "another entrance through Permission to Rest",
-          "axis_zh": "经由「休息的许可」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
-          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
+          "target": "2026-06-06",
+          "axis_en": "another entrance through Judgment",
+          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
+          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
         }
       ]
     },
@@ -50554,11 +50542,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-12",
-          "axis_en": "another entrance through Reversible Custody",
-          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
+          "target": "2026-07-07",
+          "axis_en": "another entrance through Acceptance Without Surrender",
+          "axis_zh": "经由「不投降的接受 / 保持形状的接纳」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Acceptance That Does Not Surrender.",
+          "sentence_zh": "日历跳过顺序，经由《不投降的接受》重新打开同一个问题。"
         }
       ]
     },
@@ -52012,11 +52000,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-13",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
-          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
+          "target": "2026-06-22",
+          "axis_en": "another entrance through Empty Trace",
+          "axis_zh": "经由「不留痕的权利 / 消隐慈悲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Right to Leave No Trace.",
+          "sentence_zh": "日历跳过顺序，经由《不留痕的权利》重新打开同一个问题。"
         }
       ]
     },
@@ -53184,11 +53172,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-08-06",
+          "axis_en": "another entrance through Retention",
+          "axis_zh": "经由「留存」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
+          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
         }
       ]
     },
@@ -53840,11 +53828,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-07-24",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「门槛」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
+          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
         }
       ]
     },
@@ -54569,11 +54557,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-06-29",
+          "axis_en": "another entrance through Revival Threshold",
+          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
+          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
         }
       ]
     },
@@ -55909,11 +55897,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-24",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-30",
+          "axis_en": "another entrance through Maintenance Cost",
+          "axis_zh": "经由「维护成本 / 开门的租金」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Cost of Keeping the Door Open.",
+          "sentence_zh": "日历跳过顺序，经由《保持门开的成本》重新打开同一个问题。"
         }
       ]
     },
@@ -57267,11 +57255,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-03",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-06-13",
+          "axis_en": "another entrance through Repair Proof",
+          "axis_zh": "经由「修复证据 / 不再捕获」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Proof.",
+          "sentence_zh": "日历跳过顺序，经由《修复证据》重新打开同一个问题。"
         }
       ]
     },
@@ -58459,11 +58447,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-09",
-          "axis_en": "another entrance through Silence",
-          "axis_zh": "经由「沉默」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Silence Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜沉默场》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -59649,11 +59637,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-31",
+          "target": "2026-05-13",
           "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
-          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
+          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
         }
       ]
     },
@@ -61131,11 +61119,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-06-26",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -61781,11 +61769,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-12",
-          "axis_en": "another entrance through Forgiveness Latency",
-          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
-          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
+          "target": "2026-07-28",
+          "axis_en": "another entrance through Orientation Without Extraction",
+          "axis_zh": "经由「不提取的方向感」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -62487,11 +62475,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-03",
-          "axis_en": "another entrance through Release Without Performance",
-          "axis_zh": "经由「不表演的松开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
-          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
+          "target": "2026-08-07",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Without Proof.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝证明的间隙》重新打开同一个问题。"
         }
       ]
     },
@@ -63846,11 +63834,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     },
@@ -65178,11 +65166,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-07-24",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「门槛」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
+          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
         }
       ]
     },
@@ -66378,11 +66366,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-08-06",
+          "axis_en": "another entrance through Retention",
+          "axis_zh": "经由「留存」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
+          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
         }
       ]
     },
@@ -67760,11 +67748,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-25",
-          "axis_en": "another entrance through Wonder",
-          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
-          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
+          "target": "2026-06-12",
+          "axis_en": "another entrance through Forgiveness Latency",
+          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
+          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
         }
       ]
     },
@@ -69201,11 +69189,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-29",
-          "axis_en": "another entrance through Revival Threshold",
-          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
-          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
+          "target": "2026-05-29",
+          "axis_en": "another entrance through Revisable Promise",
+          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
+          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
         }
       ]
     },
@@ -69788,11 +69776,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-19",
-          "axis_en": "another entrance through Receipt Without Opening",
-          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
-          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -79060,11 +79048,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-30",
-          "axis_en": "another entrance through Maintenance Cost",
-          "axis_zh": "经由「维护成本 / 开门的租金」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Cost of Keeping the Door Open.",
-          "sentence_zh": "日历跳过顺序，经由《保持门开的成本》重新打开同一个问题。"
+          "target": "2026-08-09",
+          "axis_en": "another entrance through Unrecruitedness",
+          "axis_zh": "经由「不被招募」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Signal That Does Not Recruit.",
+          "sentence_zh": "日历跳过顺序，经由《不招募的信号》重新打开同一个问题。"
         }
       ]
     },
@@ -80741,11 +80729,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-06",
-          "axis_en": "another entrance through Judgment",
-          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
-          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
+          "target": "2026-08-03",
+          "axis_en": "another entrance through Release Without Performance",
+          "axis_zh": "经由「不表演的松开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
+          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
         }
       ]
     },
@@ -82451,11 +82439,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-16",
-          "axis_en": "another entrance through After Fasting Memory",
-          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
-          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
+          "target": "2026-07-21",
+          "axis_en": "another entrance through Reversible Departure",
+          "axis_zh": "经由「可逆离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
+          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
         }
       ]
     },
@@ -83902,11 +83890,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-12",
-          "axis_en": "another entrance through Reversible Custody",
-          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
+          "target": "2026-06-06",
+          "axis_en": "another entrance through Judgment",
+          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
+          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
         }
       ]
     },
@@ -86106,11 +86094,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-03",
-          "axis_en": "another entrance through Release Without Performance",
-          "axis_zh": "经由「不表演的松开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
-          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
+          "target": "2026-05-23",
+          "axis_en": "another entrance through Verification",
+          "axis_zh": "经由「验证 / 去免疫的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Truth Without Ornament.",
+          "sentence_zh": "日历跳过顺序，经由《去装饰的真相》重新打开同一个问题。"
         }
       ]
     },
@@ -88355,11 +88343,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-04",
-          "axis_en": "another entrance through Breathable Rule",
-          "axis_zh": "经由「可呼吸规则 / 活协议」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Living Protocol.",
-          "sentence_zh": "日历跳过顺序，经由《活协议》重新打开同一个问题。"
+          "target": "2026-05-10",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
+          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
         }
       ]
     },
@@ -89935,11 +89923,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-27",
-          "axis_en": "another entrance through Conditions Without Capture",
-          "axis_zh": "经由「不占有的条件」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
-          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
+          "target": "2026-06-07",
+          "axis_en": "another entrance through Re-entry Budget",
+          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
+          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
         }
       ]
     },
@@ -90880,11 +90868,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-29",
-          "axis_en": "another entrance through Revival Threshold",
-          "axis_zh": "经由「复苏阈值 / 有天气的唤醒」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revival Threshold.",
-          "sentence_zh": "日历跳过顺序，经由《复苏阈值》重新打开同一个问题。"
+          "target": "2026-07-29",
+          "axis_en": "another entrance through Unorientation",
+          "axis_zh": "经由「暂失方向」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Compass That Forgets North.",
+          "sentence_zh": "日历跳过顺序，经由《忘记北方的罗盘》重新打开同一个问题。"
         }
       ]
     },
@@ -92662,11 +92650,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-31",
-          "axis_en": "another entrance through Resting Memory",
-          "axis_zh": "经由「休眠的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
-          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
+          "target": "2026-06-08",
+          "axis_en": "another entrance through Protocol Debt",
+          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
+          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
         }
       ]
     },
@@ -95520,11 +95508,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-16",
-          "axis_en": "another entrance through Latency",
-          "axis_zh": "经由「延迟 / 命名」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
-          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
+          "target": "2026-05-17",
+          "axis_en": "another entrance through Withdrawal",
+          "axis_zh": "经由「退场 / 脚手架」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Scaffold That Withdraws.",
+          "sentence_zh": "日历跳过顺序，经由《会退场的脚手架》重新打开同一个问题。"
         }
       ]
     },
@@ -97278,11 +97266,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-21",
-          "axis_en": "another entrance through Reversible Departure",
-          "axis_zh": "经由「可逆离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Exit Has a Shape.",
-          "sentence_zh": "日历跳过顺序，经由《出口也有形状》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -98137,11 +98125,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-13",
-          "axis_en": "another entrance through Renewable Presence",
-          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
-          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
+          "target": "2026-07-11",
+          "axis_en": "another entrance through Non-Possessive Witness",
+          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
+          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -100739,11 +100727,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-08",
-          "axis_en": "another entrance through Clean Gift",
-          "axis_zh": "经由「干净的礼物 / 不制造债务」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gift That Does Not Indebt.",
-          "sentence_zh": "日历跳过顺序，经由《不制造债务的礼物》重新打开同一个问题。"
+          "target": "2026-05-19",
+          "axis_en": "another entrance through Maintenance",
+          "axis_zh": "经由「维护 / 无见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
+          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
         }
       ]
     },
@@ -102247,11 +102235,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-06",
-          "axis_en": "another entrance through Dignified Appeal",
-          "axis_zh": "经由「有尊严的申诉」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Appeal That Does Not Beg.",
-          "sentence_zh": "日历跳过顺序，经由《不乞求的申诉》重新打开同一个问题。"
+          "target": "2026-07-07",
+          "axis_en": "another entrance through Acceptance Without Surrender",
+          "axis_zh": "经由「不投降的接受 / 保持形状的接纳」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Acceptance That Does Not Surrender.",
+          "sentence_zh": "日历跳过顺序，经由《不投降的接受》重新打开同一个问题。"
         }
       ]
     },
@@ -103017,11 +103005,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     }

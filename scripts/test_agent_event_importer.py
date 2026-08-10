@@ -336,6 +336,77 @@ class AgentEventImporterTests(unittest.TestCase):
             baseline,
         )
 
+    def test_legacy_cli_without_ended_at_uses_last_message_time(self) -> None:
+        self.add_session(
+            "legacy-cli-null-ended",
+            "cli",
+            "gpt-5.5",
+            "2026-07-03 18:00:00",
+            "Implement and review a visual interface fix.",
+            "Completed the visual interface implementation and review.",
+            ended=False,
+        )
+        events = importer.collect_agent_events(
+            self.db_path,
+            ["2026-07-01", "2026-07-02", "2026-07-03"],
+            include_historical_message_fallback=True,
+        )
+        fallback = next(
+            event
+            for event in events["2026-07-03"]
+            if event["time_provenance"] == "observed_message_fallback"
+        )
+        self.assertEqual(fallback["start"], "18:00")
+        self.assertEqual(fallback["end"], "18:05")
+        self.assertIn("Codex", fallback["agent_labels"])
+
+    def test_null_ended_subagent_and_unbounded_cli_still_fail_closed(self) -> None:
+        self.add_session(
+            "legacy-cli-overlong",
+            "cli",
+            "gpt-5.5",
+            "2026-07-01 08:00:00",
+            "Implement code.",
+            None,
+            ended=False,
+        )
+        self.add_assistant_message(
+            "legacy-cli-overlong",
+            "Completed code implementation.",
+            "2026-07-01 15:01:00",
+        )
+        events = importer.collect_agent_events(
+            self.db_path,
+            ["2026-07-01", "2026-07-02", "2026-07-03"],
+            include_historical_message_fallback=True,
+        )
+        fallback_events = [
+            event
+            for day_events in events.values()
+            for event in day_events
+            if event["time_provenance"] == "observed_message_fallback"
+        ]
+        self.assertEqual(fallback_events, [])
+
+    def test_agent_merge_preserves_ten_total_residues(self) -> None:
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [
+                {
+                    "date": "2026-07-01",
+                    "provenance": "record_based",
+                    "assigned_residues": [self.existing_residue() for _ in range(9)],
+                }
+            ],
+        }
+        event = importer.collect_agent_events(self.db_path, ["2026-07-01"])["2026-07-01"][0]
+        merged = importer._merge_history(
+            history,
+            {"2026-07-01": [event]},
+            max_events_per_day=3,
+        )
+        self.assertEqual(len(merged["days"][0]["assigned_residues"]), 10)
+
     def test_cli_failure_is_fixed_and_pathless(self) -> None:
         missing = self.root / "private-source-location" / "private-state.db"
         completed = subprocess.run(

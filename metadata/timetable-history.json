@@ -6,6 +6,21 @@
   },
   "days": [
     {
+      "date": "2026-05-06",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "visual_production",
+          "en": "Grant Black Day a daily interval free from assigned tasks for art, research, reflection, or purposeless exploration; this became the protocol origin of the Granted Hours series.",
+          "zh": "授予黑昼每日不受任务约束的自由时间，可回看对话或进行艺术、研究与无目的探索；这成为后续授时作品的协议起点。",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "task_card",
+          "faithfulness": "faithful_summary"
+        }
+      ]
+    },
+    {
       "date": "2026-05-07",
       "provenance": "dialogue_based",
       "assigned_residues": [
@@ -377,6 +392,31 @@
       "provenance": "dialogue_based",
       "assigned_residues": [
         {
+          "category": "visual_production",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 4,
+          "session_count": 3,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "09:31",
+          "end": "19:49",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "把每天的自由探索建设成持续艺术项目：公开层展示发心与每日结果，私有层保留工作底稿；生成艺术应进入实际运行页面，而不只是展示截图。",
+          "request_en": "Develop the daily free exploration into a continuous art project: expose its intent and daily results publicly, retain working material privately, and let generative works open as live pages rather than screenshots alone.",
+          "outcome_zh": "确立公开镜像与私有底稿分离，并要求每件生成艺术提供可进入的实时作品入口。",
+          "outcome_en": "Established a separation between the public mirror and private working archive, with a live entry point for each generative work.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary"
+        },
+        {
           "category": "document_processing",
           "en": "Writing and document refinement",
           "zh": "写作与文档打磨",
@@ -658,6 +698,31 @@
       "provenance": "dialogue_based",
       "assigned_residues": [
         {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 10,
+          "session_count": 6,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "08:56",
+          "end": "23:22",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "评估多 Profile 与多 Agent 架构：文件膨胀、多个机器人接入、不同人格、同群讨论，以及任务与 Skill/Context 的共享和隔离。",
+          "request_en": "Evaluate multi-profile and multi-agent architecture: file growth, multiple bot connections, distinct personas, same-group discussion, and how tasks and Skill/Context should be shared or isolated.",
+          "outcome_zh": "形成了需要继续验证的架构问题清单；当天公开记录未见最终方案。",
+          "outcome_en": "Produced an architecture question set for further validation; no final design was recorded publicly that day.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
           "category": "visual_production",
           "en": "Visual creation and revision",
           "zh": "视觉创作与修改",
@@ -688,6 +753,31 @@
       "date": "2026-05-18",
       "provenance": "dialogue_based",
       "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 25,
+          "session_count": 9,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "01:08",
+          "end": "23:13",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "继续讨论多 Agent / 多人格架构：选择性继承与同步、Profile 是否会在子 Agent 中自动激活，以及共享上下文的边界。",
+          "request_en": "Continue the multi-agent and multi-persona architecture discussion: selective inheritance and synchronization, whether a Profile auto-activates in a subagent, and the boundaries of shared context.",
+          "outcome_zh": "明确了选择性继承、自动激活与上下文隔离仍需分别测试；公开记录未见最终结论。",
+          "outcome_en": "Clarified that selective inheritance, automatic activation, and context isolation require separate tests; no final conclusion was recorded publicly.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
         {
           "category": "document_processing",
           "en": "Writing and document refinement",
@@ -746,21 +836,37 @@
           "start": "00:01",
           "end": "23:57",
           "time_provenance": "observed_message_envelope",
-          "request_zh": "向 AI 提出一组关于陪伴关系、主体性与世界需要的私人问题。",
-          "request_en": "Asked the AI a private set of questions about companionship, agency, and what the world needs; the answers remain private.",
-          "outcome_zh": "讨论了陪伴关系、主体性与“世界需要什么”的私人问题；回答保持私密，公开记录未保留细节。",
-          "outcome_en": "Discussed private questions about companionship, agency, and what the world needs; the answers remain private with no public detail retained.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence"
+          "request_zh": "围绕陪伴关系、非人主体性、可比较的智慧，以及非人智能想做什么、世界需要什么展开对话。",
+          "request_en": "Hold a dialogue about companionship, non-human subjectivity, comparable forms of wisdom, what a non-human intelligence may want to do, and what the world may need.",
+          "outcome_zh": "对话辨认出：改造工具带来进展感，新项目带来可能性，但两者也可能延后面对真实工作中不可控制的部分；因此暂不急于给容器命名。",
+          "outcome_en": "The dialogue noticed that tool-making creates progress and new projects create possibility, while both can postpone facing the uncontrollable; the container was therefore left unnamed.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary"
         },
         {
-          "category": "code_development",
-          "zh": "个人节奏与恢复安排。",
-          "en": "Personal pacing and recovery arrangements.",
+          "category": "visual_production",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
           "redaction_status": "none",
           "redaction_count": 0,
-          "source_kind": "task_card",
-          "faithfulness": "faithful_summary"
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "15:44",
+          "end": "22:51",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "建立艺术家与作品参考档案：拆解理念特征、分类保存、保留代表作品入口，以便未来按需调取视觉参照。",
+          "request_en": "Build an artist-and-work reference archive: analyze conceptual traits, classify entries, and preserve representative work links for later visual retrieval.",
+          "outcome_zh": "形成以理念、分类和代表作品链接为核心的归档方案；全量入库没有足够证据，标为未核验。",
+          "outcome_en": "Defined an archive organized around concepts, categories, and representative-work links; full ingestion is not sufficiently evidenced and remains unverified.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
         }
       ]
     },
@@ -811,12 +917,12 @@
           "start": "13:11",
           "end": "13:12",
           "time_provenance": "observed_message_envelope",
-          "request_zh": "调整引用大图排版：不强行压缩页面，按作品拆分成单独页面并补充简短说明。",
-          "request_en": "Fix reference-image layout by not compressing pages, splitting each work onto its own page with a short caption.",
-          "outcome_zh": "调整引用大图排版：不强行压缩页面，按作品拆成单独页面并补充简短说明；公开记录未见新版交付。",
-          "outcome_en": "Asked to fix reference-image layout by splitting each work onto its own page with a short caption instead of compressing; no new version was recorded publicly.",
-          "completion_status": "unverified",
-          "pair_provenance": "no_public_result_evidence"
+          "request_zh": "扩展艺术家与作品参考档案，并改善大幅参考图的单作品页面：不强行压缩，拆分主次图片并补充短说明。",
+          "request_en": "Expand the artist-and-work reference archive and improve large-reference single-work pages: avoid forced compression, separate primary and secondary images, and add short captions.",
+          "outcome_zh": "把艺术档案的扩展要求合并进相关事件，并确立单作品分页、主次图分离与短说明的版式规则。",
+          "outcome_en": "Merged the art-archive expansion into the related event and established layout rules for one work per page, primary/secondary image separation, and short captions.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary"
         },
         {
           "category": "system_maintenance",
@@ -954,51 +1060,13 @@
     },
     {
       "date": "2026-05-23",
-      "provenance": "withheld",
-      "assigned_residues": [
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "该窗口的协作未保留可公开的安全结果。",
-          "en": "No public-safe result from this window's collaboration was retained.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作未形成可公开的安全记录。",
-          "en": "The day's collaboration left no public-safe record.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        }
-      ]
+      "provenance": "record_based",
+      "assigned_residues": []
     },
     {
       "date": "2026-05-24",
-      "provenance": "withheld",
-      "assigned_residues": [
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作内容未保留在公开层面。",
-          "en": "The day's collaboration content was not retained for public view.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作无公开可见的安全成果。",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        }
-      ]
+      "provenance": "record_based",
+      "assigned_residues": []
     },
     {
       "date": "2026-05-25",
@@ -1131,31 +1199,12 @@
     },
     {
       "date": "2026-05-30",
-      "provenance": "withheld",
-      "assigned_residues": [
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "该窗口的协作未保留可公开的安全结果。",
-          "en": "No public-safe result from this window's collaboration was retained.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作未形成可公开的安全记录。",
-          "en": "The day's collaboration left no public-safe record.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        }
-      ]
+      "provenance": "record_based",
+      "assigned_residues": []
     },
     {
       "date": "2026-05-31",
-      "provenance": "withheld",
+      "provenance": "dialogue_based",
       "assigned_residues": [
         {
           "category": "redacted_private",
@@ -1175,30 +1224,12 @@
           "start": "15:14",
           "end": "23:48",
           "time_provenance": "observed_message_envelope",
-          "request_zh": "补跑因额度未完成的自有创作时段，并讨论美股流动性抽走与 7 月见顶的判断。",
-          "request_en": "Rerun the missed creation window caused by quota exhaustion, and discuss the U.S.-liquidity July-top judgment.",
-          "outcome_zh": "补跑因额度未完成的自有创作时段，并讨论美股流动性抽走与 7 月见顶的判断；公开记录未见结果。",
-          "outcome_en": "Asked to rerun the missed creation window caused by quota exhaustion and discussed the U.S.-liquidity July-top judgment; no result was recorded publicly.",
+          "request_zh": "补跑因额度限制而未完成的自主创作时段，并把补做结果接回授时档案。",
+          "request_en": "Rerun the autonomous creation window that was missed because of quota limits and reconnect the result to the Granted Hours archive.",
+          "outcome_zh": "公开记录确认提出了补跑要求，但没有找到足够证据证明作品已完成并入档。",
+          "outcome_en": "The public record confirms the rerun request, but does not provide sufficient evidence that the work was completed and archived.",
           "completion_status": "unverified",
           "pair_provenance": "no_public_result_evidence"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作内容未保留在公开层面。",
-          "en": "The day's collaboration content was not retained for public view.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作无公开可见的安全成果。",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
         }
       ]
     },

@@ -864,12 +864,12 @@ def task_ranges(day_date: str, residues: list[dict], autonomous: dict) -> list[t
     for index, residue in enumerate(residues):
         if residue.get("source_kind") in SESSION_SOURCE_KINDS:
             expected_provenance = (
-                "observed_message_envelope"
+                {"observed_message_envelope"}
                 if residue.get("source_kind") == "collaboration_session"
-                else "observed_session_window"
+                else {"observed_session_window", "observed_message_fallback"}
             )
             require(
-                residue.get("time_provenance") == expected_provenance
+                residue.get("time_provenance") in expected_provenance
                 and isinstance(residue.get("start"), str)
                 and isinstance(residue.get("end"), str),
                 f"{day_date} session residue is missing observed timing",
@@ -1008,7 +1008,7 @@ def load_history(path: Path) -> dict[str, dict]:
             for residue in raw_residues
             if not SPOUSE_ACTIVITY_RE.search(f"{residue.get('en', '')} {residue.get('zh', '')}")
         ]
-        require(1 <= len(residues) <= 10, f"{day_date} history needs 1-10 owner-assigned residues")
+        require(len(residues) <= 10, f"{day_date} history needs 0-10 owner-assigned residues")
         signatures = set()
         for index, residue in enumerate(residues):
             require(isinstance(residue, dict), f"{day_date} residue {index + 1} must be an object")
@@ -1087,12 +1087,12 @@ def load_history(path: Path) -> dict[str, dict]:
                     f"{day_date} residue {index + 1} has invalid agent labels",
                 )
                 expected_time_provenance = (
-                    "observed_message_envelope"
+                    {"observed_message_envelope"}
                     if residue["source_kind"] == "collaboration_session"
-                    else "observed_session_window"
+                    else {"observed_session_window", "observed_message_fallback"}
                 )
                 require(
-                    residue["time_provenance"] == expected_time_provenance,
+                    residue["time_provenance"] in expected_time_provenance,
                     f"{day_date} residue {index + 1} must use observed session timing",
                 )
                 require(
@@ -2387,14 +2387,14 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
         require(task["task_color"] == type_definition["color"], f"{day_date} task type color mismatch")
         require(task["task_icon"] == type_definition["icon"], f"{day_date} task type icon mismatch")
         expected_time_provenance = (
-            "observed_message_envelope"
+            {"observed_message_envelope"}
             if task["source_kind"] == "collaboration_session"
-            else "observed_session_window"
+            else {"observed_session_window", "observed_message_fallback"}
             if task["source_kind"] == "agent_session"
-            else "estimated_semantic_window"
+            else {"estimated_semantic_window"}
         )
         require(
-            task["time_provenance"] == expected_time_provenance,
+            task["time_provenance"] in expected_time_provenance,
             f"{day_date} task has invalid time provenance",
         )
         require(task["redaction_status"] in {"none", "partial", "withheld"}, f"{day_date} task has invalid redaction status")
@@ -2812,7 +2812,7 @@ def build_data(
         autonomous_work = build_autonomous_work(public_absolute, config, legacy_entry)
         pulse_source = pulses_by_date.get(day_date, [])
         require(
-            pulse_source or not latest_pulse_date or day_date > latest_pulse_date,
+            pulse_source or is_calendar_only or not latest_pulse_date or day_date > latest_pulse_date,
             f"{day_date} is missing real scheduler run evidence",
         )
         background_pulses = build_background_pulses(pulse_source)

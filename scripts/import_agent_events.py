@@ -24,8 +24,9 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 HISTORY_SCHEMA = "granted-hours-timetable-history-v4"
 LEGACY_HISTORY_SCHEMAS = {"granted-hours-timetable-history-v3"}
 FIXED_REDACTION_BLOCK = "████"
-MAX_HISTORY_RESIDUES = 6
+MAX_HISTORY_RESIDUES = 10
 MAX_AGENT_SESSION_MINUTES = 6 * 60
+LEGACY_CLI_FALLBACK_EFFECTIVE_DATE = "2026-08-10"
 
 POSITIVE_COMPLETION_RE = re.compile(
     r"(?ix)\b(?:completed|implemented|created|built|fixed|finished|done|passed|"
@@ -272,6 +273,7 @@ def collect_agent_events(
     public_dates: list[str],
     *,
     excluded_parent_sources: set[str] | None = None,
+    include_historical_message_fallback: bool = False,
 ) -> dict[str, list[dict]]:
     if not state_db_path.exists():
         raise ValueError("Hermes state database does not exist")
@@ -300,7 +302,6 @@ def collect_agent_events(
             {parent_join}
             WHERE s.source IN ('cli', 'subagent')
               AND s.started_at >= ? AND s.started_at < ?
-              AND s.ended_at IS NOT NULL
               AND COALESCE(m.active, 1) = 1
               AND m.role IN ('user', 'assistant')
             ORDER BY s.started_at, s.id, m.timestamp, m.id
@@ -311,7 +312,7 @@ def collect_agent_events(
         connection.close()
 
     grouped_messages: dict[str, dict] = {}
-    for session_id, source, model, started_at, ended_at, role, content, _timestamp, parent_source in rows:
+    for session_id, source, model, started_at, ended_at, role, content, message_timestamp, parent_source in rows:
         record = grouped_messages.setdefault(
             str(session_id),
             {
@@ -322,7 +323,12 @@ def collect_agent_events(
                 "parent_source": str(parent_source),
                 "user": [],
                 "assistant": [],
+                "last_message_timestamp": message_timestamp,
             },
+        )
+        record["last_message_timestamp"] = max(
+            float(record["last_message_timestamp"]),
+            float(message_timestamp),
         )
         if content.strip():
             record[role].append(content.strip())
@@ -337,7 +343,20 @@ def collect_agent_events(
         result = record["assistant"][-1][:100_000] if record["assistant"] else ""
         if not task or not result or not _is_positive_terminal_result(result):
             continue
-        observed = _observed_window(record["started_at"], record["ended_at"])
+        fallback_timing = record["ended_at"] is None
+        if fallback_timing and record["source"] != "cli":
+            continue
+        started_day = datetime.fromtimestamp(float(record["started_at"]), TIMEZONE).date().isoformat()
+        if (
+            fallback_timing
+            and not include_historical_message_fallback
+            and started_day < LEGACY_CLI_FALLBACK_EFFECTIVE_DATE
+        ):
+            continue
+        observed = _observed_window(
+            record["started_at"],
+            record["last_message_timestamp"] if fallback_timing else record["ended_at"],
+        )
         if observed is None:
             continue
         day_date, start, end = observed
@@ -375,7 +394,11 @@ def collect_agent_events(
                 "agent_labels": list(labels),
                 "start": start,
                 "end": end,
-                "time_provenance": "observed_session_window",
+                "time_provenance": (
+                    "observed_message_fallback"
+                    if fallback_timing
+                    else "observed_session_window"
+                ),
             }
         )
 

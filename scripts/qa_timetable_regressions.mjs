@@ -15,7 +15,11 @@ for (const day of timetableData.days) {
   const categoryPattern = day.task_residues.map((task) => task.category).join("|");
   categoryPatternCounts.set(categoryPattern, (categoryPatternCounts.get(categoryPattern) || 0) + 1);
   assert.equal(day.timeline_events.filter((event) => event.origin === "self" || event.origin === "absence").length, 1, day.date);
-  assert.ok(day.timeline_events.some((event) => event.origin === "background"), day.date);
+  if (day.type === "calendar" && day.background_pulses.length === 0) {
+    assert.equal(day.timeline_events.some((event) => event.origin === "background"), false, day.date);
+  } else {
+    assert.ok(day.timeline_events.some((event) => event.origin === "background"), day.date);
+  }
   assert.deepEqual(
     day.timeline_events.map((event) => event.start),
     [...day.timeline_events.map((event) => event.start)].sort(),

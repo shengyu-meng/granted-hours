@@ -39,7 +39,7 @@ HISTORY_SCHEMA = "granted-hours-timetable-history-v4"
 LEGACY_HISTORY_SCHEMAS = {"granted-hours-timetable-history-v3"}
 COLLABORATION_CONTOURS_SCHEMA = "granted-hours-collaboration-contours-v1"
 MASK = "████"
-MAX_HISTORY_RESIDUES = 6
+MAX_HISTORY_RESIDUES = 10
 MAX_COLLABORATIONS_PER_DAY = 4
 MAX_OWNER_EXCERPTS_PER_CARD = 2
 MAX_OUTCOME_EXCERPTS_PER_CARD = 1
@@ -47,6 +47,8 @@ MAX_EXCERPTS_PER_CARD = MAX_OWNER_EXCERPTS_PER_CARD + MAX_OUTCOME_EXCERPTS_PER_C
 MAX_OUTCOME_CANDIDATES_PER_GROUP = 4
 MAX_EXCERPT_CHARS = 260
 GENERATED_KINDS = {"collaboration_session", "agent_session"}
+TOPIC_GROUPING_EFFECTIVE_DATE = "2026-08-10"
+MANUALLY_CURATED_DATES = {"2026-05-06"}
 
 ACK_RE = re.compile(
     r"(?ix)^(?:/\w+(?:\s+\w+)?|好(?:的)?|可以|行|嗯+|哦+|继续|收到|知道了|"
@@ -875,14 +877,40 @@ def collect(
             seen[day].add(signature)
             records.append({"session": session_id, "timestamp": timestamp, "date": day, "category": classify(text), "text": text})
         entity_batches = detect_entities([item["text"] for item in records], detector)
-        groups, by_session = {}, defaultdict(list)
+        prepared_records = []
+        privacy_states: dict[tuple[str, str], set[bool]] = defaultdict(set)
         for item, entities in zip(records, entity_batches):
-            key = (item["date"], item["category"])
+            excerpt = sanitize_excerpt(item["text"], entities, private_terms)
+            request_text = excerpt or ""
+            privacy_text = f"{request_text}\n{item['text']}"
+            unsafe = bool(
+                OUTCOME_PRIVATE_DOMAIN_RE.search(privacy_text)
+                or (
+                    item["category"] == "code_development"
+                    and re.search(r"路径|沙箱|兼容|stdout|delivery", privacy_text, re.I)
+                )
+                or re.search(
+                    r"(?:\x00|data:image/|base64|(?:^|\s)json:\s*[\[{])",
+                    privacy_text,
+                    re.I,
+                )
+            )
+            prepared_records.append((item, excerpt, unsafe))
+            privacy_states[(item["date"], item["category"])].add(unsafe)
+
+        groups, by_session = {}, defaultdict(list)
+        for item, excerpt, unsafe in prepared_records:
+            base_key = (item["date"], item["category"])
+            if item["date"] >= TOPIC_GROUPING_EFFECTIVE_DATE and len(privacy_states[base_key]) > 1:
+                topics = topic_keys(excerpt or item["text"])
+                topic = "private" if unsafe else (topics[0] if topics else f"session:{item['session']}")
+            else:
+                topic = "legacy"
+            key = (*base_key, topic)
             group = groups.setdefault(key, {"timestamps": [], "sessions": set(), "excerpts": [], "outcomes": [], "delegated": 0, "returned": 0, "agents": {"Hermes"}})
             group["timestamps"].append(item["timestamp"]); group["sessions"].add(item["session"])
-            excerpt = sanitize_excerpt(item["text"], entities, private_terms)
             if excerpt and excerpt not in group["excerpts"]: group["excerpts"].append(excerpt)
-            by_session[item["session"]].append((item["timestamp"], item["date"], item["category"]))
+            by_session[item["session"]].append((item["timestamp"], item["date"], item["category"], key))
         outcome_candidate_groups = defaultdict(list)
         semantic_outcome_rejections = 0
         policy_outcome_rejections = 0
@@ -898,7 +926,7 @@ def collect(
             prior = [message for message in parent_messages if message[0] <= timestamp and message[1] == day]
             if not prior:
                 continue
-            _, _, category = prior[-1]
+            _, _, category, group_key = prior[-1]
             for candidate in outcome_candidates(row["content"]):
                 if semantic_risk_tags(candidate) or projection_tags(candidate):
                     semantic_outcome_rejections += 1
@@ -906,7 +934,7 @@ def collect(
                 if not outcome_publication_eligible(candidate, category):
                     policy_outcome_rejections += 1
                     continue
-                key = (day, category)
+                key = group_key
                 if candidate not in outcome_candidate_groups[key]:
                     outcome_candidate_groups[key].append(candidate)
         delegated_total = returned_total = 0
@@ -916,8 +944,8 @@ def collect(
             if not parent_messages: continue
             started = float(child["started_at"])
             prior = [message for message in parent_messages if message[0] <= started]
-            _, day, category = prior[-1] if prior else min(parent_messages, key=lambda message: abs(message[0] - started))
-            group = groups[(day, category)]; group["delegated"] += 1; delegated_total += 1
+            _, day, category, group_key = prior[-1] if prior else min(parent_messages, key=lambda message: abs(message[0] - started))
+            group = groups[group_key]; group["delegated"] += 1; delegated_total += 1
             if child["ended_at"] is not None and positive_return(child["final_result"]):
                 group["returned"] += 1; returned_total += 1
                 for candidate in outcome_candidates(child["final_result"]):
@@ -927,7 +955,7 @@ def collect(
                     if not outcome_publication_eligible(candidate, category):
                         policy_outcome_rejections += 1
                         continue
-                    key = (day, category)
+                    key = group_key
                     if candidate not in outcome_candidate_groups[key]:
                         outcome_candidate_groups[key].append(candidate)
             model = str(child["model"] or "").casefold()
@@ -936,12 +964,13 @@ def collect(
             group["agents"].add("subagent")
         outcome_records = []
         low_information_outcome_count = 0
-        for (day, category), candidates in outcome_candidate_groups.items():
+        for group_key, candidates in outcome_candidate_groups.items():
+            day, category, _topic = group_key
             ranked = sorted(candidates, key=outcome_information_score, reverse=True)
             selected_candidates = ranked[:MAX_OUTCOME_CANDIDATES_PER_GROUP]
             low_information_outcome_count += len(ranked) - len(selected_candidates)
             outcome_records.extend(
-                {"date": day, "category": category, "text": candidate}
+                {"date": day, "category": category, "group_key": group_key, "text": candidate}
                 for candidate in selected_candidates
             )
         outcome_entity_batches = detect_entities([item["text"] for item in outcome_records], detector)
@@ -952,12 +981,12 @@ def collect(
             if not excerpt:
                 rejected_outcome_count += 1
                 continue
-            group = groups[(item["date"], item["category"])]
+            group = groups[item["group_key"]]
             if excerpt not in group["outcomes"]:
                 group["outcomes"].append(excerpt)
                 safe_outcome_count += 1
         events_by_date, excerpt_count = defaultdict(list), 0
-        for (day, category), group in groups.items():
+        for (day, category, _topic), group in groups.items():
             timestamps = sorted(group["timestamps"]); start, end = clock_window(timestamps[0], timestamps[-1])
             owner_excerpts = sorted(group["excerpts"], key=information_score, reverse=True)[:MAX_OWNER_EXCERPTS_PER_CARD]
             outcome_excerpts = sorted(group["outcomes"], key=outcome_information_score, reverse=True)[:MAX_OUTCOME_EXCERPTS_PER_CARD]
@@ -1064,9 +1093,16 @@ def merge_history(
             and isinstance(item.get("outcome_zh"), str)
             and isinstance(item.get("outcome_en"), str)
         ]
-        preserved_by_category: dict[str, dict] = {}
-        for item in previous_collaborations:
-            preserved_by_category.setdefault(str(item["category"]), item)
+        used_preserved_indexes: set[int] = set()
+
+        def matching_preserved(collaboration: dict) -> dict | None:
+            for index, preserved in enumerate(previous_collaborations):
+                if index in used_preserved_indexes:
+                    continue
+                if evidence_matches(collaboration, preserved):
+                    used_preserved_indexes.add(index)
+                    return preserved
+            return None
         existing = [item for item in entry["assigned_residues"] if item.get("source_kind") not in GENERATED_KINDS]
         result_candidates = [
             (index, item)
@@ -1098,17 +1134,57 @@ def merge_history(
         )
         used_result_indexes: set[int] = set()
         if raw_collaborations:
-            finalized_collaborations = [
-                finalize_collaboration_pair(
+            finalized_collaborations = []
+            for collaboration in raw_collaborations:
+                finalized_collaborations.append(finalize_collaboration_pair(
                     collaboration,
                     result_candidates,
                     used_result_indexes,
                     contours or {},
                     missing_contours if missing_contours is not None else [],
-                    preserved_by_category.get(str(collaboration.get("category", ""))),
+                    matching_preserved(collaboration),
+                ))
+            registered_contours = list((contours or {}).values())
+            ordered_collaborations = []
+            used_finalized_indexes: set[int] = set()
+            for index, preserved in enumerate(previous_collaborations):
+                matching_finalized_index = next(
+                    (
+                        candidate_index
+                        for candidate_index, candidate in enumerate(finalized_collaborations)
+                        if candidate_index not in used_finalized_indexes
+                        and evidence_matches(candidate, preserved)
+                    ),
+                    None,
                 )
-                for collaboration in raw_collaborations
-            ]
+                if matching_finalized_index is not None:
+                    used_finalized_indexes.add(matching_finalized_index)
+                    ordered_collaborations.append(
+                        finalized_collaborations[matching_finalized_index]
+                    )
+                elif any(
+                    contour.get("date") == day
+                    and contour.get("category") == preserved.get("category")
+                    and all(
+                        contour.get(field) == preserved.get(field)
+                        for field in (
+                            "request_zh",
+                            "request_en",
+                            "outcome_zh",
+                            "outcome_en",
+                            "completion_status",
+                            "pair_provenance",
+                        )
+                    )
+                    for contour in registered_contours
+                ):
+                    ordered_collaborations.append(preserved)
+            ordered_collaborations.extend(
+                candidate
+                for candidate_index, candidate in enumerate(finalized_collaborations)
+                if candidate_index not in used_finalized_indexes
+            )
+            finalized_collaborations = ordered_collaborations
         else:
             # A date can retain previously validated collaboration cards even
             # when the current bounded source scan has no fresh records for it.
@@ -1125,12 +1201,13 @@ def merge_history(
         ]
         existing = [item for _, item in sorted(enumerate(existing), key=lambda pair: (EXISTING_PRIORITY.get(pair[1].get("source_kind"), 99), pair[0]))]
         residues = [*foreground, *existing[:max(0, MAX_HISTORY_RESIDUES - len(foreground))]]
-        if not residues: raise ValueError(f"{day} empty")
         provenance = (
             "withheld"
             if any(item.get("source_kind") == "withheld" for item in residues)
             else "dialogue_based"
             if collaborations.get(day)
+            else "record_based"
+            if not residues
             else entry["provenance"]
         )
         output.append({**entry, "provenance": provenance, "assigned_residues": residues})
@@ -1140,8 +1217,20 @@ def merge_history(
 def import_events(state_db: Path, days_path: Path, history_path: Path, detector: Path, denylists: tuple[Path, ...], dry_run: bool, contours_path: Path = DEFAULT_CONTOURS) -> dict:
     dates = public_dates(days_path); history = read_json(history_path)
     contours = load_collaboration_contours(contours_path)
-    collaborations, audit = collect(state_db, dates, detector, denylists)
-    agents = collect_agent_events(state_db, dates, excluded_parent_sources={"telegram"})
+    collected_dates = [day for day in dates if day not in MANUALLY_CURATED_DATES]
+    collaborations, audit = collect(state_db, collected_dates, detector, denylists)
+    agents = collect_agent_events(state_db, collected_dates, excluded_parent_sources={"telegram"})
+    collaboration_categories = {
+        day: {event["category"] for event in events}
+        for day, events in collaborations.items()
+    }
+    agents = {
+        day: [
+            event for event in events
+            if event["category"] not in collaboration_categories.get(day, set())
+        ]
+        for day, events in agents.items()
+    }
     missing_contours: list[str] = []
     merged = merge_history(
         history,

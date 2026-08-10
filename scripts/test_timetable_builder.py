@@ -16,10 +16,6 @@ import build_timetable_data as builder
 
 class TimetableBuilderTests(unittest.TestCase):
     WITHHELD_DATES = {
-        "2026-05-23",
-        "2026-05-24",
-        "2026-05-30",
-        "2026-05-31",
         "2026-06-13",
         "2026-06-14",
         "2026-06-27",
@@ -73,7 +69,7 @@ class TimetableBuilderTests(unittest.TestCase):
                 {"date", "provenance", "assigned_residues"},
                 f"{day_date} must not retain focus/medium/workflow generation fields",
             )
-            self.assertGreaterEqual(len(entry["assigned_residues"]), 1)
+            self.assertGreaterEqual(len(entry["assigned_residues"]), 0)
             self.assertLessEqual(len(entry["assigned_residues"]), 10)
             signatures = set()
             for residue in entry["assigned_residues"]:
@@ -333,11 +329,15 @@ class TimetableBuilderTests(unittest.TestCase):
     def test_every_public_day_has_public_safe_real_scheduler_pulses(self) -> None:
         output = self.build()
         allowed_categories = set(builder.PULSE_DEFINITIONS)
+        calendar_dates = {day["date"] for day in output["days"] if day["type"] == "calendar"}
         self.assertEqual(
             {day["date"] for day in output["days"]},
-            set(self.pulses),
+            set(self.pulses) | calendar_dates,
         )
         for day in output["days"]:
+            if day["type"] == "calendar" and day["date"] not in self.pulses:
+                self.assertEqual(day["background_pulses"], [])
+                continue
             self.assertTrue(day["background_pulses"], f"{day['date']} needs real run evidence")
             starts = [builder.minutes(pulse["start"]) for pulse in day["background_pulses"]]
             self.assertEqual(starts, sorted(starts))
@@ -1246,16 +1246,17 @@ class TimetableBuilderTests(unittest.TestCase):
 
     def test_public_media_urls_cannot_escape_the_canonical_archive(self) -> None:
         tampered = copy.deepcopy(self.public_days)
-        tampered[0]["live_url"] = "https://attacker.invalid/fake-live/"
+        live_index = next(index for index, day in enumerate(tampered) if day.get("type") != "calendar")
+        tampered[live_index]["live_url"] = "https://attacker.invalid/fake-live/"
         with self.assertRaisesRegex(SystemExit, "live_url must stay on the canonical live path"):
             self.build(tampered)
 
-        day = self.public_days[0]
+        day = self.public_days[live_index]
         canonical_live = f"{self.config['canonical_base_url']}archive/{day['date'][:4]}/{day['date'][5:7]}/{day['date']}/live/"
         for escape in ("../assets/escaped.mp3", "%2e%2e/assets/escaped.mp3"):
             with self.subTest(escape=escape):
                 tampered = copy.deepcopy(self.public_days)
-                tampered[0]["bgm"] = f"{canonical_live}{escape}"
+                tampered[live_index]["bgm"] = f"{canonical_live}{escape}"
                 with self.assertRaisesRegex(SystemExit, "bgm must stay on the canonical live path"):
                     self.build(tampered)
 

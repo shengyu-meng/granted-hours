@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-05-06",
+    "source_date": "2026-05-05",
+    "crystallization_date": "2026-05-06",
+    "title_en": "The First Granted Interval",
+    "title_zh": "最初的授时",
+    "type": "calendar",
+    "seed": 20260506,
+    "preview": "",
+    "gif": "",
+    "archive_url": "",
+    "live_url": "",
+    "variable_en": "Grant",
+    "variable_zh": "授时",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "",
+    "visual_preview": ""
+  },
+  {
     "date": "2026-05-07",
     "source_date": "2026-05-06",
     "crystallization_date": "2026-05-07",
