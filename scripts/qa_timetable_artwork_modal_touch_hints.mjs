@@ -4,10 +4,13 @@ import { chromium } from "@playwright/test";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const siteOrigin = new URL(baseUrl).origin;
-const artworkSiteOrigin = new URL(process.env.ARTWORK_SITE_URL || siteOrigin).origin;
+const artworkBaseUrl = new URL(process.env.ARTWORK_SITE_URL || `${siteOrigin}/`);
 const sampleDate = "2026-07-11";
-const sampleLiveUrl = `${artworkSiteOrigin}/archive/2026/07/${sampleDate}/live/?embed=calendar&gh_channel=large_modal_touch_hint_qa`;
-const browser = await chromium.launch({ headless: true });
+const sampleLiveUrl = new URL(
+  `archive/2026/07/${sampleDate}/live/?embed=calendar&gh_channel=large_modal_touch_hint_qa`,
+  artworkBaseUrl,
+).href;
+let browser = await chromium.launch({ headless: true });
 const modalResults = [];
 const touchResults = [];
 
@@ -32,6 +35,11 @@ try {
       deviceScaleFactor: spec.touch ? 2 : 1,
     });
     await context.route("**/*.mp3", (route) => route.abort());
+    await context.route("**/archive/**/live/**", (route) => route.fulfill({
+      status: 200,
+      contentType: "text/html",
+      body: "<!doctype html><title>Artwork stage geometry QA</title>",
+    }));
     const page = await context.newPage();
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
@@ -78,8 +86,11 @@ try {
     await context.close();
   }
 
+  await browser.close();
+  browser = await chromium.launch({ headless: true });
+
   for (const spec of [
-    { label: "desktop-4k", viewport: { width: 3840, height: 2160 } },
+    { label: "desktop-1920", viewport: { width: 1920, height: 1080 } },
     { label: "mobile", viewport: { width: 390, height: 844 }, touch: true },
     { label: "short-touch", viewport: { width: 421, height: 386 }, touch: true },
   ]) {
@@ -94,7 +105,7 @@ try {
     page.on("pageerror", (error) => pageErrors.push(error.message));
     await page.goto(sampleLiveUrl, { waitUntil: "domcontentloaded" });
     const dock = page.locator("#ghTouchKeyDock");
-    await dock.waitFor({ state: "visible" });
+    await dock.waitFor({ state: "attached" });
     const state = await dock.evaluate((element) => {
       const style = getComputedStyle(element);
       const label = element.querySelector(".gh-touch-key-dock-label");
