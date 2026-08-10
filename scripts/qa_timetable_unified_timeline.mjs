@@ -7,13 +7,25 @@ const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const days = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
 const latestDay = days.at(-1);
 const previousDay = days.at(-2);
+const interactionDay = [...days].reverse().find((day) => (
+  day.task_residues.length > 0 && day.background_pulses.length > 0
+));
+assert.ok(interactionDay, "no day exposes both assigned work and background evidence");
 
 let daysWithAssignedWork = 0;
 for (const day of days) {
-  assert.ok(day.background_pulses.length > 0, `${day.date} has no real background pulses`);
+  const calendarWithoutPulseEvidence = day.type === "calendar"
+    && day.background_pulses.length === 0;
+  if (!calendarWithoutPulseEvidence) {
+    assert.ok(day.background_pulses.length > 0, `${day.date} has no real background pulses`);
+  }
   assert.equal(day.timeline_events.filter((event) => event.origin === "self" || event.origin === "absence").length, 1);
   if (day.timeline_events.some((event) => event.origin === "assigned")) daysWithAssignedWork += 1;
-  assert.ok(day.timeline_events.some((event) => event.origin === "background"));
+  assert.equal(
+    day.timeline_events.some((event) => event.origin === "background"),
+    !calendarWithoutPulseEvidence,
+    `${day.date} background timeline events must match real pulse evidence`,
+  );
   if (day.autonomous_work.origin === "absence") {
     assert.equal(day.autonomous_work.visual_preview_url, "");
   } else {
@@ -28,7 +40,7 @@ try {
   const page = await desktop.newPage();
   await page.goto(baseUrl, { waitUntil: "networkidle" });
 
-  await page.click(`.calendar-day-button[data-date="${latestDay.date}"]`);
+  await page.click(`.calendar-day-button[data-date="${interactionDay.date}"]`);
   await page.waitForSelector("#dayDialog.is-open");
   assert.equal(await page.locator(".self-detail").count(), 0, "separate autonomous panel must be removed");
   assert.equal(await page.locator(".timeline-list").count(), 1);
@@ -37,7 +49,7 @@ try {
   assert.ok(await page.locator(".assigned-item").count() > 0);
   assert.equal(
     await page.locator(".routine-reading-card").count(),
-    latestDay.reading_items.filter(
+    interactionDay.reading_items.filter(
       (item) => item.source === "pulses",
     ).length,
     "background reading cards must match the public projection",
@@ -60,11 +72,11 @@ try {
 
   const firstPulse = page.locator(".routine-reading-card").first();
   const readingId = await firstPulse.getAttribute("data-reading-id");
-  const pulseEvidence = latestDay.reading_items.find(
+  const pulseEvidence = interactionDay.reading_items.find(
     (item) => item.reading_id === readingId,
   );
   assert.ok(pulseEvidence, readingId);
-  const sourcePulse = latestDay.background_pulses.find(
+  const sourcePulse = interactionDay.background_pulses.find(
     (pulse) => pulse.footprint_id === pulseEvidence.source_refs[0],
   );
   const renderedSummaries = await firstPulse.locator(".pulse-summary > span").allTextContents();
@@ -101,7 +113,7 @@ try {
 
   const triggerIndex = 0;
   const trigger = rows.nth(triggerIndex);
-  const selectedTask = latestDay.task_residues[triggerIndex];
+  const selectedTask = interactionDay.task_residues[triggerIndex];
   await trigger.scrollIntoViewIfNeeded();
   const dayScrollBefore = await page.locator("#dayDialogPanel").evaluate((panel) => {
     return panel.scrollTop;
@@ -133,6 +145,10 @@ try {
   assert.equal(await page.evaluate(() => document.activeElement?.classList.contains("assigned-item")), true);
   assert.equal(await page.locator("#dayDialogPanel").evaluate((panel) => panel.scrollTop), dayScrollBefore);
 
+  const latestUrl = new URL(baseUrl);
+  latestUrl.searchParams.set("date", latestDay.date);
+  await page.goto(latestUrl.href, { waitUntil: "networkidle" });
+  await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${latestDay.date}"]`);
   assert.equal(await page.locator("#nextDay").isDisabled(), true);
   assert.equal(await page.locator("#prevDay").isDisabled(), false);
   await page.locator("#dayDialogPanel").evaluate((panel) => { panel.scrollTop = panel.scrollHeight; });
@@ -190,9 +206,9 @@ try {
   assert.doesNotMatch(supportCopy, /其他后台运行记录提示|Other background run record alert/);
   await page.keyboard.press("Escape");
   const firstDayUrl = new URL(baseUrl);
-  firstDayUrl.searchParams.set("date", "2026-05-07");
+  firstDayUrl.searchParams.set("date", days[0].date);
   await page.goto(firstDayUrl.href, { waitUntil: "networkidle" });
-  await page.waitForSelector('#dayDialog.is-open[data-selected-date="2026-05-07"]');
+  await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${days[0].date}"]`);
   assert.equal(await page.locator("#prevDay").isDisabled(), true);
   assert.equal(await page.locator("#nextDay").isDisabled(), false);
   await page.keyboard.press("Escape");

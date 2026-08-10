@@ -114,7 +114,7 @@ def _write_json(path: Path, data: dict) -> bool:
     return True
 
 
-def _public_dates(path: Path) -> list[str]:
+def _public_dates(path: Path, target_date: str | None = None) -> list[str]:
     source = read_json(path)
     if not isinstance(source, list):
         raise ValueError("Public days must be a list")
@@ -127,6 +127,11 @@ def _public_dates(path: Path) -> list[str]:
         raise ValueError("Public days contain an invalid date")
     for value in dates:
         date.fromisoformat(value)
+    if target_date is not None:
+        date.fromisoformat(target_date)
+        if target_date not in dates:
+            raise ValueError("Requested date is not declared in public days")
+        return [target_date]
     return dates
 
 
@@ -419,6 +424,7 @@ def _merge_history(
     events_by_date: dict[str, list[dict]],
     *,
     max_events_per_day: int,
+    target_dates: set[str] | None = None,
 ) -> dict:
     if (
         history.get("schema") not in {HISTORY_SCHEMA, *LEGACY_HISTORY_SCHEMAS}
@@ -429,6 +435,9 @@ def _merge_history(
     for entry in history["days"]:
         if not isinstance(entry, dict) or not isinstance(entry.get("assigned_residues"), list):
             raise ValueError("History contains an invalid day")
+        if target_dates is not None and str(entry.get("date")) not in target_dates:
+            merged_days.append(entry)
+            continue
         existing = [
             residue
             for residue in entry["assigned_residues"]
@@ -437,14 +446,27 @@ def _merge_history(
                 and residue.get("source_kind") == "agent_session"
             )
         ]
-        available = max(0, MAX_HISTORY_RESIDUES - len(existing))
-        selected = events_by_date.get(str(entry.get("date")), [])[
-            : min(max_events_per_day, available)
+        collaborations = [
+            residue
+            for residue in existing
+            if residue.get("source_kind") == "collaboration_session"
         ]
+        other_existing = [
+            residue
+            for residue in existing
+            if residue.get("source_kind") != "collaboration_session"
+        ]
+        available = max(0, MAX_HISTORY_RESIDUES - len(existing))
+        candidates = events_by_date.get(str(entry.get("date")), [])
+        selected = candidates[: min(max_events_per_day, available)]
         merged_days.append(
             {
                 **entry,
-                "assigned_residues": [*selected, *existing],
+                "assigned_residues": [
+                    *collaborations,
+                    *selected,
+                    *other_existing,
+                ],
             }
         )
     return {**history, "schema": HISTORY_SCHEMA, "days": merged_days}
@@ -456,33 +478,39 @@ def import_agent_events(
     days_path: Path = DEFAULT_DAYS,
     history_path: Path = DEFAULT_HISTORY,
     max_events_per_day: int = 3,
+    target_date: str | None = None,
     dry_run: bool = False,
 ) -> dict:
     if not 1 <= max_events_per_day <= 3:
         raise ValueError("max_events_per_day must be between 1 and 3")
-    public_dates = _public_dates(days_path)
+    public_dates = _public_dates(days_path, target_date)
     history = read_json(history_path)
     events_by_date = collect_agent_events(state_db_path, public_dates)
     merged = _merge_history(
         history,
         events_by_date,
         max_events_per_day=max_events_per_day,
+        target_dates={target_date} if target_date is not None else None,
     )
     inserted = [
         residue
         for entry in merged["days"]
+        if target_date is None or entry.get("date") == target_date
         for residue in entry["assigned_residues"]
         if isinstance(residue, dict) and residue.get("source_kind") == "agent_session"
     ]
     category_counts = Counter(residue["category"] for residue in inserted)
     category_dates: dict[str, set[str]] = defaultdict(set)
     for entry in merged["days"]:
+        if target_date is not None and entry.get("date") != target_date:
+            continue
         for residue in entry["assigned_residues"]:
             if isinstance(residue, dict) and residue.get("source_kind") == "agent_session":
                 category_dates[residue["category"]].add(entry["date"])
     event_dates = sorted(
         entry["date"]
         for entry in merged["days"]
+        if target_date is None or entry.get("date") == target_date
         if any(
             isinstance(residue, dict)
             and residue.get("source_kind") == "agent_session"
@@ -512,6 +540,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--days", type=Path, default=DEFAULT_DAYS)
     parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY)
     parser.add_argument("--max-events-per-day", type=int, default=3)
+    parser.add_argument(
+        "--date",
+        dest="target_date",
+        help="Import only this declared YYYY-MM-DD public date",
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -524,6 +557,7 @@ def main() -> int:
             days_path=args.days,
             history_path=args.history,
             max_events_per_day=args.max_events_per_day,
+            target_date=args.target_date,
             dry_run=args.dry_run,
         )
     except (

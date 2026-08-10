@@ -407,6 +407,53 @@ class AgentEventImporterTests(unittest.TestCase):
         )
         self.assertEqual(len(merged["days"][0]["assigned_residues"]), 10)
 
+    def test_date_scope_updates_only_the_requested_declared_date(self) -> None:
+        source = json.loads(self.history_path.read_text(encoding="utf-8"))
+        source["days"][0]["assigned_residues"].insert(
+            0,
+            {
+                "source_kind": "agent_session",
+                "category": "research_synthesis",
+                "en": "Previously audited result",
+                "zh": "此前已审计结果",
+            },
+        )
+        self.history_path.write_text(
+            json.dumps(source, ensure_ascii=False), encoding="utf-8"
+        )
+        result = importer.import_agent_events(
+            state_db_path=self.db_path,
+            days_path=self.days_path,
+            history_path=self.history_path,
+            target_date="2026-07-02",
+            dry_run=True,
+        )
+        self.assertEqual(result["event_dates"], ["2026-07-02"])
+        by_date = {entry["date"]: entry for entry in result["history"]["days"]}
+        untouched_agents = [
+            residue
+            for residue in by_date["2026-07-01"]["assigned_residues"]
+            if residue["source_kind"] == "agent_session"
+        ]
+        self.assertEqual(len(untouched_agents), 1)
+        self.assertEqual(untouched_agents[0]["en"], "Previously audited result")
+        self.assertTrue(
+            any(
+                residue["source_kind"] == "agent_session"
+                for residue in by_date["2026-07-02"]["assigned_residues"]
+            )
+        )
+
+    def test_date_scope_rejects_an_undeclared_date(self) -> None:
+        with self.assertRaisesRegex(ValueError, "not declared"):
+            importer.import_agent_events(
+                state_db_path=self.db_path,
+                days_path=self.days_path,
+                history_path=self.history_path,
+                target_date="2026-07-04",
+                dry_run=True,
+            )
+
     def test_cli_failure_is_fixed_and_pathless(self) -> None:
         missing = self.root / "private-source-location" / "private-state.db"
         completed = subprocess.run(

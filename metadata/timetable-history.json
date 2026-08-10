@@ -1970,27 +1970,8 @@
     },
     {
       "date": "2026-06-14",
-      "provenance": "withheld",
-      "assigned_residues": [
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作内容未保留在公开层面。",
-          "en": "The day's collaboration content was not retained for public view.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作无公开可见的安全成果。",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        }
-      ]
+      "provenance": "record_based",
+      "assigned_residues": []
     },
     {
       "date": "2026-06-15",
@@ -2638,18 +2619,8 @@
     },
     {
       "date": "2026-06-26",
-      "provenance": "withheld",
-      "assigned_residues": [
-        {
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "zh": "当天未保留 ████ 的可公开协作记录。",
-          "en": "No public-safe record of ████ was retained for this day.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        }
-      ]
+      "provenance": "record_based",
+      "assigned_residues": []
     },
     {
       "date": "2026-06-27",
@@ -4579,7 +4550,7 @@
     },
     {
       "date": "2026-07-31",
-      "provenance": "withheld",
+      "provenance": "dialogue_based",
       "assigned_residues": [
         {
           "category": "research_synthesis",
@@ -4676,22 +4647,21 @@
           "time_provenance": "observed_session_window"
         },
         {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作内容未保留在公开层面。",
-          "en": "The day's collaboration content was not retained for public view.",
+          "category": "system_maintenance",
+          "en": "On 2026-07-31, Codex/GPT completed evidence-backed system maintenance for ████; a maintenance result was returned.",
+          "zh": "2026-07-31，Codex/GPT 完成 ████ 的系统维护，并返回维护结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
           "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
-        },
-        {
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "zh": "当日协作无公开可见的安全成果。",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "faithfulness": "faithful_summary",
-          "category": "redacted_private",
-          "source_kind": "withheld"
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "16:22",
+          "end": "16:25",
+          "time_provenance": "observed_session_window"
         }
       ]
     },
@@ -5065,18 +5035,8 @@
     },
     {
       "date": "2026-08-09",
-      "provenance": "withheld",
-      "assigned_residues": [
-        {
-          "category": "redacted_private",
-          "en": "No public-safe collaboration detail had been retained at the publication cutoff.",
-          "zh": "截至发布截点，当日没有保留可公开的安全协作细节。",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary"
-        }
-      ]
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

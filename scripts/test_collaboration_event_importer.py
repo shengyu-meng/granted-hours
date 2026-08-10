@@ -530,6 +530,86 @@ print(json.dumps([{"PrivateEntityTerms": [term for term in terms if term in text
         merged = importer.merge_history(history, {}, {}, ["2026-08-02"])
         self.assertEqual(len(merged["days"][0]["assigned_residues"]), 10)
 
+    def test_audited_historical_agent_expansion_is_preserved(self) -> None:
+        day = "2026-07-31"
+        agents = [
+            {
+                "source_kind": "agent_session",
+                "category": category,
+                "en": f"Agent result {index}",
+                "zh": f"Agent 结果 {index}",
+            }
+            for index, category in enumerate(
+                ("research_synthesis", "system_maintenance", "code_development"),
+                1,
+            )
+        ]
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [
+                {
+                    "date": day,
+                    "provenance": "record_based",
+                    "assigned_residues": agents[:2],
+                }
+            ],
+        }
+        merged = importer.merge_history(history, {}, {day: agents}, [day])
+        retained = [
+            residue
+            for residue in merged["days"][0]["assigned_residues"]
+            if residue["source_kind"] == "agent_session"
+        ]
+        self.assertEqual(len(retained), 2)
+
+    def test_historical_dates_do_not_gain_unaudited_agent_events(self) -> None:
+        day = "2026-07-25"
+        agent = {
+            "source_kind": "agent_session",
+            "category": "research_synthesis",
+            "en": "Agent result",
+            "zh": "Agent 结果",
+        }
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [
+                {
+                    "date": day,
+                    "provenance": "record_based",
+                    "assigned_residues": [],
+                }
+            ],
+        }
+        merged = importer.merge_history(history, {}, {day: [agent]}, [day])
+        self.assertEqual(merged["days"][0]["assigned_residues"], [])
+
+    def test_future_dates_accept_up_to_three_agent_events(self) -> None:
+        day = importer.AGENT_EXPANSION_EFFECTIVE_DATE
+        agents = [
+            {
+                "source_kind": "agent_session",
+                "category": category,
+                "en": f"Agent result {index}",
+                "zh": f"Agent 结果 {index}",
+            }
+            for index, category in enumerate(
+                ("research_synthesis", "system_maintenance", "code_development"),
+                1,
+            )
+        ]
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "days": [
+                {
+                    "date": day,
+                    "provenance": "record_based",
+                    "assigned_residues": [],
+                }
+            ],
+        }
+        merged = importer.merge_history(history, {}, {day: agents}, [day])
+        self.assertEqual(len(merged["days"][0]["assigned_residues"]), 3)
+
     def test_bilingual_pairs_mask_named_scopes_and_exclude_other_users(self) -> None:
         result = self.run_import(dry_run=True)
         serialized = json.dumps(result["history"], ensure_ascii=False)

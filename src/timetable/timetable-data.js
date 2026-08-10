@@ -30527,29 +30527,8 @@ const timetableDataSource = {
       "theme_motif": "echo",
       "jewel_en": "Witness Audit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《见证审计》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
-      "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        }
-      ],
+      "history_provenance": "record_based",
+      "cell_assigned": [],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -30564,8 +30543,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": true,
-          "count": 2,
+          "present": false,
+          "count": 0,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -30586,60 +30565,7 @@ const timetableDataSource = {
           "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-15"
         }
       ],
-      "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:15",
-          "end": "09:30",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration content was not retained for public view.",
-          "zh": "当日协作内容未保留在公开层面。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 75,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "10:30",
-          "end": "11:45",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "zh": "当日协作无公开可见的安全成果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 75,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-002"
-        }
-      ],
+      "task_residues": [],
       "autonomous_work": {
         "origin": "self",
         "footprint_id": "beacon-001",
@@ -31095,15 +31021,6 @@ const timetableDataSource = {
           "window": "daily"
         },
         {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
           "reading_id": "event-background-006",
           "source": "pulses",
           "source_refs": [
@@ -31111,15 +31028,6 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
-        },
-        {
-          "reading_id": "event-assigned-002",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-002"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         },
         {
           "reading_id": "event-background-009",
@@ -43990,19 +43898,8 @@ const timetableDataSource = {
       "theme_motif": "void",
       "jewel_en": "Absent creation window; collaboration and routine records remain public.",
       "jewel_zh": "缺席的创作窗口；当日协作与例行记录仍公开。",
-      "history_provenance": "withheld",
-      "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        }
-      ],
+      "history_provenance": "record_based",
+      "cell_assigned": [],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -44017,8 +43914,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": true,
-          "count": 1,
+          "present": false,
+          "count": 0,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -44039,34 +43936,7 @@ const timetableDataSource = {
           "day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-06-27"
         }
       ],
-      "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:10",
-          "end": "08:40",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-safe record of ████ was retained for this day.",
-          "zh": "当天未保留 ████ 的可公开协作记录。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 30,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "partial",
-          "redaction_count": 1,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        }
-      ],
+      "task_residues": [],
       "autonomous_work": {
         "origin": "absence",
         "footprint_id": "beacon-001",
@@ -45090,15 +44960,6 @@ const timetableDataSource = {
           "classification": "climate_aggregate",
           "family": "us_market",
           "window": "daily"
-        },
-        {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         },
         {
           "reading_id": "climate-03",
@@ -86127,7 +85988,7 @@ const timetableDataSource = {
       "theme_motif": "echo",
       "jewel_en": "The Archive Learns to Sleep is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《档案学会睡觉》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
+      "history_provenance": "dialogue_based",
       "cell_assigned": [
         {
           "origin": "assigned",
@@ -86171,23 +86032,13 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
+          "category": "system_maintenance",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_en": "On 2026-07-31, Codex/GPT completed evidence-backed system…",
+          "task_name_zh": "2026-07-31，Codex…"
         }
       ],
       "cell_sources": {
@@ -86205,7 +86056,7 @@ const timetableDataSource = {
         },
         "active_collaboration": {
           "present": true,
-          "count": 6,
+          "count": 5,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -86379,55 +86230,34 @@ const timetableDataSource = {
         },
         {
           "origin": "assigned",
-          "category": "redacted_private",
-          "start": "19:00",
-          "end": "19:45",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "The day's collaboration content was not retained for public view.",
-          "zh": "当日协作内容未保留在公开层面。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 45,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
+          "category": "system_maintenance",
+          "start": "16:22",
+          "end": "16:25",
+          "label_en": "System maintenance",
+          "label_zh": "系统维护",
+          "en": "On 2026-07-31, Codex/GPT completed evidence-backed system maintenance for ████; a maintenance result was returned.",
+          "zh": "2026-07-31，Codex/GPT 完成 ████ 的系统维护，并返回维护结果。",
+          "short_en": "SYS",
+          "short_zh": "系统",
+          "task_name_zh": "2026-07-31，Codex…",
+          "task_name_en": "On 2026-07-31, Codex/GPT completed evidence-backed system…",
+          "duration_minutes": 3,
+          "time_provenance": "observed_session_window",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
           "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "task_type": "system_operations",
+          "task_type_zh": "系统维护",
+          "task_type_en": "System operations",
           "task_color": "slate",
-          "task_icon": "lock-keyhole",
+          "task_icon": "settings",
           "footprint_id": "assigned-005"
-        },
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "21:30",
-          "end": "22:30",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-facing safe outcome from the day's collaboration.",
-          "zh": "当日协作无公开可见的安全成果。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 60,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-006"
         }
       ],
       "autonomous_work": {
@@ -88326,15 +88156,6 @@ const timetableDataSource = {
           "source": "tasks",
           "source_refs": [
             "assigned-005"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
-        },
-        {
-          "reading_id": "event-assigned-006",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-006"
           ],
           "layer": "event",
           "classification": "foreground_event"
@@ -102268,19 +102089,8 @@ const timetableDataSource = {
       "theme_motif": "echo",
       "jewel_en": "The Signal That Does Not Recruit is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《不招募的信号》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "withheld",
-      "cell_assigned": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_en": "████",
-          "task_name_zh": "████"
-        }
-      ],
+      "history_provenance": "record_based",
+      "cell_assigned": [],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -102295,8 +102105,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": true,
-          "count": 1,
+          "present": false,
+          "count": 0,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -102309,34 +102119,7 @@ const timetableDataSource = {
         "title_zh": "不招募的信号"
       },
       "forward_artwork_seeds": [],
-      "task_residues": [
-        {
-          "origin": "assigned",
-          "category": "redacted_private",
-          "start": "08:05",
-          "end": "08:35",
-          "label_en": "Private record withheld",
-          "label_zh": "私密记录已打码",
-          "en": "No public-safe collaboration detail had been retained at the publication cutoff.",
-          "zh": "截至发布截点，当日没有保留可公开的安全协作细节。",
-          "short_en": "████",
-          "short_zh": "打码",
-          "task_name_zh": "████",
-          "task_name_en": "████",
-          "duration_minutes": 30,
-          "time_provenance": "estimated_semantic_window",
-          "redaction_status": "none",
-          "redaction_count": 0,
-          "source_kind": "withheld",
-          "faithfulness": "faithful_summary",
-          "task_type": "redacted_record",
-          "task_type_zh": "私密记录",
-          "task_type_en": "Private record",
-          "task_color": "slate",
-          "task_icon": "lock-keyhole",
-          "footprint_id": "assigned-001"
-        }
-      ],
+      "task_residues": [],
       "autonomous_work": {
         "origin": "self",
         "footprint_id": "beacon-001",
@@ -102968,15 +102751,6 @@ const timetableDataSource = {
           ],
           "layer": "beacon",
           "classification": "beacon"
-        },
-        {
-          "reading_id": "event-assigned-001",
-          "source": "tasks",
-          "source_refs": [
-            "assigned-001"
-          ],
-          "layer": "event",
-          "classification": "foreground_event"
         },
         {
           "reading_id": "event-background-010",

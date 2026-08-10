@@ -41,6 +41,8 @@ COLLABORATION_CONTOURS_SCHEMA = "granted-hours-collaboration-contours-v1"
 MASK = "████"
 MAX_HISTORY_RESIDUES = 10
 MAX_COLLABORATIONS_PER_DAY = 4
+MAX_AGENT_EVENTS_PER_DAY = 3
+AGENT_EXPANSION_EFFECTIVE_DATE = "2026-08-10"
 MAX_OWNER_EXCERPTS_PER_CARD = 2
 MAX_OUTCOME_EXCERPTS_PER_CARD = 1
 MAX_EXCERPTS_PER_CARD = MAX_OWNER_EXCERPTS_PER_CARD + MAX_OUTCOME_EXCERPTS_PER_CARD
@@ -1069,7 +1071,17 @@ def merge_history(
     for day in ordered_dates:
         entry = history_by_date.get(day)
         raw_collaborations = collaborations.get(day, [])
-        foreground = [*raw_collaborations, *agents.get(day, [])[:1]]
+        previous_agent_count = sum(
+            1
+            for item in (entry or {}).get("assigned_residues", [])
+            if item.get("source_kind") == "agent_session"
+        )
+        agent_limit = (
+            MAX_AGENT_EVENTS_PER_DAY
+            if day >= AGENT_EXPANSION_EFFECTIVE_DATE
+            else min(MAX_AGENT_EVENTS_PER_DAY, previous_agent_count)
+        )
+        foreground = [*raw_collaborations, *agents.get(day, [])[:agent_limit]]
         if entry is None:
             # A newly imported artwork can precede its first dialogue sync. Admit
             # only evidence-backed foreground here; dates with no evidence keep
@@ -1191,7 +1203,7 @@ def merge_history(
             # Do not turn that absence into an empty history day or erase the
             # prior evidence-backed projection.
             finalized_collaborations = previous_collaborations
-        fresh_agents = agents.get(day, [])[:1]
+        fresh_agents = agents.get(day, [])[:agent_limit]
         foreground = [*finalized_collaborations, *fresh_agents]
         if not raw_collaborations and not fresh_agents:
             foreground = previous_generated

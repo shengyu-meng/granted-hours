@@ -17,12 +17,16 @@ import build_timetable_data as builder
 class TimetableBuilderTests(unittest.TestCase):
     WITHHELD_DATES = {
         "2026-06-13",
-        "2026-06-14",
         "2026-06-27",
         "2026-07-05",
         "2026-07-11",
         "2026-07-19",
         "2026-07-29",
+    }
+    EVIDENCE_EMPTY_DATES = {
+        "2026-06-14",
+        "2026-06-26",
+        "2026-08-09",
     }
 
     @classmethod
@@ -172,6 +176,9 @@ class TimetableBuilderTests(unittest.TestCase):
             self.WITHHELD_DATES.issubset(actual_withheld),
             "Known historical withheld dates must remain withheld; newly imported future dates may also be withheld until the next dialogue sync.",
         )
+        for day_date in self.EVIDENCE_EMPTY_DATES:
+            self.assertEqual(self.history[day_date]["provenance"], "record_based")
+            self.assertEqual(self.history[day_date]["assigned_residues"], [])
 
     def test_historical_output_is_continuous_diverse_and_artwork_free(self) -> None:
         output = self.build()

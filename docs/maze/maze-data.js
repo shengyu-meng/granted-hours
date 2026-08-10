@@ -1,8 +1,29 @@
 window.GRANTED_INTERIOR_DATA = {
   "generatedAt": "2026-08-09",
-  "nodeCount": 95,
+  "nodeCount": 96,
   "featuredCount": 14,
   "nodes": [
+    {
+      "id": "2026-05-06",
+      "date": "2026-05-06",
+      "title_en": "The First Granted Interval",
+      "title_zh": "最初的授时",
+      "variable_en": "Grant",
+      "variable_zh": "授时",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Grant entered the archive as a clue rather than a label.",
+      "diary_zh": "「授时」作为线索进入档案，而不只是标签。",
+      "live_url": "../",
+      "archive_url": "../",
+      "gif": "../",
+      "x": -2,
+      "y": -10,
+      "z": 0,
+      "featured": false,
+      "latest": false
+    },
     {
       "id": "2026-05-07",
       "date": "2026-05-07",
@@ -20,7 +41,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-07/assets/visual-preview.gif",
       "x": -10,
       "y": -3,
-      "z": 0,
+      "z": 1,
       "featured": true,
       "latest": false
     },
@@ -41,7 +62,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-08/assets/visual-preview.gif",
       "x": -8,
       "y": -4,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -62,7 +83,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-09/assets/visual-preview.gif",
       "x": -6,
       "y": -2,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -83,7 +104,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-10/assets/visual-preview.gif",
       "x": 1,
       "y": 9,
-      "z": 1,
+      "z": 0,
       "featured": true,
       "latest": false
     },
@@ -102,9 +123,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-11/live/",
       "archive_url": "../archive/2026/05/2026-05-11/",
       "gif": "../archive/2026/05/2026-05-11/assets/visual-preview.gif",
-      "x": -2,
-      "y": -10,
-      "z": 0,
+      "x": 0,
+      "y": -11,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -123,9 +144,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-12/live/",
       "archive_url": "../archive/2026/05/2026-05-12/",
       "gif": "../archive/2026/05/2026-05-12/assets/visual-preview.gif",
-      "x": 0,
-      "y": -11,
-      "z": 2,
+      "x": 2,
+      "y": -9,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -146,7 +167,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-13/assets/visual-preview.gif",
       "x": 3,
       "y": 8,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -167,7 +188,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-14/assets/visual-preview.gif",
       "x": -8,
       "y": 0,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -186,9 +207,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-15/live/",
       "archive_url": "../archive/2026/05/2026-05-15/",
       "gif": "../archive/2026/05/2026-05-15/assets/visual-preview.gif",
-      "x": 2,
-      "y": -9,
-      "z": 0,
+      "x": 0,
+      "y": -7,
+      "z": 3,
       "featured": true,
       "latest": false
     },
@@ -207,9 +228,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-16/live/",
       "archive_url": "../archive/2026/05/2026-05-16/",
       "gif": "../archive/2026/05/2026-05-16/assets/visual-preview.gif",
-      "x": 0,
-      "y": -7,
-      "z": 3,
+      "x": -3,
+      "y": -6,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -230,7 +251,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-17/assets/visual-preview.gif",
       "x": 9,
       "y": -2,
-      "z": 0,
+      "z": 1,
       "featured": true,
       "latest": false
     },
@@ -251,7 +272,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-18/assets/visual-preview.gif",
       "x": 11,
       "y": -3,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -272,7 +293,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-19/assets/visual-preview.gif",
       "x": 5,
       "y": 10,
-      "z": 0,
+      "z": 1,
       "featured": true,
       "latest": false
     },
@@ -293,7 +314,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-20/assets/visual-preview.gif",
       "x": 13,
       "y": -1,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -314,7 +335,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-21/assets/visual-preview.gif",
       "x": 11,
       "y": 1,
-      "z": 2,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -335,7 +356,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-22/assets/visual-preview.gif",
       "x": 8,
       "y": 2,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -354,8 +375,8 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-23/live/",
       "archive_url": "../archive/2026/05/2026-05-23/",
       "gif": "../archive/2026/05/2026-05-23/assets/visual-preview.gif",
-      "x": -3,
-      "y": -6,
+      "x": -6,
+      "y": -7,
       "z": 1,
       "featured": false,
       "latest": false
@@ -375,9 +396,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-24/live/",
       "archive_url": "../archive/2026/05/2026-05-24/",
       "gif": "../archive/2026/05/2026-05-24/assets/visual-preview.gif",
-      "x": -6,
-      "y": -7,
-      "z": 1,
+      "x": -7,
+      "y": -9,
+      "z": 2,
       "featured": true,
       "latest": false
     },
@@ -398,7 +419,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-25/assets/visual-preview.gif",
       "x": -11,
       "y": 1,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -419,7 +440,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-26/assets/visual-preview.gif",
       "x": -14,
       "y": 0,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -440,7 +461,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-27/assets/visual-preview.gif",
       "x": -15,
       "y": -2,
-      "z": 2,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -461,7 +482,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-28/assets/visual-preview.gif",
       "x": -14,
       "y": -5,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -480,8 +501,8 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/05/2026-05-29/live/",
       "archive_url": "../archive/2026/05/2026-05-29/",
       "gif": "../archive/2026/05/2026-05-29/assets/visual-preview.gif",
-      "x": -7,
-      "y": -9,
+      "x": -6,
+      "y": -12,
       "z": 2,
       "featured": true,
       "latest": false
@@ -503,7 +524,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-30/assets/visual-preview.gif",
       "x": 3,
       "y": 12,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -524,7 +545,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/05/2026-05-31/assets/visual-preview.gif",
       "x": 0,
       "y": 13,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -545,7 +566,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-01/assets/visual-preview.gif",
       "x": 5,
       "y": 1,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -566,7 +587,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-02/assets/visual-preview.gif",
       "x": 4,
       "y": -1,
-      "z": 2,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -587,7 +608,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-03/assets/visual-preview.gif",
       "x": 5,
       "y": -4,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -608,7 +629,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-04/assets/visual-preview.gif",
       "x": 8,
       "y": -6,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -629,7 +650,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-05/assets/visual-preview.gif",
       "x": 11,
       "y": -6,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -650,7 +671,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-06/assets/visual-preview.gif",
       "x": -3,
       "y": 12,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -671,7 +692,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-07/assets/visual-preview.gif",
       "x": 14,
       "y": -4,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -692,7 +713,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-08/assets/visual-preview.gif",
       "x": 15,
       "y": -1,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -713,7 +734,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-09/assets/visual-preview.gif",
       "x": 13,
       "y": 2,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -734,7 +755,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-10/assets/visual-preview.gif",
       "x": -4,
       "y": 10,
-      "z": 2,
+      "z": 3,
       "featured": true,
       "latest": false
     },
@@ -755,7 +776,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-11/assets/visual-preview.gif",
       "x": -3,
       "y": 7,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -776,7 +797,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-12/assets/visual-preview.gif",
       "x": 0,
       "y": 5,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -797,7 +818,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-13/assets/visual-preview.gif",
       "x": 3,
       "y": 5,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -818,7 +839,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-14/assets/visual-preview.gif",
       "x": 6,
       "y": 7,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -839,7 +860,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-15/assets/visual-preview.gif",
       "x": 7,
       "y": 10,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -860,7 +881,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-16/assets/visual-preview.gif",
       "x": 5,
       "y": 13,
-      "z": 2,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -881,7 +902,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-17/assets/visual-preview.gif",
       "x": 2,
       "y": 14,
-      "z": 2,
+      "z": 1,
       "featured": true,
       "latest": false
     },
@@ -902,7 +923,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-18/assets/visual-preview.gif",
       "x": -2,
       "y": 14,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -923,7 +944,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-19/assets/visual-preview.gif",
       "x": -5,
       "y": 11,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -944,7 +965,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-20/assets/visual-preview.gif",
       "x": -5,
       "y": 8,
-      "z": 1,
+      "z": 2,
       "featured": true,
       "latest": false
     },
@@ -965,7 +986,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-21/assets/visual-preview.gif",
       "x": -2,
       "y": 4,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -986,34 +1007,13 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-22/assets/visual-preview.gif",
       "x": 6,
       "y": 6,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
     {
       "id": "2026-06-23",
       "date": "2026-06-23",
-      "title_en": "Absent creation window",
-      "title_zh": "缺席的创作窗口",
-      "variable_en": "Absence",
-      "variable_zh": "缺席",
-      "motif": "archive",
-      "motif_zh": "档案区",
-      "chapter": "Archive / 档案区",
-      "diary_en": "Absence entered the archive as a clue rather than a label.",
-      "diary_zh": "「缺席」作为线索进入档案，而不只是标签。",
-      "live_url": "../",
-      "archive_url": "../",
-      "gif": "../",
-      "x": -6,
-      "y": -12,
-      "z": 2,
-      "featured": false,
-      "latest": false
-    },
-    {
-      "id": "2026-06-24",
-      "date": "2026-06-24",
       "title_en": "Absent creation window",
       "title_zh": "缺席的创作窗口",
       "variable_en": "Absence",
@@ -1033,8 +1033,8 @@ window.GRANTED_INTERIOR_DATA = {
       "latest": false
     },
     {
-      "id": "2026-06-25",
-      "date": "2026-06-25",
+      "id": "2026-06-24",
+      "date": "2026-06-24",
       "title_en": "Absent creation window",
       "title_zh": "缺席的创作窗口",
       "variable_en": "Absence",
@@ -1054,8 +1054,8 @@ window.GRANTED_INTERIOR_DATA = {
       "latest": false
     },
     {
-      "id": "2026-06-26",
-      "date": "2026-06-26",
+      "id": "2026-06-25",
+      "date": "2026-06-25",
       "title_en": "Absent creation window",
       "title_zh": "缺席的创作窗口",
       "variable_en": "Absence",
@@ -1070,6 +1070,27 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../",
       "x": 3,
       "y": -12,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-06-26",
+      "date": "2026-06-26",
+      "title_en": "Absent creation window",
+      "title_zh": "缺席的创作窗口",
+      "variable_en": "Absence",
+      "variable_zh": "缺席",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Absence entered the archive as a clue rather than a label.",
+      "diary_zh": "「缺席」作为线索进入档案，而不只是标签。",
+      "live_url": "../",
+      "archive_url": "../",
+      "gif": "../",
+      "x": 4,
+      "y": -9,
       "z": 1,
       "featured": false,
       "latest": false
@@ -1091,7 +1112,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-27/assets/visual-preview.gif",
       "x": 8,
       "y": 5,
-      "z": 2,
+      "z": 1,
       "featured": true,
       "latest": false
     },
@@ -1112,7 +1133,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-28/assets/visual-preview.gif",
       "x": 10,
       "y": 7,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1133,7 +1154,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-29/assets/visual-preview.gif",
       "x": 8,
       "y": 9,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1154,7 +1175,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/06/2026-06-30/assets/visual-preview.gif",
       "x": 5,
       "y": 10,
-      "z": 1,
+      "z": 2,
       "featured": true,
       "latest": false
     },
@@ -1175,7 +1196,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-01/assets/visual-preview.gif",
       "x": 2,
       "y": 9,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1196,7 +1217,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-02/assets/visual-preview.gif",
       "x": 1,
       "y": 7,
-      "z": 2,
+      "z": 3,
       "featured": true,
       "latest": false
     },
@@ -1215,9 +1236,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../",
       "archive_url": "../",
       "gif": "../",
-      "x": 4,
-      "y": -9,
-      "z": 1,
+      "x": 2,
+      "y": -6,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1238,7 +1259,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-04/assets/visual-preview.gif",
       "x": 2,
       "y": 4,
-      "z": 1,
+      "z": 2,
       "featured": true,
       "latest": false
     },
@@ -1259,7 +1280,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-05/assets/visual-preview.gif",
       "x": 5,
       "y": 2,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1278,8 +1299,8 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-06/live/",
       "archive_url": "../archive/2026/07/2026-07-06/",
       "gif": "../archive/2026/07/2026-07-06/assets/visual-preview.gif",
-      "x": 2,
-      "y": -6,
+      "x": -1,
+      "y": -5,
       "z": 2,
       "featured": false,
       "latest": false
@@ -1299,9 +1320,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-07/live/",
       "archive_url": "../archive/2026/07/2026-07-07/",
       "gif": "../archive/2026/07/2026-07-07/assets/visual-preview.gif",
-      "x": -1,
+      "x": -5,
       "y": -5,
-      "z": 2,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1322,7 +1343,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-08/assets/visual-preview.gif",
       "x": 10,
       "y": 3,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1341,9 +1362,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../",
       "archive_url": "../",
       "gif": "../",
-      "x": -5,
-      "y": -5,
-      "z": 1,
+      "x": -8,
+      "y": -8,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1363,7 +1384,7 @@ window.GRANTED_INTERIOR_DATA = {
       "archive_url": "../archive/2026/07/2026-07-10/",
       "gif": "../archive/2026/07/2026-07-10/assets/visual-preview.gif",
       "x": -8,
-      "y": -8,
+      "y": -11,
       "z": 2,
       "featured": false,
       "latest": false
@@ -1385,7 +1406,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-11/assets/visual-preview.gif",
       "x": 8,
       "y": 2,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1404,8 +1425,8 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-12/live/",
       "archive_url": "../archive/2026/07/2026-07-12/",
       "gif": "../archive/2026/07/2026-07-12/assets/visual-preview.gif",
-      "x": -8,
-      "y": -11,
+      "x": -5,
+      "y": -15,
       "z": 1,
       "featured": false,
       "latest": false
@@ -1427,7 +1448,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-13/assets/visual-preview.gif",
       "x": 11,
       "y": 4,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1448,7 +1469,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-14/assets/visual-preview.gif",
       "x": 12,
       "y": 7,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1469,7 +1490,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-15/assets/visual-preview.gif",
       "x": 10,
       "y": 10,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1488,9 +1509,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-16/live/",
       "archive_url": "../archive/2026/07/2026-07-16/",
       "gif": "../archive/2026/07/2026-07-16/assets/visual-preview.gif",
-      "x": -5,
-      "y": -15,
-      "z": 0,
+      "x": 3,
+      "y": -13,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1511,7 +1532,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-17/assets/visual-preview.gif",
       "x": 6,
       "y": 3,
-      "z": 1,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1530,9 +1551,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-18/live/",
       "archive_url": "../archive/2026/07/2026-07-18/",
       "gif": "../archive/2026/07/2026-07-18/assets/visual-preview.gif",
-      "x": 3,
-      "y": -13,
-      "z": 0,
+      "x": 5,
+      "y": -14,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1551,9 +1572,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-19/live/",
       "archive_url": "../archive/2026/07/2026-07-19/",
       "gif": "../archive/2026/07/2026-07-19/assets/visual-preview.gif",
-      "x": 5,
-      "y": -14,
-      "z": 2,
+      "x": 7,
+      "y": -12,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1572,9 +1593,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-20/live/",
       "archive_url": "../archive/2026/07/2026-07-20/",
       "gif": "../archive/2026/07/2026-07-20/assets/visual-preview.gif",
-      "x": 7,
-      "y": -12,
-      "z": 0,
+      "x": 5,
+      "y": -10,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -1593,9 +1614,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-21/live/",
       "archive_url": "../archive/2026/07/2026-07-21/",
       "gif": "../archive/2026/07/2026-07-21/assets/visual-preview.gif",
-      "x": 5,
-      "y": -10,
-      "z": 3,
+      "x": 2,
+      "y": -9,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1616,7 +1637,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-22/assets/visual-preview.gif",
       "x": 7,
       "y": 11,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1635,9 +1656,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-23/live/",
       "archive_url": "../archive/2026/07/2026-07-23/",
       "gif": "../archive/2026/07/2026-07-23/assets/visual-preview.gif",
-      "x": 2,
-      "y": -9,
-      "z": 2,
+      "x": -1,
+      "y": -10,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1658,7 +1679,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-24/assets/visual-preview.gif",
       "x": 3,
       "y": 11,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1677,9 +1698,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-25/live/",
       "archive_url": "../archive/2026/07/2026-07-25/",
       "gif": "../archive/2026/07/2026-07-25/assets/visual-preview.gif",
-      "x": -1,
-      "y": -10,
-      "z": 1,
+      "x": -2,
+      "y": -12,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1698,8 +1719,8 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-26/live/",
       "archive_url": "../archive/2026/07/2026-07-26/",
       "gif": "../archive/2026/07/2026-07-26/assets/visual-preview.gif",
-      "x": -2,
-      "y": -12,
+      "x": -1,
+      "y": -15,
       "z": 2,
       "featured": false,
       "latest": false
@@ -1719,9 +1740,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-27/live/",
       "archive_url": "../archive/2026/07/2026-07-27/",
       "gif": "../archive/2026/07/2026-07-27/assets/visual-preview.gif",
-      "x": -1,
-      "y": -15,
-      "z": 2,
+      "x": 2,
+      "y": -17,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1740,9 +1761,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-28/live/",
       "archive_url": "../archive/2026/07/2026-07-28/",
       "gif": "../archive/2026/07/2026-07-28/assets/visual-preview.gif",
-      "x": 2,
+      "x": 5,
       "y": -17,
-      "z": 0,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -1761,9 +1782,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-29/live/",
       "archive_url": "../archive/2026/07/2026-07-29/",
       "gif": "../archive/2026/07/2026-07-29/assets/visual-preview.gif",
-      "x": 5,
-      "y": -17,
-      "z": 3,
+      "x": 8,
+      "y": -15,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1782,8 +1803,8 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/07/2026-07-30/live/",
       "archive_url": "../archive/2026/07/2026-07-30/",
       "gif": "../archive/2026/07/2026-07-30/assets/visual-preview.gif",
-      "x": 8,
-      "y": -15,
+      "x": 9,
+      "y": -12,
       "z": 1,
       "featured": false,
       "latest": false
@@ -1805,7 +1826,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/07/2026-07-31/assets/visual-preview.gif",
       "x": 0,
       "y": 8,
-      "z": 3,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1824,9 +1845,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/08/2026-08-01/live/",
       "archive_url": "../archive/2026/08/2026-08-01/",
       "gif": "../archive/2026/08/2026-08-01/assets/visual-preview.gif",
-      "x": 9,
-      "y": -12,
-      "z": 0,
+      "x": 7,
+      "y": -9,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -1845,9 +1866,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/08/2026-08-02/live/",
       "archive_url": "../archive/2026/08/2026-08-02/",
       "gif": "../archive/2026/08/2026-08-02/assets/visual-preview.gif",
-      "x": 7,
-      "y": -9,
-      "z": 3,
+      "x": 4,
+      "y": -8,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1866,7 +1887,7 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/08/2026-08-03/live/",
       "archive_url": "../archive/2026/08/2026-08-03/",
       "gif": "../archive/2026/08/2026-08-03/assets/visual-preview.gif",
-      "x": 4,
+      "x": 0,
       "y": -8,
       "z": 1,
       "featured": false,
@@ -1887,9 +1908,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/08/2026-08-04/live/",
       "archive_url": "../archive/2026/08/2026-08-04/",
       "gif": "../archive/2026/08/2026-08-04/assets/visual-preview.gif",
-      "x": 0,
-      "y": -8,
-      "z": 1,
+      "x": -3,
+      "y": -11,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -1909,7 +1930,7 @@ window.GRANTED_INTERIOR_DATA = {
       "archive_url": "../archive/2026/08/2026-08-05/",
       "gif": "../archive/2026/08/2026-08-05/assets/visual-preview.gif",
       "x": -3,
-      "y": -11,
+      "y": -14,
       "z": 2,
       "featured": false,
       "latest": false
@@ -1931,7 +1952,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/08/2026-08-06/assets/visual-preview.gif",
       "x": 0,
       "y": 5,
-      "z": 2,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1952,7 +1973,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/08/2026-08-07/assets/visual-preview.gif",
       "x": 3,
       "y": 1,
-      "z": 0,
+      "z": 1,
       "featured": false,
       "latest": false
     },
@@ -1971,9 +1992,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/08/2026-08-08/live/",
       "archive_url": "../archive/2026/08/2026-08-08/",
       "gif": "../archive/2026/08/2026-08-08/assets/visual-preview.gif",
-      "x": -3,
-      "y": -14,
-      "z": 2,
+      "x": 0,
+      "y": -18,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -1992,9 +2013,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/08/2026-08-09/live/",
       "archive_url": "../archive/2026/08/2026-08-09/",
       "gif": "../archive/2026/08/2026-08-09/assets/visual-preview.gif",
-      "x": 0,
-      "y": -18,
-      "z": 0,
+      "x": 8,
+      "y": -16,
+      "z": 1,
       "featured": false,
       "latest": true
     }
@@ -2016,7 +2037,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 36
+      "count": 37
     },
     {
       "id": "maintenance",
@@ -2038,6 +2059,10 @@ window.GRANTED_INTERIOR_DATA = {
     }
   ],
   "links": [
+    [
+      "2026-05-06",
+      "2026-05-07"
+    ],
     [
       "2026-05-07",
       "2026-05-08"
@@ -2415,6 +2440,146 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-09"
     ],
     [
+      "2026-05-06",
+      "2026-05-12"
+    ],
+    [
+      "2026-05-11",
+      "2026-05-15"
+    ],
+    [
+      "2026-05-12",
+      "2026-05-16"
+    ],
+    [
+      "2026-05-15",
+      "2026-05-23"
+    ],
+    [
+      "2026-05-16",
+      "2026-05-24"
+    ],
+    [
+      "2026-05-23",
+      "2026-05-29"
+    ],
+    [
+      "2026-05-24",
+      "2026-06-23"
+    ],
+    [
+      "2026-05-29",
+      "2026-06-24"
+    ],
+    [
+      "2026-06-23",
+      "2026-06-25"
+    ],
+    [
+      "2026-06-24",
+      "2026-06-26"
+    ],
+    [
+      "2026-06-25",
+      "2026-07-03"
+    ],
+    [
+      "2026-06-26",
+      "2026-07-06"
+    ],
+    [
+      "2026-07-03",
+      "2026-07-07"
+    ],
+    [
+      "2026-07-06",
+      "2026-07-09"
+    ],
+    [
+      "2026-07-07",
+      "2026-07-10"
+    ],
+    [
+      "2026-07-09",
+      "2026-07-12"
+    ],
+    [
+      "2026-07-10",
+      "2026-07-16"
+    ],
+    [
+      "2026-07-12",
+      "2026-07-18"
+    ],
+    [
+      "2026-07-16",
+      "2026-07-19"
+    ],
+    [
+      "2026-07-18",
+      "2026-07-20"
+    ],
+    [
+      "2026-07-19",
+      "2026-07-21"
+    ],
+    [
+      "2026-07-20",
+      "2026-07-23"
+    ],
+    [
+      "2026-07-21",
+      "2026-07-25"
+    ],
+    [
+      "2026-07-23",
+      "2026-07-26"
+    ],
+    [
+      "2026-07-25",
+      "2026-07-27"
+    ],
+    [
+      "2026-07-26",
+      "2026-07-28"
+    ],
+    [
+      "2026-07-27",
+      "2026-07-29"
+    ],
+    [
+      "2026-07-28",
+      "2026-07-30"
+    ],
+    [
+      "2026-07-29",
+      "2026-08-01"
+    ],
+    [
+      "2026-07-30",
+      "2026-08-02"
+    ],
+    [
+      "2026-08-01",
+      "2026-08-03"
+    ],
+    [
+      "2026-08-02",
+      "2026-08-04"
+    ],
+    [
+      "2026-08-03",
+      "2026-08-05"
+    ],
+    [
+      "2026-08-04",
+      "2026-08-08"
+    ],
+    [
+      "2026-08-05",
+      "2026-08-09"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -2573,142 +2738,6 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-31",
       "2026-08-07"
-    ],
-    [
-      "2026-05-11",
-      "2026-05-15"
-    ],
-    [
-      "2026-05-12",
-      "2026-05-16"
-    ],
-    [
-      "2026-05-15",
-      "2026-05-23"
-    ],
-    [
-      "2026-05-16",
-      "2026-05-24"
-    ],
-    [
-      "2026-05-23",
-      "2026-05-29"
-    ],
-    [
-      "2026-05-24",
-      "2026-06-23"
-    ],
-    [
-      "2026-05-29",
-      "2026-06-24"
-    ],
-    [
-      "2026-06-23",
-      "2026-06-25"
-    ],
-    [
-      "2026-06-24",
-      "2026-06-26"
-    ],
-    [
-      "2026-06-25",
-      "2026-07-03"
-    ],
-    [
-      "2026-06-26",
-      "2026-07-06"
-    ],
-    [
-      "2026-07-03",
-      "2026-07-07"
-    ],
-    [
-      "2026-07-06",
-      "2026-07-09"
-    ],
-    [
-      "2026-07-07",
-      "2026-07-10"
-    ],
-    [
-      "2026-07-09",
-      "2026-07-12"
-    ],
-    [
-      "2026-07-10",
-      "2026-07-16"
-    ],
-    [
-      "2026-07-12",
-      "2026-07-18"
-    ],
-    [
-      "2026-07-16",
-      "2026-07-19"
-    ],
-    [
-      "2026-07-18",
-      "2026-07-20"
-    ],
-    [
-      "2026-07-19",
-      "2026-07-21"
-    ],
-    [
-      "2026-07-20",
-      "2026-07-23"
-    ],
-    [
-      "2026-07-21",
-      "2026-07-25"
-    ],
-    [
-      "2026-07-23",
-      "2026-07-26"
-    ],
-    [
-      "2026-07-25",
-      "2026-07-27"
-    ],
-    [
-      "2026-07-26",
-      "2026-07-28"
-    ],
-    [
-      "2026-07-27",
-      "2026-07-29"
-    ],
-    [
-      "2026-07-28",
-      "2026-07-30"
-    ],
-    [
-      "2026-07-29",
-      "2026-08-01"
-    ],
-    [
-      "2026-07-30",
-      "2026-08-02"
-    ],
-    [
-      "2026-08-01",
-      "2026-08-03"
-    ],
-    [
-      "2026-08-02",
-      "2026-08-04"
-    ],
-    [
-      "2026-08-03",
-      "2026-08-05"
-    ],
-    [
-      "2026-08-04",
-      "2026-08-08"
-    ],
-    [
-      "2026-08-05",
-      "2026-08-09"
     ],
     [
       "2026-05-17",
