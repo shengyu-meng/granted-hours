@@ -240,7 +240,10 @@ try {
     }
   }
 
-  const concurrency = 5;
+  // Three pages keep WebGL/canvas startup below the 45 s per-work budget on
+  // constrained CI hosts; override explicitly for stronger runners.
+  const concurrency = Number(process.env.ARTWORK_QA_CONCURRENCY || 3);
+  assert.ok(Number.isInteger(concurrency) && concurrency > 0 && concurrency <= 8);
   for (let index = 0; index < artworkDays.length; index += concurrency) {
     const batch = artworkDays.slice(index, index + concurrency);
     const settled = await Promise.allSettled(batch.map(inspect));

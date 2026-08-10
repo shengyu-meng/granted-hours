@@ -37,6 +37,10 @@ const AUDIO_DEFAULTS_STORAGE_KEY = "granted-hours-audio-defaults-version";
 const AUDIO_DEFAULTS_VERSION = "2026-08-10-default-on-v2";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
+const ARTWORK_MEDIA_VERSION = 2;
+const ARTWORK_READY_TIMEOUT_MS = 10000;
+const VISUAL_PREVIEW_TIMEOUT_MS = 18000;
+const VISUAL_PREVIEW_RETRY_LIMIT = 2;
 const PIANO_STORAGE_KEY = "granted-hours-piano-sounds";
 const PIANO_CHROMATIC_STEPS = ["C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"];
 const PIANO_NOTES = [];
@@ -224,6 +228,10 @@ const state = {
   artworkDetailScrollTop: 0,
   artworkMediaChannel: "",
   artworkMediaOrigin: "",
+  artworkMediaReady: false,
+  artworkMediaStatus: "idle",
+  artworkReadyTimer: 0,
+  visualPreviewHiddenAt: 0,
   taskDetailOpen: false,
   taskDetailLastFocus: null,
   taskDetailScrollTop: 0,
@@ -290,6 +298,10 @@ function init() {
   els.artworkLiveFrame.addEventListener("load", () => {
     if (state.artworkDetailOpen) sendArtworkMediaCommand("play");
   });
+  els.artworkRuntimeRetry.addEventListener("click", retryArtworkRuntime);
+  els.artworkLiveLink.addEventListener("click", () => sendArtworkMediaCommand("pause"));
+  els.artworkArchiveLink.addEventListener("click", () => sendArtworkMediaCommand("pause"));
+  window.addEventListener("message", handleArtworkMediaMessage);
   els.closeTaskDetail.addEventListener("click", closeTaskDetail);
   els.closeTaskDetail.addEventListener("pointerdown", (event) => {
     if (isCoarsePointerType(event.pointerType)) {
@@ -331,7 +343,21 @@ function init() {
   });
   window.addEventListener("popstate", handleDateSelectionPopstate);
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) hideInspectionLens({ immediate: true });
+    if (document.hidden) {
+      hideInspectionLens({ immediate: true });
+      state.visualPreviewHiddenAt = Date.now();
+      if (state.artworkDetailOpen) sendArtworkMediaCommand("pause");
+      return;
+    }
+    const hiddenDuration = state.visualPreviewHiddenAt
+      ? Date.now() - state.visualPreviewHiddenAt
+      : 0;
+    retryVisualPreviews({ restartLoaded: hiddenDuration > 30000 });
+    if (state.artworkDetailOpen) sendArtworkMediaCommand("play");
+  });
+  window.addEventListener("online", () => retryVisualPreviews({ restartLoaded: false }));
+  window.addEventListener("pageshow", (event) => {
+    retryVisualPreviews({ restartLoaded: event.persisted });
   });
   window.setInterval(renderTimeState, 1000);
 }
@@ -361,8 +387,12 @@ function cacheElements() {
     "artworkDialog",
     "artworkDialogPanel",
     "artworkFullscreen",
+    "artworkLiveLink",
     "artworkLiveFrame",
     "artworkReturnCalendar",
+    "artworkRuntimeRetry",
+    "artworkRuntimeStatus",
+    "artworkRuntimeStatusCopy",
     "closeArtworkDetail",
     "closeDetail",
     "closeTaskDetail",
@@ -495,25 +525,101 @@ function preferredVisualPreviewUrl(animatedUrl) {
   return state.reducedMotion ? staticVisualPreviewUrl(animatedUrl) : animatedUrl;
 }
 
-function applyVisualPreviewSource(image) {
+function visualPreviewRetryUrl(value, attempt) {
+  if (!attempt) return publicAssetUrl(value);
+  const url = new URL(publicAssetUrl(value), window.location.href);
+  url.searchParams.set("gh_preview_retry", String(attempt));
+  return url.href;
+}
+
+function clearVisualPreviewTimer(image) {
+  if (!image._grantedHoursPreviewTimer) return;
+  window.clearTimeout(image._grantedHoursPreviewTimer);
+  image._grantedHoursPreviewTimer = 0;
+}
+
+function loadVisualPreview(image, kind, { retryAttempt = 0 } = {}) {
   const animatedUrl = image.dataset.animatedPreviewUrl || "";
   const staticUrl = image.dataset.staticPreviewUrl || staticVisualPreviewUrl(animatedUrl);
-  const preferredUrl = state.reducedMotion ? staticUrl : animatedUrl;
-  const publicPreferredUrl = publicAssetUrl(preferredUrl);
-  const publicStaticUrl = publicAssetUrl(staticUrl);
-  image.onerror = () => {
-    image.onerror = null;
-    if (image.src !== new URL(publicStaticUrl, window.location.href).href) {
-      image.src = publicStaticUrl;
-    }
+  const sourceUrl = kind === "animated" ? animatedUrl : staticUrl;
+  if (!sourceUrl) return;
+  clearVisualPreviewTimer(image);
+  image.dataset.previewKind = kind;
+  image.dataset.previewState = "loading";
+  image.dataset.previewRetryAttempt = String(retryAttempt);
+  image.onload = () => {
+    clearVisualPreviewTimer(image);
+    image.dataset.previewState = kind === "animated" ? "animated" : "static-fallback";
   };
-  if (image.src !== new URL(publicPreferredUrl, window.location.href).href) {
-    image.src = publicPreferredUrl;
+  image.onerror = () => {
+    clearVisualPreviewTimer(image);
+    if (kind === "animated") {
+      loadVisualPreview(image, "static", { retryAttempt });
+      return;
+    }
+    image.dataset.previewState = "failed";
+  };
+  const nextSource = visualPreviewRetryUrl(sourceUrl, retryAttempt);
+  if (
+    image.complete
+    && image.naturalWidth === 0
+    && image.src === new URL(nextSource, window.location.href).href
+  ) {
+    image.removeAttribute("src");
+  }
+  image.src = nextSource;
+  image._grantedHoursPreviewTimer = window.setTimeout(() => {
+    if (image.dataset.previewState !== "loading") return;
+    if (kind === "animated") loadVisualPreview(image, "static", { retryAttempt });
+    else image.dataset.previewState = "failed";
+  }, VISUAL_PREVIEW_TIMEOUT_MS);
+  if (image.complete) {
+    queueMicrotask(() => {
+      if (image.dataset.previewState !== "loading") return;
+      if (image.naturalWidth > 0) image.onload?.();
+      else image.onerror?.();
+    });
   }
 }
 
+function applyVisualPreviewSource(image, options = {}) {
+  if (!image) return;
+  const preferredKind = state.reducedMotion ? "static" : "animated";
+  const currentKind = image.dataset.previewKind;
+  const currentState = image.dataset.previewState;
+  const retryAttempt = Number(image.dataset.previewRetryAttempt || 0);
+  const needsRetry = (
+    preferredKind === "animated"
+    && ["static-fallback", "failed"].includes(currentState)
+    && retryAttempt < VISUAL_PREVIEW_RETRY_LIMIT
+  );
+  if (
+    !options.force
+    && currentKind === preferredKind
+    && ["loading", preferredKind === "animated" ? "animated" : "static-fallback"].includes(currentState)
+  ) return;
+  if (needsRetry || (options.restartLoaded && preferredKind === "animated")) {
+    loadVisualPreview(image, "animated", {
+      retryAttempt: Math.min(retryAttempt + 1, VISUAL_PREVIEW_RETRY_LIMIT),
+    });
+    return;
+  }
+  loadVisualPreview(image, preferredKind, { retryAttempt: 0 });
+}
+
 function refreshVisualPreviews() {
-  document.querySelectorAll("img[data-animated-preview-url]").forEach(applyVisualPreviewSource);
+  document.querySelectorAll("img[data-animated-preview-url]").forEach((image) => {
+    applyVisualPreviewSource(image, { force: true });
+  });
+}
+
+function retryVisualPreviews({ restartLoaded = false } = {}) {
+  if (document.hidden || state.reducedMotion) return;
+  document.querySelectorAll("img[data-animated-preview-url]").forEach((image) => {
+    const rect = image.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+    applyVisualPreviewSource(image, { restartLoaded });
+  });
 }
 
 function semanticCategory(item) {
@@ -699,6 +805,7 @@ function renderInspectionCopy(payload) {
 function renderInspectionPlate(payload, renderEpoch) {
   if (renderEpoch !== state.inspectionRenderEpoch) return;
   stopInspectionMedia();
+  els.inspectionLensMedia.style.removeProperty("background-image");
   const plate = document.createElement("div");
   plate.className = "inspection-typographic-plate";
   const marker = document.createElement("span");
@@ -731,9 +838,14 @@ function loadInspectionImage(payload, url, kind, renderEpoch, onFailure) {
   image.className = "inspection-lens-image";
   image.alt = "";
   image.decoding = "async";
+  image.fetchPriority = "high";
   image.draggable = false;
+  if (kind === "animated-image" && payload.media.staticUrl) {
+    image.dataset.loadingBackdrop = "static-preview";
+  }
   let decodeStarted = false;
   let settled = false;
+  let loadTimer = 0;
   const isCurrent = () => (
     renderEpoch === state.inspectionRenderEpoch
     && image.isConnected
@@ -742,6 +854,7 @@ function loadInspectionImage(payload, url, kind, renderEpoch, onFailure) {
   const fail = () => {
     if (settled) return;
     settled = true;
+    window.clearTimeout(loadTimer);
     if (!isCurrent()) return;
     els.inspectionLens.dataset.mediaDecodeState = "failed";
     onFailure();
@@ -756,6 +869,9 @@ function loadInspectionImage(payload, url, kind, renderEpoch, onFailure) {
         throw new Error("Decoded inspection image has no intrinsic dimensions");
       }
       settled = true;
+      window.clearTimeout(loadTimer);
+      delete image.dataset.loadingBackdrop;
+      els.inspectionLensMedia.style.removeProperty("background-image");
       els.inspectionLens.dataset.mediaKind = kind;
       els.inspectionLens.dataset.mediaState = "ready";
       els.inspectionLens.dataset.mediaDecodeState = "decoded";
@@ -773,7 +889,13 @@ function loadInspectionImage(payload, url, kind, renderEpoch, onFailure) {
   els.inspectionLens.dataset.mediaKind = kind;
   els.inspectionLens.dataset.mediaState = "loading";
   els.inspectionLens.dataset.mediaDecodeState = "pending";
+  if (kind === "animated-image" && payload.media.staticUrl) {
+    els.inspectionLensMedia.style.backgroundImage = `url("${payload.media.staticUrl.replaceAll('"', '%22')}")`;
+  } else {
+    els.inspectionLensMedia.style.removeProperty("background-image");
+  }
   image.src = url;
+  loadTimer = window.setTimeout(fail, VISUAL_PREVIEW_TIMEOUT_MS);
   if (image.complete) queueMicrotask(decodeLoadedImage);
 }
 
@@ -2403,6 +2525,8 @@ function buildAutonomousTimelineEvent(day, self) {
   applyVisualPreviewSource(card.querySelector("#selfPreview"));
   const previewButton = card.querySelector(".autonomous-preview-frame");
   const openButton = card.querySelector(".autonomous-open-copy");
+  previewButton.addEventListener("pointerenter", () => applyVisualPreviewSource(card.querySelector("#selfPreview")));
+  previewButton.addEventListener("focus", () => applyVisualPreviewSource(card.querySelector("#selfPreview")));
   previewButton.addEventListener("click", () => openArtworkDetail(day, self, previewButton));
   openButton.addEventListener("click", () => openArtworkDetail(day, self, openButton));
   const sourceDayLink = card.querySelector(".autonomous-source-day-link");
@@ -2467,6 +2591,57 @@ function autonomousArtworkEmbedUrl(day, self, channel) {
   return url;
 }
 
+function setArtworkRuntimeStatus(status) {
+  state.artworkMediaStatus = status;
+  const presentations = {
+    loading: ["Loading interactive artwork… / 正在加载互动作品…", false],
+    slow: ["The artwork is responding slowly. You can retry. / 作品加载较慢，可以重试。", true],
+    buffering: ["Loading artwork audio… / 正在缓冲作品声音…", false],
+    blocked: ["Tap inside the artwork once to start sound. / 轻触作品一次即可开启声音。", false],
+    error: ["Artwork media did not load correctly. / 作品媒体加载失败。", true],
+  };
+  const presentation = presentations[status];
+  if (!presentation) {
+    els.artworkRuntimeStatus.hidden = true;
+    els.artworkRuntimeRetry.hidden = true;
+    return;
+  }
+  els.artworkRuntimeStatusCopy.textContent = presentation[0];
+  els.artworkRuntimeRetry.hidden = !presentation[1];
+  els.artworkRuntimeStatus.hidden = false;
+}
+
+function armArtworkReadyTimeout() {
+  window.clearTimeout(state.artworkReadyTimer);
+  state.artworkReadyTimer = window.setTimeout(() => {
+    if (state.artworkDetailOpen && !state.artworkMediaReady) {
+      setArtworkRuntimeStatus("slow");
+    }
+  }, ARTWORK_READY_TIMEOUT_MS);
+}
+
+function handleArtworkMediaMessage(event) {
+  if (
+    !state.artworkDetailOpen
+    || event.source !== els.artworkLiveFrame.contentWindow
+    || event.origin !== state.artworkMediaOrigin
+  ) return;
+  const message = event.data;
+  if (!message || Object.getPrototypeOf(message) !== Object.prototype) return;
+  if (message.type !== "granted-hours:media" || message.version !== ARTWORK_MEDIA_VERSION) return;
+  if (message.channel !== state.artworkMediaChannel) return;
+  if (!new Set(["ready", "state"]).has(message.event)) return;
+  if (message.event === "ready") {
+    state.artworkMediaReady = true;
+    window.clearTimeout(state.artworkReadyTimer);
+    setArtworkRuntimeStatus("ready");
+    sendArtworkMediaCommand("play");
+    return;
+  }
+  if (!new Set(["armed", "playing", "paused", "buffering", "blocked", "error"]).has(message.status)) return;
+  setArtworkRuntimeStatus(message.status);
+}
+
 function sendArtworkMediaCommand(action) {
   if (
     !state.artworkMediaChannel
@@ -2476,12 +2651,22 @@ function sendArtworkMediaCommand(action) {
   els.artworkLiveFrame.contentWindow.postMessage(
     {
       type: "granted-hours:media",
-      version: 1,
+      version: ARTWORK_MEDIA_VERSION,
       channel: state.artworkMediaChannel,
       action,
     },
     state.artworkMediaOrigin,
   );
+}
+
+function retryArtworkRuntime() {
+  if (!state.artworkDetailOpen) return;
+  const currentUrl = new URL(els.artworkLiveFrame.src, window.location.href);
+  currentUrl.searchParams.set("gh_runtime_retry", String(Date.now()));
+  state.artworkMediaReady = false;
+  setArtworkRuntimeStatus("loading");
+  armArtworkReadyTimeout();
+  els.artworkLiveFrame.src = currentUrl.href;
 }
 
 function suspendCalendarAudioForArtwork() {
@@ -2514,11 +2699,15 @@ function openArtworkDetail(day, self, trigger) {
   );
   els.artworkDetailZh.textContent = self.note_zh;
   els.artworkDetailEn.textContent = self.note_en;
+  els.artworkLiveLink.href = autonomousLiveUrl(day, self);
   els.artworkArchiveLink.href = autonomousArchiveUrl(day, self);
   const channel = createArtworkMediaChannel();
   const embedUrl = autonomousArtworkEmbedUrl(day, self, channel);
   state.artworkMediaChannel = channel;
   state.artworkMediaOrigin = embedUrl.origin;
+  state.artworkMediaReady = false;
+  setArtworkRuntimeStatus("loading");
+  armArtworkReadyTimeout();
   els.artworkLiveFrame.title = `Interactive artwork: ${self.title_en} / 互动作品：《${self.title_zh}》`;
   els.artworkLiveFrame.src = embedUrl.href;
 
@@ -2541,6 +2730,10 @@ function closeArtworkDetail(options = {}) {
   els.artworkLiveFrame.src = "about:blank";
   state.artworkMediaChannel = "";
   state.artworkMediaOrigin = "";
+  state.artworkMediaReady = false;
+  window.clearTimeout(state.artworkReadyTimer);
+  state.artworkReadyTimer = 0;
+  setArtworkRuntimeStatus("idle");
   els.artworkDialog.classList.remove("is-open");
   els.artworkDialog.hidden = true;
   els.dayDialogPanel.removeAttribute("inert");

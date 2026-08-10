@@ -1478,6 +1478,30 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     border-color: rgba(242,195,107,.58);
     color: #fff3cf;
   }
+  .gh-media-unlock {
+    position: fixed;
+    z-index: 2147483100;
+    left: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    min-height: 38px;
+    max-width: calc(100vw - 24px);
+    box-sizing: border-box;
+    border: 1px solid rgba(242,195,107,.3);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(3,7,13,.68);
+    color: rgba(255,243,207,.9);
+    box-shadow: 0 9px 28px rgba(0,0,0,.3);
+    font: 11px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    transform: translateX(-50%);
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  .gh-media-unlock[hidden] { display: none; }
+  @media (pointer: coarse) {
+    .gh-media-unlock { min-height: 44px; }
+  }
   .gh-live-brief {
     position: fixed;
     z-index: 2147482900;
@@ -1971,7 +1995,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   const params = new URLSearchParams(window.location.search);
   const IS_EMBED = params.get('embed') === 'calendar';
   const MEDIA_TYPE = 'granted-hours:media';
-  const MEDIA_VERSION = 1;
+  const MEDIA_VERSION = 2;
   const EMBED_CHANNEL = params.get('gh_channel') || '';
   const PARENT_ORIGIN = (() => {
     try { return new URL(document.referrer).origin; }
@@ -1980,7 +2004,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   const nativePlay = HTMLMediaElement.prototype.play;
   const NativeAudio = window.Audio;
   const trackedAudio = new Set();
+  const observedAudio = new WeakSet();
   let mediaEnabled = false;
+  let mediaUnlockRequired = false;
   if (IS_EMBED) {
     function GrantedHoursAudio(...args) {
       return trackAudio(new NativeAudio(...args));
@@ -1998,7 +2024,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
         this.muted = false;
       }
       if (this instanceof HTMLVideoElement) this.muted = true;
-      return nativePlay.apply(this, args);
+      const playback = nativePlay.apply(this, args);
+      if (this instanceof HTMLAudioElement) observePlayback(this, playback);
+      return playback;
     };
     document.addEventListener('play', (event) => {
       if (event.target instanceof HTMLAudioElement) {
@@ -2020,6 +2048,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       if (message.action === 'play') setEmbeddedMediaState(true);
       else if (message.action === 'pause') setEmbeddedMediaState(false);
     });
+    window.addEventListener('pointerdown', retryEmbeddedMediaFromGesture, true);
+    window.addEventListener('keydown', retryEmbeddedMediaFromGesture, true);
+    window.queueMicrotask(() => postMediaEvent('ready', 'ready'));
   }
   const workNote = document.createElement('button');
   workNote.type = 'button';
@@ -2032,6 +2063,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   const liveBrief = createLiveBrief();
   const embedTouchKeyDock = createTouchKeyDock();
   const workNoteOverlay = createWorkNoteOverlay();
+  const mediaUnlock = createMediaUnlock();
   let workNoteLastFocus = null;
   document.addEventListener('DOMContentLoaded', init, { once: true });
   if (document.readyState !== 'loading') init();
@@ -2040,8 +2072,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     if (IS_EMBED) {
       document.body.classList.add('gh-text-folded', 'gh-chamber-embed');
       if (embedTouchKeyDock) document.body.append(embedTouchKeyDock);
-      silenceEmbeddedMedia();
-      document.body.dataset.ghAudioEnabled = '0';
+      if (mediaUnlock) document.body.append(mediaUnlock);
+      syncEmbeddedMediaState();
       new MutationObserver((records) => {
         records.forEach((record) => {
           record.addedNodes.forEach((node) => {
@@ -2052,8 +2084,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
           });
         });
       }).observe(document.documentElement, { childList: true, subtree: true });
-      window.addEventListener('load', silenceEmbeddedMedia, { once: true });
-      window.setTimeout(silenceEmbeddedMedia, 250);
+      window.addEventListener('load', syncEmbeddedMediaState, { once: true });
+      window.setTimeout(syncEmbeddedMediaState, 250);
       return;
     }
     document.body.append(liveBrief, workNote, workNoteOverlay);
@@ -2081,6 +2113,20 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     element.className = className;
     if (text) element.textContent = text;
     return element;
+  }
+  function createMediaUnlock() {
+    if (!IS_EMBED) return null;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'gh-media-unlock';
+    button.hidden = true;
+    button.textContent = 'Tap for artwork sound / 轻触开启作品声音';
+    button.setAttribute('aria-label', 'Start artwork sound / 开启作品声音');
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setEmbeddedMediaState(true, { userGesture: true });
+    });
+    return button;
   }
   function makeWorkNoteSection(label, en, zh) {
     if (!en && !zh) return null;
@@ -2712,6 +2758,24 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   }
   function trackAudio(audio) {
     trackedAudio.add(audio);
+    if (!observedAudio.has(audio)) {
+      observedAudio.add(audio);
+      audio.addEventListener('waiting', () => {
+        if (mediaEnabled) postMediaEvent('state', 'buffering');
+      });
+      audio.addEventListener('stalled', () => {
+        if (mediaEnabled) postMediaEvent('state', 'buffering');
+      });
+      audio.addEventListener('playing', () => {
+        if (mediaEnabled) {
+          setMediaUnlockRequired(false);
+          postMediaEvent('state', 'playing');
+        }
+      });
+      audio.addEventListener('error', () => {
+        if (mediaEnabled) postMediaEvent('state', 'error');
+      });
+    }
     if (!mediaEnabled) silenceAudio(audio);
     return audio;
   }
@@ -2725,19 +2789,74 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     trackedAudio.forEach(silenceAudio);
     document.querySelectorAll('video').forEach((video) => { video.muted = true; });
   }
-  function setEmbeddedMediaState(enabled) {
+  function syncEmbeddedMediaState() {
+    if (mediaEnabled) setEmbeddedMediaState(true);
+    else {
+      if (document.body) document.body.dataset.ghAudioEnabled = '0';
+      silenceEmbeddedMedia();
+    }
+  }
+  function postMediaEvent(event, status) {
+    if (!IS_EMBED || !PARENT_ORIGIN || !/^[a-zA-Z0-9_-]{16,128}$/.test(EMBED_CHANNEL)) return;
+    window.parent.postMessage({
+      type: MEDIA_TYPE,
+      version: MEDIA_VERSION,
+      channel: EMBED_CHANNEL,
+      event,
+      status,
+    }, PARENT_ORIGIN);
+  }
+  function setMediaUnlockRequired(required) {
+    mediaUnlockRequired = required;
+    if (mediaUnlock) mediaUnlock.hidden = !required;
+  }
+  function observePlayback(audio, playback) {
+    if (!mediaEnabled) return;
+    if (audio.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+      postMediaEvent('state', 'buffering');
+    }
+    if (!playback || typeof playback.then !== 'function') return;
+    playback.then(
+      () => {
+        setMediaUnlockRequired(false);
+        postMediaEvent('state', 'playing');
+      },
+      (error) => {
+        const blocked = error?.name === 'NotAllowedError';
+        setMediaUnlockRequired(blocked);
+        postMediaEvent('state', blocked ? 'blocked' : 'error');
+      },
+    );
+  }
+  function retryEmbeddedMediaFromGesture(event) {
+    if (!mediaEnabled || !event.isTrusted) return;
+    if (!mediaUnlockRequired || event.target === mediaUnlock) return;
+    setEmbeddedMediaState(true, { userGesture: true });
+  }
+  function setEmbeddedMediaState(enabled, { userGesture = false } = {}) {
     mediaEnabled = enabled;
     if (document.body) document.body.dataset.ghAudioEnabled = enabled ? '1' : '0';
     document.querySelectorAll('audio').forEach(trackAudio);
     if (!enabled) {
+      setMediaUnlockRequired(false);
       silenceEmbeddedMedia();
+      postMediaEvent('state', 'paused');
+      return;
+    }
+    if (!trackedAudio.size) {
+      postMediaEvent('state', 'armed');
       return;
     }
     trackedAudio.forEach((audio) => {
       audio.muted = false;
-      const playback = nativePlay.call(audio);
-      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+      try {
+        const playback = nativePlay.call(audio);
+        observePlayback(audio, playback);
+      } catch {
+        postMediaEvent('state', 'error');
+      }
     });
+    if (userGesture) setMediaUnlockRequired(false);
   }
 })();
 </script>

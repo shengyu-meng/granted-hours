@@ -4378,6 +4378,9 @@ html.inspection-lens-capable .inspection-lens:not([hidden]) {
       transparent 1px 5px
     ),
     #03090e;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .inspection-lens-image,
@@ -4387,6 +4390,10 @@ html.inspection-lens-capable .inspection-lens:not([hidden]) {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   background: #03090e;
+}
+
+.inspection-lens-image[data-loading-backdrop="static-preview"] {
+  background: transparent;
 }
 
 .inspection-lens-copy {
@@ -5365,6 +5372,10 @@ h1 {
 
 .artwork-dialog.is-open {
   opacity: 1;
+  /* The chamber must never remain transparent while a heavy cross-origin
+     artwork is starting. Some compositors can pin this short transition at
+     its first frame during iframe/GIF decode pressure. */
+  transition: none;
 }
 
 .artwork-dialog-panel {
@@ -5389,6 +5400,7 @@ h1 {
 
 .artwork-dialog.is-open .artwork-dialog-panel {
   transform: none;
+  transition: none;
 }
 
 .artwork-dialog-close {
@@ -5543,6 +5555,7 @@ h1 {
   min-height: 42px;
 }
 
+.artwork-live-link,
 .artwork-archive-link {
   display: inline-flex;
   min-height: 44px;
@@ -5558,6 +5571,14 @@ h1 {
   line-height: 1.4;
   text-align: center;
   text-decoration: none;
+}
+
+.artwork-live-link {
+  border-color: color-mix(in srgb, var(--gold-pale) 32%, var(--hairline-strong));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--edge-light) 22%, transparent), transparent 42%),
+    color-mix(in srgb, var(--pane-strong) 91%, var(--gold-trace) 9%);
+  color: color-mix(in srgb, var(--gold-pale) 72%, var(--cyan-trace));
 }
 
 .pulse-item:not(.has-markdown) .pulse-summary {
@@ -6277,6 +6298,50 @@ h1 {
   height: 100%;
   border: 0;
   background: #020407;
+}
+
+.artwork-runtime-status {
+  position: absolute;
+  left: 50%;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 4;
+  display: inline-flex;
+  max-width: calc(100% - 24px);
+  min-height: 36px;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border: 1px solid color-mix(in srgb, var(--cyan-trace) 28%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #020407 74%, transparent);
+  color: color-mix(in srgb, #fff 82%, var(--cyan-trace));
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.78vw, 12px);
+  line-height: 1.35;
+  text-align: center;
+  transform: translateX(-50%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
+}
+
+.artwork-runtime-status[hidden] {
+  display: none;
+}
+
+.artwork-runtime-status button {
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--gold-pale) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pane-solid) 72%, transparent);
+  color: var(--gold-pale);
+  font: inherit;
+  cursor: pointer;
+}
+
+.artwork-runtime-status button[hidden] {
+  display: none;
 }
 
 .artwork-return-calendar[hidden] {

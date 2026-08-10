@@ -20,8 +20,8 @@
       })();
     </script>
     <title>Granted Hours / 授时</title>
-    <script type="module" crossorigin src="./assets/index-R8MJiqM4.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CpR3bvR3.css">
+    <script type="module" crossorigin src="./assets/index-DjnXFiNi.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dmg4LBmq.css">
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
@@ -143,6 +143,10 @@
               allow="autoplay; fullscreen; gamepad; clipboard-write"
               referrerpolicy="strict-origin-when-cross-origin"
             ></iframe>
+            <div class="artwork-runtime-status" id="artworkRuntimeStatus" role="status" aria-live="polite" hidden>
+              <span id="artworkRuntimeStatusCopy"></span>
+              <button id="artworkRuntimeRetry" type="button" hidden>Retry / 重试</button>
+            </div>
           </div>
           <div class="artwork-detail-copy">
             <section class="artwork-summary-card" aria-labelledby="artworkSummaryLabel">
@@ -151,6 +155,7 @@
               <div class="bilingual-summary-divider" aria-hidden="true"></div>
               <p class="artwork-summary-en" id="artworkDetailEn" lang="en"></p>
             </section>
+            <a class="artwork-live-link" id="artworkLiveLink" target="_blank" rel="noopener">Open full interactive artwork / 打开完整互动作品 ↗</a>
             <a class="artwork-archive-link" id="artworkArchiveLink" target="_blank" rel="noopener">View full archive page / 查看完整档案页 ↗</a>
           </div>
         </div>

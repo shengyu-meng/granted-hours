@@ -134,11 +134,17 @@ try {
       contentType: "text/html",
       body: `<!doctype html><body class="gh-chamber-embed"><script>
         const channel = new URL(location.href).searchParams.get("gh_channel");
+        const parentOrigin = new URL(document.referrer).origin;
+        const send = (event, status) => parent.postMessage({
+          type: "granted-hours:media", version: 2, channel, event, status,
+        }, parentOrigin);
         addEventListener("message", (event) => {
           const data = event.data;
-          if (data?.type !== "granted-hours:media" || data?.version !== 1 || data?.channel !== channel) return;
+          if (data?.type !== "granted-hours:media" || data?.version !== 2 || data?.channel !== channel) return;
           document.body.dataset.ghAudioEnabled = data.action === "play" ? "1" : "0";
+          send("state", data.action === "play" ? "armed" : "paused");
         });
+        queueMicrotask(() => send("ready", "ready"));
       <\/script></body>`,
     });
   });
@@ -149,7 +155,7 @@ try {
   assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
   assert.equal(await artworkPage.locator("#calendarPianoToggle").getAttribute("aria-pressed"), "true");
   const pageCountBeforeArtwork = context.pages().length;
-  await artworkPage.locator(".autonomous-preview-frame").click();
+  await artworkPage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
   await artworkPage.waitForSelector("#artworkDialog.is-open");
   assert.equal(context.pages().length, pageCountBeforeArtwork);
   assert.equal(await artworkPage.locator("#calendarBgm").evaluate((audio) => audio.paused), true);
@@ -157,10 +163,16 @@ try {
   const artworkFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
   assert.match(artworkFrameSrc, /[?&]embed=calendar(?:&|$)/);
   assert.match(artworkFrameSrc, /[?&]gh_channel=[a-f0-9]{32}(?:&|$)/);
+  assert.match(await artworkPage.locator("#artworkLiveLink").getAttribute("href"), /\/live\//);
+  assert.ok(await artworkPage.locator("#artworkLiveLink").evaluate((link) => (
+    link.compareDocumentPosition(document.querySelector("#artworkArchiveLink"))
+    & Node.DOCUMENT_POSITION_FOLLOWING
+  ) !== 0));
   const artworkFrame = artworkPage.frames().find((frame) => frame.url().includes("embed=calendar"));
   assert.ok(artworkFrame);
   await artworkFrame.locator("body.gh-chamber-embed").waitFor({ state: "attached" });
   await artworkFrame.waitForFunction(() => document.body.dataset.ghAudioEnabled === "1");
+  await artworkPage.waitForFunction(() => document.querySelector("#artworkRuntimeStatus").hidden);
   await artworkPage.locator("#artworkFullscreen").click();
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
   assert.equal(await artworkPage.locator("#artworkReturnCalendar").isVisible(), true);
