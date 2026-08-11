@@ -226,6 +226,7 @@ const state = {
   artworkDetailOpen: false,
   artworkDetailLastFocus: null,
   artworkDetailScrollTop: 0,
+  artworkPanelScrollTop: 0,
   artworkMediaChannel: "",
   artworkMediaOrigin: "",
   artworkMediaReady: false,
@@ -292,7 +293,7 @@ function init() {
   els.nextMonth.addEventListener("click", () => moveMonth(1));
   els.todayButton.addEventListener("click", goToCurrentMonth);
   els.closeDetail.addEventListener("click", closeDayDetail);
-  els.closeArtworkDetail.addEventListener("click", closeArtworkDetail);
+  els.closeArtworkDetail.addEventListener("click", handleArtworkCloseRequest);
   els.artworkFullscreen.addEventListener("click", enterArtworkFullscreen);
   els.artworkReturnCalendar.addEventListener("click", closeArtworkDetail);
   els.artworkLiveFrame.addEventListener("load", () => {
@@ -2771,6 +2772,14 @@ function closeArtworkDetail(options = {}) {
   restoreArtworkTriggerFocus();
 }
 
+function handleArtworkCloseRequest() {
+  if (document.fullscreenElement === els.artworkDialogPanel) {
+    document.exitFullscreen().catch(() => {});
+    return;
+  }
+  closeArtworkDetail();
+}
+
 function restoreArtworkTriggerFocus() {
   if (
     state.artworkDetailLastFocus
@@ -2784,6 +2793,7 @@ function restoreArtworkTriggerFocus() {
 
 function enterArtworkFullscreen() {
   if (!state.artworkDetailOpen || !els.artworkDialogPanel.requestFullscreen) return;
+  state.artworkPanelScrollTop = els.artworkDialogPanel.scrollTop;
   els.artworkDialogPanel.requestFullscreen({ navigationUI: "hide" }).catch(() => {
     els.artworkFullscreen.setAttribute(
       "aria-label",
@@ -2793,11 +2803,25 @@ function enterArtworkFullscreen() {
 }
 
 function syncArtworkFullscreenState() {
+  const wasActive = els.artworkDialogPanel.classList.contains("is-artwork-fullscreen");
   const active = document.fullscreenElement === els.artworkDialogPanel;
   els.artworkDialogPanel.classList.toggle("is-artwork-fullscreen", active);
   els.artworkFullscreen.setAttribute("aria-pressed", active ? "true" : "false");
   els.artworkFullscreen.hidden = active;
   els.artworkReturnCalendar.hidden = !active;
+  els.closeArtworkDetail.setAttribute(
+    "aria-label",
+    active
+      ? "Exit fullscreen / 退出全屏"
+      : "Close artwork detail / 关闭作品详情",
+  );
+  if (wasActive && !active && state.artworkDetailOpen) {
+    requestAnimationFrame(() => {
+      if (!state.artworkDetailOpen || document.fullscreenElement) return;
+      els.artworkDialogPanel.scrollTop = state.artworkPanelScrollTop;
+      els.closeArtworkDetail.focus({ preventScroll: true });
+    });
+  }
 }
 
 function buildPulseTimelineEvent(pulse) {
@@ -3340,7 +3364,7 @@ function handleDocumentKeydown(event) {
   if (event.key === "Escape") {
     if (state.artworkDetailOpen) {
       event.preventDefault();
-      closeArtworkDetail();
+      handleArtworkCloseRequest();
       return;
     }
     if (state.taskDetailOpen) {

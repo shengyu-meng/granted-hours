@@ -27,7 +27,7 @@
       {
         "label": "isolated-build-a",
         "manifestBytes": 5649,
-        "manifestSha256": "f1329d6a7a8ec1c9661fe3af91afe17481fea3b11db3345ad24aa4159b4436fb",
+        "manifestSha256": "8d3feb140e88e9323240b836d28c841a01c00d09f5ab1917fa787db5cfe11aa3",
         "files": [
           {
             "path": "assets/index-D7aiIUdh.css",
@@ -36,15 +36,15 @@
             "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
           },
           {
-            "path": "assets/index-lbKcQgWP.js",
-            "bytes": 3697461,
-            "gzipBytes": 439044,
-            "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
+            "path": "assets/index-djnOaLiJ.js",
+            "bytes": 3698067,
+            "gzipBytes": 439206,
+            "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
           },
           {
             "path": "index.html",
             "bytes": 11267,
-            "sha256": "2bc3a4157beefc57be3491d1d9149a2ae7487a4208923c9f983795c1dcb2c880"
+            "sha256": "31854a09f5eda590ab2b6f11a4d855d74dec94b817fec8b8cf885b130ae582ef"
           },
           {
             "path": "piano/A3.mp3",
@@ -236,7 +236,7 @@
       {
         "label": "isolated-build-b",
         "manifestBytes": 5649,
-        "manifestSha256": "f1329d6a7a8ec1c9661fe3af91afe17481fea3b11db3345ad24aa4159b4436fb",
+        "manifestSha256": "8d3feb140e88e9323240b836d28c841a01c00d09f5ab1917fa787db5cfe11aa3",
         "files": [
           {
             "path": "assets/index-D7aiIUdh.css",
@@ -245,15 +245,15 @@
             "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
           },
           {
-            "path": "assets/index-lbKcQgWP.js",
-            "bytes": 3697461,
-            "gzipBytes": 439044,
-            "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
+            "path": "assets/index-djnOaLiJ.js",
+            "bytes": 3698067,
+            "gzipBytes": 439206,
+            "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
           },
           {
             "path": "index.html",
             "bytes": 11267,
-            "sha256": "2bc3a4157beefc57be3491d1d9149a2ae7487a4208923c9f983795c1dcb2c880"
+            "sha256": "31854a09f5eda590ab2b6f11a4d855d74dec94b817fec8b8cf885b130ae582ef"
           },
           {
             "path": "piano/A3.mp3",
@@ -454,7 +454,7 @@
     "canonical": {
       "directory": "docs/timetable",
       "manifestBytes": 5649,
-      "manifestSha256": "f1329d6a7a8ec1c9661fe3af91afe17481fea3b11db3345ad24aa4159b4436fb",
+      "manifestSha256": "8d3feb140e88e9323240b836d28c841a01c00d09f5ab1917fa787db5cfe11aa3",
       "files": [
         {
           "path": "assets/index-D7aiIUdh.css",
@@ -463,15 +463,15 @@
           "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
         },
         {
-          "path": "assets/index-lbKcQgWP.js",
-          "bytes": 3697461,
-          "gzipBytes": 439044,
-          "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
+          "path": "assets/index-djnOaLiJ.js",
+          "bytes": 3698067,
+          "gzipBytes": 439206,
+          "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
         },
         {
           "path": "index.html",
           "bytes": 11267,
-          "sha256": "2bc3a4157beefc57be3491d1d9149a2ae7487a4208923c9f983795c1dcb2c880"
+          "sha256": "31854a09f5eda590ab2b6f11a4d855d74dec94b817fec8b8cf885b130ae582ef"
         },
         {
           "path": "piano/A3.mp3",
@@ -672,15 +672,15 @@
       "javascript": {
         "files": [
           {
-            "path": "assets/index-lbKcQgWP.js",
-            "bytes": 3697461,
-            "gzipBytes": 439044,
-            "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
+            "path": "assets/index-djnOaLiJ.js",
+            "bytes": 3698067,
+            "gzipBytes": 439206,
+            "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
           }
         ],
         "totals": {
-          "bytes": 3697461,
-          "gzipBytes": 439044,
+          "bytes": 3698067,
+          "gzipBytes": 439206,
           "budgetBytes": 4800000,
           "gzipBudgetBytes": 690750,
           "translatedReminderCount": 203,

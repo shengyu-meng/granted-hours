@@ -186,6 +186,40 @@ try {
   await artworkPage.locator("#artworkFullscreen").click();
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
   assert.equal(await artworkPage.locator("#artworkReturnCalendar").isVisible(), true);
+  assert.equal(
+    await artworkPage.locator("#closeArtworkDetail").getAttribute("aria-label"),
+    "Exit fullscreen / 退出全屏",
+  );
+  const fullscreenFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
+  await artworkPage.locator("#closeArtworkDetail").click();
+  await artworkPage.waitForFunction(() => document.fullscreenElement === null);
+  assert.equal(await artworkPage.locator("#artworkDialog").isVisible(), true);
+  assert.equal(await artworkPage.locator("#artworkDialog").getAttribute("class"), "artwork-dialog is-open");
+  assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), fullscreenFrameSrc);
+  assert.equal(await artworkPage.locator("#artworkBriefZh").isVisible(), true);
+  assert.equal(await artworkPage.locator("#artworkBriefEn").isVisible(), true);
+  assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("data-suspended"), "true");
+  await artworkPage.waitForFunction(() => document.activeElement?.id === "closeArtworkDetail");
+  assert.equal(
+    await artworkPage.locator("#closeArtworkDetail").getAttribute("aria-label"),
+    "Close artwork detail / 关闭作品详情",
+  );
+  await artworkPage.locator("#closeArtworkDetail").click();
+  await artworkPage.waitForSelector("#artworkDialog", { state: "hidden" });
+  assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), "about:blank");
+  await artworkPage.waitForFunction(() => document.activeElement?.classList.contains("autonomous-preview-frame"));
+  await artworkPage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+  await artworkPage.waitForSelector("#artworkDialog.is-open");
+  const escapeFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
+  await artworkPage.locator("#artworkFullscreen").click();
+  await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
+  await artworkPage.keyboard.press("Escape");
+  await artworkPage.waitForFunction(() => document.fullscreenElement === null);
+  assert.equal(await artworkPage.locator("#artworkDialog").isVisible(), true);
+  assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), escapeFrameSrc);
+  await artworkPage.waitForFunction(() => document.activeElement?.id === "closeArtworkDetail");
+  await artworkPage.locator("#artworkFullscreen").click();
+  await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
   await artworkPage.evaluate(() => document.querySelector("#artworkReturnCalendar").click());
   await artworkPage.waitForFunction(() => document.fullscreenElement === null);
   await artworkPage.waitForSelector("#artworkDialog", { state: "hidden" });
