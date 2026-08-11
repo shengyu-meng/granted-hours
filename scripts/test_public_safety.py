@@ -121,6 +121,28 @@ class PublicSafetyTests(unittest.TestCase):
         self.assertIn("metadata/timetable-pulses.json", output)
         self.assertNotIn("scripts/import_agent_events.py", output)
 
+    def test_public_artwork_brief_metaphor_is_not_private_context(self) -> None:
+        result, output = self.scan({
+            "src/timetable/timetable-data.js": (
+                'const timetableDataSource={"brief_zh":"崩溃始于系统没有更小的诚实形状",'
+                '"brief_en":"The work refuses escape as a default."};'
+            ),
+            "docs/timetable/assets/index-test.js": (
+                'const x={"brief_zh":"不是逃避真相，而是保留不可见的边界"};'
+            ),
+        })
+        self.assertEqual(result, 0, output)
+
+    def test_private_context_outside_artwork_brief_still_fails(self) -> None:
+        result, output = self.scan({
+            "src/timetable/timetable-data.js": (
+                '{"brief_zh":"作品把崩溃画成系统隐喻",'
+                '"note_zh":"记录了具体情绪状态"}'
+            ),
+        })
+        self.assertEqual(result, 1)
+        self.assertIn("health_or_emotional_state", output)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5430,7 +5430,8 @@ h1 {
 .artwork-detail-kicker,
 .artwork-detail-meta,
 .artwork-bgm-control p,
-.artwork-summary-card h3 {
+.artwork-summary-card h3,
+.artwork-brief-card h3 {
   font-family: var(--font-mono);
   font-size: var(--type-dialog-meta);
   line-height: 1.5;
@@ -5498,6 +5499,7 @@ h1 {
 }
 
 .artwork-summary-card,
+.artwork-brief-card,
 .task-detail-summary-card {
   min-width: 0;
   padding: 15px;
@@ -5508,12 +5510,14 @@ h1 {
 }
 
 .artwork-summary-card h3,
+.artwork-brief-card h3,
 .task-detail-summary-card h3 {
   margin: 0 0 10px;
   color: var(--gold-pale);
 }
 
-.artwork-summary-card p {
+.artwork-summary-card p,
+.artwork-brief-card p {
   margin: 0;
   color: var(--ink-soft);
   font-size: var(--type-dialog-body);
@@ -5536,6 +5540,7 @@ h1 {
 }
 
 .artwork-summary-en,
+.artwork-brief-en,
 #taskDetailEn {
   color: var(--ink-muted);
 }
@@ -5691,6 +5696,7 @@ h1 {
   }
 
   .artwork-summary-card,
+  .artwork-brief-card,
   .task-detail-summary-card {
     padding: 11px;
   }

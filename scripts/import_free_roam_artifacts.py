@@ -3225,6 +3225,7 @@ def build_entry(source: Path, entry: dict, declared_entries: list[dict] | None =
         'gif': f'{rel}/assets/visual-preview.gif',
         'archive_url': f'{rel}/', 'live_url': f'{rel}/live/',
         'variable_en': entry['variable_en'], 'variable_zh': entry['variable_zh'],
+        'brief_en': entry['intention_en'], 'brief_zh': intention_zh,
         'redaction': {'status': 'sanitized', 'private_context_removed': True, 'secrets_scan': 'passed'}
     }
     if has_bgm:

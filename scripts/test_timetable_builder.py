@@ -61,6 +61,17 @@ class TimetableBuilderTests(unittest.TestCase):
                 f"{day['date']} month preview must not discard later events",
             )
 
+    def test_every_live_artwork_carries_its_canonical_bilingual_brief(self) -> None:
+        output = self.build()
+        briefs = builder.autonomous_briefs_by_date()
+        live_days = [day for day in output["days"] if day["autonomous_work"]["origin"] == "self"]
+        self.assertEqual(len(live_days), len(briefs))
+        for day in live_days:
+            with self.subTest(date=day["date"]):
+                work = day["autonomous_work"]
+                self.assertEqual(work["brief_en"], briefs[day["date"]]["brief_en"])
+                self.assertEqual(work["brief_zh"], briefs[day["date"]]["brief_zh"])
+
     def test_first_person_voice_policy_is_complete_and_evidence_bounded(self) -> None:
         output = self.build()
         assessment_count = 0
@@ -1354,6 +1365,8 @@ class TimetableBuilderTests(unittest.TestCase):
                 "title_zh": "合成未来孔径",
                 "variable_en": "Aperture",
                 "variable_zh": "孔径",
+                "brief_en": "A synthetic brief used to verify deterministic future-day projection.",
+                "brief_zh": "这是一段用于验证未来日期确定性投影的合成作品简述。",
                 "preview": f"{archive_root}/assets/preview.png",
                 "visual_preview": f"{archive_root}/assets/visual-preview.gif",
                 "gif": f"{archive_root}/assets/visual-preview.gif",

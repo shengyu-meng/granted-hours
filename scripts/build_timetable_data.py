@@ -20,6 +20,7 @@ from reminder_disclosure import (
     project_private_reminder,
 )
 from semantic_public_policy import polish_public_excerpt
+from import_free_roam_artifacts import ENTRIES as AUTONOMOUS_ARTWORK_ENTRIES
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
@@ -2350,7 +2351,30 @@ def default_jewel(public_entry: dict, config: dict) -> tuple[str, str]:
     )
 
 
-def build_autonomous_work(public_entry: dict, config: dict, legacy_entry: dict | None) -> dict:
+def autonomous_briefs_by_date() -> dict[str, dict[str, str]]:
+    briefs: dict[str, dict[str, str]] = {}
+    for entry in AUTONOMOUS_ARTWORK_ENTRIES:
+        day_date = entry.get("date")
+        require(isinstance(day_date, str), "Autonomous artwork entry is missing a date")
+        require(day_date not in briefs, f"Duplicate autonomous artwork brief: {day_date}")
+        brief = {
+            "title_en": str(entry.get("title_en", "")).strip(),
+            "title_zh": str(entry.get("title_zh", "")).strip(),
+            "brief_en": str(entry.get("intention_en", "")).strip(),
+            "brief_zh": str(entry.get("intention_zh", "")).strip(),
+        }
+        for field, value in brief.items():
+            require(value, f"{day_date} autonomous artwork brief is missing {field}")
+        briefs[day_date] = brief
+    return briefs
+
+
+def build_autonomous_work(
+    public_entry: dict,
+    config: dict,
+    legacy_entry: dict | None,
+    brief_entry: dict[str, str] | None,
+) -> dict:
     autonomous = config["autonomous_hour"]
     duration_minutes = minutes(autonomous["end"]) - minutes(autonomous["start"])
     if public_entry.get("type") == "calendar":
@@ -2379,6 +2403,8 @@ def build_autonomous_work(public_entry: dict, config: dict, legacy_entry: dict |
             "zh": "当日未生成自由作品；自主窗口标记为缺席。",
             "note_en": "Absent creation window; collaboration and routine records remain public.",
             "note_zh": "缺席的创作窗口；当日协作与例行记录仍公开。",
+            "brief_en": "",
+            "brief_zh": "",
             "archive_url": "",
             "live_url": "",
             "preview": "",
@@ -2392,6 +2418,13 @@ def build_autonomous_work(public_entry: dict, config: dict, legacy_entry: dict |
         jewel_zh = legacy_entry["jewel_zh"]
     else:
         jewel_en, jewel_zh = default_jewel(public_entry, config)
+
+    require(brief_entry is not None, f"{public_entry['date']} is missing its bilingual artwork brief")
+    require(
+        brief_entry["title_en"] == public_entry["title_en"]
+        and brief_entry["title_zh"] == public_entry["title_zh"],
+        f"{public_entry['date']} artwork brief title mismatch",
+    )
 
     return {
         "origin": "self",
@@ -2418,6 +2451,8 @@ def build_autonomous_work(public_entry: dict, config: dict, legacy_entry: dict |
         "zh": f"进入实时作品：《{public_entry['title_zh']}》",
         "note_en": jewel_en,
         "note_zh": jewel_zh,
+        "brief_en": brief_entry["brief_en"],
+        "brief_zh": brief_entry["brief_zh"],
         "archive_url": public_entry["archive_url"],
         "live_url": public_entry["live_url"],
         "preview": public_entry["preview"],
@@ -2639,7 +2674,7 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
             )
     else:
         require(self_work.get("origin") == "self", f"{day['date']} autonomous_work must have origin self")
-        for field in ("footprint_id", "start", "end", "experience_duration_en", "experience_duration_zh", "title_en", "title_zh", "variable_en", "variable_zh", "en", "zh", "note_en", "note_zh", "live_url", "preview_url", "visual_preview_url", "gif_url", "bgm_url"):
+        for field in ("footprint_id", "start", "end", "experience_duration_en", "experience_duration_zh", "title_en", "title_zh", "variable_en", "variable_zh", "en", "zh", "note_en", "note_zh", "brief_en", "brief_zh", "live_url", "preview_url", "visual_preview_url", "gif_url", "bgm_url"):
             require(str(self_work.get(field, "")).strip(), f"{day['date']} autonomous_work missing {field}")
         for field in ("preview_url", "visual_preview_url", "gif_url", "bgm_url"):
             require(self_work[field].startswith("https://"), f"{day['date']} autonomous {field} must be an absolute URL")
@@ -2894,6 +2929,7 @@ def build_data(
     latest_authored_date = max(history_by_date)
     pulses_by_date = pulses_by_date or {}
     latest_pulse_date = max(pulses_by_date) if pulses_by_date else ""
+    artwork_briefs = autonomous_briefs_by_date()
 
     for public_entry in public_days:
         day_date = public_entry["date"]
@@ -2948,7 +2984,20 @@ def build_data(
             )
         legacy_entry = legacy_by_date.get(day_date)
         tasks, history_provenance = build_tasks(public_absolute, config, history_entry)
-        autonomous_work = build_autonomous_work(public_absolute, config, legacy_entry)
+        brief_entry = artwork_briefs.get(day_date)
+        if brief_entry is None and public_entry.get("brief_en") and public_entry.get("brief_zh"):
+            brief_entry = {
+                "title_en": public_entry["title_en"],
+                "title_zh": public_entry["title_zh"],
+                "brief_en": str(public_entry["brief_en"]).strip(),
+                "brief_zh": str(public_entry["brief_zh"]).strip(),
+            }
+        autonomous_work = build_autonomous_work(
+            public_absolute,
+            config,
+            legacy_entry,
+            brief_entry,
+        )
         pulse_source = pulses_by_date.get(day_date, [])
         require(
             pulse_source or is_calendar_only or not latest_pulse_date or day_date > latest_pulse_date,

@@ -30,6 +30,8 @@ class TestTimetableLiveArtworkNavigation(unittest.TestCase):
         self.assertIn('url.searchParams.set("embed", "calendar")', source)
         self.assertIn('url.searchParams.set("gh_channel", channel)', source)
         self.assertIn("els.artworkLiveLink.href = autonomousLiveUrl(day, self)", source)
+        self.assertIn("els.artworkBriefZh.textContent = self.brief_zh", source)
+        self.assertIn("els.artworkBriefEn.textContent = self.brief_en", source)
         self.assertIn("handleArtworkMediaMessage", source)
         self.assertIn("retryArtworkRuntime", source)
         self.assertIn("version: ARTWORK_MEDIA_VERSION", source)

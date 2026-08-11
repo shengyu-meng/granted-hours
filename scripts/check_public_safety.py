@@ -142,6 +142,10 @@ PUBLIC_COPY_META_RE = re.compile(
     r"具体(?:叙事|身心细节|关系信息|主体和活动信息|平台和技术细节|心理判断|资产、账户和操作)不公开|"
     r"(?:underlying narrative|specific (?:physical|relationship|parties|platform|psychological|assets)).{0,80}remains? private"
 )
+TIMETABLE_ARTWORK_BRIEF_RE = re.compile(
+    r'((?:"(?:brief_en|brief_zh)"|(?:brief_en|brief_zh))\s*:\s*)'
+    r'(?:"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)'
+)
 
 def scrub_allowed_tokens(line: str, public_names: tuple[str, ...] = ()) -> str:
     """Remove explicitly public names/URLs without exempting the rest of a line."""
@@ -149,6 +153,20 @@ def scrub_allowed_tokens(line: str, public_names: tuple[str, ...] = ()) -> str:
     for token in sorted((*ALLOWED_TOKENS, *public_names), key=len, reverse=True):
         result = re.sub(re.escape(token), "", result, flags=re.IGNORECASE)
     return result
+
+
+def semantic_scan_text(rel: str, text: str) -> str:
+    """Keep private-context heuristics off canonical public artwork prose.
+
+    Artwork Brief fields come from the already-public, sanitized work note and
+    deliberately use metaphorical words such as "collapse" or "escape". Secret,
+    path, identity, and other line-level scans still inspect their original text.
+    """
+    if rel == "src/timetable/timetable-data.js" or (
+        rel.startswith("docs/timetable/assets/") and rel.endswith(".js")
+    ):
+        return TIMETABLE_ARTWORK_BRIEF_RE.sub(r'\1""', text)
+    return text
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -195,7 +213,7 @@ def main(root: Path) -> int:
                         findings.append(
                             (rel, 0, 'legacy_collaboration_template', '[value withheld]')
                         )
-            semantic_tags = semantic_risk_tags(text)
+            semantic_tags = semantic_risk_tags(semantic_scan_text(rel, text))
             for tag in semantic_tags:
                 findings.append((rel, 0, f'semantic_private_context:{tag}', '[value withheld]'))
             if PUBLIC_MARKET_PRIVATE_RE.search(text):

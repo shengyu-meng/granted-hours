@@ -380,6 +380,8 @@ function cacheElements() {
     "calendarPianoToggleDialog",
     "clockTime",
     "artworkArchiveLink",
+    "artworkBriefEn",
+    "artworkBriefZh",
     "artworkDetailEn",
     "artworkDetailMeta",
     "artworkDetailTitle",
@@ -2714,6 +2716,8 @@ function openArtworkDetail(day, self, trigger) {
   );
   els.artworkDetailZh.textContent = self.note_zh;
   els.artworkDetailEn.textContent = self.note_en;
+  els.artworkBriefZh.textContent = self.brief_zh;
+  els.artworkBriefEn.textContent = self.brief_en;
   els.artworkLiveLink.href = autonomousLiveUrl(day, self);
   els.artworkArchiveLink.href = autonomousArchiveUrl(day, self);
   const channel = createArtworkMediaChannel();

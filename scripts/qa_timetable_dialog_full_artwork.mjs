@@ -163,7 +163,17 @@ try {
   const artworkFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
   assert.match(artworkFrameSrc, /[?&]embed=calendar(?:&|$)/);
   assert.match(artworkFrameSrc, /[?&]gh_channel=[a-f0-9]{32}(?:&|$)/);
+  assert.equal(await artworkPage.locator("#artworkBriefZh").textContent(), latest.autonomous_work.brief_zh);
+  assert.equal(await artworkPage.locator("#artworkBriefEn").textContent(), latest.autonomous_work.brief_en);
+  assert.ok(await artworkPage.locator(".artwork-summary-card").evaluate((summary) => (
+    summary.compareDocumentPosition(document.querySelector(".artwork-brief-card"))
+    & Node.DOCUMENT_POSITION_FOLLOWING
+  ) !== 0));
   assert.match(await artworkPage.locator("#artworkLiveLink").getAttribute("href"), /\/live\//);
+  assert.ok(await artworkPage.locator(".artwork-brief-card").evaluate((brief) => (
+    brief.compareDocumentPosition(document.querySelector("#artworkLiveLink"))
+    & Node.DOCUMENT_POSITION_FOLLOWING
+  ) !== 0));
   assert.ok(await artworkPage.locator("#artworkLiveLink").evaluate((link) => (
     link.compareDocumentPosition(document.querySelector("#artworkArchiveLink"))
     & Node.DOCUMENT_POSITION_FOLLOWING
@@ -240,6 +250,32 @@ try {
   }));
   await mobilePage.locator("#enterAutonomous").scrollIntoViewIfNeeded();
   assert.ok(await mobilePage.locator("#enterAutonomous").isVisible());
+  const sampleDay = timetableData.days.find((day) => day.date === sampleDate);
+  await mobilePage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+  await mobilePage.waitForSelector("#artworkDialog.is-open");
+  assert.equal(await mobilePage.locator("#artworkBriefZh").textContent(), sampleDay.autonomous_work.brief_zh);
+  assert.equal(await mobilePage.locator("#artworkBriefEn").textContent(), sampleDay.autonomous_work.brief_en);
+  const mobileArtworkGeometry = await mobilePage.locator("#artworkDialogPanel").evaluate((panel) => {
+    const rect = panel.getBoundingClientRect();
+    const style = getComputedStyle(panel);
+    return {
+      left: rect.left,
+      right: rect.right,
+      viewportWidth: innerWidth,
+      overflowX: style.overflowX,
+      overflowY: style.overflowY,
+      canScroll: panel.scrollHeight > panel.clientHeight + 2,
+    };
+  });
+  assert.ok(mobileArtworkGeometry.left >= 0, JSON.stringify(mobileArtworkGeometry));
+  assert.ok(mobileArtworkGeometry.right <= mobileArtworkGeometry.viewportWidth, JSON.stringify(mobileArtworkGeometry));
+  assert.equal(mobileArtworkGeometry.overflowX, "hidden");
+  assert.equal(mobileArtworkGeometry.overflowY, "auto");
+  assert.equal(mobileArtworkGeometry.canScroll, true);
+  await mobilePage.locator("#artworkBriefZh").scrollIntoViewIfNeeded();
+  assert.equal(await mobilePage.locator("#artworkBriefZh").isVisible(), true);
+  await mobilePage.locator("#artworkLiveLink").scrollIntoViewIfNeeded();
+  assert.equal(await mobilePage.locator("#artworkLiveLink").isVisible(), true);
   await mobile.close();
 } finally {
   await browser.close();
