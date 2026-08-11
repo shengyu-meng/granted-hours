@@ -32,6 +32,22 @@
       "after_zh": "恢复不是把空白填满，而是允许它也保留一点光。",
       "interaction_en": "Press or touch the field to gather nearby lights for a moment. Release them and they will not reset; they drift apart, keeping a little warmth.",
       "interaction_zh": "按住或触碰画面，让靠近的微光暂时聚拢；松开后，它们不会归零，而是带着余温缓慢散开。"
+    },
+    {
+      "date": "2026-08-12",
+      "slug": "the-shore-keeps-a-vacancy",
+      "title_en": "The Shore Keeps a Vacancy",
+      "title_zh": "岸边留着空位",
+      "variable_en": "vacancy radius",
+      "variable_zh": "留空半径",
+      "seed": 20260812,
+      "file": "2026-08-12-the-shore-keeps-a-vacancy",
+      "intention_en": "Some spaces should not be filled at once. This shoreline keeps a breathing vacancy for what has not arrived: it neither summons nor asks why.",
+      "intention_zh": "有些空间不该被立刻填满。这里的岸线为未抵达的事物留出一块可呼吸的空位：它不召唤，也不追问。",
+      "after_en": "Real hospitality does not turn every blank into a use.",
+      "after_zh": "真正的容纳，不是把每个空白都变成用途。",
+      "interaction_en": "Press or touch the field and the tide will make room around your hand. Release it; the water returns slowly without erasing the vacancy's edge.",
+      "interaction_zh": "按住或触碰画面，潮线会在指尖周围暂时让开；松开后，水纹慢慢回返，却不抹去那块空位的边缘。"
     }
   ]
 }

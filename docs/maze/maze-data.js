@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-11",
-  "nodeCount": 98,
+  "generatedAt": "2026-08-12",
+  "nodeCount": 99,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2059,6 +2059,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -15,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-12",
+      "date": "2026-08-12",
+      "title_en": "The Shore Keeps a Vacancy",
+      "title_zh": "岸边留着空位",
+      "variable_en": "vacancy radius",
+      "variable_zh": "留空半径",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "vacancy radius entered the archive as a clue rather than a label.",
+      "diary_zh": "「留空半径」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-12/live/",
+      "archive_url": "../archive/2026/08/2026-08-12/",
+      "gif": "../archive/2026/08/2026-08-12/assets/visual-preview.gif",
+      "x": 10,
+      "y": -13,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2079,7 +2100,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 39
+      "count": 40
     },
     {
       "id": "maintenance",
@@ -2490,6 +2511,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-11"
     ],
     [
+      "2026-08-11",
+      "2026-08-12"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2636,6 +2661,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-09",
       "2026-08-11"
+    ],
+    [
+      "2026-08-10",
+      "2026-08-12"
     ],
     [
       "2026-05-07",

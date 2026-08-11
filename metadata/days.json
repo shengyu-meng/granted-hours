@@ -2154,5 +2154,29 @@
     },
     "bgm": "archive/2026/08/2026-08-11/live/2026-08-11-the-interval-holds-light-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-11/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-12",
+    "source_date": "2026-08-11",
+    "crystallization_date": "2026-08-12",
+    "title_en": "The Shore Keeps a Vacancy",
+    "title_zh": "岸边留着空位",
+    "type": "live",
+    "seed": 20260812,
+    "preview": "archive/2026/08/2026-08-12/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-12/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-12/",
+    "live_url": "archive/2026/08/2026-08-12/live/",
+    "variable_en": "vacancy radius",
+    "variable_zh": "留空半径",
+    "brief_en": "Some spaces should not be filled at once. This shoreline keeps a breathing vacancy for what has not arrived: it neither summons nor asks why.",
+    "brief_zh": "有些空间不该被立刻填满。这里的岸线为未抵达的事物留出一块可呼吸的空位：它不召唤，也不追问。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-12/live/2026-08-12-the-shore-keeps-a-vacancy-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-12/assets/visual-preview.gif"
   }
 ]

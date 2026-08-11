@@ -1,9 +1,9 @@
 {
   "schema": "granted-hours-timetable-pulses-v6",
   "timezone": "Asia/Shanghai",
-  "source_file_count": 5071,
-  "deduplicated_run_count": 4944,
-  "observed_session_window_count": 2522,
+  "source_file_count": 5078,
+  "deduplicated_run_count": 4951,
+  "observed_session_window_count": 2523,
   "days": [
     {
       "date": "2026-05-07",
@@ -51710,32 +51710,6 @@
       "date": "2026-08-11",
       "pulses": [
         {
-          "start": "00:00",
-          "end": "00:02",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
-          "start": "00:15",
-          "end": "00:17",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
           "start": "00:20",
           "end": "00:30",
           "duration_minutes": 10,
@@ -51759,71 +51733,6 @@
           "time_provenance": "observed_session_window",
           "summary_zh": "完成 1 次系统例行检查；1 次静默正常，0 次出现公开级别异常或新鲜度提示。",
           "summary_en": "1 system checks completed; 1 were silently healthy and 0 exposed a public-level anomaly or freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
-          "start": "00:30",
-          "end": "00:32",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
-          "start": "00:45",
-          "end": "00:47",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
-          "start": "01:00",
-          "end": "01:02",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
-          "start": "01:15",
-          "end": "01:17",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
-          "summary_provenance": "derived_public_safe"
-        },
-        {
-          "start": "01:30",
-          "end": "01:32",
-          "duration_minutes": 2,
-          "execution_minutes": 2,
-          "time_bucket": "overnight",
-          "category": "us_market_scan",
-          "count": 2,
-          "time_provenance": "receipt_timestamp_estimate",
-          "summary_zh": "2 次美股市场扫描；数据或链路新鲜度提示。",
-          "summary_en": "2 U.S. market scan run(s); a data or pipeline-freshness warning.",
           "summary_provenance": "derived_public_safe"
         },
         {
