@@ -45,7 +45,7 @@ assert.throws(
 );
 
 const readingItems = [
-  { key: "early-wide", startMinute: 30, height: 112, preferredColumn: 0, columnSpan: 2 },
+  { key: "early-wide", startMinute: 30, anchorMinute: 86, anchorRatio: 0.5, height: 112, preferredColumn: 0, columnSpan: 2 },
   { key: "routine-a", startMinute: 35, height: 48, preferredColumn: 0, columnSpan: 1 },
   { key: "routine-b", startMinute: 35, height: 48, preferredColumn: 1, columnSpan: 1 },
   { key: "late", startMinute: 1439, height: 48, preferredColumn: 1, columnSpan: 1 },
@@ -62,6 +62,11 @@ const readingOptions = {
 const firstReadingLayout = layoutTimelineReadingCards(readingItems, readingOptions);
 const secondReadingLayout = layoutTimelineReadingCards(readingItems, readingOptions);
 assert.deepEqual(firstReadingLayout, secondReadingLayout, "reading placement must be deterministic");
+assert.equal(
+  firstReadingLayout.cards.find((card) => card.key === "early-wide").top,
+  30,
+  "a reading card should be centered on its representative stratum when space permits",
+);
 for (const card of firstReadingLayout.cards) {
   assert.ok(card.top >= 4);
   assert.ok(card.bottom <= 1440);

@@ -1731,6 +1731,10 @@ function renderDayDetail(day) {
 
   els.timelineList.replaceChildren();
   appendTimelineHourMarkers(els.timelineList);
+  const strataBed = document.createElement("div");
+  strataBed.className = "timeline-strata-bed";
+  strataBed.setAttribute("aria-hidden", "true");
+  els.timelineList.append(strataBed);
   const eventsLayer = document.createElement("div");
   eventsLayer.className = "timeline-events-layer";
   eventsLayer.setAttribute("aria-hidden", "true");
@@ -1754,13 +1758,18 @@ function renderDayDetail(day) {
     const footprint = buildExactTimelineEvent(event);
     footprint.dataset.eventKey = timelineEventKey(layout);
     footprint.dataset.footprintId = event.footprint_id;
+    footprint.dataset.stratumVariant = String(compositionHash(event.footprint_id) % 5);
     eventsLayer.append(positionTimelineElement(footprint, layout));
   });
 
   const readingItems = hydratePublicReadingItems(day);
   readingItems.forEach((item, readingIndex) => {
-    const anchorLayout = layoutByFootprintId.get(item.member_footprint_ids[0]);
-    if (!anchorLayout) throw new Error(`Missing footprint anchor for ${item.reading_id}`);
+    const memberLayouts = item.member_footprint_ids
+      .map((footprintId) => layoutByFootprintId.get(footprintId))
+      .filter(Boolean);
+    if (!memberLayouts.length) throw new Error(`Missing footprint anchor for ${item.reading_id}`);
+    const temporalComposition = summarizeReadingFootprints(memberLayouts, item.layer);
+    const anchorLayout = temporalComposition.anchorLayout;
     const card = buildPublicReadingCard(day, item);
     card.dataset.eventKey = item.reading_id;
     card.dataset.readingId = item.reading_id;
@@ -1773,6 +1782,12 @@ function renderDayDetail(day) {
     card.dataset.classification = item.classification;
     card.dataset.memberFootprintIds = item.member_footprint_ids.join(" ");
     card.dataset.memberCount = String(item.member_footprint_ids.length);
+    card.dataset.anchorMinute = String(temporalComposition.anchorMinute);
+    card.dataset.anchorRatio = String(temporalComposition.anchorRatio);
+    card.dataset.memberLaneRatio = String(temporalComposition.laneRatio);
+    card.dataset.totalDurationMinutes = String(temporalComposition.totalDurationMinutes);
+    card.dataset.temporalSpanMinutes = String(temporalComposition.temporalSpanMinutes);
+    card.dataset.copyLength = String(card.textContent.replace(/\s+/g, " ").trim().length);
     const category = applySemanticCategory(card, item);
     inspectionPayloadByCard.set(card, buildInspectionPayload(item));
     card.dataset.compositionSeed = [
@@ -2161,13 +2176,70 @@ function compositionHash(value) {
   return hash >>> 0;
 }
 
+function clampNumber(value, minimum, maximum) {
+  return Math.min(maximum, Math.max(minimum, value));
+}
+
+function summarizeReadingFootprints(memberLayouts, layer) {
+  const ordered = [...memberLayouts].sort((left, right) => (
+    (left.startMinute + left.endMinute) - (right.startMinute + right.endMinute)
+    || left.sourceIndex - right.sourceIndex
+  ));
+  const centers = ordered.map((layout) => (layout.startMinute + layout.endMinute) / 2);
+  const middle = Math.floor(centers.length / 2);
+  const medianMinute = centers.length % 2
+    ? centers[middle]
+    : (centers[middle - 1] + centers[middle]) / 2;
+  const anchorLayout = ordered.reduce((closest, layout) => {
+    const distance = Math.abs((layout.startMinute + layout.endMinute) / 2 - medianMinute);
+    const closestDistance = Math.abs((closest.startMinute + closest.endMinute) / 2 - medianMinute);
+    return distance < closestDistance ? layout : closest;
+  }, ordered[0]);
+  const laneRatio = (anchorLayout.lane + 0.5) / Math.max(1, anchorLayout.laneCount);
+  const firstMinute = Math.min(...ordered.map((layout) => layout.startMinute));
+  const lastMinute = Math.max(...ordered.map((layout) => layout.endMinute));
+  return {
+    anchorLayout,
+    anchorMinute: layer === "beacon" ? anchorLayout.startMinute : medianMinute,
+    anchorRatio: layer === "beacon" ? 0 : layer === "event" ? 0.36 : 0.5,
+    laneRatio,
+    totalDurationMinutes: ordered.reduce((sum, layout) => sum + layout.durationMinutes, 0),
+    temporalSpanMinutes: lastMinute - firstMinute,
+  };
+}
+
 function readingCardHeight(card, minuteHeight, isCompactReadingCanvas) {
   if (card.dataset.layer === "beacon") {
     return isCompactReadingCanvas ? 416 : Math.max(268, minuteHeight * 60 + 92);
   }
-  if (card.dataset.layer === "event") return card.dataset.origin === "assigned" ? 168 : 144;
-  if (card.dataset.layer === "absence") return 126;
-  return 156;
+  if (card.dataset.layer === "absence") return isCompactReadingCanvas ? 148 : 132;
+  const copyLength = Number(card.dataset.copyLength) || 0;
+  const totalDurationMinutes = Number(card.dataset.totalDurationMinutes) || 1;
+  const contentBonus = clampNumber(
+    Math.ceil(Math.max(0, copyLength - (isCompactReadingCanvas ? 92 : 118)) / 42) * 12,
+    0,
+    isCompactReadingCanvas ? 96 : 72,
+  );
+  const durationBonus = clampNumber(
+    Math.round((Math.log2(totalDurationMinutes + 1) - 4) * 9),
+    0,
+    48,
+  );
+  if (card.dataset.layer === "event") {
+    const base = card.dataset.origin === "assigned" ? 150 : 138;
+    return clampNumber(base + contentBonus + durationBonus, 148, isCompactReadingCanvas ? 252 : 232);
+  }
+  return clampNumber(126 + contentBonus + durationBonus, 132, isCompactReadingCanvas ? 224 : 208);
+}
+
+function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas) {
+  const memberCount = Number(card.dataset.memberCount) || 1;
+  const copyLength = Number(card.dataset.copyLength) || 0;
+  if (card.dataset.layer === "beacon") return isCompactReadingCanvas ? columnCount : Math.min(2, columnCount);
+  if (card.dataset.layer === "event") return isCompactReadingCanvas ? columnCount : Math.min(2, columnCount);
+  if (card.dataset.layer === "absence") return Math.min(isCompactReadingCanvas ? columnCount : 2, columnCount);
+  const needsReadingWidth = memberCount > 1 || copyLength > 150;
+  return Math.min(needsReadingWidth ? 2 : 1, columnCount);
 }
 
 function scheduleTimelineReadingPlacement() {
@@ -2197,31 +2269,38 @@ function placeTimelineReadingCards() {
   let minuteHeight = Number.parseFloat(getComputedStyle(timeline).getPropertyValue("--minute-height"));
   let result = null;
 
-  for (let pass = 0; pass < 16; pass += 1) {
+  for (let pass = 0; pass < 20; pass += 1) {
     timeline.style.setProperty("--minute-height", `${minuteHeight}px`);
     const canvasHeight = MINUTES_PER_DAY * minuteHeight;
     const items = cards.map((card) => {
       const isAutonomous = card.dataset.layer === "beacon";
-      const columnSpan = isAutonomous && isCompactReadingCanvas
-        ? columnCount
-        : ["beacon", "event"].includes(card.dataset.layer)
-          ? Math.min(2, columnCount)
-          : 1;
+      const columnSpan = readingCardColumnSpan(card, columnCount, isCompactReadingCanvas);
       const maximumColumn = columnCount - columnSpan;
-      const preferredColumn = maximumColumn > 0
-        ? compositionHash(card.dataset.compositionSeed) % (maximumColumn + 1)
-        : 0;
+      const laneRatio = clampNumber(Number(card.dataset.memberLaneRatio) || 0.5, 0, 1);
+      const preferredColumn = clampNumber(
+        Math.round(laneRatio * columnCount - columnSpan / 2),
+        0,
+        maximumColumn,
+      );
       const height = readingCardHeight(card, minuteHeight, isCompactReadingCanvas);
       card.style.setProperty("--reading-card-height", `${height}px`);
       return {
         key: card.dataset.eventKey,
         startMinute: Number(card.dataset.startMinute),
+        anchorMinute: Number(card.dataset.anchorMinute),
+        anchorRatio: Number(card.dataset.anchorRatio),
         sourceIndex: Number(card.dataset.sourceIndex),
         preferredColumn,
         columnSpan,
         height,
+        layer: card.dataset.layer,
       };
-    });
+    }).sort((left, right) => (
+      left.anchorMinute - right.anchorMinute
+      || ({ beacon: 0, event: 1, climate: 2, absence: 3 }[left.layer] ?? 9)
+        - ({ beacon: 0, event: 1, climate: 2, absence: 3 }[right.layer] ?? 9)
+      || left.sourceIndex - right.sourceIndex
+    ));
     result = layoutTimelineReadingCards(items, {
       columnCount,
       columnGap,
@@ -2231,8 +2310,20 @@ function placeTimelineReadingCards() {
       minuteHeight,
       edgePadding: 4,
     });
-    if (result.requiredHeight <= canvasHeight + 0.5) break;
-    minuteHeight = Math.ceil((result.requiredHeight / MINUTES_PER_DAY + 0.04) * 1000) / 1000;
+    const displacementTolerance = isCompactReadingCanvas ? 64 : 78;
+    if (
+      result.requiredHeight <= canvasHeight + 0.5
+      && result.maximumDisplacement <= displacementTolerance
+    ) break;
+    const overflowMinuteHeight = result.requiredHeight / MINUTES_PER_DAY + 0.04;
+    const proximityMinuteHeight = minuteHeight * 1.11 + 0.02;
+    const maximumMinuteHeight = isCompactReadingCanvas ? 4.6 : 2.45;
+    const nextMinuteHeight = Math.min(
+      maximumMinuteHeight,
+      Math.max(overflowMinuteHeight, proximityMinuteHeight),
+    );
+    if (nextMinuteHeight <= minuteHeight + 0.001) break;
+    minuteHeight = Math.ceil(nextMinuteHeight * 1000) / 1000;
   }
 
   const placementByKey = new Map(result.cards.map((placement) => [placement.key, placement]));
@@ -2245,6 +2336,7 @@ function placeTimelineReadingCards() {
     card.style.height = `${placement.height}px`;
     card.dataset.readingColumn = String(placement.column);
     card.dataset.readingColumnSpan = String(placement.columnSpan);
+    card.dataset.anchorDisplacement = String(placement.displacement);
     const isAutonomous = card.dataset.layer === "beacon";
     card.classList.toggle("is-compact-reading-card", isAutonomous && isCompactReadingCanvas);
     card.classList.toggle("is-narrow-reading-card", isAutonomous && placement.width < 270);

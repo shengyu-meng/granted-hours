@@ -711,11 +711,17 @@ function assertGeometryUnchanged(baselineGeometry, afterGeometry) {
     .filter((value) => Number.isFinite(value))
     .sort((left, right) => left - right);
   const geometryScale = scaleCandidates[Math.floor(scaleCandidates.length / 2)] || 1;
+  // Minute-scale expansion is intentional in the stratigraphic composition.
+  // Across a full-day canvas Chromium can accumulate just under one CSS pixel
+  // of subpixel rounding at late events, while exact-duration QA still checks
+  // every footprint against duration × the current minute scale.
+  const scaledGeometryRoundingTolerance = 1.1;
   for (const after of comparableGeometry) {
     const before = baselineById.get(after.footprintId);
     for (const measurement of ["top", "height"]) {
       assert.ok(
-        Math.abs(after[measurement] - before[measurement] * geometryScale) <= 0.75,
+        Math.abs(after[measurement] - before[measurement] * geometryScale)
+          <= scaledGeometryRoundingTolerance,
         `${after.footprintId} ${measurement} changed non-uniformly: `
           + `${before[measurement]} -> ${after[measurement]} at scale ${geometryScale}`,
       );

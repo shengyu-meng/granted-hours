@@ -123,9 +123,13 @@ export function layoutTimelineReadingCards(items, options) {
     const maximumColumn = columnCount - columnSpan;
     const preferredColumn = Math.max(0, Math.min(maximumColumn, Number(item.preferredColumn) || 0));
     const height = Math.max(1, Number(item.height) || 1);
+    const anchorMinute = Number.isFinite(Number(item.anchorMinute))
+      ? Number(item.anchorMinute)
+      : Number(item.startMinute);
+    const anchorRatio = Math.max(0, Math.min(1, Number(item.anchorRatio) || 0));
     const desiredTop = Math.max(
       edgePadding,
-      Math.min(Number(item.startMinute) * minuteHeight, canvasHeight - height - edgePadding),
+      Math.min(anchorMinute * minuteHeight - height * anchorRatio, canvasHeight - height - edgePadding),
     );
     let best = null;
 
@@ -188,6 +192,8 @@ export function layoutTimelineReadingCards(items, options) {
       ...item,
       column: best.column,
       columnSpan: best.columnSpan,
+      desiredTop,
+      displacement: Math.abs(best.top - desiredTop),
       top: best.top,
       bottom: best.top + height,
       left: best.column * (columnWidth + columnGap),
@@ -200,6 +206,7 @@ export function layoutTimelineReadingCards(items, options) {
   return {
     cards: placed,
     requiredHeight: placed.reduce((maximum, item) => Math.max(maximum, item.bottom + edgePadding), 0),
+    maximumDisplacement: placed.reduce((maximum, item) => Math.max(maximum, item.displacement), 0),
   };
 }
 

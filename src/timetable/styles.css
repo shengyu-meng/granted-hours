@@ -6023,6 +6023,237 @@ h1 {
   }
 }
 
+/* ===== Stratigraphic day detail / 日详情时间地层（2026-08-12） =====
+   Exact footprints are the exposed strata, not translucent marks hidden under
+   a card plane. Reading cards are larger editorial fossils set into the same
+   cut, placed near the temporal median of the footprints they summarize. */
+.timeline-strata-bed {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 0 var(--time-gutter);
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      177deg,
+      color-mix(in srgb, var(--cyan-muted) 8%, transparent) 0 1px,
+      transparent 1px 21px,
+      color-mix(in srgb, var(--gold-trace) 6%, transparent) 21px 22px,
+      transparent 22px 39px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--cyan-muted) 10%, var(--page-bg)) 0 34%,
+      color-mix(in srgb, var(--ash) 7%, var(--pane-solid)) 34% 68%,
+      color-mix(in srgb, var(--gold-trace) 8%, var(--page-bg)) 68% 100%
+    );
+  opacity: 0.78;
+}
+
+.timeline-strata-bed::after {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 calc(60 * var(--minute-height) - 2px),
+      color-mix(in srgb, var(--ink) 12%, transparent) calc(60 * var(--minute-height) - 2px) calc(60 * var(--minute-height) - 1px),
+      color-mix(in srgb, var(--edge-light) 8%, transparent) calc(60 * var(--minute-height) - 1px) calc(60 * var(--minute-height))
+    );
+  content: "";
+}
+
+.timeline-event .event-footprint {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color:
+    color-mix(in srgb, var(--category-accent) 54%, var(--hairline-strong))
+    color-mix(in srgb, var(--category-accent) 32%, var(--page-bg))
+    color-mix(in srgb, var(--category-accent) 68%, var(--hairline-strong));
+  border-radius: 7px 12px 8px 5px;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--edge-light) 18%, transparent),
+      transparent 27%,
+      color-mix(in srgb, var(--page-bg) 13%, transparent) 70%,
+      color-mix(in srgb, var(--ink) 16%, transparent)
+    ),
+    repeating-linear-gradient(
+      174deg,
+      color-mix(in srgb, var(--category-accent) 34%, var(--pane-solid)) 0 2px,
+      color-mix(in srgb, var(--category-accent) 24%, var(--pane-solid)) 2px 5px,
+      color-mix(in srgb, var(--ash) 14%, var(--pane-solid)) 5px 6px
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 22%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 22%, transparent);
+  opacity: 0.86;
+}
+
+.timeline-event[data-stratum-variant="1"] .event-footprint {
+  border-radius: 11px 5px 9px 13px;
+  background-position: 0 0, 0 2px;
+}
+
+.timeline-event[data-stratum-variant="2"] .event-footprint {
+  border-radius: 5px 13px 6px 10px;
+  background-position: 0 0, 0 4px;
+}
+
+.timeline-event[data-stratum-variant="3"] .event-footprint {
+  border-radius: 13px 8px 12px 4px;
+  background-position: 0 0, 0 6px;
+}
+
+.timeline-event[data-stratum-variant="4"] .event-footprint {
+  border-radius: 8px 14px 5px 11px;
+  background-position: 0 0, 0 8px;
+}
+
+.timeline-event.is-micro-event .event-footprint {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--category-accent) 42%, var(--pane-solid));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 28%, transparent),
+    0 0 0 0.5px color-mix(in srgb, var(--category-accent) 42%, transparent);
+  opacity: 0.92;
+}
+
+.timeline-event .footprint-rule {
+  left: 7px;
+  width: min(19%, 26px);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--edge-light) 42%, transparent) 0 1px,
+      transparent 1px 4px
+    );
+  opacity: 0.46;
+}
+
+.timeline-event .footprint-registration {
+  left: 0;
+  width: min(42%, 64px);
+  background: linear-gradient(90deg, var(--category-accent), transparent);
+  opacity: 0.52;
+}
+
+.timeline-event.is-linked-active .event-footprint,
+.event-footprint.is-linked-active {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--edge-light) 27%, transparent), transparent 34%),
+    repeating-linear-gradient(
+      174deg,
+      color-mix(in srgb, var(--category-accent) 52%, var(--pane-solid)) 0 2px,
+      color-mix(in srgb, var(--category-accent) 34%, var(--pane-solid)) 2px 6px
+    ) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 44%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 24%, transparent),
+    0 0 14px color-mix(in srgb, var(--category-accent) 34%, transparent) !important;
+  opacity: 1;
+}
+
+.timeline-connector-layer.is-placed .event-connector {
+  height: 2px;
+  opacity: 0.32;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--gold-trace) 62%, var(--cyan-trace)) 0 5px,
+      transparent 5px 8px
+    );
+}
+
+.event-reading-card {
+  isolation: isolate;
+  border-radius: 18px !important;
+  -webkit-backdrop-filter: blur(16px) saturate(118%);
+  backdrop-filter: blur(16px) saturate(118%);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 76%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 30%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 22%, transparent),
+    0 7px 16px color-mix(in srgb, var(--page-bg) 34%, transparent) !important;
+}
+
+.event-reading-card[data-layer="climate"] {
+  opacity: 0.74 !important;
+}
+
+.event-reading-card[data-layer="event"] {
+  opacity: 0.96 !important;
+}
+
+.event-reading-card:hover,
+.event-reading-card:focus-visible,
+.event-reading-card.is-selected,
+.event-reading-card.is-linked-active {
+  transform: translateY(-4px) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 82%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 46%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 22%, transparent),
+    0 28px 54px color-mix(in srgb, var(--category-accent) 13%, rgba(0, 0, 0, 0.52)) !important;
+}
+
+:root[data-theme="light"] .timeline-strata-bed {
+  opacity: 0.9;
+}
+
+:root[data-theme="light"] .timeline-event .event-footprint {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.46), transparent 31%, rgba(28, 43, 47, 0.08)),
+    repeating-linear-gradient(
+      174deg,
+      color-mix(in srgb, var(--category-accent) 28%, #e7e7df) 0 2px,
+      color-mix(in srgb, var(--category-accent) 18%, #eeede6) 2px 5px,
+      color-mix(in srgb, var(--ash) 12%, #f1f0ea) 5px 6px
+    );
+  opacity: 0.9;
+}
+
+:root[data-theme="light"] .event-reading-card[data-layer="climate"] {
+  opacity: 0.75 !important;
+}
+
+@media (max-width: 720px) {
+  .timeline-strata-bed {
+    background:
+      repeating-linear-gradient(
+        177deg,
+        color-mix(in srgb, var(--cyan-muted) 9%, transparent) 0 1px,
+        transparent 1px 17px,
+        color-mix(in srgb, var(--gold-trace) 7%, transparent) 17px 18px,
+        transparent 18px 31px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--cyan-muted) 11%, var(--page-bg)) 0 34%,
+        color-mix(in srgb, var(--ash) 8%, var(--pane-solid)) 34% 68%,
+        color-mix(in srgb, var(--gold-trace) 9%, var(--page-bg)) 68% 100%
+      );
+  }
+
+  .event-reading-card {
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--page-bg) 78%, transparent),
+      inset 0 1px 0 color-mix(in srgb, var(--edge-light) 28%, transparent),
+      0 6px 14px color-mix(in srgb, var(--page-bg) 32%, transparent) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-reading-card:hover,
+  .event-reading-card:focus-visible,
+  .event-reading-card.is-selected,
+  .event-reading-card.is-linked-active {
+    transform: none !important;
+  }
+}
+
 /* ===== Reversible chromatic register + reverse time linking (2026-08-09) =====
    `data-palette="chromatic"` is the only switch. Removing it returns the prior
    mineral palette because every earlier rule remains intact beneath this layer.
