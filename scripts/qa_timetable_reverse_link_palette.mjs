@@ -53,6 +53,13 @@ try {
   await page.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
   await page.waitForFunction(() => document.querySelector(".timeline-reading-layer.is-placed"));
   await page.waitForFunction(() => [...document.images].every((image) => image.complete));
+  await page.waitForFunction(() => {
+    const panel = document.querySelector("#dayDialogPanel");
+    if (!panel) return false;
+    const transform = getComputedStyle(panel).transform;
+    if (transform === "none") return true;
+    return Math.abs(new DOMMatrixReadOnly(transform).m42) <= 0.1;
+  });
 
   await check("chromatic palette is explicit, broad, and muted", async () => {
     const result = await page.evaluate(() => {

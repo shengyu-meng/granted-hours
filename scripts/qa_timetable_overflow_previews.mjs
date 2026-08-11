@@ -79,13 +79,22 @@ async function desktopAudit(browser) {
   const cards = page.locator(".event-reading-card");
   const cardStates = await cards.evaluateAll((elements) => elements.map((element, index) => ({
     index,
+    autonomousArtwork: Boolean(element.querySelector(".autonomous-preview-frame")),
     clientHeight: element.clientHeight,
     scrollHeight: element.scrollHeight,
     overflowY: getComputedStyle(element).overflowY,
     overflowPreview: element.dataset.overflowPreview,
     isButton: element instanceof HTMLButtonElement,
   })));
-  const overflowing = cardStates.find((state) => state.scrollHeight > state.clientHeight + 1);
+  const autonomousArtwork = cardStates.find((state) => state.autonomousArtwork);
+  assert.ok(autonomousArtwork, "representative date has no autonomous artwork card");
+  assert.equal(autonomousArtwork.overflowY, "hidden");
+  assert.equal(autonomousArtwork.overflowPreview, undefined);
+  assert.ok(autonomousArtwork.scrollHeight <= autonomousArtwork.clientHeight + 1);
+
+  const overflowing = cardStates.find(
+    (state) => !state.autonomousArtwork && state.scrollHeight > state.clientHeight + 1,
+  );
   assert.ok(overflowing, "representative date has no overflowing event card");
   assert.equal(overflowing.overflowY, "auto");
   assert.equal(overflowing.overflowPreview, "true");
@@ -131,7 +140,10 @@ async function mobileAudit(browser) {
   await page.waitForTimeout(500);
   const state = await page.evaluate(() => {
     const cards = [...document.querySelectorAll(".event-reading-card")];
-    const overflowing = cards.find((card) => card.scrollHeight > card.clientHeight + 1);
+    const autonomousArtwork = cards.find((card) => card.querySelector(".autonomous-preview-frame"));
+    const overflowing = cards.find(
+      (card) => card !== autonomousArtwork && card.scrollHeight > card.clientHeight + 1,
+    );
     const toolbarButtons = [...document.querySelectorAll(
       ".dialog-day-nav, .dialog-sound-toggle, .dialog-close",
     )];
@@ -140,6 +152,11 @@ async function mobileAudit(browser) {
       overflowY: overflowing ? getComputedStyle(overflowing).overflowY : "",
       touchAction: overflowing ? getComputedStyle(overflowing).touchAction : "",
       overflowPreview: overflowing?.dataset.overflowPreview || "",
+      autonomousArtwork: autonomousArtwork ? {
+        overflowY: getComputedStyle(autonomousArtwork).overflowY,
+        overflowPreview: autonomousArtwork.dataset.overflowPreview || "",
+        fits: autonomousArtwork.scrollHeight <= autonomousArtwork.clientHeight + 1,
+      } : null,
       horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       smallestToolbarTarget: Math.min(...toolbarButtons.map((button) => button.getBoundingClientRect().height)),
     };
@@ -148,6 +165,11 @@ async function mobileAudit(browser) {
   assert.equal(state.overflowY, "auto");
   assert.equal(state.touchAction, "pan-y");
   assert.equal(state.overflowPreview, "true");
+  assert.deepEqual(state.autonomousArtwork, {
+    overflowY: "hidden",
+    overflowPreview: "",
+    fits: true,
+  });
   assert.ok(state.horizontalOverflow <= 1);
   assert.ok(state.smallestToolbarTarget >= 44);
   await page.close();

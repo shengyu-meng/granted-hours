@@ -351,10 +351,14 @@ try {
       `${viewport.label}: ${JSON.stringify(preview)}`,
     );
     assert.ok(
-      preview.objectFit === "cover"
+      preview.objectFit === "contain"
         && Math.abs(preview.renderedWidth - preview.frameWidth) <= 1
-        && Math.abs(preview.renderedHeight - preview.frameHeight) <= 1,
-      `${viewport.label}: autonomous preview must crop to fill its available card area ${JSON.stringify(preview)}`,
+        && Math.abs(preview.renderedHeight - preview.frameHeight) <= 1
+        && Math.abs(
+          (preview.renderedWidth / preview.renderedHeight)
+          - (preview.width / preview.height)
+        ) <= 0.03,
+      `${viewport.label}: autonomous preview must preserve the complete GIF ratio ${JSON.stringify(preview)}`,
     );
     assert.ok(
       preview.frameRadius >= 12,

@@ -17,6 +17,7 @@ const cases = [
   { date: regressionDate, width: 421, height: 386, label: "2026-07-17-short-touch", compact: true, touch: true },
   { date: regressionDate, width: 320, height: 700, label: "2026-07-17-defensive-narrow", compact: true, touch: true },
   { date: regressionDate, width: 1440, height: 900, label: "2026-07-17-desktop-wide", compact: false, touch: false },
+  { date: regressionDate, width: 3840, height: 2160, label: "2026-07-17-desktop-4k", compact: false, touch: false },
 ];
 
 function expectedVisualSource(date) {
@@ -317,13 +318,23 @@ try {
       failures,
     );
     check(
-      result.compactClass
-        ? Math.abs(result.previewRenderedRatio - result.previewNaturalRatio) <= 0.03
-        : result.previewObjectFit === "cover"
-          && Math.abs(result.preview.width - result.previewImage.width) <= 1
-          && Math.abs(result.preview.height - result.previewImage.height) <= 1
-          && result.previewFrameRadius >= 12,
-      `${testCase.label}: preview must either preserve mobile ratio or use the rounded desktop cover crop`,
+      Math.abs(result.previewRenderedRatio - result.previewNaturalRatio) <= 0.03
+        && result.previewObjectFit === "contain"
+        && Math.abs(result.preview.width - result.previewImage.width) <= 1
+        && Math.abs(result.preview.height - result.previewImage.height) <= 1
+        && result.previewFrameRadius >= 12,
+      `${testCase.label}: preview must preserve the complete rounded 16:9 artwork`,
+      failures,
+    );
+    check(
+      result.preview.top >= result.card.top - 0.5
+        && result.preview.bottom <= result.card.bottom + 0.5,
+      `${testCase.label}: preview escapes the visible card ${JSON.stringify({ card: result.card, preview: result.preview })}`,
+      failures,
+    );
+    check(
+      !result.cardScroll.canScroll,
+      `${testCase.label}: autonomous artwork card must not require internal scrolling ${JSON.stringify(result.cardScroll)}`,
       failures,
     );
     check(
@@ -414,7 +425,6 @@ try {
         );
       }
     } else {
-      const contentExtendsBelowFrame = result.hint.bottom > result.card.bottom - 4;
       check(!result.compactClass, `${testCase.label}: desktop incorrectly compact`, failures);
       check(result.readingColumnSpan === 2, `${testCase.label}: desktop span changed`, failures);
       check(result.card.height >= 260 && result.card.height <= 275, `${testCase.label}: desktop height changed`, failures);
@@ -426,8 +436,7 @@ try {
           && result.dateRelation.bottom <= result.summary.top + 1
           && result.summary.bottom <= result.copy.bottom + 1
           && result.copy.bottom <= result.hint.top + 1
-          && result.hint.bottom <= result.cardScroll.contentBottom + 1
-          && (!contentExtendsBelowFrame || result.cardScroll.canScroll),
+          && result.hint.bottom <= result.card.bottom + 1,
         `${testCase.label}: autonomous copy regions overlap or escape their column `
           + JSON.stringify({
             kicker: result.kicker,
@@ -444,7 +453,9 @@ try {
       screenshotRoot
       && testCase.date === regressionDate
       && ((testCase.width === 390 && testCase.height === 844)
-        || (testCase.width === 421 && testCase.height === 386))
+        || (testCase.width === 421 && testCase.height === 386)
+        || (testCase.width === 1440 && testCase.height === 900)
+        || (testCase.width === 3840 && testCase.height === 2160))
     ) {
       await page.locator(".autonomous-reading-card").scrollIntoViewIfNeeded();
       await page.screenshot({

@@ -1801,10 +1801,15 @@ function renderDayDetail(day) {
     connector.dataset.anchorFootprintId = anchorLayout.event.footprint_id;
     connectorLayer.append(connector);
     readingLayer.append(card);
-    registerOverflowPreview(card);
-    card.addEventListener("wheel", (event) => {
-      routeWheelIntoOverflowPreview(event, card);
-    }, { passive: false });
+    const hasAutonomousArtworkPreview = Boolean(
+      card.querySelector(".autonomous-preview-frame"),
+    );
+    if (!hasAutonomousArtworkPreview) {
+      registerOverflowPreview(card);
+      card.addEventListener("wheel", (event) => {
+        routeWheelIntoOverflowPreview(event, card);
+      }, { passive: false });
+    }
   });
   scheduleTimelineReadingPlacement();
 }
