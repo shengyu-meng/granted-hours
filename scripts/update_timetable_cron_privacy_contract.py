@@ -21,7 +21,7 @@ TARGET_ROLES = {"free_roam", "dialogue", "closure"}
 MARKER = "[授时每日公开闭环契约 v9]"
 CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
-    r"(?:- [^\n]*(?:\n|$))+\Z"
+    r"(?:- [^\n]*(?:\n|$))+"
 )
 STALE_PUBLISH_SECTION_RE = re.compile(
     r"\n公开归档与日历闭环（有公开产物时必做）：\n"
@@ -38,11 +38,12 @@ COMMON_CONTRACT = """
 - 未公开品牌、产品、媒体、采购、活动和合作 Brief，只能保留文案结构、协作流程、发布节奏等工作方法；不得公开主体、产品、活动、身份、账户或合作语境。
 - 密钥、Token、部署平台、量化终端、数据链路和账户状态，只能保留为“核对外部服务权限、部署与数据链路可用性”；不得公开平台名、凭据、故障细节或运行状态。
 - 人名、地名、项目名、事件名、论文名、研究课题名、疾病名、实际持仓名、手机号、银行账号、路径、URL、凭据及技术标识必须先经过私有 denylist、实体识别与格式规则处理；私有 denylist 保持 Git 外 0600，任何值不得进入日志。
+- `metadata/public-identity-allowlist.json` 是所有者明确授权的公开姓名豁免，只允许精确名称 `Simon`、`Simon的白日梦`、`Simon Meng` 绕过人名遮罩；豁免姓名不得让同句中的路径、凭据、账户、私有项目或其他身份绕过扫描。提醒、主动协作、语义清洗和最终安全扫描必须读取同一文件。
 - 从 AI 回复补充公开结果时，必须先做独立二次审核；只允许已完成的发现、设计取舍、方法或可验证公开成果。家庭/健康、未公开商业、个人投资与交易、发布运营、教育身份、账户与基础设施、进度闲聊一律不作为新增结果；未知私人语境直接拒绝，不得为了补足卡片编造。
 - 主动协作卡的要求与完成必须由 Agent 基于打码后的真实证据撰写为可读轮廓，写入 `metadata/timetable-collaboration-contours.json`（按证据签名 key）；`import_collaboration_events.py` 报 Missing contours 时先补齐注册表再重跑，禁止回退到“要求澄清一个工作判断”“完成了视觉结构调整与结果核验”等模板句式。英文与中文对齐且掩码数量一致。
 - 用户主动交谈、主动交办，以及主会话有证据委派给 Codex/GPT/Claude/子 Agent 并返回完成结果的工作，都是“人机主动协作”；发布前必须运行 `python3 scripts/import_collaboration_events.py`，不得只运行旧的单日摘要 upsert。
 - A/H 与美股例行扫描只提交聚合卡片：保留运行次数、宽泛主题、有限状态和通用新鲜度提示；不得提交标的、持仓、价格、动作建议、终端名、源状态、Workspace 标识或维护路径。
-- 运行 `import_timetable_pulses.py` 时必须传入 `--private-redaction-terms .private/identity-denylist.json`，使提醒文本与主动协作使用同一套人名、机构名、项目名和事件名 denylist；不得只依赖通用实体识别。
+- 运行 `import_timetable_pulses.py` 时必须传入 `--private-redaction-terms .private/identity-denylist.json`，并使用其默认 `--public-identity-allowlist metadata/public-identity-allowlist.json`，使提醒文本与主动协作使用同一套 denylist 与精确公开姓名豁免；不得只依赖通用实体识别。
 - 面向读者只显示直接标题和完整内容，不显示“已整理/已核对……具体内容不公开”“结果｜”“脱敏原话”、遮罩计数、source kind、faithfulness 或上下文压缩/交接提示。长对话只能在完整句边界收束；无法形成完整句的片段不展示。措辞整理必须位于语义抽象与实体打码之后，不能借补全文意恢复被遮蔽的细节。
 - 生成或导入日历后，必须先运行 `python3 scripts/apply_semantic_public_policy.py --write`，再运行 `python3 scripts/test_semantic_public_policy.py` 与 `python3 scripts/check_public_safety.py`。任一门禁失败时停止构建、提交、推送和部署，且日志不得回显命中的原文。
 - `npm run build:timetable` 已内置同一语义清洗步骤；不得绕开它直接发布旧的 timetable 数据或静态产物。
@@ -56,6 +57,7 @@ FREE_ROAM_CONTRACT = COMMON_CONTRACT + """
 - 本任务禁止执行任何公开归档、commit、push 或 deploy；即使 prompt 其他段落残留旧发布步骤，也一律以本契约为准并忽略，公开归档统一由 06:35 闭环任务执行。
 - ready receipt 写入 workspace `tmp/granted-hours-free-roam-ready/YYYY-MM-DD.json`，权限 0600，只含 schema、日期、作品文件基名、所需资产是否齐全、验证状态与更新时间，不含作品正文、私有日志、会话或身份信息。
 - 标准双语 `*-note.md` 必须逐项包含标题、自由变量、发心、交互、余像、Source Day、Crystallization Day、03:17–04:17 Asia/Shanghai 授时时段和开放体验时长；它是后续自动声明的唯一公共元数据源。ready receipt 只在完整资产检查后写入；OCR/运行时检查若暂时不可用可标 `verification_pending`，但必须由 06:35 闭环复跑验证，不能因此永久漏发。
+- 完整资产生成后必须从 workspace 根目录运行 `python3 art-projects/granted-hours-daily-sync/scripts/write_free_roam_ready_receipt.py --date YYYY-MM-DD --artifacts artifacts/free-roam --receipts tmp/granted-hours-free-roam-ready`；禁止手写 receipt JSON。该命令核验文件、尺寸与 GIF 帧数，原子写入 v2/0600 收据。
 """.rstrip()
 
 DIALOGUE_CONTRACT = COMMON_CONTRACT + """
@@ -71,6 +73,7 @@ CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - 日期导入只能使用显式 `--date YYYY-MM-DD`。未知日期由 importer 严格读取该日期唯一的安全双语 note 并自动写入公开声明注册表；禁止人工每日改脚本、退回无 `--date` 的全语料导入，或把一个日期的错误扩大为全仓库改写。
 - 发布顺序固定为两条日期轨：先导入当天及历史积压的作品；再只对“早于当前自然日”的 `event_backlog_dates` 逐日运行 `python3 scripts/import_collaboration_events.py --date YYYY-MM-DD` 与 `import_timetable_pulses.py --date YYYY-MM-DD`。绝不在当天早晨提前导入当天后续协作/例行事件；当天事件由次日 00:20 收集，并随次日作品闭环发布。
 - ready receipt 的验证状态为 pending/partial 时，闭环必须对该日期重新运行 `qa_visual_previews.mjs --date YYYY-MM-DD` 及必要的本地安全检查；通过后原子升级 receipt 为 passed 再继续，失败则保留 oldest-first backlog，不能把暂时运行时问题变成永久缺席。
+- 构建公开数据后必须从 canonical public worktree 运行 `python3 scripts/test_first_person_public_contract.py`；它是第一人称协作、例行汇总、审核判断、满意度证据和浏览器运行时一致性的硬门控，失败即停止提交、推送和部署。
 - 预览必须同时存在 PNG、GIF 与 WebP；三者都要表现作品本身，禁止目录、错误页、加载壳或可被 OCR 读出的界面/路径文字。GIF/WebP 必须有可见运动、固定帧数和有界时长，archive 与 docs 镜像哈希必须一致。
 - 动态捕获只允许一次有界尝试，90 秒仍未完成就终止整棵捕获进程，改用已验证 PNG 的无文字视觉区域生成确定性固定帧动画并同步导出 GIF/WebP；不得把无限等待、静态单帧、缺任一格式或旧 WebP 继续沿用当作成功。
 - 只允许 canonical worktree；开始和发布后均验证 `HEAD == origin/main == git ls-remote origin refs/heads/main`。无事务清单时，工作树不干净或三方失配必须 fail closed、保留积压，不 merge/rebase/reset，也不吸收无关改动。
@@ -206,12 +209,12 @@ def main() -> int:
         prompt = job.get("prompt")
         if not isinstance(prompt, str) or not prompt.strip():
             raise SystemExit(f"Target cron role {role} has no prompt")
-        if prompt.count(MARKER) > 1:
-            raise SystemExit(f"Target cron role {role} has duplicate privacy contracts")
         contract = CONTRACT_BY_ROLE[role]
         role_changed = False
-        if not (MARKER in prompt and prompt.rstrip().endswith(contract)):
+        if not (prompt.count(MARKER) == 1 and prompt.rstrip().endswith(contract)):
             base = CONTRACT_BLOCK_RE.sub("", prompt).rstrip()
+            if "[授时每日公开闭环契约" in base or "[授时公开语义隐私契约" in base:
+                raise SystemExit(f"Target cron role {role} has a malformed privacy contract")
             if role == "free_roam":
                 base = STALE_PUBLISH_SECTION_RE.sub("", base).rstrip()
             job["prompt"] = f"{base}\n{contract}\n"

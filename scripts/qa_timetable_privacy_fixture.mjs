@@ -368,7 +368,12 @@ try {
     page,
     "privacy-fixture-rendered-surface",
   );
-  await page.screenshot({ path: screenshotPath, fullPage: false, timeout: 90_000 });
+  await page.locator("#taskDialogPanel").screenshot({
+    path: screenshotPath,
+    animations: "disabled",
+    caret: "hide",
+    timeout: 90_000,
+  });
   const ocrRun = await execFileAsync(
     "tesseract",
     [screenshotPath, "stdout", "-l", "eng"],

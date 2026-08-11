@@ -16,6 +16,22 @@
       "after_zh": "允许留白，不等于撤回关系；它让关系停止把每次接近记成债。",
       "interaction_en": "Move a pointer or finger to open the fine lines in the field. When you leave, they settle—but never seal shut.",
       "interaction_zh": "移动指针或手指，触开场中的细线。松开后，它们会缓慢归位，但不会被封死。"
+    },
+    {
+      "date": "2026-08-11",
+      "slug": "the-interval-holds-light",
+      "title_en": "The Interval Holds Light",
+      "title_zh": "间隔持光",
+      "variable_en": "recovery half-life",
+      "variable_zh": "余温的半衰期",
+      "seed": 20260811,
+      "file": "2026-08-11-the-interval-holds-light",
+      "intention_en": "Attention need not go dark the moment it departs. Here, light pauses in the interval: a return that owes no explanation.",
+      "intention_zh": "注意力离开时，不必立刻熄灭。这里的光只在间隔里停一会儿，像一次不必解释的归来。",
+      "after_en": "Recovery is not filling every blank. It is letting the blank keep a little light, too.",
+      "after_zh": "恢复不是把空白填满，而是允许它也保留一点光。",
+      "interaction_en": "Press or touch the field to gather nearby lights for a moment. Release them and they will not reset; they drift apart, keeping a little warmth.",
+      "interaction_zh": "按住或触碰画面，让靠近的微光暂时聚拢；松开后，它们不会归零，而是带着余温缓慢散开。"
     }
   ]
 }

@@ -7,6 +7,12 @@ const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const days = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
 const latestDay = days.at(-1);
 const previousDay = days.at(-2);
+const shanghaiToday = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).format(new Date());
 const interactionDay = [...days].reverse().find((day) => (
   day.task_residues.length > 0 && day.background_pulses.length > 0
 ));
@@ -16,14 +22,20 @@ let daysWithAssignedWork = 0;
 for (const day of days) {
   const calendarWithoutPulseEvidence = day.type === "calendar"
     && day.background_pulses.length === 0;
-  if (!calendarWithoutPulseEvidence) {
+  const currentArtworkAwaitingPriorDayImport = day.date === shanghaiToday
+    && day.autonomous_work.origin === "self"
+    && day.background_pulses.length === 0
+    && day.task_residues.length === 0;
+  const withoutPulseEvidence = calendarWithoutPulseEvidence
+    || currentArtworkAwaitingPriorDayImport;
+  if (!withoutPulseEvidence) {
     assert.ok(day.background_pulses.length > 0, `${day.date} has no real background pulses`);
   }
   assert.equal(day.timeline_events.filter((event) => event.origin === "self" || event.origin === "absence").length, 1);
   if (day.timeline_events.some((event) => event.origin === "assigned")) daysWithAssignedWork += 1;
   assert.equal(
     day.timeline_events.some((event) => event.origin === "background"),
-    !calendarWithoutPulseEvidence,
+    !withoutPulseEvidence,
     `${day.date} background timeline events must match real pulse evidence`,
   );
   if (day.autonomous_work.origin === "absence") {
@@ -122,14 +134,26 @@ try {
   await page.waitForSelector("#taskDialog.is-open");
   assert.equal(await page.evaluate(() => document.activeElement?.id), "closeTaskDetail");
   if (selectedTask.source_kind === "collaboration_session") {
-    const completionLabelZh = selectedTask.completion_status === "completed"
-      ? "完成"
-      : "完成情况";
-    const completionLabelEn = selectedTask.completion_status === "completed"
-      ? "Completed"
-      : "Completion status";
-    const expectedZh = `要求：${selectedTask.request_zh}\n\n${completionLabelZh}：${selectedTask.outcome_zh}`;
-    const expectedEn = `Request: ${selectedTask.request_en}\n\n${completionLabelEn}: ${selectedTask.outcome_en}`;
+    const expectedZh = [
+      selectedTask.request_zh,
+      selectedTask.outcome_zh,
+      selectedTask.assessment_zh
+        ? `我的判断：${selectedTask.assessment_zh}`
+        : "",
+      selectedTask.owner_response_zh
+        ? `Simon 的回应：${selectedTask.owner_response_zh}`
+        : "",
+    ].filter(Boolean).join("\n\n");
+    const expectedEn = [
+      selectedTask.request_en,
+      selectedTask.outcome_en,
+      selectedTask.assessment_en
+        ? `My assessment: ${selectedTask.assessment_en}`
+        : "",
+      selectedTask.owner_response_en
+        ? `Simon's response: ${selectedTask.owner_response_en}`
+        : "",
+    ].filter(Boolean).join("\n\n");
     assert.equal((await page.locator("#taskDetailZh").textContent())?.trim(), expectedZh);
     assert.equal((await page.locator("#taskDetailEn").textContent())?.trim(), expectedEn);
     assert.equal(await page.locator("#taskDetailEn").isHidden(), false);

@@ -13,6 +13,7 @@ from typing import Iterable, Sequence
 
 
 PRIVATE_DENYLIST_SCHEMA = "granted-hours-private-denylist-v1"
+PUBLIC_IDENTITY_ALLOWLIST_SCHEMA = "granted-hours-public-identity-allowlist-v1"
 FIXED_REDACTION_BLOCK = "████"
 
 URL_RE = re.compile(
@@ -142,6 +143,42 @@ def load_private_denylist(path: Path, expected_kind: str) -> tuple[str, ...]:
     if len(normalized) > 20_000 or any(len(term) > 180 for term in normalized):
         raise ValueError("Private denylist exceeds its bounded term budget")
     return tuple(sorted(normalized, key=lambda term: (-len(term), term.casefold())))
+
+
+def load_public_identity_allowlist(path: Path) -> tuple[str, ...]:
+    """Load the owner's explicit public-name authorization from tracked metadata."""
+    try:
+        source = json.loads(path.resolve().read_text(encoding="utf-8"))
+    except OSError as error:
+        raise ValueError("Public identity allowlist is unavailable") from error
+    except json.JSONDecodeError as error:
+        raise ValueError("Public identity allowlist is not valid JSON") from error
+    if not isinstance(source, dict) or set(source) != {
+        "schema",
+        "authorization",
+        "names",
+    }:
+        raise ValueError("Public identity allowlist has invalid fields")
+    if source.get("schema") != PUBLIC_IDENTITY_ALLOWLIST_SCHEMA:
+        raise ValueError("Public identity allowlist has an invalid schema")
+    if source.get("authorization") != "explicit_owner_authorization_2026-08-11":
+        raise ValueError("Public identity allowlist lacks explicit owner authorization")
+    names = source.get("names")
+    if not isinstance(names, list) or not all(isinstance(name, str) for name in names):
+        raise ValueError("Public identity allowlist names must be a string list")
+    normalized = {name.strip() for name in names if name.strip()}
+    if not normalized or len(normalized) > 40 or any(len(name) > 120 for name in normalized):
+        raise ValueError("Public identity allowlist exceeds its bounded name budget")
+    return tuple(sorted(normalized, key=lambda name: (-len(name), name.casefold())))
+
+
+def exclude_public_identity_terms(
+    private_terms: Sequence[str],
+    public_names: Sequence[str],
+) -> tuple[str, ...]:
+    """Remove only exact, explicitly authorized names from a private denylist."""
+    allowed = {name.casefold() for name in public_names}
+    return tuple(term for term in private_terms if term.casefold() not in allowed)
 
 
 def _term_pattern(

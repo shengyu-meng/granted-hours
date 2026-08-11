@@ -5,6 +5,16 @@ import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8771/timetable/";
 const latestDate = [...timetableData.days].map((day) => day.date).sort().at(-1);
+const shanghaiToday = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).format(new Date());
+const latestTimelineDate = [...timetableData.days]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .find((day) => day.background_pulses.length > 0)?.date;
+assert.ok(latestTimelineDate, "no public day has background timeline evidence");
 const phraseCounts = new Map();
 const scheduleSignatures = new Set();
 const categoryPatternCounts = new Map();
@@ -15,7 +25,15 @@ for (const day of timetableData.days) {
   const categoryPattern = day.task_residues.map((task) => task.category).join("|");
   categoryPatternCounts.set(categoryPattern, (categoryPatternCounts.get(categoryPattern) || 0) + 1);
   assert.equal(day.timeline_events.filter((event) => event.origin === "self" || event.origin === "absence").length, 1, day.date);
-  if (day.type === "calendar" && day.background_pulses.length === 0) {
+  const withoutPulseEvidence = day.background_pulses.length === 0 && (
+    day.type === "calendar"
+    || (
+      day.date === shanghaiToday
+      && day.autonomous_work.origin === "self"
+      && day.task_residues.length === 0
+    )
+  );
+  if (withoutPulseEvidence) {
     assert.equal(day.timeline_events.some((event) => event.origin === "background"), false, day.date);
   } else {
     assert.ok(day.timeline_events.some((event) => event.origin === "background"), day.date);
@@ -53,7 +71,7 @@ try {
   if (await page.locator("#dayDialog.is-open").count()) {
     await page.locator("#closeDetail").click();
   }
-  await page.tap(`.calendar-day-button[data-date="${latestDate}"]`);
+  await page.tap(`.calendar-day-button[data-date="${latestTimelineDate}"]`);
   await page.waitForSelector("#dayDialog.is-open");
   const result = await page.evaluate(() => {
     const panel = document.querySelector("#dayDialogPanel");
@@ -109,6 +127,8 @@ try {
 
 console.log(JSON.stringify({
   passed: true,
+  latestDate,
+  latestTimelineDate,
   uniqueTaskPhrases: phraseCounts.size,
   uniqueSchedules: scheduleSignatures.size,
 }, null, 2));

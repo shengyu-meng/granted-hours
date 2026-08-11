@@ -26,8 +26,21 @@ class PublicSafetyTests(unittest.TestCase):
                     {
                         "schema": "granted-hours-private-denylist-v1",
                         "kind": "identities",
-                        "terms": ["Synthetic Private Person"],
+                        "terms": ["Synthetic Private Person", "Simon Private Person"],
                     }
+                ),
+                encoding="utf-8",
+            )
+            metadata_dir = root / "metadata"
+            metadata_dir.mkdir()
+            (metadata_dir / "public-identity-allowlist.json").write_text(
+                json.dumps(
+                    {
+                        "schema": "granted-hours-public-identity-allowlist-v1",
+                        "authorization": "explicit_owner_authorization_2026-08-11",
+                        "names": ["Simon", "Simon的白日梦", "Simon Meng"],
+                    },
+                    ensure_ascii=False,
                 ),
                 encoding="utf-8",
             )
@@ -48,6 +61,34 @@ class PublicSafetyTests(unittest.TestCase):
             )
         })
         self.assertEqual(result, 0, output)
+
+    def test_owner_authorized_public_names_are_allowed_without_exempting_context(self) -> None:
+        public_names = ("Simon的白日梦", "Simon Meng", "Simon")
+        sanctioned = safety.scrub_allowed_tokens(
+            '"request_zh":"Simon 让我修复日历","request_en":"Simon asked me to repair it"',
+            public_names,
+        )
+        self.assertNotIn("Simon", sanctioned)
+        self.assertIn("让我修复日历", sanctioned)
+        self.assertIn("asked me to repair it", sanctioned)
+        self.assertNotIn(
+            "Simon",
+            safety.scrub_allowed_tokens(
+                "Simon Meng / Simon的白日梦 / Simon owns a public archive",
+                public_names,
+            ),
+        )
+
+        fake_secret = "sk-" + "B" * 24
+        result, output = self.scan({"public.txt": f"Simon {fake_secret}"})
+        self.assertEqual(result, 1)
+        self.assertIn("openai_key", output)
+
+        identity_result, identity_output = self.scan({
+            "public.txt": "Simon Private Person",
+        })
+        self.assertEqual(identity_result, 1)
+        self.assertIn("private_identity", identity_output)
 
     def test_public_url_does_not_exempt_a_secret_on_the_same_line(self) -> None:
         fake_secret = "sk-" + "A" * 24

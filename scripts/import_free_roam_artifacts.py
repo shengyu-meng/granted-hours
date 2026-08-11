@@ -1250,6 +1250,9 @@ def validate_entry(entry: dict, *, origin: str) -> dict:
     return {field: entry[field] for field in ENTRY_FIELDS}
 
 
+LEGACY_ENTRY_DATES = frozenset(entry['date'] for entry in ENTRIES)
+
+
 def load_registered_entries() -> list[dict]:
     path = auto_entries_path()
     if not path.exists():
@@ -1261,8 +1264,7 @@ def load_registered_entries() -> list[dict]:
     dates = [entry['date'] for entry in entries]
     if dates != sorted(dates) or len(dates) != len(set(dates)):
         raise SystemExit(f'Autonomous artwork registry dates are not unique and sorted: {path}')
-    legacy_dates = {entry['date'] for entry in ENTRIES}
-    duplicates = legacy_dates.intersection(dates)
+    duplicates = LEGACY_ENTRY_DATES.intersection(dates)
     if duplicates:
         raise SystemExit(f'Autonomous artwork registry duplicates legacy dates: {sorted(duplicates)}')
     return entries

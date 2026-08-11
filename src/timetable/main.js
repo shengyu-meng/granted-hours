@@ -1824,6 +1824,23 @@ function renderForwardCrystallizationLink(day) {
   els.dialogCrystallizationLink.append(link);
 }
 
+function collaborationSummary(task, language) {
+  const isZh = language === "zh";
+  const lines = [
+    isZh ? task.request_zh : task.request_en,
+    isZh ? task.outcome_zh : task.outcome_en,
+  ];
+  const assessment = isZh ? task.assessment_zh : task.assessment_en;
+  if (assessment) {
+    lines.push(`${isZh ? "我的判断：" : "My assessment: "}${assessment}`);
+  }
+  const ownerResponse = isZh ? task.owner_response_zh : task.owner_response_en;
+  if (ownerResponse) {
+    lines.push(`${isZh ? "Simon 的回应：" : "Simon's response: "}${ownerResponse}`);
+  }
+  return lines.join("\n");
+}
+
 function hydratePublicReadingItems(day) {
   const sourceMaps = {
     tasks: new Map(
@@ -1906,12 +1923,6 @@ function hydratePublicReadingItems(day) {
     }
     if (projection.classification === "foreground_event") {
       const isCollaboration = primary.source_kind === "collaboration_session";
-      const completionLabelZh = primary.completion_status === "completed"
-        ? "完成"
-        : "完成情况";
-      const completionLabelEn = primary.completion_status === "completed"
-        ? "Completed"
-        : "Completion status";
       return {
         ...shared,
         label_zh: primary.task_name_zh,
@@ -1919,10 +1930,10 @@ function hydratePublicReadingItems(day) {
         category_label_zh: primary.label_zh,
         category_label_en: primary.label_en,
         summary_zh: isCollaboration
-          ? `要求：${primary.request_zh}\n${completionLabelZh}：${primary.outcome_zh}`
+          ? collaborationSummary(primary, "zh")
           : primary.zh,
         summary_en: isCollaboration
-          ? `Request: ${primary.request_en}\n${completionLabelEn}: ${primary.outcome_en}`
+          ? collaborationSummary(primary, "en")
           : primary.en,
         constituents: [],
       };
@@ -1945,11 +1956,15 @@ function hydratePublicReadingItems(day) {
         task_name_zh: "当日设置变更",
         task_name_en: "Day's settings changes",
         summary_zh: sources
-          .map((source) => source.summary_zh || source.zh || "")
+          .map((source) => source.source_kind === "collaboration_session"
+            ? collaborationSummary(source, "zh")
+            : source.summary_zh || source.zh || "")
           .filter(Boolean)
           .join("；"),
         summary_en: sources
-          .map((source) => source.summary_en || source.en || "")
+          .map((source) => source.source_kind === "collaboration_session"
+            ? collaborationSummary(source, "en")
+            : source.summary_en || source.en || "")
           .filter(Boolean)
           .join("; "),
         constituents: sources,
@@ -2096,14 +2111,14 @@ function climateGroupSummary(sources) {
     const themeClauseZh = themeZh ? `；公开主题：${themeZh}` : "";
     const themeClauseEn = themeEn ? `; themes: ${themeEn}` : "";
     return [
-      `${windowCount} 个精确窗口（${windowZh}）共完成 ${runCount} 次扫描；状态：${stateZh}${themeClauseZh}；${freshness.zh}`,
-      `${runCount} scan(s) across ${windowCount} exact windows (${windowEn}); regime: ${stateEn}${themeClauseEn}; ${freshness.en}`,
+      `我在 ${windowCount} 个精确窗口（${windowZh}）共完成 ${runCount} 次扫描；我观察到：${stateZh}${themeClauseZh}；${freshness.zh}`,
+      `I completed ${runCount} scan(s) across ${windowCount} exact windows (${windowEn}); I observed: ${stateEn}${themeClauseEn}; ${freshness.en}`,
     ];
   }
   if (category === "ai_daily_brief") {
     return [
-      `${windowCount} 窗 / ${runCount} 次 AI 日报采集；未保留公开提示。`,
-      `${runCount} AI-brief runs / ${windowCount} exact windows; no public notice retained.`,
+      `我在 ${windowCount} 个精确窗口共完成 ${runCount} 次 AI 日报采集；未保留公开提示。`,
+      `I completed ${runCount} AI-brief collection run(s) across ${windowCount} exact window(s); no public notice was retained.`,
     ];
   }
   const alertWindowCount = sources.filter((source) => source.public_alert === true).length;
@@ -2115,8 +2130,8 @@ function climateGroupSummary(sources) {
     ? `${alertWindowCount} window(s) recorded a general status change; ${quietWindowCount} required no separate notice`
     : `all ${windowCount} windows required no separate notice`;
   return [
-    `全天 ${windowCount} 个精确窗口共完成 ${runCount} 次后台例行运行；运行状态：${statusZh}。`,
-    `${runCount} background routine run(s) completed across ${windowCount} exact windows during the day; status: ${statusEn}.`,
+    `我在全天 ${windowCount} 个精确窗口共完成 ${runCount} 次后台例行运行；我发现：${statusZh}。`,
+    `I completed ${runCount} background routine run(s) across ${windowCount} exact windows during the day; I found that ${statusEn}.`,
   ];
 }
 
@@ -3221,15 +3236,9 @@ function openTaskDetail(task, trigger) {
       ? "人机主动协作 / Active human–AI collaboration"
       : `${task.task_type_zh} / ${task.task_type_en} · ${task.label_zh} / ${task.label_en}`;
     if (task.source_kind === "collaboration_session") {
-      const completionLabelZh = task.completion_status === "completed"
-        ? "完成"
-        : "完成情况";
-      const completionLabelEn = task.completion_status === "completed"
-        ? "Completed"
-        : "Completion status";
-      els.taskDetailSummaryLabel.textContent = "要求与完成 / Request and outcome";
-      els.taskDetailZh.textContent = `要求：${task.request_zh}\n\n${completionLabelZh}：${task.outcome_zh}`;
-      els.taskDetailEn.textContent = `Request: ${task.request_en}\n\n${completionLabelEn}: ${task.outcome_en}`;
+      els.taskDetailSummaryLabel.textContent = "协作档案 / Collaboration archive";
+      els.taskDetailZh.textContent = collaborationSummary(task, "zh").replaceAll("\n", "\n\n");
+      els.taskDetailEn.textContent = collaborationSummary(task, "en").replaceAll("\n", "\n\n");
     } else {
       els.taskDetailZh.textContent = task.zh;
       els.taskDetailEn.textContent = task.en;

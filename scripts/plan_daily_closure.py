@@ -16,6 +16,15 @@ DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 DEFAULT_RECEIPTS = WORKSPACE / "tmp" / "granted-hours-free-roam-ready"
 DEFAULT_STATE = WORKSPACE / "tmp" / "granted-hours-daily-closure-state.json"
 DEFAULT_DAYS = ROOT / "metadata" / "days.json"
+REQUIRED_ASSET_KEYS = {
+    "html",
+    "note",
+    "bgm",
+    "preview_png_1600x900",
+    "preview_gif_720x405_48frames",
+    "visual_preview_gif_400x225_48frames",
+    "visual_preview_webp_960x540",
+}
 
 
 def fail(message: str) -> None:
@@ -67,7 +76,20 @@ def complete_receipt_dates(path: Path) -> tuple[set[str], list[str]]:
         receipt_date = parse_day(source.get("date"), "Ready receipt")
         if receipt_date != stem_date:
             fail("Ready receipt date disagrees with its filename")
-        if source.get("assetsComplete") is True:
+        schema = source.get("schema")
+        required_assets = source.get("required_assets")
+        structured_complete = (
+            schema in {
+                "granted-hours-free-roam-ready-v1",
+                "granted-hours-free-roam-ready-v2",
+            }
+            and isinstance(required_assets, dict)
+            and set(required_assets) == REQUIRED_ASSET_KEYS
+            and all(required_assets[key] is True for key in REQUIRED_ASSET_KEYS)
+            and source.get("verification_status") in {"ok", "passed"}
+        )
+        legacy_complete = schema is None and source.get("assetsComplete") is True
+        if structured_complete or legacy_complete:
             complete.add(receipt_date)
         else:
             incomplete.append(receipt_date)

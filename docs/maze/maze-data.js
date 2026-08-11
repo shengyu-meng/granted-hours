@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-10",
-  "nodeCount": 97,
+  "generatedAt": "2026-08-11",
+  "nodeCount": 98,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2038,6 +2038,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -17,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-11",
+      "date": "2026-08-11",
+      "title_en": "The Interval Holds Light",
+      "title_zh": "间隔持光",
+      "variable_en": "recovery half-life",
+      "variable_zh": "余温的半衰期",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "recovery half-life entered the archive as a clue rather than a label.",
+      "diary_zh": "「余温的半衰期」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-11/live/",
+      "archive_url": "../archive/2026/08/2026-08-11/",
+      "gif": "../archive/2026/08/2026-08-11/assets/visual-preview.gif",
+      "x": 12,
+      "y": -15,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2058,7 +2079,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 38
+      "count": 39
     },
     {
       "id": "maintenance",
@@ -2465,6 +2486,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-10"
     ],
     [
+      "2026-08-10",
+      "2026-08-11"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2607,6 +2632,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-08",
       "2026-08-10"
+    ],
+    [
+      "2026-08-09",
+      "2026-08-11"
     ],
     [
       "2026-05-07",

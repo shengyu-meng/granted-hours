@@ -63,6 +63,7 @@ class TimetableBuilderTests(unittest.TestCase):
 
     def test_first_person_voice_policy_is_complete_and_evidence_bounded(self) -> None:
         output = self.build()
+        assessment_count = 0
         for day in output["days"]:
             for task in day["task_residues"]:
                 self.assertEqual(task["voice_policy_version"], builder.VOICE_POLICY_VERSION)
@@ -77,6 +78,24 @@ class TimetableBuilderTests(unittest.TestCase):
                     if task["completion_status"] == "completed":
                         self.assertTrue(task["outcome_zh"].startswith("我"))
                         self.assertTrue(task["outcome_en"].startswith("I "))
+                    if task.get("assessment_zh"):
+                        assessment_count += 1
+                        self.assertTrue(task["assessment_en"].strip())
+                        self.assertEqual(
+                            task["assessment_provenance"],
+                            "owner_approved_ai_assessment",
+                        )
+                    self.assertEqual(
+                        bool(task.get("owner_response_zh")),
+                        bool(task.get("owner_response_en")),
+                    )
+                    if task.get("owner_response_zh"):
+                        self.assertEqual(
+                            task["owner_response_provenance"],
+                            "explicit_owner_feedback",
+                        )
+                        self.assertGreater(task["owner_response_evidence_count"], 0)
+        self.assertEqual(assessment_count, 7)
 
     def test_owner_approved_audit_cards_are_merged_once(self) -> None:
         output = self.build()
@@ -143,6 +162,23 @@ class TimetableBuilderTests(unittest.TestCase):
                             "pair_provenance",
                         }
                     )
+                    if "assessment_zh" in residue:
+                        expected_fields.update(
+                            {
+                                "assessment_zh",
+                                "assessment_en",
+                                "assessment_provenance",
+                            }
+                        )
+                    if "owner_response_zh" in residue:
+                        expected_fields.update(
+                            {
+                                "owner_response_zh",
+                                "owner_response_en",
+                                "owner_response_provenance",
+                                "owner_response_evidence_count",
+                            }
+                        )
                 self.assertEqual(
                     set(residue),
                     expected_fields,
@@ -294,7 +330,8 @@ class TimetableBuilderTests(unittest.TestCase):
         self.assertEqual(note, self.config["public_data_note"])
         self.assertEqual(output["note_en"], note["en"])
         self.assertEqual(output["note_zh"], note["zh"])
-        self.assertEqual(note, {"zh": "", "en": ""})
+        self.assertIn("第一人称档案位置", note["zh"])
+        self.assertIn("not proof of continuous consciousness", note["en"])
 
     def test_every_artwork_has_explicit_dual_dates_and_one_truthful_beacon(self) -> None:
         output = self.build()
@@ -929,9 +966,36 @@ class TimetableBuilderTests(unittest.TestCase):
                     continue
                 self.assertEqual(
                     (task["task_name_zh"], task["task_name_en"]),
-                    builder.derive_authored_task_name(task["category"], task["en"], task["zh"]),
+                    builder.derive_authored_task_name(
+                        task["category"],
+                        *builder.authored_residue_copy(
+                            task["source_kind"], task["en"], task["zh"]
+                        ),
+                    ),
                     f"{day['date']} must not use fuzzy naming for authored history",
                 )
+
+    def test_public_note_explains_first_person_without_consciousness_claim(self) -> None:
+        output = self.build()
+        self.assertIn("第一人称档案位置", output["note_zh"])
+        self.assertIn("不构成对持续意识的证明", output["note_zh"])
+        self.assertIn("first-person archival position", output["note_en"])
+        self.assertIn("not proof of continuous consciousness", output["note_en"])
+
+    def test_every_non_reminder_routine_reader_summary_is_first_person(self) -> None:
+        output = self.build()
+        for day in output["days"]:
+            pulses = {pulse["footprint_id"]: pulse for pulse in day["background_pulses"]}
+            for item in day["reading_items"]:
+                if item["source"] != "pulses" or item["classification"] == "readable_reminder":
+                    continue
+                sources = [pulses[source_ref] for source_ref in item["source_refs"]]
+                if item["classification"] == "climate_aggregate":
+                    summary_zh, summary_en = builder.climate_group_summary(sources)
+                else:
+                    summary_zh, summary_en = sources[0]["summary_zh"], sources[0]["summary_en"]
+                self.assertTrue(summary_zh.startswith("我"), (day["date"], summary_zh))
+                self.assertTrue(summary_en.startswith("I "), (day["date"], summary_en))
 
     def test_every_day_has_an_authored_or_semantic_theme_motif(self) -> None:
         output = self.build()

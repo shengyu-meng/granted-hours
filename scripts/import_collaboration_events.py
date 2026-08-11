@@ -18,6 +18,10 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from import_agent_events import collect_agent_events
+from public_projection_privacy import (
+    exclude_public_identity_terms,
+    load_public_identity_allowlist,
+)
 from semantic_public_policy import (
     abstract_sensitive_public_text,
     polish_public_excerpt,
@@ -33,6 +37,7 @@ DEFAULT_ENTITY_DETECTOR = ROOT / "scripts" / "detect_collaboration_entities.swif
 DEFAULT_HOLDINGS_DENYLIST = ROOT / ".private" / "holdings-denylist.json"
 DEFAULT_SELF_MEDIA_DENYLIST = ROOT / ".private" / "self-media-denylist.json"
 DEFAULT_IDENTITY_DENYLIST = ROOT / ".private" / "identity-denylist.json"
+DEFAULT_PUBLIC_IDENTITY_ALLOWLIST = ROOT / "metadata" / "public-identity-allowlist.json"
 DEFAULT_CONTOURS = ROOT / "metadata" / "timetable-collaboration-contours.json"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
 HISTORY_SCHEMA = "granted-hours-timetable-history-v4"
@@ -153,7 +158,18 @@ EXISTING_PRIORITY = {
     "public_post_archive": 2, "maintenance_record": 4,
 }
 AGENT_ORDER = ("Hermes", "Codex", "GPT", "Claude", "subagent")
-ENTITY_ALLOWLIST = {"Hermes", "Codex", "GPT", "Claude", "AI"}
+PUBLIC_IDENTITY_NAMES = load_public_identity_allowlist(
+    DEFAULT_PUBLIC_IDENTITY_ALLOWLIST,
+)
+ENTITY_ALLOWLIST = {
+    "Hermes",
+    "Codex",
+    "GPT",
+    "Claude",
+    "AI",
+    *PUBLIC_IDENTITY_NAMES,
+}
+ENTITY_ALLOWLIST_CASEFOLD = {term.casefold() for term in ENTITY_ALLOWLIST}
 
 CATEGORY_PAIR_TITLES = {
     "research_synthesis": ("研究线索与验证", "Research threads and validation"),
@@ -369,7 +385,10 @@ def load_private_terms(paths: tuple[Path, ...]) -> tuple[str, ...]:
         if not isinstance(values, list) or not all(isinstance(item, str) for item in values):
             raise ValueError("Private denylist malformed")
         terms.extend(item.strip() for item in values if item.strip())
-    return tuple(dict.fromkeys(terms))
+    return exclude_public_identity_terms(
+        tuple(dict.fromkeys(terms)),
+        PUBLIC_IDENTITY_NAMES,
+    )
 
 
 def detect_entities(texts: list[str], detector: Path) -> list[list[str]]:
@@ -416,16 +435,32 @@ def detect_entities(texts: list[str], detector: Path) -> list[list[str]]:
 
 def mask_term(text: str, term: str) -> str:
     term = term.strip()
-    return text if not term or term in ENTITY_ALLOWLIST else re.sub(re.escape(term), MASK, text, flags=re.IGNORECASE)
+    return text if not term or term.casefold() in ENTITY_ALLOWLIST_CASEFOLD else re.sub(re.escape(term), MASK, text, flags=re.IGNORECASE)
 
 
 def mask_unknown_proper_tokens(text: str) -> str:
     return SINGLE_PROPER_TOKEN_RE.sub(
         lambda match: match.group(0)
         if match.group(0) in PUBLIC_TECH_TOKENS
+        or match.group(0).casefold() in {
+            name.casefold() for name in PUBLIC_IDENTITY_NAMES
+        }
         else MASK,
         text,
     )
+
+
+def protect_public_identities(text: str) -> tuple[str, dict[str, str]]:
+    """Protect only explicitly authorized names from generic proper-name masks."""
+    result = text
+    protected: dict[str, str] = {}
+    for index, name in enumerate(PUBLIC_IDENTITY_NAMES):
+        placeholder = f"\ue000{chr(0xE100 + index)}\ue001"
+        updated = re.sub(re.escape(name), placeholder, result, flags=re.IGNORECASE)
+        if updated != result:
+            protected[placeholder] = name
+            result = updated
+    return result, protected
 
 
 def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[str, ...]) -> str:
@@ -434,6 +469,7 @@ def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[st
     value = QUOTED_RE.sub(MASK, normalize(text))
     for term in sorted((*private_terms, *entity_terms), key=len, reverse=True):
         value = mask_term(value, term)
+    value, protected_identities = protect_public_identities(value)
     value = CN_PERSON_AFTER_CUE_RE.sub(lambda match: f"{match.group(1)}{MASK}", value)
     value = CN_PERSON_BEFORE_CUE_RE.sub(MASK, value)
     value = CN_SCOPE_RE.sub(lambda match: f"{match.group(1)}：{MASK}", value)
@@ -442,6 +478,8 @@ def sanitize_excerpt(text: str, entity_terms: list[str], private_terms: tuple[st
         value = pattern.sub(MASK, value)
     value = mask_unknown_proper_tokens(value)
     value = CN_NAMED_SYSTEM_RE.sub(MASK, value)
+    for placeholder, name in protected_identities.items():
+        value = value.replace(placeholder, name)
     value = re.sub(r"[*_]{1,3}", "", value)
     value = re.sub(rf"(?:{re.escape(MASK)}[\s,，;；:/\\|-]*){{2,}}", MASK, value)
     value, _semantic_tags = abstract_sensitive_public_text(value)

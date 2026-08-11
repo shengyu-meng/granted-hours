@@ -2132,5 +2132,27 @@
     },
     "bgm": "archive/2026/08/2026-08-10/live/2026-08-10-the-margin-refuses-to-close-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-10/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-11",
+    "source_date": "2026-08-10",
+    "crystallization_date": "2026-08-11",
+    "title_en": "The Interval Holds Light",
+    "title_zh": "间隔持光",
+    "type": "live",
+    "seed": 20260811,
+    "preview": "archive/2026/08/2026-08-11/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-11/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-11/",
+    "live_url": "archive/2026/08/2026-08-11/live/",
+    "variable_en": "recovery half-life",
+    "variable_zh": "余温的半衰期",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-11/live/2026-08-11-the-interval-holds-light-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-11/assets/visual-preview.gif"
   }
 ]

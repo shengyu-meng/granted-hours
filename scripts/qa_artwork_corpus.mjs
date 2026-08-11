@@ -14,6 +14,7 @@ assert.equal(allowances.schema, "granted-hours-artwork-display-allowances-v1");
 const allowedDays = allowances.days;
 const results = [];
 const failures = [];
+const requestedDate = process.env.ARTWORK_QA_DATE || "";
 
 function visible(element) {
   if (!element) return false;
@@ -27,11 +28,17 @@ function visible(element) {
 }
 
 const browser = await chromium.launch({ headless: true });
-const artworkDays = timetableData.days.filter((day) => day.autonomous_work?.origin !== "absence");
+const artworkDays = timetableData.days.filter((day) => (
+  day.autonomous_work?.origin !== "absence"
+  && (!requestedDate || day.date === requestedDate)
+));
+if (requestedDate) {
+  assert.equal(artworkDays.length, 1, `No live artwork found for ${requestedDate}`);
+}
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
   // Audio integrity is checked from disk below. Aborting media here keeps the
-  // 89-page visual/DOM audit from waiting on every BGM file to finish loading.
+  // Keep the full-corpus visual/DOM audit from waiting on every BGM file to finish loading.
   await context.route("**/*", async (route) => {
     if (route.request().resourceType() === "media") await route.abort();
     else await route.continue();
@@ -261,10 +268,12 @@ if (failures.length) {
   throw new Error(`Artwork corpus smoke failures (${failures.length}):\n- ${failures.join("\n- ")}`);
 }
 assert.equal(results.length, artworkDays.length);
-assert.deepEqual(
-  Object.keys(allowedDays).sort(),
-  results.filter((result) => result.allowance).map((result) => result.date).sort(),
-);
+if (!requestedDate) {
+  assert.deepEqual(
+    Object.keys(allowedDays).sort(),
+    results.filter((result) => result.allowance).map((result) => result.date).sort(),
+  );
+}
 console.log(JSON.stringify({
   passed: true,
   pages: results.length,

@@ -5,11 +5,17 @@ import argparse
 import re
 from pathlib import Path
 
-from public_projection_privacy import denied_terms_present, load_private_denylist
+from public_projection_privacy import (
+    denied_terms_present,
+    exclude_public_identity_terms,
+    load_private_denylist,
+    load_public_identity_allowlist,
+)
 from semantic_public_policy import semantic_risk_tags
 
 ROOT = Path(__file__).resolve().parents[1]
 IDENTITY_DENYLIST = ROOT / '.private' / 'identity-denylist.json'
+PUBLIC_IDENTITY_ALLOWLIST = ROOT / 'metadata' / 'public-identity-allowlist.json'
 LEGACY_COLLABORATION_TEMPLATES = (
     "要求澄清一个工作判断，比较可行路径，并保留后续复核所需的边界。",
     "Requested clarification of a working judgment, comparison of viable paths, and explicit boundaries for later review.",
@@ -137,11 +143,11 @@ PUBLIC_COPY_META_RE = re.compile(
     r"(?:underlying narrative|specific (?:physical|relationship|parties|platform|psychological|assets)).{0,80}remains? private"
 )
 
-def scrub_allowed_tokens(line: str) -> str:
+def scrub_allowed_tokens(line: str, public_names: tuple[str, ...] = ()) -> str:
     """Remove explicitly public names/URLs without exempting the rest of a line."""
     result = line
-    for token in ALLOWED_TOKENS:
-        result = result.replace(token, "")
+    for token in sorted((*ALLOWED_TOKENS, *public_names), key=len, reverse=True):
+        result = re.sub(re.escape(token), "", result, flags=re.IGNORECASE)
     return result
 
 def parse_args() -> argparse.Namespace:
@@ -153,9 +159,15 @@ def parse_args() -> argparse.Namespace:
 def main(root: Path) -> int:
     findings = []
     root = root.resolve()
-    identity_terms = load_private_denylist(
-        root / '.private' / IDENTITY_DENYLIST.name,
-        'identities',
+    public_names = load_public_identity_allowlist(
+        root / 'metadata' / PUBLIC_IDENTITY_ALLOWLIST.name,
+    )
+    identity_terms = exclude_public_identity_terms(
+        load_private_denylist(
+            root / '.private' / IDENTITY_DENYLIST.name,
+            'identities',
+        ),
+        public_names,
     )
     for path in root.rglob('*'):
         if (
@@ -191,8 +203,11 @@ def main(root: Path) -> int:
             if PUBLIC_COPY_META_RE.search(text):
                 findings.append((rel, 0, 'reader_facing_audit_or_handoff_copy', '[value withheld]'))
         for i, line in enumerate(text.splitlines(), 1):
-            scan_line = scrub_allowed_tokens(line)
-            if denied_terms_present(scan_line, identity_terms):
+            scan_line = scrub_allowed_tokens(line, public_names)
+            # Identity authorization is exact-term only. Scan the untouched
+            # line so an allowed short name cannot hide a longer private
+            # identity that contains it.
+            if denied_terms_present(line, identity_terms):
                 findings.append((rel, i, 'private_identity', '[value withheld]'))
             for name, rx in PATTERNS:
                 if rx.search(scan_line):

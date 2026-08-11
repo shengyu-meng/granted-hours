@@ -22,7 +22,12 @@ from reminder_disclosure import (
     extractive_prefix,
     projection_kind_for_counts,
 )
-from public_projection_privacy import load_private_denylist, replace_private_terms
+from public_projection_privacy import (
+    exclude_public_identity_terms,
+    load_private_denylist,
+    load_public_identity_allowlist,
+    replace_private_terms,
+)
 from semantic_public_policy import (
     abstract_for_tags,
     abstract_sensitive_public_text,
@@ -37,6 +42,7 @@ DEFAULT_HISTORY = ROOT / "metadata" / "timetable-history.json"
 DEFAULT_PULSES = ROOT / "metadata" / "timetable-pulses.json"
 DEFAULT_TRANSLATIONS = ROOT / "metadata" / "timetable-reminder-translations.json"
 DEFAULT_IDENTITY_DENYLIST = ROOT / ".private" / "identity-denylist.json"
+DEFAULT_PUBLIC_IDENTITY_ALLOWLIST = ROOT / "metadata" / "public-identity-allowlist.json"
 MASK = "████"
 ROUTINE_SUMMARY = (
     "日常计划与优先级复核。",
@@ -138,10 +144,25 @@ def sanitize_history(
                     "outcome_en",
                 )
             ):
+                collaboration_pairs = [
+                    ("request_zh", "request_en", 300),
+                    ("outcome_zh", "outcome_en", 300),
+                ]
                 for zh_field, en_field in (
-                    ("request_zh", "request_en"),
-                    ("outcome_zh", "outcome_en"),
+                    ("assessment_zh", "assessment_en"),
+                    ("owner_response_zh", "owner_response_en"),
                 ):
+                    present = (
+                        isinstance(residue.get(zh_field), str),
+                        isinstance(residue.get(en_field), str),
+                    )
+                    if present[0] != present[1]:
+                        raise ValueError(
+                            f"{day_date} collaboration optional pair became incomplete"
+                        )
+                    if all(present):
+                        collaboration_pairs.append((zh_field, en_field, 240))
+                for zh_field, en_field, max_chars in collaboration_pairs:
                     original_zh = residue[zh_field]
                     original_en = residue[en_field]
                     masked_zh = replace_private_terms(
@@ -162,8 +183,14 @@ def sanitize_history(
                     stats["abstracted"] += int(masked_zh != sanitized_zh) + int(
                         masked_en != sanitized_en
                     )
-                    sanitized_zh = polish_public_excerpt(sanitized_zh)
-                    sanitized_en = polish_public_excerpt(sanitized_en)
+                    sanitized_zh = polish_public_excerpt(
+                        sanitized_zh,
+                        max_chars=max_chars,
+                    )
+                    sanitized_en = polish_public_excerpt(
+                        sanitized_en,
+                        max_chars=max_chars,
+                    )
                     if not sanitized_zh or not sanitized_en:
                         raise ValueError(
                             f"{day_date} collaboration pair became incomplete"
@@ -245,6 +272,10 @@ def sanitize_history(
                     residue.get("request_en"),
                     residue.get("outcome_zh"),
                     residue.get("outcome_en"),
+                    residue.get("assessment_zh"),
+                    residue.get("assessment_en"),
+                    residue.get("owner_response_zh"),
+                    residue.get("owner_response_en"),
                     residue.get("completion_status"),
                 )
             else:
@@ -448,13 +479,22 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_IDENTITY_DENYLIST,
     )
+    parser.add_argument(
+        "--public-identity-allowlist",
+        type=Path,
+        default=DEFAULT_PUBLIC_IDENTITY_ALLOWLIST,
+    )
     parser.add_argument("--write", action="store_true")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    identity_terms = load_private_denylist(args.identity_denylist, "identities")
+    public_names = load_public_identity_allowlist(args.public_identity_allowlist)
+    identity_terms = exclude_public_identity_terms(
+        load_private_denylist(args.identity_denylist, "identities"),
+        public_names,
+    )
     history, history_stats = sanitize_history(
         read_json(args.history),
         identity_terms=identity_terms,

@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HOLDINGS_PATH = ROOT / ".private" / "holdings-denylist.json"
 SOURCES_PATH = ROOT / ".private" / "self-media-denylist.json"
 IDENTITIES_PATH = ROOT / ".private" / "identity-denylist.json"
+PUBLIC_IDENTITIES_PATH = ROOT / "metadata" / "public-identity-allowlist.json"
 
 
 def public_artifact_paths() -> list[Path]:
@@ -37,9 +38,21 @@ class PublicArtifactPrivateDenylistTests(unittest.TestCase):
             SOURCES_PATH,
             "self_media_sources",
         )
-        cls.identity_terms = privacy.load_private_denylist(
-            IDENTITIES_PATH,
-            "identities",
+        cls.public_names = privacy.load_public_identity_allowlist(
+            PUBLIC_IDENTITIES_PATH,
+        )
+        cls.identity_terms = privacy.exclude_public_identity_terms(
+            privacy.load_private_denylist(
+                IDENTITIES_PATH,
+                "identities",
+            ),
+            cls.public_names,
+        )
+
+    def test_public_identity_allowlist_matches_owner_authorization(self) -> None:
+        self.assertEqual(
+            set(self.public_names),
+            {"Simon", "Simon的白日梦", "Simon Meng"},
         )
 
     def test_generated_public_artifacts_have_zero_private_term_matches(self) -> None:

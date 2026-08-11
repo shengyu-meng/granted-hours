@@ -12,14 +12,15 @@ import { chromium } from "@playwright/test";
 import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8892/timetable/";
+const captureScreenshots = process.env.HIERARCHY_QA_MODE !== "runtime";
 const targetDates = ["2026-07-21", "2026-07-22"];
 const syntheticPrivateFixtures = ["Mara Evergarden", "Orchid Lantern", "CNY 938,271.44"];
 const viewports = [
-  { width: 1440, height: 900, label: "desktop-wide", touch: false, screenshot: true },
+  { width: 1440, height: 900, label: "desktop-wide", touch: false, screenshot: captureScreenshots },
   { width: 1024, height: 768, label: "desktop-compact", touch: false, screenshot: false },
   { width: 768, height: 700, label: "tablet", touch: false, screenshot: false },
-  { width: 390, height: 844, label: "mobile", touch: true, screenshot: true },
-  { width: 421, height: 386, label: "short-touch", touch: true, screenshot: true },
+  { width: 390, height: 844, label: "mobile", touch: true, screenshot: captureScreenshots },
+  { width: 421, height: 386, label: "short-touch", touch: true, screenshot: captureScreenshots },
 ];
 const screenshotRoot = new URL("../audits/public-readable-hierarchy/", import.meta.url);
 const segmentManifestPath = new URL("screenshot-segments.json", screenshotRoot);
@@ -349,7 +350,7 @@ const segmentManifest = {
 let browser = null;
 let failure = null;
 try {
-  await removeMisleadingLegacyCaptures();
+  if (captureScreenshots) await removeMisleadingLegacyCaptures();
   browser = await chromium.launch({ headless: true });
   for (const date of targetDates) {
     const day = new Map(timetableData.days.map((entry) => [entry.date, entry])).get(date);
@@ -647,11 +648,13 @@ try {
   segmentManifest.errors.push(error instanceof Error ? error.message : String(error));
 } finally {
   if (browser) await browser.close();
-  await writeFile(
-    segmentManifestPath,
-    `${JSON.stringify(segmentManifest, null, 2)}\n`,
-    "utf8",
-  );
+  if (captureScreenshots) {
+    await writeFile(
+      segmentManifestPath,
+      `${JSON.stringify(segmentManifest, null, 2)}\n`,
+      "utf8",
+    );
+  }
 }
 
 console.log(JSON.stringify({

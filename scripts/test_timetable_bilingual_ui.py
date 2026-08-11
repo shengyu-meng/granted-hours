@@ -62,7 +62,7 @@ class TestBilingualReminderUiSource(unittest.TestCase):
         self.assertIn("const alertWindowCount = sources.filter", source)
         self.assertIn("个窗口记录到通用状态变化", source)
         self.assertIn("window(s) recorded a general status change", source)
-        self.assertIn("background routine run(s) completed across", source)
+        self.assertIn("I completed ${runCount} background routine run(s) across", source)
 
     def test_card_and_inspection_show_english_and_original(self) -> None:
         source = MAIN_JS.read_text(encoding="utf-8")

@@ -42,6 +42,12 @@ const collaborationPairCount = timetableData.days.reduce(
   0,
 );
 const collaborationPairGzipBudgetBytes = collaborationPairCount * 900;
+const shanghaiToday = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).format(new Date());
 const builtJsGzipBudgetBytes = 340_000
   + Math.max(0, timetableData.days.length - 78) * 5_000
   + translatedReminderGzipBudgetBytes
@@ -190,14 +196,16 @@ const evidence = {
   sourceData: null,
   bundle: null,
   publicSafety: null,
+  firstPersonVoice: null,
   npmAudit: null,
   errors: [],
 };
 let failure = null;
 
 try {
-  const [publicSafetyRun, npmAuditRun] = await Promise.all([
+  const [publicSafetyRun, firstPersonVoiceRun, npmAuditRun] = await Promise.all([
     runCommand("python3", [path.join(root, "scripts", "check_public_safety.py"), "--root", root]),
+    runCommand("python3", [path.join(root, "scripts", "test_first_person_public_contract.py")]),
     runCommand("npm", ["audit", "--omit=dev", "--audit-level=high", "--json"]),
   ]);
   evidence.publicSafety = {
@@ -209,6 +217,10 @@ try {
     auditLevel: "high",
     omit: "dev",
     ...commandEvidence(npmAuditRun, { includeParsedJson: true }),
+  };
+  evidence.firstPersonVoice = {
+    command: "python3 scripts/test_first_person_public_contract.py",
+    ...commandEvidence(firstPersonVoiceRun),
   };
 
   const canonicalDataPath = path.join(root, "src", "timetable", "timetable-data.js");
@@ -266,28 +278,45 @@ try {
     await readFile(path.join(root, "metadata", "timetable-pulses.json"), "utf8"),
   );
   assert.equal(timetableData.days.length, publicDays.length, "public-day/generated parity");
-  assert.equal(timetableData.days.length, history.days.length, "history/generated parity");
+  assert.ok(
+    history.days.length <= timetableData.days.length,
+    "history cannot contain more dates than the public timetable",
+  );
   assert.deepEqual(
     new Set(pulses.days.map((day) => day.date)),
     new Set(timetableData.days.filter((day) => day.background_pulses.length > 0).map((day) => day.date)),
     "pulse/generated parity",
   );
   const historyByDate = new Map(history.days.map((day) => [day.date, day]));
+  const missingHistoryDays = timetableData.days.filter((day) => !historyByDate.has(day.date));
+  assert.ok(missingHistoryDays.length <= 1, "more than one timetable day is missing history");
   const pulsesByDate = new Map(pulses.days.map((day) => [
     day.date,
     day.pulses.filter(isProjectedPublicPulse),
   ]));
   for (const day of timetableData.days) {
     const historyDay = historyByDate.get(day.date);
+    if (!historyDay) {
+      assert.equal(day.date, shanghaiToday, `${day.date}: only today's artwork may await history`);
+      assert.equal(day.autonomous_work.origin, "self", `${day.date}: missing history without a live artwork`);
+      assert.equal(day.background_pulses.length, 0, `${day.date}: missing history despite pulse evidence`);
+      assert.equal(
+        day.task_residues.length,
+        0,
+        `${day.date}: a day without history cannot expose task residues`,
+      );
+    }
     assert.ok(
-      day.task_residues.length <= historyDay.assigned_residues.length,
+      day.task_residues.length <= (historyDay?.assigned_residues.length ?? 0),
       `${day.date}: task source/generated privacy-filter parity`,
     );
-    assert.equal(
-      day.history_provenance,
-      historyDay.provenance,
-      `${day.date}: history provenance parity`,
-    );
+    if (historyDay) {
+      assert.equal(
+        day.history_provenance,
+        historyDay.provenance,
+        `${day.date}: history provenance parity`,
+      );
+    }
     assert.equal(
       day.background_pulses.length,
       (pulsesByDate.get(day.date) || []).length,
@@ -411,11 +440,13 @@ try {
     dataParity: {
       publicDays: publicDays.length,
       generatedDays: timetableData.days.length,
+      historyDays: history.days.length,
       pulseSchema: pulses.schema,
     },
   };
 
   assert.ok(publicSafetyRun.passed, "public-safety scan failed");
+  assert.ok(firstPersonVoiceRun.passed, "first-person public contract failed");
   assert.ok(npmAuditRun.passed, "npm audit failed at high severity");
   assert.ok(
     generatedABytes.equals(generatedBBytes),

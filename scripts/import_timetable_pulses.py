@@ -37,7 +37,9 @@ from reminder_disclosure import (
 )
 from public_projection_privacy import (
     assert_private_terms_absent,
+    exclude_public_identity_terms,
     load_private_denylist,
+    load_public_identity_allowlist,
     project_market_evidence,
     replace_private_terms,
 )
@@ -55,6 +57,7 @@ DEFAULT_STATE_DB = Path.home() / ".hermes" / "profiles" / "heizhou" / "state.db"
 DEFAULT_ENTITY_DETECTOR = ROOT / "scripts" / "detect_collaboration_entities.swift"
 DEFAULT_HOLDINGS_DENYLIST = ROOT / ".private" / "holdings-denylist.json"
 DEFAULT_SELF_MEDIA_DENYLIST = ROOT / ".private" / "self-media-denylist.json"
+DEFAULT_PUBLIC_IDENTITY_ALLOWLIST = ROOT / "metadata" / "public-identity-allowlist.json"
 TIMEZONE = ZoneInfo("Asia/Shanghai")
 PULSE_SNAPSHOT_SCHEMA = "granted-hours-timetable-pulses-v6"
 LEGACY_PULSE_SNAPSHOT_SCHEMAS = {
@@ -431,7 +434,10 @@ def parity_preserving_reminder_fields(
     return summary_original, summary_en, original, english
 
 
-def load_private_redaction_terms(path: Path | None) -> tuple[str, ...]:
+def load_private_redaction_terms(
+    path: Path | None,
+    public_identity_allowlist: Path = DEFAULT_PUBLIC_IDENTITY_ALLOWLIST,
+) -> tuple[str, ...]:
     """Load exact terms from an ignored .private JSON file without retaining it."""
     if path is None:
         return ()
@@ -449,11 +455,15 @@ def load_private_redaction_terms(path: Path | None) -> tuple[str, ...]:
         isinstance(value, str) for value in values
     ):
         fail("Private redaction terms JSON must be a string list or a terms string list")
-    return tuple(
+    private_terms = tuple(
         sorted(
             {value for value in values if value},
             key=lambda value: (-len(value), value),
         )
+    )
+    return exclude_public_identity_terms(
+        private_terms,
+        load_public_identity_allowlist(public_identity_allowlist),
     )
 
 
@@ -1800,6 +1810,12 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--public-identity-allowlist",
+        type=Path,
+        default=DEFAULT_PUBLIC_IDENTITY_ALLOWLIST,
+        help="Tracked explicit owner-name authorization applied to identity masking.",
+    )
+    parser.add_argument(
         "--test-only-bypass-entity-detector",
         action="store_true",
         help=(
@@ -2156,7 +2172,12 @@ def main() -> int:
                 args.authorize_authentic_reminder_disclosure
             ),
             private_redaction_terms=load_private_redaction_terms(
-                args.private_redaction_terms
+                args.private_redaction_terms,
+                getattr(
+                    args,
+                    "public_identity_allowlist",
+                    DEFAULT_PUBLIC_IDENTITY_ALLOWLIST,
+                ),
             ),
             holdings_terms=holdings_terms,
             source_terms=source_terms,

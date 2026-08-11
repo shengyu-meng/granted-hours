@@ -1040,11 +1040,27 @@ def load_history(path: Path) -> dict[str, dict]:
                 "completion_status",
                 "pair_provenance",
             }
+            assessment_fields = {
+                "assessment_zh",
+                "assessment_en",
+                "assessment_provenance",
+            }
+            owner_response_fields = {
+                "owner_response_zh",
+                "owner_response_en",
+                "owner_response_provenance",
+                "owner_response_evidence_count",
+            }
+            optional_collaboration_fields = set()
+            if any(field in residue for field in assessment_fields):
+                optional_collaboration_fields |= assessment_fields
+            if any(field in residue for field in owner_response_fields):
+                optional_collaboration_fields |= owner_response_fields
             expected_fields = (
                 faithful_fields
                 | agent_fields
                 | (
-                    collaboration_fields
+                    collaboration_fields | optional_collaboration_fields
                     if residue.get("source_kind") == "collaboration_session"
                     else set()
                 )
@@ -1150,7 +1166,7 @@ def load_history(path: Path) -> dict[str, dict]:
                             isinstance(pair_copy, str)
                             and bool(pair_copy.strip())
                             and len(pair_copy) <= maximum_length
-                            and polish_public_excerpt(pair_copy) == pair_copy
+                            and polish_public_excerpt(pair_copy, maximum_length) == pair_copy
                             and not URL_RE.search(pair_copy)
                             and "/Users/" not in pair_copy
                             and ".hermes" not in pair_copy
@@ -1160,6 +1176,61 @@ def load_history(path: Path) -> dict[str, dict]:
                             and not EDUCATION_IDENTITY_RE.search(pair_copy)
                             and not PROPOSAL_TITLE_CONTEXT_RE.search(pair_copy),
                             f"{day_date} residue {index + 1} has unsafe {pair_field}",
+                        )
+                    if assessment_fields.issubset(residue):
+                        require(
+                            residue["assessment_provenance"]
+                            == "owner_approved_ai_assessment",
+                            f"{day_date} residue {index + 1} assessment lacks owner approval",
+                        )
+                        for field, maximum_length in (
+                            ("assessment_zh", 240),
+                            ("assessment_en", 360),
+                        ):
+                            value = residue[field]
+                            require(
+                                isinstance(value, str)
+                                and bool(value.strip())
+                                and len(value) <= maximum_length
+                                and polish_public_excerpt(value, maximum_length) == value
+                                and not URL_RE.search(value)
+                                and not SENSITIVE_ASSIGNED_WORK_RE.search(value)
+                                and not PRIVATE_OPERATIONAL_CONTEXT_RE.search(value),
+                                f"{day_date} residue {index + 1} has unsafe {field}",
+                            )
+                        require(
+                            residue["assessment_zh"].count("████")
+                            == residue["assessment_en"].count("████"),
+                            f"{day_date} residue {index + 1} assessment mask mismatch",
+                        )
+                    if owner_response_fields.issubset(residue):
+                        require(
+                            residue["owner_response_provenance"]
+                            == "explicit_owner_feedback"
+                            and isinstance(residue["owner_response_evidence_count"], int)
+                            and not isinstance(residue["owner_response_evidence_count"], bool)
+                            and residue["owner_response_evidence_count"] > 0,
+                            f"{day_date} residue {index + 1} owner response lacks explicit evidence",
+                        )
+                        for field, maximum_length in (
+                            ("owner_response_zh", 240),
+                            ("owner_response_en", 360),
+                        ):
+                            value = residue[field]
+                            require(
+                                isinstance(value, str)
+                                and bool(value.strip())
+                                and len(value) <= maximum_length
+                                and polish_public_excerpt(value, maximum_length) == value
+                                and not URL_RE.search(value)
+                                and not SENSITIVE_ASSIGNED_WORK_RE.search(value)
+                                and not PRIVATE_OPERATIONAL_CONTEXT_RE.search(value),
+                                f"{day_date} residue {index + 1} has unsafe {field}",
+                            )
+                        require(
+                            residue["owner_response_zh"].count("████")
+                            == residue["owner_response_en"].count("████"),
+                            f"{day_date} residue {index + 1} owner response mask mismatch",
                         )
                     require(
                         residue["completion_status"] in {"completed", "unverified"},
@@ -1557,6 +1628,22 @@ def first_person_residue_copy(source_kind: str, en: str, zh: str) -> tuple[str, 
     return f"{prefix_en}{en}", f"{prefix_zh}{zh}"
 
 
+def authored_residue_copy(source_kind: str, en: str, zh: str) -> tuple[str, str]:
+    """Recover the evidence contour beneath the deterministic display voice."""
+    if source_kind == "withheld":
+        return en, zh
+    prefixes = {
+        "maintenance_record": ("During the routine window, I recorded: ", "我在例行时段记录："),
+        "task_card": ("I recorded this evidenced work as: ", "我把这项有证据的工作记为："),
+        "daily_record": ("I recorded: ", "我记录下："),
+        "public_post_archive": ("I added this already-public work to the calendar: ", "我把这项已经公开的工作记入日历："),
+        "agent_session": ("Through Codex, GPT, or a delegated Agent, I recorded: ", "我通过 Codex、GPT 或子 Agent 记录："),
+    }
+    prefix_en, prefix_zh = prefixes.get(source_kind, ("I recorded: ", "我记录："))
+    require(en.startswith(prefix_en) and zh.startswith(prefix_zh), "First-person residue prefix mismatch")
+    return en[len(prefix_en):], zh[len(prefix_zh):]
+
+
 def first_person_collaboration_pair(residue: dict) -> dict:
     request_zh = str(residue["request_zh"])
     request_en = str(residue["request_en"])
@@ -1681,6 +1768,31 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
                         **collaboration_pair,
                         "completion_status": residue["completion_status"],
                         "pair_provenance": residue["pair_provenance"],
+                        **(
+                            {
+                                field: residue[field]
+                                for field in (
+                                    "assessment_zh",
+                                    "assessment_en",
+                                    "assessment_provenance",
+                                )
+                            }
+                            if "assessment_zh" in residue
+                            else {}
+                        ),
+                        **(
+                            {
+                                field: residue[field]
+                                for field in (
+                                    "owner_response_zh",
+                                    "owner_response_en",
+                                    "owner_response_provenance",
+                                    "owner_response_evidence_count",
+                                )
+                            }
+                            if "owner_response_zh" in residue
+                            else {}
+                        ),
                     }
                     if source_kind == "collaboration_session"
                     else {}
@@ -2004,37 +2116,40 @@ def market_public_evidence(pulses: list[dict], language: str) -> list[str]:
 def public_occurrence_summary(pulse: dict, *, alert: bool = False) -> tuple[str, str]:
     category = pulse["category"]
     if category in {"ah_market_scan", "us_market_scan"}:
-        return pulse["summary_zh"], pulse["summary_en"]
+        return (
+            f"我完成了这次例行扫描；我观察到：{pulse['summary_zh']}",
+            f"I completed this routine scan; I observed: {pulse['summary_en']}",
+        )
     if category == "ai_daily_brief":
         return (
             (
-                f"完成 {pulse['count']} 次 AI 日报采集；"
+                f"我完成 {pulse['count']} 次 AI 日报采集；"
                 + ("出现公开提示。" if alert else "未保留公开提示。")
             ),
             (
-                f"{pulse['count']} AI-brief collection run(s) completed; "
+                f"I completed {pulse['count']} AI-brief collection run(s); "
                 + ("a public notice was retained." if alert else "no public notice was retained.")
             ),
         )
     if category == "system_routine":
         return (
             (
-                f"完成 {pulse['count']} 次服务健康与时效检查；"
+                f"我完成 {pulse['count']} 次服务健康与时效检查；"
                 + ("出现公开提示。" if alert else "未保留公开提示。")
             ),
             (
-                f"{pulse['count']} service-health and freshness check(s) completed; "
+                f"I completed {pulse['count']} service-health and freshness check(s); "
                 + ("a public notice was retained." if alert else "no public notice was retained.")
             ),
         )
     if category == "background_routine":
         return (
             (
-                f"完成 {pulse['count']} 次其他后台运行；"
+                f"我完成 {pulse['count']} 次其他后台运行；"
                 + ("出现公开提示。" if alert else "未保留公开提示。")
             ),
             (
-                f"{pulse['count']} other background run(s) completed; "
+                f"I completed {pulse['count']} other background run(s); "
                 + ("a public notice was retained." if alert else "no public notice was retained.")
             ),
         )

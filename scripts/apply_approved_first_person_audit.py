@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply Simon's 2026-08-11 approved Telegram card merge deterministically."""
+"""Apply the owner-approved 2026-08-11 delivered-work card merge deterministically."""
 from __future__ import annotations
 
 import json
@@ -15,14 +15,17 @@ def card(date: str, start: str, end: str, category: str, request_zh: str,
          request_en: str, outcome_zh: str, outcome_en: str,
          *, evidence_count: int = 1, assessment_zh: str = "",
          assessment_en: str = "") -> dict:
-    # Assessments remain in the private approval audit. Public completion copy
-    # stays within the single-sentence evidence contract and never infers the
-    # owner's satisfaction.
     request_zh = request_zh.rstrip("。") + "。"
     request_en = request_en.replace(". ", "; ").rstrip(".") + "."
-    outcome_zh = outcome_zh.replace("。 ", "；").rstrip("。") + "。"
-    outcome_en = outcome_en.replace(". ", "; ").rstrip(".") + "."
-    return {
+    outcome_zh = (
+        outcome_zh.replace("。 ", "；").rstrip("。")
+        + "；我经审核后通过授权通道送回结果。"
+    )
+    outcome_en = (
+        outcome_en.replace(". ", "; ").rstrip(".")
+        + "; I returned it through the authorized channel after review."
+    )
+    result = {
         "category": category,
         "en": f"{date} · Owner-approved delivered-work residue",
         "zh": f"{date}｜经所有者批准的已送达工作残影",
@@ -45,6 +48,17 @@ def card(date: str, start: str, end: str, category: str, request_zh: str,
         "completion_status": "completed",
         "pair_provenance": "assistant_result_summary",
     }
+    if bool(assessment_zh) != bool(assessment_en):
+        raise ValueError("Approved assessments must be bilingual")
+    if assessment_zh:
+        result.update(
+            {
+                "assessment_zh": assessment_zh.rstrip("。") + "。",
+                "assessment_en": assessment_en.rstrip(".") + ".",
+                "assessment_provenance": "owner_approved_ai_assessment",
+            }
+        )
+    return result
 
 
 APPROVED = {

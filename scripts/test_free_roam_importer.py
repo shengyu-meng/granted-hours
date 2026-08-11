@@ -14,6 +14,37 @@ import import_free_roam_artifacts as importer
 
 
 class FreeRoamImporterTests(unittest.TestCase):
+    def test_registered_entries_can_be_reloaded_after_the_global_catalog_is_extended(self) -> None:
+        original_root = importer.ROOT
+        try:
+            with tempfile.TemporaryDirectory() as temporary_directory:
+                importer.ROOT = Path(temporary_directory)
+                metadata = importer.ROOT / "metadata"
+                metadata.mkdir()
+                future = {
+                    **importer.ENTRIES[-1],
+                    "date": "2099-01-02",
+                    "slug": "future-work",
+                    "file": "2099-01-02-future-work",
+                    "seed": 20990102,
+                }
+                (metadata / importer.AUTO_ENTRIES_FILENAME).write_text(
+                    json.dumps(
+                        {
+                            "schema": "granted-hours-autonomous-artwork-entries-v1",
+                            "entries": [future],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                first = importer.load_registered_entries()
+                second = importer.load_registered_entries()
+            self.assertEqual(first, [future])
+            self.assertEqual(second, [future])
+            self.assertNotIn("2099-01-02", importer.LEGACY_ENTRY_DATES)
+        finally:
+            importer.ROOT = original_root
+
     def test_unknown_explicit_date_is_declared_from_sanitized_public_note(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             source = Path(temporary_directory) / "free-roam"

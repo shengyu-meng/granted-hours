@@ -20,6 +20,21 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 
 
 class CollaborationEventImporterTests(unittest.TestCase):
+    def test_explicit_public_owner_names_survive_generic_entity_masking(self) -> None:
+        source = (
+            "Simon Meng 请我整理 Simon的白日梦 的公开日历结构，"
+            "并比较两种可验证的第一人称呈现方式。"
+        )
+
+        sanitized = importer.sanitize_excerpt(
+            source,
+            ["Simon Meng", "Simon的白日梦"],
+            ("Synthetic Private Person",),
+        )
+
+        self.assertIn("Simon Meng", sanitized)
+        self.assertIn("Simon的白日梦", sanitized)
+
     def test_scoped_merge_preserves_every_non_target_day_exactly(self) -> None:
         untouched = {
             "date": "2026-08-09",

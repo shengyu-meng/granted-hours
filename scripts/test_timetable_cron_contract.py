@@ -21,6 +21,47 @@ MARKER = "[授时每日公开闭环契约 v9]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
+    def test_repairs_duplicate_contracts_left_before_marked_skill_rules(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            old_contract = (
+                "[授时每日公开闭环契约 v9]\n"
+                "- old receipt contract\n\n"
+            )
+            marked_rule = "【授时第一人称与创作影响规范｜开始】\nrule\n【授时第一人称与创作影响规范｜结束】\n"
+            source = {
+                "jobs": [
+                    {
+                        "id": FREE_ID,
+                        "name": FREE_NAME,
+                        "prompt": f"create locally\n{old_contract}{marked_rule}{old_contract}",
+                        "deliver": "origin",
+                        "origin": {"platform": "test", "destination": "private"},
+                        "workdir": temporary_directory,
+                    },
+                    {
+                        "id": DIALOGUE_ID,
+                        "name": DIALOGUE_NAME,
+                        "prompt": f"sync yesterday\n{old_contract}{marked_rule}{old_contract}",
+                    },
+                ]
+            }
+            jobs = Path(temporary_directory) / "jobs.json"
+            jobs.write_text(json.dumps(source), encoding="utf-8")
+            os.chmod(jobs, 0o600)
+            subprocess.run(
+                ["python3", str(SCRIPT), str(jobs), "--write"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            catalog = json.loads(jobs.read_text(encoding="utf-8"))
+            for job in catalog["jobs"]:
+                self.assertEqual(job["prompt"].count(MARKER), 1)
+                self.assertEqual(
+                    job["prompt"].count("【授时第一人称与创作影响规范｜开始】"),
+                    1 if job["name"] != CLOSURE_NAME else 0,
+                )
+
     def test_free_roam_stale_publish_section_is_stripped(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             stale_section = (
@@ -110,6 +151,8 @@ class TimetableCronContractTests(unittest.TestCase):
                 self.assertNotIn("[授时公开语义隐私契约 v5]", job["prompt"])
             self.assertIn("只负责自由创作", by_name[FREE_NAME]["prompt"])
             self.assertIn("标准双语 `*-note.md`", by_name[FREE_NAME]["prompt"])
+            self.assertIn("write_free_roam_ready_receipt.py --date YYYY-MM-DD", by_name[FREE_NAME]["prompt"])
+            self.assertIn("禁止手写 receipt JSON", by_name[FREE_NAME]["prompt"])
             self.assertIn("event_backlog_dates", by_name[DIALOGUE_NAME]["prompt"])
             self.assertIn("不得写 canonical public worktree", by_name[DIALOGUE_NAME]["prompt"])
             self.assertIn("从旧到新", by_name[CLOSURE_NAME]["prompt"])
@@ -120,6 +163,9 @@ class TimetableCronContractTests(unittest.TestCase):
             self.assertIn("绝不在当天早晨提前导入当天", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("08:35 与 10:35", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("plan_daily_closure.py --current-date YYYY-MM-DD", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("python3 scripts/test_first_person_public_contract.py", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("metadata/public-identity-allowlist.json", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("`Simon`、`Simon的白日梦`、`Simon Meng`", by_name[CLOSURE_NAME]["prompt"])
             self.assertEqual(
                 by_name[CLOSURE_NAME]["schedule"]["expr"],
                 "35 6,8,10 * * *",

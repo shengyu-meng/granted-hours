@@ -3,7 +3,11 @@ from __future__ import annotations
 
 import unittest
 
-from apply_semantic_public_policy import merge_translation_catalog, sanitize_pulses
+from apply_semantic_public_policy import (
+    merge_translation_catalog,
+    sanitize_history,
+    sanitize_pulses,
+)
 from semantic_public_policy import (
     abstract_sensitive_public_text,
     polish_public_excerpt,
@@ -13,6 +17,68 @@ from semantic_public_policy import (
 
 
 class SemanticPublicPolicyTests(unittest.TestCase):
+    def test_collaboration_optional_first_person_layers_are_sanitized(self) -> None:
+        source = {
+            "days": [
+                {
+                    "date": "2026-08-10",
+                    "assigned_residues": [
+                        {
+                            "source_kind": "collaboration_session",
+                            "category": "collaboration",
+                            "zh": "协作记录。",
+                            "en": "Collaboration record.",
+                            "request_zh": "Simon 让我核对公开页面。",
+                            "request_en": "Simon asked me to verify the public page.",
+                            "outcome_zh": "我完成了核对。",
+                            "outcome_en": "I completed the verification.",
+                            "assessment_zh": "我的判断：不要暴露 QMT 状态。",
+                            "assessment_en": "My assessment: do not expose QMT status.",
+                            "assessment_provenance": "owner_approved_ai_assessment",
+                            "owner_response_zh": "Simon 的回应：保留第一人称。",
+                            "owner_response_en": "Simon's response: keep the first person voice.",
+                            "owner_response_provenance": "explicit_owner_feedback",
+                            "owner_response_evidence_count": 1,
+                            "completion_status": "completed",
+                        }
+                    ],
+                }
+            ]
+        }
+
+        sanitized, stats = sanitize_history(source)
+        residue = sanitized["days"][0]["assigned_residues"][0]
+
+        self.assertNotIn("QMT", residue["assessment_zh"])
+        self.assertNotIn("QMT", residue["assessment_en"])
+        self.assertIn("第一人称", residue["owner_response_zh"])
+        self.assertIn("first person", residue["owner_response_en"])
+        self.assertGreaterEqual(stats["abstracted"], 2)
+
+    def test_collaboration_optional_first_person_layers_require_bilingual_pair(self) -> None:
+        source = {
+            "days": [
+                {
+                    "date": "2026-08-10",
+                    "assigned_residues": [
+                        {
+                            "source_kind": "collaboration_session",
+                            "zh": "协作记录。",
+                            "en": "Collaboration record.",
+                            "request_zh": "Simon 让我核对公开页面。",
+                            "request_en": "Simon asked me to verify the public page.",
+                            "outcome_zh": "我完成了核对。",
+                            "outcome_en": "I completed the verification.",
+                            "assessment_zh": "我的判断：保留第一人称。",
+                        }
+                    ],
+                }
+            ]
+        }
+
+        with self.assertRaisesRegex(ValueError, "optional pair"):
+            sanitize_history(source)
+
     def test_translation_catalog_preserves_dormant_date_scoped_inputs(self) -> None:
         dormant_hash = "a" * 64
         existing = {
