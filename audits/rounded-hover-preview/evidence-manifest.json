@@ -1,49 +1,49 @@
 {
   "schema": "rounded-hover-preview-evidence-v1",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8896/timetable/",
+  "baseUrl": "http://127.0.0.1:8891/timetable/",
   "screenshots": [
     {
       "path": "audits/rounded-hover-preview/2026-07-21-desktop-dark-assigned-lens.png",
       "type": "intentional-hover",
-      "bytes": 826280,
-      "sha256": "de0d4a753e60bb46807444f5330a1e7f2c49d374d7c1dd40cc8f43b0fafa4d18"
+      "bytes": 886701,
+      "sha256": "28e318b54aa56e9efca39251286d029dc873c62bbf1c05ce42c2e06f8f3b092c"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-a.png",
       "type": "intentional-hover-gif-frame",
-      "bytes": 84237,
-      "sha256": "a6a2629518273cf2c4f2594401fe8a1281e11c7a2fd71cd40f863d28949e6167"
+      "bytes": 81716,
+      "sha256": "f7f1348f8ae6b75780936602199a2674348d81deae5c4636af39399bed9ae909"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-b.png",
       "type": "intentional-hover-gif-frame",
-      "bytes": 82302,
-      "sha256": "015d29962eeccb5b201a0ed742a2f272a852f04d6fc6652814df58e282531a7d"
+      "bytes": 85429,
+      "sha256": "87b27f8c98ad38ef3fce0bbfea95c692f224511efd6b25b1425212c09d377984"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-desktop-dark-autonomous-motion-lens.png",
       "type": "intentional-hover",
-      "bytes": 844261,
-      "sha256": "c034181c6465043e9d8272719179750fb6613ee39a98af7b6468627ff08029ba"
+      "bytes": 910434,
+      "sha256": "5c115be2cd164fa331b5bfe18c0c44681ad551bfa082295b9172a01b084bdd2c"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-22-desktop-light-market-support-lens.png",
       "type": "intentional-hover",
-      "bytes": 686797,
-      "sha256": "0d9d7345c139ceeb6b3b19a8b7058b726ab5dfdb95a265a1715c413de0f68656"
+      "bytes": 741204,
+      "sha256": "2a5b868baca29dbb532f501bce2a23c752d92eef61696915d167726b2dad9016"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-390x844-no-hover-resting.png",
       "type": "non-hover",
-      "bytes": 306470,
-      "sha256": "76c93506620ca6cff8de7d25974d33acd51cb4beb98d7c576fd6c87dcc484801"
+      "bytes": 324061,
+      "sha256": "b6bbd994e07454ffc4e3faa9fe4457ec6cc4fa0a6fb1a04ba827922399c40fd9"
     },
     {
       "path": "audits/rounded-hover-preview/2026-07-21-421x386-no-hover-resting.png",
       "type": "non-hover",
-      "bytes": 149054,
-      "sha256": "ca98cc80fe0d5ebe4bd17011788c24461e04f83c5844b89970e3867a49d97e6a"
+      "bytes": 161363,
+      "sha256": "31efa5afaf9dbd359b877df84636d376657912f1f756955e07821d81f7f9f878"
     }
   ],
   "lenses": {
@@ -114,7 +114,7 @@
         "left": 481.75,
         "top": 64.78125,
         "right": 1014.25,
-        "bottom": 288.78125
+        "bottom": 332.78125
       },
       "viewport": {
         "width": 1440,
@@ -123,7 +123,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
         "complete": true,
         "naturalWidth": 400,
         "naturalHeight": 225,
@@ -201,7 +201,7 @@
         "left": 481.75,
         "top": 586.78125,
         "right": 1014.25,
-        "bottom": 810.78125
+        "bottom": 854.78125
       },
       "viewport": {
         "width": 1440,
@@ -210,7 +210,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
         "complete": true,
         "naturalWidth": 960,
         "naturalHeight": 540,
@@ -238,9 +238,9 @@
       "transitionDuration": "0.14s, 0.16s",
       "rect": {
         "left": 57.149993896484375,
-        "top": 579.9124755859375,
+        "top": 601.9124755859375,
         "right": 470.8500061035156,
-        "bottom": 831.0874633789062,
+        "bottom": 853.0874633789062,
         "width": 413.70001220703125,
         "height": 251.17498779296875
       },
@@ -248,7 +248,7 @@
         "left": 481.75,
         "top": 586.78125,
         "right": 1014.25,
-        "bottom": 810.78125
+        "bottom": 854.78125
       },
       "viewport": {
         "width": 1440,
@@ -286,7 +286,7 @@
         "left": 481.75,
         "top": 586.78125,
         "right": 1014.25,
-        "bottom": 810.78125
+        "bottom": 854.78125
       },
       "viewport": {
         "width": 1440,
@@ -295,7 +295,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
         "complete": true,
         "naturalWidth": 960,
         "naturalHeight": 540,
@@ -323,9 +323,9 @@
       "transitionDuration": "0.14s, 0.16s",
       "rect": {
         "left": 57.149993896484375,
-        "top": 579.9124755859375,
+        "top": 601.9124755859375,
         "right": 470.8500061035156,
-        "bottom": 831.0874633789062,
+        "bottom": 853.0874633789062,
         "width": 413.70001220703125,
         "height": 251.17498779296875
       },
@@ -333,7 +333,7 @@
         "left": 481.75,
         "top": 586.78125,
         "right": 1014.25,
-        "bottom": 810.78125
+        "bottom": 854.78125
       },
       "viewport": {
         "width": 1440,
@@ -372,7 +372,7 @@
           "left": 481.75,
           "top": 586.78125,
           "right": 1014.25,
-          "bottom": 810.78125
+          "bottom": 854.78125
         },
         "viewport": {
           "width": 1440,
@@ -381,7 +381,7 @@
         "overflow": 0,
         "media": {
           "tag": "IMG",
-          "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "complete": true,
           "naturalWidth": 400,
           "naturalHeight": 225,
@@ -434,7 +434,7 @@
   "gifFrameProgression": {
     "method": "two timed rendered lens-media PNG crops with SHA-256",
     "source": {
-      "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+      "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
       "sameOrigin": true,
       "complete": true,
       "naturalWidth": 400,
@@ -443,7 +443,7 @@
       "localQa": true,
       "exactCanonicalMetadataMatch": true,
       "network": {
-        "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+        "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
         "status": 200,
         "ok": true,
         "contentType": "image/gif"
@@ -451,13 +451,13 @@
     },
     "first": {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-a.png",
-      "elapsedMs": 50114.89999997616,
-      "sha256": "a6a2629518273cf2c4f2594401fe8a1281e11c7a2fd71cd40f863d28949e6167"
+      "elapsedMs": 11765.100000023842,
+      "sha256": "f7f1348f8ae6b75780936602199a2674348d81deae5c4636af39399bed9ae909"
     },
     "second": {
       "path": "audits/rounded-hover-preview/2026-07-21-autonomous-gif-frame-b.png",
-      "elapsedMs": 59587.800000071526,
-      "sha256": "015d29962eeccb5b201a0ed742a2f272a852f04d6fc6652814df58e282531a7d"
+      "elapsedMs": 14655,
+      "sha256": "87b27f8c98ad38ef3fce0bbfea95c692f224511efd6b25b1425212c09d377984"
     },
     "changed": true
   },
@@ -490,9 +490,9 @@
       },
       "triggerRect": {
         "left": 481.75,
-        "top": 586.78125,
+        "top": 590.78125,
         "right": 1014.25,
-        "bottom": 810.78125
+        "bottom": 858.78125
       },
       "viewport": {
         "width": 1440,
@@ -501,7 +501,7 @@
       "overflow": 0,
       "media": {
         "tag": "IMG",
-        "src": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+        "src": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
         "complete": true,
         "naturalWidth": 960,
         "naturalHeight": 540,
@@ -585,210 +585,210 @@
   },
   "contrast": {
     "desktop-dark": {
-      "minimumRatio": 4.2186047950660654,
+      "minimumRatio": 3.8266087305470764,
       "samples": [
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-time",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-kicker",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-title",
-          "ratio": 16.79109127555338
+          "ratio": 11.781364621647246
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-summary",
-          "ratio": 16.79109127555338
+          "ratio": 11.781364621647246
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-open-copy",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-time",
-          "ratio": 4.2186047950660654
+          "ratio": 3.8266087305470764
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.789259634916303
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-count",
-          "ratio": 4.2186047950660654
+          "ratio": 3.8266087305470764
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.789259634916303
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-time",
-          "ratio": 5.374183617480469
+          "ratio": 3.990104058627871
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.673691921236601
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-count",
-          "ratio": 5.374183617480469
+          "ratio": 3.990104058627871
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.673691921236601
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-time",
-          "ratio": 7.926846554547538
+          "ratio": 6.213741177269249
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-work-type reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.082520920451826
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-category",
-          "ratio": 7.926846554547538
+          "ratio": 6.213741177269249
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-copy reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.082520920451826
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-time",
-          "ratio": 4.951204317307262
+          "ratio": 3.9620620398742252
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.7225708730386335
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-count",
-          "ratio": 4.951204317307262
+          "ratio": 3.9620620398742252
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.7225708730386335
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         }
       ],
       "climate": [
@@ -796,233 +796,233 @@
           "category": "service-support",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.651697 0.685084 0.973951 / 0.430745)",
+          "borderColor": "color(srgb 0.629825 0.618274 0.743849 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.490196 0.478431 1 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.568627 0.529412 0.690196 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         },
         {
           "category": "us-market-scan",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.597072 0.877363 0.973951 / 0.430745)",
+          "borderColor": "color(srgb 0.524994 0.713854 0.70685 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.392157 0.823529 1 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.435294 0.65098 0.643137 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         },
         {
           "category": "ah-market-scan",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.483453 0.875178 0.609057 / 0.430745)",
+          "borderColor": "color(srgb 0.574326 0.698438 0.617435 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.188235 0.819608 0.345098 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.498039 0.631373 0.529412 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         }
       ]
     },
     "desktop-light": {
-      "minimumRatio": 3.7707048701525756,
+      "minimumRatio": 3.1766159682959105,
       "samples": [
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-time",
-          "ratio": 7.531671200009337
+          "ratio": 5.555007599101908
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-kicker",
-          "ratio": 7.531671200009337
+          "ratio": 5.555007599101908
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-title",
-          "ratio": 14.168669131615712
+          "ratio": 11.857328311470981
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-summary",
-          "ratio": 14.168669131615712
+          "ratio": 11.857328311470981
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-open-copy",
-          "ratio": 7.531671200009337
+          "ratio": 5.555007599101908
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-time",
-          "ratio": 4.244007103197575
+          "ratio": 3.4561577829373893
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-label reading-title",
-          "ratio": 6.443610988488421
+          "ratio": 5.643340655872428
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-count",
-          "ratio": 4.244007103197575
+          "ratio": 3.4561577829373893
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.443610988488421
+          "ratio": 5.643340655872428
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-time",
-          "ratio": 4.172515970024539
+          "ratio": 3.201641471464207
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.443610988488421
+          "ratio": 5.73359489813469
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-count",
-          "ratio": 4.172515970024539
+          "ratio": 3.201641471464207
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.443610988488421
+          "ratio": 5.73359489813469
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-time",
-          "ratio": 5.495256743564704
+          "ratio": 4.989512820048528
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-work-type reading-title",
-          "ratio": 12.114737044319067
+          "ratio": 10.668547445153536
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-category",
-          "ratio": 5.495256743564704
+          "ratio": 4.989512820048528
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-copy reading-summary",
-          "ratio": 12.114737044319067
+          "ratio": 10.668547445153536
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-time",
-          "ratio": 3.7707048701525756
+          "ratio": 3.1766159682959105
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.443610988488421
+          "ratio": 5.716306714308739
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-count",
-          "ratio": 3.7707048701525756
+          "ratio": 3.1766159682959105
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.443610988488421
+          "ratio": 5.716306714308739
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 5.878052454865938
+          "ratio": 5.350883620411154
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 12.114737044319067
+          "ratio": 10.124348177207025
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 5.878052454865938
+          "ratio": 5.350883620411154
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 12.114737044319067
+          "ratio": 10.124348177207025
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 5.878052454865938
+          "ratio": 5.350883620411154
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 12.114737044319067
+          "ratio": 10.124348177207025
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 5.878052454865938
+          "ratio": 5.350883620411154
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 12.114737044319067
+          "ratio": 10.124348177207025
         }
       ],
       "climate": [
@@ -1030,226 +1030,226 @@
           "category": "service-support",
           "opacity": 0.72,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.233957 0.273002 0.566574 / 0.430745)",
+          "borderColor": "color(srgb 0.365443 0.361735 0.522604 / 0.61051)",
           "boxShadow": "color(srgb 1 1 0.984314 / 0.180392) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.345098 0.337255 0.839216 / 0.07), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.439216 0.407843 0.603922 / 0.24), rgba(0, 0, 0, 0) 59%), linear-gradient(138deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0) 35%), none"
         },
         {
           "category": "us-market-scan",
           "opacity": 0.72,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.0416777 0.331997 0.457324 / 0.430745)",
+          "borderColor": "color(srgb 0.263696 0.45115 0.467106 / 0.61051)",
           "boxShadow": "color(srgb 1 1 0.984314 / 0.180392) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0 0.443137 0.643137 / 0.07), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.309804 0.521569 0.533333 / 0.24), rgba(0, 0, 0, 0) 59%), linear-gradient(138deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0) 35%), none"
         },
         {
           "category": "ah-market-scan",
           "opacity": 0.72,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.120338 0.386622 0.232269 / 0.430745)",
+          "borderColor": "color(srgb 0.313028 0.448066 0.377692 / 0.61051)",
           "boxShadow": "color(srgb 1 1 0.984314 / 0.180392) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.141176 0.541176 0.239216 / 0.07), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.372549 0.517647 0.419608 / 0.24), rgba(0, 0, 0, 0) 59%), linear-gradient(138deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0) 35%), none"
         }
       ]
     },
     "390x844": {
-      "minimumRatio": 4.2186047950660654,
+      "minimumRatio": 3.8266087305470764,
       "samples": [
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-time",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-title",
-          "ratio": 16.79109127555338
+          "ratio": 11.781364621647246
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-summary",
-          "ratio": 16.79109127555338
+          "ratio": 11.781364621647246
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-open-copy",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-time",
-          "ratio": 4.2186047950660654
+          "ratio": 3.8266087305470764
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.789259634916303
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-count",
-          "ratio": 4.2186047950660654
+          "ratio": 3.8266087305470764
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.789259634916303
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-time",
-          "ratio": 5.374183617480469
+          "ratio": 3.990104058627871
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.673691921236601
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-count",
-          "ratio": 5.374183617480469
+          "ratio": 3.990104058627871
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.673691921236601
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-time",
-          "ratio": 7.926846554547538
+          "ratio": 6.213741177269249
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-work-type reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.082520920451826
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-category",
-          "ratio": 7.926846554547538
+          "ratio": 6.213741177269249
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
-          "className": "assigned-copy reading-summary is-clamped",
-          "ratio": 14.848301884321915
+          "className": "assigned-copy reading-summary",
+          "ratio": 10.082520920451826
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-time",
-          "ratio": 4.951204317307262
+          "ratio": 3.9620620398742252
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.7225708730386335
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-count",
-          "ratio": 4.951204317307262
+          "ratio": 3.9620620398742252
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.7225708730386335
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         }
       ],
       "climate": [
@@ -1257,226 +1257,226 @@
           "category": "service-support",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.651697 0.685084 0.973951 / 0.430745)",
+          "borderColor": "color(srgb 0.629825 0.618274 0.743849 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.490196 0.478431 1 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.568627 0.529412 0.690196 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         },
         {
           "category": "us-market-scan",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.597072 0.877363 0.973951 / 0.430745)",
+          "borderColor": "color(srgb 0.524994 0.713854 0.70685 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.392157 0.823529 1 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.435294 0.65098 0.643137 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         },
         {
           "category": "ah-market-scan",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.483453 0.875178 0.609057 / 0.430745)",
+          "borderColor": "color(srgb 0.574326 0.698438 0.617435 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.188235 0.819608 0.345098 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.498039 0.631373 0.529412 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         }
       ]
     },
     "421x386": {
-      "minimumRatio": 4.2186047950660654,
+      "minimumRatio": 3.8266087305470764,
       "samples": [
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-time",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-title",
-          "ratio": 16.79109127555338
+          "ratio": 11.781364621647246
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "reading-summary",
-          "ratio": 16.79109127555338
+          "ratio": 11.781364621647246
         },
         {
           "readingId": "beacon-beacon-001",
           "layer": "beacon",
           "category": "autonomous-artwork",
           "className": "autonomous-open-copy",
-          "ratio": 14.217435731700672
+          "ratio": 7.572777745931971
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-time",
-          "ratio": 4.2186047950660654
+          "ratio": 3.8266087305470764
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.789259634916303
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-count",
-          "ratio": 4.2186047950660654
+          "ratio": 3.8266087305470764
         },
         {
           "readingId": "climate-01",
           "layer": "climate",
           "category": "service-support",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.789259634916303
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-time",
-          "ratio": 5.374183617480469
+          "ratio": 3.990104058627871
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.673691921236601
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-count",
-          "ratio": 5.374183617480469
+          "ratio": 3.990104058627871
         },
         {
           "readingId": "climate-02",
           "layer": "climate",
           "category": "us-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.673691921236601
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-time",
-          "ratio": 7.926846554547538
+          "ratio": 6.213741177269249
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-work-type reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.082520920451826
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
           "className": "assigned-category",
-          "ratio": 7.926846554547538
+          "ratio": 6.213741177269249
         },
         {
           "readingId": "event-assigned-001",
           "layer": "event",
           "category": "assigned-work",
-          "className": "assigned-copy reading-summary is-clamped",
-          "ratio": 14.848301884321915
+          "className": "assigned-copy reading-summary",
+          "ratio": 10.082520920451826
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-time",
-          "ratio": 4.951204317307262
+          "ratio": 3.9620620398742252
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-label reading-title",
-          "ratio": 6.577507859489954
+          "ratio": 5.7225708730386335
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-count",
-          "ratio": 4.951204317307262
+          "ratio": 3.9620620398742252
         },
         {
           "readingId": "climate-03",
           "layer": "climate",
           "category": "ah-market-scan",
           "className": "pulse-summary reading-summary",
-          "ratio": 6.577507859489954
+          "ratio": 5.7225708730386335
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-013",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-time",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-label reading-title",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-count",
-          "ratio": 8.50336761409151
+          "ratio": 6.363791979930556
         },
         {
           "readingId": "event-background-056",
           "layer": "event",
           "category": "daily-reminder",
           "className": "pulse-summary reading-summary",
-          "ratio": 14.848301884321915
+          "ratio": 10.327983685397326
         }
       ],
       "climate": [
@@ -1484,25 +1484,25 @@
           "category": "service-support",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.651697 0.685084 0.973951 / 0.430745)",
+          "borderColor": "color(srgb 0.629825 0.618274 0.743849 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.490196 0.478431 1 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.568627 0.529412 0.690196 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         },
         {
           "category": "us-market-scan",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.597072 0.877363 0.973951 / 0.430745)",
+          "borderColor": "color(srgb 0.524994 0.713854 0.70685 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.392157 0.823529 1 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.435294 0.65098 0.643137 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         },
         {
           "category": "ah-market-scan",
           "opacity": 0.6,
           "zIndex": 4,
-          "borderColor": "color(srgb 0.483453 0.875178 0.609057 / 0.430745)",
+          "borderColor": "color(srgb 0.574326 0.698438 0.617435 / 0.61051)",
           "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-          "backgroundImage": "linear-gradient(112deg, color(srgb 0.188235 0.819608 0.345098 / 0.11), rgba(0, 0, 0, 0) 48%), none"
+          "backgroundImage": "linear-gradient(116deg, color(srgb 0.498039 0.631373 0.529412 / 0.19), rgba(0, 0, 0, 0) 57%), none"
         }
       ]
     }
@@ -1541,11 +1541,11 @@
       "pageErrors": [],
       "requestFailures": [
         {
-          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         }
       ]
@@ -1568,24 +1568,32 @@
         {
           "text": "Failed to load resource: net::ERR_FAILED",
           "expected": true
+        },
+        {
+          "text": "Failed to load resource: net::ERR_FAILED",
+          "expected": true
         }
       ],
       "pageErrors": [],
       "requestFailures": [
         {
-          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
           "expected": true
         },
         {
-          "url": "http://127.0.0.1:8896/archive/2026/07/2026-07-21/assets/visual-preview.webp",
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.gif",
+          "expected": true
+        },
+        {
+          "url": "http://127.0.0.1:8891/archive/2026/07/2026-07-21/assets/visual-preview.webp",
           "expected": true
         }
       ]

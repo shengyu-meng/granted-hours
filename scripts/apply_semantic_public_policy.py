@@ -236,11 +236,23 @@ def sanitize_history(
         unique_residues = []
         signatures = set()
         for residue in day.get("assigned_residues", []):
-            signature = (
-                residue.get("category"),
-                residue.get("en"),
-                residue.get("zh"),
-            )
+            if residue.get("source_kind") == "collaboration_session":
+                signature = (
+                    residue.get("category"),
+                    residue.get("en"),
+                    residue.get("zh"),
+                    residue.get("request_zh"),
+                    residue.get("request_en"),
+                    residue.get("outcome_zh"),
+                    residue.get("outcome_en"),
+                    residue.get("completion_status"),
+                )
+            else:
+                signature = (
+                    residue.get("category"),
+                    residue.get("en"),
+                    residue.get("zh"),
+                )
             if signature in signatures:
                 stats["merged_duplicates"] += 1
                 continue

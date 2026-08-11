@@ -1,6 +1,36 @@
 {
  "schema": "granted-hours-collaboration-contours-v1",
  "contours": {
+  "46d7eaa5bc2470da5e0a82c8cebe1caa2d90ef63943b71ae1757e4473df808f8": {
+   "date": "2026-08-10",
+   "category": "research_synthesis",
+   "request_zh": "核对一组阅读材料是否已逐项处理；如有缺项，补齐后给出完整性审计。",
+   "request_en": "Check whether a set of reading materials has been handled item by item; if any are missing, complete them and provide an integrity audit.",
+   "outcome_zh": "逐项核验后，已补齐材料整理，并形成完整性审计记录。",
+   "outcome_en": "After an item-by-item check, the material set was completed and an integrity audit record was produced.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "63e7c0b8552f306d4ab05b188f1b193599b617db7eb93d85a0ab7acf81dcad72": {
+   "date": "2026-08-10",
+   "category": "research_synthesis",
+   "request_zh": "审计当天交付的阅读材料是否已按原顺序逐项整理；若有遗漏，逐条补齐并给出核验。",
+   "request_en": "Audit whether the day's reading materials were organized one by one in their original order; if any are missing, complete them individually and provide verification.",
+   "outcome_zh": "核验了对话内可确认的材料，并完成逐项整理。",
+   "outcome_en": "Verified the materials that could be confirmed in the conversation and completed their item-by-item organization.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "413f0da807ad02d0fb8bcfed78b7f47e62c91e59c4ecbbb8645a6d591d863764": {
+   "date": "2026-08-10",
+   "category": "redacted_private",
+   "request_zh": "检查近期 AI 简报的重复内容，并修正去重流程。",
+   "request_en": "Check recent AI briefs for repeated material and correct the deduplication process.",
+   "outcome_zh": "这项去重修正未找到可安全公开、且能可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "No public-safe completion record was found that reliably corresponds to this deduplication correction; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
   "1a4366bbdda04009e4d7cc8547bdbb4a49944317008cc6653f1d66d816a53bfe": {
    "date": "2026-05-09",
    "category": "document_processing",

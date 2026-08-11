@@ -50,7 +50,17 @@ MAX_OUTCOME_CANDIDATES_PER_GROUP = 4
 MAX_EXCERPT_CHARS = 260
 GENERATED_KINDS = {"collaboration_session", "agent_session"}
 TOPIC_GROUPING_EFFECTIVE_DATE = "2026-08-10"
-MANUALLY_CURATED_DATES = {"2026-05-06"}
+# These dates contain owner-approved, receipt-backed merged cards. Re-scanning
+# message fragments must not split or erase the approved public projection.
+MANUALLY_CURATED_DATES = {
+    "2026-05-06",
+    "2026-08-04",
+    "2026-08-05",
+    "2026-08-06",
+    "2026-08-07",
+    "2026-08-08",
+    "2026-08-10",
+}
 
 ACK_RE = re.compile(
     r"(?ix)^(?:/\w+(?:\s+\w+)?|好(?:的)?|可以|行|嗯+|哦+|继续|收到|知道了|"
@@ -1007,10 +1017,15 @@ def collect(
                 or OUTCOME_PRIVATE_DOMAIN_RE.search(request_text)
                 or private_operational_request
                 or malformed_attachment_request
+                or (
+                    category == "redacted_private"
+                    and not outcome_excerpts
+                    and len(normalize(request_text)) < 32
+                )
             ):
                 # Do not promote private operational requests without a
-                # independently publishable result, or attachment wrappers,
-                # into an unverified card.
+                # independently publishable result, attachment wrappers, or
+                # a lone opaque private token into an unverified card.
                 continue
             excerpts = [*owner_excerpts, *outcome_excerpts]; excerpt_count += len(excerpts)
             en, zh = summary(category, day, len(timestamps), len(group["sessions"]), group["delegated"], group["returned"])
@@ -1281,8 +1296,19 @@ def import_events(state_db: Path, days_path: Path, history_path: Path, detector:
         scan_dates = dates
     contours = load_collaboration_contours(contours_path)
     collected_dates = [day for day in scan_dates if day not in MANUALLY_CURATED_DATES]
-    collaborations, audit = collect(state_db, collected_dates, detector, denylists)
-    agents = collect_agent_events(state_db, collected_dates, excluded_parent_sources={"telegram"})
+    if collected_dates:
+        collaborations, audit = collect(state_db, collected_dates, detector, denylists)
+        agents = collect_agent_events(state_db, collected_dates, excluded_parent_sources={"telegram"})
+    else:
+        collaborations = {}
+        agents = {}
+        audit = {
+            "meaningful_message_count": 0,
+            "public_excerpt_count": 0,
+            "safe_outcome_candidate_count": 0,
+            "rejected_outcome_candidate_count": 0,
+            "delegated_agent_count": 0,
+        }
     collaboration_categories = {
         day: {event["category"] for event in events}
         for day, events in collaborations.items()

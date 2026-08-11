@@ -467,7 +467,16 @@ def validate_input(data: object) -> tuple[str, str, list[dict]]:
     ]
     signatures = []
     for residue in residues:
-        signature = (residue["category"], residue["en"], residue["zh"])
+        signature = (
+            (
+                residue["category"], residue["en"], residue["zh"],
+                residue.get("request_zh"), residue.get("request_en"),
+                residue.get("outcome_zh"), residue.get("outcome_en"),
+                residue.get("completion_status"),
+            )
+            if residue.get("source_kind") == "collaboration_session"
+            else (residue["category"], residue["en"], residue["zh"])
+        )
         require(signature not in signatures, f"{day_date} assigned residues must be unique")
         signatures.append(signature)
     return day_date, provenance, residues

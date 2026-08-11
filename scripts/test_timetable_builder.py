@@ -60,6 +60,38 @@ class TimetableBuilderTests(unittest.TestCase):
                 len(day["task_residues"]),
                 f"{day['date']} month preview must not discard later events",
             )
+
+    def test_first_person_voice_policy_is_complete_and_evidence_bounded(self) -> None:
+        output = self.build()
+        for day in output["days"]:
+            for task in day["task_residues"]:
+                self.assertEqual(task["voice_policy_version"], builder.VOICE_POLICY_VERSION)
+                if task["source_kind"] == "withheld":
+                    self.assertFalse(task["zh"].startswith("我"))
+                    continue
+                self.assertTrue(task["zh"].startswith("我"), (day["date"], task["source_kind"], task["zh"]))
+                self.assertTrue(task["en"].startswith(("I ", "During ", "Through ")), (day["date"], task["en"]))
+                if task["source_kind"] == "collaboration_session":
+                    self.assertTrue(task["request_zh"].startswith("Simon 让我"))
+                    self.assertTrue(task["request_en"].startswith("Simon asked me"))
+                    if task["completion_status"] == "completed":
+                        self.assertTrue(task["outcome_zh"].startswith("我"))
+                        self.assertTrue(task["outcome_en"].startswith("I "))
+
+    def test_owner_approved_audit_cards_are_merged_once(self) -> None:
+        output = self.build()
+        expected = {
+            "2026-08-04": 2,
+            "2026-08-05": 1,
+            "2026-08-06": 1,
+            "2026-08-07": 1,
+            "2026-08-08": 1,
+            "2026-08-10": 3,
+        }
+        for day_date, count in expected.items():
+            day = next(day for day in output["days"] if day["date"] == day_date)
+            cards = [task for task in day["task_residues"] if task["source_kind"] == "collaboration_session"]
+            self.assertEqual(len(cards), count, day_date)
             self.assertEqual(
                 [marker["task_name_en"] for marker in day["cell_assigned"]],
                 [task["task_name_en"] for task in day["task_residues"]],
@@ -162,7 +194,16 @@ class TimetableBuilderTests(unittest.TestCase):
                     self.assertGreater(residue["redaction_count"], 0)
                     self.assertIn("████", residue["en"])
                     self.assertIn("████", residue["zh"])
-                signature = (residue["category"], residue["en"], residue["zh"])
+                signature = (
+                    (
+                        residue["category"], residue["en"], residue["zh"],
+                        residue["request_zh"], residue["request_en"],
+                        residue["outcome_zh"], residue["outcome_en"],
+                        residue["completion_status"],
+                    )
+                    if residue.get("source_kind") == "collaboration_session"
+                    else (residue["category"], residue["en"], residue["zh"])
+                )
                 self.assertNotIn(signature, signatures)
                 signatures.add(signature)
 

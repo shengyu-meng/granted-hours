@@ -675,10 +675,14 @@ async function assertRoundedAndSemantic(page, label) {
   for (const category of requiredCategories) {
     assert.ok(representatives.has(category), `${label}: missing category ${category}`);
   }
+  // Assigned collaboration cards may carry an explicit task color; validate
+  // the fixed category families independently of that intentional override.
+  const fixedAccentCategories = requiredCategories.filter((category) => category !== "assigned-work");
+  const requiredAccents = fixedAccentCategories.map((category) => representatives.get(category));
   assert.equal(
-    new Set([...representatives.values()]).size,
-    representatives.size,
-    `${label}: categories do not have deterministic distinct accents`,
+    new Set(requiredAccents).size,
+    requiredAccents.length,
+    `${label}: fixed category accents are not distinct`,
   );
   const climate = result.cards.filter((card) => card.layer === "climate");
   const foreground = result.cards.filter((card) => ["event", "beacon"].includes(card.layer));

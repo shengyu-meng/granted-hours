@@ -78,6 +78,7 @@ ACTIVE_COLLABORATION_SOURCE_KINDS = {
     "withheld",
 }
 URL_RE = re.compile(r"(?i)(?:\b(?:https?|ftp)://|\bwww\.)\S+")
+VOICE_POLICY_VERSION = "granted-hours-first-person-v1"
 
 SENSITIVE_ASSIGNED_WORK_RE = re.compile(
     r"(?i)\bholdings\b|持仓|仓位|试仓|\blive\s+futu\b|\breal\s+account\b|真实账户|账户敞口|账户权限"
@@ -1217,7 +1218,16 @@ def load_history(path: Path) -> dict[str, dict]:
                 require(residue["en"].count("████") == residue["redaction_count"], f"{day_date} residue {index + 1} English mask count mismatch")
                 require(residue["zh"].count("████") == residue["redaction_count"], f"{day_date} residue {index + 1} Chinese mask count mismatch")
             require("/Users/" not in residue["en"] and "/Users/" not in residue["zh"], f"{day_date} residue {index + 1} leaks a local path")
-            signature = (residue["category"], residue["en"], residue["zh"])
+            signature = (
+                (
+                    residue["category"], residue["en"], residue["zh"],
+                    residue["request_zh"], residue["request_en"],
+                    residue["outcome_zh"], residue["outcome_en"],
+                    residue["completion_status"],
+                )
+                if residue.get("source_kind") == "collaboration_session"
+                else (residue["category"], residue["en"], residue["zh"])
+            )
             require(signature not in signatures, f"{day_date} assigned residues must be unique")
             signatures.add(signature)
         history_by_date[day_date] = {**entry, "assigned_residues": residues}
@@ -1532,6 +1542,43 @@ def inferred_history(public_entry: dict) -> dict:
     }
 
 
+def first_person_residue_copy(source_kind: str, en: str, zh: str) -> tuple[str, str]:
+    """Project authored evidence in Black Day's voice without changing its claim."""
+    if source_kind == "withheld":
+        return en, zh
+    prefixes = {
+        "maintenance_record": ("During the routine window, I recorded: ", "我在例行时段记录："),
+        "task_card": ("I recorded this evidenced work as: ", "我把这项有证据的工作记为："),
+        "daily_record": ("I recorded: ", "我记录下："),
+        "public_post_archive": ("I added this already-public work to the calendar: ", "我把这项已经公开的工作记入日历："),
+        "agent_session": ("Through Codex, GPT, or a delegated Agent, I recorded: ", "我通过 Codex、GPT 或子 Agent 记录："),
+    }
+    prefix_en, prefix_zh = prefixes.get(source_kind, ("I recorded: ", "我记录："))
+    return f"{prefix_en}{en}", f"{prefix_zh}{zh}"
+
+
+def first_person_collaboration_pair(residue: dict) -> dict:
+    request_zh = str(residue["request_zh"])
+    request_en = str(residue["request_en"])
+    outcome_zh = str(residue["outcome_zh"])
+    outcome_en = str(residue["outcome_en"])
+    if not request_zh.startswith("Simon 让我"):
+        request_zh = f"Simon 让我{request_zh.lstrip('要求').lstrip('：:').strip()}"
+    if not request_en.lower().startswith("simon asked me"):
+        request_en = f"Simon asked me to {request_en[0].lower() + request_en[1:] if request_en else request_en}"
+    if residue.get("completion_status") == "completed":
+        if not outcome_zh.startswith("我"):
+            outcome_zh = f"我{outcome_zh.lstrip('已').strip()}"
+        if not outcome_en.lower().startswith("i "):
+            outcome_en = f"I {outcome_en[0].lower() + outcome_en[1:] if outcome_en else outcome_en}"
+    return {
+        "request_zh": request_zh,
+        "request_en": request_en,
+        "outcome_zh": outcome_zh,
+        "outcome_en": outcome_en,
+    }
+
+
 def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) -> tuple[list[dict], str]:
     history = history_entry or inferred_history(public_entry)
     day_date = public_entry["date"]
@@ -1545,8 +1592,10 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
     for residue, (start, end) in zip(residues, ranges):
         category = residue["category"]
         taxonomy_entry = config["taxonomy"][category]
-        description_en = residue["en"]
-        description_zh = residue["zh"]
+        source_kind = residue.get("source_kind", "inferred")
+        description_en, description_zh = first_person_residue_copy(
+            source_kind, residue["en"], residue["zh"]
+        )
         require(
             public_entry["title_en"].lower() not in description_en.lower()
             and public_entry["title_zh"] not in description_zh,
@@ -1555,7 +1604,12 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
         if residue.get("source_kind") == "collaboration_session":
             task_name_zh, task_name_en = COLLABORATION_TASK_NAMES[category]
         elif history_entry is not None:
-            task_name_zh, task_name_en = derive_authored_task_name(category, description_en, description_zh)
+            # Voice is display copy. Task-name classification stays grounded in
+            # the original evidence contour so first-person prefixes do not
+            # collapse recognizable work types into generic labels.
+            task_name_zh, task_name_en = derive_authored_task_name(
+                category, residue["en"], residue["zh"]
+            )
         else:
             task_name_zh, task_name_en = derive_task_name(category, description_en, description_zh)
         if residue.get("source_kind") == "collaboration_session":
@@ -1577,8 +1631,12 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
         duration_minutes = minutes(end) - minutes(start)
         redaction_status = residue.get("redaction_status", "none")
         redaction_count = residue.get("redaction_count", 0)
-        source_kind = residue.get("source_kind", "inferred")
         faithfulness = residue.get("faithfulness", "inferred")
+        collaboration_pair = (
+            first_person_collaboration_pair(residue)
+            if source_kind == "collaboration_session"
+            else {}
+        )
         tasks.append(
             {
                 "origin": "assigned",
@@ -1602,6 +1660,7 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
                 "redaction_count": redaction_count,
                 "source_kind": source_kind,
                 "faithfulness": faithfulness,
+                "voice_policy_version": VOICE_POLICY_VERSION,
                 **(
                     {
                         "evidence_count": residue["evidence_count"],
@@ -1619,10 +1678,7 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
                         "returned_agent_count": residue[
                             "returned_agent_count"
                         ],
-                        "request_zh": residue["request_zh"],
-                        "request_en": residue["request_en"],
-                        "outcome_zh": residue["outcome_zh"],
-                        "outcome_en": residue["outcome_en"],
+                        **collaboration_pair,
                         "completion_status": residue["completion_status"],
                         "pair_provenance": residue["pair_provenance"],
                     }
@@ -2023,13 +2079,13 @@ def climate_group_summary(pulses: list[dict]) -> tuple[str, str]:
         theme_clause_zh = f"；主题：{theme_zh}" if theme_zh else ""
         theme_clause_en = f"; themes: {theme_en}" if theme_en else ""
         return (
-            f"{window_count} 个精确窗口（{window_zh}）共完成 {run_count} 次扫描；状态：{state_zh}{theme_clause_zh}；公开事实：{facts_zh}。",
-            f"{run_count} scans completed across {window_count} exact windows ({window_en}); regime: {state_en}{theme_clause_en}; retained public evidence: {facts_en}.",
+            f"我在 {window_count} 个精确窗口（{window_zh}）共完成 {run_count} 次扫描；我观察到：{state_zh}{theme_clause_zh}；公开事实：{facts_zh}。",
+            f"I completed {run_count} scans across {window_count} exact windows ({window_en}); I observed: {state_en}{theme_clause_en}; retained public evidence: {facts_en}.",
         )
     if category == "ai_daily_brief":
         return (
-            f"{window_count} 个精确窗口共完成 {run_count} 次 AI 日报采集；未保留公开提示。",
-            f"{run_count} AI-brief collection run(s) completed across {window_count} exact window(s); no public notice was retained.",
+            f"我在 {window_count} 个精确窗口共完成 {run_count} 次 AI 日报采集；未保留公开提示。",
+            f"I completed {run_count} AI-brief collection run(s) across {window_count} exact window(s); no public notice was retained.",
         )
     alert_window_count = sum(pulse.get("public_alert") is True for pulse in pulses)
     quiet_window_count = window_count - alert_window_count
@@ -2046,8 +2102,8 @@ def climate_group_summary(pulses: list[dict]) -> tuple[str, str]:
         status_zh = f"{window_count} 个窗口均无须单独提示"
         status_en = f"all {window_count} windows required no separate notice"
     return (
-        f"全天 {window_count} 个精确窗口共完成 {run_count} 次后台例行运行；运行状态：{status_zh}。",
-        f"{run_count} background routine run(s) completed across {window_count} exact windows during the day; status: {status_en}.",
+        f"我在全天 {window_count} 个精确窗口共完成 {run_count} 次后台例行运行；我发现：{status_zh}。",
+        f"I completed {run_count} background routine run(s) across {window_count} exact windows during the day; I found that {status_en}.",
     )
 
 
@@ -2340,6 +2396,7 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
             "redaction_count",
             "source_kind",
             "faithfulness",
+            "voice_policy_version",
         ):
             require(str(task.get(field, "")).strip(), f"{day_date} task missing {field}")
         require(task["origin"] == "assigned", f"{day_date} task origin must be assigned")
@@ -2366,6 +2423,7 @@ def validate_tasks(day_date: str, tasks: list[dict], autonomous: dict) -> None:
         require(task["redaction_status"] in {"none", "partial", "withheld"}, f"{day_date} task has invalid redaction status")
         require(isinstance(task["redaction_count"], int) and task["redaction_count"] >= 0, f"{day_date} task has invalid redaction count")
         require(task["faithfulness"] in {"faithful_summary", "inferred"}, f"{day_date} task has invalid faithfulness state")
+        require(task["voice_policy_version"] == VOICE_POLICY_VERSION, f"{day_date} task has stale voice policy")
         require(task_start < task_end, f"{day_date} has an invalid task range")
         require(
             task.get("duration_minutes") == task_end - task_start,
