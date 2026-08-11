@@ -33,6 +33,29 @@ test("proxies the Pages origin without forwarding private headers", async () => 
     );
     assert.equal(forwardedRequest.headers.get("authorization"), null);
     assert.equal(forwardedRequest.headers.get("cookie"), null);
+    assert.equal(forwardedRequest.headers.get("cache-control"), "no-cache");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("keeps fingerprinted asset caching intact", async () => {
+  const originalFetch = globalThis.fetch;
+  let forwardedRequest;
+
+  globalThis.fetch = async (request) => {
+    forwardedRequest = request;
+    return new Response("asset", { status: 200 });
+  };
+
+  try {
+    await worker.fetch(
+      new Request(
+        "https://granted-hours.hyperint.net/timetable/assets/index-DaL6ALu-.js",
+      ),
+    );
+
+    assert.equal(forwardedRequest.headers.get("cache-control"), null);
   } finally {
     globalThis.fetch = originalFetch;
   }

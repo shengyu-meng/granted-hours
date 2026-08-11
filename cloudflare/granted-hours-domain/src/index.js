@@ -7,11 +7,22 @@ const PRIVATE_REQUEST_HEADERS = [
   "proxy-authorization",
 ];
 
+function isDocumentPath(pathname) {
+  return pathname.endsWith("/") || pathname.endsWith(".html");
+}
+
 function buildUpstreamRequest(request, upstreamUrl) {
   const upstreamRequest = new Request(upstreamUrl, request);
 
   for (const header of PRIVATE_REQUEST_HEADERS) {
     upstreamRequest.headers.delete(header);
+  }
+
+  // Pages HTML is revalidated at the public origin. Make that requirement
+  // explicit across the Worker hop so a previous deployment cannot linger on
+  // the custom hostname; fingerprinted assets retain their normal caching.
+  if (isDocumentPath(upstreamUrl.pathname)) {
+    upstreamRequest.headers.set("cache-control", "no-cache");
   }
 
   return upstreamRequest;
