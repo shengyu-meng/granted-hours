@@ -315,10 +315,20 @@ try {
   await maskedReminder.click();
   await page.waitForSelector("#taskDialog:not([hidden])");
   const detailBody = (await page.locator("#taskDetailZh").textContent()) || "";
+  const detailEnglishBody = (await page.locator("#taskDetailEn").textContent()) || "";
   const detailEnglishSectionVisible = await page.locator("#taskDetailEn")
     .evaluate((element) => !element.closest("section").hidden);
   const detailProvenance = (await page.locator("#taskDetailProvenance").textContent()) || "";
-  assert.equal(detailBody, originalBodyZh);
+  assert.ok(detailBody.endsWith(originalBodyZh));
+  assert.match(
+    detailBody,
+    /^(?:我提醒 Simon|我告诉 Simon|我给 Simon 一个小小的提示|我把这句话留给 Simon|我轻轻提醒 Simon|我对 Simon 说)[：:]/,
+  );
+  assert.ok(detailEnglishBody.endsWith(originalBody));
+  assert.match(
+    detailEnglishBody,
+    /^(?:I reminded Simon|I told Simon|I gave Simon a small nudge|I left this note for Simon|I gently reminded Simon|I said to Simon):/,
+  );
   assert.equal(detailEnglishSectionVisible, true);
   assert.equal(detailProvenance, "");
   assert.equal(await page.locator("#taskDetailProvenance").isHidden(), true);

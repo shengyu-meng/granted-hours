@@ -623,7 +623,13 @@ def categorize_job(name: str) -> str:
 
 
 def reminder_requires_routine_projection(projection: dict) -> bool:
-    """Reduce a sensitive reminder to a routine footprint, not public prose."""
+    """Keep only empty or pure delivery/verification chatter out of reminder cards.
+
+    Sensitive paragraphs have already been replaced by bounded public-safe
+    abstractions in ``project_limited_reminder_response``. Demoting every such
+    projection erased the surrounding safe reminder prose and caused real
+    morning/evening reminders to disappear from the public calendar.
+    """
     summary = projection.get("summary_original")
     return reminder_text_requires_routine_projection(summary)
 
@@ -870,6 +876,8 @@ def build_snapshot(
     authorize_limited_reminder_disclosure: bool | None = None,
     reminder_translations_path: Path = DEFAULT_REMINDER_TRANSLATIONS,
     reminder_translations: dict[str, dict[str, str]] | None = None,
+    allow_missing_reminder_translations_for_candidates: bool = False,
+    translation_required_dates: set[str] | None = None,
 ) -> dict:
     if authorize_limited_reminder_disclosure:
         authorize_authentic_reminder_disclosure = True
@@ -1070,14 +1078,21 @@ def build_snapshot(
                 )
                 if reminder_projection is not None:
                     pulse.update(reminder_projection)
-                    pulse.update(
-                        translation_for_reminder(
-                            reminder_projection,
-                            translations,
-                            holdings_terms=holdings_terms,
-                            source_terms=source_terms,
+                    if (
+                        not allow_missing_reminder_translations_for_candidates
+                        and (
+                            translation_required_dates is None
+                            or day_date in translation_required_dates
                         )
-                    )
+                    ):
+                        pulse.update(
+                            translation_for_reminder(
+                                reminder_projection,
+                                translations,
+                                holdings_terms=holdings_terms,
+                                source_terms=source_terms,
+                            )
+                        )
                     pulse["summary_provenance"] = PROJECTION_PROVENANCE
             pulses.append(pulse)
         pulses.sort(key=lambda pulse: (pulse["start"], pulse["category"]))
@@ -1935,8 +1950,8 @@ def merge_reminder_refresh(
     Existing non-reminder pulses are retained exactly. A fresh reminder may
     reuse an existing public timing window only when date, bucket, run count,
     and receipt-adjacent end time all agree. Unmatched fresh reminders keep
-    their truthful receipt-timestamp estimate; unmatched old reminders are
-    removed as stale.
+    their truthful receipt-timestamp estimate. Unmatched old reminders remain
+    because receipt history and the current job catalog are partial indexes.
     """
     if not existing_path.exists():
         fail("Reminder refresh requires an existing public snapshot")
@@ -1985,6 +2000,7 @@ def merge_reminder_refresh(
         "preserved_footprints": 0,
         "receipt_estimate_footprints": 0,
         "removed_stale_reminders": 0,
+        "preserved_unmatched_reminders": 0,
     }
     observed_session_window_count = int(
         existing_snapshot.get("observed_session_window_count", 0)
@@ -2052,15 +2068,22 @@ def merge_reminder_refresh(
                     observed_session_window_count += int(
                         fresh.get("count", 0)
                     )
-        stats["removed_stale_reminders"] += len(old_reminders) - len(used_old)
-        observed_session_window_count -= sum(
-            int(old.get("count", 0))
+        # Receipt history and the current jobs catalog are not a complete
+        # historical index: renamed/retired reminder jobs may still have valid,
+        # already-authorized public projections. Preserve unmatched old
+        # reminders instead of treating absence from a partial refresh as proof
+        # that the public record is stale.
+        preserved_old = [
+            dict(old)
             for index, old in enumerate(old_reminders)
             if index not in used_old
-            and old.get("time_provenance") == "observed_session_window"
+        ]
+        stats["preserved_unmatched_reminders"] = (
+            stats.get("preserved_unmatched_reminders", 0)
+            + len(preserved_old)
         )
 
-        combined = [*non_reminders, *fresh_reminders]
+        combined = [*non_reminders, *preserved_old, *fresh_reminders]
         combined.sort(
             key=lambda pulse: (
                 clock_minutes(str(pulse.get("start", "00:00"))),
@@ -2185,6 +2208,9 @@ def main() -> int:
                 args.test_only_bypass_entity_detector
             ),
             reminder_translations_path=args.reminder_translations,
+            translation_required_dates=(
+                set(args.dates) if args.dates else None
+            ),
         )
     reminder_refresh_stats = None
     if args.refresh_reminders_only:
@@ -2251,6 +2277,8 @@ def main() -> int:
             f"date-coverage={len(reminder_dates)}, "
             f"preserved-footprints={reminder_refresh_stats['preserved_footprints']}, "
             f"receipt-estimates={reminder_refresh_stats['receipt_estimate_footprints']}, "
+            f"preserved-unmatched="
+            f"{reminder_refresh_stats['preserved_unmatched_reminders']}, "
             f"removed-stale={reminder_refresh_stats['removed_stale_reminders']}."
         )
     if reminder_resanitize_stats is not None:

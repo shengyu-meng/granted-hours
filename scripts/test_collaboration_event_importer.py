@@ -140,6 +140,32 @@ class CollaborationEventImporterTests(unittest.TestCase):
         merged = importer.merge_history(history, {}, {}, ["2026-08-02"])
         self.assertEqual(merged["days"], [])
 
+    def test_scoped_empty_date_records_completed_closure(self) -> None:
+        history = {
+            "schema": importer.HISTORY_SCHEMA,
+            "note": {"en": "note", "zh": "说明"},
+            "days": [],
+        }
+
+        merged = importer.merge_history_scoped(
+            history,
+            {},
+            {},
+            ["2026-08-02"],
+            {},
+            [],
+            ("2026-08-02",),
+        )
+
+        self.assertEqual(
+            merged["days"],
+            [{
+                "date": "2026-08-02",
+                "provenance": "record_based",
+                "assigned_residues": [],
+            }],
+        )
+
     def test_existing_public_date_can_intentionally_have_no_assigned_residues(self) -> None:
         history = {
             "schema": importer.HISTORY_SCHEMA,

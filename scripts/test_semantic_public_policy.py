@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
 import unittest
 
 from apply_semantic_public_policy import (
+    json_would_change,
     merge_translation_catalog,
+    serialized_json,
     sanitize_history,
     sanitize_pulses,
 )
@@ -113,6 +116,60 @@ class SemanticPublicPolicyTests(unittest.TestCase):
 
         self.assertIn(dormant_hash, merged["translations"])
         self.assertEqual(len(merged["translations"]), 2)
+
+    def test_translation_catalog_sanitizes_dormant_entries(self) -> None:
+        dormant_hash = "b" * 64
+        existing = {
+            "schema": "granted-hours-timetable-reminder-translations-v1",
+            "translation_provenance": "public_mask_preserving_translation_v1",
+            "translations": {
+                dormant_hash: {
+                    "source_sha256": dormant_hash,
+                    "summary_en": "Review Lecture 3 teaching material.",
+                    "excerpt_en": "Review Lecture 3 teaching material.",
+                    "translation_provenance": "public_mask_preserving_translation_v1",
+                }
+            },
+        }
+
+        merged = merge_translation_catalog({"days": []}, existing)
+        record = merged["translations"][dormant_hash]
+
+        self.assertEqual(semantic_risk_tags(record["summary_en"]), ())
+        self.assertEqual(semantic_risk_tags(record["excerpt_en"]), ())
+        self.assertEqual(
+            record["summary_en"],
+            "Teaching, research, and everyday responsibilities.",
+        )
+
+    def test_minified_math_is_not_an_internal_record_identifier(self) -> None:
+        self.assertEqual(semantic_risk_tags("const width = r-16-right"), ())
+        self.assertIn(
+            "named_infrastructure_status",
+            semantic_risk_tags("复核 R-16 的内部状态。"),
+        )
+
+    def test_multiline_abstract_marker_block_is_idempotent(self) -> None:
+        source = (
+            "Personal pacing and recovery arrangements.\n"
+            "Balancing long-term creative work, daily responsibilities, and dependable care.\n"
+            "Information-boundary review and old-version cleanup in public repository history."
+        )
+
+        result, tags = abstract_sensitive_public_text(source)
+
+        self.assertEqual(result, source)
+        self.assertEqual(tags, ())
+
+    def test_read_only_audit_detects_pending_json_change(self) -> None:
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "fixture.json"
+            target.write_text(serialized_json({"value": 1}), encoding="utf-8")
+            self.assertFalse(json_would_change(target, {"value": 1}))
+            self.assertTrue(json_would_change(target, {"value": 2}))
 
     def assert_abstracted(self, source: str, forbidden: tuple[str, ...]) -> str:
         result, tags = abstract_sensitive_public_text(source)
@@ -235,6 +292,27 @@ class SemanticPublicPolicyTests(unittest.TestCase):
                 "Daily Reflection: verify the startup-brief and an internal ticket."
             )
         )
+        self.assertFalse(
+            reminder_requires_routine_projection(
+                "只读研究、证据校验与风险复核。"
+            )
+        )
+        self.assertTrue(
+            reminder_requires_routine_projection(
+                "Reminder-record structure and integrity verification."
+            )
+        )
+        self.assertFalse(
+            reminder_requires_routine_projection(
+                "Reminder-record structure and integrity verification.\n\n"
+                "傍晚好，Simon。今天有没有给源泉供电？"
+            )
+        )
+        self.assertFalse(
+            reminder_requires_routine_projection(
+                "**每日提醒**\n\n先完成一件真正重要的事；startup-brief 留在后台。"
+            )
+        )
 
     def test_full_snapshot_policy_masks_identity_and_reduces_sensitive_reminder(self) -> None:
         source = {
@@ -263,6 +341,38 @@ class SemanticPublicPolicyTests(unittest.TestCase):
         self.assertEqual(reduced["category"], "background_routine")
         self.assertNotIn("summary_original", reduced)
         self.assertEqual(stats["routine_reductions"], 1)
+
+    def test_reminder_semantic_projection_is_idempotent_in_one_pass(self) -> None:
+        source = {
+            "days": [
+                {
+                    "date": "2026-08-01",
+                    "pulses": [
+                        {
+                            "category": "daily_reminder",
+                            "summary_original": (
+                                "傍晚好，Simon。今天有没有给源泉供电？\n\n"
+                                "Verification status remains internal."
+                            ),
+                            "summary_en": (
+                                "Good evening, Simon. Did you power the wellspring today?\n\n"
+                                "Verification status remains internal."
+                            ),
+                        }
+                    ],
+                }
+            ]
+        }
+        first, _ = sanitize_pulses(
+            json.loads(json.dumps(source, ensure_ascii=False)),
+            identity_terms=(),
+        )
+        second, stats = sanitize_pulses(
+            json.loads(json.dumps(first, ensure_ascii=False)),
+            identity_terms=(),
+        )
+        self.assertEqual(first, second)
+        self.assertEqual(stats["routine_reductions"], 0)
 
     def test_legacy_audit_copy_becomes_direct_wording(self) -> None:
         source = "整理了只读研究、证据校验与风险复核流程，具体资产、账户和操作不公开。"

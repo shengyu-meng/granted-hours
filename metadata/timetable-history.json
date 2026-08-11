@@ -926,10 +926,10 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "运行 ████ 日常维护循环，并校验研究队列、跨资产状态、████和决策日志。",
-          "en": "Ran the ████ daily maintenance loop and validated the research queue, cross-asset state, ████, and decision journals.",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         }
@@ -1116,8 +1116,8 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "逐项核验主报告、执行队列、决策日志和状态档位产物的更新与 JSON 有效性。",
-          "en": "Verified updates and JSON validity for the main report, execution queue, decision journals, and regime-dial artifacts.",
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
           "redaction_status": "none",
           "redaction_count": 0,
           "source_kind": "maintenance_record",
@@ -1910,10 +1910,10 @@
         },
         {
           "category": "research_synthesis",
-          "zh": "逐项核验 ████ 的主报告、执行队列、决策日志与校准产物均已更新且格式有效。",
-          "en": "Verified that the ████ primary report, execution queue, decision journals, and calibration artifacts were updated and structurally valid.",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         }
@@ -2800,10 +2800,10 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "████日常维护成功，报告、研究队列、决策日志和校准状态均已刷新。",
-          "en": "The ████ daily maintenance run succeeded, refreshing reports, the research queue, decision journals, and calibration state.",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         },
@@ -2883,10 +2883,10 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "████的研究队列、跨资产评估、████、决策日志与全局复核均正常完成。",
-          "en": "The research queue, cross-asset assessment, ████, decision journals, and global review all completed normally within ████.",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         }
@@ -3168,10 +3168,10 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "████日常维护全流程成功，报告、研究队列、决策日志、校准与规则状态均已更新。",
-          "en": "The ████ daily maintenance loop succeeded, updating reports, the research queue, decision journals, calibration, and rule state.",
-          "redaction_status": "partial",
-          "redaction_count": 1,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         },
@@ -3251,10 +3251,10 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "研究队列、跨资产评估、████、决策日志与全局复核均通过；未对████执行自动操作。",
-          "en": "The research queue, cross-asset assessment, ████, decision journals, and global review all passed; no automatic action was taken for ████.",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         }
@@ -3300,10 +3300,10 @@
         },
         {
           "category": "system_maintenance",
-          "zh": "研究队列、████、决策日志、全局复核与状态调节均通过；未对████自动下单或公开发布。",
-          "en": "The research queue, ████, decision journals, global review, and regime adjustment all passed; no automatic order or public post was made for ████.",
-          "redaction_status": "partial",
-          "redaction_count": 2,
+          "zh": "只读研究、证据校验与风险复核。",
+          "en": "Read-only research, evidence checking, and risk review.",
+          "redaction_status": "none",
+          "redaction_count": 0,
           "source_kind": "maintenance_record",
           "faithfulness": "faithful_summary"
         }
@@ -5112,6 +5112,46 @@
           "outcome_en": "Verified the eight items supported by the conversation, filled the missing pieces, and completed the item-by-item organization; I returned it through the authorized channel after review.",
           "completion_status": "completed",
           "pair_provenance": "assistant_result_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-11",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-08-11, Codex/GPT completed evidence-backed research synthesis for ████; findings or review results were returned.",
+          "zh": "2026-08-11，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "07:26",
+          "end": "07:28",
+          "time_provenance": "observed_session_window"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-08-11, GPT/subagent completed evidence-backed research and review for ████; findings or review results were returned.",
+          "zh": "2026-08-11，GPT/子 Agent 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "GPT",
+            "subagent"
+          ],
+          "start": "21:02",
+          "end": "21:07",
+          "time_provenance": "observed_session_window"
         }
       ]
     }

@@ -75,6 +75,8 @@ class TimetableBuilderTests(unittest.TestCase):
     def test_first_person_voice_policy_is_complete_and_evidence_bounded(self) -> None:
         output = self.build()
         assessment_count = 0
+        collaboration_voice_variants = set()
+        reminder_voice_variants = set()
         for day in output["days"]:
             for task in day["task_residues"]:
                 self.assertEqual(task["voice_policy_version"], builder.VOICE_POLICY_VERSION)
@@ -84,8 +86,16 @@ class TimetableBuilderTests(unittest.TestCase):
                 self.assertTrue(task["zh"].startswith("我"), (day["date"], task["source_kind"], task["zh"]))
                 self.assertTrue(task["en"].startswith(("I ", "During ", "Through ")), (day["date"], task["en"]))
                 if task["source_kind"] == "collaboration_session":
-                    self.assertTrue(task["request_zh"].startswith("Simon 让我"))
-                    self.assertTrue(task["request_en"].startswith("Simon asked me"))
+                    matches = [
+                        index
+                        for index, (prefix_zh, prefix_en) in enumerate(
+                            builder.COLLABORATION_REQUEST_VOICES
+                        )
+                        if task["request_zh"].startswith(prefix_zh)
+                        and task["request_en"].startswith(prefix_en)
+                    ]
+                    self.assertEqual(len(matches), 1)
+                    collaboration_voice_variants.add(matches[0])
                     if task["completion_status"] == "completed":
                         self.assertTrue(task["outcome_zh"].startswith("我"))
                         self.assertTrue(task["outcome_en"].startswith("I "))
@@ -106,7 +116,32 @@ class TimetableBuilderTests(unittest.TestCase):
                             "explicit_owner_feedback",
                         )
                         self.assertGreater(task["owner_response_evidence_count"], 0)
+            for pulse in day["background_pulses"]:
+                if pulse["category"] != "daily_reminder":
+                    continue
+                self.assertEqual(
+                    pulse["voice_policy_version"],
+                    builder.VOICE_POLICY_VERSION,
+                )
+                matches = [
+                    index
+                    for index, (prefix_zh, prefix_en) in enumerate(
+                        builder.REMINDER_VOICES
+                    )
+                    if pulse["summary_original"].startswith(
+                        prefix_en
+                        if pulse.get("original_language") == "en"
+                        else prefix_zh
+                    )
+                    and pulse["summary_en"].startswith(prefix_en)
+                ]
+                self.assertEqual(len(matches), 1)
+                self.assertIn("\n\n", pulse["summary_original"])
+                self.assertIn("\n\n", pulse["summary_en"])
+                reminder_voice_variants.add(matches[0])
         self.assertEqual(assessment_count, 7)
+        self.assertGreaterEqual(len(collaboration_voice_variants), 5)
+        self.assertGreaterEqual(len(reminder_voice_variants), 5)
 
     def test_owner_approved_audit_cards_are_merged_once(self) -> None:
         output = self.build()
@@ -837,11 +872,20 @@ class TimetableBuilderTests(unittest.TestCase):
             for pulse in day["background_pulses"]
             if pulse["footprint_id"] == readable["source_refs"][0]
         )
-        self.assertEqual(source["summary_original"], full)
-        self.assertEqual(source["excerpt_original"], reminder["excerpt_original"])
+        expected = builder.first_person_reminder_copy(
+            "2026-07-21",
+            reminder["start"],
+            full,
+            reminder["summary_en"],
+            reminder["excerpt_original"],
+            reminder["excerpt_en"],
+            "zh",
+        )
+        self.assertEqual(source["summary_original"], expected[0])
+        self.assertEqual(source["excerpt_original"], expected[2])
         self.assertNotIn("summary_zh", source)
-        self.assertEqual(source["summary_en"], reminder["summary_en"])
-        self.assertEqual(source["excerpt_en"], reminder["excerpt_en"])
+        self.assertEqual(source["summary_en"], expected[1])
+        self.assertEqual(source["excerpt_en"], expected[3])
 
     def test_current_v6_metadata_keeps_readable_reminders_and_omits_legacy_copy(self) -> None:
         output = self.build()

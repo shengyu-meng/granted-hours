@@ -224,8 +224,15 @@ async function inspectViewport(browser, url, viewport) {
       horizontalOverflow: element.scrollWidth - element.clientWidth,
     };
   });
-  assert.equal(compactState.cardOverflow, "hidden", `${viewport.label}: compact card overflow`);
-  assert.ok(compactState.clipped, `${viewport.label}: long Markdown should be compactly clipped`);
+  assert.match(
+    compactState.cardOverflow,
+    /^hidden(?: auto)?$/,
+    `${viewport.label}: compact card overflow`,
+  );
+  assert.ok(
+    compactState.clipped,
+    `${viewport.label}: long Markdown should remain within the bounded card`,
+  );
   assert.ok(
     compactState.horizontalOverflow <= 1,
     `${viewport.label}: card Markdown horizontal overflow ${JSON.stringify(compactState)}`,

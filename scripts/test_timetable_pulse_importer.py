@@ -49,8 +49,8 @@ class TimetablePulseImporterTests(unittest.TestCase):
             "daily_reminder",
         )
 
-    def test_sensitive_reminder_becomes_routine_footprint(self) -> None:
-        self.assertTrue(
+    def test_safe_or_abstractable_reminder_stays_readable_but_internal_chatter_does_not(self) -> None:
+        self.assertFalse(
             importer.reminder_requires_routine_projection(
                 {"summary_original": "检查持仓、发布队列与个人恢复安排。"}
             )
@@ -60,7 +60,7 @@ class TimetablePulseImporterTests(unittest.TestCase):
                 {"summary_original": "先把叙事讲清楚，再继续推进。"}
             )
         )
-        self.assertTrue(
+        self.assertFalse(
             importer.reminder_requires_routine_projection(
                 {"summary_original": "核对课程讲义、投资巡航与社会媒体队列。"}
             )
@@ -114,6 +114,7 @@ class TimetablePulseImporterTests(unittest.TestCase):
             "preserved_footprints": 1,
             "receipt_estimate_footprints": 0,
             "removed_stale_reminders": 0,
+            "preserved_unmatched_reminders": 0,
         }
         with tempfile.TemporaryDirectory() as temporary_directory:
             snapshot_path = Path(temporary_directory) / "snapshot.json"
@@ -223,7 +224,7 @@ class TimetablePulseImporterTests(unittest.TestCase):
             [{"date": "2026-08-09", "pulses": [{"sentinel": "new"}]}],
         )
 
-    def test_reminder_refresh_preserves_matching_public_footprints_only(self) -> None:
+    def test_reminder_refresh_preserves_matching_and_unmatched_public_footprints(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             snapshot_path = Path(temporary_directory) / "snapshot.json"
             non_reminder = {"category": "system_routine", "sentinel": "unchanged"}
@@ -285,9 +286,11 @@ class TimetablePulseImporterTests(unittest.TestCase):
 
         pulses = merged["days"][0]["pulses"]
         self.assertEqual(pulses[0], non_reminder)
-        [reminder] = [
+        reminders = [
             pulse for pulse in pulses if pulse["category"] == "daily_reminder"
         ]
+        self.assertEqual(len(reminders), 2)
+        reminder = reminders[0]
         self.assertEqual(
             (
                 reminder["start"],
@@ -304,7 +307,8 @@ class TimetablePulseImporterTests(unittest.TestCase):
             {
                 "preserved_footprints": 1,
                 "receipt_estimate_footprints": 0,
-                "removed_stale_reminders": 1,
+                "removed_stale_reminders": 0,
+                "preserved_unmatched_reminders": 1,
             },
         )
 
@@ -855,6 +859,23 @@ class TimetablePulseImporterTests(unittest.TestCase):
         self.assertTrue(excerpt.endswith("…"))
         self.assertEqual(excerpt[:-1], summary[: len(excerpt) - 1])
         self.assertEqual(excerpt.count("…"), 1)
+
+    def test_explicit_final_delivery_discards_internal_wrapper_chatter(self) -> None:
+        source = (
+            "Internal verification remains pending.\n\n"
+            "**Final delivery (the actual reminder):**\n\n"
+            "> 傍晚好，Simon。\n>\n> 今天有没有给源泉供电？\n\n"
+            "More internal verification chatter."
+        )
+        projection = importer.project_limited_reminder_response(
+            [source],
+            "afternoon",
+        )
+        self.assertEqual(
+            projection["summary_original"],
+            "傍晚好，Simon。\n\n今天有没有给源泉供电？",
+        )
+        self.assertNotIn("verification", projection["summary_original"])
 
     def test_empty_and_silent_reminder_can_be_omitted(self) -> None:
         self.assertIsNone(

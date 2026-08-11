@@ -4,20 +4,20 @@
   "evidencePath": "audits/public-readable-hierarchy/release-evidence.json",
   "sourceData": {
     "path": "src/timetable/timetable-data.js",
-    "bytes": 4725977,
-    "gzipBytes": 377936,
-    "sha256": "9636b979b2b037d8fed6bfa33a585b70136342fac0acd357989a4c22ab01980a",
+    "bytes": 4960685,
+    "gzipBytes": 458469,
+    "sha256": "df81e6ed891b7280dfe80373318509041625a9e7ca3c02b7257233fe64eba99f",
     "budgetBytes": 6100000,
     "deterministicBuilds": [
       {
         "label": "data-build-a",
-        "bytes": 4725977,
-        "sha256": "9636b979b2b037d8fed6bfa33a585b70136342fac0acd357989a4c22ab01980a"
+        "bytes": 4960685,
+        "sha256": "df81e6ed891b7280dfe80373318509041625a9e7ca3c02b7257233fe64eba99f"
       },
       {
         "label": "data-build-b",
-        "bytes": 4725977,
-        "sha256": "9636b979b2b037d8fed6bfa33a585b70136342fac0acd357989a4c22ab01980a"
+        "bytes": 4960685,
+        "sha256": "df81e6ed891b7280dfe80373318509041625a9e7ca3c02b7257233fe64eba99f"
       }
     ],
     "deterministicParity": true
@@ -27,24 +27,24 @@
       {
         "label": "isolated-build-a",
         "manifestBytes": 5649,
-        "manifestSha256": "77c7aa9532b98603759a4a2a4e90eb9c7fe0f0fee876498c86f9ab193ac7d2d9",
+        "manifestSha256": "f1329d6a7a8ec1c9661fe3af91afe17481fea3b11db3345ad24aa4159b4436fb",
         "files": [
           {
-            "path": "assets/index-D54RjMro.js",
-            "bytes": 3495286,
-            "gzipBytes": 373254,
-            "sha256": "1bdef4435c94a04940eb3e39dfdd74e3efa7e31a8df53a41edc69e388aaa0e5e"
+            "path": "assets/index-D7aiIUdh.css",
+            "bytes": 132861,
+            "gzipBytes": 21940,
+            "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
           },
           {
-            "path": "assets/index-Dmg4LBmq.css",
-            "bytes": 132735,
-            "gzipBytes": 21925,
-            "sha256": "d656291cf1bcd876814b7c6940da09359d8cfc202196fe4e7157e1ced99bb9ab"
+            "path": "assets/index-lbKcQgWP.js",
+            "bytes": 3697461,
+            "gzipBytes": 439044,
+            "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
           },
           {
             "path": "index.html",
-            "bytes": 10859,
-            "sha256": "92b1bca51cfe20f0bdbe3aa02344ad48928310dfd3743739e49ae98650925b83"
+            "bytes": 11267,
+            "sha256": "2bc3a4157beefc57be3491d1d9149a2ae7487a4208923c9f983795c1dcb2c880"
           },
           {
             "path": "piano/A3.mp3",
@@ -236,24 +236,24 @@
       {
         "label": "isolated-build-b",
         "manifestBytes": 5649,
-        "manifestSha256": "77c7aa9532b98603759a4a2a4e90eb9c7fe0f0fee876498c86f9ab193ac7d2d9",
+        "manifestSha256": "f1329d6a7a8ec1c9661fe3af91afe17481fea3b11db3345ad24aa4159b4436fb",
         "files": [
           {
-            "path": "assets/index-D54RjMro.js",
-            "bytes": 3495286,
-            "gzipBytes": 373254,
-            "sha256": "1bdef4435c94a04940eb3e39dfdd74e3efa7e31a8df53a41edc69e388aaa0e5e"
+            "path": "assets/index-D7aiIUdh.css",
+            "bytes": 132861,
+            "gzipBytes": 21940,
+            "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
           },
           {
-            "path": "assets/index-Dmg4LBmq.css",
-            "bytes": 132735,
-            "gzipBytes": 21925,
-            "sha256": "d656291cf1bcd876814b7c6940da09359d8cfc202196fe4e7157e1ced99bb9ab"
+            "path": "assets/index-lbKcQgWP.js",
+            "bytes": 3697461,
+            "gzipBytes": 439044,
+            "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
           },
           {
             "path": "index.html",
-            "bytes": 10859,
-            "sha256": "92b1bca51cfe20f0bdbe3aa02344ad48928310dfd3743739e49ae98650925b83"
+            "bytes": 11267,
+            "sha256": "2bc3a4157beefc57be3491d1d9149a2ae7487a4208923c9f983795c1dcb2c880"
           },
           {
             "path": "piano/A3.mp3",
@@ -454,24 +454,24 @@
     "canonical": {
       "directory": "docs/timetable",
       "manifestBytes": 5649,
-      "manifestSha256": "77c7aa9532b98603759a4a2a4e90eb9c7fe0f0fee876498c86f9ab193ac7d2d9",
+      "manifestSha256": "f1329d6a7a8ec1c9661fe3af91afe17481fea3b11db3345ad24aa4159b4436fb",
       "files": [
         {
-          "path": "assets/index-D54RjMro.js",
-          "bytes": 3495286,
-          "gzipBytes": 373254,
-          "sha256": "1bdef4435c94a04940eb3e39dfdd74e3efa7e31a8df53a41edc69e388aaa0e5e"
+          "path": "assets/index-D7aiIUdh.css",
+          "bytes": 132861,
+          "gzipBytes": 21940,
+          "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
         },
         {
-          "path": "assets/index-Dmg4LBmq.css",
-          "bytes": 132735,
-          "gzipBytes": 21925,
-          "sha256": "d656291cf1bcd876814b7c6940da09359d8cfc202196fe4e7157e1ced99bb9ab"
+          "path": "assets/index-lbKcQgWP.js",
+          "bytes": 3697461,
+          "gzipBytes": 439044,
+          "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
         },
         {
           "path": "index.html",
-          "bytes": 10859,
-          "sha256": "92b1bca51cfe20f0bdbe3aa02344ad48928310dfd3743739e49ae98650925b83"
+          "bytes": 11267,
+          "sha256": "2bc3a4157beefc57be3491d1d9149a2ae7487a4208923c9f983795c1dcb2c880"
         },
         {
           "path": "piano/A3.mp3",
@@ -672,19 +672,19 @@
       "javascript": {
         "files": [
           {
-            "path": "assets/index-D54RjMro.js",
-            "bytes": 3495286,
-            "gzipBytes": 373254,
-            "sha256": "1bdef4435c94a04940eb3e39dfdd74e3efa7e31a8df53a41edc69e388aaa0e5e"
+            "path": "assets/index-lbKcQgWP.js",
+            "bytes": 3697461,
+            "gzipBytes": 439044,
+            "sha256": "2e787699a02c5a01726ccbfb1f85083279b1572028882c79a927d46bca32f325"
           }
         ],
         "totals": {
-          "bytes": 3495286,
-          "gzipBytes": 373254,
+          "bytes": 3697461,
+          "gzipBytes": 439044,
           "budgetBytes": 4800000,
-          "gzipBudgetBytes": 627050,
-          "translatedReminderCount": 105,
-          "translatedReminderGzipBudgetBytes": 68250,
+          "gzipBudgetBytes": 690750,
+          "translatedReminderCount": 203,
+          "translatedReminderGzipBudgetBytes": 131950,
           "collaborationPairCount": 132,
           "collaborationPairGzipBudgetBytes": 118800
         }
@@ -692,22 +692,22 @@
       "css": {
         "files": [
           {
-            "path": "assets/index-Dmg4LBmq.css",
-            "bytes": 132735,
-            "gzipBytes": 21925,
-            "sha256": "d656291cf1bcd876814b7c6940da09359d8cfc202196fe4e7157e1ced99bb9ab"
+            "path": "assets/index-D7aiIUdh.css",
+            "bytes": 132861,
+            "gzipBytes": 21940,
+            "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
           }
         ],
         "totals": {
-          "bytes": 132735,
-          "gzipBytes": 21925
+          "bytes": 132861,
+          "gzipBytes": 21940
         }
       }
     },
     "dataParity": {
       "publicDays": 98,
       "generatedDays": 98,
-      "historyDays": 97,
+      "historyDays": 98,
       "pulseSchema": "granted-hours-timetable-pulses-v6"
     }
   },
@@ -725,11 +725,11 @@
     "command": "python3 scripts/test_first_person_public_contract.py",
     "passed": true,
     "exitCode": 0,
-    "stdoutBytes": 278,
-    "stdoutSha256": "5ede11217ea4ec433d8a64c16d675f349c7d084b1db4b53f5bc57bed76693787",
+    "stdoutBytes": 350,
+    "stdoutSha256": "58f83cd35f8567e81ff4bb6b94df7387a75b11189bc6c1fd9b4835234e605021",
     "stderrBytes": 0,
     "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "summary": "{\n  \"passed\": true,\n  \"voice_policy\": \"granted-hours-first-person-v1\",\n  \"tasks\": 198,\n  \"collaborations\": 132,\n  \"approved_assessments\": 7,\n  \"approved_delivered_cards\": 9,\n  \"routine_pulses\": 3744,\n  \"reminders_unchanged\": 105,\n  \"owner_responses_with_explicit_evidence\": 0\n}"
+    "summary": "{\n  \"passed\": true,\n  \"voice_policy\": \"granted-hours-first-person-v2\",\n  \"tasks\": 200,\n  \"collaborations\": 132,\n  \"approved_assessments\": 7,\n  \"approved_delivered_cards\": 9,\n  \"routine_pulses\": 3633,\n  \"first_person_reminders\": 203,\n  \"collaboration_voice_variants\": 6,\n  \"reminder_voice_variants\": 6,\n  \"owner_responses_with_explicit_evidence\": 0\n}"
   },
   "npmAudit": {
     "command": "npm audit --omit=dev --audit-level=high --json",

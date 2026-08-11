@@ -21,6 +21,29 @@ def require(condition: bool, message: str) -> None:
         raise SystemExit(message)
 
 
+def collaboration_voice_index(task: dict) -> int | None:
+    for index, (prefix_zh, prefix_en) in enumerate(
+        builder.COLLABORATION_REQUEST_VOICES
+    ):
+        if task["request_zh"].startswith(prefix_zh) and task[
+            "request_en"
+        ].startswith(prefix_en):
+            return index
+    return None
+
+
+def reminder_voice_index(pulse: dict) -> int | None:
+    for index, (prefix_zh, prefix_en) in enumerate(builder.REMINDER_VOICES):
+        original_prefix = (
+            prefix_en if pulse.get("original_language") == "en" else prefix_zh
+        )
+        if pulse["summary_original"].startswith(original_prefix) and pulse[
+            "summary_en"
+        ].startswith(prefix_en):
+            return index
+    return None
+
+
 def main() -> int:
     public_days = builder.read_json(builder.DEFAULT_PUBLIC_DAYS)
     config = builder.read_json(builder.DEFAULT_CONFIG)
@@ -41,6 +64,8 @@ def main() -> int:
     routine_count = 0
     reminder_count = 0
     delivered_audit_count = 0
+    collaboration_voice_variants = set()
+    reminder_voice_variants = set()
     for day in output["days"]:
         for task in day["task_residues"]:
             task_count += 1
@@ -59,8 +84,9 @@ def main() -> int:
             if task["source_kind"] != "collaboration_session":
                 continue
             collaboration_count += 1
-            require(task["request_zh"].startswith("Simon 让我"), f"{day['date']} request lost owner voice")
-            require(task["request_en"].startswith("Simon asked me"), f"{day['date']} request lost owner voice")
+            voice_index = collaboration_voice_index(task)
+            require(voice_index is not None, f"{day['date']} request lost paired owner voice")
+            collaboration_voice_variants.add(voice_index)
             if task["completion_status"] == "completed":
                 require(task["outcome_zh"].startswith("我"), f"{day['date']} completion lost first person")
                 require(task["outcome_en"].startswith("I "), f"{day['date']} completion lost first person")
@@ -90,6 +116,13 @@ def main() -> int:
         for pulse in day["background_pulses"]:
             if pulse["category"] == "daily_reminder":
                 reminder_count += 1
+                require(
+                    pulse.get("voice_policy_version") == builder.VOICE_POLICY_VERSION,
+                    f"{day['date']} reminder has a stale voice policy",
+                )
+                voice_index = reminder_voice_index(pulse)
+                require(voice_index is not None, f"{day['date']} reminder lost paired first-person voice")
+                reminder_voice_variants.add(voice_index)
                 continue
             routine_count += 1
             require(pulse["summary_zh"].startswith("我"), f"{day['date']} routine pulse lost Chinese first person")
@@ -107,6 +140,14 @@ def main() -> int:
     require(assessment_count == 7, "The seven approved AI assessments are not all public")
     require(delivered_audit_count == 9, "The nine approved delivery-backed cards are incomplete")
     require(owner_response_count == 0, "An owner response was published without this audit's evidence")
+    require(
+        len(collaboration_voice_variants) >= 5,
+        "Collaboration narration has become formulaic",
+    )
+    require(
+        len(reminder_voice_variants) >= 5,
+        "Reminder narration has become formulaic",
+    )
 
     ui_source = (ROOT / "src" / "timetable" / "main.js").read_text(encoding="utf-8")
     for marker in (
@@ -134,7 +175,9 @@ def main() -> int:
                 "approved_assessments": assessment_count,
                 "approved_delivered_cards": delivered_audit_count,
                 "routine_pulses": routine_count,
-                "reminders_unchanged": reminder_count,
+                "first_person_reminders": reminder_count,
+                "collaboration_voice_variants": len(collaboration_voice_variants),
+                "reminder_voice_variants": len(reminder_voice_variants),
                 "owner_responses_with_explicit_evidence": owner_response_count,
             },
             ensure_ascii=False,

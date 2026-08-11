@@ -34,6 +34,7 @@ from semantic_public_policy import (
     polish_public_excerpt,
     projection_tags,
     reminder_requires_routine_projection,
+    semantic_risk_tags,
 )
 
 
@@ -71,9 +72,17 @@ def read_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def serialized_json(value: object) -> str:
+    return json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+
+
+def json_would_change(path: Path, value: object) -> bool:
+    return not path.exists() or path.read_text(encoding="utf-8") != serialized_json(value)
+
+
 def atomic_write_json(path: Path, value: object) -> bool:
-    serialized = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
-    if path.exists() and path.read_text(encoding="utf-8") == serialized:
+    serialized = serialized_json(value)
+    if not json_would_change(path, value):
         return False
     descriptor, temporary_name = tempfile.mkstemp(
         dir=path.parent,
@@ -327,8 +336,44 @@ def sanitize_pulses(
                 stats["identity_masks"] += int(
                     masked_original != previous_original
                 ) + int(masked_english != previous_english)
-                if reminder_requires_routine_projection(
-                    f"{previous_original}\n{previous_english}"
+                raw_requires_routine_projection = (
+                    reminder_requires_routine_projection(
+                        f"{masked_original}\n{masked_english}"
+                    )
+                )
+                original, original_tags = abstract_sensitive_public_text(
+                    masked_original
+                )
+                english, english_tags = abstract_sensitive_public_text(
+                    masked_english
+                )
+                detected_original_tags = projection_tags(masked_original)
+                detected_english_tags = projection_tags(masked_english)
+                tags = tuple(
+                    dict.fromkeys(
+                        (
+                            *original_tags,
+                            *english_tags,
+                            *detected_original_tags,
+                            *detected_english_tags,
+                        )
+                    )
+                )
+                if (
+                    set(detected_original_tags) != set(detected_english_tags)
+                    or original.count(MASK) != english.count(MASK)
+                ):
+                    if tags:
+                        original = abstract_for_tags(tags, "zh")
+                        english = abstract_for_tags(tags, "en")
+                    else:
+                        original = original.replace(MASK, "某项未公开内容")
+                        english = english.replace(MASK, "a private item")
+                if (
+                    raw_requires_routine_projection
+                    or reminder_requires_routine_projection(
+                        f"{original}\n{english}"
+                    )
                 ):
                     retained = {
                         key: pulse[key]
@@ -355,18 +400,6 @@ def sanitize_pulses(
                     )
                     stats["routine_reductions"] += 1
                     continue
-                original_tags = projection_tags(masked_original)
-                english_tags = projection_tags(masked_english)
-                tags = tuple(dict.fromkeys((*original_tags, *english_tags)))
-                if tags:
-                    original = abstract_for_tags(tags, "zh")
-                    english = abstract_for_tags(tags, "en")
-                else:
-                    original = masked_original
-                    english = masked_english
-                if original.count(MASK) != english.count(MASK):
-                    original = original.replace(MASK, "某项未公开内容")
-                    english = english.replace(MASK, "a private item")
                 original, english, excerpt_original, excerpt_en = (
                     parity_preserving_reminder_fields(original, english)
                 )
@@ -458,7 +491,32 @@ def merge_translation_catalog(pulses: dict, existing: dict) -> dict:
         or not isinstance(existing.get("translations"), dict)
     ):
         raise ValueError("Invalid reminder translation catalog")
-    merged = dict(existing["translations"])
+    merged: dict[str, dict[str, str]] = {}
+    for source_sha256, record in existing["translations"].items():
+        if (
+            not isinstance(source_sha256, str)
+            or not isinstance(record, dict)
+            or record.get("source_sha256") != source_sha256
+            or record.get("translation_provenance")
+            != REMINDER_TRANSLATION_PROVENANCE
+        ):
+            raise ValueError("Invalid dormant reminder translation")
+        sanitized = dict(record)
+        summary_en = sanitized.get("summary_en")
+        excerpt_en = sanitized.get("excerpt_en")
+        if not all(
+            isinstance(value, str) and value.strip()
+            for value in (summary_en, excerpt_en)
+        ):
+            raise ValueError("Invalid dormant reminder translation text")
+        sanitized["summary_en"], _ = abstract_sensitive_public_text(summary_en)
+        if (
+            not sanitized["summary_en"]
+            or semantic_risk_tags(sanitized["summary_en"])
+        ):
+            raise ValueError("Unsafe dormant reminder translation")
+        sanitized["excerpt_en"] = extractive_prefix(sanitized["summary_en"])
+        merged[source_sha256] = sanitized
     referenced = translation_catalog_from_pulses(pulses)["translations"]
     # The already-sanitized pulse is canonical when the same source is active.
     merged.update(referenced)
@@ -509,6 +567,10 @@ def main() -> int:
         changed["history"] = atomic_write_json(args.history, history)
         changed["pulses"] = atomic_write_json(args.pulses, pulses)
         changed["translations"] = atomic_write_json(args.translations, translations)
+    else:
+        changed["history"] = json_would_change(args.history, history)
+        changed["pulses"] = json_would_change(args.pulses, pulses)
+        changed["translations"] = json_would_change(args.translations, translations)
     print(
         "Semantic public policy "
         f"mode={'write' if args.write else 'audit'}; "
@@ -519,7 +581,7 @@ def main() -> int:
         f"routine_reductions={pulse_stats['routine_reductions']}; "
         f"changed={sum(changed.values())}."
     )
-    return 0
+    return 1 if not args.write and any(changed.values()) else 0
 
 
 if __name__ == "__main__":

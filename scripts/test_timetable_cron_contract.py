@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused tests for the live timetable cron v9 installer."""
+"""Focused tests for the live timetable cron v10 installer."""
 from __future__ import annotations
 
 import json
@@ -17,7 +17,7 @@ DIALOGUE_ID = "dialogue-test-id"
 FREE_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_NAME = "授时：每日自由创作与日历闭环"
-MARKER = "[授时每日公开闭环契约 v9]"
+MARKER = "[授时每日公开闭环契约 v10]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
@@ -132,14 +132,25 @@ class TimetableCronContractTests(unittest.TestCase):
             jobs = Path(temporary_directory) / "jobs.json"
             jobs.write_text(json.dumps(source), encoding="utf-8")
             os.chmod(jobs, 0o600)
+            original_catalog = jobs.read_bytes()
+            backup = Path(temporary_directory) / "jobs.pre-v10.json"
             first = subprocess.run(
-                ["python3", str(SCRIPT), str(jobs), "--write"],
+                [
+                    "python3",
+                    str(SCRIPT),
+                    str(jobs),
+                    "--write",
+                    "--backup",
+                    str(backup),
+                ],
                 check=True,
                 capture_output=True,
                 text=True,
             )
             self.assertIn("targets=3; changed=3", first.stdout)
             self.assertEqual(jobs.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(backup.read_bytes(), original_catalog)
+            self.assertEqual(backup.stat().st_mode & 0o777, 0o600)
             catalog = json.loads(jobs.read_text(encoding="utf-8"))
             by_name = {job["name"]: job for job in catalog["jobs"]}
             self.assertEqual(

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the timetable v9 self-maintaining daily-closure contract in live jobs."""
+"""Install the timetable v10 self-maintaining daily-closure contract in live jobs."""
 from __future__ import annotations
 
 import argparse
@@ -8,6 +8,7 @@ import json
 import os
 import re
 import secrets
+import shutil
 import tempfile
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -18,7 +19,7 @@ FREE_ROAM_JOB_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_JOB_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_JOB_NAME = "授时：每日自由创作与日历闭环"
 TARGET_ROLES = {"free_roam", "dialogue", "closure"}
-MARKER = "[授时每日公开闭环契约 v9]"
+MARKER = "[授时每日公开闭环契约 v10]"
 CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
     r"(?:- [^\n]*(?:\n|$))+"
@@ -31,7 +32,7 @@ STALE_PUBLISH_SECTION_RE = re.compile(
 )
 COMMON_CONTRACT = """
 
-[授时每日公开闭环契约 v9]
+[授时每日公开闭环契约 v10]
 - 公开文本的处理优先级固定为：先对识别实体打码（████）并保留句子本身的轮廓；整句打码后仍然敏感时，才把该句替换为有界的隐喻或抽象；只有连隐喻都会泄露私人事实时才整条删除。不得把“删除整条”当作默认方案，也不得用类别或主题模板句充当卡片正文。
 - 家庭梦境、亲密关系、照护与父母子女角色，只能保留为“私人经验中的关系/责任/照护平衡”等抽象协作主题；不得公开具体人物、情节、冲突或家庭结构。
 - 身体、药物、疾病、症状、低能量和情绪状态，只能保留为“个人恢复安排”等抽象主题；不得公开具体名称、表现或时间线。
@@ -44,6 +45,8 @@ COMMON_CONTRACT = """
 - 用户主动交谈、主动交办，以及主会话有证据委派给 Codex/GPT/Claude/子 Agent 并返回完成结果的工作，都是“人机主动协作”；发布前必须运行 `python3 scripts/import_collaboration_events.py`，不得只运行旧的单日摘要 upsert。
 - A/H 与美股例行扫描只提交聚合卡片：保留运行次数、宽泛主题、有限状态和通用新鲜度提示；不得提交标的、持仓、价格、动作建议、终端名、源状态、Workspace 标识或维护路径。
 - 运行 `import_timetable_pulses.py` 时必须传入 `--private-redaction-terms .private/identity-denylist.json`，并使用其默认 `--public-identity-allowlist metadata/public-identity-allowlist.json`，使提醒文本与主动协作使用同一套 denylist 与精确公开姓名豁免；不得只依赖通用实体识别。
+- 提醒导入必须同时传入 `--authorize-self-reminders --authorize-authentic-reminder-disclosure`；缺少双语翻译时，先对该日期运行 `prepare_reminder_translation_candidates.py`，让 `--jobs` 与 `--output-dir` 指向运行时配置中的真实调度目录（路径保持私有且不得写入日志），并传入 `--date YYYY-MM-DD --private-redaction-terms .private/identity-denylist.json --output .private/reminder-translation-candidates.json`。只从该 0600 文件中的实体打码与语义抽象后候选补齐 `metadata/timetable-reminder-translations.json`，核对中英掩码数量和完整句边界，再重跑同一日期。不得用无授权导入把真实提醒改写为“提醒未公开”，不得把部分历史 receipt 缺失解释为删除旧提醒的证据，也不得把候选文件提交到公开仓库。
+- 日历提醒与主动协作均使用 `granted-hours-first-person-v2`：提醒正文以“我提醒 Simon / 我告诉 Simon / 我给 Simon 一个小小的提示”等稳定自然变体开头；协作要求以“Simon 让我 / Simon 交给我一项任务 / Simon 和我说”等稳定自然变体转述。变体只能改变引语框架，不能改变证据、语气强度、完成状态或隐私边界。
 - 面向读者只显示直接标题和完整内容，不显示“已整理/已核对……具体内容不公开”“结果｜”“脱敏原话”、遮罩计数、source kind、faithfulness 或上下文压缩/交接提示。长对话只能在完整句边界收束；无法形成完整句的片段不展示。措辞整理必须位于语义抽象与实体打码之后，不能借补全文意恢复被遮蔽的细节。
 - 生成或导入日历后，必须先运行 `python3 scripts/apply_semantic_public_policy.py --write`，再运行 `python3 scripts/test_semantic_public_policy.py` 与 `python3 scripts/check_public_safety.py`。任一门禁失败时停止构建、提交、推送和部署，且日志不得回显命中的原文。
 - `npm run build:timetable` 已内置同一语义清洗步骤；不得绕开它直接发布旧的 timetable 数据或静态产物。
@@ -71,7 +74,7 @@ CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - 预检第一步固定运行 `python3 scripts/plan_daily_closure.py --current-date YYYY-MM-DD`，并严格按其 `artwork_dates`、`event_dates`、`waiting_event_dates` 执行；不得自行猜测日期。该计划器会确定性排除当天事件，同时让新作品日暂时没有事件脉冲。
 - 先从 ready receipt 与 `artifacts/free-roam` 交叉验证完整产物，再把所有“已有完整产物但未进入日历”的日期按从旧到新处理；一次可连续补齐多日，不得只处理今天。缺少声明、预览或翻译时修复该日期，不能跳过后清空待办。
 - 日期导入只能使用显式 `--date YYYY-MM-DD`。未知日期由 importer 严格读取该日期唯一的安全双语 note 并自动写入公开声明注册表；禁止人工每日改脚本、退回无 `--date` 的全语料导入，或把一个日期的错误扩大为全仓库改写。
-- 发布顺序固定为两条日期轨：先导入当天及历史积压的作品；再只对“早于当前自然日”的 `event_backlog_dates` 逐日运行 `python3 scripts/import_collaboration_events.py --date YYYY-MM-DD` 与 `import_timetable_pulses.py --date YYYY-MM-DD`。绝不在当天早晨提前导入当天后续协作/例行事件；当天事件由次日 00:20 收集，并随次日作品闭环发布。
+- 发布顺序固定为两条日期轨：先导入当天及历史积压的作品；再只对“早于当前自然日”的 `event_backlog_dates` 逐日运行 `python3 scripts/import_collaboration_events.py --date YYYY-MM-DD`，以及带 `--private-redaction-terms .private/identity-denylist.json --authorize-self-reminders --authorize-authentic-reminder-disclosure` 的 `import_timetable_pulses.py --date YYYY-MM-DD`。绝不在当天早晨提前导入当天后续协作/例行事件；当天事件由次日 00:20 收集，并随次日作品闭环发布。
 - ready receipt 的验证状态为 pending/partial 时，闭环必须对该日期重新运行 `qa_visual_previews.mjs --date YYYY-MM-DD` 及必要的本地安全检查；通过后原子升级 receipt 为 passed 再继续，失败则保留 oldest-first backlog，不能把暂时运行时问题变成永久缺席。
 - 构建公开数据后必须从 canonical public worktree 运行 `python3 scripts/test_first_person_public_contract.py`；它是第一人称协作、例行汇总、审核判断、满意度证据和浏览器运行时一致性的硬门控，失败即停止提交、推送和部署。
 - 预览必须同时存在 PNG、GIF 与 WebP；三者都要表现作品本身，禁止目录、错误页、加载壳或可被 OCR 读出的界面/路径文字。GIF/WebP 必须有可见运动、固定帧数和有界时长，archive 与 docs 镜像哈希必须一致。
@@ -179,6 +182,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("jobs", type=Path)
     parser.add_argument("--write", action="store_true")
+    parser.add_argument(
+        "--backup",
+        type=Path,
+        help="Copy the pre-write catalog to this new rollback path.",
+    )
     return parser.parse_args()
 
 
@@ -237,6 +245,12 @@ def main() -> int:
         raise SystemExit("Required timetable cron roles were not found")
     if args.write and changed:
         mode = args.jobs.stat().st_mode & 0o777
+        if args.backup is not None:
+            if args.backup.exists():
+                raise SystemExit("Cron rollback backup path already exists")
+            args.backup.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(args.jobs, args.backup)
+            os.chmod(args.backup, mode)
         descriptor, temporary_name = tempfile.mkstemp(
             dir=args.jobs.parent,
             prefix=f".{args.jobs.name}.",

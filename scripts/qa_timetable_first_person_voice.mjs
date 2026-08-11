@@ -88,7 +88,7 @@ try {
       `${viewport.label}: a routine summary lost the first-person voice`,
     );
 
-    const cards = page.locator(".assigned-reading-card").filter({ hasText: "Simon 让我" });
+    const cards = page.locator(".assigned-reading-card").filter({ hasText: collaborations[0].request_zh });
     assert.ok(await cards.count() >= 1, `${viewport.label}: no first-person collaboration card rendered`);
     const firstCard = cards.first();
     const firstCardText = await firstCard.innerText();

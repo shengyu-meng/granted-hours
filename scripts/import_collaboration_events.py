@@ -1311,6 +1311,19 @@ def merge_history_scoped(
         missing_contours,
     )
     replacements = {entry["date"]: entry for entry in scoped["days"]}
+    # An explicit date-scoped import is the closure receipt for that public
+    # day. Once the bounded scan has completed, record a real empty day when
+    # there is no foreground evidence; otherwise yesterday remains
+    # indistinguishable from a day the closure never processed.
+    for day in sorted(target_set):
+        replacements.setdefault(
+            day,
+            {
+                "date": day,
+                "provenance": "record_based",
+                "assigned_residues": [],
+            },
+        )
     merged_days = [
         replacements.pop(entry["date"], entry)
         if entry.get("date") in target_set
@@ -1377,7 +1390,10 @@ def import_events(state_db: Path, days_path: Path, history_path: Path, detector:
     inserted = [item for day in merged["days"] if day["date"] in report_dates for item in day["assigned_residues"] if item.get("source_kind") == "collaboration_session"]
     changed = json.dumps(merged, ensure_ascii=False, indent=2) + "\n" != history_path.read_text(encoding="utf-8")
     if changed and not dry_run: write_json(history_path, merged)
-    return {"changed": changed, "event_count": len(inserted), "event_dates": sorted({day["date"] for day in merged["days"] if day["date"] in report_dates and any(item.get("source_kind") == "collaboration_session" for item in day["assigned_residues"])}), "category_counts": dict(sorted(Counter(item["category"] for item in inserted).items())), "audit": audit, "history": merged}
+    synced_dates = sorted(
+        day["date"] for day in merged["days"] if day["date"] in report_dates
+    )
+    return {"changed": changed, "event_count": len(inserted), "event_dates": sorted({day["date"] for day in merged["days"] if day["date"] in report_dates and any(item.get("source_kind") == "collaboration_session" for item in day["assigned_residues"])}), "synced_dates": synced_dates, "category_counts": dict(sorted(Counter(item["category"] for item in inserted).items())), "audit": audit, "history": merged}
 
 
 def parse_args() -> argparse.Namespace:
@@ -1405,7 +1421,7 @@ def main() -> int:
         if not args.dry_run and result["changed"]
         else "already current"
     )
-    print(f"Collaboration events {mode}; events={result['event_count']}; dates={len(result['event_dates'])}; meaningful_messages={audit['meaningful_message_count']}; public_pair_sources={audit['public_excerpt_count']}; safe_outcomes={audit['safe_outcome_candidate_count']}; rejected_outcomes={audit['rejected_outcome_candidate_count']}; delegated_agents={audit['delegated_agent_count']}; categories={result['category_counts']}.")
+    print(f"Collaboration events {mode}; events={result['event_count']}; dates={len(result['synced_dates'])}; meaningful_messages={audit['meaningful_message_count']}; public_pair_sources={audit['public_excerpt_count']}; safe_outcomes={audit['safe_outcome_candidate_count']}; rejected_outcomes={audit['rejected_outcome_candidate_count']}; delegated_agents={audit['delegated_agent_count']}; categories={result['category_counts']}.")
     return 0
 
 

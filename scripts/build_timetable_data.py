@@ -79,7 +79,24 @@ ACTIVE_COLLABORATION_SOURCE_KINDS = {
     "withheld",
 }
 URL_RE = re.compile(r"(?i)(?:\b(?:https?|ftp)://|\bwww\.)\S+")
-VOICE_POLICY_VERSION = "granted-hours-first-person-v1"
+VOICE_POLICY_VERSION = "granted-hours-first-person-v2"
+
+COLLABORATION_REQUEST_VOICES = (
+    ("Simon 让我来做这件事：", "Simon asked me: "),
+    ("Simon 交给我一项任务：", "Simon gave me this task: "),
+    ("Simon 和我说：", "Simon said to me: "),
+    ("Simon 请我来处理：", "Simon came to me with a request: "),
+    ("Simon 希望我帮忙：", "Simon asked for my help: "),
+    ("Simon 把这件事交给我：", "Simon handed this work to me: "),
+)
+REMINDER_VOICES = (
+    ("我提醒 Simon：", "I reminded Simon:"),
+    ("我告诉 Simon：", "I told Simon:"),
+    ("我给 Simon 一个小小的提示：", "I gave Simon a small nudge:"),
+    ("我把这句话留给 Simon：", "I left this note for Simon:"),
+    ("我轻轻提醒 Simon：", "I gently reminded Simon:"),
+    ("我对 Simon 说：", "I said to Simon:"),
+)
 
 SENSITIVE_ASSIGNED_WORK_RE = re.compile(
     r"(?i)\bholdings\b|持仓|仓位|试仓|\blive\s+futu\b|\breal\s+account\b|真实账户|账户敞口|账户权限"
@@ -1645,15 +1662,24 @@ def authored_residue_copy(source_kind: str, en: str, zh: str) -> tuple[str, str]
     return en[len(prefix_en):], zh[len(prefix_zh):]
 
 
-def first_person_collaboration_pair(residue: dict) -> dict:
+def stable_voice_variant(key: str, variants: tuple) -> tuple:
+    digest = hashlib.sha256(key.encode("utf-8")).digest()
+    return variants[int.from_bytes(digest[:4], "big") % len(variants)]
+
+
+def first_person_collaboration_pair(day_date: str, residue: dict) -> dict:
     request_zh = str(residue["request_zh"])
     request_en = str(residue["request_en"])
     outcome_zh = str(residue["outcome_zh"])
     outcome_en = str(residue["outcome_en"])
-    if not request_zh.startswith("Simon 让我"):
-        request_zh = f"Simon 让我{request_zh.lstrip('要求').lstrip('：:').strip()}"
-    if not request_en.lower().startswith("simon asked me"):
-        request_en = f"Simon asked me to {request_en[0].lower() + request_en[1:] if request_en else request_en}"
+    request_zh = request_zh.lstrip("要求").lstrip("：:").strip()
+    request_en = re.sub(r"(?i)^request\s*[:：]\s*", "", request_en).strip()
+    prefix_zh, prefix_en = stable_voice_variant(
+        f"collaboration:{day_date}:{request_zh}:{request_en}",
+        COLLABORATION_REQUEST_VOICES,
+    )
+    request_zh = f"{prefix_zh}{request_zh}"
+    request_en = f"{prefix_en}{request_en}"
     if residue.get("completion_status") == "completed":
         if not outcome_zh.startswith("我"):
             outcome_zh = f"我{outcome_zh.lstrip('已').strip()}"
@@ -1721,7 +1747,7 @@ def build_tasks(public_entry: dict, config: dict, history_entry: dict | None) ->
         redaction_count = residue.get("redaction_count", 0)
         faithfulness = residue.get("faithfulness", "inferred")
         collaboration_pair = (
-            first_person_collaboration_pair(residue)
+            first_person_collaboration_pair(day_date, residue)
             if source_kind == "collaboration_session"
             else {}
         )
@@ -1855,7 +1881,30 @@ def build_cell_sources(tasks: list[dict], pulses: list[dict]) -> dict[str, dict]
     }
 
 
-def build_background_pulses(pulses: list[dict]) -> list[dict]:
+def first_person_reminder_copy(
+    day_date: str,
+    start: str,
+    summary_original: str,
+    summary_en: str,
+    excerpt_original: str,
+    excerpt_en: str,
+    original_language: str,
+) -> tuple[str, str, str, str]:
+    """Add a stable, varied Black Day lead without changing reminder content."""
+    lead_zh, lead_en = stable_voice_variant(
+        f"reminder:{day_date}:{start}",
+        REMINDER_VOICES,
+    )
+    lead_original = lead_en if original_language == "en" else lead_zh
+    return (
+        f"{lead_original}\n\n{summary_original}",
+        f"{lead_en}\n\n{summary_en}",
+        f"{lead_original}\n\n{excerpt_original}",
+        f"{lead_en}\n\n{excerpt_en}",
+    )
+
+
+def build_background_pulses(day_date: str, pulses: list[dict]) -> list[dict]:
     events = []
     for index, pulse in enumerate(pulses):
         definition = PULSE_DEFINITIONS[pulse["category"]]
@@ -1901,6 +1950,20 @@ def build_background_pulses(pulses: list[dict]) -> list[dict]:
             "redaction_policy": redaction_policy,
         }
         if pulse["category"] == "daily_reminder":
+            (
+                display_summary_original,
+                display_summary_en,
+                display_excerpt_original,
+                display_excerpt_en,
+            ) = first_person_reminder_copy(
+                day_date,
+                pulse["start"],
+                reminder["summary_original"],
+                pulse["summary_en"],
+                reminder["excerpt_original"],
+                pulse["excerpt_en"],
+                reminder["original_language"],
+            )
             event.update(
                 {
                     "owner_scope": pulse["owner_scope"],
@@ -1910,8 +1973,8 @@ def build_background_pulses(pulses: list[dict]) -> list[dict]:
                     "semantic_abstraction_count": reminder[
                         "semantic_abstraction_count"
                     ],
-                    "summary_original": reminder["summary_original"],
-                    "excerpt_original": reminder["excerpt_original"],
+                    "summary_original": display_summary_original,
+                    "excerpt_original": display_excerpt_original,
                     "original_language": reminder["original_language"],
                     "disclosure_policy": reminder["disclosure_policy"],
                     "disclosure_authorization": reminder[
@@ -1920,11 +1983,12 @@ def build_background_pulses(pulses: list[dict]) -> list[dict]:
                     "projection_provenance": reminder[
                         "projection_provenance"
                     ],
-                    "summary_en": pulse["summary_en"],
-                    "excerpt_en": pulse["excerpt_en"],
+                    "summary_en": display_summary_en,
+                    "excerpt_en": display_excerpt_en,
                     "translation_provenance": pulse[
                         "translation_provenance"
                     ],
+                    "voice_policy_version": VOICE_POLICY_VERSION,
                 }
             )
         else:
@@ -3003,7 +3067,7 @@ def build_data(
             pulse_source or is_calendar_only or not latest_pulse_date or day_date > latest_pulse_date,
             f"{day_date} is missing real scheduler run evidence",
         )
-        background_pulses = build_background_pulses(pulse_source)
+        background_pulses = build_background_pulses(day_date, pulse_source)
         reading_items = build_public_reading_items(tasks, autonomous_work, background_pulses)
         relations = build_relations(day_date, public_absolute, dates, public_by_date, legacy_entry)
         forward_artwork_seeds = [

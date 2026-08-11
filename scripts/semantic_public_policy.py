@@ -74,12 +74,24 @@ RULES = (
         "named_infrastructure_status",
         re.compile(
             r"(?is)API\s*Token|access[_ -]?token|Cloudflare|Wrangler|"
-            r"\bQMT\b|qmt_[a-z0-9_]+|Workers?\s+API|"
+            r"\bQMT\b|qmt_[a-z0-9_]+|Workers?\s+API|Hermes/Redo|"
+            r"自动化链路的断点|skill\s*的边界|归档到\s*wiki|"
+            r"Gateway|Feishu|launchd|startup-brief|(?-i:\bR-\d+\b)|"
+            r"knowledge/人生系统|research/free-roam|任务总档|"
             r"\.workers\.dev|部署令牌|接口令牌|访问令牌|"
             r"文档配置.{0,40}(?:key|模型名称)|浏览器.{0,40}登录",
         ),
         "外部服务权限、部署与数据链路可用性。",
         "External-service permissions, deployment, and data-path availability.",
+    ),
+    SemanticRule(
+        "teaching_or_administrative_schedule",
+        re.compile(
+            r"(?is)国美|Lecture\s*\d+|教学素材|课程资产|课件页|"
+            r"送/接娃|工坊|teaching\s+material|course\s+asset"
+        ),
+        "教学、研究与日常责任的安排。",
+        "Teaching, research, and everyday responsibilities.",
     ),
     SemanticRule(
         "internal_verification_chatter",
@@ -109,6 +121,7 @@ RULES = (
         "publishing_operation",
         re.compile(
             r"(?is)social[- ]publishing\s+queue|scheduling\s+quota|"
+            r"social\s+publish(?:ing)?\s+queue|发布闭环|"
             r"drafts?.{0,80}waiting\s+in\s+the\s+queue|"
             r"weibo.{0,80}(?:schedul|quota|queue)|"
             r"发布队列|定时配额|排队稿件|微博.{0,40}(?:定时|配额|队列)",
@@ -119,7 +132,8 @@ RULES = (
     SemanticRule(
         "personal_finance_or_trading",
         re.compile(
-            r"(?is)持仓|仓位|试仓|真实账户|真实仓位|金融终端|触发价|"
+            r"(?is)Investment\s*(?:OS|████)|投资\s*(?:OS|系统|████)|decision\s+journal|"
+            r"review\s+queue|判断债务|持仓|仓位|试仓|真实账户|真实仓位|金融终端|触发价|"
             r"止盈|止损|补仓|减仓|买入|卖出|申购套利|"
             r"\b(?:HK|US|SZ|SH)\.\d{3,6}\b|\bQMT\b|\bFutu\b|\bSWHY\b|"
             r"\bportfolio\s+(?:holding|position|allocation|exposure)s?\b|"
@@ -134,25 +148,14 @@ RULES = (
         re.compile(
             r"(?is)(?:不适合公开|打码|脱敏).{0,100}(?:git|commit|提交|仓库).{0,100}(?:历史|记录|抹除|清理)|"
             r"(?:git|commit|提交|仓库).{0,100}(?:历史|记录).{0,100}(?:不适合公开|打码|脱敏|抹除|清理)|"
-            r"(?:sanitize|redact|private).{0,100}git\s+history",
+            r"(?:sanitize|redact|private).{0,100}git\s+history|"
+            r"git\s*历史.{0,80}(?:重写|清理|零残留)|对象零残留",
         ),
         "公开仓库历史中的信息边界检查与旧版本清理。",
         "Information-boundary review and old-version cleanup in public repository history.",
     ),
 )
 
-ROUTINE_ONLY_REMINDER_TAGS = {
-    "intimate_family_dream",
-    "health_or_emotional_state",
-    "family_or_caregiving",
-    "unpublished_commercial_brief",
-    "named_infrastructure_status",
-    "internal_verification_chatter",
-    "personal_psychological_interpretation",
-    "publishing_operation",
-    "personal_finance_or_trading",
-    "public_history_privacy_cleanup",
-}
 MASK = "████"
 MASK_SCOPE_SKIP_TAGS = {
     "health_or_emotional_state",
@@ -184,13 +187,7 @@ def _rule_matches(text: str, rule: SemanticRule) -> bool:
 
 
 ROUTINE_ONLY_REMINDER_RE = re.compile(
-    r"(?ix)国美|学院|学校|课程|课件|讲义|教师|学生|"
-    r"\b(?:lecture|course|school|college|university|faculty|CAA)\b|"
-    r"投资|市场|股票|持仓|仓位|交易|"
-    r"\b(?:investment|portfolio|trading)\b|"
-    r"社会媒体|社媒|微博|知识星球|发布队列|"
-    r"\b(?:social\s+media|publishing\s+queue|FIFO)\b|"
-    r"\bR-\d+\b|Gateway|重启\s*flag|"
+    r"(?ix)\bR-\d+\b|Gateway|重启\s*flag|"
     r"\b(?:restart\s+flag|internal\s+ticket|startup-brief|memory\s+file)\b|"
     r"今天的\s*memory|查看\s*startup-brief|"
     r"每日反思|daily\s+reflection|opportunity\s+card|user\s+burden|"
@@ -199,6 +196,12 @@ ROUTINE_ONLY_REMINDER_RE = re.compile(
     r"JSON\s*(?:解析|有效)|"
     r"\b(?:ad-hoc|test\s+suite|verification\s+(?:already\s+)?completed|"
     r"JSON\s+valid|data-only\s+change)\b"
+)
+PUBLIC_REMINDER_SIGNAL_RE = re.compile(
+    r"(?i)Simon|源泉|早安|早上好|晚安|傍晚好|晨间提醒|每日提醒|"
+    r"今天轻轻碰一下|秘书提醒|心灵按摩|黑昼建议|晚上黑昼|"
+    r"good\s+morning|good\s+night|tonight|wellspring|daily\s+reminder|"
+    r"Black\s+Day"
 )
 
 LEGACY_ABSTRACTS_BY_TAG = {
@@ -251,6 +254,7 @@ _ABSTRACT_MARKERS = tuple(
     for rule in RULES
     for value in (rule.abstract_zh, rule.abstract_en)
 ) + tuple(LEGACY_TO_CURRENT)
+_ABSTRACT_MARKER_SET = frozenset(_ABSTRACT_MARKERS)
 _HAN_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]")
 _SYSTEM_HANDOFF_RE = re.compile(
     r"(?is)turns?\s+were\s+compacted|handoff\s+from\s+a\s+previous\s+context|"
@@ -374,12 +378,27 @@ def projection_tags(text: str) -> tuple[str, ...]:
 
 
 def reminder_requires_routine_projection(text: str) -> bool:
-    """Keep sensitive or operational reminders as one coarse routine footprint."""
+    """Hide empty or pure internal-operation chatter, not safe abstractions.
+
+    Privacy-sensitive paragraphs are handled by entity masking and semantic
+    abstraction. Treating the resulting abstraction as a reason to erase the
+    whole reminder caused useful morning/evening copy to vanish.
+    """
     if not isinstance(text, str) or not text.strip():
         return True
+    semantic_tags = set(projection_tags(text))
+    value, _ = modernize_abstract_copy(text)
+    for marker in _ABSTRACT_MARKERS:
+        value = value.replace(marker, "")
+    if (
+        "internal_verification_chatter" in semantic_tags
+        and PUBLIC_REMINDER_SIGNAL_RE.search(value) is None
+    ):
+        return True
     return bool(
-        ROUTINE_ONLY_REMINDER_RE.search(text)
-        or set(projection_tags(text)) & ROUTINE_ONLY_REMINDER_TAGS
+        ROUTINE_ONLY_REMINDER_RE.search(value)
+        and PUBLIC_REMINDER_SIGNAL_RE.search(value) is None
+        and len(value) < 500
     )
 
 
@@ -408,7 +427,8 @@ def abstract_sensitive_public_text(text: str) -> tuple[str, tuple[str, ...]]:
         if not part or re.fullmatch(r"\n[ \t]*\n", part):
             output.append(part)
             continue
-        if part.strip() in _ABSTRACT_MARKERS:
+        marker_lines = [line.strip() for line in part.splitlines() if line.strip()]
+        if marker_lines and all(line in _ABSTRACT_MARKER_SET for line in marker_lines):
             output.append(part)
             continue
         matches = [rule for rule in RULES if _rule_matches(part, rule)]

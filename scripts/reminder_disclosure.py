@@ -396,6 +396,40 @@ def extractive_prefix(text: str, max_length: int = MAX_EXCERPT_LENGTH) -> str:
     return f"{candidate.rstrip()}…"
 
 
+PUBLIC_REMINDER_BODY_RE = re.compile(
+    r"(?i)Simon|源泉|早安|早上好|晚安|傍晚好|每日轻提醒|"
+    r"good\s+morning|good\s+night|tonight|wellspring"
+)
+
+
+def extract_authentic_reminder_body(text: str) -> str:
+    """Remove model/tool wrapper chatter when a delivered body is explicit."""
+    final_marker = re.search(
+        r"(?is)\*\*Final delivery[^\n]*?\s*:\s*\*\*\s*(?P<body>.*)",
+        text,
+    )
+    if final_marker:
+        quoted = []
+        for line in final_marker.group("body").splitlines():
+            match = re.match(r"^\s*>\s?(.*)$", line)
+            if match:
+                quoted.append(match.group(1))
+            elif quoted and not line.strip():
+                quoted.append("")
+        candidate = "\n".join(quoted).strip()
+        if candidate and PUBLIC_REMINDER_BODY_RE.search(candidate):
+            return candidate
+
+    preamble = re.match(
+        r"(?is)^\s*Now I have enough context\.\s*"
+        r"Let me compose[^\n]*\.?\s*\n+---\s*\n+(?P<body>.+)$",
+        text,
+    )
+    if preamble and PUBLIC_REMINDER_BODY_RE.search(preamble.group("body")):
+        return preamble.group("body").strip()
+    return text
+
+
 def project_limited_reminder_response(
     responses: list[str],
     time_bucket: str,
@@ -407,6 +441,7 @@ def project_limited_reminder_response(
     original = join_reminder_responses(responses)
     if not original:
         return None
+    original = extract_authentic_reminder_body(original)
     masked, redaction_count = mask_reminder_entities(
         original,
         exact_terms=exact_terms,
