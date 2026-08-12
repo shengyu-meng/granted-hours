@@ -79,6 +79,71 @@ export function layoutTimelineEvents(events) {
   ));
 }
 
+export function buildTimelineProjection(layouts, options = {}) {
+  const activeMinuteHeight = Math.max(0.01, Number(options.activeMinuteHeight) || 1);
+  const idleMinuteHeight = Math.max(
+    0.01,
+    Math.min(activeMinuteHeight, Number(options.idleMinuteHeight) || activeMinuteHeight * 0.28),
+  );
+  const protectedRanges = Array.isArray(options.protectedRanges) ? options.protectedRanges : [];
+  const eventHours = Array.from({ length: 24 }, () => false);
+  const cardHours = Array.from({ length: 24 }, () => false);
+
+  const markHours = (ranges, target) => {
+    for (const range of ranges) {
+      const startMinute = Math.max(0, Math.min(MINUTES_PER_DAY, Number(range.startMinute) || 0));
+      const endMinute = Math.max(startMinute, Math.min(MINUTES_PER_DAY, Number(range.endMinute) || 0));
+      if (endMinute <= startMinute) continue;
+      const firstHour = Math.max(0, Math.floor(startMinute / 60));
+      const lastHour = Math.min(23, Math.ceil(endMinute / 60) - 1);
+      for (let hour = firstHour; hour <= lastHour; hour += 1) target[hour] = true;
+    }
+  };
+
+  markHours(layouts, eventHours);
+  markHours(protectedRanges, cardHours);
+
+  let offset = 0;
+  const hourBands = Array.from({ length: 24 }, (_, hour) => {
+    const active = eventHours[hour] || cardHours[hour];
+    const minuteHeight = active ? activeMinuteHeight : idleMinuteHeight;
+    const band = {
+      hour,
+      startMinute: hour * 60,
+      endMinute: (hour + 1) * 60,
+      top: offset,
+      height: minuteHeight * 60,
+      minuteHeight,
+      active,
+      hasEvent: eventHours[hour],
+      hasCard: cardHours[hour],
+    };
+    offset += band.height;
+    return band;
+  });
+
+  const projectMinute = (value) => {
+    const minute = Math.max(0, Math.min(MINUTES_PER_DAY, Number(value) || 0));
+    if (minute >= MINUTES_PER_DAY) return offset;
+    const hour = Math.min(23, Math.floor(minute / 60));
+    const band = hourBands[hour];
+    return band.top + (minute - band.startMinute) * band.minuteHeight;
+  };
+
+  return {
+    activeMinuteHeight,
+    idleMinuteHeight,
+    hourBands,
+    activeHourCount: hourBands.filter((band) => band.active).length,
+    compressedHourCount: hourBands.filter((band) => !band.active).length,
+    height: offset,
+    projectMinute,
+    projectSpan(startMinute, endMinute) {
+      return projectMinute(endMinute) - projectMinute(startMinute);
+    },
+  };
+}
+
 export function positionTimelineElement(element, layout) {
   const laneWidth = 100 / layout.laneCount;
   element.dataset.start = layout.event.start;
@@ -127,13 +192,22 @@ export function layoutTimelineReadingCards(items, options) {
       ? Number(item.anchorMinute)
       : Number(item.startMinute);
     const anchorRatio = Math.max(0, Math.min(1, Number(item.anchorRatio) || 0));
+    const anchorPosition = Number.isFinite(Number(item.anchorPosition))
+      ? Number(item.anchorPosition)
+      : anchorMinute * minuteHeight;
     const desiredTop = Math.max(
       edgePadding,
-      Math.min(anchorMinute * minuteHeight - height * anchorRatio, canvasHeight - height - edgePadding),
+      Math.min(anchorPosition - height * anchorRatio, canvasHeight - height - edgePadding),
     );
     let best = null;
 
-    for (let column = 0; column <= maximumColumn; column += 1) {
+    const allowedColumns = Array.isArray(item.allowedColumns)
+      ? [...new Set(item.allowedColumns.map(Number))]
+        .filter((column) => Number.isInteger(column) && column >= 0 && column <= maximumColumn)
+      : Array.from({ length: maximumColumn + 1 }, (_, column) => column);
+    if (!allowedColumns.length) allowedColumns.push(preferredColumn);
+
+    for (const column of allowedColumns) {
       const candidateRange = { column, columnSpan };
       let top = desiredTop;
       for (const existing of placed) {
@@ -192,6 +266,7 @@ export function layoutTimelineReadingCards(items, options) {
       ...item,
       column: best.column,
       columnSpan: best.columnSpan,
+      anchorPosition,
       desiredTop,
       displacement: Math.abs(best.top - desiredTop),
       top: best.top,

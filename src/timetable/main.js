@@ -23,6 +23,7 @@ import {
 } from "./markdown.js";
 import { timetableData } from "./timetable-data.js";
 import {
+  buildTimelineProjection,
   layoutTimelineEvents,
   layoutTimelineReadingCards,
   positionTimelineElement,
@@ -2208,9 +2209,10 @@ function summarizeReadingFootprints(memberLayouts, layer) {
   };
 }
 
-function readingCardHeight(card, minuteHeight, isCompactReadingCanvas) {
+function readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth) {
   if (card.dataset.layer === "beacon") {
-    return isCompactReadingCanvas ? 416 : Math.max(268, minuteHeight * 60 + 92);
+    if (!isCompactReadingCanvas) return Math.max(268, minuteHeight * 60 + 92);
+    return clampNumber(Math.round(cardWidth - 96), 136, 184);
   }
   if (card.dataset.layer === "absence") return isCompactReadingCanvas ? 148 : 132;
   const copyLength = Number(card.dataset.copyLength) || 0;
@@ -2232,14 +2234,47 @@ function readingCardHeight(card, minuteHeight, isCompactReadingCanvas) {
   return clampNumber(126 + contentBonus + durationBonus, 132, isCompactReadingCanvas ? 224 : 208);
 }
 
-function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas) {
+function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvasWidth) {
   const memberCount = Number(card.dataset.memberCount) || 1;
   const copyLength = Number(card.dataset.copyLength) || 0;
-  if (card.dataset.layer === "beacon") return isCompactReadingCanvas ? columnCount : Math.min(2, columnCount);
-  if (card.dataset.layer === "event") return isCompactReadingCanvas ? columnCount : Math.min(2, columnCount);
-  if (card.dataset.layer === "absence") return Math.min(isCompactReadingCanvas ? columnCount : 2, columnCount);
+  if (isCompactReadingCanvas) {
+    const edgeSpan = canvasWidth < 290 ? columnCount : Math.max(1, columnCount - 1);
+    if (["beacon", "event", "absence"].includes(card.dataset.layer)) return edgeSpan;
+    return Math.min(memberCount > 1 || copyLength > 150 ? 3 : 2, edgeSpan);
+  }
+  if (["beacon", "event", "absence"].includes(card.dataset.layer)) return Math.min(2, columnCount);
   const needsReadingWidth = memberCount > 1 || copyLength > 150;
   return Math.min(needsReadingWidth ? 2 : 1, columnCount);
+}
+
+function applyTimelineProjection(timeline, eventsLayer, projection) {
+  timeline.style.height = `${projection.height}px`;
+  timeline.style.setProperty("--idle-minute-height", `${projection.idleMinuteHeight}px`);
+  timeline.dataset.projection = "compressed-empty-hours-v1";
+  timeline.dataset.activeHourCount = String(projection.activeHourCount);
+  timeline.dataset.compressedHourCount = String(projection.compressedHourCount);
+  timeline.dataset.linearHeight = String(MINUTES_PER_DAY * projection.activeMinuteHeight);
+  timeline.dataset.projectedHeight = String(projection.height);
+
+  for (const marker of timeline.querySelectorAll(".timeline-hour-marker")) {
+    const minute = Number(marker.dataset.hourMinute);
+    marker.style.top = `${projection.projectMinute(minute)}px`;
+    const band = projection.hourBands[Math.min(23, Math.floor(minute / 60))];
+    const isCompressed = minute < MINUTES_PER_DAY && !band.active;
+    marker.classList.toggle("is-compressed-hour", isCompressed);
+    marker.dataset.hourDensity = isCompressed ? "compressed" : "active";
+  }
+
+  for (const event of eventsLayer.querySelectorAll(".timeline-event")) {
+    const startMinute = Number(event.style.getPropertyValue("--event-start-minute"));
+    const durationMinutes = Number(event.style.getPropertyValue("--event-duration-minutes"));
+    const top = projection.projectMinute(startMinute);
+    const height = projection.projectSpan(startMinute, startMinute + durationMinutes);
+    event.style.top = `${top}px`;
+    event.style.height = `${height}px`;
+    event.dataset.projectedTop = String(top);
+    event.dataset.projectedHeight = String(height);
+  }
 }
 
 function scheduleTimelineReadingPlacement() {
@@ -2262,40 +2297,65 @@ function placeTimelineReadingCards() {
   const canvasWidth = readingLayer.getBoundingClientRect().width;
   if (canvasWidth <= 0) return;
   const isCompactReadingCanvas = canvasWidth < 560;
-  const columnCount = isCompactReadingCanvas ? 3 : 4;
+  const columnCount = isCompactReadingCanvas ? 5 : 4;
   const columnGap = isCompactReadingCanvas ? 4 : 7;
   const rowGap = 4;
   const cards = [...readingLayer.querySelectorAll(".event-reading-card")];
+  const exactLayouts = [...eventsLayer.querySelectorAll(".timeline-event")].map((event) => {
+    const startMinute = Number(event.style.getPropertyValue("--event-start-minute"));
+    const durationMinutes = Number(event.style.getPropertyValue("--event-duration-minutes"));
+    return { startMinute, endMinute: startMinute + durationMinutes };
+  });
   let minuteHeight = Number.parseFloat(getComputedStyle(timeline).getPropertyValue("--minute-height"));
   let result = null;
+  let projection = null;
 
   for (let pass = 0; pass < 20; pass += 1) {
     timeline.style.setProperty("--minute-height", `${minuteHeight}px`);
-    const canvasHeight = MINUTES_PER_DAY * minuteHeight;
-    const items = cards.map((card) => {
-      const isAutonomous = card.dataset.layer === "beacon";
-      const columnSpan = readingCardColumnSpan(card, columnCount, isCompactReadingCanvas);
+    const columnWidth = (canvasWidth - columnGap * (columnCount - 1)) / columnCount;
+    const cardSpecifications = cards.map((card) => {
+      const columnSpan = readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvasWidth);
       const maximumColumn = columnCount - columnSpan;
       const laneRatio = clampNumber(Number(card.dataset.memberLaneRatio) || 0.5, 0, 1);
-      const preferredColumn = clampNumber(
-        Math.round(laneRatio * columnCount - columnSpan / 2),
-        0,
-        maximumColumn,
-      );
-      const height = readingCardHeight(card, minuteHeight, isCompactReadingCanvas);
+      const centeredLane = laneRatio >= 0.44 && laneRatio <= 0.56;
+      const prefersLeft = laneRatio < 0.44
+        || (centeredLane && compositionHash(card.dataset.compositionSeed) % 2 === 0);
+      const preferredColumn = prefersLeft ? 0 : maximumColumn;
+      const cardWidth = columnWidth * columnSpan + columnGap * (columnSpan - 1);
+      const height = readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth);
       card.style.setProperty("--reading-card-height", `${height}px`);
       return {
+        card,
         key: card.dataset.eventKey,
         startMinute: Number(card.dataset.startMinute),
         anchorMinute: Number(card.dataset.anchorMinute),
         anchorRatio: Number(card.dataset.anchorRatio),
         sourceIndex: Number(card.dataset.sourceIndex),
         preferredColumn,
+        allowedColumns: [...new Set([0, maximumColumn])],
         columnSpan,
         height,
         layer: card.dataset.layer,
       };
-    }).sort((left, right) => (
+    });
+    const protectedRanges = cardSpecifications.map((item) => {
+      const startMinute = item.anchorMinute - (item.height * item.anchorRatio) / minuteHeight;
+      return {
+        startMinute: clampNumber(startMinute, 0, MINUTES_PER_DAY),
+        endMinute: clampNumber(startMinute + item.height / minuteHeight, 0, MINUTES_PER_DAY),
+      };
+    });
+    projection = buildTimelineProjection(exactLayouts, {
+      activeMinuteHeight: minuteHeight,
+      idleMinuteHeight: isCompactReadingCanvas ? 0.42 : 0.28,
+      protectedRanges,
+    });
+    applyTimelineProjection(timeline, eventsLayer, projection);
+    const canvasHeight = projection.height;
+    const items = cardSpecifications.map((item) => ({
+      ...item,
+      anchorPosition: projection.projectMinute(item.anchorMinute),
+    })).sort((left, right) => (
       left.anchorMinute - right.anchorMinute
       || ({ beacon: 0, event: 1, climate: 2, absence: 3 }[left.layer] ?? 9)
         - ({ beacon: 0, event: 1, climate: 2, absence: 3 }[right.layer] ?? 9)
@@ -2315,12 +2375,11 @@ function placeTimelineReadingCards() {
       result.requiredHeight <= canvasHeight + 0.5
       && result.maximumDisplacement <= displacementTolerance
     ) break;
-    const overflowMinuteHeight = result.requiredHeight / MINUTES_PER_DAY + 0.04;
     const proximityMinuteHeight = minuteHeight * 1.11 + 0.02;
     const maximumMinuteHeight = isCompactReadingCanvas ? 4.6 : 2.45;
     const nextMinuteHeight = Math.min(
       maximumMinuteHeight,
-      Math.max(overflowMinuteHeight, proximityMinuteHeight),
+      proximityMinuteHeight,
     );
     if (nextMinuteHeight <= minuteHeight + 0.001) break;
     minuteHeight = Math.ceil(nextMinuteHeight * 1000) / 1000;
@@ -2337,6 +2396,9 @@ function placeTimelineReadingCards() {
     card.dataset.readingColumn = String(placement.column);
     card.dataset.readingColumnSpan = String(placement.columnSpan);
     card.dataset.anchorDisplacement = String(placement.displacement);
+    const edgeSide = placement.column === 0 ? "left" : "right";
+    card.dataset.edgeSide = edgeSide;
+    card.dataset.edgeAnchored = "true";
     const isAutonomous = card.dataset.layer === "beacon";
     card.classList.toggle("is-compact-reading-card", isAutonomous && isCompactReadingCanvas);
     card.classList.toggle("is-narrow-reading-card", isAutonomous && placement.width < 270);
@@ -2352,9 +2414,15 @@ function placeTimelineReadingCards() {
     if (!footprint || !card) continue;
     const footprintRect = footprint.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
-    const startX = footprintRect.left - layerRect.left + Math.min(Math.max(footprintRect.width * 0.5, 3), 18);
+    const side = card.dataset.edgeSide;
+    const cardLeft = cardRect.left - layerRect.left;
+    const cardRight = cardRect.right - layerRect.left;
+    const footprintCenter = footprintRect.left - layerRect.left + footprintRect.width * 0.5;
+    const startX = side === "left"
+      ? Math.min(layerRect.width - 2, Math.max(cardRight + 4, footprintCenter))
+      : Math.max(2, Math.min(cardLeft - 4, footprintCenter));
     const startY = footprintRect.top - layerRect.top + Math.max(1, Math.min(footprintRect.height * 0.5, 10));
-    const endX = cardRect.left - layerRect.left + Math.min(12, cardRect.width * 0.25);
+    const endX = side === "left" ? cardRight : cardLeft;
     const endY = cardRect.top - layerRect.top + Math.min(10, cardRect.height * 0.22);
     const deltaX = endX - startX;
     const deltaY = endY - startY;
@@ -2456,6 +2524,7 @@ function appendTimelineHourMarkers(list) {
     const marker = document.createElement("div");
     marker.className = "timeline-hour-marker";
     marker.style.setProperty("--hour-minute", String(hour * 60));
+    marker.dataset.hourMinute = String(hour * 60);
     marker.setAttribute("aria-hidden", "true");
     marker.innerHTML = `<span>${String(hour).padStart(2, "0")}:00</span>`;
     fragment.append(marker);

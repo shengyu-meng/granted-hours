@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
 import {
+  buildTimelineProjection,
   layoutTimelineEvents,
   layoutTimelineReadingCards,
   timeToMinutes,
@@ -44,6 +45,24 @@ assert.throws(
   /Invalid event window/,
 );
 
+const projection = buildTimelineProjection(
+  [
+    { startMinute: 180, endMinute: 300 },
+    { startMinute: 720, endMinute: 750 },
+  ],
+  {
+    activeMinuteHeight: 1,
+    idleMinuteHeight: 0.25,
+    protectedRanges: [{ startMinute: 660, endMinute: 720 }],
+  },
+);
+assert.equal(projection.activeHourCount, 4);
+assert.equal(projection.compressedHourCount, 20);
+assert.equal(projection.height, 4 * 60 + 20 * 15);
+assert.equal(projection.projectSpan(180, 300), 120, "occupied time keeps the active minute scale");
+assert.equal(projection.projectSpan(300, 360), 15, "a truly empty hour is compressed");
+assert.equal(projection.hourBands[11].hasCard, true, "card-bearing hours must not be folded");
+
 const readingItems = [
   { key: "early-wide", startMinute: 30, anchorMinute: 86, anchorRatio: 0.5, height: 112, preferredColumn: 0, columnSpan: 2 },
   { key: "routine-a", startMinute: 35, height: 48, preferredColumn: 0, columnSpan: 1 },
@@ -82,4 +101,44 @@ for (let leftIndex = 0; leftIndex < firstReadingLayout.cards.length; leftIndex +
   }
 }
 
-console.log(JSON.stringify({ passed: true, cases: 5 }));
+
+const edgeOnlyLayout = layoutTimelineReadingCards(
+  [
+    {
+      key: "left-edge",
+      startMinute: 420,
+      anchorMinute: 420,
+      anchorPosition: 180,
+      height: 80,
+      preferredColumn: 0,
+      allowedColumns: [0, 2],
+      columnSpan: 2,
+    },
+    {
+      key: "right-edge",
+      startMinute: 420,
+      anchorMinute: 420,
+      anchorPosition: 180,
+      height: 80,
+      preferredColumn: 2,
+      allowedColumns: [0, 2],
+      columnSpan: 2,
+    },
+  ],
+  {
+    columnCount: 4,
+    columnGap: 6,
+    rowGap: 4,
+    canvasWidth: 400,
+    canvasHeight: 600,
+    minuteHeight: 1,
+    edgePadding: 4,
+  },
+);
+assert.deepEqual(
+  edgeOnlyLayout.cards.map((card) => card.column).sort(),
+  [0, 2],
+  "edge-only cards must never occupy a centered reading column",
+);
+
+console.log(JSON.stringify({ passed: true, cases: 7 }));

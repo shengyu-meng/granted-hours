@@ -103,11 +103,19 @@ async function scrollDialogToMinute(page, targetMinute) {
       const minuteHeight = Number.parseFloat(
         getComputedStyle(timeline).getPropertyValue("--minute-height"),
       );
+      const hourTops = [...timeline.querySelectorAll(".timeline-hour-marker")]
+        .map((marker) => marker.getBoundingClientRect().top - timelineRect.top);
+      const targetHour = Math.min(23, Math.floor(minuteTarget / 60));
+      const targetPixel = minuteTarget >= 24 * 60
+        ? hourTops.at(-1)
+        : hourTops[targetHour]
+          + ((minuteTarget - targetHour * 60) / 60)
+            * (hourTops[targetHour + 1] - hourTops[targetHour]);
       const overflowY = getComputedStyle(panel).overflowY;
       const timelineContentTop = timelineRect.top - panelRect.top + panel.scrollTop;
       const visibleContentHeight = panel.clientHeight - toolbarRect.height;
       const desiredScrollTop = timelineContentTop
-        + minuteTarget * minuteHeight
+        + targetPixel
         - toolbarRect.height
         - visibleContentHeight / 2;
       const maximumScrollTop = panel.scrollHeight - panel.clientHeight;
@@ -143,20 +151,33 @@ async function scrollDialogToMinute(page, targetMinute) {
       const minuteHeight = Number.parseFloat(
         getComputedStyle(timeline).getPropertyValue("--minute-height"),
       );
+      const hourTops = [...timeline.querySelectorAll(".timeline-hour-marker")]
+        .map((marker) => marker.getBoundingClientRect().top - timelineRect.top);
+      const targetHour = Math.min(23, Math.floor(minuteTarget / 60));
+      const targetPixel = minuteTarget >= 24 * 60
+        ? hourTops.at(-1)
+        : hourTops[targetHour]
+          + ((minuteTarget - targetHour * 60) / 60)
+            * (hourTops[targetHour + 1] - hourTops[targetHour]);
       const visiblePixelTop = Math.max(
         timelineRect.top,
         panelRect.top,
         toolbarRect.bottom,
       );
       const visiblePixelBottom = Math.min(timelineRect.bottom, panelRect.bottom);
-      const visibleStartMinute = Math.max(
-        0,
-        (visiblePixelTop - timelineRect.top) / minuteHeight,
-      );
-      const visibleEndMinute = Math.min(
-        24 * 60,
-        (visiblePixelBottom - timelineRect.top) / minuteHeight,
-      );
+      const minuteAtPixel = (pixel) => {
+        const bounded = Math.max(0, Math.min(hourTops.at(-1), pixel));
+        let hour = hourTops.findIndex((top, index) => (
+          index < hourTops.length - 1
+          && bounded >= top
+          && bounded <= hourTops[index + 1]
+        ));
+        if (hour < 0) hour = 23;
+        const bandHeight = Math.max(0.01, hourTops[hour + 1] - hourTops[hour]);
+        return hour * 60 + ((bounded - hourTops[hour]) / bandHeight) * 60;
+      };
+      const visibleStartMinute = minuteAtPixel(visiblePixelTop - timelineRect.top);
+      const visibleEndMinute = minuteAtPixel(visiblePixelBottom - timelineRect.top);
       return {
         scrollRoot: "#dayDialogPanel",
         overflowY: getComputedStyle(panel).overflowY,
@@ -165,12 +186,12 @@ async function scrollDialogToMinute(page, targetMinute) {
         clientHeight: panel.clientHeight,
         scrollHeight: panel.scrollHeight,
         minuteHeight,
+        targetPixel,
         visibleStartMinute,
         visibleEndMinute,
         targetMinute: minuteTarget,
-        targetVisible:
-          minuteTarget >= visibleStartMinute - 0.5
-          && minuteTarget <= visibleEndMinute + 0.5,
+        targetVisible: targetPixel >= visiblePixelTop - timelineRect.top - 0.5
+          && targetPixel <= visiblePixelBottom - timelineRect.top + 0.5,
       };
     },
     targetMinute,
@@ -315,6 +336,10 @@ async function inspect(page) {
     return {
       minuteHeight,
       timelineHeight: timelineRect.height,
+      hourMarkers: [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
+        top: marker.getBoundingClientRect().top - timelineRect.top,
+        density: marker.dataset.hourDensity,
+      })),
       events,
       cards,
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -415,8 +440,14 @@ try {
       );
 
       for (const event of state.events) {
+        const startMinute = minutes(event.start);
+        const hour = Math.floor(startMinute / 60);
+        const markerStart = state.hourMarkers[hour].top;
+        const markerEnd = state.hourMarkers[hour + 1].top;
+        const expectedTop = markerStart - state.hourMarkers[0].top
+          + ((startMinute - hour * 60) / 60) * (markerEnd - markerStart);
         assert.ok(
-          Math.abs(event.top - minutes(event.start) * state.minuteHeight) <= 0.3,
+          Math.abs(event.top - expectedTop) <= 0.3,
           `${date}/${viewport.label}: exact top ${JSON.stringify(event)}`,
         );
         assert.ok(
@@ -486,8 +517,8 @@ try {
       const foregroundCards = state.cards.filter((card) => ["event", "absence", "beacon"].includes(card.layer));
       assert.ok(climateCards.length > 0 && foregroundCards.length > 0);
       assert.ok(
-        climateCards.every((card) => card.opacity >= 0.45 && card.opacity <= 0.75),
-        `${date}/${viewport.label}: climate cards must stay semi-transparent frosted glass`,
+        climateCards.every((card) => card.opacity === 1),
+        `${date}/${viewport.label}: climate cards must recede without transparency`,
       );
       assert.ok(
         Math.max(...climateCards.map((card) => card.zIndex))

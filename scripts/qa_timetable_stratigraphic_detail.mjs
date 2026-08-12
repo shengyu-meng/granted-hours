@@ -7,12 +7,15 @@ import { chromium } from "@playwright/test";
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8892/timetable/";
 const screenshotRoot = process.env.QA_SCREENSHOT_DIR || "";
 const sampleDate = "2026-08-11";
+const sparseDate = "2026-08-12";
 const cases = [
-  { label: "desktop-dark", width: 1440, height: 900, theme: "dark" },
-  { label: "desktop-light", width: 1440, height: 900, theme: "light" },
-  { label: "desktop-4k", width: 3840, height: 2160, theme: "dark" },
-  { label: "mobile-390", width: 390, height: 844, theme: "dark", mobile: true },
-  { label: "short-touch", width: 421, height: 386, theme: "light", mobile: true },
+  { label: "desktop-dark", date: sampleDate, dense: true, width: 1440, height: 900, theme: "dark" },
+  { label: "desktop-light", date: sampleDate, dense: true, width: 1440, height: 900, theme: "light" },
+  { label: "desktop-4k", date: sampleDate, dense: true, width: 3840, height: 2160, theme: "dark" },
+  { label: "mobile-390", date: sampleDate, dense: true, width: 390, height: 844, theme: "dark", mobile: true },
+  { label: "short-touch", date: sampleDate, dense: true, width: 421, height: 386, theme: "light", mobile: true },
+  { label: "sparse-desktop", date: sparseDate, width: 1440, height: 900, theme: "dark" },
+  { label: "sparse-mobile", date: sparseDate, width: 390, height: 844, theme: "light", mobile: true },
 ];
 
 const browser = await chromium.launch({ headless: true });
@@ -33,7 +36,7 @@ try {
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
     const url = new URL(baseUrl);
-    url.searchParams.set("date", sampleDate);
+    url.searchParams.set("date", testCase.date);
     url.searchParams.set("regression", "stratigraphic-detail");
     await page.goto(url.href, { waitUntil: "networkidle" });
     await page.waitForSelector(".timeline-reading-layer.is-placed");
@@ -48,6 +51,11 @@ try {
       const minuteHeight = Number.parseFloat(
         getComputedStyle(timeline).getPropertyValue("--minute-height"),
       );
+      const hourMarkers = [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
+        minute: Number(marker.dataset.hourMinute),
+        density: marker.dataset.hourDensity,
+        top: marker.getBoundingClientRect().top - timelineRect.top,
+      }));
       const footprints = [...eventsLayer.querySelectorAll(".timeline-event")].map((event) => {
         const footprint = event.querySelector(".event-footprint");
         const rect = footprint.getBoundingClientRect();
@@ -95,6 +103,9 @@ try {
           totalDurationMinutes: Number(card.dataset.totalDurationMinutes),
           copyLength: Number(card.dataset.copyLength),
           columnSpan: Number(card.dataset.readingColumnSpan),
+          column: Number(card.dataset.readingColumn),
+          edgeSide: card.dataset.edgeSide,
+          edgeAnchored: card.dataset.edgeAnchored,
           left: rect.left,
           right: rect.right,
           top: rect.top,
@@ -102,6 +113,7 @@ try {
           width: rect.width,
           height: rect.height,
           opacity: Number(style.opacity),
+          backgroundColor: style.backgroundColor,
           borderRadius: style.borderRadius,
           backdropFilter: style.backdropFilter || style.webkitBackdropFilter,
           boxShadow: style.boxShadow,
@@ -124,6 +136,17 @@ try {
       return {
         minuteHeight,
         timelineHeight: timelineRect.height,
+        linearHeight: Number(timeline.dataset.linearHeight),
+        projectedHeight: Number(timeline.dataset.projectedHeight),
+        activeHourCount: Number(timeline.dataset.activeHourCount),
+        compressedHourCount: Number(timeline.dataset.compressedHourCount),
+        projection: timeline.dataset.projection,
+        readingLayer: {
+          left: eventsRect.left,
+          right: eventsRect.right,
+          width: eventsRect.width,
+        },
+        hourMarkers,
         horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         strata: {
           leftDelta: Math.abs(strataRect.left - eventsRect.left),
@@ -143,7 +166,10 @@ try {
     assert.ok(state.strata.opacity >= 0.72, `${testCase.label}: strata bed is too faint`);
     assert.ok(state.strata.leftDelta <= 0.5 && state.strata.rightDelta <= 0.5, `${testCase.label}: strata bed is misaligned`);
     assert.ok(state.strata.heightDelta <= 0.5, `${testCase.label}: strata bed height is misaligned`);
-    assert.ok(state.footprints.length >= 100, `${testCase.label}: dense source footprints were lost`);
+    assert.ok(
+      state.footprints.length >= (testCase.dense ? 100 : 1),
+      `${testCase.label}: source footprints were lost`,
+    );
     assert.ok(
       state.footprints.every((footprint) => footprint.variant !== ""),
       `${testCase.label}: a stratum lacks its stable mineral variant`,
@@ -163,12 +189,22 @@ try {
     assert.deepEqual(state.overlaps, [], `${testCase.label}: reading fossils overlap`);
     assert.ok(state.horizontalOverflow <= 1, `${testCase.label}: horizontal overflow`);
     assert.ok(
-      state.cards.every((card) => card.borderRadius.startsWith("18px") && card.backdropFilter.includes("blur")),
-      `${testCase.label}: embedded cards lost rounded frosted material`,
+      state.cards.every((card) => Number.parseFloat(card.borderRadius) >= 14 && card.backdropFilter.includes("blur")),
+      `${testCase.label}: embedded cards lost rounded mineral material`,
     );
     assert.ok(
-      state.cards.filter((card) => card.layer === "climate").every((card) => card.opacity >= 0.45 && card.opacity <= 0.75),
-      `${testCase.label}: climate reading cards no longer recede`,
+      state.cards.every((card) => card.opacity === 1 && card.backgroundColor !== "rgba(0, 0, 0, 0)"),
+      `${testCase.label}: a reading card still depends on transparency`,
+    );
+    assert.ok(
+      state.cards.every((card) => {
+        const leftInset = Math.abs(card.left - state.readingLayer.left);
+        const rightInset = Math.abs(state.readingLayer.right - card.right);
+        return card.edgeAnchored === "true"
+          && ((card.edgeSide === "left" && leftInset <= 0.75)
+            || (card.edgeSide === "right" && rightInset <= 0.75));
+      }),
+      `${testCase.label}: a reading card is centered instead of interrupting an edge`,
     );
     assert.ok(
       state.cards.filter((card) => card.memberCount > 1).every((card) => (
@@ -177,25 +213,42 @@ try {
       )),
       `${testCase.label}: an aggregate card is detached from its strata`,
     );
-    assert.ok(
-      new Set(state.cards.filter((card) => card.layer !== "beacon").map((card) => Math.round(card.height))).size >= 2,
-      `${testCase.label}: card height no longer responds to content and duration`,
+    if (testCase.dense) {
+      assert.ok(
+        new Set(state.cards.filter((card) => card.layer !== "beacon").map((card) => Math.round(card.height))).size >= 2,
+        `${testCase.label}: card height no longer responds to content and duration`,
+      );
+    }
+    assert.equal(state.projection, "compressed-empty-hours-v1", `${testCase.label}: missing elastic clock projection`);
+    assert.equal(state.hourMarkers.length, 25, `${testCase.label}: hourly orientation marks were lost`);
+    assert.ok(state.compressedHourCount > 0, `${testCase.label}: no genuinely empty hour was compressed`);
+    assert.ok(state.projectedHeight < state.linearHeight, `${testCase.label}: timeline did not become more compact`);
+    assert.equal(
+      state.hourMarkers.filter((marker) => marker.density === "compressed").length,
+      state.compressedHourCount,
+      `${testCase.label}: compressed hour marks disagree with the projection`,
     );
-    if (testCase.mobile) {
-      const eventCards = state.cards.filter((card) => card.layer === "event");
-      const climateCards = state.cards.filter((card) => card.layer === "climate");
-      assert.ok(eventCards.every((card) => card.columnSpan === 3), `${testCase.label}: informative events are not full reading width`);
-      assert.ok(climateCards.every((card) => card.columnSpan === 2), `${testCase.label}: climate cards do not leave a visible stratum lane`);
+    assert.ok(
+      state.hourMarkers.every((marker, index, markers) => index === 0 || marker.top > markers[index - 1].top),
+      `${testCase.label}: hour labels no longer preserve chronological order`,
+    );
+    if (!testCase.dense) {
+      assert.ok(
+        state.projectedHeight <= state.linearHeight * 0.62,
+        `${testCase.label}: sparse day was not materially compacted`,
+      );
     }
 
-    const hoverCard = page.locator('.event-reading-card[data-layer="event"]').first();
+    const hoverCard = page.locator(testCase.dense
+      ? '.event-reading-card[data-layer="event"]'
+      : '.event-reading-card[data-layer="beacon"]').first();
     await hoverCard.scrollIntoViewIfNeeded();
     await page.mouse.move(testCase.width - 8, 8);
     await page.waitForTimeout(340);
     if (screenshotRoot) {
       await mkdir(screenshotRoot, { recursive: true });
       await page.screenshot({
-        path: path.join(screenshotRoot, `${testCase.label}-resting.png`),
+        path: path.join(screenshotRoot, `${testCase.date}-${testCase.label}-resting.png`),
         fullPage: false,
         animations: "disabled",
       });
@@ -220,10 +273,14 @@ try {
 
     results.push({
       label: testCase.label,
+      date: testCase.date,
       minuteHeight: state.minuteHeight,
       timelineHeight: state.timelineHeight,
       footprints: state.footprints.length,
       cards: state.cards.length,
+      activeHours: state.activeHourCount,
+      compressedHours: state.compressedHourCount,
+      compressionRatio: state.timelineHeight / state.linearHeight,
       maximumAggregateDisplacement: Math.max(
         0,
         ...state.cards.filter((card) => card.memberCount > 1).map((card) => card.anchorDisplacement),

@@ -321,6 +321,14 @@ async function inspectViewport(browser, url, viewport) {
     const markdownContainers = [
       ...document.querySelectorAll(".event-reading-card .markdown-content, #taskDetailZh.markdown-content, #taskDetailEn.markdown-content"),
     ];
+    const hourTops = [...timeline.querySelectorAll(".timeline-hour-marker")]
+      .map((marker) => marker.getBoundingClientRect().top - timeline.getBoundingClientRect().top);
+    const projectMinute = (minute) => {
+      if (minute >= 24 * 60) return hourTops.at(-1) - hourTops[0];
+      const hour = Math.floor(minute / 60);
+      return hourTops[hour] - hourTops[0]
+        + ((minute - hour * 60) / 60) * (hourTops[hour + 1] - hourTops[hour]);
+    };
     return {
       viewport: { width: innerWidth, height: innerHeight },
       pageOverflowX: documentElement.scrollWidth - documentElement.clientWidth,
@@ -342,9 +350,11 @@ async function inspectViewport(browser, url, viewport) {
           start: event.dataset.start,
           end: event.dataset.end,
           topError: Math.abs(
-            rect.top - eventsLayerRect.top - startMinute * minuteHeight
+            rect.top - eventsLayerRect.top - projectMinute(startMinute)
           ),
-          heightError: Math.abs(rect.height - durationMinutes * minuteHeight),
+          heightError: Math.abs(
+            rect.height - (projectMinute(startMinute + durationMinutes) - projectMinute(startMinute))
+          ),
         };
       }),
     };

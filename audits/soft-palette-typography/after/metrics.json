@@ -2,63 +2,63 @@
   "schema": "timetable-visual-balance-evidence-v1",
   "phase": "after",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8896/timetable/",
+  "baseUrl": "http://127.0.0.1:8892/timetable/",
   "sampleDate": "2026-07-21",
   "screenshots": [
     {
       "label": "desktop-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-calendar-resting.png",
-      "bytes": 551599
+      "bytes": 566680
     },
     {
       "label": "desktop-dark-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-day-resting.png",
-      "bytes": 598732
+      "bytes": 596258
     },
     {
       "label": "desktop-dark-task-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-task-resting.png",
-      "bytes": 461638
+      "bytes": 409225
     },
     {
       "label": "desktop-dark-intentional-lens",
       "path": "audits/soft-palette-typography/after/desktop-dark-intentional-lens.png",
-      "bytes": 821210
+      "bytes": 704075
     },
     {
       "label": "desktop-light-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-calendar-resting.png",
-      "bytes": 587414
+      "bytes": 598363
     },
     {
       "label": "desktop-light-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-day-resting.png",
-      "bytes": 537981
+      "bytes": 547266
     },
     {
       "label": "390x844-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-calendar-resting.png",
-      "bytes": 590705
+      "bytes": 646677
     },
     {
       "label": "390x844-dark-day-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-day-resting.png",
-      "bytes": 481646
+      "bytes": 442379
     },
     {
       "label": "390x844-dark-task-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-task-resting.png",
-      "bytes": 483864
+      "bytes": 443331
     },
     {
       "label": "421x386-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-calendar-resting.png",
-      "bytes": 276628
+      "bytes": 283416
     },
     {
       "label": "421x386-dark-day-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-day-resting.png",
-      "bytes": 148458
+      "bytes": 163495
     }
   ],
   "configurations": {
@@ -184,7 +184,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 980,
-            "height": 0
+            "height": 57
           }
         },
         "timelineHeading": {
@@ -210,7 +210,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 1130,
-            "height": 34.5
+            "height": 51.75
           }
         },
         "assignedTitle": {
@@ -236,7 +236,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 509.5,
-            "height": 47.8125
+            "height": 63.75
           }
         },
         "assignedTime": {
@@ -244,7 +244,7 @@
           "fontSize": 10,
           "lineHeight": 13.5,
           "ratio": 1.35,
-          "color": "color(srgb 0.46651 0.724706 0.964235)",
+          "color": "color(srgb 0.690824 0.767529 0.815373)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -257,7 +257,7 @@
           "fontSize": 9.5,
           "lineHeight": 12.825,
           "ratio": 1.3499999999999999,
-          "color": "color(srgb 0.46651 0.724706 0.964235)",
+          "color": "color(srgb 0.690824 0.767529 0.815373)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -274,8 +274,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "700",
           "rect": {
-            "width": 218.296875,
-            "height": 48
+            "width": 395.40625,
+            "height": 16
           }
         },
         "climateSummary": {
@@ -287,8 +287,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 240.75,
-            "height": 93.3125
+            "width": 510.5,
+            "height": 162.5
           }
         },
         "climateTime": {
@@ -296,11 +296,11 @@
           "fontSize": 10,
           "lineHeight": 12.5,
           "ratio": 1.25,
-          "color": "color(srgb 0.718588 0.723137 0.961255)",
+          "color": "color(srgb 0.756235 0.747608 0.812549)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 240.75,
+            "width": 510.5,
             "height": 12.5
           }
         },
@@ -309,7 +309,7 @@
           "fontSize": 10,
           "lineHeight": 12.5,
           "ratio": 1.25,
-          "color": "color(srgb 0.718588 0.723137 0.961255)",
+          "color": "color(srgb 0.756235 0.747608 0.812549)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -326,7 +326,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 208.484375,
+            "width": 246.5,
             "height": 37.0625
           }
         },
@@ -339,8 +339,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 208.484375,
-            "height": 94.3125
+            "width": 246.5,
+            "height": 15.71875
           }
         },
         "beaconTime": {
@@ -348,11 +348,11 @@
           "fontSize": 10,
           "lineHeight": 13,
           "ratio": 1.3,
-          "color": "color(srgb 0.966118 0.891922 0.464627)",
+          "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 208.484375,
+            "width": 246.5,
             "height": 39.0625
           }
         },
@@ -361,11 +361,11 @@
           "fontSize": 9.5,
           "lineHeight": 12.54,
           "ratio": 1.3199999999999998,
-          "color": "color(srgb 0.966118 0.891922 0.464627)",
+          "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 208.484375,
+            "width": 246.5,
             "height": 12.53125
           }
         }
@@ -381,7 +381,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 504.8586730957031,
-            "height": 63.532470703125
+            "height": 63.532501220703125
           }
         },
         "taskKicker": {
@@ -407,7 +407,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.730010986328125
+            "height": 17.72998046875
           }
         },
         "taskType": {
@@ -420,7 +420,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.730010986328125
+            "height": 17.72998046875
           }
         },
         "taskSectionHeading": {
@@ -433,7 +433,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 606.760009765625,
-            "height": 17.730010986328125
+            "height": 17.72998046875
           }
         },
         "taskBody": {
@@ -446,7 +446,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 606.760009765625,
-            "height": 50.54278564453125
+            "height": 50.5428466796875
           }
         }
       },
@@ -496,7 +496,7 @@
             "fontSize": 10.5,
             "lineHeight": 14.175,
             "ratio": 1.35,
-            "color": "color(srgb 0.231373 0.614118 1)",
+            "color": "color(srgb 0.576471 0.68 0.77098)",
             "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
             "fontWeight": "400",
             "rect": {
@@ -548,7 +548,7 @@
             "fontSize": 10.5,
             "lineHeight": 14.175,
             "ratio": 1.35,
-            "color": "color(srgb 0.231373 0.614118 1)",
+            "color": "color(srgb 0.576471 0.68 0.77098)",
             "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
             "fontWeight": "400",
             "rect": {
@@ -605,7 +605,7 @@
               "selector": ".inspection-plate-summary",
               "readingId": "",
               "horizontalOverflow": 0,
-              "verticalOverflow": 19,
+              "verticalOverflow": 39,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -706,6 +706,18 @@
               "outsideContainer": false
             },
             {
+              "selector": "#dialogBoundary",
+              "readingId": "",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
               "selector": ".timeline-help",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -726,7 +738,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -738,7 +750,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -746,23 +758,23 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "verticalOverflow": 63,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
-              "outsideVertically": true,
-              "containerScrollsVertically": true,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -774,7 +786,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -786,7 +798,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -798,7 +810,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -809,8 +821,8 @@
               "intentionalClamp": true,
               "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": true,
-              "containerScrollsVertically": true,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -959,7 +971,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -971,7 +983,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -983,7 +995,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -995,9 +1007,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
-              "verticalOverflow": 61,
+              "verticalOverflow": 80,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -1007,7 +1019,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1019,7 +1031,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1031,7 +1043,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -1043,9 +1055,57 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
-              "verticalOverflow": 76,
+              "verticalOverflow": 96,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 96,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -1199,7 +1259,7 @@
               "selector": ".inspection-plate-summary",
               "readingId": "",
               "horizontalOverflow": 0,
-              "verticalOverflow": 19,
+              "verticalOverflow": 39,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -1213,19 +1273,20 @@
       },
       "colors": {
         "panelColor": [
-          8,
-          16,
-          22
+          14,
+          23,
+          30
         ],
         "samples": [
           {
             "category": "assigned-work",
             "layer": "event",
-            "accent": "#0a84ff",
-            "backgroundColor": "rgba(10, 14, 20, 0.36)",
-            "borderColor": "color(srgb 0.276194 0.641833 0.98291 / 0.535608)",
-            "boxShadow": "rgba(255, 255, 255, 0.12) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.18) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.26) 0px 12px 26px 0px",
-            "opacity": "0.92",
+            "accent": "#7fa187",
+            "semanticAccent": "#7899b6",
+            "backgroundColor": "color(srgb 0.16826 0.217034 0.20527 / 0.533333)",
+            "borderColor": "color(srgb 0.574326 0.698438 0.617435 / 0.61051)",
+            "boxShadow": "color(srgb 0.0161569 0.0327843 0.0523922) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.116) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.26) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.3) 0px 8px 18px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "assigned-work-type reading-title",
@@ -1237,7 +1298,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.036
+                "contrast": 10.701
               },
               {
                 "className": "assigned-copy reading-summary",
@@ -1249,65 +1310,71 @@
                   244,
                   236
                 ],
-                "contrast": 17.036
+                "contrast": 10.701
               },
               {
                 "className": "assigned-time",
-                "color": "color(srgb 0.46651 0.724706 0.964235)",
+                "color": "color(srgb 0.690824 0.767529 0.815373)",
                 "fontSize": 10,
                 "lineHeight": 13.5,
                 "compositeColor": [
-                  118.96,
-                  184.8,
-                  245.88
+                  176.16,
+                  195.72,
+                  207.92
                 ],
-                "contrast": 8.948
+                "contrast": 6.514
               },
               {
                 "className": "assigned-category",
-                "color": "color(srgb 0.46651 0.724706 0.964235)",
+                "color": "color(srgb 0.690824 0.767529 0.815373)",
                 "fontSize": 9.5,
                 "lineHeight": 12.825,
                 "compositeColor": [
-                  118.96,
-                  184.8,
-                  245.88
+                  176.16,
+                  195.72,
+                  207.92
                 ],
-                "contrast": 8.948
+                "contrast": 6.514
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              14,
+              23,
+              30
             ],
             "surfaceColor": [
-              9,
-              19,
-              28
+              43,
+              59,
+              56
             ],
             "accentColor": [
-              10,
-              132,
-              255
+              127,
+              161,
+              135
+            ],
+            "semanticAccentColor": [
+              120,
+              153,
+              182
             ],
             "borderCompositeColor": [
-              41.438,
-              95.092,
-              144.463
+              94.864,
+              117.691,
+              107.807
             ],
-            "surfaceDistance": 6.782,
-            "borderDistance": 149.568,
-            "salience": 69.576
+            "surfaceDistance": 53.038,
+            "borderDistance": 146.831,
+            "salience": 98.058
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
-            "accent": "#30d158",
-            "backgroundColor": "rgba(10, 14, 20, 0.36)",
-            "borderColor": "color(srgb 0.483453 0.875178 0.609057 / 0.430745)",
-            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-            "opacity": "0.6",
+            "accent": "#7fa187",
+            "semanticAccent": "#7fa187",
+            "backgroundColor": "color(srgb 0.133192 0.172974 0.170801 / 0.488235)",
+            "borderColor": "color(srgb 0.574326 0.698438 0.617435 / 0.61051)",
+            "boxShadow": "color(srgb 0.016 0.0321569 0.0515294) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.3) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.24) 0px 3px 9px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -1319,7 +1386,7 @@
                   244,
                   236
                 ],
-                "contrast": 16.621
+                "contrast": 13.558
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1331,65 +1398,71 @@
                   244,
                   236
                 ],
-                "contrast": 16.621
+                "contrast": 13.558
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.573647 0.886902 0.646902)",
+                "color": "color(srgb 0.722353 0.796549 0.735373)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  146.28,
-                  226.16,
-                  164.96
+                  184.2,
+                  203.12,
+                  187.52
                 ],
-                "contrast": 11.889
+                "contrast": 8.741
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.573647 0.886902 0.646902)",
+                "color": "color(srgb 0.722353 0.796549 0.735373)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  146.28,
-                  226.16,
-                  164.96
+                  184.2,
+                  203.12,
+                  187.52
                 ],
-                "contrast": 11.889
+                "contrast": 8.741
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              14,
+              23,
+              30
             ],
             "surfaceColor": [
-              10,
-              23,
-              25
+              32,
+              41,
+              40
             ],
             "accentColor": [
-              48,
-              209,
-              88
+              127,
+              161,
+              135
+            ],
+            "semanticAccentColor": [
+              127,
+              161,
+              135
             ],
             "borderCompositeColor": [
-              57.657,
-              105.238,
-              79.422
+              94.864,
+              117.691,
+              107.807
             ],
-            "surfaceDistance": 7.874,
-            "borderDistance": 117.16,
-            "salience": 37.837
+            "surfaceDistance": 27.35,
+            "borderDistance": 146.831,
+            "salience": 84.701
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
-            "accent": "#64d2ff",
-            "backgroundColor": "rgba(10, 14, 20, 0.36)",
-            "borderColor": "color(srgb 0.597072 0.877363 0.973951 / 0.430745)",
-            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-            "opacity": "0.6",
+            "accent": "#6fa6a4",
+            "semanticAccent": "#6fa6a4",
+            "backgroundColor": "color(srgb 0.12034 0.17699 0.194094 / 0.488235)",
+            "borderColor": "color(srgb 0.524994 0.713854 0.70685 / 0.61051)",
+            "boxShadow": "color(srgb 0.016 0.0321569 0.0515294) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.3) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.24) 0px 3px 9px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -1401,7 +1474,7 @@
                   244,
                   236
                 ],
-                "contrast": 16.37
+                "contrast": 12.711
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1413,65 +1486,71 @@
                   244,
                   236
                 ],
-                "contrast": 16.37
+                "contrast": 12.711
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.671529 0.888784 0.961255)",
+                "color": "color(srgb 0.692235 0.805961 0.789961)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  171.24,
-                  226.64,
-                  245.12
+                  176.52,
+                  205.52,
+                  201.44
                 ],
-                "contrast": 12.856
+                "contrast": 8.308
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.671529 0.888784 0.961255)",
+                "color": "color(srgb 0.692235 0.805961 0.789961)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  171.24,
-                  226.64,
-                  245.12
+                  176.52,
+                  205.52,
+                  201.44
                 ],
-                "contrast": 12.856
+                "contrast": 8.308
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              14,
+              23,
+              30
             ],
             "surfaceColor": [
-              12,
-              24,
-              32
+              34,
+              46,
+              49
             ],
             "accentColor": [
-              100,
-              210,
-              255
+              111,
+              166,
+              164
+            ],
+            "semanticAccentColor": [
+              111,
+              166,
+              164
             ],
             "borderCompositeColor": [
-              70.136,
-              105.478,
-              119.502
+              87.184,
+              120.091,
+              121.727
             ],
-            "surfaceDistance": 13.416,
-            "borderDistance": 146.198,
-            "salience": 49.082
+            "surfaceDistance": 35.917,
+            "borderDistance": 152.304,
+            "salience": 91.782
           },
           {
             "category": "service-support",
             "layer": "climate",
-            "accent": "#7d7aff",
-            "backgroundColor": "rgba(10, 14, 20, 0.36)",
-            "borderColor": "color(srgb 0.651697 0.685084 0.973951 / 0.430745)",
-            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.0682353) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.24) 0px 3px 8px 0px",
-            "opacity": "0.6",
+            "accent": "#9187b0",
+            "semanticAccent": "#9187b0",
+            "backgroundColor": "color(srgb 0.147649 0.152091 0.203733 / 0.488235)",
+            "borderColor": "color(srgb 0.629825 0.618274 0.743849 / 0.61051)",
+            "boxShadow": "color(srgb 0.016 0.0321569 0.0515294) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.3) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.24) 0px 3px 9px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -1483,7 +1562,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.159
+                "contrast": 13.124
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1495,65 +1574,71 @@
                   244,
                   236
                 ],
-                "contrast": 17.159
+                "contrast": 13.124
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.718588 0.723137 0.961255)",
+                "color": "color(srgb 0.756235 0.747608 0.812549)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  183.24,
-                  184.4,
-                  245.12
+                  192.84,
+                  190.64,
+                  207.2
                 ],
-                "contrast": 10.085
+                "contrast": 7.959
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.718588 0.723137 0.961255)",
+                "color": "color(srgb 0.756235 0.747608 0.812549)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  183.24,
-                  184.4,
-                  245.12
+                  192.84,
+                  190.64,
+                  207.2
                 ],
-                "contrast": 10.085
+                "contrast": 7.959
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              14,
+              23,
+              30
             ],
             "surfaceColor": [
-              10,
-              18,
-              25
+              36,
+              42,
+              52
             ],
             "accentColor": [
-              125,
-              122,
-              255
+              145,
+              135,
+              176
+            ],
+            "semanticAccentColor": [
+              145,
+              135,
+              176
             ],
             "borderCompositeColor": [
-              76.136,
-              84.358,
-              119.502
+              103.504,
+              105.211,
+              127.487
             ],
-            "surfaceDistance": 4.123,
-            "borderDistance": 137.194,
-            "salience": 41.656
+            "surfaceDistance": 36.455,
+            "borderDistance": 155.799,
+            "salience": 93.74
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
-            "accent": "#ffd60a",
-            "backgroundColor": "rgba(10, 14, 20, 0.48)",
-            "borderColor": "color(srgb 0.957845 0.869977 0.301259 / 0.535608)",
-            "boxShadow": "color(srgb 0.929412 1 0.988235 / 0.122824) 0px 1px 0px 0px inset, color(srgb 0.0117647 0.027451 0.0470588 / 0.34) 0px 6px 16px 0px",
-            "opacity": "0.98",
+            "accent": "#b79b68",
+            "semanticAccent": "#b79b68",
+            "backgroundColor": "color(srgb 0.198768 0.184941 0.155902 / 0.595294)",
+            "borderColor": "color(srgb 0.746988 0.679939 0.521855 / 0.61051)",
+            "boxShadow": "color(srgb 0.0161569 0.0327843 0.0523922) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.116) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.26) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.3) 0px 8px 18px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "reading-title",
@@ -1565,7 +1650,7 @@
                   244,
                   236
                 ],
-                "contrast": 15.136
+                "contrast": 9.831
               },
               {
                 "className": "reading-summary",
@@ -1577,65 +1662,71 @@
                   244,
                   236
                 ],
-                "contrast": 15.136
+                "contrast": 9.831
               },
               {
                 "className": "autonomous-time",
-                "color": "color(srgb 0.966118 0.891922 0.464627)",
+                "color": "color(srgb 0.819294 0.771608 0.656314)",
                 "fontSize": 10,
                 "lineHeight": 13,
                 "compositeColor": [
-                  246.36,
-                  227.44,
-                  118.48
+                  208.92,
+                  196.76,
+                  167.36
                 ],
-                "contrast": 12.859
+                "contrast": 6.295
               },
               {
                 "className": "autonomous-kicker",
-                "color": "color(srgb 0.966118 0.891922 0.464627)",
+                "color": "color(srgb 0.819294 0.771608 0.656314)",
                 "fontSize": 9.5,
                 "lineHeight": 12.54,
                 "compositeColor": [
-                  246.36,
-                  227.44,
-                  118.48
+                  208.92,
+                  196.76,
+                  167.36
                 ],
-                "contrast": 12.859
+                "contrast": 6.295
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              14,
+              23,
+              30
             ],
             "surfaceColor": [
-              19,
-              32,
-              38
+              66,
+              61,
+              49
             ],
             "accentColor": [
-              255,
-              214,
-              10
+              183,
+              155,
+              104
+            ],
+            "semanticAccentColor": [
+              183,
+              155,
+              104
             ],
             "borderCompositeColor": [
-              134.538,
-              126.252,
-              51.363
+              121.744,
+              114.811,
+              92.927
             ],
-            "surfaceDistance": 25.159,
-            "borderDistance": 170.38,
-            "salience": 93.23
+            "surfaceDistance": 67.149,
+            "borderDistance": 154.913,
+            "salience": 109.276
           },
           {
             "category": "daily-reminder",
             "layer": "event",
-            "accent": "#bf5af2",
-            "backgroundColor": "rgba(10, 14, 20, 0.36)",
-            "borderColor": "color(srgb 0.779781 0.524978 0.946741 / 0.535608)",
-            "boxShadow": "rgba(255, 255, 255, 0.14) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.18) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.3) 0px 16px 32px 0px",
-            "opacity": "0.92",
+            "accent": "#ae829a",
+            "semanticAccent": "#ae829a",
+            "backgroundColor": "color(srgb 0.220098 0.182843 0.226225 / 0.533333)",
+            "borderColor": "color(srgb 0.719239 0.602858 0.676017 / 0.61051)",
+            "boxShadow": "color(srgb 0.0161569 0.0327843 0.0523922) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.116) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.26) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.3) 0px 8px 18px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -1647,7 +1738,7 @@
                   244,
                   236
                 ],
-                "contrast": 17.159
+                "contrast": 12.443
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1659,78 +1750,97 @@
                   244,
                   236
                 ],
-                "contrast": 17.159
+                "contrast": 12.443
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.842824 0.662902 0.936784)",
+                "color": "color(srgb 0.810824 0.738196 0.771137)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  214.92,
-                  169.04,
-                  238.88
+                  206.76,
+                  188.24,
+                  196.64
                 ],
-                "contrast": 9.709
+                "contrast": 7.595
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.842824 0.662902 0.936784)",
+                "color": "color(srgb 0.810824 0.738196 0.771137)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  214.92,
-                  169.04,
-                  238.88
+                  206.76,
+                  188.24,
+                  196.64
                 ],
-                "contrast": 9.709
+                "contrast": 7.595
               }
             ],
             "panelColor": [
-              8,
-              16,
-              22
+              14,
+              23,
+              30
             ],
             "surfaceColor": [
-              10,
-              18,
-              25
+              48,
+              44,
+              52
             ],
             "accentColor": [
-              191,
-              90,
-              242
+              174,
+              130,
+              154
+            ],
+            "semanticAccentColor": [
+              174,
+              130,
+              154
             ],
             "borderCompositeColor": [
-              110.218,
-              79.132,
-              139.523
+              117.424,
+              102.811,
+              116.927
             ],
-            "surfaceDistance": 4.123,
-            "borderDistance": 168.064,
-            "salience": 76.361
+            "surfaceDistance": 45.618,
+            "borderDistance": 156.916,
+            "salience": 99.041
           }
         ],
-        "minimumContrast": 8.948,
+        "minimumContrast": 6.295,
         "minimumAccentDistance": {
-          "value": 74.492,
+          "value": 23.958,
           "pair": [
-            "service-support",
-            "daily-reminder"
+            "assigned-work",
+            "us-market-scan"
+          ]
+        },
+        "minimumRenderedAccentDistance": {
+          "value": 0,
+          "pair": [
+            "assigned-work",
+            "ah-market-scan"
           ]
         },
         "minimumBorderDistance": {
-          "value": 21.956,
+          "value": 16.078,
           "pair": [
-            "us-market-scan",
-            "service-support"
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
-        "meanSurfaceDistance": 10.246,
+        "minimumRenderedBorderDistance": {
+          "value": 0,
+          "pair": [
+            "assigned-work",
+            "ah-market-scan"
+          ]
+        },
+        "meanSurfaceDistance": 44.255,
         "layerSalience": {
-          "event": 72.969,
-          "climate": 42.858,
-          "beacon": 93.23
+          "event": 98.55,
+          "climate": 90.074,
+          "beacon": 109.276
         },
         "contrasts": [
           {
@@ -1738,168 +1848,168 @@
             "layer": "event",
             "className": "assigned-work-type reading-title",
             "fontSize": 14,
-            "contrast": 17.036
+            "contrast": 10.701
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-copy reading-summary",
             "fontSize": 11.232,
-            "contrast": 17.036
+            "contrast": 10.701
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-time",
             "fontSize": 10,
-            "contrast": 8.948
+            "contrast": 6.514
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-category",
             "fontSize": 9.5,
-            "contrast": 8.948
+            "contrast": 6.514
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 16.621
+            "contrast": 13.558
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 16.621
+            "contrast": 13.558
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 11.889
+            "contrast": 8.741
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 11.889
+            "contrast": 8.741
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 16.37
+            "contrast": 12.711
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 16.37
+            "contrast": 12.711
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 12.856
+            "contrast": 8.308
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 12.856
+            "contrast": 8.308
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 17.159
+            "contrast": 13.124
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 17.159
+            "contrast": 13.124
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 10.085
+            "contrast": 7.959
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 10.085
+            "contrast": 7.959
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 15.136
+            "contrast": 9.831
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 15.136
+            "contrast": 9.831
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 12.859
+            "contrast": 6.295
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 12.859
+            "contrast": 6.295
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 17.159
+            "contrast": 12.443
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 17.159
+            "contrast": 12.443
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 9.709
+            "contrast": 7.595
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 9.709
+            "contrast": 7.595
           }
         ]
       },
@@ -1911,8 +2021,8 @@
           "durationMinutes": 60,
           "lane": 0,
           "laneCount": 1,
-          "top": 206.844,
-          "height": 63,
+          "top": 82.656,
+          "height": 113.875,
           "left": 0,
           "width": 1068
         },
@@ -1923,8 +2033,8 @@
           "durationMinutes": 20,
           "lane": 0,
           "laneCount": 1,
-          "top": 315,
-          "height": 21,
+          "top": 278.156,
+          "height": 37.953,
           "left": 0,
           "width": 1068
         },
@@ -1935,8 +2045,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 378,
-          "height": 4.188,
+          "top": 392.031,
+          "height": 7.578,
           "left": 0,
           "width": 1068
         },
@@ -1947,8 +2057,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 427.344,
-          "height": 2.094,
+          "top": 481.234,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
@@ -1959,8 +2069,8 @@
           "durationMinutes": 9,
           "lane": 0,
           "laneCount": 1,
-          "top": 462,
-          "height": 9.438,
+          "top": 543.875,
+          "height": 17.078,
           "left": 0,
           "width": 1068
         },
@@ -1970,11 +2080,23 @@
           "end": "07:34",
           "durationMinutes": 4,
           "lane": 0,
-          "laneCount": 1,
-          "top": 472.5,
-          "height": 4.188,
+          "laneCount": 2,
+          "top": 562.859,
+          "height": 7.578,
           "left": 0,
-          "width": 1068
+          "width": 532
+        },
+        {
+          "footprintId": "background-006",
+          "start": "07:30",
+          "end": "07:34",
+          "durationMinutes": 4,
+          "lane": 1,
+          "laneCount": 2,
+          "top": 562.859,
+          "height": 7.578,
+          "left": 536,
+          "width": 532
         },
         {
           "footprintId": "assigned-001",
@@ -1983,128 +2105,116 @@
           "durationMinutes": 135,
           "lane": 0,
           "laneCount": 3,
-          "top": 504,
-          "height": 141.75,
+          "top": 619.797,
+          "height": 256.219,
           "left": 0,
           "width": 353.328
         },
         {
-          "footprintId": "background-006",
+          "footprintId": "background-007",
           "start": "08:30",
           "end": "08:53",
           "durationMinutes": 23,
           "lane": 1,
           "laneCount": 3,
-          "top": 535.5,
-          "height": 24.141,
+          "top": 676.734,
+          "height": 43.641,
           "left": 357.328,
           "width": 353.328
         },
         {
-          "footprintId": "background-007",
+          "footprintId": "background-008",
           "start": "08:51",
           "end": "08:55",
           "durationMinutes": 4,
           "lane": 2,
           "laneCount": 3,
-          "top": 557.547,
-          "height": 4.188,
+          "top": 716.594,
+          "height": 7.578,
           "left": 714.656,
           "width": 353.328
         },
         {
-          "footprintId": "background-008",
+          "footprintId": "background-009",
           "start": "08:54",
           "end": "09:02",
           "durationMinutes": 8,
           "lane": 1,
           "laneCount": 3,
-          "top": 560.688,
-          "height": 8.391,
+          "top": 722.281,
+          "height": 15.172,
           "left": 357.328,
           "width": 353.328
         },
         {
-          "footprintId": "background-009",
+          "footprintId": "background-010",
           "start": "09:00",
           "end": "09:02",
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 567,
-          "height": 2.094,
+          "top": 733.672,
+          "height": 3.781,
           "left": 714.656,
           "width": 353.328
         },
         {
-          "footprintId": "background-010",
+          "footprintId": "background-011",
           "start": "09:05",
           "end": "09:11",
           "durationMinutes": 6,
           "lane": 1,
           "laneCount": 3,
-          "top": 572.25,
-          "height": 6.297,
+          "top": 743.156,
+          "height": 11.375,
           "left": 357.328,
           "width": 353.328
         },
         {
-          "footprintId": "background-011",
+          "footprintId": "background-012",
           "start": "09:06",
           "end": "09:08",
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 573.297,
-          "height": 2.094,
+          "top": 745.063,
+          "height": 3.781,
           "left": 714.656,
           "width": 353.328
         },
         {
-          "footprintId": "background-012",
+          "footprintId": "background-013",
           "start": "09:15",
           "end": "09:22",
           "durationMinutes": 7,
           "lane": 1,
           "laneCount": 3,
-          "top": 582.75,
-          "height": 7.344,
+          "top": 762.141,
+          "height": 13.281,
           "left": 357.328,
           "width": 353.328
         },
         {
-          "footprintId": "background-013",
+          "footprintId": "background-014",
           "start": "09:21",
           "end": "09:23",
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 589.047,
-          "height": 2.094,
+          "top": 773.531,
+          "height": 3.781,
           "left": 714.656,
           "width": 353.328
         },
         {
-          "footprintId": "background-014",
+          "footprintId": "background-015",
           "start": "09:25",
           "end": "09:30",
           "durationMinutes": 5,
           "lane": 1,
           "laneCount": 3,
-          "top": 593.25,
-          "height": 5.25,
-          "left": 357.328,
-          "width": 353.328
-        },
-        {
-          "footprintId": "background-015",
-          "start": "09:40",
-          "end": "09:42",
-          "durationMinutes": 2,
-          "lane": 1,
-          "laneCount": 3,
-          "top": 609,
-          "height": 2.094,
+          "top": 781.125,
+          "height": 9.484,
           "left": 357.328,
           "width": 353.328
         },
@@ -2113,490 +2223,514 @@
           "start": "09:40",
           "end": "09:42",
           "durationMinutes": 2,
-          "lane": 2,
+          "lane": 1,
           "laneCount": 3,
-          "top": 609,
-          "height": 2.094,
-          "left": 714.656,
+          "top": 809.594,
+          "height": 3.781,
+          "left": 357.328,
           "width": 353.328
         },
         {
           "footprintId": "background-017",
+          "start": "09:40",
+          "end": "09:42",
+          "durationMinutes": 2,
+          "lane": 2,
+          "laneCount": 3,
+          "top": 809.594,
+          "height": 3.781,
+          "left": 714.656,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-018",
           "start": "09:45",
           "end": "09:47",
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 614.25,
-          "height": 2.094,
-          "left": 357.328,
-          "width": 353.328
-        },
-        {
-          "footprintId": "background-018",
-          "start": "09:52",
-          "end": "10:03",
-          "durationMinutes": 11,
-          "lane": 1,
-          "laneCount": 3,
-          "top": 621.594,
-          "height": 11.547,
+          "top": 819.078,
+          "height": 3.781,
           "left": 357.328,
           "width": 353.328
         },
         {
           "footprintId": "background-019",
+          "start": "09:52",
+          "end": "10:03",
+          "durationMinutes": 11,
+          "lane": 1,
+          "laneCount": 3,
+          "top": 832.375,
+          "height": 20.875,
+          "left": 357.328,
+          "width": 353.328
+        },
+        {
+          "footprintId": "background-020",
           "start": "10:01",
           "end": "10:03",
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 631.047,
-          "height": 2.094,
+          "top": 849.453,
+          "height": 3.781,
           "left": 714.656,
           "width": 353.328
         },
         {
-          "footprintId": "background-020",
+          "footprintId": "background-021",
           "start": "10:52",
           "end": "11:00",
           "durationMinutes": 8,
           "lane": 0,
           "laneCount": 1,
-          "top": 684.594,
-          "height": 8.391,
+          "top": 946.25,
+          "height": 15.172,
           "left": 0,
           "width": 1068
         },
         {
-          "footprintId": "background-021",
+          "footprintId": "background-022",
           "start": "11:03",
           "end": "11:05",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 2,
-          "top": 696.141,
-          "height": 2.094,
+          "top": 967.125,
+          "height": 3.781,
           "left": 0,
           "width": 532
         },
         {
-          "footprintId": "background-022",
+          "footprintId": "background-023",
           "start": "11:04",
           "end": "11:06",
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 2,
-          "top": 697.188,
-          "height": 2.094,
+          "top": 969.031,
+          "height": 3.781,
           "left": 536,
           "width": 532
         },
         {
-          "footprintId": "background-023",
+          "footprintId": "background-024",
           "start": "12:10",
           "end": "12:12",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 766.5,
-          "height": 2.094,
-          "left": 0,
-          "width": 1068
-        },
-        {
-          "footprintId": "background-024",
-          "start": "12:19",
-          "end": "12:21",
-          "durationMinutes": 2,
-          "lane": 0,
-          "laneCount": 1,
-          "top": 775.938,
-          "height": 2.094,
+          "top": 1094.297,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-025",
-          "start": "12:40",
-          "end": "12:42",
+          "start": "12:19",
+          "end": "12:21",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 798,
-          "height": 2.094,
+          "top": 1111.375,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-026",
-          "start": "13:24",
-          "end": "13:26",
+          "start": "12:40",
+          "end": "12:42",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 844.188,
-          "height": 2.094,
+          "top": 1151.234,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-027",
-          "start": "13:31",
-          "end": "13:33",
+          "start": "13:24",
+          "end": "13:26",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 851.547,
-          "height": 2.094,
+          "top": 1234.75,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-028",
-          "start": "13:40",
-          "end": "13:42",
+          "start": "13:31",
+          "end": "13:33",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 861,
-          "height": 2.094,
+          "top": 1248.031,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-029",
-          "start": "14:12",
-          "end": "14:26",
-          "durationMinutes": 14,
+          "start": "13:40",
+          "end": "13:42",
+          "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 894.594,
-          "height": 14.688,
+          "top": 1265.109,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-030",
-          "start": "14:30",
-          "end": "14:34",
-          "durationMinutes": 4,
+          "start": "14:12",
+          "end": "14:26",
+          "durationMinutes": 14,
           "lane": 0,
-          "laneCount": 2,
-          "top": 913.5,
-          "height": 4.188,
+          "laneCount": 1,
+          "top": 1325.844,
+          "height": 26.563,
           "left": 0,
-          "width": 532
+          "width": 1068
         },
         {
           "footprintId": "background-031",
           "start": "14:30",
           "end": "14:34",
           "durationMinutes": 4,
-          "lane": 1,
+          "lane": 0,
           "laneCount": 2,
-          "top": 913.5,
-          "height": 4.188,
-          "left": 536,
+          "top": 1360.016,
+          "height": 7.578,
+          "left": 0,
           "width": 532
         },
         {
           "footprintId": "background-032",
+          "start": "14:30",
+          "end": "14:34",
+          "durationMinutes": 4,
+          "lane": 1,
+          "laneCount": 2,
+          "top": 1360.016,
+          "height": 7.578,
+          "left": 536,
+          "width": 532
+        },
+        {
+          "footprintId": "background-033",
           "start": "14:34",
           "end": "14:36",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 917.688,
-          "height": 2.094,
-          "left": 0,
-          "width": 1068
-        },
-        {
-          "footprintId": "background-033",
-          "start": "14:40",
-          "end": "14:42",
-          "durationMinutes": 2,
-          "lane": 0,
-          "laneCount": 1,
-          "top": 924,
-          "height": 2.094,
+          "top": 1367.609,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-034",
-          "start": "15:04",
-          "end": "15:06",
+          "start": "14:40",
+          "end": "14:42",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 949.188,
-          "height": 2.094,
+          "top": 1379,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-035",
-          "start": "15:09",
-          "end": "15:12",
-          "durationMinutes": 3,
+          "start": "15:04",
+          "end": "15:06",
+          "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 954.438,
-          "height": 3.141,
+          "top": 1424.547,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-036",
-          "start": "15:19",
-          "end": "15:21",
-          "durationMinutes": 2,
+          "start": "15:09",
+          "end": "15:12",
+          "durationMinutes": 3,
           "lane": 0,
           "laneCount": 1,
-          "top": 964.938,
-          "height": 2.094,
+          "top": 1434.031,
+          "height": 5.688,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-037",
-          "start": "15:25",
-          "end": "15:27",
+          "start": "15:19",
+          "end": "15:21",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 971.25,
-          "height": 2.094,
+          "top": 1453.016,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-038",
-          "start": "15:30",
-          "end": "15:32",
+          "start": "15:25",
+          "end": "15:27",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 976.5,
-          "height": 2.094,
+          "top": 1464.406,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-039",
-          "start": "15:35",
-          "end": "15:48",
-          "durationMinutes": 13,
+          "start": "15:30",
+          "end": "15:32",
+          "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 981.75,
-          "height": 13.641,
+          "top": 1473.891,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-040",
-          "start": "16:14",
-          "end": "16:16",
-          "durationMinutes": 2,
+          "start": "15:35",
+          "end": "15:48",
+          "durationMinutes": 13,
           "lane": 0,
           "laneCount": 1,
-          "top": 1022.688,
-          "height": 2.094,
+          "top": 1483.375,
+          "height": 24.672,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-041",
-          "start": "16:26",
-          "end": "16:28",
+          "start": "16:14",
+          "end": "16:16",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1035.297,
-          "height": 2.094,
+          "top": 1557.406,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-042",
-          "start": "16:29",
-          "end": "16:31",
+          "start": "16:26",
+          "end": "16:28",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1038.438,
-          "height": 2.094,
+          "top": 1580.188,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-043",
-          "start": "17:30",
-          "end": "17:35",
-          "durationMinutes": 5,
+          "start": "16:29",
+          "end": "16:31",
+          "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1102.5,
-          "height": 5.25,
+          "top": 1585.875,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-044",
+          "start": "17:30",
+          "end": "17:35",
+          "durationMinutes": 5,
+          "lane": 0,
+          "laneCount": 2,
+          "top": 1701.656,
+          "height": 9.484,
+          "left": 0,
+          "width": 532
+        },
+        {
+          "footprintId": "background-045",
+          "start": "17:30",
+          "end": "17:35",
+          "durationMinutes": 5,
+          "lane": 1,
+          "laneCount": 2,
+          "top": 1701.656,
+          "height": 9.484,
+          "left": 536,
+          "width": 532
+        },
+        {
+          "footprintId": "background-046",
           "start": "20:00",
           "end": "20:02",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1260,
-          "height": 2.094,
-          "left": 0,
-          "width": 1068
-        },
-        {
-          "footprintId": "background-045",
-          "start": "20:29",
-          "end": "20:31",
-          "durationMinutes": 2,
-          "lane": 0,
-          "laneCount": 1,
-          "top": 1290.438,
-          "height": 2.094,
-          "left": 0,
-          "width": 1068
-        },
-        {
-          "footprintId": "background-046",
-          "start": "20:44",
-          "end": "20:46",
-          "durationMinutes": 2,
-          "lane": 0,
-          "laneCount": 1,
-          "top": 1306.188,
-          "height": 2.094,
+          "top": 1889.266,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-047",
+          "start": "20:29",
+          "end": "20:31",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1944.313,
+          "height": 3.781,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-048",
+          "start": "20:44",
+          "end": "20:46",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 1972.781,
+          "height": 3.781,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-049",
           "start": "21:06",
           "end": "21:08",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 3,
-          "top": 1329.297,
-          "height": 2.094,
+          "top": 2014.547,
+          "height": 3.781,
           "left": 0,
           "width": 353.328
         },
         {
-          "footprintId": "background-048",
+          "footprintId": "background-050",
           "start": "21:06",
           "end": "21:08",
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 1329.297,
-          "height": 2.094,
+          "top": 2014.547,
+          "height": 3.781,
           "left": 357.328,
           "width": 353.328
         },
         {
-          "footprintId": "background-049",
+          "footprintId": "background-051",
           "start": "21:07",
           "end": "21:13",
           "durationMinutes": 6,
           "lane": 2,
           "laneCount": 3,
-          "top": 1330.344,
-          "height": 6.297,
+          "top": 2016.438,
+          "height": 11.375,
           "left": 714.656,
           "width": 353.328
         },
         {
-          "footprintId": "background-050",
+          "footprintId": "background-052",
           "start": "21:12",
           "end": "21:43",
           "durationMinutes": 31,
           "lane": 0,
           "laneCount": 3,
-          "top": 1335.594,
-          "height": 32.547,
+          "top": 2025.922,
+          "height": 58.828,
           "left": 0,
           "width": 353.328
         },
         {
-          "footprintId": "background-051",
+          "footprintId": "background-053",
           "start": "21:46",
           "end": "21:48",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1371.297,
-          "height": 2.094,
-          "left": 0,
-          "width": 1068
-        },
-        {
-          "footprintId": "background-052",
-          "start": "21:49",
-          "end": "21:51",
-          "durationMinutes": 2,
-          "lane": 0,
-          "laneCount": 1,
-          "top": 1374.438,
-          "height": 2.094,
-          "left": 0,
-          "width": 1068
-        },
-        {
-          "footprintId": "background-053",
-          "start": "22:10",
-          "end": "22:14",
-          "durationMinutes": 4,
-          "lane": 0,
-          "laneCount": 1,
-          "top": 1396.5,
-          "height": 4.188,
+          "top": 2090.453,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-054",
-          "start": "22:26",
-          "end": "22:28",
+          "start": "21:49",
+          "end": "21:51",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1413.297,
-          "height": 2.094,
+          "top": 2096.156,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-055",
-          "start": "22:31",
-          "end": "22:33",
-          "durationMinutes": 2,
+          "start": "22:10",
+          "end": "22:14",
+          "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 1418.547,
-          "height": 2.094,
+          "top": 2136.016,
+          "height": 7.578,
           "left": 0,
           "width": 1068
         },
         {
           "footprintId": "background-056",
+          "start": "22:26",
+          "end": "22:28",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2166.375,
+          "height": 3.781,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-057",
+          "start": "22:31",
+          "end": "22:33",
+          "durationMinutes": 2,
+          "lane": 0,
+          "laneCount": 1,
+          "top": 2175.875,
+          "height": 3.781,
+          "left": 0,
+          "width": 1068
+        },
+        {
+          "footprintId": "background-058",
           "start": "23:30",
           "end": "23:32",
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1480.5,
-          "height": 2.094,
+          "top": 2287.859,
+          "height": 3.781,
           "left": 0,
           "width": 1068
         }
@@ -2729,7 +2863,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 980,
-            "height": 0
+            "height": 57
           }
         },
         "timelineHeading": {
@@ -2755,7 +2889,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 1130,
-            "height": 34.5
+            "height": 51.75
           }
         },
         "assignedTitle": {
@@ -2781,7 +2915,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 509.5,
-            "height": 47.8125
+            "height": 63.75
           }
         },
         "assignedTime": {
@@ -2789,7 +2923,7 @@
           "fontSize": 10,
           "lineHeight": 13.5,
           "ratio": 1.35,
-          "color": "color(srgb 0.0357647 0.347294 0.676627)",
+          "color": "color(srgb 0.183106 0.263169 0.32262)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -2802,7 +2936,7 @@
           "fontSize": 9.5,
           "lineHeight": 12.825,
           "ratio": 1.3499999999999999,
-          "color": "color(srgb 0.0357647 0.347294 0.676627)",
+          "color": "color(srgb 0.183106 0.263169 0.32262)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -2819,8 +2953,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "700",
           "rect": {
-            "width": 218.296875,
-            "height": 48
+            "width": 395.40625,
+            "height": 16
           }
         },
         "climateSummary": {
@@ -2832,8 +2966,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 240.75,
-            "height": 93.3125
+            "width": 510.5,
+            "height": 162.5
           }
         },
         "climateTime": {
@@ -2841,11 +2975,11 @@
           "fontSize": 10,
           "lineHeight": 12.5,
           "ratio": 1.25,
-          "color": "color(srgb 0.239686 0.251608 0.549333)",
+          "color": "color(srgb 0.294275 0.292549 0.412863)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 240.75,
+            "width": 510.5,
             "height": 12.5
           }
         },
@@ -2854,7 +2988,7 @@
           "fontSize": 10,
           "lineHeight": 12.5,
           "ratio": 1.25,
-          "color": "color(srgb 0.239686 0.251608 0.549333)",
+          "color": "color(srgb 0.294275 0.292549 0.412863)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -2871,7 +3005,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 208.484375,
+            "width": 246.5,
             "height": 37.0625
           }
         },
@@ -2884,8 +3018,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 208.484375,
-            "height": 94.3125
+            "width": 246.5,
+            "height": 15.71875
           }
         },
         "beaconTime": {
@@ -2893,11 +3027,11 @@
           "fontSize": 10,
           "lineHeight": 13,
           "ratio": 1.3,
-          "color": "color(srgb 0.362353 0.29098 0.0596078)",
+          "color": "color(srgb 0.371765 0.326275 0.207843)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 208.484375,
+            "width": 246.5,
             "height": 39.0625
           }
         },
@@ -2906,11 +3040,11 @@
           "fontSize": 9.5,
           "lineHeight": 12.54,
           "ratio": 1.3199999999999998,
-          "color": "color(srgb 0.362353 0.29098 0.0596078)",
+          "color": "color(srgb 0.371765 0.326275 0.207843)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 208.484375,
+            "width": 246.5,
             "height": 12.53125
           }
         }
@@ -2926,7 +3060,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 504.8586730957031,
-            "height": 63.532470703125
+            "height": 63.532501220703125
           }
         },
         "taskKicker": {
@@ -2952,7 +3086,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.730010986328125
+            "height": 17.72998046875
           }
         },
         "taskType": {
@@ -2965,7 +3099,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 636.31005859375,
-            "height": 17.730010986328125
+            "height": 17.72998046875
           }
         },
         "taskSectionHeading": {
@@ -2978,7 +3112,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 606.760009765625,
-            "height": 17.730010986328125
+            "height": 17.72998046875
           }
         },
         "taskBody": {
@@ -2991,7 +3125,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 606.760009765625,
-            "height": 50.54278564453125
+            "height": 50.5428466796875
           }
         }
       },
@@ -3078,6 +3212,18 @@
               "outsideContainer": false
             },
             {
+              "selector": "#dialogBoundary",
+              "readingId": "",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
               "selector": ".timeline-help",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -3098,7 +3244,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3110,7 +3256,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3118,23 +3264,23 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "verticalOverflow": 63,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
-              "outsideVertically": true,
-              "containerScrollsVertically": true,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3146,7 +3292,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3158,7 +3304,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3170,7 +3316,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3181,8 +3327,8 @@
               "intentionalClamp": true,
               "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": true,
-              "containerScrollsVertically": true,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -3331,7 +3477,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -3343,7 +3489,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -3355,7 +3501,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -3367,9 +3513,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
-              "verticalOverflow": 61,
+              "verticalOverflow": 80,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -3379,7 +3525,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -3391,7 +3537,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -3403,7 +3549,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -3415,9 +3561,57 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
-              "verticalOverflow": 76,
+              "verticalOverflow": 96,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 96,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -3527,19 +3721,20 @@
       },
       "colors": {
         "panelColor": [
-          226,
-          226,
-          220
+          227,
+          227,
+          221
         ],
         "samples": [
           {
             "category": "assigned-work",
             "layer": "event",
-            "accent": "#007aff",
-            "backgroundColor": "rgba(247, 246, 241, 0.78)",
-            "borderColor": "color(srgb 0.0273436 0.395261 0.774415 / 0.535608)",
-            "boxShadow": "rgba(255, 255, 255, 0.12) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.18) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.26) 0px 12px 26px 0px",
-            "opacity": "0.92",
+            "accent": "#7fa187",
+            "semanticAccent": "#557b9d",
+            "backgroundColor": "color(srgb 0.750653 0.810307 0.752554 / 0.906745)",
+            "borderColor": "color(srgb 0.411692 0.537481 0.464023 / 0.61051)",
+            "boxShadow": "color(srgb 0.855451 0.848078 0.817176) 0px 0px 0px 3px, rgba(255, 255, 255, 0.82) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.15) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.13) 0px 8px 18px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "assigned-work-type reading-title",
@@ -3551,7 +3746,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.613
+                "contrast": 9.61
               },
               {
                 "className": "assigned-copy reading-summary",
@@ -3563,65 +3758,71 @@
                   34,
                   38
                 ],
-                "contrast": 12.613
+                "contrast": 9.61
               },
               {
                 "className": "assigned-time",
-                "color": "color(srgb 0.0357647 0.347294 0.676627)",
+                "color": "color(srgb 0.183106 0.263169 0.32262)",
                 "fontSize": 10,
                 "lineHeight": 13.5,
                 "compositeColor": [
-                  9.12,
-                  88.56,
-                  172.54
+                  46.692,
+                  67.108,
+                  82.268
                 ],
-                "contrast": 5.401
+                "contrast": 6.081
               },
               {
                 "className": "assigned-category",
-                "color": "color(srgb 0.0357647 0.347294 0.676627)",
+                "color": "color(srgb 0.183106 0.263169 0.32262)",
                 "fontSize": 9.5,
                 "lineHeight": 12.825,
                 "compositeColor": [
-                  9.12,
-                  88.56,
-                  172.54
+                  46.692,
+                  67.108,
+                  82.268
                 ],
-                "contrast": 5.401
+                "contrast": 6.081
               }
             ],
             "panelColor": [
-              226,
-              226,
-              220
+              227,
+              227,
+              221
             ],
             "surfaceColor": [
-              229,
-              227,
-              219
+              186,
+              204,
+              188
             ],
             "accentColor": [
-              0,
-              122,
-              255
+              127,
+              161,
+              135
+            ],
+            "semanticAccentColor": [
+              85,
+              123,
+              157
             ],
             "borderCompositeColor": [
-              108.687,
-              158.937,
-              207.936
+              152.506,
+              172.089,
+              158.316
             ],
-            "surfaceDistance": 3.317,
-            "borderDistance": 135.666,
-            "salience": 61.635
+            "surfaceDistance": 57.437,
+            "borderDistance": 111.775,
+            "salience": 83.519
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
-            "accent": "#248a3d",
-            "backgroundColor": "rgba(244, 244, 238, 0.74)",
-            "borderColor": "color(srgb 0.120338 0.386622 0.232269 / 0.430745)",
-            "boxShadow": "color(srgb 1 1 0.984314 / 0.180392) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.24) 0px 3px 8px 0px",
-            "opacity": "0.72",
+            "accent": "#5f846b",
+            "semanticAccent": "#5f846b",
+            "backgroundColor": "color(srgb 0.871786 0.892075 0.859724 / 0.861726)",
+            "borderColor": "color(srgb 0.62102 0.667294 0.628549)",
+            "boxShadow": "color(srgb 0.854431 0.846745 0.815843) 0px 0px 0px 3px, rgba(255, 255, 255, 0.68) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.18) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.09) 0px 3px 9px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -3633,7 +3834,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.27
+                "contrast": 11.376
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -3645,65 +3846,71 @@
                   34,
                   38
                 ],
-                "contrast": 11.27
+                "contrast": 11.376
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.122353 0.378039 0.203137)",
+                "color": "color(srgb 0.261176 0.363922 0.311373)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  31.2,
-                  96.4,
-                  51.8
+                  66.6,
+                  92.8,
+                  79.4
                 ],
-                "contrast": 5.223
+                "contrast": 5.067
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.122353 0.378039 0.203137)",
+                "color": "color(srgb 0.261176 0.363922 0.311373)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  31.2,
-                  96.4,
-                  51.8
+                  66.6,
+                  92.8,
+                  79.4
                 ],
-                "contrast": 5.223
+                "contrast": 5.067
               }
             ],
             "panelColor": [
-              226,
-              226,
-              220
+              227,
+              227,
+              221
             ],
             "surfaceColor": [
-              214,
-              216,
-              209
+              212,
+              218,
+              208
             ],
             "accentColor": [
-              36,
-              138,
-              61
+              95,
+              132,
+              107
+            ],
+            "semanticAccentColor": [
+              95,
+              132,
+              107
             ],
             "borderCompositeColor": [
-              141.87,
-              171.118,
-              150.749
+              158.36,
+              170.16,
+              160.28
             ],
-            "surfaceDistance": 19.105,
-            "borderDistance": 122.007,
-            "salience": 52.1
+            "surfaceDistance": 21.794,
+            "borderDistance": 107.839,
+            "salience": 63.096
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
-            "accent": "#0071a4",
-            "backgroundColor": "rgba(244, 244, 238, 0.74)",
-            "borderColor": "color(srgb 0.0416777 0.331997 0.457324 / 0.430745)",
-            "boxShadow": "color(srgb 1 1 0.984314 / 0.180392) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.24) 0px 3px 8px 0px",
-            "opacity": "0.72",
+            "accent": "#4f8588",
+            "semanticAccent": "#4f8588",
+            "backgroundColor": "color(srgb 0.861592 0.892712 0.878201 / 0.861726)",
+            "borderColor": "color(srgb 0.603451 0.668392 0.660392)",
+            "boxShadow": "color(srgb 0.854431 0.846745 0.815843) 0px 0px 0px 3px, rgba(255, 255, 255, 0.68) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.18) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.09) 0px 3px 9px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -3715,7 +3922,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.591
+                "contrast": 11.214
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -3727,65 +3934,71 @@
                   34,
                   38
                 ],
-                "contrast": 11.591
+                "contrast": 11.214
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.0376471 0.319216 0.44549)",
+                "color": "color(srgb 0.223529 0.366275 0.379608)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  9.6,
-                  81.4,
-                  113.6
+                  57,
+                  93.4,
+                  96.8
                 ],
-                "contrast": 6.149
+                "contrast": 4.966
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.0376471 0.319216 0.44549)",
+                "color": "color(srgb 0.223529 0.366275 0.379608)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  9.6,
-                  81.4,
-                  113.6
+                  57,
+                  93.4,
+                  96.8
                 ],
-                "contrast": 6.149
+                "contrast": 4.966
               }
             ],
             "panelColor": [
-              226,
-              226,
-              220
+              227,
+              227,
+              221
             ],
             "surfaceColor": [
-              212,
-              220,
-              215
+              207,
+              217,
+              212
             ],
             "accentColor": [
-              0,
-              113,
-              164
+              79,
+              133,
+              136
+            ],
+            "semanticAccentColor": [
+              79,
+              133,
+              136
             ],
             "borderCompositeColor": [
-              133.23,
-              165.118,
-              175.469
+              153.88,
+              170.44,
+              168.4
             ],
-            "surfaceDistance": 16.031,
-            "borderDistance": 119.566,
-            "salience": 49.658
+            "surfaceDistance": 24.104,
+            "borderDistance": 106.359,
+            "salience": 63.587
           },
           {
             "category": "service-support",
             "layer": "climate",
-            "accent": "#5856d6",
-            "backgroundColor": "rgba(244, 244, 238, 0.74)",
-            "borderColor": "color(srgb 0.233957 0.273002 0.566574 / 0.430745)",
-            "boxShadow": "color(srgb 1 1 0.984314 / 0.180392) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.24) 0px 3px 8px 0px",
-            "opacity": "0.72",
+            "accent": "#70689a",
+            "semanticAccent": "#70689a",
+            "backgroundColor": "color(srgb 0.882617 0.874235 0.889669 / 0.861726)",
+            "borderColor": "color(srgb 0.639686 0.636549 0.680157)",
+            "boxShadow": "color(srgb 0.854431 0.846745 0.815843) 0px 0px 0px 3px, rgba(255, 255, 255, 0.68) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.18) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.09) 0px 3px 9px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -3797,7 +4010,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.358
+                "contrast": 10.889
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -3809,65 +4022,71 @@
                   34,
                   38
                 ],
-                "contrast": 11.358
+                "contrast": 10.889
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.239686 0.251608 0.549333)",
+                "color": "color(srgb 0.294275 0.292549 0.412863)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  61.12,
-                  64.16,
-                  140.08
+                  75.04,
+                  74.6,
+                  105.28
                 ],
-                "contrast": 6.356
+                "contrast": 5.643
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.239686 0.251608 0.549333)",
+                "color": "color(srgb 0.294275 0.292549 0.412863)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  61.12,
-                  64.16,
-                  140.08
+                  75.04,
+                  74.6,
+                  105.28
                 ],
-                "contrast": 6.356
+                "contrast": 5.643
               }
             ],
             "panelColor": [
-              226,
-              226,
-              220
+              227,
+              227,
+              221
             ],
             "surfaceColor": [
-              219,
-              216,
-              205
+              212,
+              211,
+              216
             ],
             "accentColor": [
-              88,
-              86,
-              214
+              112,
+              104,
+              154
+            ],
+            "semanticAccentColor": [
+              112,
+              104,
+              154
             ],
             "borderCompositeColor": [
-              154.349,
-              158.638,
-              187.469
+              163.12,
+              162.32,
+              173.44
             ],
-            "surfaceDistance": 19.339,
-            "borderDistance": 103.584,
-            "salience": 45.855
+            "surfaceDistance": 22.494,
+            "borderDistance": 102.597,
+            "salience": 60.944
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
-            "accent": "#8a6500",
-            "backgroundColor": "rgba(247, 246, 241, 0.84)",
-            "borderColor": "color(srgb 0.411294 0.336834 0.064941 / 0.535608)",
-            "boxShadow": "color(srgb 1 1 0.984314 / 0.324706) 0px 1px 0px 0px inset, color(srgb 0.85098 0.843137 0.811765 / 0.34) 0px 6px 16px 0px",
-            "opacity": "0.98",
+            "accent": "#8e743f",
+            "semanticAccent": "#8e743f",
+            "backgroundColor": "color(srgb 0.90173 0.881881 0.831691 / 0.861726)",
+            "borderColor": "color(srgb 0.457941 0.398734 0.242029 / 0.61051)",
+            "boxShadow": "color(srgb 0.855451 0.848078 0.817176) 0px 0px 0px 3px, rgba(255, 255, 255, 0.82) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.15) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.13) 0px 8px 18px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "reading-title",
@@ -3879,7 +4098,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.732
+                "contrast": 10.859
               },
               {
                 "className": "reading-summary",
@@ -3891,65 +4110,71 @@
                   34,
                   38
                 ],
-                "contrast": 12.732
+                "contrast": 10.859
               },
               {
                 "className": "autonomous-time",
-                "color": "color(srgb 0.362353 0.29098 0.0596078)",
+                "color": "color(srgb 0.371765 0.326275 0.207843)",
                 "fontSize": 10,
                 "lineHeight": 13,
                 "compositeColor": [
-                  92.4,
-                  74.2,
-                  15.2
+                  94.8,
+                  83.2,
+                  53
                 ],
-                "contrast": 6.73
+                "contrast": 5.062
               },
               {
                 "className": "autonomous-kicker",
-                "color": "color(srgb 0.362353 0.29098 0.0596078)",
+                "color": "color(srgb 0.371765 0.326275 0.207843)",
                 "fontSize": 9.5,
                 "lineHeight": 12.54,
                 "compositeColor": [
-                  92.4,
-                  74.2,
-                  15.2
+                  94.8,
+                  83.2,
+                  53
                 ],
-                "contrast": 6.73
+                "contrast": 5.062
               }
             ],
             "panelColor": [
-              226,
-              226,
-              220
+              227,
+              227,
+              221
             ],
             "surfaceColor": [
-              225,
-              229,
-              225
+              218,
+              211,
+              193
             ],
             "accentColor": [
-              138,
-              101,
-              0
+              142,
+              116,
+              63
+            ],
+            "semanticAccentColor": [
+              142,
+              116,
+              63
             ],
             "borderCompositeColor": [
-              161.127,
-              150.957,
-              111.036
+              159.707,
+              150.489,
+              123.756
             ],
-            "surfaceDistance": 5.916,
-            "borderDistance": 147.354,
-            "salience": 72.391
+            "surfaceDistance": 33.481,
+            "borderDistance": 140.85,
+            "salience": 85.018
           },
           {
             "category": "daily-reminder",
             "layer": "event",
-            "accent": "#af52de",
-            "backgroundColor": "rgba(247, 246, 241, 0.78)",
-            "borderColor": "color(srgb 0.514238 0.283971 0.682601 / 0.535608)",
-            "boxShadow": "rgba(255, 255, 255, 0.14) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.18) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.3) 0px 16px 32px 0px",
-            "opacity": "0.92",
+            "accent": "#8e617e",
+            "semanticAccent": "#8e617e",
+            "backgroundColor": "color(srgb 0.7779 0.694055 0.736206 / 0.906745)",
+            "borderColor": "color(srgb 0.457941 0.340153 0.436274 / 0.61051)",
+            "boxShadow": "color(srgb 0.855451 0.848078 0.817176) 0px 0px 0px 3px, rgba(255, 255, 255, 0.82) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.15) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.13) 0px 8px 18px 0px",
+            "opacity": "1",
             "text": [
               {
                 "className": "pulse-label reading-title",
@@ -3961,7 +4186,7 @@
                   34,
                   38
                 ],
-                "contrast": 12.757
+                "contrast": 7.684
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -3973,78 +4198,97 @@
                   34,
                   38
                 ],
-                "contrast": 12.757
+                "contrast": 7.684
               },
               {
                 "className": "pulse-time",
-                "color": "color(srgb 0.437569 0.24251 0.567529)",
+                "color": "color(srgb 0.255153 0.21931 0.269114)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  111.58,
-                  61.84,
-                  144.72
+                  65.064,
+                  55.924,
+                  68.624
                 ],
-                "contrast": 5.954
+                "contrast": 5.311
               },
               {
                 "className": "pulse-duration",
-                "color": "color(srgb 0.437569 0.24251 0.567529)",
+                "color": "color(srgb 0.255153 0.21931 0.269114)",
                 "fontSize": 10,
                 "lineHeight": 12.5,
                 "compositeColor": [
-                  111.58,
-                  61.84,
-                  144.72
+                  65.064,
+                  55.924,
+                  68.624
                 ],
-                "contrast": 5.954
+                "contrast": 5.311
               }
             ],
             "panelColor": [
-              226,
-              226,
-              220
+              227,
+              227,
+              221
             ],
             "surfaceColor": [
-              231,
-              228,
-              220
+              194,
+              173,
+              183
             ],
             "accentColor": [
-              175,
-              82,
-              222
+              142,
+              97,
+              126
+            ],
+            "semanticAccentColor": [
+              142,
+              97,
+              126
             ],
             "borderCompositeColor": [
-              175.187,
-              143.737,
-              195.396
+              159.707,
+              141.369,
+              153.996
             ],
-            "surfaceDistance": 5.385,
-            "borderDistance": 99.772,
-            "salience": 46.86
+            "surfaceDistance": 73.817,
+            "borderDistance": 127.869,
+            "salience": 99.762
           }
         ],
-        "minimumContrast": 5.223,
+        "minimumContrast": 4.966,
         "minimumAccentDistance": {
-          "value": 87.459,
+          "value": 24.021,
           "pair": [
-            "service-support",
-            "daily-reminder"
+            "assigned-work",
+            "us-market-scan"
+          ]
+        },
+        "minimumRenderedAccentDistance": {
+          "value": 33.136,
+          "pair": [
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
         "minimumBorderDistance": {
-          "value": 25.14,
+          "value": 9.278,
           "pair": [
-            "us-market-scan",
-            "service-support"
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
-        "meanSurfaceDistance": 11.516,
+        "minimumRenderedBorderDistance": {
+          "value": 6.469,
+          "pair": [
+            "assigned-work",
+            "ah-market-scan"
+          ]
+        },
+        "meanSurfaceDistance": 38.855,
         "layerSalience": {
-          "event": 54.248,
-          "climate": 49.204,
-          "beacon": 72.391
+          "event": 91.641,
+          "climate": 62.542,
+          "beacon": 85.018
         },
         "contrasts": [
           {
@@ -4052,168 +4296,168 @@
             "layer": "event",
             "className": "assigned-work-type reading-title",
             "fontSize": 14,
-            "contrast": 12.613
+            "contrast": 9.61
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-copy reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.613
+            "contrast": 9.61
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-time",
             "fontSize": 10,
-            "contrast": 5.401
+            "contrast": 6.081
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-category",
             "fontSize": 9.5,
-            "contrast": 5.401
+            "contrast": 6.081
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 11.27
+            "contrast": 11.376
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 11.27
+            "contrast": 11.376
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 5.223
+            "contrast": 5.067
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 5.223
+            "contrast": 5.067
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 11.591
+            "contrast": 11.214
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 11.591
+            "contrast": 11.214
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 6.149
+            "contrast": 4.966
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 6.149
+            "contrast": 4.966
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 11.358
+            "contrast": 10.889
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 11.358
+            "contrast": 10.889
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 6.356
+            "contrast": 5.643
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 6.356
+            "contrast": 5.643
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 12.732
+            "contrast": 10.859
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.732
+            "contrast": 10.859
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 6.73
+            "contrast": 5.062
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 6.73
+            "contrast": 5.062
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 12.757
+            "contrast": 7.684
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.757
+            "contrast": 7.684
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 5.954
+            "contrast": 5.311
           },
           {
             "category": "daily-reminder",
             "layer": "event",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 5.954
+            "contrast": 5.311
           }
         ]
       },
@@ -4241,7 +4485,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "500",
           "rect": {
-            "width": 437.828125,
+            "width": 360,
             "height": 25.5
           }
         },
@@ -4254,7 +4498,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 437.828125,
+            "width": 360,
             "height": 13.296875
           }
         },
@@ -4267,8 +4511,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 437.828125,
-            "height": 38.46875
+            "width": 360,
+            "height": 57.703125
           }
         },
         "homeLegend": {
@@ -4280,8 +4524,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 437.828125,
-            "height": 24
+            "width": 360,
+            "height": 30.78125
           }
         },
         "dayHeading": {
@@ -4346,7 +4590,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 366,
-            "height": 0
+            "height": 103.5
           }
         },
         "timelineHeading": {
@@ -4372,7 +4616,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 374,
-            "height": 78.75
+            "height": 110.25
           }
         },
         "assignedTitle": {
@@ -4384,7 +4628,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "600",
           "rect": {
-            "width": 176.65625,
+            "width": 221.1875,
             "height": 31.34375
           }
         },
@@ -4397,7 +4641,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 195.65625,
+            "width": 240.1875,
             "height": 85.125
           }
         },
@@ -4406,11 +4650,11 @@
           "fontSize": 9,
           "lineHeight": 12.15,
           "ratio": 1.35,
-          "color": "color(srgb 0.46651 0.724706 0.964235)",
+          "color": "color(srgb 0.690824 0.767529 0.815373)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 195.65625,
+            "width": 240.1875,
             "height": 12.140625
           }
         },
@@ -4419,7 +4663,7 @@
           "fontSize": 8.5,
           "lineHeight": 11.475,
           "ratio": 1.3499999999999999,
-          "color": "color(srgb 0.46651 0.724706 0.964235)",
+          "color": "color(srgb 0.690824 0.767529 0.815373)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -4436,8 +4680,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "700",
           "rect": {
-            "width": 68.8125,
-            "height": 65.53125
+            "width": 157.875,
+            "height": 32.765625
           }
         },
         "climateSummary": {
@@ -4449,8 +4693,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 89.328125,
-            "height": 67.375
+            "width": 178.390625,
+            "height": 160.4375
           }
         },
         "climateTime": {
@@ -4458,11 +4702,11 @@
           "fontSize": 9,
           "lineHeight": 10.8,
           "ratio": 1.2000000000000002,
-          "color": "color(srgb 0.718588 0.723137 0.961255)",
+          "color": "color(srgb 0.756235 0.747608 0.812549)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 89.328125,
+            "width": 178.390625,
             "height": 10.796875
           }
         },
@@ -4471,7 +4715,7 @@
           "fontSize": 9,
           "lineHeight": 10.8,
           "ratio": 1.2000000000000002,
-          "color": "color(srgb 0.718588 0.723137 0.961255)",
+          "color": "color(srgb 0.756235 0.747608 0.812549)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -4481,41 +4725,41 @@
         },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
-          "fontSize": 13,
-          "lineHeight": 15.21,
-          "ratio": 1.1700000000000002,
+          "fontSize": 10,
+          "lineHeight": 10.8,
+          "ratio": 1.08,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 308,
-            "height": 15.203125
+            "width": 82.1875,
+            "height": 32.390625
           }
         },
         "beaconSummary": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
-          "fontSize": 10,
-          "lineHeight": 12.5,
+          "fontSize": 7,
+          "lineHeight": 8.75,
           "ratio": 1.25,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 308,
-            "height": 50
+            "width": 82.1875,
+            "height": 35
           }
         },
         "beaconTime": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
-          "fontSize": 9,
-          "lineHeight": 11.7,
-          "ratio": 1.2999999999999998,
-          "color": "color(srgb 0.966118 0.891922 0.464627)",
+          "fontSize": 7,
+          "lineHeight": 9.1,
+          "ratio": 1.3,
+          "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 308,
-            "height": 35.125
+            "width": 82.1875,
+            "height": 39.96875
           }
         },
         "beaconMeta": {
@@ -4523,7 +4767,7 @@
           "fontSize": 8.5,
           "lineHeight": 11.22,
           "ratio": 1.32,
-          "color": "color(srgb 0.966118 0.891922 0.464627)",
+          "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -4543,7 +4787,7 @@
           "fontWeight": "500",
           "rect": {
             "width": 258.07000732421875,
-            "height": 39.707794189453125
+            "height": 39.70782470703125
           }
         },
         "taskKicker": {
@@ -4556,7 +4800,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 342.7799987792969,
-            "height": 16.252487182617188
+            "height": 16.25250244140625
           }
         },
         "taskTime": {
@@ -4608,7 +4852,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 319.1400146484375,
-            "height": 71.7972412109375
+            "height": 71.79727172851562
           }
         }
       },
@@ -4695,6 +4939,18 @@
               "outsideContainer": false
             },
             {
+              "selector": "#dialogBoundary",
+              "readingId": "",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
               "selector": ".timeline-help",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -4723,8 +4979,8 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -4734,9 +4990,9 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "verticalOverflow": 53,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -4751,7 +5007,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -4763,7 +5019,7 @@
               "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -4775,7 +5031,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -4787,7 +5043,7 @@
               "overflowY": "visible",
               "outsideHorizontally": false,
               "outsideVertically": false,
-              "containerScrollsVertically": true,
+              "containerScrollsVertically": false,
               "outsideContainer": false
             },
             {
@@ -4863,7 +5119,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".assigned-copy.reading-summary.is-clamped",
+              "selector": ".assigned-copy.reading-summary",
               "readingId": "event-assigned-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -4924,7 +5180,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4936,7 +5192,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4948,7 +5204,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4960,9 +5216,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
-              "verticalOverflow": 79,
+              "verticalOverflow": 95,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -4972,7 +5228,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4984,7 +5240,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -4996,7 +5252,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5008,9 +5264,57 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
-              "verticalOverflow": 92,
+              "verticalOverflow": 82,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 95,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -5143,7 +5447,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "500",
           "rect": {
-            "width": 437.828125,
+            "width": 391,
             "height": 25.5
           }
         },
@@ -5156,7 +5460,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 437.828125,
+            "width": 391,
             "height": 13.296875
           }
         },
@@ -5169,8 +5473,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 437.828125,
-            "height": 38.46875
+            "width": 391,
+            "height": 57.703125
           }
         },
         "homeLegend": {
@@ -5182,8 +5486,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 437.828125,
-            "height": 24
+            "width": 391,
+            "height": 30.78125
           }
         },
         "dayHeading": {
@@ -5209,7 +5513,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 397,
-            "height": 17.25000762939453
+            "height": 17.25
           }
         },
         "dayVariable": {
@@ -5248,7 +5552,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 397,
-            "height": 0
+            "height": 103.5
           }
         },
         "timelineHeading": {
@@ -5274,7 +5578,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 405,
-            "height": 78.75
+            "height": 94.5
           }
         },
         "assignedTitle": {
@@ -5286,7 +5590,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "600",
           "rect": {
-            "width": 197.328125,
+            "width": 246,
             "height": 31.34375
           }
         },
@@ -5299,7 +5603,7 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 216.328125,
+            "width": 265,
             "height": 85.125
           }
         },
@@ -5308,11 +5612,11 @@
           "fontSize": 9,
           "lineHeight": 12.15,
           "ratio": 1.35,
-          "color": "color(srgb 0.46651 0.724706 0.964235)",
+          "color": "color(srgb 0.690824 0.767529 0.815373)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 216.328125,
+            "width": 265,
             "height": 12.140625
           }
         },
@@ -5321,7 +5625,7 @@
           "fontSize": 8.5,
           "lineHeight": 11.475,
           "ratio": 1.3499999999999999,
-          "color": "color(srgb 0.46651 0.724706 0.964235)",
+          "color": "color(srgb 0.690824 0.767529 0.815373)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -5338,8 +5642,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "700",
           "rect": {
-            "width": 79.140625,
-            "height": 54.609375
+            "width": 176.484375,
+            "height": 21.84375
           }
         },
         "climateSummary": {
@@ -5351,8 +5655,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 99.65625,
-            "height": 73.59375
+            "width": 197,
+            "height": 171.359375
           }
         },
         "climateTime": {
@@ -5360,11 +5664,11 @@
           "fontSize": 9,
           "lineHeight": 10.8,
           "ratio": 1.2000000000000002,
-          "color": "color(srgb 0.718588 0.723137 0.961255)",
+          "color": "color(srgb 0.756235 0.747608 0.812549)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 99.65625,
+            "width": 197,
             "height": 10.796875
           }
         },
@@ -5373,7 +5677,7 @@
           "fontSize": 9,
           "lineHeight": 10.8,
           "ratio": 1.2000000000000002,
-          "color": "color(srgb 0.718588 0.723137 0.961255)",
+          "color": "color(srgb 0.756235 0.747608 0.812549)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -5383,41 +5687,41 @@
         },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
-          "fontSize": 13,
-          "lineHeight": 15.21,
-          "ratio": 1.1700000000000002,
+          "fontSize": 10,
+          "lineHeight": 10.8,
+          "ratio": 1.08,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 339,
-            "height": 15.203125
+            "width": 90,
+            "height": 32.390625
           }
         },
         "beaconSummary": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
-          "fontSize": 10,
-          "lineHeight": 12.5,
+          "fontSize": 7,
+          "lineHeight": 8.75,
           "ratio": 1.25,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 339,
-            "height": 37.5
+            "width": 90,
+            "height": 43.75
           }
         },
         "beaconTime": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
-          "fontSize": 9,
-          "lineHeight": 11.7,
-          "ratio": 1.2999999999999998,
-          "color": "color(srgb 0.966118 0.891922 0.464627)",
+          "fontSize": 7,
+          "lineHeight": 9.1,
+          "ratio": 1.3,
+          "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 339,
-            "height": 23.90625
+            "width": 90,
+            "height": 32.5
           }
         },
         "beaconMeta": {
@@ -5425,7 +5729,7 @@
           "fontSize": 8.5,
           "lineHeight": 11.22,
           "ratio": 1.32,
-          "color": "color(srgb 0.966118 0.891922 0.464627)",
+          "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
@@ -5510,7 +5814,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 349.675048828125,
-            "height": 47.86485290527344
+            "height": 71.79725646972656
           }
         }
       },
@@ -5597,6 +5901,18 @@
               "outsideContainer": false
             },
             {
+              "selector": "#dialogBoundary",
+              "readingId": "",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": false,
+              "outsideContainer": false
+            },
+            {
               "selector": ".timeline-help",
               "readingId": "",
               "horizontalOverflow": 0,
@@ -5625,8 +5941,8 @@
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5636,9 +5952,9 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
+              "verticalOverflow": 35,
+              "intentionalClamp": true,
+              "overflowY": "hidden",
               "outsideHorizontally": false,
               "outsideVertically": false,
               "containerScrollsVertically": false,
@@ -5765,7 +6081,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".assigned-copy.reading-summary.is-clamped",
+              "selector": ".assigned-copy.reading-summary",
               "readingId": "event-assigned-001",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -5826,7 +6142,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5838,7 +6154,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5850,7 +6166,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5862,9 +6178,9 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-013",
+              "readingId": "event-background-014",
               "horizontalOverflow": 0,
-              "verticalOverflow": 79,
+              "verticalOverflow": 95,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -5874,7 +6190,7 @@
             },
             {
               "selector": ".pulse-time",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5886,7 +6202,7 @@
             },
             {
               "selector": ".pulse-label.reading-title",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5898,7 +6214,7 @@
             },
             {
               "selector": ".pulse-count",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
               "intentionalClamp": false,
@@ -5910,9 +6226,57 @@
             },
             {
               "selector": ".pulse-summary.reading-summary",
-              "readingId": "event-background-056",
+              "readingId": "event-background-045",
               "horizontalOverflow": 0,
-              "verticalOverflow": 92,
+              "verticalOverflow": 82,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-time",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-label.reading-title",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "hidden",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-count",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 0,
+              "intentionalClamp": false,
+              "overflowY": "visible",
+              "outsideHorizontally": false,
+              "outsideVertically": false,
+              "containerScrollsVertically": true,
+              "outsideContainer": false
+            },
+            {
+              "selector": ".pulse-summary.reading-summary",
+              "readingId": "event-background-058",
+              "horizontalOverflow": 0,
+              "verticalOverflow": 95,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -6011,7 +6375,7 @@
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
-              "outsideVertically": false,
+              "outsideVertically": true,
               "containerScrollsVertically": true,
               "outsideContainer": false
             }
@@ -6202,8 +6566,8 @@
             "beaconTitle"
           ],
           "beforeMean": 10.333,
-          "afterMean": 11.583,
-          "growth": 0.121
+          "afterMean": 10.583,
+          "growth": 0.024
         },
         "cardBody": {
           "keys": [
@@ -6212,8 +6576,8 @@
             "beaconSummary"
           ],
           "beforeMean": 8.5,
-          "afterMean": 10,
-          "growth": 0.176
+          "afterMean": 9,
+          "growth": 0.059
         },
         "cardMeta": {
           "keys": [
@@ -6225,8 +6589,8 @@
             "beaconMeta"
           ],
           "beforeMean": 7.333,
-          "afterMean": 8.833,
-          "growth": 0.205
+          "afterMean": 8.5,
+          "growth": 0.159
         }
       },
       "421x386-dark": {
@@ -6249,8 +6613,8 @@
             "beaconTitle"
           ],
           "beforeMean": 10.333,
-          "afterMean": 11.583,
-          "growth": 0.121
+          "afterMean": 10.583,
+          "growth": 0.024
         },
         "cardBody": {
           "keys": [
@@ -6259,8 +6623,8 @@
             "beaconSummary"
           ],
           "beforeMean": 8.5,
-          "afterMean": 10,
-          "growth": 0.176
+          "afterMean": 9,
+          "growth": 0.059
         },
         "cardMeta": {
           "keys": [
@@ -6272,8 +6636,8 @@
             "beaconMeta"
           ],
           "beforeMean": 7.333,
-          "afterMean": 8.833,
-          "growth": 0.205
+          "afterMean": 8.5,
+          "growth": 0.159
         }
       }
     },
@@ -6317,135 +6681,135 @@
       "desktop-dark": {
         "surfaceDistance": {
           "before": 33.356,
-          "after": 10.246,
-          "reduction": 0.656
+          "after": 44.255,
+          "reduction": -0.319
         },
-        "minimumContrast": 8.948,
+        "minimumContrast": 6.295,
         "minimumAccentDistance": {
-          "value": 74.492,
+          "value": 23.958,
           "pair": [
-            "service-support",
-            "daily-reminder"
+            "assigned-work",
+            "us-market-scan"
           ]
         },
         "minimumBorderDistance": {
-          "value": 21.956,
+          "value": 16.078,
           "pair": [
-            "us-market-scan",
-            "service-support"
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
         "layerSalience": {
-          "event": 72.969,
-          "climate": 42.858,
-          "beacon": 93.23
+          "event": 98.55,
+          "climate": 90.074,
+          "beacon": 109.276
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 33.853,
-            "after": 6.782,
-            "reduction": 0.8
+            "after": 53.038,
+            "reduction": -0.567
           },
           "ah-market-scan": {
             "before": 17.378,
-            "after": 7.874,
-            "reduction": 0.547
+            "after": 27.35,
+            "reduction": -0.574
           },
           "us-market-scan": {
             "before": 24.86,
-            "after": 13.416,
-            "reduction": 0.46
+            "after": 35.917,
+            "reduction": -0.445
           },
           "service-support": {
             "before": 21.749,
-            "after": 4.123,
-            "reduction": 0.81
+            "after": 36.455,
+            "reduction": -0.676
           },
           "autonomous-artwork": {
             "before": 68.022,
-            "after": 25.159,
-            "reduction": 0.63
+            "after": 67.149,
+            "reduction": 0.013
           },
           "daily-reminder": {
             "before": null,
-            "after": 4.123,
+            "after": 45.618,
             "reduction": null,
             "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 49.082,
+        "maximumClimateSalience": 93.74,
         "activeSalience": {
-          "assigned-work": 69.576,
-          "autonomous-artwork": 93.23
+          "assigned-work": 98.058,
+          "autonomous-artwork": 109.276
         }
       },
       "desktop-light": {
         "surfaceDistance": {
           "before": 27.376,
-          "after": 11.516,
-          "reduction": 0.535
+          "after": 38.855,
+          "reduction": -0.164
         },
-        "minimumContrast": 5.223,
+        "minimumContrast": 4.966,
         "minimumAccentDistance": {
-          "value": 87.459,
+          "value": 24.021,
           "pair": [
-            "service-support",
-            "daily-reminder"
+            "assigned-work",
+            "us-market-scan"
           ]
         },
         "minimumBorderDistance": {
-          "value": 25.14,
+          "value": 9.278,
           "pair": [
-            "us-market-scan",
-            "service-support"
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
         "layerSalience": {
-          "event": 54.248,
-          "climate": 49.204,
-          "beacon": 72.391
+          "event": 91.641,
+          "climate": 62.542,
+          "beacon": 85.018
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 36.824,
-            "after": 3.317,
-            "reduction": 0.91
+            "after": 57.437,
+            "reduction": -0.56
           },
           "ah-market-scan": {
             "before": 14.799,
-            "after": 19.105,
-            "reduction": -0.291
+            "after": 21.794,
+            "reduction": -0.473
           },
           "us-market-scan": {
             "before": 24.269,
-            "after": 16.031,
-            "reduction": 0.339
+            "after": 24.104,
+            "reduction": 0.007
           },
           "service-support": {
             "before": 22.204,
-            "after": 19.339,
-            "reduction": 0.129
+            "after": 22.494,
+            "reduction": -0.013
           },
           "autonomous-artwork": {
             "before": 35.114,
-            "after": 5.916,
-            "reduction": 0.832
+            "after": 33.481,
+            "reduction": 0.047
           },
           "daily-reminder": {
             "before": null,
-            "after": 5.385,
+            "after": 73.817,
             "reduction": null,
             "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 52.1,
+        "maximumClimateSalience": 63.587,
         "activeSalience": {
-          "assigned-work": 61.635,
-          "autonomous-artwork": 72.391
+          "assigned-work": 83.519,
+          "autonomous-artwork": 85.018
         }
       }
     },
-    "geometryUnchanged": true
+    "geometryIntegrity": true
   },
   "errors": []
 }

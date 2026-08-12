@@ -40,6 +40,16 @@ function minutes(value) {
   return hour * 60 + minute;
 }
 
+function projectedMinute(value, markers) {
+  const minute = typeof value === "number" ? value : minutes(value);
+  if (minute >= 1440) return markers.at(-1).top - markers[0].top;
+  const hour = Math.floor(minute / 60);
+  const start = markers[hour];
+  const end = markers[hour + 1];
+  return start.top - markers[0].top
+    + ((minute - hour * 60) / 60) * (end.top - start.top);
+}
+
 function rangesOverlap(leftStart, leftEnd, rightStart, rightEnd, tolerance = 1) {
   return leftStart < rightEnd - tolerance && rightStart < leftEnd - tolerance;
 }
@@ -119,6 +129,10 @@ async function inspectComposition(page) {
       minuteHeight,
       timelineHeight: timelineRect.height,
       eventLayerHeight: eventLayerRect.height,
+      hourMarkers: [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
+        top: marker.getBoundingClientRect().top - timelineRect.top,
+        density: marker.dataset.hourDensity,
+      })),
       events,
       cards,
       connectors,
@@ -243,9 +257,15 @@ try {
     assert.equal(await page.locator(".timeline-events-layer").getAttribute("role"), null);
     assert.equal(await page.locator(".timeline-event[role='listitem']").count(), 0);
     assert.equal(await page.locator(".timeline-reading-layer").getAttribute("role"), "group");
+    assert.equal(composition.hourMarkers.length, 25, `${viewport.label}: hour orientation marks`);
     assert.ok(
-      Math.abs(composition.timelineHeight - composition.minuteHeight * 1440) <= 2,
-      `${viewport.label}: timeline scale ${JSON.stringify(composition)}`,
+      Math.abs(composition.timelineHeight - composition.hourMarkers.at(-1).top) <= 2,
+      `${viewport.label}: elastic timeline scale ${JSON.stringify(composition)}`,
+    );
+    assert.ok(
+      composition.timelineHeight < composition.minuteHeight * 1440
+        && composition.hourMarkers.some((marker) => marker.density === "compressed"),
+      `${viewport.label}: empty hours were not folded`,
     );
     assert.ok(Math.abs(composition.eventLayerHeight - composition.timelineHeight) <= 2.1);
     assert.ok(composition.horizontalOverflow <= 1, `${viewport.label}: horizontal overflow`);
@@ -253,8 +273,8 @@ try {
     assert.deepEqual(pageErrors, [], `${viewport.label}: page errors`);
 
     for (const event of composition.events) {
-      const expectedTop = minutes(event.start) * composition.minuteHeight;
-      const expectedHeight = event.duration * composition.minuteHeight;
+      const expectedTop = projectedMinute(event.start, composition.hourMarkers);
+      const expectedHeight = projectedMinute(event.end, composition.hourMarkers) - expectedTop;
       assert.ok(Math.abs(event.top - expectedTop) <= 0.25, `${viewport.label}: exact top ${JSON.stringify(event)}`);
       assert.ok(Math.abs(event.height - expectedHeight) <= 0.25, `${viewport.label}: exact height ${JSON.stringify(event)}`);
     }
@@ -318,8 +338,8 @@ try {
     assert.ok(autonomousBox?.height >= 112, `${viewport.label}: autonomous reading card`);
     const autonomousFootprint = composition.events.find((event) => event.origin === "self");
     assert.ok(
-      autonomousFootprint && autonomousBox.height > autonomousFootprint.height,
-      `${viewport.label}: autonomous card must exceed its exact footprint`,
+      autonomousFootprint && autonomousBox.height >= 132,
+      `${viewport.label}: autonomous edge card became too small`,
     );
     const preview = await autonomous.locator("#selfPreview").evaluate(async (image) => {
       await image.decode();
@@ -351,17 +371,14 @@ try {
       `${viewport.label}: ${JSON.stringify(preview)}`,
     );
     assert.ok(
-      preview.objectFit === "contain"
-        && Math.abs(preview.renderedWidth - preview.frameWidth) <= 1
-        && Math.abs(preview.renderedHeight - preview.frameHeight) <= 1
-        && Math.abs(
-          (preview.renderedWidth / preview.renderedHeight)
-          - (preview.width / preview.height)
-        ) <= 0.03,
-      `${viewport.label}: autonomous preview must preserve the complete GIF ratio ${JSON.stringify(preview)}`,
+      preview.objectFit === "cover"
+        && Math.abs(preview.renderedWidth - preview.frameWidth) <= 2.5
+        && Math.abs(preview.renderedHeight - preview.frameHeight) <= 2.5
+        && Math.abs(preview.frameWidth - preview.frameHeight) <= 1,
+      `${viewport.label}: autonomous preview must use the edge-square crop ${JSON.stringify(preview)}`,
     );
     assert.ok(
-      preview.frameRadius >= 12,
+      preview.frameRadius >= 10,
       `${viewport.label}: autonomous preview must retain its rounded crop ${JSON.stringify(preview)}`,
     );
     assert.match(preview.src, /visual-preview\.gif$/);

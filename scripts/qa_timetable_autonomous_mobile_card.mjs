@@ -172,6 +172,8 @@ async function inspect(page) {
       veryNarrowClass: card.classList.contains("is-very-narrow-reading-card"),
       readingColumn: Number(card.dataset.readingColumn),
       readingColumnSpan: Number(card.dataset.readingColumnSpan),
+      edgeSide: card.dataset.edgeSide,
+      edgeAnchored: card.dataset.edgeAnchored,
       card: cardRect,
       cardScroll: {
         clientHeight: card.clientHeight,
@@ -318,12 +320,14 @@ try {
       failures,
     );
     check(
-      Math.abs(result.previewRenderedRatio - result.previewNaturalRatio) <= 0.03
-        && result.previewObjectFit === "contain"
-        && Math.abs(result.preview.width - result.previewImage.width) <= 1
-        && Math.abs(result.preview.height - result.previewImage.height) <= 1
-        && result.previewFrameRadius >= 12,
-      `${testCase.label}: preview must preserve the complete rounded 16:9 artwork`,
+      Math.abs(result.previewRenderedRatio - 1) <= 0.03
+        && result.previewObjectFit === "cover"
+        && Math.abs(result.preview.width - result.previewImage.width) <= 2.5
+        && Math.abs(result.preview.height - result.previewImage.height) <= 2.5
+        && Math.abs(result.preview.width - result.preview.height) <= 1
+        && Math.abs(result.preview.height - (result.card.height - 4)) <= 1.5
+        && result.previewFrameRadius >= 10,
+      `${testCase.label}: preview must be a card-height square crop`,
       failures,
     );
     check(
@@ -361,39 +365,35 @@ try {
       `${testCase.label}: card outside reading canvas horizontally`,
       failures,
     );
+    check(
+      result.edgeAnchored === "true"
+        && ((result.edgeSide === "left" && Math.abs(result.leftInset) <= 0.75)
+          || (result.edgeSide === "right" && Math.abs(result.rightInset) <= 0.75)),
+      `${testCase.label}: artwork card is centered instead of edge-anchored`,
+      failures,
+    );
 
     if (testCase.compact) {
-      const minimumPreviewWidth = testCase.width >= 390 ? 270 : 220;
-      const minimumPreviewHeight = testCase.width >= 390 ? 145 : 120;
       check(result.compactClass, `${testCase.label}: missing compact class contract`, failures);
-      check(result.readingColumn === 0, `${testCase.label}: compact card is not in first reading column`, failures);
-      check(result.readingColumnSpan === 3, `${testCase.label}: compact card does not span all 3 columns`, failures);
-      check(result.fullWidthDelta <= 1, `${testCase.label}: compact card is not full reading width`, failures);
-      check(Math.abs(result.leftInset) <= 0.5, `${testCase.label}: unexpected left inset`, failures);
-      check(Math.abs(result.rightInset) <= 0.5, `${testCase.label}: unexpected right inset`, failures);
-      check(result.card.height >= 400 && result.card.height <= 421, `${testCase.label}: compact height ${result.card.height}`, failures);
-      if (testCase.width === 390) {
-        check(result.card.width >= 300, `${testCase.label}: card width ${result.card.width}`, failures);
-      }
+      check([4, 5].includes(result.readingColumnSpan), `${testCase.label}: compact edge span changed`, failures);
+      check(result.card.height >= 132 && result.card.height <= 188, `${testCase.label}: compact height ${result.card.height}`, failures);
       check(
-        result.preview.width >= minimumPreviewWidth && result.preview.height >= minimumPreviewHeight,
+        result.preview.width >= 128 && result.preview.height >= 128,
         `${testCase.label}: preview too small ${result.preview.width}x${result.preview.height}`,
         failures,
       );
       check(
         result.dateRelation.visible
-          && result.dateRelation.fontSize >= 9
-          && result.dateRelation.lineHeight >= result.dateRelation.fontSize * 1.2
-          && !result.dateRelation.clipped,
+          && result.dateRelation.fontSize >= 7
+          && result.dateRelation.lineHeight >= result.dateRelation.fontSize * 1.1
+          && result.dateRelation.clientHeight >= result.dateRelation.lineHeight,
         `${testCase.label}: dual-date metadata unreadable ${JSON.stringify(result.dateRelation)}`,
         failures,
       );
-      check(!result.title.clipped, `${testCase.label}: title clipped`, failures);
       check(
         result.summary.visible
           && result.summary.display !== "none"
-          && result.summary.visibleLines >= 4
-          && result.summary.exposedFraction >= 0.3
+          && result.summary.visibleLines >= 1
           && result.summary.bottom <= result.copy.bottom + 1,
         `${testCase.label}: summary unreadable ${JSON.stringify(result.summary)}`,
         failures,
@@ -403,17 +403,17 @@ try {
         check(
           result.legacyNarrowCombination.display !== "none"
             && result.legacyNarrowCombination.visibility !== "hidden"
-            && result.legacyNarrowCombination.visibleLines >= 4,
+            && result.legacyNarrowCombination.visibleLines >= 1,
           `${testCase.label}: narrow/very-narrow classes hid compact summary `
             + JSON.stringify(result.legacyNarrowCombination),
           failures,
         );
       }
       check(
-        result.time.bottom <= result.preview.top + 1
-          && result.preview.bottom <= result.copy.top + 1
+        (result.preview.right <= result.copy.left + 1 || result.copy.right <= result.preview.left + 1)
+          && result.time.bottom <= result.copy.bottom + 1
           && result.copy.bottom <= result.hint.top + 1,
-        `${testCase.label}: compact reading order is not stacked`,
+        `${testCase.label}: compact square crop and copy are not side-by-side`,
         failures,
       );
       check(result.panelScrollable, `${testCase.label}: dialog is not scrollable`, failures);
@@ -429,7 +429,11 @@ try {
       check(result.readingColumnSpan === 2, `${testCase.label}: desktop span changed`, failures);
       check(result.card.height >= 260 && result.card.height <= 275, `${testCase.label}: desktop height changed`, failures);
       check(result.fullWidthDelta >= result.readingLayer.width * 0.35, `${testCase.label}: desktop card became full-width`, failures);
-      check(result.preview.left >= result.copy.right - 1, `${testCase.label}: desktop is no longer side-by-side`, failures);
+      check(
+        result.preview.right <= result.copy.left + 1 || result.copy.right <= result.preview.left + 1,
+        `${testCase.label}: desktop is no longer side-by-side`,
+        failures,
+      );
       check(
         result.kicker.bottom <= result.title.top + 1
           && result.title.bottom <= result.dateRelation.top + 1

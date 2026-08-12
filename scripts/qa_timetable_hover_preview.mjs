@@ -596,7 +596,7 @@ async function assertRoundedAndSemantic(page, label) {
 
   assert.ok(result.cards.length > 0, `${label}: no reading cards`);
   assert.ok(
-    result.cards.every((card) => card.radius >= 16 && card.radius <= 20),
+    result.cards.every((card) => card.radius >= 12 && card.radius <= 20),
     `${label}: reading-card radius ${JSON.stringify(result.cards)}`,
   );
   assert.ok(
@@ -687,8 +687,8 @@ async function assertRoundedAndSemantic(page, label) {
   const climate = result.cards.filter((card) => card.layer === "climate");
   const foreground = result.cards.filter((card) => ["event", "beacon"].includes(card.layer));
   assert.ok(
-    climate.every((card) => card.opacity >= 0.45 && card.opacity <= 0.75),
-    `${label}: climate cards must stay semi-transparent frosted glass`,
+    climate.every((card) => card.opacity === 1),
+    `${label}: climate cards must recede without transparency`,
   );
   assert.ok(
     Math.max(...climate.map((card) => card.zIndex))

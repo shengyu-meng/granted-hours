@@ -6023,6 +6023,266 @@ h1 {
   }
 }
 
+/* ===== Edge fossils + elastic empty time / 边缘化石与弹性空时（2026-08-12） =====
+   Reading blocks interrupt the exposed cut only from its left or right edge.
+   Completely idle clock hours fold vertically, while occupied/card-bearing
+   hours retain the active minute scale and every printed hour remains visible. */
+.timeline-list[data-projection="compressed-empty-hours-v1"] {
+  height: auto;
+}
+
+.timeline-list[data-projection="compressed-empty-hours-v1"] .timeline-strata-bed::after {
+  display: none;
+}
+
+.timeline-list[data-projection="compressed-empty-hours-v1"] .timeline-hour-marker {
+  border-top-color: color-mix(in srgb, var(--ink) 13%, transparent);
+}
+
+.timeline-list[data-projection="compressed-empty-hours-v1"]
+  .timeline-hour-marker.is-compressed-hour {
+  border-top-style: dashed;
+  border-top-color: color-mix(in srgb, var(--violet-fog) 22%, transparent);
+}
+
+.timeline-list[data-projection="compressed-empty-hours-v1"]
+  .timeline-hour-marker.is-compressed-hour span {
+  color: color-mix(in srgb, var(--ink-muted) 70%, var(--violet-fog));
+  font-size: 7px;
+}
+
+.timeline-reading-layer .event-reading-card[data-edge-anchored="true"] {
+  opacity: 1 !important;
+  background-color: #11181d !important;
+  background-image:
+    linear-gradient(
+      132deg,
+      color-mix(in srgb, var(--category-accent, var(--cyan-muted)) 16%, #182128),
+      color-mix(in srgb, var(--category-accent, var(--cyan-muted)) 7%, #11181d)
+    ) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 92%, #11181d),
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 34%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 26%, transparent),
+    0 8px 18px rgba(0, 0, 0, 0.3) !important;
+}
+
+.timeline-reading-layer .event-reading-card[data-edge-side="left"] {
+  border-radius: 14px 20px 20px 14px !important;
+}
+
+.timeline-reading-layer .event-reading-card[data-edge-side="right"] {
+  border-radius: 20px 14px 14px 20px !important;
+}
+
+.timeline-reading-layer .event-reading-card[data-layer="climate"] {
+  opacity: 1 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 27%, #303a40) !important;
+  background-color: #171d21 !important;
+  background-image:
+    linear-gradient(
+      132deg,
+      color-mix(in srgb, var(--category-accent) 8%, #1c2327),
+      color-mix(in srgb, var(--category-accent) 3%, #151b1f)
+    ) !important;
+  color: color-mix(in srgb, var(--semantic-card-ink) 82%, var(--ink-muted)) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 94%, #151b1f),
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 24%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 30%, transparent),
+    0 3px 9px rgba(0, 0, 0, 0.24) !important;
+}
+
+:root[data-theme="light"] .timeline-reading-layer .event-reading-card[data-edge-anchored="true"] {
+  opacity: 1 !important;
+  background-color: #ecece6 !important;
+  background-image:
+    linear-gradient(
+      132deg,
+      color-mix(in srgb, var(--category-accent, var(--cyan-muted)) 15%, #f5f4ef),
+      color-mix(in srgb, var(--category-accent, var(--cyan-muted)) 6%, #e8e8e2)
+    ) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 94%, #ecece6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0 rgba(22, 34, 38, 0.15),
+    0 8px 18px rgba(30, 40, 42, 0.13) !important;
+}
+
+:root[data-theme="light"] .timeline-reading-layer .event-reading-card[data-layer="climate"] {
+  opacity: 1 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 28%, #b7b9b5) !important;
+  background-color: #efeee9 !important;
+  background-image:
+    linear-gradient(
+      132deg,
+      color-mix(in srgb, var(--category-accent) 7%, #f4f3ed),
+      color-mix(in srgb, var(--category-accent) 3%, #eae9e4)
+    ) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 96%, #efeee9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    inset 0 -1px 0 rgba(22, 34, 38, 0.18),
+    0 3px 9px rgba(30, 40, 42, 0.09) !important;
+}
+
+.timeline-reading-layer .event-reading-card[data-edge-anchored="true"]:hover,
+.timeline-reading-layer .event-reading-card[data-edge-anchored="true"]:focus-visible,
+.timeline-reading-layer .event-reading-card[data-edge-anchored="true"].is-selected,
+.timeline-reading-layer .event-reading-card[data-edge-anchored="true"].is-linked-active {
+  opacity: 1 !important;
+  background-color: #172128 !important;
+  background-image:
+    linear-gradient(
+      132deg,
+      color-mix(in srgb, var(--category-accent) 23%, #202c33),
+      color-mix(in srgb, var(--category-accent) 9%, #151d22)
+    ) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 92%, #172128),
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 46%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--ink) 26%, transparent),
+    0 27px 54px color-mix(in srgb, var(--category-accent) 14%, rgba(0, 0, 0, 0.5)) !important;
+}
+
+:root[data-theme="light"]
+  .timeline-reading-layer
+  .event-reading-card[data-edge-anchored="true"]:is(:hover, :focus-visible, .is-selected, .is-linked-active) {
+  background-color: #f1f0ea !important;
+  background-image:
+    linear-gradient(
+      132deg,
+      color-mix(in srgb, var(--category-accent) 20%, #faf9f4),
+      color-mix(in srgb, var(--category-accent) 8%, #ecebe5)
+    ) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--page-bg) 94%, #f1f0ea),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(22, 34, 38, 0.16),
+    0 26px 50px color-mix(in srgb, var(--category-accent) 11%, rgba(30, 40, 42, 0.22)) !important;
+}
+
+/* The artwork crop is an edge-facing square whose height is the card's inner
+   height. The crop uses cover deliberately; the full 16:9 work remains one
+   click away in the in-calendar chamber. */
+.timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] {
+  --artwork-square-size: calc(var(--reading-card-height) - 4px);
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  gap: 0 !important;
+  padding: 0 !important;
+}
+
+.timeline-reading-layer
+  .autonomous-reading-card[data-layer="beacon"][data-edge-side="right"] {
+  grid-template-columns: minmax(0, 1fr) var(--artwork-square-size) !important;
+}
+
+.timeline-reading-layer
+  .autonomous-reading-card[data-layer="beacon"][data-edge-side="left"] {
+  grid-template-columns: var(--artwork-square-size) minmax(0, 1fr) !important;
+}
+
+.timeline-reading-layer
+  .autonomous-reading-card[data-layer="beacon"]
+  > :is(.autonomous-time, .autonomous-copy, .autonomous-open-copy) {
+  grid-column: 1 !important;
+}
+
+.timeline-reading-layer
+  .autonomous-reading-card[data-layer="beacon"][data-edge-side="left"]
+  > :is(.autonomous-time, .autonomous-copy, .autonomous-open-copy) {
+  grid-column: 2 !important;
+}
+
+.timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-time {
+  grid-row: 1 !important;
+  margin: 9px 9px 0 !important;
+}
+
+.timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-copy {
+  grid-row: 2 !important;
+  margin: 4px 9px !important;
+}
+
+.timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-open-copy {
+  grid-row: 3 !important;
+  margin: 0 9px 9px !important;
+}
+
+.timeline-reading-layer
+  .autonomous-reading-card[data-layer="beacon"]
+  > .autonomous-preview-frame {
+  grid-column: 2 !important;
+  grid-row: 1 / -1 !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  border: 0 !important;
+  border-left: 2px solid color-mix(in srgb, var(--page-bg) 88%, var(--category-accent)) !important;
+  border-radius: 10px 12px 12px 10px !important;
+}
+
+.timeline-reading-layer
+  .autonomous-reading-card[data-layer="beacon"][data-edge-side="left"]
+  > .autonomous-preview-frame {
+  grid-column: 1 !important;
+  border-right: 2px solid color-mix(in srgb, var(--page-bg) 88%, var(--category-accent)) !important;
+  border-left: 0 !important;
+  border-radius: 12px 10px 10px 12px !important;
+}
+
+.timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] .self-preview {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+@media (max-width: 720px) {
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-time {
+    margin: 7px 7px 0 !important;
+    font-size: 7px;
+  }
+
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-time small {
+    font-size: 6.5px;
+    line-height: 1.15;
+  }
+
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-copy {
+    margin: 3px 7px !important;
+  }
+
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] .autonomous-copy h4 {
+    display: -webkit-box;
+    margin: 0 0 2px;
+    overflow: hidden;
+    font-size: 10px;
+    line-height: 1.08;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] .autonomous-date-relation {
+    margin-bottom: 2px;
+    font-size: 7px;
+    line-height: 1.15;
+    -webkit-line-clamp: 2;
+  }
+
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] .reading-summary {
+    font-size: 7px;
+    line-height: 1.15;
+    -webkit-line-clamp: 2;
+  }
+
+  .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-open-copy {
+    margin: 0 7px 7px !important;
+    font-size: 6.5px;
+  }
+}
+
 /* ===== Stratigraphic day detail / 日详情时间地层（2026-08-12） =====
    Exact footprints are the exposed strata, not translucent marks hidden under
    a card plane. Reading cards are larger editorial fossils set into the same
@@ -6788,21 +7048,11 @@ h1 {
   border-radius: inherit;
 }
 
-/* Keep the canonical 16:9 timetable GIF entirely visible. Desktop cards stay
-   side-by-side, while the preview is vertically centered instead of being
-   stretched to the authored-copy height. Mobile keeps its stacked layout. */
-@media (min-width: 721px) {
-  .autonomous-work-link.event-reading-card:not(.is-compact-reading-card) {
-    grid-template-columns: minmax(0, 0.82fr) minmax(104px, 1.18fr);
-    gap: 6px;
-    padding: 7px;
-  }
-
-  .autonomous-work-link.event-reading-card:not(.is-compact-reading-card)
-    > .autonomous-preview-frame {
-    align-self: center;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-left: 0;
+@media (max-width: 340px) {
+  .timeline-reading-layer
+    .autonomous-reading-card[data-layer="beacon"].is-compact-reading-card
+    .autonomous-copy
+    > p.reading-summary:last-child {
+    -webkit-line-clamp: 3 !important;
   }
 }
