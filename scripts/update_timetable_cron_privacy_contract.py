@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the timetable v10 self-maintaining daily-closure contract in live jobs."""
+"""Install the timetable v11 self-maintaining daily-closure contract in live jobs."""
 from __future__ import annotations
 
 import argparse
@@ -19,7 +19,7 @@ FREE_ROAM_JOB_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_JOB_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_JOB_NAME = "授时：每日自由创作与日历闭环"
 TARGET_ROLES = {"free_roam", "dialogue", "closure"}
-MARKER = "[授时每日公开闭环契约 v10]"
+MARKER = "[授时每日公开闭环契约 v11]"
 CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
     r"(?:- [^\n]*(?:\n|$))+"
@@ -32,7 +32,7 @@ STALE_PUBLISH_SECTION_RE = re.compile(
 )
 COMMON_CONTRACT = """
 
-[授时每日公开闭环契约 v10]
+[授时每日公开闭环契约 v11]
 - 公开文本的处理优先级固定为：先对识别实体打码（████）并保留句子本身的轮廓；整句打码后仍然敏感时，才把该句替换为有界的隐喻或抽象；只有连隐喻都会泄露私人事实时才整条删除。不得把“删除整条”当作默认方案，也不得用类别或主题模板句充当卡片正文。
 - 家庭梦境、亲密关系、照护与父母子女角色，只能保留为“私人经验中的关系/责任/照护平衡”等抽象协作主题；不得公开具体人物、情节、冲突或家庭结构。
 - 身体、药物、疾病、症状、低能量和情绪状态，只能保留为“个人恢复安排”等抽象主题；不得公开具体名称、表现或时间线。
@@ -77,6 +77,7 @@ CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - 发布顺序固定为两条日期轨：先导入当天及历史积压的作品；再只对“早于当前自然日”的 `event_backlog_dates` 逐日运行 `python3 scripts/import_collaboration_events.py --date YYYY-MM-DD`，以及带 `--private-redaction-terms .private/identity-denylist.json --authorize-self-reminders --authorize-authentic-reminder-disclosure` 的 `import_timetable_pulses.py --date YYYY-MM-DD`。绝不在当天早晨提前导入当天后续协作/例行事件；当天事件由次日 00:20 收集，并随次日作品闭环发布。
 - ready receipt 的验证状态为 pending/partial 时，闭环必须对该日期重新运行 `qa_visual_previews.mjs --date YYYY-MM-DD` 及必要的本地安全检查；通过后原子升级 receipt 为 passed 再继续，失败则保留 oldest-first backlog，不能把暂时运行时问题变成永久缺席。
 - 构建公开数据后必须从 canonical public worktree 运行 `python3 scripts/test_first_person_public_contract.py`；它是第一人称协作、例行汇总、审核判断、满意度证据和浏览器运行时一致性的硬门控，失败即停止提交、推送和部署。
+- 日历构建后必须在有界本地静态服务器上运行 `qa_timetable_dialog_full_artwork.mjs` 与 `qa_timetable_calendar_enrichment.mjs`，并在部署后分别对自定义域名、稳定 Pages 域名和本次不可变部署地址重跑作品浮窗门控。门控必须逐视口覆盖普通桌面、390×844、421×386 短触屏与 3840×2160：作品浮窗只允许一个 `Brief / 作品摘要` 卡片，完整顺序固定为中文 Summary、中文 Brief、英文 Summary、英文 Brief；全屏按钮必须为最右操作项，上沿对齐 `Autonomous artwork / AI 自主作品`、右沿对齐摘要卡片；非全屏作品舞台在所有视口保持 16:9，不得出现竖向黑色空区；embed 模式不得残留会与作品画面碰撞的原生 brief、hint、ledger 或控制层；全屏退出、二次关闭、Escape、焦点恢复和 iframe 卸载层级全部通过。任一失败不得把闭环状态写成 `ok`。
 - 预览必须同时存在 PNG、GIF 与 WebP；三者都要表现作品本身，禁止目录、错误页、加载壳或可被 OCR 读出的界面/路径文字。GIF/WebP 必须有可见运动、固定帧数和有界时长，archive 与 docs 镜像哈希必须一致。
 - 动态捕获只允许一次有界尝试，90 秒仍未完成就终止整棵捕获进程，改用已验证 PNG 的无文字视觉区域生成确定性固定帧动画并同步导出 GIF/WebP；不得把无限等待、静态单帧、缺任一格式或旧 WebP 继续沿用当作成功。
 - 只允许 canonical worktree；开始和发布后均验证 `HEAD == origin/main == git ls-remote origin refs/heads/main`。无事务清单时，工作树不干净或三方失配必须 fail closed、保留积压，不 merge/rebase/reset，也不吸收无关改动。

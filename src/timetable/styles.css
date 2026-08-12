@@ -6951,8 +6951,9 @@ h1 {
   }
 
   .artwork-live-stage {
-    min-height: min(58dvh, 520px);
-    aspect-ratio: auto;
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
 
   .artwork-dialog-panel:fullscreen {

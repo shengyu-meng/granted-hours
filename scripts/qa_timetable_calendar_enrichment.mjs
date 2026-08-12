@@ -286,14 +286,14 @@ try {
 
   await check("representative embed variants hide chrome and begin with media safely paused", async () => {
     let audioElementCount = 0;
-    for (const date of ["2026-05-07", "2026-07-06", "2026-07-26"]) {
+    for (const date of ["2026-05-07", "2026-07-06", "2026-07-26", "2026-08-12"]) {
       const [year, month] = date.split("-");
       const embedPage = await context.newPage();
       await embedPage.goto(new URL(`archive/${year}/${month}/${date}/live/?embed=calendar`, archiveBaseUrl).href, { waitUntil: "commit" });
       await embedPage.locator("body.gh-chamber-embed").waitFor();
       await embedPage.waitForTimeout(300);
       const result = await embedPage.evaluate(() => {
-        const selectors = ["h1", "h2", "h3", ".title", ".hud", ".status", ".label", ".controls", ".toolbar", ".ui", ".overlay", "button", "[role=button]"];
+        const selectors = ["h1", "h2", "h3", ".title", ".brief", "#brief", ".hint", "#hint", ".ledger", ".hud", ".status", ".label", ".controls", ".toolbar", ".ui", ".overlay", "button", "[role=button]"];
         const visible = selectors.flatMap((selector) =>
           [...document.querySelectorAll(selector)]
             .filter((element) => {

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused tests for the live timetable cron v10 installer."""
+"""Focused tests for the live timetable cron v11 installer."""
 from __future__ import annotations
 
 import json
@@ -17,7 +17,7 @@ DIALOGUE_ID = "dialogue-test-id"
 FREE_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_NAME = "授时：每日自由创作与日历闭环"
-MARKER = "[授时每日公开闭环契约 v10]"
+MARKER = "[授时每日公开闭环契约 v11]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
@@ -133,7 +133,7 @@ class TimetableCronContractTests(unittest.TestCase):
             jobs.write_text(json.dumps(source), encoding="utf-8")
             os.chmod(jobs, 0o600)
             original_catalog = jobs.read_bytes()
-            backup = Path(temporary_directory) / "jobs.pre-v10.json"
+            backup = Path(temporary_directory) / "jobs.pre-v11.json"
             first = subprocess.run(
                 [
                     "python3",
@@ -175,6 +175,12 @@ class TimetableCronContractTests(unittest.TestCase):
             self.assertIn("08:35 与 10:35", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("plan_daily_closure.py --current-date YYYY-MM-DD", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("python3 scripts/test_first_person_public_contract.py", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("qa_timetable_dialog_full_artwork.mjs", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("qa_timetable_calendar_enrichment.mjs", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("`Brief / 作品摘要`", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("非全屏作品舞台在所有视口保持 16:9", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("原生 brief、hint、ledger 或控制层", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("自定义域名、稳定 Pages 域名和本次不可变部署地址", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("metadata/public-identity-allowlist.json", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("`Simon`、`Simon的白日梦`、`Simon Meng`", by_name[CLOSURE_NAME]["prompt"])
             self.assertEqual(

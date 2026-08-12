@@ -162,6 +162,9 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn('data-gh-brief-covered="true"', snippet)
         self.assertIn("scrollbar-color: rgba(242,195,107,.42) transparent", snippet)
         self.assertIn('body.gh-chamber-embed .gh-live-brief', snippet)
+        self.assertIn('body.gh-chamber-embed .brief', snippet)
+        self.assertIn('body.gh-chamber-embed #hint', snippet)
+        self.assertIn('body.gh-chamber-embed .ledger', snippet)
 
     def test_explicit_keyboard_shortcuts_have_touch_equivalents(self) -> None:
         first = importer.interaction_touch_keys(importer.ENTRIES[0]["interaction_en"])

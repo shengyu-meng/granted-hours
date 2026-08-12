@@ -56,6 +56,7 @@ async function artworkBriefLayout(page) {
     const kicker = document.querySelector(".artwork-dialog-header .artwork-detail-kicker");
     const fullscreen = document.querySelector("#artworkFullscreen");
     const brief = document.querySelector(".artwork-brief-card");
+    const stage = document.querySelector(".artwork-live-stage");
     const rect = (element) => {
       const box = element.getBoundingClientRect();
       return { top: box.top, right: box.right, left: box.left, bottom: box.bottom };
@@ -74,6 +75,7 @@ async function artworkBriefLayout(page) {
       kicker: rect(kicker),
       fullscreen: rect(fullscreen),
       brief: rect(brief),
+      stage: rect(stage),
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     };
   });
@@ -107,6 +109,10 @@ function assertArtworkBriefLayout(state, self, label) {
   assert.ok(
     Math.abs(state.fullscreen.right - state.brief.right) <= 1,
     `${label}: fullscreen right edge is not aligned to the Brief card ${JSON.stringify(state)}`,
+  );
+  assert.ok(
+    Math.abs((state.stage.right - state.stage.left) / (state.stage.bottom - state.stage.top) - (16 / 9)) <= 0.02,
+    `${label}: non-fullscreen live stage must remain 16:9 ${JSON.stringify(state)}`,
   );
   assert.ok(state.pageOverflow <= 1, `${label}: horizontal overflow ${state.pageOverflow}`);
 }

@@ -1821,6 +1821,11 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   }
   body.gh-chamber-embed .gh-work-note-trigger,
   body.gh-chamber-embed .gh-live-brief,
+  body.gh-chamber-embed .brief,
+  body.gh-chamber-embed #brief,
+  body.gh-chamber-embed .hint,
+  body.gh-chamber-embed #hint,
+  body.gh-chamber-embed .ledger,
   body.gh-chamber-embed .sound,
   body.gh-chamber-embed #sound,
   body.gh-chamber-embed #soundToggle,

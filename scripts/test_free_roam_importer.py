@@ -126,6 +126,9 @@ class FreeRoamImporterTests(unittest.TestCase):
             1,
         )
         self.assertIn("body.gh-chamber-embed .gh-work-note-trigger", refreshed)
+        self.assertIn("body.gh-chamber-embed .brief", refreshed)
+        self.assertIn("body.gh-chamber-embed #hint", refreshed)
+        self.assertIn("body.gh-chamber-embed .ledger", refreshed)
         self.assertIn("const workNoteOverlay = createWorkNoteOverlay();", refreshed)
         self.assertIn("overlay.setAttribute('aria-modal', 'true');", refreshed)
         self.assertIn("overlay.hidden = true;", refreshed)
