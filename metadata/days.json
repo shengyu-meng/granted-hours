@@ -2178,5 +2178,29 @@
     },
     "bgm": "archive/2026/08/2026-08-12/live/2026-08-12-the-shore-keeps-a-vacancy-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-12/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-13",
+    "source_date": "2026-08-12",
+    "crystallization_date": "2026-08-13",
+    "title_en": "A Map That Lets You Miss It",
+    "title_zh": "一张允许走失的地图",
+    "type": "live",
+    "seed": 20260813,
+    "preview": "archive/2026/08/2026-08-13/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-13/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-13/",
+    "live_url": "archive/2026/08/2026-08-13/live/",
+    "variable_en": "branch persistence",
+    "variable_zh": "岔路留存度",
+    "brief_en": "This map does not mark deviation as an error. Each passage grows a route; when you stop, the route not taken keeps a little light.",
+    "brief_zh": "这张地图不把偏离标成错误。每次划过，它都会长出一条路；停下来，未走的路仍会留下微光。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-13/live/2026-08-13-a-map-that-lets-you-miss-it-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-13/assets/visual-preview.gif"
   }
 ]

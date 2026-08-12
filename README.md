@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-13 — A Map That Lets You Miss It / 一张允许走失的地图**<br>
+  Variable / 自由变量：branch persistence / 岔路留存度<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-13/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-13/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-13/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-13/live/)
 - **2026-08-12 — The Shore Keeps a Vacancy / 岸边留着空位**<br>
   Variable / 自由变量：vacancy radius / 留空半径<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

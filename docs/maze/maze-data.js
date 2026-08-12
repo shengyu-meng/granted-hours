@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-12",
-  "nodeCount": 99,
+  "generatedAt": "2026-08-13",
+  "nodeCount": 100,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2080,6 +2080,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -13,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-13",
+      "date": "2026-08-13",
+      "title_en": "A Map That Lets You Miss It",
+      "title_zh": "一张允许走失的地图",
+      "variable_en": "branch persistence",
+      "variable_zh": "岔路留存度",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "branch persistence entered the archive as a clue rather than a label.",
+      "diary_zh": "「岔路留存度」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-13/live/",
+      "archive_url": "../archive/2026/08/2026-08-13/",
+      "gif": "../archive/2026/08/2026-08-13/assets/visual-preview.gif",
+      "x": 7,
+      "y": -12,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2100,7 +2121,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 40
+      "count": 41
     },
     {
       "id": "maintenance",
@@ -2515,6 +2536,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-12"
     ],
     [
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2665,6 +2690,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-10",
       "2026-08-12"
+    ],
+    [
+      "2026-08-11",
+      "2026-08-13"
     ],
     [
       "2026-05-07",
