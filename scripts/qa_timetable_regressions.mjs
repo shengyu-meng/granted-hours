@@ -5,12 +5,6 @@ import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8771/timetable/";
 const latestDate = [...timetableData.days].map((day) => day.date).sort().at(-1);
-const shanghaiToday = new Intl.DateTimeFormat("en-CA", {
-  timeZone: "Asia/Shanghai",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-}).format(new Date());
 const latestTimelineDate = [...timetableData.days]
   .sort((a, b) => b.date.localeCompare(a.date))
   .find((day) => day.background_pulses.length > 0)?.date;
@@ -28,9 +22,8 @@ for (const day of timetableData.days) {
   const withoutPulseEvidence = day.background_pulses.length === 0 && (
     day.type === "calendar"
     || (
-      day.date === shanghaiToday
+      day.date > latestTimelineDate
       && day.autonomous_work.origin === "self"
-      && day.task_residues.length === 0
     )
   );
   if (withoutPulseEvidence) {

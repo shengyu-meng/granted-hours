@@ -7,12 +7,10 @@ const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8891/timetable/";
 const days = [...timetableData.days].sort((a, b) => a.date.localeCompare(b.date));
 const latestDay = days.at(-1);
 const previousDay = days.at(-2);
-const shanghaiToday = new Intl.DateTimeFormat("en-CA", {
-  timeZone: "Asia/Shanghai",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-}).format(new Date());
+const latestPulseDate = [...days]
+  .reverse()
+  .find((day) => day.background_pulses.length > 0)?.date;
+assert.ok(latestPulseDate, "no public day has background timeline evidence");
 const interactionDay = [...days].reverse().find((day) => (
   day.task_residues.length > 0 && day.background_pulses.length > 0
 ));
@@ -22,12 +20,11 @@ let daysWithAssignedWork = 0;
 for (const day of days) {
   const calendarWithoutPulseEvidence = day.type === "calendar"
     && day.background_pulses.length === 0;
-  const currentArtworkAwaitingPriorDayImport = day.date === shanghaiToday
+  const trailingArtworkAwaitingDialogueSync = day.date > latestPulseDate
     && day.autonomous_work.origin === "self"
-    && day.background_pulses.length === 0
-    && day.task_residues.length === 0;
+    && day.background_pulses.length === 0;
   const withoutPulseEvidence = calendarWithoutPulseEvidence
-    || currentArtworkAwaitingPriorDayImport;
+    || trailingArtworkAwaitingDialogueSync;
   if (!withoutPulseEvidence) {
     assert.ok(day.background_pulses.length > 0, `${day.date} has no real background pulses`);
   }

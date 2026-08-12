@@ -29,6 +29,88 @@ async function scrollTopology(page) {
   });
 }
 
+async function stubArtworkEmbed(page) {
+  await page.route("https://shengyu-meng.github.io/granted-hours/archive/**/live/**", async (route) => {
+    await route.fulfill({
+      contentType: "text/html",
+      body: `<!doctype html><body class="gh-chamber-embed"><script>
+        const channel = new URL(location.href).searchParams.get("gh_channel");
+        const parentOrigin = new URL(document.referrer).origin;
+        const send = (event, status) => parent.postMessage({
+          type: "granted-hours:media", version: 2, channel, event, status,
+        }, parentOrigin);
+        addEventListener("message", (event) => {
+          const data = event.data;
+          if (data?.type !== "granted-hours:media" || data?.version !== 2 || data?.channel !== channel) return;
+          document.body.dataset.ghAudioEnabled = data.action === "play" ? "1" : "0";
+          send("state", data.action === "play" ? "armed" : "paused");
+        });
+        queueMicrotask(() => send("ready", "ready"));
+      <\/script></body>`,
+    });
+  });
+}
+
+async function artworkBriefLayout(page) {
+  return page.evaluate(() => {
+    const kicker = document.querySelector(".artwork-dialog-header .artwork-detail-kicker");
+    const fullscreen = document.querySelector("#artworkFullscreen");
+    const brief = document.querySelector(".artwork-brief-card");
+    const rect = (element) => {
+      const box = element.getBoundingClientRect();
+      return { top: box.top, right: box.right, left: box.left, bottom: box.bottom };
+    };
+    return {
+      summaryCardCount: document.querySelectorAll(".artwork-summary-card").length,
+      briefCardCount: document.querySelectorAll(".artwork-brief-card").length,
+      heading: document.querySelector("#artworkBriefLabel")?.textContent?.trim(),
+      paragraphIds: [...brief.querySelectorAll("p")].map((paragraph) => paragraph.id),
+      paragraphText: [...brief.querySelectorAll("p")].map((paragraph) => paragraph.textContent),
+      languages: [...brief.querySelectorAll(".artwork-brief-language-group")]
+        .map((group) => group.lang),
+      dividerCount: brief.querySelectorAll(".bilingual-summary-divider").length,
+      actionOrder: [...document.querySelector(".artwork-dialog-actions").children]
+        .map((control) => control.id),
+      kicker: rect(kicker),
+      fullscreen: rect(fullscreen),
+      brief: rect(brief),
+      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    };
+  });
+}
+
+function assertArtworkBriefLayout(state, self, label) {
+  assert.equal(state.summaryCardCount, 0, `${label}: legacy Summary card remains`);
+  assert.equal(state.briefCardCount, 1, `${label}: Brief must be one merged card`);
+  assert.equal(state.heading, "Brief / 作品摘要", `${label}: merged heading`);
+  assert.deepEqual(
+    state.paragraphIds,
+    ["artworkDetailZh", "artworkBriefZh", "artworkDetailEn", "artworkBriefEn"],
+    `${label}: language-first paragraph order`,
+  );
+  assert.deepEqual(
+    state.paragraphText,
+    [self.note_zh, self.brief_zh, self.note_en, self.brief_en],
+    `${label}: Summary and Brief copy must remain complete`,
+  );
+  assert.deepEqual(state.languages, ["zh", "en"], `${label}: language group order`);
+  assert.equal(state.dividerCount, 1, `${label}: only the language boundary needs a divider`);
+  assert.deepEqual(
+    state.actionOrder,
+    ["closeArtworkDetail", "artworkFullscreen"],
+    `${label}: fullscreen must own the aligned right edge`,
+  );
+  assert.ok(
+    Math.abs(state.fullscreen.top - state.kicker.top) <= 1,
+    `${label}: fullscreen top is not aligned to the autonomous-artwork heading ${JSON.stringify(state)}`,
+  );
+  assert.ok(
+    Math.abs(state.fullscreen.right - state.brief.right) <= 1,
+    `${label}: fullscreen right edge is not aligned to the Brief card ${JSON.stringify(state)}`,
+  );
+  assert.ok(state.pageOverflow <= 1, `${label}: horizontal overflow ${state.pageOverflow}`);
+}
+
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
   const page = await context.newPage();
@@ -129,25 +211,7 @@ try {
   assert.equal(outerActivationCount, 0);
 
   const artworkPage = await context.newPage();
-  await artworkPage.route("https://shengyu-meng.github.io/granted-hours/archive/**/live/**", async (route) => {
-    await route.fulfill({
-      contentType: "text/html",
-      body: `<!doctype html><body class="gh-chamber-embed"><script>
-        const channel = new URL(location.href).searchParams.get("gh_channel");
-        const parentOrigin = new URL(document.referrer).origin;
-        const send = (event, status) => parent.postMessage({
-          type: "granted-hours:media", version: 2, channel, event, status,
-        }, parentOrigin);
-        addEventListener("message", (event) => {
-          const data = event.data;
-          if (data?.type !== "granted-hours:media" || data?.version !== 2 || data?.channel !== channel) return;
-          document.body.dataset.ghAudioEnabled = data.action === "play" ? "1" : "0";
-          send("state", data.action === "play" ? "armed" : "paused");
-        });
-        queueMicrotask(() => send("ready", "ready"));
-      <\/script></body>`,
-    });
-  });
+  await stubArtworkEmbed(artworkPage);
   const artworkUrl = new URL(baseUrl);
   artworkUrl.searchParams.set("date", latest.date);
   await artworkPage.goto(artworkUrl.href, { waitUntil: "domcontentloaded" });
@@ -165,10 +229,11 @@ try {
   assert.match(artworkFrameSrc, /[?&]gh_channel=[a-f0-9]{32}(?:&|$)/);
   assert.equal(await artworkPage.locator("#artworkBriefZh").textContent(), latest.autonomous_work.brief_zh);
   assert.equal(await artworkPage.locator("#artworkBriefEn").textContent(), latest.autonomous_work.brief_en);
-  assert.ok(await artworkPage.locator(".artwork-summary-card").evaluate((summary) => (
-    summary.compareDocumentPosition(document.querySelector(".artwork-brief-card"))
-    & Node.DOCUMENT_POSITION_FOLLOWING
-  ) !== 0));
+  assertArtworkBriefLayout(
+    await artworkBriefLayout(artworkPage),
+    latest.autonomous_work,
+    "desktop-1280x720",
+  );
   assert.match(await artworkPage.locator("#artworkLiveLink").getAttribute("href"), /\/live\//);
   assert.ok(await artworkPage.locator(".artwork-brief-card").evaluate((brief) => (
     brief.compareDocumentPosition(document.querySelector("#artworkLiveLink"))
@@ -289,6 +354,11 @@ try {
   await mobilePage.waitForSelector("#artworkDialog.is-open");
   assert.equal(await mobilePage.locator("#artworkBriefZh").textContent(), sampleDay.autonomous_work.brief_zh);
   assert.equal(await mobilePage.locator("#artworkBriefEn").textContent(), sampleDay.autonomous_work.brief_en);
+  assertArtworkBriefLayout(
+    await artworkBriefLayout(mobilePage),
+    sampleDay.autonomous_work,
+    "short-touch-421x386",
+  );
   const mobileArtworkGeometry = await mobilePage.locator("#artworkDialogPanel").evaluate((panel) => {
     const rect = panel.getBoundingClientRect();
     const style = getComputedStyle(panel);
@@ -311,6 +381,31 @@ try {
   await mobilePage.locator("#artworkLiveLink").scrollIntoViewIfNeeded();
   assert.equal(await mobilePage.locator("#artworkLiveLink").isVisible(), true);
   await mobile.close();
+
+  for (const viewportCase of [
+    { label: "mobile-390x844", viewport: { width: 390, height: 844 }, mobile: true },
+    { label: "desktop-4k", viewport: { width: 3840, height: 2160 }, mobile: false },
+  ]) {
+    const responsiveContext = await browser.newContext({
+      viewport: viewportCase.viewport,
+      isMobile: viewportCase.mobile,
+      hasTouch: viewportCase.mobile,
+    });
+    const responsivePage = await responsiveContext.newPage();
+    await stubArtworkEmbed(responsivePage);
+    const responsiveUrl = new URL(baseUrl);
+    responsiveUrl.searchParams.set("date", latest.date);
+    await responsivePage.goto(responsiveUrl.href, { waitUntil: "domcontentloaded" });
+    await responsivePage.waitForSelector(`#dayDialog.is-open[data-selected-date="${latest.date}"]`);
+    await responsivePage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+    await responsivePage.waitForSelector("#artworkDialog.is-open");
+    assertArtworkBriefLayout(
+      await artworkBriefLayout(responsivePage),
+      latest.autonomous_work,
+      viewportCase.label,
+    );
+    await responsiveContext.close();
+  }
 } finally {
   await browser.close();
 }

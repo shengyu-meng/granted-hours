@@ -20,8 +20,8 @@
       })();
     </script>
     <title>Granted Hours / 授时</title>
-    <script type="module" crossorigin src="./assets/index-4TmJx-II.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BNWAZp5j.css">
+    <script type="module" crossorigin src="./assets/index-DV4arCzc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BXg968hB.css">
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
@@ -126,13 +126,15 @@
 
     <section class="artwork-dialog" id="artworkDialog" role="dialog" aria-modal="true" aria-labelledby="artworkDetailTitle" aria-describedby="artworkDetailMeta" hidden>
       <div class="artwork-dialog-panel" id="artworkDialogPanel" role="document">
-        <div class="artwork-dialog-actions">
-          <button class="artwork-dialog-fullscreen" id="artworkFullscreen" type="button" aria-pressed="false">Fullscreen / 全屏</button>
-          <button class="artwork-dialog-close" id="closeArtworkDetail" type="button" aria-label="Close artwork detail / 关闭作品详情">
-            <span aria-hidden="true">×</span>
-          </button>
+        <div class="artwork-dialog-header">
+          <p class="artwork-detail-kicker">Autonomous artwork / AI 自主作品</p>
+          <div class="artwork-dialog-actions">
+            <button class="artwork-dialog-close" id="closeArtworkDetail" type="button" aria-label="Close artwork detail / 关闭作品详情">
+              <span aria-hidden="true">×</span>
+            </button>
+            <button class="artwork-dialog-fullscreen" id="artworkFullscreen" type="button" aria-pressed="false">Fullscreen / 全屏</button>
+          </div>
         </div>
-        <p class="artwork-detail-kicker">Autonomous artwork / AI 自主作品</p>
         <h2 id="artworkDetailTitle"></h2>
         <p class="artwork-detail-meta" id="artworkDetailMeta"></p>
         <div class="artwork-detail-layout">
@@ -149,17 +151,17 @@
             </div>
           </div>
           <div class="artwork-detail-copy">
-            <section class="artwork-summary-card" aria-labelledby="artworkSummaryLabel">
-              <h3 id="artworkSummaryLabel">Summary / 摘要</h3>
-              <p class="artwork-summary-zh" id="artworkDetailZh" lang="zh"></p>
-              <div class="bilingual-summary-divider" aria-hidden="true"></div>
-              <p class="artwork-summary-en" id="artworkDetailEn" lang="en"></p>
-            </section>
             <section class="artwork-brief-card" aria-labelledby="artworkBriefLabel">
-              <h3 id="artworkBriefLabel">Brief / 作品简述</h3>
-              <p class="artwork-brief-zh" id="artworkBriefZh" lang="zh"></p>
+              <h3 id="artworkBriefLabel">Brief / 作品摘要</h3>
+              <div class="artwork-brief-language-group" lang="zh">
+                <p class="artwork-summary-zh" id="artworkDetailZh"></p>
+                <p class="artwork-brief-zh" id="artworkBriefZh"></p>
+              </div>
               <div class="bilingual-summary-divider" aria-hidden="true"></div>
-              <p class="artwork-brief-en" id="artworkBriefEn" lang="en"></p>
+              <div class="artwork-brief-language-group" lang="en">
+                <p class="artwork-summary-en" id="artworkDetailEn"></p>
+                <p class="artwork-brief-en" id="artworkBriefEn"></p>
+              </div>
             </section>
             <a class="artwork-live-link" id="artworkLiveLink" target="_blank" rel="noopener">Open full interactive artwork / 打开完整互动作品 ↗</a>
             <a class="artwork-archive-link" id="artworkArchiveLink" target="_blank" rel="noopener">View full archive page / 查看完整档案页 ↗</a>

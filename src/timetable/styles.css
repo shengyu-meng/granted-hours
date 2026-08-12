@@ -5379,13 +5379,15 @@ h1 {
 }
 
 .artwork-dialog-panel {
+  --artwork-panel-padding-block: clamp(20px, 3vw, 34px);
+  --artwork-panel-padding-inline: clamp(20px, 3vw, 34px);
   position: relative;
   width: min(100%, 920px);
   max-height: min(88dvh, 820px);
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: clamp(20px, 3vw, 34px);
+  padding: var(--artwork-panel-padding-block) var(--artwork-panel-padding-inline);
   border: 1px solid var(--hairline-strong);
   border-radius: 22px 17px 25px 19px;
   background:
@@ -5443,8 +5445,15 @@ h1 {
   text-transform: uppercase;
 }
 
+.artwork-dialog-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+}
+
 .artwork-dialog-panel > h2 {
-  max-width: calc(100% - 70px);
+  max-width: 100%;
   margin: 8px 0 6px;
   color: var(--ink);
   font-size: var(--type-display-task);
@@ -5523,6 +5532,11 @@ h1 {
   font-size: var(--type-dialog-body);
   line-height: 1.62;
   overflow-wrap: anywhere;
+}
+
+.artwork-brief-language-group {
+  display: grid;
+  gap: 10px;
 }
 
 .bilingual-summary-divider {
@@ -5682,9 +5696,11 @@ h1 {
   }
 
   .artwork-dialog-panel {
+    --artwork-panel-padding-block: 18px;
+    --artwork-panel-padding-inline: 14px;
     width: 100%;
     max-height: calc(100dvh - 12px);
-    padding: 18px 14px;
+    padding: var(--artwork-panel-padding-block) var(--artwork-panel-padding-inline);
   }
 
   .artwork-detail-layout {
@@ -6733,9 +6749,7 @@ h1 {
 }
 
 .artwork-dialog-actions {
-  position: absolute;
-  top: clamp(14px, 2vw, 22px);
-  right: clamp(14px, 2vw, 22px);
+  position: static;
   z-index: 5;
   display: flex;
   align-items: center;
@@ -6879,7 +6893,8 @@ h1 {
   background: #020407;
 }
 
-.artwork-dialog-panel:fullscreen > :is(.artwork-detail-kicker, h2, .artwork-detail-meta) {
+.artwork-dialog-panel:fullscreen > :is(h2, .artwork-detail-meta),
+.artwork-dialog-panel:fullscreen .artwork-detail-kicker {
   display: none;
 }
 
@@ -6927,10 +6942,6 @@ h1 {
 }
 
 @media (max-width: 720px), (max-height: 430px) {
-  .artwork-dialog-panel {
-    padding-top: 66px;
-  }
-
   .artwork-dialog-panel > h2 {
     max-width: 100%;
   }
