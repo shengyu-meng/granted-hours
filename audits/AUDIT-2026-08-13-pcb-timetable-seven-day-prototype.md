@@ -4,7 +4,11 @@
 
 试验范围：2026-08-06 至 2026-08-12（含首尾）
 
-状态：完成；等待 Simon 选择保留普通版、全量迁移或长期双版本
+状态：已发布并完成生产回查；等待 Simon 选择保留普通版、全量迁移或长期双版本
+
+功能发布提交：`30c8c02`（`Prototype seven-day PCB timetable view`）
+
+不可变部署：<https://bc1efbd8.granted-hours.pages.dev/timetable/>
 
 ## 1. 目标与边界
 
@@ -51,12 +55,17 @@ PCB 不是七套手工页面。它是一套共享模板：可读事件根据内�
 - `qa_timetable_autonomous_mobile_card.mjs`：移动、短屏、桌面、4K 的自主作品方形预览与单滚动根通过。
 - `qa_timetable_public_hierarchy.mjs`：两日 × 五尺寸通过。
 - `qa_timetable_regressions.mjs`：通过；191 组独特任务短语与 87 组独特日程保持。
+- 生产三端复跑 `qa_timetable_pcb_prototype.mjs`：自定义域、稳定 Pages 域、不可变部署全部通过相同的七日与四尺寸门控。
+- 三个生产入口均返回 HTTP 200，并包含本次 PCB 切换控件：
+  - <https://granted-hours.hyperint.net/timetable/>
+  - <https://granted-hours.pages.dev/timetable/>
+  - <https://bc1efbd8.granted-hours.pages.dev/timetable/>
 
 ## 5. 可回滚性
 
 功能级回滚：在七日详情右上角点击 `NORMAL / 普通`，立即恢复既有视图；离开 2026-08-06—2026-08-12 会强制回到普通视图。刷新或从月历重新打开日期也以普通版为默认。
 
-代码级回滚：本次改动以单一专用提交发布。若撤销该提交，普通日程数据、历史作品和自动发布数据链均不需要迁移或修复。PCB 样式全部受 `data-view-mode="pcb"` 作用域约束。
+代码级回滚：功能改动集中在专用提交 `30c8c02`。若撤销该提交，普通日程数据、历史作品和自动发布数据链均不需要迁移或修复。PCB 样式全部受 `data-view-mode="pcb"` 作用域约束。
 
 ## 6. 后续自动更新
 
