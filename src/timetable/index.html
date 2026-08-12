@@ -95,6 +95,7 @@
           <button class="dialog-day-nav" id="nextDay" type="button" aria-label="Next public day / 后一个公开日">→</button>
           <button class="dialog-day-nav dialog-sound-toggle" id="calendarPianoToggleDialog" type="button" aria-pressed="false"></button>
           <button class="dialog-day-nav dialog-sound-toggle" id="calendarBgmToggleDialog" type="button" aria-pressed="false"></button>
+          <button class="day-view-toggle" id="dayViewToggle" type="button" aria-pressed="false" hidden>PCB / 电路板</button>
           <button class="dialog-close" id="closeDetail" type="button">Close / 关闭</button>
         </nav>
         <div class="dialog-header">
@@ -103,13 +104,14 @@
           <p class="dialog-date" id="dialogDate"></p>
           <p class="dialog-variable" id="dialogVariable"></p>
           <p class="dialog-crystallization-link" id="dialogCrystallizationLink" hidden></p>
-          <p class="dialog-mode-thesis">时间足迹保持真实位置、时长与并行关系；可读浮签由登记线连接到精确足迹。<br>Footprints preserve exact position, duration, and concurrency; readable planes register back to them with visible rules.</p>
+          <p class="dialog-mode-thesis" id="dialogModeThesis">时间足迹保持真实位置、时长与并行关系；可读浮签由登记线连接到精确足迹。<br>Footprints preserve exact position, duration, and concurrency; readable planes register back to them with visible rules.</p>
+          <p class="day-view-prototype-note" id="dayViewPrototypeNote" hidden></p>
           <p class="dialog-boundary" id="dialogBoundary"></p>
         </div>
 
         <section class="timeline-detail" aria-labelledby="timelineTitle">
           <h3 id="timelineTitle">时间构成 / TEMPORAL COMPOSITION</h3>
-          <p class="timeline-help">时间地层：占用时段保持真实比例 · 完全空白的小时折叠但保留刻度 · 横向 = 精确并行｜嵌入卡片：只从左/右边缘切入 · 内容量优先 · 累计时长辅助<br>Time strata: occupied spans retain truthful scale · fully empty hours fold but keep their marks · lanes = exact concurrency | Embedded cards: interrupt only from the left/right edge · content first · cumulative duration second</p>
+          <p class="timeline-help" id="timelineHelp">时间地层：占用时段保持真实比例 · 完全空白的小时折叠但保留刻度 · 横向 = 精确并行｜嵌入卡片：只从左/右边缘切入 · 内容量优先 · 累计时长辅助<br>Time strata: occupied spans retain truthful scale · fully empty hours fold but keep their marks · lanes = exact concurrency | Embedded cards: interrupt only from the left/right edge · content first · cumulative duration second</p>
           <span class="sr-only" id="readingSelectionStatus" role="status" aria-live="polite"></span>
           <div class="timeline-touch-access">
             <button class="timeline-touch-toggle" id="timelineTouchToggle" type="button" aria-expanded="false" aria-controls="timelineTouchGroups">

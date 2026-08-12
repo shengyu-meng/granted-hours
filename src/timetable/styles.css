@@ -7068,3 +7068,480 @@ h1 {
     -webkit-line-clamp: 3 !important;
   }
 }
+
+/* ===== Seven-day PCB timetable prototype / 七日电路板日程试验（2026-08-13） =====
+   Reversible by design: the established timetable remains the default and all
+   visual changes are scoped to data-view-mode="pcb" on the selected-day dialog. */
+.dialog-toolbar {
+  grid-template-columns: 38px 38px 38px 38px minmax(88px, auto) minmax(112px, auto);
+}
+
+.day-view-toggle {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid color-mix(in srgb, var(--cyan-trace) 36%, var(--hairline-strong));
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--cyan-trace) 10%, transparent), transparent 52%),
+    color-mix(in srgb, var(--pane-quiet) 90%, var(--page-bg));
+  color: color-mix(in srgb, var(--ink-soft) 82%, var(--cyan-trace));
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  white-space: nowrap;
+}
+
+.day-view-toggle[hidden] {
+  display: none !important;
+}
+
+.day-view-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--gold-pale) 64%, var(--cyan-trace));
+  background:
+    radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--gold-pale) 28%, transparent) 0 2px, transparent 3px),
+    linear-gradient(135deg, color-mix(in srgb, var(--pcb-copper, var(--gold-trace)) 18%, transparent), transparent 62%),
+    color-mix(in srgb, var(--pane-strong) 90%, var(--page-bg));
+  color: var(--gold-pale);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 35%, transparent),
+    0 0 14px color-mix(in srgb, var(--gold-trace) 13%, transparent);
+}
+
+.day-view-prototype-note {
+  width: fit-content;
+  max-width: 100%;
+  margin: 10px 0 0;
+  padding: 5px 8px;
+  border: 1px solid color-mix(in srgb, var(--gold-trace) 34%, var(--hairline));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--gold-trace) 7%, var(--pane-quiet));
+  color: color-mix(in srgb, var(--gold-pale) 72%, var(--ink-muted));
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.025em;
+  text-transform: none;
+}
+
+.day-view-prototype-note[hidden] {
+  display: none !important;
+}
+
+.pcb-chip-hardware {
+  display: none;
+}
+
+.day-dialog[data-view-mode="pcb"] {
+  --pcb-board: #071917;
+  --pcb-board-raised: #0b211e;
+  --pcb-board-shadow: #03100f;
+  --pcb-silkscreen: #aebcad;
+  --pcb-copper: #bd8e47;
+  --pcb-copper-bright: #e2bd71;
+  --pcb-via: #5fbbad;
+  --pcb-package: #11191a;
+  --pcb-package-edge: #465655;
+  --pcb-package-ink: #d9ddd2;
+  --pcb-pin: #b7a16d;
+}
+
+:root[data-theme="light"] .day-dialog[data-view-mode="pcb"] {
+  --pcb-board: #d9e3d8;
+  --pcb-board-raised: #e8eee5;
+  --pcb-board-shadow: #acbaad;
+  --pcb-silkscreen: #35534d;
+  --pcb-copper: #8c6938;
+  --pcb-copper-bright: #ad8042;
+  --pcb-via: #397f76;
+  --pcb-package: #e8e7de;
+  --pcb-package-edge: #7e8982;
+  --pcb-package-ink: #1b2b29;
+  --pcb-pin: #8f7446;
+}
+
+.day-dialog[data-view-mode="pcb"] .day-dialog-panel {
+  background:
+    linear-gradient(90deg, transparent 0 11%, color-mix(in srgb, var(--pcb-copper) 8%, transparent) 11% 11.15%, transparent 11.15% 100%),
+    var(--pane-solid);
+}
+
+.day-dialog[data-view-mode="pcb"] .dialog-toolbar {
+  border-bottom-color: color-mix(in srgb, var(--pcb-copper) 28%, var(--hairline));
+  background:
+    radial-gradient(circle at 12px 50%, color-mix(in srgb, var(--pcb-via) 58%, transparent) 0 2px, transparent 2.5px),
+    color-mix(in srgb, var(--pcb-board-raised) 92%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .dialog-header {
+  background:
+    linear-gradient(90deg, transparent 0 62%, color-mix(in srgb, var(--pcb-copper) 14%, transparent) 62% 62.2%, transparent 62.2%),
+    linear-gradient(180deg, color-mix(in srgb, var(--pcb-board) 10%, transparent), transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-detail > h3 {
+  color: color-mix(in srgb, var(--pcb-copper-bright) 78%, var(--ink));
+  letter-spacing: 0.09em;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-list {
+  overflow: visible;
+  border-color: color-mix(in srgb, var(--pcb-copper) 46%, var(--pcb-board-shadow));
+  border-radius: 10px;
+  background-color: var(--pcb-board);
+  background-image:
+    radial-gradient(circle at 18px 18px, color-mix(in srgb, var(--pcb-via) 62%, transparent) 0 1.5px, color-mix(in srgb, var(--pcb-board-shadow) 70%, transparent) 1.7px 2.4px, transparent 2.6px),
+    linear-gradient(90deg, transparent 0 24.8%, color-mix(in srgb, var(--pcb-copper) 10%, transparent) 24.8% 25%, transparent 25% 74.8%, color-mix(in srgb, var(--pcb-via) 9%, transparent) 74.8% 75%, transparent 75%),
+    linear-gradient(0deg, transparent 0 49.8%, color-mix(in srgb, var(--pcb-copper) 8%, transparent) 49.8% 50%, transparent 50%);
+  background-size: 36px 36px, 144px 144px, 112px 112px, auto;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--pcb-silkscreen) 16%, transparent),
+    inset 0 0 0 3px color-mix(in srgb, var(--pcb-board-shadow) 28%, transparent),
+    0 14px 34px color-mix(in srgb, var(--page-bg) 28%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-list::before {
+  z-index: 0;
+  opacity: 0.58;
+  mix-blend-mode: normal;
+  background:
+    linear-gradient(90deg, transparent 0 8%, color-mix(in srgb, var(--pcb-copper) 28%, transparent) 8% 8.3%, transparent 8.3% 42%, color-mix(in srgb, var(--pcb-via) 18%, transparent) 42% 42.2%, transparent 42.2%),
+    linear-gradient(180deg, transparent 0 16%, color-mix(in srgb, var(--pcb-copper) 22%, transparent) 16% 16.25%, transparent 16.25% 67%, color-mix(in srgb, var(--pcb-via) 15%, transparent) 67% 67.2%, transparent 67.2%);
+  background-size: 190px 150px, 170px 210px;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-list::after {
+  left: var(--time-gutter);
+  z-index: 0;
+  width: calc(100% - var(--time-gutter));
+  opacity: 0.24;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 39px, color-mix(in srgb, var(--pcb-silkscreen) 18%, transparent) 39px 40px),
+    repeating-linear-gradient(180deg, transparent 0 47px, color-mix(in srgb, var(--pcb-silkscreen) 13%, transparent) 47px 48px);
+  transform: none;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-strata-bed {
+  opacity: 0.42;
+  background:
+    linear-gradient(90deg, transparent 0 12%, color-mix(in srgb, var(--pcb-copper) 13%, transparent) 12% 12.3%, transparent 12.3% 88%, color-mix(in srgb, var(--pcb-via) 11%, transparent) 88% 88.2%, transparent 88.2%),
+    repeating-linear-gradient(180deg, color-mix(in srgb, var(--pcb-board-raised) 14%, transparent) 0 1px, transparent 1px 20px);
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-hour-marker {
+  border-top-color: color-mix(in srgb, var(--pcb-silkscreen) 18%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-hour-marker span {
+  color: color-mix(in srgb, var(--pcb-silkscreen) 78%, var(--ink-muted));
+  text-shadow: none;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-hour-marker:nth-of-type(7n + 3) span::after {
+  color: var(--pcb-copper-bright);
+  content: "○";
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-event .event-footprint,
+:root[data-palette="chromatic"] .day-dialog[data-view-mode="pcb"] .timeline-event .event-footprint {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 50% 4px, var(--category-accent) 0 2px, var(--pcb-board-shadow) 2.2px 3.2px, transparent 3.4px),
+    radial-gradient(circle at 50% calc(100% - 4px), var(--category-accent) 0 2px, var(--pcb-board-shadow) 2.2px 3.2px, transparent 3.4px),
+    linear-gradient(90deg, transparent calc(50% - 1px), color-mix(in srgb, var(--category-accent) 72%, var(--pcb-copper)) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
+  box-shadow: none;
+  opacity: 0.78;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-event.is-micro-event .event-footprint {
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--category-accent) 80%, var(--pcb-copper-bright)) 0 2px, var(--pcb-board-shadow) 2.2px 3.4px, transparent 3.6px),
+    linear-gradient(90deg, transparent calc(50% - 1px), color-mix(in srgb, var(--category-accent) 74%, var(--pcb-copper)) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
+  box-shadow: none;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-event .footprint-rule {
+  top: 5px;
+  bottom: 5px;
+  left: calc(50% - 0.5px);
+  width: 1px;
+  background: color-mix(in srgb, var(--category-accent) 70%, var(--pcb-copper-bright));
+  opacity: 0.8;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-event .footprint-registration {
+  top: 50%;
+  left: calc(50% - 7px);
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--category-accent) 66%, var(--pcb-copper));
+  opacity: 0.9;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-connector-layer.is-placed .event-connector {
+  height: 2px;
+  opacity: 0.66;
+  background: color-mix(in srgb, var(--category-accent, var(--pcb-copper)) 36%, var(--pcb-copper));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--pcb-board-shadow) 54%, transparent),
+    0 0 5px color-mix(in srgb, var(--pcb-copper-bright) 12%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .event-connector::before,
+.day-dialog[data-view-mode="pcb"] .event-connector::after {
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--pcb-copper-bright);
+  border-radius: 50%;
+  background: var(--pcb-board-shadow);
+  opacity: 0.88;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-event.is-linked-active .event-footprint,
+.day-dialog[data-view-mode="pcb"] .event-footprint.is-linked-active,
+:root[data-palette="chromatic"] .day-dialog[data-view-mode="pcb"] .timeline-event.is-linked-active .event-footprint,
+:root[data-palette="chromatic"] .day-dialog[data-view-mode="pcb"] .event-footprint.is-linked-active {
+  background:
+    radial-gradient(circle at 50% 4px, var(--pcb-copper-bright) 0 2.5px, var(--pcb-board-shadow) 2.8px 4px, transparent 4.2px),
+    radial-gradient(circle at 50% calc(100% - 4px), var(--pcb-copper-bright) 0 2.5px, var(--pcb-board-shadow) 2.8px 4px, transparent 4.2px),
+    linear-gradient(90deg, transparent calc(50% - 1.5px), var(--pcb-copper-bright) calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 1.5px)) !important;
+  box-shadow: 0 0 11px color-mix(in srgb, var(--pcb-copper-bright) 46%, transparent) !important;
+  opacity: 1;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-connector-layer.is-placed .event-connector.is-linked-active {
+  height: 3px;
+  opacity: 1;
+  background: var(--pcb-copper-bright);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pcb-copper-bright) 55%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card,
+:root[data-palette="chromatic"] .day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card,
+:root[data-palette="chromatic"] .day-dialog[data-view-mode="pcb"] .assigned-item.event-reading-card {
+  isolation: isolate;
+  border: 2px solid color-mix(in srgb, var(--category-accent) 36%, var(--pcb-package-edge)) !important;
+  border-radius: 8px !important;
+  background-color: var(--pcb-package) !important;
+  background-image:
+    linear-gradient(135deg, color-mix(in srgb, var(--category-accent) 12%, transparent), transparent 46%),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--pcb-silkscreen) 3%, transparent) 0 1px, transparent 1px 4px) !important;
+  color: var(--pcb-package-ink) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--pcb-board-shadow) 82%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--pcb-silkscreen) 19%, transparent),
+    inset 0 -2px 0 color-mix(in srgb, var(--pcb-board-shadow) 58%, transparent),
+    5px 7px 0 color-mix(in srgb, var(--pcb-board-shadow) 46%, transparent) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card[data-layer="climate"] {
+  border-color: color-mix(in srgb, var(--category-accent) 24%, var(--pcb-package-edge)) !important;
+  background-color: color-mix(in srgb, var(--pcb-package) 94%, var(--pcb-board-raised)) !important;
+  background-image:
+    linear-gradient(135deg, color-mix(in srgb, var(--category-accent) 7%, transparent), transparent 48%),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--pcb-silkscreen) 2%, transparent) 0 1px, transparent 1px 5px) !important;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card[data-pcb-size="main"] {
+  z-index: 5;
+  border-width: 3px !important;
+  border-color: color-mix(in srgb, var(--pcb-copper-bright) 70%, var(--category-accent)) !important;
+  background-color: color-mix(in srgb, var(--pcb-package) 88%, var(--pcb-board-raised)) !important;
+  background-image:
+    radial-gradient(circle at 78% 26%, color-mix(in srgb, var(--pcb-via) 16%, transparent), transparent 38%),
+    linear-gradient(135deg, color-mix(in srgb, var(--pcb-copper) 16%, transparent), transparent 48%) !important;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--pcb-board-shadow) 88%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--pcb-copper-bright) 30%, transparent),
+    inset 0 -3px 0 color-mix(in srgb, var(--pcb-board-shadow) 66%, transparent),
+    7px 9px 0 color-mix(in srgb, var(--pcb-board-shadow) 58%, transparent),
+    0 0 24px color-mix(in srgb, var(--pcb-copper-bright) 12%, transparent) !important;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card[data-pcb-size="compact"] {
+  border-width: 1px !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--pcb-board-shadow) 76%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--pcb-silkscreen) 12%, transparent),
+    3px 4px 0 color-mix(in srgb, var(--pcb-board-shadow) 42%, transparent) !important;
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card:is(:hover, :focus-visible, .is-selected, .is-linked-active),
+:root[data-palette="chromatic"] .day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card:is(:hover, :focus-visible, .is-selected, .is-linked-active) {
+  z-index: 58 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 62%, var(--pcb-copper-bright)) !important;
+  background-color: color-mix(in srgb, var(--pcb-package) 88%, var(--category-accent)) !important;
+  background-image:
+    linear-gradient(135deg, color-mix(in srgb, var(--category-accent) 18%, transparent), transparent 52%),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--pcb-silkscreen) 4%, transparent) 0 1px, transparent 1px 4px) !important;
+  outline: 1px solid var(--pcb-copper-bright);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--pcb-board-shadow) 88%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--pcb-silkscreen) 22%, transparent),
+    7px 9px 0 color-mix(in srgb, var(--pcb-board-shadow) 52%, transparent),
+    0 0 26px color-mix(in srgb, var(--category-accent) 24%, transparent) !important;
+  transform: translateY(-2px) !important;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-hardware {
+  position: absolute;
+  z-index: 8;
+  display: block;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-reference {
+  position: absolute;
+  top: 4px;
+  right: 7px;
+  z-index: 2;
+  padding: 1px 3px;
+  border: 1px solid color-mix(in srgb, var(--pcb-silkscreen) 20%, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--pcb-package) 86%, transparent);
+  color: color-mix(in srgb, var(--pcb-silkscreen) 66%, var(--pcb-package-ink));
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.day-dialog[data-view-mode="pcb"] .event-reading-card[data-pcb-size="main"] .pcb-chip-reference {
+  border-color: color-mix(in srgb, var(--pcb-copper-bright) 42%, transparent);
+  color: var(--pcb-copper-bright);
+  font-size: 7px;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins {
+  position: absolute;
+  opacity: 0.78;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-left,
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-right {
+  top: 9px;
+  bottom: 9px;
+  width: 5px;
+  background: repeating-linear-gradient(180deg, var(--pcb-pin) 0 3px, transparent 3px var(--pcb-pin-step));
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-left {
+  left: 0;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-right {
+  right: 0;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-top,
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-bottom {
+  right: 10px;
+  left: 10px;
+  height: 5px;
+  background: repeating-linear-gradient(90deg, var(--pcb-pin) 0 3px, transparent 3px var(--pcb-pin-step));
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-top {
+  top: 0;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-pins-bottom {
+  bottom: 0;
+}
+
+.day-dialog[data-view-mode="pcb"] .pcb-chip-index-mark {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 6px;
+  height: 6px;
+  border: 1px solid color-mix(in srgb, var(--pcb-silkscreen) 54%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pcb-board-shadow) 72%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .event-reading-card[data-pcb-size="main"] .pcb-chip-index-mark {
+  width: 9px;
+  height: 9px;
+  border-color: var(--pcb-copper-bright);
+  background: color-mix(in srgb, var(--pcb-via) 32%, var(--pcb-board-shadow));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--pcb-copper-bright) 28%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .autonomous-preview-frame {
+  border-radius: 3px !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pcb-copper) 46%, transparent);
+}
+
+.day-dialog[data-view-mode="pcb"] .timeline-touch-toggle,
+.day-dialog[data-view-mode="pcb"] .timeline-touch-control,
+.day-dialog[data-view-mode="pcb"] .timeline-touch-group {
+  border-color: color-mix(in srgb, var(--pcb-copper) 32%, var(--pcb-package-edge));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--pcb-board-raised) 88%, var(--pane-solid));
+}
+
+@media (max-width: 720px) {
+  .dialog-toolbar {
+    grid-template-columns: 44px 44px 44px 44px minmax(76px, 1fr) minmax(100px, auto);
+    gap: 4px;
+    padding-inline: 8px;
+  }
+
+  .day-view-toggle {
+    min-width: 0;
+    padding-inline: 6px;
+    overflow: hidden;
+    font-size: 8px;
+    text-overflow: ellipsis;
+  }
+
+  .day-dialog[data-view-mode="pcb"] .timeline-list {
+    background-size: 28px 28px, 112px 112px, 88px 88px, auto;
+  }
+
+  .day-dialog[data-view-mode="pcb"] .pcb-chip-reference {
+    top: 3px;
+    right: 5px;
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 390px) {
+  .dialog-toolbar {
+    grid-template-columns: 42px 42px 42px 42px minmax(72px, 1fr) minmax(91px, auto);
+    gap: 3px;
+    padding-inline: 6px;
+  }
+
+  .dialog-day-nav,
+  .dialog-sound-toggle {
+    width: 42px;
+    min-height: 42px;
+  }
+
+  .day-view-toggle,
+  .dialog-close {
+    min-height: 42px;
+    font-size: 7.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .day-dialog[data-view-mode="pcb"] .timeline-reading-layer .event-reading-card:is(:hover, :focus-visible, .is-selected, .is-linked-active) {
+    transform: none !important;
+  }
+}
