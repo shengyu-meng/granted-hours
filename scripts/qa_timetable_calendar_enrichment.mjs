@@ -306,6 +306,7 @@ try {
     const pageCountBefore = context.pages().length;
     await page.locator(".autonomous-preview-frame").click();
     await page.waitForSelector("#artworkDialog.is-open");
+    await page.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
     const chamber = await page.evaluate(() => ({
       dialogOpen: !document.querySelector("#artworkDialog").hidden,
       iframeSrc: document.querySelector("#artworkLiveFrame").src,
