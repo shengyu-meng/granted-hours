@@ -148,6 +148,45 @@ try {
   await page.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await page.waitForFunction(() => document.activeElement?.id === "closeDetail");
 
+  await check("mobile day header keeps one Chinese lead and folds the longer bilingual context", async () => {
+    const collapsed = await page.evaluate(() => {
+      const details = document.querySelector("#dialogContextDetails");
+      const header = document.querySelector(".dialog-header");
+      const englishTitle = document.querySelector(".dialog-title-en");
+      const boundary = document.querySelector("#dialogBoundary");
+      return {
+        detailsOpen: details.open,
+        headerHeight: header.getBoundingClientRect().height,
+        lead: document.querySelector(".dialog-mobile-lead")?.innerText.trim() || "",
+        englishTitleVisible: englishTitle.getClientRects().length > 0,
+        boundaryVisible: boundary.getClientRects().length > 0,
+        pcbControls: document.querySelectorAll(
+          "#dayViewToggle,.day-view-toggle,.pcb-chip-hardware,[data-view-mode='pcb']",
+        ).length,
+        pageCopy: document.body.innerText,
+      };
+    });
+    assert.equal(collapsed.detailsOpen, false, JSON.stringify(collapsed));
+    assert.ok(collapsed.headerHeight <= 190, JSON.stringify(collapsed));
+    assert.match(collapsed.lead, /时间足迹保持真实位置/);
+    assert.equal(collapsed.englishTitleVisible, false, JSON.stringify(collapsed));
+    assert.equal(collapsed.boundaryVisible, false, JSON.stringify(collapsed));
+    assert.equal(collapsed.pcbControls, 0, JSON.stringify(collapsed));
+    assert.doesNotMatch(collapsed.pageCopy, /PCB DAY MAP|电路板日程表/);
+
+    await page.locator("#dialogContextDetails > summary").click();
+    const expanded = await page.evaluate(() => ({
+      detailsOpen: document.querySelector("#dialogContextDetails").open,
+      boundaryVisible: document.querySelector("#dialogBoundary").getClientRects().length > 0,
+      fullCopy: document.querySelector("#dialogContextDetails").innerText,
+    }));
+    assert.equal(expanded.detailsOpen, true, JSON.stringify(expanded));
+    assert.equal(expanded.boundaryVisible, true, JSON.stringify(expanded));
+    assert.match(expanded.fullCopy, /Footprints preserve exact position/);
+    assert.match(expanded.fullCopy, /Time strata retain truthful occupied spans/);
+    await page.locator("#dialogContextDetails > summary").click();
+  });
+
   await check("day detail presents active human–AI provenance and concrete work content without duplication", async () => {
     const task = page.locator(".assigned-item").first();
     const provenance = (await task.locator(".record-provenance").textContent())?.trim() || "";

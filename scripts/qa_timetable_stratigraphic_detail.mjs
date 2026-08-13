@@ -3,11 +3,14 @@ import assert from "node:assert/strict";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { chromium } from "@playwright/test";
+import { timetableData } from "../src/timetable/timetable-data.js";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8892/timetable/";
 const screenshotRoot = process.env.QA_SCREENSHOT_DIR || "";
 const sampleDate = "2026-08-11";
-const sparseDate = "2026-08-12";
+const sparseDate = timetableData.days.reduce((sparsest, day) => (
+  day.timeline_events.length < sparsest.timeline_events.length ? day : sparsest
+)).date;
 const cases = [
   { label: "desktop-dark", date: sampleDate, dense: true, width: 1440, height: 900, theme: "dark" },
   { label: "desktop-light", date: sampleDate, dense: true, width: 1440, height: 900, theme: "light" },
@@ -54,6 +57,9 @@ try {
       const hourMarkers = [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
         minute: Number(marker.dataset.hourMinute),
         density: marker.dataset.hourDensity,
+        hasEvent: marker.dataset.hasEvent === "true",
+        hasCard: marker.dataset.hasCard === "true",
+        bandHeight: Number(marker.dataset.bandHeight),
         top: marker.getBoundingClientRect().top - timelineRect.top,
       }));
       const footprints = [...eventsLayer.querySelectorAll(".timeline-event")].map((event) => {
@@ -227,6 +233,15 @@ try {
       state.hourMarkers.filter((marker) => marker.density === "compressed").length,
       state.compressedHourCount,
       `${testCase.label}: compressed hour marks disagree with the projection`,
+    );
+    const compressedMarkers = state.hourMarkers.filter((marker) => marker.density === "compressed");
+    assert.ok(
+      compressedMarkers.every((marker) => !marker.hasEvent && !marker.hasCard),
+      `${testCase.label}: an occupied or card-bearing hour was compressed`,
+    );
+    assert.ok(
+      compressedMarkers.every((marker) => marker.bandHeight <= (testCase.mobile ? 10 : 9)),
+      `${testCase.label}: empty-hour bands are still too tall: ${JSON.stringify(compressedMarkers)}`,
     );
     assert.ok(
       state.hourMarkers.every((marker, index, markers) => index === 0 || marker.top > markers[index - 1].top),

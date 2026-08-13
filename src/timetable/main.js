@@ -65,8 +65,7 @@ const PIANO_SAME_NOTE_GAP_MS = 260;
 const PIANO_VOLUME = 0.045;
 const INSPECTION_HIDE_DELAY_MS = 110;
 const INSPECTION_FADE_MS = 150;
-const PCB_PROTOTYPE_START_DATE = "2026-08-06";
-const PCB_PROTOTYPE_END_DATE = "2026-08-12";
+const MOBILE_DAY_HEADER_QUERY = "(max-width: 720px)";
 const WEEKDAYS = [
   ["Mon", "一"],
   ["Tue", "二"],
@@ -226,7 +225,6 @@ const state = {
   selectedDate: "",
   detailOpen: false,
   detailLastFocus: null,
-  dayViewMode: "standard",
   artworkDetailOpen: false,
   artworkDetailLastFocus: null,
   artworkDetailScrollTop: 0,
@@ -315,8 +313,11 @@ function init() {
   });
   els.prevDay.addEventListener("click", () => navigatePublicDay(-1));
   els.nextDay.addEventListener("click", () => navigatePublicDay(1));
-  els.dayViewToggle.addEventListener("click", () => {
-    setDayViewMode(state.dayViewMode === "pcb" ? "standard" : "pcb");
+  els.dialogContextDetails.addEventListener("toggle", syncDialogContextSummary);
+  const mobileDayHeader = window.matchMedia(MOBILE_DAY_HEADER_QUERY);
+  mobileDayHeader.addEventListener?.("change", () => {
+    els.dialogContextDetails.open = !mobileDayHeader.matches;
+    syncDialogContextSummary();
   });
   els.timelineTouchToggle.addEventListener("click", toggleTimelineTouchGroups);
   els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
@@ -408,8 +409,7 @@ function cacheElements() {
     "closeTaskDetail",
     "dayDialog",
     "dayDialogPanel",
-    "dayViewPrototypeNote",
-    "dayViewToggle",
+    "dialogContextDetails",
     "dialogBoundary",
     "dialogDate",
     "dialogCrystallizationLink",
@@ -1671,7 +1671,6 @@ function openDayDetail(date, options = {}) {
   if (!day) return;
 
   const wasOpen = state.detailOpen;
-  if (!wasOpen || !isPcbPrototypeDate(date)) state.dayViewMode = "standard";
   hideInspectionLens({ immediate: true });
   if (!wasOpen) state.detailLastFocus = document.activeElement;
   state.selectedDate = date;
@@ -1734,12 +1733,12 @@ function renderDayDetail(day) {
   hideInspectionLens({ immediate: true });
   clearSelectedReadingCard({ clearLinked: true });
   state.hoveredTimelineReadingCard = null;
-  syncDayViewMode(day);
-  els.dialogTitle.textContent = `${day.title_en} / ${day.title_zh}`;
+  renderDialogTitle(day);
   els.dialogDate.textContent = formatLongDate(day.date);
   els.dialogVariable.textContent = `Variable / 自由变量: ${day.variable_en} / ${day.variable_zh}`;
   renderForwardCrystallizationLink(day);
   els.dialogBoundary.textContent = [timetableData.note_en, timetableData.note_zh].filter(Boolean).join(" / ");
+  resetDialogContextDisclosure();
   els.dayDialog.dataset.selectedDate = day.date;
   updateAdjacentDayControls(day.date);
 
@@ -1802,7 +1801,6 @@ function renderDayDetail(day) {
     card.dataset.totalDurationMinutes = String(temporalComposition.totalDurationMinutes);
     card.dataset.temporalSpanMinutes = String(temporalComposition.temporalSpanMinutes);
     card.dataset.copyLength = String(card.textContent.replace(/\s+/g, " ").trim().length);
-    decoratePcbChip(card, item, readingIndex);
     const category = applySemanticCategory(card, item);
     inspectionPayloadByCard.set(card, buildInspectionPayload(item));
     card.dataset.compositionSeed = [
@@ -1844,97 +1842,33 @@ function renderDayDetail(day) {
   scheduleTimelineReadingPlacement();
 }
 
-function isPcbPrototypeDate(date) {
-  return date >= PCB_PROTOTYPE_START_DATE && date <= PCB_PROTOTYPE_END_DATE;
+function renderDialogTitle(day) {
+  const titleEn = document.createElement("span");
+  titleEn.className = "dialog-title-en";
+  titleEn.lang = "en";
+  titleEn.textContent = day.title_en;
+  const divider = document.createElement("span");
+  divider.className = "dialog-title-divider";
+  divider.setAttribute("aria-hidden", "true");
+  divider.textContent = " / ";
+  const titleZh = document.createElement("span");
+  titleZh.className = "dialog-title-zh";
+  titleZh.lang = "zh";
+  titleZh.textContent = day.title_zh;
+  els.dialogTitle.replaceChildren(titleEn, divider, titleZh);
 }
 
-function syncDayViewMode(day) {
-  const eligible = isPcbPrototypeDate(day.date);
-  if (!eligible) state.dayViewMode = "standard";
-  const pcbActive = eligible && state.dayViewMode === "pcb";
-  els.dayDialog.dataset.viewMode = pcbActive ? "pcb" : "standard";
-  els.dayDialog.dataset.pcbPrototype = eligible ? "eligible" : "outside-range";
-  els.dayViewToggle.hidden = !eligible;
-  els.dayViewToggle.setAttribute("aria-pressed", String(pcbActive));
-  els.dayViewToggle.textContent = pcbActive ? "NORMAL / 普通" : "PCB / 电路板";
-  els.dayViewToggle.setAttribute(
-    "aria-label",
-    pcbActive
-      ? "Switch to normal timetable / 切换到普通日程表"
-      : "Switch to PCB timetable / 切换到电路板日程表",
-  );
-  els.dayViewToggle.title = pcbActive
-    ? "Normal timetable / 普通日程表"
-    : "PCB prototype / 电路板试验版";
-  els.dayViewPrototypeNote.hidden = !pcbActive;
-  els.dayViewPrototypeNote.textContent = pcbActive
-    ? `可回滚试验 · ${PCB_PROTOTYPE_START_DATE}—${PCB_PROTOTYPE_END_DATE} · 原始时间与事件数据未改变 / Reversible prototype · source time and event data unchanged`
-    : "";
-  if (pcbActive) {
-    els.dialogModeThesis.innerHTML = "事件被封装成不同规格的芯片；每一组针脚与走线仍返回真实时间足迹。AI 自由创作是当天的主芯片。<br>Events become differently sized packages; every pin and trace still returns to a truthful time footprint. The autonomous artwork is the day's main chip.";
-    els.timelineTitle.textContent = "电路板日程 / PCB DAY MAP";
-    els.timelineHelp.innerHTML = "芯片 = 可读事件 · 铜线 = 精确时段与并行关系 · 空白小时仍折叠但保留刻度｜触摸或悬停芯片可反向点亮它的全部走线<br>Chips = readable events · copper traces = exact spans and concurrency · idle hours still fold with marks retained | touch or hover a chip to illuminate every linked trace";
-  } else {
-    els.dialogModeThesis.innerHTML = "时间足迹保持真实位置、时长与并行关系；可读浮签由登记线连接到精确足迹。<br>Footprints preserve exact position, duration, and concurrency; readable planes register back to them with visible rules.";
-    els.timelineTitle.textContent = "时间构成 / TEMPORAL COMPOSITION";
-    els.timelineHelp.innerHTML = "时间地层：占用时段保持真实比例 · 完全空白的小时折叠但保留刻度 · 横向 = 精确并行｜嵌入卡片：只从左/右边缘切入 · 内容量优先 · 累计时长辅助<br>Time strata: occupied spans retain truthful scale · fully empty hours fold but keep their marks · lanes = exact concurrency | Embedded cards: interrupt only from the left/right edge · content first · cumulative duration second";
-  }
+function resetDialogContextDisclosure() {
+  els.dialogContextDetails.open = !window.matchMedia(MOBILE_DAY_HEADER_QUERY).matches;
+  syncDialogContextSummary();
 }
 
-function setDayViewMode(mode) {
-  const day = dayByDate.get(state.selectedDate);
-  if (!day) return;
-  state.dayViewMode = mode === "pcb" && isPcbPrototypeDate(day.date)
-    ? "pcb"
-    : "standard";
-  hideInspectionLens({ immediate: true });
-  clearSelectedReadingCard({ clearLinked: true });
-  syncDayViewMode(day);
-  els.readingSelectionStatus.textContent = state.dayViewMode === "pcb"
-    ? "PCB timetable active / 电路板日程表已启用"
-    : "Normal timetable active / 普通日程表已启用";
-  scheduleTimelineReadingPlacement();
-}
-
-function decoratePcbChip(card, item, readingIndex) {
-  const memberCount = item.member_footprint_ids?.length || 1;
-  const duration = Number(item.duration_minutes) || 0;
-  const copyLength = card.textContent.replace(/\s+/g, " ").trim().length;
-  const isMain = item.layer === "beacon";
-  const isLarge = !isMain && (memberCount >= 4 || duration >= 90 || copyLength >= 250);
-  const isCompact = !isMain && !isLarge && item.layer === "climate" && memberCount <= 2;
-  const family = isMain
-    ? "core"
-    : item.layer === "climate"
-      ? "support"
-      : item.classification === "settings_change"
-        ? "controller"
-        : "logic";
-  const prefix = isMain ? "AI" : item.layer === "climate" ? "R" : "U";
-  const reference = isMain
-    ? "AI–CORE"
-    : `${prefix}${String(readingIndex + 1).padStart(2, "0")}`;
-  card.dataset.pcbSize = isMain ? "main" : isLarge ? "large" : isCompact ? "compact" : "medium";
-  card.dataset.pcbFamily = family;
-  card.dataset.pcbReference = reference;
-  card.style.setProperty("--pcb-pin-step", `${isMain ? 15 : Math.max(8, 13 - Math.min(memberCount, 5))}px`);
-
-  const hardware = document.createElement("span");
-  hardware.className = "pcb-chip-hardware";
-  hardware.setAttribute("aria-hidden", "true");
-  const referenceLabel = document.createElement("span");
-  referenceLabel.className = "pcb-chip-reference";
-  referenceLabel.textContent = reference;
-  hardware.append(referenceLabel);
-  for (const side of ["top", "right", "bottom", "left"]) {
-    const pins = document.createElement("span");
-    pins.className = `pcb-chip-pins pcb-chip-pins-${side}`;
-    hardware.append(pins);
-  }
-  const indexMark = document.createElement("span");
-  indexMark.className = "pcb-chip-index-mark";
-  hardware.append(indexMark);
-  card.append(hardware);
+function syncDialogContextSummary() {
+  const summary = els.dialogContextDetails.querySelector("summary");
+  if (!summary) return;
+  summary.textContent = els.dialogContextDetails.open
+    ? "收起完整说明 / Collapse context"
+    : "展开完整说明 / Full context";
 }
 
 function renderForwardCrystallizationLink(day) {
@@ -2319,10 +2253,7 @@ function summarizeReadingFootprints(memberLayouts, layer) {
 function readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth) {
   if (card.dataset.layer === "beacon") {
     if (!isCompactReadingCanvas) return Math.max(268, minuteHeight * 60 + 92);
-    const compactHeight = clampNumber(Math.round(cardWidth - 48), 176, 252);
-    return card.dataset.pcbSize === "main" && state.dayViewMode === "pcb"
-      ? Math.max(224, compactHeight)
-      : clampNumber(Math.round(cardWidth - 96), 136, 184);
+    return clampNumber(Math.round(cardWidth - 96), 136, 184);
   }
   if (card.dataset.layer === "absence") return isCompactReadingCanvas ? 148 : 132;
   const copyLength = Number(card.dataset.copyLength) || 0;
@@ -2348,9 +2279,6 @@ function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvas
   const memberCount = Number(card.dataset.memberCount) || 1;
   const copyLength = Number(card.dataset.copyLength) || 0;
   if (isCompactReadingCanvas) {
-    if (card.dataset.layer === "beacon" && card.dataset.pcbSize === "main" && state.dayViewMode === "pcb") {
-      return columnCount;
-    }
     const edgeSpan = canvasWidth < 290 ? columnCount : Math.max(1, columnCount - 1);
     if (["beacon", "event", "absence"].includes(card.dataset.layer)) return edgeSpan;
     return Math.min(memberCount > 1 || copyLength > 150 ? 3 : 2, edgeSpan);
@@ -2376,6 +2304,9 @@ function applyTimelineProjection(timeline, eventsLayer, projection) {
     const isCompressed = minute < MINUTES_PER_DAY && !band.active;
     marker.classList.toggle("is-compressed-hour", isCompressed);
     marker.dataset.hourDensity = isCompressed ? "compressed" : "active";
+    marker.dataset.hasEvent = String(Boolean(band.hasEvent));
+    marker.dataset.hasCard = String(Boolean(band.hasCard));
+    marker.dataset.bandHeight = String(band.height);
   }
 
   for (const event of eventsLayer.querySelectorAll(".timeline-event")) {
@@ -2460,7 +2391,7 @@ function placeTimelineReadingCards() {
     });
     projection = buildTimelineProjection(exactLayouts, {
       activeMinuteHeight: minuteHeight,
-      idleMinuteHeight: isCompactReadingCanvas ? 0.42 : 0.28,
+      idleMinuteHeight: isCompactReadingCanvas ? 0.16 : 0.14,
       protectedRanges,
     });
     applyTimelineProjection(timeline, eventsLayer, projection);

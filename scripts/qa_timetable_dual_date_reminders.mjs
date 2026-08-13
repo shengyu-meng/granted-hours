@@ -81,7 +81,7 @@ try {
         },
         dialogBoundary: {
           text: document.querySelector("#dialogBoundary")?.textContent?.trim() || "",
-          visible: getComputedStyle(document.querySelector("#dialogBoundary")).display !== "none",
+          visible: document.querySelector("#dialogBoundary")?.getClientRects().length > 0,
         },
         horizontalOverflow:
           document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -102,7 +102,7 @@ try {
     assert.equal(sourceState.fullBeaconCount, 1);
     assert.equal(sourceState.autonomousFootprintCount, 1);
     assert.equal(sourceState.publicNote.visible, true);
-    assert.equal(sourceState.dialogBoundary.visible, true);
+    assert.equal(sourceState.dialogBoundary.visible, testCase.width > 720);
     assertPublicContract(sourceState.publicNote.text, `${testCase.label} footer contract`);
     assertPublicContract(sourceState.dialogBoundary.text, `${testCase.label} dialog contract`);
     assert.ok(sourceState.horizontalOverflow <= 1, testCase.label);
@@ -110,6 +110,9 @@ try {
     assert.equal(sourceState.decorativeIconCount, 0);
     assert.deepEqual(sourceState.forbiddenVisibleCopy, []);
 
+    if (testCase.width <= 720) {
+      await page.locator("#dialogContextDetails > summary").click();
+    }
     await page.locator("#dialogCrystallizationLink a").click();
     await page.waitForFunction(
       (date) => document.querySelector("#dayDialog")?.dataset.selectedDate === date,
@@ -219,7 +222,7 @@ try {
       );
     }
 
-    await page.locator(".autonomous-source-day-link").click();
+    await page.locator(".autonomous-source-day-link").evaluate((link) => link.click());
     await page.waitForFunction(
       (date) => document.querySelector("#dayDialog")?.dataset.selectedDate === date,
       sourceDay.date,

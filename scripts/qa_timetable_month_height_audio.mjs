@@ -47,6 +47,11 @@ async function monthGeometry(context, date) {
       const box = document.querySelector(selector).getBoundingClientRect();
       return { selector, left: box.left, right: box.right };
     });
+    const headerControls = ["#themeToggle", "#calendarPianoToggle", "#calendarBgmToggle"]
+      .map((selector) => {
+        const box = document.querySelector(selector).getBoundingClientRect();
+        return { selector, width: box.width, height: box.height };
+      });
     return {
       weekCount: Number(grid.dataset.weekCount),
       gridHeight: gridBox.height,
@@ -55,6 +60,7 @@ async function monthGeometry(context, date) {
       gridBottom: gridBox.bottom,
       horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       requiredBounds,
+      headerControls,
       contained: requiredBounds.every((box) => box.left >= -1 && box.right <= innerWidth + 1),
     };
   }, date);
@@ -80,6 +86,16 @@ async function geometryAudit(browser, viewport) {
   assert.ok(august.horizontalOverflow <= 1);
   assert.equal(july.contained, true, JSON.stringify(july.requiredBounds));
   assert.equal(august.contained, true, JSON.stringify(august.requiredBounds));
+  if (viewport.width <= 720) {
+    for (const geometry of [july, august]) {
+      const [theme, piano, bgm] = geometry.headerControls;
+      assert.ok(Math.abs(theme.width - piano.width) <= 0.2, JSON.stringify(geometry.headerControls));
+      assert.ok(Math.abs(theme.width - bgm.width) <= 0.2, JSON.stringify(geometry.headerControls));
+      assert.ok(Math.abs(theme.height - piano.height) <= 0.2, JSON.stringify(geometry.headerControls));
+      assert.ok(Math.abs(theme.height - bgm.height) <= 0.2, JSON.stringify(geometry.headerControls));
+      assert.ok(theme.width <= 44.2 && theme.height <= 44.2, JSON.stringify(geometry.headerControls));
+    }
+  }
   await context.close();
   return { viewport, july, august };
 }

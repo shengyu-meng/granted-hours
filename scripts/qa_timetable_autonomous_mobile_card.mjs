@@ -42,6 +42,7 @@ async function inspect(page) {
     const card = document.querySelector(".autonomous-reading-card");
     const readingLayer = document.querySelector(".timeline-reading-layer");
     const timeline = document.querySelector(".timeline-list");
+    const panel = document.querySelector("#dayDialogPanel");
     const event = document.querySelector(".timeline-event.autonomous-event");
     const footprint = event?.querySelector(".event-footprint");
     const connector = document.querySelector(
@@ -61,6 +62,7 @@ async function inspect(page) {
       card,
       readingLayer,
       timeline,
+      panel,
       event,
       footprint,
       connector,
@@ -109,6 +111,8 @@ async function inspect(page) {
     };
     const cardRect = rect(card);
     const layerRect = rect(readingLayer);
+    const panelRect = rect(panel);
+    const timelineRect = rect(timeline);
     const eventRect = rect(event);
     const footprintRect = rect(footprint);
     const connectorRect = rect(connector);
@@ -235,8 +239,13 @@ async function inspect(page) {
       overlaps,
       horizontalOverflow: document.documentElement.scrollWidth
         - document.documentElement.clientWidth,
-      panelScrollable: document.querySelector("#dayDialogPanel").scrollHeight
-        > document.querySelector("#dayDialogPanel").clientHeight + 4,
+      panel: {
+        ...panelRect,
+        clientHeight: panel.clientHeight,
+        scrollHeight: panel.scrollHeight,
+      },
+      timeline: timelineRect,
+      panelScrollable: panel.scrollHeight > panel.clientHeight + 4,
       scrollRoots: scrollCandidates.filter((candidate) => candidate.canScroll)
         .map((candidate) => candidate.selector),
     };
@@ -416,7 +425,16 @@ try {
         `${testCase.label}: compact square crop and copy are not side-by-side`,
         failures,
       );
-      check(result.panelScrollable, `${testCase.label}: dialog is not scrollable`, failures);
+      check(
+        result.panelScrollable
+          || (
+            result.panel.scrollHeight <= result.panel.clientHeight + 4
+            && result.timeline.bottom <= result.panel.bottom + 1
+          ),
+        `${testCase.label}: non-scrollable dialog clips timetable content `
+          + JSON.stringify({ panel: result.panel, timeline: result.timeline }),
+        failures,
+      );
       if (testCase.width === 421 && testCase.height === 386) {
         check(
           JSON.stringify(result.scrollRoots) === JSON.stringify(["#dayDialogPanel"]),
