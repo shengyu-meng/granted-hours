@@ -20,16 +20,6 @@ function minutes(value) {
   return hour * 60 + minute;
 }
 
-function projectedMinute(value, markers) {
-  const minute = typeof value === "number" ? value : minutes(value);
-  if (minute >= 1440) return markers.at(-1).top - markers[0].top;
-  const hour = Math.floor(minute / 60);
-  const start = markers[hour];
-  const end = markers[hour + 1];
-  return start.top - markers[0].top
-    + ((minute - hour * 60) / 60) * (end.top - start.top);
-}
-
 try {
   for (const viewport of [
     { width: 1440, height: 900, label: "desktop" },
@@ -63,6 +53,7 @@ try {
       return {
         minuteHeight,
         timelineHeight: timelineRect.height,
+        projection: timeline.dataset.projection,
         hourMarkers: [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
           top: marker.getBoundingClientRect().top - timelineRect.top,
           density: marker.dataset.hourDensity,
@@ -76,6 +67,8 @@ try {
             lane: Number(element.dataset.lane),
             laneCount: Number(element.dataset.laneCount),
             duration: Number(element.dataset.durationMinutes),
+            projectedTop: Number(element.dataset.projectedTop),
+            projectedHeight: Number(element.dataset.projectedHeight),
             top: rect.top - eventLayerRect.top,
             height: rect.height,
             left: rect.left,
@@ -98,6 +91,7 @@ try {
     assert.ok(geometry.events.some((event) => event.laneCount > 1), "overlapping events must use multiple lanes");
     assert.ok(geometry.events.some((event) => event.origin === "background" && event.lane > 0));
     assert.ok(geometry.horizontalOverflow <= 1, `${viewport.label} horizontal overflow`);
+    assert.equal(geometry.projection, "compressed-idle-segments-v2");
 
     const autonomousAccessibility = await page.locator(".autonomous-event").evaluate((element) => {
       const card = document.querySelector(".autonomous-work-link");
@@ -130,10 +124,18 @@ try {
     assert.equal(autonomousAccessibility.actionPopup, "dialog");
 
     for (const event of geometry.events) {
-      const expectedTop = projectedMinute(event.start, geometry.hourMarkers);
-      const expectedHeight = projectedMinute(event.end, geometry.hourMarkers) - expectedTop;
-      assert.ok(Math.abs(event.top - expectedTop) <= 0.25, `${viewport.label} top ${JSON.stringify(event)}`);
-      assert.ok(Math.abs(event.height - expectedHeight) <= 0.25, `${viewport.label} height ${JSON.stringify(event)}`);
+      assert.ok(
+        Math.abs(event.top - event.projectedTop) <= 0.25,
+        `${viewport.label} projected top ${JSON.stringify(event)}`,
+      );
+      assert.ok(
+        Math.abs(event.height - event.projectedHeight) <= 0.25,
+        `${viewport.label} projected height ${JSON.stringify(event)}`,
+      );
+      assert.ok(
+        Math.abs(event.height - event.duration * geometry.minuteHeight) <= 0.25,
+        `${viewport.label} occupied span lost its truthful active-minute scale ${JSON.stringify(event)}`,
+      );
     }
 
     for (let leftIndex = 0; leftIndex < geometry.events.length; leftIndex += 1) {

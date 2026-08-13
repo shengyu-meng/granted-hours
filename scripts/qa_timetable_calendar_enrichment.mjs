@@ -183,7 +183,7 @@ try {
     assert.equal(expanded.detailsOpen, true, JSON.stringify(expanded));
     assert.equal(expanded.boundaryVisible, true, JSON.stringify(expanded));
     assert.match(expanded.fullCopy, /Footprints preserve exact position/);
-    assert.match(expanded.fullCopy, /Time strata retain truthful occupied spans/);
+    assert.match(expanded.fullCopy, /compress continuous idle intervals while keeping every hourly mark/);
     await page.locator("#dialogContextDetails > summary").click();
   });
 

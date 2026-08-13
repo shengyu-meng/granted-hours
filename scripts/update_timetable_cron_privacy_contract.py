@@ -78,6 +78,7 @@ CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - ready receipt 的验证状态为 pending/partial 时，闭环必须对该日期重新运行 `qa_visual_previews.mjs --date YYYY-MM-DD` 及必要的本地安全检查；通过后原子升级 receipt 为 passed 再继续，失败则保留 oldest-first backlog，不能把暂时运行时问题变成永久缺席。
 - 构建公开数据后必须从 canonical public worktree 运行 `python3 scripts/test_first_person_public_contract.py`；它是第一人称协作、例行汇总、审核判断、满意度证据和浏览器运行时一致性的硬门控，失败即停止提交、推送和部署。
 - 日历构建后必须在有界本地静态服务器上运行 `qa_timetable_dialog_full_artwork.mjs` 与 `qa_timetable_calendar_enrichment.mjs`，并在部署后分别对自定义域名、稳定 Pages 域名和本次不可变部署地址重跑作品浮窗门控。门控必须逐视口覆盖普通桌面、390×844、421×386 短触屏与 3840×2160：作品浮窗只允许一个 `Brief / 作品摘要` 卡片，完整顺序固定为中文 Summary、中文 Brief、英文 Summary、英文 Brief；全屏按钮必须为最右操作项，上沿对齐 `Autonomous artwork / AI 自主作品`、右沿对齐摘要卡片；非全屏作品舞台在所有视口保持 16:9，不得出现竖向黑色空区；embed 模式不得残留会与作品画面碰撞的原生 brief、hint、ledger 或控制层；全屏退出、二次关闭、Escape、焦点恢复和 iframe 卸载层级全部通过。任一失败不得把闭环状态写成 `ok`。
+- 日历构建后还必须运行 `qa_timetable_stratigraphic_detail.mjs` 与 `qa_timetable_autonomous_mobile_card.mjs`。日详情必须使用 `compressed-idle-segments-v2`：精确事件与受保护卡片时段保持真实分钟比例，所有连续空白分钟（包括部分占用小时内部的空白）压缩，同时保留 25 个逐小时方向刻度。AI 自由创作卡在移动端必须横跨全部五列并允许越过中线，桌面/4K 必须占四列中的三列；未点开时并排看见方形预览、标题、日期/关系和至少两行摘要，不得出现卡内滚动、卡片重叠或横向溢出。任一门控失败不得把闭环状态写成 `ok`。
 - 预览必须同时存在 PNG、GIF 与 WebP；三者都要表现作品本身，禁止目录、错误页、加载壳或可被 OCR 读出的界面/路径文字。GIF/WebP 必须有可见运动、固定帧数和有界时长，archive 与 docs 镜像哈希必须一致。
 - 动态捕获只允许一次有界尝试，90 秒仍未完成就终止整棵捕获进程，改用已验证 PNG 的无文字视觉区域生成确定性固定帧动画并同步导出 GIF/WebP；不得把无限等待、静态单帧、缺任一格式或旧 WebP 继续沿用当作成功。
 - 只允许 canonical worktree；开始和发布后均验证 `HEAD == origin/main == git ls-remote origin refs/heads/main`。无事务清单时，工作树不干净或三方失配必须 fail closed、保留积压，不 merge/rebase/reset，也不吸收无关改动。

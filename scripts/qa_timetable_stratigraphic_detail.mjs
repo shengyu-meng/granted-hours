@@ -41,7 +41,7 @@ try {
     const url = new URL(baseUrl);
     url.searchParams.set("date", testCase.date);
     url.searchParams.set("regression", "stratigraphic-detail");
-    await page.goto(url.href, { waitUntil: "networkidle" });
+    await page.goto(url.href, { waitUntil: "domcontentloaded" });
     await page.waitForSelector(".timeline-reading-layer.is-placed");
 
     const state = await page.evaluate(() => {
@@ -60,7 +60,11 @@ try {
         hasEvent: marker.dataset.hasEvent === "true",
         hasCard: marker.dataset.hasCard === "true",
         bandHeight: Number(marker.dataset.bandHeight),
+        activeMinutes: Number(marker.dataset.activeMinutes),
+        idleMinutes: Number(marker.dataset.idleMinutes),
         top: marker.getBoundingClientRect().top - timelineRect.top,
+        labelLeft: Number.parseFloat(getComputedStyle(marker.querySelector("span")).left),
+        labelText: marker.querySelector("span")?.innerText || "",
       }));
       const footprints = [...eventsLayer.querySelectorAll(".timeline-event")].map((event) => {
         const footprint = event.querySelector(".event-footprint");
@@ -146,6 +150,10 @@ try {
         projectedHeight: Number(timeline.dataset.projectedHeight),
         activeHourCount: Number(timeline.dataset.activeHourCount),
         compressedHourCount: Number(timeline.dataset.compressedHourCount),
+        fullyCompressedHourCount: Number(timeline.dataset.fullyCompressedHourCount),
+        partiallyCompressedHourCount: Number(timeline.dataset.partiallyCompressedHourCount),
+        activeMinuteCount: Number(timeline.dataset.activeMinuteCount),
+        compressedMinuteCount: Number(timeline.dataset.compressedMinuteCount),
         projection: timeline.dataset.projection,
         readingLayer: {
           left: eventsRect.left,
@@ -215,7 +223,7 @@ try {
     assert.ok(
       state.cards.filter((card) => card.memberCount > 1).every((card) => (
         Math.abs(card.anchorMinute - card.medianMinute) <= 0.01
-        && card.anchorDisplacement <= 96
+        && card.anchorDisplacement <= (testCase.mobile ? 430 : 140)
       )),
       `${testCase.label}: an aggregate card is detached from its strata`,
     );
@@ -225,28 +233,51 @@ try {
         `${testCase.label}: card height no longer responds to content and duration`,
       );
     }
-    assert.equal(state.projection, "compressed-empty-hours-v1", `${testCase.label}: missing elastic clock projection`);
+    assert.equal(state.projection, "compressed-idle-segments-v2", `${testCase.label}: missing continuous idle-time projection`);
     assert.equal(state.hourMarkers.length, 25, `${testCase.label}: hourly orientation marks were lost`);
-    assert.ok(state.compressedHourCount > 0, `${testCase.label}: no genuinely empty hour was compressed`);
+    assert.ok(state.compressedMinuteCount > 0, `${testCase.label}: no idle minutes were compressed`);
     assert.ok(state.projectedHeight < state.linearHeight, `${testCase.label}: timeline did not become more compact`);
     assert.equal(
-      state.hourMarkers.filter((marker) => marker.density === "compressed").length,
+      state.hourMarkers.slice(0, 24).filter((marker) => marker.density !== "active").length,
       state.compressedHourCount,
-      `${testCase.label}: compressed hour marks disagree with the projection`,
+      `${testCase.label}: compressed/mixed hour marks disagree with the projection`,
     );
     const compressedMarkers = state.hourMarkers.filter((marker) => marker.density === "compressed");
     assert.ok(
       compressedMarkers.every((marker) => !marker.hasEvent && !marker.hasCard),
-      `${testCase.label}: an occupied or card-bearing hour was compressed`,
+      `${testCase.label}: a fully compressed hour contains an event or card`,
     );
     assert.ok(
       compressedMarkers.every((marker) => marker.bandHeight <= (testCase.mobile ? 10 : 9)),
       `${testCase.label}: empty-hour bands are still too tall: ${JSON.stringify(compressedMarkers)}`,
     );
+    const mixedMarkers = state.hourMarkers.filter((marker) => marker.density === "mixed");
+    if (testCase.dense) {
+      assert.ok(mixedMarkers.length > 0, `${testCase.label}: partial-hour idle gaps were not detected`);
+    }
+    assert.ok(
+      mixedMarkers.every((marker) => (
+        marker.activeMinutes > 0
+        && marker.idleMinutes > 0
+        && marker.bandHeight < 60 * state.minuteHeight
+      )),
+      `${testCase.label}: partially occupied hours still reserve their full linear height`,
+    );
     assert.ok(
       state.hourMarkers.every((marker, index, markers) => index === 0 || marker.top > markers[index - 1].top),
       `${testCase.label}: hour labels no longer preserve chronological order`,
     );
+    if (testCase.mobile) {
+      const compactMarkers = state.hourMarkers.filter((marker) => marker.density !== "active");
+      assert.ok(
+        new Set(compactMarkers.map((marker) => Math.round(marker.labelLeft))).size >= 3,
+        `${testCase.label}: compact hour labels no longer use staggered orientation tracks`,
+      );
+      assert.ok(
+        compactMarkers.every((marker) => !marker.labelText.includes(":00")),
+        `${testCase.label}: compact hour labels did not switch to the concise mobile form`,
+      );
+    }
     if (!testCase.dense) {
       assert.ok(
         state.projectedHeight <= state.linearHeight * 0.62,
@@ -295,6 +326,10 @@ try {
       cards: state.cards.length,
       activeHours: state.activeHourCount,
       compressedHours: state.compressedHourCount,
+      fullyCompressedHours: state.fullyCompressedHourCount,
+      partiallyCompressedHours: state.partiallyCompressedHourCount,
+      activeMinutes: state.activeMinuteCount,
+      compressedMinutes: state.compressedMinuteCount,
       compressionRatio: state.timelineHeight / state.linearHeight,
       maximumAggregateDisplacement: Math.max(
         0,

@@ -2288,7 +2288,7 @@ h1 {
 
 .autonomous-reading-card:not(.is-compact-reading-card)
   .autonomous-copy > p:last-child {
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 3;
 }
 
 .autonomous-work-link.event-reading-card > .autonomous-preview-frame {
@@ -2593,6 +2593,10 @@ h1 {
   font-size: 8px;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
+}
+
+.timeline-hour-marker span :is(b, i) {
+  font: inherit;
 }
 
 .timeline-event {
@@ -5082,7 +5086,7 @@ h1 {
   margin: 0;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
 }
 
 .autonomous-work-link.event-reading-card.is-compact-reading-card
@@ -5152,7 +5156,7 @@ h1 {
 
 .autonomous-reading-card.is-compact-reading-card.is-narrow-reading-card
   .autonomous-copy > p:last-child {
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
 }
 
 @media (max-width: 720px) {
@@ -6042,32 +6046,53 @@ h1 {
   }
 }
 
-/* ===== Edge fossils + elastic empty time / 边缘化石与弹性空时（2026-08-12） =====
+/* ===== Edge fossils + elastic idle time / 边缘化石与弹性空时（2026-08-13） =====
    Reading blocks interrupt the exposed cut only from its left or right edge.
-   Completely idle clock hours fold vertically, while occupied/card-bearing
-   hours retain the active minute scale and every printed hour remains visible. */
-.timeline-list[data-projection="compressed-empty-hours-v1"] {
+   Every continuous idle minute range folds vertically, while occupied/card-
+   bearing ranges retain the active minute scale and every hour mark remains. */
+.timeline-list[data-projection="compressed-idle-segments-v2"] {
   height: auto;
 }
 
-.timeline-list[data-projection="compressed-empty-hours-v1"] .timeline-strata-bed::after {
+.timeline-list[data-projection="compressed-idle-segments-v2"] .timeline-strata-bed::after {
   display: none;
 }
 
-.timeline-list[data-projection="compressed-empty-hours-v1"] .timeline-hour-marker {
+.timeline-list[data-projection="compressed-idle-segments-v2"] .timeline-hour-marker {
   border-top-color: color-mix(in srgb, var(--ink) 13%, transparent);
 }
 
-.timeline-list[data-projection="compressed-empty-hours-v1"]
+.timeline-list[data-projection="compressed-idle-segments-v2"]
   .timeline-hour-marker.is-compressed-hour {
   border-top-style: dashed;
   border-top-color: color-mix(in srgb, var(--violet-fog) 22%, transparent);
 }
 
-.timeline-list[data-projection="compressed-empty-hours-v1"]
+.timeline-list[data-projection="compressed-idle-segments-v2"]
+  .timeline-hour-marker.is-mixed-hour {
+  border-top-style: solid;
+  border-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--cyan-trace) 22%, transparent),
+    color-mix(in srgb, var(--violet-fog) 24%, transparent)
+  ) 1;
+}
+
+.timeline-list[data-projection="compressed-idle-segments-v2"]
   .timeline-hour-marker.is-compressed-hour span {
+  left: calc(5px + var(--hour-label-track) * 14px);
   color: color-mix(in srgb, var(--ink-muted) 70%, var(--violet-fog));
   font-size: 7px;
+  letter-spacing: 0;
+}
+
+.timeline-list[data-projection="compressed-idle-segments-v2"]
+  .timeline-hour-marker.is-compressed-hour
+  .hour-label-minute,
+.timeline-list[data-projection="compressed-idle-segments-v2"]
+  .timeline-hour-marker.is-compressed-hour
+  i {
+  display: none;
 }
 
 .timeline-reading-layer .event-reading-card[data-edge-anchored="true"] {
@@ -6261,12 +6286,12 @@ h1 {
 @media (max-width: 720px) {
   .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-time {
     margin: 7px 7px 0 !important;
-    font-size: 7px;
+    font-size: 7.5px;
   }
 
   .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-time small {
-    font-size: 6.5px;
-    line-height: 1.15;
+    font-size: 7px;
+    line-height: 1.2;
   }
 
   .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-copy {
@@ -6277,28 +6302,28 @@ h1 {
     display: -webkit-box;
     margin: 0 0 2px;
     overflow: hidden;
-    font-size: 10px;
-    line-height: 1.08;
+    font-size: 11px;
+    line-height: 1.12;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
 
   .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] .autonomous-date-relation {
     margin-bottom: 2px;
-    font-size: 7px;
-    line-height: 1.15;
+    font-size: 7.5px;
+    line-height: 1.2;
     -webkit-line-clamp: 2;
   }
 
   .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] .reading-summary {
-    font-size: 7px;
-    line-height: 1.15;
-    -webkit-line-clamp: 2;
+    font-size: 8.5px;
+    line-height: 1.28;
+    -webkit-line-clamp: 3;
   }
 
   .timeline-reading-layer .autonomous-reading-card[data-layer="beacon"] > .autonomous-open-copy {
     margin: 0 7px 7px !important;
-    font-size: 6.5px;
+    font-size: 7px;
   }
 }
 
@@ -7094,6 +7119,19 @@ h1 {
   .timeline-reading-layer
     .autonomous-reading-card[data-layer="beacon"].is-compact-reading-card
     .autonomous-copy
+    h4 {
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .timeline-reading-layer
+    .autonomous-reading-card[data-layer="beacon"].is-compact-reading-card
+    .autonomous-date-relation {
+    -webkit-line-clamp: 1 !important;
+  }
+
+  .timeline-reading-layer
+    .autonomous-reading-card[data-layer="beacon"].is-compact-reading-card
+    .autonomous-copy
     > p.reading-summary:last-child {
     -webkit-line-clamp: 3 !important;
   }
@@ -7227,9 +7265,9 @@ h1 {
     display: none;
   }
 
-  .timeline-list[data-projection="compressed-empty-hours-v1"]
+  .timeline-list[data-projection="compressed-idle-segments-v2"]
     .timeline-hour-marker.is-compressed-hour span {
-    top: -5px;
+    top: -4px;
     font-size: 6.5px;
     line-height: 1;
   }

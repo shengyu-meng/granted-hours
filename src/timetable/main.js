@@ -2255,7 +2255,7 @@ function summarizeReadingFootprints(memberLayouts, layer) {
 function readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth) {
   if (card.dataset.layer === "beacon") {
     if (!isCompactReadingCanvas) return Math.max(268, minuteHeight * 60 + 92);
-    return clampNumber(Math.round(cardWidth - 96), 136, 184);
+    return clampNumber(Math.round(cardWidth * 0.5), 148, 176);
   }
   if (card.dataset.layer === "absence") return isCompactReadingCanvas ? 148 : 132;
   const copyLength = Number(card.dataset.copyLength) || 0;
@@ -2282,10 +2282,15 @@ function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvas
   const copyLength = Number(card.dataset.copyLength) || 0;
   if (isCompactReadingCanvas) {
     const edgeSpan = canvasWidth < 290 ? columnCount : Math.max(1, columnCount - 1);
-    if (["beacon", "event", "absence"].includes(card.dataset.layer)) return edgeSpan;
-    return Math.min(memberCount > 1 || copyLength > 150 ? 3 : 2, edgeSpan);
+    if (card.dataset.layer === "beacon") return columnCount;
+    if (card.dataset.layer === "event" && card.dataset.origin === "background") {
+      return Math.min(2, edgeSpan);
+    }
+    if (["event", "absence"].includes(card.dataset.layer)) return edgeSpan;
+    return Math.min(2, edgeSpan);
   }
-  if (["beacon", "event", "absence"].includes(card.dataset.layer)) return Math.min(2, columnCount);
+  if (card.dataset.layer === "beacon") return Math.min(3, columnCount);
+  if (["event", "absence"].includes(card.dataset.layer)) return Math.min(2, columnCount);
   const needsReadingWidth = memberCount > 1 || copyLength > 150;
   return Math.min(needsReadingWidth ? 2 : 1, columnCount);
 }
@@ -2293,9 +2298,13 @@ function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvas
 function applyTimelineProjection(timeline, eventsLayer, projection) {
   timeline.style.height = `${projection.height}px`;
   timeline.style.setProperty("--idle-minute-height", `${projection.idleMinuteHeight}px`);
-  timeline.dataset.projection = "compressed-empty-hours-v1";
+  timeline.dataset.projection = "compressed-idle-segments-v2";
   timeline.dataset.activeHourCount = String(projection.activeHourCount);
   timeline.dataset.compressedHourCount = String(projection.compressedHourCount);
+  timeline.dataset.fullyCompressedHourCount = String(projection.fullyCompressedHourCount);
+  timeline.dataset.partiallyCompressedHourCount = String(projection.partiallyCompressedHourCount);
+  timeline.dataset.activeMinuteCount = String(projection.activeMinuteCount);
+  timeline.dataset.compressedMinuteCount = String(projection.compressedMinuteCount);
   timeline.dataset.linearHeight = String(MINUTES_PER_DAY * projection.activeMinuteHeight);
   timeline.dataset.projectedHeight = String(projection.height);
 
@@ -2303,12 +2312,17 @@ function applyTimelineProjection(timeline, eventsLayer, projection) {
     const minute = Number(marker.dataset.hourMinute);
     marker.style.top = `${projection.projectMinute(minute)}px`;
     const band = projection.hourBands[Math.min(23, Math.floor(minute / 60))];
-    const isCompressed = minute < MINUTES_PER_DAY && !band.active;
+    const isCompressed = minute < MINUTES_PER_DAY && band.idleMinutes > 0.001;
+    const isMixed = isCompressed && band.activeMinutes > 0.001;
     marker.classList.toggle("is-compressed-hour", isCompressed);
-    marker.dataset.hourDensity = isCompressed ? "compressed" : "active";
+    marker.classList.toggle("is-mixed-hour", isMixed);
+    marker.classList.toggle("is-fully-compressed-hour", isCompressed && !isMixed);
+    marker.dataset.hourDensity = isMixed ? "mixed" : isCompressed ? "compressed" : "active";
     marker.dataset.hasEvent = String(Boolean(band.hasEvent));
     marker.dataset.hasCard = String(Boolean(band.hasCard));
     marker.dataset.bandHeight = String(band.height);
+    marker.dataset.activeMinutes = String(band.activeMinutes);
+    marker.dataset.idleMinutes = String(band.idleMinutes);
   }
 
   for (const event of eventsLayer.querySelectorAll(".timeline-event")) {
@@ -2393,7 +2407,7 @@ function placeTimelineReadingCards() {
     });
     projection = buildTimelineProjection(exactLayouts, {
       activeMinuteHeight: minuteHeight,
-      idleMinuteHeight: isCompactReadingCanvas ? 0.16 : 0.14,
+      idleMinuteHeight: isCompactReadingCanvas ? 0.105 : 0.095,
       protectedRanges,
     });
     applyTimelineProjection(timeline, eventsLayer, projection);
@@ -2414,15 +2428,17 @@ function placeTimelineReadingCards() {
       canvasWidth,
       canvasHeight,
       minuteHeight,
-      edgePadding: 4,
+      edgePadding: 2,
     });
-    const displacementTolerance = isCompactReadingCanvas ? 64 : 78;
+    const displacementTolerance = isCompactReadingCanvas ? 420 : 128;
     if (
       result.requiredHeight <= canvasHeight + 0.5
       && result.maximumDisplacement <= displacementTolerance
     ) break;
     const proximityMinuteHeight = minuteHeight * 1.11 + 0.02;
-    const maximumMinuteHeight = isCompactReadingCanvas ? 4.6 : 2.45;
+    // Continuous idle compression remains fixed; only content-dense occupied
+    // strata may expand further so every edge card still fits inside 24:00.
+    const maximumMinuteHeight = isCompactReadingCanvas ? 3.5 : 2.35;
     const nextMinuteHeight = Math.min(
       maximumMinuteHeight,
       proximityMinuteHeight,
@@ -2570,9 +2586,10 @@ function appendTimelineHourMarkers(list) {
     const marker = document.createElement("div");
     marker.className = "timeline-hour-marker";
     marker.style.setProperty("--hour-minute", String(hour * 60));
+    marker.style.setProperty("--hour-label-track", String(hour % 3));
     marker.dataset.hourMinute = String(hour * 60);
     marker.setAttribute("aria-hidden", "true");
-    marker.innerHTML = `<span>${String(hour).padStart(2, "0")}:00</span>`;
+    marker.innerHTML = `<span><b>${String(hour).padStart(2, "0")}</b><i>:00</i></span>`;
     fragment.append(marker);
   }
   list.append(fragment);

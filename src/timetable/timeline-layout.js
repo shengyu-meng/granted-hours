@@ -86,57 +86,131 @@ export function buildTimelineProjection(layouts, options = {}) {
     Math.min(activeMinuteHeight, Number(options.idleMinuteHeight) || activeMinuteHeight * 0.28),
   );
   const protectedRanges = Array.isArray(options.protectedRanges) ? options.protectedRanges : [];
-  const eventHours = Array.from({ length: 24 }, () => false);
-  const cardHours = Array.from({ length: 24 }, () => false);
+  const normalizeRanges = (ranges) => ranges.map((range) => {
+    const startMinute = Math.max(0, Math.min(MINUTES_PER_DAY, Number(range.startMinute) || 0));
+    const endMinute = Math.max(startMinute, Math.min(MINUTES_PER_DAY, Number(range.endMinute) || 0));
+    return { startMinute, endMinute };
+  }).filter((range) => range.endMinute > range.startMinute)
+    .sort((left, right) => left.startMinute - right.startMinute || left.endMinute - right.endMinute);
 
-  const markHours = (ranges, target) => {
-    for (const range of ranges) {
-      const startMinute = Math.max(0, Math.min(MINUTES_PER_DAY, Number(range.startMinute) || 0));
-      const endMinute = Math.max(startMinute, Math.min(MINUTES_PER_DAY, Number(range.endMinute) || 0));
-      if (endMinute <= startMinute) continue;
-      const firstHour = Math.max(0, Math.floor(startMinute / 60));
-      const lastHour = Math.min(23, Math.ceil(endMinute / 60) - 1);
-      for (let hour = firstHour; hour <= lastHour; hour += 1) target[hour] = true;
+  const mergeRanges = (ranges) => {
+    const merged = [];
+    for (const range of normalizeRanges(ranges)) {
+      const previous = merged.at(-1);
+      if (!previous || range.startMinute > previous.endMinute) {
+        merged.push({ ...range });
+      } else {
+        previous.endMinute = Math.max(previous.endMinute, range.endMinute);
+      }
     }
+    return merged;
   };
 
-  markHours(layouts, eventHours);
-  markHours(protectedRanges, cardHours);
+  const eventRanges = mergeRanges(layouts);
+  const cardRanges = mergeRanges(protectedRanges);
+  const activeRanges = mergeRanges([...eventRanges, ...cardRanges]);
+  const rangeOverlap = (ranges, startMinute, endMinute) => ranges.reduce(
+    (total, range) => total + Math.max(
+      0,
+      Math.min(endMinute, range.endMinute) - Math.max(startMinute, range.startMinute),
+    ),
+    0,
+  );
 
-  let offset = 0;
-  const hourBands = Array.from({ length: 24 }, (_, hour) => {
-    const active = eventHours[hour] || cardHours[hour];
-    const minuteHeight = active ? activeMinuteHeight : idleMinuteHeight;
-    const band = {
-      hour,
-      startMinute: hour * 60,
-      endMinute: (hour + 1) * 60,
-      top: offset,
-      height: minuteHeight * 60,
-      minuteHeight,
-      active,
-      hasEvent: eventHours[hour],
-      hasCard: cardHours[hour],
-    };
-    offset += band.height;
-    return band;
-  });
+  const segments = [];
+  let minuteCursor = 0;
+  let pixelCursor = 0;
+  for (const range of activeRanges) {
+    if (range.startMinute > minuteCursor) {
+      const durationMinutes = range.startMinute - minuteCursor;
+      const height = durationMinutes * idleMinuteHeight;
+      segments.push({
+        startMinute: minuteCursor,
+        endMinute: range.startMinute,
+        top: pixelCursor,
+        height,
+        minuteHeight: idleMinuteHeight,
+        active: false,
+      });
+      pixelCursor += height;
+    }
+    const durationMinutes = range.endMinute - range.startMinute;
+    const height = durationMinutes * activeMinuteHeight;
+    segments.push({
+      startMinute: range.startMinute,
+      endMinute: range.endMinute,
+      top: pixelCursor,
+      height,
+      minuteHeight: activeMinuteHeight,
+      active: true,
+    });
+    pixelCursor += height;
+    minuteCursor = range.endMinute;
+  }
+  if (minuteCursor < MINUTES_PER_DAY) {
+    const durationMinutes = MINUTES_PER_DAY - minuteCursor;
+    const height = durationMinutes * idleMinuteHeight;
+    segments.push({
+      startMinute: minuteCursor,
+      endMinute: MINUTES_PER_DAY,
+      top: pixelCursor,
+      height,
+      minuteHeight: idleMinuteHeight,
+      active: false,
+    });
+    pixelCursor += height;
+  }
 
   const projectMinute = (value) => {
     const minute = Math.max(0, Math.min(MINUTES_PER_DAY, Number(value) || 0));
-    if (minute >= MINUTES_PER_DAY) return offset;
-    const hour = Math.min(23, Math.floor(minute / 60));
-    const band = hourBands[hour];
-    return band.top + (minute - band.startMinute) * band.minuteHeight;
+    if (minute >= MINUTES_PER_DAY) return pixelCursor;
+    const segment = segments.find((candidate) => (
+      minute >= candidate.startMinute && minute < candidate.endMinute
+    )) || segments.at(-1);
+    return segment.top + (minute - segment.startMinute) * segment.minuteHeight;
   };
+
+  const hourBands = Array.from({ length: 24 }, (_, hour) => {
+    const startMinute = hour * 60;
+    const endMinute = (hour + 1) * 60;
+    const eventMinutes = rangeOverlap(eventRanges, startMinute, endMinute);
+    const cardMinutes = rangeOverlap(cardRanges, startMinute, endMinute);
+    const activeMinutes = rangeOverlap(activeRanges, startMinute, endMinute);
+    const idleMinutes = 60 - activeMinutes;
+    return {
+      hour,
+      startMinute,
+      endMinute,
+      top: projectMinute(startMinute),
+      height: projectMinute(endMinute) - projectMinute(startMinute),
+      activeMinutes,
+      idleMinutes,
+      active: idleMinutes <= 0.001,
+      hasEvent: eventMinutes > 0.001,
+      hasCard: cardMinutes > 0.001,
+    };
+  });
+
+  const activeMinuteCount = activeRanges.reduce(
+    (total, range) => total + range.endMinute - range.startMinute,
+    0,
+  );
+  const compressedMinuteCount = MINUTES_PER_DAY - activeMinuteCount;
 
   return {
     activeMinuteHeight,
     idleMinuteHeight,
+    segments,
     hourBands,
-    activeHourCount: hourBands.filter((band) => band.active).length,
-    compressedHourCount: hourBands.filter((band) => !band.active).length,
-    height: offset,
+    activeMinuteCount,
+    compressedMinuteCount,
+    activeHourCount: hourBands.filter((band) => band.activeMinutes > 0.001).length,
+    compressedHourCount: hourBands.filter((band) => band.idleMinutes > 0.001).length,
+    fullyCompressedHourCount: hourBands.filter((band) => band.activeMinutes <= 0.001).length,
+    partiallyCompressedHourCount: hourBands.filter((band) => (
+      band.activeMinutes > 0.001 && band.idleMinutes > 0.001
+    )).length,
+    height: pixelCursor,
     projectMinute,
     projectSpan(startMinute, endMinute) {
       return projectMinute(endMinute) - projectMinute(startMinute);

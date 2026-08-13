@@ -384,8 +384,9 @@ try {
 
     if (testCase.compact) {
       check(result.compactClass, `${testCase.label}: missing compact class contract`, failures);
-      check([4, 5].includes(result.readingColumnSpan), `${testCase.label}: compact edge span changed`, failures);
-      check(result.card.height >= 132 && result.card.height <= 188, `${testCase.label}: compact height ${result.card.height}`, failures);
+      check(result.readingColumnSpan === 5, `${testCase.label}: artwork card does not cross the mobile midline`, failures);
+      check(result.card.width >= result.readingLayer.width * 0.96, `${testCase.label}: artwork card is not effectively full-width`, failures);
+      check(result.card.height >= 146 && result.card.height <= 178, `${testCase.label}: compact height ${result.card.height}`, failures);
       check(
         result.preview.width >= 128 && result.preview.height >= 128,
         `${testCase.label}: preview too small ${result.preview.width}x${result.preview.height}`,
@@ -402,7 +403,8 @@ try {
       check(
         result.summary.visible
           && result.summary.display !== "none"
-          && result.summary.visibleLines >= 1
+          && result.summary.visibleLines >= 2
+          && result.summary.width >= 96
           && result.summary.bottom <= result.copy.bottom + 1,
         `${testCase.label}: summary unreadable ${JSON.stringify(result.summary)}`,
         failures,
@@ -444,9 +446,21 @@ try {
       }
     } else {
       check(!result.compactClass, `${testCase.label}: desktop incorrectly compact`, failures);
-      check(result.readingColumnSpan === 2, `${testCase.label}: desktop span changed`, failures);
+      check(result.readingColumnSpan === 3, `${testCase.label}: desktop artwork card does not cross the midline`, failures);
       check(result.card.height >= 260 && result.card.height <= 275, `${testCase.label}: desktop height changed`, failures);
-      check(result.fullWidthDelta >= result.readingLayer.width * 0.35, `${testCase.label}: desktop card became full-width`, failures);
+      check(
+        result.card.width >= result.readingLayer.width * 0.72
+          && result.fullWidthDelta >= result.readingLayer.width * 0.20,
+        `${testCase.label}: desktop artwork card width is outside the intended wide edge range`,
+        failures,
+      );
+      check(
+        result.summary.visible
+          && result.summary.visibleLines >= 2
+          && result.summary.width >= 220,
+        `${testCase.label}: desktop preview copy is not readable before opening`,
+        failures,
+      );
       check(
         result.preview.right <= result.copy.left + 1 || result.copy.right <= result.preview.left + 1,
         `${testCase.label}: desktop is no longer side-by-side`,

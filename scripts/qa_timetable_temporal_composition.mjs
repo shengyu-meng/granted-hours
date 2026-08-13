@@ -40,16 +40,6 @@ function minutes(value) {
   return hour * 60 + minute;
 }
 
-function projectedMinute(value, markers) {
-  const minute = typeof value === "number" ? value : minutes(value);
-  if (minute >= 1440) return markers.at(-1).top - markers[0].top;
-  const hour = Math.floor(minute / 60);
-  const start = markers[hour];
-  const end = markers[hour + 1];
-  return start.top - markers[0].top
-    + ((minute - hour * 60) / 60) * (end.top - start.top);
-}
-
 function rangesOverlap(leftStart, leftEnd, rightStart, rightEnd, tolerance = 1) {
   return leftStart < rightEnd - tolerance && rightStart < leftEnd - tolerance;
 }
@@ -79,6 +69,8 @@ async function inspectComposition(page) {
         start: event.dataset.start,
         end: event.dataset.end,
         duration: Number(event.dataset.durationMinutes),
+        projectedTop: Number(event.dataset.projectedTop),
+        projectedHeight: Number(event.dataset.projectedHeight),
         lane: Number(event.dataset.lane),
         laneCount: Number(event.dataset.laneCount),
         top: rect.top - eventLayerRect.top,
@@ -128,6 +120,7 @@ async function inspectComposition(page) {
     return {
       minuteHeight,
       timelineHeight: timelineRect.height,
+      projection: timeline.dataset.projection,
       eventLayerHeight: eventLayerRect.height,
       hourMarkers: [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
         top: marker.getBoundingClientRect().top - timelineRect.top,
@@ -258,6 +251,7 @@ try {
     assert.equal(await page.locator(".timeline-event[role='listitem']").count(), 0);
     assert.equal(await page.locator(".timeline-reading-layer").getAttribute("role"), "group");
     assert.equal(composition.hourMarkers.length, 25, `${viewport.label}: hour orientation marks`);
+    assert.equal(composition.projection, "compressed-idle-segments-v2");
     assert.ok(
       Math.abs(composition.timelineHeight - composition.hourMarkers.at(-1).top) <= 2,
       `${viewport.label}: elastic timeline scale ${JSON.stringify(composition)}`,
@@ -273,10 +267,18 @@ try {
     assert.deepEqual(pageErrors, [], `${viewport.label}: page errors`);
 
     for (const event of composition.events) {
-      const expectedTop = projectedMinute(event.start, composition.hourMarkers);
-      const expectedHeight = projectedMinute(event.end, composition.hourMarkers) - expectedTop;
-      assert.ok(Math.abs(event.top - expectedTop) <= 0.25, `${viewport.label}: exact top ${JSON.stringify(event)}`);
-      assert.ok(Math.abs(event.height - expectedHeight) <= 0.25, `${viewport.label}: exact height ${JSON.stringify(event)}`);
+      assert.ok(
+        Math.abs(event.top - event.projectedTop) <= 0.25,
+        `${viewport.label}: projected top ${JSON.stringify(event)}`,
+      );
+      assert.ok(
+        Math.abs(event.height - event.projectedHeight) <= 0.25,
+        `${viewport.label}: projected height ${JSON.stringify(event)}`,
+      );
+      assert.ok(
+        Math.abs(event.height - event.duration * composition.minuteHeight) <= 0.25,
+        `${viewport.label}: exact occupied span lost truthful duration ${JSON.stringify(event)}`,
+      );
     }
 
     for (let leftIndex = 0; leftIndex < composition.events.length; leftIndex += 1) {
@@ -457,7 +459,11 @@ try {
       await previewLink.tap();
       await page.waitForSelector("#artworkDialog.is-open");
       assert.equal(page.context().pages().length, pageCountBeforeArtwork);
-      assert.match(await page.locator("#artworkLiveFrame").getAttribute("src"), /[?&]embed=calendar(?:&|$)/);
+      await page.waitForFunction(() => document.querySelector("#artworkLiveFrame")?.getAttribute("src"));
+      assert.match(
+        await page.locator("#artworkLiveFrame").getAttribute("src"),
+        /[?&]embed=calendar(?:&|$)/,
+      );
       await page.locator("#closeArtworkDetail").tap();
       await page.waitForSelector("#artworkDialog", { state: "hidden" });
     } else {

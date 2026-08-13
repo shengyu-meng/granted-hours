@@ -57,11 +57,34 @@ const projection = buildTimelineProjection(
   },
 );
 assert.equal(projection.activeHourCount, 4);
-assert.equal(projection.compressedHourCount, 20);
-assert.equal(projection.height, 4 * 60 + 20 * 15);
+assert.equal(projection.compressedHourCount, 21);
+assert.equal(projection.fullyCompressedHourCount, 20);
+assert.equal(projection.partiallyCompressedHourCount, 1);
+assert.equal(projection.activeMinuteCount, 210);
+assert.equal(projection.compressedMinuteCount, 1230);
+assert.equal(projection.height, 210 + 1230 * 0.25);
 assert.equal(projection.projectSpan(180, 300), 120, "occupied time keeps the active minute scale");
 assert.equal(projection.projectSpan(300, 360), 15, "a truly empty hour is compressed");
 assert.equal(projection.hourBands[11].hasCard, true, "card-bearing hours must not be folded");
+assert.equal(projection.hourBands[12].activeMinutes, 30);
+assert.equal(projection.hourBands[12].idleMinutes, 30);
+assert.equal(
+  projection.hourBands[12].height,
+  30 + 30 * 0.25,
+  "the idle part of a partially occupied hour must also compress",
+);
+
+const partialHourProjection = buildTimelineProjection(
+  [{ startMinute: 8 * 60 + 5, endMinute: 8 * 60 + 10 }],
+  { activeMinuteHeight: 1, idleMinuteHeight: 0.1 },
+);
+assert.equal(partialHourProjection.projectSpan(8 * 60 + 5, 8 * 60 + 10), 5);
+assert.equal(
+  partialHourProjection.projectSpan(8 * 60 + 10, 9 * 60),
+  5,
+  "idle minutes after a short event must not reserve the rest of the hour",
+);
+assert.equal(partialHourProjection.partiallyCompressedHourCount, 1);
 
 const readingItems = [
   { key: "early-wide", startMinute: 30, anchorMinute: 86, anchorRatio: 0.5, height: 112, preferredColumn: 0, columnSpan: 2 },
@@ -141,4 +164,4 @@ assert.deepEqual(
   "edge-only cards must never occupy a centered reading column",
 );
 
-console.log(JSON.stringify({ passed: true, cases: 7 }));
+console.log(JSON.stringify({ passed: true, cases: 8 }));

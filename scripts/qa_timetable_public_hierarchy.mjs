@@ -264,6 +264,8 @@ async function inspect(page) {
         footprintId: event.dataset.footprintId,
         start: event.dataset.start,
         duration: Number(event.dataset.durationMinutes),
+        projectedTop: Number(event.dataset.projectedTop),
+        projectedHeight: Number(event.dataset.projectedHeight),
         top: rect.top - eventsRect.top,
         height: rect.height,
       };
@@ -336,6 +338,7 @@ async function inspect(page) {
     return {
       minuteHeight,
       timelineHeight: timelineRect.height,
+      projection: timeline.dataset.projection,
       hourMarkers: [...timeline.querySelectorAll(".timeline-hour-marker")].map((marker) => ({
         top: marker.getBoundingClientRect().top - timelineRect.top,
         density: marker.dataset.hourDensity,
@@ -420,6 +423,7 @@ try {
       const state = await inspect(page);
       assert.deepEqual(pageErrors, [], `${date}/${viewport.label}: page errors`);
       assert.equal(state.events.length, day.timeline_events.length, `${date}/${viewport.label}: footprints`);
+      assert.equal(state.projection, "compressed-idle-segments-v2");
       assert.equal(state.cards.length, day.reading_items.length, `${date}/${viewport.label}: reading projection`);
       assert.ok(state.overflow <= 1, `${date}/${viewport.label}: horizontal overflow ${state.overflow}`);
       assert.deepEqual(state.vagueTitles, [], `${date}/${viewport.label}: vague titles`);
@@ -440,19 +444,14 @@ try {
       );
 
       for (const event of state.events) {
-        const startMinute = minutes(event.start);
-        const hour = Math.floor(startMinute / 60);
-        const markerStart = state.hourMarkers[hour].top;
-        const markerEnd = state.hourMarkers[hour + 1].top;
-        const expectedTop = markerStart - state.hourMarkers[0].top
-          + ((startMinute - hour * 60) / 60) * (markerEnd - markerStart);
         assert.ok(
-          Math.abs(event.top - expectedTop) <= 0.3,
-          `${date}/${viewport.label}: exact top ${JSON.stringify(event)}`,
+          Math.abs(event.top - event.projectedTop) <= 0.3,
+          `${date}/${viewport.label}: projected top ${JSON.stringify(event)}`,
         );
         assert.ok(
-          Math.abs(event.height - event.duration * state.minuteHeight) <= 0.3,
-          `${date}/${viewport.label}: exact height ${JSON.stringify(event)}`,
+          Math.abs(event.height - event.projectedHeight) <= 0.3
+            && Math.abs(event.height - event.duration * state.minuteHeight) <= 0.3,
+          `${date}/${viewport.label}: exact occupied height ${JSON.stringify(event)}`,
         );
       }
       for (const card of state.cards) {
