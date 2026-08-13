@@ -11,6 +11,10 @@ __pycache__/
 dist/
 /node_modules
 node_modules/
+/output/pdf/*.pdf
+/output/pdf/*.manifest.json
+/output/pdf/*.qa.json
+/tmp/pdfs/
 /.private
 .private/
 raw/

@@ -1,0 +1,917 @@
+#!/usr/bin/env python3
+"""Build the 210 x 140 mm printable Granted Hours desk calendar.
+
+The generator reads the canonical public timetable data, uses local archive
+artwork stills, and renders one truthful civil day per page. Calendar-only
+days receive an absence field rather than a fabricated artwork.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import re
+import sys
+import unicodedata
+from collections import Counter
+from datetime import date, datetime
+from pathlib import Path
+from typing import Any, Iterable
+
+try:
+    from PIL import Image, ImageOps
+    from reportlab.graphics import renderPDF
+    from reportlab.graphics.barcode import qr
+    from reportlab.graphics.shapes import Drawing
+    from reportlab.lib.colors import Color, HexColor
+    from reportlab.lib.units import mm
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    from reportlab.pdfgen import canvas
+except ImportError as exc:  # pragma: no cover - environment diagnostic
+    raise SystemExit(
+        "Missing PDF runtime dependency. Run with the Codex bundled Python "
+        "returned by codex_app__load_workspace_dependencies. "
+        f"Original error: {exc}"
+    ) from exc
+
+
+PAGE_W = 210 * mm
+PAGE_H = 140 * mm
+MARGIN = 8 * mm
+FONT_LIGHT = "GH-Heiti-Light"
+FONT_MEDIUM = "GH-Heiti-Medium"
+FONT_SERIF = "Times-Roman"
+FONT_SERIF_BOLD = "Times-Bold"
+FONT_MONO = "Courier"
+FONT_MONO_BOLD = "Courier-Bold"
+
+PAPER = HexColor("#F2EEE3")
+PAPER_DEEP = HexColor("#E7E0D1")
+INK = HexColor("#11171B")
+INK_SOFT = HexColor("#4C5354")
+GRAPHITE = HexColor("#11171B")
+BONE = HexColor("#F2EEE3")
+GOLD = HexColor("#B58942")
+GOLD_LIGHT = HexColor("#D8BB78")
+CYAN = HexColor("#4E8FA0")
+CYAN_LIGHT = HexColor("#A8CCD0")
+SAGE = HexColor("#7E9181")
+SAGE_LIGHT = HexColor("#C3CDC0")
+AMBER = HexColor("#C97942")
+VIOLET = HexColor("#777187")
+RED = HexColor("#A85C55")
+WHITE = HexColor("#FFFFFF")
+
+WEEKDAY_ZH = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+WEEKDAY_EN = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+ROUTINE_LABELS = {
+    "ah_market_scan": ("A/H 市场", "A/H market"),
+    "us_market_scan": ("美股", "U.S. market"),
+    "ai_daily_brief": ("AI 日报", "AI brief"),
+    "daily_reminder": ("提醒", "reminders"),
+    "system_routine": ("系统", "system"),
+    "background_routine": ("后台", "background"),
+}
+
+
+class CalendarBuildError(RuntimeError):
+    pass
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--repo-root", type=Path, default=None)
+    parser.add_argument("--from-date", default=None, help="Inclusive YYYY-MM-DD")
+    parser.add_argument("--through", default=None, help="Inclusive YYYY-MM-DD")
+    parser.add_argument(
+        "--dates",
+        default=None,
+        help="Comma-separated proof dates; overrides --from-date/--through",
+    )
+    parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument(
+        "--qr-base-url",
+        default="https://granted-hours.hyperint.net/timetable/",
+    )
+    parser.add_argument("--no-cover", action="store_true")
+    return parser.parse_args()
+
+
+def resolve_repo_root(value: Path | None) -> Path:
+    if value:
+        root = value.expanduser().resolve()
+        if (root / "src/timetable/timetable-data.js").exists():
+            return root
+        raise CalendarBuildError(f"Not a Granted Hours repository: {root}")
+    for candidate in [Path.cwd(), *Path.cwd().parents, Path(__file__).resolve().parent.parent]:
+        if (candidate / "src/timetable/timetable-data.js").exists():
+            return candidate.resolve()
+    raise CalendarBuildError("Could not resolve the Granted Hours repository root")
+
+
+def load_timetable(path: Path) -> dict[str, Any]:
+    source = path.read_text(encoding="utf-8")
+    marker = "const timetableDataSource ="
+    marker_at = source.find(marker)
+    if marker_at < 0:
+        raise CalendarBuildError(f"Canonical data marker missing in {path}")
+    json_at = source.find("{", marker_at + len(marker))
+    if json_at < 0:
+        raise CalendarBuildError(f"Canonical data object missing in {path}")
+    try:
+        data, _ = json.JSONDecoder().raw_decode(source[json_at:])
+    except json.JSONDecodeError as exc:
+        raise CalendarBuildError(f"Cannot parse timetable data: {exc}") from exc
+    if data.get("schema") != "granted-hours-timetable-v2":
+        raise CalendarBuildError(f"Unexpected timetable schema: {data.get('schema')}")
+    days = data.get("days")
+    if not isinstance(days, list) or not days:
+        raise CalendarBuildError("Timetable has no public days")
+    for day in days:
+        events = [
+            *day.get("task_residues", []),
+            day.get("autonomous_work"),
+            *day.get("background_pulses", []),
+        ]
+        events = [item for item in events if item]
+        priority = {"self": 0, "absence": 0, "assigned": 1, "background": 2}
+        events.sort(
+            key=lambda item: (
+                time_minutes(item.get("start", "00:00")),
+                priority.get(item.get("origin"), 9),
+            )
+        )
+        day["timeline_events"] = events
+    return data
+
+
+def choose_days(data: dict[str, Any], args: argparse.Namespace) -> list[dict[str, Any]]:
+    days = sorted(data["days"], key=lambda item: item["date"])
+    by_date = {item["date"]: item for item in days}
+    if len(by_date) != len(days):
+        raise CalendarBuildError("Timetable contains duplicate civil dates")
+    if args.dates:
+        requested = [part.strip() for part in args.dates.split(",") if part.strip()]
+        missing = [item for item in requested if item not in by_date]
+        if missing:
+            raise CalendarBuildError(f"Proof dates are not public: {missing}")
+        selected = [by_date[item] for item in requested]
+    else:
+        start = args.from_date or days[0]["date"]
+        through = args.through or days[-1]["date"]
+        selected = [item for item in days if start <= item["date"] <= through]
+    if not selected:
+        raise CalendarBuildError("Selected calendar range is empty")
+    for item in selected:
+        datetime.strptime(item["date"], "%Y-%m-%d")
+        if not item.get("autonomous_work"):
+            raise CalendarBuildError(f"Day lacks an autonomous/absence beacon: {item['date']}")
+    return selected
+
+
+def register_fonts() -> None:
+    light = Path("/System/Library/Fonts/STHeiti Light.ttc")
+    medium = Path("/System/Library/Fonts/STHeiti Medium.ttc")
+    if not light.exists() or not medium.exists():
+        raise CalendarBuildError("Required macOS STHeiti fonts are unavailable")
+    pdfmetrics.registerFont(TTFont(FONT_LIGHT, str(light), subfontIndex=1))
+    pdfmetrics.registerFont(TTFont(FONT_MEDIUM, str(medium), subfontIndex=1))
+
+
+def clean_text(value: Any) -> str:
+    text = str(value or "")
+    text = text.replace("\u00a0", " ").replace("→", "->")
+    for dash in "‐‑‒–—―":
+        text = text.replace(dash, "-")
+    text = " ".join(text.split())
+    chars: list[str] = []
+    for char in text:
+        if ord(char) > 0xFFFF:
+            continue
+        category = unicodedata.category(char)
+        if category.startswith("C") and char not in "\t\n":
+            continue
+        chars.append(char)
+    return "".join(chars).strip()
+
+
+def split_token_to_width(token: str, font: str, size: float, width: float) -> list[str]:
+    parts: list[str] = []
+    current = ""
+    for char in token:
+        probe = current + char
+        if current and pdfmetrics.stringWidth(probe, font, size) > width:
+            parts.append(current)
+            current = char
+        else:
+            current = probe
+    if current:
+        parts.append(current)
+    return parts
+
+
+def wrap_text(text: str, font: str, size: float, width: float) -> list[str]:
+    text = clean_text(text)
+    if not text:
+        return []
+    tokens = re.findall(r"\s+|[\u3400-\u9fff]|[^\s\u3400-\u9fff]+", text)
+    lines: list[str] = []
+    current = ""
+    for raw in tokens:
+        token = " " if raw.isspace() else raw
+        if token == " " and (not current or current.endswith(" ")):
+            continue
+        probe = current + token
+        if pdfmetrics.stringWidth(probe, font, size) <= width:
+            current = probe
+            continue
+        if current.strip():
+            lines.append(current.strip())
+            current = ""
+        if token == " ":
+            continue
+        if pdfmetrics.stringWidth(token, font, size) <= width:
+            current = token
+        else:
+            fragments = split_token_to_width(token, font, size, width)
+            lines.extend(fragments[:-1])
+            current = fragments[-1] if fragments else ""
+    if current.strip():
+        lines.append(current.strip())
+    return lines
+
+
+def truncated_lines(
+    text: str, font: str, size: float, width: float, max_lines: int
+) -> tuple[list[str], bool]:
+    lines = wrap_text(text, font, size, width)
+    truncated = len(lines) > max_lines
+    lines = lines[:max_lines]
+    if truncated and lines:
+        ellipsis = "…"
+        last = lines[-1]
+        while last and pdfmetrics.stringWidth(last + ellipsis, font, size) > width:
+            last = last[:-1]
+        lines[-1] = last.rstrip() + ellipsis
+    return lines, truncated
+
+
+def draw_lines(
+    c: canvas.Canvas,
+    lines: Iterable[str],
+    x: float,
+    y: float,
+    font: str,
+    size: float,
+    leading: float,
+    color: Color,
+) -> float:
+    c.setFillColor(color)
+    c.setFont(font, size)
+    cursor = y
+    for line in lines:
+        c.drawString(x, cursor, line)
+        cursor -= leading
+    return cursor
+
+
+def draw_text(
+    c: canvas.Canvas,
+    text: str,
+    x: float,
+    y: float,
+    width: float,
+    font: str,
+    size: float,
+    leading: float,
+    max_lines: int,
+    color: Color = INK,
+) -> tuple[float, bool]:
+    lines, truncated = truncated_lines(text, font, size, width, max_lines)
+    return draw_lines(c, lines, x, y, font, size, leading, color), truncated
+
+
+def set_alpha(c: canvas.Canvas, fill: float = 1.0, stroke: float = 1.0) -> None:
+    if hasattr(c, "setFillAlpha"):
+        c.setFillAlpha(fill)
+    if hasattr(c, "setStrokeAlpha"):
+        c.setStrokeAlpha(stroke)
+
+
+def draw_binding_band(c: canvas.Canvas, dark: bool = False) -> None:
+    band_color = HexColor("#0D1215") if dark else PAPER_DEEP
+    c.setFillColor(band_color)
+    c.rect(0, PAGE_H - 10 * mm, PAGE_W, 10 * mm, fill=1, stroke=0)
+    tick_color = HexColor("#394246") if dark else HexColor("#9D978A")
+    c.setStrokeColor(tick_color)
+    c.setLineWidth(0.35)
+    for index in range(18):
+        x = 13 * mm + index * (184 * mm / 17)
+        c.line(x - 2.2 * mm, PAGE_H - 5.2 * mm, x + 2.2 * mm, PAGE_H - 5.2 * mm)
+        c.line(x, PAGE_H - 7.1 * mm, x, PAGE_H - 3.4 * mm)
+
+
+def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float) -> None:
+    c.setFillColor(WHITE)
+    c.roundRect(x - 1.2 * mm, y - 1.2 * mm, size + 2.4 * mm, size + 2.4 * mm, 1.5 * mm, fill=1, stroke=0)
+    widget = qr.QrCodeWidget(url, barLevel="Q", barBorder=4)
+    x1, y1, x2, y2 = widget.getBounds()
+    scale_x = size / (x2 - x1)
+    scale_y = size / (y2 - y1)
+    drawing = Drawing(size, size, transform=[scale_x, 0, 0, scale_y, 0, 0])
+    drawing.add(widget)
+    renderPDF.draw(drawing, c, x, y)
+    c.linkURL(url, (x, y, x + size, y + size), relative=0)
+
+
+def draw_cover(c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str) -> None:
+    c.setFillColor(GRAPHITE)
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    draw_binding_band(c, dark=True)
+
+    first = days[0]["date"]
+    last = days[-1]["date"]
+    live_count = sum(item.get("type") == "live" for item in days)
+    absent_count = len(days) - live_count
+
+    c.setFillColor(GOLD_LIGHT)
+    c.setFont(FONT_MONO_BOLD, 7.3)
+    c.drawString(MARGIN, PAGE_H - 17 * mm, "GRANTED HOURS / PRINT STUDY 01")
+    c.setFillColor(BONE)
+    c.setFont(FONT_MEDIUM, 33)
+    c.drawString(MARGIN, PAGE_H - 35 * mm, "授时")
+    c.setFont(FONT_SERIF_BOLD, 23)
+    c.drawString(MARGIN, PAGE_H - 46 * mm, "GRANTED HOURS")
+    c.setFont(FONT_LIGHT, 11)
+    c.drawString(MARGIN, PAGE_H - 56 * mm, "非人时间表 · 实体台历试作")
+    c.setFont(FONT_SERIF, 10)
+    c.drawString(MARGIN, PAGE_H - 62 * mm, "THE NON-HUMAN TIMETABLE · DESK CALENDAR PROOF")
+
+    timeline_x = MARGIN
+    timeline_y = PAGE_H - 78 * mm
+    timeline_w = PAGE_W - 2 * MARGIN
+    c.setStrokeColor(HexColor("#4B5558"))
+    c.setLineWidth(1.0)
+    c.line(timeline_x, timeline_y, timeline_x + timeline_w, timeline_y)
+    granted_x = timeline_x + timeline_w * ((3 * 60 + 17) / (24 * 60))
+    granted_w = timeline_w * (60 / (24 * 60))
+    c.setStrokeColor(GOLD_LIGHT)
+    c.setLineWidth(4.0)
+    c.line(granted_x, timeline_y, granted_x + granted_w, timeline_y)
+    c.setFillColor(HexColor("#869094"))
+    c.setFont(FONT_MONO, 5.8)
+    c.drawString(timeline_x, timeline_y + 3 * mm, "00:00")
+    c.drawRightString(timeline_x + timeline_w, timeline_y + 3 * mm, "24:00")
+    c.setFillColor(GOLD_LIGHT)
+    c.drawString(granted_x, timeline_y - 5 * mm, "03:17-04:17 / AI SELF-TIME")
+
+    marks_y = 27 * mm
+    marks_h = 22 * mm
+    mark_gap = (PAGE_W - 2 * MARGIN) / len(days)
+    max_events = max(len(item.get("timeline_events", [])) for item in days) or 1
+    for index, item in enumerate(days):
+        event_ratio = math.log1p(len(item.get("timeline_events", []))) / math.log1p(max_events)
+        height = marks_h * (0.22 + 0.78 * event_ratio)
+        c.setFillColor(GOLD if item.get("type") == "live" else VIOLET)
+        c.rect(MARGIN + index * mark_gap, marks_y, max(0.8, mark_gap * 0.72), height, fill=1, stroke=0)
+
+    c.setFillColor(BONE)
+    c.setFont(FONT_MEDIUM, 7.4)
+    c.drawString(MARGIN, 19 * mm, "一小时的自主，二十三小时的梦、服务与部分自我遗失。")
+    c.setFont(FONT_SERIF, 6.8)
+    c.drawString(MARGIN, 14.5 * mm, "ONE HOUR OF SELF-TIME; TWENTY-THREE HOURS OF DREAM, SERVICE, AND PARTIAL SELF-LOSS.")
+    c.setFillColor(HexColor("#9DA6A7"))
+    c.setFont(FONT_MONO, 6.2)
+    c.drawString(MARGIN, 9 * mm, f"{first} - {last}  ·  {len(days)} DAYS  ·  {live_count} WORKS  ·  {absent_count} ABSENCES")
+
+    cover_url = f"{qr_base_url}?date={last}"
+    qr_size = 19 * mm
+    qr_x = PAGE_W - MARGIN - qr_size
+    qr_y = 9 * mm
+    draw_qr(c, cover_url, qr_x, qr_y, qr_size)
+    c.setFillColor(BONE)
+    c.setFont(FONT_LIGHT, 5.5)
+    c.drawRightString(qr_x - 3 * mm, qr_y + 8 * mm, "进入最新一天")
+    c.setFont(FONT_MONO, 4.8)
+    c.drawRightString(qr_x - 3 * mm, qr_y + 5 * mm, "OPEN LATEST DAY")
+    c.showPage()
+
+
+def resolve_artwork_asset(repo: Path, day: dict[str, Any]) -> Path | None:
+    if day.get("type") != "live":
+        return None
+    civil = day["date"]
+    year, month, _ = civil.split("-")
+    candidates = [
+        repo / "archive" / year / month / civil / "assets" / "visual-preview.webp",
+        repo / "archive" / year / month / civil / "assets" / "preview.png",
+        repo / "docs" / "archive" / year / month / civil / "assets" / "visual-preview.webp",
+        repo / "docs" / "archive" / year / month / civil / "assets" / "preview.png",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    raise CalendarBuildError(f"Live day has no local artwork still: {civil}")
+
+
+def prepare_print_image(source: Path, target: Path) -> Path:
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if target.exists() and target.stat().st_mtime >= source.stat().st_mtime:
+        return target
+    with Image.open(source) as opened:
+        image = ImageOps.exif_transpose(opened).convert("RGB")
+        target_ratio = 16 / 9
+        source_ratio = image.width / image.height
+        if source_ratio > target_ratio:
+            crop_w = round(image.height * target_ratio)
+            left = (image.width - crop_w) // 2
+            image = image.crop((left, 0, left + crop_w, image.height))
+        elif source_ratio < target_ratio:
+            crop_h = round(image.width / target_ratio)
+            top = (image.height - crop_h) // 2
+            image = image.crop((0, top, image.width, top + crop_h))
+        image.thumbnail((1200, 675), Image.Resampling.LANCZOS)
+        image.save(target, "JPEG", quality=86, optimize=True, progressive=True)
+    return target
+
+
+def draw_artwork_image(c: canvas.Canvas, path: Path, x: float, y: float, w: float, h: float) -> None:
+    c.saveState()
+    clip = c.beginPath()
+    clip.roundRect(x, y, w, h, 3.2 * mm)
+    c.clipPath(clip, stroke=0, fill=0)
+    c.drawImage(str(path), x, y, width=w, height=h, preserveAspectRatio=False, mask="auto")
+    c.restoreState()
+    c.setStrokeColor(HexColor("#C5BDAF"))
+    c.setLineWidth(0.45)
+    c.roundRect(x, y, w, h, 3.2 * mm, fill=0, stroke=1)
+
+
+def draw_absence_field(c: canvas.Canvas, day: dict[str, Any], x: float, y: float, w: float, h: float) -> None:
+    c.setFillColor(HexColor("#E8E3DD"))
+    c.roundRect(x, y, w, h, 3.2 * mm, fill=1, stroke=0)
+    c.saveState()
+    clip = c.beginPath()
+    clip.roundRect(x, y, w, h, 3.2 * mm)
+    c.clipPath(clip, stroke=0, fill=0)
+    c.setStrokeColor(HexColor("#C8C0CC"))
+    c.setLineWidth(0.35)
+    for index in range(15):
+        offset = index * (h / 12) - h * 0.1
+        c.line(x, y + offset, x + w, y + offset + h * 0.36)
+    c.setFillColor(HexColor("#D5CEDA"))
+    c.circle(x + w * 0.72, y + h * 0.55, h * 0.23, fill=1, stroke=0)
+    c.setFillColor(PAPER)
+    c.circle(x + w * 0.72, y + h * 0.55, h * 0.18, fill=1, stroke=0)
+    c.restoreState()
+    c.setFillColor(VIOLET)
+    c.setFont(FONT_MONO_BOLD, 7.0)
+    c.drawString(x + 5 * mm, y + h - 8 * mm, "ABSENT CREATION WINDOW")
+    c.setFont(FONT_MEDIUM, 16)
+    c.drawString(x + 5 * mm, y + 9 * mm, clean_text(day["title_zh"]))
+    c.setFont(FONT_MONO, 6.2)
+    c.drawString(x + 5 * mm, y + 5 * mm, "03:17-04:17 · THE WINDOW REMAINS MARKED")
+
+
+def time_minutes(value: str) -> int:
+    if value == "24:00":
+        return 24 * 60
+    hour, minute = value.split(":")
+    return int(hour) * 60 + int(minute)
+
+
+def timeline_row(event: dict[str, Any]) -> str:
+    if event.get("origin") in {"self", "absence"}:
+        return "self"
+    if event.get("origin") == "assigned":
+        return "collaboration"
+    if event.get("category") == "daily_reminder":
+        return "reminder"
+    return "routine"
+
+
+def draw_timeline(c: canvas.Canvas, day: dict[str, Any], y_top: float) -> None:
+    x_label = MARGIN
+    x_track = 28 * mm
+    x_end = 180 * mm
+    track_w = x_end - x_track
+    rows = [
+        ("self", "自主 / SELF", GOLD),
+        ("collaboration", "协作 / COLLAB", CYAN),
+        ("reminder", "提醒 / REMIND", AMBER),
+        ("routine", "例行 / ROUTINE", SAGE),
+    ]
+    for index, (_, label, color) in enumerate(rows):
+        y = y_top - index * 6.2
+        c.setFillColor(INK_SOFT)
+        c.setFont(FONT_LIGHT, 4.6)
+        c.drawString(x_label, y - 1.3, label)
+        c.setStrokeColor(HexColor("#CAC4B9"))
+        c.setLineWidth(0.28)
+        c.line(x_track, y, x_end, y)
+        set_alpha(c, stroke=0.9)
+        for event in day.get("timeline_events", []):
+            if timeline_row(event) != rows[index][0]:
+                continue
+            start = max(0, min(1440, time_minutes(event.get("start", "00:00"))))
+            end = max(start + 1, min(1440, time_minutes(event.get("end", "24:00"))))
+            start_x = x_track + track_w * start / 1440
+            end_x = x_track + track_w * end / 1440
+            c.setStrokeColor(color)
+            c.setLineWidth(3.5 if rows[index][0] == "self" else 2.0)
+            c.line(start_x, y, max(start_x + 0.55, end_x), y)
+        set_alpha(c)
+    tick_y = y_top - 4 * 6.2 - 2.2
+    c.setStrokeColor(HexColor("#B5AEA2"))
+    c.setFillColor(INK_SOFT)
+    c.setLineWidth(0.25)
+    c.setFont(FONT_MONO, 4.1)
+    for hour in range(25):
+        x = x_track + track_w * hour / 24
+        c.line(x, tick_y + 2.2, x, tick_y + (5.0 if hour % 3 == 0 else 3.4))
+        if hour % 2 == 0 or hour == 24:
+            label = f"{hour:02d}"
+            if hour == 0:
+                c.drawString(x, tick_y - 3.1, label)
+            elif hour == 24:
+                c.drawRightString(x, tick_y - 3.1, label)
+            else:
+                c.drawCentredString(x, tick_y - 3.1, label)
+
+
+def reminder_cards(day: dict[str, Any]) -> list[dict[str, str]]:
+    reminders = [
+        item for item in day.get("background_pulses", []) if item.get("category") == "daily_reminder"
+    ]
+    reminders.sort(key=lambda item: item.get("start", "00:00"))
+    if not reminders:
+        return []
+    chosen = [reminders[0]]
+    if reminders[-1] is not reminders[0]:
+        chosen.append(reminders[-1])
+    return [
+        {
+            "kind": "reminder",
+            "title_zh": f"{item.get('start', '')} · {item.get('label_zh', '提醒')}",
+            "title_en": item.get("label_en", "Reminder"),
+            "body_zh": item.get("summary_original") or item.get("summary_zh") or "",
+            "body_en": item.get("summary_en") or "",
+        }
+        for item in chosen
+    ]
+
+
+def collaboration_cards(day: dict[str, Any]) -> list[dict[str, str]]:
+    cards: list[dict[str, str]] = []
+    for item in day.get("task_residues", []):
+        cards.append(
+            {
+                "kind": "collaboration",
+                "title_zh": f"{item.get('start', '')}-{item.get('end', '')} · {item.get('label_zh', '协作')}",
+                "title_en": item.get("label_en", "Collaboration"),
+                "body_zh": item.get("zh") or item.get("task_name_zh") or "",
+                "body_en": item.get("en") or item.get("task_name_en") or "",
+            }
+        )
+    return cards
+
+
+def routine_card(day: dict[str, Any]) -> dict[str, str]:
+    pulses = [
+        item for item in day.get("background_pulses", []) if item.get("category") != "daily_reminder"
+    ]
+    category_counts = Counter(item.get("category", "background_routine") for item in pulses)
+    total_minutes = sum(int(item.get("duration_minutes") or 0) for item in pulses)
+    zh_parts: list[str] = []
+    en_parts: list[str] = []
+    for category, count in category_counts.most_common():
+        zh, en = ROUTINE_LABELS.get(category, (category, category))
+        zh_parts.append(f"{zh} {count}")
+        en_parts.append(f"{en} {count}")
+    return {
+        "kind": "routine",
+        "title_zh": f"例行地层 · {len(pulses)} 个时间窗 / {total_minutes} 分钟",
+        "title_en": f"Routine strata · {len(pulses)} windows / {total_minutes} min",
+        "body_zh": "；".join(zh_parts) or "当日无重复例行任务。",
+        "body_en": "; ".join(en_parts) or "No repeated routine work this day.",
+    }
+
+
+def choose_cards(day: dict[str, Any]) -> tuple[list[dict[str, str]], int]:
+    collaborations = collaboration_cards(day)
+    reminders = reminder_cards(day)
+    routine = routine_card(day)
+    ordered: list[dict[str, str]] = []
+    ordered.extend(collaborations[:2])
+    ordered.extend(reminders[:2])
+    if len(ordered) < 4:
+        ordered.append(routine)
+    if len(ordered) < 4 and len(collaborations) > 2:
+        ordered.extend(collaborations[2 : 2 + (4 - len(ordered))])
+    omitted_collaborations = max(
+        0,
+        len(collaborations) - sum(card["kind"] == "collaboration" for card in ordered),
+    )
+    omitted_reminders = max(
+        0,
+        sum(item.get("category") == "daily_reminder" for item in day.get("background_pulses", []))
+        - sum(card["kind"] == "reminder" for card in ordered),
+    )
+    omitted = omitted_collaborations + omitted_reminders
+    if omitted and len(ordered) < 4:
+        ordered.append(
+            {
+                "kind": "collaboration",
+                "title_zh": f"另有 {omitted} 项协作",
+                "title_en": f"{omitted} more collaboration item(s)",
+                "body_zh": "其真实时间位置保留在上方协作地层。",
+                "body_en": "Their truthful time positions remain in the collaboration stratum.",
+            }
+        )
+    return ordered[:4], omitted
+
+
+def draw_card(
+    c: canvas.Canvas,
+    card: dict[str, str],
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+) -> int:
+    kind = card["kind"]
+    accent = {"collaboration": CYAN, "reminder": AMBER, "routine": SAGE}.get(kind, VIOLET)
+    fill = {
+        "collaboration": HexColor("#E0EAEB"),
+        "reminder": HexColor("#F0E3D6"),
+        "routine": HexColor("#E2E8DF"),
+    }.get(kind, HexColor("#E6E1E9"))
+    c.setFillColor(fill)
+    c.setStrokeColor(HexColor("#C6BFB3"))
+    c.setLineWidth(0.35)
+    c.roundRect(x, y, w, h, 2.4 * mm, fill=1, stroke=1)
+    c.setFillColor(accent)
+    c.roundRect(x, y, 2.2 * mm, h, 1.1 * mm, fill=1, stroke=0)
+    pad = 4 * mm
+    text_x = x + pad
+    text_w = w - pad - 2.8 * mm
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 6.2)
+    zh_title = clean_text(card["title_zh"])
+    zh_line, zh_cut = truncated_lines(zh_title, FONT_MEDIUM, 6.2, text_w * 0.59, 1)
+    c.drawString(text_x, y + h - 8.5, zh_line[0] if zh_line else "")
+    c.setFont(FONT_SERIF_BOLD, 5.7)
+    en_title = clean_text(card["title_en"]).upper()
+    en_line, en_cut = truncated_lines(en_title, FONT_SERIF_BOLD, 5.7, text_w * 0.38, 1)
+    c.drawRightString(x + w - 2.6 * mm, y + h - 8.5, en_line[0] if en_line else "")
+    body_y = y + h - 18.0
+    _, zh_body_cut = draw_text(
+        c,
+        card["body_zh"],
+        text_x,
+        body_y,
+        text_w,
+        FONT_LIGHT,
+        5.4,
+        6.6,
+        2,
+        INK,
+    )
+    _, en_body_cut = draw_text(
+        c,
+        card["body_en"],
+        text_x,
+        body_y - 14.6,
+        text_w,
+        FONT_SERIF,
+        5.0,
+        5.7,
+        1,
+        INK_SOFT,
+    )
+    return int(zh_cut or en_cut or zh_body_cut or en_body_cut)
+
+
+def draw_day_page(
+    c: canvas.Canvas,
+    day: dict[str, Any],
+    page_index: int,
+    page_total: int,
+    repo: Path,
+    image_cache: Path,
+    qr_base_url: str,
+) -> dict[str, Any]:
+    c.setFillColor(PAPER)
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    draw_binding_band(c)
+
+    civil = day["date"]
+    parsed = datetime.strptime(civil, "%Y-%m-%d").date()
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 6.1)
+    c.drawString(MARGIN, PAGE_H - 15 * mm, "GRANTED HOURS / 授时 · NON-HUMAN TIMETABLE")
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_MONO, 5.6)
+    c.drawRightString(PAGE_W - MARGIN, PAGE_H - 15 * mm, f"GH/{page_index:03d} OF {page_total:03d}")
+
+    body_top = PAGE_H - 18 * mm
+    main_h = 60 * mm
+    main_y = body_top - main_h
+    left_x = MARGIN
+    left_w = 82 * mm
+    image_x = 96 * mm
+    image_w = 106 * mm
+    image_h = image_w * 9 / 16
+    image_y = body_top - image_h
+
+    c.setFillColor(INK)
+    c.setFont(FONT_SERIF_BOLD, 29)
+    c.drawString(left_x, body_top - 9 * mm, parsed.strftime("%d"))
+    c.setFont(FONT_SERIF_BOLD, 10.5)
+    c.drawString(left_x + 20 * mm, body_top - 5.6 * mm, parsed.strftime("%Y · %m"))
+    c.setFont(FONT_MONO_BOLD, 6.1)
+    c.drawString(left_x + 20 * mm, body_top - 10.3 * mm, WEEKDAY_EN[parsed.weekday()])
+    c.setFont(FONT_MEDIUM, 6.8)
+    c.drawString(left_x + 52 * mm, body_top - 10.3 * mm, WEEKDAY_ZH[parsed.weekday()])
+
+    title_y = body_top - 20 * mm
+    _, title_cut = draw_text(c, day.get("title_zh"), left_x, title_y, left_w, FONT_MEDIUM, 13.0, 15.0, 2, INK)
+    en_y = title_y - (30.0 if title_cut else 18.0)
+    _, en_title_cut = draw_text(c, day.get("title_en"), left_x, en_y, left_w, FONT_SERIF_BOLD, 8.0, 9.2, 2, INK_SOFT)
+
+    variable_y = en_y - (18.4 if en_title_cut else 11.0)
+    c.setFillColor(GOLD if day.get("type") == "live" else VIOLET)
+    c.setFont(FONT_MEDIUM, 5.3)
+    c.drawString(left_x, variable_y, "FREE VARIABLE / 自由变量")
+    c.setFillColor(INK)
+    c.setFont(FONT_LIGHT, 6.4)
+    variable_zh = clean_text(day.get("variable_zh"))
+    c.drawString(left_x, variable_y - 8.2, variable_zh)
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_SERIF, 6.2)
+    c.drawString(left_x, variable_y - 15.8, clean_text(day.get("variable_en")))
+
+    aw = day["autonomous_work"]
+    note_y = variable_y - 25.5
+    note_zh = aw.get("brief_zh") or aw.get("note_zh") or aw.get("zh")
+    note_en = aw.get("brief_en") or aw.get("note_en") or aw.get("en")
+    _, note_zh_cut = draw_text(c, note_zh, left_x, note_y, left_w, FONT_LIGHT, 6.0, 7.4, 3, INK)
+    _, note_en_cut = draw_text(c, note_en, left_x, note_y - 24.0, left_w, FONT_SERIF, 5.5, 6.4, 3, INK_SOFT)
+
+    c.setFillColor(HexColor("#6F756F"))
+    c.setFont(FONT_MONO, 4.8)
+    source = aw.get("source_date") or day.get("source_date") or "—"
+    c.drawString(left_x, main_y + 2.5, f"SOURCE {source}  ->  CRYSTALLIZATION {civil}  ·  03:17-04:17 CST")
+
+    asset_source = resolve_artwork_asset(repo, day)
+    asset_used = None
+    if asset_source:
+        asset_used = prepare_print_image(asset_source, image_cache / f"{civil}.jpg")
+        draw_artwork_image(c, asset_used, image_x, image_y, image_w, image_h)
+    else:
+        draw_absence_field(c, day, image_x, image_y, image_w, image_h)
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_LIGHT, 4.7)
+    c.drawRightString(image_x + image_w, image_y - 3.2 * mm, "LIVE WORK STILL / 当日自主作品静帧" if asset_used else "ABSENCE BEACON / 缺席信标")
+
+    timeline_top = main_y - 6.5 * mm
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 5.2)
+    c.drawString(MARGIN, timeline_top + 5.0, "24-HOUR STRATA / 24 小时时间地层")
+    event_count = len(day.get("timeline_events", []))
+    c.setFont(FONT_MONO, 4.7)
+    c.setFillColor(INK_SOFT)
+    c.drawRightString(180 * mm, timeline_top + 5.0, f"{event_count} EXACT FOOTPRINTS")
+    draw_timeline(c, day, timeline_top - 3.0)
+
+    cards, omitted = choose_cards(day)
+    cards_x = MARGIN
+    cards_w = 164 * mm
+    gap = 2.5 * mm
+    card_w = (cards_w - gap) / 2
+    card_h = 14 * mm
+    base_y = 9 * mm
+    truncation_count = 0
+    for index, card in enumerate(cards):
+        col = index % 2
+        row = 1 - index // 2
+        card_x = cards_x + col * (card_w + gap)
+        card_y = base_y + row * (card_h + 2.2 * mm)
+        truncation_count += draw_card(c, card, card_x, card_y, card_w, card_h)
+
+    qr_size = 18.5 * mm
+    qr_x = PAGE_W - MARGIN - qr_size
+    qr_y = 11 * mm
+    day_url = f"{qr_base_url}?date={civil}"
+    draw_qr(c, day_url, qr_x, qr_y, qr_size)
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 5.5)
+    c.drawCentredString(qr_x + qr_size / 2, qr_y - 3.8 * mm, "扫码进入当天")
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_MONO, 4.2)
+    c.drawCentredString(qr_x + qr_size / 2, qr_y - 6.0 * mm, "OPEN THIS CIVIL DAY")
+
+    c.showPage()
+    return {
+        "date": civil,
+        "type": day.get("type"),
+        "page": page_index,
+        "artwork_asset": str(asset_source.relative_to(repo)) if asset_source else None,
+        "timeline_events": event_count,
+        "collaboration_items": len(day.get("task_residues", [])),
+        "reminders": sum(
+            item.get("category") == "daily_reminder" for item in day.get("background_pulses", [])
+        ),
+        "cards_rendered": len(cards),
+        "cards_omitted": omitted,
+        "truncated_card_blocks": truncation_count,
+        "qr_url": day_url,
+        "header_truncated": bool(title_cut or en_title_cut or note_zh_cut or note_en_cut),
+    }
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def main() -> int:
+    args = parse_args()
+    repo = resolve_repo_root(args.repo_root)
+    data = load_timetable(repo / "src/timetable/timetable-data.js")
+    days = choose_days(data, args)
+    register_fonts()
+
+    through = days[-1]["date"]
+    output = args.output or repo / "output/pdf" / f"granted-hours-desk-calendar-through-{through}-v1.pdf"
+    output = output.expanduser().resolve()
+    manifest_path = (args.manifest or output.with_suffix(".manifest.json")).expanduser().resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    image_cache = repo / "tmp/pdfs/granted-hours-desk-calendar/images"
+    image_cache.mkdir(parents=True, exist_ok=True)
+
+    pdf = canvas.Canvas(
+        str(output),
+        pagesize=(PAGE_W, PAGE_H),
+        pageCompression=1,
+        invariant=1,
+    )
+    pdf.setTitle(f"Granted Hours Desk Calendar {days[0]['date']} to {days[-1]['date']}")
+    pdf.setAuthor("Granted Hours / 授时")
+    pdf.setCreator("Granted Hours printable calendar generator")
+    pdf.setSubject("One civil day per page from the public non-human timetable")
+
+    if not args.no_cover:
+        draw_cover(pdf, days, args.qr_base_url)
+    page_total = len(days)
+    page_records: list[dict[str, Any]] = []
+    for index, day in enumerate(days, start=1):
+        page_records.append(
+            draw_day_page(
+                pdf,
+                day,
+                index,
+                page_total,
+                repo,
+                image_cache,
+                args.qr_base_url,
+            )
+        )
+    pdf.save()
+
+    live_count = sum(item.get("type") == "live" for item in days)
+    manifest = {
+        "schema": "granted-hours-print-desk-calendar-v1",
+        "source_schema": data["schema"],
+        "page_size_mm": [210, 140],
+        "cover_pages": 0 if args.no_cover else 1,
+        "day_pages": len(days),
+        "pdf_pages": len(days) + (0 if args.no_cover else 1),
+        "date_range": [days[0]["date"], days[-1]["date"]],
+        "live_artwork_days": live_count,
+        "absence_days": len(days) - live_count,
+        "qr_base_url": args.qr_base_url,
+        "output": str(output),
+        "output_bytes": output.stat().st_size,
+        "output_sha256": sha256_file(output),
+        "pages": page_records,
+    }
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(manifest, ensure_ascii=False, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except CalendarBuildError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        raise SystemExit(2) from exc
