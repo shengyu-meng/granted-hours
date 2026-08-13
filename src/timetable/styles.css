@@ -5359,11 +5359,16 @@ h1 {
   padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
   background:
     radial-gradient(circle at 78% 4%, color-mix(in srgb, var(--cyan-trace) 12%, transparent), transparent 34%),
-    color-mix(in srgb, var(--page-bg) 68%, transparent);
+    color-mix(in srgb, var(--page-bg) 94%, transparent);
   opacity: 0;
-  -webkit-backdrop-filter: blur(15px) saturate(128%);
-  backdrop-filter: blur(15px) saturate(128%);
   transition: opacity 150ms ease;
+}
+
+/* The day contains many independently composited cards and animated previews.
+   Suspend that paint tree while its artwork chamber is the only interactive
+   surface; state and scroll position remain intact for the return trip. */
+.artwork-chamber-active .day-dialog {
+  visibility: hidden;
 }
 
 .artwork-dialog[hidden] {
@@ -5392,11 +5397,9 @@ h1 {
   border-radius: 22px 17px 25px 19px;
   background:
     linear-gradient(132deg, color-mix(in srgb, var(--edge-light) 16%, transparent), transparent 34%),
-    color-mix(in srgb, var(--pane-strong) 86%, transparent);
+    var(--pane-solid);
   box-shadow: var(--glass-inner), var(--glass-shadow);
   transform: translateY(10px) scale(0.99);
-  -webkit-backdrop-filter: blur(28px) saturate(142%);
-  backdrop-filter: blur(28px) saturate(142%);
   transition: transform 150ms ease;
 }
 
@@ -6792,12 +6795,39 @@ h1 {
 
 @media (min-width: 721px) and (min-height: 431px) {
   .artwork-dialog-panel {
-    width: calc(100vw - 48px);
+    display: grid;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    width: min(calc(100vw - 48px), calc((100dvh - 48px) * 1.76), 1500px);
+    height: min(calc(100dvh - 48px), 920px);
     max-height: calc(100dvh - 48px);
+    overflow-y: hidden;
   }
 
   .artwork-detail-layout {
-    grid-template-columns: minmax(0, 1fr) clamp(260px, 22vw, 420px);
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) clamp(340px, 30vw, 420px);
+  }
+
+  .artwork-detail-copy {
+    grid-template-rows: minmax(0, 1fr) auto auto;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .artwork-brief-card {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (min-width: 721px) and (min-height: 431px) and (max-height: 800px) {
+  .artwork-detail-copy {
+    gap: 10px;
+  }
+
+  .artwork-brief-card {
+    padding: 12px;
   }
 }
 

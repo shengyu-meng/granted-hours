@@ -234,6 +234,7 @@ const state = {
   artworkMediaReady: false,
   artworkMediaStatus: "idle",
   artworkReadyTimer: 0,
+  artworkFrameStartRaf: 0,
   visualPreviewHiddenAt: 0,
   taskDetailOpen: false,
   taskDetailLastFocus: null,
@@ -389,6 +390,7 @@ function cacheElements() {
     "calendarPianoToggleDialog",
     "clockTime",
     "artworkArchiveLink",
+    "artworkBriefCard",
     "artworkBriefEn",
     "artworkBriefZh",
     "artworkDetailEn",
@@ -2937,15 +2939,26 @@ function openArtworkDetail(day, self, trigger) {
   state.artworkMediaOrigin = embedUrl.origin;
   state.artworkMediaReady = false;
   setArtworkRuntimeStatus("loading");
-  armArtworkReadyTimeout();
   els.artworkLiveFrame.title = `Interactive artwork: ${self.title_en} / 互动作品：《${self.title_zh}》`;
-  els.artworkLiveFrame.src = embedUrl.href;
 
   els.dayDialogPanel.setAttribute("inert", "");
+  document.documentElement.classList.add("artwork-chamber-active");
+  els.artworkDialogPanel.scrollTop = 0;
+  els.artworkBriefCard.scrollTop = 0;
   els.artworkDialog.hidden = false;
-  requestAnimationFrame(() => {
+  window.cancelAnimationFrame(state.artworkFrameStartRaf);
+  state.artworkFrameStartRaf = requestAnimationFrame(() => {
     els.artworkDialog.classList.add("is-open");
     els.closeArtworkDetail.focus({ preventScroll: true });
+    // Let the complete shell, Brief, and both actions reach one painted frame
+    // before the cross-origin artwork begins script/media work. This keeps the
+    // controls available even when the live runtime is slow or fails.
+    state.artworkFrameStartRaf = requestAnimationFrame(() => {
+      state.artworkFrameStartRaf = 0;
+      if (!state.artworkDetailOpen || state.artworkMediaChannel !== channel) return;
+      armArtworkReadyTimeout();
+      els.artworkLiveFrame.src = embedUrl.href;
+    });
   });
 }
 
@@ -2953,6 +2966,8 @@ function closeArtworkDetail(options = {}) {
   if (!state.artworkDetailOpen) return;
   sendArtworkMediaCommand("pause");
   state.artworkDetailOpen = false;
+  window.cancelAnimationFrame(state.artworkFrameStartRaf);
+  state.artworkFrameStartRaf = 0;
   const wasFullscreen = document.fullscreenElement === els.artworkDialogPanel;
   const fullscreenExit = wasFullscreen
     ? document.exitFullscreen().catch(() => {})
@@ -2966,6 +2981,7 @@ function closeArtworkDetail(options = {}) {
   setArtworkRuntimeStatus("idle");
   els.artworkDialog.classList.remove("is-open");
   els.artworkDialog.hidden = true;
+  document.documentElement.classList.remove("artwork-chamber-active");
   els.dayDialogPanel.removeAttribute("inert");
   els.dayDialogPanel.scrollTop = state.artworkDetailScrollTop;
   syncArtworkFullscreenState();

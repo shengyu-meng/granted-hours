@@ -55,10 +55,16 @@ try {
       const stage = document.querySelector(".artwork-live-stage");
       const panelRect = panel.getBoundingClientRect();
       const stageRect = stage.getBoundingClientRect();
+      const liveRect = document.querySelector("#artworkLiveLink").getBoundingClientRect();
+      const archiveRect = document.querySelector("#artworkArchiveLink").getBoundingClientRect();
       return {
         viewport: { width: innerWidth, height: innerHeight },
         panel: panelRect.toJSON(),
         stage: stageRect.toJSON(),
+        live: liveRect.toJSON(),
+        archive: archiveRect.toJSON(),
+        panelClientHeight: panel.clientHeight,
+        panelScrollHeight: panel.scrollHeight,
         panelAreaRatio: (panelRect.width * panelRect.height) / (innerWidth * innerHeight),
         stageAreaRatio: (stageRect.width * stageRect.height) / (innerWidth * innerHeight),
         horizontalOverflow: document.documentElement.scrollWidth - innerWidth,
@@ -72,12 +78,24 @@ try {
     assert.equal(geometry.closeVisible, true, `${spec.label} close control hidden`);
     assert.equal(geometry.fullscreenVisible, true, `${spec.label} fullscreen control hidden`);
     if (!spec.touch) {
-      assert.ok(geometry.panel.width / geometry.viewport.width >= 0.94, `${spec.label} panel remained fixed-width`);
-      assert.ok(geometry.panelAreaRatio >= 0.72, `${spec.label} panel area too small: ${geometry.panelAreaRatio}`);
-      assert.ok(geometry.stageAreaRatio >= 0.40, `${spec.label} live stage area too small: ${geometry.stageAreaRatio}`);
-      if (geometry.viewport.width >= 3000) {
-        assert.ok(geometry.stageAreaRatio >= 0.68, `${spec.label} 4K live stage did not scale up`);
-      }
+      const expectedWidth = Math.min(
+        geometry.viewport.width - 48,
+        (geometry.viewport.height - 48) * 1.76,
+        1500,
+      );
+      assert.ok(
+        Math.abs(geometry.panel.width - expectedWidth) <= 2,
+        `${spec.label} chamber width cap drifted: ${JSON.stringify(geometry)}`,
+      );
+      assert.ok(
+        geometry.panelScrollHeight <= geometry.panelClientHeight + 2,
+        `${spec.label} chamber unexpectedly needs internal scrolling: ${JSON.stringify(geometry)}`,
+      );
+      assert.ok(
+        geometry.live.top >= geometry.panel.top - 1 && geometry.archive.bottom <= geometry.panel.bottom + 1,
+        `${spec.label} lower actions are outside the first painted panel: ${JSON.stringify(geometry)}`,
+      );
+      assert.ok(geometry.stage.width >= 650, `${spec.label} live stage became too small: ${JSON.stringify(geometry)}`);
     } else {
       assert.ok(geometry.panel.width / geometry.viewport.width >= 0.92, `${spec.label} mobile panel too narrow`);
     }

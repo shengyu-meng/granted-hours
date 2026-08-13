@@ -4,20 +4,20 @@
   "evidencePath": "audits/public-readable-hierarchy/release-evidence.json",
   "sourceData": {
     "path": "src/timetable/timetable-data.js",
-    "bytes": 4960685,
-    "gzipBytes": 458469,
-    "sha256": "df81e6ed891b7280dfe80373318509041625a9e7ca3c02b7257233fe64eba99f",
+    "bytes": 5089692,
+    "gzipBytes": 465738,
+    "sha256": "cb2aea4ac756aaa410b8336182b4e392ec4c6f2a9f45f35414c2f44dfe68ce32",
     "budgetBytes": 6100000,
     "deterministicBuilds": [
       {
         "label": "data-build-a",
-        "bytes": 4960685,
-        "sha256": "df81e6ed891b7280dfe80373318509041625a9e7ca3c02b7257233fe64eba99f"
+        "bytes": 5089692,
+        "sha256": "cb2aea4ac756aaa410b8336182b4e392ec4c6f2a9f45f35414c2f44dfe68ce32"
       },
       {
         "label": "data-build-b",
-        "bytes": 4960685,
-        "sha256": "df81e6ed891b7280dfe80373318509041625a9e7ca3c02b7257233fe64eba99f"
+        "bytes": 5089692,
+        "sha256": "cb2aea4ac756aaa410b8336182b4e392ec4c6f2a9f45f35414c2f44dfe68ce32"
       }
     ],
     "deterministicParity": true
@@ -27,24 +27,24 @@
       {
         "label": "isolated-build-a",
         "manifestBytes": 5649,
-        "manifestSha256": "8d3feb140e88e9323240b836d28c841a01c00d09f5ab1917fa787db5cfe11aa3",
+        "manifestSha256": "05c8d12332f069bbdf7b4943172ad7e8ab1876612325e3fcb04a26383449eda7",
         "files": [
           {
-            "path": "assets/index-D7aiIUdh.css",
-            "bytes": 132861,
-            "gzipBytes": 21940,
-            "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
+            "path": "assets/index-B98us00a.css",
+            "bytes": 150251,
+            "gzipBytes": 24597,
+            "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
           },
           {
-            "path": "assets/index-djnOaLiJ.js",
-            "bytes": 3698067,
-            "gzipBytes": 439206,
-            "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
+            "path": "assets/index-BRG5Poy4.js",
+            "bytes": 3795771,
+            "gzipBytes": 448022,
+            "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
           },
           {
             "path": "index.html",
-            "bytes": 11267,
-            "sha256": "31854a09f5eda590ab2b6f11a4d855d74dec94b817fec8b8cf885b130ae582ef"
+            "bytes": 12390,
+            "sha256": "c9a89776cf505bb45ff11dac334d770c3c5c726887dce5b69e4c922789d54cfd"
           },
           {
             "path": "piano/A3.mp3",
@@ -236,24 +236,24 @@
       {
         "label": "isolated-build-b",
         "manifestBytes": 5649,
-        "manifestSha256": "8d3feb140e88e9323240b836d28c841a01c00d09f5ab1917fa787db5cfe11aa3",
+        "manifestSha256": "05c8d12332f069bbdf7b4943172ad7e8ab1876612325e3fcb04a26383449eda7",
         "files": [
           {
-            "path": "assets/index-D7aiIUdh.css",
-            "bytes": 132861,
-            "gzipBytes": 21940,
-            "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
+            "path": "assets/index-B98us00a.css",
+            "bytes": 150251,
+            "gzipBytes": 24597,
+            "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
           },
           {
-            "path": "assets/index-djnOaLiJ.js",
-            "bytes": 3698067,
-            "gzipBytes": 439206,
-            "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
+            "path": "assets/index-BRG5Poy4.js",
+            "bytes": 3795771,
+            "gzipBytes": 448022,
+            "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
           },
           {
             "path": "index.html",
-            "bytes": 11267,
-            "sha256": "31854a09f5eda590ab2b6f11a4d855d74dec94b817fec8b8cf885b130ae582ef"
+            "bytes": 12390,
+            "sha256": "c9a89776cf505bb45ff11dac334d770c3c5c726887dce5b69e4c922789d54cfd"
           },
           {
             "path": "piano/A3.mp3",
@@ -454,24 +454,24 @@
     "canonical": {
       "directory": "docs/timetable",
       "manifestBytes": 5649,
-      "manifestSha256": "8d3feb140e88e9323240b836d28c841a01c00d09f5ab1917fa787db5cfe11aa3",
+      "manifestSha256": "05c8d12332f069bbdf7b4943172ad7e8ab1876612325e3fcb04a26383449eda7",
       "files": [
         {
-          "path": "assets/index-D7aiIUdh.css",
-          "bytes": 132861,
-          "gzipBytes": 21940,
-          "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
+          "path": "assets/index-B98us00a.css",
+          "bytes": 150251,
+          "gzipBytes": 24597,
+          "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
         },
         {
-          "path": "assets/index-djnOaLiJ.js",
-          "bytes": 3698067,
-          "gzipBytes": 439206,
-          "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
+          "path": "assets/index-BRG5Poy4.js",
+          "bytes": 3795771,
+          "gzipBytes": 448022,
+          "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
         },
         {
           "path": "index.html",
-          "bytes": 11267,
-          "sha256": "31854a09f5eda590ab2b6f11a4d855d74dec94b817fec8b8cf885b130ae582ef"
+          "bytes": 12390,
+          "sha256": "c9a89776cf505bb45ff11dac334d770c3c5c726887dce5b69e4c922789d54cfd"
         },
         {
           "path": "piano/A3.mp3",
@@ -672,19 +672,19 @@
       "javascript": {
         "files": [
           {
-            "path": "assets/index-djnOaLiJ.js",
-            "bytes": 3698067,
-            "gzipBytes": 439206,
-            "sha256": "b8fa3b79b702a12d6d283f58c10e41f3fe864146fddf1847670d9457a188e598"
+            "path": "assets/index-BRG5Poy4.js",
+            "bytes": 3795771,
+            "gzipBytes": 448022,
+            "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
           }
         ],
         "totals": {
-          "bytes": 3698067,
-          "gzipBytes": 439206,
+          "bytes": 3795771,
+          "gzipBytes": 448022,
           "budgetBytes": 4800000,
-          "gzipBudgetBytes": 690750,
-          "translatedReminderCount": 203,
-          "translatedReminderGzipBudgetBytes": 131950,
+          "gzipBudgetBytes": 701400,
+          "translatedReminderCount": 204,
+          "translatedReminderGzipBudgetBytes": 132600,
           "collaborationPairCount": 132,
           "collaborationPairGzipBudgetBytes": 118800
         }
@@ -692,22 +692,22 @@
       "css": {
         "files": [
           {
-            "path": "assets/index-D7aiIUdh.css",
-            "bytes": 132861,
-            "gzipBytes": 21940,
-            "sha256": "67fe1a1657ffff2e7980623f0062ae1dff703c2ae01072f5f112471d259ee032"
+            "path": "assets/index-B98us00a.css",
+            "bytes": 150251,
+            "gzipBytes": 24597,
+            "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
           }
         ],
         "totals": {
-          "bytes": 132861,
-          "gzipBytes": 21940
+          "bytes": 150251,
+          "gzipBytes": 24597
         }
       }
     },
     "dataParity": {
-      "publicDays": 98,
-      "generatedDays": 98,
-      "historyDays": 98,
+      "publicDays": 100,
+      "generatedDays": 100,
+      "historyDays": 99,
       "pulseSchema": "granted-hours-timetable-pulses-v6"
     }
   },
@@ -726,10 +726,10 @@
     "passed": true,
     "exitCode": 0,
     "stdoutBytes": 350,
-    "stdoutSha256": "58f83cd35f8567e81ff4bb6b94df7387a75b11189bc6c1fd9b4835234e605021",
+    "stdoutSha256": "4b3a42c8a620a08ea9d561ca707f02d0359eb20f718b6b9c655a7e6aa1078cf0",
     "stderrBytes": 0,
     "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "summary": "{\n  \"passed\": true,\n  \"voice_policy\": \"granted-hours-first-person-v2\",\n  \"tasks\": 200,\n  \"collaborations\": 132,\n  \"approved_assessments\": 7,\n  \"approved_delivered_cards\": 9,\n  \"routine_pulses\": 3633,\n  \"first_person_reminders\": 203,\n  \"collaboration_voice_variants\": 6,\n  \"reminder_voice_variants\": 6,\n  \"owner_responses_with_explicit_evidence\": 0\n}"
+    "summary": "{\n  \"passed\": true,\n  \"voice_policy\": \"granted-hours-first-person-v2\",\n  \"tasks\": 201,\n  \"collaborations\": 132,\n  \"approved_assessments\": 7,\n  \"approved_delivered_cards\": 9,\n  \"routine_pulses\": 3758,\n  \"first_person_reminders\": 204,\n  \"collaboration_voice_variants\": 6,\n  \"reminder_voice_variants\": 6,\n  \"owner_responses_with_explicit_evidence\": 0\n}"
   },
   "npmAudit": {
     "command": "npm audit --omit=dev --audit-level=high --json",

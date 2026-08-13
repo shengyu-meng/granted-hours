@@ -29,8 +29,9 @@ async function scrollTopology(page) {
   });
 }
 
-async function stubArtworkEmbed(page) {
+async function stubArtworkEmbed(page, { delayMs = 0 } = {}) {
   await page.route("https://shengyu-meng.github.io/granted-hours/archive/**/live/**", async (route) => {
+    if (delayMs > 0) await new Promise((resolve) => setTimeout(resolve, delayMs));
     await route.fulfill({
       contentType: "text/html",
       body: `<!doctype html><body class="gh-chamber-embed"><script>
@@ -57,6 +58,9 @@ async function artworkBriefLayout(page) {
     const fullscreen = document.querySelector("#artworkFullscreen");
     const brief = document.querySelector(".artwork-brief-card");
     const stage = document.querySelector(".artwork-live-stage");
+    const panel = document.querySelector("#artworkDialogPanel");
+    const live = document.querySelector("#artworkLiveLink");
+    const archive = document.querySelector("#artworkArchiveLink");
     const rect = (element) => {
       const box = element.getBoundingClientRect();
       return { top: box.top, right: box.right, left: box.left, bottom: box.bottom };
@@ -76,6 +80,15 @@ async function artworkBriefLayout(page) {
       fullscreen: rect(fullscreen),
       brief: rect(brief),
       stage: rect(stage),
+      panel: rect(panel),
+      live: rect(live),
+      archive: rect(archive),
+      panelWidth: panel.getBoundingClientRect().width,
+      panelScrollTop: panel.scrollTop,
+      briefScrollTop: brief.scrollTop,
+      overlayBackdropFilter: getComputedStyle(document.querySelector("#artworkDialog")).backdropFilter,
+      panelBackdropFilter: getComputedStyle(panel).backdropFilter,
+      dayVisibility: getComputedStyle(document.querySelector("#dayDialog")).visibility,
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     };
   });
@@ -114,6 +127,20 @@ function assertArtworkBriefLayout(state, self, label) {
     Math.abs((state.stage.right - state.stage.left) / (state.stage.bottom - state.stage.top) - (16 / 9)) <= 0.02,
     `${label}: non-fullscreen live stage must remain 16:9 ${JSON.stringify(state)}`,
   );
+  assert.equal(state.panelScrollTop, 0, `${label}: chamber must open at its top edge`);
+  assert.equal(state.briefScrollTop, 0, `${label}: Brief must open at its first paragraph`);
+  assert.equal(state.overlayBackdropFilter, "none", `${label}: full-screen blur still taxes the compositor`);
+  assert.equal(state.panelBackdropFilter, "none", `${label}: panel blur still taxes the compositor`);
+  assert.equal(state.dayVisibility, "hidden", `${label}: covered day paint tree must be suspended`);
+  if (label.startsWith("desktop-")) {
+    assert.ok(
+      state.live.top >= state.panel.top - 1 && state.archive.bottom <= state.panel.bottom + 1,
+      `${label}: lower actions are outside the initially painted panel ${JSON.stringify(state)}`,
+    );
+  }
+  if (label === "desktop-4k") {
+    assert.ok(state.panelWidth <= 1501, `${label}: desktop width cap was bypassed ${JSON.stringify(state)}`);
+  }
   assert.ok(state.pageOverflow <= 1, `${label}: horizontal overflow ${state.pageOverflow}`);
 }
 
@@ -217,7 +244,7 @@ try {
   assert.equal(outerActivationCount, 0);
 
   const artworkPage = await context.newPage();
-  await stubArtworkEmbed(artworkPage);
+  await stubArtworkEmbed(artworkPage, { delayMs: 2000 });
   const artworkUrl = new URL(baseUrl);
   artworkUrl.searchParams.set("date", latest.date);
   await artworkPage.goto(artworkUrl.href, { waitUntil: "domcontentloaded" });
@@ -230,6 +257,7 @@ try {
   assert.equal(context.pages().length, pageCountBeforeArtwork);
   assert.equal(await artworkPage.locator("#calendarBgm").evaluate((audio) => audio.paused), true);
   assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("data-suspended"), "true");
+  await artworkPage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
   const artworkFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
   assert.match(artworkFrameSrc, /[?&]embed=calendar(?:&|$)/);
   assert.match(artworkFrameSrc, /[?&]gh_channel=[a-f0-9]{32}(?:&|$)/);
@@ -240,6 +268,8 @@ try {
     latest.autonomous_work,
     "desktop-1280x720",
   );
+  assert.equal(await artworkPage.locator("#artworkRuntimeStatus").isVisible(), true);
+  assert.match(await artworkPage.locator("#artworkRuntimeStatusCopy").textContent(), /Loading interactive artwork/);
   assert.match(await artworkPage.locator("#artworkLiveLink").getAttribute("href"), /\/live\//);
   assert.ok(await artworkPage.locator(".artwork-brief-card").evaluate((brief) => (
     brief.compareDocumentPosition(document.querySelector("#artworkLiveLink"))
@@ -249,7 +279,11 @@ try {
     link.compareDocumentPosition(document.querySelector("#artworkArchiveLink"))
     & Node.DOCUMENT_POSITION_FOLLOWING
   ) !== 0));
-  const artworkFrame = artworkPage.frames().find((frame) => frame.url().includes("embed=calendar"));
+  let artworkFrame;
+  for (let attempt = 0; attempt < 60 && !artworkFrame; attempt += 1) {
+    artworkFrame = artworkPage.frames().find((frame) => frame.url().includes("embed=calendar"));
+    if (!artworkFrame) await artworkPage.waitForTimeout(50);
+  }
   assert.ok(artworkFrame);
   await artworkFrame.locator("body.gh-chamber-embed").waitFor({ state: "attached" });
   await artworkFrame.waitForFunction(() => document.body.dataset.ghAudioEnabled === "1");
@@ -278,9 +312,15 @@ try {
   await artworkPage.locator("#closeArtworkDetail").click();
   await artworkPage.waitForSelector("#artworkDialog", { state: "hidden" });
   assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), "about:blank");
+  assert.equal(
+    await artworkPage.locator("#dayDialog").evaluate((dialog) => getComputedStyle(dialog).visibility),
+    "visible",
+  );
   await artworkPage.waitForFunction(() => document.activeElement?.classList.contains("autonomous-preview-frame"));
+  await artworkPage.locator("#artworkBriefCard").evaluate((brief) => { brief.scrollTop = brief.scrollHeight; });
   await artworkPage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
   await artworkPage.waitForSelector("#artworkDialog.is-open");
+  assert.equal(await artworkPage.locator("#artworkBriefCard").evaluate((brief) => brief.scrollTop), 0);
   const escapeFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
   await artworkPage.locator("#artworkFullscreen").click();
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
@@ -329,6 +369,7 @@ try {
     deviceScaleFactor: 2.75,
   });
   const mobilePage = await mobile.newPage();
+  await stubArtworkEmbed(mobilePage);
   await mobilePage.goto(sampleUrl.href, { waitUntil: "domcontentloaded" });
   await mobilePage.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
   const mobileRoots = await scrollTopology(mobilePage);
