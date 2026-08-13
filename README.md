@@ -39,6 +39,12 @@ Each public entry follows this chain:
 - **动态预览 / Animated preview** — 可运行作品附带 GIF 预览，但 live page 才是作品本体。 / Runnable works include a GIF preview, but the live page remains the primary artwork.
 - **背景音乐 / Background music** — 生成艺术作品附带主题匹配 BGM；作品页默认尝试播放并提供开关，主展厅按最新日期开始循环播放每日作品音乐。 / Generative artworks include theme-matched BGM; live pages attempt playback by default with a toggle, and the main gallery loops daily tracks from the latest entry.
 
+## Printable desk calendar / 实体台历
+
+仓库内保存了 210 × 140 mm 实体台历的版本化参数、生成脚本、依赖和 QA 流程。版式调整与复现请从 [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md) 开始；生成器与验收脚本共同读取 [`config/print-desk-calendar-v1.json`](config/print-desk-calendar-v1.json)，并在 manifest 中记录预设哈希。
+
+The repository includes the versioned preset, generator, pinned dependencies, and QA workflow for the 210 × 140 mm printable desk-calendar study. Start with [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md); the build and QA tools share the same preset and record its hash in every manifest.
+
 ## Daily Archive / 每日档案
 
 - **2026-08-13 — A Map That Lets You Miss It / 一张允许走失的地图**<br>

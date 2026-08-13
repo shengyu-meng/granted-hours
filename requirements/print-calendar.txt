@@ -1,0 +1,7 @@
+# Python packages used by the printable desk-calendar build and QA workflow.
+# The tested versions are intentionally pinned so a future rebuild can reproduce v1.
+reportlab==4.4.9
+Pillow==12.3.0
+pdfplumber==0.11.9
+pypdf==6.10.0
+zxing-cpp==3.1.1

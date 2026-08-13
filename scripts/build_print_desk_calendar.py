@@ -9,16 +9,22 @@ days receive an absence field rather than a fabricated artwork.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import math
 import re
 import sys
 import unicodedata
 from collections import Counter
-from datetime import date, datetime
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
+
+from print_calendar_preset import (
+    PrintCalendarPresetError,
+    load_preset,
+    preset_number,
+    sha256_file,
+)
 
 try:
     from PIL import Image, ImageOps
@@ -41,6 +47,7 @@ except ImportError as exc:  # pragma: no cover - environment diagnostic
 PAGE_W = 210 * mm
 PAGE_H = 140 * mm
 MARGIN = 8 * mm
+BINDING_BAND = 10 * mm
 FONT_LIGHT = "GH-Heiti-Light"
 FONT_MEDIUM = "GH-Heiti-Medium"
 FONT_SERIF = "Times-Roman"
@@ -65,6 +72,22 @@ VIOLET = HexColor("#777187")
 RED = HexColor("#A85C55")
 WHITE = HexColor("#FFFFFF")
 
+LAYOUT: dict[str, Any] = {}
+ARTWORK_ASPECT = (16.0, 9.0)
+ARTWORK_CACHE_WIDTH = 1200
+ARTWORK_JPEG_QUALITY = 86
+ARTWORK_ASSET_PREFERENCE: list[str] = []
+MAX_CARDS = 4
+MAX_COLLABORATION_CARDS = 2
+MAX_REMINDER_CARDS = 2
+INCLUDE_ROUTINE_ROLLUP = True
+QR_ERROR_CORRECTION = "Q"
+QR_BORDER_MODULES = 4
+QR_DAY_SIZE = 18.5 * mm
+QR_DAY_Y = 11 * mm
+QR_COVER_SIZE = 19 * mm
+QR_COVER_Y = 9 * mm
+
 WEEKDAY_ZH = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
 WEEKDAY_EN = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
 ROUTINE_LABELS = {
@@ -84,6 +107,12 @@ class CalendarBuildError(RuntimeError):
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=None)
+    parser.add_argument(
+        "--preset",
+        type=Path,
+        default=None,
+        help="Versioned JSON preset (default: config/print-desk-calendar-v1.json)",
+    )
     parser.add_argument("--from-date", default=None, help="Inclusive YYYY-MM-DD")
     parser.add_argument("--through", default=None, help="Inclusive YYYY-MM-DD")
     parser.add_argument(
@@ -91,13 +120,24 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Comma-separated proof dates; overrides --from-date/--through",
     )
+    parser.add_argument(
+        "--proof",
+        action="store_true",
+        help="Build the representative dates declared by the preset",
+    )
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument(
         "--qr-base-url",
-        default="https://granted-hours.hyperint.net/timetable/",
+        default=None,
+        help="Override the QR base URL declared by the preset",
     )
     parser.add_argument("--no-cover", action="store_true")
+    parser.add_argument(
+        "--show-preset",
+        action="store_true",
+        help="Validate and print the resolved preset, then exit",
+    )
     return parser.parse_args()
 
 
@@ -149,20 +189,43 @@ def load_timetable(path: Path) -> dict[str, Any]:
     return data
 
 
-def choose_days(data: dict[str, Any], args: argparse.Namespace) -> list[dict[str, Any]]:
+def choose_days(
+    data: dict[str, Any], args: argparse.Namespace, preset: dict[str, Any]
+) -> list[dict[str, Any]]:
     days = sorted(data["days"], key=lambda item: item["date"])
     by_date = {item["date"]: item for item in days}
     if len(by_date) != len(days):
         raise CalendarBuildError("Timetable contains duplicate civil dates")
-    if args.dates:
-        requested = [part.strip() for part in args.dates.split(",") if part.strip()]
+    if args.proof and (args.dates or args.from_date or args.through):
+        raise CalendarBuildError("--proof cannot be combined with --dates/--from-date/--through")
+    selected_dates = preset["proof"]["dates"] if args.proof else None
+    if args.dates or selected_dates:
+        requested = (
+            [part.strip() for part in args.dates.split(",") if part.strip()]
+            if args.dates
+            else [
+                days[0]["date"]
+                if item == "first_public_day"
+                else days[-1]["date"]
+                if item == "latest_public_day"
+                else item
+                for item in selected_dates
+            ]
+        )
+        requested = list(dict.fromkeys(requested))
         missing = [item for item in requested if item not in by_date]
         if missing:
             raise CalendarBuildError(f"Proof dates are not public: {missing}")
         selected = [by_date[item] for item in requested]
     else:
-        start = args.from_date or days[0]["date"]
-        through = args.through or days[-1]["date"]
+        configured_start = preset["date_selection"]["from"]
+        configured_through = preset["date_selection"]["through"]
+        start = args.from_date or (
+            days[0]["date"] if configured_start == "first_public_day" else configured_start
+        )
+        through = args.through or (
+            days[-1]["date"] if configured_through == "latest_public_day" else configured_through
+        )
         selected = [item for item in days if start <= item["date"] <= through]
     if not selected:
         raise CalendarBuildError("Selected calendar range is empty")
@@ -171,6 +234,57 @@ def choose_days(data: dict[str, Any], args: argparse.Namespace) -> list[dict[str
         if not item.get("autonomous_work"):
             raise CalendarBuildError(f"Day lacks an autonomous/absence beacon: {item['date']}")
     return selected
+
+
+def apply_preset(preset: dict[str, Any]) -> None:
+    global PAGE_W, PAGE_H, MARGIN, BINDING_BAND
+    global PAPER, PAPER_DEEP, INK, INK_SOFT, GRAPHITE, BONE
+    global GOLD, GOLD_LIGHT, CYAN, CYAN_LIGHT, SAGE, SAGE_LIGHT
+    global AMBER, VIOLET, RED, WHITE, LAYOUT
+    global ARTWORK_ASPECT, ARTWORK_CACHE_WIDTH, ARTWORK_JPEG_QUALITY
+    global ARTWORK_ASSET_PREFERENCE, MAX_CARDS, MAX_COLLABORATION_CARDS
+    global MAX_REMINDER_CARDS, INCLUDE_ROUTINE_ROLLUP
+    global QR_ERROR_CORRECTION, QR_BORDER_MODULES, QR_DAY_SIZE, QR_DAY_Y
+    global QR_COVER_SIZE, QR_COVER_Y
+
+    PAGE_W = preset_number(preset, "page", "width_mm") * mm
+    PAGE_H = preset_number(preset, "page", "height_mm") * mm
+    MARGIN = preset_number(preset, "page", "margin_mm") * mm
+    BINDING_BAND = preset_number(preset, "page", "binding_band_mm") * mm
+    LAYOUT = dict(preset["layout"])
+    ratio = preset["artwork"]["aspect_ratio"]
+    ARTWORK_ASPECT = (float(ratio[0]), float(ratio[1]))
+    ARTWORK_CACHE_WIDTH = int(preset["artwork"]["cache_width_px"])
+    ARTWORK_JPEG_QUALITY = int(preset["artwork"]["jpeg_quality"])
+    ARTWORK_ASSET_PREFERENCE = list(preset["source"]["artwork_asset_preference"])
+    MAX_CARDS = int(preset["content"]["max_cards"])
+    MAX_COLLABORATION_CARDS = int(preset["content"]["max_collaboration_cards"])
+    MAX_REMINDER_CARDS = int(preset["content"]["max_reminder_cards"])
+    INCLUDE_ROUTINE_ROLLUP = bool(preset["content"]["include_routine_rollup"])
+    QR_ERROR_CORRECTION = preset["qr"]["error_correction"]
+    QR_BORDER_MODULES = int(preset["qr"]["border_modules"])
+    QR_DAY_SIZE = preset_number(preset, "qr", "day_size_mm") * mm
+    QR_DAY_Y = preset_number(preset, "qr", "day_y_mm") * mm
+    QR_COVER_SIZE = preset_number(preset, "qr", "cover_size_mm") * mm
+    QR_COVER_Y = preset_number(preset, "qr", "cover_y_mm") * mm
+
+    colors = preset["palette"]
+    PAPER = HexColor(colors["paper"])
+    PAPER_DEEP = HexColor(colors["paper_deep"])
+    INK = HexColor(colors["ink"])
+    INK_SOFT = HexColor(colors["ink_soft"])
+    GRAPHITE = HexColor(colors["graphite"])
+    BONE = HexColor(colors["bone"])
+    GOLD = HexColor(colors["gold"])
+    GOLD_LIGHT = HexColor(colors["gold_light"])
+    CYAN = HexColor(colors["cyan"])
+    CYAN_LIGHT = HexColor(colors["cyan_light"])
+    SAGE = HexColor(colors["sage"])
+    SAGE_LIGHT = HexColor(colors["sage_light"])
+    AMBER = HexColor(colors["amber"])
+    VIOLET = HexColor(colors["violet"])
+    RED = HexColor(colors["red"])
+    WHITE = HexColor(colors["white"])
 
 
 def register_fonts() -> None:
@@ -289,10 +403,10 @@ def draw_text(
     size: float,
     leading: float,
     max_lines: int,
-    color: Color = INK,
+    color: Color | None = None,
 ) -> tuple[float, bool]:
     lines, truncated = truncated_lines(text, font, size, width, max_lines)
-    return draw_lines(c, lines, x, y, font, size, leading, color), truncated
+    return draw_lines(c, lines, x, y, font, size, leading, color or INK), truncated
 
 
 def set_alpha(c: canvas.Canvas, fill: float = 1.0, stroke: float = 1.0) -> None:
@@ -305,7 +419,7 @@ def set_alpha(c: canvas.Canvas, fill: float = 1.0, stroke: float = 1.0) -> None:
 def draw_binding_band(c: canvas.Canvas, dark: bool = False) -> None:
     band_color = HexColor("#0D1215") if dark else PAPER_DEEP
     c.setFillColor(band_color)
-    c.rect(0, PAGE_H - 10 * mm, PAGE_W, 10 * mm, fill=1, stroke=0)
+    c.rect(0, PAGE_H - BINDING_BAND, PAGE_W, BINDING_BAND, fill=1, stroke=0)
     tick_color = HexColor("#394246") if dark else HexColor("#9D978A")
     c.setStrokeColor(tick_color)
     c.setLineWidth(0.35)
@@ -318,7 +432,11 @@ def draw_binding_band(c: canvas.Canvas, dark: bool = False) -> None:
 def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float) -> None:
     c.setFillColor(WHITE)
     c.roundRect(x - 1.2 * mm, y - 1.2 * mm, size + 2.4 * mm, size + 2.4 * mm, 1.5 * mm, fill=1, stroke=0)
-    widget = qr.QrCodeWidget(url, barLevel="Q", barBorder=4)
+    widget = qr.QrCodeWidget(
+        url,
+        barLevel=QR_ERROR_CORRECTION,
+        barBorder=QR_BORDER_MODULES,
+    )
     x1, y1, x2, y2 = widget.getBounds()
     scale_x = size / (x2 - x1)
     scale_y = size / (y2 - y1)
@@ -389,9 +507,9 @@ def draw_cover(c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str) -
     c.drawString(MARGIN, 9 * mm, f"{first} - {last}  ·  {len(days)} DAYS  ·  {live_count} WORKS  ·  {absent_count} ABSENCES")
 
     cover_url = f"{qr_base_url}?date={last}"
-    qr_size = 19 * mm
+    qr_size = QR_COVER_SIZE
     qr_x = PAGE_W - MARGIN - qr_size
-    qr_y = 9 * mm
+    qr_y = QR_COVER_Y
     draw_qr(c, cover_url, qr_x, qr_y, qr_size)
     c.setFillColor(BONE)
     c.setFont(FONT_LIGHT, 5.5)
@@ -406,12 +524,8 @@ def resolve_artwork_asset(repo: Path, day: dict[str, Any]) -> Path | None:
         return None
     civil = day["date"]
     year, month, _ = civil.split("-")
-    candidates = [
-        repo / "archive" / year / month / civil / "assets" / "visual-preview.webp",
-        repo / "archive" / year / month / civil / "assets" / "preview.png",
-        repo / "docs" / "archive" / year / month / civil / "assets" / "visual-preview.webp",
-        repo / "docs" / "archive" / year / month / civil / "assets" / "preview.png",
-    ]
+    values = {"year": year, "month": month, "date": civil}
+    candidates = [repo / template.format(**values) for template in ARTWORK_ASSET_PREFERENCE]
     for candidate in candidates:
         if candidate.exists():
             return candidate
@@ -424,7 +538,7 @@ def prepare_print_image(source: Path, target: Path) -> Path:
         return target
     with Image.open(source) as opened:
         image = ImageOps.exif_transpose(opened).convert("RGB")
-        target_ratio = 16 / 9
+        target_ratio = ARTWORK_ASPECT[0] / ARTWORK_ASPECT[1]
         source_ratio = image.width / image.height
         if source_ratio > target_ratio:
             crop_w = round(image.height * target_ratio)
@@ -434,8 +548,15 @@ def prepare_print_image(source: Path, target: Path) -> Path:
             crop_h = round(image.width / target_ratio)
             top = (image.height - crop_h) // 2
             image = image.crop((0, top, image.width, top + crop_h))
-        image.thumbnail((1200, 675), Image.Resampling.LANCZOS)
-        image.save(target, "JPEG", quality=86, optimize=True, progressive=True)
+        target_height = round(ARTWORK_CACHE_WIDTH / target_ratio)
+        image.thumbnail((ARTWORK_CACHE_WIDTH, target_height), Image.Resampling.LANCZOS)
+        image.save(
+            target,
+            "JPEG",
+            quality=ARTWORK_JPEG_QUALITY,
+            optimize=True,
+            progressive=True,
+        )
     return target
 
 
@@ -496,8 +617,8 @@ def timeline_row(event: dict[str, Any]) -> str:
 
 def draw_timeline(c: canvas.Canvas, day: dict[str, Any], y_top: float) -> None:
     x_label = MARGIN
-    x_track = 28 * mm
-    x_end = 180 * mm
+    x_track = float(LAYOUT["timeline_track_start_mm"]) * mm
+    x_end = float(LAYOUT["timeline_track_end_mm"]) * mm
     track_w = x_end - x_track
     rows = [
         ("self", "自主 / SELF", GOLD),
@@ -550,9 +671,16 @@ def reminder_cards(day: dict[str, Any]) -> list[dict[str, str]]:
     reminders.sort(key=lambda item: item.get("start", "00:00"))
     if not reminders:
         return []
-    chosen = [reminders[0]]
-    if reminders[-1] is not reminders[0]:
-        chosen.append(reminders[-1])
+    if MAX_REMINDER_CARDS <= 1:
+        chosen = reminders[:1]
+    elif len(reminders) <= MAX_REMINDER_CARDS:
+        chosen = reminders
+    else:
+        chosen = [reminders[0], reminders[-1]]
+        for item in reminders[1:-1]:
+            if len(chosen) >= MAX_REMINDER_CARDS:
+                break
+            chosen.insert(-1, item)
     return [
         {
             "kind": "reminder",
@@ -606,12 +734,17 @@ def choose_cards(day: dict[str, Any]) -> tuple[list[dict[str, str]], int]:
     reminders = reminder_cards(day)
     routine = routine_card(day)
     ordered: list[dict[str, str]] = []
-    ordered.extend(collaborations[:2])
-    ordered.extend(reminders[:2])
-    if len(ordered) < 4:
+    ordered.extend(collaborations[:MAX_COLLABORATION_CARDS])
+    ordered.extend(reminders[:MAX_REMINDER_CARDS])
+    if INCLUDE_ROUTINE_ROLLUP and len(ordered) < MAX_CARDS:
         ordered.append(routine)
-    if len(ordered) < 4 and len(collaborations) > 2:
-        ordered.extend(collaborations[2 : 2 + (4 - len(ordered))])
+    if len(ordered) < MAX_CARDS and len(collaborations) > MAX_COLLABORATION_CARDS:
+        ordered.extend(
+            collaborations[
+                MAX_COLLABORATION_CARDS : MAX_COLLABORATION_CARDS
+                + (MAX_CARDS - len(ordered))
+            ]
+        )
     omitted_collaborations = max(
         0,
         len(collaborations) - sum(card["kind"] == "collaboration" for card in ordered),
@@ -622,7 +755,7 @@ def choose_cards(day: dict[str, Any]) -> tuple[list[dict[str, str]], int]:
         - sum(card["kind"] == "reminder" for card in ordered),
     )
     omitted = omitted_collaborations + omitted_reminders
-    if omitted and len(ordered) < 4:
+    if omitted and len(ordered) < MAX_CARDS:
         ordered.append(
             {
                 "kind": "collaboration",
@@ -632,7 +765,7 @@ def choose_cards(day: dict[str, Any]) -> tuple[list[dict[str, str]], int]:
                 "body_en": "Their truthful time positions remain in the collaboration stratum.",
             }
         )
-    return ordered[:4], omitted
+    return ordered[:MAX_CARDS], omitted
 
 
 def draw_card(
@@ -718,14 +851,14 @@ def draw_day_page(
     c.setFont(FONT_MONO, 5.6)
     c.drawRightString(PAGE_W - MARGIN, PAGE_H - 15 * mm, f"GH/{page_index:03d} OF {page_total:03d}")
 
-    body_top = PAGE_H - 18 * mm
-    main_h = 60 * mm
+    body_top = PAGE_H - float(LAYOUT["day_body_top_from_top_mm"]) * mm
+    main_h = float(LAYOUT["day_main_height_mm"]) * mm
     main_y = body_top - main_h
     left_x = MARGIN
-    left_w = 82 * mm
-    image_x = 96 * mm
-    image_w = 106 * mm
-    image_h = image_w * 9 / 16
+    left_w = float(LAYOUT["day_left_width_mm"]) * mm
+    image_x = float(LAYOUT["day_artwork_x_mm"]) * mm
+    image_w = float(LAYOUT["day_artwork_width_mm"]) * mm
+    image_h = image_w * ARTWORK_ASPECT[1] / ARTWORK_ASPECT[0]
     image_y = body_top - image_h
 
     c.setFillColor(INK)
@@ -785,27 +918,32 @@ def draw_day_page(
     event_count = len(day.get("timeline_events", []))
     c.setFont(FONT_MONO, 4.7)
     c.setFillColor(INK_SOFT)
-    c.drawRightString(180 * mm, timeline_top + 5.0, f"{event_count} EXACT FOOTPRINTS")
+    c.drawRightString(
+        float(LAYOUT["timeline_track_end_mm"]) * mm,
+        timeline_top + 5.0,
+        f"{event_count} EXACT FOOTPRINTS",
+    )
     draw_timeline(c, day, timeline_top - 3.0)
 
     cards, omitted = choose_cards(day)
     cards_x = MARGIN
-    cards_w = 164 * mm
-    gap = 2.5 * mm
+    cards_w = float(LAYOUT["cards_width_mm"]) * mm
+    gap = float(LAYOUT["cards_gap_mm"]) * mm
     card_w = (cards_w - gap) / 2
-    card_h = 14 * mm
-    base_y = 9 * mm
+    card_h = float(LAYOUT["card_height_mm"]) * mm
+    base_y = float(LAYOUT["cards_base_y_mm"]) * mm
+    row_gap = float(LAYOUT["cards_row_gap_mm"]) * mm
     truncation_count = 0
     for index, card in enumerate(cards):
         col = index % 2
         row = 1 - index // 2
         card_x = cards_x + col * (card_w + gap)
-        card_y = base_y + row * (card_h + 2.2 * mm)
+        card_y = base_y + row * (card_h + row_gap)
         truncation_count += draw_card(c, card, card_x, card_y, card_w, card_h)
 
-    qr_size = 18.5 * mm
+    qr_size = QR_DAY_SIZE
     qr_x = PAGE_W - MARGIN - qr_size
-    qr_y = 11 * mm
+    qr_y = QR_DAY_Y
     day_url = f"{qr_base_url}?date={civil}"
     draw_qr(c, day_url, qr_x, qr_y, qr_size)
     c.setFillColor(INK)
@@ -834,28 +972,36 @@ def draw_day_page(
     }
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def main() -> int:
     args = parse_args()
     repo = resolve_repo_root(args.repo_root)
-    data = load_timetable(repo / "src/timetable/timetable-data.js")
-    days = choose_days(data, args)
+    preset_path, preset = load_preset(repo, args.preset)
+    apply_preset(preset)
+    if args.show_preset:
+        print(json.dumps(preset, ensure_ascii=False, indent=2))
+        return 0
+    data = load_timetable(repo / preset["source"]["canonical_timetable_data"])
+    days = choose_days(data, args, preset)
     register_fonts()
 
+    qr_base_url = args.qr_base_url or preset["qr"]["base_url"]
+    preset_sha256 = sha256_file(preset_path)
+    proof_build = bool(args.proof or args.dates)
+    output_settings = preset["output"]
     through = days[-1]["date"]
-    output = args.output or repo / "output/pdf" / f"granted-hours-desk-calendar-through-{through}-v1.pdf"
+    filename_key = "proof_filename_template" if proof_build else "full_filename_template"
+    directory_key = "proof_directory" if proof_build else "full_directory"
+    filename = output_settings[filename_key].format(
+        from_date=days[0]["date"],
+        through_date=through,
+        edition_id=preset["edition_id"],
+    )
+    output = args.output or repo / output_settings[directory_key] / filename
     output = output.expanduser().resolve()
     manifest_path = (args.manifest or output.with_suffix(".manifest.json")).expanduser().resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    image_cache = repo / "tmp/pdfs/granted-hours-desk-calendar/images"
+    image_cache = repo / "tmp/pdfs" / preset["edition_id"] / preset_sha256[:12] / "images"
     image_cache.mkdir(parents=True, exist_ok=True)
 
     pdf = canvas.Canvas(
@@ -869,8 +1015,9 @@ def main() -> int:
     pdf.setCreator("Granted Hours printable calendar generator")
     pdf.setSubject("One civil day per page from the public non-human timetable")
 
-    if not args.no_cover:
-        draw_cover(pdf, days, args.qr_base_url)
+    cover_enabled = bool(preset["page"]["cover"]) and not args.no_cover
+    if cover_enabled:
+        draw_cover(pdf, days, qr_base_url)
     page_total = len(days)
     page_records: list[dict[str, Any]] = []
     for index, day in enumerate(days, start=1):
@@ -882,23 +1029,40 @@ def main() -> int:
                 page_total,
                 repo,
                 image_cache,
-                args.qr_base_url,
+                qr_base_url,
             )
         )
     pdf.save()
 
     live_count = sum(item.get("type") == "live" for item in days)
+    try:
+        manifest_preset_path = str(preset_path.relative_to(repo))
+    except ValueError:
+        manifest_preset_path = str(preset_path)
     manifest = {
         "schema": "granted-hours-print-desk-calendar-v1",
         "source_schema": data["schema"],
-        "page_size_mm": [210, 140],
-        "cover_pages": 0 if args.no_cover else 1,
+        "edition_id": preset["edition_id"],
+        "preset": manifest_preset_path,
+        "preset_schema": preset["schema"],
+        "preset_sha256": preset_sha256,
+        "build_mode": "proof" if proof_build else "full",
+        "page_size_mm": [preset["page"]["width_mm"], preset["page"]["height_mm"]],
+        "cover_pages": 1 if cover_enabled else 0,
         "day_pages": len(days),
-        "pdf_pages": len(days) + (0 if args.no_cover else 1),
+        "pdf_pages": len(days) + (1 if cover_enabled else 0),
         "date_range": [days[0]["date"], days[-1]["date"]],
         "live_artwork_days": live_count,
         "absence_days": len(days) - live_count,
-        "qr_base_url": args.qr_base_url,
+        "qr_base_url": qr_base_url,
+        "resolved_settings": {
+            "page": preset["page"],
+            "layout": preset["layout"],
+            "artwork": preset["artwork"],
+            "content": preset["content"],
+            "qr": {**preset["qr"], "base_url": qr_base_url},
+            "palette": preset["palette"],
+        },
         "output": str(output),
         "output_bytes": output.stat().st_size,
         "output_sha256": sha256_file(output),
@@ -912,6 +1076,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except CalendarBuildError as exc:
+    except (CalendarBuildError, PrintCalendarPresetError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         raise SystemExit(2) from exc
