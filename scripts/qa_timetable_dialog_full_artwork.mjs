@@ -321,6 +321,7 @@ try {
   await artworkPage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
   await artworkPage.waitForSelector("#artworkDialog.is-open");
   assert.equal(await artworkPage.locator("#artworkBriefCard").evaluate((brief) => brief.scrollTop), 0);
+  await artworkPage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
   const escapeFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
   await artworkPage.locator("#artworkFullscreen").click();
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
