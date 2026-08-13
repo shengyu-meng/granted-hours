@@ -1,8 +1,12 @@
 # 授时作品浮窗首帧完整性与性能修复审计
 
 - 日期：2026-08-13（Asia/Shanghai）
-- 状态：本地实现与门控通过；提交、推送和生产部署证据在发布后补写
+- 状态：实现、提交、推送、生产部署及三端门控全部通过
 - 修复前可回滚基线：`8cf368c1dfd7549dc6f2c845c2b6d6ee29407240`
+- 功能提交：`ef70c532db40e2f5632d737a6e98e98839ca1795`
+- 延迟启动门控补强：`5148f86`、`c643e0f`
+- Cloudflare 部署 ID：`29f04a61-ab75-4874-83f7-89cb1ed531a8`
+- 不可变部署：<https://29f04a61.granted-hours.pages.dev/timetable/>
 
 ## 1. 复现结论
 
@@ -56,9 +60,11 @@ Codex 与 Hermes 的 `granted-hours-art-development` 技能副本已经同步为
 - 修复前基线 `8cf368c1dfd7549dc6f2c845c2b6d6ee29407240` 保留。
 - 不删除历史作品、日程或旧部署；Cloudflare 发布后会记录新的不可变地址，上一不可变部署仍保留。
 
-## 6. 发布后补录
+## 6. 生产发布与三端验收
 
-- 功能提交：待发布
-- Cloudflare 部署 ID：待发布
-- 不可变部署：待发布
-- 自定义/稳定/不可变三端门控：待发布
+- 功能提交 `ef70c53` 已推送到 `origin/main`；两项测试时序补强随后以 `5148f86`、`c643e0f` 推送，不改变已部署静态文件。
+- Cloudflare 生产部署来源提交为 `ef70c53`，部署 ID `29f04a61-ab75-4874-83f7-89cb1ed531a8`。
+- 自定义域、稳定 Pages 域和不可变部署的作品浮窗完整门控均通过；每一端都覆盖普通桌面、390×844、短触屏、3840×2160、2 秒慢载、全屏/关闭/Escape/焦点/iframe 卸载。
+- 三端 `qa_timetable_calendar_enrichment.mjs` 均通过；自定义域首次有一次 GitHub Pages 嵌入请求超时，稳定域首次命中旧测试时序断言，均保持失败而未误报，随后在网络恢复及门控等待延迟 iframe 挂载后重跑通过。
+- 三端当前静态文件一致：CSS `index-B98us00a.css`，SHA-256 `fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a`；JS `index-BRG5Poy4.js`，SHA-256 `061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de`。
+- 上一生产不可变部署 `https://3447ae32.granted-hours.pages.dev/timetable/` 仍保留，可作为部署级回滚点。
