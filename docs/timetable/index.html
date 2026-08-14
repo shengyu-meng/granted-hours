@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-palette="chromatic">
+<html lang="en" data-palette="chromatic" data-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +17,13 @@
           const saved = localStorage.getItem(key);
           if (saved === "dark" || saved === "light") theme = saved;
         } catch {}
-        if (!theme) theme = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        if (!theme) theme = "dark";
         document.documentElement.dataset.theme = theme;
       })();
     </script>
     <title>Granted Hours / 授时</title>
-    <script type="module" crossorigin src="./assets/index-CJEqIzY5.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CJXFRbAG.css">
+    <script type="module" crossorigin src="./assets/index-Bdzyyrpw.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D_yh0kOb.css">
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
