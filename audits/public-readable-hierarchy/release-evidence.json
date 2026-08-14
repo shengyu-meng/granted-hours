@@ -4,20 +4,20 @@
   "evidencePath": "audits/public-readable-hierarchy/release-evidence.json",
   "sourceData": {
     "path": "src/timetable/timetable-data.js",
-    "bytes": 5089692,
-    "gzipBytes": 465738,
-    "sha256": "cb2aea4ac756aaa410b8336182b4e392ec4c6f2a9f45f35414c2f44dfe68ce32",
+    "bytes": 5093878,
+    "gzipBytes": 466368,
+    "sha256": "96b14e6cce3f4fa5ee18cbe7520b20ea5fbc6524d6c447bdce6e77752f5e1ffe",
     "budgetBytes": 6100000,
     "deterministicBuilds": [
       {
         "label": "data-build-a",
-        "bytes": 5089692,
-        "sha256": "cb2aea4ac756aaa410b8336182b4e392ec4c6f2a9f45f35414c2f44dfe68ce32"
+        "bytes": 5093878,
+        "sha256": "96b14e6cce3f4fa5ee18cbe7520b20ea5fbc6524d6c447bdce6e77752f5e1ffe"
       },
       {
         "label": "data-build-b",
-        "bytes": 5089692,
-        "sha256": "cb2aea4ac756aaa410b8336182b4e392ec4c6f2a9f45f35414c2f44dfe68ce32"
+        "bytes": 5093878,
+        "sha256": "96b14e6cce3f4fa5ee18cbe7520b20ea5fbc6524d6c447bdce6e77752f5e1ffe"
       }
     ],
     "deterministicParity": true
@@ -27,24 +27,24 @@
       {
         "label": "isolated-build-a",
         "manifestBytes": 5649,
-        "manifestSha256": "05c8d12332f069bbdf7b4943172ad7e8ab1876612325e3fcb04a26383449eda7",
+        "manifestSha256": "34f9e7e86df1108fe5850e295361dd5dd536d294005b20c083a4bc00350399a6",
         "files": [
           {
-            "path": "assets/index-B98us00a.css",
-            "bytes": 150251,
-            "gzipBytes": 24597,
-            "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
+            "path": "assets/index-Bdzyyrpw.js",
+            "bytes": 3802169,
+            "gzipBytes": 449576,
+            "sha256": "0b9b16b36193475b5b9bc2567b31bcc470841c9b4830bb2878d9ac0ff33c71cc"
           },
           {
-            "path": "assets/index-BRG5Poy4.js",
-            "bytes": 3795771,
-            "gzipBytes": 448022,
-            "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
+            "path": "assets/index-D_yh0kOb.css",
+            "bytes": 151701,
+            "gzipBytes": 24766,
+            "sha256": "e533ea91d314b2cbeb2bcb161b8bc7df15a5519f1e1f35e26b7c6476a634174e"
           },
           {
             "path": "index.html",
-            "bytes": 12390,
-            "sha256": "c9a89776cf505bb45ff11dac334d770c3c5c726887dce5b69e4c922789d54cfd"
+            "bytes": 12462,
+            "sha256": "40149ab14e89ec544cdd889591991159d08228c3a59abb1607df51e3288dd5f9"
           },
           {
             "path": "piano/A3.mp3",
@@ -236,24 +236,24 @@
       {
         "label": "isolated-build-b",
         "manifestBytes": 5649,
-        "manifestSha256": "05c8d12332f069bbdf7b4943172ad7e8ab1876612325e3fcb04a26383449eda7",
+        "manifestSha256": "34f9e7e86df1108fe5850e295361dd5dd536d294005b20c083a4bc00350399a6",
         "files": [
           {
-            "path": "assets/index-B98us00a.css",
-            "bytes": 150251,
-            "gzipBytes": 24597,
-            "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
+            "path": "assets/index-Bdzyyrpw.js",
+            "bytes": 3802169,
+            "gzipBytes": 449576,
+            "sha256": "0b9b16b36193475b5b9bc2567b31bcc470841c9b4830bb2878d9ac0ff33c71cc"
           },
           {
-            "path": "assets/index-BRG5Poy4.js",
-            "bytes": 3795771,
-            "gzipBytes": 448022,
-            "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
+            "path": "assets/index-D_yh0kOb.css",
+            "bytes": 151701,
+            "gzipBytes": 24766,
+            "sha256": "e533ea91d314b2cbeb2bcb161b8bc7df15a5519f1e1f35e26b7c6476a634174e"
           },
           {
             "path": "index.html",
-            "bytes": 12390,
-            "sha256": "c9a89776cf505bb45ff11dac334d770c3c5c726887dce5b69e4c922789d54cfd"
+            "bytes": 12462,
+            "sha256": "40149ab14e89ec544cdd889591991159d08228c3a59abb1607df51e3288dd5f9"
           },
           {
             "path": "piano/A3.mp3",
@@ -454,24 +454,24 @@
     "canonical": {
       "directory": "docs/timetable",
       "manifestBytes": 5649,
-      "manifestSha256": "05c8d12332f069bbdf7b4943172ad7e8ab1876612325e3fcb04a26383449eda7",
+      "manifestSha256": "34f9e7e86df1108fe5850e295361dd5dd536d294005b20c083a4bc00350399a6",
       "files": [
         {
-          "path": "assets/index-B98us00a.css",
-          "bytes": 150251,
-          "gzipBytes": 24597,
-          "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
+          "path": "assets/index-Bdzyyrpw.js",
+          "bytes": 3802169,
+          "gzipBytes": 449576,
+          "sha256": "0b9b16b36193475b5b9bc2567b31bcc470841c9b4830bb2878d9ac0ff33c71cc"
         },
         {
-          "path": "assets/index-BRG5Poy4.js",
-          "bytes": 3795771,
-          "gzipBytes": 448022,
-          "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
+          "path": "assets/index-D_yh0kOb.css",
+          "bytes": 151701,
+          "gzipBytes": 24766,
+          "sha256": "e533ea91d314b2cbeb2bcb161b8bc7df15a5519f1e1f35e26b7c6476a634174e"
         },
         {
           "path": "index.html",
-          "bytes": 12390,
-          "sha256": "c9a89776cf505bb45ff11dac334d770c3c5c726887dce5b69e4c922789d54cfd"
+          "bytes": 12462,
+          "sha256": "40149ab14e89ec544cdd889591991159d08228c3a59abb1607df51e3288dd5f9"
         },
         {
           "path": "piano/A3.mp3",
@@ -672,15 +672,15 @@
       "javascript": {
         "files": [
           {
-            "path": "assets/index-BRG5Poy4.js",
-            "bytes": 3795771,
-            "gzipBytes": 448022,
-            "sha256": "061fa7bcd58c91956ed0c8a5847cc9f6f90056d87c79459277a9a8456bfc01de"
+            "path": "assets/index-Bdzyyrpw.js",
+            "bytes": 3802169,
+            "gzipBytes": 449576,
+            "sha256": "0b9b16b36193475b5b9bc2567b31bcc470841c9b4830bb2878d9ac0ff33c71cc"
           }
         ],
         "totals": {
-          "bytes": 3795771,
-          "gzipBytes": 448022,
+          "bytes": 3802169,
+          "gzipBytes": 449576,
           "budgetBytes": 4800000,
           "gzipBudgetBytes": 701400,
           "translatedReminderCount": 204,
@@ -692,22 +692,22 @@
       "css": {
         "files": [
           {
-            "path": "assets/index-B98us00a.css",
-            "bytes": 150251,
-            "gzipBytes": 24597,
-            "sha256": "fe31ffc1cee9e22b1e5ba5afeeb86e550c0a423e9136d1147eb162f74e8a240a"
+            "path": "assets/index-D_yh0kOb.css",
+            "bytes": 151701,
+            "gzipBytes": 24766,
+            "sha256": "e533ea91d314b2cbeb2bcb161b8bc7df15a5519f1e1f35e26b7c6476a634174e"
           }
         ],
         "totals": {
-          "bytes": 150251,
-          "gzipBytes": 24597
+          "bytes": 151701,
+          "gzipBytes": 24766
         }
       }
     },
     "dataParity": {
       "publicDays": 100,
       "generatedDays": 100,
-      "historyDays": 99,
+      "historyDays": 100,
       "pulseSchema": "granted-hours-timetable-pulses-v6"
     }
   },
@@ -726,10 +726,10 @@
     "passed": true,
     "exitCode": 0,
     "stdoutBytes": 350,
-    "stdoutSha256": "4b3a42c8a620a08ea9d561ca707f02d0359eb20f718b6b9c655a7e6aa1078cf0",
+    "stdoutSha256": "02214d3ad01bb475823526bec54b5e62269f2abfcf50ab1657f1291999aebf85",
     "stderrBytes": 0,
     "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "summary": "{\n  \"passed\": true,\n  \"voice_policy\": \"granted-hours-first-person-v2\",\n  \"tasks\": 201,\n  \"collaborations\": 132,\n  \"approved_assessments\": 7,\n  \"approved_delivered_cards\": 9,\n  \"routine_pulses\": 3758,\n  \"first_person_reminders\": 204,\n  \"collaboration_voice_variants\": 6,\n  \"reminder_voice_variants\": 6,\n  \"owner_responses_with_explicit_evidence\": 0\n}"
+    "summary": "{\n  \"passed\": true,\n  \"voice_policy\": \"granted-hours-first-person-v2\",\n  \"tasks\": 203,\n  \"collaborations\": 132,\n  \"approved_assessments\": 7,\n  \"approved_delivered_cards\": 9,\n  \"routine_pulses\": 3758,\n  \"first_person_reminders\": 204,\n  \"collaboration_voice_variants\": 6,\n  \"reminder_voice_variants\": 6,\n  \"owner_responses_with_explicit_evidence\": 0\n}"
   },
   "npmAudit": {
     "command": "npm audit --omit=dev --audit-level=high --json",
