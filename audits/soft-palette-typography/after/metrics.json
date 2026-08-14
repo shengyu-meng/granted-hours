@@ -2,63 +2,63 @@
   "schema": "timetable-visual-balance-evidence-v1",
   "phase": "after",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8892/timetable/",
+  "baseUrl": "http://127.0.0.1:8895/timetable/",
   "sampleDate": "2026-07-21",
   "screenshots": [
     {
       "label": "desktop-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-calendar-resting.png",
-      "bytes": 566680
+      "bytes": 549667
     },
     {
       "label": "desktop-dark-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-day-resting.png",
-      "bytes": 596258
+      "bytes": 766289
     },
     {
       "label": "desktop-dark-task-resting",
       "path": "audits/soft-palette-typography/after/desktop-dark-task-resting.png",
-      "bytes": 409225
+      "bytes": 492620
     },
     {
       "label": "desktop-dark-intentional-lens",
       "path": "audits/soft-palette-typography/after/desktop-dark-intentional-lens.png",
-      "bytes": 704075
+      "bytes": 789440
     },
     {
       "label": "desktop-light-calendar-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-calendar-resting.png",
-      "bytes": 598363
+      "bytes": 574202
     },
     {
       "label": "desktop-light-day-resting",
       "path": "audits/soft-palette-typography/after/desktop-light-day-resting.png",
-      "bytes": 547266
+      "bytes": 704934
     },
     {
       "label": "390x844-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-calendar-resting.png",
-      "bytes": 646677
+      "bytes": 582047
     },
     {
       "label": "390x844-dark-day-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-day-resting.png",
-      "bytes": 442379
+      "bytes": 804384
     },
     {
       "label": "390x844-dark-task-resting",
       "path": "audits/soft-palette-typography/after/390x844-dark-task-resting.png",
-      "bytes": 443331
+      "bytes": 489296
     },
     {
       "label": "421x386-dark-calendar-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-calendar-resting.png",
-      "bytes": 283416
+      "bytes": 294625
     },
     {
       "label": "421x386-dark-day-resting",
       "path": "audits/soft-palette-typography/after/421x386-dark-day-resting.png",
-      "bytes": 163495
+      "bytes": 174417
     }
   ],
   "configurations": {
@@ -218,7 +218,7 @@
           "fontSize": 14,
           "lineHeight": 17.92,
           "ratio": 1.28,
-          "color": "rgb(247, 244, 236)",
+          "color": "rgb(255, 255, 255)",
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "600",
           "rect": {
@@ -288,7 +288,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 510.5,
-            "height": 162.5
+            "height": 64.5
           }
         },
         "climateTime": {
@@ -326,8 +326,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 246.5,
-            "height": 37.0625
+            "width": 516.25,
+            "height": 18.53125
           }
         },
         "beaconSummary": {
@@ -339,8 +339,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 246.5,
-            "height": 15.71875
+            "width": 516.25,
+            "height": 47.15625
           }
         },
         "beaconTime": {
@@ -352,8 +352,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 246.5,
-            "height": 39.0625
+            "width": 516.25,
+            "height": 26.53125
           }
         },
         "beaconMeta": {
@@ -365,7 +365,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 246.5,
+            "width": 516.25,
             "height": 12.53125
           }
         }
@@ -694,7 +694,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".dialog-mode-thesis",
+              "selector": "#dialogModeThesis",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -718,7 +718,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".timeline-help",
+              "selector": "#timelineHelp",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -769,7 +769,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 63,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -1273,9 +1273,9 @@
       },
       "colors": {
         "panelColor": [
-          14,
-          23,
-          30
+          66,
+          62,
+          49
         ],
         "samples": [
           {
@@ -1298,7 +1298,7 @@
                   244,
                   236
                 ],
-                "contrast": 10.701
+                "contrast": 10.515
               },
               {
                 "className": "assigned-copy reading-summary",
@@ -1310,7 +1310,7 @@
                   244,
                   236
                 ],
-                "contrast": 10.701
+                "contrast": 10.515
               },
               {
                 "className": "assigned-time",
@@ -1322,7 +1322,7 @@
                   195.72,
                   207.92
                 ],
-                "contrast": 6.514
+                "contrast": 6.401
               },
               {
                 "className": "assigned-category",
@@ -1334,18 +1334,18 @@
                   195.72,
                   207.92
                 ],
-                "contrast": 6.514
+                "contrast": 6.401
               }
             ],
             "panelColor": [
-              14,
-              23,
-              30
+              66,
+              62,
+              49
             ],
             "surfaceColor": [
-              43,
-              59,
-              56
+              45,
+              60,
+              57
             ],
             "accentColor": [
               127,
@@ -1358,21 +1358,21 @@
               182
             ],
             "borderCompositeColor": [
-              94.864,
-              117.691,
-              107.807
+              115.117,
+              132.881,
+              115.207
             ],
-            "surfaceDistance": 53.038,
-            "borderDistance": 146.831,
-            "salience": 98.058
+            "surfaceDistance": 22.561,
+            "borderDistance": 108.72,
+            "salience": 63.917
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "accent": "#7fa187",
             "semanticAccent": "#7fa187",
-            "backgroundColor": "color(srgb 0.133192 0.172974 0.170801 / 0.488235)",
-            "borderColor": "color(srgb 0.574326 0.698438 0.617435 / 0.61051)",
+            "backgroundColor": "color(srgb 0.262118 0.259059 0.223451)",
+            "borderColor": "color(srgb 0.382745 0.411765 0.353726)",
             "boxShadow": "color(srgb 0.016 0.0321569 0.0515294) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.3) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.24) 0px 3px 9px 0px",
             "opacity": "1",
             "text": [
@@ -1386,7 +1386,7 @@
                   244,
                   236
                 ],
-                "contrast": 13.558
+                "contrast": 9.056
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1398,7 +1398,7 @@
                   244,
                   236
                 ],
-                "contrast": 13.558
+                "contrast": 9.056
               },
               {
                 "className": "pulse-time",
@@ -1410,7 +1410,7 @@
                   203.12,
                   187.52
                 ],
-                "contrast": 8.741
+                "contrast": 5.839
               },
               {
                 "className": "pulse-duration",
@@ -1422,18 +1422,18 @@
                   203.12,
                   187.52
                 ],
-                "contrast": 8.741
+                "contrast": 5.839
               }
             ],
             "panelColor": [
-              14,
-              23,
-              30
+              66,
+              62,
+              49
             ],
             "surfaceColor": [
-              32,
-              41,
-              40
+              68,
+              67,
+              58
             ],
             "accentColor": [
               127,
@@ -1446,21 +1446,21 @@
               135
             ],
             "borderCompositeColor": [
-              94.864,
-              117.691,
-              107.807
+              97.6,
+              105,
+              90.2
             ],
-            "surfaceDistance": 27.35,
-            "borderDistance": 146.831,
-            "salience": 84.701
+            "surfaceDistance": 10.488,
+            "borderDistance": 67.417,
+            "salience": 37.814
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "accent": "#6fa6a4",
             "semanticAccent": "#6fa6a4",
-            "backgroundColor": "color(srgb 0.12034 0.17699 0.194094 / 0.488235)",
-            "borderColor": "color(srgb 0.524994 0.713854 0.70685 / 0.61051)",
+            "backgroundColor": "color(srgb 0.258353 0.260235 0.230274)",
+            "borderColor": "color(srgb 0.363922 0.417647 0.387843)",
             "boxShadow": "color(srgb 0.016 0.0321569 0.0515294) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.3) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.24) 0px 3px 9px 0px",
             "opacity": "1",
             "text": [
@@ -1474,7 +1474,7 @@
                   244,
                   236
                 ],
-                "contrast": 12.711
+                "contrast": 9.099
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1486,7 +1486,7 @@
                   244,
                   236
                 ],
-                "contrast": 12.711
+                "contrast": 9.099
               },
               {
                 "className": "pulse-time",
@@ -1498,7 +1498,7 @@
                   205.52,
                   201.44
                 ],
-                "contrast": 8.308
+                "contrast": 5.947
               },
               {
                 "className": "pulse-duration",
@@ -1510,18 +1510,18 @@
                   205.52,
                   201.44
                 ],
-                "contrast": 8.308
+                "contrast": 5.947
               }
             ],
             "panelColor": [
-              14,
-              23,
-              30
+              66,
+              62,
+              49
             ],
             "surfaceColor": [
-              34,
-              46,
-              49
+              66,
+              67,
+              60
             ],
             "accentColor": [
               111,
@@ -1534,21 +1534,21 @@
               164
             ],
             "borderCompositeColor": [
-              87.184,
-              120.091,
-              121.727
+              92.8,
+              106.5,
+              98.9
             ],
-            "surfaceDistance": 35.917,
-            "borderDistance": 152.304,
-            "salience": 91.782
+            "surfaceDistance": 12.083,
+            "borderDistance": 72.031,
+            "salience": 40.858
           },
           {
             "category": "service-support",
             "layer": "climate",
             "accent": "#9187b0",
             "semanticAccent": "#9187b0",
-            "backgroundColor": "color(srgb 0.147649 0.152091 0.203733 / 0.488235)",
-            "borderColor": "color(srgb 0.629825 0.618274 0.743849 / 0.61051)",
+            "backgroundColor": "color(srgb 0.266353 0.252941 0.233098)",
+            "borderColor": "color(srgb 0.403922 0.381177 0.401961)",
             "boxShadow": "color(srgb 0.016 0.0321569 0.0515294) 0px 0px 0px 3px, color(srgb 0.929412 1 0.988235 / 0.0818824) 0px 1px 0px 0px inset, color(srgb 0.929412 0.94902 0.92549 / 0.3) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.24) 0px 3px 9px 0px",
             "opacity": "1",
             "text": [
@@ -1562,7 +1562,7 @@
                   244,
                   236
                 ],
-                "contrast": 13.124
+                "contrast": 9.21
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -1574,7 +1574,7 @@
                   244,
                   236
                 ],
-                "contrast": 13.124
+                "contrast": 9.21
               },
               {
                 "className": "pulse-time",
@@ -1586,7 +1586,7 @@
                   190.64,
                   207.2
                 ],
-                "contrast": 7.959
+                "contrast": 5.586
               },
               {
                 "className": "pulse-duration",
@@ -1598,18 +1598,18 @@
                   190.64,
                   207.2
                 ],
-                "contrast": 7.959
+                "contrast": 5.586
               }
             ],
             "panelColor": [
-              14,
-              23,
-              30
+              66,
+              62,
+              49
             ],
             "surfaceColor": [
-              36,
-              42,
-              52
+              69,
+              65,
+              60
             ],
             "accentColor": [
               145,
@@ -1622,13 +1622,13 @@
               176
             ],
             "borderCompositeColor": [
-              103.504,
-              105.211,
-              127.487
+              103,
+              97.2,
+              102.5
             ],
-            "surfaceDistance": 36.455,
-            "borderDistance": 155.799,
-            "salience": 93.74
+            "surfaceDistance": 11.79,
+            "borderDistance": 73.962,
+            "salience": 41.632
           },
           {
             "category": "autonomous-artwork",
@@ -1650,7 +1650,7 @@
                   244,
                   236
                 ],
-                "contrast": 9.831
+                "contrast": 10.638
               },
               {
                 "className": "reading-summary",
@@ -1662,7 +1662,7 @@
                   244,
                   236
                 ],
-                "contrast": 9.831
+                "contrast": 10.638
               },
               {
                 "className": "autonomous-time",
@@ -1674,7 +1674,7 @@
                   196.76,
                   167.36
                 ],
-                "contrast": 6.295
+                "contrast": 6.812
               },
               {
                 "className": "autonomous-kicker",
@@ -1686,17 +1686,17 @@
                   196.76,
                   167.36
                 ],
-                "contrast": 6.295
+                "contrast": 6.812
               }
             ],
             "panelColor": [
-              14,
-              23,
-              30
+              66,
+              62,
+              49
             ],
             "surfaceColor": [
-              66,
-              61,
+              59,
+              56,
               49
             ],
             "accentColor": [
@@ -1710,13 +1710,13 @@
               104
             ],
             "borderCompositeColor": [
-              121.744,
-              114.811,
-              92.927
+              141.997,
+              130.001,
+              100.327
             ],
-            "surfaceDistance": 67.149,
-            "borderDistance": 154.913,
-            "salience": 109.276
+            "surfaceDistance": 9.22,
+            "borderDistance": 114.168,
+            "salience": 59.595
           },
           {
             "category": "daily-reminder",
@@ -1778,9 +1778,9 @@
               }
             ],
             "panelColor": [
-              14,
-              23,
-              30
+              66,
+              62,
+              49
             ],
             "surfaceColor": [
               48,
@@ -1798,16 +1798,16 @@
               154
             ],
             "borderCompositeColor": [
-              117.424,
-              102.811,
-              116.927
+              137.678,
+              118.001,
+              124.327
             ],
-            "surfaceDistance": 45.618,
-            "borderDistance": 156.916,
-            "salience": 99.041
+            "surfaceDistance": 25.632,
+            "borderDistance": 118.102,
+            "salience": 70.017
           }
         ],
-        "minimumContrast": 6.295,
+        "minimumContrast": 5.586,
         "minimumAccentDistance": {
           "value": 23.958,
           "pair": [
@@ -1823,24 +1823,24 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 16.078,
+          "value": 10.049,
           "pair": [
             "ah-market-scan",
             "us-market-scan"
           ]
         },
         "minimumRenderedBorderDistance": {
-          "value": 0,
+          "value": 10.049,
           "pair": [
-            "assigned-work",
-            "ah-market-scan"
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
-        "meanSurfaceDistance": 44.255,
+        "meanSurfaceDistance": 15.296,
         "layerSalience": {
-          "event": 98.55,
-          "climate": 90.074,
-          "beacon": 109.276
+          "event": 66.967,
+          "climate": 40.101,
+          "beacon": 59.595
         },
         "contrasts": [
           {
@@ -1848,140 +1848,140 @@
             "layer": "event",
             "className": "assigned-work-type reading-title",
             "fontSize": 14,
-            "contrast": 10.701
+            "contrast": 10.515
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-copy reading-summary",
             "fontSize": 11.232,
-            "contrast": 10.701
+            "contrast": 10.515
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-time",
             "fontSize": 10,
-            "contrast": 6.514
+            "contrast": 6.401
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-category",
             "fontSize": 9.5,
-            "contrast": 6.514
+            "contrast": 6.401
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 13.558
+            "contrast": 9.056
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 13.558
+            "contrast": 9.056
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 8.741
+            "contrast": 5.839
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 8.741
+            "contrast": 5.839
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 12.711
+            "contrast": 9.099
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 12.711
+            "contrast": 9.099
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 8.308
+            "contrast": 5.947
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 8.308
+            "contrast": 5.947
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 13.124
+            "contrast": 9.21
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 13.124
+            "contrast": 9.21
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 7.959
+            "contrast": 5.586
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 7.959
+            "contrast": 5.586
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 9.831
+            "contrast": 10.638
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 9.831
+            "contrast": 10.638
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 6.295
+            "contrast": 6.812
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 6.295
+            "contrast": 6.812
           },
           {
             "category": "daily-reminder",
@@ -2021,8 +2021,8 @@
           "durationMinutes": 60,
           "lane": 0,
           "laneCount": 1,
-          "top": 82.656,
-          "height": 113.875,
+          "top": 18.703,
+          "height": 63,
           "left": 0,
           "width": 1068
         },
@@ -2033,8 +2033,8 @@
           "durationMinutes": 20,
           "lane": 0,
           "laneCount": 1,
-          "top": 278.156,
-          "height": 37.953,
+          "top": 126.859,
+          "height": 21,
           "left": 0,
           "width": 1068
         },
@@ -2045,8 +2045,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 392.031,
-          "height": 7.578,
+          "top": 189.859,
+          "height": 4.188,
           "left": 0,
           "width": 1068
         },
@@ -2057,8 +2057,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 481.234,
-          "height": 3.781,
+          "top": 239.203,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2069,8 +2069,8 @@
           "durationMinutes": 9,
           "lane": 0,
           "laneCount": 1,
-          "top": 543.875,
-          "height": 17.078,
+          "top": 273.859,
+          "height": 9.438,
           "left": 0,
           "width": 1068
         },
@@ -2081,8 +2081,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 2,
-          "top": 562.859,
-          "height": 7.578,
+          "top": 284.359,
+          "height": 4.188,
           "left": 0,
           "width": 532
         },
@@ -2093,8 +2093,8 @@
           "durationMinutes": 4,
           "lane": 1,
           "laneCount": 2,
-          "top": 562.859,
-          "height": 7.578,
+          "top": 284.359,
+          "height": 4.188,
           "left": 536,
           "width": 532
         },
@@ -2105,8 +2105,8 @@
           "durationMinutes": 135,
           "lane": 0,
           "laneCount": 3,
-          "top": 619.797,
-          "height": 256.219,
+          "top": 291.031,
+          "height": 141.75,
           "left": 0,
           "width": 353.328
         },
@@ -2117,8 +2117,8 @@
           "durationMinutes": 23,
           "lane": 1,
           "laneCount": 3,
-          "top": 676.734,
-          "height": 43.641,
+          "top": 322.531,
+          "height": 24.141,
           "left": 357.328,
           "width": 353.328
         },
@@ -2129,8 +2129,8 @@
           "durationMinutes": 4,
           "lane": 2,
           "laneCount": 3,
-          "top": 716.594,
-          "height": 7.578,
+          "top": 344.578,
+          "height": 4.188,
           "left": 714.656,
           "width": 353.328
         },
@@ -2141,8 +2141,8 @@
           "durationMinutes": 8,
           "lane": 1,
           "laneCount": 3,
-          "top": 722.281,
-          "height": 15.172,
+          "top": 347.734,
+          "height": 8.391,
           "left": 357.328,
           "width": 353.328
         },
@@ -2153,8 +2153,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 733.672,
-          "height": 3.781,
+          "top": 354.031,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -2165,8 +2165,8 @@
           "durationMinutes": 6,
           "lane": 1,
           "laneCount": 3,
-          "top": 743.156,
-          "height": 11.375,
+          "top": 359.281,
+          "height": 6.297,
           "left": 357.328,
           "width": 353.328
         },
@@ -2177,8 +2177,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 745.063,
-          "height": 3.781,
+          "top": 360.328,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -2189,8 +2189,8 @@
           "durationMinutes": 7,
           "lane": 1,
           "laneCount": 3,
-          "top": 762.141,
-          "height": 13.281,
+          "top": 369.781,
+          "height": 7.344,
           "left": 357.328,
           "width": 353.328
         },
@@ -2201,8 +2201,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 773.531,
-          "height": 3.781,
+          "top": 376.078,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -2213,8 +2213,8 @@
           "durationMinutes": 5,
           "lane": 1,
           "laneCount": 3,
-          "top": 781.125,
-          "height": 9.484,
+          "top": 380.281,
+          "height": 5.25,
           "left": 357.328,
           "width": 353.328
         },
@@ -2225,8 +2225,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 809.594,
-          "height": 3.781,
+          "top": 396.031,
+          "height": 2.094,
           "left": 357.328,
           "width": 353.328
         },
@@ -2237,8 +2237,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 809.594,
-          "height": 3.781,
+          "top": 396.031,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -2249,8 +2249,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 819.078,
-          "height": 3.781,
+          "top": 401.281,
+          "height": 2.094,
           "left": 357.328,
           "width": 353.328
         },
@@ -2261,8 +2261,8 @@
           "durationMinutes": 11,
           "lane": 1,
           "laneCount": 3,
-          "top": 832.375,
-          "height": 20.875,
+          "top": 408.625,
+          "height": 11.547,
           "left": 357.328,
           "width": 353.328
         },
@@ -2273,8 +2273,8 @@
           "durationMinutes": 2,
           "lane": 2,
           "laneCount": 3,
-          "top": 849.453,
-          "height": 3.781,
+          "top": 418.078,
+          "height": 2.094,
           "left": 714.656,
           "width": 353.328
         },
@@ -2285,8 +2285,8 @@
           "durationMinutes": 8,
           "lane": 0,
           "laneCount": 1,
-          "top": 946.25,
-          "height": 15.172,
+          "top": 471.625,
+          "height": 8.391,
           "left": 0,
           "width": 1068
         },
@@ -2297,8 +2297,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 2,
-          "top": 967.125,
-          "height": 3.781,
+          "top": 483.172,
+          "height": 2.094,
           "left": 0,
           "width": 532
         },
@@ -2309,8 +2309,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 2,
-          "top": 969.031,
-          "height": 3.781,
+          "top": 484.234,
+          "height": 2.094,
           "left": 536,
           "width": 532
         },
@@ -2321,8 +2321,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1094.297,
-          "height": 3.781,
+          "top": 528.141,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2333,8 +2333,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1111.375,
-          "height": 3.781,
+          "top": 530.891,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2345,8 +2345,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1151.234,
-          "height": 3.781,
+          "top": 544.875,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2357,8 +2357,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1234.75,
-          "height": 3.781,
+          "top": 591.078,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2369,8 +2369,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1248.031,
-          "height": 3.781,
+          "top": 598.422,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2381,8 +2381,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1265.109,
-          "height": 3.781,
+          "top": 607.875,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2393,8 +2393,8 @@
           "durationMinutes": 14,
           "lane": 0,
           "laneCount": 1,
-          "top": 1325.844,
-          "height": 26.563,
+          "top": 641.469,
+          "height": 14.688,
           "left": 0,
           "width": 1068
         },
@@ -2405,8 +2405,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 2,
-          "top": 1360.016,
-          "height": 7.578,
+          "top": 660.375,
+          "height": 4.188,
           "left": 0,
           "width": 532
         },
@@ -2417,8 +2417,8 @@
           "durationMinutes": 4,
           "lane": 1,
           "laneCount": 2,
-          "top": 1360.016,
-          "height": 7.578,
+          "top": 660.375,
+          "height": 4.188,
           "left": 536,
           "width": 532
         },
@@ -2429,8 +2429,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1367.609,
-          "height": 3.781,
+          "top": 664.578,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2441,8 +2441,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1379,
-          "height": 3.781,
+          "top": 670.875,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2453,8 +2453,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1424.547,
-          "height": 3.781,
+          "top": 696.078,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2465,8 +2465,8 @@
           "durationMinutes": 3,
           "lane": 0,
           "laneCount": 1,
-          "top": 1434.031,
-          "height": 5.688,
+          "top": 701.328,
+          "height": 3.141,
           "left": 0,
           "width": 1068
         },
@@ -2477,8 +2477,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1453.016,
-          "height": 3.781,
+          "top": 711.828,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2489,8 +2489,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1464.406,
-          "height": 3.781,
+          "top": 718.125,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2501,8 +2501,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1473.891,
-          "height": 3.781,
+          "top": 723.375,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2513,8 +2513,8 @@
           "durationMinutes": 13,
           "lane": 0,
           "laneCount": 1,
-          "top": 1483.375,
-          "height": 24.672,
+          "top": 727.078,
+          "height": 13.641,
           "left": 0,
           "width": 1068
         },
@@ -2525,8 +2525,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1557.406,
-          "height": 3.781,
+          "top": 744.203,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2537,8 +2537,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1580.188,
-          "height": 3.781,
+          "top": 756.797,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2549,8 +2549,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1585.875,
-          "height": 3.781,
+          "top": 759.953,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2561,8 +2561,8 @@
           "durationMinutes": 5,
           "lane": 0,
           "laneCount": 2,
-          "top": 1701.656,
-          "height": 9.484,
+          "top": 824,
+          "height": 5.25,
           "left": 0,
           "width": 532
         },
@@ -2573,8 +2573,8 @@
           "durationMinutes": 5,
           "lane": 1,
           "laneCount": 2,
-          "top": 1701.656,
-          "height": 9.484,
+          "top": 824,
+          "height": 5.25,
           "left": 536,
           "width": 532
         },
@@ -2585,8 +2585,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1889.266,
-          "height": 3.781,
+          "top": 975.672,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2597,8 +2597,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1944.313,
-          "height": 3.781,
+          "top": 980.344,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2609,8 +2609,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 1972.781,
-          "height": 3.781,
+          "top": 983.672,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2621,8 +2621,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 3,
-          "top": 2014.547,
-          "height": 3.781,
+          "top": 987.672,
+          "height": 2.094,
           "left": 0,
           "width": 353.328
         },
@@ -2633,8 +2633,8 @@
           "durationMinutes": 2,
           "lane": 1,
           "laneCount": 3,
-          "top": 2014.547,
-          "height": 3.781,
+          "top": 987.672,
+          "height": 2.094,
           "left": 357.328,
           "width": 353.328
         },
@@ -2645,8 +2645,8 @@
           "durationMinutes": 6,
           "lane": 2,
           "laneCount": 3,
-          "top": 2016.438,
-          "height": 11.375,
+          "top": 988.734,
+          "height": 6.297,
           "left": 714.656,
           "width": 353.328
         },
@@ -2657,8 +2657,8 @@
           "durationMinutes": 31,
           "lane": 0,
           "laneCount": 3,
-          "top": 2025.922,
-          "height": 58.828,
+          "top": 993.984,
+          "height": 32.547,
           "left": 0,
           "width": 353.328
         },
@@ -2669,8 +2669,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2090.453,
-          "height": 3.781,
+          "top": 1026.813,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2681,8 +2681,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2096.156,
-          "height": 3.781,
+          "top": 1029.016,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2693,8 +2693,8 @@
           "durationMinutes": 4,
           "lane": 0,
           "laneCount": 1,
-          "top": 2136.016,
-          "height": 7.578,
+          "top": 1032.922,
+          "height": 4.188,
           "left": 0,
           "width": 1068
         },
@@ -2705,8 +2705,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2166.375,
-          "height": 3.781,
+          "top": 1049.719,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2717,8 +2717,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2175.875,
-          "height": 3.781,
+          "top": 1054.969,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         },
@@ -2729,8 +2729,8 @@
           "durationMinutes": 2,
           "lane": 0,
           "laneCount": 1,
-          "top": 2287.859,
-          "height": 3.781,
+          "top": 1116.922,
+          "height": 2.094,
           "left": 0,
           "width": 1068
         }
@@ -2967,7 +2967,7 @@
           "fontWeight": "400",
           "rect": {
             "width": 510.5,
-            "height": 162.5
+            "height": 64.5
           }
         },
         "climateTime": {
@@ -3005,8 +3005,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 246.5,
-            "height": 37.0625
+            "width": 516.25,
+            "height": 18.53125
           }
         },
         "beaconSummary": {
@@ -3018,8 +3018,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 246.5,
-            "height": 15.71875
+            "width": 516.25,
+            "height": 47.15625
           }
         },
         "beaconTime": {
@@ -3031,8 +3031,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 246.5,
-            "height": 39.0625
+            "width": 516.25,
+            "height": 26.53125
           }
         },
         "beaconMeta": {
@@ -3044,7 +3044,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 246.5,
+            "width": 516.25,
             "height": 12.53125
           }
         }
@@ -3200,7 +3200,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".dialog-mode-thesis",
+              "selector": "#dialogModeThesis",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -3224,7 +3224,7 @@
               "outsideContainer": false
             },
             {
-              "selector": ".timeline-help",
+              "selector": "#timelineHelp",
               "readingId": "",
               "horizontalOverflow": 0,
               "verticalOverflow": 0,
@@ -3275,7 +3275,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 63,
+              "verticalOverflow": 0,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -3721,9 +3721,9 @@
       },
       "colors": {
         "panelColor": [
-          227,
-          227,
-          221
+          220,
+          213,
+          196
         ],
         "samples": [
           {
@@ -3746,7 +3746,7 @@
                   34,
                   38
                 ],
-                "contrast": 9.61
+                "contrast": 9.511
               },
               {
                 "className": "assigned-copy reading-summary",
@@ -3758,7 +3758,7 @@
                   34,
                   38
                 ],
-                "contrast": 9.61
+                "contrast": 9.511
               },
               {
                 "className": "assigned-time",
@@ -3770,7 +3770,7 @@
                   67.108,
                   82.268
                 ],
-                "contrast": 6.081
+                "contrast": 6.018
               },
               {
                 "className": "assigned-category",
@@ -3782,18 +3782,18 @@
                   67.108,
                   82.268
                 ],
-                "contrast": 6.081
+                "contrast": 6.018
               }
             ],
             "panelColor": [
-              227,
-              227,
-              221
+              220,
+              213,
+              196
             ],
             "surfaceColor": [
-              186,
-              204,
-              188
+              185,
+              203,
+              187
             ],
             "accentColor": [
               127,
@@ -3806,21 +3806,21 @@
               157
             ],
             "borderCompositeColor": [
-              152.506,
-              172.089,
-              158.316
+              149.78,
+              166.636,
+              148.579
             ],
-            "surfaceDistance": 57.437,
-            "borderDistance": 111.775,
-            "salience": 83.519
+            "surfaceDistance": 37.497,
+            "borderDistance": 96.588,
+            "salience": 65.86
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "accent": "#5f846b",
             "semanticAccent": "#5f846b",
-            "backgroundColor": "color(srgb 0.871786 0.892075 0.859724 / 0.861726)",
-            "borderColor": "color(srgb 0.62102 0.667294 0.628549)",
+            "backgroundColor": "color(srgb 0.83702 0.819922 0.747686)",
+            "borderColor": "color(srgb 0.663529 0.690588 0.62)",
             "boxShadow": "color(srgb 0.854431 0.846745 0.815843) 0px 0px 0px 3px, rgba(255, 255, 255, 0.68) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.18) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.09) 0px 3px 9px 0px",
             "opacity": "1",
             "text": [
@@ -3834,7 +3834,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.376
+                "contrast": 10.447
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -3846,7 +3846,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.376
+                "contrast": 10.447
               },
               {
                 "className": "pulse-time",
@@ -3858,7 +3858,7 @@
                   92.8,
                   79.4
                 ],
-                "contrast": 5.067
+                "contrast": 4.654
               },
               {
                 "className": "pulse-duration",
@@ -3870,18 +3870,18 @@
                   92.8,
                   79.4
                 ],
-                "contrast": 5.067
+                "contrast": 4.654
               }
             ],
             "panelColor": [
-              227,
-              227,
-              221
+              220,
+              213,
+              196
             ],
             "surfaceColor": [
-              212,
-              218,
-              208
+              211,
+              208,
+              190
             ],
             "accentColor": [
               95,
@@ -3894,21 +3894,21 @@
               107
             ],
             "borderCompositeColor": [
-              158.36,
-              170.16,
-              160.28
+              169.2,
+              176.1,
+              158.1
             ],
-            "surfaceDistance": 21.794,
-            "borderDistance": 107.839,
-            "salience": 63.096
+            "surfaceDistance": 11.916,
+            "borderDistance": 73.339,
+            "salience": 41.399
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "accent": "#4f8588",
             "semanticAccent": "#4f8588",
-            "backgroundColor": "color(srgb 0.861592 0.892712 0.878201 / 0.861726)",
-            "borderColor": "color(srgb 0.603451 0.668392 0.660392)",
+            "backgroundColor": "color(srgb 0.833255 0.820157 0.75451)",
+            "borderColor": "color(srgb 0.644706 0.691765 0.654118)",
             "boxShadow": "color(srgb 0.854431 0.846745 0.815843) 0px 0px 0px 3px, rgba(255, 255, 255, 0.68) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.18) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.09) 0px 3px 9px 0px",
             "opacity": "1",
             "text": [
@@ -3922,7 +3922,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.214
+                "contrast": 10.438
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -3934,7 +3934,7 @@
                   34,
                   38
                 ],
-                "contrast": 11.214
+                "contrast": 10.438
               },
               {
                 "className": "pulse-time",
@@ -3946,7 +3946,7 @@
                   93.4,
                   96.8
                 ],
-                "contrast": 4.966
+                "contrast": 4.622
               },
               {
                 "className": "pulse-duration",
@@ -3958,18 +3958,18 @@
                   93.4,
                   96.8
                 ],
-                "contrast": 4.966
+                "contrast": 4.622
               }
             ],
             "panelColor": [
-              227,
-              227,
-              221
+              220,
+              213,
+              196
             ],
             "surfaceColor": [
-              207,
-              217,
-              212
+              210,
+              208,
+              192
             ],
             "accentColor": [
               79,
@@ -3982,21 +3982,21 @@
               136
             ],
             "borderCompositeColor": [
-              153.88,
-              170.44,
-              168.4
+              164.4,
+              176.4,
+              166.8
             ],
-            "surfaceDistance": 24.104,
-            "borderDistance": 106.359,
-            "salience": 63.587
+            "surfaceDistance": 11.874,
+            "borderDistance": 72.688,
+            "salience": 41.065
           },
           {
             "category": "service-support",
             "layer": "climate",
             "accent": "#70689a",
             "semanticAccent": "#70689a",
-            "backgroundColor": "color(srgb 0.882617 0.874235 0.889669 / 0.861726)",
-            "borderColor": "color(srgb 0.639686 0.636549 0.680157)",
+            "backgroundColor": "color(srgb 0.84102 0.813333 0.758745)",
+            "borderColor": "color(srgb 0.683529 0.657647 0.675294)",
             "boxShadow": "color(srgb 0.854431 0.846745 0.815843) 0px 0px 0px 3px, rgba(255, 255, 255, 0.68) 0px 1px 0px 0px inset, rgba(22, 34, 38, 0.18) 0px -1px 0px 0px inset, rgba(30, 40, 42, 0.09) 0px 3px 9px 0px",
             "opacity": "1",
             "text": [
@@ -4010,7 +4010,7 @@
                   34,
                   38
                 ],
-                "contrast": 10.889
+                "contrast": 10.364
               },
               {
                 "className": "pulse-summary reading-summary",
@@ -4022,7 +4022,7 @@
                   34,
                   38
                 ],
-                "contrast": 10.889
+                "contrast": 10.364
               },
               {
                 "className": "pulse-time",
@@ -4034,7 +4034,7 @@
                   74.6,
                   105.28
                 ],
-                "contrast": 5.643
+                "contrast": 5.371
               },
               {
                 "className": "pulse-duration",
@@ -4046,18 +4046,18 @@
                   74.6,
                   105.28
                 ],
-                "contrast": 5.643
+                "contrast": 5.371
               }
             ],
             "panelColor": [
-              227,
-              227,
-              221
+              220,
+              213,
+              196
             ],
             "surfaceColor": [
-              212,
-              211,
-              216
+              213,
+              206,
+              193
             ],
             "accentColor": [
               112,
@@ -4070,13 +4070,13 @@
               154
             ],
             "borderCompositeColor": [
-              163.12,
-              162.32,
-              173.44
+              174.3,
+              167.7,
+              172.2
             ],
-            "surfaceDistance": 22.494,
-            "borderDistance": 102.597,
-            "salience": 60.944
+            "surfaceDistance": 10.344,
+            "borderDistance": 68.608,
+            "salience": 38.311
           },
           {
             "category": "autonomous-artwork",
@@ -4098,7 +4098,7 @@
                   34,
                   38
                 ],
-                "contrast": 10.859
+                "contrast": 10.873
               },
               {
                 "className": "reading-summary",
@@ -4110,7 +4110,7 @@
                   34,
                   38
                 ],
-                "contrast": 10.859
+                "contrast": 10.873
               },
               {
                 "className": "autonomous-time",
@@ -4122,7 +4122,7 @@
                   83.2,
                   53
                 ],
-                "contrast": 5.062
+                "contrast": 5.069
               },
               {
                 "className": "autonomous-kicker",
@@ -4134,18 +4134,18 @@
                   83.2,
                   53
                 ],
-                "contrast": 5.062
+                "contrast": 5.069
               }
             ],
             "panelColor": [
-              227,
-              227,
-              221
+              220,
+              213,
+              196
             ],
             "surfaceColor": [
               218,
               211,
-              193
+              195
             ],
             "accentColor": [
               142,
@@ -4158,13 +4158,13 @@
               63
             ],
             "borderCompositeColor": [
-              159.707,
-              150.489,
-              123.756
+              156.98,
+              145.036,
+              114.019
             ],
-            "surfaceDistance": 33.481,
-            "borderDistance": 140.85,
-            "salience": 85.018
+            "surfaceDistance": 3,
+            "borderDistance": 123.739,
+            "salience": 60.955
           },
           {
             "category": "daily-reminder",
@@ -4226,9 +4226,9 @@
               }
             ],
             "panelColor": [
-              227,
-              227,
-              221
+              220,
+              213,
+              196
             ],
             "surfaceColor": [
               194,
@@ -4246,16 +4246,16 @@
               126
             ],
             "borderCompositeColor": [
-              159.707,
-              141.369,
-              153.996
+              156.98,
+              135.916,
+              144.259
             ],
-            "surfaceDistance": 73.817,
-            "borderDistance": 127.869,
-            "salience": 99.762
+            "surfaceDistance": 49.447,
+            "borderDistance": 112.207,
+            "salience": 79.572
           }
         ],
-        "minimumContrast": 4.966,
+        "minimumContrast": 4.622,
         "minimumAccentDistance": {
           "value": 24.021,
           "pair": [
@@ -4271,24 +4271,24 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 9.278,
+          "value": 9.941,
           "pair": [
             "ah-market-scan",
             "us-market-scan"
           ]
         },
         "minimumRenderedBorderDistance": {
-          "value": 6.469,
+          "value": 9.941,
           "pair": [
-            "assigned-work",
-            "ah-market-scan"
+            "ah-market-scan",
+            "us-market-scan"
           ]
         },
-        "meanSurfaceDistance": 38.855,
+        "meanSurfaceDistance": 20.68,
         "layerSalience": {
-          "event": 91.641,
-          "climate": 62.542,
-          "beacon": 85.018
+          "event": 72.716,
+          "climate": 40.258,
+          "beacon": 60.955
         },
         "contrasts": [
           {
@@ -4296,140 +4296,140 @@
             "layer": "event",
             "className": "assigned-work-type reading-title",
             "fontSize": 14,
-            "contrast": 9.61
+            "contrast": 9.511
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-copy reading-summary",
             "fontSize": 11.232,
-            "contrast": 9.61
+            "contrast": 9.511
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-time",
             "fontSize": 10,
-            "contrast": 6.081
+            "contrast": 6.018
           },
           {
             "category": "assigned-work",
             "layer": "event",
             "className": "assigned-category",
             "fontSize": 9.5,
-            "contrast": 6.081
+            "contrast": 6.018
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 11.376
+            "contrast": 10.447
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 11.376
+            "contrast": 10.447
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 5.067
+            "contrast": 4.654
           },
           {
             "category": "ah-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 5.067
+            "contrast": 4.654
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 11.214
+            "contrast": 10.438
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 11.214
+            "contrast": 10.438
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 4.966
+            "contrast": 4.622
           },
           {
             "category": "us-market-scan",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 4.966
+            "contrast": 4.622
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-label reading-title",
             "fontSize": 12.5,
-            "contrast": 10.889
+            "contrast": 10.364
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-summary reading-summary",
             "fontSize": 11.232,
-            "contrast": 10.889
+            "contrast": 10.364
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-time",
             "fontSize": 10,
-            "contrast": 5.643
+            "contrast": 5.371
           },
           {
             "category": "service-support",
             "layer": "climate",
             "className": "pulse-duration",
             "fontSize": 10,
-            "contrast": 5.643
+            "contrast": 5.371
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-title",
             "fontSize": 15.84,
-            "contrast": 10.859
+            "contrast": 10.873
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "reading-summary",
             "fontSize": 11.232,
-            "contrast": 10.859
+            "contrast": 10.873
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-time",
             "fontSize": 10,
-            "contrast": 5.062
+            "contrast": 5.069
           },
           {
             "category": "autonomous-artwork",
             "layer": "beacon",
             "className": "autonomous-kicker",
             "fontSize": 9.5,
-            "contrast": 5.062
+            "contrast": 5.069
           },
           {
             "category": "daily-reminder",
@@ -4563,8 +4563,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 366,
-            "height": 17.25
+            "width": 0,
+            "height": 0
           }
         },
         "daySupporting": {
@@ -4576,8 +4576,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 366,
-            "height": 86.25
+            "width": 0,
+            "height": 0
           }
         },
         "dayBoundary": {
@@ -4589,8 +4589,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 366,
-            "height": 103.5
+            "width": 0,
+            "height": 0
           }
         },
         "timelineHeading": {
@@ -4615,8 +4615,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 374,
-            "height": 110.25
+            "width": 0,
+            "height": 0
           }
         },
         "assignedTitle": {
@@ -4680,8 +4680,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "700",
           "rect": {
-            "width": 157.875,
-            "height": 32.765625
+            "width": 91.078125,
+            "height": 43.6875
           }
         },
         "climateSummary": {
@@ -4693,8 +4693,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 178.390625,
-            "height": 160.4375
+            "width": 111.59375,
+            "height": 67.515625
           }
         },
         "climateTime": {
@@ -4706,7 +4706,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 178.390625,
+            "width": 111.59375,
             "height": 10.796875
           }
         },
@@ -4725,41 +4725,41 @@
         },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
-          "fontSize": 10,
-          "lineHeight": 10.8,
-          "ratio": 1.08,
+          "fontSize": 11,
+          "lineHeight": 12.32,
+          "ratio": 1.12,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 82.1875,
-            "height": 32.390625
+            "width": 151,
+            "height": 24.625
           }
         },
         "beaconSummary": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
-          "fontSize": 7,
-          "lineHeight": 8.75,
+          "fontSize": 8.5,
+          "lineHeight": 10.625,
           "ratio": 1.25,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 82.1875,
-            "height": 35
+            "width": 151,
+            "height": 31.875
           }
         },
         "beaconTime": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
-          "fontSize": 7,
-          "lineHeight": 9.1,
+          "fontSize": 7.5,
+          "lineHeight": 9.75,
           "ratio": 1.3,
           "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 82.1875,
-            "height": 39.96875
+            "width": 151,
+            "height": 27.53125
           }
         },
         "beaconMeta": {
@@ -4915,54 +4915,6 @@
               "outsideContainer": false
             },
             {
-              "selector": "#dialogVariable",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".dialog-mode-thesis",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#dialogBoundary",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".timeline-help",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
               "selector": ".autonomous-time",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
@@ -4990,7 +4942,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 53,
+              "verticalOverflow": 32,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -5218,7 +5170,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-014",
               "horizontalOverflow": 0,
-              "verticalOverflow": 95,
+              "verticalOverflow": 160,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -5266,7 +5218,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-045",
               "horizontalOverflow": 0,
-              "verticalOverflow": 82,
+              "verticalOverflow": 173,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -5314,7 +5266,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-058",
               "horizontalOverflow": 0,
-              "verticalOverflow": 95,
+              "verticalOverflow": 186,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -5525,8 +5477,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 397,
-            "height": 17.25
+            "width": 0,
+            "height": 0
           }
         },
         "daySupporting": {
@@ -5538,8 +5490,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 397,
-            "height": 86.25
+            "width": 0,
+            "height": 0
           }
         },
         "dayBoundary": {
@@ -5551,8 +5503,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 397,
-            "height": 103.5
+            "width": 0,
+            "height": 0
           }
         },
         "timelineHeading": {
@@ -5577,8 +5529,8 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 405,
-            "height": 94.5
+            "width": 0,
+            "height": 0
           }
         },
         "assignedTitle": {
@@ -5642,8 +5594,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "700",
           "rect": {
-            "width": 176.484375,
-            "height": 21.84375
+            "width": 103.484375,
+            "height": 32.765625
           }
         },
         "climateSummary": {
@@ -5655,8 +5607,8 @@
           "fontFamily": "\"Iowan Old Style\", \"Songti SC\", STSong, Georgia, serif",
           "fontWeight": "400",
           "rect": {
-            "width": 197,
-            "height": 171.359375
+            "width": 124,
+            "height": 67.4375
           }
         },
         "climateTime": {
@@ -5668,7 +5620,7 @@
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 197,
+            "width": 124,
             "height": 10.796875
           }
         },
@@ -5687,41 +5639,41 @@
         },
         "beaconTitle": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-title",
-          "fontSize": 10,
-          "lineHeight": 10.8,
-          "ratio": 1.08,
+          "fontSize": 11,
+          "lineHeight": 12.32,
+          "ratio": 1.12,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "500",
           "rect": {
-            "width": 90,
-            "height": 32.390625
+            "width": 171,
+            "height": 24.625
           }
         },
         "beaconSummary": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .reading-summary",
-          "fontSize": 7,
-          "lineHeight": 8.75,
+          "fontSize": 8.5,
+          "lineHeight": 10.625,
           "ratio": 1.25,
           "color": "rgb(247, 244, 236)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 90,
-            "height": 43.75
+            "width": 171,
+            "height": 31.875
           }
         },
         "beaconTime": {
           "selector": ".event-reading-card[data-layer=\"beacon\"] .autonomous-time",
-          "fontSize": 7,
-          "lineHeight": 9.1,
+          "fontSize": 7.5,
+          "lineHeight": 9.75,
           "ratio": 1.3,
           "color": "color(srgb 0.819294 0.771608 0.656314)",
           "fontFamily": "SFMono-Regular, Menlo, Consolas, monospace",
           "fontWeight": "400",
           "rect": {
-            "width": 90,
-            "height": 32.5
+            "width": 171,
+            "height": 27.53125
           }
         },
         "beaconMeta": {
@@ -5877,54 +5829,6 @@
               "outsideContainer": false
             },
             {
-              "selector": "#dialogVariable",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".dialog-mode-thesis",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": "#dialogBoundary",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
-              "selector": ".timeline-help",
-              "readingId": "",
-              "horizontalOverflow": 0,
-              "verticalOverflow": 0,
-              "intentionalClamp": false,
-              "overflowY": "visible",
-              "outsideHorizontally": false,
-              "outsideVertically": false,
-              "containerScrollsVertically": false,
-              "outsideContainer": false
-            },
-            {
               "selector": ".autonomous-time",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
@@ -5952,7 +5856,7 @@
               "selector": ".reading-summary",
               "readingId": "beacon-beacon-001",
               "horizontalOverflow": 0,
-              "verticalOverflow": 35,
+              "verticalOverflow": 21,
               "intentionalClamp": true,
               "overflowY": "hidden",
               "outsideHorizontally": false,
@@ -6180,7 +6084,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-014",
               "horizontalOverflow": 0,
-              "verticalOverflow": 95,
+              "verticalOverflow": 134,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -6228,7 +6132,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-045",
               "horizontalOverflow": 0,
-              "verticalOverflow": 82,
+              "verticalOverflow": 134,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -6276,7 +6180,7 @@
               "selector": ".pulse-summary.reading-summary",
               "readingId": "event-background-058",
               "horizontalOverflow": 0,
-              "verticalOverflow": 95,
+              "verticalOverflow": 173,
               "intentionalClamp": false,
               "overflowY": "visible",
               "outsideHorizontally": false,
@@ -6566,8 +6470,8 @@
             "beaconTitle"
           ],
           "beforeMean": 10.333,
-          "afterMean": 10.583,
-          "growth": 0.024
+          "afterMean": 10.917,
+          "growth": 0.056
         },
         "cardBody": {
           "keys": [
@@ -6576,8 +6480,8 @@
             "beaconSummary"
           ],
           "beforeMean": 8.5,
-          "afterMean": 9,
-          "growth": 0.059
+          "afterMean": 9.5,
+          "growth": 0.118
         },
         "cardMeta": {
           "keys": [
@@ -6589,8 +6493,8 @@
             "beaconMeta"
           ],
           "beforeMean": 7.333,
-          "afterMean": 8.5,
-          "growth": 0.159
+          "afterMean": 8.583,
+          "growth": 0.17
         }
       },
       "421x386-dark": {
@@ -6613,8 +6517,8 @@
             "beaconTitle"
           ],
           "beforeMean": 10.333,
-          "afterMean": 10.583,
-          "growth": 0.024
+          "afterMean": 10.917,
+          "growth": 0.056
         },
         "cardBody": {
           "keys": [
@@ -6623,8 +6527,8 @@
             "beaconSummary"
           ],
           "beforeMean": 8.5,
-          "afterMean": 9,
-          "growth": 0.059
+          "afterMean": 9.5,
+          "growth": 0.118
         },
         "cardMeta": {
           "keys": [
@@ -6636,8 +6540,8 @@
             "beaconMeta"
           ],
           "beforeMean": 7.333,
-          "afterMean": 8.5,
-          "growth": 0.159
+          "afterMean": 8.583,
+          "growth": 0.17
         }
       }
     },
@@ -6681,10 +6585,10 @@
       "desktop-dark": {
         "surfaceDistance": {
           "before": 33.356,
-          "after": 44.255,
-          "reduction": -0.319
+          "after": 15.296,
+          "reduction": 0.603
         },
-        "minimumContrast": 6.295,
+        "minimumContrast": 5.586,
         "minimumAccentDistance": {
           "value": 23.958,
           "pair": [
@@ -6693,63 +6597,63 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 16.078,
+          "value": 10.049,
           "pair": [
             "ah-market-scan",
             "us-market-scan"
           ]
         },
         "layerSalience": {
-          "event": 98.55,
-          "climate": 90.074,
-          "beacon": 109.276
+          "event": 66.967,
+          "climate": 40.101,
+          "beacon": 59.595
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 33.853,
-            "after": 53.038,
-            "reduction": -0.567
+            "after": 22.561,
+            "reduction": 0.334
           },
           "ah-market-scan": {
             "before": 17.378,
-            "after": 27.35,
-            "reduction": -0.574
+            "after": 10.488,
+            "reduction": 0.396
           },
           "us-market-scan": {
             "before": 24.86,
-            "after": 35.917,
-            "reduction": -0.445
+            "after": 12.083,
+            "reduction": 0.514
           },
           "service-support": {
             "before": 21.749,
-            "after": 36.455,
-            "reduction": -0.676
+            "after": 11.79,
+            "reduction": 0.458
           },
           "autonomous-artwork": {
             "before": 68.022,
-            "after": 67.149,
-            "reduction": 0.013
+            "after": 9.22,
+            "reduction": 0.864
           },
           "daily-reminder": {
             "before": null,
-            "after": 45.618,
+            "after": 25.632,
             "reduction": null,
             "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 93.74,
+        "maximumClimateSalience": 41.632,
         "activeSalience": {
-          "assigned-work": 98.058,
-          "autonomous-artwork": 109.276
+          "assigned-work": 63.917,
+          "autonomous-artwork": 59.595
         }
       },
       "desktop-light": {
         "surfaceDistance": {
           "before": 27.376,
-          "after": 38.855,
-          "reduction": -0.164
+          "after": 20.68,
+          "reduction": 0.455
         },
-        "minimumContrast": 4.966,
+        "minimumContrast": 4.622,
         "minimumAccentDistance": {
           "value": 24.021,
           "pair": [
@@ -6758,54 +6662,54 @@
           ]
         },
         "minimumBorderDistance": {
-          "value": 9.278,
+          "value": 9.941,
           "pair": [
             "ah-market-scan",
             "us-market-scan"
           ]
         },
         "layerSalience": {
-          "event": 91.641,
-          "climate": 62.542,
-          "beacon": 85.018
+          "event": 72.716,
+          "climate": 40.258,
+          "beacon": 60.955
         },
         "perCategorySurface": {
           "assigned-work": {
             "before": 36.824,
-            "after": 57.437,
-            "reduction": -0.56
+            "after": 37.497,
+            "reduction": -0.018
           },
           "ah-market-scan": {
             "before": 14.799,
-            "after": 21.794,
-            "reduction": -0.473
+            "after": 11.916,
+            "reduction": 0.195
           },
           "us-market-scan": {
             "before": 24.269,
-            "after": 24.104,
-            "reduction": 0.007
+            "after": 11.874,
+            "reduction": 0.511
           },
           "service-support": {
             "before": 22.204,
-            "after": 22.494,
-            "reduction": -0.013
+            "after": 10.344,
+            "reduction": 0.534
           },
           "autonomous-artwork": {
             "before": 35.114,
-            "after": 33.481,
-            "reduction": 0.047
+            "after": 3,
+            "reduction": 0.915
           },
           "daily-reminder": {
             "before": null,
-            "after": 73.817,
+            "after": 49.447,
             "reduction": null,
             "baselineStatus": "new-authorized-category"
           }
         },
-        "maximumClimateSalience": 63.587,
+        "maximumClimateSalience": 41.399,
         "activeSalience": {
-          "assigned-work": 83.519,
-          "autonomous-artwork": 85.018
+          "assigned-work": 65.86,
+          "autonomous-artwork": 60.955
         }
       }
     },
