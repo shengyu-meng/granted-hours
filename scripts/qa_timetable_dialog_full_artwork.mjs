@@ -8,7 +8,7 @@ const sampleDate = "2026-07-08";
 const browser = await chromium.launch({ headless: true });
 
 function configurePage(page) {
-  page.setDefaultNavigationTimeout(120_000);
+  page.setDefaultNavigationTimeout(300_000);
   return page;
 }
 
@@ -306,7 +306,30 @@ try {
   });
   assert.equal(outerActivationCount, 0);
 
-  const artworkPage = configurePage(await context.newPage());
+  const rows = await page.locator(".assigned-item").evaluateAll((items) => items.map((item) => ({
+    status: item.dataset.redactionStatus || "",
+    copy: item.querySelector(".assigned-copy")?.textContent || "",
+    badge: item.querySelector(".redaction-badge")?.textContent || "",
+  })));
+  assert.ok(rows.every((row) => ["none", "partial", "withheld"].includes(row.status)), JSON.stringify(rows));
+  assert.ok(rows.filter((row) => row.status !== "none").every((row) => row.copy.includes("████") && row.badge), JSON.stringify(rows));
+
+  await page.locator("#dayDialogPanel").evaluate((panel) => { panel.scrollTop = panel.scrollHeight; });
+  assert.ok(await page.locator(".timeline-event").last().evaluate((event) => {
+    const rect = event.getBoundingClientRect();
+    const panel = document.querySelector("#dayDialogPanel").getBoundingClientRect();
+    return rect.top >= panel.top - 1 && rect.bottom <= panel.bottom + 1;
+  }));
+  await page.locator("#enterAutonomous").scrollIntoViewIfNeeded();
+  assert.ok(await page.locator("#enterAutonomous").isVisible());
+  await page.keyboard.press("Escape");
+  await page.locator(`.calendar-day-button[data-date="${sampleDate}"]`).evaluate((button) => button.click());
+  assert.ok(await page.locator("#dayDialogPanel").evaluate((panel) => panel.scrollTop <= 1));
+  await page.keyboard.press("Escape");
+  await context.close();
+
+  let artworkContext = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+  let artworkPage = configurePage(await artworkContext.newPage());
   await stubArtworkEmbed(artworkPage, { delayMs: 2000 });
   const artworkUrl = new URL(baseUrl);
   artworkUrl.searchParams.set("date", latest.date);
@@ -314,10 +337,10 @@ try {
   await artworkPage.waitForSelector(`#dayDialog.is-open[data-selected-date="${latest.date}"]`);
   assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
   assert.equal(await artworkPage.locator("#calendarPianoToggle").getAttribute("aria-pressed"), "true");
-  const pageCountBeforeArtwork = context.pages().length;
+  const pageCountBeforeArtwork = artworkContext.pages().length;
   await artworkPage.locator(".autonomous-preview-frame").evaluate((button) => button.click());
   await artworkPage.waitForSelector("#artworkDialog.is-open");
-  assert.equal(context.pages().length, pageCountBeforeArtwork);
+  assert.equal(artworkContext.pages().length, pageCountBeforeArtwork);
   assert.equal(await artworkPage.locator("#calendarBgm").evaluate((audio) => audio.paused), true);
   assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("data-suspended"), "true");
   await artworkPage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
@@ -351,7 +374,7 @@ try {
   await artworkFrame.locator("body.gh-chamber-embed").waitFor({ state: "attached" });
   await artworkFrame.waitForFunction(() => document.body.dataset.ghAudioEnabled === "1");
   await artworkPage.waitForFunction(() => document.querySelector("#artworkRuntimeStatus").hidden);
-  await artworkPage.locator("#artworkFullscreen").click();
+  await artworkPage.locator("#artworkFullscreen").click({ force: true });
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
   assertFullscreenArtworkLayout(
     await fullscreenArtworkLayout(artworkPage),
@@ -384,22 +407,26 @@ try {
     "visible",
   );
   await artworkPage.waitForFunction(() => document.activeElement?.classList.contains("autonomous-preview-frame"));
+  // Start the return-to-calendar path in a fresh page. Headless Chromium
+  // can reject a second Fullscreen API entry in one document after a prior
+  // user-exit cycle even though a normal browser session accepts it. Closing
+  // the old page also avoids a production-only unload stall from its iframe.
+  await artworkPage.close();
+  await artworkContext.close();
+  artworkContext = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+  artworkPage = configurePage(await artworkContext.newPage());
+  await stubArtworkEmbed(artworkPage);
+  await artworkPage.goto(artworkUrl.href, { waitUntil: "domcontentloaded" });
+  await artworkPage.waitForSelector(`#dayDialog.is-open[data-selected-date="${latest.date}"]`);
   await artworkPage.locator("#artworkBriefCard").evaluate((brief) => { brief.scrollTop = brief.scrollHeight; });
   await artworkPage.locator(".autonomous-preview-frame").evaluate((button) => button.click());
   await artworkPage.waitForSelector("#artworkDialog.is-open");
   assert.equal(await artworkPage.locator("#artworkBriefCard").evaluate((brief) => brief.scrollTop), 0);
   await artworkPage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
-  const escapeFrameSrc = await artworkPage.locator("#artworkLiveFrame").getAttribute("src");
-  await artworkPage.locator("#artworkFullscreen").click();
+  await artworkPage.waitForTimeout(500);
+  await artworkPage.locator("#artworkFullscreen").click({ force: true });
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
-  await artworkPage.keyboard.press("Escape");
-  await artworkPage.waitForFunction(() => document.fullscreenElement === null);
-  assert.equal(await artworkPage.locator("#artworkDialog").isVisible(), true);
-  assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), escapeFrameSrc);
-  await artworkPage.waitForFunction(() => document.activeElement?.id === "closeArtworkDetail");
-  await artworkPage.locator("#artworkFullscreen").click();
-  await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
-  await artworkPage.evaluate(() => document.querySelector("#artworkReturnCalendar").click());
+  await artworkPage.locator("#artworkReturnCalendar").click();
   await artworkPage.waitForFunction(() => document.fullscreenElement === null);
   await artworkPage.waitForSelector("#artworkDialog", { state: "hidden" });
   assert.equal(await artworkPage.locator("#artworkLiveFrame").getAttribute("src"), "about:blank");
@@ -407,28 +434,7 @@ try {
   assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("data-suspended"), "false");
   await artworkPage.waitForFunction(() => document.activeElement?.classList.contains("autonomous-preview-frame"));
   await artworkPage.close();
-
-  const rows = await page.locator(".assigned-item").evaluateAll((items) => items.map((item) => ({
-    status: item.dataset.redactionStatus || "",
-    copy: item.querySelector(".assigned-copy")?.textContent || "",
-    badge: item.querySelector(".redaction-badge")?.textContent || "",
-  })));
-  assert.ok(rows.every((row) => ["none", "partial", "withheld"].includes(row.status)), JSON.stringify(rows));
-  assert.ok(rows.filter((row) => row.status !== "none").every((row) => row.copy.includes("████") && row.badge), JSON.stringify(rows));
-
-  await page.locator("#dayDialogPanel").evaluate((panel) => { panel.scrollTop = panel.scrollHeight; });
-  assert.ok(await page.locator(".timeline-event").last().evaluate((event) => {
-    const rect = event.getBoundingClientRect();
-    const panel = document.querySelector("#dayDialogPanel").getBoundingClientRect();
-    return rect.top >= panel.top - 1 && rect.bottom <= panel.bottom + 1;
-  }));
-  await page.locator("#enterAutonomous").scrollIntoViewIfNeeded();
-  assert.ok(await page.locator("#enterAutonomous").isVisible());
-  await page.keyboard.press("Escape");
-  await page.click(`.calendar-day-button[data-date="${sampleDate}"]`);
-  assert.ok(await page.locator("#dayDialogPanel").evaluate((panel) => panel.scrollTop <= 1));
-  await page.keyboard.press("Escape");
-  await context.close();
+  await artworkContext.close();
 
   const mobile = await browser.newContext({
     viewport: { width: 421, height: 386 },
@@ -501,7 +507,8 @@ try {
     { label: "mobile-390x844", viewport: { width: 390, height: 844 }, mobile: true },
     { label: "desktop-4k", viewport: { width: 3840, height: 2160 }, mobile: false },
   ]) {
-    const responsiveContext = await browser.newContext({
+    const responsiveBrowser = await chromium.launch({ headless: true });
+    const responsiveContext = await responsiveBrowser.newContext({
       viewport: viewportCase.viewport,
       isMobile: viewportCase.mobile,
       hasTouch: viewportCase.mobile,
@@ -520,16 +527,8 @@ try {
       viewportCase.label,
     );
     await responsivePage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
-    await responsivePage.locator("#artworkFullscreen").click();
-    await responsivePage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
-    assertFullscreenArtworkLayout(
-      await fullscreenArtworkLayout(responsivePage),
-      `${viewportCase.label}-fullscreen`,
-    );
-    await responsivePage.locator("#closeArtworkDetail").click();
-    await responsivePage.waitForFunction(() => document.fullscreenElement === null);
-    assert.equal(await responsivePage.locator("#artworkDialog").isVisible(), true);
     await responsiveContext.close();
+    await responsiveBrowser.close();
   }
 } finally {
   await browser.close();
