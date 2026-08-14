@@ -58,6 +58,38 @@ async function monthGeometry(page, date) {
         };
       })
       .filter(Boolean);
+    const renderedPreviews = [...grid.querySelectorAll(".date-cell:not(.is-muted) .calendar-day-button")]
+      .map((button) => {
+        const material = button.querySelector(".cell-material");
+        const marks = [...button.querySelectorAll(".cell-mark")];
+        const firstMark = marks[0];
+        const materialStyle = getComputedStyle(material);
+        const paddingTop = Number.parseFloat(materialStyle.paddingTop) || 0;
+        const firstMarkOffset = firstMark
+          ? firstMark.getBoundingClientRect().top - material.getBoundingClientRect().top - paddingTop
+          : 0;
+        const primaryCount = Number(button.dataset.previewPrimaryCount);
+        const fillerCount = Number(button.dataset.routineFillerCount);
+        const previewTarget = Number(button.dataset.previewTarget);
+        return {
+          date: button.dataset.date,
+          alignContent: materialStyle.alignContent,
+          firstMarkOffset,
+          expanded: button.classList.contains("has-expanded-preview"),
+          primaryCount,
+          fillerCount,
+          previewTarget,
+          markCount: marks.length,
+          routineMarkCount: button.querySelectorAll(".routine-mark").length,
+          detailCount: button.querySelectorAll(".cell-mark-detail").length,
+          hasRoutineSource: Boolean(button.querySelector(".cell-source-bar.routine")),
+        };
+      });
+    const routineFilledPreviews = renderedPreviews.filter((entry) => entry.fillerCount > 0);
+    const densePreviews = renderedPreviews.filter((entry) => entry.primaryCount >= entry.previewTarget);
+    const sourceEmptyExpandedPreviews = renderedPreviews.filter((entry) => (
+      entry.expanded && !entry.hasRoutineSource
+    ));
     const requiredSelectors = [
       ".protocol-bar",
       ".calendar-shell",
@@ -85,6 +117,30 @@ async function monthGeometry(page, date) {
       previewItemFloor: Number(grid.dataset.previewItemFloor),
       eligiblePreviewCount: eligiblePreviews.length,
       failedPreviewDates: eligiblePreviews.filter((entry) => !entry.thirdVisible).map((entry) => entry.date),
+      topAlignedPreviewCount: renderedPreviews.length,
+      failedTopAlignmentDates: renderedPreviews
+        .filter((entry) => entry.alignContent !== "start" || Math.abs(entry.firstMarkOffset) > 3)
+        .map((entry) => entry.date),
+      routineFilledPreviewCount: routineFilledPreviews.length,
+      failedRoutineFillDates: routineFilledPreviews
+        .filter((entry) => (
+          !entry.expanded
+          || !entry.hasRoutineSource
+          || entry.primaryCount + entry.fillerCount < entry.previewTarget
+          || entry.markCount < entry.previewTarget
+          || entry.routineMarkCount !== entry.fillerCount
+          || entry.detailCount < entry.primaryCount + entry.fillerCount
+        ))
+        .map((entry) => entry.date),
+      missingRoutineFillDates: renderedPreviews
+        .filter((entry) => entry.expanded && entry.hasRoutineSource && entry.fillerCount === 0)
+        .map((entry) => entry.date),
+      failedDenseMutationDates: densePreviews
+        .filter((entry) => entry.expanded || entry.fillerCount > 0 || entry.detailCount > 0)
+        .map((entry) => entry.date),
+      failedNoFabricationDates: sourceEmptyExpandedPreviews
+        .filter((entry) => entry.fillerCount > 0 || entry.routineMarkCount > 0)
+        .map((entry) => entry.date),
       horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       requiredBounds,
       headerControls,
@@ -124,6 +180,13 @@ async function geometryAudit(browser, viewport) {
     assert.equal(geometry.previewItemFloor, 3);
     assert.ok(geometry.eligiblePreviewCount > 0, JSON.stringify(geometry));
     assert.deepEqual(geometry.failedPreviewDates, [], JSON.stringify(geometry));
+    assert.ok(geometry.topAlignedPreviewCount > 0, JSON.stringify(geometry));
+    assert.deepEqual(geometry.failedTopAlignmentDates, [], JSON.stringify(geometry));
+    assert.ok(geometry.routineFilledPreviewCount > 0, JSON.stringify(geometry));
+    assert.deepEqual(geometry.failedRoutineFillDates, [], JSON.stringify(geometry));
+    assert.deepEqual(geometry.missingRoutineFillDates, [], JSON.stringify(geometry));
+    assert.deepEqual(geometry.failedDenseMutationDates, [], JSON.stringify(geometry));
+    assert.deepEqual(geometry.failedNoFabricationDates, [], JSON.stringify(geometry));
   }
   if (viewport.width <= 720) {
     for (const geometry of months) {

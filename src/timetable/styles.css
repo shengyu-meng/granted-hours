@@ -7079,7 +7079,7 @@ h1 {
 }
 
 .cell-material.is-fitted {
-  align-content: end;
+  align-content: start;
 }
 
 .cell-material .cell-mark,
@@ -7089,6 +7089,47 @@ h1 {
   text-overflow: clip;
   white-space: normal;
   overflow-wrap: anywhere;
+}
+
+.routine-mark {
+  width: fit-content;
+  max-width: 100%;
+  padding-left: 7px;
+  border-left: 1px solid color-mix(in srgb, var(--ink-muted) 72%, transparent);
+  color: color-mix(in srgb, var(--ink-muted) 82%, var(--ink));
+  font-size: 9px;
+  text-transform: none;
+}
+
+.cell-material .cell-mark-detail {
+  display: -webkit-box;
+  margin-top: 2px;
+  overflow: hidden;
+  color: color-mix(in srgb, currentColor 72%, var(--ink-muted));
+  font-size: 9px;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.cell-material .routine-mark .cell-mark-line {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .routine-mark {
+    padding-left: 4px;
+    font-size: 8px;
+  }
+
+  .cell-material .cell-mark-detail {
+    font-size: 7px;
+  }
 }
 
 .event-reading-card.overflow-scroll-preview {

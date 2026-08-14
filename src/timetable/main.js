@@ -70,6 +70,7 @@ const PIANO_VOLUME = CALENDAR_BGM_VOLUME;
 const INSPECTION_HIDE_DELAY_MS = 110;
 const INSPECTION_FADE_MS = 150;
 const MOBILE_DAY_HEADER_QUERY = "(max-width: 720px)";
+const MONTH_PREVIEW_ITEM_FLOOR = 3;
 const WEEKDAYS = [
   ["Mon", "一"],
   ["Tue", "二"],
@@ -1638,20 +1639,49 @@ function buildDayButton(day, isToday, isMuted) {
   button.className = "calendar-day-button";
   button.dataset.date = day.date;
   button.classList.toggle("is-muted", isMuted);
-  button.setAttribute("aria-label", dayCellLabel(day));
+  const primaryPreviewCount = 1 + day.cell_assigned.length;
+  const expandedPreview = primaryPreviewCount < MONTH_PREVIEW_ITEM_FLOOR;
+  const routineFillers = expandedPreview
+    ? monthRoutinePreviewItems(day, MONTH_PREVIEW_ITEM_FLOOR - primaryPreviewCount)
+    : [];
+  button.classList.toggle("has-expanded-preview", expandedPreview);
+  button.dataset.previewPrimaryCount = String(primaryPreviewCount);
+  button.dataset.routineFillerCount = String(routineFillers.length);
+  button.dataset.previewTarget = String(MONTH_PREVIEW_ITEM_FLOOR);
+  button.setAttribute("aria-label", dayCellLabel(day, routineFillers));
   if (isToday) {
     button.setAttribute("aria-current", "date");
   }
 
-  const assigned = day.cell_assigned.map((marker) => {
+  const assigned = day.cell_assigned.map((marker, index) => {
     const taskNameZh = marker.task_name_zh || marker.short_zh;
     const taskNameEn = marker.task_name_en || marker.short_en;
     const markerAccent = taskAccent(MONTH_MARKER_ACCENTS[marker.category] || "blue");
+    const source = day.task_residues[index] || marker;
+    const detailZh = expandedPreview
+      ? compactMonthPreviewCopy(source.request_zh || source.zh || marker.label_zh)
+      : "";
+    const detailEn = expandedPreview
+      ? compactMonthPreviewCopy(source.request_en || source.en || marker.label_en)
+      : "";
     return `
     <span class="cell-mark assigned-mark" style="--month-mark-accent:${markerAccent}">
       <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(taskNameZh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(taskNameEn)}</span></span>
+      ${monthPreviewDetailMarkup(detailZh, detailEn)}
     </span>
   `}).join("");
+  const routineMarkers = routineFillers.map((routine) => {
+    const [labelZh, labelEn] = monthRoutinePreviewLabel(routine);
+    return `
+      <span class="cell-mark routine-mark">
+        <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(labelZh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(labelEn)}</span></span>
+        ${monthPreviewDetailMarkup(
+          compactMonthPreviewCopy(routine.summary_zh),
+          compactMonthPreviewCopy(routine.summary_en),
+        )}
+      </span>
+    `;
+  }).join("");
   const sourceBars = Object.entries(day.cell_sources || {})
     .filter(([, source]) => source.present)
     .map(([key, source]) => (
@@ -1665,8 +1695,12 @@ function buildDayButton(day, isToday, isMuted) {
       <span class="cell-mark self-mark">
         <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(day.cell_self.short_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(day.cell_self.short_en)}</span></span>
         <strong><span class="title-zh">${escapeHtml(day.title_zh)}</span><span class="title-divider"> / </span><span class="title-en">${escapeHtml(compactEnglishTitle(day.title_en))}</span></strong>
+        ${expandedPreview ? monthPreviewDetailMarkup(
+          `变量：${compactMonthPreviewCopy(day.variable_zh)}`,
+          `Variable: ${compactMonthPreviewCopy(day.variable_en)}`,
+        ) : ""}
       </span>
-      <span class="assigned-marks">${assigned}</span>
+      <span class="assigned-marks">${assigned}${routineMarkers}</span>
     </span>
   `;
   button.addEventListener("click", () => openDayDetail(day.date));
@@ -1679,10 +1713,44 @@ function buildDayButton(day, isToday, isMuted) {
   return button;
 }
 
+function compactMonthPreviewCopy(value) {
+  return markdownToPlainText(String(value || ""))
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function monthPreviewDetailMarkup(detailZh, detailEn) {
+  if (!detailZh || !detailEn) return "";
+  return `
+    <span class="cell-mark-detail">
+      <span lang="zh">${escapeHtml(detailZh)}</span>
+      <span class="marker-divider"> / </span>
+      <span lang="en">${escapeHtml(detailEn)}</span>
+    </span>
+  `;
+}
+
+function monthRoutinePreviewItems(day, limit) {
+  if (limit <= 0) return [];
+  const pulseReadings = hydratePublicReadingItems(day)
+    .filter((item) => item.source === "pulses");
+  const climate = pulseReadings.filter((item) => item.classification === "climate_aggregate");
+  const otherRoutine = pulseReadings.filter((item) => item.classification !== "climate_aggregate");
+  return [...climate, ...otherRoutine].slice(0, limit);
+}
+
+function monthRoutinePreviewLabel(routine) {
+  const familyLabels = {
+    ah_market: ["A/H 例行", "A/H routine"],
+    us_market: ["美股例行", "U.S. routine"],
+    support_checks: ["后台例行", "Background routine"],
+  };
+  return familyLabels[routine.family] || [routine.label_zh, routine.label_en];
+}
+
 function syncOverflowPreviewState(element) {
-  // Measure from the top so content that would overflow above a bottom-aligned
-  // month cell is included in scrollHeight. Restore the quiet bottom alignment
-  // only after proving that the whole preview fits.
+  // Month previews always read from the top. This also makes scrollHeight a
+  // truthful measure when a sparse cell gains routine fillers or richer copy.
   element.classList.remove("is-fitted");
   const hasOverflow = element.scrollHeight > element.clientHeight + 1;
   element.classList.toggle("is-scrollable", hasOverflow);
@@ -3787,9 +3855,12 @@ function latestDateInMonth(key) {
   return day ? day.date : "";
 }
 
-function dayCellLabel(day) {
+function dayCellLabel(day, routineFillers = []) {
   const assigned = day.cell_assigned
     .map((marker) => `${marker.label_en} / ${marker.label_zh}`)
+    .join("; ");
+  const routines = routineFillers
+    .map((item) => `${item.label_en} / ${item.label_zh}`)
     .join("; ");
   const seed = day.forward_artwork_seeds?.[0];
   const seedCopy = seed
@@ -3799,7 +3870,7 @@ function dayCellLabel(day) {
     .filter((source) => source.present)
     .map((source) => `${source.label_en} / ${source.label_zh}`)
     .join("; ");
-  return `${formatLongDate(day.date)}: ${day.title_en} / ${day.title_zh}. SOURCES: ${sources}. ASSIGNED: ${assigned}. SELF: ${day.title_en} / ${day.title_zh}.${seedCopy}`;
+  return `${formatLongDate(day.date)}: ${day.title_en} / ${day.title_zh}. SOURCES: ${sources}. ASSIGNED: ${assigned}. ROUTINE PREVIEW: ${routines}. SELF: ${day.title_en} / ${day.title_zh}.${seedCopy}`;
 }
 
 function selectedDateFromUrl() {

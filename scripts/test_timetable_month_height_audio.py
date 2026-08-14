@@ -32,6 +32,23 @@ class TimetableMonthHeightAudioTests(unittest.TestCase):
         self.assertIn('grid.dataset.previewItemFloor = "3"', self.javascript)
         self.assertIn("scheduleMonthPreviewFloor();", self.javascript)
 
+    def test_sparse_month_previews_start_at_top_and_use_real_routine_fillers(self) -> None:
+        self.assertIn("const MONTH_PREVIEW_ITEM_FLOOR = 3;", self.javascript)
+        self.assertIn("function monthRoutinePreviewItems(day, limit)", self.javascript)
+        self.assertIn('item.source === "pulses"', self.javascript)
+        self.assertIn('item.classification === "climate_aggregate"', self.javascript)
+        self.assertIn('button.dataset.routineFillerCount', self.javascript)
+        self.assertIn('class="cell-mark routine-mark"', self.javascript)
+        self.assertIn('class="cell-mark-detail"', self.javascript)
+        fitted_rule = re.search(
+            r"\.cell-material\.is-fitted\s*\{(?P<body>.*?)\n\}",
+            self.styles,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(fitted_rule)
+        self.assertIn("align-content: start", fitted_rule.group("body"))
+        self.assertNotIn("align-content: end", fitted_rule.group("body"))
+
     def test_legacy_audio_preferences_migrate_once_to_default_on(self) -> None:
         self.assertIn('const AUDIO_DEFAULTS_VERSION = "2026-08-10-default-on-v2"', self.javascript)
         migration = re.search(
