@@ -11,7 +11,13 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from build_print_desk_calendar import load_timetable, printable_days
+from build_print_desk_calendar import (
+    artwork_copy_sections,
+    clean_text,
+    load_timetable,
+    printable_days,
+    routine_family,
+)
 from print_calendar_preset import PrintCalendarPresetError, load_preset, sha256_file
 
 try:
@@ -26,6 +32,7 @@ except ImportError as exc:  # pragma: no cover - environment diagnostic
 
 
 MM_PER_POINT = 25.4 / 72.0
+POINTS_PER_MM = 72.0 / 25.4
 
 
 def parse_args() -> argparse.Namespace:
@@ -63,6 +70,28 @@ def page_uris(page: Any) -> list[str]:
         if action and action.get("/URI"):
             uris.append(str(action.get("/URI")))
     return uris
+
+
+def artwork_copy_crop_bbox(preset: dict[str, Any]) -> tuple[float, float, float, float]:
+    layout = preset["layout"]
+    margin = float(preset["page"]["margin_mm"])
+    page_h = float(preset["page"]["height_mm"])
+    if layout["mode"] == "portrait":
+        x0 = margin
+        x1 = float(preset["page"]["width_mm"]) - margin
+        top = page_h - float(layout["artwork_copy_top_mm"])
+        bottom = page_h - float(layout["artwork_copy_bottom_mm"])
+    else:
+        x0 = margin
+        x1 = margin + float(layout["day_left_width_mm"])
+        top = float(layout["day_body_top_from_top_mm"]) + 35.2
+        main_y = (
+            page_h
+            - float(layout["day_body_top_from_top_mm"])
+            - float(layout["day_main_height_mm"])
+        )
+        bottom = page_h - (main_y + 0.8)
+    return tuple(value * POINTS_PER_MM for value in (x0, top, x1, bottom))
 
 
 def render_pdf(pdf: Path, render_dir: Path, dpi: int) -> list[Path]:
@@ -351,6 +380,7 @@ def main() -> int:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     projection_mode = manifest.get("temporal_projection_mode", "civil_day")
     projected = projection_mode == "source_day_with_forward_crystallization"
+    content_complete_v3 = preset.get("schema") == "granted-hours-print-desk-calendar-preset-v3"
     fail(
         failures,
         manifest.get("preset_sha256") == sha256_file(preset_path),
@@ -411,6 +441,11 @@ def main() -> int:
                 ),
                 f"Source-day strata retain a prior autonomous footprint: {record['date']}",
             )
+            fail(
+                failures,
+                record.get("event_projection_source_date") == record["date"],
+                f"Event cards are not anchored to Source Day {record['date']}",
+            )
             artwork_date = record["crystallization_date"]
             asset = record.get("artwork_asset")
             if record.get("type") == "live":
@@ -425,6 +460,44 @@ def main() -> int:
                     asset is None,
                     f"Absence pairing unexpectedly has artwork asset: {record['date']}",
                 )
+        if content_complete_v3:
+            fail(
+                failures,
+                record.get("artwork_copy_complete") is True
+                and int(record.get("artwork_copy_sections", 0)) == 4,
+                f"Complete Summary + Brief contract missing for {record['date']}",
+            )
+            routine_pulses = [
+                item
+                for item in expected_day.get("background_pulses", [])
+                if item.get("category") != "daily_reminder"
+            ]
+            routine_families = {routine_family(item) for item in routine_pulses}
+            active_slots = min(
+                len(expected_day.get("task_residues", [])),
+                int(preset["content"]["max_collaboration_cards"]),
+            ) + min(
+                sum(
+                    item.get("category") == "daily_reminder"
+                    for item in expected_day.get("background_pulses", [])
+                ),
+                int(preset["content"]["max_reminder_cards"]),
+            )
+            expected_routine_cards = min(
+                len(routine_families),
+                int(preset["content"]["max_routine_cards"]),
+                max(0, int(preset["content"]["max_cards"]) - active_slots),
+            )
+            fail(
+                failures,
+                int(record.get("routine_families_available", -1)) == len(routine_families),
+                f"Routine-family inventory differs for {record['date']}",
+            )
+            fail(
+                failures,
+                int(record.get("routine_cards_rendered", -1)) == expected_routine_cards,
+                f"Available routine families did not fill the page for {record['date']}",
+            )
 
     dimensions: list[list[float]] = []
     for index, page in enumerate(reader.pages, start=1):
@@ -475,6 +548,32 @@ def main() -> int:
                 not any(char in text for char in "‐‑‒–—―"),
                 f"Non-ASCII dash remains on page for {record['date']}",
             )
+            if content_complete_v3:
+                copy_text = (
+                    opened.pages[pdf_page_number - 1]
+                    .crop(artwork_copy_crop_bbox(preset))
+                    .extract_text()
+                    or ""
+                )
+                fail(
+                    failures,
+                    "SUMMARY" in copy_text
+                    and "BRIEF" in copy_text
+                    and "摘要" in copy_text
+                    and "作品简述" in copy_text,
+                    f"Bilingual Summary + Brief labels missing for {record['date']}",
+                )
+                expected_day = canonical_print_days[record["date"]]
+                expected_sections = artwork_copy_sections(expected_day["autonomous_work"])
+                flat_text = "".join(copy_text.split())
+                for primary, _, expected_copy, font in expected_sections:
+                    if font != "Times-Roman":
+                        continue
+                    fail(
+                        failures,
+                        "".join(clean_text(expected_copy).split()) in flat_text,
+                        f"Complete English {primary} paragraph missing for {record['date']}",
+                    )
 
     rendered = render_pdf(pdf, render_dir, dpi)
     render_metrics = inspect_rendered_pages(
@@ -501,7 +600,9 @@ def main() -> int:
 
     report = {
         "schema": (
-            "granted-hours-print-desk-calendar-qa-v2"
+            "granted-hours-print-desk-calendar-qa-v3"
+            if content_complete_v3
+            else "granted-hours-print-desk-calendar-qa-v2"
             if projected
             else "granted-hours-print-desk-calendar-qa-v1"
         ),
@@ -520,6 +621,12 @@ def main() -> int:
         "temporal_projection_mode": projection_mode,
         "live_artwork_days": manifest["live_artwork_days"],
         "absence_days": manifest["absence_days"],
+        "artwork_copy_complete_pages": sum(
+            record.get("artwork_copy_complete") is True for record in manifest["pages"]
+        ),
+        "routine_cards_rendered": sum(
+            int(record.get("routine_cards_rendered", 0)) for record in manifest["pages"]
+        ),
         "rendered_pages": len(rendered),
         "render_metrics": render_metrics,
         "qr_decode": qr_result,

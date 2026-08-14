@@ -84,6 +84,10 @@ MAX_CARDS = 4
 MAX_COLLABORATION_CARDS = 2
 MAX_REMINDER_CARDS = 2
 INCLUDE_ROUTINE_ROLLUP = True
+MAX_ROUTINE_CARDS = 1
+ARTWORK_COPY_MODE = "brief_only"
+ROUTINE_CARD_MODE = "single_rollup"
+FILL_AVAILABLE_ROUTINE_CARDS = False
 QR_ERROR_CORRECTION = "Q"
 QR_BORDER_MODULES = 4
 QR_DAY_SIZE = 18.5 * mm
@@ -342,7 +346,8 @@ def apply_preset(preset: dict[str, Any]) -> None:
     global AMBER, VIOLET, RED, WHITE, LAYOUT
     global ARTWORK_ASPECT, ARTWORK_CACHE_WIDTH, ARTWORK_JPEG_QUALITY
     global ARTWORK_ASSET_PREFERENCE, MAX_CARDS, MAX_COLLABORATION_CARDS
-    global MAX_REMINDER_CARDS, INCLUDE_ROUTINE_ROLLUP
+    global MAX_REMINDER_CARDS, INCLUDE_ROUTINE_ROLLUP, MAX_ROUTINE_CARDS
+    global ARTWORK_COPY_MODE, ROUTINE_CARD_MODE, FILL_AVAILABLE_ROUTINE_CARDS
     global QR_ERROR_CORRECTION, QR_BORDER_MODULES, QR_DAY_SIZE, QR_DAY_Y
     global QR_COVER_SIZE, QR_COVER_Y, QR_INVERTED, DARK_THEME, SURFACES
 
@@ -360,6 +365,12 @@ def apply_preset(preset: dict[str, Any]) -> None:
     MAX_COLLABORATION_CARDS = int(preset["content"]["max_collaboration_cards"])
     MAX_REMINDER_CARDS = int(preset["content"]["max_reminder_cards"])
     INCLUDE_ROUTINE_ROLLUP = bool(preset["content"]["include_routine_rollup"])
+    MAX_ROUTINE_CARDS = int(preset["content"].get("max_routine_cards", 1))
+    ARTWORK_COPY_MODE = preset["content"].get("artwork_copy_mode", "brief_only")
+    ROUTINE_CARD_MODE = preset["content"].get("routine_card_mode", "single_rollup")
+    FILL_AVAILABLE_ROUTINE_CARDS = bool(
+        preset["content"].get("fill_available_routine_cards", False)
+    )
     QR_ERROR_CORRECTION = preset["qr"]["error_correction"]
     QR_BORDER_MODULES = int(preset["qr"]["border_modules"])
     QR_DAY_SIZE = preset_number(preset, "qr", "day_size_mm") * mm
@@ -515,6 +526,129 @@ def draw_text(
     return draw_lines(c, lines, x, y, font, size, leading, color or INK), truncated
 
 
+def artwork_copy_sections(work: dict[str, Any]) -> list[tuple[str, str, str, str]]:
+    """Return the canonical Summary + Brief sequence used by print v3.
+
+    Live works must expose all four canonical paragraphs. An absence is not an
+    artwork, so its public absence note and public absence statement occupy the
+    corresponding Summary and Brief positions without inventing new copy.
+    """
+
+    absent = work.get("origin") == "absence"
+    summary_zh = clean_text(work.get("note_zh") or work.get("zh"))
+    summary_en = clean_text(work.get("note_en") or work.get("en"))
+    brief_zh = clean_text(work.get("brief_zh") or (work.get("zh") if absent else ""))
+    brief_en = clean_text(work.get("brief_en") or (work.get("en") if absent else ""))
+    sections = [
+        ("摘要", "SUMMARY", summary_zh, FONT_LIGHT),
+        ("作品简述", "BRIEF", brief_zh, FONT_LIGHT),
+        ("SUMMARY", "摘要", summary_en, FONT_SERIF),
+        ("BRIEF", "作品简述", brief_en, FONT_SERIF),
+    ]
+    missing = [primary for primary, _, text, _ in sections if not text]
+    if missing:
+        raise CalendarBuildError(
+            f"Artwork {work.get('crystallization_date', 'unknown')} lacks print copy: {missing}"
+        )
+    return sections
+
+
+def draw_bilingual_label(
+    c: canvas.Canvas,
+    x: float,
+    y: float,
+    first: str,
+    second: str,
+    size: float,
+    color: Color,
+) -> float:
+    """Draw one mixed-script label through the shared CJK-capable face."""
+
+    c.setFillColor(color)
+    c.setFont(FONT_MEDIUM, size)
+    label = f"{first} / {second}"
+    c.drawString(x, y, label)
+    return x + pdfmetrics.stringWidth(label, FONT_MEDIUM, size)
+
+
+def draw_artwork_copy(
+    c: canvas.Canvas,
+    work: dict[str, Any],
+    x: float,
+    y_top: float,
+    width: float,
+    height: float,
+) -> dict[str, Any]:
+    """Draw every Summary/Brief paragraph, shrinking within a readable bound.
+
+    This deliberately fails instead of ellipsizing the artwork statement. The
+    event cards below may truncate, but the work's own four-part text contract
+    is complete on every printed page.
+    """
+
+    sections = artwork_copy_sections(work)
+    heading_size = 4.8
+    heading_leading = 6.4
+    section_gap = 1.4
+    chosen: tuple[float, float, float, list[tuple[str, str, list[str], str]]] | None = None
+    for body_size in (5.0, 4.8, 4.6, 4.4, 4.2, 4.0, 3.8):
+        body_leading = body_size * 1.17
+        label_size = max(3.2, body_size - 0.9)
+        label_leading = label_size + 1.2
+        laid_out: list[tuple[str, str, list[str], str]] = []
+        required = heading_leading + 1.8
+        for primary, secondary, text, font in sections:
+            lines = wrap_text(text, font, body_size, width)
+            laid_out.append((primary, secondary, lines, font))
+            required += label_leading + len(lines) * body_leading + section_gap
+        if required <= height:
+            chosen = (body_size, body_leading, label_size, laid_out)
+            break
+    if chosen is None:
+        raise CalendarBuildError(
+            f"Artwork copy does not fit the declared print area for "
+            f"{work.get('crystallization_date', 'unknown')}"
+        )
+
+    body_size, body_leading, label_size, laid_out = chosen
+    draw_bilingual_label(
+        c,
+        x,
+        y_top,
+        "SUMMARY + BRIEF",
+        "摘要 + 作品简述",
+        heading_size,
+        GOLD,
+    )
+    c.setStrokeColor(surface_color("artwork_copy_rule", SURFACES.get("timeline_rule", "#CAC4B9")))
+    c.setLineWidth(0.25)
+    c.line(x, y_top - 2.3, x + width, y_top - 2.3)
+    cursor = y_top - heading_leading
+    total_lines = 0
+    for primary, secondary, lines, font in laid_out:
+        primary_is_zh = font == FONT_LIGHT
+        draw_bilingual_label(
+            c,
+            x,
+            cursor,
+            primary,
+            secondary,
+            label_size,
+            GOLD if primary_is_zh else CYAN_LIGHT,
+        )
+        cursor -= label_size + 1.2
+        color = INK if font == FONT_LIGHT else INK_SOFT
+        cursor = draw_lines(c, lines, x, cursor, font, body_size, body_leading, color)
+        cursor -= section_gap
+        total_lines += len(lines)
+    return {
+        "complete": True,
+        "font_size": body_size,
+        "line_count": total_lines,
+        "sections": 4,
+    }
+
+
 def set_alpha(c: canvas.Canvas, fill: float = 1.0, stroke: float = 1.0) -> None:
     if hasattr(c, "setFillAlpha"):
         c.setFillAlpha(fill)
@@ -578,7 +712,13 @@ def draw_cover_landscape(
     c.drawString(
         MARGIN,
         PAGE_H - 17 * mm,
-        "GRANTED HOURS / SOURCE-DAY EDITION 02" if projected else "GRANTED HOURS / PRINT STUDY 01",
+        (
+            "GRANTED HOURS / SOURCE-DAY EDITION 03"
+            if ARTWORK_COPY_MODE == "summary_brief_bilingual"
+            else "GRANTED HOURS / SOURCE-DAY EDITION 02"
+        )
+        if projected
+        else "GRANTED HOURS / PRINT STUDY 01",
     )
     c.setFillColor(BONE)
     c.setFont(FONT_MEDIUM, 33)
@@ -670,7 +810,13 @@ def draw_cover_portrait(
     c.drawString(
         MARGIN,
         191 * mm,
-        "GRANTED HOURS / SOURCE-DAY PORTRAIT 02" if projected else "GRANTED HOURS / PORTRAIT PRINT STUDY 01",
+        (
+            "GRANTED HOURS / SOURCE-DAY PORTRAIT 03"
+            if ARTWORK_COPY_MODE == "summary_brief_bilingual"
+            else "GRANTED HOURS / SOURCE-DAY PORTRAIT 02"
+        )
+        if projected
+        else "GRANTED HOURS / PORTRAIT PRINT STUDY 01",
     )
     c.setFillColor(BONE)
     c.setFont(FONT_MEDIUM, 31)
@@ -972,6 +1118,7 @@ def routine_card(day: dict[str, Any]) -> dict[str, str]:
         en_parts.append(f"{en} {count}")
     return {
         "kind": "routine",
+        "routine_family": "all",
         "title_zh": f"例行地层 · {len(pulses)} 个时间窗 / {total_minutes} 分钟",
         "title_en": f"Routine strata · {len(pulses)} windows / {total_minutes} min",
         "body_zh": "；".join(zh_parts) or "当日无重复例行任务。",
@@ -979,15 +1126,77 @@ def routine_card(day: dict[str, Any]) -> dict[str, str]:
     }
 
 
+def routine_family(item: dict[str, Any]) -> str:
+    category = item.get("category")
+    if category == "ah_market_scan":
+        return "ah_market"
+    if category == "us_market_scan":
+        return "us_market"
+    return "support"
+
+
+def routine_family_cards(day: dict[str, Any]) -> list[dict[str, str]]:
+    pulses = [
+        item
+        for item in day.get("background_pulses", [])
+        if item.get("category") != "daily_reminder"
+    ]
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for item in pulses:
+        groups.setdefault(routine_family(item), []).append(item)
+    labels = {
+        "ah_market": ("A/H 市场例行", "A/H market routine"),
+        "us_market": ("美股市场例行", "U.S. market routine"),
+        "support": ("后台、系统与日报", "Background, system, and brief"),
+    }
+    cards: list[dict[str, str]] = []
+    for family, members in sorted(
+        groups.items(),
+        key=lambda pair: min(item.get("start", "00:00") for item in pair[1]),
+    ):
+        members.sort(key=lambda item: item.get("start", "00:00"))
+        total_minutes = sum(int(item.get("duration_minutes") or 0) for item in members)
+        category_counts = Counter(item.get("category", "background_routine") for item in members)
+        zh_parts: list[str] = []
+        en_parts: list[str] = []
+        for category, count in category_counts.most_common():
+            zh, en = ROUTINE_LABELS.get(category, (category, category))
+            zh_parts.append(f"{zh} × {count}")
+            en_parts.append(f"{en} × {count}")
+        start = members[0].get("start", "")
+        end = members[-1].get("end", "")
+        label_zh, label_en = labels[family]
+        cards.append(
+            {
+                "kind": "routine",
+                "routine_family": family,
+                "title_zh": f"{start}-{end} · {label_zh}",
+                "title_en": f"{label_en} · {len(members)} windows / {total_minutes} min",
+                "body_zh": f"我完成：{'；'.join(zh_parts)}。",
+                "body_en": f"I completed: {'; '.join(en_parts)}.",
+            }
+        )
+    return cards
+
+
 def choose_cards(day: dict[str, Any]) -> tuple[list[dict[str, str]], int]:
     collaborations = collaboration_cards(day)
     reminders = reminder_cards(day)
-    routine = routine_card(day)
     ordered: list[dict[str, str]] = []
     ordered.extend(collaborations[:MAX_COLLABORATION_CARDS])
     ordered.extend(reminders[:MAX_REMINDER_CARDS])
     if INCLUDE_ROUTINE_ROLLUP and len(ordered) < MAX_CARDS:
-        ordered.append(routine)
+        routines = (
+            routine_family_cards(day)
+            if ROUTINE_CARD_MODE == "family_rollups"
+            else [routine_card(day)]
+        )
+        routine_limit = (
+            min(MAX_ROUTINE_CARDS, MAX_CARDS - len(ordered))
+            if FILL_AVAILABLE_ROUTINE_CARDS
+            else min(1, MAX_CARDS - len(ordered))
+        )
+        ordered.extend(routines[:routine_limit])
     if len(ordered) < MAX_CARDS and len(collaborations) > MAX_COLLABORATION_CARDS:
         ordered.extend(
             collaborations[
@@ -1127,39 +1336,93 @@ def draw_day_page_landscape(
     c.setFont(FONT_MEDIUM, 6.8)
     c.drawString(left_x + 52 * mm, body_top - 10.3 * mm, WEEKDAY_ZH[parsed.weekday()])
 
-    title_y = body_top - 20 * mm
-    _, title_cut = draw_text(c, day.get("title_zh"), left_x, title_y, left_w, FONT_MEDIUM, 13.0, 15.0, 2, INK)
-    en_y = title_y - (30.0 if title_cut else 18.0)
-    _, en_title_cut = draw_text(c, day.get("title_en"), left_x, en_y, left_w, FONT_SERIF_BOLD, 8.0, 9.2, 2, INK_SOFT)
-
-    variable_y = en_y - (18.4 if en_title_cut else 11.0)
-    c.setFillColor(GOLD if day.get("type") == "live" else VIOLET)
-    c.setFont(FONT_MEDIUM, 5.3)
-    c.drawString(left_x, variable_y, "FREE VARIABLE / 自由变量")
-    c.setFillColor(INK)
-    c.setFont(FONT_LIGHT, 6.4)
-    variable_zh = clean_text(day.get("variable_zh"))
-    c.drawString(left_x, variable_y - 8.2, variable_zh)
-    c.setFillColor(INK_SOFT)
-    c.setFont(FONT_SERIF, 6.2)
-    c.drawString(left_x, variable_y - 15.8, clean_text(day.get("variable_en")))
-
     aw = day["autonomous_work"]
-    note_y = variable_y - 25.5
-    note_zh = aw.get("brief_zh") or aw.get("note_zh") or aw.get("zh")
-    note_en = aw.get("brief_en") or aw.get("note_en") or aw.get("en")
-    _, note_zh_cut = draw_text(c, note_zh, left_x, note_y, left_w, FONT_LIGHT, 6.0, 7.4, 3, INK)
-    _, note_en_cut = draw_text(c, note_en, left_x, note_y - 24.0, left_w, FONT_SERIF, 5.5, 6.4, 3, INK_SOFT)
-
-    c.setFillColor(surface_color("meta_text", "#6F756F"))
-    c.setFont(FONT_MONO, 4.8)
     source = day.get("source_date") or aw.get("source_date") or "—"
     relation_label = "SOURCE DAY" if projected else "SOURCE"
-    c.drawString(
-        left_x,
-        main_y + 2.5,
-        f"{relation_label} {source}  ->  CRYSTALLIZATION {crystallization}  ·  03:17-04:17 CST",
-    )
+    artwork_copy_stats: dict[str, Any] = {"complete": False, "sections": 0}
+    note_zh_cut = False
+    note_en_cut = False
+    if ARTWORK_COPY_MODE == "summary_brief_bilingual":
+        title_y = body_top - 17 * mm
+        _, title_cut = draw_text(
+            c, day.get("title_zh"), left_x, title_y, left_w, FONT_MEDIUM, 10.5, 11.5, 2, INK
+        )
+        _, en_title_cut = draw_text(
+            c,
+            day.get("title_en"),
+            left_x,
+            body_top - 27.5 * mm,
+            left_w,
+            FONT_SERIF_BOLD,
+            6.2,
+            7.0,
+            1,
+            INK_SOFT,
+        )
+        variable_y = body_top - 32.5 * mm
+        draw_bilingual_label(
+            c,
+            left_x,
+            variable_y,
+            "VARIABLE",
+            "自由变量",
+            4.2,
+            GOLD if day.get("type") == "live" else VIOLET,
+        )
+        variable_zh, variable_zh_cut = truncated_lines(
+            day.get("variable_zh"), FONT_LIGHT, 4.8, left_w * 0.33, 1
+        )
+        variable_en, variable_en_cut = truncated_lines(
+            day.get("variable_en"), FONT_SERIF, 4.5, left_w * 0.29, 1
+        )
+        c.setFillColor(INK)
+        c.setFont(FONT_LIGHT, 4.8)
+        c.drawString(left_x + left_w * 0.34, variable_y, variable_zh[0] if variable_zh else "")
+        c.setFillColor(INK_SOFT)
+        c.setFont(FONT_SERIF, 4.5)
+        c.drawRightString(left_x + left_w, variable_y, variable_en[0] if variable_en else "")
+        copy_top = body_top - 35.2 * mm
+        artwork_copy_stats = draw_artwork_copy(
+            c,
+            aw,
+            left_x,
+            copy_top,
+            left_w,
+            copy_top - (main_y + 0.8 * mm),
+        )
+        note_zh_cut = bool(variable_zh_cut)
+        note_en_cut = bool(variable_en_cut)
+    else:
+        title_y = body_top - 20 * mm
+        _, title_cut = draw_text(c, day.get("title_zh"), left_x, title_y, left_w, FONT_MEDIUM, 13.0, 15.0, 2, INK)
+        en_y = title_y - (30.0 if title_cut else 18.0)
+        _, en_title_cut = draw_text(c, day.get("title_en"), left_x, en_y, left_w, FONT_SERIF_BOLD, 8.0, 9.2, 2, INK_SOFT)
+
+        variable_y = en_y - (18.4 if en_title_cut else 11.0)
+        c.setFillColor(GOLD if day.get("type") == "live" else VIOLET)
+        c.setFont(FONT_MEDIUM, 5.3)
+        c.drawString(left_x, variable_y, "FREE VARIABLE / 自由变量")
+        c.setFillColor(INK)
+        c.setFont(FONT_LIGHT, 6.4)
+        variable_zh = clean_text(day.get("variable_zh"))
+        c.drawString(left_x, variable_y - 8.2, variable_zh)
+        c.setFillColor(INK_SOFT)
+        c.setFont(FONT_SERIF, 6.2)
+        c.drawString(left_x, variable_y - 15.8, clean_text(day.get("variable_en")))
+
+        note_y = variable_y - 25.5
+        note_zh = aw.get("brief_zh") or aw.get("note_zh") or aw.get("zh")
+        note_en = aw.get("brief_en") or aw.get("note_en") or aw.get("en")
+        _, note_zh_cut = draw_text(c, note_zh, left_x, note_y, left_w, FONT_LIGHT, 6.0, 7.4, 3, INK)
+        _, note_en_cut = draw_text(c, note_en, left_x, note_y - 24.0, left_w, FONT_SERIF, 5.5, 6.4, 3, INK_SOFT)
+
+        c.setFillColor(surface_color("meta_text", "#6F756F"))
+        c.setFont(FONT_MONO, 4.8)
+        c.drawString(
+            left_x,
+            main_y + 2.5,
+            f"{relation_label} {source}  ->  CRYSTALLIZATION {crystallization}  ·  03:17-04:17 CST",
+        )
 
     asset_source = resolve_artwork_asset(repo, day)
     asset_used = None
@@ -1180,7 +1443,18 @@ def draw_day_page_landscape(
         )
     else:
         artwork_caption = "LIVE WORK STILL / 当日自主作品静帧" if asset_used else "ABSENCE BEACON / 缺席信标"
-    c.drawRightString(image_x + image_w, image_y - 3.2 * mm, artwork_caption)
+    caption_y = image_y - 3.2 * mm
+    if ARTWORK_COPY_MODE == "summary_brief_bilingual":
+        c.setFillColor(surface_color("meta_text", "#6F756F"))
+        c.setFont(FONT_MONO, 3.5)
+        c.drawString(
+            image_x,
+            caption_y,
+            f"{relation_label} {source} -> CRYSTALLIZATION {crystallization}",
+        )
+        c.setFillColor(INK_SOFT)
+        c.setFont(FONT_LIGHT, 4.1)
+    c.drawRightString(image_x + image_w, caption_y, artwork_caption)
 
     timeline_top = main_y - 6.5 * mm
     c.setFillColor(INK)
@@ -1201,6 +1475,8 @@ def draw_day_page_landscape(
     draw_timeline(c, day, timeline_top - 3.0)
 
     cards, omitted = choose_cards(day)
+    routine_available = len(routine_family_cards(day))
+    routine_rendered = sum(card["kind"] == "routine" for card in cards)
     cards_x = MARGIN
     cards_w = float(LAYOUT["cards_width_mm"]) * mm
     gap = float(LAYOUT["cards_gap_mm"]) * mm
@@ -1239,13 +1515,21 @@ def draw_day_page_landscape(
         "page": page_index,
         "artwork_asset": str(asset_source.relative_to(repo)) if asset_source else None,
         "timeline_events": event_count,
+        "event_projection_source_date": civil,
         "collaboration_items": len(day.get("task_residues", [])),
         "reminders": sum(
             item.get("category") == "daily_reminder" for item in day.get("background_pulses", [])
         ),
         "cards_rendered": len(cards),
         "cards_omitted": omitted,
+        "routine_families_available": routine_available,
+        "routine_cards_rendered": routine_rendered,
+        "routine_families_omitted": max(0, routine_available - routine_rendered),
         "truncated_card_blocks": truncation_count,
+        "artwork_copy_complete": bool(artwork_copy_stats.get("complete")),
+        "artwork_copy_sections": int(artwork_copy_stats.get("sections", 0)),
+        "artwork_copy_font_size": artwork_copy_stats.get("font_size"),
+        "artwork_copy_line_count": artwork_copy_stats.get("line_count"),
         "qr_url": day_url,
         "header_truncated": bool(title_cut or en_title_cut or note_zh_cut or note_en_cut),
     }
@@ -1279,72 +1563,155 @@ def draw_day_page_portrait(
     c.setFont(FONT_MONO, 5.2)
     c.drawRightString(PAGE_W - MARGIN, 194 * mm, f"GH/{page_index:03d} OF {page_total:03d}")
 
-    c.setFillColor(INK)
-    c.setFont(FONT_SERIF_BOLD, 27)
-    c.drawString(MARGIN, 179 * mm, parsed.strftime("%d"))
-    c.setFont(FONT_SERIF_BOLD, 9.2)
-    c.drawString(28 * mm, 183 * mm, parsed.strftime("%Y · %m"))
-    c.setFont(FONT_MONO_BOLD, 5.5)
-    c.drawString(28 * mm, 177.5 * mm, WEEKDAY_EN[parsed.weekday()])
-    c.setFont(FONT_MEDIUM, 6.2)
-    c.drawString(65 * mm, 177.5 * mm, WEEKDAY_ZH[parsed.weekday()])
-
-    title_x = 28 * mm
-    title_w = PAGE_W - MARGIN - title_x
-    _, title_cut = draw_text(
-        c,
-        day.get("title_zh"),
-        title_x,
-        187 * mm,
-        title_w,
-        FONT_MEDIUM,
-        11.7,
-        13.4,
-        2,
-        INK,
-    )
-    _, en_title_cut = draw_text(
-        c,
-        day.get("title_en"),
-        title_x,
-        172.5 * mm,
-        title_w,
-        FONT_SERIF_BOLD,
-        7.1,
-        8.1,
-        2,
-        INK_SOFT,
-    )
-
-    c.setFillColor(GOLD if day.get("type") == "live" else VIOLET)
-    c.setFont(FONT_MEDIUM, 5.0)
-    c.drawString(MARGIN, 160 * mm, "FREE VARIABLE / 自由变量")
-    c.setFillColor(INK)
-    c.setFont(FONT_LIGHT, 5.8)
-    variable_zh, variable_zh_cut = truncated_lines(
-        day.get("variable_zh"), FONT_LIGHT, 5.8, 64 * mm, 1
-    )
-    c.drawString(MARGIN, 153.8 * mm, variable_zh[0] if variable_zh else "")
-    c.setFillColor(INK_SOFT)
-    c.setFont(FONT_SERIF, 5.5)
-    variable_en, variable_en_cut = truncated_lines(
-        day.get("variable_en"), FONT_SERIF, 5.5, 56 * mm, 1
-    )
-    c.drawRightString(
-        PAGE_W - MARGIN,
-        153.8 * mm,
-        variable_en[0] if variable_en else "",
-    )
-
     aw = day["autonomous_work"]
     source = clean_text(day.get("source_date") or aw.get("source_date") or "UNRECORDED")
-    c.setFillColor(surface_color("meta_text", "#6F756F"))
-    c.setFont(FONT_MONO, 4.5)
-    c.drawString(
-        MARGIN,
-        146.5 * mm,
-        f"{'SOURCE DAY' if projected else 'SOURCE'} {source}  ->  CRYSTALLIZATION {crystallization}  ·  03:17-04:17 CST",
-    )
+    artwork_copy_stats: dict[str, Any] = {"complete": False, "sections": 0}
+    if ARTWORK_COPY_MODE == "summary_brief_bilingual":
+        c.setFillColor(INK)
+        c.setFont(FONT_SERIF_BOLD, 27)
+        c.drawString(MARGIN, 179 * mm, parsed.strftime("%d"))
+        c.setFont(FONT_SERIF_BOLD, 7.4)
+        c.drawString(MARGIN, 170.8 * mm, parsed.strftime("%Y · %m"))
+        draw_bilingual_label(
+            c,
+            MARGIN,
+            166.5 * mm,
+            WEEKDAY_EN[parsed.weekday()],
+            WEEKDAY_ZH[parsed.weekday()],
+            4.3,
+            INK,
+        )
+
+        title_x = 28 * mm
+        title_w = PAGE_W - MARGIN - title_x
+        _, title_cut = draw_text(
+            c,
+            day.get("title_zh"),
+            title_x,
+            186 * mm,
+            title_w,
+            FONT_MEDIUM,
+            10.2,
+            11.2,
+            2,
+            INK,
+        )
+        _, en_title_cut = draw_text(
+            c,
+            day.get("title_en"),
+            title_x,
+            176.3 * mm,
+            title_w,
+            FONT_SERIF_BOLD,
+            6.3,
+            7.0,
+            1,
+            INK_SOFT,
+        )
+        variable_y = 171.3 * mm
+        draw_bilingual_label(
+            c,
+            title_x,
+            variable_y,
+            "VARIABLE",
+            "自由变量",
+            4.0,
+            GOLD if day.get("type") == "live" else VIOLET,
+        )
+        variable_zh, variable_zh_cut = truncated_lines(
+            day.get("variable_zh"), FONT_LIGHT, 4.6, 30 * mm, 1
+        )
+        variable_en, variable_en_cut = truncated_lines(
+            day.get("variable_en"), FONT_SERIF, 4.3, 27 * mm, 1
+        )
+        c.setFillColor(INK)
+        c.setFont(FONT_LIGHT, 4.6)
+        c.drawString(67 * mm, variable_y, variable_zh[0] if variable_zh else "")
+        c.setFillColor(INK_SOFT)
+        c.setFont(FONT_SERIF, 4.3)
+        c.drawRightString(PAGE_W - MARGIN, variable_y, variable_en[0] if variable_en else "")
+        c.setFillColor(surface_color("meta_text", "#6F756F"))
+        c.setFont(FONT_MONO, 3.8)
+        c.drawString(
+            title_x,
+            167.1 * mm,
+            f"{'SOURCE DAY' if projected else 'SOURCE'} {source} -> CRYSTALLIZATION {crystallization} · 03:17-04:17 CST",
+        )
+        copy_top = float(LAYOUT["artwork_copy_top_mm"]) * mm
+        copy_bottom = float(LAYOUT["artwork_copy_bottom_mm"]) * mm
+        artwork_copy_stats = draw_artwork_copy(
+            c,
+            aw,
+            MARGIN,
+            copy_top,
+            PAGE_W - 2 * MARGIN,
+            copy_top - copy_bottom,
+        )
+    else:
+        c.setFillColor(INK)
+        c.setFont(FONT_SERIF_BOLD, 27)
+        c.drawString(MARGIN, 179 * mm, parsed.strftime("%d"))
+        c.setFont(FONT_SERIF_BOLD, 9.2)
+        c.drawString(28 * mm, 183 * mm, parsed.strftime("%Y · %m"))
+        c.setFont(FONT_MONO_BOLD, 5.5)
+        c.drawString(28 * mm, 177.5 * mm, WEEKDAY_EN[parsed.weekday()])
+        c.setFont(FONT_MEDIUM, 6.2)
+        c.drawString(65 * mm, 177.5 * mm, WEEKDAY_ZH[parsed.weekday()])
+
+        title_x = 28 * mm
+        title_w = PAGE_W - MARGIN - title_x
+        _, title_cut = draw_text(
+            c,
+            day.get("title_zh"),
+            title_x,
+            187 * mm,
+            title_w,
+            FONT_MEDIUM,
+            11.7,
+            13.4,
+            2,
+            INK,
+        )
+        _, en_title_cut = draw_text(
+            c,
+            day.get("title_en"),
+            title_x,
+            172.5 * mm,
+            title_w,
+            FONT_SERIF_BOLD,
+            7.1,
+            8.1,
+            2,
+            INK_SOFT,
+        )
+
+        c.setFillColor(GOLD if day.get("type") == "live" else VIOLET)
+        c.setFont(FONT_MEDIUM, 5.0)
+        c.drawString(MARGIN, 160 * mm, "FREE VARIABLE / 自由变量")
+        c.setFillColor(INK)
+        c.setFont(FONT_LIGHT, 5.8)
+        variable_zh, variable_zh_cut = truncated_lines(
+            day.get("variable_zh"), FONT_LIGHT, 5.8, 64 * mm, 1
+        )
+        c.drawString(MARGIN, 153.8 * mm, variable_zh[0] if variable_zh else "")
+        c.setFillColor(INK_SOFT)
+        c.setFont(FONT_SERIF, 5.5)
+        variable_en, variable_en_cut = truncated_lines(
+            day.get("variable_en"), FONT_SERIF, 5.5, 56 * mm, 1
+        )
+        c.drawRightString(
+            PAGE_W - MARGIN,
+            153.8 * mm,
+            variable_en[0] if variable_en else "",
+        )
+
+        c.setFillColor(surface_color("meta_text", "#6F756F"))
+        c.setFont(FONT_MONO, 4.5)
+        c.drawString(
+            MARGIN,
+            146.5 * mm,
+            f"{'SOURCE DAY' if projected else 'SOURCE'} {source}  ->  CRYSTALLIZATION {crystallization}  ·  03:17-04:17 CST",
+        )
 
     image_x = float(LAYOUT["day_artwork_x_mm"]) * mm
     image_y = float(LAYOUT["day_artwork_y_mm"]) * mm
@@ -1390,6 +1757,8 @@ def draw_day_page_portrait(
     draw_timeline(c, day, timeline_top - 3.0)
 
     cards, omitted = choose_cards(day)
+    routine_available = len(routine_family_cards(day))
+    routine_rendered = sum(card["kind"] == "routine" for card in cards)
     card_x = MARGIN
     card_w = float(LAYOUT["cards_width_mm"]) * mm
     card_h = float(LAYOUT["card_height_mm"]) * mm
@@ -1397,7 +1766,7 @@ def draw_day_page_portrait(
     row_gap = float(LAYOUT["cards_row_gap_mm"]) * mm
     truncation_count = 0
     for index, card in enumerate(cards):
-        card_y = base_y + (len(cards) - index - 1) * (card_h + row_gap)
+        card_y = base_y + (MAX_CARDS - index - 1) * (card_h + row_gap)
         truncation_count += draw_card(c, card, card_x, card_y, card_w, card_h)
 
     qr_size = QR_DAY_SIZE
@@ -1423,6 +1792,7 @@ def draw_day_page_portrait(
         "page": page_index,
         "artwork_asset": str(asset_source.relative_to(repo)) if asset_source else None,
         "timeline_events": event_count,
+        "event_projection_source_date": civil,
         "collaboration_items": len(day.get("task_residues", [])),
         "reminders": sum(
             item.get("category") == "daily_reminder"
@@ -1430,7 +1800,14 @@ def draw_day_page_portrait(
         ),
         "cards_rendered": len(cards),
         "cards_omitted": omitted,
+        "routine_families_available": routine_available,
+        "routine_cards_rendered": routine_rendered,
+        "routine_families_omitted": max(0, routine_available - routine_rendered),
         "truncated_card_blocks": truncation_count,
+        "artwork_copy_complete": bool(artwork_copy_stats.get("complete")),
+        "artwork_copy_sections": int(artwork_copy_stats.get("sections", 0)),
+        "artwork_copy_font_size": artwork_copy_stats.get("font_size"),
+        "artwork_copy_line_count": artwork_copy_stats.get("line_count"),
         "qr_url": day_url,
         "header_truncated": bool(
             title_cut
@@ -1519,7 +1896,9 @@ def main() -> int:
         manifest_preset_path = str(preset_path)
     manifest = {
         "schema": (
-            "granted-hours-print-desk-calendar-v2"
+            "granted-hours-print-desk-calendar-v3"
+            if preset["schema"] == "granted-hours-print-desk-calendar-preset-v3"
+            else "granted-hours-print-desk-calendar-v2"
             if projected
             else "granted-hours-print-desk-calendar-v1"
         ),

@@ -13,6 +13,7 @@ DEFAULT_PRESET = Path("config/print-desk-calendar-v1.json")
 EXPECTED_SCHEMAS = {
     "granted-hours-print-desk-calendar-preset-v1",
     "granted-hours-print-desk-calendar-preset-v2",
+    "granted-hours-print-desk-calendar-preset-v3",
 }
 
 
@@ -114,9 +115,12 @@ def validate_preset(preset: dict[str, Any]) -> None:
             f"Unsupported temporal_projection.mode: {projection_mode!r}"
         )
     if projection_mode == "source_day_with_forward_crystallization":
-        if schema != "granted-hours-print-desk-calendar-preset-v2":
+        if schema not in {
+            "granted-hours-print-desk-calendar-preset-v2",
+            "granted-hours-print-desk-calendar-preset-v3",
+        }:
             raise PrintCalendarPresetError(
-                "Source-day projection requires the v2 preset schema"
+                "Source-day projection requires the v2 or v3 preset schema"
             )
         if projection.get("unpaired_source_day") != "omit":
             raise PrintCalendarPresetError(
@@ -126,6 +130,28 @@ def validate_preset(preset: dict[str, Any]) -> None:
             raise PrintCalendarPresetError(
                 "Source-day projection requires source_day_autonomous_footprint=omit_from_strata"
             )
+    if schema == "granted-hours-print-desk-calendar-preset-v3":
+        if _require(preset, "content.artwork_copy_mode", str) != "summary_brief_bilingual":
+            raise PrintCalendarPresetError(
+                "The v3 print contract requires content.artwork_copy_mode=summary_brief_bilingual"
+            )
+        if _require(preset, "content.routine_card_mode", str) != "family_rollups":
+            raise PrintCalendarPresetError(
+                "The v3 print contract requires content.routine_card_mode=family_rollups"
+            )
+        _require(preset, "content.fill_available_routine_cards", bool)
+        max_routine_cards = int(_require(preset, "content.max_routine_cards", int))
+        if not 1 <= max_routine_cards <= 3:
+            raise PrintCalendarPresetError("content.max_routine_cards must be between 1 and 3")
+        if mode == "portrait":
+            copy_top = float(_require(preset, "layout.artwork_copy_top_mm", (int, float)))
+            copy_bottom = float(
+                _require(preset, "layout.artwork_copy_bottom_mm", (int, float))
+            )
+            if copy_top <= copy_bottom:
+                raise PrintCalendarPresetError(
+                    "Portrait artwork-copy top must be above its bottom"
+                )
     proof_dates = _require(preset, "proof.dates", list)
     if not proof_dates or not all(isinstance(item, str) for item in proof_dates):
         raise PrintCalendarPresetError("proof.dates must contain civil dates")

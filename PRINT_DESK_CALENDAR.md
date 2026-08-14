@@ -4,7 +4,19 @@
 
 ## 当前版本
 
-### v2：来源日配对版（当前交付规范）
+### v3：内容完整版暗色来源日配对版（当前交付规范）
+
+- 两个新增且独立的预设，不覆盖任何 v1/v2 版本：
+  - `config/print-desk-calendar-source-aligned-dark-landscape-v3.json`
+  - `config/print-desk-calendar-source-aligned-dark-portrait-v3.json`
+- 延续 v2 的 Source Day 配对：纸页日期、时间地层、事件卡与二维码都属于 Source Day；作品来自唯一满足 `source_date == 页日期` 的后续公开结晶日，并在页面上同时印出两个日期。
+- 横版和竖版都完整印出四段规范作品文字，顺序固定为中文 Summary、中文 Brief、英文 Summary、英文 Brief。作品文字不得省略号截断；若声明区域在最低字号仍放不下，构建必须失败。
+- 缺席页不补造作品或文字：只将公开缺席说明与缺席陈述分别放入 Summary/Brief 位置。
+- 信息卡先保留真实的协作事件与第一人称晨间/晚间提醒，再用当天真实发生的 A/H 市场、美股市场、后台/系统/日报三个例行族群填充剩余槽位，最多四张卡。例行卡可以汇总，时间地层仍保留每个原始足迹。
+- 竖版不是横版旋转：它有独立的 Summary + Brief、16:9 作品图、时间地层与四卡布局；二维码固定为右下角黑底白码。
+- 以 2026-08-13 的当前公开数据为准，成册为封面 + 99 个 Source Day（2026-05-06 至 2026-08-12），配对 93 件作品与 6 个公开缺席结晶（2026-05-07 至 2026-08-13）。最新未配对 Source Day 继续省略。
+
+### v2：来源日配对版（回滚保留）
 
 - 四个独立预设：
   - `config/print-desk-calendar-source-aligned-light-landscape-v2.json`
@@ -37,6 +49,7 @@
 
 | 文件 | 作用 |
 | --- | --- |
+| `config/print-desk-calendar-source-aligned-dark-*-v3.json` | 暗色横/竖内容完整版真源；锁定完整 Summary + Brief、来源日事件归属、例行族群补位与黑底白码 |
 | `config/print-desk-calendar-source-aligned-*-v2.json` | 四份来源日配对版真源；分别控制亮/暗、横/竖，不覆盖 v1 |
 | `config/print-desk-calendar-v1.json` | 尺寸、网格、配色、内容限额、二维码、校样日期、QA 与输出命名的机器可读真源 |
 | `config/print-desk-calendar-portrait-v1.json` | 独立竖版真源；保留横版不动，定义 140 × 210 mm 布局、三张纵向信息卡与反相二维码 |
@@ -46,6 +59,7 @@
 | `scripts/build_print_desk_calendar.py` | 从 `src/timetable/timetable-data.js` 生成封面、逐日内页和 manifest |
 | `scripts/qa_print_desk_calendar.py` | 校验页数、MediaBox、文本、链接、渲染、空白页和逐日二维码，并生成 contact sheet |
 | `scripts/test_print_calendar_projection.py` | 锁定电子首日缺席、首个来源日配对、来源日事件归属、末尾未配对日省略规则 |
+| `scripts/test_print_calendar_content.py` | 遍历全部可配对 Source Day，锁定四段作品文字、事件同日关系与真实例行补位规则 |
 | `requirements/print-calendar.txt` | v1 已验证的 Python 依赖版本 |
 
 ## 环境
@@ -65,7 +79,15 @@ export PRINT_PYTHON="$PWD/.venv-print-calendar/bin/python"
 
 ## 固定构建命令
 
-当前四份来源日配对版可以一次生成：
+当前两份 v3 暗色内容完整版可以一次生成：
+
+```bash
+for preset in config/print-desk-calendar-source-aligned-dark-*-v3.json; do
+  "$PRINT_PYTHON" scripts/build_print_desk_calendar.py --preset "$preset"
+done
+```
+
+需要回滚或重建 v2 四份来源日配对版时：
 
 ```bash
 for preset in config/print-desk-calendar-source-aligned-*-v2.json; do
@@ -83,10 +105,11 @@ PYTHONPATH=tmp/pdfs/python-deps "$PRINT_PYTHON" scripts/qa_print_desk_calendar.p
   --require-qr-decode
 ```
 
-完整构建前先运行投影回归测试：
+完整构建前先运行投影与内容回归测试：
 
 ```bash
 "$PRINT_PYTHON" scripts/test_print_calendar_projection.py
+"$PRINT_PYTHON" scripts/test_print_calendar_content.py
 ```
 
 先检查预设能够被读取：
@@ -180,6 +203,18 @@ output/pdf/granted-hours-desk-calendar-{from_date}-to-{through_date}-v1.pdf
 
 两份暗色预设均使用白码黑底二维码。QA 除逐页解码外，还会从每个日页的无内容页边抽样，确认页面真实使用暗纸面，而不是只把卡片或封面改暗。
 
+当前 v3 暗色横/竖完整版的显式命令是：
+
+```bash
+"$PRINT_PYTHON" scripts/build_print_desk_calendar.py \
+  --preset config/print-desk-calendar-source-aligned-dark-landscape-v3.json
+
+"$PRINT_PYTHON" scripts/build_print_desk_calendar.py \
+  --preset config/print-desk-calendar-source-aligned-dark-portrait-v3.json
+```
+
+对两份成品都必须运行带 `--require-qr-decode` 的全量 QA。v3 报告还必须满足 `artwork_copy_complete_pages == 日页数`、`failures == []`，并记录实际渲染的 `routine_cards_rendered`；人工检查 contact sheet 时同时确认中文标签无缺字方框、作品说明无裁切、稀疏页的信息卡紧随时间地层。
+
 ## 常用覆盖参数
 
 命令行参数只覆盖本次构建；没有显式覆盖时，以 JSON 预设为准。
@@ -234,6 +269,6 @@ output/pdf/granted-hours-desk-calendar-{from_date}-to-{through_date}-v1.pdf
 
 ## 回滚
 
-v1 四个预设没有被 v2 覆盖，因此最快的语义回滚是不传 v2 预设，或显式选择任一 `print-desk-calendar-*-v1.json` 重新生成结晶日版。代码与参数的长期回滚单位仍是 Git commit；PDF 构建产物不进 Git。manifest 保存了当次预设 SHA-256 和 `temporal_projection_mode`，因此可以判断某份 PDF 使用的是 civil-day 还是 Source-Day 规则。
+v1/v2 预设都没有被 v3 覆盖。最快的回滚是显式选择任一 v2 来源日预设，或任一 `print-desk-calendar-*-v1.json` 重建结晶日版。代码与参数的长期回滚单位仍是 Git commit；PDF 构建产物不进 Git。manifest 保存了当次预设 SHA-256、版本化内容契约和 `temporal_projection_mode`，因此可以判断某份 PDF 使用的是 civil-day、v2 Source-Day，还是 v3 内容完整版规则。
 
 如果只想恢复视觉参数而保留后续日程数据，不要回滚 `src/timetable/timetable-data.js`；只恢复 `config/print-desk-calendar-*.json` 和打印脚本后重新构建即可。

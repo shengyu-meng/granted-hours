@@ -41,9 +41,9 @@ Each public entry follows this chain:
 
 ## Printable desk calendar / 实体台历
 
-仓库内保存了实体台历横版（210 × 140 mm）与竖版（140 × 210 mm）的浅色/暗色版本化参数、生成脚本、依赖和 QA 流程。版式调整与复现请从 [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md) 开始；生成器与验收脚本读取对应预设，并在 manifest 中记录预设哈希。
+仓库内保存了实体台历横版（210 × 140 mm）与竖版（140 × 210 mm）的浅色/暗色版本化参数、生成脚本、依赖和 QA 流程。当前 v3 暗色横/竖版按 Source Day 将作品与产生它的事件放在同一页，完整保留中英文 Summary + Brief，并用当天真实例行记录补足稀疏信息卡。版式调整与复现请从 [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md) 开始；生成器与验收脚本读取对应预设，并在 manifest 中记录预设哈希。
 
-The repository includes versioned light and dark presets for landscape (210 × 140 mm) and portrait (140 × 210 mm), the generator, pinned dependencies, and a shared QA workflow. Start with [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md); each build records the exact preset hash in its manifest.
+The repository includes versioned light and dark presets for landscape (210 × 140 mm) and portrait (140 × 210 mm), the generator, pinned dependencies, and a shared QA workflow. The current dark v3 editions keep each Source Day with the events that produced its later crystallized work, print the complete bilingual Summary + Brief, and fill sparse card space only with truthful routine records from that day. Start with [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md); each build records the exact preset hash in its manifest.
 
 ## Daily Archive / 每日档案
 
