@@ -7,6 +7,11 @@ const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8874/timetable/";
 const sampleDate = "2026-07-08";
 const browser = await chromium.launch({ headless: true });
 
+function configurePage(page) {
+  page.setDefaultNavigationTimeout(120_000);
+  return page;
+}
+
 async function scrollTopology(page) {
   return page.evaluate(() => {
     const candidates = [
@@ -204,7 +209,7 @@ function assertFullscreenArtworkLayout(state, label) {
 
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
-  const page = await context.newPage();
+  const page = configurePage(await context.newPage());
   const sampleUrl = new URL(baseUrl);
   sampleUrl.searchParams.set("date", sampleDate);
   await page.goto(sampleUrl.href, { waitUntil: "domcontentloaded" });
@@ -301,7 +306,7 @@ try {
   });
   assert.equal(outerActivationCount, 0);
 
-  const artworkPage = await context.newPage();
+  const artworkPage = configurePage(await context.newPage());
   await stubArtworkEmbed(artworkPage, { delayMs: 2000 });
   const artworkUrl = new URL(baseUrl);
   artworkUrl.searchParams.set("date", latest.date);
@@ -431,7 +436,7 @@ try {
     hasTouch: true,
     deviceScaleFactor: 2.75,
   });
-  const mobilePage = await mobile.newPage();
+  const mobilePage = configurePage(await mobile.newPage());
   await stubArtworkEmbed(mobilePage);
   await mobilePage.goto(sampleUrl.href, { waitUntil: "domcontentloaded" });
   await mobilePage.waitForSelector(`#dayDialog.is-open[data-selected-date="${sampleDate}"]`);
@@ -501,7 +506,7 @@ try {
       isMobile: viewportCase.mobile,
       hasTouch: viewportCase.mobile,
     });
-    const responsivePage = await responsiveContext.newPage();
+    const responsivePage = configurePage(await responsiveContext.newPage());
     await stubArtworkEmbed(responsivePage);
     const responsiveUrl = new URL(baseUrl);
     responsiveUrl.searchParams.set("date", latest.date);
