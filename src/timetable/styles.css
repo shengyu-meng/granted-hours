@@ -163,6 +163,26 @@ h3 {
   font-size: 13px;
 }
 
+.author-credit {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 4px;
+  min-width: 0;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.author-credit a {
+  color: var(--ink);
+  text-decoration-color: color-mix(in srgb, var(--cyan-trace) 50%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.author-credit-separator {
+  color: var(--ink-muted);
+}
+
 .calendar-bgm-control {
   display: grid;
   max-width: min(34vw, 360px);
@@ -551,16 +571,11 @@ h1 {
 }
 
 .state-sentence,
-.public-note,
-.maze-thread {
+.public-note {
   color: rgba(133, 128, 116, 0.86);
   font-family: var(--font-mono);
   font-size: 10px;
   line-height: 1.45;
-}
-
-.maze-thread {
-  white-space: nowrap;
 }
 
 .day-dialog {
@@ -1176,8 +1191,7 @@ h1 {
     font-size: 15px;
   }
 
-  .clock-label,
-  .quiet-nav a[href="../maze/"] {
+  .clock-label {
     display: none;
   }
 
@@ -1318,8 +1332,7 @@ h1 {
   }
 
   .state-sentence,
-  .public-note,
-  .maze-thread {
+  .public-note {
     font-size: 9px;
   }
 
@@ -3385,7 +3398,6 @@ h1,
 .dialog-variable,
 .state-sentence,
 .public-note,
-.maze-thread,
 .timeline-help {
   color: var(--ink-muted);
 }
@@ -4623,8 +4635,7 @@ h1 {
 .calendar-piano-toggle,
 .theme-toggle,
 .state-sentence,
-.public-note,
-.maze-thread {
+.public-note {
   font-size: clamp(9.5px, 0.72vw, 10.5px);
   line-height: 1.45;
 }
@@ -7228,6 +7239,20 @@ h1 {
   .quiet-nav {
     grid-template-columns: repeat(3, 44px);
     justify-content: end;
+  }
+
+  .author-credit {
+    justify-self: end;
+    min-height: 44px;
+    gap: 3px;
+    font-size: 10px;
+  }
+
+  .author-credit a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 2px;
   }
 
   .theme-toggle,

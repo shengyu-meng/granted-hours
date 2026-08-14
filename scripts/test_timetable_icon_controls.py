@@ -52,6 +52,30 @@ class TimetableIconControlTests(unittest.TestCase):
             self.javascript,
         )
 
+    def test_calendar_credits_link_both_authors_and_remove_interior(self) -> None:
+        self.assertNotIn('href="../maze/"', self.html)
+        self.assertNotIn(">Interior<", self.html)
+        self.assertNotIn("maze-thread", self.html)
+        self.assertNotIn("更深的内景", self.html)
+        self.assertNotIn("Deeper interior", self.html)
+        credit = re.search(
+            r'<span class="author-credit".*?</span>\s*</div>',
+            self.html,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(credit)
+        self.assertIn('href="https://hyperint.net/me"', credit.group(0))
+        self.assertIn(">Simon Meng<", credit.group(0))
+        self.assertIn(
+            'href="https://hermes-agent.nousresearch.com/"',
+            credit.group(0),
+        )
+        self.assertIn(">Hermes Agent<", credit.group(0))
+        self.assertLess(
+            credit.group(0).index("Simon Meng"),
+            credit.group(0).index("Hermes Agent"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

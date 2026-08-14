@@ -107,6 +107,9 @@ async function monthGeometry(page, date) {
         const box = document.querySelector(selector).getBoundingClientRect();
         return { selector, width: box.width, height: box.height };
       });
+    const authorCredit = document.querySelector(".author-credit");
+    const authorLinks = [...authorCredit.querySelectorAll("a")];
+    const authorCreditBox = authorCredit.getBoundingClientRect();
     return {
       weekCount: Number(grid.dataset.weekCount),
       gridHeight: gridBox.height,
@@ -144,6 +147,16 @@ async function monthGeometry(page, date) {
       horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       requiredBounds,
       headerControls,
+      interiorEntryPresent: Boolean(document.querySelector('a[href*="/maze"], .maze-thread')),
+      authorNames: authorLinks.map((link) => link.textContent.trim()),
+      authorHrefs: authorLinks.map((link) => link.href),
+      authorLinkHeights: authorLinks.map((link) => link.getBoundingClientRect().height),
+      authorCreditBox: {
+        left: authorCreditBox.left,
+        right: authorCreditBox.right,
+        top: authorCreditBox.top,
+        bottom: authorCreditBox.bottom,
+      },
       contained: requiredBounds.every((box) => box.left >= -1 && box.right <= innerWidth + 1),
     };
   }, date);
@@ -187,6 +200,15 @@ async function geometryAudit(browser, viewport) {
     assert.deepEqual(geometry.missingRoutineFillDates, [], JSON.stringify(geometry));
     assert.deepEqual(geometry.failedDenseMutationDates, [], JSON.stringify(geometry));
     assert.deepEqual(geometry.failedNoFabricationDates, [], JSON.stringify(geometry));
+    assert.equal(geometry.interiorEntryPresent, false, JSON.stringify(geometry));
+    assert.deepEqual(geometry.authorNames, ["Simon Meng", "Hermes Agent"], JSON.stringify(geometry));
+    assert.deepEqual(
+      geometry.authorHrefs,
+      ["https://hyperint.net/me", "https://hermes-agent.nousresearch.com/"],
+      JSON.stringify(geometry),
+    );
+    assert.ok(geometry.authorCreditBox.left >= -1, JSON.stringify(geometry));
+    assert.ok(geometry.authorCreditBox.right <= viewport.width + 1, JSON.stringify(geometry));
   }
   if (viewport.width <= 720) {
     for (const geometry of months) {
@@ -196,6 +218,10 @@ async function geometryAudit(browser, viewport) {
       assert.ok(Math.abs(theme.height - piano.height) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.height - bgm.height) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(theme.width <= 44.2 && theme.height <= 44.2, JSON.stringify(geometry.headerControls));
+      assert.ok(
+        geometry.authorLinkHeights.every((height) => height >= 43.8),
+        JSON.stringify(geometry.authorLinkHeights),
+      );
     }
   }
   await page.close();
