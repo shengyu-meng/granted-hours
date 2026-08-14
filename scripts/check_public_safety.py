@@ -2,6 +2,9 @@
 """Lightweight public mirror safety scan for 授时 / Granted Hours."""
 from __future__ import annotations
 import argparse
+import copy
+import json
+import os
 import re
 from pathlib import Path
 
@@ -11,7 +14,7 @@ from public_projection_privacy import (
     load_private_denylist,
     load_public_identity_allowlist,
 )
-from semantic_public_policy import semantic_risk_tags
+from apply_semantic_public_policy import sanitize_history, sanitize_pulses, serialized_json
 
 ROOT = Path(__file__).resolve().parents[1]
 IDENTITY_DENYLIST = ROOT / '.private' / 'identity-denylist.json'
@@ -62,7 +65,10 @@ ALLOWED_TOKENS = {
 PATTERNS = [
     ('absolute_user_path', re.compile(r'/Users/(?!example|name|yourname)[A-Za-z0-9._-]+')),
     ('github_token', re.compile(r'(ghp_|github_pat_)[A-Za-z0-9_]{20,}')),
-    ('openai_key', re.compile(r'sk-[A-Za-z0-9_-]{20,}')),
+    # A key must start at a token boundary. Without this guard, ordinary
+    # release names such as "desk-calendar-portrait" contain the substring
+    # "sk-" and are reported as credentials.
+    ('openai_key', re.compile(r'(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}')),
     ('aws_access_key', re.compile(r'AKIA[0-9A-Z]{16}')),
     ('bearer_token', re.compile(r'(?i)\bbearer\s+[A-Za-z0-9._~-]{16,}')),
     ('generic_secret_assignment', re.compile(r'(?i)(api[_-]?key|token|password|secret)\s*[:=]\s*["\']?[^\s"\']{8,}')),
@@ -107,13 +113,24 @@ PULSE_PRIVATE_ID_RE = re.compile(
     r"(?i)[\"'](?:job[_ -]?id|channel|delivery[_ -]?target|prompt)[\"']\s*:"
     r"|\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b"
 )
-SKIP_DIRS = {'.git', '.private', 'node_modules'}
+# Generated local proofs and QA logs are deliberately outside the public
+# mirror. They can contain absolute build paths, so scanning them obscures the
+# actual publication boundary instead of protecting it.
+SKIP_DIRS = {'.git', '.private', 'dist', 'node_modules', 'output', 'tmp'}
 TEXT_SUFFIXES = {
     '.css', '.csv', '.html', '.js', '.json', '.md', '.mjs', '.cjs', '.py',
     '.svg', '.toml', '.txt', '.xml', '.yaml', '.yml',
 }
 TEXT_FILENAMES = {'LICENSE', 'README', 'CNAME'}
-SKIP_PREFIXES = {'audits/', 'scripts/test_'}
+SKIP_PREFIXES = {
+    'audits/',
+    'scripts/test_',
+    # The hashed timetable bundle is a deterministic build of the canonical
+    # metadata/source artifacts scanned below and verified separately by the
+    # release-evidence parity gate. Scanning its multi-megabyte minified line
+    # adds no publication coverage and causes pathological regex runtimes.
+    'docs/timetable/assets/',
+}
 SKIP_FILES = {
     'scripts/check_public_safety.py',
     'scripts/import_agent_events.py',
@@ -126,12 +143,6 @@ SKIP_FILES = {
     'scripts/reminder_disclosure.py',
     'scripts/test_public_safety.py',
 }
-SEMANTIC_PUBLIC_FILES = {
-    'metadata/timetable-history.json',
-    'metadata/timetable-pulses.json',
-    'metadata/timetable-reminder-translations.json',
-    'src/timetable/timetable-data.js',
-}
 PUBLIC_MARKET_PRIVATE_RE = re.compile(
     r"(?i)\b(?:QMT|Futu|SWHY|workspace[_ -]?id|workspace[_ -]?dir|"
     r"investment[-_/ ]os|qmt_[a-z0-9_]+|record[_ -]?key)\b|"
@@ -142,11 +153,6 @@ PUBLIC_COPY_META_RE = re.compile(
     r"具体(?:叙事|身心细节|关系信息|主体和活动信息|平台和技术细节|心理判断|资产、账户和操作)不公开|"
     r"(?:underlying narrative|specific (?:physical|relationship|parties|platform|psychological|assets)).{0,80}remains? private"
 )
-TIMETABLE_ARTWORK_BRIEF_RE = re.compile(
-    r'((?:"(?:brief_en|brief_zh)"|(?:brief_en|brief_zh))\s*:\s*)'
-    r'(?:"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)'
-)
-
 def scrub_allowed_tokens(line: str, public_names: tuple[str, ...] = ()) -> str:
     """Remove explicitly public names/URLs without exempting the rest of a line."""
     result = line
@@ -155,18 +161,29 @@ def scrub_allowed_tokens(line: str, public_names: tuple[str, ...] = ()) -> str:
     return result
 
 
-def semantic_scan_text(rel: str, text: str) -> str:
-    """Keep private-context heuristics off canonical public artwork prose.
+def structured_text_segments(text: str) -> tuple[str, ...]:
+    """Return individual strings from one canonical JSON document."""
+    try:
+        value = json.loads(text)
+    except json.JSONDecodeError:
+        return (text,)
 
-    Artwork Brief fields come from the already-public, sanitized work note and
-    deliberately use metaphorical words such as "collapse" or "escape". Secret,
-    path, identity, and other line-level scans still inspect their original text.
-    """
-    if rel == "src/timetable/timetable-data.js" or (
-        rel.startswith("docs/timetable/assets/") and rel.endswith(".js")
-    ):
-        return TIMETABLE_ARTWORK_BRIEF_RE.sub(r'\1""', text)
-    return text
+    segments: list[str] = []
+
+    def collect(item: object, key: str | None = None) -> None:
+        if isinstance(item, str):
+            segments.append(item)
+            return
+        if isinstance(item, dict):
+            for child_key, child_value in item.items():
+                collect(child_value, str(child_key))
+            return
+        if isinstance(item, list):
+            for child in item:
+                collect(child, key)
+
+    collect(value)
+    return tuple(segments)
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -187,12 +204,59 @@ def main(root: Path) -> int:
         ),
         public_names,
     )
-    for path in root.rglob('*'):
-        if (
-            path.is_symlink()
-            or path.is_dir()
-            or any(part in SKIP_DIRS for part in path.parts)
-        ):
+    for relative, expected_schema, sanitizer in (
+        (
+            "metadata/timetable-history.json",
+            "granted-hours-timetable-history-v4",
+            sanitize_history,
+        ),
+        (
+            "metadata/timetable-pulses.json",
+            "granted-hours-timetable-pulses-v6",
+            sanitize_pulses,
+        ),
+    ):
+        canonical_path = root / relative
+        if not canonical_path.exists():
+            continue
+        try:
+            canonical_source = json.loads(canonical_path.read_text(encoding="utf-8"))
+            if (
+                not isinstance(canonical_source, dict)
+                or canonical_source.get("schema") != expected_schema
+            ):
+                continue
+            sanitized, _ = sanitizer(
+                copy.deepcopy(canonical_source),
+                identity_terms=identity_terms,
+            )
+        except (json.JSONDecodeError, ValueError):
+            findings.append((relative, 0, "invalid_semantic_policy_source", "[value withheld]"))
+            continue
+        if serialized_json(sanitized) != canonical_path.read_text(encoding="utf-8"):
+            findings.append((relative, 0, "semantic_policy_not_current", "[value withheld]"))
+        canonical_segments = structured_text_segments(
+            canonical_path.read_text(encoding="utf-8")
+        )
+        if any(PUBLIC_MARKET_PRIVATE_RE.search(segment) for segment in canonical_segments):
+            findings.append((relative, 0, "private_market_operational_context", "[value withheld]"))
+        if any(PUBLIC_COPY_META_RE.search(segment) for segment in canonical_segments):
+            findings.append((relative, 0, "reader_facing_audit_or_handoff_copy", "[value withheld]"))
+    public_paths: list[Path] = []
+    for current_root, dir_names, file_names in os.walk(root, topdown=True):
+        current_path = Path(current_root)
+        # Prune non-public trees before traversal. Filtering only after rglob
+        # discovery still walks every dependency and temporary artifact, which
+        # can make the daily publication gate take tens of minutes.
+        dir_names[:] = sorted(
+            name
+            for name in dir_names
+            if name not in SKIP_DIRS and not (current_path / name).is_symlink()
+        )
+        public_paths.extend(current_path / name for name in sorted(file_names))
+
+    for path in public_paths:
+        if path.is_symlink():
             continue
         rel = path.relative_to(root).as_posix()
         if rel in SKIP_FILES or any(rel.startswith(prefix) for prefix in SKIP_PREFIXES):
@@ -203,33 +267,27 @@ def main(root: Path) -> int:
             text = path.read_text(encoding='utf-8')
         except UnicodeDecodeError:
             continue
-        if rel in SEMANTIC_PUBLIC_FILES or (
-            rel.startswith('docs/timetable/')
-            and path.suffix.lower() in {'.html', '.js', '.json'}
-        ):
-            if rel == "metadata/timetable-history.json":
-                for template in LEGACY_COLLABORATION_TEMPLATES:
-                    if template in text:
-                        findings.append(
-                            (rel, 0, 'legacy_collaboration_template', '[value withheld]')
-                        )
-            semantic_tags = semantic_risk_tags(semantic_scan_text(rel, text))
-            for tag in semantic_tags:
-                findings.append((rel, 0, f'semantic_private_context:{tag}', '[value withheld]'))
-            if PUBLIC_MARKET_PRIVATE_RE.search(text):
-                findings.append((rel, 0, 'private_market_operational_context', '[value withheld]'))
-            if PUBLIC_COPY_META_RE.search(text):
-                findings.append((rel, 0, 'reader_facing_audit_or_handoff_copy', '[value withheld]'))
-        for i, line in enumerate(text.splitlines(), 1):
-            scan_line = scrub_allowed_tokens(line, public_names)
+        if rel == "metadata/timetable-history.json":
+            for template in LEGACY_COLLABORATION_TEMPLATES:
+                if template in text:
+                    findings.append(
+                        (rel, 0, 'legacy_collaboration_template', '[value withheld]')
+                    )
+        lines = text.splitlines()
+        scan_text = scrub_allowed_tokens(text, public_names)
+        for name, rx in PATTERNS:
+            for match in rx.finditer(scan_text):
+                line_number = scan_text.count('\n', 0, match.start()) + 1
+                excerpt = lines[line_number - 1].strip()[:220] if lines else ""
+                findings.append((rel, line_number, name, excerpt))
+
+        identity_hit = denied_terms_present(text, identity_terms)
+        for i, line in enumerate(lines, 1):
             # Identity authorization is exact-term only. Scan the untouched
             # line so an allowed short name cannot hide a longer private
             # identity that contains it.
-            if denied_terms_present(line, identity_terms):
+            if identity_hit and denied_terms_present(line, identity_terms):
                 findings.append((rel, i, 'private_identity', '[value withheld]'))
-            for name, rx in PATTERNS:
-                if rx.search(scan_line):
-                    findings.append((rel, i, name, line.strip()[:220]))
             if rel == "metadata/timetable-history.json":
                 for name, rx in (
                     ("spouse_activity", SPOUSE_ACTIVITY_RE),

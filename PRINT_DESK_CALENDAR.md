@@ -4,24 +4,48 @@
 
 ## 当前版本
 
-- 版本：`desk-calendar-v1`
-- 预设：`config/print-desk-calendar-v1.json`
-- 纸张：210 × 140 mm，横向，一天一页，默认含单独封面
+### v2：来源日配对版（当前交付规范）
+
+- 四个独立预设：
+  - `config/print-desk-calendar-source-aligned-light-landscape-v2.json`
+  - `config/print-desk-calendar-source-aligned-dark-landscape-v2.json`
+  - `config/print-desk-calendar-source-aligned-light-portrait-v2.json`
+  - `config/print-desk-calendar-source-aligned-dark-portrait-v2.json`
+- 纸页日期是 Source Day。该页的时间地层、协作/提醒卡与二维码都来自并指向 Source Day；标题、自由变量、说明和作品图来自唯一满足 `source_date == 页日期` 的后续结晶日。
+- 页面明确印出 `SOURCE DAY YYYY-MM-DD -> CRYSTALLIZATION YYYY-MM-DD`；不能把编辑配对冒充成电子版发生时间。
+- Source Day 自己的凌晨自主/缺席足迹属于上一轮来源关系，因此从 v2 纸页的信号地层排除；协作、提醒、例行的时间足迹不变。
+- 首个来源页为 2026-05-06，配对 2026-05-07 的《白夜罗盘》。电子版 2026-05-06 仍如实显示它自己的缺席信标，并通过 `forward_artwork_seeds` 指向第一件作品。
+- 最新一个尚未等到后续公开结晶记录的来源日不进入本次成册。以当前数据为准，来源页为 2026-05-06 至 2026-08-12，共 99 页；作品结晶为 2026-05-07 至 2026-08-13。
+- v2 静帧缓存为 1100 px、quality 84：在当前印刷尺寸上保留足够像素，同时控制四份邮件附件体积。
+
+### v1：结晶日版（回滚保留）
+
+- 横版：`desk-calendar-v1`，预设 `config/print-desk-calendar-v1.json`，MediaBox 210 × 140 mm
+- 竖版：`desk-calendar-portrait-v1`，预设 `config/print-desk-calendar-portrait-v1.json`，MediaBox 140 × 210 mm
+- 暗色横版：`desk-calendar-dark-v1`，预设 `config/print-desk-calendar-dark-v1.json`
+- 暗色竖版：`desk-calendar-portrait-dark-v1`，预设 `config/print-desk-calendar-portrait-dark-v1.json`
+- 两版使用同一张 210 × 140 mm 物理纸张，只改变方向；一天一页，默认含单独封面
 - 日期：默认从首个公开 civil day 到数据里的最新公开日；缺席日保留缺席信标，不补造作品
 - 风格：暖白底、黑字、彩色事件层与作品图；顶部保留 10 mm 台历装订带
 - 作品图：本地静帧优先，中心裁切为 16:9，缓存为 1200 px 宽、quality 86 的 JPEG
 - 信息优先级：日期与标题 → 自主作品/缺席信标 → 24 小时时间地层 → 协作与提醒卡 → 例行汇总 → 当天二维码
 - 二维码：纠错等级 Q、4 modules 边框，跳转 `https://granted-hours.hyperint.net/timetable/?date=YYYY-MM-DD`
+- 竖版二维码：固定在右下角，黑底白码，纠错等级 H、4 modules quiet zone；正式 QA 必须逐页真实解码
 - PDF、manifest、QA 报告与渲染图属于本地构建产物，默认被 `.gitignore` 排除；脚本、参数、依赖和本文档进入 Git。
 
 ## 仓库内的正式组成
 
 | 文件 | 作用 |
 | --- | --- |
+| `config/print-desk-calendar-source-aligned-*-v2.json` | 四份来源日配对版真源；分别控制亮/暗、横/竖，不覆盖 v1 |
 | `config/print-desk-calendar-v1.json` | 尺寸、网格、配色、内容限额、二维码、校样日期、QA 与输出命名的机器可读真源 |
+| `config/print-desk-calendar-portrait-v1.json` | 独立竖版真源；保留横版不动，定义 140 × 210 mm 布局、三张纵向信息卡与反相二维码 |
+| `config/print-desk-calendar-dark-v1.json` | 暗色横版真源；石墨黑蓝纸面、骨白字、深色矿物卡和反相二维码 |
+| `config/print-desk-calendar-portrait-dark-v1.json` | 暗色竖版真源；与暗色横版共享材料语言，保留独立竖版布局 |
 | `scripts/print_calendar_preset.py` | 预设定位、验证和哈希的共享实现 |
 | `scripts/build_print_desk_calendar.py` | 从 `src/timetable/timetable-data.js` 生成封面、逐日内页和 manifest |
 | `scripts/qa_print_desk_calendar.py` | 校验页数、MediaBox、文本、链接、渲染、空白页和逐日二维码，并生成 contact sheet |
+| `scripts/test_print_calendar_projection.py` | 锁定电子首日缺席、首个来源日配对、来源日事件归属、末尾未配对日省略规则 |
 | `requirements/print-calendar.txt` | v1 已验证的 Python 依赖版本 |
 
 ## 环境
@@ -40,6 +64,30 @@ export PRINT_PYTHON="$PWD/.venv-print-calendar/bin/python"
 在 Codex 当前机器上，`PRINT_PYTHON` 应替换为 workspace dependency loader 返回的 Python 绝对路径。QR 解码包的 import 名是 `zxingcpp`，安装包名是 `zxing-cpp`。
 
 ## 固定构建命令
+
+当前四份来源日配对版可以一次生成：
+
+```bash
+for preset in config/print-desk-calendar-source-aligned-*-v2.json; do
+  "$PRINT_PYTHON" scripts/build_print_desk_calendar.py --preset "$preset"
+done
+```
+
+每份都必须把同一预设显式传给 QA：
+
+```bash
+PYTHONPATH=tmp/pdfs/python-deps "$PRINT_PYTHON" scripts/qa_print_desk_calendar.py \
+  output/pdf/EDITION.pdf \
+  --preset config/PRINT-PRESET.json \
+  --render-dir tmp/pdfs/EDITION-rendered \
+  --require-qr-decode
+```
+
+完整构建前先运行投影回归测试：
+
+```bash
+"$PRINT_PYTHON" scripts/test_print_calendar_projection.py
+```
 
 先检查预设能够被读取：
 
@@ -84,6 +132,53 @@ output/pdf/granted-hours-desk-calendar-{from_date}-to-{through_date}-v1.pdf
 ```
 
 然后对这个 PDF 运行同一 QA 脚本，并将 `--render-dir` 指向一个新的本地目录。
+
+## 竖版对比版本
+
+竖版不是把横版页面图像旋转 90°，而是重新排版同一份规范数据：标题与自由变量在上、完整 16:9 作品图居中、时间地层紧随其后，最多三张高优先级信息卡纵向排列，右下角保留黑底白码。横版预设和产物不受影响。
+
+生成竖版代表性校样：
+
+```bash
+"$PRINT_PYTHON" scripts/build_print_desk_calendar.py \
+  --preset config/print-desk-calendar-portrait-v1.json \
+  --proof \
+  --output tmp/pdfs/granted-hours-desk-calendar-portrait-proof-v1.pdf
+```
+
+验收竖版校样：
+
+```bash
+"$PRINT_PYTHON" scripts/qa_print_desk_calendar.py \
+  tmp/pdfs/granted-hours-desk-calendar-portrait-proof-v1.pdf \
+  --preset config/print-desk-calendar-portrait-v1.json \
+  --render-dir tmp/pdfs/desk-calendar-portrait-proof-rendered
+```
+
+生成完整竖版：
+
+```bash
+"$PRINT_PYTHON" scripts/build_print_desk_calendar.py \
+  --preset config/print-desk-calendar-portrait-v1.json
+```
+
+默认输出为 `output/pdf/granted-hours-desk-calendar-portrait-{from_date}-to-{through_date}-v1.pdf`。竖版 QA 除常规页数、物理尺寸、文字与链接外，还会检查每页二维码 quiet zone 确实为黑色、存在足够白色码块，并逐页解码精确 URL。
+
+## 暗色主题版本
+
+暗色版使用独立预设，作品静帧维持原色；纸面为石墨黑蓝，正文为骨白和冷灰，协作/提醒/例行卡分别使用低饱和深青、焦褐和深绿。它不是对浅色 PDF 做像素反相，因此作品、语义色和可读性仍分别受控。
+
+```bash
+# 暗色横版
+"$PRINT_PYTHON" scripts/build_print_desk_calendar.py \
+  --preset config/print-desk-calendar-dark-v1.json
+
+# 暗色竖版
+"$PRINT_PYTHON" scripts/build_print_desk_calendar.py \
+  --preset config/print-desk-calendar-portrait-dark-v1.json
+```
+
+两份暗色预设均使用白码黑底二维码。QA 除逐页解码外，还会从每个日页的无内容页边抽样，确认页面真实使用暗纸面，而不是只把卡片或封面改暗。
 
 ## 常用覆盖参数
 
@@ -139,6 +234,6 @@ output/pdf/granted-hours-desk-calendar-{from_date}-to-{through_date}-v1.pdf
 
 ## 回滚
 
-代码与参数的回滚单位是 Git commit；PDF 构建产物不进 Git。回滚某次调版时，优先恢复对应预设和脚本版本，再重新生成 PDF。manifest 保存了当次预设 SHA-256，因此可以判断某份 PDF 是否真的由当前规则生成。
+v1 四个预设没有被 v2 覆盖，因此最快的语义回滚是不传 v2 预设，或显式选择任一 `print-desk-calendar-*-v1.json` 重新生成结晶日版。代码与参数的长期回滚单位仍是 Git commit；PDF 构建产物不进 Git。manifest 保存了当次预设 SHA-256 和 `temporal_projection_mode`，因此可以判断某份 PDF 使用的是 civil-day 还是 Source-Day 规则。
 
 如果只想恢复视觉参数而保留后续日程数据，不要回滚 `src/timetable/timetable-data.js`；只恢复 `config/print-desk-calendar-*.json` 和打印脚本后重新构建即可。

@@ -118,6 +118,14 @@ try {
       await trigger.getAttribute("aria-label"),
       "Open the artwork note over the interactive work / 在交互作品上方打开作品说明",
     );
+    const calendarReturn = page.locator("#ghCalendarReturn");
+    await calendarReturn.waitFor({ state: "visible" });
+    assert.equal(await calendarReturn.textContent(), "Calendar / 非人时间表");
+    assert.equal(
+      await calendarReturn.getAttribute("aria-label"),
+      "Return to the non-human timetable / 返回非人时间表",
+    );
+    assert.equal(await calendarReturn.evaluate((node) => node.href), new URL(`timetable/?date=${day.date}`, siteUrl).href);
     await trigger.click();
     const overlay = page.locator("#ghWorkNoteOverlay");
     await overlay.waitFor({ state: "visible" });
@@ -128,6 +136,16 @@ try {
     assert.ok(await overlay.locator(".gh-work-note-section").count() >= 3);
     await page.keyboard.press("Escape");
     await overlay.waitFor({ state: "hidden" });
+    await calendarReturn.click();
+    await page.waitForURL(
+      (currentUrl) => currentUrl.pathname.endsWith("/timetable/")
+        && currentUrl.searchParams.get("date") === day.date,
+      { timeout: 30000 },
+    );
+    const returnedDayDialog = page.locator(
+      `#dayDialog.is-open[data-selected-date="${day.date}"]`,
+    );
+    await returnedDayDialog.waitFor({ state: "visible", timeout: 30000 });
     health.assertHealthy();
     directResults.push(day.date);
     await context.close();
@@ -147,6 +165,11 @@ try {
     await embedPage.locator('.gh-work-note-trigger[aria-controls="ghWorkNoteOverlay"]').isVisible(),
     false,
     "Embed mode exposed the work-note trigger",
+  );
+  assert.equal(
+    await embedPage.locator("#ghCalendarReturn").isVisible(),
+    false,
+    "Embed mode exposed the timetable-return control",
   );
   embedHealth.assertHealthy();
   await embedContext.close();
@@ -207,11 +230,13 @@ try {
         return rect.width > 1 && rect.height > 1;
       };
       const trigger = document.querySelector("#ghWorkNoteTrigger");
+      const calendarReturn = document.querySelector("#ghCalendarReturn");
       const brief = document.querySelector("#ghLiveBrief[data-gh-live-brief='bilingual']");
       const sound = [...document.querySelectorAll(
         '#sound, .sound, #soundToggle, #musicToggle, button[id*="sound" i], button[id*="music" i], button[id*="bgm" i]',
       )].find(isVisible);
       const triggerRect = trigger.getBoundingClientRect();
+      const calendarReturnRect = calendarReturn.getBoundingClientRect();
       const briefRect = brief?.getBoundingClientRect();
       const soundRect = sound?.getBoundingClientRect();
       const overlapWidth = soundRect
@@ -228,7 +253,9 @@ try {
         && !el.closest("#ghWorkNoteOverlay")
         && !el.closest("#ghLiveBrief")
         && el !== trigger
+        && el !== calendarReturn
         && !el.contains(trigger)
+        && !el.contains(calendarReturn)
         && !(sound && (el === sound || sound.contains(el) || el.contains(sound)))
         && el.getBoundingClientRect().width * el.getBoundingClientRect().height <= viewportArea * 0.55);
       let textOverlapCount = 0;
@@ -264,6 +291,20 @@ try {
         viewport: { width: innerWidth, height: innerHeight },
         horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         trigger: triggerRect.toJSON(),
+        calendarReturn: calendarReturnRect.toJSON(),
+        calendarReturnHref: calendarReturn.href,
+        calendarReturnLayout: calendarReturn.dataset.ghControlLayout || "",
+        calendarReturnOverlapArea: Math.max(
+          0,
+          Math.min(triggerRect.right, calendarReturnRect.right) - Math.max(triggerRect.left, calendarReturnRect.left),
+        ) * Math.max(
+          0,
+          Math.min(triggerRect.bottom, calendarReturnRect.bottom) - Math.max(triggerRect.top, calendarReturnRect.top),
+        ),
+        calendarReturnNearTrigger: (
+          Math.abs(calendarReturnRect.right - triggerRect.left) <= 12
+          || Math.abs(calendarReturnRect.bottom - triggerRect.top) <= 12
+        ),
         brief: briefRect ? briefRect.toJSON() : null,
         briefExpanded: brief?.querySelector(".gh-live-brief-toggle")?.getAttribute("aria-expanded"),
         briefSummaryZh: (brief?.querySelector("[data-gh-brief-section='summary'] [lang='zh-CN']")?.textContent || "").trim(),
@@ -298,11 +339,17 @@ try {
     assert.equal(geometry.briefSoundOverlapArea, 0, `${spec.label} bilingual brief overlaps sound control`);
     assert.ok(geometry.trigger.left >= 0 && geometry.trigger.top >= 0, `${spec.label} trigger offscreen`);
     assert.ok(geometry.trigger.right <= geometry.viewport.width && geometry.trigger.bottom <= geometry.viewport.height, `${spec.label} trigger offscreen`);
+    assert.ok(geometry.calendarReturn.left >= 0 && geometry.calendarReturn.top >= 0, `${spec.label} timetable return offscreen`);
+    assert.ok(geometry.calendarReturn.right <= geometry.viewport.width && geometry.calendarReturn.bottom <= geometry.viewport.height, `${spec.label} timetable return offscreen`);
+    assert.equal(geometry.calendarReturnHref, new URL(`timetable/?date=${latest.date}`, siteUrl).href, `${spec.label} timetable return URL`);
+    assert.equal(geometry.calendarReturnOverlapArea, 0, `${spec.label} timetable return overlaps work note`);
+    assert.equal(geometry.calendarReturnNearTrigger, true, `${spec.label} timetable return is detached from work note`);
     assert.ok(geometry.sound, `${spec.label} sound control not visible`);
     assert.ok(geometry.sound.left >= 0 && geometry.sound.top >= 0, `${spec.label} sound control offscreen`);
     assert.ok(geometry.sound.right <= geometry.viewport.width && geometry.sound.bottom <= geometry.viewport.height, `${spec.label} sound control offscreen`);
     if (spec.touch) {
       assert.ok(geometry.trigger.width >= 43.5 && geometry.trigger.height >= 43.5, `${spec.label} work-note touch target`);
+      assert.ok(geometry.calendarReturn.width >= 43.5 && geometry.calendarReturn.height >= 43.5, `${spec.label} timetable-return touch target`);
       assert.ok(geometry.sound.width >= 43.5 && geometry.sound.height >= 43.5, `${spec.label} sound touch target`);
     }
     if (geometry.soundBottomRight) {

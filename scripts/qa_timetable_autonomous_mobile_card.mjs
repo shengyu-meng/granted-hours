@@ -493,13 +493,22 @@ try {
         || (testCase.width === 1440 && testCase.height === 900)
         || (testCase.width === 3840 && testCase.height === 2160))
     ) {
-      await page.locator(".autonomous-reading-card").scrollIntoViewIfNeeded();
+      // The preview GIF intentionally keeps animating, so Playwright's
+      // actionability wait can mistake the card for an element that never
+      // becomes stable. Scroll synchronously for evidence capture; geometry
+      // assertions above already validate the settled layout.
+      await page.locator(".autonomous-reading-card").evaluate((element) => {
+        element.scrollIntoView({ block: "center", inline: "nearest" });
+      });
+      await page.waitForTimeout(120);
       await page.screenshot({
         path: path.join(
           screenshotRoot,
           `${screenshotPhase}-${testCase.width}x${testCase.height}-${testCase.date}.png`,
         ),
         fullPage: false,
+        animations: "disabled",
+        timeout: testCase.width >= 3840 ? 120_000 : 60_000,
       });
     }
     await context.close();

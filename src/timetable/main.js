@@ -62,7 +62,11 @@ const PIANO_CATEGORY_BASE = {
 };
 const PIANO_MIN_GAP_MS = 90;
 const PIANO_SAME_NOTE_GAP_MS = 260;
-const PIANO_VOLUME = 0.045;
+// Keep the short piano envelope at the same calibrated output gain as the
+// calendar bed. With the shipped C4 sample this moves the note from roughly
+// -45 LUFS to -28 LUFS, matching the latest BGM at this gain without clipping.
+const CALENDAR_BGM_VOLUME = 0.34;
+const PIANO_VOLUME = CALENDAR_BGM_VOLUME;
 const INSPECTION_HIDE_DELAY_MS = 110;
 const INSPECTION_FADE_MS = 150;
 const MOBILE_DAY_HEADER_QUERY = "(max-width: 720px)";
@@ -252,6 +256,8 @@ const state = {
   pianoEnabled: false,
   pianoReady: false,
   pianoAudioContext: null,
+  pianoMasterGain: null,
+  pianoLimiter: null,
   pianoBuffers: null,
   pianoLoadPromise: null,
   pianoLastTriggerAt: 0,
@@ -273,6 +279,7 @@ const state = {
   initiatingPointerType: "",
 };
 let timelinePlacementFrame = 0;
+let monthPreviewFloorFrame = 0;
 const overflowPreviewObserver = new ResizeObserver((entries) => {
   for (const entry of entries) syncOverflowPreviewState(entry.target);
 });
@@ -348,6 +355,7 @@ function init() {
   }, { passive: true });
   window.addEventListener("resize", () => {
     hideInspectionLens({ immediate: true });
+    scheduleMonthPreviewFloor();
     document.querySelectorAll(".overflow-scroll-preview").forEach(syncOverflowPreviewState);
     scheduleTimelineReadingPlacement();
   });
@@ -509,16 +517,6 @@ function setupTheme() {
   applyTheme(state.theme, { persist: false });
   els.themeToggle.addEventListener("click", () => {
     applyTheme(state.theme === "dark" ? "light" : "dark", { persist: true });
-  });
-  const preference = window.matchMedia("(prefers-color-scheme: light)");
-  preference.addEventListener?.("change", (event) => {
-    let explicit = null;
-    try {
-      explicit = localStorage.getItem(THEME_STORAGE_KEY);
-    } catch {}
-    if (explicit !== "dark" && explicit !== "light") {
-      applyTheme(event.matches ? "light" : "dark", { persist: false });
-    }
   });
 }
 
@@ -1141,7 +1139,8 @@ function setupCalendarBgm() {
     saved = localStorage.getItem(BGM_STORAGE_KEY) || "";
   } catch {}
   state.calendarBgmDesiredPlaying = saved !== "off";
-  els.calendarBgm.volume = 0.34;
+  els.calendarBgm.volume = CALENDAR_BGM_VOLUME;
+  els.calendarBgm.dataset.outputGain = String(CALENDAR_BGM_VOLUME);
   setCalendarBgmTrack(0);
   setCalendarBgmPlaying(false);
   updateCalendarBgmControl(
@@ -1280,6 +1279,18 @@ function ensurePianoAudioContext() {
   if (!AudioContextCtor) return null;
   const context = new AudioContextCtor({ latencyHint: "interactive" });
   state.pianoAudioContext = context;
+  const masterGain = context.createGain();
+  const limiter = context.createDynamicsCompressor();
+  masterGain.gain.value = 1;
+  limiter.threshold.value = -12;
+  limiter.knee.value = 6;
+  limiter.ratio.value = 8;
+  limiter.attack.value = 0.003;
+  limiter.release.value = 0.18;
+  masterGain.connect(limiter);
+  limiter.connect(context.destination);
+  state.pianoMasterGain = masterGain;
+  state.pianoLimiter = limiter;
   if (context.state === "suspended") context.resume();
   return context;
 }
@@ -1391,7 +1402,7 @@ function playPianoNoteIndex(noteIndex) {
   gain.gain.setValueAtTime(PIANO_VOLUME, startAt + 0.24);
   gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 1.55);
   source.connect(gain);
-  gain.connect(context.destination);
+  gain.connect(state.pianoMasterGain || context.destination);
   source.addEventListener("ended", () => {
     state.pianoActiveSources.delete(source);
     try {
@@ -1433,6 +1444,8 @@ function updatePianoControl() {
     ? "Piano-key hover sounds on / 钢琴键悬停音效已开启"
     : "Piano-key hover sounds off / 钢琴键悬停音效已关闭";
   for (const button of [els.calendarPianoToggle, els.calendarPianoToggleDialog]) {
+    button.dataset.outputGain = String(PIANO_VOLUME);
+    button.dataset.outputLimiter = "-12dBTP";
     button.setAttribute("aria-pressed", state.pianoEnabled ? "true" : "false");
     button.setAttribute("aria-label", actionLabel);
     button.title = "Piano-key hover sounds / 钢琴键悬停音效";
@@ -1572,6 +1585,51 @@ function renderMonth(options = {}) {
     }
     els.monthGrid.append(cell);
   }
+  scheduleMonthPreviewFloor();
+}
+
+function scheduleMonthPreviewFloor() {
+  if (!els.monthGrid) return;
+  window.cancelAnimationFrame(monthPreviewFloorFrame);
+  els.monthGrid.style.removeProperty("--month-row-height");
+  monthPreviewFloorFrame = window.requestAnimationFrame(() => {
+    monthPreviewFloorFrame = window.requestAnimationFrame(applyMonthPreviewFloor);
+  });
+}
+
+function applyMonthPreviewFloor() {
+  const grid = els.monthGrid;
+  if (!grid?.isConnected) return;
+  const dayButtons = [...grid.querySelectorAll(".date-cell:not(.is-muted) .calendar-day-button")];
+  const firstCell = grid.querySelector(".date-cell");
+  if (!firstCell) return;
+
+  const baselineHeight = firstCell.getBoundingClientRect().height;
+  let requiredHeight = baselineHeight;
+  let eligibleDayCount = 0;
+
+  for (const button of dayButtons) {
+    const material = button.querySelector(".cell-material");
+    const marks = [...button.querySelectorAll(".cell-mark")];
+    if (!material || marks.length < 3) continue;
+    eligibleDayCount += 1;
+    material.scrollTop = 0;
+    material.classList.remove("is-fitted");
+    syncOverflowPreviewState(material);
+    const thirdMark = marks[2].getBoundingClientRect();
+    const buttonBox = button.getBoundingClientRect();
+    const paddingBottom = Number.parseFloat(getComputedStyle(button).paddingBottom) || 0;
+    requiredHeight = Math.max(
+      requiredHeight,
+      thirdMark.bottom - buttonBox.top + paddingBottom + 1,
+    );
+  }
+
+  const resolvedHeight = Math.ceil(requiredHeight);
+  grid.style.setProperty("--month-row-height", `${resolvedHeight}px`);
+  grid.dataset.previewItemFloor = "3";
+  grid.dataset.previewEligibleDays = String(eligibleDayCount);
+  grid.querySelectorAll(".cell-material").forEach(syncOverflowPreviewState);
 }
 
 function buildDayButton(day, isToday, isMuted) {
@@ -2252,29 +2310,62 @@ function summarizeReadingFootprints(memberLayouts, layer) {
   };
 }
 
+function measureReadingCardContentHeight(card, cardWidth) {
+  const previousWidth = card.style.width;
+  const previousHeight = card.style.height;
+  const previousVariable = card.style.getPropertyValue("--reading-card-height");
+  card.style.width = `${cardWidth}px`;
+  card.style.height = "auto";
+  card.style.setProperty("--reading-card-height", "auto");
+  const style = getComputedStyle(card);
+  const borderHeight = Number.parseFloat(style.borderTopWidth)
+    + Number.parseFloat(style.borderBottomWidth);
+  const contentHeight = Math.ceil(Math.max(
+    card.getBoundingClientRect().height,
+    card.scrollHeight + borderHeight,
+  ));
+  card.style.width = previousWidth;
+  card.style.height = previousHeight;
+  if (previousVariable) {
+    card.style.setProperty("--reading-card-height", previousVariable);
+  } else {
+    card.style.removeProperty("--reading-card-height");
+  }
+  return contentHeight;
+}
+
 function readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth) {
   if (card.dataset.layer === "beacon") {
-    if (!isCompactReadingCanvas) return Math.max(268, minuteHeight * 60 + 92);
-    return clampNumber(Math.round(cardWidth * 0.5), 148, 176);
+    const height = !isCompactReadingCanvas
+      ? Math.max(268, minuteHeight * 60 + 92)
+      : clampNumber(Math.round(cardWidth * 0.5), 148, 176);
+    card.dataset.heightContract = "autonomous-artwork-v1";
+    card.dataset.targetHeight = String(height);
+    return height;
   }
-  if (card.dataset.layer === "absence") return isCompactReadingCanvas ? 148 : 132;
-  const copyLength = Number(card.dataset.copyLength) || 0;
   const totalDurationMinutes = Number(card.dataset.totalDurationMinutes) || 1;
-  const contentBonus = clampNumber(
-    Math.ceil(Math.max(0, copyLength - (isCompactReadingCanvas ? 92 : 118)) / 42) * 12,
-    0,
-    isCompactReadingCanvas ? 96 : 72,
-  );
-  const durationBonus = clampNumber(
-    Math.round((Math.log2(totalDurationMinutes + 1) - 4) * 9),
-    0,
-    48,
-  );
-  if (card.dataset.layer === "event") {
-    const base = card.dataset.origin === "assigned" ? 150 : 138;
-    return clampNumber(base + contentBonus + durationBonus, 148, isCompactReadingCanvas ? 252 : 232);
-  }
-  return clampNumber(126 + contentBonus + durationBonus, 132, isCompactReadingCanvas ? 224 : 208);
+  const contentHeight = measureReadingCardContentHeight(card, cardWidth);
+  const durationHeight = Math.ceil(totalDurationMinutes * minuteHeight);
+  const isEvent = card.dataset.layer === "event";
+  const minimumHeight = isCompactReadingCanvas ? 64 : 56;
+  const maximumHeight = isEvent
+    ? (isCompactReadingCanvas ? 252 : 232)
+    : (isCompactReadingCanvas ? 224 : 208);
+  const unconstrainedHeight = Math.max(contentHeight, durationHeight);
+  const height = clampNumber(unconstrainedHeight, minimumHeight, maximumHeight);
+  card.dataset.heightContract = "content-duration-max-v1";
+  card.dataset.contentHeight = String(contentHeight);
+  card.dataset.durationHeight = String(durationHeight);
+  card.dataset.minimumHeight = String(minimumHeight);
+  card.dataset.maximumHeight = String(maximumHeight);
+  card.dataset.heightConstraint = unconstrainedHeight < minimumHeight
+    ? "minimum"
+    : unconstrainedHeight > maximumHeight
+      ? "maximum"
+      : "none";
+  card.dataset.heightSource = contentHeight >= durationHeight ? "content" : "duration";
+  card.dataset.targetHeight = String(height);
+  return height;
 }
 
 function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvasWidth) {

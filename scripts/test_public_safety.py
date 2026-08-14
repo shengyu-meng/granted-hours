@@ -100,6 +100,22 @@ class PublicSafetyTests(unittest.TestCase):
         self.assertEqual(result, 1)
         self.assertIn("openai_key", output)
 
+    def test_release_slug_containing_sk_is_not_treated_as_a_secret(self) -> None:
+        result, output = self.scan({
+            "PRINT_DESK_CALENDAR.md": (
+                "config/print-desk-calendar-portrait-dark-v1.json"
+            ),
+        })
+        self.assertEqual(result, 0, output)
+
+    def test_non_public_generated_directories_are_outside_scan_boundary(self) -> None:
+        result, output = self.scan({
+            "tmp/proof.qa.json": '"pdf":"/Users/private/proof.pdf"',
+            "output/pdf/proof.manifest.json": '"output":"/Users/private/proof.pdf"',
+            "docs/public.txt": "public-safe",
+        })
+        self.assertEqual(result, 0, output)
+
     def test_prose_prompt_is_allowed_but_serialized_private_key_is_not(self) -> None:
         prose_result, prose_output = self.scan({
             "metadata/timetable-pulses.json": '{"summary_original":"把 prompt 写清楚"}'
@@ -135,13 +151,22 @@ class PublicSafetyTests(unittest.TestCase):
 
     def test_private_context_outside_artwork_brief_still_fails(self) -> None:
         result, output = self.scan({
-            "src/timetable/timetable-data.js": (
-                '{"brief_zh":"作品把崩溃画成系统隐喻",'
-                '"note_zh":"记录了具体情绪状态"}'
-            ),
+            "metadata/timetable-history.json": json.dumps({
+                "schema": "granted-hours-timetable-history-v4",
+                "days": [{
+                    "date": "2026-08-13",
+                    "provenance": "record_based",
+                    "assigned_residues": [{
+                        "category": "research_synthesis",
+                        "source_kind": "agent_session",
+                        "zh": "记录了具体情绪状态",
+                        "en": "Recorded a specific emotional state",
+                    }],
+                }],
+            }, ensure_ascii=False),
         })
         self.assertEqual(result, 1)
-        self.assertIn("health_or_emotional_state", output)
+        self.assertIn("semantic_policy_not_current", output)
 
 
 if __name__ == "__main__":

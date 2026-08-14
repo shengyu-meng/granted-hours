@@ -651,14 +651,25 @@ def time_bucket(timestamp: datetime) -> tuple[str, str]:
 
 def deduplicate_runs(runs: list[tuple[str, datetime, Path]]) -> list[tuple[str, datetime, Path]]:
     """Collapse .md/.txt companion receipts emitted within two seconds."""
-    result: list[tuple[str, datetime, Path]] = []
-    for run in sorted(runs, key=lambda item: (item[0], item[1], -item[2].stat().st_size)):
+    sized_runs: list[tuple[str, datetime, Path, int]] = []
+    for job_id, timestamp, path in runs:
+        try:
+            size = path.stat().st_size
+        except FileNotFoundError:
+            # Cron rotates old receipts while the importer is running. A file
+            # that vanished after discovery cannot contribute public evidence,
+            # so skip it deterministically instead of aborting the whole day.
+            continue
+        sized_runs.append((job_id, timestamp, path, size))
+
+    result: list[tuple[str, datetime, Path, int]] = []
+    for run in sorted(sized_runs, key=lambda item: (item[0], item[1], -item[3])):
         if result and result[-1][0] == run[0] and (run[1] - result[-1][1]).total_seconds() <= 2:
-            if run[2].stat().st_size > result[-1][2].stat().st_size:
+            if run[3] > result[-1][3]:
                 result[-1] = run
             continue
         result.append(run)
-    return result
+    return [(job_id, timestamp, path) for job_id, timestamp, path, _ in result]
 
 
 def load_session_records(path: Path | None) -> dict[str, list[dict]]:

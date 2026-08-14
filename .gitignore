@@ -16,6 +16,7 @@ node_modules/
 /output/pdf/*.manifest.json
 /output/pdf/*.qa.json
 /tmp/pdfs/
+/tmp/
 /.private
 .private/
 raw/

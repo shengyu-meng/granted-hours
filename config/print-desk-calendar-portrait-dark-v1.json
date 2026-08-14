@@ -1,0 +1,131 @@
+{
+  "schema": "granted-hours-print-desk-calendar-preset-v1",
+  "edition_id": "desk-calendar-portrait-dark-v1",
+  "description": "140 x 210 mm portrait dark-stock printable desk-calendar study.",
+  "theme": { "mode": "dark" },
+  "source": {
+    "canonical_timetable_data": "src/timetable/timetable-data.js",
+    "artwork_asset_preference": [
+      "archive/{year}/{month}/{date}/assets/visual-preview.webp",
+      "archive/{year}/{month}/{date}/assets/preview.png",
+      "docs/archive/{year}/{month}/{date}/assets/visual-preview.webp",
+      "docs/archive/{year}/{month}/{date}/assets/preview.png"
+    ]
+  },
+  "date_selection": { "from": "first_public_day", "through": "latest_public_day" },
+  "page": {
+    "width_mm": 140,
+    "height_mm": 210,
+    "orientation": "portrait",
+    "margin_mm": 8,
+    "binding_band_mm": 10,
+    "cover": true
+  },
+  "layout": {
+    "mode": "portrait",
+    "day_body_top_from_top_mm": 18,
+    "day_main_height_mm": 60,
+    "day_left_width_mm": 124,
+    "day_artwork_x_mm": 15,
+    "day_artwork_y_mm": 76,
+    "day_artwork_width_mm": 110,
+    "timeline_track_start_mm": 24,
+    "timeline_track_end_mm": 132,
+    "timeline_y_top_mm": 65.5,
+    "cards_width_mm": 98,
+    "cards_gap_mm": 0,
+    "card_height_mm": 14,
+    "cards_base_y_mm": 8,
+    "cards_row_gap_mm": 1.4
+  },
+  "artwork": {
+    "aspect_ratio": [16, 9],
+    "cache_width_px": 1200,
+    "jpeg_quality": 86,
+    "crop": "center"
+  },
+  "content": {
+    "timeline_rows": ["self", "collaboration", "reminder", "routine"],
+    "max_cards": 3,
+    "max_collaboration_cards": 1,
+    "max_reminder_cards": 2,
+    "include_routine_rollup": true,
+    "card_text_overflow": "ellipsis"
+  },
+  "qr": {
+    "base_url": "https://granted-hours.hyperint.net/timetable/",
+    "error_correction": "H",
+    "border_modules": 4,
+    "day_size_mm": 18.5,
+    "day_y_mm": 12,
+    "cover_size_mm": 19,
+    "cover_y_mm": 10,
+    "qa_crop_padding_mm": 3,
+    "inverted": true
+  },
+  "palette": {
+    "paper": "#101619",
+    "paper_deep": "#0B1013",
+    "ink": "#F2EEE3",
+    "ink_soft": "#AAB4B5",
+    "graphite": "#0A0F12",
+    "bone": "#F2EEE3",
+    "gold": "#C79A4B",
+    "gold_light": "#E2C98A",
+    "cyan": "#69A9B7",
+    "cyan_light": "#A8CCD0",
+    "sage": "#91A493",
+    "sage_light": "#C3CDC0",
+    "amber": "#D58A56",
+    "violet": "#938DA4",
+    "red": "#C1746C",
+    "white": "#FFFFFF"
+  },
+  "surfaces": {
+    "binding_tick": "#394246",
+    "artwork_border": "#3B474B",
+    "absence_fill": "#171D21",
+    "absence_line": "#41444D",
+    "absence_orbit": "#393342",
+    "absence_core": "#101619",
+    "timeline_rule": "#354044",
+    "timeline_tick": "#596468",
+    "card_collaboration": "#183037",
+    "card_reminder": "#38271F",
+    "card_routine": "#202C24",
+    "card_fallback": "#2A2631",
+    "card_border": "#485256",
+    "meta_text": "#899496"
+  },
+  "proof": {
+    "dates": ["2026-05-07", "2026-06-23", "2026-07-11", "2026-08-12", "latest_public_day"]
+  },
+  "qa": {
+    "dpi": 180,
+    "require_qr_decode": true,
+    "page_size_tolerance_mm": 0.02
+  },
+  "output": {
+    "full_directory": "output/pdf",
+    "proof_directory": "tmp/pdfs",
+    "full_filename_template": "granted-hours-desk-calendar-portrait-dark-{from_date}-to-{through_date}-v1.pdf",
+    "proof_filename_template": "granted-hours-desk-calendar-portrait-dark-proof-{from_date}-to-{through_date}-v1.pdf"
+  },
+  "print_contract": {
+    "civil_day_policy": "One page for every public timetable civil day; absence days remain visibly absent.",
+    "content_priority": [
+      "date_and_titles",
+      "autonomous_artwork_or_absence_beacon",
+      "truthful_24_hour_strata",
+      "collaboration_and_first_person_reminder_cards",
+      "routine_rollup_when_space_remains",
+      "exact_day_qr"
+    ],
+    "production_notes": [
+      "Graphite-black simulated stock with bone-white type and restrained mineral color.",
+      "The 16:9 artwork still remains centered and retains its original color.",
+      "Every QR uses a black field with white modules and must pass full decode QA.",
+      "The light portrait and both landscape presets remain available for comparison."
+    ]
+  }
+}

@@ -15,6 +15,7 @@ function captureErrors(page) {
   });
   page.on("pageerror", (error) => errors.push(`page: ${error.message}`));
   page.on("requestfailed", (request) => {
+    if (request.failure()?.errorText === "net::ERR_ABORTED" && request.resourceType() === "media") return;
     if (
       new URL(request.url()).pathname === "/cdn-cgi/rum"
       && request.failure()?.errorText === "net::ERR_ABORTED"
@@ -23,18 +24,40 @@ function captureErrors(page) {
   });
 }
 
-async function monthGeometry(context, date) {
-  const page = await context.newPage();
-  captureErrors(page);
-  const url = new URL(baseUrl);
-  url.searchParams.set("date", date);
-  await page.goto(url.href, { waitUntil: "networkidle" });
-  await page.keyboard.press("Escape");
+async function monthGeometry(page, date) {
+  await page.waitForFunction((targetDate) => {
+    const grid = document.querySelector("#monthGrid");
+    const target = document.querySelector(`.date-cell[data-date="${targetDate}"]:not(.is-muted)`);
+    if (!grid || !target || grid.dataset.previewItemFloor !== "3") return false;
+    return [...grid.querySelectorAll(".date-cell:not(.is-muted) .calendar-day-button")]
+      .filter((button) => button.querySelectorAll(".cell-mark").length >= 3)
+      .every((button) => {
+        const materialBox = button.querySelector(".cell-material").getBoundingClientRect();
+        const thirdMarkBox = button.querySelectorAll(".cell-mark")[2].getBoundingClientRect();
+        return thirdMarkBox.top >= materialBox.top - 1
+          && thirdMarkBox.bottom <= materialBox.bottom + 1;
+      });
+  }, date);
   const geometry = await page.evaluate((targetDate) => {
     const grid = document.querySelector("#monthGrid");
     const cell = document.querySelector(`.date-cell[data-date="${targetDate}"]`);
     const gridBox = grid.getBoundingClientRect();
     const cells = [...grid.querySelectorAll(".date-cell")];
+    const cellHeights = cells.map((entry) => entry.getBoundingClientRect().height);
+    const eligiblePreviews = [...grid.querySelectorAll(".date-cell:not(.is-muted) .calendar-day-button")]
+      .map((button) => {
+        const marks = [...button.querySelectorAll(".cell-mark")];
+        if (marks.length < 3) return null;
+        const materialBox = button.querySelector(".cell-material").getBoundingClientRect();
+        const thirdMarkBox = marks[2].getBoundingClientRect();
+        return {
+          date: button.dataset.date,
+          markCount: marks.length,
+          thirdVisible: thirdMarkBox.top >= materialBox.top - 1
+            && thirdMarkBox.bottom <= materialBox.bottom + 1,
+        };
+      })
+      .filter(Boolean);
     const requiredSelectors = [
       ".protocol-bar",
       ".calendar-shell",
@@ -56,15 +79,18 @@ async function monthGeometry(context, date) {
       weekCount: Number(grid.dataset.weekCount),
       gridHeight: gridBox.height,
       cellHeight: cell.getBoundingClientRect().height,
+      cellHeightSpread: Math.max(...cellHeights) - Math.min(...cellHeights),
       lastCellBottom: Math.max(...cells.map((entry) => entry.getBoundingClientRect().bottom)),
       gridBottom: gridBox.bottom,
+      previewItemFloor: Number(grid.dataset.previewItemFloor),
+      eligiblePreviewCount: eligiblePreviews.length,
+      failedPreviewDates: eligiblePreviews.filter((entry) => !entry.thirdVisible).map((entry) => entry.date),
       horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       requiredBounds,
       headerControls,
       contained: requiredBounds.every((box) => box.left >= -1 && box.right <= innerWidth + 1),
     };
   }, date);
-  await page.close();
   return geometry;
 }
 
@@ -74,20 +100,33 @@ async function geometryAudit(browser, viewport) {
     hasTouch: viewport.width <= 720,
     isMobile: viewport.width <= 430,
   });
-  const july = await monthGeometry(context, "2026-07-15");
-  const august = await monthGeometry(context, "2026-08-10");
+  const page = await context.newPage();
+  captureErrors(page);
+  const url = new URL(baseUrl);
+  url.searchParams.set("date", "2026-05-15");
+  await page.goto(url.href, { waitUntil: "networkidle" });
+  await page.keyboard.press("Escape");
+  const months = [];
+  for (const date of ["2026-05-15", "2026-06-15", "2026-07-15", "2026-08-10"]) {
+    months.push(await monthGeometry(page, date));
+    if (date !== "2026-08-10") {
+      await page.locator("#nextMonth").evaluate((button) => button.click());
+    }
+  }
+  const [may, june, july, august] = months;
   assert.equal(july.weekCount, 5);
   assert.equal(august.weekCount, 6);
-  assert.ok(Math.abs(july.cellHeight - august.cellHeight) <= 0.2, JSON.stringify({ july, august }));
-  assert.ok(august.gridHeight > july.gridHeight + august.cellHeight * 0.9);
-  assert.ok(july.lastCellBottom <= july.gridBottom + 1);
-  assert.ok(august.lastCellBottom <= august.gridBottom + 1);
-  assert.ok(july.horizontalOverflow <= 1);
-  assert.ok(august.horizontalOverflow <= 1);
-  assert.equal(july.contained, true, JSON.stringify(july.requiredBounds));
-  assert.equal(august.contained, true, JSON.stringify(august.requiredBounds));
+  for (const geometry of months) {
+    assert.ok(geometry.cellHeightSpread <= 0.2, JSON.stringify(geometry));
+    assert.ok(geometry.lastCellBottom <= geometry.gridBottom + 1);
+    assert.ok(geometry.horizontalOverflow <= 1);
+    assert.equal(geometry.contained, true, JSON.stringify(geometry.requiredBounds));
+    assert.equal(geometry.previewItemFloor, 3);
+    assert.ok(geometry.eligiblePreviewCount > 0, JSON.stringify(geometry));
+    assert.deepEqual(geometry.failedPreviewDates, [], JSON.stringify(geometry));
+  }
   if (viewport.width <= 720) {
-    for (const geometry of [july, august]) {
+    for (const geometry of months) {
       const [theme, piano, bgm] = geometry.headerControls;
       assert.ok(Math.abs(theme.width - piano.width) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.width - bgm.width) <= 0.2, JSON.stringify(geometry.headerControls));
@@ -96,8 +135,9 @@ async function geometryAudit(browser, viewport) {
       assert.ok(theme.width <= 44.2 && theme.height <= 44.2, JSON.stringify(geometry.headerControls));
     }
   }
+  await page.close();
   await context.close();
-  return { viewport, july, august };
+  return { viewport, may, june, july, august };
 }
 
 async function audioAudit(browser) {
@@ -117,6 +157,10 @@ async function audioAudit(browser) {
     return {
       bgmPressed: bgm.getAttribute("aria-pressed"),
       pianoPressed: piano.getAttribute("aria-pressed"),
+      bgmVolume: document.querySelector("#calendarBgm").volume,
+      bgmOutputGain: Number(document.querySelector("#calendarBgm").dataset.outputGain),
+      pianoOutputGain: Number(piano.dataset.outputGain),
+      pianoOutputLimiter: piano.dataset.outputLimiter,
       storedVersion: localStorage.getItem(audioVersionKey),
       storedBgm: localStorage.getItem(bgmKey),
       storedPiano: localStorage.getItem(pianoKey),
@@ -131,6 +175,10 @@ async function audioAudit(browser) {
   assert.equal(migrated.storedVersion, audioVersion);
   assert.equal(migrated.storedBgm, "on");
   assert.equal(migrated.storedPiano, "on");
+  assert.equal(migrated.bgmVolume, 0.34);
+  assert.equal(migrated.bgmOutputGain, migrated.bgmVolume);
+  assert.equal(migrated.pianoOutputGain, migrated.bgmOutputGain);
+  assert.equal(migrated.pianoOutputLimiter, "-12dBTP");
   assert.doesNotMatch(migrated.boxShadow, /16px/);
 
   await page.locator("#calendarBgmToggle").click();
@@ -155,6 +203,7 @@ try {
     { width: 1440, height: 900 },
     { width: 390, height: 844 },
     { width: 421, height: 386 },
+    { width: 3840, height: 2160 },
   ]) {
     geometry.push(await geometryAudit(browser, viewport));
   }

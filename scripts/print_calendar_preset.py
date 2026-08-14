@@ -10,7 +10,10 @@ from typing import Any
 
 
 DEFAULT_PRESET = Path("config/print-desk-calendar-v1.json")
-EXPECTED_SCHEMA = "granted-hours-print-desk-calendar-preset-v1"
+EXPECTED_SCHEMAS = {
+    "granted-hours-print-desk-calendar-preset-v1",
+    "granted-hours-print-desk-calendar-preset-v2",
+}
 
 
 class PrintCalendarPresetError(ValueError):
@@ -46,9 +49,10 @@ def _require(
 
 
 def validate_preset(preset: dict[str, Any]) -> None:
-    if preset.get("schema") != EXPECTED_SCHEMA:
+    schema = preset.get("schema")
+    if schema not in EXPECTED_SCHEMAS:
         raise PrintCalendarPresetError(
-            f"Unexpected preset schema: {preset.get('schema')!r}; expected {EXPECTED_SCHEMA!r}"
+            f"Unexpected preset schema: {schema!r}; expected one of {sorted(EXPECTED_SCHEMAS)!r}"
         )
     _require(preset, "edition_id", str)
     _require(preset, "source.canonical_timetable_data", str)
@@ -68,6 +72,60 @@ def validate_preset(preset: dict[str, Any]) -> None:
     error_level = _require(preset, "qr.error_correction", str)
     if error_level not in {"L", "M", "Q", "H"}:
         raise PrintCalendarPresetError("qr.error_correction must be L, M, Q, or H")
+    _require(preset, "qr.inverted", bool)
+    orientation = _require(preset, "page.orientation", str)
+    mode = _require(preset, "layout.mode", str)
+    if orientation not in {"landscape", "portrait"} or mode != orientation:
+        raise PrintCalendarPresetError(
+            "page.orientation and layout.mode must match: landscape or portrait"
+        )
+    theme_mode = preset.get("theme", {}).get("mode", "light")
+    if theme_mode not in {"light", "dark"}:
+        raise PrintCalendarPresetError("theme.mode must be light or dark")
+    if theme_mode == "dark":
+        surfaces = _require(preset, "surfaces", dict)
+        required_surfaces = {
+            "binding_tick",
+            "artwork_border",
+            "absence_fill",
+            "absence_line",
+            "absence_orbit",
+            "absence_core",
+            "timeline_rule",
+            "timeline_tick",
+            "card_collaboration",
+            "card_reminder",
+            "card_routine",
+            "card_fallback",
+            "card_border",
+            "meta_text",
+        }
+        missing_surfaces = sorted(required_surfaces - surfaces.keys())
+        if missing_surfaces:
+            raise PrintCalendarPresetError(
+                f"Dark preset surfaces are missing: {missing_surfaces}"
+            )
+    projection = preset.get("temporal_projection", {"mode": "civil_day"})
+    if not isinstance(projection, dict):
+        raise PrintCalendarPresetError("temporal_projection must be an object")
+    projection_mode = projection.get("mode", "civil_day")
+    if projection_mode not in {"civil_day", "source_day_with_forward_crystallization"}:
+        raise PrintCalendarPresetError(
+            f"Unsupported temporal_projection.mode: {projection_mode!r}"
+        )
+    if projection_mode == "source_day_with_forward_crystallization":
+        if schema != "granted-hours-print-desk-calendar-preset-v2":
+            raise PrintCalendarPresetError(
+                "Source-day projection requires the v2 preset schema"
+            )
+        if projection.get("unpaired_source_day") != "omit":
+            raise PrintCalendarPresetError(
+                "Source-day projection currently requires unpaired_source_day=omit"
+            )
+        if projection.get("source_day_autonomous_footprint") != "omit_from_strata":
+            raise PrintCalendarPresetError(
+                "Source-day projection requires source_day_autonomous_footprint=omit_from_strata"
+            )
     proof_dates = _require(preset, "proof.dates", list)
     if not proof_dates or not all(isinstance(item, str) for item in proof_dates):
         raise PrintCalendarPresetError("proof.dates must contain civil dates")

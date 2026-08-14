@@ -5176,6 +5176,46 @@
           "time_provenance": "observed_session_window"
         }
       ]
+    },
+    {
+      "date": "2026-08-13",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "en": "On 2026-08-13, Codex/GPT completed evidence-backed review for ████; an implementation or validation result was returned.",
+          "zh": "2026-08-13，Codex/GPT 完成 ████ 的编码与审校，并返回实现或验收结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "22:25",
+          "end": "22:31",
+          "time_provenance": "observed_session_window"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-08-13, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "2026-08-13，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "16:22",
+          "end": "16:24",
+          "time_provenance": "observed_session_window"
+        }
+      ]
     }
   ]
 }

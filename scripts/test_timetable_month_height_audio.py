@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static guards for equal month-row geometry and versioned default-on audio."""
+"""Static guards for month geometry and balanced, default-on calendar audio."""
 from __future__ import annotations
 
 import re
@@ -23,6 +23,15 @@ class TimetableMonthHeightAudioTests(unittest.TestCase):
         self.assertNotIn("grid-auto-rows: minmax(92px, 1fr)", self.styles)
         self.assertNotIn("grid-auto-rows: minmax(55px, 1fr)", self.styles)
 
+    def test_month_rows_expand_until_three_items_are_fully_visible(self) -> None:
+        self.assertIn("function scheduleMonthPreviewFloor()", self.javascript)
+        self.assertIn("function applyMonthPreviewFloor()", self.javascript)
+        self.assertIn('button.querySelectorAll(".cell-mark")', self.javascript)
+        self.assertIn("if (!material || marks.length < 3) continue;", self.javascript)
+        self.assertIn("thirdMark.bottom - buttonBox.top + paddingBottom + 1", self.javascript)
+        self.assertIn('grid.dataset.previewItemFloor = "3"', self.javascript)
+        self.assertIn("scheduleMonthPreviewFloor();", self.javascript)
+
     def test_legacy_audio_preferences_migrate_once_to_default_on(self) -> None:
         self.assertIn('const AUDIO_DEFAULTS_VERSION = "2026-08-10-default-on-v2"', self.javascript)
         migration = re.search(
@@ -39,6 +48,25 @@ class TimetableMonthHeightAudioTests(unittest.TestCase):
             self.javascript.index("migrateDefaultAudioPreferences();"),
             self.javascript.index("setupCalendarBgm();"),
         )
+
+    def test_piano_and_bgm_share_the_calibrated_output_gain(self) -> None:
+        self.assertIn("const CALENDAR_BGM_VOLUME = 0.34;", self.javascript)
+        self.assertIn("const PIANO_VOLUME = CALENDAR_BGM_VOLUME;", self.javascript)
+        self.assertIn(
+            "els.calendarBgm.volume = CALENDAR_BGM_VOLUME;",
+            self.javascript,
+        )
+        self.assertIn(
+            "gain.gain.exponentialRampToValueAtTime(PIANO_VOLUME, startAt + 0.03);",
+            self.javascript,
+        )
+        self.assertIn("limiter.threshold.value = -12;", self.javascript)
+        self.assertIn("limiter.ratio.value = 8;", self.javascript)
+        self.assertIn(
+            "gain.connect(state.pianoMasterGain || context.destination);",
+            self.javascript,
+        )
+        self.assertNotIn("const PIANO_VOLUME = 0.045;", self.javascript)
 
     def test_enabled_sound_treatment_is_low_contrast(self) -> None:
         enabled = re.search(

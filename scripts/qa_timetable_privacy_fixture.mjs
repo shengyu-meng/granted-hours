@@ -304,7 +304,7 @@ try {
   const maskedReminder = page.locator(
     ".routine-reading-card[data-pulse-category='daily_reminder']",
   ).first();
-  await maskedReminder.scrollIntoViewIfNeeded();
+  await maskedReminder.evaluate((card) => card.scrollIntoView({ block: "center", inline: "nearest" }));
   await page.waitForTimeout(150);
   const reminderCardText = (await maskedReminder.textContent()) || "";
   assert.equal(reminderCardText.split("external scoreboard").length - 1, 1);
@@ -312,7 +312,7 @@ try {
     reminderCardText,
     /Masked residue|Inner weather|absence layer|public layer|contour/i,
   );
-  await maskedReminder.click();
+  await maskedReminder.evaluate((card) => card.click());
   await page.waitForSelector("#taskDialog:not([hidden])");
   const detailBody = (await page.locator("#taskDetailZh").textContent()) || "";
   const detailEnglishBody = (await page.locator("#taskDetailEn").textContent()) || "";

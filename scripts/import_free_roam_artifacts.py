@@ -1452,7 +1452,8 @@ def write(path: Path, text: str):
 
 LIVE_TEXT_FOLD_SNIPPET = r"""
 <style id="granted-hours-fold-style">
-  .gh-work-note-trigger {
+  .gh-work-note-trigger,
+  .gh-calendar-return {
     position: fixed;
     z-index: 2147483000;
     right: max(12px, env(safe-area-inset-right));
@@ -1476,7 +1477,11 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
   }
-  .gh-work-note-trigger:hover {
+  .gh-calendar-return {
+    text-decoration: none;
+  }
+  .gh-work-note-trigger:hover,
+  .gh-calendar-return:hover {
     border-color: rgba(242,195,107,.58);
     color: #fff3cf;
   }
@@ -1670,6 +1675,12 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     visibility: hidden !important;
     pointer-events: none !important;
   }
+  [data-gh-native-title-suppressed="true"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
   .gh-work-note-trigger--busy {
     background: rgba(3,7,13,.97) !important;
     -webkit-backdrop-filter: blur(18px) !important;
@@ -1716,6 +1727,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     transform: none !important;
   }
   .gh-work-note-trigger:focus-visible,
+  .gh-calendar-return:focus-visible,
   .gh-live-brief-toggle:focus-visible,
   .gh-work-note-close:focus-visible,
   .gh-work-note-archive:focus-visible {
@@ -1820,6 +1832,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     visibility: hidden !important;
   }
   body.gh-chamber-embed .gh-work-note-trigger,
+  body.gh-chamber-embed .gh-calendar-return,
   body.gh-chamber-embed .gh-live-brief,
   body.gh-chamber-embed .brief,
   body.gh-chamber-embed #brief,
@@ -1928,7 +1941,8 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     transform: translateY(1px);
   }
   @media (max-width: 760px) {
-    .gh-work-note-trigger {
+    .gh-work-note-trigger,
+    .gh-calendar-return {
       min-height: 44px !important;
       max-width: calc(100vw - 24px);
     }
@@ -1964,6 +1978,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   }
   @media (pointer: coarse) {
     .gh-work-note-trigger,
+    .gh-calendar-return,
     #ghWorkNoteOverlay .gh-work-note-close {
       min-width: 44px;
       min-height: 44px !important;
@@ -2067,6 +2082,14 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   workNote.setAttribute('aria-label', 'Open the artwork note over the interactive work / 在交互作品上方打开作品说明');
   workNote.setAttribute('aria-haspopup', 'dialog');
   workNote.setAttribute('aria-controls', 'ghWorkNoteOverlay');
+  const calendarReturn = document.createElement('a');
+  calendarReturn.id = 'ghCalendarReturn';
+  calendarReturn.className = 'gh-calendar-return';
+  calendarReturn.textContent = 'Calendar / 非人时间表';
+  calendarReturn.setAttribute('aria-label', 'Return to the non-human timetable / 返回非人时间表');
+  const calendarReturnUrl = new URL('../../../../../timetable/', window.location.href);
+  calendarReturnUrl.searchParams.set('date', WORK_NOTE.date);
+  calendarReturn.href = calendarReturnUrl.href;
   const liveBrief = createLiveBrief();
   const embedTouchKeyDock = createTouchKeyDock();
   const workNoteOverlay = createWorkNoteOverlay();
@@ -2095,8 +2118,9 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       window.setTimeout(syncEmbeddedMediaState, 250);
       return;
     }
-    document.body.append(liveBrief, workNote, workNoteOverlay);
+    document.body.append(liveBrief, calendarReturn, workNote, workNoteOverlay);
     hideNativeWorkNoteTriggers();
+    suppressNativeTitleChrome();
     maskNativeBriefCollisions();
     liveBrief.querySelector('.gh-live-brief-toggle').addEventListener('click', toggleLiveBrief);
     workNote.addEventListener('click', openWorkNote);
@@ -2114,6 +2138,11 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     window.addEventListener('load', refreshFloatingChrome);
     [1200, 3000, 6000].forEach((ms) => window.setTimeout(refreshFloatingChrome, ms));
     watchSoundControl();
+    new MutationObserver((records) => {
+      if (records.some((record) => record.addedNodes.length)) {
+        window.requestAnimationFrame(suppressNativeTitleChrome);
+      }
+    }).observe(document.body, { childList: true, subtree: true });
   }
   function makeElement(tag, className, text = '') {
     const element = document.createElement(tag);
@@ -2308,27 +2337,49 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       element.removeAttribute('data-gh-brief-covered');
     });
   }
-  function maskNativeBriefCollisions() {
-    restoreNativeBriefCollisions();
-    if (liveBrief.classList.contains('is-collapsed')) return;
+  function suppressNativeTitleChrome() {
     const briefRect = liveBrief.getBoundingClientRect();
-    const maxArea = window.innerWidth * window.innerHeight * 0.55;
+    const reserved = {
+      left: briefRect.left,
+      top: briefRect.top,
+      right: briefRect.left + Math.max(briefRect.width, Math.min(352, innerWidth - 24)),
+      bottom: briefRect.top + Math.min(innerHeight * .46, 390),
+    };
+    const maxArea = innerWidth * innerHeight * .6;
     const candidates = document.querySelectorAll(
-      'h1,h2,h3,h4,p,.title,.subtitle,.brief,.statement,.instructions,.intro,.description,.copy,.text',
+      'h1,h2,p,.title,.subtitle,.kicker,.brief,#brief,.intro,.description,.statement,.instructions',
     );
     for (const element of candidates) {
       if (!(element instanceof HTMLElement)) continue;
-      if (element.closest('#ghLiveBrief') || element.closest('#ghWorkNoteOverlay')) continue;
+      if (element.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghCalendarReturn, #ghTouchKeyDock')) continue;
+      if (element.dataset.ghNativeTitleSuppressed === 'true') continue;
       const style = getComputedStyle(element);
-      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= 0.01) continue;
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= .01) continue;
       const rect = element.getBoundingClientRect();
       if (rect.width <= 1 || rect.height <= 1 || rect.width * rect.height > maxArea) continue;
-      const overlapWidth = Math.min(briefRect.right, rect.right) - Math.max(briefRect.left, rect.left);
-      const overlapHeight = Math.min(briefRect.bottom, rect.bottom) - Math.max(briefRect.top, rect.top);
-      if (overlapWidth <= 0 || overlapHeight <= 0) continue;
-      if (!(element.innerText || '').trim()) continue;
-      element.dataset.ghBriefCovered = 'true';
+      if (!(element.innerText || element.textContent || '').trim()) continue;
+      const overlapsReserved = rectsIntersect(rect, reserved);
+      const isUpperTitle = element.matches('h1,h2,.title')
+        && rect.top < Math.min(innerHeight * .48, 430)
+        && rect.left < innerWidth * .76;
+      if (!overlapsReserved && !isUpperTitle) continue;
+      let target = element;
+      for (let parent = element.parentElement; parent && parent !== document.body; parent = parent.parentElement) {
+        if (parent.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghCalendarReturn, #ghTouchKeyDock')) break;
+        if (parent.querySelector('canvas,svg,video,audio,button,input,select,textarea,[role="button"]')) break;
+        const parentRect = parent.getBoundingClientRect();
+        if (parentRect.width <= 1 || parentRect.height <= 1 || parentRect.width * parentRect.height > maxArea) break;
+        const semanticShell = parent.matches('header,.panel,.hero,.intro,.brief,.copy,.statement,.instructions')
+          || /(?:^|\s)(?:panel|hero|intro|brief|copy|statement|instructions)(?:\s|$)/i.test(parent.className);
+        if (semanticShell) target = parent;
+      }
+      target.dataset.ghNativeTitleSuppressed = 'true';
     }
+  }
+  function maskNativeBriefCollisions() {
+    restoreNativeBriefCollisions();
+    suppressNativeTitleChrome();
+    if (liveBrief.classList.contains('is-collapsed')) return;
     if (isTouchLayout() && window.innerHeight <= 520) {
       const compactCandidates = document.querySelectorAll(
         'header,.panel,.card,.legend,.hint,.instructions,.statement,.copy,.text,.meta,.caption,'
@@ -2639,6 +2690,23 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       workNote.style.bottom = `${Math.max(12, vh - noteRect.top - 12)}px`;
     }
     ensureWorkNoteContrast();
+    alignCalendarReturn();
+  }
+  function alignCalendarReturn() {
+    calendarReturn.style.top = 'auto';
+    calendarReturn.style.left = 'auto';
+    const noteRect = workNote.getBoundingClientRect();
+    const returnRect = calendarReturn.getBoundingClientRect();
+    let right = Math.max(12, innerWidth - noteRect.left + GH_WORK_NOTE_GAP);
+    let bottom = Math.max(12, innerHeight - noteRect.bottom);
+    calendarReturn.dataset.ghControlLayout = 'inline';
+    if (noteRect.left - GH_WORK_NOTE_GAP - returnRect.width < 12) {
+      right = Math.max(12, innerWidth - noteRect.right);
+      bottom = Math.max(12, innerHeight - noteRect.top + GH_WORK_NOTE_GAP);
+      calendarReturn.dataset.ghControlLayout = 'stacked';
+    }
+    calendarReturn.style.right = `${right}px`;
+    calendarReturn.style.bottom = `${bottom}px`;
   }
   function restoreNativeControlOffsets() {
     document.querySelectorAll('[data-gh-control-offset="true"], [data-gh-control-concealed="true"]').forEach((element) => {
@@ -2701,7 +2769,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
   function offsetNativeControlText() {
     if (IS_EMBED) return;
     const sound = findSoundControl();
-    const controls = [workNote, sound].filter((element) => element instanceof HTMLElement);
+    const controls = [calendarReturn, workNote, sound].filter((element) => element instanceof HTMLElement);
     const targets = [...new Set(nativeControlTextCandidates(controls).map(
       (element) => nativeControlOffsetTarget(element, controls),
     ))];

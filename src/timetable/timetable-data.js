@@ -110657,8 +110657,29 @@ const timetableDataSource = {
       "theme_motif": "bridge",
       "jewel_en": "A Map That Lets You Miss It is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
       "jewel_zh": "《一张允许走失的地图》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
-      "history_provenance": "inferred",
-      "cell_assigned": [],
+      "history_provenance": "record_based",
+      "cell_assigned": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_en": "On 2026-08-13, Codex/GPT completed evidence-backed review…",
+          "task_name_zh": "2026-08-13，Codex…"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_en": "On 2026-08-13, Codex/GPT completed evidence-backed review…",
+          "task_name_zh": "2026-08-13，Codex…"
+        }
+      ],
       "cell_sources": {
         "free_creation": {
           "present": true,
@@ -110673,8 +110694,8 @@ const timetableDataSource = {
           "label_en": "Routine"
         },
         "active_collaboration": {
-          "present": false,
-          "count": 0,
+          "present": true,
+          "count": 2,
           "label_zh": "人机主动协作",
           "label_en": "Active human–AI collaboration"
         }
@@ -110687,7 +110708,72 @@ const timetableDataSource = {
         "title_zh": "一张允许走失的地图"
       },
       "forward_artwork_seeds": [],
-      "task_residues": [],
+      "task_residues": [
+        {
+          "origin": "assigned",
+          "category": "research_synthesis",
+          "start": "16:22",
+          "end": "16:24",
+          "label_en": "Research and synthesis",
+          "label_zh": "研究与综合",
+          "en": "Through Codex, GPT, or a delegated Agent, I recorded: On 2026-08-13, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "我通过 Codex、GPT 或子 Agent 记录：2026-08-13，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "short_en": "RSH",
+          "short_zh": "研究",
+          "task_name_zh": "2026-08-13，Codex…",
+          "task_name_en": "On 2026-08-13, Codex/GPT completed evidence-backed review…",
+          "duration_minutes": 2,
+          "time_provenance": "observed_session_window",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "voice_policy_version": "granted-hours-first-person-v2",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "task_type": "research_analysis",
+          "task_type_zh": "研究分析",
+          "task_type_en": "Research analysis",
+          "task_color": "lime",
+          "task_icon": "search",
+          "footprint_id": "assigned-001"
+        },
+        {
+          "origin": "assigned",
+          "category": "code_development",
+          "start": "22:25",
+          "end": "22:31",
+          "label_en": "Code development",
+          "label_zh": "代码开发",
+          "en": "Through Codex, GPT, or a delegated Agent, I recorded: On 2026-08-13, Codex/GPT completed evidence-backed review for ████; an implementation or validation result was returned.",
+          "zh": "我通过 Codex、GPT 或子 Agent 记录：2026-08-13，Codex/GPT 完成 ████ 的编码与审校，并返回实现或验收结果。",
+          "short_en": "CODE",
+          "short_zh": "代码",
+          "task_name_zh": "2026-08-13，Codex…",
+          "task_name_en": "On 2026-08-13, Codex/GPT completed evidence-backed review…",
+          "duration_minutes": 6,
+          "time_provenance": "observed_session_window",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "voice_policy_version": "granted-hours-first-person-v2",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "task_type": "software_development",
+          "task_type_zh": "软件开发",
+          "task_type_en": "Software development",
+          "task_color": "blue",
+          "task_icon": "code-xml",
+          "footprint_id": "assigned-002"
+        }
+      ],
       "autonomous_work": {
         "origin": "self",
         "footprint_id": "beacon-001",
@@ -110733,6 +110819,24 @@ const timetableDataSource = {
           ],
           "layer": "beacon",
           "classification": "beacon"
+        },
+        {
+          "reading_id": "event-assigned-001",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-001"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
+        },
+        {
+          "reading_id": "event-assigned-002",
+          "source": "tasks",
+          "source_refs": [
+            "assigned-002"
+          ],
+          "layer": "event",
+          "classification": "foreground_event"
         }
       ],
       "relations": [

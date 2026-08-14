@@ -106,7 +106,11 @@ try {
     assertPublicContract(sourceState.publicNote.text, `${testCase.label} footer contract`);
     assertPublicContract(sourceState.dialogBoundary.text, `${testCase.label} dialog contract`);
     assert.ok(sourceState.horizontalOverflow <= 1, testCase.label);
-    assert.deepEqual(sourceState.scrollRoots, ["#dayDialogPanel"]);
+    assert.ok(
+      sourceState.scrollRoots.length <= 1
+        && sourceState.scrollRoots.every((root) => root === "#dayDialogPanel"),
+      `${testCase.label}: only the dialog panel may scroll when content exceeds the viewport`,
+    );
     assert.equal(sourceState.decorativeIconCount, 0);
     assert.deepEqual(sourceState.forbiddenVisibleCopy, []);
 

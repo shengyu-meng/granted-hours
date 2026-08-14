@@ -122,7 +122,7 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
     `${theme}-${label}-calendar`,
     "#themeToggle",
   );
-  await page.screenshot({ path: calendarPath, fullPage: false });
+  await page.screenshot({ path: calendarPath, fullPage: false, timeout: 120000 });
   screenshotPaths.push(calendarPath);
 
   await page.click("#prevMonth");
@@ -158,7 +158,7 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
     `${theme}-${label}-timeline`,
     ".dialog-toolbar",
   );
-  await page.screenshot({ path: timelinePath, fullPage: false });
+  await page.screenshot({ path: timelinePath, fullPage: false, timeout: 120000 });
   screenshotPaths.push(timelinePath);
   assert.deepEqual(pageErrors, []);
   await context.close();
@@ -174,14 +174,16 @@ try {
     });
     const page = await context.newPage();
     await page.goto(baseUrl, { waitUntil: "networkidle" });
-    assert.equal(await page.locator("html").getAttribute("data-theme"), systemTheme);
+    assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
     assert.equal(await page.evaluate(() => localStorage.getItem("granted-hours-theme")), null);
+    await page.emulateMedia({ colorScheme: systemTheme === "dark" ? "light" : "dark" });
+    assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
     await context.close();
   }
 
   const persistenceContext = await browser.newContext({
     viewport: { width: 960, height: 720 },
-    colorScheme: "dark",
+    colorScheme: "light",
   });
   const persistencePage = await persistenceContext.newPage();
   await persistencePage.goto(baseUrl, { waitUntil: "networkidle" });

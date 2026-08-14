@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and render a Granted Hours 210 x 140 mm desk-calendar PDF."""
+"""Validate and render a versioned Granted Hours desk-calendar PDF."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from build_print_desk_calendar import load_timetable, printable_days
 from print_calendar_preset import PrintCalendarPresetError, load_preset, sha256_file
 
 try:
@@ -125,6 +126,125 @@ def inspect_rendered_pages(
     return metrics
 
 
+def day_qr_crop_box(
+    preset: dict[str, Any], dpi: int, padding_mm: float = 0.0
+) -> tuple[int, int, int, int]:
+    page_w_mm = float(preset["page"]["width_mm"])
+    page_h_mm = float(preset["page"]["height_mm"])
+    margin_mm = float(preset["page"]["margin_mm"])
+    qr_size_mm = float(preset["qr"]["day_size_mm"])
+    qr_y_mm = float(preset["qr"]["day_y_mm"])
+    scale = dpi / 25.4
+    qr_x_mm = page_w_mm - margin_mm - qr_size_mm
+    left = int((qr_x_mm - padding_mm) * scale)
+    right = int((qr_x_mm + qr_size_mm + padding_mm) * scale)
+    top = int((page_h_mm - (qr_y_mm + qr_size_mm + padding_mm)) * scale)
+    bottom = int((page_h_mm - (qr_y_mm - padding_mm)) * scale)
+    return left, top, right, bottom
+
+
+def inspect_qr_appearance(
+    rendered: list[Path],
+    manifest: dict[str, Any],
+    preset: dict[str, Any],
+    dpi: int,
+    failures: list[str],
+) -> dict[str, Any]:
+    cover_offset = int(manifest.get("cover_pages", 0))
+    crop_box = day_qr_crop_box(preset, dpi)
+    inverted = bool(preset["qr"]["inverted"])
+    corner_means: list[float] = []
+    bright_fractions: list[float] = []
+    for record in manifest["pages"]:
+        pdf_page_number = cover_offset + int(record["page"])
+        with Image.open(rendered[pdf_page_number - 1]) as image:
+            qr_image = image.convert("L").crop(crop_box)
+            corner_size = max(2, round(min(qr_image.size) * 0.08))
+            corners = [
+                qr_image.crop((0, 0, corner_size, corner_size)),
+                qr_image.crop((qr_image.width - corner_size, 0, qr_image.width, corner_size)),
+                qr_image.crop((0, qr_image.height - corner_size, corner_size, qr_image.height)),
+                qr_image.crop(
+                    (
+                        qr_image.width - corner_size,
+                        qr_image.height - corner_size,
+                        qr_image.width,
+                        qr_image.height,
+                    )
+                ),
+            ]
+            corner_mean = sum(ImageStat.Stat(item).mean[0] for item in corners) / 4
+            histogram = qr_image.histogram()
+            bright_fraction = sum(histogram[220:]) / max(1, qr_image.width * qr_image.height)
+        corner_means.append(corner_mean)
+        bright_fractions.append(bright_fraction)
+        if inverted:
+            fail(
+                failures,
+                corner_mean < 70 and bright_fraction > 0.08,
+                f"Inverted QR appearance failed for {record['date']}: corner={corner_mean:.1f}, bright={bright_fraction:.3f}",
+            )
+        else:
+            fail(
+                failures,
+                corner_mean > 185,
+                f"Normal QR quiet zone is not light for {record['date']}: corner={corner_mean:.1f}",
+            )
+    return {
+        "inverted": inverted,
+        "pages_checked": len(corner_means),
+        "corner_mean_range": [
+            round(min(corner_means), 2) if corner_means else None,
+            round(max(corner_means), 2) if corner_means else None,
+        ],
+        "bright_fraction_range": [
+            round(min(bright_fractions), 4) if bright_fractions else None,
+            round(max(bright_fractions), 4) if bright_fractions else None,
+        ],
+    }
+
+
+def inspect_theme_appearance(
+    rendered: list[Path],
+    manifest: dict[str, Any],
+    preset: dict[str, Any],
+    failures: list[str],
+) -> dict[str, Any]:
+    cover_offset = int(manifest.get("cover_pages", 0))
+    dark = preset.get("theme", {}).get("mode", "light") == "dark"
+    paper_means: list[float] = []
+    for record in manifest["pages"]:
+        pdf_page_number = cover_offset + int(record["page"])
+        with Image.open(rendered[pdf_page_number - 1]) as image:
+            gray = image.convert("L")
+            sample_size = max(6, round(min(gray.size) * 0.012))
+            x = round(gray.width * 0.012)
+            y = round(gray.height * 0.5)
+            sample = gray.crop((x, y, x + sample_size, y + sample_size))
+            mean = ImageStat.Stat(sample).mean[0]
+        paper_means.append(mean)
+        if dark:
+            fail(
+                failures,
+                mean < 65,
+                f"Dark paper field is too light for {record['date']}: {mean:.1f}",
+            )
+        else:
+            fail(
+                failures,
+                mean > 175,
+                f"Light paper field is too dark for {record['date']}: {mean:.1f}",
+            )
+    return {
+        "mode": "dark" if dark else "light",
+        "pages_checked": len(paper_means),
+        "paper_mean_range": [
+            round(min(paper_means), 2) if paper_means else None,
+            round(max(paper_means), 2) if paper_means else None,
+        ],
+    }
+
+
 def decode_day_qrs(
     rendered: list[Path],
     manifest: dict[str, Any],
@@ -138,18 +258,8 @@ def decode_day_qrs(
         failures.append("zxingcpp is required for QR decode validation")
         return {"available": False, "decoded": 0}
     cover_offset = int(manifest.get("cover_pages", 0))
-    scale = dpi / 25.4
-    page_w_mm = float(preset["page"]["width_mm"])
-    page_h_mm = float(preset["page"]["height_mm"])
-    margin_mm = float(preset["page"]["margin_mm"])
-    qr_size_mm = float(preset["qr"]["day_size_mm"])
-    qr_y_mm = float(preset["qr"]["day_y_mm"])
     padding_mm = float(preset["qr"]["qa_crop_padding_mm"])
-    qr_x_mm = page_w_mm - margin_mm - qr_size_mm
-    left = int((qr_x_mm - padding_mm) * scale)
-    right = int((qr_x_mm + qr_size_mm + padding_mm) * scale)
-    top = int((page_h_mm - (qr_y_mm + qr_size_mm + padding_mm)) * scale)
-    bottom = int((page_h_mm - (qr_y_mm - padding_mm)) * scale)
+    left, top, right, bottom = day_qr_crop_box(preset, dpi, padding_mm)
     decoded = 0
     for record in manifest["pages"]:
         pdf_page_number = cover_offset + int(record["page"])
@@ -239,6 +349,8 @@ def main() -> int:
         print(json.dumps({"passed": False, "failures": failures}, indent=2))
         return 1
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    projection_mode = manifest.get("temporal_projection_mode", "civil_day")
+    projected = projection_mode == "source_day_with_forward_crystallization"
     fail(
         failures,
         manifest.get("preset_sha256") == sha256_file(preset_path),
@@ -248,6 +360,71 @@ def main() -> int:
     expected_pages = int(manifest["pdf_pages"])
     fail(failures, len(reader.pages) == expected_pages, f"PDF has {len(reader.pages)} pages, expected {expected_pages}")
     fail(failures, sha256_file(pdf) == manifest["output_sha256"], "PDF SHA-256 differs from manifest")
+
+    canonical = load_timetable(repo / preset["source"]["canonical_timetable_data"])
+    canonical_print_days = {
+        item["date"]: item for item in printable_days(canonical, preset)
+    }
+    page_dates = [record["date"] for record in manifest["pages"]]
+    fail(failures, page_dates == sorted(set(page_dates)), "Manifest page dates are not unique and ascending")
+    for record in manifest["pages"]:
+        expected_day = canonical_print_days.get(record["date"])
+        fail(failures, expected_day is not None, f"Manifest date is not printable: {record['date']}")
+        if expected_day is None:
+            continue
+        fail(
+            failures,
+            record.get("source_date") == expected_day.get("source_date"),
+            f"Source date differs from canonical projection for {record['date']}",
+        )
+        fail(
+            failures,
+            record.get("crystallization_date") == expected_day.get("crystallization_date"),
+            f"Crystallization date differs from canonical projection for {record['date']}",
+        )
+        fail(
+            failures,
+            record.get("type") == expected_day.get("type"),
+            f"Artwork type differs from canonical projection for {record['date']}",
+        )
+        fail(
+            failures,
+            int(record.get("timeline_events", -1)) == len(expected_day.get("timeline_events", [])),
+            f"Signal footprint count differs from canonical projection for {record['date']}",
+        )
+        if projected:
+            fail(
+                failures,
+                record.get("source_date") == record["date"],
+                f"Projected page is not anchored to its Source Day: {record['date']}",
+            )
+            fail(
+                failures,
+                str(record.get("crystallization_date", "")) > record["date"],
+                f"Projected crystallization is not later than Source Day: {record['date']}",
+            )
+            fail(
+                failures,
+                not any(
+                    item.get("origin") in {"self", "absence"}
+                    for item in expected_day.get("timeline_events", [])
+                ),
+                f"Source-day strata retain a prior autonomous footprint: {record['date']}",
+            )
+            artwork_date = record["crystallization_date"]
+            asset = record.get("artwork_asset")
+            if record.get("type") == "live":
+                fail(
+                    failures,
+                    bool(asset) and f"/{artwork_date}/" in f"/{asset}",
+                    f"Artwork asset is not from crystallization day {artwork_date}",
+                )
+            else:
+                fail(
+                    failures,
+                    asset is None,
+                    f"Absence pairing unexpectedly has artwork asset: {record['date']}",
+                )
 
     dimensions: list[list[float]] = []
     for index, page in enumerate(reader.pages, start=1):
@@ -270,14 +447,23 @@ def main() -> int:
         if cover_offset:
             cover_text = opened.pages[0].extract_text() or ""
             fail(failures, "GRANTED HOURS" in cover_text and "授时" in cover_text, "Cover title is incomplete")
+            if projected:
+                fail(failures, "SOURCE-DAY" in cover_text, "Cover lacks the Source Day edition label")
         for record in manifest["pages"]:
             pdf_page_number = cover_offset + int(record["page"])
             text = opened.pages[pdf_page_number - 1].extract_text() or ""
-            fail(
-                failures,
-                f"CRYSTALLIZATION {record['date']}" in text,
-                f"Date text missing on page for {record['date']}",
+            expected_source_label = (
+                f"SOURCE DAY {record['date']}"
+                if projected
+                else f"CRYSTALLIZATION {record['date']}"
             )
+            fail(failures, expected_source_label in text, f"Date text missing on page for {record['date']}")
+            if projected:
+                fail(
+                    failures,
+                    f"CRYSTALLIZATION {record['crystallization_date']}" in text,
+                    f"Forward crystallization date missing for {record['date']}",
+                )
             fail(failures, "OPEN THIS CIVIL DAY" in text, f"QR caption missing for {record['date']}")
             fail(
                 failures,
@@ -300,6 +486,8 @@ def main() -> int:
         failures,
     )
     qr_result = {"available": False, "decoded": 0}
+    qr_appearance = inspect_qr_appearance(rendered, manifest, preset, dpi, failures)
+    theme_appearance = inspect_theme_appearance(rendered, manifest, preset, failures)
     if require_qr_decode:
         qr_result = decode_day_qrs(rendered, manifest, preset, dpi, failures)
     contact_sheet = render_dir / "contact-sheet.jpg"
@@ -312,7 +500,11 @@ def main() -> int:
     )
 
     report = {
-        "schema": "granted-hours-print-desk-calendar-qa-v1",
+        "schema": (
+            "granted-hours-print-desk-calendar-qa-v2"
+            if projected
+            else "granted-hours-print-desk-calendar-qa-v1"
+        ),
         "passed": not failures,
         "pdf": str(pdf),
         "pdf_sha256": sha256_file(pdf),
@@ -321,11 +513,18 @@ def main() -> int:
         "page_count": len(reader.pages),
         "page_size_mm": dimensions[0] if dimensions else None,
         "date_range": manifest["date_range"],
+        "source_date_range": manifest.get("source_date_range", manifest["date_range"]),
+        "crystallization_date_range": manifest.get(
+            "crystallization_date_range", manifest["date_range"]
+        ),
+        "temporal_projection_mode": projection_mode,
         "live_artwork_days": manifest["live_artwork_days"],
         "absence_days": manifest["absence_days"],
         "rendered_pages": len(rendered),
         "render_metrics": render_metrics,
         "qr_decode": qr_result,
+        "qr_appearance": qr_appearance,
+        "theme_appearance": theme_appearance,
         "contact_sheet": str(contact_sheet),
         "contact_sheet_pages": contact_pages,
         "failures": failures,

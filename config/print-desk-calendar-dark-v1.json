@@ -1,7 +1,8 @@
 {
   "schema": "granted-hours-print-desk-calendar-preset-v1",
-  "edition_id": "desk-calendar-v1",
-  "description": "210 x 140 mm landscape printable desk-calendar study, one civil day per page.",
+  "edition_id": "desk-calendar-dark-v1",
+  "description": "210 x 140 mm landscape dark-stock printable desk-calendar study.",
+  "theme": { "mode": "dark" },
   "source": {
     "canonical_timetable_data": "src/timetable/timetable-data.js",
     "artwork_asset_preference": [
@@ -11,10 +12,7 @@
       "docs/archive/{year}/{month}/{date}/assets/preview.png"
     ]
   },
-  "date_selection": {
-    "from": "first_public_day",
-    "through": "latest_public_day"
-  },
+  "date_selection": { "from": "first_public_day", "through": "latest_public_day" },
   "page": {
     "width_mm": 210,
     "height_mm": 140,
@@ -45,12 +43,7 @@
     "crop": "center"
   },
   "content": {
-    "timeline_rows": [
-      "self",
-      "collaboration",
-      "reminder",
-      "routine"
-    ],
+    "timeline_rows": ["self", "collaboration", "reminder", "routine"],
     "max_cards": 4,
     "max_collaboration_cards": 2,
     "max_reminder_cards": 2,
@@ -59,41 +52,51 @@
   },
   "qr": {
     "base_url": "https://granted-hours.hyperint.net/timetable/",
-    "error_correction": "Q",
+    "error_correction": "H",
     "border_modules": 4,
     "day_size_mm": 18.5,
     "day_y_mm": 11,
     "cover_size_mm": 19,
     "cover_y_mm": 9,
     "qa_crop_padding_mm": 3,
-    "inverted": false
+    "inverted": true
   },
   "palette": {
-    "paper": "#F2EEE3",
-    "paper_deep": "#E7E0D1",
-    "ink": "#11171B",
-    "ink_soft": "#4C5354",
-    "graphite": "#11171B",
+    "paper": "#101619",
+    "paper_deep": "#0B1013",
+    "ink": "#F2EEE3",
+    "ink_soft": "#AAB4B5",
+    "graphite": "#0A0F12",
     "bone": "#F2EEE3",
-    "gold": "#B58942",
-    "gold_light": "#D8BB78",
-    "cyan": "#4E8FA0",
+    "gold": "#C79A4B",
+    "gold_light": "#E2C98A",
+    "cyan": "#69A9B7",
     "cyan_light": "#A8CCD0",
-    "sage": "#7E9181",
+    "sage": "#91A493",
     "sage_light": "#C3CDC0",
-    "amber": "#C97942",
-    "violet": "#777187",
-    "red": "#A85C55",
+    "amber": "#D58A56",
+    "violet": "#938DA4",
+    "red": "#C1746C",
     "white": "#FFFFFF"
   },
+  "surfaces": {
+    "binding_tick": "#394246",
+    "artwork_border": "#3B474B",
+    "absence_fill": "#171D21",
+    "absence_line": "#41444D",
+    "absence_orbit": "#393342",
+    "absence_core": "#101619",
+    "timeline_rule": "#354044",
+    "timeline_tick": "#596468",
+    "card_collaboration": "#183037",
+    "card_reminder": "#38271F",
+    "card_routine": "#202C24",
+    "card_fallback": "#2A2631",
+    "card_border": "#485256",
+    "meta_text": "#899496"
+  },
   "proof": {
-    "dates": [
-      "2026-05-07",
-      "2026-06-23",
-      "2026-07-11",
-      "2026-08-12",
-      "latest_public_day"
-    ]
+    "dates": ["2026-05-07", "2026-06-23", "2026-07-11", "2026-08-12", "latest_public_day"]
   },
   "qa": {
     "dpi": 180,
@@ -103,11 +106,11 @@
   "output": {
     "full_directory": "output/pdf",
     "proof_directory": "tmp/pdfs",
-    "full_filename_template": "granted-hours-desk-calendar-{from_date}-to-{through_date}-v1.pdf",
-    "proof_filename_template": "granted-hours-desk-calendar-proof-{from_date}-to-{through_date}-v1.pdf"
+    "full_filename_template": "granted-hours-desk-calendar-dark-{from_date}-to-{through_date}-v1.pdf",
+    "proof_filename_template": "granted-hours-desk-calendar-dark-proof-{from_date}-to-{through_date}-v1.pdf"
   },
   "print_contract": {
-    "civil_day_policy": "One page for every public timetable civil day; absence days remain visibly absent and are never backfilled with invented artworks.",
+    "civil_day_policy": "One page for every public timetable civil day; absence days remain visibly absent.",
     "content_priority": [
       "date_and_titles",
       "autonomous_artwork_or_absence_beacon",
@@ -117,10 +120,10 @@
       "exact_day_qr"
     ],
     "production_notes": [
-      "Warm white paper field with black typography and restrained color accents.",
-      "Artwork stills use center-cropped 16:9 cached JPEGs; the live work remains canonical.",
-      "Card overflow is ellipsized; the exact event footprint remains in the timeline strata.",
-      "Changing geometry or content priority requires a new preset version and a proof QA pass."
+      "Graphite-black simulated stock with bone-white type and restrained mineral color.",
+      "Artwork stills retain their original color and 16:9 composition.",
+      "Every QR uses a black field with white modules and must pass full decode QA.",
+      "The light landscape preset remains unchanged for comparison."
     ]
   }
 }

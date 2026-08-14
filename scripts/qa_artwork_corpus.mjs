@@ -81,9 +81,31 @@ try {
         ].filter((element) => isVisible(element) && !element.closest("#ghLiveBrief"));
         const foldControl = document.querySelector(".gh-fold-toggle");
         const workNote = document.querySelector("#ghWorkNoteTrigger");
+        const calendarReturn = document.querySelector("#ghCalendarReturn");
         const liveBrief = document.querySelector("#ghLiveBrief[data-gh-live-brief='bilingual']");
         const touchKeys = [...document.querySelectorAll(".gh-touch-keys-inline .gh-touch-key")];
         const briefRect = liveBrief?.getBoundingClientRect();
+        const workNoteRect = workNote?.getBoundingClientRect();
+        const calendarReturnRect = calendarReturn?.getBoundingClientRect();
+        const reserved = briefRect ? {
+          left: briefRect.left,
+          top: briefRect.top,
+          right: briefRect.left + Math.max(briefRect.width, Math.min(352, innerWidth - 24)),
+          bottom: briefRect.top + Math.min(innerHeight * 0.46, 390),
+        } : null;
+        const intersects = (a, b) => Boolean(a && b
+          && Math.min(a.right, b.right) > Math.max(a.left, b.left)
+          && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top));
+        const visibleNativeTitleChrome = [...document.querySelectorAll(
+          'h1,h2,p,.title,.subtitle,.kicker,.brief,#brief,.intro,.description,.statement,.instructions',
+        )].filter((element) => {
+          if (!isVisible(element) || element.closest("#ghLiveBrief, #ghWorkNoteOverlay")) return false;
+          const rect = element.getBoundingClientRect();
+          const upperTitle = element.matches("h1,h2,.title")
+            && rect.top < Math.min(innerHeight * 0.48, 430)
+            && rect.left < innerWidth * 0.76;
+          return upperTitle || intersects(rect, reserved);
+        });
         const briefText = (selector, lang) => (
           liveBrief?.querySelector(`${selector} .gh-live-brief-copy[lang='${lang}']`)?.textContent || ""
         ).trim();
@@ -93,6 +115,20 @@ try {
           bodyTextLength: document.body.innerText.trim().length,
           foldControlAbsent: !foldControl,
           workNoteVisible: isVisible(workNote),
+          calendarReturn: {
+            visible: isVisible(calendarReturn),
+            href: calendarReturn?.href || "",
+            rect: calendarReturnRect?.toJSON() || null,
+            overlapsWorkNote: intersects(calendarReturnRect, workNoteRect),
+            nearWorkNote: Boolean(calendarReturnRect && workNoteRect && (
+              Math.abs(calendarReturnRect.right - workNoteRect.left) <= 12
+              || Math.abs(calendarReturnRect.bottom - workNoteRect.top) <= 12
+            )),
+          },
+          visibleNativeTitleChrome: visibleNativeTitleChrome.map((element) => (
+            (element.innerText || element.textContent || "").trim().slice(0, 100)
+          )),
+          suppressedNativeTitleCount: document.querySelectorAll('[data-gh-native-title-suppressed="true"]').length,
           liveBrief: {
             visible: isVisible(liveBrief),
             summaryZh: briefText("[data-gh-brief-section='summary']", "zh-CN"),
@@ -132,6 +168,22 @@ try {
       assert.ok(state.bodyTextLength > 8, `${day.date} body is blank`);
       assert.equal(state.foldControlAbsent, true, `${day.date} fold control still exists`);
       assert.ok(state.workNoteVisible, `${day.date} work-note control is not visible`);
+      assert.ok(state.calendarReturn.visible, `${day.date} timetable return is not visible`);
+      assert.equal(
+        state.calendarReturn.href,
+        `${siteOrigin}/timetable/?date=${day.date}`,
+        `${day.date} timetable return does not preserve the artwork date`,
+      );
+      assert.ok(state.calendarReturn.rect, `${day.date} timetable return has no geometry`);
+      assert.ok(state.calendarReturn.rect.left >= 0 && state.calendarReturn.rect.top >= 0, `${day.date} timetable return is offscreen`);
+      assert.ok(state.calendarReturn.rect.right <= 1280 && state.calendarReturn.rect.bottom <= 720, `${day.date} timetable return exceeds the viewport`);
+      assert.equal(state.calendarReturn.overlapsWorkNote, false, `${day.date} timetable return overlaps the work-note control`);
+      assert.equal(state.calendarReturn.nearWorkNote, true, `${day.date} timetable return is detached from the work-note control`);
+      assert.deepEqual(
+        state.visibleNativeTitleChrome,
+        [],
+        `${day.date} still exposes legacy top-left title/explanation chrome`,
+      );
       assert.ok(state.liveBrief.visible, `${day.date} bilingual top-left brief is not visible`);
       assert.ok(state.liveBrief.summaryZh, `${day.date} Chinese brief is empty`);
       assert.ok(state.liveBrief.summaryEn, `${day.date} English brief is empty`);
@@ -241,6 +293,7 @@ try {
         textRoots: state.visibleTextRootCount,
         bilingualBrief: true,
         touchKeys: state.touchKeys.length,
+        suppressedNativeTitles: state.suppressedNativeTitleCount,
       };
     } finally {
       await page.close();
@@ -281,6 +334,7 @@ console.log(JSON.stringify({
   bilingualBriefPages: results.filter((result) => result.bilingualBrief).length,
   touchShortcutPages: results.filter((result) => result.touchKeys > 0).length,
   touchShortcutButtons: results.reduce((total, result) => total + result.touchKeys, 0),
+  suppressedNativeTitleNodes: results.reduce((total, result) => total + result.suppressedNativeTitles, 0),
   explicitAllowances: results.filter((result) => result.allowance),
   pageErrors: 0,
   localHttpFailures: 0,

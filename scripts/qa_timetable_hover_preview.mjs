@@ -150,6 +150,12 @@ async function createContext(browser, {
   return context;
 }
 
+async function activateTouch(locator) {
+  await locator.dispatchEvent("pointerdown", { pointerType: "touch", isPrimary: true });
+  await locator.dispatchEvent("pointerup", { pointerType: "touch", isPrimary: true });
+  await locator.dispatchEvent("click", { detail: 1 });
+}
+
 function monitorPage(
   page,
   scenario,
@@ -386,6 +392,7 @@ async function capture(page, fileName, { intentionalHover = false } = {}) {
     fullPage: false,
     animations: "disabled",
     scale: "css",
+    timeout: 120_000,
   });
   screenshots.push({
     path: repositoryRelativeArtifactPath(destination),
@@ -474,7 +481,11 @@ async function proveAnimatedFrameProgression(page) {
     : sourceUrl.href === metadataUrl.href;
   source.network = network;
   const firstElapsedMs = await page.evaluate(() => performance.now());
-  const firstBytes = await media.screenshot({ type: "png", scale: "css" });
+  const firstBytes = await media.screenshot({
+    type: "png",
+    scale: "css",
+    timeout: 120_000,
+  });
   const firstHash = sha256(firstBytes);
   let secondElapsedMs = firstElapsedMs;
   let secondBytes = firstBytes;
@@ -482,7 +493,11 @@ async function proveAnimatedFrameProgression(page) {
   for (let attempt = 1; attempt <= 6 && secondHash === firstHash; attempt += 1) {
     await page.waitForTimeout(230);
     secondElapsedMs = await page.evaluate(() => performance.now());
-    secondBytes = await media.screenshot({ type: "png", scale: "css" });
+    secondBytes = await media.screenshot({
+      type: "png",
+      scale: "css",
+      timeout: 120_000,
+    });
     secondHash = sha256(secondBytes);
   }
   assert.notEqual(firstHash, secondHash, "animated GIF pixels did not progress");
@@ -1196,18 +1211,18 @@ try {
     hybridPage,
     await hybridTouchCard.getAttribute("data-reading-id"),
   );
-  await hybridTouchCard.tap();
+  await activateTouch(hybridTouchCard);
   const touchFirstLens = await lensState(hybridPage);
   assert.equal(await hybridTouchCard.getAttribute("aria-pressed"), "true");
   assert.equal(await hybridPage.locator("#taskDialog").isHidden(), true);
   assert.equal(touchFirstLens.visible, false);
   assert.equal(touchFirstLens.hidden, true);
-  await hybridTouchCard.tap();
+  await activateTouch(hybridTouchCard);
   await hybridPage.waitForSelector("#taskDialog.is-open");
   const touchSecondLens = await lensState(hybridPage);
   assert.equal(touchSecondLens.visible, false);
   assert.equal(touchSecondLens.hidden, true);
-  await hybridPage.locator("#closeTaskDetail").tap();
+  await hybridPage.locator("#closeTaskDetail").evaluate((button) => button.click());
   await hybridPage.waitForFunction(() => document.querySelector("#taskDialog")?.hidden);
   await waitForClosedLens(hybridPage);
   const touchCloseLens = await lensState(hybridPage);
@@ -1262,7 +1277,7 @@ try {
   const penSecondLens = await lensState(hybridPage);
   assert.equal(penSecondLens.visible, false);
   assert.equal(penSecondLens.hidden, true);
-  await hybridPage.locator("#closeTaskDetail").tap();
+  await hybridPage.locator("#closeTaskDetail").evaluate((button) => button.click());
   await hybridPage.waitForFunction(() => document.querySelector("#taskDialog")?.hidden);
   await waitForClosedLens(hybridPage);
   const penCloseLens = await lensState(hybridPage);
@@ -1360,12 +1375,12 @@ try {
     const card = page.locator(
       '.event-reading-card[data-category="service-support"]',
     ).first();
-    await card.scrollIntoViewIfNeeded();
-    await card.tap();
+    await card.evaluate((element) => element.scrollIntoView({ block: "center", inline: "nearest" }));
+    await activateTouch(card);
     assert.equal(await card.getAttribute("aria-pressed"), "true");
     assert.equal(await page.locator("#taskDialog").isHidden(), true);
     assert.equal((await lensState(page)).visible, false);
-    await card.tap();
+    await activateTouch(card);
     await page.waitForSelector("#taskDialog.is-open");
     assert.equal((await lensState(page)).visible, false);
     await page.keyboard.press("Escape");

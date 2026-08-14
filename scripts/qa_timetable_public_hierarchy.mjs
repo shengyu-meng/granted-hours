@@ -625,7 +625,7 @@ try {
       }
 
       const climateCard = page.locator(".climate-reading-card").first();
-      await climateCard.scrollIntoViewIfNeeded();
+      await climateCard.evaluate((card) => card.scrollIntoView({ block: "center", inline: "nearest" }));
       const expectedMembers = Number(await climateCard.getAttribute("data-member-count"));
       assert.ok(expectedMembers >= 1);
       if (viewport.touch) {

@@ -303,7 +303,12 @@ function validatePortableEvidence(value, location = "$", violations = []) {
 
 async function screenshot(page, label) {
   const artifactPath = path.join(phaseRoot, `${label}.png`);
-  const bytes = await page.screenshot({ path: artifactPath, fullPage: false });
+  const bytes = await page.screenshot({
+    path: artifactPath,
+    fullPage: false,
+    animations: "disabled",
+    timeout: 120_000,
+  });
   results.screenshots.push({
     label,
     path: repositoryRelative(artifactPath),
@@ -494,7 +499,7 @@ async function inspectPanelColor(page) {
     const y = Math.min(innerHeight - 22, Math.max(1, rect.top + 22));
     return { x: Math.floor(x), y: Math.floor(y), width: 20, height: 20 };
   });
-  const png = await page.screenshot({ clip });
+  const png = await page.screenshot({ clip, animations: "disabled", timeout: 120_000 });
   return medianPngColor(page, png);
 }
 
@@ -511,11 +516,13 @@ async function inspectCategoryColors(page) {
   for (const category of categories) {
     const card = page.locator(`.event-reading-card[data-category="${category}"]`).first();
     assert.equal(await card.count(), 1, `missing representative category: ${category}`);
-    await card.scrollIntoViewIfNeeded();
+    await card.evaluate((element) => element.scrollIntoView({ block: "center", inline: "nearest" }));
+    await page.mouse.move(4, 4);
+    await page.waitForTimeout(80);
     const surfaceTarget = category === "autonomous-artwork"
       ? card.locator(".autonomous-copy")
       : card;
-    const png = await surfaceTarget.screenshot();
+    const png = await surfaceTarget.screenshot({ animations: "disabled", timeout: 120_000 });
     const surfaceColor = await medianPngColor(page, png);
     const computed = await card.evaluate((element) => {
       const style = getComputedStyle(element);

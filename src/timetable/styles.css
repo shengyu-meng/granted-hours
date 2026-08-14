@@ -6601,9 +6601,11 @@ h1 {
 }
 
 :root[data-palette="chromatic"] .event-reading-card[data-layer="climate"] {
+  opacity: 1 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 30%, #555147) !important;
   background:
-    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 19%, transparent), transparent 57%),
-    color-mix(in srgb, var(--category-accent) 10%, rgba(10, 14, 20, 0.43)) !important;
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 8%, transparent), transparent 57%),
+    color-mix(in srgb, var(--category-accent) 6%, #3f3c34) !important;
 }
 
 :root[data-palette="chromatic"] .event-reading-card[data-layer="event"],
@@ -6666,6 +6668,16 @@ h1 {
     linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 24%, transparent), transparent 59%),
     linear-gradient(138deg, rgba(255, 255, 255, 0.5), transparent 35%),
     color-mix(in srgb, var(--category-accent) 14%, rgba(247, 246, 241, 0.84)) !important;
+}
+
+:root[data-palette="chromatic"][data-theme="light"]
+  .event-reading-card[data-layer="climate"] {
+  opacity: 1 !important;
+  border-color: color-mix(in srgb, var(--category-accent) 30%, #c9c3b4) !important;
+  background:
+    linear-gradient(116deg, color-mix(in srgb, var(--category-accent) 7%, transparent), transparent 59%),
+    linear-gradient(138deg, rgba(255, 255, 255, 0.34), transparent 35%),
+    color-mix(in srgb, var(--category-accent) 6%, #ddd6c4) !important;
 }
 
 /* Light-theme event cards must remain visually primary over climate rollups.
@@ -6937,6 +6949,12 @@ h1 {
 }
 
 .artwork-dialog-panel:fullscreen {
+  /* The desktop chamber is normally a five-row grid. Once its headings are
+     hidden for fullscreen, keeping that grid strands the live layout in the
+     second auto row and leaves the flexible row empty (for example 150px of
+     artwork above 750px of unused viewport). Fullscreen is a single-stage
+     surface, so remove the non-fullscreen row model altogether. */
+  display: block;
   width: 100vw;
   height: 100dvh;
   max-width: none;

@@ -1,7 +1,7 @@
 {
   "schema": "granted-hours-print-desk-calendar-preset-v1",
-  "edition_id": "desk-calendar-v1",
-  "description": "210 x 140 mm landscape printable desk-calendar study, one civil day per page.",
+  "edition_id": "desk-calendar-portrait-v1",
+  "description": "140 x 210 mm portrait printable desk-calendar comparison study, one civil day per page.",
   "source": {
     "canonical_timetable_data": "src/timetable/timetable-data.js",
     "artwork_asset_preference": [
@@ -16,27 +16,29 @@
     "through": "latest_public_day"
   },
   "page": {
-    "width_mm": 210,
-    "height_mm": 140,
-    "orientation": "landscape",
+    "width_mm": 140,
+    "height_mm": 210,
+    "orientation": "portrait",
     "margin_mm": 8,
     "binding_band_mm": 10,
     "cover": true
   },
   "layout": {
-    "mode": "landscape",
+    "mode": "portrait",
     "day_body_top_from_top_mm": 18,
     "day_main_height_mm": 60,
-    "day_left_width_mm": 82,
-    "day_artwork_x_mm": 96,
-    "day_artwork_width_mm": 106,
-    "timeline_track_start_mm": 28,
-    "timeline_track_end_mm": 180,
-    "cards_width_mm": 164,
-    "cards_gap_mm": 2.5,
+    "day_left_width_mm": 124,
+    "day_artwork_x_mm": 15,
+    "day_artwork_y_mm": 76,
+    "day_artwork_width_mm": 110,
+    "timeline_track_start_mm": 24,
+    "timeline_track_end_mm": 132,
+    "timeline_y_top_mm": 65.5,
+    "cards_width_mm": 98,
+    "cards_gap_mm": 0,
     "card_height_mm": 14,
-    "cards_base_y_mm": 9,
-    "cards_row_gap_mm": 2.2
+    "cards_base_y_mm": 8,
+    "cards_row_gap_mm": 1.4
   },
   "artwork": {
     "aspect_ratio": [16, 9],
@@ -51,22 +53,22 @@
       "reminder",
       "routine"
     ],
-    "max_cards": 4,
-    "max_collaboration_cards": 2,
+    "max_cards": 3,
+    "max_collaboration_cards": 1,
     "max_reminder_cards": 2,
     "include_routine_rollup": true,
     "card_text_overflow": "ellipsis"
   },
   "qr": {
     "base_url": "https://granted-hours.hyperint.net/timetable/",
-    "error_correction": "Q",
+    "error_correction": "H",
     "border_modules": 4,
     "day_size_mm": 18.5,
-    "day_y_mm": 11,
+    "day_y_mm": 12,
     "cover_size_mm": 19,
-    "cover_y_mm": 9,
+    "cover_y_mm": 10,
     "qa_crop_padding_mm": 3,
-    "inverted": false
+    "inverted": true
   },
   "palette": {
     "paper": "#F2EEE3",
@@ -103,8 +105,8 @@
   "output": {
     "full_directory": "output/pdf",
     "proof_directory": "tmp/pdfs",
-    "full_filename_template": "granted-hours-desk-calendar-{from_date}-to-{through_date}-v1.pdf",
-    "proof_filename_template": "granted-hours-desk-calendar-proof-{from_date}-to-{through_date}-v1.pdf"
+    "full_filename_template": "granted-hours-desk-calendar-portrait-{from_date}-to-{through_date}-v1.pdf",
+    "proof_filename_template": "granted-hours-desk-calendar-portrait-proof-{from_date}-to-{through_date}-v1.pdf"
   },
   "print_contract": {
     "civil_day_policy": "One page for every public timetable civil day; absence days remain visibly absent and are never backfilled with invented artworks.",
@@ -112,15 +114,16 @@
       "date_and_titles",
       "autonomous_artwork_or_absence_beacon",
       "truthful_24_hour_strata",
-      "collaboration_and_reminder_cards",
-      "routine_rollup",
+      "collaboration_and_first_person_reminder_cards",
+      "routine_rollup_when_space_remains",
       "exact_day_qr"
     ],
     "production_notes": [
-      "Warm white paper field with black typography and restrained color accents.",
-      "Artwork stills use center-cropped 16:9 cached JPEGs; the live work remains canonical.",
-      "Card overflow is ellipsized; the exact event footprint remains in the timeline strata.",
-      "Changing geometry or content priority requires a new preset version and a proof QA pass."
+      "The physical sheet remains 210 x 140 mm but rotates to a 140 x 210 mm portrait MediaBox.",
+      "The 16:9 autonomous still remains uncropped and centered as the dominant visual field.",
+      "The bottom-right QR is inverted: black field with white modules, high error correction, and a four-module quiet zone.",
+      "The portrait reading plane allows three vertically stacked cards; exact omitted footprints remain present in the strata.",
+      "Landscape v1 remains unchanged for direct comparison and rollback."
     ]
   }
 }

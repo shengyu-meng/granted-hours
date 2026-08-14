@@ -39,6 +39,26 @@ class TimetablePulseImporterTests(unittest.TestCase):
             }
         return catalog
 
+    def test_deduplicate_runs_skips_a_receipt_removed_after_discovery(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            removed = root / "removed.md"
+            surviving = root / "surviving.md"
+            removed.write_text("old receipt", encoding="utf-8")
+            surviving.write_text("current receipt", encoding="utf-8")
+            removed.unlink()
+
+            timestamp = importer.datetime(2026, 8, 13, 7, 30)
+            runs = [
+                ("morning-reminder", timestamp, removed),
+                ("evening-reminder", timestamp, surviving),
+            ]
+
+            self.assertEqual(
+                importer.deduplicate_runs(runs),
+                [("evening-reminder", timestamp, surviving)],
+            )
+
     def test_internal_reflection_is_not_published_as_a_personal_reminder(self) -> None:
         self.assertEqual(
             importer.categorize_job("redo-reflection-daily-0750"),

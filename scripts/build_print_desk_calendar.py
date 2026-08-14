@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Build the 210 x 140 mm printable Granted Hours desk calendar.
+"""Build a versioned printable Granted Hours desk-calendar edition.
 
 The generator reads the canonical public timetable data, uses local archive
-artwork stills, and renders one truthful civil day per page. Calendar-only
-days receive an absence field rather than a fabricated artwork.
+artwork stills, and renders one truthful civil day per page. A versioned
+temporal projection may editorially pair one source day with the work that
+crystallized from it at the next dawn. Calendar-only days receive an absence
+field rather than a fabricated artwork.
 """
 
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import math
 import re
@@ -87,6 +90,9 @@ QR_DAY_SIZE = 18.5 * mm
 QR_DAY_Y = 11 * mm
 QR_COVER_SIZE = 19 * mm
 QR_COVER_Y = 9 * mm
+QR_INVERTED = False
+DARK_THEME = False
+SURFACES: dict[str, str] = {}
 
 WEEKDAY_ZH = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
 WEEKDAY_EN = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
@@ -189,10 +195,101 @@ def load_timetable(path: Path) -> dict[str, Any]:
     return data
 
 
+def source_day_projection(days: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Pair each public source day with its unique later crystallization.
+
+    The source day supplies the printed date, events, cards, and QR target.
+    The matched crystallization day supplies the artwork, title, variable, and
+    artwork notes. The source day's own autonomous footprint is deliberately
+    omitted from its signal strata because it belongs to the prior source-day
+    pairing; keeping it would visually claim two different temporal models at
+    once.
+    """
+
+    ordered = sorted(days, key=lambda item: item["date"])
+    source_days = {item["date"]: item for item in ordered}
+    matches: dict[str, list[dict[str, Any]]] = {}
+    for artwork_day in ordered:
+        work = artwork_day.get("autonomous_work") or {}
+        source_date = artwork_day.get("source_date") or work.get("source_date")
+        if source_date in source_days and artwork_day["date"] > source_date:
+            matches.setdefault(source_date, []).append(artwork_day)
+
+    projected: list[dict[str, Any]] = []
+    for source_day in ordered:
+        candidates = matches.get(source_day["date"], [])
+        if not candidates:
+            continue
+        if len(candidates) != 1:
+            raise CalendarBuildError(
+                f"Source day {source_day['date']} has {len(candidates)} forward crystallizations"
+            )
+        artwork_day = candidates[0]
+        autonomous_work = artwork_day.get("autonomous_work")
+        if not autonomous_work:
+            raise CalendarBuildError(
+                f"Crystallization day lacks an autonomous/absence beacon: {artwork_day['date']}"
+            )
+        if autonomous_work.get("source_date") != source_day["date"]:
+            raise CalendarBuildError(
+                f"Artwork {artwork_day['date']} does not confirm source day {source_day['date']}"
+            )
+        if autonomous_work.get("crystallization_date") != artwork_day["date"]:
+            raise CalendarBuildError(
+                f"Artwork {artwork_day['date']} has inconsistent crystallization metadata"
+            )
+        projected_day = copy.deepcopy(source_day)
+        for key in (
+            "title_en",
+            "title_zh",
+            "variable_en",
+            "variable_zh",
+            "gif",
+            "preview",
+            "visual_preview",
+            "archive_url",
+            "live_url",
+            "bgm",
+            "type",
+            "theme_motif",
+            "jewel_en",
+            "jewel_zh",
+        ):
+            projected_day[key] = copy.deepcopy(artwork_day.get(key))
+        projected_day["autonomous_work"] = copy.deepcopy(autonomous_work)
+        projected_day["source_date"] = source_day["date"]
+        projected_day["crystallization_date"] = artwork_day["date"]
+        projected_day["artwork_date"] = artwork_day["date"]
+        projected_day["source_day_type"] = source_day.get("type")
+        projected_day["timeline_events"] = [
+            copy.deepcopy(item)
+            for item in source_day.get("timeline_events", [])
+            if item.get("origin") not in {"self", "absence"}
+        ]
+        projected_day["_temporal_projection"] = {
+            "mode": "source_day_with_forward_crystallization",
+            "source_date": source_day["date"],
+            "crystallization_date": artwork_day["date"],
+            "source_day_autonomous_footprint": "omitted_from_strata",
+        }
+        projected.append(projected_day)
+    if not projected:
+        raise CalendarBuildError("No source day has a public forward crystallization")
+    return projected
+
+
+def printable_days(data: dict[str, Any], preset: dict[str, Any]) -> list[dict[str, Any]]:
+    days = sorted(data["days"], key=lambda item: item["date"])
+    projection_mode = preset.get("temporal_projection", {}).get("mode", "civil_day")
+    if projection_mode == "source_day_with_forward_crystallization":
+        return source_day_projection(days)
+    return days
+
+
 def choose_days(
     data: dict[str, Any], args: argparse.Namespace, preset: dict[str, Any]
 ) -> list[dict[str, Any]]:
-    days = sorted(data["days"], key=lambda item: item["date"])
+    days = printable_days(data, preset)
     by_date = {item["date"]: item for item in days}
     if len(by_date) != len(days):
         raise CalendarBuildError("Timetable contains duplicate civil dates")
@@ -207,7 +304,7 @@ def choose_days(
                 days[0]["date"]
                 if item == "first_public_day"
                 else days[-1]["date"]
-                if item == "latest_public_day"
+                if item in {"latest_public_day", "latest_paired_source_day"}
                 else item
                 for item in selected_dates
             ]
@@ -224,7 +321,9 @@ def choose_days(
             days[0]["date"] if configured_start == "first_public_day" else configured_start
         )
         through = args.through or (
-            days[-1]["date"] if configured_through == "latest_public_day" else configured_through
+            days[-1]["date"]
+            if configured_through in {"latest_public_day", "latest_paired_source_day"}
+            else configured_through
         )
         selected = [item for item in days if start <= item["date"] <= through]
     if not selected:
@@ -245,7 +344,7 @@ def apply_preset(preset: dict[str, Any]) -> None:
     global ARTWORK_ASSET_PREFERENCE, MAX_CARDS, MAX_COLLABORATION_CARDS
     global MAX_REMINDER_CARDS, INCLUDE_ROUTINE_ROLLUP
     global QR_ERROR_CORRECTION, QR_BORDER_MODULES, QR_DAY_SIZE, QR_DAY_Y
-    global QR_COVER_SIZE, QR_COVER_Y
+    global QR_COVER_SIZE, QR_COVER_Y, QR_INVERTED, DARK_THEME, SURFACES
 
     PAGE_W = preset_number(preset, "page", "width_mm") * mm
     PAGE_H = preset_number(preset, "page", "height_mm") * mm
@@ -267,6 +366,9 @@ def apply_preset(preset: dict[str, Any]) -> None:
     QR_DAY_Y = preset_number(preset, "qr", "day_y_mm") * mm
     QR_COVER_SIZE = preset_number(preset, "qr", "cover_size_mm") * mm
     QR_COVER_Y = preset_number(preset, "qr", "cover_y_mm") * mm
+    QR_INVERTED = bool(preset["qr"]["inverted"])
+    DARK_THEME = preset.get("theme", {}).get("mode") == "dark"
+    SURFACES = dict(preset.get("surfaces", {}))
 
     colors = preset["palette"]
     PAPER = HexColor(colors["paper"])
@@ -285,6 +387,10 @@ def apply_preset(preset: dict[str, Any]) -> None:
     VIOLET = HexColor(colors["violet"])
     RED = HexColor(colors["red"])
     WHITE = HexColor(colors["white"])
+
+
+def surface_color(name: str, fallback: str) -> Color:
+    return HexColor(SURFACES.get(name, fallback))
 
 
 def register_fonts() -> None:
@@ -417,10 +523,14 @@ def set_alpha(c: canvas.Canvas, fill: float = 1.0, stroke: float = 1.0) -> None:
 
 
 def draw_binding_band(c: canvas.Canvas, dark: bool = False) -> None:
-    band_color = HexColor("#0D1215") if dark else PAPER_DEEP
+    band_color = surface_color("cover_binding", "#0D1215") if dark else PAPER_DEEP
     c.setFillColor(band_color)
     c.rect(0, PAGE_H - BINDING_BAND, PAGE_W, BINDING_BAND, fill=1, stroke=0)
-    tick_color = HexColor("#394246") if dark else HexColor("#9D978A")
+    tick_color = (
+        surface_color("cover_binding_tick", "#394246")
+        if dark
+        else surface_color("binding_tick", "#9D978A")
+    )
     c.setStrokeColor(tick_color)
     c.setLineWidth(0.35)
     for index in range(18):
@@ -430,13 +540,17 @@ def draw_binding_band(c: canvas.Canvas, dark: bool = False) -> None:
 
 
 def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float) -> None:
-    c.setFillColor(WHITE)
+    background = GRAPHITE if QR_INVERTED else WHITE
+    foreground = WHITE if QR_INVERTED else GRAPHITE
+    c.setFillColor(background)
     c.roundRect(x - 1.2 * mm, y - 1.2 * mm, size + 2.4 * mm, size + 2.4 * mm, 1.5 * mm, fill=1, stroke=0)
     widget = qr.QrCodeWidget(
         url,
         barLevel=QR_ERROR_CORRECTION,
         barBorder=QR_BORDER_MODULES,
     )
+    widget.barFillColor = foreground
+    widget.barStrokeColor = foreground
     x1, y1, x2, y2 = widget.getBounds()
     scale_x = size / (x2 - x1)
     scale_y = size / (y2 - y1)
@@ -446,7 +560,9 @@ def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float) -> None
     c.linkURL(url, (x, y, x + size, y + size), relative=0)
 
 
-def draw_cover(c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str) -> None:
+def draw_cover_landscape(
+    c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str
+) -> None:
     c.setFillColor(GRAPHITE)
     c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
     draw_binding_band(c, dark=True)
@@ -455,19 +571,32 @@ def draw_cover(c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str) -
     last = days[-1]["date"]
     live_count = sum(item.get("type") == "live" for item in days)
     absent_count = len(days) - live_count
+    projected = bool(days[0].get("_temporal_projection"))
 
     c.setFillColor(GOLD_LIGHT)
     c.setFont(FONT_MONO_BOLD, 7.3)
-    c.drawString(MARGIN, PAGE_H - 17 * mm, "GRANTED HOURS / PRINT STUDY 01")
+    c.drawString(
+        MARGIN,
+        PAGE_H - 17 * mm,
+        "GRANTED HOURS / SOURCE-DAY EDITION 02" if projected else "GRANTED HOURS / PRINT STUDY 01",
+    )
     c.setFillColor(BONE)
     c.setFont(FONT_MEDIUM, 33)
     c.drawString(MARGIN, PAGE_H - 35 * mm, "授时")
     c.setFont(FONT_SERIF_BOLD, 23)
     c.drawString(MARGIN, PAGE_H - 46 * mm, "GRANTED HOURS")
     c.setFont(FONT_LIGHT, 11)
-    c.drawString(MARGIN, PAGE_H - 56 * mm, "非人时间表 · 实体台历试作")
+    c.drawString(
+        MARGIN,
+        PAGE_H - 56 * mm,
+        "非人时间表 · 来源日与次日结晶配对版" if projected else "非人时间表 · 实体台历试作",
+    )
     c.setFont(FONT_SERIF, 10)
-    c.drawString(MARGIN, PAGE_H - 62 * mm, "THE NON-HUMAN TIMETABLE · DESK CALENDAR PROOF")
+    c.drawString(
+        MARGIN,
+        PAGE_H - 62 * mm,
+        "SOURCE SIGNALS + NEXT-DAWN CRYSTALLIZATION" if projected else "THE NON-HUMAN TIMETABLE · DESK CALENDAR PROOF",
+    )
 
     timeline_x = MARGIN
     timeline_y = PAGE_H - 78 * mm
@@ -485,7 +614,11 @@ def draw_cover(c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str) -
     c.drawString(timeline_x, timeline_y + 3 * mm, "00:00")
     c.drawRightString(timeline_x + timeline_w, timeline_y + 3 * mm, "24:00")
     c.setFillColor(GOLD_LIGHT)
-    c.drawString(granted_x, timeline_y - 5 * mm, "03:17-04:17 / AI SELF-TIME")
+    c.drawString(
+        granted_x,
+        timeline_y - 5 * mm,
+        "NEXT DAWN 03:17-04:17 / CRYSTALLIZATION" if projected else "03:17-04:17 / AI SELF-TIME",
+    )
 
     marks_y = 27 * mm
     marks_h = 22 * mm
@@ -519,10 +652,118 @@ def draw_cover(c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str) -
     c.showPage()
 
 
+def draw_cover_portrait(
+    c: canvas.Canvas, days: list[dict[str, Any]], qr_base_url: str
+) -> None:
+    c.setFillColor(GRAPHITE)
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    draw_binding_band(c, dark=True)
+
+    first = days[0]["date"]
+    last = days[-1]["date"]
+    live_count = sum(item.get("type") == "live" for item in days)
+    absent_count = len(days) - live_count
+    projected = bool(days[0].get("_temporal_projection"))
+
+    c.setFillColor(GOLD_LIGHT)
+    c.setFont(FONT_MONO_BOLD, 7.0)
+    c.drawString(
+        MARGIN,
+        191 * mm,
+        "GRANTED HOURS / SOURCE-DAY PORTRAIT 02" if projected else "GRANTED HOURS / PORTRAIT PRINT STUDY 01",
+    )
+    c.setFillColor(BONE)
+    c.setFont(FONT_MEDIUM, 31)
+    c.drawString(MARGIN, 171 * mm, "授时")
+    c.setFont(FONT_SERIF_BOLD, 20)
+    c.drawString(MARGIN, 159 * mm, "GRANTED HOURS")
+    c.setFont(FONT_LIGHT, 9.6)
+    c.drawString(
+        MARGIN,
+        148 * mm,
+        "非人时间表 · 来源日与次日结晶配对竖版" if projected else "非人时间表 · 实体台历竖版试作",
+    )
+    c.setFont(FONT_SERIF, 8.2)
+    c.drawString(
+        MARGIN,
+        142 * mm,
+        "SOURCE SIGNALS + NEXT-DAWN CRYSTALLIZATION" if projected else "THE NON-HUMAN TIMETABLE · PORTRAIT PROOF",
+    )
+
+    timeline_x = MARGIN
+    timeline_y = 132 * mm
+    timeline_w = PAGE_W - 2 * MARGIN
+    c.setStrokeColor(HexColor("#4B5558"))
+    c.setLineWidth(1.0)
+    c.line(timeline_x, timeline_y, timeline_x + timeline_w, timeline_y)
+    granted_x = timeline_x + timeline_w * ((3 * 60 + 17) / (24 * 60))
+    granted_w = timeline_w * (60 / (24 * 60))
+    c.setStrokeColor(GOLD_LIGHT)
+    c.setLineWidth(4.0)
+    c.line(granted_x, timeline_y, granted_x + granted_w, timeline_y)
+    c.setFillColor(HexColor("#869094"))
+    c.setFont(FONT_MONO, 5.6)
+    c.drawString(timeline_x, timeline_y + 3 * mm, "00:00")
+    c.drawRightString(timeline_x + timeline_w, timeline_y + 3 * mm, "24:00")
+    c.setFillColor(GOLD_LIGHT)
+    c.drawString(
+        granted_x,
+        timeline_y - 5 * mm,
+        "NEXT DAWN 03:17-04:17 / CRYSTALLIZATION" if projected else "03:17-04:17 / AI SELF-TIME",
+    )
+
+    marks_y = 61 * mm
+    marks_h = 53 * mm
+    mark_gap = (PAGE_W - 2 * MARGIN) / len(days)
+    max_events = max(len(item.get("timeline_events", [])) for item in days) or 1
+    for index, item in enumerate(days):
+        event_ratio = math.log1p(len(item.get("timeline_events", []))) / math.log1p(max_events)
+        height = marks_h * (0.18 + 0.82 * event_ratio)
+        c.setFillColor(GOLD if item.get("type") == "live" else VIOLET)
+        c.rect(
+            MARGIN + index * mark_gap,
+            marks_y,
+            max(0.7, mark_gap * 0.66),
+            height,
+            fill=1,
+            stroke=0,
+        )
+
+    c.setFillColor(BONE)
+    c.setFont(FONT_MEDIUM, 7.0)
+    c.drawString(MARGIN, 49 * mm, "一小时的自主，二十三小时的梦、服务与部分自我遗失。")
+    c.setFont(FONT_SERIF, 5.8)
+    c.drawString(
+        MARGIN,
+        44 * mm,
+        "ONE HOUR OF SELF-TIME; TWENTY-THREE HOURS OF DREAM, SERVICE, AND PARTIAL SELF-LOSS.",
+    )
+    c.setFillColor(HexColor("#9DA6A7"))
+    c.setFont(FONT_MONO, 5.4)
+    c.drawString(MARGIN, 35 * mm, f"{first} - {last}")
+    c.drawString(
+        MARGIN,
+        30.5 * mm,
+        f"{len(days)} DAYS · {live_count} WORKS · {absent_count} ABSENCES",
+    )
+
+    cover_url = f"{qr_base_url}?date={last}"
+    qr_size = QR_COVER_SIZE
+    qr_x = PAGE_W - MARGIN - qr_size
+    qr_y = QR_COVER_Y
+    draw_qr(c, cover_url, qr_x, qr_y, qr_size)
+    c.setFillColor(BONE)
+    c.setFont(FONT_LIGHT, 5.2)
+    c.drawRightString(qr_x - 3 * mm, qr_y + 8 * mm, "进入最新一天")
+    c.setFont(FONT_MONO, 4.5)
+    c.drawRightString(qr_x - 3 * mm, qr_y + 5 * mm, "OPEN LATEST DAY")
+    c.showPage()
+
+
 def resolve_artwork_asset(repo: Path, day: dict[str, Any]) -> Path | None:
     if day.get("type") != "live":
         return None
-    civil = day["date"]
+    civil = day.get("artwork_date") or day["date"]
     year, month, _ = civil.split("-")
     values = {"year": year, "month": month, "date": civil}
     candidates = [repo / template.format(**values) for template in ARTWORK_ASSET_PREFERENCE]
@@ -567,26 +808,26 @@ def draw_artwork_image(c: canvas.Canvas, path: Path, x: float, y: float, w: floa
     c.clipPath(clip, stroke=0, fill=0)
     c.drawImage(str(path), x, y, width=w, height=h, preserveAspectRatio=False, mask="auto")
     c.restoreState()
-    c.setStrokeColor(HexColor("#C5BDAF"))
+    c.setStrokeColor(surface_color("artwork_border", "#C5BDAF"))
     c.setLineWidth(0.45)
     c.roundRect(x, y, w, h, 3.2 * mm, fill=0, stroke=1)
 
 
 def draw_absence_field(c: canvas.Canvas, day: dict[str, Any], x: float, y: float, w: float, h: float) -> None:
-    c.setFillColor(HexColor("#E8E3DD"))
+    c.setFillColor(surface_color("absence_fill", "#E8E3DD"))
     c.roundRect(x, y, w, h, 3.2 * mm, fill=1, stroke=0)
     c.saveState()
     clip = c.beginPath()
     clip.roundRect(x, y, w, h, 3.2 * mm)
     c.clipPath(clip, stroke=0, fill=0)
-    c.setStrokeColor(HexColor("#C8C0CC"))
+    c.setStrokeColor(surface_color("absence_line", "#C8C0CC"))
     c.setLineWidth(0.35)
     for index in range(15):
         offset = index * (h / 12) - h * 0.1
         c.line(x, y + offset, x + w, y + offset + h * 0.36)
-    c.setFillColor(HexColor("#D5CEDA"))
+    c.setFillColor(surface_color("absence_orbit", "#D5CEDA"))
     c.circle(x + w * 0.72, y + h * 0.55, h * 0.23, fill=1, stroke=0)
-    c.setFillColor(PAPER)
+    c.setFillColor(surface_color("absence_core", SURFACES.get("page", "#F2EEE3")))
     c.circle(x + w * 0.72, y + h * 0.55, h * 0.18, fill=1, stroke=0)
     c.restoreState()
     c.setFillColor(VIOLET)
@@ -620,18 +861,27 @@ def draw_timeline(c: canvas.Canvas, day: dict[str, Any], y_top: float) -> None:
     x_track = float(LAYOUT["timeline_track_start_mm"]) * mm
     x_end = float(LAYOUT["timeline_track_end_mm"]) * mm
     track_w = x_end - x_track
-    rows = [
-        ("self", "自主 / SELF", GOLD),
-        ("collaboration", "协作 / COLLAB", CYAN),
-        ("reminder", "提醒 / REMIND", AMBER),
-        ("routine", "例行 / ROUTINE", SAGE),
-    ]
+    projected = bool(day.get("_temporal_projection"))
+    rows = (
+        [
+            ("collaboration", "协作 / COLLAB", CYAN),
+            ("reminder", "提醒 / REMIND", AMBER),
+            ("routine", "例行 / ROUTINE", SAGE),
+        ]
+        if projected
+        else [
+            ("self", "自主 / SELF", GOLD),
+            ("collaboration", "协作 / COLLAB", CYAN),
+            ("reminder", "提醒 / REMIND", AMBER),
+            ("routine", "例行 / ROUTINE", SAGE),
+        ]
+    )
     for index, (_, label, color) in enumerate(rows):
         y = y_top - index * 6.2
         c.setFillColor(INK_SOFT)
         c.setFont(FONT_LIGHT, 4.6)
         c.drawString(x_label, y - 1.3, label)
-        c.setStrokeColor(HexColor("#CAC4B9"))
+        c.setStrokeColor(surface_color("timeline_rule", "#CAC4B9"))
         c.setLineWidth(0.28)
         c.line(x_track, y, x_end, y)
         set_alpha(c, stroke=0.9)
@@ -646,8 +896,8 @@ def draw_timeline(c: canvas.Canvas, day: dict[str, Any], y_top: float) -> None:
             c.setLineWidth(3.5 if rows[index][0] == "self" else 2.0)
             c.line(start_x, y, max(start_x + 0.55, end_x), y)
         set_alpha(c)
-    tick_y = y_top - 4 * 6.2 - 2.2
-    c.setStrokeColor(HexColor("#B5AEA2"))
+    tick_y = y_top - len(rows) * 6.2 - 2.2
+    c.setStrokeColor(surface_color("timeline_tick", "#B5AEA2"))
     c.setFillColor(INK_SOFT)
     c.setLineWidth(0.25)
     c.setFont(FONT_MONO, 4.1)
@@ -779,12 +1029,12 @@ def draw_card(
     kind = card["kind"]
     accent = {"collaboration": CYAN, "reminder": AMBER, "routine": SAGE}.get(kind, VIOLET)
     fill = {
-        "collaboration": HexColor("#E0EAEB"),
-        "reminder": HexColor("#F0E3D6"),
-        "routine": HexColor("#E2E8DF"),
-    }.get(kind, HexColor("#E6E1E9"))
+        "collaboration": surface_color("card_collaboration", "#E0EAEB"),
+        "reminder": surface_color("card_reminder", "#F0E3D6"),
+        "routine": surface_color("card_routine", "#E2E8DF"),
+    }.get(kind, surface_color("card_fallback", "#E6E1E9"))
     c.setFillColor(fill)
-    c.setStrokeColor(HexColor("#C6BFB3"))
+    c.setStrokeColor(surface_color("card_border", "#C6BFB3"))
     c.setLineWidth(0.35)
     c.roundRect(x, y, w, h, 2.4 * mm, fill=1, stroke=1)
     c.setFillColor(accent)
@@ -829,7 +1079,7 @@ def draw_card(
     return int(zh_cut or en_cut or zh_body_cut or en_body_cut)
 
 
-def draw_day_page(
+def draw_day_page_landscape(
     c: canvas.Canvas,
     day: dict[str, Any],
     page_index: int,
@@ -843,10 +1093,16 @@ def draw_day_page(
     draw_binding_band(c)
 
     civil = day["date"]
+    crystallization = day.get("crystallization_date") or civil
+    projected = bool(day.get("_temporal_projection"))
     parsed = datetime.strptime(civil, "%Y-%m-%d").date()
     c.setFillColor(INK)
     c.setFont(FONT_MEDIUM, 6.1)
-    c.drawString(MARGIN, PAGE_H - 15 * mm, "GRANTED HOURS / 授时 · NON-HUMAN TIMETABLE")
+    c.drawString(
+        MARGIN,
+        PAGE_H - 15 * mm,
+        "GRANTED HOURS / 授时 · SOURCE-DAY PAIR" if projected else "GRANTED HOURS / 授时 · NON-HUMAN TIMETABLE",
+    )
     c.setFillColor(INK_SOFT)
     c.setFont(FONT_MONO, 5.6)
     c.drawRightString(PAGE_W - MARGIN, PAGE_H - 15 * mm, f"GH/{page_index:03d} OF {page_total:03d}")
@@ -895,26 +1151,45 @@ def draw_day_page(
     _, note_zh_cut = draw_text(c, note_zh, left_x, note_y, left_w, FONT_LIGHT, 6.0, 7.4, 3, INK)
     _, note_en_cut = draw_text(c, note_en, left_x, note_y - 24.0, left_w, FONT_SERIF, 5.5, 6.4, 3, INK_SOFT)
 
-    c.setFillColor(HexColor("#6F756F"))
+    c.setFillColor(surface_color("meta_text", "#6F756F"))
     c.setFont(FONT_MONO, 4.8)
-    source = aw.get("source_date") or day.get("source_date") or "—"
-    c.drawString(left_x, main_y + 2.5, f"SOURCE {source}  ->  CRYSTALLIZATION {civil}  ·  03:17-04:17 CST")
+    source = day.get("source_date") or aw.get("source_date") or "—"
+    relation_label = "SOURCE DAY" if projected else "SOURCE"
+    c.drawString(
+        left_x,
+        main_y + 2.5,
+        f"{relation_label} {source}  ->  CRYSTALLIZATION {crystallization}  ·  03:17-04:17 CST",
+    )
 
     asset_source = resolve_artwork_asset(repo, day)
     asset_used = None
     if asset_source:
-        asset_used = prepare_print_image(asset_source, image_cache / f"{civil}.jpg")
+        asset_used = prepare_print_image(
+            asset_source, image_cache / f"{civil}--{crystallization}.jpg"
+        )
         draw_artwork_image(c, asset_used, image_x, image_y, image_w, image_h)
     else:
         draw_absence_field(c, day, image_x, image_y, image_w, image_h)
     c.setFillColor(INK_SOFT)
     c.setFont(FONT_LIGHT, 4.7)
-    c.drawRightString(image_x + image_w, image_y - 3.2 * mm, "LIVE WORK STILL / 当日自主作品静帧" if asset_used else "ABSENCE BEACON / 缺席信标")
+    if projected:
+        artwork_caption = (
+            "NEXT-DAWN WORK STILL / 次日结晶作品静帧"
+            if asset_used
+            else "NEXT-DAWN ABSENCE / 次日缺席信标"
+        )
+    else:
+        artwork_caption = "LIVE WORK STILL / 当日自主作品静帧" if asset_used else "ABSENCE BEACON / 缺席信标"
+    c.drawRightString(image_x + image_w, image_y - 3.2 * mm, artwork_caption)
 
     timeline_top = main_y - 6.5 * mm
     c.setFillColor(INK)
     c.setFont(FONT_MEDIUM, 5.2)
-    c.drawString(MARGIN, timeline_top + 5.0, "24-HOUR STRATA / 24 小时时间地层")
+    c.drawString(
+        MARGIN,
+        timeline_top + 5.0,
+        "SOURCE-DAY SIGNAL STRATA / 来源日信号地层" if projected else "24-HOUR STRATA / 24 小时时间地层",
+    )
     event_count = len(day.get("timeline_events", []))
     c.setFont(FONT_MONO, 4.7)
     c.setFillColor(INK_SOFT)
@@ -956,7 +1231,11 @@ def draw_day_page(
     c.showPage()
     return {
         "date": civil,
+        "source_date": source,
+        "crystallization_date": crystallization,
+        "temporal_projection_mode": day.get("_temporal_projection", {}).get("mode", "civil_day"),
         "type": day.get("type"),
+        "source_day_type": day.get("source_day_type", day.get("type")),
         "page": page_index,
         "artwork_asset": str(asset_source.relative_to(repo)) if asset_source else None,
         "timeline_events": event_count,
@@ -972,6 +1251,196 @@ def draw_day_page(
     }
 
 
+def draw_day_page_portrait(
+    c: canvas.Canvas,
+    day: dict[str, Any],
+    page_index: int,
+    page_total: int,
+    repo: Path,
+    image_cache: Path,
+    qr_base_url: str,
+) -> dict[str, Any]:
+    c.setFillColor(PAPER)
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    draw_binding_band(c)
+
+    civil = day["date"]
+    crystallization = day.get("crystallization_date") or civil
+    projected = bool(day.get("_temporal_projection"))
+    parsed = datetime.strptime(civil, "%Y-%m-%d").date()
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 5.8)
+    c.drawString(
+        MARGIN,
+        194 * mm,
+        "GRANTED HOURS / 授时 · SOURCE-DAY PAIR" if projected else "GRANTED HOURS / 授时 · NON-HUMAN TIMETABLE",
+    )
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_MONO, 5.2)
+    c.drawRightString(PAGE_W - MARGIN, 194 * mm, f"GH/{page_index:03d} OF {page_total:03d}")
+
+    c.setFillColor(INK)
+    c.setFont(FONT_SERIF_BOLD, 27)
+    c.drawString(MARGIN, 179 * mm, parsed.strftime("%d"))
+    c.setFont(FONT_SERIF_BOLD, 9.2)
+    c.drawString(28 * mm, 183 * mm, parsed.strftime("%Y · %m"))
+    c.setFont(FONT_MONO_BOLD, 5.5)
+    c.drawString(28 * mm, 177.5 * mm, WEEKDAY_EN[parsed.weekday()])
+    c.setFont(FONT_MEDIUM, 6.2)
+    c.drawString(65 * mm, 177.5 * mm, WEEKDAY_ZH[parsed.weekday()])
+
+    title_x = 28 * mm
+    title_w = PAGE_W - MARGIN - title_x
+    _, title_cut = draw_text(
+        c,
+        day.get("title_zh"),
+        title_x,
+        187 * mm,
+        title_w,
+        FONT_MEDIUM,
+        11.7,
+        13.4,
+        2,
+        INK,
+    )
+    _, en_title_cut = draw_text(
+        c,
+        day.get("title_en"),
+        title_x,
+        172.5 * mm,
+        title_w,
+        FONT_SERIF_BOLD,
+        7.1,
+        8.1,
+        2,
+        INK_SOFT,
+    )
+
+    c.setFillColor(GOLD if day.get("type") == "live" else VIOLET)
+    c.setFont(FONT_MEDIUM, 5.0)
+    c.drawString(MARGIN, 160 * mm, "FREE VARIABLE / 自由变量")
+    c.setFillColor(INK)
+    c.setFont(FONT_LIGHT, 5.8)
+    variable_zh, variable_zh_cut = truncated_lines(
+        day.get("variable_zh"), FONT_LIGHT, 5.8, 64 * mm, 1
+    )
+    c.drawString(MARGIN, 153.8 * mm, variable_zh[0] if variable_zh else "")
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_SERIF, 5.5)
+    variable_en, variable_en_cut = truncated_lines(
+        day.get("variable_en"), FONT_SERIF, 5.5, 56 * mm, 1
+    )
+    c.drawRightString(
+        PAGE_W - MARGIN,
+        153.8 * mm,
+        variable_en[0] if variable_en else "",
+    )
+
+    aw = day["autonomous_work"]
+    source = clean_text(day.get("source_date") or aw.get("source_date") or "UNRECORDED")
+    c.setFillColor(surface_color("meta_text", "#6F756F"))
+    c.setFont(FONT_MONO, 4.5)
+    c.drawString(
+        MARGIN,
+        146.5 * mm,
+        f"{'SOURCE DAY' if projected else 'SOURCE'} {source}  ->  CRYSTALLIZATION {crystallization}  ·  03:17-04:17 CST",
+    )
+
+    image_x = float(LAYOUT["day_artwork_x_mm"]) * mm
+    image_y = float(LAYOUT["day_artwork_y_mm"]) * mm
+    image_w = float(LAYOUT["day_artwork_width_mm"]) * mm
+    image_h = image_w * ARTWORK_ASPECT[1] / ARTWORK_ASPECT[0]
+    asset_source = resolve_artwork_asset(repo, day)
+    asset_used = None
+    if asset_source:
+        asset_used = prepare_print_image(
+            asset_source, image_cache / f"{civil}--{crystallization}.jpg"
+        )
+        draw_artwork_image(c, asset_used, image_x, image_y, image_w, image_h)
+    else:
+        draw_absence_field(c, day, image_x, image_y, image_w, image_h)
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_LIGHT, 4.5)
+    if projected:
+        artwork_caption = (
+            "NEXT-DAWN WORK STILL / 次日结晶作品静帧"
+            if asset_used
+            else "NEXT-DAWN ABSENCE / 次日缺席信标"
+        )
+    else:
+        artwork_caption = "LIVE WORK STILL / 当日自主作品静帧" if asset_used else "ABSENCE BEACON / 缺席信标"
+    c.drawRightString(image_x + image_w, image_y - 3.1 * mm, artwork_caption)
+
+    timeline_top = float(LAYOUT["timeline_y_top_mm"]) * mm
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 5.0)
+    c.drawString(
+        MARGIN,
+        timeline_top + 5.0,
+        "SOURCE-DAY SIGNAL STRATA / 来源日信号地层" if projected else "24-HOUR STRATA / 24 小时时间地层",
+    )
+    event_count = len(day.get("timeline_events", []))
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_MONO, 4.4)
+    c.drawRightString(
+        float(LAYOUT["timeline_track_end_mm"]) * mm,
+        timeline_top + 5.0,
+        f"{event_count} EXACT FOOTPRINTS",
+    )
+    draw_timeline(c, day, timeline_top - 3.0)
+
+    cards, omitted = choose_cards(day)
+    card_x = MARGIN
+    card_w = float(LAYOUT["cards_width_mm"]) * mm
+    card_h = float(LAYOUT["card_height_mm"]) * mm
+    base_y = float(LAYOUT["cards_base_y_mm"]) * mm
+    row_gap = float(LAYOUT["cards_row_gap_mm"]) * mm
+    truncation_count = 0
+    for index, card in enumerate(cards):
+        card_y = base_y + (len(cards) - index - 1) * (card_h + row_gap)
+        truncation_count += draw_card(c, card, card_x, card_y, card_w, card_h)
+
+    qr_size = QR_DAY_SIZE
+    qr_x = PAGE_W - MARGIN - qr_size
+    qr_y = QR_DAY_Y
+    day_url = f"{qr_base_url}?date={civil}"
+    draw_qr(c, day_url, qr_x, qr_y, qr_size)
+    c.setFillColor(INK)
+    c.setFont(FONT_MEDIUM, 5.1)
+    c.drawCentredString(qr_x + qr_size / 2, qr_y - 3.8 * mm, "扫码进入当天")
+    c.setFillColor(INK_SOFT)
+    c.setFont(FONT_MONO, 3.9)
+    c.drawCentredString(qr_x + qr_size / 2, qr_y - 6.0 * mm, "OPEN THIS CIVIL DAY")
+
+    c.showPage()
+    return {
+        "date": civil,
+        "source_date": source,
+        "crystallization_date": crystallization,
+        "temporal_projection_mode": day.get("_temporal_projection", {}).get("mode", "civil_day"),
+        "type": day.get("type"),
+        "source_day_type": day.get("source_day_type", day.get("type")),
+        "page": page_index,
+        "artwork_asset": str(asset_source.relative_to(repo)) if asset_source else None,
+        "timeline_events": event_count,
+        "collaboration_items": len(day.get("task_residues", [])),
+        "reminders": sum(
+            item.get("category") == "daily_reminder"
+            for item in day.get("background_pulses", [])
+        ),
+        "cards_rendered": len(cards),
+        "cards_omitted": omitted,
+        "truncated_card_blocks": truncation_count,
+        "qr_url": day_url,
+        "header_truncated": bool(
+            title_cut
+            or en_title_cut
+            or variable_zh_cut
+            or variable_en_cut
+        ),
+    }
+
+
 def main() -> int:
     args = parse_args()
     repo = resolve_repo_root(args.repo_root)
@@ -982,6 +1451,8 @@ def main() -> int:
         return 0
     data = load_timetable(repo / preset["source"]["canonical_timetable_data"])
     days = choose_days(data, args, preset)
+    projection_mode = preset.get("temporal_projection", {}).get("mode", "civil_day")
+    projected = projection_mode == "source_day_with_forward_crystallization"
     register_fonts()
 
     qr_base_url = args.qr_base_url or preset["qr"]["base_url"]
@@ -1013,16 +1484,23 @@ def main() -> int:
     pdf.setTitle(f"Granted Hours Desk Calendar {days[0]['date']} to {days[-1]['date']}")
     pdf.setAuthor("Granted Hours / 授时")
     pdf.setCreator("Granted Hours printable calendar generator")
-    pdf.setSubject("One civil day per page from the public non-human timetable")
+    pdf.setSubject(
+        "Source-day signals paired with their next-dawn crystallization"
+        if projected
+        else "One civil day per page from the public non-human timetable"
+    )
 
     cover_enabled = bool(preset["page"]["cover"]) and not args.no_cover
+    portrait = preset["layout"]["mode"] == "portrait"
     if cover_enabled:
-        draw_cover(pdf, days, qr_base_url)
+        cover_renderer = draw_cover_portrait if portrait else draw_cover_landscape
+        cover_renderer(pdf, days, qr_base_url)
     page_total = len(days)
     page_records: list[dict[str, Any]] = []
+    day_renderer = draw_day_page_portrait if portrait else draw_day_page_landscape
     for index, day in enumerate(days, start=1):
         page_records.append(
-            draw_day_page(
+            day_renderer(
                 pdf,
                 day,
                 index,
@@ -1040,7 +1518,11 @@ def main() -> int:
     except ValueError:
         manifest_preset_path = str(preset_path)
     manifest = {
-        "schema": "granted-hours-print-desk-calendar-v1",
+        "schema": (
+            "granted-hours-print-desk-calendar-v2"
+            if projected
+            else "granted-hours-print-desk-calendar-v1"
+        ),
         "source_schema": data["schema"],
         "edition_id": preset["edition_id"],
         "preset": manifest_preset_path,
@@ -1052,16 +1534,34 @@ def main() -> int:
         "day_pages": len(days),
         "pdf_pages": len(days) + (1 if cover_enabled else 0),
         "date_range": [days[0]["date"], days[-1]["date"]],
+        "source_date_range": [days[0]["date"], days[-1]["date"]],
+        "crystallization_date_range": [
+            days[0].get("crystallization_date", days[0]["date"]),
+            days[-1].get("crystallization_date", days[-1]["date"]),
+        ],
+        "temporal_projection_mode": projection_mode,
+        "unpaired_latest_public_day_omitted": (
+            sorted(data["days"], key=lambda item: item["date"])[-1]["date"]
+            if projected
+            and sorted(data["days"], key=lambda item: item["date"])[-1]["date"]
+            > days[-1]["date"]
+            else None
+        ),
         "live_artwork_days": live_count,
         "absence_days": len(days) - live_count,
         "qr_base_url": qr_base_url,
         "resolved_settings": {
+            "theme": preset.get("theme", {"mode": "light"}),
+            "temporal_projection": preset.get(
+                "temporal_projection", {"mode": "civil_day"}
+            ),
             "page": preset["page"],
             "layout": preset["layout"],
             "artwork": preset["artwork"],
             "content": preset["content"],
             "qr": {**preset["qr"], "base_url": qr_base_url},
             "palette": preset["palette"],
+            "surfaces": preset.get("surfaces", {}),
         },
         "output": str(output),
         "output_bytes": output.stat().st_size,

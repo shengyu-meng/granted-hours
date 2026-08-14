@@ -23,6 +23,7 @@ const cases = [
 
 const browser = await chromium.launch({ headless: true });
 const results = [];
+let corpusAudit = null;
 try {
   for (const testCase of cases) {
     const context = await browser.newContext({
@@ -122,6 +123,14 @@ try {
           bottom: rect.bottom,
           width: rect.width,
           height: rect.height,
+          heightContract: card.dataset.heightContract,
+          contentHeight: Number(card.dataset.contentHeight),
+          durationHeight: Number(card.dataset.durationHeight),
+          minimumHeight: Number(card.dataset.minimumHeight),
+          maximumHeight: Number(card.dataset.maximumHeight),
+          targetHeight: Number(card.dataset.targetHeight),
+          heightConstraint: card.dataset.heightConstraint,
+          heightSource: card.dataset.heightSource,
           opacity: Number(style.opacity),
           backgroundColor: style.backgroundColor,
           borderRadius: style.borderRadius,
@@ -233,6 +242,27 @@ try {
         `${testCase.label}: card height no longer responds to content and duration`,
       );
     }
+    assert.ok(
+      state.cards.filter((card) => card.layer !== "beacon").every((card) => {
+        const expected = Math.min(
+          card.maximumHeight,
+          Math.max(card.minimumHeight, card.contentHeight, card.durationHeight),
+        );
+        return card.heightContract === "content-duration-max-v1"
+          && Math.abs(card.targetHeight - expected) <= 0.01
+          && Math.abs(card.height - card.targetHeight) <= 0.7
+          && ["content", "duration"].includes(card.heightSource)
+          && ["minimum", "maximum", "none"].includes(card.heightConstraint);
+      }),
+      `${testCase.label}: non-artwork cards no longer use max(content, duration) height`,
+    );
+    assert.ok(
+      state.cards.filter((card) => card.layer === "beacon").every((card) => (
+        card.heightContract === "autonomous-artwork-v1"
+        && Math.abs(card.height - card.targetHeight) <= 0.7
+      )),
+      `${testCase.label}: autonomous artwork height was folded into the compact card rule`,
+    );
     assert.equal(state.projection, "compressed-idle-segments-v2", `${testCase.label}: missing continuous idle-time projection`);
     assert.equal(state.hourMarkers.length, 25, `${testCase.label}: hourly orientation marks were lost`);
     assert.ok(state.compressedMinuteCount > 0, `${testCase.label}: no idle minutes were compressed`);
@@ -288,7 +318,7 @@ try {
     const hoverCard = page.locator(testCase.dense
       ? '.event-reading-card[data-layer="event"]'
       : '.event-reading-card[data-layer="beacon"]').first();
-    await hoverCard.scrollIntoViewIfNeeded();
+    await hoverCard.evaluate((card) => card.scrollIntoView({ block: "center", inline: "nearest" }));
     await page.mouse.move(testCase.width - 8, 8);
     await page.waitForTimeout(340);
     if (screenshotRoot) {
@@ -297,6 +327,7 @@ try {
         path: path.join(screenshotRoot, `${testCase.date}-${testCase.label}-resting.png`),
         fullPage: false,
         animations: "disabled",
+        timeout: 120_000,
       });
     }
     const beforeHoverShadow = await hoverCard.evaluate((card) => getComputedStyle(card).boxShadow);
@@ -338,8 +369,77 @@ try {
     });
     await context.close();
   }
+
+  const corpusDates = timetableData.days.map((day) => day.date).sort();
+  const corpusContext = await browser.newContext({
+    viewport: { width: 1440, height: 900 },
+    colorScheme: "dark",
+  });
+  await corpusContext.addInitScript(() => {
+    localStorage.setItem("granted-hours-theme", "dark");
+  });
+  const corpusPage = await corpusContext.newPage();
+  const firstUrl = new URL(baseUrl);
+  firstUrl.searchParams.set("date", corpusDates[0]);
+  firstUrl.searchParams.set("regression", "reading-card-height-corpus");
+  await corpusPage.goto(firstUrl.href, { waitUntil: "domcontentloaded" });
+  const heightSources = new Set();
+  let auditedCardCount = 0;
+  let clampedMaximumCount = 0;
+  for (let index = 0; index < corpusDates.length; index += 1) {
+    const date = corpusDates[index];
+    await corpusPage.waitForFunction((expectedDate) => (
+      document.querySelector("#dayDialog")?.dataset.selectedDate === expectedDate
+      && document.querySelector(".timeline-reading-layer")?.classList.contains("is-placed")
+    ), date);
+    const cards = await corpusPage.locator(".event-reading-card").evaluateAll((elements) => (
+      elements.map((card) => ({
+        id: card.dataset.readingId,
+        layer: card.dataset.layer,
+        height: card.getBoundingClientRect().height,
+        contract: card.dataset.heightContract,
+        content: Number(card.dataset.contentHeight),
+        duration: Number(card.dataset.durationHeight),
+        minimum: Number(card.dataset.minimumHeight),
+        maximum: Number(card.dataset.maximumHeight),
+        target: Number(card.dataset.targetHeight),
+        constraint: card.dataset.heightConstraint,
+        source: card.dataset.heightSource,
+      }))
+    ));
+    assert.ok(cards.length > 0, `${date}: selected day has no reading cards`);
+    for (const card of cards) {
+      if (card.layer === "beacon") {
+        assert.equal(card.contract, "autonomous-artwork-v1", `${date} ${card.id}: artwork height contract drifted`);
+        assert.ok(Math.abs(card.height - card.target) <= 0.7, `${date} ${card.id}: artwork height drifted`);
+        continue;
+      }
+      const expected = Math.min(card.maximum, Math.max(card.minimum, card.content, card.duration));
+      assert.equal(card.contract, "content-duration-max-v1", `${date} ${card.id}: missing compact height contract`);
+      assert.ok(Math.abs(card.target - expected) <= 0.01, `${date} ${card.id}: target is not max(content, duration)`);
+      assert.ok(Math.abs(card.height - card.target) <= 0.7, `${date} ${card.id}: rendered height differs from target`);
+      heightSources.add(card.source);
+      auditedCardCount += 1;
+      if (card.constraint === "maximum") clampedMaximumCount += 1;
+    }
+    if (index < corpusDates.length - 1) {
+      await corpusPage.click("#nextDay");
+    }
+  }
+  assert.deepEqual(
+    [...heightSources].sort(),
+    ["content", "duration"],
+    "full corpus did not exercise both content-led and duration-led card heights",
+  );
+  corpusAudit = {
+    days: corpusDates.length,
+    nonArtworkCards: auditedCardCount,
+    heightSources: [...heightSources].sort(),
+    clampedMaximumCards: clampedMaximumCount,
+  };
+  await corpusContext.close();
 } finally {
   await browser.close();
 }
 
-console.log(JSON.stringify({ passed: true, sampleDate, results }, null, 2));
+console.log(JSON.stringify({ passed: true, sampleDate, results, corpusAudit }, null, 2));

@@ -144,6 +144,64 @@ function assertArtworkBriefLayout(state, self, label) {
   assert.ok(state.pageOverflow <= 1, `${label}: horizontal overflow ${state.pageOverflow}`);
 }
 
+async function fullscreenArtworkLayout(page) {
+  const parent = await page.evaluate(() => {
+    const metrics = (selector) => {
+      const element = document.querySelector(selector);
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      return {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height,
+        display: style.display,
+        aspectRatio: style.aspectRatio,
+      };
+    };
+    return {
+      viewportWidth: innerWidth,
+      viewportHeight: innerHeight,
+      panel: metrics("#artworkDialogPanel"),
+      layout: metrics(".artwork-detail-layout"),
+      stage: metrics(".artwork-live-stage"),
+      frame: metrics("#artworkLiveFrame"),
+    };
+  });
+  const artworkFrame = page.frames().find((frame) => frame.url().includes("embed=calendar"));
+  assert.ok(artworkFrame, "fullscreen artwork iframe is unavailable");
+  const child = await artworkFrame.evaluate(() => ({
+    viewportWidth: innerWidth,
+    viewportHeight: innerHeight,
+  }));
+  return { ...parent, child };
+}
+
+function assertFullscreenArtworkLayout(state, label) {
+  const tolerance = 2;
+  const expected = {
+    left: 0,
+    top: 0,
+    width: state.viewportWidth,
+    height: state.viewportHeight,
+  };
+  for (const name of ["panel", "layout", "stage", "frame"]) {
+    for (const property of ["left", "top", "width", "height"]) {
+      assert.ok(
+        Math.abs(state[name][property] - expected[property]) <= tolerance,
+        `${label}: ${name}.${property} does not fill fullscreen viewport ${JSON.stringify(state)}`,
+      );
+    }
+  }
+  assert.equal(state.panel.display, "block", `${label}: non-fullscreen grid survived fullscreen`);
+  assert.equal(state.stage.aspectRatio, "auto", `${label}: 16:9 card ratio survived fullscreen`);
+  assert.ok(
+    Math.abs(state.child.viewportWidth - state.viewportWidth) <= tolerance
+      && Math.abs(state.child.viewportHeight - state.viewportHeight) <= tolerance,
+    `${label}: embedded artwork received a compressed viewport ${JSON.stringify(state)}`,
+  );
+}
+
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
   const page = await context.newPage();
@@ -252,7 +310,7 @@ try {
   assert.equal(await artworkPage.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
   assert.equal(await artworkPage.locator("#calendarPianoToggle").getAttribute("aria-pressed"), "true");
   const pageCountBeforeArtwork = context.pages().length;
-  await artworkPage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+  await artworkPage.locator(".autonomous-preview-frame").evaluate((button) => button.click());
   await artworkPage.waitForSelector("#artworkDialog.is-open");
   assert.equal(context.pages().length, pageCountBeforeArtwork);
   assert.equal(await artworkPage.locator("#calendarBgm").evaluate((audio) => audio.paused), true);
@@ -290,6 +348,10 @@ try {
   await artworkPage.waitForFunction(() => document.querySelector("#artworkRuntimeStatus").hidden);
   await artworkPage.locator("#artworkFullscreen").click();
   await artworkPage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
+  assertFullscreenArtworkLayout(
+    await fullscreenArtworkLayout(artworkPage),
+    "desktop-1280x720-fullscreen",
+  );
   assert.equal(await artworkPage.locator("#artworkReturnCalendar").isVisible(), true);
   assert.equal(
     await artworkPage.locator("#closeArtworkDetail").getAttribute("aria-label"),
@@ -318,7 +380,7 @@ try {
   );
   await artworkPage.waitForFunction(() => document.activeElement?.classList.contains("autonomous-preview-frame"));
   await artworkPage.locator("#artworkBriefCard").evaluate((brief) => { brief.scrollTop = brief.scrollHeight; });
-  await artworkPage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+  await artworkPage.locator(".autonomous-preview-frame").evaluate((button) => button.click());
   await artworkPage.waitForSelector("#artworkDialog.is-open");
   assert.equal(await artworkPage.locator("#artworkBriefCard").evaluate((brief) => brief.scrollTop), 0);
   await artworkPage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
@@ -398,7 +460,7 @@ try {
   await mobilePage.locator("#enterAutonomous").scrollIntoViewIfNeeded();
   assert.ok(await mobilePage.locator("#enterAutonomous").isVisible());
   const sampleDay = timetableData.days.find((day) => day.date === sampleDate);
-  await mobilePage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+  await mobilePage.locator(".autonomous-preview-frame").evaluate((button) => button.click());
   await mobilePage.waitForSelector("#artworkDialog.is-open");
   assert.equal(await mobilePage.locator("#artworkBriefZh").textContent(), sampleDay.autonomous_work.brief_zh);
   assert.equal(await mobilePage.locator("#artworkBriefEn").textContent(), sampleDay.autonomous_work.brief_en);
@@ -445,13 +507,23 @@ try {
     responsiveUrl.searchParams.set("date", latest.date);
     await responsivePage.goto(responsiveUrl.href, { waitUntil: "domcontentloaded" });
     await responsivePage.waitForSelector(`#dayDialog.is-open[data-selected-date="${latest.date}"]`);
-    await responsivePage.locator(".autonomous-preview-frame").click({ noWaitAfter: true });
+    await responsivePage.locator(".autonomous-preview-frame").evaluate((button) => button.click());
     await responsivePage.waitForSelector("#artworkDialog.is-open");
     assertArtworkBriefLayout(
       await artworkBriefLayout(responsivePage),
       latest.autonomous_work,
       viewportCase.label,
     );
+    await responsivePage.waitForFunction(() => document.querySelector("#artworkLiveFrame").src.includes("embed=calendar"));
+    await responsivePage.locator("#artworkFullscreen").click();
+    await responsivePage.waitForFunction(() => document.fullscreenElement?.id === "artworkDialogPanel");
+    assertFullscreenArtworkLayout(
+      await fullscreenArtworkLayout(responsivePage),
+      `${viewportCase.label}-fullscreen`,
+    );
+    await responsivePage.locator("#closeArtworkDetail").click();
+    await responsivePage.waitForFunction(() => document.fullscreenElement === null);
+    assert.equal(await responsivePage.locator("#artworkDialog").isVisible(), true);
     await responsiveContext.close();
   }
 } finally {

@@ -41,9 +41,9 @@ Each public entry follows this chain:
 
 ## Printable desk calendar / 实体台历
 
-仓库内保存了 210 × 140 mm 实体台历的版本化参数、生成脚本、依赖和 QA 流程。版式调整与复现请从 [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md) 开始；生成器与验收脚本共同读取 [`config/print-desk-calendar-v1.json`](config/print-desk-calendar-v1.json)，并在 manifest 中记录预设哈希。
+仓库内保存了实体台历横版（210 × 140 mm）与竖版（140 × 210 mm）的浅色/暗色版本化参数、生成脚本、依赖和 QA 流程。版式调整与复现请从 [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md) 开始；生成器与验收脚本读取对应预设，并在 manifest 中记录预设哈希。
 
-The repository includes the versioned preset, generator, pinned dependencies, and QA workflow for the 210 × 140 mm printable desk-calendar study. Start with [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md); the build and QA tools share the same preset and record its hash in every manifest.
+The repository includes versioned light and dark presets for landscape (210 × 140 mm) and portrait (140 × 210 mm), the generator, pinned dependencies, and a shared QA workflow. Start with [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md); each build records the exact preset hash in its manifest.
 
 ## Daily Archive / 每日档案
 

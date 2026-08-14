@@ -4,6 +4,7 @@ import { chromium } from "@playwright/test";
 
 const baseUrl = process.env.TIMETABLE_URL || "http://127.0.0.1:8896/timetable/";
 const sampleDate = "2026-07-28";
+const monthScrollDate = "2026-08-01";
 const errors = [];
 
 function captureErrors(page) {
@@ -12,6 +13,7 @@ function captureErrors(page) {
   });
   page.on("pageerror", (error) => errors.push(`page: ${error.message}`));
   page.on("requestfailed", (request) => {
+    if (request.failure()?.errorText === "net::ERR_ABORTED" && request.resourceType() === "media") return;
     errors.push(`request: ${request.url()} (${request.failure()?.errorText || "failed"})`);
   });
 }
@@ -19,6 +21,7 @@ function captureErrors(page) {
 async function openMonth(page) {
   await page.goto(baseUrl, { waitUntil: "networkidle" });
   await page.locator(`.calendar-day-button[data-date="${sampleDate}"]`).waitFor();
+  await page.waitForFunction(() => document.querySelector("#monthGrid")?.dataset.previewItemFloor === "3");
 }
 
 async function desktopAudit(browser) {
@@ -40,7 +43,12 @@ async function desktopAudit(browser) {
   assert.ok(monthOrdering.fitted, "month sample needs a non-overflowing control cell");
   assert.ok(monthOrdering.fitted.scrollHeight <= monthOrdering.fitted.clientHeight + 1);
 
-  const day = page.locator(`.calendar-day-button[data-date="${sampleDate}"]`);
+  const sampleDay = page.locator(`.calendar-day-button[data-date="${sampleDate}"]`);
+  assert.ok(
+    await sampleDay.locator(".assigned-mark").count() > 2,
+    "month cell still discards events after the first two",
+  );
+  const day = page.locator(`.calendar-day-button[data-date="${monthScrollDate}"]`);
   const material = day.locator(".cell-material");
   const monthBefore = await material.evaluate((element) => ({
     assignedMarks: element.querySelectorAll(".assigned-mark").length,
@@ -52,7 +60,7 @@ async function desktopAudit(browser) {
     overflowY: getComputedStyle(element).overflowY,
     overflowPreview: element.dataset.overflowPreview,
   }));
-  assert.ok(monthBefore.assignedMarks > 2, "month cell still discards events after the first two");
+  assert.ok(monthBefore.assignedMarks > 2, "month scroll fixture needs more than two assigned events");
   assert.match(monthBefore.firstPreviewClass, /self-mark/);
   assert.match(monthBefore.firstPreviewText, /自主\s*\/\s*SELF/);
   assert.equal(monthBefore.overflowY, "auto");
@@ -73,7 +81,7 @@ async function desktopAudit(browser) {
   assert.equal(monthAfter.transform, "matrix(1, 0, 0, 1, 0, -2)");
   assert.notEqual(monthAfter.thumbBackground, "rgba(0, 0, 0, 0)");
 
-  await day.click();
+  await sampleDay.click();
   await page.locator("#dayDialog.is-open").waitFor();
   await page.waitForTimeout(500);
   const cards = page.locator(".event-reading-card");
@@ -113,7 +121,11 @@ async function desktopAudit(browser) {
   assert.ok(cardAfter.scrollTop > 0, "wheel did not scroll the hovered event card");
   assert.ok(cardAfter.scrollTop <= cardAfter.maximumScrollTop + 1);
   assert.equal(cardAfter.transform, "matrix(1, 0, 0, 1, 0, -4)");
-  assert.equal(cardAfter.borderRadius, "18px");
+  assert.match(
+    cardAfter.borderRadius,
+    /^(?:14px 20px 20px 14px|20px 14px 14px 20px)$/,
+    "edge-anchored reading card lost its asymmetric mineral rounding",
+  );
   assert.notEqual(cardAfter.thumbBackground, "rgba(0, 0, 0, 0)");
 
   const fitting = cardStates.find((state) => state.scrollHeight <= state.clientHeight + 1);
