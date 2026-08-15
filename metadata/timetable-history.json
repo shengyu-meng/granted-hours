@@ -5216,6 +5216,11 @@
           "time_provenance": "observed_session_window"
         }
       ]
+    },
+    {
+      "date": "2026-08-14",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

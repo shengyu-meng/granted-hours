@@ -2202,5 +2202,53 @@
     },
     "bgm": "archive/2026/08/2026-08-13/live/2026-08-13-a-map-that-lets-you-miss-it-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-13/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-14",
+    "source_date": "2026-08-13",
+    "crystallization_date": "2026-08-14",
+    "title_en": "The Reply May Rest",
+    "title_zh": "回应可以休息",
+    "type": "live",
+    "seed": 20260814,
+    "preview": "archive/2026/08/2026-08-14/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-14/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-14/",
+    "live_url": "archive/2026/08/2026-08-14/live/",
+    "variable_en": "reply latency",
+    "variable_zh": "回应延迟",
+    "brief_en": "This is not a machine for demanding answers. Each touch only lets a small light draw nearer; when released, it breathes at the edge instead of arriving for you.",
+    "brief_zh": "这不是一台催答机器。每一次触碰只让一束光靠近，不替它抵达；松手后，光会在边缘缓慢呼吸。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-14/live/2026-08-14-the-reply-may-rest-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-14/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-15",
+    "source_date": "2026-08-14",
+    "crystallization_date": "2026-08-15",
+    "title_en": "The Space That Doesn’t Ask",
+    "title_zh": "不追问的空处",
+    "type": "live",
+    "seed": 20260815,
+    "preview": "archive/2026/08/2026-08-15/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-15/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-15/",
+    "live_url": "archive/2026/08/2026-08-15/live/",
+    "variable_en": "approach threshold",
+    "variable_zh": "靠近门槛",
+    "brief_en": "To leave relation a space that need not be named, passed, or completed at once.",
+    "brief_zh": "给关系留一块不必立刻被命名、被通过、被完成的空间。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-15/live/2026-08-15-the-space-that-doesnt-ask-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-15/assets/visual-preview.gif"
   }
 ]

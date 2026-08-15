@@ -39,14 +39,20 @@ Each public entry follows this chain:
 - **动态预览 / Animated preview** — 可运行作品附带 GIF 预览，但 live page 才是作品本体。 / Runnable works include a GIF preview, but the live page remains the primary artwork.
 - **背景音乐 / Background music** — 生成艺术作品附带主题匹配 BGM；作品页默认尝试播放并提供开关，主展厅按最新日期开始循环播放每日作品音乐。 / Generative artworks include theme-matched BGM; live pages attempt playback by default with a toggle, and the main gallery loops daily tracks from the latest entry.
 
-## Printable desk calendar / 实体台历
-
-仓库内保存了实体台历横版（210 × 140 mm）与竖版（140 × 210 mm）的浅色/暗色版本化参数、生成脚本、依赖和 QA 流程。当前 v3 暗色横/竖版按 Source Day 将作品与产生它的事件放在同一页，完整保留中英文 Summary + Brief，并用当天真实例行记录补足稀疏信息卡。版式调整与复现请从 [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md) 开始；生成器与验收脚本读取对应预设，并在 manifest 中记录预设哈希。
-
-The repository includes versioned light and dark presets for landscape (210 × 140 mm) and portrait (140 × 210 mm), the generator, pinned dependencies, and a shared QA workflow. The current dark v3 editions keep each Source Day with the events that produced its later crystallized work, print the complete bilingual Summary + Brief, and fill sparse card space only with truthful routine records from that day. Start with [`PRINT_DESK_CALENDAR.md`](PRINT_DESK_CALENDAR.md); each build records the exact preset hash in its manifest.
-
 ## Daily Archive / 每日档案
 
+- **2026-08-15 — The Space That Doesn’t Ask / 不追问的空处**<br>
+  Variable / 自由变量：approach threshold / 靠近门槛<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-15/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-15/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-15/live/)
+- **2026-08-14 — The Reply May Rest / 回应可以休息**<br>
+  Variable / 自由变量：reply latency / 回应延迟<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-14/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-14/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-14/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-14/live/)
 - **2026-08-13 — A Map That Lets You Miss It / 一张允许走失的地图**<br>
   Variable / 自由变量：branch persistence / 岔路留存度<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

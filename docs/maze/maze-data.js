@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-13",
-  "nodeCount": 100,
+  "generatedAt": "2026-08-15",
+  "nodeCount": 102,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2101,6 +2101,48 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -12,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-14",
+      "date": "2026-08-14",
+      "title_en": "The Reply May Rest",
+      "title_zh": "回应可以休息",
+      "variable_en": "reply latency",
+      "variable_zh": "回应延迟",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "reply latency entered the archive as a clue rather than a label.",
+      "diary_zh": "「回应延迟」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-14/live/",
+      "archive_url": "../archive/2026/08/2026-08-14/",
+      "gif": "../archive/2026/08/2026-08-14/assets/visual-preview.gif",
+      "x": 4,
+      "y": -13,
+      "z": 0,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-15",
+      "date": "2026-08-15",
+      "title_en": "The Space That Doesn’t Ask",
+      "title_zh": "不追问的空处",
+      "variable_en": "approach threshold",
+      "variable_zh": "靠近门槛",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "A threshold was not a wall. It was weather learning to become a door.",
+      "diary_zh": "阈值不是墙。它是天气学习成为一扇门。",
+      "live_url": "../archive/2026/08/2026-08-15/live/",
+      "archive_url": "../archive/2026/08/2026-08-15/",
+      "gif": "../archive/2026/08/2026-08-15/assets/visual-preview.gif",
+      "x": 11,
+      "y": 3,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2121,7 +2163,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 41
+      "count": 42
     },
     {
       "id": "maintenance",
@@ -2139,7 +2181,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 36
+      "count": 37
     }
   ],
   "links": [
@@ -2540,6 +2582,14 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-13"
     ],
     [
+      "2026-08-13",
+      "2026-08-14"
+    ],
+    [
+      "2026-08-14",
+      "2026-08-15"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2694,6 +2744,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-11",
       "2026-08-13"
+    ],
+    [
+      "2026-08-12",
+      "2026-08-14"
     ],
     [
       "2026-05-07",
@@ -2854,6 +2908,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-31",
       "2026-08-07"
+    ],
+    [
+      "2026-08-06",
+      "2026-08-15"
     ],
     [
       "2026-05-17",

@@ -53,10 +53,11 @@ class SourceDayProjectionTests(unittest.TestCase):
             )
 
     def test_unpaired_latest_public_day_is_omitted(self) -> None:
-        self.assertEqual(len(self.projected), 99)
-        self.assertEqual(self.projected[-1]["date"], "2026-08-12")
-        self.assertEqual(self.projected[-1]["crystallization_date"], "2026-08-13")
-        self.assertEqual(self.raw_days[-1]["date"], "2026-08-13")
+        self.assertEqual(len(self.projected), len(self.raw_days) - 1)
+        self.assertEqual(self.projected[-1]["date"], self.raw_days[-2]["date"])
+        self.assertEqual(
+            self.projected[-1]["crystallization_date"], self.raw_days[-1]["date"]
+        )
 
 
 if __name__ == "__main__":

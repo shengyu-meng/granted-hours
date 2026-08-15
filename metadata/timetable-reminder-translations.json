@@ -165,9 +165,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "200caec7547ba6526e97906c9a065216a163c7963518afcec300e18e0c3e88f9": {
+      "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.\nTeaching, research, and everyday responsibilities.",
       "source_sha256": "200caec7547ba6526e97906c9a065216a163c7963518afcec300e18e0c3e88f9",
       "summary_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.\nTeaching, research, and everyday responsibilities.",
-      "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.\nTeaching, research, and everyday responsibilities.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "20bec36b04094f218dba0175edebbaa40cedc6ff665f6b0b06f1a1a50635e559": {
@@ -327,9 +327,15 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "3ac8659fd123e7d9dccdabb3730f8b0b3347451b50c543a6f86327a968386b2a": {
+      "excerpt_en": "Reminder-record structure and integrity verification.",
       "source_sha256": "3ac8659fd123e7d9dccdabb3730f8b0b3347451b50c543a6f86327a968386b2a",
       "summary_en": "Reminder-record structure and integrity verification.",
-      "excerpt_en": "Reminder-record structure and integrity verification.",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
+    "4014b4d62031ea1dc95423053a1c466f08a5fcf5c0c594c40f40b43ac2ba26d7": {
+      "source_sha256": "4014b4d62031ea1dc95423053a1c466f08a5fcf5c0c594c40f40b43ac2ba26d7",
+      "summary_en": "🌙 Good night · August 13, 2026\n\nToday, I will not invent a story for what was missing from the record: blank space can also be an honest close. Set down what is still unnamed; tomorrow, decide what is worth keeping alight.\n\nBefore starting tomorrow morning, write down just one small thing you most want to move forward.",
+      "excerpt_en": "🌙 Good night · August 13, 2026\n\nToday, I will not invent a story for what was missing from the record: blank space can also be an honest close. Set down what is still unnamed; tomorrow, decide what is worth keeping alight.…",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "41d8cc78952fcaa659fa6ddf58919a5fa42e6e17d268eb5fe908908d983ed074": {
@@ -525,9 +531,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "6a70c38bcb1c374c234aa4265a5c5d07200bb76da7bb2dd6d1be64443af465a2": {
+      "excerpt_en": "Public-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
       "source_sha256": "6a70c38bcb1c374c234aa4265a5c5d07200bb76da7bb2dd6d1be64443af465a2",
       "summary_en": "Public-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
-      "excerpt_en": "Public-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "6b452d97976c815c4f3db2a559dee1fe913134ba441633db82bec88d39848151": {
@@ -597,9 +603,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "7a5d7073cde8f2a024c8c1b54240acc7d8da96cb51bbcd896b5fab6934a76bdf": {
+      "excerpt_en": "External-service permissions, deployment, and data-path availability.\nInformation-boundary review and old-version cleanup in public repository history.",
       "source_sha256": "7a5d7073cde8f2a024c8c1b54240acc7d8da96cb51bbcd896b5fab6934a76bdf",
       "summary_en": "External-service permissions, deployment, and data-path availability.\nInformation-boundary review and old-version cleanup in public repository history.",
-      "excerpt_en": "External-service permissions, deployment, and data-path availability.\nInformation-boundary review and old-version cleanup in public repository history.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "7bc8b15089c4594ed5cc2a61c6d076032f698bcb5eedf3baae583d47d15a20fe": {
@@ -759,9 +765,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "a06a9781b01ce0e44c9078b10fb10617bf8b3964b28e67c7eb9dfc96b57d36a1": {
+      "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
       "source_sha256": "a06a9781b01ce0e44c9078b10fb10617bf8b3964b28e67c7eb9dfc96b57d36a1",
       "summary_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
-      "excerpt_en": "Personal pacing and recovery arrangements.\nExternal-service permissions, deployment, and data-path availability.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "a0e2688bc5fc4dbed2ad55c76a578ff3fa20cf4abdf4f8696ccdc0a478a7e5fe": {
@@ -807,9 +813,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "a4d1d69604f8c6c4bdcc705931f7b0f7862a95288181d18ffe287445d1357267": {
+      "excerpt_en": "External-service permissions, deployment, and data-path availability.\nTeaching, research, and everyday responsibilities.\nPublic-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
       "source_sha256": "a4d1d69604f8c6c4bdcc705931f7b0f7862a95288181d18ffe287445d1357267",
       "summary_en": "External-service permissions, deployment, and data-path availability.\nTeaching, research, and everyday responsibilities.\nPublic-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
-      "excerpt_en": "External-service permissions, deployment, and data-path availability.\nTeaching, research, and everyday responsibilities.\nPublic-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "a7574c9ee5dd3e14bbc58cb25c3b03b2bc50c8c4fad54bc81c86b5811e3fd84c": {
@@ -975,9 +981,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "d7b24a7c7934e5d0a41cb362f8d66413989c6dee9856518a49f6367f4ec49e8c": {
+      "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.\nExternal-service permissions, deployment, and data-path availability.\nRead-only research, evidence checking, and risk review.",
       "source_sha256": "d7b24a7c7934e5d0a41cb362f8d66413989c6dee9856518a49f6367f4ec49e8c",
       "summary_en": "Balancing long-term creative work, daily responsibilities, and dependable care.\nExternal-service permissions, deployment, and data-path availability.\nRead-only research, evidence checking, and risk review.",
-      "excerpt_en": "Balancing long-term creative work, daily responsibilities, and dependable care.\nExternal-service permissions, deployment, and data-path availability.\nRead-only research, evidence checking, and risk review.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "d92dd0e7f769949bf495ae9ca7257acf139cf62dbc0b824cfc94bd181865d16d": {
@@ -1058,6 +1064,12 @@
       "excerpt_en": "Personal pacing and recovery arrangements.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
+    "ea63e1a9922d1310ec23f931ed4a3a623cd54dfed0f0e696d13d3a64e5d19ab4": {
+      "source_sha256": "ea63e1a9922d1310ec23f931ed4a3a623cd54dfed0f0e696d13d3a64e5d19ab4",
+      "summary_en": "🌙 Good night · August 14, 2026\n\nNo record was left to review today, and that is all right: not every day must prove its output. Leave what remains unnamed to quiet; it can settle on its own.\n\nWhen tomorrow begins, choose just one thing most worth advancing and let it take root first.",
+      "excerpt_en": "🌙 Good night · August 14, 2026\n\nNo record was left to review today, and that is all right: not every day must prove its output. Leave what remains unnamed to quiet; it can settle on its own.…",
+      "translation_provenance": "public_mask_preserving_translation_v1"
+    },
     "ead2baaa388db33d77c1c72a499269f1cd4196fd72af6e0450d501e451daa0d4": {
       "source_sha256": "ead2baaa388db33d77c1c72a499269f1cd4196fd72af6e0450d501e451daa0d4",
       "summary_en": "Read-only research, evidence checking, and risk review.",
@@ -1107,9 +1119,9 @@
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "f27cc30da101017908a119c6e3c7040cda6d39a05abe81c4286183653d415372": {
+      "excerpt_en": "External-service permissions, deployment, and data-path availability.\nPublic-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
       "source_sha256": "f27cc30da101017908a119c6e3c7040cda6d39a05abe81c4286183653d415372",
       "summary_en": "External-service permissions, deployment, and data-path availability.\nPublic-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
-      "excerpt_en": "External-service permissions, deployment, and data-path availability.\nPublic-content scheduling and archiving.\nRead-only research, evidence checking, and risk review.",
       "translation_provenance": "public_mask_preserving_translation_v1"
     },
     "f2a135cb0235929125aa85c0235f61682061f040895d2a9fe7e88133155a30a5": {
