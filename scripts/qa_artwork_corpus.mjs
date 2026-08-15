@@ -15,6 +15,8 @@ const allowedDays = allowances.days;
 const results = [];
 const failures = [];
 const requestedDate = process.env.ARTWORK_QA_DATE || "";
+const pageTimeoutMs = Number(process.env.ARTWORK_QA_TIMEOUT_MS || 120000);
+assert.ok(Number.isInteger(pageTimeoutMs) && pageTimeoutMs >= 45000 && pageTimeoutMs <= 300000);
 
 function visible(element) {
   if (!element) return false;
@@ -37,8 +39,21 @@ if (requestedDate) {
 }
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+  // This audit checks DOM copy, controls, canvas geometry, and resource health;
+  // it is not an animation-quality test. A handful of legacy works can otherwise
+  // saturate the page main thread and starve the assertions themselves. Allow a
+  // few startup frames, then hold subsequent animation frames during the audit.
+  if (process.env.ARTWORK_QA_LIVE_ANIMATION !== "1") {
+    await context.addInitScript(() => {
+      const nativeRequestAnimationFrame = window.requestAnimationFrame.bind(window);
+      let startupFrames = 0;
+      window.requestAnimationFrame = (callback) => (
+        startupFrames++ < 6 ? nativeRequestAnimationFrame(callback) : 0
+      );
+    });
+  }
   // Audio integrity is checked from disk below. Aborting media here keeps the
-  // Keep the full-corpus visual/DOM audit from waiting on every BGM file to finish loading.
+  // full-corpus visual/DOM audit from waiting on every BGM file to finish loading.
   await context.route("**/*", async (route) => {
     if (route.request().resourceType() === "media") await route.abort();
     else await route.continue();
@@ -57,12 +72,12 @@ try {
     });
     const url = `${siteOrigin}/archive/${year}/${month}/${day.date}/live/?from=timetable`;
     try {
-      const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
+      const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: pageTimeoutMs });
       assert.equal(response?.status(), 200, `${day.date} HTTP ${response?.status()}`);
       await page.waitForTimeout(350);
       const allowance = allowedDays[day.date];
       if (allowance?.live_mode === "interactive_form") {
-        await page.locator("#appeal-form").waitFor({ state: "visible", timeout: 10000 });
+        await page.locator("#appeal-form").waitFor({ state: "visible", timeout: pageTimeoutMs });
       } else {
         await page.waitForFunction(() => {
           const canvases = [...document.querySelectorAll("canvas")];
@@ -70,8 +85,20 @@ try {
             const rect = canvas.getBoundingClientRect();
             return canvas.width > 0 && canvas.height > 0 && rect.width > 1 && rect.height > 1;
           });
-        }, null, { timeout: 45000 });
+        }, null, { timeout: pageTimeoutMs });
       }
+      const briefToggle = page.locator("#ghLiveBrief .gh-live-brief-toggle");
+      const briefBody = page.locator("#ghLiveBriefBody");
+      await briefToggle.waitFor({ state: "visible", timeout: pageTimeoutMs });
+      assert.equal(
+        await briefToggle.getAttribute("aria-expanded"),
+        "false",
+        `${day.date} bilingual brief is not collapsed by default`,
+      );
+      assert.equal(await briefBody.isVisible(), false, `${day.date} collapsed brief body remains visible`);
+      await briefToggle.click();
+      assert.equal(await briefToggle.getAttribute("aria-expanded"), "true", `${day.date} bilingual brief did not expand`);
+      assert.equal(await briefBody.isVisible(), true, `${day.date} expanded brief body is hidden`);
       const state = await page.evaluate(visibleFn => {
         const isVisible = new Function("element", `return (${visibleFn})(element);`);
         const visibleCanvas = [...document.querySelectorAll("canvas")].find(isVisible);
@@ -131,6 +158,7 @@ try {
           suppressedNativeTitleCount: document.querySelectorAll('[data-gh-native-title-suppressed="true"]').length,
           liveBrief: {
             visible: isVisible(liveBrief),
+            draggable: liveBrief?.dataset.ghDraggable || "",
             summaryZh: briefText("[data-gh-brief-section='summary']", "zh-CN"),
             summaryEn: briefText("[data-gh-brief-section='summary']", "en"),
             instructionsZh: briefText("[data-gh-brief-section='instructions']", "zh-CN"),
@@ -189,7 +217,8 @@ try {
       assert.ok(state.liveBrief.summaryEn, `${day.date} English brief is empty`);
       assert.ok(state.liveBrief.instructionsZh, `${day.date} Chinese instructions are empty`);
       assert.ok(state.liveBrief.instructionsEn, `${day.date} English instructions are empty`);
-      assert.equal(state.liveBrief.expanded, "true", `${day.date} bilingual brief is not expanded by default`);
+      assert.equal(state.liveBrief.expanded, "true", `${day.date} bilingual brief did not remain expanded`);
+      assert.equal(state.liveBrief.draggable, "header", `${day.date} bilingual brief lacks its drag contract`);
       assert.ok(state.liveBrief.rect, `${day.date} bilingual brief has no geometry`);
       assert.ok(state.liveBrief.rect.left >= 0 && state.liveBrief.rect.left <= 24, `${day.date} brief is not left-aligned`);
       assert.ok(state.liveBrief.rect.top >= 0 && state.liveBrief.rect.top <= 24, `${day.date} brief is not top-aligned`);
@@ -256,9 +285,13 @@ try {
       assert.deepEqual(pageErrors, [], `${day.date} page errors: ${pageErrors.join("; ")}`);
       assert.deepEqual(responseErrors, [], `${day.date} local response errors: ${responseErrors.join("; ")}`);
 
+      await briefToggle.click();
+      assert.equal(await briefToggle.getAttribute("aria-expanded"), "false", `${day.date} bilingual brief did not collapse again`);
+      assert.equal(await briefBody.isVisible(), false, `${day.date} re-collapsed brief body remains visible`);
+
       if (state.touchKeys.length) {
         const embedUrl = `${siteOrigin}/archive/${year}/${month}/${day.date}/live/?embed=calendar&gh_channel=touch_audit_2026_x`;
-        const embedResponse = await page.goto(embedUrl, { waitUntil: "domcontentloaded", timeout: 45000 });
+        const embedResponse = await page.goto(embedUrl, { waitUntil: "domcontentloaded", timeout: pageTimeoutMs });
         assert.equal(embedResponse?.status(), 200, `${day.date} embed HTTP ${embedResponse?.status()}`);
         const embedKeys = await page.locator("#ghTouchKeyDock .gh-touch-key").evaluateAll((buttons) => buttons.map((button) => {
           const rect = button.getBoundingClientRect();
@@ -300,8 +333,8 @@ try {
     }
   }
 
-  // Three pages keep WebGL/canvas startup below the 45 s per-work budget on
-  // constrained CI hosts; override explicitly for stronger runners.
+  // Keep WebGL/canvas startup below the 45 s per-work budget on constrained CI
+  // hosts; override explicitly for stronger runners.
   const concurrency = Number(process.env.ARTWORK_QA_CONCURRENCY || 3);
   assert.ok(Number.isInteger(concurrency) && concurrency > 0 && concurrency <= 8);
   for (let index = 0; index < artworkDays.length; index += concurrency) {

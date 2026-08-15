@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { chromium } from "@playwright/test";
 
 const siteUrl = new URL(
@@ -8,6 +9,10 @@ const siteUrl = new URL(
 );
 if (!siteUrl.pathname.endsWith("/")) siteUrl.pathname += "/";
 const siteOrigin = siteUrl.origin;
+const screenshotDir = process.env.WORK_NOTE_QA_DIR
+  ? resolve(process.env.WORK_NOTE_QA_DIR)
+  : "";
+if (screenshotDir) mkdirSync(screenshotDir, { recursive: true });
 const days = JSON.parse(
   readFileSync(new URL("../metadata/days.json", import.meta.url), "utf8"),
 );
@@ -218,6 +223,21 @@ try {
     const trigger = page.locator("#ghWorkNoteTrigger");
     await trigger.waitFor({ state: "visible" });
     assert.equal(await page.locator(".gh-fold-toggle").count(), 0, `${spec.label} fold control still exists`);
+    const briefToggle = page.locator("#ghLiveBrief .gh-live-brief-toggle");
+    const briefBody = page.locator("#ghLiveBriefBody");
+    assert.equal(
+      await briefToggle.getAttribute("aria-expanded"),
+      "false",
+      `${spec.label} bilingual brief is not collapsed by default`,
+    );
+    assert.equal(await briefBody.isVisible(), false, `${spec.label} collapsed brief body remains visible`);
+    if (screenshotDir && ["desktop-1440x900", "mobile-390x844"].includes(spec.label)) {
+      await page.screenshot({ path: resolve(screenshotDir, `${spec.label}-collapsed.png`) });
+    }
+    if (spec.touch) await briefToggle.tap();
+    else await briefToggle.click();
+    assert.equal(await briefToggle.getAttribute("aria-expanded"), "true", `${spec.label} bilingual brief did not expand`);
+    assert.equal(await briefBody.isVisible(), true, `${spec.label} expanded brief body is hidden`);
     const geometry = await page.evaluate(() => {
       const isVisible = (element) => {
         if (!element) return false;
@@ -330,7 +350,7 @@ try {
     assert.ok(geometry.horizontalOverflow <= 1, `${spec.label} horizontal overflow`);
     assert.ok(geometry.trigger.height >= 37.5, `${spec.label} trigger touch target`);
     assert.ok(geometry.brief, `${spec.label} bilingual brief missing`);
-    assert.equal(geometry.briefExpanded, "true", `${spec.label} bilingual brief not expanded by default`);
+    assert.equal(geometry.briefExpanded, "true", `${spec.label} bilingual brief did not remain expanded`);
     assert.ok(geometry.briefSummaryZh && geometry.briefSummaryEn, `${spec.label} bilingual summary missing`);
     assert.ok(geometry.briefInstructionsZh && geometry.briefInstructionsEn, `${spec.label} bilingual instructions missing`);
     assert.ok(geometry.brief.left >= 0 && geometry.brief.top >= 0, `${spec.label} bilingual brief offscreen`);
@@ -357,13 +377,44 @@ try {
     }
     assert.equal(geometry.overlapArea, 0, `${spec.label} controls overlap`);
     assert.equal(geometry.textOverlapCount, 0, `${spec.label} trigger overlaps ${geometry.textOverlapCount} visible text blocks (worst ${geometry.worstTextOverlap}px²)`);
-    const briefToggle = page.locator("#ghLiveBrief .gh-live-brief-toggle");
+    if (screenshotDir && ["desktop-1440x900", "mobile-390x844"].includes(spec.label)) {
+      await page.screenshot({ path: resolve(screenshotDir, `${spec.label}-expanded.png`) });
+    }
     if (spec.label === "short-touch-421x386") {
       assert.ok(geometry.compactConcealedCount > 0, `${spec.label} did not simplify redundant native chrome`);
     }
+    let dragResult = null;
+    if (!spec.touch) {
+      const header = page.locator("#ghLiveBrief .gh-live-brief-header");
+      const headerBox = await header.boundingBox();
+      const before = await page.locator("#ghLiveBrief").boundingBox();
+      assert.ok(headerBox && before, `${spec.label} draggable brief has no geometry`);
+      await page.mouse.move(headerBox.x + headerBox.width / 2, headerBox.y + 5);
+      await page.mouse.down();
+      await page.mouse.move(headerBox.x + headerBox.width / 2 + 86, headerBox.y + 61, { steps: 6 });
+      await page.mouse.up();
+      const after = await page.locator("#ghLiveBrief").boundingBox();
+      assert.ok(after.x - before.x >= 70, `${spec.label} brief did not move horizontally`);
+      assert.ok(after.y - before.y >= 40, `${spec.label} brief did not move vertically`);
+      assert.ok(after.x >= 8 && after.y >= 8, `${spec.label} dragged brief escaped the top-left viewport`);
+      assert.ok(
+        after.x + after.width <= geometry.viewport.width - 8
+          && after.y + after.height <= geometry.viewport.height - 8,
+        `${spec.label} dragged brief escaped the viewport`,
+      );
+      dragResult = {
+        deltaX: Math.round(after.x - before.x),
+        deltaY: Math.round(after.y - before.y),
+      };
+      if (screenshotDir && spec.label === "desktop-1440x900") {
+        await page.screenshot({ path: resolve(screenshotDir, `${spec.label}-dragged.png`) });
+      }
+    }
+    const positionBeforeCollapse = await page.locator("#ghLiveBrief").boundingBox();
     if (spec.touch) await briefToggle.tap();
     else await briefToggle.click();
     assert.equal(await briefToggle.getAttribute("aria-expanded"), "false", `${spec.label} bilingual brief did not collapse`);
+    assert.equal(await briefBody.isVisible(), false, `${spec.label} collapsed brief body remains visible`);
     assert.equal(
       await page.locator('[data-gh-brief-covered="true"]').count(),
       0,
@@ -372,6 +423,15 @@ try {
     if (spec.touch) await briefToggle.tap();
     else await briefToggle.click();
     assert.equal(await briefToggle.getAttribute("aria-expanded"), "true", `${spec.label} bilingual brief did not expand`);
+    assert.equal(await briefBody.isVisible(), true, `${spec.label} re-expanded brief body is hidden`);
+    if (dragResult) {
+      const positionAfterExpand = await page.locator("#ghLiveBrief").boundingBox();
+      assert.ok(
+        Math.abs(positionAfterExpand.x - positionBeforeCollapse.x) <= 1
+          && Math.abs(positionAfterExpand.y - positionBeforeCollapse.y) <= 1,
+        `${spec.label} brief position did not survive collapse and re-expansion`,
+      );
+    }
     if (spec.touch) await trigger.tap();
     else await trigger.click();
     const overlay = page.locator("#ghWorkNoteOverlay");
@@ -381,7 +441,7 @@ try {
     else await close.click();
     await overlay.waitFor({ state: "hidden" });
     health.assertHealthy();
-    viewportResults.push({ label: spec.label, ...geometry });
+    viewportResults.push({ label: spec.label, ...geometry, dragResult });
     await context.close();
   }
 

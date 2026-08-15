@@ -155,12 +155,19 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertNotIn("IS_TIMETABLE_FULL_VIEW", snippet)
         self.assertIn("workNoteLastFocus.focus", snippet)
 
-    def test_bilingual_live_brief_is_open_by_default_and_collapsible(self) -> None:
+    def test_bilingual_live_brief_is_collapsed_by_default_and_draggable(self) -> None:
         snippet = importer.render_live_text_fold_snippet(importer.ENTRIES[-1])
         self.assertIn("const liveBrief = createLiveBrief();", snippet)
         self.assertIn("document.body.append(liveBrief, calendarReturn, workNote, workNoteOverlay);", snippet)
-        self.assertIn("toggle.setAttribute('aria-expanded', 'true');", snippet)
+        self.assertIn("makeElement('aside', 'gh-live-brief is-collapsed')", snippet)
+        self.assertIn("toggle.setAttribute('aria-expanded', 'false');", snippet)
+        self.assertIn("body.hidden = true;", snippet)
         self.assertIn("function toggleLiveBrief()", snippet)
+        self.assertIn("function enableLiveBriefDragging()", snippet)
+        self.assertIn("function clampLiveBriefToViewport()", snippet)
+        self.assertIn("brief.dataset.ghDraggable = 'header';", snippet)
+        self.assertIn("header.addEventListener('pointermove'", snippet)
+        self.assertIn("enableLiveBriefDragging();", snippet)
         self.assertIn("function maskNativeBriefCollisions()", snippet)
         self.assertIn("function suppressNativeTitleChrome()", snippet)
         self.assertIn("function restoreNativeBriefCollisions()", snippet)

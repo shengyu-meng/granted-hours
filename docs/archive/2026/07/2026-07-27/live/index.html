@@ -88,7 +88,12 @@
     align-items: start;
     border-bottom: 1px solid rgba(255,255,255,.11);
     padding: 11px 11px 10px 14px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
   }
+  .gh-live-brief.is-dragging .gh-live-brief-header { cursor: grabbing; }
   .gh-live-brief-kicker,
   .gh-live-brief-title,
   .gh-live-brief-label,
@@ -123,6 +128,7 @@
     color: rgba(250,246,237,.88);
     font: 15px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     cursor: pointer;
+    touch-action: manipulation;
   }
   .gh-live-brief-body {
     max-height: min(calc(46vh - 62px), 328px);
@@ -530,6 +536,7 @@
   @media (pointer: coarse) {
     .gh-work-note-trigger,
     .gh-calendar-return,
+    .gh-live-brief-toggle,
     #ghWorkNoteOverlay .gh-work-note-close {
       min-width: 44px;
       min-height: 44px !important;
@@ -674,6 +681,7 @@
     suppressNativeTitleChrome();
     maskNativeBriefCollisions();
     liveBrief.querySelector('.gh-live-brief-toggle').addEventListener('click', toggleLiveBrief);
+    enableLiveBriefDragging();
     workNote.addEventListener('click', openWorkNote);
     workNoteOverlay.querySelector('.gh-work-note-close').addEventListener('click', closeWorkNote);
     workNoteOverlay.addEventListener('click', (event) => {
@@ -834,25 +842,28 @@
     return dock;
   }
   function createLiveBrief() {
-    const brief = makeElement('aside', 'gh-live-brief');
+    const brief = makeElement('aside', 'gh-live-brief is-collapsed');
     brief.id = 'ghLiveBrief';
     brief.dataset.ghLiveBrief = 'bilingual';
+    brief.dataset.ghDraggable = 'header';
     brief.setAttribute('role', 'region');
     brief.setAttribute('aria-label', 'Bilingual artwork brief and instructions / 作品双语简述与操作说明');
     const header = makeElement('header', 'gh-live-brief-header');
+    header.title = 'Drag the brief / 拖动说明卡片';
     const heading = makeElement('div', 'gh-live-brief-heading');
     heading.append(
       makeElement('p', 'gh-live-brief-kicker', 'BRIEF / 略说'),
       makeElement('h2', 'gh-live-brief-title', `${WORK_NOTE.title_zh} / ${WORK_NOTE.title_en}`),
     );
-    const toggle = makeElement('button', 'gh-live-brief-toggle', '−');
+    const toggle = makeElement('button', 'gh-live-brief-toggle', '+');
     toggle.type = 'button';
-    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-controls', 'ghLiveBriefBody');
-    toggle.setAttribute('aria-label', 'Collapse bilingual brief / 收起双语简述');
+    toggle.setAttribute('aria-label', 'Expand bilingual brief / 展开双语简述');
     header.append(heading, toggle);
     const body = makeElement('div', 'gh-live-brief-body');
     body.id = 'ghLiveBriefBody';
+    body.hidden = true;
     body.append(
       makeLiveBriefSection('Brief / 作品简述', WORK_NOTE.intention_en, WORK_NOTE.intention_zh, 'summary'),
       makeLiveBriefSection('How to interact / 操作说明', WORK_NOTE.interaction_en, WORK_NOTE.interaction_zh, 'instructions'),
@@ -873,15 +884,82 @@
   function toggleLiveBrief() {
     const collapsed = liveBrief.classList.toggle('is-collapsed');
     const toggle = liveBrief.querySelector('.gh-live-brief-toggle');
+    const body = liveBrief.querySelector('.gh-live-brief-body');
     toggle.textContent = collapsed ? '+' : '−';
     toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    body.hidden = collapsed;
     toggle.setAttribute(
       'aria-label',
       collapsed ? 'Expand bilingual brief / 展开双语简述' : 'Collapse bilingual brief / 收起双语简述',
     );
     if (collapsed) restoreNativeBriefCollisions();
-    else window.requestAnimationFrame(maskNativeBriefCollisions);
     window.requestAnimationFrame(refreshFloatingChrome);
+  }
+  function enableLiveBriefDragging() {
+    const header = liveBrief.querySelector('.gh-live-brief-header');
+    let drag = null;
+    const endDrag = (event) => {
+      if (!drag || (event && event.pointerId !== drag.pointerId)) return;
+      if (event && header.hasPointerCapture?.(event.pointerId)) {
+        header.releasePointerCapture(event.pointerId);
+      }
+      drag = null;
+      liveBrief.classList.remove('is-dragging');
+      liveBrief.dataset.ghUserPositioned = 'true';
+      window.requestAnimationFrame(refreshFloatingChrome);
+    };
+    header.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0) return;
+      if (event.target.closest('button,a,input,textarea,select,[role="button"]')) return;
+      const rect = liveBrief.getBoundingClientRect();
+      drag = {
+        pointerId: event.pointerId,
+        offsetX: event.clientX - rect.left,
+        offsetY: event.clientY - rect.top,
+      };
+      liveBrief.style.right = 'auto';
+      liveBrief.style.bottom = 'auto';
+      liveBrief.style.left = `${rect.left}px`;
+      liveBrief.style.top = `${rect.top}px`;
+      liveBrief.classList.add('is-dragging');
+      header.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+      event.stopPropagation();
+    });
+    header.addEventListener('pointermove', (event) => {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      const width = liveBrief.offsetWidth;
+      const height = liveBrief.offsetHeight;
+      const nextLeft = Math.min(
+        Math.max(8, event.clientX - drag.offsetX),
+        Math.max(8, window.innerWidth - width - 8),
+      );
+      const nextTop = Math.min(
+        Math.max(8, event.clientY - drag.offsetY),
+        Math.max(8, window.innerHeight - height - 8),
+      );
+      liveBrief.style.left = `${nextLeft}px`;
+      liveBrief.style.top = `${nextTop}px`;
+      event.preventDefault();
+      event.stopPropagation();
+    });
+    header.addEventListener('pointerup', endDrag);
+    header.addEventListener('pointercancel', endDrag);
+    header.addEventListener('lostpointercapture', endDrag);
+  }
+  function clampLiveBriefToViewport() {
+    if (liveBrief.dataset.ghUserPositioned !== 'true') return;
+    const rect = liveBrief.getBoundingClientRect();
+    const left = Math.min(
+      Math.max(8, rect.left),
+      Math.max(8, window.innerWidth - rect.width - 8),
+    );
+    const top = Math.min(
+      Math.max(8, rect.top),
+      Math.max(8, window.innerHeight - rect.height - 8),
+    );
+    liveBrief.style.left = `${left}px`;
+    liveBrief.style.top = `${top}px`;
   }
   function restoreNativeBriefCollisions() {
     document.querySelectorAll('[data-gh-brief-covered="true"]').forEach((element) => {
@@ -947,6 +1025,7 @@
   }
   function refreshFloatingChrome() {
     restoreNativeControlOffsets();
+    clampLiveBriefToViewport();
     maskNativeBriefCollisions();
     alignWorkNote();
     offsetNativeControlText();
