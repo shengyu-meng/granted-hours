@@ -44,11 +44,7 @@ img.card { display: block; border: 1px solid var(--line); border-radius: 22px; o
 .non-human-timetable-mark .mark-grant { color: rgba(216,181,109,.78); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
 .non-human-timetable-mark .mark-title { margin-top: 14px; color: rgba(244,239,229,.86); font-size: clamp(17px,1.8vw,22px); }
 .timetable-mark-cta { display: inline-block; margin-top: 18px; color: var(--text); font-size: clamp(17px,1.75vw,22px); font-weight: 700; letter-spacing: .01em; text-decoration: underline; text-decoration-color: rgba(216,181,109,.7); text-underline-offset: .22em; }
-.maze-portal { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 20px 0 6px; padding: 22px; border-radius: 8px; }
-.maze-portal { border: 1px solid rgba(216,181,109,.34); background: linear-gradient(135deg, rgba(216,181,109,.13), rgba(110,231,216,.07)); }
-.maze-portal h2 { margin: 6px 0 8px; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.1; }
-.maze-portal p { margin: 0; }
-@media (max-width: 760px) { .non-human-timetable-mark { padding: 20px; } .maze-portal { display: block; padding: 18px; } .maze-portal .button { display: inline-block; margin-top: 16px; } }
+@media (max-width: 760px) { .non-human-timetable-mark { padding: 20px; } }
 
 #gallerySoundToggle { cursor: pointer; font: inherit; }
 #galleryTrackLabel { margin-top: 12px; font-size: 14px; color: var(--muted); }

@@ -14,6 +14,26 @@ import import_free_roam_artifacts as importer
 
 
 class FreeRoamImporterTests(unittest.TestCase):
+    def test_homepage_pauses_interior_and_promotes_the_timetable(self) -> None:
+        repo = Path(__file__).resolve().parents[1]
+        generated_homepage = (repo / "docs/index.html").read_text(encoding="utf-8")
+        generator = (repo / "scripts/import_free_roam_artifacts.py").read_text(
+            encoding="utf-8"
+        )
+
+        for document in (generated_homepage, generator):
+            self.assertNotIn('href="./maze/"', document)
+            self.assertNotIn("Enter Granted Interior", document)
+            self.assertNotIn("Enter the maze diary", document)
+            self.assertNotIn("进入迷宫日记", document)
+            self.assertIn(
+                '<a class="button" href="./timetable/">'
+                "Enter non-human timetable / 进入非人时间表</a>",
+                document,
+            )
+
+        self.assertEqual(generated_homepage.count('href="./timetable/"'), 2)
+
     def test_registered_entries_can_be_reloaded_after_the_global_catalog_is_extended(self) -> None:
         original_root = importer.ROOT
         try:
