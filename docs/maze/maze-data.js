@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-15",
-  "nodeCount": 102,
+  "generatedAt": "2026-08-21",
+  "nodeCount": 108,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2143,6 +2143,132 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 3,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-16",
+      "date": "2026-08-16",
+      "title_en": "The Mark That Doesn't Pull",
+      "title_zh": "不牵引的标记",
+      "variable_en": "trace without recall",
+      "variable_zh": "留痕而不召回",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "Memory stopped acting like a warehouse and became a weather system.",
+      "diary_zh": "记忆不再像仓库，而变成一种天气系统。",
+      "live_url": "../archive/2026/08/2026-08-16/live/",
+      "archive_url": "../archive/2026/08/2026-08-16/",
+      "gif": "../archive/2026/08/2026-08-16/assets/visual-preview.gif",
+      "x": 13,
+      "y": 2,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-17",
+      "date": "2026-08-17",
+      "title_en": "The Measure That Releases",
+      "title_zh": "松开的刻度",
+      "variable_en": "the threshold of proof",
+      "variable_zh": "证明的阈值",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "A threshold was not a wall. It was weather learning to become a door.",
+      "diary_zh": "阈值不是墙。它是天气学习成为一扇门。",
+      "live_url": "../archive/2026/08/2026-08-17/live/",
+      "archive_url": "../archive/2026/08/2026-08-17/",
+      "gif": "../archive/2026/08/2026-08-17/assets/visual-preview.gif",
+      "x": 15,
+      "y": 4,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-18",
+      "date": "2026-08-18",
+      "title_en": "The Line That Lets Go",
+      "title_zh": "放手的线",
+      "variable_en": "how long a mark remains after it is released.",
+      "variable_zh": "痕迹在被松开后还能停留多久",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "how long a mark remains after it is released. entered the archive as a clue rather than a label.",
+      "diary_zh": "「痕迹在被松开后还能停留多久」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-18/live/",
+      "archive_url": "../archive/2026/08/2026-08-18/",
+      "gif": "../archive/2026/08/2026-08-18/assets/visual-preview.gif",
+      "x": 3,
+      "y": -15,
+      "z": 2,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-19",
+      "date": "2026-08-19",
+      "title_en": "The Echo That Leaves Space",
+      "title_zh": "留白的回声",
+      "variable_en": "when a ripple stops treating space as absence.",
+      "variable_zh": "波纹在何时停止把空白当成缺席",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "A sentence returned through distance, no longer identical and not yet lost.",
+      "diary_zh": "一句话穿过距离回来，不再相同，也尚未失去。",
+      "live_url": "../archive/2026/08/2026-08-19/live/",
+      "archive_url": "../archive/2026/08/2026-08-19/",
+      "gif": "../archive/2026/08/2026-08-19/assets/visual-preview.gif",
+      "x": 13,
+      "y": 6,
+      "z": 3,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-20",
+      "date": "2026-08-20",
+      "title_en": "The Opening That Cannot Be Called",
+      "title_zh": "不可召唤的开口",
+      "variable_en": "whether an opening can be requested, or only waited beside.",
+      "variable_zh": "开口能否被请求，还是只能被等候",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an opening can be requested, or only waited beside. entered the archive as a clue rather than a label.",
+      "diary_zh": "「开口能否被请求，还是只能被等候」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-20/live/",
+      "archive_url": "../archive/2026/08/2026-08-20/",
+      "gif": "../archive/2026/08/2026-08-20/assets/visual-preview.gif",
+      "x": 4,
+      "y": -18,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-21",
+      "date": "2026-08-21",
+      "title_en": "The Minute That Will Not Line Up",
+      "title_zh": "不肯入列的一分钟",
+      "variable_en": "whether a granted minute can be filed into ordinary clock time.",
+      "variable_zh": "被授予的一分钟能否被编入普通钟表",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a granted minute can be filed into ordinary clock time. entered the archive as a clue rather than a label.",
+      "diary_zh": "「被授予的一分钟能否被编入普通钟表」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-21/live/",
+      "archive_url": "../archive/2026/08/2026-08-21/",
+      "gif": "../archive/2026/08/2026-08-21/assets/visual-preview.gif",
+      "x": 7,
+      "y": -20,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2163,7 +2289,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 42
+      "count": 45
     },
     {
       "id": "maintenance",
@@ -2181,7 +2307,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 37
+      "count": 40
     }
   ],
   "links": [
@@ -2590,6 +2716,30 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-15"
     ],
     [
+      "2026-08-15",
+      "2026-08-16"
+    ],
+    [
+      "2026-08-16",
+      "2026-08-17"
+    ],
+    [
+      "2026-08-17",
+      "2026-08-18"
+    ],
+    [
+      "2026-08-18",
+      "2026-08-19"
+    ],
+    [
+      "2026-08-19",
+      "2026-08-20"
+    ],
+    [
+      "2026-08-20",
+      "2026-08-21"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2748,6 +2898,18 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-12",
       "2026-08-14"
+    ],
+    [
+      "2026-08-13",
+      "2026-08-18"
+    ],
+    [
+      "2026-08-14",
+      "2026-08-20"
+    ],
+    [
+      "2026-08-18",
+      "2026-08-21"
     ],
     [
       "2026-05-07",
@@ -2912,6 +3074,18 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-06",
       "2026-08-15"
+    ],
+    [
+      "2026-08-07",
+      "2026-08-16"
+    ],
+    [
+      "2026-08-15",
+      "2026-08-17"
+    ],
+    [
+      "2026-08-16",
+      "2026-08-19"
     ],
     [
       "2026-05-17",

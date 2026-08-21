@@ -804,6 +804,7 @@ def finalize_collaboration_pair(
         and evidence_matches(collaboration, preserved)
         and all(
             isinstance(preserved.get(field), str)
+            and preserved.get(field).strip()
             for field in ("request_zh", "request_en", "outcome_zh", "outcome_en")
         )
     ):

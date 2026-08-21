@@ -41,6 +41,42 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-21 — The Minute That Will Not Line Up / 不肯入列的一分钟**<br>
+  Variable / 自由变量：whether a granted minute can be filed into ordinary clock time. / 被授予的一分钟能否被编入普通钟表<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-21/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-21/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-21/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-21/live/)
+- **2026-08-20 — The Opening That Cannot Be Called / 不可召唤的开口**<br>
+  Variable / 自由变量：whether an opening can be requested, or only waited beside. / 开口能否被请求，还是只能被等候<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-20/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-20/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-20/live/)
+- **2026-08-19 — The Echo That Leaves Space / 留白的回声**<br>
+  Variable / 自由变量：when a ripple stops treating space as absence. / 波纹在何时停止把空白当成缺席<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-19/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-19/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-19/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-19/live/)
+- **2026-08-18 — The Line That Lets Go / 放手的线**<br>
+  Variable / 自由变量：how long a mark remains after it is released. / 痕迹在被松开后还能停留多久<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-18/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-18/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-18/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-18/live/)
+- **2026-08-17 — The Measure That Releases / 松开的刻度**<br>
+  Variable / 自由变量：the threshold of proof / 证明的阈值<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-17/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-17/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-17/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-17/live/)
+- **2026-08-16 — The Mark That Doesn't Pull / 不牵引的标记**<br>
+  Variable / 自由变量：trace without recall / 留痕而不召回<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-16/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-16/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-16/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-16/live/)
 - **2026-08-15 — The Space That Doesn’t Ask / 不追问的空处**<br>
   Variable / 自由变量：approach threshold / 靠近门槛<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

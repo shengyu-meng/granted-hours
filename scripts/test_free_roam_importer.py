@@ -109,6 +109,48 @@ class FreeRoamImporterTests(unittest.TestCase):
         self.assertEqual(entry["seed"], 20260811)
         self.assertEqual(entry["interaction_en"], "Move the pointer and let the margin open slowly.")
 
+    def test_unknown_explicit_date_accepts_inline_zh_first_public_note(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            source = Path(temporary_directory) / "free-roam"
+            source.mkdir()
+            day = "2026-08-12"
+            file_base = f"{day}-inline-bilingual-field"
+            (source / f"{file_base}-note.md").write_text(
+                """# 行内双语场 / Inline Bilingual Field
+
+- **Free variable / 自由变量**: 行内边界 / inline boundary
+- **Intention / 发心**: 这不是一台保存装置。它让方向短暂可见。 / This is not a device for keeping. It lets direction become briefly visible.
+- **Interaction / 交互**: 移动或触摸会留下微弱的线。按空格可放开全部痕迹。 / Move or touch to leave faint lines. Press Space to let every mark go.
+- **Afterimage / 余像**: 自由有时是让一个东西不必继续证明自己。 / Freedom sometimes lets a thing stop proving itself.
+- **Source Day / 源日**: 2026-08-11
+- **Crystallization Day / 结晶日**: 2026-08-12
+- **Granted duration / 授予时长**: 03:17–04:17 Asia/Shanghai，exactly 60 minutes / 恰好 60 分钟。
+- **Experience duration / 体验时长**: open-ended and visitor-controlled / 开放且由观看者自行决定。
+- **Sound / 声音**: original public-safe instrumental.
+""",
+                encoding="utf-8",
+            )
+            for suffix in (
+                ".html",
+                "-preview.png",
+                "-preview.gif",
+                "-visual-preview.gif",
+                "-visual-preview.webp",
+                "-bgm.mp3",
+            ):
+                (source / f"{file_base}{suffix}").write_bytes(b"fixture")
+
+            entry = importer.discover_entry_from_note(source, day)
+
+        self.assertEqual(entry["date"], day)
+        self.assertEqual(entry["slug"], "inline-bilingual-field")
+        self.assertEqual(entry["title_en"], "Inline Bilingual Field")
+        self.assertEqual(entry["title_zh"], "行内双语场")
+        self.assertEqual(entry["variable_en"], "inline boundary")
+        self.assertEqual(entry["variable_zh"], "行内边界")
+        self.assertEqual(entry["intention_en"], "This is not a device for keeping. It lets direction become briefly visible.")
+        self.assertEqual(entry["interaction_zh"], "移动或触摸会留下微弱的线。按空格可放开全部痕迹。")
+
     def test_live_enhancement_adds_one_embed_aware_work_note_overlay(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             live_html = Path(temporary_directory) / "index.html"

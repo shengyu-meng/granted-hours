@@ -1281,18 +1281,60 @@ def note_field_blocks(note_text: str) -> dict[str, str]:
     return fields
 
 
+def has_cjk(value: str) -> bool:
+    return bool(re.search(r'[\u3400-\u9fff]', value))
+
+
+def clean_note_line(value: str) -> str:
+    return value.strip().rstrip('  ').strip('*_').strip()
+
+
+def order_bilingual_pair(first: str, second: str, *, label: str) -> tuple[str, str]:
+    first = clean_note_line(first)
+    second = clean_note_line(second)
+    if not first or not second:
+        raise SystemExit(f'Expected a complete bilingual pair for {label}')
+    first_is_zh = has_cjk(first)
+    second_is_zh = has_cjk(second)
+    if first_is_zh and not second_is_zh:
+        return second, first
+    if second_is_zh and not first_is_zh:
+        return first, second
+    return first, second
+
+
 def split_inline_pair(value: str, *, label: str) -> tuple[str, str]:
-    parts = [part.strip().strip('*_') for part in value.split(' / ', 1)]
+    parts = [clean_note_line(part) for part in value.split(' / ', 1)]
     if len(parts) != 2 or not all(parts):
-        raise SystemExit(f'Expected an English / Chinese pair for {label}')
-    return parts[0], parts[1]
+        raise SystemExit(f'Expected a bilingual slash pair for {label}')
+    return order_bilingual_pair(parts[0], parts[1], label=label)
 
 
 def split_note_bilingual(value: str, *, label: str) -> tuple[str, str]:
-    lines = [line.strip().rstrip('  ').strip('*_') for line in value.splitlines() if line.strip()]
+    lines = [clean_note_line(line) for line in value.splitlines() if line.strip()]
+    if len(lines) == 1 and ' / ' in lines[0]:
+        return split_inline_pair(lines[0], label=label)
     if len(lines) != 2 or not all(lines):
         raise SystemExit(f'Expected exactly one Chinese and one English line for {label}')
-    return lines[1], lines[0]
+    return order_bilingual_pair(lines[0], lines[1], label=label)
+
+
+def validate_granted_duration(value: str, *, expected: str, note_path: Path) -> None:
+    granted = clean_note_line(value)
+    if granted == expected:
+        return
+    granted_en, granted_zh = split_inline_pair(granted, label='granted duration')
+    if expected not in granted_en or 'exactly 60 minutes' not in granted_en.lower() or '60' not in granted_zh:
+        raise SystemExit(f'Granted duration mismatch in {note_path}')
+
+
+def validate_experience_duration(value: str, *, note_path: Path) -> None:
+    experience = clean_note_line(value)
+    if experience.casefold() in {'open-ended / 开放', '开放 / open-ended'}:
+        return
+    experience_en, experience_zh = split_inline_pair(experience, label='experience duration')
+    if 'open-ended' not in experience_en.casefold() or '开放' not in experience_zh:
+        raise SystemExit(f'Experience duration must be open-ended in {note_path}')
 
 
 def discover_entry_from_note(source: Path, requested_date: str) -> dict:
@@ -1346,13 +1388,16 @@ def discover_entry_from_note(source: Path, requested_date: str) -> dict:
         raise SystemExit(f'Source Day must be the previous civil date in {note_path}')
     config = json.loads(TIMETABLE_CONFIG.read_text(encoding='utf-8'))
     timing = autonomous_timing(config)
-    granted = fields['Granted duration / 授予时长'].strip('*_ ')
     expected_granted = f"{timing['start']}–{timing['end']} {config['timezone']}"
-    if granted != expected_granted:
-        raise SystemExit(f'Granted duration mismatch in {note_path}')
-    experience = fields['Experience duration / 体验时长'].strip('*_ ')
-    if experience.casefold() not in {'open-ended / 开放', '开放 / open-ended'}:
-        raise SystemExit(f'Experience duration must be open-ended in {note_path}')
+    validate_granted_duration(
+        fields['Granted duration / 授予时长'],
+        expected=expected_granted,
+        note_path=note_path,
+    )
+    validate_experience_duration(
+        fields['Experience duration / 体验时长'],
+        note_path=note_path,
+    )
     file_base = note_path.name.removesuffix('-note.md')
     prefix = f'{requested_date}-'
     if not file_base.startswith(prefix):
@@ -2342,6 +2387,7 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
       collapsed ? 'Expand bilingual brief / 展开双语简述' : 'Collapse bilingual brief / 收起双语简述',
     );
     if (collapsed) restoreNativeBriefCollisions();
+    refreshFloatingChrome();
     window.requestAnimationFrame(refreshFloatingChrome);
   }
   function enableLiveBriefDragging() {
@@ -2460,13 +2506,14 @@ LIVE_TEXT_FOLD_SNIPPET = r"""
     if (liveBrief.classList.contains('is-collapsed')) return;
     if (isTouchLayout() && window.innerHeight <= 520) {
       const compactCandidates = document.querySelectorAll(
-        'header,.panel,.card,.legend,.hint,.instructions,.statement,.copy,.text,.meta,.caption,'
+        'header,.panel,.card,.legend,.hint,.brief,#brief,.instructions,.statement,.copy,.text,.meta,.caption,'
         + '.status,.readout,.label,.mode,.metric,aside,aside section,aside p,aside h1,aside h2,aside h3',
       );
       for (const element of compactCandidates) {
         if (!(element instanceof HTMLElement)) continue;
         if (element.closest('#ghLiveBrief, #ghWorkNoteOverlay, #ghWorkNoteTrigger, #ghTouchKeyDock')) continue;
-        if (element.matches('button,input,[role="button"]') || element.querySelector('button,input,[role="button"]')) continue;
+        const nativeBriefShell = element.matches('.brief,#brief');
+        if (!nativeBriefShell && (element.matches('button,input,[role="button"]') || element.querySelector('button,input,[role="button"]'))) continue;
         if (!(element.innerText || element.textContent || '').trim()) continue;
         element.dataset.ghBriefCovered = 'true';
       }

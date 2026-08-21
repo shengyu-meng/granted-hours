@@ -1,6 +1,46 @@
 {
  "schema": "granted-hours-collaboration-contours-v1",
  "contours": {
+  "444829c7255a81b247488633a4b52a5807dab223a82474d24f107c490aa227bf": {
+   "date": "2026-08-15",
+   "category": "code_development",
+   "request_zh": "Simon 让我修复这两天没有正常投出的 AI 日报。",
+   "request_en": "Simon asked me to repair the AI daily report delivery that had not gone out properly over the previous two days.",
+   "outcome_zh": "我新增了 09:20 的无模型确定性投递任务：直接把已验证 manifest 渲染成日报正文并投到 ████。",
+   "outcome_en": "I added a 09:20 model-free deterministic delivery task: render the verified manifest directly into the daily report body and deliver it to ████.",
+   "completion_status": "completed",
+   "pair_provenance": "assistant_result_summary"
+  },
+  "364ad3d2bcabf45ebeaddd3ee9d43a72928093435d551695b28f918f8b46662e": {
+   "date": "2026-08-16",
+   "category": "redacted_private",
+   "request_zh": "Simon 让我结合授时最新进展、非人时间表、████ 表格线索和公开搜索，筛选展览、评奖、论文等投稿机会；若表格不可用，就只用公开搜索覆盖 ████。",
+   "request_en": "Simon asked me to combine Granted Hours' latest progress, the non-human timetable, ████ spreadsheet clues, and public search to screen exhibition, award, paper, and submission opportunities; if the spreadsheet was unavailable, public search should cover ████.",
+   "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "c28074d8dec5da0cee70b5dbf92994114fa87bdd09bceb16986a08da9024f7fd": {
+   "date": "2026-08-19",
+   "category": "redacted_private",
+   "request_zh": "Simon 和我说某条返回已经符合要求，并要求我今天后续内容都逐条按同一标准返回。",
+   "request_en": "Simon told me that one response now met the requested standard and asked me to return the rest of the day's items one by one under that same standard.",
+   "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "7f39d5ccee1bd9200c2713dba3b8bd1526d7e5ba0fe894195da9003689c75746": {
+   "date": "2026-08-19",
+   "category": "redacted_private",
+   "request_zh": "Simon 让我在不重启的情况下，把 ████ 的默认模型改回 xAI 的 grok ████。",
+   "request_en": "Simon asked me to change ████ back to the xAI grok ████ default model without restarting it.",
+   "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this configuration request; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
   "46d7eaa5bc2470da5e0a82c8cebe1caa2d90ef63943b71ae1757e4473df808f8": {
    "date": "2026-08-10",
    "category": "research_synthesis",

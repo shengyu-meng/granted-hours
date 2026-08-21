@@ -5221,6 +5221,172 @@
       "date": "2026-08-14",
       "provenance": "record_based",
       "assigned_residues": []
+    },
+    {
+      "date": "2026-08-15",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "en": "Development and validation",
+          "zh": "开发与验证",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "13:06",
+          "end": "13:07",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我修复这两天没有正常投出的 AI 日报。",
+          "request_en": "Simon asked me to repair the AI daily report delivery that had not gone out properly over the previous two days.",
+          "outcome_zh": "我新增了 09:20 的无模型确定性投递任务：直接把已验证 manifest 渲染成日报正文并投到 ████。",
+          "outcome_en": "I added a 09:20 model-free deterministic delivery task: render the verified manifest directly into the daily report body and deliver it to ████.",
+          "completion_status": "completed",
+          "pair_provenance": "assistant_result_summary"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 3,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes",
+            "GPT",
+            "subagent"
+          ],
+          "start": "00:29",
+          "end": "00:30",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我结合授时最新进展、非人时间表、████ 表格线索和公开搜索，筛选展览、评奖、论文等投稿机会；若表格不可用，就只用公开搜索覆盖 ████。",
+          "request_en": "Simon asked me to combine Granted Hours' latest progress, the non-human timetable, ████ spreadsheet clues, and public search to screen exhibition, award, paper, and submission opportunities; if the spreadsheet was unavailable, public search should cover ████.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-17",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "en": "On 2026-08-17, Codex/GPT completed evidence-backed review for ████; an implementation or validation result was returned.",
+          "zh": "2026-08-17，Codex/GPT 完成 ████ 的编码与审校，并返回实现或验收结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "22:25",
+          "end": "22:29",
+          "time_provenance": "observed_session_window"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-18",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "en": "On 2026-08-18, Codex/GPT completed evidence-backed coding and review for ████; an implementation or validation result was returned.",
+          "zh": "2026-08-18，Codex/GPT 完成 ████ 的编码与审校，并返回实现或验收结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "22:25",
+          "end": "22:29",
+          "time_provenance": "observed_session_window"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-19",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 7,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "20:16",
+          "end": "21:21",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说某条返回已经符合要求，并要求我今天后续内容都逐条按同一标准返回。",
+          "request_en": "Simon told me that one response now met the requested standard and asked me to return the rest of the day's items one by one under that same standard.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "20:38",
+          "end": "20:39",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我在不重启的情况下，把 ████ 的默认模型改回 xAI 的 grok ████。",
+          "request_en": "Simon asked me to change ████ back to the xAI grok ████ default model without restarting it.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this configuration request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }
