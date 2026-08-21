@@ -1,7 +1,7 @@
 {
   "schema": "timetable-screenshot-segments-v1",
   "passed": true,
-  "baseUrl": "http://127.0.0.1:8891/timetable/",
+  "baseUrl": "http://127.0.0.1:8892/timetable/",
   "scrollRoot": "#dayDialogPanel",
   "misleadingFullDayCapturesRemoved": true,
   "segmentTargets": [
@@ -39,18 +39,18 @@
       "targetMinute": 480,
       "targetTime": "08:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 275,
-      "maximumScrollTop": 959,
+      "actualScrollTop": 470,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 345.3125,
-        "end": 915.525,
-        "startTime": "05:45",
-        "endTime": "15:16"
+        "start": 88.63095238095238,
+        "end": 874.3452380952381,
+        "startTime": "01:29",
+        "endTime": "14:34"
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-morning.png",
-      "imageBytes": 959142,
-      "imageSha256": "8d10a70f254fb2d426df343275dc49c68358750a4dc80f4ad2ddf79015efcda4",
+      "imageBytes": 750951,
+      "imageSha256": "b8c9a0bef306fb8811cc9cedf6736cd6bc4d307bc2cbcfe77b6d7b0d659b3734",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -78,18 +78,18 @@
       "targetMinute": 720,
       "targetTime": "12:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 511,
-      "maximumScrollTop": 959,
+      "actualScrollTop": 722,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 289.4791666666667,
-        "end": 1163.4162339437005,
-        "startTime": "04:49",
-        "endTime": "19:23"
+        "start": 328.63095238095235,
+        "end": 1114.345238095238,
+        "startTime": "05:29",
+        "endTime": "18:34"
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-midday.png",
-      "imageBytes": 1011149,
-      "imageSha256": "252ca8918daf0364be93b3c19217a15e81e2fd980e5e52670f642c76a71d3050",
+      "imageBytes": 717160,
+      "imageSha256": "71101f6f67a4405fef784b9b8a47f81252df0a009ff98324a2f33b2e35698f21",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -105,7 +105,7 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 236,
+            "scrollDeltaPx": 252,
             "requiredScrollDeltaPx": 50.400000000000006,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
@@ -125,18 +125,18 @@
       "targetMinute": 900,
       "targetTime": "15:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 676,
-      "maximumScrollTop": 959,
+      "actualScrollTop": 911,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 463.93778141629144,
-        "end": 1399.419642857143,
-        "startTime": "07:44",
-        "endTime": "23:19"
+        "start": 508.63095238095235,
+        "end": 1294.345238095238,
+        "startTime": "08:29",
+        "endTime": "21:34"
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-close.png",
-      "imageBytes": 983269,
-      "imageSha256": "869f89f2e8109201403e451928e343636f0f69235d064a6d5ac59dd4af6be3e9",
+      "imageBytes": 588100,
+      "imageSha256": "f6c85a19760d6ac200f91a8a722b815130c999667ee1af5d81219763aa53240f",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -152,14 +152,14 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 401,
+            "scrollDeltaPx": 441,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 165,
+            "scrollDeltaPx": 189,
             "requiredScrollDeltaPx": 37.800000000000004,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
@@ -179,18 +179,18 @@
       "targetMinute": 1260,
       "targetTime": "21:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 959,
-      "maximumScrollTop": 959,
+      "actualScrollTop": 1091,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 776.8012924071082,
-        "end": 1439.047619047619,
-        "startTime": "12:57",
-        "endTime": "23:59"
+        "start": 680.0595238095237,
+        "end": 1440,
+        "startTime": "11:20",
+        "endTime": "24:00"
       },
       "targetVisible": true,
       "image": "2026-07-21-desktop-wide-evening.png",
-      "imageBytes": 731814,
-      "imageSha256": "03d421e31a06ec39c00c3eae2f0e65df7523f79066d6359c27bf882c5af0cfdf",
+      "imageBytes": 512306,
+      "imageSha256": "33879e04b8db632be867612dff1db3867624626291c76d0252f1b91d5e1967c2",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -206,21 +206,21 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 684,
+            "scrollDeltaPx": 621,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 448,
+            "scrollDeltaPx": 369,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "close",
-            "scrollDeltaPx": 283,
+            "scrollDeltaPx": 180,
             "requiredScrollDeltaPx": 75.60000000000001,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
@@ -240,18 +240,18 @@
       "targetMinute": 480,
       "targetTime": "08:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 92,
-      "maximumScrollTop": 792,
+      "actualScrollTop": 537,
+      "maximumScrollTop": 988,
       "visibleMinuteRange": {
-        "start": 315.51282051282055,
-        "end": 890.8012820512821,
-        "startTime": "05:16",
-        "endTime": "14:51"
+        "start": 21.893168604651162,
+        "end": 937.0094476744187,
+        "startTime": "00:22",
+        "endTime": "15:37"
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-morning.png",
-      "imageBytes": 920249,
-      "imageSha256": "72d30aefe0567e77cb7c2bfe877825c152826b5458a74b3c9cf12533dd782684",
+      "imageBytes": 955261,
+      "imageSha256": "911a8f2ed5d3a993342489e7ec407220804b9144659f01c44c1cf20ca73b34c3",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -279,18 +279,18 @@
       "targetMinute": 720,
       "targetTime": "12:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 326,
-      "maximumScrollTop": 792,
+      "actualScrollTop": 744,
+      "maximumScrollTop": 988,
       "visibleMinuteRange": {
-        "start": 237.83416726233025,
-        "end": 1137.2115384615386,
-        "startTime": "03:58",
-        "endTime": "18:57"
+        "start": 262.59084302325584,
+        "end": 1177.7071220930234,
+        "startTime": "04:23",
+        "endTime": "19:38"
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-midday.png",
-      "imageBytes": 1122938,
-      "imageSha256": "2e11cc218bdc03b06c5c046589b6301c301aedfb77225bcdb2f6e6cb7b066f46",
+      "imageBytes": 969646,
+      "imageSha256": "4b1c6d6b65ddb9f391e8c12cfddffb6f91e1a438972f3584d0234f2fedb922a2",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -306,8 +306,8 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 234,
-            "requiredScrollDeltaPx": 46.800000000000004,
+            "scrollDeltaPx": 207,
+            "requiredScrollDeltaPx": 41.28,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -326,18 +326,18 @@
       "targetMinute": 900,
       "targetTime": "15:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 494,
-      "maximumScrollTop": 792,
+      "actualScrollTop": 899,
+      "maximumScrollTop": 988,
       "visibleMinuteRange": {
-        "start": 488.97435897435895,
-        "end": 1358.621794871795,
-        "startTime": "08:09",
-        "endTime": "22:39"
+        "start": 442.82340116279073,
+        "end": 1357.9396802325582,
+        "startTime": "07:23",
+        "endTime": "22:38"
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-close.png",
-      "imageBytes": 1138962,
-      "imageSha256": "10356a0f55aed614b7e6816c936d2407dd7ba1e79bdaa9c455baf0878be4a368",
+      "imageBytes": 953109,
+      "imageSha256": "29547bf05b7d5feb8afb61320273cd697f573bd75bdde6e7b4993e3d1e87c70b",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -353,15 +353,15 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 402,
-            "requiredScrollDeltaPx": 80,
+            "scrollDeltaPx": 362,
+            "requiredScrollDeltaPx": 72.24,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 168,
-            "requiredScrollDeltaPx": 35.1,
+            "scrollDeltaPx": 155,
+            "requiredScrollDeltaPx": 30.960000000000004,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -380,18 +380,18 @@
       "targetMinute": 1260,
       "targetTime": "21:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 792,
-      "maximumScrollTop": 792,
+      "actualScrollTop": 988,
+      "maximumScrollTop": 988,
       "visibleMinuteRange": {
-        "start": 801.5705128205128,
-        "end": 1438.974358974359,
-        "startTime": "13:22",
-        "endTime": "23:59"
+        "start": 546.3117732558139,
+        "end": 1439.9890988372092,
+        "startTime": "09:06",
+        "endTime": "24:00"
       },
       "targetVisible": true,
       "image": "2026-07-21-mobile-evening.png",
-      "imageBytes": 801554,
-      "imageSha256": "e2f9356791d678f810862c3d25471cd65723a406cf1bed00577970aae165ee2d",
+      "imageBytes": 909425,
+      "imageSha256": "25dbaaa9271ac6c085faeba07e0f28cc7aad6573d2227341dfc97a9ae009f9e8",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -407,22 +407,22 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 700,
+            "scrollDeltaPx": 451,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 466,
+            "scrollDeltaPx": 244,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "close",
-            "scrollDeltaPx": 298,
-            "requiredScrollDeltaPx": 70.2,
+            "scrollDeltaPx": 89,
+            "requiredScrollDeltaPx": 61.92000000000001,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -441,18 +441,18 @@
       "targetMinute": 480,
       "targetTime": "08:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 334,
-      "maximumScrollTop": 1195,
+      "actualScrollTop": 766,
+      "maximumScrollTop": 1446,
       "visibleMinuteRange": {
-        "start": 253.22834645669292,
-        "end": 670.7752877044215,
-        "startTime": "04:13",
+        "start": 288.17223837209303,
+        "end": 670.7303779069767,
+        "startTime": "04:48",
         "endTime": "11:11"
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-morning.png",
-      "imageBytes": 529842,
-      "imageSha256": "4d350a7efc7384129455d7db692297075c1547e02f565c57ed925e6439792490",
+      "imageBytes": 406347,
+      "imageSha256": "4a1477dd0b549f22a49d17211119e7b2303730b8fe837b690caead4e2d5419f2",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -480,18 +480,18 @@
       "targetMinute": 720,
       "targetTime": "12:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 541,
-      "maximumScrollTop": 1195,
+      "actualScrollTop": 973,
+      "maximumScrollTop": 1446,
       "visibleMinuteRange": {
-        "start": 528.915808600848,
-        "end": 911.480472297911,
+        "start": 528.8699127906976,
+        "end": 911.4280523255815,
         "startTime": "08:49",
         "endTime": "15:11"
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-midday.png",
-      "imageBytes": 546334,
-      "imageSha256": "2d934f49da276c8d73e133237e5fd3aee0dfdeb25277171e4fec0d1457010233",
+      "imageBytes": 469396,
+      "imageSha256": "df5a0c79cd68cd0218402c0f4ac1ab6617dc991c4f081beeb584b86da5e45e8e",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -527,18 +527,18 @@
       "targetMinute": 900,
       "targetTime": "15:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 696,
-      "maximumScrollTop": 1195,
+      "actualScrollTop": 1128,
+      "maximumScrollTop": 1446,
       "visibleMinuteRange": {
-        "start": 709.1520290732889,
-        "end": 1091.7019987886129,
+        "start": 709.1024709302326,
+        "end": 1091.6606104651164,
         "startTime": "11:49",
         "endTime": "18:12"
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-close.png",
-      "imageBytes": 563028,
-      "imageSha256": "4054f88edb27bbe4e08c9da69b934e8886e61633226171b7c2fec423e5ea0a3d",
+      "imageBytes": 502896,
+      "imageSha256": "be19e46ec89155e9ddf9cdb4b036981b47dc133a66712619bf2915ac068b833c",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -581,18 +581,18 @@
       "targetMinute": 1260,
       "targetTime": "21:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 992,
-      "maximumScrollTop": 1195,
+      "actualScrollTop": 1437,
+      "maximumScrollTop": 1446,
       "visibleMinuteRange": {
-        "start": 1053.3333333333333,
-        "end": 1438.8374205267937,
-        "startTime": "17:33",
-        "endTime": "23:59"
+        "start": 1068.4047965116279,
+        "end": 1439.9890988372092,
+        "startTime": "17:48",
+        "endTime": "24:00"
       },
       "targetVisible": true,
       "image": "2026-07-21-short-touch-evening.png",
-      "imageBytes": 511889,
-      "imageSha256": "92d27e2f1186c2fc55033a36c7931b002e1fbd0e7f3e661cb4f54e1effb1abd2",
+      "imageBytes": 370583,
+      "imageSha256": "404cb198e7a2a56138c47e9b994ce9a3769aca207123b22e26e910e3c92e24c5",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -608,21 +608,21 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 658,
+            "scrollDeltaPx": 671,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 451,
+            "scrollDeltaPx": 464,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "close",
-            "scrollDeltaPx": 296,
+            "scrollDeltaPx": 309,
             "requiredScrollDeltaPx": 61.92000000000001,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
@@ -642,18 +642,18 @@
       "targetMinute": 480,
       "targetTime": "08:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 508,
-      "maximumScrollTop": 1018,
+      "actualScrollTop": 470,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 96.93420101229212,
-        "end": 913.1077891424076,
-        "startTime": "01:37",
-        "endTime": "15:13"
+        "start": 88.63095238095238,
+        "end": 874.3452380952381,
+        "startTime": "01:29",
+        "endTime": "14:34"
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-morning.png",
-      "imageBytes": 966202,
-      "imageSha256": "383766ab06159fbcc0a99e0deb2e9efcbc051208ddf04e0a2a76a4f8f0b11e36",
+      "imageBytes": 873504,
+      "imageSha256": "449cfe4ead38cc4b7e76e98d85e48a0e170a699071e93350151aa71fce05b514",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -681,18 +681,18 @@
       "targetMinute": 720,
       "targetTime": "12:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 771,
-      "maximumScrollTop": 1018,
+      "actualScrollTop": 722,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 369.6065446045968,
-        "end": 1434.5072068562524,
-        "startTime": "06:10",
-        "endTime": "23:55"
+        "start": 328.63095238095235,
+        "end": 1114.345238095238,
+        "startTime": "05:29",
+        "endTime": "18:34"
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-midday.png",
-      "imageBytes": 952577,
-      "imageSha256": "8d34332b5e5974ace67cf79b2910d4d1a1b90d4ba6f6a79a5c2754d1aeac1527",
+      "imageBytes": 682923,
+      "imageSha256": "4ba2132c86ed5cfa988f4ee9f79500723400ed59a17b9f64886516c4ce0551b9",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -708,8 +708,8 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 263,
-            "requiredScrollDeltaPx": 64.176,
+            "scrollDeltaPx": 252,
+            "requiredScrollDeltaPx": 50.400000000000006,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -728,18 +728,18 @@
       "targetMinute": 900,
       "targetTime": "15:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 909,
-      "maximumScrollTop": 1018,
+      "actualScrollTop": 911,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 472.81402142161636,
-        "end": 1439.2520451889366,
-        "startTime": "07:53",
-        "endTime": "23:59"
+        "start": 508.63095238095235,
+        "end": 1294.345238095238,
+        "startTime": "08:29",
+        "endTime": "21:34"
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-close.png",
-      "imageBytes": 841521,
-      "imageSha256": "78aa25001fac4a91a237977b61d587710c9bf323a51442c204fc48c8b0168502",
+      "imageBytes": 504368,
+      "imageSha256": "0004dd9a1f8773d3de0822d999d9092a2fe9addec68c4f345491d2dd8825b042",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -755,15 +755,15 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 401,
+            "scrollDeltaPx": 441,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 138,
-            "requiredScrollDeltaPx": 48.132000000000005,
+            "scrollDeltaPx": 189,
+            "requiredScrollDeltaPx": 37.800000000000004,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -782,18 +782,18 @@
       "targetMinute": 1260,
       "targetTime": "21:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 1017,
-      "maximumScrollTop": 1018,
+      "actualScrollTop": 1091,
+      "maximumScrollTop": 1091,
       "visibleMinuteRange": {
-        "start": 553.5917413322945,
-        "end": 1439.2520451889366,
-        "startTime": "09:14",
-        "endTime": "23:59"
+        "start": 680.0595238095237,
+        "end": 1440,
+        "startTime": "11:20",
+        "endTime": "24:00"
       },
       "targetVisible": true,
       "image": "2026-07-22-desktop-wide-evening.png",
-      "imageBytes": 738026,
-      "imageSha256": "bbc950625cfbf2649ee6ce41cb3a398fd8ad603542043a872722d0c32396040f",
+      "imageBytes": 418362,
+      "imageSha256": "82dfc23d36548b7ccbe192d11912981c44a18022d4b72a61b06127208847eb39",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -809,22 +809,22 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 509,
+            "scrollDeltaPx": 621,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 246,
+            "scrollDeltaPx": 369,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "close",
-            "scrollDeltaPx": 108,
-            "requiredScrollDeltaPx": 80,
+            "scrollDeltaPx": 180,
+            "requiredScrollDeltaPx": 75.60000000000001,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -843,18 +843,18 @@
       "targetMinute": 480,
       "targetTime": "08:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 379,
-      "maximumScrollTop": 936,
+      "actualScrollTop": 635,
+      "maximumScrollTop": 1235,
       "visibleMinuteRange": {
-        "start": 81.34101040118871,
-        "end": 876.5304606240713,
-        "startTime": "01:21",
-        "endTime": "14:37"
+        "start": 92.25824311023622,
+        "end": 866.8645423228346,
+        "startTime": "01:32",
+        "endTime": "14:27"
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-morning.png",
-      "imageBytes": 1247209,
-      "imageSha256": "6645f0b63c5a1f067ac1f4a57d0e0495ec1d622ee3341ee2e3b85f46fab556d1",
+      "imageBytes": 951528,
+      "imageSha256": "9c63fbef8e5d35120eef2db6e19bc5ee5d8c8aa0c5bddb858905b5c5192d2741",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -882,18 +882,18 @@
       "targetMinute": 720,
       "targetTime": "12:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 661,
-      "maximumScrollTop": 936,
+      "actualScrollTop": 879,
+      "maximumScrollTop": 1235,
       "visibleMinuteRange": {
-        "start": 390.2920962199313,
-        "end": 1399.8811292719167,
-        "startTime": "06:30",
-        "endTime": "23:20"
+        "start": 332.41572342519686,
+        "end": 1107.0220226377953,
+        "startTime": "05:32",
+        "endTime": "18:27"
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-midday.png",
-      "imageBytes": 1197273,
-      "imageSha256": "bc070da6be3743982160b41b6d248cadb129ca4e8ecdc93024180799687ba3fe",
+      "imageBytes": 1011679,
+      "imageSha256": "c4e6a19ae07edd645854f4e0d8f6c6e13f4245f7d7fad5f5c3770302463c5236",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -909,8 +909,8 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 282,
-            "requiredScrollDeltaPx": 67.29599999999999,
+            "scrollDeltaPx": 244,
+            "requiredScrollDeltaPx": 48.768,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -929,18 +929,18 @@
       "targetMinute": 900,
       "targetTime": "15:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 805,
-      "maximumScrollTop": 936,
+      "actualScrollTop": 1062,
+      "maximumScrollTop": 1235,
       "visibleMinuteRange": {
-        "start": 503.4361069836553,
-        "end": 1439.2867756315009,
-        "startTime": "08:23",
-        "endTime": "23:59"
+        "start": 512.5338336614174,
+        "end": 1287.1401328740158,
+        "startTime": "08:33",
+        "endTime": "21:27"
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-close.png",
-      "imageBytes": 1004243,
-      "imageSha256": "cd28b196a3e0dd5c9502b1481c497ce17dd692bff652982b23042dd2cde6dc9a",
+      "imageBytes": 953832,
+      "imageSha256": "889b5e938ec2f32120cd2990f03f8e6252acd14193d870db4b2a5d84d282d7ce",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -956,15 +956,15 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 426,
+            "scrollDeltaPx": 427,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 144,
-            "requiredScrollDeltaPx": 50.472,
+            "scrollDeltaPx": 183,
+            "requiredScrollDeltaPx": 36.576,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -983,18 +983,18 @@
       "targetMinute": 1260,
       "targetTime": "21:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 924,
-      "maximumScrollTop": 936,
+      "actualScrollTop": 1235,
+      "maximumScrollTop": 1235,
       "visibleMinuteRange": {
-        "start": 588.3187813486903,
-        "end": 1439.2867756315009,
-        "startTime": "09:48",
-        "endTime": "23:59"
+        "start": 682.8094242125984,
+        "end": 1439.9913877952756,
+        "startTime": "11:23",
+        "endTime": "24:00"
       },
       "targetVisible": true,
       "image": "2026-07-22-mobile-evening.png",
-      "imageBytes": 816888,
-      "imageSha256": "14e10771ac9b7323c520fc54a0bbe8acc96807b9edf6f8e428ff74e8e2d5c92c",
+      "imageBytes": 918305,
+      "imageSha256": "250a2215493ffb3ae52749ff2b7400149ee48cdc6bc8521ee90756abc1f6d55e",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1010,22 +1010,22 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 545,
+            "scrollDeltaPx": 600,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 263,
+            "scrollDeltaPx": 356,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "close",
-            "scrollDeltaPx": 119,
-            "requiredScrollDeltaPx": 80,
+            "scrollDeltaPx": 173,
+            "requiredScrollDeltaPx": 73.152,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -1044,18 +1044,18 @@
       "targetMinute": 480,
       "targetTime": "08:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 605,
-      "maximumScrollTop": 1387,
+      "actualScrollTop": 864,
+      "maximumScrollTop": 1693,
       "visibleMinuteRange": {
-        "start": 319.9261992619926,
-        "end": 597.5924205833179,
-        "startTime": "05:20",
-        "endTime": "09:58"
+        "start": 317.6519438976378,
+        "end": 641.470841535433,
+        "startTime": "05:18",
+        "endTime": "10:41"
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-morning.png",
-      "imageBytes": 591565,
-      "imageSha256": "3e93d68ec566b8f84fa482a3c241db19232d05d54fd6fddea2704ec1505202de",
+      "imageBytes": 488242,
+      "imageSha256": "41d63962d9ed59ac28665f48f460e47e5ceb02f85d74d0cc60f82575bcd68f81",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1083,18 +1083,18 @@
       "targetMinute": 720,
       "targetTime": "12:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 887,
-      "maximumScrollTop": 1387,
+      "actualScrollTop": 1108,
+      "maximumScrollTop": 1693,
       "visibleMinuteRange": {
-        "start": 564.0646479658183,
-        "end": 919.4259818731118,
-        "startTime": "09:24",
-        "endTime": "15:19"
+        "start": 557.8094242125984,
+        "end": 881.6283218503937,
+        "startTime": "09:18",
+        "endTime": "14:42"
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-midday.png",
-      "imageBytes": 538519,
-      "imageSha256": "2e4914259e70a60c7386f4ecf01304565492953ec383a8f14a15ef549a96cb51",
+      "imageBytes": 413065,
+      "imageSha256": "587704af2828ef864899911b9b23b8c527cb5cf42f49989df7678a5d5b811ba1",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1110,8 +1110,8 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 282,
-            "requiredScrollDeltaPx": 67.29599999999999,
+            "scrollDeltaPx": 244,
+            "requiredScrollDeltaPx": 48.768,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -1130,18 +1130,18 @@
       "targetMinute": 900,
       "targetTime": "15:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 1031,
-      "maximumScrollTop": 1387,
+      "actualScrollTop": 1291,
+      "maximumScrollTop": 1693,
       "visibleMinuteRange": {
-        "start": 679.2,
-        "end": 1327.1099611901682,
-        "startTime": "11:19",
-        "endTime": "22:07"
+        "start": 737.9275344488188,
+        "end": 1061.746432086614,
+        "startTime": "12:18",
+        "endTime": "17:42"
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-close.png",
-      "imageBytes": 519481,
-      "imageSha256": "8c80d4a472ba3d5054d29d235e226695bea718b5088056c3aa9f0b713f3a97e5",
+      "imageBytes": 477303,
+      "imageSha256": "e0864564189e2220cd2cf196ff01faa1bb233c8ab8596f31e9d9de809ea3952b",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1157,15 +1157,15 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 426,
+            "scrollDeltaPx": 427,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 144,
-            "requiredScrollDeltaPx": 50.472,
+            "scrollDeltaPx": 183,
+            "requiredScrollDeltaPx": 36.576,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }
@@ -1184,18 +1184,18 @@
       "targetMinute": 1260,
       "targetTime": "21:00",
       "scrollRoot": "#dayDialogPanel",
-      "actualScrollTop": 1146,
-      "maximumScrollTop": 1387,
+      "actualScrollTop": 1657,
+      "maximumScrollTop": 1693,
       "visibleMinuteRange": {
-        "start": 864.4056463595839,
-        "end": 1424.0527488855869,
-        "startTime": "14:24",
-        "endTime": "23:44"
+        "start": 1098.1637549212599,
+        "end": 1421.9826525590552,
+        "startTime": "18:18",
+        "endTime": "23:42"
       },
       "targetVisible": true,
       "image": "2026-07-22-short-touch-evening.png",
-      "imageBytes": 489847,
-      "imageSha256": "089f2aca3c268eec26c3958f6cfb7fa51d51b19b56668136c391b27e245495a2",
+      "imageBytes": 392261,
+      "imageSha256": "eb001969ad2181084c0040c3c5ddfa9698d848ea24ee1cb1e5eea138506efaa2",
       "inspectionLens": {
         "intended": false,
         "cleanState": {
@@ -1211,22 +1211,22 @@
         "comparisons": [
           {
             "comparedWith": "morning",
-            "scrollDeltaPx": 541,
+            "scrollDeltaPx": 793,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "midday",
-            "scrollDeltaPx": 259,
+            "scrollDeltaPx": 549,
             "requiredScrollDeltaPx": 80,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           },
           {
             "comparedWith": "close",
-            "scrollDeltaPx": 115,
-            "requiredScrollDeltaPx": 80,
+            "scrollDeltaPx": 366,
+            "requiredScrollDeltaPx": 73.152,
             "differentImageHash": true,
             "rejectedAsDuplicate": false
           }

@@ -699,8 +699,7 @@ h1 {
 
 .timeline-detail {
   min-width: 0;
-  /* Keeps late-day focus targets scrollable without clamping against the dialog floor. */
-  padding: 22px 24px 240px;
+  padding: 22px 24px 26px;
 }
 
 .timeline-detail > h3 {
@@ -1393,7 +1392,7 @@ h1 {
   }
 
   .timeline-detail {
-    padding: 14px 12px 220px;
+    padding: 14px 12px 18px;
   }
 
   .timeline-detail > h3 {
