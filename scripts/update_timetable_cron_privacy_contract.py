@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the timetable v14 self-maintaining daily-closure contract in live jobs."""
+"""Install the timetable v15 self-maintaining daily-closure contract in live jobs."""
 from __future__ import annotations
 
 import argparse
@@ -19,7 +19,7 @@ FREE_ROAM_JOB_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_JOB_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_JOB_NAME = "授时：每日自由创作与日历闭环"
 TARGET_ROLES = {"free_roam", "dialogue", "closure"}
-MARKER = "[授时每日公开闭环契约 v14]"
+MARKER = "[授时每日公开闭环契约 v15]"
 CONTRACT_BLOCK_RE = re.compile(
     r"(?:\n+)?\[(?:授时公开语义隐私契约|授时每日公开闭环契约) v\d+\]\n"
     r"(?:- [^\n]*(?:\n|$))+"
@@ -32,7 +32,7 @@ STALE_PUBLISH_SECTION_RE = re.compile(
 )
 COMMON_CONTRACT = """
 
-[授时每日公开闭环契约 v14]
+[授时每日公开闭环契约 v15]
 - 公开文本的处理优先级固定为：先对识别实体打码（████）并保留句子本身的轮廓；整句打码后仍然敏感时，才把该句替换为有界的隐喻或抽象；只有连隐喻都会泄露私人事实时才整条删除。不得把“删除整条”当作默认方案，也不得用类别或主题模板句充当卡片正文。
 - 家庭梦境、亲密关系、照护与父母子女角色，只能保留为“私人经验中的关系/责任/照护平衡”等抽象协作主题；不得公开具体人物、情节、冲突或家庭结构。
 - 身体、药物、疾病、症状、低能量和情绪状态，只能保留为“个人恢复安排”等抽象主题；不得公开具体名称、表现或时间线。
@@ -76,20 +76,22 @@ CLOSURE_CONTRACT = COMMON_CONTRACT + """
 - 日期导入只能使用显式 `--date YYYY-MM-DD`。未知日期由 importer 严格读取该日期唯一的安全双语 note 并自动写入公开声明注册表；禁止人工每日改脚本、退回无 `--date` 的全语料导入，或把一个日期的错误扩大为全仓库改写。
 - 发布顺序固定为两条日期轨：先导入当天及历史积压的作品；再只对“早于当前自然日”的 `event_backlog_dates` 逐日运行 `python3 scripts/import_collaboration_events.py --date YYYY-MM-DD`，以及带 `--private-redaction-terms .private/identity-denylist.json --authorize-self-reminders --authorize-authentic-reminder-disclosure` 的 `import_timetable_pulses.py --date YYYY-MM-DD`。绝不在当天早晨提前导入当天后续协作/例行事件；当天事件由次日 00:20 收集，并随次日作品闭环发布。
 - ready receipt 的验证状态为 pending/partial 时，闭环必须对该日期重新运行 `qa_visual_previews.mjs --date YYYY-MM-DD` 及必要的本地安全检查；通过后原子升级 receipt 为 passed 再继续，失败则保留 oldest-first backlog，不能把暂时运行时问题变成永久缺席。
-- 构建公开数据后必须从 canonical public worktree 运行 `python3 scripts/test_first_person_public_contract.py`；它是第一人称协作、例行汇总、审核判断、满意度证据和浏览器运行时一致性的硬门控，失败即停止提交、推送和部署。
+- 构建公开数据后必须从本次发布 worktree 运行 `python3 scripts/test_first_person_public_contract.py`；它是第一人称协作、例行汇总、审核判断、满意度证据和浏览器运行时一致性的硬门控，失败即停止提交、推送和部署。
 - 日历构建后必须在有界本地静态服务器上运行 `qa_timetable_dialog_full_artwork.mjs` 与 `qa_timetable_calendar_enrichment.mjs`，并在部署后分别对自定义域名、稳定 Pages 域名和本次不可变部署地址重跑作品浮窗门控。门控必须逐视口覆盖普通桌面、390×844、421×386 短触屏与 3840×2160：作品浮窗只允许一个 `Brief / 作品摘要` 卡片，完整顺序固定为中文 Summary、中文 Brief、英文 Summary、英文 Brief；全屏按钮必须为最右操作项，上沿对齐 `Autonomous artwork / AI 自主作品`、右沿对齐摘要卡片；非全屏作品舞台在所有视口保持 16:9，不得出现竖向黑色空区；进入全屏后面板必须撤销非全屏多行 grid，作品布局、舞台和 iframe 都必须覆盖完整视口，子 iframe 的实际 viewport 也必须与外层一致；embed 模式不得残留会与作品画面碰撞的原生 brief、hint、ledger 或控制层；全屏退出、二次关闭、Escape、焦点恢复和 iframe 卸载层级全部通过。任一失败不得把闭环状态写成 `ok`。
 - 每次刷新或导入作品后必须运行 `qa_work_note_links.mjs` 与全语料 `qa_artwork_corpus.mjs`。直接观看页的左上角只能由标准 `gh-live-brief` 双语说明卡拥有：旧作品原生的大标题、日期行和说明外壳必须永久退出直达页，收起标准说明卡时也不得重新出现；作品内部不在保留区的动态标签和交互读数仍可保留。右下必须生成日期感知的 `Calendar / 非人时间表` 返回按钮，紧邻 `Work note / 作品说明`，移动/短屏可相邻堆叠但不得重叠、越界或产生横向滚动；返回链接必须落到该作品日期的日程，calendar embed 模式必须隐藏这两个直达页导航控件。任一作品页失败不得把闭环状态写成 `ok`。
 - 日历构建后还必须运行 `qa_timetable_stratigraphic_detail.mjs` 与 `qa_timetable_autonomous_mobile_card.mjs`。日详情必须使用 `compressed-idle-segments-v2`：精确事件与受保护卡片时段保持真实分钟比例，所有连续空白分钟（包括部分占用小时内部的空白）压缩，同时保留 25 个逐小时方向刻度。AI 自由创作卡在移动端必须横跨全部五列并允许越过中线，桌面/4K 必须占四列中的三列；未点开时并排看见方形预览、标题、日期/关系和至少两行摘要，不得出现卡内滚动、卡片重叠或横向溢出。任一门控失败不得把闭环状态写成 `ok`。
 - 日历构建后必须运行 `qa_timetable_month_height_audio.mjs`。该门控须遍历全部公开月份，并在普通桌面、390×844、421×386 短触屏与 3840×2160 下确认同月所有周行等高，且每个拥有至少三项公开内容的日期都能在卡内滚动前完整看到前三项；不得恢复只能露出一两项的固定矮行。钢琴短音包络与月历背景音乐必须共享校准后的 `0.34` 输出增益，浏览器运行值与声明值必须一致；禁止恢复会让钢琴比背景音乐低约 17.6 dB 的 `0.045` 旧值。重叠钢琴音必须经过 −12 dB threshold、8:1 ratio 的共享软限制器，避免快速移动指针时叠加削波。音频开关持久化、自动播放降级、桌面与移动端控制尺寸也必须继续通过；任一失败不得把闭环状态写成 `ok`。
 - 预览必须同时存在 PNG、GIF 与 WebP；三者都要表现作品本身，禁止目录、错误页、加载壳或可被 OCR 读出的界面/路径文字。GIF/WebP 必须有可见运动、固定帧数和有界时长，archive 与 docs 镜像哈希必须一致。
 - 动态捕获只允许一次有界尝试，90 秒仍未完成就终止整棵捕获进程，改用已验证 PNG 的无文字视觉区域生成确定性固定帧动画并同步导出 GIF/WebP；不得把无限等待、静态单帧、缺任一格式或旧 WebP 继续沿用当作成功。
-- 只允许 canonical worktree；开始和发布后均验证 `HEAD == origin/main == git ls-remote origin refs/heads/main`。无事务清单时，工作树不干净或三方失配必须 fail closed、保留积压，不 merge/rebase/reset，也不吸收无关改动。
-- 第一次写 canonical worktree **之前**，必须把恢复事务原子写入 public state：`transaction_schema=granted-hours-closure-transaction-v1`、`status=in_progress`、`base_head`、`dates`、`stage`、`allowed_path_roots` 与空的 `owned_paths`。每个会改文件的命令前先扩充有界 `allowed_path_roots`，命令后立刻用 `git status --porcelain -z` 更新精确 `owned_paths`；出现门禁失败时先写 `status=blocked`、失败阶段与当前精确路径集，再退出。
-- 后续运行遇到 dirty worktree 时，只有同时满足以下条件才允许恢复：事务清单存在且状态为 `in_progress/blocked`；`HEAD == base_head == origin/main == remote main`；积压仍含事务日期；当前 dirty 路径集合与 `owned_paths` **完全相等**；每个路径都位于记录的 `allowed_path_roots`。任一条件不满足都视为无关改动并 fail closed。恢复只能从记录阶段继续，不能把新路径静默并入旧事务。
-- 唯一可自动替换旧事务的安全例外：状态为 `blocked`、阶段仍是 `preflight`、`owned_paths` 与 `allowed_path_roots` 都为空，且当前 worktree clean、`HEAD == origin/main == remote main`。此时说明旧闭环从未写公共文件；保留全部作品/事件积压，以当前 HEAD 重建事务后继续。其他 stale base 一律不能自动吸收。
-- 提交、推送、部署及公网验收全部成功且工作树恢复干净后，事务状态改为 `completed` 并清空 `owned_paths`；GitHub 已成功但 Cloudflare 失败时保留同一事务为 `partial`，后续只补部署，不能因 dirty 状态重复导入或重做提交。
+- 打印台历 / desk-calendar 与每日公开网站解耦。canonical 里未提交的打印台历、PDF 或其它无关 dirty 路径，不得挡住作品、非人时间表、GitHub 或 Cloudflare 日更。
+- 每日公开闭环必须先运行 `python3 scripts/prepare_isolated_closure_worktree.py --current-date YYYY-MM-DD`，然后只在其输出的隔离 worktree 里做导入、测试、提交、`git push origin HEAD:main`、部署和公网验收。隔离树开始时必须干净，且 `HEAD == origin/main == git ls-remote origin refs/heads/main`。
+- 禁止因为 canonical dirty 而 fail closed。禁止对 canonical 做 stash/reset/restore/rebase/merge，也禁止把打印台历路径并入当日提交。发布后 canonical 可以继续 dirty 且落后于 origin/main，不要为了对齐而 checkout canonical。
+- 第一次写隔离 worktree **之前**，必须把恢复事务原子写入 public state：`transaction_schema=granted-hours-closure-transaction-v1`、`status=in_progress`、`base_head`、`dates`、`stage`、`allowed_path_roots` 与空的 `owned_paths`。每个会改文件的命令前先扩充有界 `allowed_path_roots`，命令后立刻用隔离树的 `git status --porcelain -z` 更新精确 `owned_paths`；出现门禁失败时先写 `status=blocked`、失败阶段与当前精确路径集，再退出。
+- 后续运行遇到隔离 worktree dirty 时，只有同时满足以下条件才允许恢复：事务清单存在且状态为 `in_progress/blocked`；隔离树 `HEAD == base_head == origin/main == remote main`；积压仍含事务日期；当前 dirty 路径集合与 `owned_paths` **完全相等**；每个路径都位于记录的 `allowed_path_roots`。任一条件不满足都视为无关改动并 fail closed。恢复只能从记录阶段继续，不能把新路径静默并入旧事务。
+- 唯一可自动替换旧事务的安全例外：状态为 `blocked`、阶段仍是 `preflight`、`owned_paths` 与 `allowed_path_roots` 都为空，且隔离 worktree clean、`HEAD == origin/main == remote main`。此时说明旧闭环从未写公共文件；保留全部作品/事件积压，以当前 HEAD 重建事务后继续。其他 stale base 一律不能自动吸收。canonical 的打印台历 dirty 不是这个例外的条件，也不再构成 preflight 失败。
+- 提交、推送、部署及公网验收全部成功且隔离工作树恢复干净后，事务状态改为 `completed` 并清空 `owned_paths`；GitHub 已成功但 Cloudflare 失败时保留同一事务为 `partial`，后续只补部署，不能因 dirty 状态重复导入或重做提交。
 - 只有测试与公开安全门禁全部通过才能显式暂存、提交、推送和 Cloudflare 部署；GitHub 成功而 Cloudflare 失败时状态为 `partial` 且后续继续补部署，不回滚已发布提交。
-- 事务已 `completed/partial` 且 `origin/main` 已包含该事务提交后，若 canonical 仍落后于 `origin/main`，只允许在 dirty 路径集合为空、或与事务 `allowed_path_roots` 内的残留路径完全一致时先对齐：`git fetch origin && git checkout -B main origin/main`，随后必须 `git status` 干净才能开始当日任务；对齐不产生新提交，也不把残留改动并入任何提交。
+- 事务已 `completed/partial` 且 `origin/main` 已包含该事务提交后，不要为了对齐去移动 canonical 的 checked-out branch。下一次闭环再次从 origin/main 开隔离树即可。
 """.rstrip()
 
 CONTRACT_BY_ROLE = {
@@ -130,7 +132,7 @@ def make_closure_job(free_roam_job: dict) -> dict:
 - canonical public worktree: `{public_worktree}`
 - public state: `{public_state}`
 
-只在 canonical public worktree 完成导入、测试、提交、推送、部署和公网验收。最终只报告日期、计数、公开 SHA、远程仓库/公网部署状态、积压日期和错误类别；不得回显私有对话、私有日志或敏感命中值。
+先运行 `python3 scripts/prepare_isolated_closure_worktree.py --current-date YYYY-MM-DD`，只在输出的隔离 worktree 完成导入、测试、提交、推送、部署和公网验收。canonical 的打印台历 dirty 不得挡住本次发布。最终只报告日期、计数、公开 SHA、远程仓库/公网部署状态、积压日期和错误类别；不得回显私有对话、私有日志或敏感命中值。
 """
     timezone = ZoneInfo("Asia/Shanghai")
     now = datetime.now(timezone)

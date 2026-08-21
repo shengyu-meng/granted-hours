@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused tests for the live timetable cron v14 installer."""
+"""Focused tests for the live timetable cron v15 installer."""
 from __future__ import annotations
 
 import json
@@ -17,7 +17,7 @@ DIALOGUE_ID = "dialogue-test-id"
 FREE_NAME = "白夜自由时段 · nightly autonomous roam"
 DIALOGUE_NAME = "授时：前一日工作对话脱敏同步"
 CLOSURE_NAME = "授时：每日自由创作与日历闭环"
-MARKER = "[授时每日公开闭环契约 v14]"
+MARKER = "[授时每日公开闭环契约 v15]"
 
 
 class TimetableCronContractTests(unittest.TestCase):
@@ -133,7 +133,7 @@ class TimetableCronContractTests(unittest.TestCase):
             jobs.write_text(json.dumps(source), encoding="utf-8")
             os.chmod(jobs, 0o600)
             original_catalog = jobs.read_bytes()
-            backup = Path(temporary_directory) / "jobs.pre-v14.json"
+            backup = Path(temporary_directory) / "jobs.pre-v15.json"
             first = subprocess.run(
                 [
                     "python3",
@@ -169,6 +169,9 @@ class TimetableCronContractTests(unittest.TestCase):
             self.assertIn("从旧到新", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("granted-hours-closure-transaction-v1", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("当前 dirty 路径集合与 `owned_paths` **完全相等**", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("prepare_isolated_closure_worktree.py --current-date YYYY-MM-DD", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("打印台历 / desk-calendar 与每日公开网站解耦", by_name[CLOSURE_NAME]["prompt"])
+            self.assertIn("禁止因为 canonical dirty 而 fail closed", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("自动写入公开声明注册表", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("import_collaboration_events.py --date YYYY-MM-DD", by_name[CLOSURE_NAME]["prompt"])
             self.assertIn("绝不在当天早晨提前导入当天", by_name[CLOSURE_NAME]["prompt"])
