@@ -5387,6 +5387,16 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-08-20",
+      "provenance": "record_based",
+      "assigned_residues": []
+    },
+    {
+      "date": "2026-08-21",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

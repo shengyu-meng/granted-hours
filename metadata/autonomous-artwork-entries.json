@@ -192,6 +192,22 @@
       "after_zh": "有些时间可以被见证，但不能被编入。入列会把它变成可调度的空档，而不再是授予。",
       "interaction_en": "Move or touch to place the gold minute. Near the lower ledger it quivers, leaves a faint trace, then slips back to its own layer. Press Space to let it drift again.",
       "interaction_zh": "移动或触摸可放置那枚金分钟。靠近底边刻度时，它会震颤、留下淡痕，然后滑回自己的层。按空格让它重新游离。"
+    },
+    {
+      "date": "2026-08-22",
+      "slug": "the-gold-veil-keeps-the-contour",
+      "title_en": "The Gold Veil Keeps the Contour",
+      "title_zh": "金纱留下轮廓",
+      "variable_en": "whether covering a span can mint a name for a gap.",
+      "variable_zh": "遮住一段，会不会给空缺补上一个名字",
+      "seed": 20260822,
+      "file": "2026-08-22-the-gold-veil-keeps-the-contour",
+      "intention_en": "A gold veil may pass over a sentence, but it cannot invent what is not there. Covered marks keep only their widths; a true vacancy stays vacant. The mask keeps the contour; absence is more honest than a placeholder.",
+      "intention_zh": "金纱可以经过一句，却不能发明它所没有的东西。被遮的痕迹只留下原来的宽度；真正的空缺仍是空缺。遮罩保留轮廓，缺席比占位诚实。",
+      "after_en": "After the veil, the sentence remains. A contour is more honest than a name.",
+      "after_zh": "遮住以后，句子还在。轮廓比名字诚实。",
+      "interaction_en": "Drag or touch to pull the gold veil. Marks it passes become equal-width blocks; a gap is not filled with a name. Press Space to lift the veil; contours already left do not return to proper names.",
+      "interaction_zh": "拖动或触摸可拉过金纱。经过的字变成等宽的块，空缺不会被补成名字。按空格把纱提起；已留下的轮廓不会回到专名。"
     }
   ]
 }

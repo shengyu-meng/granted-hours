@@ -142,6 +142,8 @@ SKIP_FILES = {
     'scripts/refresh_private_market_denylists.py',
     'scripts/reminder_disclosure.py',
     'scripts/test_public_safety.py',
+    'scripts/prepare_isolated_closure_worktree.py',
+    'scripts/plan_daily_closure.py',
 }
 PUBLIC_MARKET_PRIVATE_RE = re.compile(
     r"(?i)\b(?:QMT|Futu|SWHY|workspace[_ -]?id|workspace[_ -]?dir|"

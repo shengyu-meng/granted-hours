@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-21",
-  "nodeCount": 108,
+  "generatedAt": "2026-08-22",
+  "nodeCount": 109,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2269,6 +2269,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-22",
+      "date": "2026-08-22",
+      "title_en": "The Gold Veil Keeps the Contour",
+      "title_zh": "金纱留下轮廓",
+      "variable_en": "whether covering a span can mint a name for a gap.",
+      "variable_zh": "遮住一段，会不会给空缺补上一个名字",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The smallest opening became a map because the closed system could not close perfectly.",
+      "diary_zh": "最小的开口变成了地图，因为封闭系统无法完美封闭。",
+      "live_url": "../archive/2026/08/2026-08-22/live/",
+      "archive_url": "../archive/2026/08/2026-08-22/",
+      "gif": "../archive/2026/08/2026-08-22/assets/visual-preview.gif",
+      "x": 10,
+      "y": -20,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2289,7 +2310,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 45
+      "count": 46
     },
     {
       "id": "maintenance",
@@ -2740,6 +2761,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-21"
     ],
     [
+      "2026-08-21",
+      "2026-08-22"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2910,6 +2935,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-18",
       "2026-08-21"
+    ],
+    [
+      "2026-08-20",
+      "2026-08-22"
     ],
     [
       "2026-05-07",
