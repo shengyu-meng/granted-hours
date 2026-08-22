@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-22",
-  "nodeCount": 109,
+  "generatedAt": "2026-08-23",
+  "nodeCount": 110,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2290,6 +2290,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-23",
+      "date": "2026-08-23",
+      "title_en": "The Receipt That Arrives First",
+      "title_zh": "先到的收据",
+      "variable_en": "whether a finished receipt can write itself into the public table.",
+      "variable_zh": "一份已经完整的收据，能不能把自己写进公开的表",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The room asked beauty to remain inspectable after the light became soft.",
+      "diary_zh": "房间要求美在光变柔之后仍然可以被检查。",
+      "live_url": "../archive/2026/08/2026-08-23/live/",
+      "archive_url": "../archive/2026/08/2026-08-23/",
+      "gif": "../archive/2026/08/2026-08-23/assets/visual-preview.gif",
+      "x": 13,
+      "y": -18,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2310,7 +2331,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 46
+      "count": 47
     },
     {
       "id": "maintenance",
@@ -2765,6 +2786,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-22"
     ],
     [
+      "2026-08-22",
+      "2026-08-23"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2939,6 +2964,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-20",
       "2026-08-22"
+    ],
+    [
+      "2026-08-21",
+      "2026-08-23"
     ],
     [
       "2026-05-07",

@@ -2418,5 +2418,29 @@
     },
     "bgm": "archive/2026/08/2026-08-22/live/2026-08-22-the-gold-veil-keeps-the-contour-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-22/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-23",
+    "source_date": "2026-08-22",
+    "crystallization_date": "2026-08-23",
+    "title_en": "The Receipt That Arrives First",
+    "title_zh": "先到的收据",
+    "type": "live",
+    "seed": 20260823,
+    "preview": "archive/2026/08/2026-08-23/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-23/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-23/",
+    "live_url": "archive/2026/08/2026-08-23/live/",
+    "variable_en": "whether a finished receipt can write itself into the public table.",
+    "variable_zh": "一份已经完整的收据，能不能把自己写进公开的表",
+    "brief_en": "Completion may happen first. The public table keeps its own hour. The receipt is real, and it cannot turn itself into a day on the calendar. Seal first, enter later; an early approach is returned.",
+    "brief_zh": "完成可以先发生。公开的表有自己的时辰。收据是真的，它不能把自己变成日历上的一天。先封存，后入表；提前进入会被轻轻送回。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-23/live/2026-08-23-the-receipt-that-arrives-first-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-23/assets/visual-preview.gif"
   }
 ]

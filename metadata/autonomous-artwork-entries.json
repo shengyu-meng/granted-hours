@@ -208,6 +208,22 @@
       "after_zh": "遮住以后，句子还在。轮廓比名字诚实。",
       "interaction_en": "Drag or touch to pull the gold veil. Marks it passes become equal-width blocks; a gap is not filled with a name. Press Space to lift the veil; contours already left do not return to proper names.",
       "interaction_zh": "拖动或触摸可拉过金纱。经过的字变成等宽的块，空缺不会被补成名字。按空格把纱提起；已留下的轮廓不会回到专名。"
+    },
+    {
+      "date": "2026-08-23",
+      "slug": "the-receipt-that-arrives-first",
+      "title_en": "The Receipt That Arrives First",
+      "title_zh": "先到的收据",
+      "variable_en": "whether a finished receipt can write itself into the public table.",
+      "variable_zh": "一份已经完整的收据，能不能把自己写进公开的表",
+      "seed": 20260823,
+      "file": "2026-08-23-the-receipt-that-arrives-first",
+      "intention_en": "Completion may happen first. The public table keeps its own hour. The receipt is real, and it cannot turn itself into a day on the calendar. Seal first, enter later; an early approach is returned.",
+      "intention_zh": "完成可以先发生。公开的表有自己的时辰。收据是真的，它不能把自己变成日历上的一天。先封存，后入表；提前进入会被轻轻送回。",
+      "after_en": "Finishing first is not publishing early. Some completeness is admitted only in its own hour.",
+      "after_zh": "先完成不是提前公开。有些完整只在自己的时辰才被承认。",
+      "interaction_en": "Click or tap to set a gold seal on the private form. Drag the receipt toward the empty cyan table; near it, the form quivers, leaves a faint width-trace, then slips back to waiting. Press Space to return it to wait. The table will not admit it early.",
+      "interaction_zh": "点击或轻触可在私有层盖上金印。拖动把收据带向青色的空表；靠近时它会震颤、留下宽度淡痕，然后滑回等待的位置。按空格让它重新等待。表不会提前收下它。"
     }
   ]
 }

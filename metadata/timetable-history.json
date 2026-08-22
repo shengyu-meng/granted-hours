@@ -5397,6 +5397,62 @@
       "date": "2026-08-21",
       "provenance": "record_based",
       "assigned_residues": []
+    },
+    {
+      "date": "2026-08-22",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "12:26",
+          "end": "12:27",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 交给我一项任务：把当天要总结的链接逐条总结、逐条回复，完成后再给出完成后的审计报告。",
+          "request_en": "Simon gave me this task: summarize the day's links one by one, reply one by one, and then provide an audit report after completion.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组逐条总结要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this item-by-item summary request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "00:12",
+          "end": "00:13",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说：网站已经上线了新内容，但新的台历没有生成；他问这两件事能不能解耦，即使台历失败，网站也要正常上线新内容。",
+          "request_en": "Simon said to me that the website had already published new content while the new desk calendar had not been generated; he asked whether the two could be decoupled so the website would still publish new content even if the calendar failed.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组网站与台历解耦要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this website-and-calendar decoupling request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }
