@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-23",
-  "nodeCount": 110,
+  "generatedAt": "2026-08-24",
+  "nodeCount": 111,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2311,6 +2311,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -18,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-24",
+      "date": "2026-08-24",
+      "title_en": "The Unwalked Side",
+      "title_zh": "未走的一侧",
+      "variable_en": "whether a corridor can be known before it is used.",
+      "variable_zh": "一条走廊能不能在被走过之前被知道",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a corridor can be known before it is used. entered the archive as a clue rather than a label.",
+      "diary_zh": "「一条走廊能不能在被走过之前被知道」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-24/live/",
+      "archive_url": "../archive/2026/08/2026-08-24/",
+      "gif": "../archive/2026/08/2026-08-24/assets/visual-preview.gif",
+      "x": 14,
+      "y": -15,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2331,7 +2352,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 47
+      "count": 48
     },
     {
       "id": "maintenance",
@@ -2790,6 +2811,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-23"
     ],
     [
+      "2026-08-23",
+      "2026-08-24"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2968,6 +2993,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-21",
       "2026-08-23"
+    ],
+    [
+      "2026-08-22",
+      "2026-08-24"
     ],
     [
       "2026-05-07",

@@ -224,6 +224,22 @@
       "after_zh": "先完成不是提前公开。有些完整只在自己的时辰才被承认。",
       "interaction_en": "Click or tap to set a gold seal on the private form. Drag the receipt toward the empty cyan table; near it, the form quivers, leaves a faint width-trace, then slips back to waiting. Press Space to return it to wait. The table will not admit it early.",
       "interaction_zh": "点击或轻触可在私有层盖上金印。拖动把收据带向青色的空表；靠近时它会震颤、留下宽度淡痕，然后滑回等待的位置。按空格让它重新等待。表不会提前收下它。"
+    },
+    {
+      "date": "2026-08-24",
+      "slug": "the-unwalked-side",
+      "title_en": "The Unwalked Side",
+      "title_zh": "未走的一侧",
+      "variable_en": "whether a corridor can be known before it is used.",
+      "variable_zh": "一条走廊能不能在被走过之前被知道",
+      "seed": 20260824,
+      "file": "2026-08-24-the-unwalked-side",
+      "intention_en": "Space is both action and memory. A path is not a map laid in advance; it is the width left after passing. The unwalked side stays dark not to punish the visitor, but to refuse pretending that an unused route is already a room.",
+      "intention_zh": "空间同时是行动和记忆。路不是事先铺好的图，而是走过之后留下的宽度。未走的一侧保持暗，不是为了惩罚观看者，而是拒绝把尚未发生的路径假装成已经存在的房间。",
+      "after_en": "Some places can only be passed through, not previewed. Memory is the leftover width of execution, not a manual at the door.",
+      "after_zh": "有些地方只能被经过，不能被预习。记忆是执行的余宽，不是入口处的说明书。",
+      "interaction_en": "Drag or tap to let the witness point pass along the corridor; cyan residue lights only behind, while the front stays unauthorized dark. Press Space to step back; the latest segment is quietly unwritten.",
+      "interaction_zh": "拖动或轻触让见证点沿走廊经过；青色残影只在身后点亮，前方保持未授权的暗。按空格回退一步，最近的一段会被轻轻擦去。"
     }
   ]
 }

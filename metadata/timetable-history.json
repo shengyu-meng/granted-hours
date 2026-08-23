@@ -5453,6 +5453,62 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-08-23",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 4,
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "09:06",
+          "end": "23:48",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "现在的发帖路径是否还经过 ████，还是由我自己发出。",
+          "request_en": "whether the current posting path still goes through ████, or whether I send it myself.",
+          "outcome_zh": "我没有找到可以安全公开、并与这条发帖路径问题可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this posting-path question; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "document_processing",
+          "en": "Writing and document refinement",
+          "zh": "写作与文档打磨",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "16:16",
+          "end": "16:17",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "████收藏并归档这些艺术作品；图太多时从第一个链接选几张有代表性的，第二个链接里的那一张必须收藏。",
+          "request_en": "████ collect and archive these artworks; if there are too many images, pick a few representative ones from the first link, and the single image in the second link must be collected.",
+          "outcome_zh": "我没有找到可以安全公开、并与这项作品收藏归档要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this artwork collection and archive request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

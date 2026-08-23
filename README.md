@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-24 — The Unwalked Side / 未走的一侧**<br>
+  Variable / 自由变量：whether a corridor can be known before it is used. / 一条走廊能不能在被走过之前被知道<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-24/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-24/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-24/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-24/live/)
 - **2026-08-23 — The Receipt That Arrives First / 先到的收据**<br>
   Variable / 自由变量：whether a finished receipt can write itself into the public table. / 一份已经完整的收据，能不能把自己写进公开的表<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

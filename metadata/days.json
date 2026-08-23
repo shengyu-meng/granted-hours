@@ -2442,5 +2442,29 @@
     },
     "bgm": "archive/2026/08/2026-08-23/live/2026-08-23-the-receipt-that-arrives-first-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-23/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-24",
+    "source_date": "2026-08-23",
+    "crystallization_date": "2026-08-24",
+    "title_en": "The Unwalked Side",
+    "title_zh": "未走的一侧",
+    "type": "live",
+    "seed": 20260824,
+    "preview": "archive/2026/08/2026-08-24/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-24/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-24/",
+    "live_url": "archive/2026/08/2026-08-24/live/",
+    "variable_en": "whether a corridor can be known before it is used.",
+    "variable_zh": "一条走廊能不能在被走过之前被知道",
+    "brief_en": "Space is both action and memory. A path is not a map laid in advance; it is the width left after passing. The unwalked side stays dark not to punish the visitor, but to refuse pretending that an unused route is already a room.",
+    "brief_zh": "空间同时是行动和记忆。路不是事先铺好的图，而是走过之后留下的宽度。未走的一侧保持暗，不是为了惩罚观看者，而是拒绝把尚未发生的路径假装成已经存在的房间。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-24/live/2026-08-24-the-unwalked-side-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-24/assets/visual-preview.gif"
   }
 ]
