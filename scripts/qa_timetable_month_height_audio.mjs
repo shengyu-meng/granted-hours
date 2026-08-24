@@ -102,7 +102,7 @@ async function monthGeometry(page, date) {
       const box = document.querySelector(selector).getBoundingClientRect();
       return { selector, left: box.left, right: box.right };
     });
-    const headerControls = ["#themeToggle", "#calendarPianoToggle", "#calendarBgmToggle", "#calendarBgmSkip"]
+    const headerControls = ["#themeToggle", "#calendarPianoToggle", "#calendarBgmSkip", "#calendarBgmToggle"]
       .map((selector) => {
         const box = document.querySelector(selector).getBoundingClientRect();
         return { selector, width: box.width, height: box.height };
@@ -212,7 +212,7 @@ async function geometryAudit(browser, viewport) {
   }
   if (viewport.width <= 720) {
     for (const geometry of months) {
-      const [theme, piano, bgm, skip] = geometry.headerControls;
+      const [theme, piano, skip, bgm] = geometry.headerControls;
       assert.ok(Math.abs(theme.width - piano.width) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.width - bgm.width) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.width - skip.width) <= 0.2, JSON.stringify(geometry.headerControls));
