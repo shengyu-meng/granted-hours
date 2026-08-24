@@ -237,6 +237,23 @@ h3 {
   color: var(--gold-pale);
 }
 
+.calendar-bgm-skip-control {
+  display: grid;
+  max-width: min(34vw, 360px);
+  gap: 2px;
+  justify-items: end;
+}
+
+.calendar-bgm-skip {
+  min-height: 28px;
+  border: 1px solid rgba(120, 217, 230, 0.28);
+  background: rgba(3, 7, 11, 0.72);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  cursor: pointer;
+}
+
 .calendar-shell {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto;
@@ -1206,12 +1223,14 @@ h1 {
   }
 
   .calendar-bgm-control,
-  .calendar-piano-control {
+  .calendar-piano-control,
+  .calendar-bgm-skip-control {
     max-width: 112px;
   }
 
   .calendar-bgm-toggle,
-  .calendar-piano-toggle {
+  .calendar-piano-toggle,
+  .calendar-bgm-skip {
     max-width: 112px;
     min-height: 30px;
     padding: 2px 5px;
@@ -3265,6 +3284,7 @@ iframe:focus-visible {
 .theme-toggle,
 .calendar-bgm-toggle,
 .calendar-piano-toggle,
+.calendar-bgm-skip,
 .month-button,
 .today-button,
 .dialog-day-nav,
@@ -3299,6 +3319,7 @@ iframe:focus-visible {
 .theme-toggle:hover,
 .calendar-bgm-toggle:hover,
 .calendar-piano-toggle:hover,
+.calendar-bgm-skip:hover,
 .month-button:hover,
 .today-button:hover,
 .dialog-day-nav:hover:not(:disabled),
@@ -3324,6 +3345,19 @@ iframe:focus-visible {
 }
 
 .calendar-piano-toggle {
+  display: inline-flex;
+  width: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px;
+  background-color: transparent;
+  color: var(--ink);
+}
+
+.calendar-bgm-skip {
   display: inline-flex;
   width: 44px;
   min-width: 44px;
@@ -3946,12 +3980,14 @@ h1,
   }
 
   .calendar-bgm-control,
-  .calendar-piano-control {
+  .calendar-piano-control,
+  .calendar-bgm-skip-control {
     max-width: none;
   }
 
   .calendar-bgm-toggle,
-  .calendar-piano-toggle {
+  .calendar-piano-toggle,
+  .calendar-bgm-skip {
     width: 100%;
     max-width: none;
     min-height: 44px;
@@ -4633,6 +4669,7 @@ h1 {
 .clock-label,
 .calendar-bgm-toggle,
 .calendar-piano-toggle,
+.calendar-bgm-skip,
 .theme-toggle,
 .state-sentence,
 .public-note {
@@ -4996,7 +5033,8 @@ h1 {
   }
 
   .calendar-bgm-toggle,
-  .calendar-piano-toggle {
+  .calendar-piano-toggle,
+  .calendar-bgm-skip {
     font-size: 9.5px;
   }
 
@@ -6043,7 +6081,8 @@ h1 {
 @media (min-width: 721px) {
   .theme-toggle,
   .calendar-bgm-toggle,
-  .calendar-piano-toggle {
+  .calendar-piano-toggle,
+  .calendar-bgm-skip {
     width: 37px;
     min-width: 37px;
     height: 37px;
@@ -7237,7 +7276,7 @@ h1 {
 
 @media (max-width: 720px) {
   .quiet-nav {
-    grid-template-columns: repeat(3, 44px);
+    grid-template-columns: repeat(4, 44px);
     justify-content: end;
   }
 
@@ -7258,15 +7297,18 @@ h1 {
   .theme-toggle,
   .calendar-bgm-control,
   .calendar-piano-control,
+  .calendar-bgm-skip-control,
   .calendar-bgm-toggle,
-  .calendar-piano-toggle {
+  .calendar-piano-toggle,
+  .calendar-bgm-skip {
     width: 44px;
     min-width: 44px;
     max-width: 44px;
   }
 
   .calendar-bgm-toggle,
-  .calendar-piano-toggle {
+  .calendar-piano-toggle,
+  .calendar-bgm-skip {
     height: 44px;
     min-height: 44px;
     padding: 6px;

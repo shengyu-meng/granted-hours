@@ -102,7 +102,7 @@ async function monthGeometry(page, date) {
       const box = document.querySelector(selector).getBoundingClientRect();
       return { selector, left: box.left, right: box.right };
     });
-    const headerControls = ["#themeToggle", "#calendarPianoToggle", "#calendarBgmToggle"]
+    const headerControls = ["#themeToggle", "#calendarPianoToggle", "#calendarBgmToggle", "#calendarBgmSkip"]
       .map((selector) => {
         const box = document.querySelector(selector).getBoundingClientRect();
         return { selector, width: box.width, height: box.height };
@@ -212,11 +212,13 @@ async function geometryAudit(browser, viewport) {
   }
   if (viewport.width <= 720) {
     for (const geometry of months) {
-      const [theme, piano, bgm] = geometry.headerControls;
+      const [theme, piano, bgm, skip] = geometry.headerControls;
       assert.ok(Math.abs(theme.width - piano.width) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.width - bgm.width) <= 0.2, JSON.stringify(geometry.headerControls));
+      assert.ok(Math.abs(theme.width - skip.width) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.height - piano.height) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(Math.abs(theme.height - bgm.height) <= 0.2, JSON.stringify(geometry.headerControls));
+      assert.ok(Math.abs(theme.height - skip.height) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(theme.width <= 44.2 && theme.height <= 44.2, JSON.stringify(geometry.headerControls));
       assert.ok(
         geometry.authorLinkHeights.every((height) => height >= 43.8),
@@ -281,6 +283,33 @@ async function audioAudit(browser) {
   await page.locator("#calendarPianoToggle").click();
   assert.equal(await page.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
   assert.equal(await page.locator("#calendarPianoToggle").getAttribute("aria-pressed"), "true");
+  const skipAudit = await page.evaluate(() => {
+    const archiveLink = [...document.querySelectorAll(".quiet-nav a")].find((link) => (
+      link.textContent.trim() === "Archive"
+    ));
+    const skip = document.querySelector("#calendarBgmSkip");
+    const skipBox = skip.getBoundingClientRect();
+    const bgmBox = document.querySelector("#calendarBgmToggle").getBoundingClientRect();
+    return {
+      archivePresent: Boolean(archiveLink),
+      skipLabel: skip.getAttribute("aria-label") || "",
+      skipIcon: Boolean(skip.querySelector("svg")),
+      dateBefore: document.querySelector("#calendarBgm").dataset.date || "",
+      skipWidth: skipBox.width,
+      skipHeight: skipBox.height,
+      bgmWidth: bgmBox.width,
+      bgmHeight: bgmBox.height,
+    };
+  });
+  assert.equal(skipAudit.archivePresent, false, JSON.stringify(skipAudit));
+  assert.match(skipAudit.skipLabel, /random archived BGM/i);
+  assert.equal(skipAudit.skipIcon, true, JSON.stringify(skipAudit));
+  assert.ok(Math.abs(skipAudit.skipWidth - skipAudit.bgmWidth) <= 0.2, JSON.stringify(skipAudit));
+  assert.ok(Math.abs(skipAudit.skipHeight - skipAudit.bgmHeight) <= 0.2, JSON.stringify(skipAudit));
+  await page.locator("#calendarBgmSkip").click();
+  const dateAfter = await page.locator("#calendarBgm").getAttribute("data-date");
+  assert.ok(dateAfter && dateAfter !== skipAudit.dateBefore, JSON.stringify({ skipAudit, dateAfter }));
+  assert.equal(await page.locator("#calendarBgmToggle").getAttribute("aria-pressed"), "true");
   await context.close();
   return migrated;
 }

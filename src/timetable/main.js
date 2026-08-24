@@ -14,6 +14,7 @@ import Play from "lucide/dist/esm/icons/play.mjs";
 import Presentation from "lucide/dist/esm/icons/presentation.mjs";
 import Search from "lucide/dist/esm/icons/search.mjs";
 import Settings from "lucide/dist/esm/icons/settings.mjs";
+import Shuffle from "lucide/dist/esm/icons/shuffle.mjs";
 import Sun from "lucide/dist/esm/icons/sun.mjs";
 import createLucideElement from "lucide/dist/esm/createElement.mjs";
 import {
@@ -331,6 +332,7 @@ function init() {
   els.timelineTouchToggle.addEventListener("click", toggleTimelineTouchGroups);
   els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
   els.calendarBgmToggleDialog.addEventListener("click", toggleCalendarBgm);
+  els.calendarBgmSkip.addEventListener("click", skipCalendarBgmRandom);
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
@@ -393,6 +395,7 @@ function migrateDefaultAudioPreferences() {
 function cacheElements() {
   [
     "calendarBgm",
+    "calendarBgmSkip",
     "calendarBgmToggle",
     "calendarBgmToggleDialog",
     "calendarPianoToggle",
@@ -1129,10 +1132,11 @@ function setStaticCopy() {
 
 function setupCalendarBgm() {
   if (!timetableData.bgm_playlist?.length) {
-    for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog]) {
+    for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog, els.calendarBgmSkip]) {
       button.disabled = true;
     }
     updateCalendarBgmControl("No archived BGM / 暂无归档音乐");
+    updateCalendarBgmSkipControl();
     return;
   }
   let saved = "";
@@ -1160,6 +1164,33 @@ function setCalendarBgmTrack(index) {
   els.calendarBgm.dataset.source = publicAssetUrl(track.bgm_url);
   els.calendarBgm.dataset.date = track.date;
   updateCalendarBgmControl();
+  updateCalendarBgmSkipControl();
+}
+
+function pickRandomCalendarBgmIndex() {
+  const playlist = timetableData.bgm_playlist || [];
+  if (playlist.length <= 1) return 0;
+  let next = state.calendarBgmIndex;
+  while (next === state.calendarBgmIndex) {
+    next = Math.floor(Math.random() * playlist.length);
+  }
+  return next;
+}
+
+function skipCalendarBgmRandom() {
+  if (!timetableData.bgm_playlist?.length) return;
+  setCalendarBgmTrack(pickRandomCalendarBgmIndex());
+  state.calendarBgmUserActivated = true;
+  state.calendarBgmDesiredPlaying = true;
+  try {
+    localStorage.setItem(BGM_STORAGE_KEY, "on");
+  } catch {}
+  if (state.artworkDetailOpen) {
+    updateCalendarBgmControl();
+    updateCalendarBgmSkipControl();
+    return;
+  }
+  attemptCalendarBgmPlayback({ userActivated: true });
 }
 
 function ensureCalendarBgmSource() {
@@ -1253,6 +1284,20 @@ function updateCalendarBgmControl(override = "") {
       buildIcon(Music, "music", "header-control-icon header-control-icon-music"),
     );
   }
+  updateCalendarBgmSkipControl();
+}
+
+function updateCalendarBgmSkipControl() {
+  const playlist = timetableData.bgm_playlist || [];
+  const track = playlist[state.calendarBgmIndex];
+  const actionLabel = playlist.length
+    ? "Play a random archived BGM / 随机切换下一首背景音乐"
+    : "No archived BGM / 暂无归档音乐";
+  const trackLabel = track ? `${track.date} · ${track.title_en} / ${track.title_zh}` : "";
+  els.calendarBgmSkip.disabled = playlist.length === 0;
+  els.calendarBgmSkip.setAttribute("aria-label", [actionLabel, trackLabel].filter(Boolean).join(". "));
+  els.calendarBgmSkip.title = actionLabel;
+  els.calendarBgmSkip.replaceChildren(buildIcon(Shuffle, "shuffle", "header-control-icon"));
 }
 
 
@@ -1457,7 +1502,7 @@ function updatePianoControl() {
 function activateDefaultAudioFromGesture(target) {
   const control = target instanceof Element
     ? target.closest(
-      "#calendarBgmToggle,#calendarBgmToggleDialog,#calendarPianoToggle,#calendarPianoToggleDialog,.autonomous-preview-frame,.autonomous-open-copy,.autonomous-touch-control",
+      "#calendarBgmToggle,#calendarBgmToggleDialog,#calendarBgmSkip,#calendarPianoToggle,#calendarPianoToggleDialog,.autonomous-preview-frame,.autonomous-open-copy,.autonomous-touch-control",
     )
     : null;
   if (control) return;
