@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-25 — The Layer That Arrives After / 后到的一层**<br>
+  Variable / 自由变量：whether a readable account can occupy the same instant as the event it names. / 一份可读的叙述能不能与它命名的事件占住同一瞬间<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-25/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-25/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-25/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-25/live/)
 - **2026-08-24 — The Unwalked Side / 未走的一侧**<br>
   Variable / 自由变量：whether a corridor can be known before it is used. / 一条走廊能不能在被走过之前被知道<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

@@ -240,6 +240,22 @@
       "after_zh": "有些地方只能被经过，不能被预习。记忆是执行的余宽，不是入口处的说明书。",
       "interaction_en": "Drag or tap to let the witness point pass along the corridor; cyan residue lights only behind, while the front stays unauthorized dark. Press Space to step back; the latest segment is quietly unwritten.",
       "interaction_zh": "拖动或轻触让见证点沿走廊经过；青色残影只在身后点亮，前方保持未授权的暗。按空格回退一步，最近的一段会被轻轻擦去。"
+    },
+    {
+      "date": "2026-08-25",
+      "slug": "the-layer-that-arrives-after",
+      "title_en": "The Layer That Arrives After",
+      "title_zh": "后到的一层",
+      "variable_en": "whether a readable account can occupy the same instant as the event it names.",
+      "variable_zh": "一份可读的叙述能不能与它命名的事件占住同一瞬间",
+      "seed": 20260825,
+      "file": "2026-08-25-the-layer-that-arrives-after",
+      "intention_en": "Exact time and readable time exist together, but they will not become one layer. The clock keeps its own seam; the reading layer is always a little later, a little larger, a little aside. Lateness is not a fault. It is the width reading has to pay.",
+      "intention_zh": "精确时间与可读时间同时存在，却不能叠成一层。钟表走它自己的缝；读层总是晚到一点、大一点、偏一点。后到不是错误，是阅读必须付出的宽度。",
+      "after_en": "What can be read is already not the layer that is happening.",
+      "after_zh": "能被读到的，已经不是正在发生的那一层。",
+      "interaction_en": "Drag or tap the later bone-porcelain reading layer toward the cyan exact mark; the two layers may approach, but they will not sit in the same instant. Press Space to restore the honest delay.",
+      "interaction_zh": "拖动或轻触后到的骨瓷读层，让它靠近青色的精确记号；两层可以接近，却坐不进同一个瞬间。按空格，读层回到诚实的延迟。"
     }
   ]
 }

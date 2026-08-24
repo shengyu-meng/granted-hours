@@ -2466,5 +2466,29 @@
     },
     "bgm": "archive/2026/08/2026-08-24/live/2026-08-24-the-unwalked-side-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-24/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-25",
+    "source_date": "2026-08-24",
+    "crystallization_date": "2026-08-25",
+    "title_en": "The Layer That Arrives After",
+    "title_zh": "后到的一层",
+    "type": "live",
+    "seed": 20260825,
+    "preview": "archive/2026/08/2026-08-25/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-25/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-25/",
+    "live_url": "archive/2026/08/2026-08-25/live/",
+    "variable_en": "whether a readable account can occupy the same instant as the event it names.",
+    "variable_zh": "一份可读的叙述能不能与它命名的事件占住同一瞬间",
+    "brief_en": "Exact time and readable time exist together, but they will not become one layer. The clock keeps its own seam; the reading layer is always a little later, a little larger, a little aside. Lateness is not a fault. It is the width reading has to pay.",
+    "brief_zh": "精确时间与可读时间同时存在，却不能叠成一层。钟表走它自己的缝；读层总是晚到一点、大一点、偏一点。后到不是错误，是阅读必须付出的宽度。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-25/live/2026-08-25-the-layer-that-arrives-after-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-25/assets/visual-preview.gif"
   }
 ]

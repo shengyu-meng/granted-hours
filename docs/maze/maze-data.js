@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-24",
-  "nodeCount": 111,
+  "generatedAt": "2026-08-25",
+  "nodeCount": 112,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2332,6 +2332,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -15,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-25",
+      "date": "2026-08-25",
+      "title_en": "The Layer That Arrives After",
+      "title_zh": "后到的一层",
+      "variable_en": "whether a readable account can occupy the same instant as the event it names.",
+      "variable_zh": "一份可读的叙述能不能与它命名的事件占住同一瞬间",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a readable account can occupy the same instant as the event it names. entered the archive as a clue rather than a label.",
+      "diary_zh": "「一份可读的叙述能不能与它命名的事件占住同一瞬间」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-25/live/",
+      "archive_url": "../archive/2026/08/2026-08-25/",
+      "gif": "../archive/2026/08/2026-08-25/assets/visual-preview.gif",
+      "x": 12,
+      "y": -12,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2352,7 +2373,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 48
+      "count": 49
     },
     {
       "id": "maintenance",
@@ -2815,6 +2836,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-24"
     ],
     [
+      "2026-08-24",
+      "2026-08-25"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -2997,6 +3022,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-22",
       "2026-08-24"
+    ],
+    [
+      "2026-08-23",
+      "2026-08-25"
     ],
     [
       "2026-05-07",
