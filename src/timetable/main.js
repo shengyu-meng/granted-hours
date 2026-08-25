@@ -1734,7 +1734,9 @@ function buildDayButton(day, isToday, isMuted) {
     ))
     .join("");
   button.innerHTML = `
-    <span class="cell-date-number">${formatMonthDay(day.date)}</span>
+    <span class="cell-date-row">
+      <span class="cell-date-number">${formatMonthDay(day.date)}</span>
+    </span>
     <span class="cell-source-bars" aria-hidden="true">${sourceBars}</span>
     <span class="cell-material">
       <span class="cell-mark self-mark">
@@ -1745,6 +1747,7 @@ function buildDayButton(day, isToday, isMuted) {
           `Variable: ${compactMonthPreviewCopy(day.variable_en)}`,
         ) : ""}
       </span>
+      ${monthArtworkStampMarkup(day)}
       <span class="assigned-marks">${assigned}${routineMarkers}</span>
     </span>
   `;
@@ -1756,6 +1759,14 @@ function buildDayButton(day, isToday, isMuted) {
   });
   button.addEventListener("focus", () => playPianoNoteForDay(day));
   return button;
+}
+
+function monthArtworkStampMarkup(day) {
+  const self = day.autonomous_work;
+  const preview = String(self?.visual_preview_url || "").trim();
+  if (!self || self.origin === "absence" || !preview) return "";
+  const src = publicAssetUrl(staticVisualPreviewUrl(preview));
+  return `<img class="cell-artwork-stamp" src="${escapeHtml(src)}" alt="" loading="lazy" decoding="async" aria-hidden="true">`;
 }
 
 function compactMonthPreviewCopy(value) {

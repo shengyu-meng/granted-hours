@@ -28,9 +28,12 @@
 
     <main class="timetable-app" id="timetableRoot">
       <header class="protocol-bar" aria-label="Granted Hours timetable protocol">
-        <a class="brand-mark" href="../" aria-label="Return to Granted Hours archive">
-          <span>授时 / Granted Hours</span>
-        </a>
+        <div class="brand-lockup">
+          <a class="brand-mark" href="../" aria-label="Return to Granted Hours archive">
+            <span>授时 / Granted Hours</span>
+          </a>
+          <span class="brand-byline">By <a href="https://hyperint.net/me" rel="author">Simon Meng</a> &amp; <a href="https://hermes-agent.nousresearch.com/" rel="author">Hermes Agent</a></span>
+        </div>
         <div class="clock-block" aria-live="polite">
           <span class="clock-time" id="clockTime">--:--:--</span>
           <span class="clock-label">Asia/Shanghai</span>
@@ -90,11 +93,6 @@
         <div class="calendar-foot">
           <p class="state-sentence" id="stateSentence"></p>
           <p class="public-note" id="publicNote"></p>
-          <span class="author-credit" aria-label="Authors / 作者">
-            <a href="https://hyperint.net/me" rel="author">Simon Meng</a>
-            <span class="author-credit-separator" aria-hidden="true">and</span>
-            <a href="https://hermes-agent.nousresearch.com/" rel="author">Hermes Agent</a>
-          </span>
         </div>
       </section>
     </main>

@@ -137,6 +137,32 @@ h3 {
   text-decoration: none;
 }
 
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  width: fit-content;
+}
+
+.brand-byline {
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--font-display);
+  font-size: 10px;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.brand-byline a {
+  color: var(--ink);
+  text-decoration-color: color-mix(in srgb, var(--cyan-trace) 50%, transparent);
+  text-underline-offset: 0.18em;
+}
+
 .clock-block {
   display: grid;
   justify-items: center;
@@ -497,6 +523,26 @@ h1 {
 
 .calendar-day-button.is-muted {
   opacity: 0.42;
+}
+
+.cell-date-row {
+  display: block;
+  min-width: 0;
+}
+
+.cell-artwork-stamp {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 4px 0;
+  object-fit: cover;
+  object-position: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .cell-date-number {
@@ -1189,6 +1235,10 @@ h1 {
     padding-bottom: 6px;
   }
 
+  .brand-lockup {
+    min-width: 0;
+  }
+
   .brand-mark {
     min-width: 0;
     font-size: 14px;
@@ -1198,6 +1248,13 @@ h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .brand-byline {
+    max-width: 100%;
+    font-size: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .clock-block {
@@ -1308,6 +1365,11 @@ h1 {
   .empty-date-number,
   .calendar-day-button {
     padding: 4px;
+  }
+
+  .cell-artwork-stamp {
+    width: 100%;
+    margin: 3px 0;
   }
 
   .empty-date-number,
@@ -3956,9 +4018,15 @@ h1,
     border-radius: 14px;
   }
 
-  .brand-mark {
+  .brand-lockup {
     grid-column: 1;
     grid-row: 1;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .clock-block {
@@ -7154,6 +7222,20 @@ h1 {
   color: color-mix(in srgb, var(--ink-muted) 82%, var(--ink));
   font-size: 9px;
   text-transform: none;
+}
+
+.self-mark strong {
+  display: -webkit-box;
+  overflow: hidden;
+  line-height: 1.25;
+  min-height: calc(1.25em * 3);
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.cell-material .self-mark .cell-mark-detail {
+  display: none;
 }
 
 .cell-material .cell-mark-detail {

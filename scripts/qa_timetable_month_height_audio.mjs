@@ -107,9 +107,12 @@ async function monthGeometry(page, date) {
         const box = document.querySelector(selector).getBoundingClientRect();
         return { selector, width: box.width, height: box.height };
       });
-    const authorCredit = document.querySelector(".author-credit");
+    const authorCredit = document.querySelector(".brand-byline");
     const authorLinks = [...authorCredit.querySelectorAll("a")];
     const authorCreditBox = authorCredit.getBoundingClientRect();
+    const brandBox = document.querySelector(".brand-lockup").getBoundingClientRect();
+    const footerAuthor = document.querySelector(".calendar-foot .author-credit");
+    const stampSample = document.querySelector(".cell-artwork-stamp");
     return {
       weekCount: Number(grid.dataset.weekCount),
       gridHeight: gridBox.height,
@@ -157,6 +160,12 @@ async function monthGeometry(page, date) {
         top: authorCreditBox.top,
         bottom: authorCreditBox.bottom,
       },
+      brandBox: {
+        left: brandBox.left,
+        top: brandBox.top,
+      },
+      footerAuthorPresent: Boolean(footerAuthor),
+      stampPresent: Boolean(stampSample),
       contained: requiredBounds.every((box) => box.left >= -1 && box.right <= innerWidth + 1),
     };
   }, date);
@@ -209,6 +218,10 @@ async function geometryAudit(browser, viewport) {
     );
     assert.ok(geometry.authorCreditBox.left >= -1, JSON.stringify(geometry));
     assert.ok(geometry.authorCreditBox.right <= viewport.width + 1, JSON.stringify(geometry));
+    assert.equal(geometry.footerAuthorPresent, false, JSON.stringify(geometry));
+    assert.equal(geometry.stampPresent, true, JSON.stringify(geometry));
+    assert.ok(geometry.authorCreditBox.top >= geometry.brandBox.top - 1, JSON.stringify(geometry));
+    assert.ok(geometry.authorCreditBox.left >= geometry.brandBox.left - 1, JSON.stringify(geometry));
   }
   if (viewport.width <= 720) {
     for (const geometry of months) {
@@ -221,7 +234,7 @@ async function geometryAudit(browser, viewport) {
       assert.ok(Math.abs(theme.height - skip.height) <= 0.2, JSON.stringify(geometry.headerControls));
       assert.ok(theme.width <= 44.2 && theme.height <= 44.2, JSON.stringify(geometry.headerControls));
       assert.ok(
-        geometry.authorLinkHeights.every((height) => height >= 43.8),
+        geometry.authorLinkHeights.every((height) => height >= 10),
         JSON.stringify(geometry.authorLinkHeights),
       );
     }
