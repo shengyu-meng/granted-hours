@@ -87,6 +87,20 @@ async function desktopAudit(browser) {
   assert.ok(monthAfter.scrollTop <= monthAfter.maximumScrollTop + 1);
   assert.equal(monthAfter.transform, "matrix(1, 0, 0, 1, 0, -2)");
   assert.notEqual(monthAfter.thumbBackground, "rgba(0, 0, 0, 0)");
+  const hoverChrome = await day.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      borderRadius: style.borderRadius,
+      backgroundImage: style.backgroundImage,
+      backgroundColor: style.backgroundColor,
+    };
+  });
+  assert.equal(hoverChrome.borderRadius, "0px");
+  assert.equal(
+    /247\s*,\s*246\s*,\s*241/.test(`${hoverChrome.backgroundImage} ${hoverChrome.backgroundColor}`),
+    false,
+    JSON.stringify(hoverChrome),
+  );
 
   await sampleDay.click();
   await page.locator("#dayDialog.is-open").waitFor();

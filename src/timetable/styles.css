@@ -506,14 +506,17 @@ h1 {
 .calendar-day-button:hover,
 .calendar-day-button:focus-visible {
   z-index: 5;
+  border-radius: 0;
   transform: translateY(-2px);
   background:
-    linear-gradient(180deg, rgba(140, 64, 55, 0.07), transparent 54%),
-    rgba(10, 14, 20, 0.30);
+    linear-gradient(180deg, rgba(236, 213, 148, 0.07), transparent 22%),
+    rgba(8, 12, 16, 0.14);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 0 0 1px color-mix(in srgb, var(--cyan-trace) 38%, transparent),
-    0 8px 18px rgba(0, 0, 0, 0.30);
+    inset 0 1px 0 rgba(236, 213, 148, 0.22),
+    inset 0 0 0 1px color-mix(in srgb, var(--cyan-trace) 26%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--cyan-trace) 46%, transparent),
+    0 0 10px color-mix(in srgb, var(--cyan-trace) 16%, transparent),
+    0 10px 18px rgba(0, 0, 0, 0.34);
 }
 
 .calendar-day-button:focus-visible {
@@ -3590,15 +3593,17 @@ h1,
 
 .calendar-day-button:hover,
 .calendar-day-button:focus-visible {
+  border-radius: 0;
   transform: translateY(-2px);
   background:
-    linear-gradient(142deg, color-mix(in srgb, var(--edge-light) 18%, transparent), transparent 32%),
-    rgba(247, 246, 241, 0.70);
+    linear-gradient(180deg, color-mix(in srgb, var(--edge-light) 24%, transparent), transparent 20%),
+    color-mix(in srgb, var(--pane) 22%, transparent);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 252, 1),
-    0 0 0 1px color-mix(in srgb, var(--cyan-trace) 55%, transparent),
-    0 0 14px color-mix(in srgb, var(--cyan-trace) 30%, transparent),
-    0 10px 20px rgba(52, 70, 75, 0.28);
+    inset 0 1px 0 color-mix(in srgb, var(--edge-light) 62%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--gold-trace) 24%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--cyan-trace) 44%, transparent),
+    0 0 10px color-mix(in srgb, var(--cyan-trace) 18%, transparent),
+    0 10px 18px rgba(52, 70, 75, 0.18);
 }
 
 .calendar-day-button:focus-visible {
