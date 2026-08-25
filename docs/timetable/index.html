@@ -22,8 +22,8 @@
       })();
     </script>
     <title>Granted Hours / 授时</title>
-    <script type="module" crossorigin src="./assets/index-A5xpyvVC.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-i6-0DMTf.css">
+    <script type="module" crossorigin src="./assets/index-BM6EZDBU.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D4q4IFBu.css">
   </head>
   <body>
     <a class="skip-link" href="#monthGrid">Skip to calendar</a>
@@ -91,11 +91,6 @@
         </div>
 
         <div class="month-grid" id="monthGrid" role="grid" aria-labelledby="monthTitle"></div>
-
-        <div class="calendar-foot">
-          <p class="state-sentence" id="stateSentence"></p>
-          <p class="public-note" id="publicNote"></p>
-        </div>
       </section>
     </main>
 
@@ -105,8 +100,9 @@
           <button class="dialog-day-nav" id="prevDay" type="button" aria-label="Previous public day / 前一个公开日">←</button>
           <button class="dialog-day-nav" id="nextDay" type="button" aria-label="Next public day / 后一个公开日">→</button>
           <button class="dialog-day-nav dialog-sound-toggle" id="calendarPianoToggleDialog" type="button" aria-pressed="false"></button>
+          <button class="dialog-day-nav dialog-sound-toggle" id="calendarBgmSkipDialog" type="button"></button>
           <button class="dialog-day-nav dialog-sound-toggle" id="calendarBgmToggleDialog" type="button" aria-pressed="false"></button>
-          <button class="dialog-close" id="closeDetail" type="button">Close / 关闭</button>
+          <button class="dialog-day-nav dialog-sound-toggle dialog-close" id="closeDetail" type="button" aria-label="Close / 关闭"></button>
         </nav>
         <div class="dialog-header">
           <p class="dialog-kicker">Selected day / 被切开的日期</p>
@@ -145,10 +141,10 @@
         <div class="artwork-dialog-header">
           <p class="artwork-detail-kicker">Autonomous artwork / AI 自主作品</p>
           <div class="artwork-dialog-actions">
+            <button class="artwork-dialog-fullscreen" id="artworkFullscreen" type="button" aria-pressed="false">Fullscreen / 全屏</button>
             <button class="artwork-dialog-close" id="closeArtworkDetail" type="button" aria-label="Close artwork detail / 关闭作品详情">
               <span aria-hidden="true">×</span>
             </button>
-            <button class="artwork-dialog-fullscreen" id="artworkFullscreen" type="button" aria-pressed="false">Fullscreen / 全屏</button>
           </div>
         </div>
         <h2 id="artworkDetailTitle"></h2>

@@ -282,7 +282,7 @@ h3 {
 
 .calendar-shell {
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(0, 1fr);
   gap: 11px;
   max-width: 1420px;
   min-height: calc(100vh - 88px);
@@ -686,7 +686,7 @@ h1 {
   top: 0;
   z-index: 5;
   display: grid;
-  grid-template-columns: 38px 38px 38px 38px minmax(112px, auto);
+  grid-template-columns: repeat(6, 38px);
   justify-content: end;
   gap: 6px;
   min-height: 50px;
@@ -694,6 +694,12 @@ h1 {
   border-bottom: 1px solid rgba(238, 231, 215, 0.1);
   background: rgba(4, 8, 12, 0.94);
   backdrop-filter: blur(16px);
+}
+
+.dialog-close {
+  width: 38px;
+  min-width: 38px;
+  padding: 0;
 }
 
 .dialog-day-nav,
@@ -1442,7 +1448,7 @@ h1 {
   }
 
   .dialog-toolbar {
-    grid-template-columns: 34px 34px 34px 34px minmax(96px, auto);
+    grid-template-columns: repeat(6, 34px);
     min-height: 46px;
     padding: 6px 8px;
   }
@@ -4126,7 +4132,7 @@ h1,
   }
 
   .dialog-toolbar {
-    grid-template-columns: 44px 44px 44px 44px minmax(112px, auto);
+    grid-template-columns: repeat(6, 44px);
     min-height: 56px;
     background: color-mix(in srgb, var(--pane-solid) 95%, transparent);
   }

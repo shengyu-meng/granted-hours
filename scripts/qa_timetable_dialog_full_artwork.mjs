@@ -61,6 +61,7 @@ async function artworkBriefLayout(page) {
   return page.evaluate(() => {
     const kicker = document.querySelector(".artwork-dialog-header .artwork-detail-kicker");
     const fullscreen = document.querySelector("#artworkFullscreen");
+    const close = document.querySelector("#closeArtworkDetail");
     const brief = document.querySelector(".artwork-brief-card");
     const stage = document.querySelector(".artwork-live-stage");
     const panel = document.querySelector("#artworkDialogPanel");
@@ -83,6 +84,7 @@ async function artworkBriefLayout(page) {
         .map((control) => control.id),
       kicker: rect(kicker),
       fullscreen: rect(fullscreen),
+      close: rect(close),
       brief: rect(brief),
       stage: rect(stage),
       panel: rect(panel),
@@ -117,16 +119,20 @@ function assertArtworkBriefLayout(state, self, label) {
   assert.equal(state.dividerCount, 1, `${label}: only the language boundary needs a divider`);
   assert.deepEqual(
     state.actionOrder,
-    ["closeArtworkDetail", "artworkFullscreen"],
-    `${label}: fullscreen must own the aligned right edge`,
+    ["artworkFullscreen", "closeArtworkDetail"],
+    `${label}: close must own the aligned right edge`,
   );
   assert.ok(
-    Math.abs(state.fullscreen.top - state.kicker.top) <= 1,
-    `${label}: fullscreen top is not aligned to the autonomous-artwork heading ${JSON.stringify(state)}`,
+    Math.abs(state.close.top - state.kicker.top) <= 1,
+    `${label}: close top is not aligned to the autonomous-artwork heading ${JSON.stringify(state)}`,
   );
   assert.ok(
-    Math.abs(state.fullscreen.right - state.brief.right) <= 1,
-    `${label}: fullscreen right edge is not aligned to the Brief card ${JSON.stringify(state)}`,
+    Math.abs(state.close.right - state.brief.right) <= 1,
+    `${label}: close right edge is not aligned to the Brief card ${JSON.stringify(state)}`,
+  );
+  assert.ok(
+    state.fullscreen.right <= state.close.left + 0.2,
+    `${label}: fullscreen must sit left of close ${JSON.stringify(state)}`,
   );
   assert.ok(
     Math.abs((state.stage.right - state.stage.left) / (state.stage.bottom - state.stage.top) - (16 / 9)) <= 0.02,

@@ -76,8 +76,10 @@ try {
           ".timeline-event.autonomous-event",
         ).length,
         publicNote: {
-          text: document.querySelector("#publicNote")?.textContent?.trim() || "",
-          visible: getComputedStyle(document.querySelector("#publicNote")).display !== "none",
+          present: Boolean(document.querySelector("#publicNote")),
+        },
+        stateSentence: {
+          present: Boolean(document.querySelector("#stateSentence")),
         },
         dialogBoundary: {
           text: document.querySelector("#dialogBoundary")?.textContent?.trim() || "",
@@ -101,9 +103,9 @@ try {
     assert.match(sourceState.seedText, /Next crystallization|下一结晶/);
     assert.equal(sourceState.fullBeaconCount, 1);
     assert.equal(sourceState.autonomousFootprintCount, 1);
-    assert.equal(sourceState.publicNote.visible, true);
+    assert.equal(sourceState.publicNote.present, false);
+    assert.equal(sourceState.stateSentence.present, false);
     assert.equal(sourceState.dialogBoundary.visible, testCase.width > 720);
-    assertPublicContract(sourceState.publicNote.text, `${testCase.label} footer contract`);
     assertPublicContract(sourceState.dialogBoundary.text, `${testCase.label} dialog contract`);
     assert.ok(sourceState.horizontalOverflow <= 1, testCase.label);
     assert.ok(

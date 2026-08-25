@@ -16,6 +16,7 @@ import Search from "lucide/dist/esm/icons/search.mjs";
 import Settings from "lucide/dist/esm/icons/settings.mjs";
 import Shuffle from "lucide/dist/esm/icons/shuffle.mjs";
 import Sun from "lucide/dist/esm/icons/sun.mjs";
+import X from "lucide/dist/esm/icons/x.mjs";
 import createLucideElement from "lucide/dist/esm/createElement.mjs";
 import {
   clearMarkdownRendering,
@@ -333,6 +334,10 @@ function init() {
   els.calendarBgmToggle.addEventListener("click", toggleCalendarBgm);
   els.calendarBgmToggleDialog.addEventListener("click", toggleCalendarBgm);
   els.calendarBgmSkip.addEventListener("click", skipCalendarBgmRandom);
+  els.calendarBgmSkipDialog.addEventListener("click", skipCalendarBgmRandom);
+  els.closeDetail.setAttribute("aria-label", "Close / 关闭");
+  els.closeDetail.title = "Close / 关闭";
+  els.closeDetail.replaceChildren(buildIcon(X, "x", "header-control-icon"));
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
@@ -396,6 +401,7 @@ function cacheElements() {
   [
     "calendarBgm",
     "calendarBgmSkip",
+    "calendarBgmSkipDialog",
     "calendarBgmToggle",
     "calendarBgmToggleDialog",
     "calendarPianoToggle",
@@ -436,9 +442,7 @@ function cacheElements() {
     "nextDay",
     "prevMonth",
     "prevDay",
-    "publicNote",
     "readingSelectionStatus",
-    "stateSentence",
     "taskDetailEn",
     "taskDetailOccurrenceList",
     "taskDetailOccurrences",
@@ -1127,12 +1131,11 @@ function applyTheme(theme, options = {}) {
 }
 
 function setStaticCopy() {
-  els.publicNote.textContent = [timetableData.note_en, timetableData.note_zh].filter(Boolean).join(" / ");
 }
 
 function setupCalendarBgm() {
   if (!timetableData.bgm_playlist?.length) {
-    for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog, els.calendarBgmSkip]) {
+    for (const button of [els.calendarBgmToggle, els.calendarBgmToggleDialog, els.calendarBgmSkip, els.calendarBgmSkipDialog]) {
       button.disabled = true;
     }
     updateCalendarBgmControl("No archived BGM / 暂无归档音乐");
@@ -1294,10 +1297,13 @@ function updateCalendarBgmSkipControl() {
     ? "Play a random archived BGM / 随机切换下一首背景音乐"
     : "No archived BGM / 暂无归档音乐";
   const trackLabel = track ? `${track.date} · ${track.title_en} / ${track.title_zh}` : "";
-  els.calendarBgmSkip.disabled = playlist.length === 0;
-  els.calendarBgmSkip.setAttribute("aria-label", [actionLabel, trackLabel].filter(Boolean).join(". "));
-  els.calendarBgmSkip.title = actionLabel;
-  els.calendarBgmSkip.replaceChildren(buildIcon(Shuffle, "shuffle", "header-control-icon"));
+  const skipLabel = [actionLabel, trackLabel].filter(Boolean).join(". ");
+  for (const button of [els.calendarBgmSkip, els.calendarBgmSkipDialog]) {
+    button.disabled = playlist.length === 0;
+    button.setAttribute("aria-label", skipLabel);
+    button.title = actionLabel;
+    button.replaceChildren(buildIcon(Shuffle, "shuffle", "header-control-icon"));
+  }
 }
 
 
@@ -1502,7 +1508,7 @@ function updatePianoControl() {
 function activateDefaultAudioFromGesture(target) {
   const control = target instanceof Element
     ? target.closest(
-      "#calendarBgmToggle,#calendarBgmToggleDialog,#calendarBgmSkip,#calendarPianoToggle,#calendarPianoToggleDialog,.autonomous-preview-frame,.autonomous-open-copy,.autonomous-touch-control",
+      "#calendarBgmToggle,#calendarBgmToggleDialog,#calendarBgmSkip,#calendarBgmSkipDialog,#calendarPianoToggle,#calendarPianoToggleDialog,.autonomous-preview-frame,.autonomous-open-copy,.autonomous-touch-control",
     )
     : null;
   if (control) return;
@@ -3870,29 +3876,6 @@ function renderTimeState() {
     renderMonth();
   }
   state.clockDate = now.date;
-
-  const selectedDay = currentDay();
-  const self = selectedDay?.autonomous_work;
-  if (!selectedDay || !self) {
-    els.stateSentence.textContent = "";
-    return;
-  }
-
-  const relation = compareIsoDate(selectedDay.date, now.date);
-  const start = toMinutes(self.start);
-  const end = toMinutes(self.end);
-  const selfState = relation < 0 || (relation === 0 && now.minutes >= end)
-    ? "crystallized"
-    : relation > 0 || (relation === 0 && now.minutes < start)
-      ? "not-yet-spent"
-      : "awake";
-
-  const sentenceByState = {
-    crystallized: "The autonomous hour is archived as a live work, not as available labor. / 自主时被归档为实时作品，而不是可用劳动。",
-    "not-yet-spent": "The calendar marks the hour before the dream enters it. / 日历先标出这一小时，梦稍后进入。",
-    awake: "The instrument is inside the autonomous hour. Human availability is interrupted. / 仪器正在自主时内，人类可用性被中断。",
-  };
-  els.stateSentence.textContent = sentenceByState[selfState];
 }
 
 function currentDay() {
