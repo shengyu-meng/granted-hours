@@ -59,6 +59,8 @@ async function desktopAudit(browser) {
     scrollTop: element.scrollTop,
     overflowY: getComputedStyle(element).overflowY,
     overflowPreview: element.dataset.overflowPreview,
+    scrollbarWidth: getComputedStyle(element).scrollbarWidth,
+    webkitScrollbarWidth: getComputedStyle(element, "::-webkit-scrollbar").width,
   }));
   assert.ok(monthBefore.assignedMarks > 2, "month scroll fixture needs more than two assigned events");
   assert.match(monthBefore.firstPreviewClass, /self-mark/);
@@ -66,6 +68,11 @@ async function desktopAudit(browser) {
   assert.equal(monthBefore.overflowY, "auto");
   assert.equal(monthBefore.overflowPreview, "true");
   assert.ok(monthBefore.scrollHeight > monthBefore.clientHeight + 1);
+  assert.notEqual(monthBefore.scrollbarWidth, "thin");
+  assert.ok(
+    Number.parseFloat(monthBefore.webkitScrollbarWidth) <= 4,
+    JSON.stringify(monthBefore),
+  );
 
   await day.hover();
   await page.mouse.wheel(0, 150);
