@@ -113,6 +113,7 @@ async function monthGeometry(page, date) {
     const brandBox = document.querySelector(".brand-lockup").getBoundingClientRect();
     const footerAuthor = document.querySelector(".calendar-foot .author-credit");
     const stampSample = document.querySelector(".cell-artwork-stamp");
+    const stampSrc = stampSample?.currentSrc || stampSample?.getAttribute("src") || "";
     return {
       weekCount: Number(grid.dataset.weekCount),
       gridHeight: gridBox.height,
@@ -166,6 +167,8 @@ async function monthGeometry(page, date) {
       },
       footerAuthorPresent: Boolean(footerAuthor),
       stampPresent: Boolean(stampSample),
+      stampIsGif: /visual-preview\.gif(?:\?|$)/i.test(stampSrc),
+      stampAspect: stampSample ? Number((stampSample.getBoundingClientRect().width / Math.max(1, stampSample.getBoundingClientRect().height)).toFixed(2)) : 0,
       contained: requiredBounds.every((box) => box.left >= -1 && box.right <= innerWidth + 1),
     };
   }, date);
@@ -220,6 +223,8 @@ async function geometryAudit(browser, viewport) {
     assert.ok(geometry.authorCreditBox.right <= viewport.width + 1, JSON.stringify(geometry));
     assert.equal(geometry.footerAuthorPresent, false, JSON.stringify(geometry));
     assert.equal(geometry.stampPresent, true, JSON.stringify(geometry));
+    assert.equal(geometry.stampIsGif, true, JSON.stringify(geometry));
+    assert.ok(Math.abs(geometry.stampAspect - 16 / 9) <= 0.08, JSON.stringify(geometry));
     assert.ok(geometry.authorCreditBox.top >= geometry.brandBox.top - 1, JSON.stringify(geometry));
     assert.ok(geometry.authorCreditBox.left >= geometry.brandBox.left - 1, JSON.stringify(geometry));
   }

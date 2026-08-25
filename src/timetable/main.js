@@ -1764,6 +1764,8 @@ function buildDayButton(day, isToday, isMuted) {
   `;
   button.addEventListener("click", () => openDayDetail(day.date));
   setupMonthCellScrollPreview(button);
+  const stamp = button.querySelector(".cell-artwork-stamp");
+  if (stamp) applyVisualPreviewSource(stamp);
   button.addEventListener("pointerenter", (event) => {
     if (event.pointerType !== "mouse" || !window.matchMedia(FINE_POINTER_QUERY).matches) return;
     playPianoNoteForDay(day);
@@ -1776,8 +1778,7 @@ function monthArtworkStampMarkup(day) {
   const self = day.autonomous_work;
   const preview = String(self?.visual_preview_url || "").trim();
   if (!self || self.origin === "absence" || !preview) return "";
-  const src = publicAssetUrl(staticVisualPreviewUrl(preview));
-  return `<img class="cell-artwork-stamp" src="${escapeHtml(src)}" alt="" loading="lazy" decoding="async" aria-hidden="true">`;
+  return `<img class="cell-artwork-stamp" src="${escapeHtml(publicAssetUrl(preferredVisualPreviewUrl(preview)))}" data-animated-preview-url="${escapeHtml(preview)}" data-static-preview-url="${escapeHtml(staticVisualPreviewUrl(preview))}" alt="" loading="lazy" decoding="async" aria-hidden="true">`;
 }
 
 function compactMonthPreviewCopy(value) {

@@ -1117,9 +1117,14 @@ h1 {
   z-index: 2;
   float: right;
   display: inline-flex;
+  box-sizing: border-box;
   width: 40px;
   min-width: 40px;
+  max-width: 40px;
+  height: 40px;
   min-height: 40px;
+  max-height: 40px;
+  aspect-ratio: 1 / 1;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -3963,7 +3968,12 @@ h1,
 }
 
 .task-dialog-close {
-  min-height: 44px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
   background: var(--pane-strong);
   color: var(--ink);
 }
@@ -6944,7 +6954,7 @@ h1 {
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--edge-light) 20%, transparent), transparent 40%),
     color-mix(in srgb, var(--pane-solid) 88%, transparent);
-  color: var(--cyan-trace);
+  color: var(--ink);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--edge-light) 42%, transparent);
   cursor: pointer;
 }
@@ -6964,7 +6974,12 @@ h1 {
   cursor: pointer;
 }
 
-.artwork-dialog-fullscreen:hover,
+.artwork-dialog-fullscreen:hover {
+  border-color: color-mix(in srgb, var(--cyan-trace) 60%, var(--hairline-strong));
+  background: color-mix(in srgb, var(--pane-strong) 84%, var(--cyan-trace) 16%);
+  color: var(--ink);
+}
+
 .artwork-return-calendar:hover {
   border-color: color-mix(in srgb, var(--gold-pale) 68%, var(--cyan-trace));
   color: var(--gold-pale);
