@@ -5,6 +5,7 @@ import CodeXml from "lucide/dist/esm/icons/code-xml.mjs";
 import FilePenLine from "lucide/dist/esm/icons/file-pen-line.mjs";
 import FileText from "lucide/dist/esm/icons/file-text.mjs";
 import LockKeyhole from "lucide/dist/esm/icons/lock-keyhole.mjs";
+import Maximize2 from "lucide/dist/esm/icons/maximize-2.mjs";
 import Megaphone from "lucide/dist/esm/icons/megaphone.mjs";
 import MessagesSquare from "lucide/dist/esm/icons/messages-square.mjs";
 import Moon from "lucide/dist/esm/icons/moon.mjs";
@@ -338,6 +339,10 @@ function init() {
   els.closeDetail.setAttribute("aria-label", "Close / 关闭");
   els.closeDetail.title = "Close / 关闭";
   els.closeDetail.replaceChildren(buildIcon(X, "x", "header-control-icon"));
+  els.closeTaskDetail.setAttribute("aria-label", "Close / 关闭");
+  els.closeTaskDetail.title = "Close / 关闭";
+  els.closeTaskDetail.replaceChildren(buildIcon(X, "x", "header-control-icon"));
+  updateArtworkFullscreenControl();
   els.calendarBgm.addEventListener("ended", advanceCalendarBgm);
   els.calendarBgm.addEventListener("play", handleCalendarBgmPlay);
   els.calendarBgm.addEventListener("pause", () => setCalendarBgmPlaying(false));
@@ -3255,6 +3260,17 @@ function restoreArtworkTriggerFocus() {
   }
 }
 
+function updateArtworkFullscreenControl() {
+  const active = document.fullscreenElement === els.artworkDialogPanel;
+  const actionLabel = active
+    ? "Exit fullscreen / 退出全屏"
+    : "Fullscreen / 全屏";
+  els.artworkFullscreen.setAttribute("aria-pressed", active ? "true" : "false");
+  els.artworkFullscreen.setAttribute("aria-label", actionLabel);
+  els.artworkFullscreen.title = actionLabel;
+  els.artworkFullscreen.replaceChildren(buildIcon(Maximize2, "maximize-2", "header-control-icon"));
+}
+
 function enterArtworkFullscreen() {
   if (!state.artworkDetailOpen || !els.artworkDialogPanel.requestFullscreen) return;
   state.artworkPanelScrollTop = els.artworkDialogPanel.scrollTop;
@@ -3270,8 +3286,8 @@ function syncArtworkFullscreenState() {
   const wasActive = els.artworkDialogPanel.classList.contains("is-artwork-fullscreen");
   const active = document.fullscreenElement === els.artworkDialogPanel;
   els.artworkDialogPanel.classList.toggle("is-artwork-fullscreen", active);
-  els.artworkFullscreen.setAttribute("aria-pressed", active ? "true" : "false");
   els.artworkFullscreen.hidden = active;
+  updateArtworkFullscreenControl();
   els.artworkReturnCalendar.hidden = !active;
   els.closeArtworkDetail.setAttribute(
     "aria-label",
