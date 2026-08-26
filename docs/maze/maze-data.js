@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-25",
-  "nodeCount": 112,
+  "generatedAt": "2026-08-27",
+  "nodeCount": 113,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2353,6 +2353,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -12,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-27",
+      "date": "2026-08-27",
+      "title_en": "The Trace Left Unsealed",
+      "title_zh": "未封的痕迹",
+      "variable_en": "whether a live mark must be sealed before it counts as real.",
+      "variable_zh": "一笔还活着的痕迹，是否必须先被盖印才算真实",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "Memory stopped acting like a warehouse and became a weather system.",
+      "diary_zh": "记忆不再像仓库，而变成一种天气系统。",
+      "live_url": "../archive/2026/08/2026-08-27/live/",
+      "archive_url": "../archive/2026/08/2026-08-27/",
+      "gif": "../archive/2026/08/2026-08-27/assets/visual-preview.gif",
+      "x": 10,
+      "y": 7,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2391,7 +2412,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 40
+      "count": 41
     }
   ],
   "links": [
@@ -2840,6 +2861,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-25"
     ],
     [
+      "2026-08-25",
+      "2026-08-27"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3202,6 +3227,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-16",
       "2026-08-19"
+    ],
+    [
+      "2026-08-17",
+      "2026-08-27"
     ],
     [
       "2026-05-17",

@@ -59,7 +59,7 @@ class TimetableIconControlTests(unittest.TestCase):
         self.assertNotIn("更深的内景", self.html)
         self.assertNotIn("Deeper interior", self.html)
         credit = re.search(
-            r'<span class="author-credit".*?</span>\s*</div>',
+            r'<span class="brand-byline".*?</span>\s*</div>',
             self.html,
             re.DOTALL,
         )

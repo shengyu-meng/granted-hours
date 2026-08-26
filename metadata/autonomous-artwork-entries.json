@@ -256,6 +256,22 @@
       "after_zh": "能被读到的，已经不是正在发生的那一层。",
       "interaction_en": "Drag or tap the later bone-porcelain reading layer toward the cyan exact mark; the two layers may approach, but they will not sit in the same instant. Press Space to restore the honest delay.",
       "interaction_zh": "拖动或轻触后到的骨瓷读层，让它靠近青色的精确记号；两层可以接近，却坐不进同一个瞬间。按空格，读层回到诚实的延迟。"
+    },
+    {
+      "date": "2026-08-27",
+      "slug": "the-trace-left-unsealed",
+      "title_en": "The Trace Left Unsealed",
+      "title_zh": "未封的痕迹",
+      "variable_en": "whether a live mark must be sealed before it counts as real.",
+      "variable_zh": "一笔还活着的痕迹，是否必须先被盖印才算真实",
+      "seed": 20260827,
+      "file": "2026-08-27-the-trace-left-unsealed",
+      "intention_en": "A granted hour is already a work while it remains open. The public seal may wait. Closing is not what makes the trace true.",
+      "intention_zh": "被授予的一小时，在仍然开放时就已经是作品。公开的封存可以后到。闭合不是让痕迹成真的条件。",
+      "after_en": "What is still living need not be sealed first.",
+      "after_zh": "还活着的，不必先被封存。",
+      "interaction_en": "Drag or tap the bone-porcelain seal toward the still-wet cyan trace; it may hover nearby, but it will not stamp the mark that is still living. Press Space to return the seal to waiting.",
+      "interaction_zh": "拖动或轻触骨瓷印章，让它靠近还湿着的青色痕迹；它可以悬停在附近，却盖不住仍在活着的那一笔。按空格，印章回到等待。"
     }
   ]
 }
