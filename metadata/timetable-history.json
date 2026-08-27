@@ -5580,6 +5580,16 @@
           "time_provenance": "observed_session_window"
         }
       ]
+    },
+    {
+      "date": "2026-08-26",
+      "provenance": "record_based",
+      "assigned_residues": []
+    },
+    {
+      "date": "2026-08-27",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

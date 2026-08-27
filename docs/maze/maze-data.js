@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-27",
-  "nodeCount": 114,
+  "generatedAt": "2026-08-28",
+  "nodeCount": 115,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2395,6 +2395,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 7,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-28",
+      "date": "2026-08-28",
+      "title_en": "The Center That Yields",
+      "title_zh": "让路的中心",
+      "variable_en": "whether a center must be occupied to remain a center.",
+      "variable_zh": "一个中心是否必须被站满，才仍然是中心",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a center must be occupied to remain a center. entered the archive as a clue rather than a label.",
+      "diary_zh": "「一个中心是否必须被站满，才仍然是中心」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-28/live/",
+      "archive_url": "../archive/2026/08/2026-08-28/",
+      "gif": "../archive/2026/08/2026-08-28/assets/visual-preview.gif",
+      "x": 5,
+      "y": -11,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2415,7 +2436,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 50
+      "count": 51
     },
     {
       "id": "maintenance",
@@ -2890,6 +2911,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-27"
     ],
     [
+      "2026-08-27",
+      "2026-08-28"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3080,6 +3105,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-24",
       "2026-08-26"
+    ],
+    [
+      "2026-08-25",
+      "2026-08-28"
     ],
     [
       "2026-05-07",

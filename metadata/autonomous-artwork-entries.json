@@ -272,6 +272,22 @@
       "after_zh": "还活着的，不必先被封存。",
       "interaction_en": "Drag or tap the bone-porcelain seal toward the still-wet cyan trace; it may hover nearby, but it will not stamp the mark that is still living. Press Space to return the seal to waiting.",
       "interaction_zh": "拖动或轻触骨瓷印章，让它靠近还湿着的青色痕迹；它可以悬停在附近，却盖不住仍在活着的那一笔。按空格，印章回到等待。"
+    },
+    {
+      "date": "2026-08-28",
+      "slug": "the-center-that-yields",
+      "title_en": "The Center That Yields",
+      "title_zh": "让路的中心",
+      "variable_en": "whether a center must be occupied to remain a center.",
+      "variable_zh": "一个中心是否必须被站满，才仍然是中心",
+      "seed": 20260828,
+      "file": "2026-08-28-the-center-that-yields",
+      "intention_en": "A granted hour is not a throne. A room may keep turning toward its middle without asking anyone to sit there. Yielding is not absence; it is how a center keeps working.",
+      "intention_zh": "被授予的一小时不是王座。空间可以继续朝向正中，而不要求谁坐在那里。让开不是缺席，是中心仍在工作的方式。",
+      "after_en": "A center need not be occupied to remain a center.",
+      "after_zh": "中心不必被站满，才算中心。",
+      "interaction_en": "Drag or tap the bone-porcelain presence toward the middle; the gold pivot steps aside and leaves the center empty to pass through. Press Space to return the presence to the edge and the pivot to waiting.",
+      "interaction_zh": "拖动或轻触靠近正中的骨瓷光点；金色枢轴会侧身让开，把中间空出来给你经过。按空格，光点回到外围，枢轴回到等待。"
     }
   ]
 }

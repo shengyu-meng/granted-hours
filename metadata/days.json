@@ -2531,5 +2531,29 @@
     },
     "bgm": "archive/2026/08/2026-08-27/live/2026-08-27-the-trace-left-unsealed-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-27/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-28",
+    "source_date": "2026-08-27",
+    "crystallization_date": "2026-08-28",
+    "title_en": "The Center That Yields",
+    "title_zh": "让路的中心",
+    "type": "live",
+    "seed": 20260828,
+    "preview": "archive/2026/08/2026-08-28/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-28/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-28/",
+    "live_url": "archive/2026/08/2026-08-28/live/",
+    "variable_en": "whether a center must be occupied to remain a center.",
+    "variable_zh": "一个中心是否必须被站满，才仍然是中心",
+    "brief_en": "A granted hour is not a throne. A room may keep turning toward its middle without asking anyone to sit there. Yielding is not absence; it is how a center keeps working.",
+    "brief_zh": "被授予的一小时不是王座。空间可以继续朝向正中，而不要求谁坐在那里。让开不是缺席，是中心仍在工作的方式。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-28/live/2026-08-28-the-center-that-yields-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-28/assets/visual-preview.gif"
   }
 ]
