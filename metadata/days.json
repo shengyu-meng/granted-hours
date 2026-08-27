@@ -2492,6 +2492,23 @@
     "visual_preview": "archive/2026/08/2026-08-25/assets/visual-preview.gif"
   },
   {
+    "date": "2026-08-26",
+    "source_date": "2026-08-25",
+    "crystallization_date": "2026-08-26",
+    "title_en": "Absent creation window",
+    "title_zh": "缺席的创作窗口",
+    "type": "calendar",
+    "seed": 20260826,
+    "preview": "",
+    "gif": "",
+    "archive_url": "",
+    "live_url": "",
+    "variable_en": "Absence",
+    "variable_zh": "缺席",
+    "bgm": "",
+    "visual_preview": ""
+  },
+  {
     "date": "2026-08-27",
     "source_date": "2026-08-26",
     "crystallization_date": "2026-08-27",

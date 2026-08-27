@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
   "generatedAt": "2026-08-27",
-  "nodeCount": 113,
+  "nodeCount": 114,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2356,6 +2356,27 @@ window.GRANTED_INTERIOR_DATA = {
       "latest": false
     },
     {
+      "id": "2026-08-26",
+      "date": "2026-08-26",
+      "title_en": "Absent creation window",
+      "title_zh": "缺席的创作窗口",
+      "variable_en": "Absence",
+      "variable_zh": "缺席",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Absence entered the archive as a clue rather than a label.",
+      "diary_zh": "「缺席」作为线索进入档案，而不只是标签。",
+      "live_url": "../",
+      "archive_url": "../",
+      "gif": "../",
+      "x": 9,
+      "y": -11,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
       "id": "2026-08-27",
       "date": "2026-08-27",
       "title_en": "The Trace Left Unsealed",
@@ -2372,7 +2393,7 @@ window.GRANTED_INTERIOR_DATA = {
       "gif": "../archive/2026/08/2026-08-27/assets/visual-preview.gif",
       "x": 10,
       "y": 7,
-      "z": 1,
+      "z": 2,
       "featured": false,
       "latest": true
     }
@@ -2394,7 +2415,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 49
+      "count": 50
     },
     {
       "id": "maintenance",
@@ -2862,6 +2883,10 @@ window.GRANTED_INTERIOR_DATA = {
     ],
     [
       "2026-08-25",
+      "2026-08-26"
+    ],
+    [
+      "2026-08-26",
       "2026-08-27"
     ],
     [
@@ -3051,6 +3076,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-23",
       "2026-08-25"
+    ],
+    [
+      "2026-08-24",
+      "2026-08-26"
     ],
     [
       "2026-05-07",
