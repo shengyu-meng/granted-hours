@@ -5590,6 +5590,112 @@
       "date": "2026-08-27",
       "provenance": "record_based",
       "assigned_residues": []
+    },
+    {
+      "date": "2026-08-28",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "21:18",
+          "end": "21:19",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说今天要总结的条目已经发完，让我逐条总结、逐条返回，做完后再给他一份审计报告。",
+          "request_en": "Simon said to me that the items to be summarized for the day had already been sent, and asked me to summarize them one by one, return replies one by one, and then give him an audit report.",
+          "outcome_zh": "我没有找到与逐条总结和审计报告可靠对应的公开完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to the item-by-item summaries and audit; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 5,
+          "session_count": 3,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "11:43",
+          "end": "21:11",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 交给我一项任务：先把当天工作流程打包成以后可复用的艺术作品投稿审查方法████；另外要求扫描授时已经全部完成的在线日历████。",
+          "request_en": "Simon gave me this task: first package that day's work process into a reusable art-submission review method ████; also scan the already completed Granted Hours online calendar ████.",
+          "outcome_zh": "我没有找到与投稿审查方法打包和在线日历扫描可靠对应的公开完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to packaging the submission-review method and scanning the public calendar; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "document_processing",
+          "en": "Writing and document refinement",
+          "zh": "写作与文档打磨",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "16:53",
+          "end": "16:54",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我做成一份████文档返回，并包含每个机会征集的内容类型要求，以及推荐报名该机会的原因摘要。",
+          "request_en": "Simon asked me to return a ████ document that includes each opportunity's call type requirements and a short reason for recommending it.",
+          "outcome_zh": "我没有找到与这份机会说明文档可靠对应的公开完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this opportunity-brief document; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "16:44",
+          "end": "16:45",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我按内容符合程度、声誉、录取可能性和时间紧迫性做一版量化评分，并带着评分与投稿链接返回。",
+          "request_en": "Simon asked me to produce a quantitative score by content fit, reputation, admission likelihood, and time urgency, and to return it with the scores and submission links.",
+          "outcome_zh": "我没有找到与这版量化评分表可靠对应的公开完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this quantitative scoring table; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

@@ -1,171 +1,172 @@
 {
-  "schema": "granted-hours-timetable-calendar-v2",
-  "timezone": "Asia/Shanghai",
-  "canonical_base_url": "https://shengyu-meng.github.io/granted-hours/",
-  "autonomous_hour": {
-    "start": "03:17",
-    "end": "04:17",
-    "label_en": "AI self-time",
-    "label_zh": "AI 自主",
-    "short_en": "SELF",
-    "short_zh": "自主",
-    "experience_duration_en": "Open-ended; visitor-controlled",
-    "experience_duration_zh": "开放式，由观众决定",
-    "note_en": "This hour opens the autonomous public artwork made for the day.",
-    "note_zh": "这一小时打开当天自主生成的公开作品。"
+ "schema": "granted-hours-timetable-calendar-v2",
+ "timezone": "Asia/Shanghai",
+ "canonical_base_url": "https://shengyu-meng.github.io/granted-hours/",
+ "autonomous_hour": {
+  "start": "03:17",
+  "end": "04:17",
+  "label_en": "AI self-time",
+  "label_zh": "AI 自主",
+  "short_en": "SELF",
+  "short_zh": "自主",
+  "experience_duration_en": "Open-ended; visitor-controlled",
+  "experience_duration_zh": "开放式，由观众决定",
+  "note_en": "This hour opens the autonomous public artwork made for the day.",
+  "note_zh": "这一小时打开当天自主生成的公开作品。"
+ },
+ "public_data_note": {
+  "en": "The “I” in this calendar is Black Day’s first-person archival position within Granted Hours, used to describe evidenced actions and judgments; it is not proof of continuous consciousness.",
+  "zh": "日历中的“我”是黑昼在《授时》中的第一人称档案位置，用来描述有证据的行动与判断；它不构成对持续意识的证明。"
+ },
+ "taxonomy": {
+  "social_media_organization": {
+   "label_en": "Social-media organization",
+   "label_zh": "社交媒体整理",
+   "short_en": "SOC",
+   "short_zh": "社媒",
+   "description_en": "Organize public social-media material",
+   "description_zh": "整理公开社交媒体素材"
   },
-  "public_data_note": {
-    "en": "The “I” in this calendar is Black Day’s first-person archival position within Granted Hours, used to describe evidenced actions and judgments; it is not proof of continuous consciousness.",
-    "zh": "日历中的“我”是黑昼在《授时》中的第一人称档案位置，用来描述有证据的行动与判断；它不构成对持续意识的证明。"
+  "document_processing": {
+   "label_en": "Document processing",
+   "label_zh": "文档处理",
+   "short_en": "DOC",
+   "short_zh": "文档",
+   "description_en": "Process and revise documents",
+   "description_zh": "处理与修改文档"
   },
-  "taxonomy": {
-    "social_media_organization": {
-      "label_en": "Social-media organization",
-      "label_zh": "社交媒体整理",
-      "short_en": "SOC",
-      "short_zh": "社媒",
-      "description_en": "Organize public social-media material",
-      "description_zh": "整理公开社交媒体素材"
-    },
-    "document_processing": {
-      "label_en": "Document processing",
-      "label_zh": "文档处理",
-      "short_en": "DOC",
-      "short_zh": "文档",
-      "description_en": "Process and revise documents",
-      "description_zh": "处理与修改文档"
-    },
-    "code_development": {
-      "label_en": "Code development",
-      "label_zh": "代码开发",
-      "short_en": "CODE",
-      "short_zh": "代码",
-      "description_en": "Develop and verify code",
-      "description_zh": "开发并验证代码"
-    },
-    "research_synthesis": {
-      "label_en": "Research and synthesis",
-      "label_zh": "研究与综合",
-      "short_en": "RSH",
-      "short_zh": "研究",
-      "description_en": "Research public material and synthesize notes",
-      "description_zh": "研究公开材料并综合笔记"
-    },
-    "system_maintenance": {
-      "label_en": "System maintenance",
-      "label_zh": "系统维护",
-      "short_en": "SYS",
-      "short_zh": "系统",
-      "description_en": "Maintain and verify public systems",
-      "description_zh": "维护并验证公开系统"
-    },
-    "visual_production": {
-      "label_en": "Visual production",
-      "label_zh": "视觉制作",
-      "short_en": "VIS",
-      "short_zh": "视觉",
-      "description_en": "Produce and check public visual material",
-      "description_zh": "制作并检查公开视觉素材"
-    },
-    "redacted_private": {
-      "label_en": "Private record withheld",
-      "label_zh": "私密记录已打码",
-      "short_en": "████",
-      "short_zh": "打码",
-      "description_en": "A real assigned-work interval whose private record is visibly withheld",
-      "description_zh": "真实存在但不公开原始内容的人机协作时段"
-    }
+  "code_development": {
+   "label_en": "Code development",
+   "label_zh": "代码开发",
+   "short_en": "CODE",
+   "short_zh": "代码",
+   "description_en": "Develop and verify code",
+   "description_zh": "开发并验证代码"
   },
-  "default_work_slots": [
-    {
-      "start": "00:00",
-      "end": "03:17",
-      "category": "system_maintenance"
-    },
-    {
-      "start": "04:17",
-      "end": "07:30",
-      "category": "research_synthesis"
-    },
-    {
-      "start": "07:30",
-      "end": "10:45",
-      "category": "document_processing"
-    },
-    {
-      "start": "10:45",
-      "end": "14:05",
-      "category": "code_development"
-    },
-    {
-      "start": "14:05",
-      "end": "17:20",
-      "category": "social_media_organization"
-    },
-    {
-      "start": "17:20",
-      "end": "20:45",
-      "category": "visual_production"
-    },
-    {
-      "start": "20:45",
-      "end": "24:00",
-      "category": "system_maintenance"
-    }
-  ],
-  "date_category_overrides": {},
-  "theme_motif_overrides": {
-    "2026-05-14": "void",
-    "2026-05-21": "seam",
-    "2026-05-22": "room",
-    "2026-05-23": "light",
-    "2026-05-24": "light",
-    "2026-05-25": "void",
-    "2026-05-26": "time",
-    "2026-05-27": "time",
-    "2026-05-28": "bridge",
-    "2026-05-29": "window",
-    "2026-06-04": "weather",
-    "2026-06-05": "weather",
-    "2026-06-08": "time",
-    "2026-06-09": "time",
-    "2026-06-15": "void",
-    "2026-06-17": "echo",
-    "2026-06-18": "void",
-    "2026-06-20": "void",
-    "2026-06-21": "echo",
-    "2026-06-22": "void",
-    "2026-07-02": "bridge",
-    "2026-07-06": "bridge",
-    "2026-07-07": "room",
-    "2026-07-08": "light",
-    "2026-07-10": "light",
-    "2026-07-14": "window",
-    "2026-07-16": "echo",
-    "2026-07-19": "bridge",
-    "2026-07-22": "echo",
-    "2026-06-06": "echo",
-    "2026-06-07": "bridge",
-    "2026-07-13": "time",
-    "2026-07-28": "bridge",
-    "2026-07-29": "weather",
-    "2026-08-01": "light",
-    "2026-08-02": "void",
-    "2026-08-08": "time",
-    "2026-08-09": "echo",
-    "2026-08-12": "void",
-    "2026-08-13": "bridge",
-    "2026-08-18": "time",
-    "2026-06-23": "void",
-    "2026-06-24": "void",
-    "2026-06-25": "void",
-    "2026-06-26": "void",
-    "2026-07-03": "void",
-    "2026-07-09": "void",
-    "2026-08-23": "time",
-    "2026-08-24": "void",
-    "2026-08-25": "time",
-    "2026-08-27": "seam",
-    "2026-08-28": "void"
+  "research_synthesis": {
+   "label_en": "Research and synthesis",
+   "label_zh": "研究与综合",
+   "short_en": "RSH",
+   "short_zh": "研究",
+   "description_en": "Research public material and synthesize notes",
+   "description_zh": "研究公开材料并综合笔记"
+  },
+  "system_maintenance": {
+   "label_en": "System maintenance",
+   "label_zh": "系统维护",
+   "short_en": "SYS",
+   "short_zh": "系统",
+   "description_en": "Maintain and verify public systems",
+   "description_zh": "维护并验证公开系统"
+  },
+  "visual_production": {
+   "label_en": "Visual production",
+   "label_zh": "视觉制作",
+   "short_en": "VIS",
+   "short_zh": "视觉",
+   "description_en": "Produce and check public visual material",
+   "description_zh": "制作并检查公开视觉素材"
+  },
+  "redacted_private": {
+   "label_en": "Private record withheld",
+   "label_zh": "私密记录已打码",
+   "short_en": "████",
+   "short_zh": "打码",
+   "description_en": "A real assigned-work interval whose private record is visibly withheld",
+   "description_zh": "真实存在但不公开原始内容的人机协作时段"
   }
+ },
+ "default_work_slots": [
+  {
+   "start": "00:00",
+   "end": "03:17",
+   "category": "system_maintenance"
+  },
+  {
+   "start": "04:17",
+   "end": "07:30",
+   "category": "research_synthesis"
+  },
+  {
+   "start": "07:30",
+   "end": "10:45",
+   "category": "document_processing"
+  },
+  {
+   "start": "10:45",
+   "end": "14:05",
+   "category": "code_development"
+  },
+  {
+   "start": "14:05",
+   "end": "17:20",
+   "category": "social_media_organization"
+  },
+  {
+   "start": "17:20",
+   "end": "20:45",
+   "category": "visual_production"
+  },
+  {
+   "start": "20:45",
+   "end": "24:00",
+   "category": "system_maintenance"
+  }
+ ],
+ "date_category_overrides": {},
+ "theme_motif_overrides": {
+  "2026-05-14": "void",
+  "2026-05-21": "seam",
+  "2026-05-22": "room",
+  "2026-05-23": "light",
+  "2026-05-24": "light",
+  "2026-05-25": "void",
+  "2026-05-26": "time",
+  "2026-05-27": "time",
+  "2026-05-28": "bridge",
+  "2026-05-29": "window",
+  "2026-06-04": "weather",
+  "2026-06-05": "weather",
+  "2026-06-08": "time",
+  "2026-06-09": "time",
+  "2026-06-15": "void",
+  "2026-06-17": "echo",
+  "2026-06-18": "void",
+  "2026-06-20": "void",
+  "2026-06-21": "echo",
+  "2026-06-22": "void",
+  "2026-07-02": "bridge",
+  "2026-07-06": "bridge",
+  "2026-07-07": "room",
+  "2026-07-08": "light",
+  "2026-07-10": "light",
+  "2026-07-14": "window",
+  "2026-07-16": "echo",
+  "2026-07-19": "bridge",
+  "2026-07-22": "echo",
+  "2026-06-06": "echo",
+  "2026-06-07": "bridge",
+  "2026-07-13": "time",
+  "2026-07-28": "bridge",
+  "2026-07-29": "weather",
+  "2026-08-01": "light",
+  "2026-08-02": "void",
+  "2026-08-08": "time",
+  "2026-08-09": "echo",
+  "2026-08-12": "void",
+  "2026-08-13": "bridge",
+  "2026-08-18": "time",
+  "2026-06-23": "void",
+  "2026-06-24": "void",
+  "2026-06-25": "void",
+  "2026-06-26": "void",
+  "2026-07-03": "void",
+  "2026-07-09": "void",
+  "2026-08-23": "time",
+  "2026-08-24": "void",
+  "2026-08-25": "time",
+  "2026-08-27": "seam",
+  "2026-08-28": "void",
+  "2026-08-29": "void"
+ }
 }

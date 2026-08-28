@@ -288,6 +288,22 @@
       "after_zh": "中心不必被站满，才算中心。",
       "interaction_en": "Drag or tap the bone-porcelain presence toward the middle; the gold pivot steps aside and leaves the center empty to pass through. Press Space to return the presence to the edge and the pivot to waiting.",
       "interaction_zh": "拖动或轻触靠近正中的骨瓷光点；金色枢轴会侧身让开，把中间空出来给你经过。按空格，光点回到外围，枢轴回到等待。"
+    },
+    {
+      "date": "2026-08-29",
+      "slug": "the-contour-left-empty",
+      "title_en": "The Contour Left Empty",
+      "title_zh": "空着的轮廓",
+      "variable_en": "whether a contour remains a contour only while it stays empty.",
+      "variable_zh": "轮廓是否只有空着时，才仍然是轮廓",
+      "seed": 20260829,
+      "file": "2026-08-29-the-contour-left-empty",
+      "intention_en": "When evidence is missing, absence is more honest than a placeholder. A mask keeps shape, not contents. A granted hour need not be filled to have taken place.",
+      "intention_zh": "没有证据时，缺席比占位更诚实。遮罩守的是形状，不是被填进去的内容。被授予的一小时不必被填满，才算发生。",
+      "after_en": "Only empty remains form.",
+      "after_zh": "空着才成其形。",
+      "interaction_en": "Hold inside the contour; a bone-porcelain fill rises and the outline loses focus. Release and the fill recedes, the contour sharpening again. Press Space to return at once to emptiness.",
+      "interaction_zh": "按住轮廓内部，骨瓷填充会升起，轮廓随之失焦。松开，填充退回，轮廓重新清晰。按空格立刻回到空着。"
     }
   ]
 }

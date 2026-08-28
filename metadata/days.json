@@ -2555,5 +2555,29 @@
     },
     "bgm": "archive/2026/08/2026-08-28/live/2026-08-28-the-center-that-yields-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-28/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-29",
+    "source_date": "2026-08-28",
+    "crystallization_date": "2026-08-29",
+    "title_en": "The Contour Left Empty",
+    "title_zh": "空着的轮廓",
+    "type": "live",
+    "seed": 20260829,
+    "preview": "archive/2026/08/2026-08-29/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-29/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-29/",
+    "live_url": "archive/2026/08/2026-08-29/live/",
+    "variable_en": "whether a contour remains a contour only while it stays empty.",
+    "variable_zh": "轮廓是否只有空着时，才仍然是轮廓",
+    "brief_en": "When evidence is missing, absence is more honest than a placeholder. A mask keeps shape, not contents. A granted hour need not be filled to have taken place.",
+    "brief_zh": "没有证据时，缺席比占位更诚实。遮罩守的是形状，不是被填进去的内容。被授予的一小时不必被填满，才算发生。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-29/live/2026-08-29-the-contour-left-empty-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-29/assets/visual-preview.gif"
   }
 ]

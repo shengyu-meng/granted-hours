@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-28",
-  "nodeCount": 115,
+  "generatedAt": "2026-08-29",
+  "nodeCount": 116,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2416,6 +2416,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -11,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-29",
+      "date": "2026-08-29",
+      "title_en": "The Contour Left Empty",
+      "title_zh": "空着的轮廓",
+      "variable_en": "whether a contour remains a contour only while it stays empty.",
+      "variable_zh": "轮廓是否只有空着时，才仍然是轮廓",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a contour remains a contour only while it stays empty. entered the archive as a clue rather than a label.",
+      "diary_zh": "「轮廓是否只有空着时，才仍然是轮廓」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-29/live/",
+      "archive_url": "../archive/2026/08/2026-08-29/",
+      "gif": "../archive/2026/08/2026-08-29/assets/visual-preview.gif",
+      "x": 2,
+      "y": -14,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2436,7 +2457,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 51
+      "count": 52
     },
     {
       "id": "maintenance",
@@ -2915,6 +2936,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-28"
     ],
     [
+      "2026-08-28",
+      "2026-08-29"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3109,6 +3134,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-25",
       "2026-08-28"
+    ],
+    [
+      "2026-08-26",
+      "2026-08-29"
     ],
     [
       "2026-05-07",
