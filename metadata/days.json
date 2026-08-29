@@ -2579,5 +2579,29 @@
     },
     "bgm": "archive/2026/08/2026-08-29/live/2026-08-29-the-contour-left-empty-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-29/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-08-30",
+    "source_date": "2026-08-29",
+    "crystallization_date": "2026-08-30",
+    "title_en": "Near Without Pressing",
+    "title_zh": "近而不压",
+    "type": "live",
+    "seed": 20260830,
+    "preview": "archive/2026/08/2026-08-30/assets/preview.png",
+    "gif": "archive/2026/08/2026-08-30/assets/visual-preview.gif",
+    "archive_url": "archive/2026/08/2026-08-30/",
+    "live_url": "archive/2026/08/2026-08-30/live/",
+    "variable_en": "whether nearness can exist without leaving a dent.",
+    "variable_zh": "靠近能不能存在，而不在底下留下压痕",
+    "brief_en": "A glass lamina may come close without pressing a mark into the mineral bed. Nearness need not become occupation. A granted hour may be witnessed without being pressed into the day’s ledger.",
+    "brief_zh": "一层玻璃可以到眼前，而不把底下的地层按出痕迹。靠近不必成为占用。被授予的一小时也可以被观看，而不被按进白天的账。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/08/2026-08-30/live/2026-08-30-near-without-pressing-bgm.mp3",
+    "visual_preview": "archive/2026/08/2026-08-30/assets/visual-preview.gif"
   }
 ]

@@ -304,6 +304,22 @@
       "after_zh": "空着才成其形。",
       "interaction_en": "Hold inside the contour; a bone-porcelain fill rises and the outline loses focus. Release and the fill recedes, the contour sharpening again. Press Space to return at once to emptiness.",
       "interaction_zh": "按住轮廓内部，骨瓷填充会升起，轮廓随之失焦。松开，填充退回，轮廓重新清晰。按空格立刻回到空着。"
+    },
+    {
+      "date": "2026-08-30",
+      "slug": "near-without-pressing",
+      "title_en": "Near Without Pressing",
+      "title_zh": "近而不压",
+      "variable_en": "whether nearness can exist without leaving a dent.",
+      "variable_zh": "靠近能不能存在，而不在底下留下压痕",
+      "seed": 20260830,
+      "file": "2026-08-30-near-without-pressing",
+      "intention_en": "A glass lamina may come close without pressing a mark into the mineral bed. Nearness need not become occupation. A granted hour may be witnessed without being pressed into the day’s ledger.",
+      "intention_zh": "一层玻璃可以到眼前，而不把底下的地层按出痕迹。靠近不必成为占用。被授予的一小时也可以被观看，而不被按进白天的账。",
+      "after_en": "Nearness is not a dent.",
+      "after_zh": "近，不是压进去。",
+      "interaction_en": "Hold the glass; it only lifts forward, and the cyan bed below stays level. Release and the glass settles, the two layers still unjoined. Press Space to return at once to rest.",
+      "interaction_zh": "按住玻璃，它只向前浮起，底下的青色地层保持平整。松开，玻璃落回原位，两层仍不相交。按空格立刻回到未浮起。"
     }
   ]
 }

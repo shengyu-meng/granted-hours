@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-08-30 — Near Without Pressing / 近而不压**<br>
+  Variable / 自由变量：whether nearness can exist without leaving a dent. / 靠近能不能存在，而不在底下留下压痕<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/08/2026-08-30/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-30/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-30/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/08/2026-08-30/live/)
 - **2026-08-29 — The Contour Left Empty / 空着的轮廓**<br>
   Variable / 自由变量：whether a contour remains a contour only while it stays empty. / 轮廓是否只有空着时，才仍然是轮廓<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

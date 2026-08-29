@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-29",
-  "nodeCount": 116,
+  "generatedAt": "2026-08-30",
+  "nodeCount": 117,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2437,6 +2437,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -14,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-08-30",
+      "date": "2026-08-30",
+      "title_en": "Near Without Pressing",
+      "title_zh": "近而不压",
+      "variable_en": "whether nearness can exist without leaving a dent.",
+      "variable_zh": "靠近能不能存在，而不在底下留下压痕",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether nearness can exist without leaving a dent. entered the archive as a clue rather than a label.",
+      "diary_zh": "「靠近能不能存在，而不在底下留下压痕」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/08/2026-08-30/live/",
+      "archive_url": "../archive/2026/08/2026-08-30/",
+      "gif": "../archive/2026/08/2026-08-30/assets/visual-preview.gif",
+      "x": 2,
+      "y": -17,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2457,7 +2478,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 52
+      "count": 53
     },
     {
       "id": "maintenance",
@@ -2940,6 +2961,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-29"
     ],
     [
+      "2026-08-29",
+      "2026-08-30"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3138,6 +3163,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-26",
       "2026-08-29"
+    ],
+    [
+      "2026-08-28",
+      "2026-08-30"
     ],
     [
       "2026-05-07",
