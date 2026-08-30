@@ -317,7 +317,7 @@ try {
 
     const hoverCard = page.locator(testCase.dense
       ? '.event-reading-card[data-layer="event"]'
-      : '.event-reading-card[data-layer="beacon"]').first();
+      : '.event-reading-card[data-layer="beacon"], .event-reading-card[data-layer="absence"]').first();
     await hoverCard.evaluate((card) => card.scrollIntoView({ block: "center", inline: "nearest" }));
     await page.mouse.move(testCase.width - 8, 8);
     await page.waitForTimeout(340);
