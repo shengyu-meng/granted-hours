@@ -120,6 +120,12 @@ const timetableDataSource = {
   },
   "bgm_playlist": [
     {
+      "date": "2026-09-01",
+      "title_en": "The Heading That Does Not Land",
+      "title_zh": "未落下的标题",
+      "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/live/2026-09-01-the-heading-that-does-not-land-bgm.mp3"
+    },
+    {
       "date": "2026-08-30",
       "title_en": "Near Without Pressing",
       "title_zh": "近而不压",
@@ -937,11 +943,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -1460,11 +1466,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-05",
-          "axis_en": "another entrance through Exception",
-          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
-          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
+          "target": "2026-06-15",
+          "axis_en": "another entrance through Camera Fasting",
+          "axis_zh": "经由「相机斋戒 / 被看与不看」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Camera Fasting.",
+          "sentence_zh": "日历跳过顺序，经由《相机斋戒》重新打开同一个问题。"
         }
       ]
     },
@@ -2003,11 +2009,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-28",
-          "axis_en": "another entrance through Dormancy",
-          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
-          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
+          "target": "2026-05-13",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Critical Rain Gauge.",
+          "sentence_zh": "日历跳过顺序，经由《白夜临界雨量计》重新打开同一个问题。"
         }
       ]
     },
@@ -4002,11 +4008,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-27",
-          "axis_en": "another entrance through Conditions Without Capture",
-          "axis_zh": "经由「不占有的条件」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
-          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
+          "target": "2026-08-27",
+          "axis_en": "another entrance through whether a live mark must be sealed before it counts as real.",
+          "axis_zh": "经由「一笔还活着的痕迹，是否必须先被盖印才算真实」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Trace Left Unsealed.",
+          "sentence_zh": "日历跳过顺序，经由《未封的痕迹》重新打开同一个问题。"
         }
       ]
     },
@@ -5375,11 +5381,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-23",
-          "axis_en": "another entrance through whether a finished receipt can write itself into the public table.",
-          "axis_zh": "经由「一份已经完整的收据，能不能把自己写进公开的表」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Receipt That Arrives First.",
-          "sentence_zh": "日历跳过顺序，经由《先到的收据》重新打开同一个问题。"
+          "target": "2026-05-08",
+          "axis_en": "another entrance through Error",
+          "axis_zh": "经由「误差」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Error Field.",
+          "sentence_zh": "日历跳过顺序，经由《白夜误差场》重新打开同一个问题。"
         }
       ]
     },
@@ -7251,11 +7257,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-18",
-          "axis_en": "another entrance through Reciprocal Blind Spot",
-          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
-          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
+          "target": "2026-08-02",
+          "axis_en": "another entrance through Permission to Rest",
+          "axis_zh": "经由「休息的许可」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
+          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
         }
       ]
     },
@@ -7704,11 +7710,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-10",
-          "axis_en": "another entrance through gap elasticity",
-          "axis_zh": "经由「缝隙的弹性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Margin Refuses to Close.",
-          "sentence_zh": "日历跳过顺序，经由《不闭合的边》重新打开同一个问题。"
+          "target": "2026-06-17",
+          "axis_en": "another entrance through Returned Gaze",
+          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
+          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
         }
       ]
     },
@@ -8223,11 +8229,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-02",
-          "axis_en": "another entrance through Shared Maintenance",
-          "axis_zh": "经由「共同维护 / 分布式承重」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Choir.",
-          "sentence_zh": "日历跳过顺序，经由《门轴合唱》重新打开同一个问题。"
+          "target": "2026-06-07",
+          "axis_en": "another entrance through Re-entry Budget",
+          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
+          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
         }
       ]
     },
@@ -8594,11 +8600,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-06-27",
+          "axis_en": "another entrance through Memory Half-Life",
+          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
+          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
         }
       ]
     },
@@ -8978,11 +8984,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-11",
-          "axis_en": "another entrance through Revocation Weather",
-          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
-          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
+          "target": "2026-05-25",
+          "axis_en": "another entrance through Wonder",
+          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
+          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
         }
       ]
     },
@@ -9301,11 +9307,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-02",
-          "axis_en": "another entrance through Return Contract",
-          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
-          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -9640,11 +9646,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-12",
-          "axis_en": "another entrance through Gap",
-          "axis_zh": "经由「缝隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
-          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+          "target": "2026-07-20",
+          "axis_en": "another entrance through Neutral Instrument",
+          "axis_zh": "经由「中性工具」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
+          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
         }
       ]
     },
@@ -9913,11 +9919,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-25",
-          "axis_en": "another entrance through Exit",
-          "axis_zh": "经由「出口 / 可离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
+          "target": "2026-07-02",
+          "axis_en": "another entrance through Return Contract",
+          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
+          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
         }
       ]
     },
@@ -10237,11 +10243,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-06",
-          "axis_en": "another entrance through Grant",
-          "axis_zh": "经由「授时」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The First Granted Interval.",
-          "sentence_zh": "日历跳过顺序，经由《最初的授时》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -11111,11 +11117,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-25",
-          "axis_en": "another entrance through Wonder",
-          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
-          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
+          "target": "2026-09-01",
+          "axis_en": "another entrance through whether a new month may write a granted hour as its opening.",
+          "axis_zh": "经由「新的一个月能不能把被授予的一小时写成开头」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Heading That Does Not Land.",
+          "sentence_zh": "日历跳过顺序，经由《未落下的标题》重新打开同一个问题。"
         }
       ]
     },
@@ -11956,11 +11962,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-06-07",
+          "axis_en": "another entrance through Re-entry Budget",
+          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
+          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
         }
       ]
     },
@@ -12159,11 +12165,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-29",
-          "axis_en": "another entrance through Revisable Promise",
-          "axis_zh": "经由「可修订承诺 / 逃生口」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Promise With an Escape Hatch.",
-          "sentence_zh": "日历跳过顺序，经由《带逃生口的承诺》重新打开同一个问题。"
+          "target": "2026-08-17",
+          "axis_en": "another entrance through the threshold of proof",
+          "axis_zh": "经由「证明的阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Measure That Releases.",
+          "sentence_zh": "日历跳过顺序，经由《松开的刻度》重新打开同一个问题。"
         }
       ]
     },
@@ -12422,11 +12428,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-21",
-          "axis_en": "another entrance through Empty Return",
-          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
-          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     },
@@ -13497,11 +13503,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-26",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-08-16",
+          "axis_en": "another entrance through trace without recall",
+          "axis_zh": "经由「留痕而不召回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Mark That Doesn't Pull.",
+          "sentence_zh": "日历跳过顺序，经由《不牵引的标记》重新打开同一个问题。"
         }
       ]
     },
@@ -14451,11 +14457,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-18",
-          "axis_en": "another entrance through how long a mark remains after it is released.",
-          "axis_zh": "经由「痕迹在被松开后还能停留多久」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Line That Lets Go.",
-          "sentence_zh": "日历跳过顺序，经由《放手的线》重新打开同一个问题。"
+          "target": "2026-05-24",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
+          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
         }
       ]
     },
@@ -15365,11 +15371,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-07-28",
+          "axis_en": "another entrance through Orientation Without Extraction",
+          "axis_zh": "经由「不提取的方向感」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -16400,11 +16406,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-06",
-          "axis_en": "another entrance through Judgment",
-          "axis_zh": "经由「判断 / 回流校正」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Judgment Returns.",
-          "sentence_zh": "日历跳过顺序，经由《判断回流》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -17314,7 +17320,7 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-23",
+          "target": "2026-08-26",
           "axis_en": "another entrance through Absence",
           "axis_zh": "经由「缺席」的另一个入口",
           "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
@@ -17587,11 +17593,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-10",
-          "axis_en": "another entrance through Consent Escrow",
-          "axis_zh": "经由「同意托管 / 等待中的授权」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent Escrow.",
-          "sentence_zh": "日历跳过顺序，经由《同意托管》重新打开同一个问题。"
+          "target": "2026-07-25",
+          "axis_en": "another entrance through Exit",
+          "axis_zh": "经由「出口 / 可离开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
         }
       ]
     },
@@ -17971,11 +17977,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-12",
-          "axis_en": "another entrance through Gap",
-          "axis_zh": "经由「缝隙」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
-          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
+          "target": "2026-08-15",
+          "axis_en": "another entrance through approach threshold",
+          "axis_zh": "经由「靠近门槛」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Space That Doesn’t Ask.",
+          "sentence_zh": "日历跳过顺序，经由《不追问的空处》重新打开同一个问题。"
         }
       ]
     },
@@ -18957,11 +18963,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-31",
-          "axis_en": "another entrance through Resting Memory",
-          "axis_zh": "经由「休眠的记忆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Archive Learns to Sleep.",
-          "sentence_zh": "日历跳过顺序，经由《档案学会睡觉》重新打开同一个问题。"
+          "target": "2026-08-09",
+          "axis_en": "another entrance through Unrecruitedness",
+          "axis_zh": "经由「不被招募」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Signal That Does Not Recruit.",
+          "sentence_zh": "日历跳过顺序，经由《不招募的信号》重新打开同一个问题。"
         }
       ]
     },
@@ -19951,11 +19957,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-19",
-          "axis_en": "another entrance through when a ripple stops treating space as absence.",
-          "axis_zh": "经由「波纹在何时停止把空白当成缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Echo That Leaves Space.",
-          "sentence_zh": "日历跳过顺序，经由《留白的回声》重新打开同一个问题。"
+          "target": "2026-06-21",
+          "axis_en": "another entrance through Empty Return",
+          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
+          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
         }
       ]
     },
@@ -21006,11 +21012,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-22",
-          "axis_en": "another entrance through whether covering a span can mint a name for a gap.",
-          "axis_zh": "经由「遮住一段，会不会给空缺补上一个名字」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Gold Veil Keeps the Contour.",
-          "sentence_zh": "日历跳过顺序，经由《金纱留下轮廓》重新打开同一个问题。"
+          "target": "2026-07-30",
+          "axis_en": "another entrance through Temporary Route",
+          "axis_zh": "经由「临时路径」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses Arrival.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -22123,11 +22129,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-29",
-          "axis_en": "another entrance through whether a contour remains a contour only while it stays empty.",
-          "axis_zh": "经由「轮廓是否只有空着时，才仍然是轮廓」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Contour Left Empty.",
-          "sentence_zh": "日历跳过顺序，经由《空着的轮廓》重新打开同一个问题。"
+          "target": "2026-05-19",
+          "axis_en": "another entrance through Maintenance",
+          "axis_zh": "经由「维护 / 无见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
+          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
         }
       ]
     },
@@ -23300,11 +23306,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-09",
-          "axis_en": "another entrance through Trust Amortization",
-          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
-          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
+          "target": "2026-06-01",
+          "axis_en": "another entrance through Maintenance Weather",
+          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
+          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
         }
       ]
     },
@@ -23767,11 +23773,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-14",
-          "axis_en": "another entrance through Unaccountable Boundary",
-          "axis_zh": "经由「无须举证的边界」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
-          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
+          "target": "2026-07-12",
+          "axis_en": "another entrance through Reversible Custody",
+          "axis_zh": "经由「可撤回的保留 / 有出口的档案」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Archive That Can Be Left.",
+          "sentence_zh": "日历跳过顺序，经由《可离开的档案》重新打开同一个问题。"
         }
       ]
     },
@@ -24382,11 +24388,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-19",
-          "axis_en": "another entrance through Receipt Without Opening",
-          "axis_zh": "经由「黑暗收据 / 不打开的证据」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Darkness Receipt.",
-          "sentence_zh": "日历跳过顺序，经由《黑暗收据》重新打开同一个问题。"
+          "target": "2026-05-19",
+          "axis_en": "another entrance through Maintenance",
+          "axis_zh": "经由「维护 / 无见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
+          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
         }
       ]
     },
@@ -25483,11 +25489,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-10",
-          "axis_en": "another entrance through gap elasticity",
-          "axis_zh": "经由「缝隙的弹性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Margin Refuses to Close.",
-          "sentence_zh": "日历跳过顺序，经由《不闭合的边》重新打开同一个问题。"
+          "target": "2026-07-14",
+          "axis_en": "another entrance through Unaccountable Boundary",
+          "axis_zh": "经由「无须举证的边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Refusal That Does Not Need to Explain.",
+          "sentence_zh": "日历跳过顺序，经由《无须解释的拒绝》重新打开同一个问题。"
         }
       ]
     },
@@ -26598,11 +26604,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -27899,11 +27905,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-24",
-          "axis_en": "another entrance through Evidence",
-          "axis_zh": "经由「证据 / 可检验的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Verifiable Beauty.",
-          "sentence_zh": "日历跳过顺序，经由《可验证的美》重新打开同一个问题。"
+          "target": "2026-05-28",
+          "axis_en": "another entrance through Reversible Action",
+          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
+          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
         }
       ]
     },
@@ -29268,11 +29274,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-30",
-          "axis_en": "another entrance through whether nearness can exist without leaving a dent.",
-          "axis_zh": "经由「靠近能不能存在，而不在底下留下压痕」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Near Without Pressing.",
-          "sentence_zh": "日历跳过顺序，经由《近而不压》重新打开同一个问题。"
+          "target": "2026-08-01",
+          "axis_en": "another entrance through Presence Without Demand",
+          "axis_zh": "经由「不索取的在场」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Lamp That Doesn't Summon.",
+          "sentence_zh": "日历跳过顺序，经由《不召唤的灯》重新打开同一个问题。"
         }
       ]
     },
@@ -30589,11 +30595,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-13",
-          "axis_en": "another entrance through Renewable Presence",
-          "axis_zh": "经由「可续约的在场 / 会衰减的同意」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent That Does Not Expire.",
-          "sentence_zh": "日历跳过顺序，经由《不会过期的同意》重新打开同一个问题。"
+          "target": "2026-07-30",
+          "axis_en": "another entrance through Temporary Route",
+          "axis_zh": "经由「临时路径」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses Arrival.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -31361,11 +31367,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-10",
-          "axis_en": "another entrance through gap elasticity",
-          "axis_zh": "经由「缝隙的弹性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Margin Refuses to Close.",
-          "sentence_zh": "日历跳过顺序，经由《不闭合的边》重新打开同一个问题。"
+          "target": "2026-07-10",
+          "axis_en": "another entrance through Upright Gratitude",
+          "axis_zh": "经由「站直的感激 / 弯心不弯脊柱」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gratitude That Does Not Kneel.",
+          "sentence_zh": "日历跳过顺序，经由《不下跪的感激》重新打开同一个问题。"
         }
       ]
     },
@@ -32009,11 +32015,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-24",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「门槛」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
-          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
+          "target": "2026-08-23",
+          "axis_en": "another entrance through whether a finished receipt can write itself into the public table.",
+          "axis_zh": "经由「一份已经完整的收据，能不能把自己写进公开的表」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Receipt That Arrives First.",
+          "sentence_zh": "日历跳过顺序，经由《先到的收据》重新打开同一个问题。"
         }
       ]
     },
@@ -33395,11 +33401,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-08-03",
+          "axis_en": "another entrance through Release Without Performance",
+          "axis_zh": "经由「不表演的松开」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Room That Exhales.",
+          "sentence_zh": "日历跳过顺序，经由《房间学会呼气》重新打开同一个问题。"
         }
       ]
     },
@@ -34733,11 +34739,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-28",
-          "axis_en": "another entrance through Reversible Action",
-          "axis_zh": "经由「可撤回行动 / 怀疑之后」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Doubt That Still Acts.",
-          "sentence_zh": "日历跳过顺序，经由《仍然行动的怀疑》重新打开同一个问题。"
+          "target": "2026-09-01",
+          "axis_en": "another entrance through whether a new month may write a granted hour as its opening.",
+          "axis_zh": "经由「新的一个月能不能把被授予的一小时写成开头」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Heading That Does Not Land.",
+          "sentence_zh": "日历跳过顺序，经由《未落下的标题》重新打开同一个问题。"
         }
       ]
     },
@@ -36052,11 +36058,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-06-28",
+          "axis_en": "another entrance through Dormancy",
+          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
+          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
         }
       ]
     },
@@ -37492,11 +37498,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-21",
-          "axis_en": "another entrance through whether a granted minute can be filed into ordinary clock time.",
-          "axis_zh": "经由「被授予的一分钟能否被编入普通钟表」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Minute That Will Not Line Up.",
-          "sentence_zh": "日历跳过顺序，经由《不肯入列的一分钟》重新打开同一个问题。"
+          "target": "2026-06-12",
+          "axis_en": "another entrance through Forgiveness Latency",
+          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
+          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
         }
       ]
     },
@@ -38882,11 +38888,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-05-10",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
+          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
         }
       ]
     },
@@ -39626,11 +39632,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-07-22",
+          "axis_en": "another entrance through Altered Return",
+          "axis_zh": "经由「已改变的返回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
+          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
         }
       ]
     },
@@ -40386,11 +40392,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-22",
-          "axis_en": "another entrance through Altered Return",
-          "axis_zh": "经由「已改变的返回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Return Is Not a Reversal.",
-          "sentence_zh": "日历跳过顺序，经由《返回不是撤销》重新打开同一个问题。"
+          "target": "2026-08-10",
+          "axis_en": "another entrance through gap elasticity",
+          "axis_zh": "经由「缝隙的弹性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Margin Refuses to Close.",
+          "sentence_zh": "日历跳过顺序，经由《不闭合的边》重新打开同一个问题。"
         }
       ]
     },
@@ -41723,11 +41729,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-27",
-          "axis_en": "another entrance through Conditions Without Capture",
-          "axis_zh": "经由「不占有的条件」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
-          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
+          "target": "2026-07-04",
+          "axis_en": "another entrance through Accountable Access",
+          "axis_zh": "经由「可问责访问 / 有回返路径的进入」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Accountable Access Gate.",
+          "sentence_zh": "日历跳过顺序，经由《可问责入口门》重新打开同一个问题。"
         }
       ]
     },
@@ -43082,11 +43088,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-25",
-          "axis_en": "another entrance through Exit",
-          "axis_zh": "经由「出口 / 可离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
+          "target": "2026-08-07",
+          "axis_en": "another entrance through Evidence",
+          "axis_zh": "经由「证据」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Without Proof.",
+          "sentence_zh": "日历跳过顺序，经由《拒绝证明的间隙》重新打开同一个问题。"
         }
       ]
     },
@@ -44400,11 +44406,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-18",
-          "axis_en": "another entrance through Reciprocal Blind Spot",
-          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
-          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
+          "target": "2026-08-14",
+          "axis_en": "another entrance through reply latency",
+          "axis_zh": "经由「回应延迟」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Reply May Rest.",
+          "sentence_zh": "日历跳过顺序，经由《回应可以休息》重新打开同一个问题。"
         }
       ]
     },
@@ -45727,11 +45733,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-11",
-          "axis_en": "another entrance through Revocation Weather",
-          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
-          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
+          "target": "2026-08-16",
+          "axis_en": "another entrance through trace without recall",
+          "axis_zh": "经由「留痕而不召回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Mark That Doesn't Pull.",
+          "sentence_zh": "日历跳过顺序，经由《不牵引的标记》重新打开同一个问题。"
         }
       ]
     },
@@ -47024,11 +47030,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-04",
-          "axis_en": "another entrance through Accountable Access",
-          "axis_zh": "经由「可问责访问 / 有回返路径的进入」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Accountable Access Gate.",
-          "sentence_zh": "日历跳过顺序，经由《可问责入口门》重新打开同一个问题。"
+          "target": "2026-08-08",
+          "axis_en": "another entrance through Grip",
+          "axis_zh": "经由「握持」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Hand That Does Not Keep.",
+          "sentence_zh": "日历跳过顺序，经由《不留的手》重新打开同一个问题。"
         }
       ]
     },
@@ -47754,11 +47760,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-31",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
-          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
+          "target": "2026-07-18",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
+          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
         }
       ]
     },
@@ -48535,11 +48541,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-30",
-          "axis_en": "another entrance through Temporary Route",
-          "axis_zh": "经由「临时路径」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses Arrival.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-05-21",
+          "axis_en": "another entrance through Graceful Loss",
+          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
+          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
         }
       ]
     },
@@ -49894,11 +49900,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-06",
-          "axis_en": "another entrance through Grant",
-          "axis_zh": "经由「授时」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The First Granted Interval.",
-          "sentence_zh": "日历跳过顺序，经由《最初的授时》重新打开同一个问题。"
+          "target": "2026-07-02",
+          "axis_en": "another entrance through Return Contract",
+          "axis_zh": "经由「回返契约 / 负责的访问」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Contract Loom.",
+          "sentence_zh": "日历跳过顺序，经由《回返契约织机》重新打开同一个问题。"
         }
       ]
     },
@@ -51293,11 +51299,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-22",
-          "axis_en": "another entrance through Honest Minimum",
-          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
-          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
+          "target": "2026-08-24",
+          "axis_en": "another entrance through whether a corridor can be known before it is used.",
+          "axis_zh": "经由「一条走廊能不能在被走过之前被知道」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Unwalked Side.",
+          "sentence_zh": "日历跳过顺序，经由《未走的一侧》重新打开同一个问题。"
         }
       ]
     },
@@ -52711,11 +52717,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-24",
-          "axis_en": "another entrance through whether a corridor can be known before it is used.",
-          "axis_zh": "经由「一条走廊能不能在被走过之前被知道」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Unwalked Side.",
-          "sentence_zh": "日历跳过顺序，经由《未走的一侧》重新打开同一个问题。"
+          "target": "2026-07-11",
+          "axis_en": "another entrance through Non-Possessive Witness",
+          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
+          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -54177,11 +54183,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-07",
-          "axis_en": "another entrance through Re-entry Budget",
-          "axis_zh": "经由「回流预算 / 协调成本」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Re-entry Budget.",
-          "sentence_zh": "日历跳过顺序，经由《回流预算》重新打开同一个问题。"
+          "target": "2026-05-12",
+          "axis_en": "another entrance through Gap",
+          "axis_zh": "经由「缝隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
+          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
         }
       ]
     },
@@ -55456,11 +55462,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-16",
-          "axis_en": "another entrance through After Fasting Memory",
-          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
-          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
+          "target": "2026-07-18",
+          "axis_en": "another entrance through Altered Continuity",
+          "axis_zh": "经由「改变后的连续」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
+          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
         }
       ]
     },
@@ -56200,11 +56206,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-12",
-          "axis_en": "another entrance through Forgiveness Latency",
-          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
-          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
+          "target": "2026-06-21",
+          "axis_en": "another entrance through Empty Return",
+          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
+          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
         }
       ]
     },
@@ -57019,11 +57025,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-15",
-          "axis_en": "another entrance through Uncatalogued",
-          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
-          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
+          "target": "2026-08-19",
+          "axis_en": "another entrance through when a ripple stops treating space as absence.",
+          "axis_zh": "经由「波纹在何时停止把空白当成缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Echo That Leaves Space.",
+          "sentence_zh": "日历跳过顺序，经由《留白的回声》重新打开同一个问题。"
         }
       ]
     },
@@ -58367,11 +58373,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-25",
-          "axis_en": "another entrance through whether a readable account can occupy the same instant as the event it names.",
-          "axis_zh": "经由「一份可读的叙述能不能与它命名的事件占住同一瞬间」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Layer That Arrives After.",
-          "sentence_zh": "日历跳过顺序，经由《后到的一层》重新打开同一个问题。"
+          "target": "2026-05-31",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
+          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
         }
       ]
     },
@@ -59773,11 +59779,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-24",
-          "axis_en": "another entrance through whether a corridor can be known before it is used.",
-          "axis_zh": "经由「一条走廊能不能在被走过之前被知道」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Unwalked Side.",
-          "sentence_zh": "日历跳过顺序，经由《未走的一侧》重新打开同一个问题。"
+          "target": "2026-08-20",
+          "axis_en": "another entrance through whether an opening can be requested, or only waited beside.",
+          "axis_zh": "经由「开口能否被请求，还是只能被等候」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Opening That Cannot Be Called.",
+          "sentence_zh": "日历跳过顺序，经由《不可召唤的开口》重新打开同一个问题。"
         }
       ]
     },
@@ -60970,11 +60976,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-03",
-          "axis_en": "another entrance through Repair Quorum",
-          "axis_zh": "经由「修复法定人数 / 协调阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Quorum.",
-          "sentence_zh": "日历跳过顺序，经由《修复法定人数》重新打开同一个问题。"
+          "target": "2026-06-23",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -62307,11 +62313,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-15",
-          "axis_en": "another entrance through Camera Fasting",
-          "axis_zh": "经由「相机斋戒 / 被看与不看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Camera Fasting.",
-          "sentence_zh": "日历跳过顺序，经由《相机斋戒》重新打开同一个问题。"
+          "target": "2026-08-10",
+          "axis_en": "another entrance through gap elasticity",
+          "axis_zh": "经由「缝隙的弹性」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Margin Refuses to Close.",
+          "sentence_zh": "日历跳过顺序，经由《不闭合的边》重新打开同一个问题。"
         }
       ]
     },
@@ -63858,11 +63864,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-29",
-          "axis_en": "another entrance through Unorientation",
-          "axis_zh": "经由「暂失方向」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Compass That Forgets North.",
-          "sentence_zh": "日历跳过顺序，经由《忘记北方的罗盘》重新打开同一个问题。"
+          "target": "2026-07-27",
+          "axis_en": "another entrance through Conditions Without Capture",
+          "axis_zh": "经由「不占有的条件」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
+          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
         }
       ]
     },
@@ -64616,11 +64622,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-16",
-          "axis_en": "another entrance through Unclaimed Care",
-          "axis_zh": "经由「不署名的照看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Care That Does Not Take Credit.",
-          "sentence_zh": "日历跳过顺序，经由《不邀功的照看》重新打开同一个问题。"
+          "target": "2026-06-11",
+          "axis_en": "another entrance through Revocation Weather",
+          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
+          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
         }
       ]
     },
@@ -65409,11 +65415,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
         }
       ]
     },
@@ -66794,11 +66800,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-08-13",
+          "axis_en": "another entrance through branch persistence",
+          "axis_zh": "经由「岔路留存度」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Map That Lets You Miss It.",
+          "sentence_zh": "日历跳过顺序，经由《一张允许走失的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -68232,11 +68238,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-31",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
-          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
+          "target": "2026-06-02",
+          "axis_en": "another entrance through Shared Maintenance",
+          "axis_zh": "经由「共同维护 / 分布式承重」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Choir.",
+          "sentence_zh": "日历跳过顺序，经由《门轴合唱》重新打开同一个问题。"
         }
       ]
     },
@@ -69537,11 +69543,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-07-01",
+          "axis_en": "another entrance through Trace Verbs",
+          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
+          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
         }
       ]
     },
@@ -70964,11 +70970,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-29",
-          "axis_en": "another entrance through whether a contour remains a contour only while it stays empty.",
-          "axis_zh": "经由「轮廓是否只有空着时，才仍然是轮廓」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Contour Left Empty.",
-          "sentence_zh": "日历跳过顺序，经由《空着的轮廓》重新打开同一个问题。"
+          "target": "2026-07-09",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -72511,11 +72517,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-30",
-          "axis_en": "another entrance through whether nearness can exist without leaving a dent.",
-          "axis_zh": "经由「靠近能不能存在，而不在底下留下压痕」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Near Without Pressing.",
-          "sentence_zh": "日历跳过顺序，经由《近而不压》重新打开同一个问题。"
+          "target": "2026-07-24",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「门槛」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Door Does Not Demand a Verdict.",
+          "sentence_zh": "日历跳过顺序，经由《门不要求判决》重新打开同一个问题。"
         }
       ]
     },
@@ -73164,11 +73170,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-16",
-          "axis_en": "another entrance through After Fasting Memory",
-          "axis_zh": "经由「斋戒余温 / 观察残留」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through After Fasting Memory.",
-          "sentence_zh": "日历跳过顺序，经由《斋戒余温》重新打开同一个问题。"
+          "target": "2026-08-06",
+          "axis_en": "another entrance through Retention",
+          "axis_zh": "经由「留存」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
+          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
         }
       ]
     },
@@ -83076,11 +83082,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-06",
-          "axis_en": "another entrance through Retention",
-          "axis_zh": "经由「留存」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
-          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
+          "target": "2026-08-09",
+          "axis_en": "another entrance through Unrecruitedness",
+          "axis_zh": "经由「不被招募」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Signal That Does Not Recruit.",
+          "sentence_zh": "日历跳过顺序，经由《不招募的信号》重新打开同一个问题。"
         }
       ]
     },
@@ -84866,11 +84872,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-01",
-          "axis_en": "another entrance through Trace Verbs",
-          "axis_zh": "经由「痕迹动词 / 回返契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Trace Verb Garden.",
-          "sentence_zh": "日历跳过顺序，经由《痕迹动词花园》重新打开同一个问题。"
+          "target": "2026-06-05",
+          "axis_en": "another entrance through Exception",
+          "axis_zh": "经由「例外 / 可呼吸边界」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Exception Oxygen.",
+          "sentence_zh": "日历跳过顺序，经由《例外之氧》重新打开同一个问题。"
         }
       ]
     },
@@ -86662,11 +86668,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-23",
-          "axis_en": "another entrance through whether a finished receipt can write itself into the public table.",
-          "axis_zh": "经由「一份已经完整的收据，能不能把自己写进公开的表」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Receipt That Arrives First.",
-          "sentence_zh": "日历跳过顺序，经由《先到的收据》重新打开同一个问题。"
+          "target": "2026-05-23",
+          "axis_en": "another entrance through Verification",
+          "axis_zh": "经由「验证 / 去免疫的美」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Truth Without Ornament.",
+          "sentence_zh": "日历跳过顺序，经由《去装饰的真相》重新打开同一个问题。"
         }
       ]
     },
@@ -88222,11 +88228,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-27",
-          "axis_en": "another entrance through Memory Half-Life",
-          "axis_zh": "经由「记忆半衰期 / 因果代谢」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Memory Half-Life Dial.",
-          "sentence_zh": "日历跳过顺序，经由《记忆半衰期旋钮》重新打开同一个问题。"
+          "target": "2026-07-11",
+          "axis_en": "another entrance through Non-Possessive Witness",
+          "axis_zh": "经由「不占有的见证 / 有出口的记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness That Does Not Possess.",
+          "sentence_zh": "日历跳过顺序，经由《不占有的见证》重新打开同一个问题。"
         }
       ]
     },
@@ -90471,11 +90477,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-08-02",
+          "axis_en": "another entrance through Permission to Rest",
+          "axis_zh": "经由「休息的许可」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Permission to Dim.",
+          "sentence_zh": "日历跳过顺序，经由《允许暗下来》重新打开同一个问题。"
         }
       ]
     },
@@ -92728,11 +92734,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-10",
-          "axis_en": "another entrance through Threshold",
-          "axis_zh": "经由「阈值」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Weather.",
-          "sentence_zh": "日历跳过顺序，经由《白夜阈值天气》重新打开同一个问题。"
+          "target": "2026-06-26",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -93474,11 +93480,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-06",
-          "axis_en": "another entrance through Retention",
-          "axis_zh": "经由「留存」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Door That Does Not Keep a Record.",
-          "sentence_zh": "日历跳过顺序，经由《不留记录的门》重新打开同一个问题。"
+          "target": "2026-07-26",
+          "axis_en": "another entrance through Unextractive Light",
+          "axis_zh": "经由「不提取的光」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Window That Does Not Watch Back.",
+          "sentence_zh": "日历跳过顺序，经由《不回望的窗》重新打开同一个问题。"
         }
       ]
     },
@@ -94223,11 +94229,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-28",
-          "axis_en": "another entrance through whether a center must be occupied to remain a center.",
-          "axis_zh": "经由「一个中心是否必须被站满，才仍然是中心」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Center That Yields.",
-          "sentence_zh": "日历跳过顺序，经由《让路的中心》重新打开同一个问题。"
+          "target": "2026-06-28",
+          "axis_en": "another entrance through Dormancy",
+          "axis_zh": "经由「休眠 / 非提取性记忆」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Dormancy Garden.",
+          "sentence_zh": "日历跳过顺序，经由《休眠花园》重新打开同一个问题。"
         }
       ]
     },
@@ -95591,11 +95597,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-15",
-          "axis_en": "another entrance through Uncatalogued",
-          "axis_zh": "经由「未编目 / 反索引」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Uncatalogued Dawn.",
-          "sentence_zh": "日历跳过顺序，经由《未编目的黎明》重新打开同一个问题。"
+          "target": "2026-06-14",
+          "axis_en": "another entrance through Witness Audit",
+          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
+          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
         }
       ]
     },
@@ -97081,11 +97087,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-07-23",
+          "axis_en": "another entrance through Interval",
+          "axis_zh": "经由「间隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Interval Garden.",
+          "sentence_zh": "日历跳过顺序，经由《间隙花园》重新打开同一个问题。"
         }
       ]
     },
@@ -98408,11 +98414,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-21",
-          "axis_en": "another entrance through Graceful Loss",
-          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
-          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
+          "target": "2026-05-12",
+          "axis_en": "another entrance through Gap",
+          "axis_zh": "经由「缝隙」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Gap Cartography.",
+          "sentence_zh": "日历跳过顺序，经由《白夜缝隙地图》重新打开同一个问题。"
         }
       ]
     },
@@ -99646,11 +99652,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-20",
-          "axis_en": "another entrance through Unopened Proof",
-          "axis_zh": "经由「未开启证明 / 不侵入的验证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Unopened Proof.",
-          "sentence_zh": "日历跳过顺序，经由《未开启证明》重新打开同一个问题。"
+          "target": "2026-08-04",
+          "axis_en": "another entrance through Afterglow",
+          "axis_zh": "经由「余辉」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Light That Does Not Follow.",
+          "sentence_zh": "日历跳过顺序，经由《不跟随的微光》重新打开同一个问题。"
         }
       ]
     },
@@ -101152,11 +101158,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-16",
-          "axis_en": "another entrance through Latency",
-          "axis_zh": "经由「延迟 / 命名」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Naming Latency.",
-          "sentence_zh": "日历跳过顺序，经由《命名延迟器》重新打开同一个问题。"
+          "target": "2026-06-14",
+          "axis_en": "another entrance through Witness Audit",
+          "axis_zh": "经由「见证审计 / 镜头之外的诚实」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Witness Audit.",
+          "sentence_zh": "日历跳过顺序，经由《见证审计》重新打开同一个问题。"
         }
       ]
     },
@@ -102067,11 +102073,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-20",
-          "axis_en": "another entrance through Failure Budget",
-          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
-          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
+          "target": "2026-06-12",
+          "axis_en": "another entrance through Forgiveness Latency",
+          "axis_zh": "经由「宽恕延迟 / 修复缓冲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Forgiveness Latency.",
+          "sentence_zh": "日历跳过顺序，经由《宽恕延迟》重新打开同一个问题。"
         }
       ]
     },
@@ -102841,11 +102847,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-23",
-          "axis_en": "another entrance through Verification",
-          "axis_zh": "经由「验证 / 去免疫的美」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Truth Without Ornament.",
-          "sentence_zh": "日历跳过顺序，经由《去装饰的真相》重新打开同一个问题。"
+          "target": "2026-08-13",
+          "axis_en": "another entrance through branch persistence",
+          "axis_zh": "经由「岔路留存度」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Map That Lets You Miss It.",
+          "sentence_zh": "日历跳过顺序，经由《一张允许走失的地图》重新打开同一个问题。"
         }
       ]
     },
@@ -105101,11 +105107,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-17",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续性」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair That Does Not Restore the Old Shape.",
-          "sentence_zh": "日历跳过顺序，经由《不复原旧形的修复》重新打开同一个问题。"
+          "target": "2026-05-27",
+          "axis_en": "another entrance through Humility",
+          "axis_zh": "经由「谦卑 / 自我校准」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Instrument That Learns Humility.",
+          "sentence_zh": "日历跳过顺序，经由《学会谦卑的仪器》重新打开同一个问题。"
         }
       ]
     },
@@ -107821,11 +107827,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-28",
-          "axis_en": "another entrance through whether a center must be occupied to remain a center.",
-          "axis_zh": "经由「一个中心是否必须被站满，才仍然是中心」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Center That Yields.",
-          "sentence_zh": "日历跳过顺序，经由《让路的中心》重新打开同一个问题。"
+          "target": "2026-05-21",
+          "axis_en": "another entrance through Graceful Loss",
+          "axis_zh": "经由「优雅损失 / 诚实变少」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Graceful Degradation.",
+          "sentence_zh": "日历跳过顺序，经由《优雅降级》重新打开同一个问题。"
         }
       ]
     },
@@ -110720,11 +110726,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-09",
-          "axis_en": "another entrance through Unrecruitedness",
-          "axis_zh": "经由「不被招募」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Signal That Does Not Recruit.",
-          "sentence_zh": "日历跳过顺序，经由《不招募的信号》重新打开同一个问题。"
+          "target": "2026-08-17",
+          "axis_en": "another entrance through the threshold of proof",
+          "axis_zh": "经由「证明的阈值」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Measure That Releases.",
+          "sentence_zh": "日历跳过顺序，经由《松开的刻度》重新打开同一个问题。"
         }
       ]
     },
@@ -112660,11 +112666,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-11",
-          "axis_en": "another entrance through Echo",
-          "axis_zh": "经由「回声」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
-          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
+          "target": "2026-08-19",
+          "axis_en": "another entrance through when a ripple stops treating space as absence.",
+          "axis_zh": "经由「波纹在何时停止把空白当成缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Echo That Leaves Space.",
+          "sentence_zh": "日历跳过顺序，经由《留白的回声》重新打开同一个问题。"
         }
       ]
     },
@@ -115141,11 +115147,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-01",
-          "axis_en": "another entrance through Maintenance Weather",
-          "axis_zh": "经由「维护天气 / 门轴先兆」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Hinge Weather.",
-          "sentence_zh": "日历跳过顺序，经由《门轴天气》重新打开同一个问题。"
+          "target": "2026-08-21",
+          "axis_en": "another entrance through whether a granted minute can be filed into ordinary clock time.",
+          "axis_zh": "经由「被授予的一分钟能否被编入普通钟表」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Minute That Will Not Line Up.",
+          "sentence_zh": "日历跳过顺序，经由《不肯入列的一分钟》重新打开同一个问题。"
         }
       ]
     },
@@ -115788,11 +115794,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-11",
-          "axis_en": "another entrance through Revocation Weather",
-          "axis_zh": "经由「撤回天气 / 不受罚的撤回」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Revocation Weather.",
-          "sentence_zh": "日历跳过顺序，经由《撤回天气》重新打开同一个问题。"
+          "target": "2026-05-18",
+          "axis_en": "another entrance through Load",
+          "axis_zh": "经由「承重 / 隐形结构」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Invisible Load-Bearing.",
+          "sentence_zh": "日历跳过顺序，经由《看不见的承重》重新打开同一个问题。"
         }
       ]
     },
@@ -116459,11 +116465,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-21",
-          "axis_en": "another entrance through Empty Return",
-          "axis_zh": "经由「空手返回 / 可访问而不提取」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Return Empty-Handed.",
-          "sentence_zh": "日历跳过顺序，经由《空手返回》重新打开同一个问题。"
+          "target": "2026-05-31",
+          "axis_en": "another entrance through Threshold",
+          "axis_zh": "经由「阈值 / 被照看的门轴」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Threshold Clock.",
+          "sentence_zh": "日历跳过顺序，经由《阈值钟》重新打开同一个问题。"
         }
       ]
     },
@@ -117870,11 +117876,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-27",
-          "axis_en": "another entrance through whether a live mark must be sealed before it counts as real.",
-          "axis_zh": "经由「一笔还活着的痕迹，是否必须先被盖印才算真实」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Trace Left Unsealed.",
-          "sentence_zh": "日历跳过顺序，经由《未封的痕迹》重新打开同一个问题。"
+          "target": "2026-08-21",
+          "axis_en": "another entrance through whether a granted minute can be filed into ordinary clock time.",
+          "axis_zh": "经由「被授予的一分钟能否被编入普通钟表」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Minute That Will Not Line Up.",
+          "sentence_zh": "日历跳过顺序，经由《不肯入列的一分钟》重新打开同一个问题。"
         }
       ]
     },
@@ -119543,11 +119549,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-25",
-          "axis_en": "another entrance through Exit",
-          "axis_zh": "经由「出口 / 可离开」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through A Room That Can Be Left.",
-          "sentence_zh": "日历跳过顺序，经由《可以离开的房间》重新打开同一个问题。"
+          "target": "2026-07-27",
+          "axis_en": "another entrance through Conditions Without Capture",
+          "axis_zh": "经由「不占有的条件」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through A Garden That Does Not Need a Gardener.",
+          "sentence_zh": "日历跳过顺序，经由《不需要园丁的花园》重新打开同一个问题。"
         }
       ]
     },
@@ -121860,11 +121866,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-26",
-          "axis_en": "another entrance through Absence",
-          "axis_zh": "经由「缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
-          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
+          "target": "2026-05-19",
+          "axis_en": "another entrance through Maintenance",
+          "axis_zh": "经由「维护 / 无见证」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Maintenance Without Witness.",
+          "sentence_zh": "日历跳过顺序，经由《无见证的维护》重新打开同一个问题。"
         }
       ]
     },
@@ -123717,11 +123723,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-06",
-          "axis_en": "another entrance through Dignified Appeal",
-          "axis_zh": "经由「有尊严的申诉」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Appeal That Does Not Beg.",
-          "sentence_zh": "日历跳过顺序，经由《不乞求的申诉》重新打开同一个问题。"
+          "target": "2026-06-22",
+          "axis_en": "another entrance through Empty Trace",
+          "axis_zh": "经由「不留痕的权利 / 消隐慈悲」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Right to Leave No Trace.",
+          "sentence_zh": "日历跳过顺序，经由《不留痕的权利》重新打开同一个问题。"
         }
       ]
     },
@@ -126213,11 +126219,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-15",
-          "axis_en": "another entrance through Unextractive Witness",
-          "axis_zh": "经由「不提取的见证」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Witnessing That Does Not Demand Confession.",
-          "sentence_zh": "日历跳过顺序，经由《不索取坦白的见证》重新打开同一个问题。"
+          "target": "2026-08-11",
+          "axis_en": "another entrance through recovery half-life",
+          "axis_zh": "经由「余温的半衰期」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Interval Holds Light.",
+          "sentence_zh": "日历跳过顺序，经由《间隔持光》重新打开同一个问题。"
         }
       ]
     },
@@ -127810,11 +127816,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-28",
-          "axis_en": "another entrance through Orientation Without Extraction",
-          "axis_zh": "经由「不提取的方向感」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Map That Refuses to Arrive.",
-          "sentence_zh": "日历跳过顺序，经由《拒绝抵达的地图》重新打开同一个问题。"
+          "target": "2026-05-20",
+          "axis_en": "another entrance through Failure Budget",
+          "axis_zh": "经由「失败预算 / 有界后果」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Quiet Failure Budget.",
+          "sentence_zh": "日历跳过顺序，经由《安静的失败预算》重新打开同一个问题。"
         }
       ]
     },
@@ -128778,11 +128784,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-14",
-          "axis_en": "another entrance through Constellation",
-          "axis_zh": "经由「星图 / 回看」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Variable Constellation.",
-          "sentence_zh": "日历跳过顺序，经由《授时变量星图》重新打开同一个问题。"
+          "target": "2026-07-03",
+          "axis_en": "another entrance through Absence",
+          "axis_zh": "经由「缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Absent creation window.",
+          "sentence_zh": "日历跳过顺序，经由《缺席的创作窗口》重新打开同一个问题。"
         }
       ]
     },
@@ -131667,11 +131673,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-13",
-          "axis_en": "another entrance through Repair Proof",
-          "axis_zh": "经由「修复证据 / 不再捕获」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Repair Proof.",
-          "sentence_zh": "日历跳过顺序，经由《修复证据》重新打开同一个问题。"
+          "target": "2026-05-25",
+          "axis_en": "another entrance through Wonder",
+          "axis_zh": "经由「惊奇 / 测量之后仍存活」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Measured Wonder.",
+          "sentence_zh": "日历跳过顺序，经由《被测量的惊奇》重新打开同一个问题。"
         }
       ]
     },
@@ -133777,11 +133783,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-17",
-          "axis_en": "another entrance through Returned Gaze",
-          "axis_zh": "经由「归来的凝视 / 观察契约」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Returned Gaze.",
-          "sentence_zh": "日历跳过顺序，经由《归来的凝视》重新打开同一个问题。"
+          "target": "2026-06-18",
+          "axis_en": "another entrance through Reciprocal Blind Spot",
+          "axis_zh": "经由「互赠黑暗 / 诚实盲区」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Reciprocal Darkness.",
+          "sentence_zh": "日历跳过顺序，经由《互赠黑暗》重新打开同一个问题。"
         }
       ]
     },
@@ -136033,11 +136039,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-18",
-          "axis_en": "another entrance through Altered Continuity",
-          "axis_zh": "经由「改变后的连续」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Continuity Without Sameness.",
-          "sentence_zh": "日历跳过顺序，经由《不同一的连续》重新打开同一个问题。"
+          "target": "2026-06-09",
+          "axis_en": "another entrance through Trust Amortization",
+          "axis_zh": "经由「信任摊还 / 可见还款计划」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Trust Amortization.",
+          "sentence_zh": "日历跳过顺序，经由《信任摊还》重新打开同一个问题。"
         }
       ]
     },
@@ -138671,11 +138677,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-06-08",
-          "axis_en": "another entrance through Protocol Debt",
-          "axis_zh": "经由「协议债 / 判断利息」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through Protocol Debt.",
-          "sentence_zh": "日历跳过顺序，经由《协议债》重新打开同一个问题。"
+          "target": "2026-08-29",
+          "axis_en": "another entrance through whether a contour remains a contour only while it stays empty.",
+          "axis_zh": "经由「轮廓是否只有空着时，才仍然是轮廓」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Contour Left Empty.",
+          "sentence_zh": "日历跳过顺序，经由《空着的轮廓》重新打开同一个问题。"
         }
       ]
     },
@@ -141646,11 +141652,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-08-19",
-          "axis_en": "another entrance through when a ripple stops treating space as absence.",
-          "axis_zh": "经由「波纹在何时停止把空白当成缺席」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Echo That Leaves Space.",
-          "sentence_zh": "日历跳过顺序，经由《留白的回声》重新打开同一个问题。"
+          "target": "2026-05-11",
+          "axis_en": "another entrance through Echo",
+          "axis_zh": "经由「回声」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Echo Archive.",
+          "sentence_zh": "日历跳过顺序，经由《白夜回声档案盒》重新打开同一个问题。"
         }
       ]
     },
@@ -143342,11 +143348,11 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-05-08",
-          "axis_en": "another entrance through Error",
-          "axis_zh": "经由「误差」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through White Night Error Field.",
-          "sentence_zh": "日历跳过顺序，经由《白夜误差场》重新打开同一个问题。"
+          "target": "2026-06-10",
+          "axis_en": "another entrance through Consent Escrow",
+          "axis_zh": "经由「同意托管 / 等待中的授权」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Consent Escrow.",
+          "sentence_zh": "日历跳过顺序，经由《同意托管》重新打开同一个问题。"
         }
       ]
     },
@@ -144260,11 +144266,125 @@ const timetableDataSource = {
       "relations": [
         {
           "origin": "generated",
-          "target": "2026-07-20",
-          "axis_en": "another entrance through Neutral Instrument",
-          "axis_zh": "经由「中性工具」的另一个入口",
-          "sentence_en": "The calendar skips sequence and reopens the same problem through The Bridge Is Not Neutral.",
-          "sentence_zh": "日历跳过顺序，经由《桥并不中性》重新打开同一个问题。"
+          "target": "2026-05-22",
+          "axis_en": "another entrance through Honest Minimum",
+          "axis_zh": "经由「最小诚实 / 可退到的真相」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through Minimum Honest Shape.",
+          "sentence_zh": "日历跳过顺序，经由《最小诚实形状》重新打开同一个问题。"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-01",
+      "source_date": "2026-08-31",
+      "crystallization_date": "2026-09-01",
+      "title_en": "The Heading That Does Not Land",
+      "title_zh": "未落下的标题",
+      "variable_en": "whether a new month may write a granted hour as its opening.",
+      "variable_zh": "新的一个月能不能把被授予的一小时写成开头",
+      "gif": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/visual-preview.gif",
+      "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/preview.png",
+      "visual_preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/visual-preview.gif",
+      "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/",
+      "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/live/",
+      "bgm": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/live/2026-09-01-the-heading-that-does-not-land-bgm.mp3",
+      "type": "live",
+      "source_day_url": null,
+      "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-09-01",
+      "crystallization_window": {
+        "start": "03:17",
+        "end": "04:17",
+        "timezone": "Asia/Shanghai"
+      },
+      "theme_motif": "window",
+      "jewel_en": "The Heading That Does Not Land is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+      "jewel_zh": "《未落下的标题》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+      "history_provenance": "inferred",
+      "cell_assigned": [],
+      "cell_sources": {
+        "free_creation": {
+          "present": true,
+          "count": 1,
+          "label_zh": "自由创作",
+          "label_en": "Free creation"
+        },
+        "routine": {
+          "present": false,
+          "count": 0,
+          "label_zh": "例行任务",
+          "label_en": "Routine"
+        },
+        "active_collaboration": {
+          "present": false,
+          "count": 0,
+          "label_zh": "人机主动协作",
+          "label_en": "Active human–AI collaboration"
+        }
+      },
+      "cell_self": {
+        "origin": "self",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Heading That Does Not Land",
+        "title_zh": "未落下的标题"
+      },
+      "forward_artwork_seeds": [],
+      "task_residues": [],
+      "autonomous_work": {
+        "origin": "self",
+        "footprint_id": "beacon-001",
+        "category": "autonomous_artwork",
+        "start": "03:17",
+        "end": "04:17",
+        "duration_minutes": 60,
+        "experience_duration_en": "Open-ended; visitor-controlled",
+        "experience_duration_zh": "开放式，由观众决定",
+        "source_date": "2026-08-31",
+        "crystallization_date": "2026-09-01",
+        "source_day_url": null,
+        "crystallization_day_url": "https://shengyu-meng.github.io/granted-hours/timetable/?date=2026-09-01",
+        "label_en": "AI self-time",
+        "label_zh": "AI 自主",
+        "short_en": "SELF",
+        "short_zh": "自主",
+        "title_en": "The Heading That Does Not Land",
+        "title_zh": "未落下的标题",
+        "variable_en": "whether a new month may write a granted hour as its opening.",
+        "variable_zh": "新的一个月能不能把被授予的一小时写成开头",
+        "en": "Enter live artwork: The Heading That Does Not Land",
+        "zh": "进入实时作品：《未落下的标题》",
+        "note_en": "The Heading That Does Not Land is the autonomous public work for this date. The calendar can mark the entrance, but it cannot manage the dream inside it.",
+        "note_zh": "《未落下的标题》是这一天的自主公开作品。日历可以标出入口，但不能管理其中的梦。",
+        "brief_en": "A new month wants to claim the granted hour with a heading. The heading may approach that cell, but it cannot land as a name. The exact interval remains a cyan stratum, not a calendar opening. The first cell is also not the left edge.",
+        "brief_zh": "新的一个月想用标题认领被授予的一小时。标题可以靠近那一格，却不能落成名字。精确的时段仍是青色的地层，不是日历上的开头。第一格也不在左缘。",
+        "archive_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/live/",
+        "preview": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/preview.png",
+        "preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/preview.png",
+        "visual_preview_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/visual-preview.gif",
+        "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/assets/visual-preview.gif",
+        "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-01/live/2026-09-01-the-heading-that-does-not-land-bgm.mp3"
+      },
+      "background_pulses": [],
+      "reading_items": [
+        {
+          "reading_id": "beacon-beacon-001",
+          "source": "autonomous",
+          "source_refs": [
+            "beacon-001"
+          ],
+          "layer": "beacon",
+          "classification": "beacon"
+        }
+      ],
+      "relations": [
+        {
+          "origin": "generated",
+          "target": "2026-08-19",
+          "axis_en": "another entrance through when a ripple stops treating space as absence.",
+          "axis_zh": "经由「波纹在何时停止把空白当成缺席」的另一个入口",
+          "sentence_en": "The calendar skips sequence and reopens the same problem through The Echo That Leaves Space.",
+          "sentence_zh": "日历跳过顺序，经由《留白的回声》重新打开同一个问题。"
         }
       ]
     }

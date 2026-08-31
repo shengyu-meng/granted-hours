@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-08-30",
-  "nodeCount": 117,
+  "generatedAt": "2026-09-01",
+  "nodeCount": 118,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2458,6 +2458,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -17,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-01",
+      "date": "2026-09-01",
+      "title_en": "The Heading That Does Not Land",
+      "title_zh": "未落下的标题",
+      "variable_en": "whether a new month may write a granted hour as its opening.",
+      "variable_zh": "新的一个月能不能把被授予的一小时写成开头",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a new month may write a granted hour as its opening. entered the archive as a clue rather than a label.",
+      "diary_zh": "「新的一个月能不能把被授予的一小时写成开头」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-01/live/",
+      "archive_url": "../archive/2026/09/2026-09-01/",
+      "gif": "../archive/2026/09/2026-09-01/assets/visual-preview.gif",
+      "x": 5,
+      "y": -21,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2478,7 +2499,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 53
+      "count": 54
     },
     {
       "id": "maintenance",
@@ -2965,6 +2986,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-08-30"
     ],
     [
+      "2026-08-30",
+      "2026-09-01"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3167,6 +3192,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-28",
       "2026-08-30"
+    ],
+    [
+      "2026-08-29",
+      "2026-09-01"
     ],
     [
       "2026-05-07",

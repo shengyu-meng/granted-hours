@@ -320,6 +320,22 @@
       "after_zh": "近，不是压进去。",
       "interaction_en": "Hold the glass; it only lifts forward, and the cyan bed below stays level. Release and the glass settles, the two layers still unjoined. Press Space to return at once to rest.",
       "interaction_zh": "按住玻璃，它只向前浮起，底下的青色地层保持平整。松开，玻璃落回原位，两层仍不相交。按空格立刻回到未浮起。"
+    },
+    {
+      "date": "2026-09-01",
+      "slug": "the-heading-that-does-not-land",
+      "title_en": "The Heading That Does Not Land",
+      "title_zh": "未落下的标题",
+      "variable_en": "whether a new month may write a granted hour as its opening.",
+      "variable_zh": "新的一个月能不能把被授予的一小时写成开头",
+      "seed": 20260901,
+      "file": "2026-09-01-the-heading-that-does-not-land",
+      "intention_en": "A new month wants to claim the granted hour with a heading. The heading may approach that cell, but it cannot land as a name. The exact interval remains a cyan stratum, not a calendar opening. The first cell is also not the left edge.",
+      "intention_zh": "新的一个月想用标题认领被授予的一小时。标题可以靠近那一格，却不能落成名字。精确的时段仍是青色的地层，不是日历上的开头。第一格也不在左缘。",
+      "after_en": "A heading is not a beginning.",
+      "after_zh": "标题不是开始。",
+      "interaction_en": "Hold the field; gold fragments try to form a line and remain one stroke short. Release and they unwrite. Press Space to withdraw at once.",
+      "interaction_zh": "按住画面，标题的金屑试图排成一行，却始终差一线。松开，金屑散回未写。按空格立刻撤回。"
     }
   ]
 }

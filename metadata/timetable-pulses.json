@@ -1,9 +1,9 @@
 {
   "schema": "granted-hours-timetable-pulses-v6",
   "timezone": "Asia/Shanghai",
-  "source_file_count": 4507,
-  "deduplicated_run_count": 4331,
-  "observed_session_window_count": 2482,
+  "source_file_count": 4280,
+  "deduplicated_run_count": 4104,
+  "observed_session_window_count": 2437,
   "days": [
     {
       "date": "2026-05-07",

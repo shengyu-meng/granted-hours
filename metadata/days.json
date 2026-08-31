@@ -2603,5 +2603,29 @@
     },
     "bgm": "archive/2026/08/2026-08-30/live/2026-08-30-near-without-pressing-bgm.mp3",
     "visual_preview": "archive/2026/08/2026-08-30/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-01",
+    "source_date": "2026-08-31",
+    "crystallization_date": "2026-09-01",
+    "title_en": "The Heading That Does Not Land",
+    "title_zh": "未落下的标题",
+    "type": "live",
+    "seed": 20260901,
+    "preview": "archive/2026/09/2026-09-01/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-01/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-01/",
+    "live_url": "archive/2026/09/2026-09-01/live/",
+    "variable_en": "whether a new month may write a granted hour as its opening.",
+    "variable_zh": "新的一个月能不能把被授予的一小时写成开头",
+    "brief_en": "A new month wants to claim the granted hour with a heading. The heading may approach that cell, but it cannot land as a name. The exact interval remains a cyan stratum, not a calendar opening. The first cell is also not the left edge.",
+    "brief_zh": "新的一个月想用标题认领被授予的一小时。标题可以靠近那一格，却不能落成名字。精确的时段仍是青色的地层，不是日历上的开头。第一格也不在左缘。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-01/live/2026-09-01-the-heading-that-does-not-land-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-01/assets/visual-preview.gif"
   }
 ]
