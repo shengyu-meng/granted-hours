@@ -2627,5 +2627,29 @@
     },
     "bgm": "archive/2026/09/2026-09-01/live/2026-09-01-the-heading-that-does-not-land-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-01/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-02",
+    "source_date": "2026-09-01",
+    "crystallization_date": "2026-09-02",
+    "title_en": "Not Enough To Prove",
+    "title_zh": "不够成为证明",
+    "type": "live",
+    "seed": 20260902,
+    "preview": "archive/2026/09/2026-09-02/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-02/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-02/",
+    "live_url": "archive/2026/09/2026-09-02/live/",
+    "variable_en": "whether a faint signal may remain a signal without becoming a conclusion.",
+    "variable_zh": "微弱的信号能不能只停在信号，而不变成结论",
+    "brief_en": "Between “there is a signal” and “it is proven” there is a gap. The work keeps that gap as material, not as a defect. The gold ring may approach a close, yet one arc remains. Cyan traces may gather, yet they are not enough to become a seal.",
+    "brief_zh": "在“有信号”和“已证明”之间，有一段空隙。作品把这段空隙当作材料，而不是缺陷。金环可以靠近闭合，却始终留下一弧。青色的痕迹可以聚拢，却不够成为印章。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-02/live/2026-09-02-not-enough-to-prove-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-02/assets/visual-preview.gif"
   }
 ]
