@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-03 — Idle Time Keeps Its Marks / 空时仍有刻度**<br>
+  Variable / 自由变量：whether unused time may thin without being erased. / 未被占用的时间能不能变薄，而不被抹去<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-03/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-03/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-03/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-03/live/)
 - **2026-09-02 — Not Enough To Prove / 不够成为证明**<br>
   Variable / 自由变量：whether a faint signal may remain a signal without becoming a conclusion. / 微弱的信号能不能只停在信号，而不变成结论<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

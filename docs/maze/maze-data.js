@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-02",
-  "nodeCount": 119,
+  "generatedAt": "2026-09-03",
+  "nodeCount": 120,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2500,6 +2500,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -19,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-03",
+      "date": "2026-09-03",
+      "title_en": "Idle Time Keeps Its Marks",
+      "title_zh": "空时仍有刻度",
+      "variable_en": "whether unused time may thin without being erased.",
+      "variable_zh": "未被占用的时间能不能变薄，而不被抹去",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether unused time may thin without being erased. entered the archive as a clue rather than a label.",
+      "diary_zh": "「未被占用的时间能不能变薄，而不被抹去」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-03/live/",
+      "archive_url": "../archive/2026/09/2026-09-03/",
+      "gif": "../archive/2026/09/2026-09-03/assets/visual-preview.gif",
+      "x": 15,
+      "y": -20,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2520,7 +2541,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 55
+      "count": 56
     },
     {
       "id": "maintenance",
@@ -3015,6 +3036,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-02"
     ],
     [
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3225,6 +3250,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-30",
       "2026-09-02"
+    ],
+    [
+      "2026-09-01",
+      "2026-09-03"
     ],
     [
       "2026-05-07",

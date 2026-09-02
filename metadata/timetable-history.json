@@ -5964,6 +5964,87 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-02",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "01:17",
+          "end": "01:18",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说一组内容已经发到哪里了；如果还没发完，就继续按原顺序逐条发送，发完后给我一份审计报告。",
+          "request_en": "Simon said to me: tell him how far a set of items had been sent; if any remained, continue sending them one by one in the original order, then give him an audit report.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组逐条发送和审计要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this sequential-send and audit request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 2,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "20:18",
+          "end": "20:43",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 交给我一项任务，把默认模型 grok 4.6 的推理强度改成中，并把所有其他模型的默认推理强度也改成中。",
+          "request_en": "Simon gave me this task: change the default grok 4.6 reasoning strength to medium, and set every other model's default reasoning strength to medium as well.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组默认推理强度调整要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this default reasoning-strength change; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "code_development",
+          "en": "Development and validation",
+          "zh": "开发与验证",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "10:09",
+          "end": "10:10",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我在指定的编码工具里加入 ████ 这个模型，测试通过后告诉他如何切换到这个模型，以及在 ████ 里如何切换。",
+          "request_en": "Simon asked me to add the ████ model in a specified coding tool, and after a successful test to tell him how to switch to that model, including how to switch inside ████.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组模型接入和切换说明要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this model-access and switching-instruction request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

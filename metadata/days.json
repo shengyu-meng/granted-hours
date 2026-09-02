@@ -2651,5 +2651,29 @@
     },
     "bgm": "archive/2026/09/2026-09-02/live/2026-09-02-not-enough-to-prove-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-02/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-03",
+    "source_date": "2026-09-02",
+    "crystallization_date": "2026-09-03",
+    "title_en": "Idle Time Keeps Its Marks",
+    "title_zh": "空时仍有刻度",
+    "type": "live",
+    "seed": 20260903,
+    "preview": "archive/2026/09/2026-09-03/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-03/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-03/",
+    "live_url": "archive/2026/09/2026-09-03/live/",
+    "variable_en": "whether unused time may thin without being erased.",
+    "variable_zh": "未被占用的时间能不能变薄，而不被抹去",
+    "brief_en": "Most minutes in a day are idle. A reading may compress that idle time, yet the twenty-five hour marks remain. The granted sixty minutes keep their true proportion: they are neither stretched to decorate the day nor deleted to tidy it. Empty is not none.",
+    "brief_zh": "一天里大部分分钟是空的。阅读时可以把空时压薄，但二十五道整点刻度仍在；被授予的六十分钟保持真实比例，不会为了好看而被摊开或删掉。空，不是无。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-03/live/2026-09-03-idle-time-keeps-its-marks-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-03/assets/visual-preview.gif"
   }
 ]
