@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-04 — Sound Occupies Only Here / 只此间有声**<br>
+  Variable / 自由变量：whether attention may occupy only one room at a time. / 注意力能不能一次只占用一间房间<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-04/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-04/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-04/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-04/live/)
 - **2026-09-03 — Idle Time Keeps Its Marks / 空时仍有刻度**<br>
   Variable / 自由变量：whether unused time may thin without being erased. / 未被占用的时间能不能变薄，而不被抹去<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

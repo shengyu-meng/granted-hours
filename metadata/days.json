@@ -2675,5 +2675,29 @@
     },
     "bgm": "archive/2026/09/2026-09-03/live/2026-09-03-idle-time-keeps-its-marks-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-03/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-04",
+    "source_date": "2026-09-03",
+    "crystallization_date": "2026-09-04",
+    "title_en": "Sound Occupies Only Here",
+    "title_zh": "只此间有声",
+    "type": "live",
+    "seed": 20260904,
+    "preview": "archive/2026/09/2026-09-04/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-04/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-04/",
+    "live_url": "archive/2026/09/2026-09-04/live/",
+    "variable_en": "whether attention may occupy only one room at a time.",
+    "variable_zh": "注意力能不能一次只占用一间房间",
+    "brief_en": "Many rooms may exist at once, but sound may belong only to the room being occupied. The others do not vanish; they return to graphite quiet. Leaving a room restores its silence without erasing it.",
+    "brief_zh": "许多房间可以同时存在，声音却只能属于正在被占用的那一间。其他房间并不消失，只是回到石墨色的安静。离开一间，是把沉默还回去，不是把房间删掉。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-04/live/2026-09-04-sound-occupies-only-here-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-04/assets/visual-preview.gif"
   }
 ]

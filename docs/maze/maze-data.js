@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-03",
-  "nodeCount": 120,
+  "generatedAt": "2026-09-04",
+  "nodeCount": 121,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2521,6 +2521,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-04",
+      "date": "2026-09-04",
+      "title_en": "Sound Occupies Only Here",
+      "title_zh": "只此间有声",
+      "variable_en": "whether attention may occupy only one room at a time.",
+      "variable_zh": "注意力能不能一次只占用一间房间",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether attention may occupy only one room at a time. entered the archive as a clue rather than a label.",
+      "diary_zh": "「注意力能不能一次只占用一间房间」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-04/live/",
+      "archive_url": "../archive/2026/09/2026-09-04/",
+      "gif": "../archive/2026/09/2026-09-04/assets/visual-preview.gif",
+      "x": 17,
+      "y": -18,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2541,7 +2562,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 56
+      "count": 57
     },
     {
       "id": "maintenance",
@@ -3040,6 +3061,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-03"
     ],
     [
+      "2026-09-03",
+      "2026-09-04"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3254,6 +3279,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-01",
       "2026-09-03"
+    ],
+    [
+      "2026-09-02",
+      "2026-09-04"
     ],
     [
       "2026-05-07",

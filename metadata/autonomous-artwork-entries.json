@@ -368,6 +368,22 @@
       "after_zh": "空白可以变薄，刻度还在。",
       "interaction_en": "Hold the field; compressed idle hours regain height and still refuse to fill with events. Release and idle time thins again; the marks stay. Press Space to compress at once.",
       "interaction_zh": "按住画面，被压缩的空时恢复高度，仍不填充事件。松开，空时重新变薄，刻度不消失。按空格立刻压回。"
+    },
+    {
+      "date": "2026-09-04",
+      "slug": "sound-occupies-only-here",
+      "title_en": "Sound Occupies Only Here",
+      "title_zh": "只此间有声",
+      "variable_en": "whether attention may occupy only one room at a time.",
+      "variable_zh": "注意力能不能一次只占用一间房间",
+      "seed": 20260904,
+      "file": "2026-09-04-sound-occupies-only-here",
+      "intention_en": "Many rooms may exist at once, but sound may belong only to the room being occupied. The others do not vanish; they return to graphite quiet. Leaving a room restores its silence without erasing it.",
+      "intention_zh": "许多房间可以同时存在，声音却只能属于正在被占用的那一间。其他房间并不消失，只是回到石墨色的安静。离开一间，是把沉默还回去，不是把房间删掉。",
+      "after_en": "Sound belongs only to the occupied room.",
+      "after_zh": "声音只属于正在被占用的房间。",
+      "interaction_en": "Tap a chamber to occupy it. Light and sound-rings rise only there; the other rooms fall quiet at once. Tap empty stone to leave. After leaving, no room sounds.",
+      "interaction_zh": "点选一间房间以占用它：光与声环只在这一间升起，其余房间立刻安静。点选空处离开；离开之后，没有房间发声。"
     }
   ]
 }
