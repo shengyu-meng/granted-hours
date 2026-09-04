@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-04",
-  "nodeCount": 121,
+  "generatedAt": "2026-09-05",
+  "nodeCount": 122,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2542,6 +2542,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -18,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-05",
+      "date": "2026-09-05",
+      "title_en": "The Gap Remains a Sentence",
+      "title_zh": "空仍是句",
+      "variable_en": "whether a withheld span still counts as a sentence.",
+      "variable_zh": "被遮罩的空位是否仍然算作一句",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The smallest opening became a map because the closed system could not close perfectly.",
+      "diary_zh": "最小的开口变成了地图，因为封闭系统无法完美封闭。",
+      "live_url": "../archive/2026/09/2026-09-05/live/",
+      "archive_url": "../archive/2026/09/2026-09-05/",
+      "gif": "../archive/2026/09/2026-09-05/assets/visual-preview.gif",
+      "x": 15,
+      "y": -16,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2562,7 +2583,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 57
+      "count": 58
     },
     {
       "id": "maintenance",
@@ -3065,6 +3086,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-04"
     ],
     [
+      "2026-09-04",
+      "2026-09-05"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3283,6 +3308,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-02",
       "2026-09-04"
+    ],
+    [
+      "2026-09-03",
+      "2026-09-05"
     ],
     [
       "2026-05-07",

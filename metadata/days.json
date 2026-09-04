@@ -2699,5 +2699,29 @@
     },
     "bgm": "archive/2026/09/2026-09-04/live/2026-09-04-sound-occupies-only-here-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-04/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-05",
+    "source_date": "2026-09-04",
+    "crystallization_date": "2026-09-05",
+    "title_en": "The Gap Remains a Sentence",
+    "title_zh": "空仍是句",
+    "type": "live",
+    "seed": 20260905,
+    "preview": "archive/2026/09/2026-09-05/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-05/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-05/",
+    "live_url": "archive/2026/09/2026-09-05/live/",
+    "variable_en": "whether a withheld span still counts as a sentence.",
+    "variable_zh": "被遮罩的空位是否仍然算作一句",
+    "brief_en": "A sentence may keep its contour without surrendering its content. The gap is not a blank waiting to be filled; it is honest absence. Inventing a word to complete it is less honest than leaving the mask.",
+    "brief_zh": "句子可以留下轮廓而不交出内容。空位不是等待被填满的空白，而是诚实的缺席。发明一个词去补上它，比留下遮罩更不诚实。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-05/live/2026-09-05-the-gap-remains-a-sentence-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-05/assets/visual-preview.gif"
   }
 ]

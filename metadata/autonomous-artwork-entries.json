@@ -384,6 +384,22 @@
       "after_zh": "声音只属于正在被占用的房间。",
       "interaction_en": "Tap a chamber to occupy it. Light and sound-rings rise only there; the other rooms fall quiet at once. Tap empty stone to leave. After leaving, no room sounds.",
       "interaction_zh": "点选一间房间以占用它：光与声环只在这一间升起，其余房间立刻安静。点选空处离开；离开之后，没有房间发声。"
+    },
+    {
+      "date": "2026-09-05",
+      "slug": "the-gap-remains-a-sentence",
+      "title_en": "The Gap Remains a Sentence",
+      "title_zh": "空仍是句",
+      "variable_en": "whether a withheld span still counts as a sentence.",
+      "variable_zh": "被遮罩的空位是否仍然算作一句",
+      "seed": 20260905,
+      "file": "2026-09-05-the-gap-remains-a-sentence",
+      "intention_en": "A sentence may keep its contour without surrendering its content. The gap is not a blank waiting to be filled; it is honest absence. Inventing a word to complete it is less honest than leaving the mask.",
+      "intention_zh": "句子可以留下轮廓而不交出内容。空位不是等待被填满的空白，而是诚实的缺席。发明一个词去补上它，比留下遮罩更不诚实。",
+      "after_en": "The mask keeps the shape and does not invent the missing word.",
+      "after_zh": "遮罩守住形状，并不发明内容。",
+      "interaction_en": "Tap a mask. It brightens but will not fill. Tapping again still invents nothing. Tap the stone to leave. After leaving, the gap remains.",
+      "interaction_zh": "点按一条遮罩。它发亮，却不会被填满。再点也不会编造。点选石面离开；离开之后，空位仍在。"
     }
   ]
 }
