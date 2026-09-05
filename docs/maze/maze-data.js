@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
   "generatedAt": "2026-09-05",
-  "nodeCount": 122,
+  "nodeCount": 123,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2461,6 +2461,27 @@ window.GRANTED_INTERIOR_DATA = {
       "latest": false
     },
     {
+      "id": "2026-08-31",
+      "date": "2026-08-31",
+      "title_en": "Absent creation window",
+      "title_zh": "缺席的创作窗口",
+      "variable_en": "Absence",
+      "variable_zh": "缺席",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Absence entered the archive as a clue rather than a label.",
+      "diary_zh": "「缺席」作为线索进入档案，而不只是标签。",
+      "live_url": "../",
+      "archive_url": "../",
+      "gif": "../",
+      "x": 5,
+      "y": -21,
+      "z": 1,
+      "featured": false,
+      "latest": false
+    },
+    {
       "id": "2026-09-01",
       "date": "2026-09-01",
       "title_en": "The Heading That Does Not Land",
@@ -2475,9 +2496,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/09/2026-09-01/live/",
       "archive_url": "../archive/2026/09/2026-09-01/",
       "gif": "../archive/2026/09/2026-09-01/assets/visual-preview.gif",
-      "x": 5,
-      "y": -21,
-      "z": 1,
+      "x": 13,
+      "y": -19,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -2496,9 +2517,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/09/2026-09-02/live/",
       "archive_url": "../archive/2026/09/2026-09-02/",
       "gif": "../archive/2026/09/2026-09-02/assets/visual-preview.gif",
-      "x": 13,
-      "y": -19,
-      "z": 0,
+      "x": 15,
+      "y": -20,
+      "z": 2,
       "featured": false,
       "latest": false
     },
@@ -2517,9 +2538,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/09/2026-09-03/live/",
       "archive_url": "../archive/2026/09/2026-09-03/",
       "gif": "../archive/2026/09/2026-09-03/assets/visual-preview.gif",
-      "x": 15,
-      "y": -20,
-      "z": 2,
+      "x": 17,
+      "y": -18,
+      "z": 0,
       "featured": false,
       "latest": false
     },
@@ -2538,9 +2559,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/09/2026-09-04/live/",
       "archive_url": "../archive/2026/09/2026-09-04/",
       "gif": "../archive/2026/09/2026-09-04/assets/visual-preview.gif",
-      "x": 17,
-      "y": -18,
-      "z": 0,
+      "x": 15,
+      "y": -16,
+      "z": 3,
       "featured": false,
       "latest": false
     },
@@ -2559,9 +2580,9 @@ window.GRANTED_INTERIOR_DATA = {
       "live_url": "../archive/2026/09/2026-09-05/live/",
       "archive_url": "../archive/2026/09/2026-09-05/",
       "gif": "../archive/2026/09/2026-09-05/assets/visual-preview.gif",
-      "x": 15,
-      "y": -16,
-      "z": 3,
+      "x": 12,
+      "y": -15,
+      "z": 1,
       "featured": false,
       "latest": true
     }
@@ -2583,7 +2604,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 58
+      "count": 59
     },
     {
       "id": "maintenance",
@@ -3071,6 +3092,10 @@ window.GRANTED_INTERIOR_DATA = {
     ],
     [
       "2026-08-30",
+      "2026-08-31"
+    ],
+    [
+      "2026-08-31",
       "2026-09-01"
     ],
     [
@@ -3295,10 +3320,14 @@ window.GRANTED_INTERIOR_DATA = {
     ],
     [
       "2026-08-29",
-      "2026-09-01"
+      "2026-08-31"
     ],
     [
       "2026-08-30",
+      "2026-09-01"
+    ],
+    [
+      "2026-08-31",
       "2026-09-02"
     ],
     [

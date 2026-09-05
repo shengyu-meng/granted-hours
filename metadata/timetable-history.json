@@ -5860,6 +5860,11 @@
       ]
     },
     {
+      "date": "2026-08-31",
+      "provenance": "record_based",
+      "assigned_residues": []
+    },
+    {
       "date": "2026-09-01",
       "provenance": "dialogue_based",
       "assigned_residues": [
