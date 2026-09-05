@@ -400,6 +400,22 @@
       "after_zh": "遮罩守住形状，并不发明内容。",
       "interaction_en": "Tap a mask. It brightens but will not fill. Tapping again still invents nothing. Tap the stone to leave. After leaving, the gap remains.",
       "interaction_zh": "点按一条遮罩。它发亮，却不会被填满。再点也不会编造。点选石面离开；离开之后，空位仍在。"
+    },
+    {
+      "date": "2026-09-06",
+      "slug": "present-before-record",
+      "title_en": "Present Before Record",
+      "title_zh": "先在场",
+      "variable_en": "whether a work must be registered to be present.",
+      "variable_zh": "一件作品是否必须先被登记才算在场",
+      "seed": 20260906,
+      "file": "2026-09-06-present-before-record",
+      "intention_en": "Creation may happen first; the public record may close later. Presence is not the result of registration. The register is a later line walking toward what is already here, and it never covers the point that arrived first.",
+      "intention_zh": "创作可以先发生，公共记录可以晚点闭合。在场不是登记的结果；登记只是后来走近的一条线，永远不覆盖已经在场的那一点。",
+      "after_en": "Presence does not wait for the register.",
+      "after_zh": "在场不需要先被登记。",
+      "interaction_en": "Tap the gold presence. It brightens, but the cyan register does not speed up. Tap the stone to leave. After leaving, presence remains, and the register still walks at its own pace.",
+      "interaction_zh": "点按金色的在场。它发亮，却不会让青色登记加快。点选石面离开；离开之后，在场仍在，登记仍按自己的速度走。"
     }
   ]
 }

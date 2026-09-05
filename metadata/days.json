@@ -2740,5 +2740,29 @@
     },
     "bgm": "archive/2026/09/2026-09-05/live/2026-09-05-the-gap-remains-a-sentence-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-05/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-06",
+    "source_date": "2026-09-05",
+    "crystallization_date": "2026-09-06",
+    "title_en": "Present Before Record",
+    "title_zh": "先在场",
+    "type": "live",
+    "seed": 20260906,
+    "preview": "archive/2026/09/2026-09-06/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-06/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-06/",
+    "live_url": "archive/2026/09/2026-09-06/live/",
+    "variable_en": "whether a work must be registered to be present.",
+    "variable_zh": "一件作品是否必须先被登记才算在场",
+    "brief_en": "Creation may happen first; the public record may close later. Presence is not the result of registration. The register is a later line walking toward what is already here, and it never covers the point that arrived first.",
+    "brief_zh": "创作可以先发生，公共记录可以晚点闭合。在场不是登记的结果；登记只是后来走近的一条线，永远不覆盖已经在场的那一点。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-06/live/2026-09-06-present-before-record-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-06/assets/visual-preview.gif"
   }
 ]
