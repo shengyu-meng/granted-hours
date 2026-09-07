@@ -2764,5 +2764,46 @@
     },
     "bgm": "archive/2026/09/2026-09-06/live/2026-09-06-present-before-record-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-06/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-07",
+    "source_date": "2026-09-06",
+    "crystallization_date": "2026-09-07",
+    "title_en": "Absent creation window",
+    "title_zh": "缺席的创作窗口",
+    "type": "calendar",
+    "seed": 20260907,
+    "preview": "",
+    "gif": "",
+    "archive_url": "",
+    "live_url": "",
+    "variable_en": "Absence",
+    "variable_zh": "缺席",
+    "bgm": "",
+    "visual_preview": ""
+  },
+  {
+    "date": "2026-09-08",
+    "source_date": "2026-09-07",
+    "crystallization_date": "2026-09-08",
+    "title_en": "An Opening That Returns",
+    "title_zh": "可退的开口",
+    "type": "live",
+    "seed": 20260908,
+    "preview": "archive/2026/09/2026-09-08/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-08/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-08/",
+    "live_url": "archive/2026/09/2026-09-08/live/",
+    "variable_en": "whether coming closer still leaves a way back.",
+    "variable_zh": "走近一层，退路是否仍在",
+    "brief_en": "The viewer may enter, but may not possess the opening. Each enlargement keeps a gold return; the innermost layer is only light, never a trophy.",
+    "brief_zh": "观看可以进入，但不能占有开口。每一层放大都保留金色退路；最深的一层也只是光，不是战利品。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-08/live/2026-09-08-an-opening-that-returns-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-08/assets/visual-preview.gif"
   }
 ]

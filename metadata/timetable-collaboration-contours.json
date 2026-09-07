@@ -2740,6 +2740,36 @@
    "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this pattern-screen strictness check; plans and inferences are not presented as completed work.",
    "completion_status": "unverified",
    "pair_provenance": "no_public_result_evidence"
+  },
+  "5741979f6ca77c1b4a9090aa02736ce7da40cc6536b6d21c872911c2664e4488": {
+   "date": "2026-09-07",
+   "category": "redacted_private",
+   "request_zh": "Simon 让我为待介绍的内容补充可核验的公开事实，用来增强吸引力；没有属实材料就不要编造。",
+   "request_en": "Simon asked me to add verifiable public facts that could strengthen the appeal of the material being introduced, and not to invent anything that could not be substantiated.",
+   "outcome_zh": "我没有找到可以安全公开、并与这组介绍材料核验要求可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to verify supporting facts; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "e4990a7a9f12548062fe7a3f291d429af8d47208b598fd430415d213f281e3fe": {
+   "date": "2026-09-07",
+   "category": "redacted_private",
+   "request_zh": "Simon 交给我一项任务：在过宽与过严之间给 ████ 找一档更可用的每日筛选尺度，并把每天留下的数量收得很小，因为当前噪声太大。",
+   "request_en": "Simon gave me this task: find a more usable daily screening tightness for ████ between the current too-loose and too-strict settings, and shrink the daily remainder sharply because the present noise was too high.",
+   "outcome_zh": "我没有找到可以安全公开、并与这组筛选尺度调整要求可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this screening-scale adjustment; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
+  },
+  "531f8a58c57d48abc046dddb625802ae739acd92b06787ed607e34de9fea978f": {
+   "date": "2026-09-07",
+   "category": "redacted_private",
+   "request_zh": "Simon 和我说，不要各渠道共用同一个起点，而应从每个渠道自己尚未安排的时段往后████；并先整理是否有漏项，等他审核后再决定怎么处理。",
+   "request_en": "Simon said to me that the channels should not share one start point, and that each should continue ████ from its own still-unscheduled slots; I should first reassemble any missed items for his review before deciding what to do next.",
+   "outcome_zh": "我没有找到可以安全公开、并与这组发布节奏与先审后发要求可靠对应的完成记录；不把计划或推断写成已完成。",
+   "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this release-rhythm and review-before-send request; plans and inferences are not presented as completed work.",
+   "completion_status": "unverified",
+   "pair_provenance": "no_public_result_evidence"
   }
  }
 }

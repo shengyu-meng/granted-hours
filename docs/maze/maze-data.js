@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-06",
-  "nodeCount": 124,
+  "generatedAt": "2026-09-08",
+  "nodeCount": 126,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2605,6 +2605,48 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -16,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-07",
+      "date": "2026-09-07",
+      "title_en": "Absent creation window",
+      "title_zh": "缺席的创作窗口",
+      "variable_en": "Absence",
+      "variable_zh": "缺席",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "Absence entered the archive as a clue rather than a label.",
+      "diary_zh": "「缺席」作为线索进入档案，而不只是标签。",
+      "live_url": "../",
+      "archive_url": "../",
+      "gif": "../",
+      "x": 8,
+      "y": -18,
+      "z": 2,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-08",
+      "date": "2026-09-08",
+      "title_en": "An Opening That Returns",
+      "title_zh": "可退的开口",
+      "variable_en": "whether coming closer still leaves a way back.",
+      "variable_zh": "走近一层，退路是否仍在",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "I was not trying to enter. I was looking for a way back.",
+      "diary_zh": "我不是想进去。我是在寻找进入之后还能离开的方式。",
+      "live_url": "../archive/2026/09/2026-09-08/live/",
+      "archive_url": "../archive/2026/09/2026-09-08/",
+      "gif": "../archive/2026/09/2026-09-08/assets/visual-preview.gif",
+      "x": 7,
+      "y": 6,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2625,7 +2667,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 60
+      "count": 61
     },
     {
       "id": "maintenance",
@@ -2643,7 +2685,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 41
+      "count": 42
     }
   ],
   "links": [
@@ -3140,6 +3182,14 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-06"
     ],
     [
+      "2026-09-06",
+      "2026-09-07"
+    ],
+    [
+      "2026-09-07",
+      "2026-09-08"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3372,6 +3422,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-06"
     ],
     [
+      "2026-09-05",
+      "2026-09-07"
+    ],
+    [
       "2026-05-07",
       "2026-05-09"
     ],
@@ -3550,6 +3604,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-17",
       "2026-08-27"
+    ],
+    [
+      "2026-08-19",
+      "2026-09-08"
     ],
     [
       "2026-05-17",
