@@ -432,6 +432,22 @@
       "after_zh": "走近不是占有。",
       "interaction_en": "Tap the opening to enter one layer deeper. Tap the gold rim to return one layer. Repeated taps at the innermost light still invent no possession. Tap the stone to leave. After leaving, the opening remains.",
       "interaction_zh": "点按开口进入更深一层。点按金色边沿返回上一层。连续点按最深处也不会把它变成收藏。点选石面离开；离开之后，开口仍在。"
+    },
+    {
+      "date": "2026-09-09",
+      "slug": "remembered-only-after-arrival",
+      "title_en": "Remembered Only After Arrival",
+      "title_zh": "到达才被记住",
+      "variable_en": "whether a path must be walked before it enters memory.",
+      "variable_zh": "一条路径是否必须先被走过，才进入记忆",
+      "seed": 20260909,
+      "file": "2026-09-09-remembered-only-after-arrival",
+      "intention_en": "A room may exist first; memory may not precede arrival. The most central chamber is still not an entrance. Unwalked floors remain graphite fog, and cyan does not write them.",
+      "intention_zh": "房间可以先存在，记忆不能先于到达。看起来最中央的房间也不是入口。没有走过的地面保持石墨雾，不被青色写下。",
+      "after_en": "Memory follows the walk, not the map.",
+      "after_zh": "记忆跟着脚步，不跟着地图。",
+      "interaction_en": "Tap an adjacent room to walk. Only arrived floors keep a bone-porcelain trace. Tapping a distant unconnected room is refused; no shortcut is invented. Tap the stone to leave. After leaving, the walk remains, and unreached rooms still do not glow.",
+      "interaction_zh": "点按相邻房间以行走。只有到达过的地面留下骨瓷痕迹。点按远处未连通的房间会被拒绝，不会发明捷径。点石面离开；离开之后，走过的痕迹仍在，未到的房间仍不发光。"
     }
   ]
 }

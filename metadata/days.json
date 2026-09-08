@@ -2805,5 +2805,29 @@
     },
     "bgm": "archive/2026/09/2026-09-08/live/2026-09-08-an-opening-that-returns-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-08/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-09",
+    "source_date": "2026-09-08",
+    "crystallization_date": "2026-09-09",
+    "title_en": "Remembered Only After Arrival",
+    "title_zh": "到达才被记住",
+    "type": "live",
+    "seed": 20260909,
+    "preview": "archive/2026/09/2026-09-09/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-09/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-09/",
+    "live_url": "archive/2026/09/2026-09-09/live/",
+    "variable_en": "whether a path must be walked before it enters memory.",
+    "variable_zh": "一条路径是否必须先被走过，才进入记忆",
+    "brief_en": "A room may exist first; memory may not precede arrival. The most central chamber is still not an entrance. Unwalked floors remain graphite fog, and cyan does not write them.",
+    "brief_zh": "房间可以先存在，记忆不能先于到达。看起来最中央的房间也不是入口。没有走过的地面保持石墨雾，不被青色写下。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-09/live/2026-09-09-remembered-only-after-arrival-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-09/assets/visual-preview.gif"
   }
 ]

@@ -26,9 +26,10 @@ for (let index = 0; index < args.length; index += 1) {
   requestedDates.push(value);
   index += 1;
 }
+const liveDays = days.filter((day) => day.type !== "calendar");
 const selectedDays = requestedDates.length
   ? days.filter((day) => requestedDates.includes(day.date))
-  : days.slice(-3);
+  : liveDays.slice(-3);
 
 assert.ok(days.length > 0, "Expected at least one declared public day");
 assert.equal(

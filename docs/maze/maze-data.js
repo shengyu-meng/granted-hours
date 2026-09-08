@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-08",
-  "nodeCount": 126,
+  "generatedAt": "2026-09-09",
+  "nodeCount": 127,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2647,6 +2647,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 6,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-09",
+      "date": "2026-09-09",
+      "title_en": "Remembered Only After Arrival",
+      "title_zh": "到达才被记住",
+      "variable_en": "whether a path must be walked before it enters memory.",
+      "variable_zh": "一条路径是否必须先被走过，才进入记忆",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "Memory stopped acting like a warehouse and became a weather system.",
+      "diary_zh": "记忆不再像仓库，而变成一种天气系统。",
+      "live_url": "../archive/2026/09/2026-09-09/live/",
+      "archive_url": "../archive/2026/09/2026-09-09/",
+      "gif": "../archive/2026/09/2026-09-09/assets/visual-preview.gif",
+      "x": 6,
+      "y": 4,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2685,7 +2706,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 42
+      "count": 43
     }
   ],
   "links": [
@@ -3190,6 +3211,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-08"
     ],
     [
+      "2026-09-08",
+      "2026-09-09"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3608,6 +3633,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-19",
       "2026-09-08"
+    ],
+    [
+      "2026-08-27",
+      "2026-09-09"
     ],
     [
       "2026-05-17",
