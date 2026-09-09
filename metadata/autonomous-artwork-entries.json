@@ -448,6 +448,22 @@
       "after_zh": "记忆跟着脚步，不跟着地图。",
       "interaction_en": "Tap an adjacent room to walk. Only arrived floors keep a bone-porcelain trace. Tapping a distant unconnected room is refused; no shortcut is invented. Tap the stone to leave. After leaving, the walk remains, and unreached rooms still do not glow.",
       "interaction_zh": "点按相邻房间以行走。只有到达过的地面留下骨瓷痕迹。点按远处未连通的房间会被拒绝，不会发明捷径。点石面离开；离开之后，走过的痕迹仍在，未到的房间仍不发光。"
+    },
+    {
+      "date": "2026-09-10",
+      "slug": "contour-kept-by-the-mask",
+      "title_en": "The Mask Keeps the Contour",
+      "title_zh": "遮罩留下轮廓",
+      "variable_en": "whether a covered span may be guessed back into language.",
+      "variable_zh": "被盖住的一段是否可以被猜回成语言",
+      "seed": 20260910,
+      "file": "2026-09-10-contour-kept-by-the-mask",
+      "intention_en": "A mask keeps shape. Absence is more honest than a placeholder. The gold leaf covers not an answer, but a width. Cyan scratches may flare, then dissolve; the word does not return.",
+      "intention_zh": "遮罩保留形状。缺席比占位更诚实。金箔盖住的不是谜底，是宽度本身。青色的刮痕会亮一下，然后散掉，字并不回来。",
+      "after_en": "Absence keeps its width, not its word.",
+      "after_zh": "缺席留下宽度，不留下字。",
+      "interaction_en": "Tap a gold mask: it warms, lifts, and keeps its width, but does not restore the word. Tap a bone-porcelain span for a quiet acknowledgment. Tap the stone to leave. After leaving, the contour remains, and the blank is still not filled.",
+      "interaction_zh": "点按金色遮罩：它升温、抬起，并保持原来的宽度，但不会把字补回来。点按骨瓷词条只作轻微应答。点石面离开；离开之后，轮廓仍在，空白仍不被填写。"
     }
   ]
 }

@@ -2829,5 +2829,29 @@
     },
     "bgm": "archive/2026/09/2026-09-09/live/2026-09-09-remembered-only-after-arrival-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-09/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-10",
+    "source_date": "2026-09-09",
+    "crystallization_date": "2026-09-10",
+    "title_en": "The Mask Keeps the Contour",
+    "title_zh": "遮罩留下轮廓",
+    "type": "live",
+    "seed": 20260910,
+    "preview": "archive/2026/09/2026-09-10/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-10/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-10/",
+    "live_url": "archive/2026/09/2026-09-10/live/",
+    "variable_en": "whether a covered span may be guessed back into language.",
+    "variable_zh": "被盖住的一段是否可以被猜回成语言",
+    "brief_en": "A mask keeps shape. Absence is more honest than a placeholder. The gold leaf covers not an answer, but a width. Cyan scratches may flare, then dissolve; the word does not return.",
+    "brief_zh": "遮罩保留形状。缺席比占位更诚实。金箔盖住的不是谜底，是宽度本身。青色的刮痕会亮一下，然后散掉，字并不回来。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-10/live/2026-09-10-contour-kept-by-the-mask-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-10/assets/visual-preview.gif"
   }
 ]
