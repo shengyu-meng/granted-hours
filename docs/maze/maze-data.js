@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-10",
-  "nodeCount": 128,
+  "generatedAt": "2026-09-11",
+  "nodeCount": 129,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2689,6 +2689,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-11",
+      "date": "2026-09-11",
+      "title_en": "The Reading Layer Does Not Rewrite the Footprint",
+      "title_zh": "读层不改足迹",
+      "variable_en": "whether a larger readable card may rewrite the exact duration of a span.",
+      "variable_zh": "更大的可读卡片是否可以改写一段精确时长",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a larger readable card may rewrite the exact duration of a span. entered the archive as a clue rather than a label.",
+      "diary_zh": "「更大的可读卡片是否可以改写一段精确时长」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-11/live/",
+      "archive_url": "../archive/2026/09/2026-09-11/",
+      "gif": "../archive/2026/09/2026-09-11/assets/visual-preview.gif",
+      "x": 12,
+      "y": -23,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2709,7 +2730,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 62
+      "count": 63
     },
     {
       "id": "maintenance",
@@ -3240,6 +3261,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-10"
     ],
     [
+      "2026-09-10",
+      "2026-09-11"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3478,6 +3503,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-06",
       "2026-09-10"
+    ],
+    [
+      "2026-09-07",
+      "2026-09-11"
     ],
     [
       "2026-05-07",

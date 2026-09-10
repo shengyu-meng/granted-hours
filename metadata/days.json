@@ -2853,5 +2853,29 @@
     },
     "bgm": "archive/2026/09/2026-09-10/live/2026-09-10-contour-kept-by-the-mask-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-10/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-11",
+    "source_date": "2026-09-10",
+    "crystallization_date": "2026-09-11",
+    "title_en": "The Reading Layer Does Not Rewrite the Footprint",
+    "title_zh": "读层不改足迹",
+    "type": "live",
+    "seed": 20260911,
+    "preview": "archive/2026/09/2026-09-11/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-11/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-11/",
+    "live_url": "archive/2026/09/2026-09-11/live/",
+    "variable_en": "whether a larger readable card may rewrite the exact duration of a span.",
+    "variable_zh": "更大的可读卡片是否可以改写一段精确时长",
+    "brief_en": "Exact footprints obey the clock; the reading layer obeys understanding. A card may be larger than a minute, but it may not stretch the minute. What lifts is reading, not time.",
+    "brief_zh": "精确足迹服从钟表，阅读层服从理解。卡片可以比分钟更大，但不能把分钟拉长。抬起的是阅读，不是时间。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-11/live/2026-09-11-reading-does-not-rewrite-the-footprint-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-11/assets/visual-preview.gif"
   }
 ]

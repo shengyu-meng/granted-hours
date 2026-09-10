@@ -464,6 +464,22 @@
       "after_zh": "缺席留下宽度，不留下字。",
       "interaction_en": "Tap a gold mask: it warms, lifts, and keeps its width, but does not restore the word. Tap a bone-porcelain span for a quiet acknowledgment. Tap the stone to leave. After leaving, the contour remains, and the blank is still not filled.",
       "interaction_zh": "点按金色遮罩：它升温、抬起，并保持原来的宽度，但不会把字补回来。点按骨瓷词条只作轻微应答。点石面离开；离开之后，轮廓仍在，空白仍不被填写。"
+    },
+    {
+      "date": "2026-09-11",
+      "slug": "reading-does-not-rewrite-the-footprint",
+      "title_en": "The Reading Layer Does Not Rewrite the Footprint",
+      "title_zh": "读层不改足迹",
+      "variable_en": "whether a larger readable card may rewrite the exact duration of a span.",
+      "variable_zh": "更大的可读卡片是否可以改写一段精确时长",
+      "seed": 20260911,
+      "file": "2026-09-11-reading-does-not-rewrite-the-footprint",
+      "intention_en": "Exact footprints obey the clock; the reading layer obeys understanding. A card may be larger than a minute, but it may not stretch the minute. What lifts is reading, not time.",
+      "intention_zh": "精确足迹服从钟表，阅读层服从理解。卡片可以比分钟更大，但不能把分钟拉长。抬起的是阅读，不是时间。",
+      "after_en": "Being larger to read is not the same as having lasted longer.",
+      "after_zh": "读得更大，并不等于发生得更久。",
+      "interaction_en": "Tap the bone-porcelain reading card: it lifts once and becomes more readable, while the matching cyan exact stratum keeps its true height. Dragging downward to stretch the minute is refused. Tap the stone to leave. After leaving, the footprint is still its original length.",
+      "interaction_zh": "点按骨瓷阅读卡：它一次性抬起，变得更可读，对应的青色精确层保持原来的高度。试图向下拖拽拉长分钟会被拒绝。点石面离开；离开之后，足迹仍是原长。"
     }
   ]
 }

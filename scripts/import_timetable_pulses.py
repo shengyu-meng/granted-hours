@@ -44,6 +44,7 @@ from public_projection_privacy import (
     replace_private_terms,
 )
 from semantic_public_policy import (
+    calendar_text_is_cryptocurrency_omission,
     reminder_requires_routine_projection as reminder_text_requires_routine_projection,
 )
 
@@ -1088,6 +1089,11 @@ def build_snapshot(
                     }
                 )
                 if reminder_projection is not None:
+                    if calendar_text_is_cryptocurrency_omission(
+                        str(reminder_projection.get("summary_original") or ""),
+                        day_date,
+                    ):
+                        continue
                     pulse.update(reminder_projection)
                     if (
                         not allow_missing_reminder_translations_for_candidates

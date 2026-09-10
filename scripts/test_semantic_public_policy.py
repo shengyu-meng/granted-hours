@@ -13,6 +13,8 @@ from apply_semantic_public_policy import (
 )
 from semantic_public_policy import (
     abstract_sensitive_public_text,
+    calendar_text_is_cryptocurrency_omission,
+    is_cryptocurrency_calendar_topic,
     polish_public_excerpt,
     reminder_requires_routine_projection,
     semantic_risk_tags,
@@ -245,6 +247,35 @@ class SemanticPublicPolicyTests(unittest.TestCase):
             ("scheduling quota", "three drafts"),
         )
         self.assertIn("Public-content scheduling", result)
+
+    def test_cryptocurrency_topics_are_omitted_from_2026_09_10(self) -> None:
+        self.assertTrue(is_cryptocurrency_calendar_topic("以后跟加密相关的内容不要在这个组里报。"))
+        self.assertTrue(is_cryptocurrency_calendar_topic("为什么这段时间没有可狙击的新币？"))
+        self.assertFalse(is_cryptocurrency_calendar_topic("Use crypto.getRandomValues and an API token."))
+        self.assertFalse(calendar_text_is_cryptocurrency_omission("cryptocurrency rally", "2026-09-09"))
+        source = {
+            "days": [
+                {
+                    "date": "2026-09-10",
+                    "assigned_residues": [
+                        {
+                            "source_kind": "collaboration_session",
+                            "category": "redacted_private",
+                            "zh": "加密相关路由。",
+                            "en": "Cryptocurrency routing.",
+                            "request_zh": "Simon 让我把加密相关内容换到另一个组。",
+                            "request_en": "Simon asked me to move cryptocurrency updates to another group.",
+                            "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+                            "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+                            "completion_status": "unverified",
+                        }
+                    ],
+                }
+            ]
+        }
+        sanitized, stats = sanitize_history(source)
+        self.assertEqual(sanitized["days"][0]["assigned_residues"], [])
+        self.assertEqual(stats["omitted"], 1)
 
     def test_personal_finance_operations_are_abstracted(self) -> None:
         result = self.assert_abstracted(

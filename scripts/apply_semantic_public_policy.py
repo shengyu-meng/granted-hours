@@ -31,6 +31,7 @@ from public_projection_privacy import (
 from semantic_public_policy import (
     abstract_for_tags,
     abstract_sensitive_public_text,
+    calendar_text_is_cryptocurrency_omission,
     polish_public_excerpt,
     projection_tags,
     reminder_requires_routine_projection,
@@ -111,9 +112,28 @@ def sanitize_history(
         "abstracted": 0,
         "identity_masks": 0,
         "merged_duplicates": 0,
+        "omitted": 0,
     }
     for day in source.get("days", []):
         day_date = str(day.get("date", ""))
+        kept_residues = []
+        for residue in day.get("assigned_residues", []):
+            blob = "\n".join(
+                str(residue.get(field) or "")
+                for field in (
+                    "zh",
+                    "en",
+                    "request_zh",
+                    "request_en",
+                    "outcome_zh",
+                    "outcome_en",
+                )
+            )
+            if calendar_text_is_cryptocurrency_omission(blob, day_date):
+                stats["omitted"] += 1
+                continue
+            kept_residues.append(residue)
+        day["assigned_residues"] = kept_residues
         for residue_index, residue in enumerate(day.get("assigned_residues", [])):
             forced_tags = KNOWN_HISTORY_ABSTRACTIONS.get(day_date, {}).get(
                 residue_index,
@@ -313,8 +333,29 @@ def sanitize_pulses(
         "identity_masks": 0,
         "reminders": 0,
         "routine_reductions": 0,
+        "omitted": 0,
     }
     for day in source.get("days", []):
+        day_date = str(day.get("date", ""))
+        kept_pulses = []
+        for pulse in day.get("pulses", []):
+            blob = "\n".join(
+                str(pulse.get(field) or "")
+                for field in (
+                    "summary_zh",
+                    "summary_en",
+                    "summary_original",
+                    "excerpt_original",
+                    "excerpt_en",
+                    "label_zh",
+                    "label_en",
+                )
+            )
+            if calendar_text_is_cryptocurrency_omission(blob, day_date):
+                stats["omitted"] += 1
+                continue
+            kept_pulses.append(pulse)
+        day["pulses"] = kept_pulses
         for pulse in day.get("pulses", []):
             if pulse.get("category") == "daily_reminder" and all(
                 isinstance(pulse.get(field), str)

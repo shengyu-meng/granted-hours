@@ -157,6 +157,18 @@ RULES = (
 )
 
 MASK = "████"
+CRYPTOCURRENCY_CALENDAR_OMIT_DATE = "2026-09-10"
+_CRYPTOCURRENCY_TOPIC_RE = re.compile(
+    r"(?is)"
+    r"加密货币|加密资产|加密相关|加密币|"
+    r"比特币|以太坊|稳定币|"
+    r"新币狙击|可狙击|狙击的币|发.{0,6}币|"
+    r"Token经济|代币经济|代币发行|"
+    r"\bTGE\b|token\s*launch|"
+    r"\bDeFi\b|"
+    r"\bBitcoin\b|\bEthereum\b|\bSolana\b|"
+    r"cryptocurrency|\bcrypto\s+rally\b|(?<![\w.])crypto(?!getRandomValues)"
+)
 MASK_SCOPE_SKIP_TAGS = {
     "health_or_emotional_state",
     "personal_finance_or_trading",
@@ -348,6 +360,22 @@ def polish_public_excerpt(text: str, max_chars: int = 260) -> str:
     if value[-1] not in "。！？.!?）)]}」』”’":
         value += "。" if _HAN_RE.search(value) else "."
     return value
+
+
+def is_cryptocurrency_calendar_topic(text: str) -> bool:
+    """True for cryptocurrency-class calendar topics, not API/NLP token text."""
+    if not isinstance(text, str) or not text.strip():
+        return False
+    if re.search(r"(?i)crypto\.getRandomValues|api[_ -]?token|nlp\s+token", text):
+        return False
+    return _CRYPTOCURRENCY_TOPIC_RE.search(text) is not None
+
+
+def calendar_text_is_cryptocurrency_omission(text: str, day: str | None = None) -> bool:
+    """Omit matching public calendar copy from 2026-09-10 onward."""
+    if day and day < CRYPTOCURRENCY_CALENDAR_OMIT_DATE:
+        return False
+    return is_cryptocurrency_calendar_topic(text)
 
 
 def semantic_risk_tags(text: str) -> tuple[str, ...]:

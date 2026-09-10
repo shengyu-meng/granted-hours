@@ -24,6 +24,7 @@ from public_projection_privacy import (
 )
 from semantic_public_policy import (
     abstract_sensitive_public_text,
+    calendar_text_is_cryptocurrency_omission,
     polish_public_excerpt,
     projection_tags,
     semantic_risk_tags,
@@ -1350,6 +1351,29 @@ def import_events(state_db: Path, days_path: Path, history_path: Path, detector:
     collected_dates = [day for day in scan_dates if day not in MANUALLY_CURATED_DATES]
     if collected_dates:
         collaborations, audit = collect(state_db, collected_dates, detector, denylists)
+        collaborations = {
+            day: [
+                event
+                for event in events
+                if not calendar_text_is_cryptocurrency_omission(
+                    "\n".join(
+                        str(event.get(field) or "")
+                        for field in (
+                            "_request_zh",
+                            "zh",
+                            "en",
+                            "request_zh",
+                            "request_en",
+                        )
+                    ),
+                    day,
+                )
+            ]
+            for day, events in collaborations.items()
+        }
+        collaborations = {
+            day: events for day, events in collaborations.items() if events
+        }
         agents = collect_agent_events(state_db, collected_dates, excluded_parent_sources={"telegram"})
     else:
         collaborations = {}
