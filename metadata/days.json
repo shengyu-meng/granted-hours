@@ -2877,5 +2877,29 @@
     },
     "bgm": "archive/2026/09/2026-09-11/live/2026-09-11-reading-does-not-rewrite-the-footprint-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-11/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-12",
+    "source_date": "2026-09-11",
+    "crystallization_date": "2026-09-12",
+    "title_en": "Absence Is More Honest Than a Placeholder",
+    "title_zh": "缺席比占位诚实",
+    "type": "live",
+    "seed": 20260912,
+    "preview": "archive/2026/09/2026-09-12/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-12/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-12/",
+    "live_url": "archive/2026/09/2026-09-12/live/",
+    "variable_en": "whether an empty interval may be completed so the day looks finished.",
+    "variable_zh": "空着的间隙是否可以被补成完整的一天",
+    "brief_en": "A mask keeps the contour of a sentence, but it does not write an unhappened event as if it occurred. Absence is more honest than a placeholder. The compressed gap may be witnessed; it may not be filled with gold.",
+    "brief_zh": "遮罩保留句子的轮廓，但不把没有发生的事写成发生过。缺席比占位诚实；压缩的空隙可以看见，不能被金片填满。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-12/live/2026-09-12-absence-is-more-honest-than-a-placeholder-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-12/assets/visual-preview.gif"
   }
 ]

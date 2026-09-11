@@ -50,7 +50,7 @@ RULES = (
     SemanticRule(
         "family_or_caregiving",
         re.compile(
-            r"(?is)老婆|妻子|丈夫|伴侣|孩子|小孩|我娃|带娃|陪娃|父职|父亲|"
+            r"(?is)老婆|妻子|丈夫|伴侣|孩子|小孩|我娃|带娃|陪娃|送娃|接娃|父职|父亲|"
             r"母亲|爸爸|妈妈|父子|父女|儿子|女儿|家人|家庭安排|亲子|"
             r"\bspouse\b|\bwife\b|\bhusband\b|\bpartner\b|\bchild(?:ren)?\b|"
             r"\bfatherhood\b|\bmotherhood\b|\bparenting\b|\bcaregiving\b",

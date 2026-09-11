@@ -6615,6 +6615,71 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-11",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "09:01",
+          "end": "22:15",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我核对他朋友提到的 ████ 是哪几个、有没有漏名，并说明为什么没查到。",
+          "request_en": "Simon asked me to check which ████ his friend had mentioned, whether any names were missed, and why they were not found.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次姓名核对要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this name-check request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "code_development",
+          "en": "On 2026-09-11, Codex/GPT completed evidence-backed coding and review for ████; an implementation or validation result was returned.",
+          "zh": "2026-09-11，Codex/GPT 完成 ████ 的编码与审校，并返回实现或验收结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "06:45",
+          "end": "06:50",
+          "time_provenance": "observed_session_window"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-09-11, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "2026-09-11，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "16:20",
+          "end": "16:24",
+          "time_provenance": "observed_session_window"
+        }
+      ]
     }
   ]
 }

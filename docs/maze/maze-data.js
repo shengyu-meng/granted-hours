@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-11",
-  "nodeCount": 129,
+  "generatedAt": "2026-09-12",
+  "nodeCount": 130,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2710,6 +2710,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -23,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-12",
+      "date": "2026-09-12",
+      "title_en": "Absence Is More Honest Than a Placeholder",
+      "title_zh": "缺席比占位诚实",
+      "variable_en": "whether an empty interval may be completed so the day looks finished.",
+      "variable_zh": "空着的间隙是否可以被补成完整的一天",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an empty interval may be completed so the day looks finished. entered the archive as a clue rather than a label.",
+      "diary_zh": "「空着的间隙是否可以被补成完整的一天」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-12/live/",
+      "archive_url": "../archive/2026/09/2026-09-12/",
+      "gif": "../archive/2026/09/2026-09-12/assets/visual-preview.gif",
+      "x": 15,
+      "y": -23,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2730,7 +2751,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 63
+      "count": 64
     },
     {
       "id": "maintenance",
@@ -3265,6 +3286,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-11"
     ],
     [
+      "2026-09-11",
+      "2026-09-12"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3507,6 +3532,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-07",
       "2026-09-11"
+    ],
+    [
+      "2026-09-10",
+      "2026-09-12"
     ],
     [
       "2026-05-07",
