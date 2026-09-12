@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-13 — Closure Keeps Its Own Hour / 闭合另有其时**<br>
+  Variable / 自由变量：whether a finished work may occupy the public day before the later closing hour arrives. / 已完成的作品能否在闭合时刻到来之前占住公开日<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-13/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-13/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-13/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-13/live/)
 - **2026-09-12 — Absence Is More Honest Than a Placeholder / 缺席比占位诚实**<br>
   Variable / 自由变量：whether an empty interval may be completed so the day looks finished. / 空着的间隙是否可以被补成完整的一天<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

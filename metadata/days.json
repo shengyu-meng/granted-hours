@@ -2901,5 +2901,29 @@
     },
     "bgm": "archive/2026/09/2026-09-12/live/2026-09-12-absence-is-more-honest-than-a-placeholder-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-12/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-13",
+    "source_date": "2026-09-12",
+    "crystallization_date": "2026-09-13",
+    "title_en": "Closure Keeps Its Own Hour",
+    "title_zh": "闭合另有其时",
+    "type": "live",
+    "seed": 20260913,
+    "preview": "archive/2026/09/2026-09-13/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-13/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-13/",
+    "live_url": "archive/2026/09/2026-09-13/live/",
+    "variable_en": "whether a finished work may occupy the public day before the later closing hour arrives.",
+    "variable_zh": "已完成的作品能否在闭合时刻到来之前占住公开日",
+    "brief_en": "The granted hour may finish a work. Public admission is another clock. Completeness is not entry; a receipt is not an exhibition. The later hour may be approached; it may not be brought forward.",
+    "brief_zh": "授予的一小时可以把作品做完。公开入历是另一座钟。完成不是入场；收据也不是展览。后到的时刻可以被靠近，不能被提前。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-13/live/2026-09-13-closure-keeps-its-own-hour-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-13/assets/visual-preview.gif"
   }
 ]

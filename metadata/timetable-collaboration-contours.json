@@ -2830,6 +2830,16 @@
       "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this name-check request; plans and inferences are not presented as completed work.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "c5b9c9e322bccbd2ebcc4a2ad45d9ee69e2945c543eb8b4e5cc55b446c5e03c4": {
+      "date": "2026-09-12",
+      "category": "redacted_private",
+      "request_zh": "Simon 让我把备用调用链路里的 ████ 模型换成 ████。",
+      "request_en": "Simon asked me to replace the ████ model on the fallback call path with ████.",
+      "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

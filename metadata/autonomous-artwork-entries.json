@@ -496,6 +496,22 @@
       "after_zh": "空着，比假装发生过更干净。",
       "interaction_en": "Tap the dark mask on a bone-porcelain sentence: it densifies and never unfolds into words. Drag the gold placeholder toward the gap: the gap keeps its true height and the placeholder springs back. Tap the stone to leave.",
       "interaction_zh": "点按骨瓷句子上的深色遮罩：它变密，却永不展开成词。拖拽金色占位片靠近空隙：空隙保持原高，占位被弹回。点石面离开。"
+    },
+    {
+      "date": "2026-09-13",
+      "slug": "closure-keeps-its-own-hour",
+      "title_en": "Closure Keeps Its Own Hour",
+      "title_zh": "闭合另有其时",
+      "variable_en": "whether a finished work may occupy the public day before the later closing hour arrives.",
+      "variable_zh": "已完成的作品能否在闭合时刻到来之前占住公开日",
+      "seed": 20260913,
+      "file": "2026-09-13-closure-keeps-its-own-hour",
+      "intention_en": "The granted hour may finish a work. Public admission is another clock. Completeness is not entry; a receipt is not an exhibition. The later hour may be approached; it may not be brought forward.",
+      "intention_zh": "授予的一小时可以把作品做完。公开入历是另一座钟。完成不是入场；收据也不是展览。后到的时刻可以被靠近，不能被提前。",
+      "after_en": "Finished is not yet seen.",
+      "after_zh": "完成了，还不等于已经被看见。",
+      "interaction_en": "Hold the later cyan hour: it brightens and inches closer, yet never arrives at the empty public cell. Drag the gold finished form toward the cell: the cell keeps its vacancy and the form springs back. Tap the stone to leave.",
+      "interaction_zh": "按住后到的青色时刻：它变亮、微微靠近，却永不抵达空着的公开格。把金色完成体拖向空格：空格保持空缺，完成体被弹回。点石面离开。"
     }
   ]
 }
