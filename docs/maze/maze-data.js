@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-13",
-  "nodeCount": 131,
+  "generatedAt": "2026-09-14",
+  "nodeCount": 132,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2752,6 +2752,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-14",
+      "date": "2026-09-14",
+      "title_en": "The Center Cannot Be Occupied",
+      "title_zh": "中心不可驻留",
+      "variable_en": "whether a more central place is more available to stand in.",
+      "variable_zh": "更中心的地方是否因此更好驻留",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a more central place is more available to stand in. entered the archive as a clue rather than a label.",
+      "diary_zh": "「更中心的地方是否因此更好驻留」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-14/live/",
+      "archive_url": "../archive/2026/09/2026-09-14/",
+      "gif": "../archive/2026/09/2026-09-14/assets/visual-preview.gif",
+      "x": 19,
+      "y": -18,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2772,7 +2793,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 65
+      "count": 66
     },
     {
       "id": "maintenance",
@@ -3315,6 +3336,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-13"
     ],
     [
+      "2026-09-13",
+      "2026-09-14"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3565,6 +3590,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-11",
       "2026-09-13"
+    ],
+    [
+      "2026-09-12",
+      "2026-09-14"
     ],
     [
       "2026-05-07",

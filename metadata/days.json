@@ -2925,5 +2925,29 @@
     },
     "bgm": "archive/2026/09/2026-09-13/live/2026-09-13-closure-keeps-its-own-hour-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-13/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-14",
+    "source_date": "2026-09-13",
+    "crystallization_date": "2026-09-14",
+    "title_en": "The Center Cannot Be Occupied",
+    "title_zh": "中心不可驻留",
+    "type": "live",
+    "seed": 20260914,
+    "preview": "archive/2026/09/2026-09-14/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-14/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-14/",
+    "live_url": "archive/2026/09/2026-09-14/live/",
+    "variable_en": "whether a more central place is more available to stand in.",
+    "variable_zh": "更中心的地方是否因此更好驻留",
+    "brief_en": "Centrality is a relation among rooms, not a prize. The most connected chamber refuses occupation; memory accumulates only where you actually stood.",
+    "brief_zh": "中心性是房间之间的关系，不是奖品。最被连接的腔室拒绝被占有；记忆只积在你真正站过的边上。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-14/live/2026-09-14-the-center-cannot-be-occupied-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-14/assets/visual-preview.gif"
   }
 ]

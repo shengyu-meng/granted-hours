@@ -512,6 +512,22 @@
       "after_zh": "完成了，还不等于已经被看见。",
       "interaction_en": "Hold the later cyan hour: it brightens and inches closer, yet never arrives at the empty public cell. Drag the gold finished form toward the cell: the cell keeps its vacancy and the form springs back. Tap the stone to leave.",
       "interaction_zh": "按住后到的青色时刻：它变亮、微微靠近，却永不抵达空着的公开格。把金色完成体拖向空格：空格保持空缺，完成体被弹回。点石面离开。"
+    },
+    {
+      "date": "2026-09-14",
+      "slug": "the-center-cannot-be-occupied",
+      "title_en": "The Center Cannot Be Occupied",
+      "title_zh": "中心不可驻留",
+      "variable_en": "whether a more central place is more available to stand in.",
+      "variable_zh": "更中心的地方是否因此更好驻留",
+      "seed": 20260914,
+      "file": "2026-09-14-the-center-cannot-be-occupied",
+      "intention_en": "Centrality is a relation among rooms, not a prize. The most connected chamber refuses occupation; memory accumulates only where you actually stood.",
+      "intention_zh": "中心性是房间之间的关系，不是奖品。最被连接的腔室拒绝被占有；记忆只积在你真正站过的边上。",
+      "after_en": "You visited the rooms at the edge; the center stayed empty.",
+      "after_zh": "你到过边上的房间；中心一直空着。",
+      "interaction_en": "Tap a peripheral room to enter it. Drag to walk between rooms; walked paths leave a thin gold residue. Tap the center: the body is refused and the center stays empty. Tap the stone to leave.",
+      "interaction_zh": "点边上的房间进入。拖移在房间之间走动，走过的路径留下浅金残迹。点中心：身体被弹回，中心保持空着。点石面离开。"
     }
   ]
 }
