@@ -6767,6 +6767,62 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-14",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 7,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "07:14",
+          "end": "20:53",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我仔细核查最近发来的两条链接，确认████就是这两份内容，并解释为什么会抓错内容；另外检查当天要求总结的条目是否都已完成，若没有就立刻补上发回。",
+          "request_en": "Simon asked me to check the two recently sent links, confirm that ████ are those two pieces, and explain why the wrong content was fetched; also check whether that day's requested summaries were all done, and if not send them back at once.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次链接抓取核验和补发总结要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this link-fetch check and catch-up summary request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "19:08",
+          "end": "19:09",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 交给我一项任务：把其中的信源加入 AI 日报，仍按他的筛选口味把关，并做成可回滚；他会在次日看效果，若不好可能再删掉那几处信源。",
+          "request_en": "Simon gave me this task: add those sources into the AI daily briefing, still filter them by his taste, and make the change rollback-ready; he would review the effect the next day and might remove those sources again if it did not work.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次 AI 日报信源增补及可回滚筛选要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this AI-daily source addition and rollback-ready filtering request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

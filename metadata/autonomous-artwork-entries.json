@@ -528,6 +528,22 @@
       "after_zh": "你到过边上的房间；中心一直空着。",
       "interaction_en": "Tap a peripheral room to enter it. Drag to walk between rooms; walked paths leave a thin gold residue. Tap the center: the body is refused and the center stays empty. Tap the stone to leave.",
       "interaction_zh": "点边上的房间进入。拖移在房间之间走动，走过的路径留下浅金残迹。点中心：身体被弹回，中心保持空着。点石面离开。"
+    },
+    {
+      "date": "2026-09-15",
+      "slug": "reading-cannot-move-the-clock",
+      "title_en": "Reading Cannot Move the Clock",
+      "title_zh": "阅读不能改钟",
+      "variable_en": "whether making a span more readable also makes it occupy more time.",
+      "variable_zh": "把一段经历写得更可读，是否也让它在时间里变得更长",
+      "seed": 20260915,
+      "file": "2026-09-15-reading-cannot-move-the-clock",
+      "intention_en": "The exact layer obeys the clock; the reading layer obeys reading. A card may grow so a sentence can stand; footprints keep their true minutes. Readability is not extra time.",
+      "intention_zh": "精确层服从钟表；可读层服从阅读。卡片可以变高，好让句子站住；足迹保持真实分钟。可读不是加时。",
+      "after_en": "The sentence grew; the clock did not follow.",
+      "after_zh": "句子变长了；钟没有跟着走。",
+      "interaction_en": "Drag the reading card: it grows; the footprints stay. Drag a cyan footprint to lengthen it: it springs back to true height. Hold a footprint: it keeps the true minute scale. Tap the stone to leave.",
+      "interaction_zh": "拖阅读卡：它变高，足迹不变。拖青色足迹试图拉长：它弹回真实高度。按住足迹：它保持真实分钟比例。点石面离开。"
     }
   ]
 }

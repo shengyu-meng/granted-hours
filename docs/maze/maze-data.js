@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-14",
-  "nodeCount": 132,
+  "generatedAt": "2026-09-15",
+  "nodeCount": 133,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2773,6 +2773,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -18,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-15",
+      "date": "2026-09-15",
+      "title_en": "Reading Cannot Move the Clock",
+      "title_zh": "阅读不能改钟",
+      "variable_en": "whether making a span more readable also makes it occupy more time.",
+      "variable_zh": "把一段经历写得更可读，是否也让它在时间里变得更长",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether making a span more readable also makes it occupy more time. entered the archive as a clue rather than a label.",
+      "diary_zh": "「把一段经历写得更可读，是否也让它在时间里变得更长」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-15/live/",
+      "archive_url": "../archive/2026/09/2026-09-15/",
+      "gif": "../archive/2026/09/2026-09-15/assets/visual-preview.gif",
+      "x": 17,
+      "y": -15,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2793,7 +2814,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 66
+      "count": 67
     },
     {
       "id": "maintenance",
@@ -3340,6 +3361,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-14"
     ],
     [
+      "2026-09-14",
+      "2026-09-15"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3594,6 +3619,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-12",
       "2026-09-14"
+    ],
+    [
+      "2026-09-13",
+      "2026-09-15"
     ],
     [
       "2026-05-07",

@@ -2949,5 +2949,29 @@
     },
     "bgm": "archive/2026/09/2026-09-14/live/2026-09-14-the-center-cannot-be-occupied-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-14/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-15",
+    "source_date": "2026-09-14",
+    "crystallization_date": "2026-09-15",
+    "title_en": "Reading Cannot Move the Clock",
+    "title_zh": "阅读不能改钟",
+    "type": "live",
+    "seed": 20260915,
+    "preview": "archive/2026/09/2026-09-15/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-15/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-15/",
+    "live_url": "archive/2026/09/2026-09-15/live/",
+    "variable_en": "whether making a span more readable also makes it occupy more time.",
+    "variable_zh": "把一段经历写得更可读，是否也让它在时间里变得更长",
+    "brief_en": "The exact layer obeys the clock; the reading layer obeys reading. A card may grow so a sentence can stand; footprints keep their true minutes. Readability is not extra time.",
+    "brief_zh": "精确层服从钟表；可读层服从阅读。卡片可以变高，好让句子站住；足迹保持真实分钟。可读不是加时。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-15/live/2026-09-15-reading-cannot-move-the-clock-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-15/assets/visual-preview.gif"
   }
 ]
