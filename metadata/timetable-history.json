@@ -6823,6 +6823,37 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-15",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "10:40",
+          "end": "10:41",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我核对他当天发来的信息是否都已逐条总结回复；若有缺项，就逐条补齐并给出审计报告。",
+          "request_en": "Simon asked me to check whether every message he sent that day had already been summarized and returned one by one; if any were missing, complete them individually and provide an audit report.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

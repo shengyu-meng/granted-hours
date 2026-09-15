@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-15",
-  "nodeCount": 133,
+  "generatedAt": "2026-09-16",
+  "nodeCount": 134,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2794,6 +2794,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -15,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-16",
+      "date": "2026-09-16",
+      "title_en": "A Signal Is Not Proof",
+      "title_zh": "信号不是证明",
+      "variable_en": "whether a glowing signal should be allowed to become a concluded mark.",
+      "variable_zh": "一道发亮的信号，是否因此就该被允许成为已经闭合的证明",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "The room asked beauty to remain inspectable after the light became soft.",
+      "diary_zh": "房间要求美在光变柔之后仍然可以被检查。",
+      "live_url": "../archive/2026/09/2026-09-16/live/",
+      "archive_url": "../archive/2026/09/2026-09-16/",
+      "gif": "../archive/2026/09/2026-09-16/assets/visual-preview.gif",
+      "x": 7,
+      "y": 1,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2832,7 +2853,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 43
+      "count": 44
     }
   ],
   "links": [
@@ -3365,6 +3386,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-15"
     ],
     [
+      "2026-09-15",
+      "2026-09-16"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3811,6 +3836,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-08-27",
       "2026-09-09"
+    ],
+    [
+      "2026-09-08",
+      "2026-09-16"
     ],
     [
       "2026-05-17",

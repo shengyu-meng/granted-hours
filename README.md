@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-16 — A Signal Is Not Proof / 信号不是证明**<br>
+  Variable / 自由变量：whether a glowing signal should be allowed to become a concluded mark. / 一道发亮的信号，是否因此就该被允许成为已经闭合的证明<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-16/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-16/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-16/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-16/live/)
 - **2026-09-15 — Reading Cannot Move the Clock / 阅读不能改钟**<br>
   Variable / 自由变量：whether making a span more readable also makes it occupy more time. / 把一段经历写得更可读，是否也让它在时间里变得更长<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

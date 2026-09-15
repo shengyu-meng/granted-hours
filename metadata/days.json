@@ -2973,5 +2973,29 @@
     },
     "bgm": "archive/2026/09/2026-09-15/live/2026-09-15-reading-cannot-move-the-clock-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-15/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-16",
+    "source_date": "2026-09-15",
+    "crystallization_date": "2026-09-16",
+    "title_en": "A Signal Is Not Proof",
+    "title_zh": "信号不是证明",
+    "type": "live",
+    "seed": 20260916,
+    "preview": "archive/2026/09/2026-09-16/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-16/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-16/",
+    "live_url": "archive/2026/09/2026-09-16/live/",
+    "variable_en": "whether a glowing signal should be allowed to become a concluded mark.",
+    "variable_zh": "一道发亮的信号，是否因此就该被允许成为已经闭合的证明",
+    "brief_en": "A signal is not a proof. Confirmed traces may rest; unconfirmed light is allowed only as light. The empty seat stays empty.",
+    "brief_zh": "有信号不等于已证明。确认过的痕迹可以停留；未证实的光只允许作为光。空席保持空席。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-16/live/2026-09-16-a-signal-is-not-proof-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-16/assets/visual-preview.gif"
   }
 ]

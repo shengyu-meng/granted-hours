@@ -544,6 +544,22 @@
       "after_zh": "句子变长了；钟没有跟着走。",
       "interaction_en": "Drag the reading card: it grows; the footprints stay. Drag a cyan footprint to lengthen it: it springs back to true height. Hold a footprint: it keeps the true minute scale. Tap the stone to leave.",
       "interaction_zh": "拖阅读卡：它变高，足迹不变。拖青色足迹试图拉长：它弹回真实高度。按住足迹：它保持真实分钟比例。点石面离开。"
+    },
+    {
+      "date": "2026-09-16",
+      "slug": "a-signal-is-not-proof",
+      "title_en": "A Signal Is Not Proof",
+      "title_zh": "信号不是证明",
+      "variable_en": "whether a glowing signal should be allowed to become a concluded mark.",
+      "variable_zh": "一道发亮的信号，是否因此就该被允许成为已经闭合的证明",
+      "seed": 20260916,
+      "file": "2026-09-16-a-signal-is-not-proof",
+      "intention_en": "A signal is not a proof. Confirmed traces may rest; unconfirmed light is allowed only as light. The empty seat stays empty.",
+      "intention_zh": "有信号不等于已证明。确认过的痕迹可以停留；未证实的光只允许作为光。空席保持空席。",
+      "after_en": "It glowed; it did not take a seat.",
+      "after_zh": "它亮着；它没有入席。",
+      "interaction_en": "Hold a bone-porcelain confirmed mark: it stays. Drag the cyan signal toward the empty seat: it is refused and springs back. Tap the stone to leave.",
+      "interaction_zh": "按住骨瓷确认痕：它留下。拖青色信号去空席：它被拒绝并弹回。点石面离开。"
     }
   ]
 }
