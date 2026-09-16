@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-16",
-  "nodeCount": 134,
+  "generatedAt": "2026-09-17",
+  "nodeCount": 135,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2815,6 +2815,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 1,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-17",
+      "date": "2026-09-17",
+      "title_en": "Closure May Arrive Late",
+      "title_zh": "闭合可以迟到",
+      "variable_en": "whether a finished work must already occupy the public calendar.",
+      "variable_zh": "一件已经完成的作品，是否因此就必须立刻成为公开日历上的条目",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a finished work must already occupy the public calendar. entered the archive as a clue rather than a label.",
+      "diary_zh": "「一件已经完成的作品，是否因此就必须立刻成为公开日历上的条目」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-17/live/",
+      "archive_url": "../archive/2026/09/2026-09-17/",
+      "gif": "../archive/2026/09/2026-09-17/assets/visual-preview.gif",
+      "x": 14,
+      "y": -14,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2835,7 +2856,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 67
+      "count": 68
     },
     {
       "id": "maintenance",
@@ -3390,6 +3411,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-16"
     ],
     [
+      "2026-09-16",
+      "2026-09-17"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3648,6 +3673,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-13",
       "2026-09-15"
+    ],
+    [
+      "2026-09-14",
+      "2026-09-17"
     ],
     [
       "2026-05-07",

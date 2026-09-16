@@ -2890,6 +2890,26 @@
       "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "c7cdb4adee4113068b2269455dcabe1d8fe0b05607805a2ddd24ed839414c7d7": {
+      "date": "2026-09-16",
+      "category": "redacted_private",
+      "request_zh": "Simon 让我检查信息总结为什么不再自动逐条返回，并核对这些天发来的内容是否都已总结完。",
+      "request_en": "Simon asked me to check why information summaries no longer return automatically one by one, and to verify whether the items sent over these days had all been summarized.",
+      "outcome_zh": "我没有找到可以安全公开、并与这条逐条返回检查可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this one-by-one return check; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "b97805f81129545ce12b837289886f4d34330bd95a6b3232cff003be2517db4e": {
+      "date": "2026-09-16",
+      "category": "redacted_private",
+      "request_zh": "Simon 交给我一项任务，查看最近 ████ 公开申购的中签率与首日涨跌幅。",
+      "request_en": "Simon gave me this task: look up recent ████ public-offering allotment rates and first-day moves.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次公开申购统计查询可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this public-offering statistics query; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

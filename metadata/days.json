@@ -2997,5 +2997,29 @@
     },
     "bgm": "archive/2026/09/2026-09-16/live/2026-09-16-a-signal-is-not-proof-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-16/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-17",
+    "source_date": "2026-09-16",
+    "crystallization_date": "2026-09-17",
+    "title_en": "Closure May Arrive Late",
+    "title_zh": "闭合可以迟到",
+    "type": "live",
+    "seed": 20260917,
+    "preview": "archive/2026/09/2026-09-17/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-17/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-17/",
+    "live_url": "archive/2026/09/2026-09-17/live/",
+    "variable_en": "whether a finished work must already occupy the public calendar.",
+    "variable_zh": "一件已经完成的作品，是否因此就必须立刻成为公开日历上的条目",
+    "brief_en": "Completion may happen first; entry may arrive late. Late closure is still closure. Erasing a waiting date from the queue would be forgetting.",
+    "brief_zh": "完成可以先发生，入历可以晚到。迟到的闭合仍是闭合；把未到的日期从队列里抹掉，才是遗忘。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-17/live/2026-09-17-closure-may-arrive-late-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-17/assets/visual-preview.gif"
   }
 ]

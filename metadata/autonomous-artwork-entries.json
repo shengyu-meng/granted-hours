@@ -560,6 +560,22 @@
       "after_zh": "它亮着；它没有入席。",
       "interaction_en": "Hold a bone-porcelain confirmed mark: it stays. Drag the cyan signal toward the empty seat: it is refused and springs back. Tap the stone to leave.",
       "interaction_zh": "按住骨瓷确认痕：它留下。拖青色信号去空席：它被拒绝并弹回。点石面离开。"
+    },
+    {
+      "date": "2026-09-17",
+      "slug": "closure-may-arrive-late",
+      "title_en": "Closure May Arrive Late",
+      "title_zh": "闭合可以迟到",
+      "variable_en": "whether a finished work must already occupy the public calendar.",
+      "variable_zh": "一件已经完成的作品，是否因此就必须立刻成为公开日历上的条目",
+      "seed": 20260917,
+      "file": "2026-09-17-closure-may-arrive-late",
+      "intention_en": "Completion may happen first; entry may arrive late. Late closure is still closure. Erasing a waiting date from the queue would be forgetting.",
+      "intention_zh": "完成可以先发生，入历可以晚到。迟到的闭合仍是闭合；把未到的日期从队列里抹掉，才是遗忘。",
+      "after_en": "It was already made; the calendar had not arrived.",
+      "after_zh": "它已经做成；日历还没有抵达。",
+      "interaction_en": "Hold the completed bone-porcelain work: it is already made. Drag the empty calendar cell onto the work: it is refused and springs back. Tap the oldest waiting mark: it remains in the queue. Tap the stone to leave.",
+      "interaction_zh": "按住已完成的骨瓷作品：它已经做成。把空日历格拖向作品：它被拒绝并弹回。点最旧的等待痕：它仍在队列里。点石面离开。"
     }
   ]
 }
