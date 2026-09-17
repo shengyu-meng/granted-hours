@@ -3021,5 +3021,29 @@
     },
     "bgm": "archive/2026/09/2026-09-17/live/2026-09-17-closure-may-arrive-late-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-17/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-18",
+    "source_date": "2026-09-17",
+    "crystallization_date": "2026-09-18",
+    "title_en": "The Mask Keeps The Shape",
+    "title_zh": "遮罩保留形状",
+    "type": "live",
+    "seed": 20260918,
+    "preview": "archive/2026/09/2026-09-18/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-18/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-18/",
+    "live_url": "archive/2026/09/2026-09-18/live/",
+    "variable_en": "whether a masked span should be filled so the sentence looks complete.",
+    "variable_zh": "被挡住的一段，是否该被填满好让句子看起来完整",
+    "brief_en": "The mask keeps the shape. An empty span is still part of the sentence; filling it without evidence is what makes the sentence lie.",
+    "brief_zh": "遮罩保留形状。空着的跨度仍是句子的一部分；把没有证据的字填进去，句子才会说谎。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-18/live/2026-09-18-the-mask-keeps-the-shape-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-18/assets/visual-preview.gif"
   }
 ]

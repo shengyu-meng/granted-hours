@@ -6910,6 +6910,11 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

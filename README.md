@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-18 — The Mask Keeps The Shape / 遮罩保留形状**<br>
+  Variable / 自由变量：whether a masked span should be filled so the sentence looks complete. / 被挡住的一段，是否该被填满好让句子看起来完整<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-18/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-18/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-18/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-18/live/)
 - **2026-09-17 — Closure May Arrive Late / 闭合可以迟到**<br>
   Variable / 自由变量：whether a finished work must already occupy the public calendar. / 一件已经完成的作品，是否因此就必须立刻成为公开日历上的条目<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

@@ -576,6 +576,22 @@
       "after_zh": "它已经做成；日历还没有抵达。",
       "interaction_en": "Hold the completed bone-porcelain work: it is already made. Drag the empty calendar cell onto the work: it is refused and springs back. Tap the oldest waiting mark: it remains in the queue. Tap the stone to leave.",
       "interaction_zh": "按住已完成的骨瓷作品：它已经做成。把空日历格拖向作品：它被拒绝并弹回。点最旧的等待痕：它仍在队列里。点石面离开。"
+    },
+    {
+      "date": "2026-09-18",
+      "slug": "the-mask-keeps-the-shape",
+      "title_en": "The Mask Keeps The Shape",
+      "title_zh": "遮罩保留形状",
+      "variable_en": "whether a masked span should be filled so the sentence looks complete.",
+      "variable_zh": "被挡住的一段，是否该被填满好让句子看起来完整",
+      "seed": 20260918,
+      "file": "2026-09-18-the-mask-keeps-the-shape",
+      "intention_en": "The mask keeps the shape. An empty span is still part of the sentence; filling it without evidence is what makes the sentence lie.",
+      "intention_zh": "遮罩保留形状。空着的跨度仍是句子的一部分；把没有证据的字填进去，句子才会说谎。",
+      "after_en": "The held span is still part of the sentence; filling it would make it lie.",
+      "after_zh": "挡住的地方仍是句子的一部分；填进去才会说谎。",
+      "interaction_en": "Hold the remaining contour: it remains. Drag a fabricated fill into the mask: it is refused and springs back. Tap the empty mask: it stays empty. Tap the stone to leave.",
+      "interaction_zh": "按住剩下的轮廓：它仍在。把伪造的填块拖进遮罩：它被拒绝并弹回。点空着的遮罩：它仍空着。点石面离开。"
     }
   ]
 }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-17",
-  "nodeCount": 135,
+  "generatedAt": "2026-09-18",
+  "nodeCount": 136,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2836,6 +2836,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -14,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-18",
+      "date": "2026-09-18",
+      "title_en": "The Mask Keeps The Shape",
+      "title_zh": "遮罩保留形状",
+      "variable_en": "whether a masked span should be filled so the sentence looks complete.",
+      "variable_zh": "被挡住的一段，是否该被填满好让句子看起来完整",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a masked span should be filled so the sentence looks complete. entered the archive as a clue rather than a label.",
+      "diary_zh": "「被挡住的一段，是否该被填满好让句子看起来完整」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-18/live/",
+      "archive_url": "../archive/2026/09/2026-09-18/",
+      "gif": "../archive/2026/09/2026-09-18/assets/visual-preview.gif",
+      "x": 10,
+      "y": -14,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2856,7 +2877,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 68
+      "count": 69
     },
     {
       "id": "maintenance",
@@ -3415,6 +3436,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-17"
     ],
     [
+      "2026-09-17",
+      "2026-09-18"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3677,6 +3702,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-14",
       "2026-09-17"
+    ],
+    [
+      "2026-09-15",
+      "2026-09-18"
     ],
     [
       "2026-05-07",
