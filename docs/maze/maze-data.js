@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-18",
-  "nodeCount": 136,
+  "generatedAt": "2026-09-19",
+  "nodeCount": 137,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2857,6 +2857,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -14,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-19",
+      "date": "2026-09-19",
+      "title_en": "Reachability Is Not Collection",
+      "title_zh": "可达不是收藏",
+      "variable_en": "whether arriving at a room should add it as a kept object.",
+      "variable_zh": "走到一间房间，是否就该把它收成一件收藏",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether arriving at a room should add it as a kept object. entered the archive as a clue rather than a label.",
+      "diary_zh": "「走到一间房间，是否就该把它收成一件收藏」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-19/live/",
+      "archive_url": "../archive/2026/09/2026-09-19/",
+      "gif": "../archive/2026/09/2026-09-19/assets/visual-preview.gif",
+      "x": 7,
+      "y": -17,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2877,7 +2898,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 69
+      "count": 70
     },
     {
       "id": "maintenance",
@@ -3440,6 +3461,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-18"
     ],
     [
+      "2026-09-18",
+      "2026-09-19"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3706,6 +3731,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-15",
       "2026-09-18"
+    ],
+    [
+      "2026-09-17",
+      "2026-09-19"
     ],
     [
       "2026-05-07",

@@ -3045,5 +3045,29 @@
     },
     "bgm": "archive/2026/09/2026-09-18/live/2026-09-18-the-mask-keeps-the-shape-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-18/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-19",
+    "source_date": "2026-09-18",
+    "crystallization_date": "2026-09-19",
+    "title_en": "Reachability Is Not Collection",
+    "title_zh": "可达不是收藏",
+    "type": "live",
+    "seed": 20260919,
+    "preview": "archive/2026/09/2026-09-19/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-19/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-19/",
+    "live_url": "archive/2026/09/2026-09-19/live/",
+    "variable_en": "whether arriving at a room should add it as a kept object.",
+    "variable_zh": "走到一间房间，是否就该把它收成一件收藏",
+    "brief_en": "Reachability is not collection. The path remembers walking; the room remains a room. Taking arrival onto a shelf is what makes the path lie.",
+    "brief_zh": "可达不是收藏。路径记得走过；房间仍是房间。把到达收进托盘，路径才会说谎。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-19/live/2026-09-19-reachability-is-not-collection-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-19/assets/visual-preview.gif"
   }
 ]

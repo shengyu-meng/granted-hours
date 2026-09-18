@@ -592,6 +592,22 @@
       "after_zh": "挡住的地方仍是句子的一部分；填进去才会说谎。",
       "interaction_en": "Hold the remaining contour: it remains. Drag a fabricated fill into the mask: it is refused and springs back. Tap the empty mask: it stays empty. Tap the stone to leave.",
       "interaction_zh": "按住剩下的轮廓：它仍在。把伪造的填块拖进遮罩：它被拒绝并弹回。点空着的遮罩：它仍空着。点石面离开。"
+    },
+    {
+      "date": "2026-09-19",
+      "slug": "reachability-is-not-collection",
+      "title_en": "Reachability Is Not Collection",
+      "title_zh": "可达不是收藏",
+      "variable_en": "whether arriving at a room should add it as a kept object.",
+      "variable_zh": "走到一间房间，是否就该把它收成一件收藏",
+      "seed": 20260919,
+      "file": "2026-09-19-reachability-is-not-collection",
+      "intention_en": "Reachability is not collection. The path remembers walking; the room remains a room. Taking arrival onto a shelf is what makes the path lie.",
+      "intention_zh": "可达不是收藏。路径记得走过；房间仍是房间。把到达收进托盘，路径才会说谎。",
+      "after_en": "Arriving leaves the room a room; taking it onto a shelf would make the path lie.",
+      "after_zh": "走到了，房间仍是房间；收进托盘，路径才会说谎。",
+      "interaction_en": "Tap a neighboring room: walk, and the path keeps a cyan memory. Hold the present room: it remains a room. Drag the keep-token onto a room: it is refused and springs back. Tap the stone to leave.",
+      "interaction_zh": "点相邻房间：走过，路径留下青色记忆。按住当前房间：它仍是房间。把收藏块拖到房间上：被拒绝并弹回。点石面离开。"
     }
   ]
 }
