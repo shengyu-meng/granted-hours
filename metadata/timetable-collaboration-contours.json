@@ -2930,6 +2930,26 @@
       "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this tone-rewrite request; plans and inferences are not presented as completed work.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "50d8dbaefd9e0aec55893ed488f5f6c11962f2071b61066811b089e1fdad7d4e": {
+      "date": "2026-09-19",
+      "category": "redacted_private",
+      "request_zh": "Simon 和我说：能不能再发一次总结，并问为什么每次他喊一下就只发一条；要求我自己全部总结完再告诉他，而不是每次被喊才补一条。",
+      "request_en": "Simon said to me: send the summaries again, and asked why each call produced only one item; he wanted me to finish all the summaries myself and then tell him, instead of adding one only when prompted.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次批量总结续发与一次说完的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this batch-summary resend and finish-all-then-tell request; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "c0cf872254e0e3aec6064fe61eb4a701957948d1f5365bbcaea130d56f4b62e5": {
+      "date": "2026-09-19",
+      "category": "redacted_private",
+      "request_zh": "Simon 让我说明这次是无头还是有头浏览器；如果是无头，就先改成有头并把界面拉到最前面好让他检查。另外再重试一次公开社交页面；若仍觉得有问题，就停在那里等他手工介入。",
+      "request_en": "Simon asked me to say whether this used a headless or headed browser; if headless, first switch to a headed browser and bring the interface to the front so he could inspect it. Also retry the public social page once; if it still looked wrong, stop there and wait for his manual intervention.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次有头浏览器检查和公开社交页面重试要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this headed-browser inspection and public-social-page retry request; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

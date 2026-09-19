@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-20 — Lift Only Forward / 只向前浮起**<br>
+  Variable / 自由变量：whether a nearer understanding should be pushed back into the unread stack. / 近处的一层理解，是否该被按回未读的叠层<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-20/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-20/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-20/live/)
 - **2026-09-19 — Reachability Is Not Collection / 可达不是收藏**<br>
   Variable / 自由变量：whether arriving at a room should add it as a kept object. / 走到一间房间，是否就该把它收成一件收藏<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

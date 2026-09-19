@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-19",
-  "nodeCount": 137,
+  "generatedAt": "2026-09-20",
+  "nodeCount": 138,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2878,6 +2878,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -17,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-20",
+      "date": "2026-09-20",
+      "title_en": "Lift Only Forward",
+      "title_zh": "只向前浮起",
+      "variable_en": "whether a nearer understanding should be pushed back into the unread stack.",
+      "variable_zh": "近处的一层理解，是否该被按回未读的叠层",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a nearer understanding should be pushed back into the unread stack. entered the archive as a clue rather than a label.",
+      "diary_zh": "「近处的一层理解，是否该被按回未读的叠层」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-20/live/",
+      "archive_url": "../archive/2026/09/2026-09-20/",
+      "gif": "../archive/2026/09/2026-09-20/assets/visual-preview.gif",
+      "x": 7,
+      "y": -20,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2898,7 +2919,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 70
+      "count": 71
     },
     {
       "id": "maintenance",
@@ -3465,6 +3486,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-19"
     ],
     [
+      "2026-09-19",
+      "2026-09-20"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3735,6 +3760,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-17",
       "2026-09-19"
+    ],
+    [
+      "2026-09-18",
+      "2026-09-20"
     ],
     [
       "2026-05-07",

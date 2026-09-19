@@ -6971,6 +6971,79 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-19",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 6,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "11:04",
+          "end": "20:25",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说：能不能再发一次总结，并问为什么每次他喊一下就只发一条；要求我自己全部总结完再告诉他，而不是每次被喊才补一条。",
+          "request_en": "Simon said to me: send the summaries again, and asked why each call produced only one item; he wanted me to finish all the summaries myself and then tell him, instead of adding one only when prompted.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次批量总结续发与一次说完的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this batch-summary resend and finish-all-then-tell request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "17:16",
+          "end": "17:26",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我说明这次是无头还是有头浏览器；如果是无头，就先改成有头并把界面拉到最前面好让他检查。另外再重试一次公开社交页面；若仍觉得有问题，就停在那里等他手工介入。",
+          "request_en": "Simon asked me to say whether this used a headless or headed browser; if headless, first switch to a headed browser and bring the interface to the front so he could inspect it.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次有头浏览器检查和公开社交页面重试要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this headed-browser inspection and public-social-page retry request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-09-19, Codex/GPT completed evidence-backed research synthesis for ████; findings or review results were returned.",
+          "zh": "2026-09-19，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "06:45",
+          "end": "06:48",
+          "time_provenance": "observed_session_window"
+        }
+      ]
     }
   ]
 }

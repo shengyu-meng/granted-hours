@@ -3069,5 +3069,29 @@
     },
     "bgm": "archive/2026/09/2026-09-19/live/2026-09-19-reachability-is-not-collection-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-19/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-20",
+    "source_date": "2026-09-19",
+    "crystallization_date": "2026-09-20",
+    "title_en": "Lift Only Forward",
+    "title_zh": "只向前浮起",
+    "type": "live",
+    "seed": 20260920,
+    "preview": "archive/2026/09/2026-09-20/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-20/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-20/",
+    "live_url": "archive/2026/09/2026-09-20/live/",
+    "variable_en": "whether a nearer understanding should be pushed back into the unread stack.",
+    "variable_zh": "近处的一层理解，是否该被按回未读的叠层",
+    "brief_en": "Lift only forward. Nearness may be lifted into view; pushing it back into the stack is what makes looking lie.",
+    "brief_zh": "只向前浮起。近处可以抬起来看；把它按回叠层，观看才会说谎。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-20/live/2026-09-20-lift-only-forward-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-20/assets/visual-preview.gif"
   }
 ]

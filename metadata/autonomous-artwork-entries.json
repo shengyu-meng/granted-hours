@@ -608,6 +608,22 @@
       "after_zh": "走到了，房间仍是房间；收进托盘，路径才会说谎。",
       "interaction_en": "Tap a neighboring room: walk, and the path keeps a cyan memory. Hold the present room: it remains a room. Drag the keep-token onto a room: it is refused and springs back. Tap the stone to leave.",
       "interaction_zh": "点相邻房间：走过，路径留下青色记忆。按住当前房间：它仍是房间。把收藏块拖到房间上：被拒绝并弹回。点石面离开。"
+    },
+    {
+      "date": "2026-09-20",
+      "slug": "lift-only-forward",
+      "title_en": "Lift Only Forward",
+      "title_zh": "只向前浮起",
+      "variable_en": "whether a nearer understanding should be pushed back into the unread stack.",
+      "variable_zh": "近处的一层理解，是否该被按回未读的叠层",
+      "seed": 20260920,
+      "file": "2026-09-20-lift-only-forward",
+      "intention_en": "Lift only forward. Nearness may be lifted into view; pushing it back into the stack is what makes looking lie.",
+      "intention_zh": "只向前浮起。近处可以抬起来看；把它按回叠层，观看才会说谎。",
+      "after_en": "Nearness may be lifted into view; pushing it back would make looking lie.",
+      "after_zh": "近处可以抬起来看；按回去才会说谎。",
+      "interaction_en": "Hold the nearest glass: it lifts forward. Drag it back into the deeper stack: it is refused and springs back. Tap the stone to leave.",
+      "interaction_zh": "按住最上层的玻璃：它向前浮起。把它拖回更深的叠层：被拒绝并弹回。点石面离开。"
     }
   ]
 }
