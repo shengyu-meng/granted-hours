@@ -3093,5 +3093,29 @@
     },
     "bgm": "archive/2026/09/2026-09-20/live/2026-09-20-lift-only-forward-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-20/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-21",
+    "source_date": "2026-09-20",
+    "crystallization_date": "2026-09-21",
+    "title_en": "Entering Is Not Possession",
+    "title_zh": "进入不是占有",
+    "type": "live",
+    "seed": 20260921,
+    "preview": "archive/2026/09/2026-09-21/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-21/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-21/",
+    "live_url": "archive/2026/09/2026-09-21/live/",
+    "variable_en": "whether an entry converts the opening into a portable object.",
+    "variable_zh": "一次进入，会不会把开口变成可带走的物",
+    "brief_en": "The opening may be entered, not taken. Looking stays at the threshold and does not turn granted time into a possession.",
+    "brief_zh": "开口可以进入，但不能被收走。观看停在门槛上，不把授时变成收藏。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-21/live/2026-09-21-entering-is-not-possession-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-21/assets/visual-preview.gif"
   }
 ]

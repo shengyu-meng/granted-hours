@@ -624,6 +624,22 @@
       "after_zh": "近处可以抬起来看；按回去才会说谎。",
       "interaction_en": "Hold the nearest glass: it lifts forward. Drag it back into the deeper stack: it is refused and springs back. Tap the stone to leave.",
       "interaction_zh": "按住最上层的玻璃：它向前浮起。把它拖回更深的叠层：被拒绝并弹回。点石面离开。"
+    },
+    {
+      "date": "2026-09-21",
+      "slug": "entering-is-not-possession",
+      "title_en": "Entering Is Not Possession",
+      "title_zh": "进入不是占有",
+      "variable_en": "whether an entry converts the opening into a portable object.",
+      "variable_zh": "一次进入，会不会把开口变成可带走的物",
+      "seed": 20260921,
+      "file": "2026-09-21-entering-is-not-possession",
+      "intention_en": "The opening may be entered, not taken. Looking stays at the threshold and does not turn granted time into a possession.",
+      "intention_zh": "开口可以进入，但不能被收走。观看停在门槛上，不把授时变成收藏。",
+      "after_en": "You left. The opening remained where it was.",
+      "after_zh": "你离开了。开口还在原处。",
+      "interaction_en": "Tap the gold opening: you are admitted. Drag the opening as if to take it: it is refused and springs back. Tap the stone to leave.",
+      "interaction_zh": "点金色开口：被允许进入。拖开口试图带走：被拒绝并弹回。点石面离开。"
     }
   ]
 }

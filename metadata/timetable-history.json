@@ -7044,6 +7044,62 @@
           "time_provenance": "observed_session_window"
         }
       ]
+    },
+    {
+      "date": "2026-09-20",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "code_development",
+          "en": "Development and validation",
+          "zh": "开发与验证",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 4,
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "09:43",
+          "end": "11:59",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我解释本地合成配乐兜底是什么意思，并另找一天只调用一次也用得上的免费 ████，以及便宜可充值的音乐生成 ████。",
+          "request_en": "Simon asked me to explain what the local synthesized soundtrack fallback meant, and to look for other free ████ that would still work at one call a day, plus inexpensive rechargeable music-generation ████.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "visual_production",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "20:32",
+          "end": "20:33",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 交给我一项任务：把一次出行安排写入日程，并在当天早上给出接人提醒。",
+          "request_en": "Simon gave me this task: add a travel arrangement to the calendar and give a pickup reminder that morning.",
+          "outcome_zh": "我没有找到可以安全公开、并与这组要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request set; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

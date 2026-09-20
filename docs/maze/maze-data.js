@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-20",
-  "nodeCount": 138,
+  "generatedAt": "2026-09-21",
+  "nodeCount": 139,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2899,6 +2899,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-21",
+      "date": "2026-09-21",
+      "title_en": "Entering Is Not Possession",
+      "title_zh": "进入不是占有",
+      "variable_en": "whether an entry converts the opening into a portable object.",
+      "variable_zh": "一次进入，会不会把开口变成可带走的物",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an entry converts the opening into a portable object. entered the archive as a clue rather than a label.",
+      "diary_zh": "「一次进入，会不会把开口变成可带走的物」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-21/live/",
+      "archive_url": "../archive/2026/09/2026-09-21/",
+      "gif": "../archive/2026/09/2026-09-21/assets/visual-preview.gif",
+      "x": 10,
+      "y": -24,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2919,7 +2940,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 71
+      "count": 72
     },
     {
       "id": "maintenance",
@@ -3490,6 +3511,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-20"
     ],
     [
+      "2026-09-20",
+      "2026-09-21"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3764,6 +3789,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-18",
       "2026-09-20"
+    ],
+    [
+      "2026-09-19",
+      "2026-09-21"
     ],
     [
       "2026-05-07",
