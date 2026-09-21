@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-21",
-  "nodeCount": 139,
+  "generatedAt": "2026-09-22",
+  "nodeCount": 140,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2920,6 +2920,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -24,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-22",
+      "date": "2026-09-22",
+      "title_en": "Remaining Is Not Occupancy",
+      "title_zh": "停留不是占据",
+      "variable_en": "whether remaining fills a granted interval until nothing else can enter.",
+      "variable_zh": "一次停留，会不会把授予的一小时胀成占据",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether remaining fills a granted interval until nothing else can enter. entered the archive as a clue rather than a label.",
+      "diary_zh": "「一次停留，会不会把授予的一小时胀成占据」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-22/live/",
+      "archive_url": "../archive/2026/09/2026-09-22/",
+      "gif": "../archive/2026/09/2026-09-22/assets/visual-preview.gif",
+      "x": 18,
+      "y": -22,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2940,7 +2961,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 72
+      "count": 73
     },
     {
       "id": "maintenance",
@@ -3515,6 +3536,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-21"
     ],
     [
+      "2026-09-21",
+      "2026-09-22"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3793,6 +3818,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-19",
       "2026-09-21"
+    ],
+    [
+      "2026-09-20",
+      "2026-09-22"
     ],
     [
       "2026-05-07",

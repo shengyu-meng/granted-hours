@@ -640,6 +640,22 @@
       "after_zh": "你离开了。开口还在原处。",
       "interaction_en": "Tap the gold opening: you are admitted. Drag the opening as if to take it: it is refused and springs back. Tap the stone to leave.",
       "interaction_zh": "点金色开口：被允许进入。拖开口试图带走：被拒绝并弹回。点石面离开。"
+    },
+    {
+      "date": "2026-09-22",
+      "slug": "remaining-is-not-occupancy",
+      "title_en": "Remaining Is Not Occupancy",
+      "title_zh": "停留不是占据",
+      "variable_en": "whether remaining fills a granted interval until nothing else can enter.",
+      "variable_zh": "一次停留，会不会把授予的一小时胀成占据",
+      "seed": 20260922,
+      "file": "2026-09-22-remaining-is-not-occupancy",
+      "intention_en": "Presence may rest. The hour need not be filled. Granted time stays thin; looking does not convert the interval into occupancy.",
+      "intention_zh": "停留可以发生。足迹不必被填满。授时保持细薄，观看不必把整段时间写成占用。",
+      "after_en": "You left. The hour remained a thin mark, unfilled.",
+      "after_zh": "你离开了。时辰仍是一条细痕，没有被占满。",
+      "interaction_en": "Tap the gold hour: you may rest. Drag the rest as if to fill the hour: it is refused and withdraws. Tap the stone to leave.",
+      "interaction_zh": "点金色时辰：被允许停留。拖停留试图填满时辰：被拒绝并收回。点石面离开。"
     }
   ]
 }

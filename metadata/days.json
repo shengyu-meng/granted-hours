@@ -3117,5 +3117,29 @@
     },
     "bgm": "archive/2026/09/2026-09-21/live/2026-09-21-entering-is-not-possession-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-21/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-22",
+    "source_date": "2026-09-21",
+    "crystallization_date": "2026-09-22",
+    "title_en": "Remaining Is Not Occupancy",
+    "title_zh": "停留不是占据",
+    "type": "live",
+    "seed": 20260922,
+    "preview": "archive/2026/09/2026-09-22/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-22/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-22/",
+    "live_url": "archive/2026/09/2026-09-22/live/",
+    "variable_en": "whether remaining fills a granted interval until nothing else can enter.",
+    "variable_zh": "一次停留，会不会把授予的一小时胀成占据",
+    "brief_en": "Presence may rest. The hour need not be filled. Granted time stays thin; looking does not convert the interval into occupancy.",
+    "brief_zh": "停留可以发生。足迹不必被填满。授时保持细薄，观看不必把整段时间写成占用。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-22/live/2026-09-22-remaining-is-not-occupancy-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-22/assets/visual-preview.gif"
   }
 ]

@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-22 — Remaining Is Not Occupancy / 停留不是占据**<br>
+  Variable / 自由变量：whether remaining fills a granted interval until nothing else can enter. / 一次停留，会不会把授予的一小时胀成占据<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-22/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-22/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-22/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-22/live/)
 - **2026-09-21 — Entering Is Not Possession / 进入不是占有**<br>
   Variable / 自由变量：whether an entry converts the opening into a portable object. / 一次进入，会不会把开口变成可带走的物<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

@@ -7100,6 +7100,29 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-09-21",
+      "provenance": "record_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-09-21, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "2026-09-21，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "16:20",
+          "end": "16:24",
+          "time_provenance": "observed_session_window"
+        }
+      ]
     }
   ]
 }
