@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-23 — Vacancy Is Not a Placeholder / 空着不是占位**<br>
+  Variable / 自由变量：whether an empty granted interval must be occupied by a stand-in so looking can continue. / 空着的一小时，会不会必须找一个替身来填满，观看才能继续<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-23/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-23/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-23/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-23/live/)
 - **2026-09-22 — Remaining Is Not Occupancy / 停留不是占据**<br>
   Variable / 自由变量：whether remaining fills a granted interval until nothing else can enter. / 一次停留，会不会把授予的一小时胀成占据<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

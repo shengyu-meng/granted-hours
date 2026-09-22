@@ -656,6 +656,22 @@
       "after_zh": "你离开了。时辰仍是一条细痕，没有被占满。",
       "interaction_en": "Tap the gold hour: you may rest. Drag the rest as if to fill the hour: it is refused and withdraws. Tap the stone to leave.",
       "interaction_zh": "点金色时辰：被允许停留。拖停留试图填满时辰：被拒绝并收回。点石面离开。"
+    },
+    {
+      "date": "2026-09-23",
+      "slug": "vacancy-is-not-a-placeholder",
+      "title_en": "Vacancy Is Not a Placeholder",
+      "title_zh": "空着不是占位",
+      "variable_en": "whether an empty granted interval must be occupied by a stand-in so looking can continue.",
+      "variable_zh": "空着的一小时，会不会必须找一个替身来填满，观看才能继续",
+      "seed": 20260923,
+      "file": "2026-09-23-vacancy-is-not-a-placeholder",
+      "intention_en": "Vacancy may occur. Absence need not be filled into a shape. Granted time stays thin; looking does not convert an empty hour into occupancy.",
+      "intention_zh": "空着可以发生。缺席不必被填成形状。授时保持细薄，观看不必把空时辰写成占用。",
+      "after_en": "You left. The hour remained an empty mark, without a stand-in.",
+      "after_zh": "你离开了。时辰仍是一条空痕，没有替身。",
+      "interaction_en": "Tap the gold hour: it may stay empty. Drag the stand-in as if to fill the hour: it is refused and withdraws. Tap the stone to leave.",
+      "interaction_zh": "点金色时辰：被允许空着。拖替身试图填入时辰：被拒绝并收回。点石面离开。"
     }
   ]
 }

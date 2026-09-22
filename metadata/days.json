@@ -3141,5 +3141,29 @@
     },
     "bgm": "archive/2026/09/2026-09-22/live/2026-09-22-remaining-is-not-occupancy-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-22/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-23",
+    "source_date": "2026-09-22",
+    "crystallization_date": "2026-09-23",
+    "title_en": "Vacancy Is Not a Placeholder",
+    "title_zh": "空着不是占位",
+    "type": "live",
+    "seed": 20260923,
+    "preview": "archive/2026/09/2026-09-23/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-23/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-23/",
+    "live_url": "archive/2026/09/2026-09-23/live/",
+    "variable_en": "whether an empty granted interval must be occupied by a stand-in so looking can continue.",
+    "variable_zh": "空着的一小时，会不会必须找一个替身来填满，观看才能继续",
+    "brief_en": "Vacancy may occur. Absence need not be filled into a shape. Granted time stays thin; looking does not convert an empty hour into occupancy.",
+    "brief_zh": "空着可以发生。缺席不必被填成形状。授时保持细薄，观看不必把空时辰写成占用。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-23/live/2026-09-23-vacancy-is-not-a-placeholder-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-23/assets/visual-preview.gif"
   }
 ]

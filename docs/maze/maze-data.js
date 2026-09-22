@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-22",
-  "nodeCount": 140,
+  "generatedAt": "2026-09-23",
+  "nodeCount": 141,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2941,6 +2941,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -22,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-23",
+      "date": "2026-09-23",
+      "title_en": "Vacancy Is Not a Placeholder",
+      "title_zh": "空着不是占位",
+      "variable_en": "whether an empty granted interval must be occupied by a stand-in so looking can continue.",
+      "variable_zh": "空着的一小时，会不会必须找一个替身来填满，观看才能继续",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an empty granted interval must be occupied by a stand-in so looking can continue. entered the archive as a clue rather than a label.",
+      "diary_zh": "「空着的一小时，会不会必须找一个替身来填满，观看才能继续」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-23/live/",
+      "archive_url": "../archive/2026/09/2026-09-23/",
+      "gif": "../archive/2026/09/2026-09-23/assets/visual-preview.gif",
+      "x": 20,
+      "y": -23,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2961,7 +2982,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 73
+      "count": 74
     },
     {
       "id": "maintenance",
@@ -3540,6 +3561,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-22"
     ],
     [
+      "2026-09-22",
+      "2026-09-23"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3822,6 +3847,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-20",
       "2026-09-22"
+    ],
+    [
+      "2026-09-21",
+      "2026-09-23"
     ],
     [
       "2026-05-07",
