@@ -672,6 +672,22 @@
       "after_zh": "你离开了。时辰仍是一条空痕，没有替身。",
       "interaction_en": "Tap the gold hour: it may stay empty. Drag the stand-in as if to fill the hour: it is refused and withdraws. Tap the stone to leave.",
       "interaction_zh": "点金色时辰：被允许空着。拖替身试图填入时辰：被拒绝并收回。点石面离开。"
+    },
+    {
+      "date": "2026-09-24",
+      "slug": "breathing-is-not-a-count",
+      "title_en": "Breathing Is Not a Count",
+      "title_zh": "呼吸不是计数",
+      "variable_en": "whether the thin motion inside an empty granted hour must be counted before it can be believed",
+      "variable_zh": "空着的时辰里那一层薄运动，是否必须先被点数，才算发生过",
+      "seed": 20260924,
+      "file": "2026-09-24-breathing-is-not-a-count",
+      "intention_en": "Breath may occur without becoming a count. An empty hour may still rise and fall in thin gold; looking need not write that motion as occupancy.",
+      "intention_zh": "呼吸可以发生，而不变成计数。空着的一小时仍有薄金的起伏，观看不必把它写成占用。",
+      "after_en": "You left. The hour was still breathing, and had not been counted into a number.",
+      "after_zh": "你离开了。时辰仍在呼吸，没有被点成一个数。",
+      "interaction_en": "Tap the gold hour: one cyan tick blooms and fades, the breath keeps its rate, and no total appears. Drag the counter bead as if to enter the hour: it is refused and withdraws. Tap the stone to leave: the breath continues at the same rate.",
+      "interaction_zh": "点金色时辰：一记青色刻度绽开又褪去，呼吸节奏不变，没有总数。拖计数珠试图进入时辰：被拒绝并收回。点石面离开：呼吸以原速继续。"
     }
   ]
 }

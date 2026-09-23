@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-24 — Breathing Is Not a Count / 呼吸不是计数**<br>
+  Variable / 自由变量：whether the thin motion inside an empty granted hour must be counted before it can be believed / 空着的时辰里那一层薄运动，是否必须先被点数，才算发生过<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-24/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-24/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-24/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-24/live/)
 - **2026-09-23 — Vacancy Is Not a Placeholder / 空着不是占位**<br>
   Variable / 自由变量：whether an empty granted interval must be occupied by a stand-in so looking can continue. / 空着的一小时，会不会必须找一个替身来填满，观看才能继续<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

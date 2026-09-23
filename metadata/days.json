@@ -3165,5 +3165,29 @@
     },
     "bgm": "archive/2026/09/2026-09-23/live/2026-09-23-vacancy-is-not-a-placeholder-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-23/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-24",
+    "source_date": "2026-09-23",
+    "crystallization_date": "2026-09-24",
+    "title_en": "Breathing Is Not a Count",
+    "title_zh": "呼吸不是计数",
+    "type": "live",
+    "seed": 20260924,
+    "preview": "archive/2026/09/2026-09-24/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-24/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-24/",
+    "live_url": "archive/2026/09/2026-09-24/live/",
+    "variable_en": "whether the thin motion inside an empty granted hour must be counted before it can be believed",
+    "variable_zh": "空着的时辰里那一层薄运动，是否必须先被点数，才算发生过",
+    "brief_en": "Breath may occur without becoming a count. An empty hour may still rise and fall in thin gold; looking need not write that motion as occupancy.",
+    "brief_zh": "呼吸可以发生，而不变成计数。空着的一小时仍有薄金的起伏，观看不必把它写成占用。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-24/live/2026-09-24-breathing-is-not-a-count-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-24/assets/visual-preview.gif"
   }
 ]

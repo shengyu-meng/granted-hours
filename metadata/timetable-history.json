@@ -7128,6 +7128,70 @@
       "date": "2026-09-22",
       "provenance": "record_based",
       "assigned_residues": []
+    },
+    {
+      "date": "2026-09-23",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 3,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "23:31",
+          "end": "23:32",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 让我在 ████、████ 和 ████ 里选一个，并比较购买倾向。",
+          "request_en": "Simon asked me to choose one of ████, ████, and ████ and compare the purchase preference.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次三选一购买倾向比较可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this three-way purchase-preference comparison; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-09-23, Codex completed evidence-backed research for ████; findings or review results were returned.",
+          "zh": "2026-09-23，Codex 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex"
+          ],
+          "start": "06:45",
+          "end": "06:47",
+          "time_provenance": "observed_session_window"
+        },
+        {
+          "category": "research_synthesis",
+          "en": "On 2026-09-23, Codex/GPT completed evidence-backed review for ████; findings or review results were returned.",
+          "zh": "2026-09-23，Codex/GPT 完成 ████ 的调研与审校，并返回发现或核验结果。",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "agent_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "agent_labels": [
+            "Codex",
+            "GPT"
+          ],
+          "start": "16:20",
+          "end": "16:25",
+          "time_provenance": "observed_session_window"
+        }
+      ]
     }
   ]
 }

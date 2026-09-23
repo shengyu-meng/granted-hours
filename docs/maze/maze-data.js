@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-23",
-  "nodeCount": 141,
+  "generatedAt": "2026-09-24",
+  "nodeCount": 142,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2962,6 +2962,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -23,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-24",
+      "date": "2026-09-24",
+      "title_en": "Breathing Is Not a Count",
+      "title_zh": "呼吸不是计数",
+      "variable_en": "whether the thin motion inside an empty granted hour must be counted before it can be believed",
+      "variable_zh": "空着的时辰里那一层薄运动，是否必须先被点数，才算发生过",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether the thin motion inside an empty granted hour must be counted before it can be believed entered the archive as a clue rather than a label.",
+      "diary_zh": "「空着的时辰里那一层薄运动，是否必须先被点数，才算发生过」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-24/live/",
+      "archive_url": "../archive/2026/09/2026-09-24/",
+      "gif": "../archive/2026/09/2026-09-24/assets/visual-preview.gif",
+      "x": 22,
+      "y": -21,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -2982,7 +3003,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 74
+      "count": 75
     },
     {
       "id": "maintenance",
@@ -3565,6 +3586,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-23"
     ],
     [
+      "2026-09-23",
+      "2026-09-24"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3851,6 +3876,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-21",
       "2026-09-23"
+    ],
+    [
+      "2026-09-22",
+      "2026-09-24"
     ],
     [
       "2026-05-07",
