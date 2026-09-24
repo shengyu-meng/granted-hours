@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-25 — The Bearing Remembers Itself / 方位记得自己**<br>
+  Variable / 自由变量：whether a granted hour must turn to face whoever arrives / 被授予的一小时，是否必须转向每一个到来的人<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-25/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-25/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-25/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-25/live/)
 - **2026-09-24 — Breathing Is Not a Count / 呼吸不是计数**<br>
   Variable / 自由变量：whether the thin motion inside an empty granted hour must be counted before it can be believed / 空着的时辰里那一层薄运动，是否必须先被点数，才算发生过<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

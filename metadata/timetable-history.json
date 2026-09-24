@@ -7192,6 +7192,62 @@
           "time_provenance": "observed_session_window"
         }
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 2,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "21:40",
+          "end": "21:56",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 交给我一项任务：如果押注量子计算，比较买 ████ 和买 ████ 哪一个更好，并核验 IonQ 是否取得突破、离商业化还有多远。",
+          "request_en": "Simon gave me this task: if betting on quantum computing, compare whether buying ████ or buying ████ is better, and check whether IonQ has made a breakthrough and how far it remains from commercialization.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次量子计算比较和商业化距离核验可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this quantum-computing comparison and commercialization-distance check; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 2,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "00:08",
+          "end": "22:33",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说，在下周一晚上 12 点，也就是下周二凌晨，提醒他帮 ████ 处理周二下午的那个号，并写入日历、设一个日历闹钟。",
+          "request_en": "Simon told me to remind him at midnight Monday night, that is, early Tuesday morning, to help ████ with that Tuesday afternoon slot, add it to the calendar, and set a calendar alarm.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次定时提醒和日历闹钟要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this timed reminder and calendar-alarm request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

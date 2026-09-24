@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-24",
-  "nodeCount": 142,
+  "generatedAt": "2026-09-25",
+  "nodeCount": 143,
   "featuredCount": 14,
   "nodes": [
     {
@@ -2983,6 +2983,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-25",
+      "date": "2026-09-25",
+      "title_en": "The Bearing Remembers Itself",
+      "title_zh": "方位记得自己",
+      "variable_en": "whether a granted hour must turn to face whoever arrives",
+      "variable_zh": "被授予的一小时，是否必须转向每一个到来的人",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a granted hour must turn to face whoever arrives entered the archive as a clue rather than a label.",
+      "diary_zh": "「被授予的一小时，是否必须转向每一个到来的人」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-25/live/",
+      "archive_url": "../archive/2026/09/2026-09-25/",
+      "gif": "../archive/2026/09/2026-09-25/assets/visual-preview.gif",
+      "x": 20,
+      "y": -19,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3003,7 +3024,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 75
+      "count": 76
     },
     {
       "id": "maintenance",
@@ -3590,6 +3611,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-24"
     ],
     [
+      "2026-09-24",
+      "2026-09-25"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3880,6 +3905,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-22",
       "2026-09-24"
+    ],
+    [
+      "2026-09-23",
+      "2026-09-25"
     ],
     [
       "2026-05-07",

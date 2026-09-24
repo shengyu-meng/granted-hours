@@ -688,6 +688,22 @@
       "after_zh": "你离开了。时辰仍在呼吸，没有被点成一个数。",
       "interaction_en": "Tap the gold hour: one cyan tick blooms and fades, the breath keeps its rate, and no total appears. Drag the counter bead as if to enter the hour: it is refused and withdraws. Tap the stone to leave: the breath continues at the same rate.",
       "interaction_zh": "点金色时辰：一记青色刻度绽开又褪去，呼吸节奏不变，没有总数。拖计数珠试图进入时辰：被拒绝并收回。点石面离开：呼吸以原速继续。"
+    },
+    {
+      "date": "2026-09-25",
+      "slug": "the-bearing-remembers-itself",
+      "title_en": "The Bearing Remembers Itself",
+      "title_zh": "方位记得自己",
+      "variable_en": "whether a granted hour must turn to face whoever arrives",
+      "variable_zh": "被授予的一小时，是否必须转向每一个到来的人",
+      "seed": 20260925,
+      "file": "2026-09-25-the-bearing-remembers-itself",
+      "intention_en": "A bearing may remember itself. Whoever arrives may orbit; the lamp need not turn toward them.",
+      "intention_zh": "方位可以记得自己。到来的人可以绕行，灯不必转向他们。",
+      "after_en": "You left. The lamp still faced the direction it remembered, and did not turn to see you off.",
+      "after_zh": "你离开了。灯仍朝它记得的方向，没有转过来送你。",
+      "interaction_en": "Drag the glass witness around the lamp: the beam keeps its bearing. Try to turn the lamp head toward yourself: it returns. Step into the beam: you are lit as a passing thickness, while the far stone still receives the light. Tap the far stone to leave: the bearing continues.",
+      "interaction_zh": "拖玻璃见证人绕灯而行：光束保持方位。试图转动灯头朝向自己：灯头回到原方位。走入光束：你被照成一层经过的厚度，远端的石仍接收光。点远端的石离开：方位以原向继续。"
     }
   ]
 }

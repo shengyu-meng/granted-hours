@@ -3189,5 +3189,29 @@
     },
     "bgm": "archive/2026/09/2026-09-24/live/2026-09-24-breathing-is-not-a-count-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-24/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-25",
+    "source_date": "2026-09-24",
+    "crystallization_date": "2026-09-25",
+    "title_en": "The Bearing Remembers Itself",
+    "title_zh": "方位记得自己",
+    "type": "live",
+    "seed": 20260925,
+    "preview": "archive/2026/09/2026-09-25/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-25/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-25/",
+    "live_url": "archive/2026/09/2026-09-25/live/",
+    "variable_en": "whether a granted hour must turn to face whoever arrives",
+    "variable_zh": "被授予的一小时，是否必须转向每一个到来的人",
+    "brief_en": "A bearing may remember itself. Whoever arrives may orbit; the lamp need not turn toward them.",
+    "brief_zh": "方位可以记得自己。到来的人可以绕行，灯不必转向他们。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-25/live/2026-09-25-the-bearing-remembers-itself-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-25/assets/visual-preview.gif"
   }
 ]
