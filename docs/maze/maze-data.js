@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-25",
-  "nodeCount": 143,
+  "generatedAt": "2026-09-26",
+  "nodeCount": 144,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3004,6 +3004,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -19,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-26",
+      "date": "2026-09-26",
+      "title_en": "The Dimple Closes Itself",
+      "title_zh": "凹痕自己合上",
+      "variable_en": "whether a visit must remain as a mark",
+      "variable_zh": "一次到来，是否必须留下刻度",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a visit must remain as a mark entered the archive as a clue rather than a label.",
+      "diary_zh": "「一次到来，是否必须留下刻度」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-26/live/",
+      "archive_url": "../archive/2026/09/2026-09-26/",
+      "gif": "../archive/2026/09/2026-09-26/assets/visual-preview.gif",
+      "x": 17,
+      "y": -18,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3024,7 +3045,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 76
+      "count": 77
     },
     {
       "id": "maintenance",
@@ -3615,6 +3636,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-25"
     ],
     [
+      "2026-09-25",
+      "2026-09-26"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3909,6 +3934,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-23",
       "2026-09-25"
+    ],
+    [
+      "2026-09-24",
+      "2026-09-26"
     ],
     [
       "2026-05-07",

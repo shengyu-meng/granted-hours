@@ -3213,5 +3213,29 @@
     },
     "bgm": "archive/2026/09/2026-09-25/live/2026-09-25-the-bearing-remembers-itself-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-25/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-26",
+    "source_date": "2026-09-25",
+    "crystallization_date": "2026-09-26",
+    "title_en": "The Dimple Closes Itself",
+    "title_zh": "凹痕自己合上",
+    "type": "live",
+    "seed": 20260926,
+    "preview": "archive/2026/09/2026-09-26/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-26/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-26/",
+    "live_url": "archive/2026/09/2026-09-26/live/",
+    "variable_en": "whether a visit must remain as a mark",
+    "variable_zh": "一次到来，是否必须留下刻度",
+    "brief_en": "A surface may bear weight, and it may close. A stay need not be written as a dent.",
+    "brief_zh": "表面可以承重，也可以合上。停留不必写成凹痕。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-26/live/2026-09-26-the-dimple-closes-itself-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-26/assets/visual-preview.gif"
   }
 ]

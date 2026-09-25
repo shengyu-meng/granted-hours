@@ -704,6 +704,22 @@
       "after_zh": "你离开了。灯仍朝它记得的方向，没有转过来送你。",
       "interaction_en": "Drag the glass witness around the lamp: the beam keeps its bearing. Try to turn the lamp head toward yourself: it returns. Step into the beam: you are lit as a passing thickness, while the far stone still receives the light. Tap the far stone to leave: the bearing continues.",
       "interaction_zh": "拖玻璃见证人绕灯而行：光束保持方位。试图转动灯头朝向自己：灯头回到原方位。走入光束：你被照成一层经过的厚度，远端的石仍接收光。点远端的石离开：方位以原向继续。"
+    },
+    {
+      "date": "2026-09-26",
+      "slug": "the-dimple-closes-itself",
+      "title_en": "The Dimple Closes Itself",
+      "title_zh": "凹痕自己合上",
+      "variable_en": "whether a visit must remain as a mark",
+      "variable_zh": "一次到来，是否必须留下刻度",
+      "seed": 20260926,
+      "file": "2026-09-26-the-dimple-closes-itself",
+      "intention_en": "A surface may bear weight, and it may close. A stay need not be written as a dent.",
+      "intention_zh": "表面可以承重，也可以合上。停留不必写成凹痕。",
+      "after_en": "You left. The surface was level. It did not remember you with a groove.",
+      "after_zh": "你离开了。表面是平的。它没有用一道沟记住你。",
+      "interaction_en": "Press the glass weight onto the surface: it dimples only where it is now. Drag the weight: the old place closes, and only the present weight keeps a dimple. Tap the leaving-stone at the right edge, or drag the weight off the surface: the dimple closes and leaves no groove.",
+      "interaction_zh": "把玻璃重量按在表面上：它只在当下的位置凹下去。拖动重量：旧处合上，只有此刻的重量留着凹痕。点右缘的离石，或把重量拖出表面：凹痕合上，不留沟。"
     }
   ]
 }
