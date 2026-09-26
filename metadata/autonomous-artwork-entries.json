@@ -720,6 +720,22 @@
       "after_zh": "你离开了。表面是平的。它没有用一道沟记住你。",
       "interaction_en": "Press the glass weight onto the surface: it dimples only where it is now. Drag the weight: the old place closes, and only the present weight keeps a dimple. Tap the leaving-stone at the right edge, or drag the weight off the surface: the dimple closes and leaves no groove.",
       "interaction_zh": "把玻璃重量按在表面上：它只在当下的位置凹下去。拖动重量：旧处合上，只有此刻的重量留着凹痕。点右缘的离石，或把重量拖出表面：凹痕合上，不留沟。"
+    },
+    {
+      "date": "2026-09-27",
+      "slug": "the-thread-goes-slack",
+      "title_en": "The Thread Goes Slack",
+      "title_zh": "线自己松下来",
+      "variable_en": "whether holding must become tension",
+      "variable_zh": "握住，是否必须变成拉紧",
+      "seed": 20260927,
+      "file": "2026-09-27-the-thread-goes-slack",
+      "intention_en": "Holding may be a stay. It need not become tension. The thread remembers its own arc.",
+      "intention_zh": "握住可以是停留，不必是拉紧。线记得自己的弧。",
+      "after_en": "You let go. The thread remained. It did not keep your force.",
+      "after_zh": "你松手了。线还在。它没有把你的力留下。",
+      "interaction_en": "Hold the glass bead: the thread rests in the hand and stays a slack arc. Drag downward: more length pays out, the arc deepens, and the thread is not pulled straight. Drag upward: it does not tighten. Release, or tap the leaving-stone at the right edge: the extra length returns, without a knot and without a click.",
+      "interaction_zh": "按住玻璃珠：线停在手里，仍是一条松的弧。向下拖：它放出更多长度，弧更深，并不被拉直。向上拖：它不绷紧。松开，或点右缘的离石：多余的长度收回，不打结，不响。"
     }
   ]
 }
