@@ -306,6 +306,19 @@ function init() {
   els.prevMonth.addEventListener("click", () => moveMonth(-1));
   els.nextMonth.addEventListener("click", () => moveMonth(1));
   els.todayButton.addEventListener("click", goToCurrentMonth);
+  els.prevMonthBottom.addEventListener("click", () => {
+    moveMonth(-1);
+    els.bottomMonthControls.scrollIntoView({ behavior: state.reducedMotion ? "instant" : "smooth", block: "nearest" });
+  });
+  els.nextMonthBottom.addEventListener("click", () => {
+    moveMonth(1);
+    els.bottomMonthControls.scrollIntoView({ behavior: state.reducedMotion ? "instant" : "smooth", block: "nearest" });
+  });
+  els.todayButtonBottom.addEventListener("click", () => {
+    goToCurrentMonth();
+    els.todayButtonBottom.focus({ preventScroll: true });
+    els.bottomMonthControls.scrollIntoView({ behavior: state.reducedMotion ? "instant" : "smooth", block: "nearest" });
+  });
   els.closeDetail.addEventListener("click", closeDayDetail);
   els.closeArtworkDetail.addEventListener("click", handleArtworkCloseRequest);
   els.artworkFullscreen.addEventListener("click", enterArtworkFullscreen);
@@ -443,9 +456,12 @@ function cacheElements() {
     "dialogVariable",
     "monthGrid",
     "monthTitle",
+    "bottomMonthControls",
     "nextMonth",
+    "nextMonthBottom",
     "nextDay",
     "prevMonth",
+    "prevMonthBottom",
     "prevDay",
     "readingSelectionStatus",
     "taskDetailEn",
@@ -468,6 +484,7 @@ function cacheElements() {
     "timelineTouchGroups",
     "timelineTouchToggle",
     "todayButton",
+    "todayButtonBottom",
   ].forEach((id) => {
     const element = document.getElementById(id);
     if (!element) {
@@ -1596,6 +1613,8 @@ function renderMonth(options = {}) {
   els.monthTitle.textContent = visibleMonthLabel;
   els.todayButton.textContent = visibleMonthLabel;
   els.todayButton.setAttribute("aria-label", `Visible month: ${visibleMonthLabel}. Return to the latest public month.`);
+  els.todayButtonBottom.textContent = visibleMonthLabel;
+  els.todayButtonBottom.setAttribute("aria-label", `Visible month: ${visibleMonthLabel}. Return to the latest public month.`);
   els.monthGrid.setAttribute("aria-label", `${els.monthTitle.textContent} month calendar`);
   els.monthGrid.dataset.motion = options.transition || "";
   els.monthGrid.replaceChildren();
@@ -4068,6 +4087,7 @@ function absoluteUrl(value) {
 
 function publicAssetUrl(value) {
   const url = new URL(value, window.location.href);
+  if (/\/visual-preview\.gif$/i.test(url.pathname)) url.searchParams.set("v", "live-20260927");
   if (
     /^(?:127\.0\.0\.1|localhost)$/.test(window.location.hostname)
     && url.href.startsWith(timetableData.canonical_base_url)

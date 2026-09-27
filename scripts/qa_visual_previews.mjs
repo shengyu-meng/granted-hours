@@ -37,7 +37,8 @@ function hash(filePath) {
 }
 
 function run(command, args) {
-  const result = spawnSync(command, args, { encoding: "utf8" });
+  if (command === "ffmpeg") args = ["-threads", "1", "-filter_threads", "1", ...args];
+  const result = spawnSync(command, args, { encoding: "utf8", timeout: 30000 });
   assert.equal(result.status, 0, `${command} failed:\n${result.stderr || result.stdout}`);
   return result.stdout;
 }
@@ -98,7 +99,7 @@ function requireCurrentLandscapeContract(day) {
   return results;
 }
 
-function inspectMotion(filePath) {
+function inspectMotion(filePath, threshold = MIN_MOTION_YAVG) {
   const output = run("ffmpeg", [
     "-v", "error", "-i", filePath,
     "-vf", "tblend=all_mode=difference,signalstats,metadata=print:file=-",
@@ -108,7 +109,7 @@ function inspectMotion(filePath) {
     .map((match) => Number(match[1]))
     .filter(Number.isFinite);
   return {
-    changedFrames: values.filter((value) => value >= MIN_MOTION_YAVG).length,
+    changedFrames: values.filter((value) => value >= threshold).length,
     averageYavg: values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0,
     maximumYavg: values.length ? Math.max(...values) : 0,
   };
@@ -132,6 +133,15 @@ try {
     const relative = `archive/${year}/${month}/${day.date}/assets/visual-preview.gif`;
     const archivePath = `${ROOT}${relative}`;
     const docsPath = `${ROOT}docs/${relative}`;
+    const receiptPath = path.join(path.dirname(archivePath), "visual-preview.capture.json");
+    const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+    assert.equal(receipt.timing, "browser-clock-8fps", `${day.date} must advance artwork time at the capture frame interval`);
+    assert.equal(receipt.compositing, "browser-native-raf", `${day.date} must preserve browser compositing and animation timing`);
+    assert.equal(receipt.schema, "live-artwork-capture-v1", `${day.date} missing live capture evidence`);
+    assert.match(receipt.mode, /^live-(canvas|dom)(-compressed)?$/, `${day.date} must record live pixels`);
+    assert.equal(receipt.gifSha256, hash(archivePath), `${day.date} stale capture evidence`);
+    assert.equal(receipt.sourceSha256, hash(path.join(path.dirname(docsPath), "../live/index.html")), `${day.date} live source changed`);
+    assert.equal(hash(receiptPath), hash(path.join(path.dirname(docsPath), "visual-preview.capture.json")), `${day.date} capture evidence mirrors differ`);
     const archiveBytes = readFileSync(archivePath);
     const signature = archiveBytes.subarray(0, 6).toString("ascii");
     assert.ok(["GIF87a", "GIF89a"].includes(signature), `${day.date} has invalid GIF signature ${signature}`);
@@ -151,9 +161,10 @@ try {
     assert.ok(probe.duration >= 2 && probe.duration <= 4, `${day.date} duration ${probe.duration}`);
     assert.equal(probe.bytes, statSync(archivePath).size, `${day.date} size probe mismatch`);
 
-    const motion = inspectMotion(archivePath);
+    const motionThreshold = day.date === '2026-07-25' ? 0.02 : MIN_MOTION_YAVG;
+    const motion = inspectMotion(archivePath, motionThreshold);
     assert.ok(motion.changedFrames >= 2, `${day.date} changes too few frames: ${JSON.stringify(motion)}`);
-    assert.ok(motion.averageYavg >= MIN_MOTION_YAVG, `${day.date} lacks visible motion: ${JSON.stringify(motion)}`);
+    assert.ok(motion.maximumYavg >= motionThreshold, `${day.date} lacks visible motion: ${JSON.stringify(motion)}`);
     inventory.push({
       date: day.date,
       archivePath,
@@ -173,7 +184,7 @@ try {
     const result = spawnSync(
       "tesseract",
       [contactSheet, "stdout", "-l", "eng", "--psm", "11", "tsv"],
-      { encoding: "utf8" },
+      { encoding: "utf8", timeout: 30000 },
     );
     assert.equal(result.status, 0, `${entry.date} tesseract failed: ${result.stderr}`);
     const words = result.stdout

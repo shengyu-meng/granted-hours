@@ -348,6 +348,14 @@ h1 {
   padding-bottom: 4px;
 }
 
+.bottom-month-controls {
+  display: inline-grid;
+  grid-template-columns: 38px auto 38px;
+  align-items: center;
+  gap: 8px;
+  padding-top: 4px;
+}
+
 .month-button,
 .today-button,
 .dialog-close,
@@ -1336,6 +1344,12 @@ h1 {
     justify-self: stretch;
     grid-template-columns: 34px minmax(0, 1fr) 34px;
     padding-bottom: 0;
+  }
+
+  .bottom-month-controls {
+    justify-self: stretch;
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    padding-top: 0;
   }
 
   .month-button,
@@ -4106,11 +4120,16 @@ h1,
     grid-template-columns: 44px minmax(0, 1fr) 44px;
   }
 
+  .bottom-month-controls {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+  }
+
   .calendar-head,
   .month-heading,
   .month-controls,
   .calendar-legend,
-  .month-grid {
+  .month-grid,
+  .bottom-month-controls {
     width: 100%;
     min-width: 0;
     max-width: 100%;

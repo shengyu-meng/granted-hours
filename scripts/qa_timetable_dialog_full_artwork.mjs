@@ -274,7 +274,7 @@ try {
       launchName: launch?.textContent?.trim(),
     };
   });
-  assert.match(preview.src, /visual-preview\.gif$/);
+  assert.match(preview.src, /visual-preview\.gif(?:\?|$)/);
   assert.match(preview.alt, /Text-free visual preview/);
   assert.equal(preview.cardTag, "ARTICLE");
   assert.equal(preview.cardRole, null);

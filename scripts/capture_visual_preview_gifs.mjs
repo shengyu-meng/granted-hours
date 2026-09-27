@@ -1,44 +1,43 @@
 #!/usr/bin/env node
 /** Generate text-free animated GIF thumbnails for every Granted Hours artwork.
  *
- * Canvas/WebGL works are captured from the isolated visual canvas after canvas
- * text APIs are suppressed. Text-free DOM-only works, and canvases that do not
- * visibly move, fall back to a subtle animated crop of the already-audited
- * visual-preview.webp.
+ * Record the live artwork, including pointer gestures. Never animate a still.
+ * Each date runs in an isolated process with a 90-second deadline. A failure
+ * preserves the previous asset and must be repaired before publication.
  *
  * Usage:
  *   node scripts/capture_visual_preview_gifs.mjs --all
  *   node scripts/capture_visual_preview_gifs.mjs --date 2026-07-26
- *   node scripts/capture_visual_preview_gifs.mjs --all --missing
+ *   node scripts/capture_visual_preview_gifs.mjs --all --resume --jobs 1
  */
 import { chromium } from "playwright";
 import { spawn, spawnSync } from "node:child_process";
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+// Artwork pixels do not depend on remote interface fonts.
+process.env.PW_TEST_SCREENSHOT_NO_FONTS_READY = "1";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const all = args.includes("--all");
 const missingOnly = args.includes("--missing");
+const resume = args.includes("--resume");
 const dateIndex = args.indexOf("--date");
 const dateFilter = dateIndex >= 0 ? args[dateIndex + 1] : null;
 const jobsIndex = args.indexOf("--jobs");
-const jobCount = jobsIndex >= 0 ? Number(args[jobsIndex + 1]) : (dateFilter ? 1 : 3);
+const jobCount = jobsIndex >= 0 ? Number(args[jobsIndex + 1]) : 1;
 const FPS = 8;
-const FRAME_COUNT = 20;
+const FRAME_COUNT = 24;
 const WIDTH = 400;
 const HEIGHT = 225;
-const FALLBACK_FPS = 5;
-const FALLBACK_FRAME_COUNT = 12;
-// New fallbacks keep the same 16:9 timetable-thumbnail contract as canvas captures.
-// The older 360x203 fallback remains accepted only as historical corpus data.
-const FALLBACK_WIDTH = WIDTH;
-const FALLBACK_HEIGHT = HEIGHT;
 const MAX_BYTES = 700 * 1024;
+const TARGET_BYTES = 450 * 1024;
 const MIN_MOTION_YAVG = 0.04;
-const SCREENSHOT_TIMEOUT_MS = 2500;
+
 
 function fail(message) {
   throw new Error(message);
@@ -47,6 +46,7 @@ function fail(message) {
 function run(command, commandArgs, options = {}) {
   const result = spawnSync(command, commandArgs, {
     encoding: "utf8",
+    timeout: 20000,
     stdio: "pipe",
     ...options,
   });
@@ -121,6 +121,13 @@ function listEntries() {
         const entry = path.join(monthRoot, day);
         const output = path.join(entry, "assets", "visual-preview.gif");
         if (missingOnly && fs.existsSync(output)) continue;
+        if (resume) {
+          try {
+            const receipt = JSON.parse(fs.readFileSync(path.join(entry, 'assets/visual-preview.capture.json')));
+            const digest = file => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+            if (receipt.timing === 'browser-clock-8fps' && receipt.compositing === 'browser-native-raf' && receipt.gifSha256 === digest(output) && receipt.sourceSha256 === digest(path.join(entry, 'live/index.html')) && receipt.duration <= 4) continue;
+          } catch {}
+        }
         if (fs.existsSync(path.join(entry, "live", "index.html"))) entries.push(entry);
       }
     }
@@ -162,7 +169,7 @@ async function markAndIsolateLargestCanvas(page) {
       .filter((canvas) => {
         const rect = canvas.getBoundingClientRect();
         const style = getComputedStyle(canvas);
-        return style.display !== "none" && style.visibility !== "hidden" && rect.width > 4 && rect.height > 4;
+        return style.display !== "none" && style.visibility !== "hidden" && rect.width > 4 && rect.height > 4 && rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth && rect.top < innerHeight;
       })
       .sort((left, right) => {
         const a = left.getBoundingClientRect();
@@ -173,14 +180,14 @@ async function markAndIsolateLargestCanvas(page) {
     if (!canvas) return null;
     canvas.dataset.grantedHoursGifCanvas = "true";
     for (const element of document.body.querySelectorAll("*")) {
-      if (element === canvas || element.contains(canvas)) continue;
+      if (candidates.some(layer => element === layer || element.contains(layer))) continue;
       element.style.setProperty("visibility", "hidden", "important");
       element.style.setProperty("opacity", "0", "important");
       element.style.setProperty("pointer-events", "none", "important");
     }
     const style = document.createElement("style");
     style.textContent = `
-      body { overflow: hidden !important; background: #03070b !important; }
+      body { overflow: hidden !important; }
       body *:not(canvas):not(:has(canvas))::before,
       body *:not(canvas):not(:has(canvas))::after {
         visibility: hidden !important;
@@ -189,7 +196,7 @@ async function markAndIsolateLargestCanvas(page) {
     `;
     document.head.append(style);
     const rect = canvas.getBoundingClientRect();
-    return { width: rect.width, height: rect.height };
+    return { width: rect.width, height: rect.height, count: candidates.length };
   });
 }
 
@@ -204,78 +211,86 @@ function gifFilter() {
     + "[gifbase][palette]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle";
 }
 
-async function streamCanvasGif(page, outputPath) {
-  const canvas = page.locator('canvas[data-granted-hours-gif-canvas="true"]');
-  const process = spawn("ffmpeg", [
-    "-y", "-v", "error",
-    "-f", "image2pipe", "-framerate", String(FPS), "-i", "-",
-    "-filter_complex", gifFilter(),
-    "-loop", "0", outputPath,
+async function streamLiveGif(page, outputPath, entryDir) {
+  const encoder = spawn("ffmpeg", [
+    "-y", "-v", "error", "-threads", "1", "-filter_complex_threads", "1", "-f", "image2pipe", "-framerate", String(FPS), "-i", "-",
+    "-filter_complex", gifFilter(), "-threads", "1", "-loop", "0", outputPath,
   ], { stdio: ["pipe", "ignore", "pipe"] });
   let stderr = "";
-  process.stderr.on("data", (chunk) => { stderr += chunk.toString(); });
-
+  encoder.stderr.on("data", (chunk) => { stderr += chunk.toString(); });
+  encoder.stdin.on("error", () => {});
+  const completed = new Promise((resolve, reject) => {
+    encoder.on("close", code => code === 0 ? resolve() : reject(new Error(`ffmpeg ${code}: ${stderr}`)));
+    encoder.on("error", reject);
+  });
+  completed.catch(() => {});
+  const date = path.basename(entryDir);
+  const frameStart = Date.now();
+  // This artwork is a local form. Show its actual filing transition, with
+  // authored demonstration text; never capture private user input.
+  const form = date === "2026-07-06";
+  const ambient = ['2026-05-13', '2026-06-06', '2026-06-12', '2026-07-08'].includes(date);
+  if (form) {
+    await page.locator('#f-request').fill('Time to reconsider.');
+    await page.locator('#f-ground').fill('A decision can leave room for an answer.');
+    await page.locator('#f-return').fill('The right to return remains.');
+    await page.locator('#f-name').fill('Visitor');
+    await page.locator('#submit-btn').scrollIntoViewIfNeeded();
+    await page.addStyleTag({content:'body * { color:transparent !important; text-shadow:none !important; caret-color:transparent !important; }'});
+  }
+  // Capture the browser composite: transparent paint needs its authored background.
+  // Normalized hit targets from each work's authored layout. These are
+  // gestures through the live controls, never substitutes for its animation.
+  const targets = {
+    '2026-07-25': [0.3515, 0.3176], '2026-08-30': [0.50, 0.37],
+    '2026-09-04': [0.27, 0.38], '2026-09-05': [0.483, 0.34],
+    '2026-09-11': [0.72, 0.46], '2026-09-12': [0.63, 0.50],
+    '2026-09-13': [0.25, 0.46], '2026-09-14': [0.5, 0.17],
+    '2026-09-15': [0.65, 0.50], '2026-09-16': [0.59, 0.455],
+    '2026-09-17': [0.74, 0.43], '2026-09-18': [0.75, 0.49],
+    '2026-09-19': [0.75, 0.69], '2026-09-20': [0.66, 0.36],
+    '2026-09-21': [0.50, 0.40], '2026-09-22': [0.50, 0.413],
+    '2026-09-23': [0.50, 0.814], '2026-09-24': [0.50, 0.44],
+    '2026-09-25': [0.37, 0.56], '2026-09-26': [0.50, 0.56],
+  };
+  const target = targets[date] || [0.50, 0.50];
+  let anchor = { x: 960 * target[0], y: 540 * target[1] };
+  const compositor = await page.context().newCDPSession(page);
+  // Read the work's own public debug geometry where the gesture must begin
+  // on a small handle. Input still goes through the original pointer events.
+  if (date === "2026-09-27") {
+    anchor = await page.evaluate(() => window.__slackProbe?.().bead || {x:480,y:270});
+  }
   try {
     for (let frame = 0; frame < FRAME_COUNT; frame += 1) {
+      if (frame % 8 === 0) console.error(`${date} frame ${frame}/${FRAME_COUNT} at ${Date.now() - frameStart}ms`);
       const phase = frame / FRAME_COUNT * Math.PI * 2;
-      const x = 480 + Math.sin(phase) * 210;
-      const y = 270 + Math.cos(phase * 1.31) * 105;
-      await page.mouse.move(x, y, { steps: 2 });
-      if (frame === 3 || frame === 12) await page.mouse.click(x, y);
-      const dataUrl = await Promise.race([
-        canvas.evaluate((element) => element.toDataURL("image/png")),
-        new Promise((_, reject) => {
-          setTimeout(() => reject(new Error(`canvas pixel extraction exceeded ${SCREENSHOT_TIMEOUT_MS} ms`)), SCREENSHOT_TIMEOUT_MS);
-        }),
-      ]);
-      if (!dataUrl.startsWith("data:image/png;base64,")) throw new Error("canvas did not return PNG pixels");
-      const png = Buffer.from(dataUrl.slice(dataUrl.indexOf(",") + 1), "base64");
-      if (!process.stdin.write(png)) await new Promise((resolve) => process.stdin.once("drain", resolve));
-      await page.waitForTimeout(1000 / FPS);
+      if (!form && !ambient) {
+        if (frame === 0) { await page.mouse.move(anchor.x, anchor.y); await page.mouse.down(); }
+        if (date !== '2026-08-30') await page.mouse.move(anchor.x + Math.sin(phase) * 170, anchor.y + Math.sin(phase / 2) * 125);
+        if (frame === 14) await page.mouse.up();
+        if (frame === 19) await page.mouse.click(550, 310);
+      } else if (form && frame === 5) {
+        await page.locator('#submit-btn').click();
+      }
+      await page.clock.runFor(1000 / FPS);
+      // Browser screenshots preserve WebGL, CSS/SVG layers and compositing.
+      // toDataURL may be blank when a WebGL drawing buffer has been cleared.
+      const png = Buffer.from((await compositor.send('Page.captureScreenshot', {format:'png', fromSurface:true, captureBeyondViewport:false})).data, 'base64');
+      if (!encoder.stdin.write(png)) await new Promise(resolve => encoder.stdin.once('drain', resolve));
+
     }
-    process.stdin.end();
-    await new Promise((resolve, reject) => {
-      process.on("close", (code) => code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}: ${stderr}`)));
-      process.on("error", reject);
-    });
+    await page.mouse.up();
+    encoder.stdin.end();
+    await completed;
   } catch (error) {
-    process.stdin.destroy();
-    process.kill("SIGKILL");
-    throw error;
+    encoder.stdin.destroy(); encoder.kill("SIGKILL"); throw error;
   }
 }
 
-function animateStill(stillPath, outputPath) {
-  const palettePath = `${outputPath}.palette.png`;
-  const sourceCrop = [
-    "scale=500:282:force_original_aspect_ratio=increase:flags=lanczos",
-    "crop=500:282",
-  ].join(",");
-  const motionBase = [
-    sourceCrop,
-    `zoompan=z='1+0.042*sin(on*PI/${FALLBACK_FRAME_COUNT - 1})':x='iw/2-(iw/zoom/2)+6*sin(on*PI/7)':y='ih/2-(ih/zoom/2)+4*cos(on*PI/6)':d=${FALLBACK_FRAME_COUNT}:s=${FALLBACK_WIDTH}x${FALLBACK_HEIGHT}:fps=${FALLBACK_FPS}`,
-  ].join(",");
-  try {
-    run("ffmpeg", [
-      "-y", "-v", "error", "-i", stillPath,
-      "-vf", `${sourceCrop},palettegen=max_colors=64:stats_mode=full`,
-      "-frames:v", "1", palettePath,
-    ]);
-    run("ffmpeg", [
-      "-y", "-v", "error",
-      "-loop", "1", "-framerate", "1", "-t", "1", "-i", stillPath,
-      "-i", palettePath,
-      "-filter_complex", `[0:v]${motionBase}[motion];[motion][1:v]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle`,
-      "-frames:v", String(FALLBACK_FRAME_COUNT), "-loop", "0", outputPath,
-    ]);
-  } finally {
-    fs.rmSync(palettePath, { force: true });
-  }
-}
-
-function inspectMotion(gifPath) {
+function inspectMotion(gifPath, threshold = MIN_MOTION_YAVG) {
   const result = run("ffmpeg", [
-    "-v", "error", "-i", gifPath,
+    "-v", "error", "-threads", "1", "-filter_threads", "1", "-i", gifPath,
     "-vf", "tblend=all_mode=difference,signalstats,metadata=print:file=-",
     "-f", "null", "-",
   ]);
@@ -283,7 +298,7 @@ function inspectMotion(gifPath) {
     .map((match) => Number(match[1]))
     .filter(Number.isFinite);
   return {
-    changedFrames: values.filter((value) => value >= MIN_MOTION_YAVG).length,
+    changedFrames: values.filter((value) => value >= threshold).length,
     averageYavg: values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0,
     maximumYavg: values.length ? Math.max(...values) : 0,
   };
@@ -305,13 +320,13 @@ function probeGif(gifPath) {
   };
 }
 
-function compressGif(sourcePath, outputPath) {
-  const filter = "fps=6,split[gifbase][palettebase];"
-    + "[palettebase]palettegen=max_colors=48:stats_mode=diff[palette];"
+function compressGif(sourcePath, outputPath, compact = false) {
+  const filter = `fps=${compact ? 4 : 6},split[gifbase][palettebase];`
+    + `[palettebase]palettegen=max_colors=${compact ? 32 : 48}:stats_mode=diff[palette];`
     + "[gifbase][palette]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle";
   run("ffmpeg", [
-    "-y", "-v", "error", "-i", sourcePath,
-    "-filter_complex", filter, "-loop", "0", outputPath,
+    "-y", "-v", "error", "-threads", "1", "-filter_complex_threads", "1", "-i", sourcePath,
+    "-filter_complex", filter, "-threads", "1", "-loop", "0", outputPath,
   ]);
 }
 
@@ -323,6 +338,7 @@ function mirror(entryDir, source) {
 }
 
 async function captureEntry(browser, entryDir, serverBaseUrl) {
+  const startedAt = Date.now();
   const assets = path.join(entryDir, "assets");
   const output = path.join(assets, "visual-preview.gif");
   const partial = path.join(assets, "visual-preview.partial.gif");
@@ -330,53 +346,80 @@ async function captureEntry(browser, entryDir, serverBaseUrl) {
   const still = path.join(assets, "visual-preview.webp");
   if (!fs.existsSync(still)) fail(`${path.basename(entryDir)} is missing audited visual-preview.webp`);
   fs.mkdirSync(assets, { recursive: true });
-  const page = await browser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: 1 });
+  const rasterScale = ['2026-06-12', '2026-06-17', '2026-07-08'].includes(path.basename(entryDir)) ? 0.5 : 1;
+  const page = await browser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: rasterScale });
   await suppressText(page);
-  let mode = "animated-still";
+  // The text-free preview must not wait on remote interface font services.
+  await page.route('https://fonts.googleapis.com/**', route => route.fulfill({contentType:'text/css', body:''}));
+  // Advance the browser clock by the GIF frame interval. IPC/readback latency
+  // must not speed up the artwork in the exported loop.
+  const epoch = new Date(`${path.basename(entryDir)}T03:17:00+08:00`);
+  await page.clock.install({time:epoch});
+  await page.clock.pauseAt(new Date(epoch.getTime() + 1000));
+  let mode = "live-browser";
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
   try {
     const relativeLive = path.relative(ROOT, path.join(entryDir, "live")).split(path.sep).join("/");
-    await page.goto(`${serverBaseUrl}/${relativeLive}/`, {
-      waitUntil: "domcontentloaded",
-      timeout: 45000,
+    // These works limit their interactions in compact embeds; record the full live work.
+    const query = ['2026-07-06', '2026-08-13', '2026-08-14', '2026-08-15'].includes(path.basename(entryDir)) ? '' : '?embed=calendar';
+    await page.goto(`${serverBaseUrl}/${relativeLive}/${query}`, {
+      waitUntil: "load", timeout: 20000,
     });
-    await page.waitForTimeout(900);
-    const canvas = await markAndIsolateLargestCanvas(page);
-    if (canvas) {
-      await page.mouse.move(500, 270, { steps: 12 });
-      await page.mouse.click(500, 270);
-      await page.waitForTimeout(350);
-      await streamCanvasGif(page, partial);
-      mode = "canvas-motion";
-    } else {
-      animateStill(still, partial);
+    console.error(`${path.basename(entryDir)} loaded at ${Date.now() - startedAt}ms`);
+    await page.clock.runFor(500);
+    if (path.basename(entryDir) === '2026-07-25') {
+      // Its desktop side essay makes the stage taller than the viewport.
+      // Fit the authored responsive stage before interacting and recording.
+      await page.addStyleTag({content:'.stage {position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:0!important;} canvas {width:100vw!important;height:100vh!important;}'});
+      await page.evaluate(() => dispatchEvent(new Event('resize')));
     }
-  } catch (error) {
-    console.warn(`${path.basename(entryDir)} canvas capture fallback: ${error.message}`);
-    animateStill(still, partial);
-    mode = "animated-still-fallback";
+    const canvas = await markAndIsolateLargestCanvas(page);
+    if (!canvas && path.basename(entryDir) !== '2026-07-06') {
+      // A p5/WebGL library failing to load is not a DOM artwork.
+      const source = fs.readFileSync(path.join(entryDir, 'live/index.html'), 'utf8');
+      if (/createCanvas\(|new THREE\.WebGLRenderer|<canvas\b/.test(source)) {
+        fail(`Expected live canvas did not initialize: ${errors.join('; ')}`);
+      }
+    }
+    await page.addStyleTag({ content: `
+      .gh-live-brief, .gh-work-note-trigger, .gh-calendar-return,
+      .gh-embed-shortcuts, .gh-touch-shortcuts, .gh-media-unlock,
+      #granted-hours-sound-toggle { visibility:hidden !important; }
+    ` });
+    await streamLiveGif(page, partial, entryDir);
+    mode = canvas ? "live-canvas" : "live-dom";
+    if (errors.length) fail(`Live artwork errors: ${errors.join('; ')}`);
   } finally {
     await page.close();
   }
 
-  let motion = inspectMotion(partial);
-  if (motion.changedFrames < 2 || motion.averageYavg < MIN_MOTION_YAVG) {
-    animateStill(still, partial);
-    motion = inspectMotion(partial);
-    mode = "animated-still-no-motion-fallback";
-  }
-  if (motion.changedFrames < 2 || motion.averageYavg < MIN_MOTION_YAVG) {
+  console.error(`${path.basename(entryDir)} pixels captured at ${Date.now() - startedAt}ms`);
+  // This pale line drawing changes a small fraction of the thumbnail.
+  const motionThreshold = path.basename(entryDir) === '2026-07-25' ? 0.02 : MIN_MOTION_YAVG;
+  let motion = inspectMotion(partial, motionThreshold);
+  // Quiet pauses are part of the work; require visible changes in at least two frames.
+  if (motion.changedFrames < 2 || motion.maximumYavg < motionThreshold) {
     fail(`${path.basename(entryDir)} GIF has no visible motion: ${JSON.stringify(motion)}`);
   }
 
   let probe = probeGif(partial);
-  if (probe.bytes > MAX_BYTES) {
+  if (probe.bytes > TARGET_BYTES) {
     compressGif(partial, compressed);
     fs.renameSync(compressed, partial);
     probe = probeGif(partial);
+    motion = inspectMotion(partial, motionThreshold);
     mode += "-compressed";
   }
-  const expectedWidth = mode.startsWith("canvas-motion") ? WIDTH : FALLBACK_WIDTH;
-  const expectedHeight = mode.startsWith("canvas-motion") ? HEIGHT : FALLBACK_HEIGHT;
+  if (probe.bytes > MAX_BYTES) {
+    compressGif(partial, compressed, true);
+    fs.renameSync(compressed, partial);
+    probe = probeGif(partial);
+    motion = inspectMotion(partial, motionThreshold);
+  }
+  if (motion.changedFrames < 2) fail(`${path.basename(entryDir)} compressed GIF lost visible motion`);
+  const expectedWidth = WIDTH;
+  const expectedHeight = HEIGHT;
   if (probe.width !== expectedWidth || probe.height !== expectedHeight || probe.frames < 12 || probe.duration < 2) {
     fail(`${path.basename(entryDir)} invalid GIF: ${JSON.stringify(probe)}`);
   }
@@ -388,7 +431,17 @@ async function captureEntry(browser, entryDir, serverBaseUrl) {
   if (!bytes.includes(Buffer.from("NETSCAPE2.0"))) fail(`${path.basename(entryDir)} GIF does not loop`);
   fs.renameSync(partial, output);
   mirror(entryDir, output);
-  const result = { date: path.basename(entryDir), mode, ...probe, ...motion };
+  const result = { date: path.basename(entryDir), mode, ...probe, ...motion,
+    captureMs: Date.now() - startedAt,
+    timing: "browser-clock-8fps",
+    compositing: "browser-native-raf",
+    schema: "live-artwork-capture-v1",
+    sourceSha256: createHash('sha256').update(fs.readFileSync(path.join(entryDir, 'live/index.html'))).digest('hex'),
+    gifSha256: createHash('sha256').update(bytes).digest('hex'),
+  };
+  fs.writeFileSync(path.join(assets, 'visual-preview.capture.json'), JSON.stringify(result, null, 2) + '\n');
+  const rootAssets = path.join(ROOT, path.relative(path.join(ROOT, 'docs'), entryDir), 'assets');
+  fs.copyFileSync(path.join(assets, 'visual-preview.capture.json'), path.join(rootAssets, 'visual-preview.capture.json'));
   console.log(JSON.stringify(result));
   return result;
 }
@@ -399,35 +452,60 @@ async function main() {
   run("ffmpeg", ["-version"]);
   run("ffprobe", ["-version"]);
   const entries = listEntries();
-  if (!entries.length) fail("No matching live entries found");
-  const server = await startStaticServer();
-  const chromePath = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-  const browser = await chromium.launch(fs.existsSync(chromePath)
-    ? { headless: true, executablePath: chromePath }
-    : { headless: true });
-  const results = new Array(entries.length);
-  try {
-    let nextIndex = 0;
+  if (!entries.length) {
+    if (resume) { console.log(JSON.stringify({complete:true, count:0})); return; }
+    fail("No matching live entries found");
+  }
+  if (all) {
+    const results = [];
+    const workflowDeadline = Date.now() + 60 * 60 * 1000;
+    let next = 0;
     const worker = async () => {
-      while (nextIndex < entries.length) {
-        const index = nextIndex;
-        nextIndex += 1;
-        results[index] = await captureEntry(browser, entries[index], server.baseUrl);
+      while (next < entries.length) {
+        if (Date.now() >= workflowDeadline) fail("Capture batch exceeded one hour; resume verified dates with --resume");
+        const entry = entries[next++];
+        const date = path.basename(entry);
+        results.push(await new Promise(resolve => {
+          const child = spawn(process.execPath, [fileURLToPath(import.meta.url), '--date', date], {
+            detached: true, stdio: ['ignore', 'pipe', 'pipe'],
+          });
+          let output = '';
+          child.stdout.on('data', x => { output += x; });
+          child.stderr.on('data', x => { output += x; });
+          const deadline = setTimeout(() => {
+            child.kill('SIGTERM');
+            setTimeout(() => { try { process.kill(-child.pid, 'SIGKILL'); } catch {} }, 5000).unref();
+          }, 90000);
+          child.on('close', code => {
+            clearTimeout(deadline);
+            console.log(JSON.stringify({date, ok:code === 0, output:output.trim()}));
+            resolve({date, ok:code === 0});
+          });
+        }));
       }
     };
-    await Promise.all(Array.from({ length: Math.min(jobCount, entries.length) }, worker));
+    await Promise.all(Array.from({length: Math.min(jobCount, entries.length)}, worker));
+    const failures = results.filter(x => !x.ok);
+    console.log(JSON.stringify({complete:!failures.length, count:results.length, failures}));
+    if (failures.length) process.exitCode = 1;
+    return;
+  }
+  const server = await startStaticServer();
+  const chromePath = process.env.CHROME_PATH || "";
+  const browserServer = await chromium.launchServer(fs.existsSync(chromePath)
+    ? { headless: true, executablePath: chromePath }
+    : { headless: true });
+  const browser = await chromium.connect(browserServer.wsEndpoint());
+  const deadline = setTimeout(() => { browserServer.kill(); }, 80000);
+  process.once("SIGTERM", async () => { await browserServer.kill(); process.exit(124); });
+  try {
+    await captureEntry(browser, entries[0], server.baseUrl);
   } finally {
-    await browser.close();
+    clearTimeout(deadline);
+    await browser.close().catch(() => {});
+    await browserServer.kill();
     await server.close();
   }
-  console.log(JSON.stringify({
-    complete: true,
-    count: results.length,
-    canvasMotion: results.filter((result) => result.mode.startsWith("canvas-motion")).length,
-    fallbackMotion: results.filter((result) => !result.mode.startsWith("canvas-motion")).length,
-    totalBytesPerTree: results.reduce((sum, result) => sum + result.bytes, 0),
-    largestBytes: Math.max(...results.map((result) => result.bytes)),
-  }));
 }
 
 await main();

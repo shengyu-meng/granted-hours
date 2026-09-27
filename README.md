@@ -875,3 +875,20 @@ scripts/          Import, safety, and preview helpers / 导入、安全检查与
 - Private raw archive: not licensed and not public.
 
 See [LICENSE.md](LICENSE.md).
+
+
+### Live timetable preview capture
+
+The timetable GIF records the live work and representative pointer gestures.
+Run `node scripts/capture_visual_preview_gifs.mjs --date YYYY-MM-DD` after an
+artwork import, then `node scripts/qa_visual_previews.mjs --date YYYY-MM-DD`.
+Canvas, WebGL and DOM works use the browser’s actual composited frames,
+including transparent layers, backgrounds and the native animation callbacks. A capture failure
+preserves the existing asset and requires repair; a still must never be animated
+with pan, zoom or luminance changes to stand in for the artwork.
+
+Each GIF has a mirrored `visual-preview.capture.json` receipt containing the
+live source and GIF hashes. QA rejects absent or stale receipts. Historical
+repairs can use `--all --resume --jobs 1`; each work has a 90-second limit and
+the batch has a one-hour limit. Use bounded concurrency on an idle machine.
+The month grid includes synchronized navigation above and below its rows.

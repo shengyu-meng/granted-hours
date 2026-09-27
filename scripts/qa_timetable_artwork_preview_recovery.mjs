@@ -37,7 +37,10 @@ try {
     width: image.naturalWidth,
     height: image.naturalHeight,
   }));
-  assert.match(recovered.src, /visual-preview\.gif\?gh_preview_retry=[12]$/);
+  const recoveredUrl = new URL(recovered.src);
+  assert.ok(recoveredUrl.pathname.endsWith('/visual-preview.gif'));
+  assert.match(recoveredUrl.searchParams.get('gh_preview_retry') || '', /^[12]$/);
+  assert.equal(recoveredUrl.searchParams.get('v'), 'live-20260927');
   assert.equal(recovered.state, "animated");
   assert.ok(["1", "2"].includes(recovered.attempt));
   assert.notEqual(recovered.radius, "0px");
