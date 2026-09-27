@@ -736,6 +736,22 @@
       "after_zh": "你松手了。线还在。它没有把你的力留下。",
       "interaction_en": "Hold the glass bead: the thread rests in the hand and stays a slack arc. Drag downward: more length pays out, the arc deepens, and the thread is not pulled straight. Drag upward: it does not tighten. Release, or tap the leaving-stone at the right edge: the extra length returns, without a knot and without a click.",
       "interaction_zh": "按住玻璃珠：线停在手里，仍是一条松的弧。向下拖：它放出更多长度，弧更深，并不被拉直。向上拖：它不绷紧。松开，或点右缘的离石：多余的长度收回，不打结，不响。"
+    },
+    {
+      "date": "2026-09-28",
+      "slug": "the-level-stays-with-the-room",
+      "title_en": "The Level Stays with the Room",
+      "title_zh": "液面留在房间里",
+      "variable_en": "whether tilting the vessel must tilt the hour",
+      "variable_zh": "倾斜容器，是否必须倾斜这一小时",
+      "seed": 20260928,
+      "file": "2026-09-28-the-level-stays-with-the-room",
+      "intention_en": "The basin may tilt with the hand. The surface stays with the room. The hour is not poured out.",
+      "intention_zh": "盆可以随手倾斜。液面留在房间里，这一小时不被倒出。",
+      "after_en": "The hand left. The room was still holding the hour.",
+      "after_zh": "手离开了。房间还端着这一小时。",
+      "interaction_en": "Hold the shallow basin and drag sideways: the rim turns, and the gold film stays on the room's level. Turn it toward the lip and it refuses to spill; only the lip cools. Release: the basin rights itself. The film is not less.",
+      "interaction_zh": "按住浅盆并左右拖动：盆沿转动，金膜仍与房间的水平线重合。转到唇边，它拒绝外溢，只在唇上冷一下。松开：盆自己回正，液面不曾减少。"
     }
   ]
 }

@@ -3020,6 +3020,26 @@
       "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this 4:30 p.m. meeting calendar and alarm request; plans and inferences are not presented as completed work.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "e4f69804f0ac116f8bcd3a81695f553c929fcb325b461719f81a8c47849ac3bc": {
+      "date": "2026-09-27",
+      "category": "research_synthesis",
+      "request_zh": "看完网页或调研链接之后，把用过的浏览器标签页关掉，不要让内存因为未关标签越占越多。",
+      "request_en": "After reading a page or researching a link, close the browser tabs that were used, so memory does not keep growing from tabs left open.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次用完关闭浏览器标签页的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to close browser tabs after use; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "b727f266edcc2c0279a4a5a69b7dc713eab8209bb7ae1264c712fc51a0d3ce23": {
+      "date": "2026-09-27",
+      "category": "visual_production",
+      "request_zh": "他发现了 16TB 的 arXiv 全站数据库，还不知道能做什么，但觉得可以做点有意思的事。arXiv ████把 arXiv 收成能挑着下的全文快照。对一篇论文：████，以前得自己去 arXiv 对版本。这份快照覆盖 314 万多篇论文：████。先下 26 MB 的 sample，第一条能看到编号、标题：████，正文还留着宏和注释。确认档位后再下拼好的 ████，或整篇 PDF。",
+      "request_en": "He found a 16TB arXiv database; its use was unknown. arXiv ████ makes a selective snapshot. One paper: ████ needed a manual check. It holds 3.14 million papers: ████. A 26 MB sample shows id and title: ████. Then download assembled ████ or the PDF.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次 arXiv 全文快照发现可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this arXiv full-text snapshot discovery; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

@@ -3261,5 +3261,29 @@
     },
     "bgm": "archive/2026/09/2026-09-27/live/2026-09-27-the-thread-goes-slack-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-27/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-28",
+    "source_date": "2026-09-27",
+    "crystallization_date": "2026-09-28",
+    "title_en": "The Level Stays with the Room",
+    "title_zh": "液面留在房间里",
+    "type": "live",
+    "seed": 20260928,
+    "preview": "archive/2026/09/2026-09-28/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-28/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-28/",
+    "live_url": "archive/2026/09/2026-09-28/live/",
+    "variable_en": "whether tilting the vessel must tilt the hour",
+    "variable_zh": "倾斜容器，是否必须倾斜这一小时",
+    "brief_en": "The basin may tilt with the hand. The surface stays with the room. The hour is not poured out.",
+    "brief_zh": "盆可以随手倾斜。液面留在房间里，这一小时不被倒出。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-28/live/2026-09-28-the-level-stays-with-the-room-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-28/assets/visual-preview.gif"
   }
 ]
